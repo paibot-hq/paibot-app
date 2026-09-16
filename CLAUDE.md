@@ -1,5 +1,9 @@
 @AGENTS.md
 
+## 進行中の計画
+
+- `/problemset`(数学問題集、LLM生成+D1保存):承認済みの計画が`docs/plans/problemset.md`にある。Phase 2(vinext統一の技術検証)まで完了、Phase 3(LLM生成・検証パイプライン)以降は未着手。再開する際はまずこのファイルを読むこと。
+
 ## 新しいツールページを追加するときの構成
 
 各ツール(ip/wc/arith/age など)は同じパターンで追加している。
