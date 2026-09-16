@@ -1,0 +1,113 @@
+diff --git a/node_modules/@clerk/nextjs/dist/esm/app-router/server/assertServerOnly.js b/node_modules/@clerk/nextjs/dist/esm/app-router/server/assertServerOnly.js
+new file mode 100644
+index 0000000..3f252c1
+--- /dev/null
++++ b/node_modules/@clerk/nextjs/dist/esm/app-router/server/assertServerOnly.js
+@@ -0,0 +1,8 @@
++function assertServerOnly() {
++  if (typeof require === "function") {
++    require("server-only");
++  }
++}
++export {
++  assertServerOnly
++};
+diff --git a/node_modules/@clerk/nextjs/dist/esm/app-router/server/auth.js b/node_modules/@clerk/nextjs/dist/esm/app-router/server/auth.js
+index e8fafdc..bbaf9ad 100644
+--- a/node_modules/@clerk/nextjs/dist/esm/app-router/server/auth.js
++++ b/node_modules/@clerk/nextjs/dist/esm/app-router/server/auth.js
+@@ -9,6 +9,7 @@ import { unauthorized } from "../../server/nextErrors";
+ import { createProtect } from "../../server/protect";
+ import { decryptClerkRequestData } from "../../server/utils";
+ import { middlewareFileReference } from "../../utils/sdk-versions";
++import { assertServerOnly } from "./assertServerOnly";
+ import {
+   buildRequestLike,
+   ClerkUseCacheError,
+@@ -18,7 +19,7 @@ import {
+ } from "./utils";
+ const auth = (async (options) => {
+   var _a;
+-  require("server-only");
++  assertServerOnly();
+   try {
+     const request = await buildRequestLike();
+     const stepsBasedOnSrcDirectory = async () => {
+@@ -88,7 +89,7 @@ Original error: ${e.message}`, e);
+ });
+ auth.protect = async (...args) => {
+   var _a, _b;
+-  require("server-only");
++  assertServerOnly();
+   const request = await buildRequestLike();
+   const requestedToken = ((_a = args == null ? void 0 : args[0]) == null ? void 0 : _a.token) || ((_b = args == null ? void 0 : args[1]) == null ? void 0 : _b.token) || TokenType.SessionToken;
+   const authObject = await auth({ acceptsToken: requestedToken });
+diff --git a/node_modules/@clerk/nextjs/dist/esm/client-boundary/hooks/usePathnameWithoutCatchAll.js b/node_modules/@clerk/nextjs/dist/esm/client-boundary/hooks/usePathnameWithoutCatchAll.js
+index bc0e9b1..7a24034 100644
+--- a/node_modules/@clerk/nextjs/dist/esm/client-boundary/hooks/usePathnameWithoutCatchAll.js
++++ b/node_modules/@clerk/nextjs/dist/esm/client-boundary/hooks/usePathnameWithoutCatchAll.js
+@@ -1,9 +1,12 @@
+ import "../../chunk-BUSYA2B4.js";
++import { useParams, usePathname } from "next/navigation";
+ import React from "react";
+ import { usePagesRouter } from "./usePagesRouter";
+ const usePathnameWithoutCatchAll = () => {
+   const pathRef = React.useRef();
+   const { pagesRouter } = usePagesRouter();
++  const pathname = usePathname() ?? "";
++  const params = useParams();
+   if (pagesRouter) {
+     if (pathRef.current) {
+       return pathRef.current;
+@@ -12,11 +15,8 @@ const usePathnameWithoutCatchAll = () => {
+       return pathRef.current;
+     }
+   }
+-  const usePathname = require("next/navigation").usePathname;
+-  const useParams = require("next/navigation").useParams;
+-  const pathname = usePathname() || "";
+   const pathParts = pathname.split("/").filter(Boolean);
+-  const catchAllParams = Object.values(useParams() || {}).filter((v) => Array.isArray(v)).flat(Infinity);
++  const catchAllParams = Object.values(params ?? {}).filter((v) => Array.isArray(v)).flat(Infinity);
+   if (pathRef.current) {
+     return pathRef.current;
+   } else {
+diff --git a/node_modules/@clerk/nextjs/dist/esm/runtime/node/safe-node-apis.js b/node_modules/@clerk/nextjs/dist/esm/runtime/node/safe-node-apis.js
+index 2549656..f3b7b15 100644
+--- a/node_modules/@clerk/nextjs/dist/esm/runtime/node/safe-node-apis.js
++++ b/node_modules/@clerk/nextjs/dist/esm/runtime/node/safe-node-apis.js
+@@ -1,21 +1,12 @@
+-import {
+-  __commonJS
+-} from "../../chunk-BUSYA2B4.js";
+-var require_safe_node_apis = __commonJS({
+-  "src/runtime/node/safe-node-apis.js"(exports, module) {
+-    const { existsSync, writeFileSync, readFileSync, appendFileSync, mkdirSync, rmSync } = require("node:fs");
+-    const path = require("node:path");
+-    const fs = {
+-      existsSync,
+-      writeFileSync,
+-      readFileSync,
+-      appendFileSync,
+-      mkdirSync,
+-      rmSync
+-    };
+-    const cwd = () => process.cwd();
+-    module.exports = { fs, path, cwd };
+-  }
+-});
+-export default require_safe_node_apis();
+-//# sourceMappingURL=safe-node-apis.js.map
+\ No newline at end of file
++import { appendFileSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
++import * as path from "node:path";
++const fs = {
++  existsSync,
++  writeFileSync,
++  readFileSync,
++  appendFileSync,
++  mkdirSync,
++  rmSync
++};
++const cwd = () => process.cwd();
++export default { fs, path, cwd };

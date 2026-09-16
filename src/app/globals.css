@@ -1,0 +1,7 @@
+/* Shared global styles. Tool CSS Modules are imported by their components. */
+
+@import "../styles/theme.css";
+@import "../styles/shared-controls.css";
+@import "../styles/shell.css";
+@import "../styles/content.css";
+@import "../styles/responsive.css";
