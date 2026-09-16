@@ -92,6 +92,7 @@
     "diceTitle": "Dice Roller",
     "diceDescription": "Roll dice and see the result. Choose how many dice to roll.",
     "diceCountLabel": "Number of dice",
+    "diceIdle": "Press \"Roll\" to start",
     "diceRoll": "Roll",
     "diceTotalLabel": "Total",
     "reactionKicker": "Game",

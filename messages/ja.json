@@ -92,6 +92,7 @@
     "diceTitle": "サイコロ",
     "diceDescription": "サイコロを振って出た目を確認できます。個数を変えられます。",
     "diceCountLabel": "サイコロの数",
+    "diceIdle": "「振る」を押してください",
     "diceRoll": "振る",
     "diceTotalLabel": "合計",
     "reactionKicker": "ゲーム",

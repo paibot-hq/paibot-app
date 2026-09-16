@@ -58,16 +58,11 @@ export default function DiceRoller() {
     }, ROLL_DURATION_MS);
   }
 
-  // The very first roll is randomized, so it must happen on the client only — doing it
-  // during the initial render would produce a different result on the server and cause a
-  // hydration mismatch (same reasoning as the arithmetic practice tool's first problem).
   useEffect(() => {
-    performRoll(diceCount);
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   function updateDiceCount(count: number) {
@@ -94,12 +89,14 @@ export default function DiceRoller() {
       </label>
 
       <div className={styles["dice-results"]} aria-live="polite">
-        {(values ?? []).map((value, index) => (
-          <DiceFace key={index} value={value} rolling={rolling} />
-        ))}
+        {values === null
+          ? <p className={styles["dice-idle"]}>{t("diceIdle")}</p>
+          : values.map((value, index) => (
+              <DiceFace key={index} value={value} rolling={rolling} />
+            ))}
       </div>
 
-      {diceCount > 1 && (
+      {values !== null && diceCount > 1 && (
         <p className={styles["dice-total"]}>{t("diceTotalLabel")}: <strong>{total}</strong></p>
       )}
 
