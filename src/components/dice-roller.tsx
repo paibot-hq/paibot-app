@@ -88,6 +88,12 @@ export default function DiceRoller() {
         </select>
       </label>
 
+      <div className={controls.actions}>
+        <button className="auth-link" type="button" onClick={() => performRoll(diceCount)} disabled={rolling}>
+          {t("diceRoll")}
+        </button>
+      </div>
+
       <div className={styles["dice-results"]} aria-live="polite">
         {values === null
           ? <p className={styles["dice-idle"]}>{t("diceIdle")}</p>
@@ -99,12 +105,6 @@ export default function DiceRoller() {
       {values !== null && diceCount > 1 && (
         <p className={styles["dice-total"]}>{t("diceTotalLabel")}: <strong>{total}</strong></p>
       )}
-
-      <div className={controls.actions}>
-        <button className="auth-link" type="button" onClick={() => performRoll(diceCount)} disabled={rolling}>
-          {t("diceRoll")}
-        </button>
-      </div>
       </ToolLayout>
   );
 }
