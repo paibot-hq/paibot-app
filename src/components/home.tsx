@@ -160,6 +160,20 @@ export default function Home({ year }: { year: number }) {
               <p>{t("timingDescription")}</p>
             </div>
           </Link>
+          <Link className="app-card muted" href="/math">
+            <span className="app-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24">
+                <path d="M4 20 20 20" />
+                <path d="M4 20 4 4" />
+                <path d="M5 18 Q12 5 19 18" />
+              </svg>
+            </span>
+            <div>
+              <p className="app-kicker">{t("mathKicker")}</p>
+              <h3>{t("mathTitle")}</h3>
+              <p>{t("mathDescription")}</p>
+            </div>
+          </Link>
         </div>
       </section>
 
