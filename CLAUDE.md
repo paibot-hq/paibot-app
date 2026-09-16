@@ -2,7 +2,9 @@
 
 ## 進行中の計画
 
-- `/problemset`(数学問題集、LLM生成+D1保存):承認済みの計画が`docs/plans/problemset.md`にある。Phase 2(vinext統一の技術検証)まで完了、Phase 3(LLM生成・検証パイプライン)以降は未着手。再開する際はまずこのファイルを読むこと。
+- **数学問題集(LLM生成+D1保存)、公開URLは`/math`**: 承認済みの計画が`docs/plans/problemset.md`にある(ファイル名は計画時の仮称`problemset`のまま)。Phase 2(vinext統一の技術検証)まで完了、Phase 3(LLM生成・検証パイプライン)以降は未着手。再開する際はまずこのファイルを読むこと。
+  - 以前あった手続き生成の算数ドリル(`/math`)は2026年9月にアーカイブし、公開ルートから外した(`docs/archive/math-drill-v1/`)。跡地の`/math`にはこの新しい問題集が入る。
+  - `math-tex.tsx`/`math-tex.module.css`(KaTeX表示部品)はアーカイブせず`src/components/`に残してあり、新しい問題集で再利用する想定。
 
 ## 新しいツールページを追加するときの構成
 

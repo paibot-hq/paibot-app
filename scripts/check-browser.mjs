@@ -6,7 +6,7 @@ import { chromium } from 'playwright';
 // an already-running dev server (`npm run dev`, default port 3001).
 // Complements check-i18n.mjs, which checks the built app without a real browser.
 const base = process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3001';
-const tools = ['age', 'arith', 'base64', 'dice', 'ip', 'math', 'password', 'reaction', 'timing', 'urlencode', 'wc'];
+const tools = ['age', 'arith', 'base64', 'dice', 'ip', 'password', 'reaction', 'timing', 'urlencode', 'wc'];
 
 try {
   await fetch(base);
@@ -73,8 +73,8 @@ console.log(`PASS: all ${tools.length} tool pages render cleanly in ja/en`);
     await page.click('.language-options a:not([aria-current="page"])');
     await page.waitForLoadState('networkidle');
     for (let i = 0; i < 4; i++) {
-      await go(page, '/en/math');
-      await go(page, '/ja/math');
+      await go(page, '/en/arith');
+      await go(page, '/ja/arith');
     }
     // Redirects to /sign-in, whose live Clerk widget keeps background network
     // activity going (session sync) — 'networkidle' would never resolve.
