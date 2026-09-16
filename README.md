@@ -102,10 +102,13 @@ npm run check:browser
 Cloudflare公式のNext.js on Workersアダプター [vinext](https://vinext.dev/) を使ってCloudflare Workersへデプロイします。
 
 ```sh
+npm ci                  # devDependencies込みでインストール(patch-packageのpostinstallに必要)
 npm run build          # ビルド(vinext build)
 npm start               # ローカルでWorkerとして起動して確認(wrangler dev)
 npm run deploy:vinext  # 実際にデプロイ
 ```
+
+`npm run build`の前は必ず`npm ci`(devDependencies込み)を使ってください。`--omit=dev`で入れると`patch-package`(`@clerk/nextjs`のvinext dev互換パッチ、詳細はCLAUDE.md)の`postinstall`が実行されません。`npm run deploy:vinext`自体はビルド済みの`dist/`をアップロードするだけなので、その段階では`node_modules`もdevDependenciesも不要です。
 
 デプロイには `wrangler login` でのCloudflareアカウント認証が必要です。
 `.env.local` の値(Clerkの鍵など)は自動では引き継がれないため、初回は
