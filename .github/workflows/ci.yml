@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # npm ci also runs postinstall (patch-package --error-on-fail --error-on-warn),
+      # which must succeed before anything else can build correctly. See CLAUDE.md.
+      - run: npm ci
+
+      # Clerk keys are needed at build time (vinext build reads .env.local, not just
+      # runtime env) for check:i18n below to exercise real auth redirects.
+      # Add NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY / CLERK_SECRET_KEY as repo secrets
+      # (development instance keys — never production keys) for this to pass.
+      - name: Set up .env.local
+        run: |
+          cat <<EOF > .env.local
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }}
+          SITE_URL=https://paibot.app
+          SITE_INDEXABLE=false
+          EOF
+
+      # `npm run typecheck` depends on .next/types/validator.ts, which only a plain
+      # `next build` generates (vinext build does not). See CLAUDE.md.
+      - run: npm run build:next
+      - run: npm run typecheck
+
+      - run: npm run build
+      - run: npm run check:i18n
+
+      # check:browser (Playwright against a live vinext dev server) is intentionally
+      # not run here — it needs a browser install and a running dev server, and is
+      # slower/flakier in CI (Clerk's widget loads from an external CDN). Run it
+      # locally before merging changes that touch auth, theming, or i18n routing.
