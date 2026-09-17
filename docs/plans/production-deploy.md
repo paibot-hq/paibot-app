@@ -91,3 +91,4 @@ jobs:
 ## 前提: 先に開発環境のCDを完了させる
 
 本番の話をする前に、開発環境(`paibot-app-dev`)へのCDをまず動かす。CloudflareのAPIトークン(「Edit Cloudflare Workers」テンプレートで作成)待ちの状態。
+
