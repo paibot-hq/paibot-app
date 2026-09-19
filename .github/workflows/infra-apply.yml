@@ -27,7 +27,7 @@ jobs:
         run: |
           echo "Applying commit: \`$(git rev-parse HEAD)\` (requested ref: \`${{ inputs.ref }}\`)" >> "$GITHUB_STEP_SUMMARY"
 
-      - uses: hashicorp/setup-terraform@v3
+      - uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: "1.12.2"
 
@@ -54,7 +54,7 @@ jobs:
       # `terraform show` output). Keep retention short and let the repo's
       # default artifact visibility (same permissions as repo access) apply —
       # do not make this a public/wider-shared artifact.
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: tfplan
           path: infra/tfplan
@@ -78,7 +78,7 @@ jobs:
         with:
           ref: ${{ inputs.ref }}
 
-      - uses: hashicorp/setup-terraform@v3
+      - uses: hashicorp/setup-terraform@v4
         with:
           terraform_version: "1.12.2"
 
@@ -91,7 +91,7 @@ jobs:
             -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}" \
             -backend-config="endpoints={s3=\"https://${{ vars.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com\"}"
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           name: tfplan
           path: infra/
