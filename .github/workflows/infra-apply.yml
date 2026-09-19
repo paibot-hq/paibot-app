@@ -1,0 +1,135 @@
+name: Infra Apply
+
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Commit SHA or branch to apply (should already be on main)"
+        required: true
+        default: main
+
+concurrency:
+  group: infra-apply
+  cancel-in-progress: false
+
+jobs:
+  plan:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infra
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Record which commit this run resolved to
+        run: |
+          echo "Applying commit: \`$(git rev-parse HEAD)\` (requested ref: \`${{ inputs.ref }}\`)" >> "$GITHUB_STEP_SUMMARY"
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.12.2"
+
+      - name: terraform init
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_R2_SECRET_ACCESS_KEY }}
+        run: |
+          terraform init -input=false \
+            -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}" \
+            -backend-config="endpoints={s3=\"https://${{ vars.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com\"}"
+
+      - name: terraform plan
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_TERRAFORM }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_R2_SECRET_ACCESS_KEY }}
+        run: |
+          terraform plan -input=false -out=tfplan
+          terraform show -no-color tfplan | tee "$GITHUB_STEP_SUMMARY"
+
+      # The plan file can contain sensitive values (resource attributes marked
+      # sensitive still show up in the binary plan file even if redacted in
+      # `terraform show` output). Keep retention short and let the repo's
+      # default artifact visibility (same permissions as repo access) apply —
+      # do not make this a public/wider-shared artifact.
+      - uses: actions/upload-artifact@v4
+        with:
+          name: tfplan
+          path: infra/tfplan
+          retention-days: 3
+
+  # Gated by the "infra-apply" GitHub Environment: configure required reviewers
+  # for it in repo Settings → Environments so a human looks at the `plan` job's
+  # summary (particularly for any destroy/replace) before this job is allowed
+  # to start. This is the actual "review the plan, then apply that exact plan"
+  # checkpoint — `apply` below runs the saved tfplan artifact verbatim, so what
+  # gets approved and what gets applied can't drift apart.
+  apply:
+    needs: plan
+    runs-on: ubuntu-latest
+    environment: infra-apply
+    defaults:
+      run:
+        working-directory: infra
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.ref }}
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.12.2"
+
+      - name: terraform init
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_R2_SECRET_ACCESS_KEY }}
+        run: |
+          terraform init -input=false \
+            -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}" \
+            -backend-config="endpoints={s3=\"https://${{ vars.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com\"}"
+
+      - uses: actions/download-artifact@v4
+        with:
+          name: tfplan
+          path: infra/
+
+      # R2 has no native object versioning (confirmed — not assumed — against
+      # Cloudflare's own docs/community feedback), so back up the live state
+      # object under a separate key before writing to it. Recovery procedure
+      # is in infra/README.md.
+      - name: Back up current state before apply
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+        run: |
+          endpoint="https://${{ vars.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com"
+          bucket="${{ vars.TF_STATE_BUCKET }}"
+          key="paibot-app/terraform.tfstate"
+          backup_key="paibot-app/backups/terraform.tfstate.$(date -u +%Y%m%dT%H%M%SZ)-${{ github.run_id }}"
+          # `terraform init` above already proved these credentials work, so a
+          # failure here almost never means "bad auth" — but don't blanket-swallow
+          # every failure either. Only treat "the object doesn't exist yet" (the
+          # legitimate first-apply case) as fine; anything else stops the run
+          # rather than risk applying without a backup.
+          if ! output=$(aws s3api copy-object --endpoint-url "$endpoint" \
+            --bucket "$bucket" --key "$backup_key" \
+            --copy-source "$bucket/$key" 2>&1); then
+            if echo "$output" | grep -qi "NoSuchKey"; then
+              echo "No existing state object to back up yet (first apply) — continuing."
+            else
+              echo "$output" >&2
+              echo "Backup copy failed for a reason other than 'no existing state' — stopping." >&2
+              exit 1
+            fi
+          fi
+
+      - name: terraform apply
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_TERRAFORM }}
+          AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_R2_SECRET_ACCESS_KEY }}
+        run: terraform apply -input=false tfplan
