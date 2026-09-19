@@ -11,3 +11,20 @@ npm-debug.log*
 .DS_Store
 /dist/
 .vinext/
+
+# Terraform (infra/) — state and lock files, local cache, anything that could
+# hold credentials or plan output (which can contain sensitive values).
+# .terraform.lock.hcl is NOT ignored — it must be committed.
+**/.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+tfplan
+crash.log
+crash.*.log
+*.tfvars
+*.tfvars.json
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
