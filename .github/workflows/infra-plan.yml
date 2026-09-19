@@ -6,9 +6,13 @@ on:
       - "infra/**"
       - ".github/workflows/infra-plan.yml"
       - ".github/workflows/infra-apply.yml"
+  # Plan-only manual run (e.g. to preview a plan before dispatching Infra Apply).
+  # Only users with write access can trigger this, so it's safe to give it secrets.
+  # It runs against whichever branch/commit you pick in the "Use workflow from" box.
+  workflow_dispatch:
 
 concurrency:
-  group: infra-plan-${{ github.event.pull_request.number }}
+  group: infra-plan-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -29,11 +33,11 @@ jobs:
 
   plan:
     needs: fmt-and-validate
-    # Only run the authenticated plan for PRs from this repo, never forks.
-    # Forks don't receive repo secrets under the plain `pull_request` trigger
-    # anyway, but this also skips a guaranteed-to-fail auth attempt for them
-    # and makes the trust boundary explicit rather than implicit.
-    if: github.event.pull_request.head.repo.full_name == github.repository
+    # Only run the authenticated plan for PRs from this repo, never forks
+    # (forks don't receive repo secrets under the plain `pull_request` trigger
+    # anyway; this makes the trust boundary explicit and skips a guaranteed-to-
+    # fail auth attempt). A manual dispatch is always trusted.
+    if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     defaults:
       run:
