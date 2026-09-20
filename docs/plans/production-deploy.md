@@ -1,6 +1,6 @@
 # 本番デプロイの設計(2026年9月に合意、未実装)
 
-開発環境(`paibot-app-dev`)へのCD設定と合わせて話した内容。開発環境CDのCloudflare APIトークン待ちで、本番側はまだ着手していない。
+開発環境(`paibot-app-dev`)へのCD設定と合わせて話した内容。開発環境のCD(`.github/workflows/app.yml`の`deploy-dev`)は完了済み。本番側はまだ着手していない。
 
 ## タグの命名規則
 
@@ -88,6 +88,9 @@ jobs:
 
 - Clerkの秘密鍵を`vinext build`のビルド時に`.env.local`経由で成果物へ焼き込む今の方式(開発環境も同様)を、本番の秘密鍵でもそのまま踏襲していいか。Cloudflare Workersの`wrangler secret put`によるランタイムシークレットの方が焼き込み方式より一般的には好まれるが、現状の仕組み(vinext buildが`.env.local`を読む)と相性を要検討。
 
-## 前提: 先に開発環境のCDを完了させる
+## 追記(2026年9月): 決まったこと
 
-本番の話をする前に、開発環境(`paibot-app-dev`)へのCDをまず動かす。CloudflareのAPIトークン(「Edit Cloudflare Workers」テンプレートで作成)待ちの状態。
+- devのカスタムドメイン`dev.paibot.app`は`wrangler.jsonc`の`routes`(`custom_domain: true`)で紐付け済み。本番の`paibot.app`も同じ方式(`env.production`側に別途`routes`を定義)。ドメインはWorkerの属性なのでTerraformでは管理しない
+- Clerkの本番移行は手動(公式CLIの`clerk deploy`を使う)。詳細はCLAUDE.mdの「進行中の計画」を参照
+- 本番のGoogleログインには、Google Cloud Consoleで自分専用のOAuthクライアントを作る必要がある(開発インスタンスはClerkの共有認証情報)
+- タグの打ち方: `git tag release-YYYY-MM-DD && git push origin release-YYYY-MM-DD`(mainの最新で打つこと)

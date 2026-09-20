@@ -5,7 +5,19 @@
 - **数学問題集(LLM生成+D1保存)、公開URLは`/math`**: 承認済みの計画が`docs/plans/problemset.md`にある(ファイル名は計画時の仮称`problemset`のまま)。Phase 2(vinext統一の技術検証)まで完了、Phase 3(LLM生成・検証パイプライン)以降は未着手。再開する際はまずこのファイルを読むこと。
   - 以前あった手続き生成の算数ドリル(`/math`)は2026年9月にアーカイブし、公開ルートから外した(`docs/archive/math-drill-v1/`)。跡地の`/math`にはこの新しい問題集が入る。
   - `math-tex.tsx`/`math-tex.module.css`(KaTeX表示部品)はアーカイブせず`src/components/`に残してあり、新しい問題集で再利用する想定。
-- **本番デプロイの設計**: `docs/plans/production-deploy.md`に合意済みの設計(日付ベースのタグ、`environment: production`承認ゲート、ワークフロー案)がある。未実装。開発環境(`paibot-app-dev`)へのCD(CloudflareのAPIトークン待ち)を先に終わらせてから着手する。
+- **本番デプロイの設計**: `docs/plans/production-deploy.md`に合意済みの設計(日付ベースのタグ、ワークフロー案)がある。未実装。開発環境のCD(`.github/workflows/app.yml`の`deploy-dev`、`https://dev.paibot.app`)は完了済み。
+  - 本番に足りないもの: 本番Clerkインスタンス・キー、`wrangler.jsonc`の`env.production`(Wranglerの`routes`は環境に引き継がれないので本番用に別途定義が必要)、`release-*`タグで起動する本番ワークフロー、GitHub Secrets、`paibot.app`のWorker紐付け。
+  - **Clerk本番への移行は手動(Terraformでは管理しない)**: Clerk用のTerraformプロバイダはコミュニティ製のみ(`buildwithdeck/clerk`が有力だが開発者2人・v0.x、しかも設定管理にはベータのPlatform APIとその強い権限のキーが必要)で見送った。代わりにClerk公式CLIを使う: `clerk auth login` → `clerk link` → `clerk deploy`(本番インスタンス作成・CNAME案内・Google/Apple本番認証情報の入力・DNS/SSL検証までを案内)。本番のGoogleログインには、自分専用のGoogle OAuthクライアント(Google Cloud Console)が別途必要。
+  - 本番移行後は`clerk config pull`で設定を取り出し、`config/clerk/development.json`・`production.json`として保存する方針(コミット前に、出力へ秘密の値が含まれないか必ず目で確認すること。設定を変えたら`pull`し直す)。
+
+## インフラ(Terraform / Cloudflare)
+
+- `infra/`にTerraformの最小構成がある(詳細・手順・注意点は`infra/README.md`)。stateはR2の専用バケット`paibot-app-terraform-state`(Terraform外で手動作成、`terraform destroy`に巻き込まれない)。今の管理対象は`paibot.app`ゾーンの読み取り参照だけで、リソースは必要になってから追加する方針。
+- **TerraformとWranglerの境界**: Worker本体・バインディング・ルート(カスタムドメイン含む、例: `dev.paibot.app`)は`wrangler.jsonc`。Terraformはそれ以外のアカウントレベルのリソース(将来のDNS単体、D1、R2、Accessなど)。同じ対象を両方で管理しない。
+- ワークフロー: `App`(アプリの検証+dev自動デプロイ)、`Infra Plan`(PR・手動実行でplan)、`Infra Apply`(手動実行でapply)。
+- トークンは用途ごとに分離: `CLOUDFLARE_API_TOKEN`(Wranglerのdevデプロイ)、`CLOUDFLARE_API_TOKEN_TERRAFORM`(現状ゾーン読み取りのみ。DNSを管理し始めたら「DNS→編集」を足す。「ゾーン編集」は付けない)、`TF_STATE_R2_*`(state用バケットだけに限定したS3互換キー)。
+- **`wrangler r2 bucket create`などが`wrangler.jsonc`へのバインディング追加を提案してくることがある。stateバケットをWorkerにバインドしてはいけないので、応じない(応じてしまったら`git checkout wrangler.jsonc`で戻す)。**
+- 未実施: `infra-apply`環境の承認者設定(GitHubのプラン制限で使えない可能性あり)。消えると困るリソースを管理し始める時点で、planに削除・作り直しが含まれたらapplyを失敗させるガードを入れる。
 
 ## 新しいツールページを追加するときの構成
 
