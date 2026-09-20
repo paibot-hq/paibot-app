@@ -12,10 +12,10 @@
 
 ## インフラ(Terraform / Cloudflare)
 
-- `infra/`にTerraformの最小構成がある(詳細・手順・注意点は`infra/README.md`)。stateはR2の専用バケット`paibot-app-terraform-state`(Terraform外で手動作成、`terraform destroy`に巻き込まれない)。今の管理対象は`paibot.app`ゾーンの読み取り参照だけで、リソースは必要になってから追加する方針。
+- `infra/`にTerraformの最小構成がある(詳細・手順・注意点は`infra/README.md`)。stateはR2の専用バケット`paibot-app-terraform-state`(Terraform外で手動作成、`terraform destroy`に巻き込まれない)。今の管理対象は`paibot.app`ゾーンの読み取り参照と、dev Worker(`paibot-app-dev`)を守るCloudflare Access(`infra/access.tf`、`sanofc@gmail.com`のみ許可)。リソースは必要になってから追加する方針。
 - **TerraformとWranglerの境界**: Worker本体・バインディング・ルート(カスタムドメイン含む、例: `dev.paibot.app`)は`wrangler.jsonc`。Terraformはそれ以外のアカウントレベルのリソース(将来のDNS単体、D1、R2、Accessなど)。同じ対象を両方で管理しない。
 - ワークフロー: `App`(アプリの検証+dev自動デプロイ)、`Infra Plan`(PR・手動実行でplan)、`Infra Apply`(手動実行でapply)。
-- トークンは用途ごとに分離: `CLOUDFLARE_API_TOKEN`(Wranglerのdevデプロイ)、`CLOUDFLARE_API_TOKEN_TERRAFORM`(現状ゾーン読み取りのみ。DNSを管理し始めたら「DNS→編集」を足す。「ゾーン編集」は付けない)、`TF_STATE_R2_*`(state用バケットだけに限定したS3互換キー)。
+- トークンは用途ごとに分離: `CLOUDFLARE_API_TOKEN`(Wranglerのdevデプロイ)、`CLOUDFLARE_API_TOKEN_TERRAFORM`(現状は「Access: アプリとポリシー→編集」と、ゾーン`paibot.app`のDNS→読み取り。DNSレコードを管理し始めたら「DNS→編集」に変える。「ゾーン編集」は付けない)、`TF_STATE_R2_*`(state用バケットだけに限定したS3互換キー)。
 - **`wrangler r2 bucket create`などが`wrangler.jsonc`へのバインディング追加を提案してくることがある。stateバケットをWorkerにバインドしてはいけないので、応じない(応じてしまったら`git checkout wrangler.jsonc`で戻す)。**
 - 未実施: `infra-apply`環境の承認者設定(GitHubのプラン制限で使えない可能性あり)。消えると困るリソースを管理し始める時点で、planに削除・作り直しが含まれたらapplyを失敗させるガードを入れる。
 
