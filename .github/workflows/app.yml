@@ -1,4 +1,4 @@
-name: CI
+name: App
 
 on:
   push:
@@ -14,7 +14,7 @@ on:
       - ".gitignore"
 
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}
+  group: app-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
