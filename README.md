@@ -118,7 +118,7 @@ npm run deploy:vinext  # 実際にデプロイ
 - `SITE_URL=https://paibot.app`、`SITE_INDEXABLE=true` をWorkerの環境変数として設定
 - Clerkの本番インスタンス・本番キーへの切り替え
 - カスタムドメイン(`paibot.app`)とDNSの設定
-- 現時点のデプロイ先はCloudflare既定の `*.workers.dev` URL(開発確認用)。第三者に見られたくない間はCloudflare Access等でのアクセス制限を検討してください。
+- 現時点のデプロイ先は開発環境の `https://dev.paibot.app`(開発確認用)。Cloudflare Accessで許可したメールアドレスだけに制限している(設定は`infra/access.tf`、Terraformで管理)。本番のWorkerにはこのAccessは付いていないので、本番公開時に意図せず制限されることはない。
 - 本番Clerkキーを使うがまだ`paibot.app`では公開しないステージング環境では、`SITE_URL`をそのステージング環境の実際のオリジンに設定してください。`src/proxy.ts`はClerkの本番キー使用時に`SITE_URL`のオリジンだけをログインに許可するため、`https://paibot.app`のままだとステージングでログインできなくなります。
 
 以前の静的ビルド `out/` は公開しないでください。

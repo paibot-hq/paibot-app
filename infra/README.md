@@ -5,22 +5,27 @@
 ## TerraformとWranglerの管理範囲
 
 - **Wrangler**(`wrangler.jsonc`、`npm run build`/`deploy:vinext`、CIの`deploy-dev`ジョブ)が引き続き管理するもの: Worker本体、バインディング設定、vars、`compatibility_date`/フラグ、assets。ここでは一切触らない。
-- **Terraform**が管理するもの: Wranglerでは管理しないアカウントレベルのCloudflareリソース。今はDNSゾーン(読み取り専用の参照のみ)、今後必要になり次第D1/R2/KV/Accessなど。
+- **Terraform**が管理するもの: Wranglerでは管理しないアカウントレベルのCloudflareリソース。今はDNSゾーン(読み取り専用の参照)とdev WorkerのCloudflare Access、今後必要になり次第D1/R2/KVなど。
 - **同じ対象を両方で二重管理しない。** TerraformがWorkerからバインドする必要のあるもの(D1データベース、R2バケットなど)を作ったら、`terraform output`でIDを取得し、それを**手で**`wrangler.jsonc`のバインディング設定に転記して、普通のレビュー可能な変更として反映する。この転記を自動化するスクリプトは作っていない — この規模で「コピペを自動化する」ことのリスク(意図しない場所に書き込む等)の方が、手間を省くメリットより大きいと判断した。**`dist/`配下のファイルは絶対に手で編集しない** — `vinext build`のたびに毎回生成し直される成果物なので。
 
 ## 現在の管理範囲(意図的に小さい)
 
-今Terraformが管理しているのは、既存の`paibot.app`ゾーンへの**読み取り専用のデータソース参照**(`infra/data.tf`)だけです。このゾーンはTerraformが作ったものではなく(Cloudflare APIで確認済み、ステータス`active`)、`resource`ブロックを持たないので、Terraformが削除・再作成を提案することは原理的にありません。それ以外はまだ何も作っていません。理由は下の「まだやっていないこと」を参照。
+1. **`paibot.app`ゾーンの読み取り専用データソース参照**(`infra/data.tf`)。このゾーンはTerraformが作ったものではなく(Cloudflare APIで確認済み、ステータス`active`)、`resource`ブロックを持たないので、Terraformが削除・再作成を提案することは原理的にありません。
+2. **devのWorker(`paibot-app-dev`)を守るCloudflare Accessアプリケーション**(`infra/access.tf`)。`sanofc@gmail.com`だけを許可し、セッションは24時間。
+   - 対象は`destinations`の`type = "worker"`(Worker単位)なので、カスタムドメイン(`dev.paibot.app`)・workers.dev・プレビューURLのすべてに掛かる。
+   - Accessを`wrangler.jsonc`ではなくTerraformで持つ理由: Wranglerの`access`ブロックは`wrangler dev`でのID模擬用で、本番のAccess設定はできないため。
+   - `worker_id`はWorkerの内部ID(名前ではない)。Workerを削除して作り直すと変わるので、その場合は`access.tf`の値を更新すること。取得方法は`access.tf`のコメントを参照。
+   - `paibot-app-dev`のworkers.devは無効(APIで`enabled: false`を確認)。外からの入口は`dev.paibot.app`だけ。
 
 リソースは実際に必要になってから追加してください。実績作りのために先回りして作らないこと。
 
-## ⚠️ まだやっていないこと・詰まっていること
+## ⚠️ まだやっていないこと・注意点
 
-- **このCloudflareアカウントではR2がまだ有効化されていません。** `npx wrangler r2 bucket list`(`app/`ディレクトリで実行。`wrangler`はグローバルインストールしていないので、単体では動かず`npx`経由が必要)を実行すると`Please enable R2 through the Cloudflare Dashboard [code: 10042]`で失敗します。R2の有効化(課金への同意を含む)はダッシュボードでの手動操作で、ここからは実行できません。**これによってstate保存用バケット自体が作れない**ため、下記のブートストラップ手順はまだ何一つ実行できません。
-- state用バケット、そのR2用APIトークン(S3互換のアクセスキー/シークレット)、Terraform専用のCloudflare APIトークン、下記のGitHub Secrets/Variablesは、いずれもまだ存在しません。
-- `terraform plan`/`apply`はまだ一度も実行していません。ローカルで確認できたのは`terraform fmt`と`terraform validate`だけです(どちらもbackend・認証情報が無くても実行できるコマンド)。
-- `use_lockfile`(`versions.tf`参照)の前提となる「R2がPutObjectの条件付き書き込みをサポートしている」という話は、Cloudflare公式のS3 API互換性ドキュメント(https://developers.cloudflare.com/r2/api/s3/api/ — PutObjectの行にIf-Match/If-Modified-Since/If-None-Match/If-Unmodified-Sinceがすべて対応と明記)で確認したものです。**実際に本物のバケットに対して同時apply(競合)を起こして実証したわけではありません。** 「Cloudflareの公開ドキュメント上は対応しているはず」という段階であって、実証済みとは扱わないでください。
-- R2には**ネイティブなオブジェクトバージョニング機能がありません**(推測ではなく確認済み。よく要望されているが、この時点ではまだ実装されていない機能)。下記のバックアップ方式は、このバージョニング機能に頼らない、単純なオブジェクトコピーによるものです。
+- **本番(`paibot.app`)向けのWorkerにはAccessを付けていない**(`access.tf`の対象は`paibot-app-dev`だけ)。本番公開の設計は`docs/plans/production-deploy.md`。
+- **`use_lockfile`の同時実行(競合)は実証していません。** 前提となる「R2がPutObjectの条件付き書き込みをサポートしている」は、Cloudflare公式のS3 API互換性ドキュメント(https://developers.cloudflare.com/r2/api/s3/api/ — PutObjectの行にIf-Match/If-Modified-Since/If-None-Match/If-Unmodified-Sinceがすべて対応と明記)で確認したものです。実際に同時applyを起こして競合を検証したわけではないので、実証済みとは扱わないでください。ロックの取得・解放そのものは、本物のバケットでplan/applyを実行して確認済みです。GitHub Actionsの`concurrency`でも直列化しています。
+- R2には**ネイティブなオブジェクトバージョニング機能がありません**(確認済み)。下記のバックアップ方式は、バージョニングに頼らない単純なオブジェクトコピーによるものです。
+- `infra-apply`環境の承認者(Required reviewers)は設定していません(GitHubのプラン制限で使えない可能性あり)。今のapplyは、手動実行(`workflow_dispatch`)すること自体が確認の代わりです。
+- 消えると困るリソース(DNSレコード、D1など)を管理し始める時点で、planに削除・作り直しが含まれたらapplyを失敗させるガードを入れる。
 
 ## 認証情報の置き場所
 
@@ -28,7 +33,7 @@ Cloudflareの認証情報には**性質の異なる2種類**が関わります�
 
 | 認証情報 | 用途 | 発行元 | GitHub上の名前 |
 | --- | --- | --- | --- |
-| Cloudflare APIトークン(Terraform専用) | `cloudflare`プロバイダ自体の認証(ゾーン/DNS/D1/R2バケット等の管理) | Cloudflareダッシュボード→マイプロフィール→APIトークン→カスタムトークン作成(最初はZone:Readだけで十分。DNS:Edit/D1:Edit/R2:Edit/Access:Editは、実際にそのリソースを追加するタイミングで足す) | `CLOUDFLARE_API_TOKEN_TERRAFORM`(secret) |
+| Cloudflare APIトークン(Terraform専用) | `cloudflare`プロバイダ自体の認証(ゾーン/DNS/D1/R2バケット等の管理) | Cloudflareダッシュボード→マイプロフィール→APIトークン→カスタムトークン作成(現在の権限: アカウント→「Access: アプリとポリシー」→編集、ゾーン`paibot.app`→DNS→読み取り。ゾーンの検索はDNS読み取りだけで通ることを`Infra Plan`で確認済み。DNSレコードを管理するときはDNS→編集、D1/R2/KVを追加するときはそれぞれの権限を、そのタイミングで足す) | `CLOUDFLARE_API_TOKEN_TERRAFORM`(secret) |
 | R2用S3互換アクセスキーID/シークレットアクセスキー | **stateバックエンド**の認証(R2に対するS3プロトコルでのアクセス) | R2ダッシュボード→R2 APIトークンの管理→**state用バケットだけに限定**した「Object Read & Write」権限で発行 | `TF_STATE_R2_ACCESS_KEY_ID` / `TF_STATE_R2_SECRET_ACCESS_KEY`(secret) |
 
 既存の`CLOUDFLARE_API_TOKEN`(`deploy-dev`/Wranglerが使っているもの)とは意図的に**別**にしています。Terraformには、実際に管理する範囲だけに絞った専用のトークンを持たせることで、片方の認証情報に問題が起きてももう片方に影響しないようにするためです。
@@ -97,6 +102,9 @@ aws s3api copy-object --endpoint-url "https://<account_id>.r2.cloudflarestorage.
 
 ## ここまでの検証結果
 
-- `terraform fmt -check -recursive`: 成功
-- `terraform init -backend=false` + `terraform validate`: 成功
-- 認証付きの`plan`/`apply`: 未実施(R2が有効化されていないため、上記参照)
+- `terraform fmt -check -recursive` / `terraform validate`: 成功(PRの`Infra Plan`でも毎回実行)
+- 本物のR2バケットに対する`init`/`plan`/`apply`: 成功(stateの保存、ロックの取得・解放を確認)
+- `access.tf`: `Infra Apply`で1件作成(`Resources: 1 added, 0 changed, 0 destroyed`)。
+  - 未ログインで`https://dev.paibot.app`を開くと、Cloudflare Accessのログイン画面に転送されることを確認。
+  - `sanofc@gmail.com`でログインして入れることを、手動で確認。
+- 未検証: 同時applyによるロック競合(上記)、`infra-apply`環境の承認者。
