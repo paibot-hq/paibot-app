@@ -7,11 +7,19 @@ on:
       - "**/*.md"
       - "docs/**"
       - ".gitignore"
+      # Terraform has its own workflows (infra-plan.yml / infra-apply.yml) and
+      # doesn't affect the app build or the dev Worker deploy.
+      - "infra/**"
+      - ".github/workflows/infra-*.yml"
   pull_request:
     paths-ignore:
       - "**/*.md"
       - "docs/**"
       - ".gitignore"
+      # Terraform has its own workflows (infra-plan.yml / infra-apply.yml) and
+      # doesn't affect the app build or the dev Worker deploy.
+      - "infra/**"
+      - ".github/workflows/infra-*.yml"
 
 concurrency:
   group: app-${{ github.workflow }}-${{ github.ref }}
