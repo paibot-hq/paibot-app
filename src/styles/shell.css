@@ -3,6 +3,8 @@ html {
 }
 
 body {
+  display: flex;
+  flex-direction: column;
   min-height: 100vh;
   margin: 0;
   background: linear-gradient(180deg, #0f1720, #111c28 52%, #0f1720);
@@ -196,5 +198,6 @@ html[data-theme="dark"] .theme-icon-sun {
 main {
   width: min(var(--wrap), calc(100% - 2rem));
   margin: 0 auto;
+  flex: 1 0 auto;
 }
 

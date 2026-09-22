@@ -7,10 +7,7 @@ export default function About({ year }: { year: number }) {
   return (
     <>
     <main className="section about">
-      <div className="section-head">
-        <p className="eyebrow">{t("aboutEyebrow")}</p>
-        <h1>{t("aboutTitle")}</h1>
-      </div>
+      <h1 className="eyebrow">{t("aboutEyebrow")}</h1>
       <p>{t("aboutBody")}</p>
     </main>
 

@@ -1,6 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
+import { Link } from "../i18n/navigation";
 
 export default function Cover({ year }: { year: number }) {
   const t = useTranslations("App");
@@ -17,6 +18,7 @@ export default function Cover({ year }: { year: number }) {
           <p className="eyebrow">PAIBOT LLC</p>
           <h1 id="hero-title"><span className="wordmark">PAIBOT</span><span className="title-suffix">.app</span></h1>
           <p className="lead">{t("lead")}</p>
+          <Link className="auth-link" href="/apps">{t("heroCta")}</Link>
         </div>
       </section>
     </main>

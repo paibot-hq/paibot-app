@@ -29,13 +29,8 @@
     font-size: 1rem;
   }
 
-  .section,
   .app-grid {
     grid-template-columns: 1fr;
-  }
-
-  .section {
-    gap: 2rem;
   }
 
   .app-card {

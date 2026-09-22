@@ -8,10 +8,7 @@ export default function Apps({ year }: { year: number }) {
   return (
     <>
     <main className="section">
-      <div className="section-head">
-        <p className="eyebrow">{t("appsEyebrow")}</p>
-        <h1>{t("appsTitle")}</h1>
-      </div>
+      <h1 className="eyebrow">{t("appsEyebrow")}</h1>
 
       <div className="app-grid">
         <Link className="app-card" href="/ip">

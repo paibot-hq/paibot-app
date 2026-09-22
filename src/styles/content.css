@@ -131,6 +131,10 @@ html[data-theme="light"] .cloud-c {
   padding: 4rem;
 }
 
+.hero-copy .auth-link {
+  margin-top: 1.5rem;
+}
+
 .eyebrow {
   margin: 0 0 .75rem;
   color: var(--accent);
@@ -138,6 +142,12 @@ html[data-theme="light"] .cloud-c {
   font-weight: 700;
   letter-spacing: .12em;
   text-transform: uppercase;
+}
+
+h1.eyebrow {
+  margin-bottom: 1.25rem;
+  font-size: 1.05rem;
+  letter-spacing: .08em;
 }
 
 h1,
@@ -171,21 +181,16 @@ h1 .title-suffix {
 }
 
 .section {
-  display: grid;
-  grid-template-columns: 180px minmax(0, 1fr);
-  gap: 4.5rem;
   padding: 3.75rem 0;
-  border-bottom: 1px solid var(--line);
 }
 
-.section-head h2 {
-  margin-bottom: 0;
-  font-size: 1.25rem;
+.section-head {
+  margin-bottom: 2.5rem;
 }
 
 .app-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
 }
 
@@ -265,6 +270,7 @@ footer {
   width: min(var(--wrap), calc(100% - 2rem));
   margin: 0 auto;
   padding: 1.5rem 0 2rem;
+  border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: .82rem;
   flex-wrap: wrap;
