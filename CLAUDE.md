@@ -33,7 +33,7 @@
 - ルート: `src/app/[locale]/<slug>/page.tsx`(`generateMetadata`でSEOメタデータを設定し、`components/`のクライアントコンポーネントを呼び出すだけ)
 - 実体: `src/components/<name>.tsx`(クライアントコンポーネント)
 - スタイル: `src/components/<name>.module.css`をコンポーネントと同じ場所に追加(CSS Modulesなのでクラス名は自動でユニーク化される)。共通のCSS変数(`--accent`/`--muted`/`--line`/`--surface`/`--radius`/`--error`/`--success`など)は`src/styles/theme.css`で定義。詳細と既存の共通部品(`ToolLayout`など)は`src/styles/README.md`を参照
-- 翻訳: `messages/ja.json`・`messages/en.json`の`App`名前空間に翻訳キーを追加(型は`src/i18n/types.d.ts`がja.jsonから自動推論するので、キーを追加するだけでよい)
+- 翻訳: `messages/ja.json`・`messages/en.json`・`messages/zh.json`(簡体字、2026年9月〜対応)の`App`名前空間に翻訳キーを追加(型は`src/i18n/types.d.ts`がja.jsonから自動推論するので、キーを追加するだけでよい)。対応言語自体を増減する場合は`src/i18n/routing.ts`の`locales`も変更する(それ以外のi18nまわりのコードは`routing.locales`から動的に解決される設計。ただし`src/components/providers.tsx`のClerkローカライズ(`@clerk/localizations`)だけは言語ごとに手でimportして紐付けが必要)
 - 公開設定: `src/lib/seo.ts`の`publicPaths`にパスを追加(サイトマップ・robotsに反映される)
 - トップページ: `src/components/home.tsx`の`app-grid`にカードを追加
 

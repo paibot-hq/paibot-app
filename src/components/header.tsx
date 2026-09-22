@@ -61,6 +61,7 @@ export default function Header() {
           <div className="language-options" id="language-options" role="menu" hidden={!menuOpen}>
             <Link href={pathname} locale="ja" role="menuitem" aria-current={language === "ja" ? "page" : undefined} onClick={() => setMenuOpen(false)}>日本語</Link>
             <Link href={pathname} locale="en" role="menuitem" aria-current={language === "en" ? "page" : undefined} onClick={() => setMenuOpen(false)}>English</Link>
+            <Link href={pathname} locale="zh" role="menuitem" aria-current={language === "zh" ? "page" : undefined} onClick={() => setMenuOpen(false)}>简体中文</Link>
           </div>
         </div>
         <button className="theme-toggle" type="button" onClick={toggleTheme} aria-pressed={resolvedTheme === "dark"} aria-label={resolvedTheme === "dark" ? t("themeToLight") : t("themeToDark")}>

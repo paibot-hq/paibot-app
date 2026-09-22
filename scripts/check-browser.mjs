@@ -36,15 +36,16 @@ async function go(page, path, { waitUntil = 'networkidle' } = {}) {
   await page.waitForTimeout(200);
 }
 
-// 1. Every tool page renders without a JS/console error, in both locales.
-for (const locale of ['ja', 'en']) {
+// 1. Every tool page renders without a JS/console error, in every locale.
+const LANGS = ['ja', 'en', 'zh'];
+for (const locale of LANGS) {
   const errors = await withPage(async (page) => {
     await go(page, `/${locale}`);
     for (const slug of tools) await go(page, `/${locale}/${slug}`);
   });
   assert.deepEqual(errors, [], `${locale}: tool pages must render without errors`);
 }
-console.log(`PASS: all ${tools.length} tool pages render cleanly in ja/en`);
+console.log(`PASS: all ${tools.length} tool pages render cleanly in ${LANGS.join('/')}`);
 
 // 2. Theme toggle flips data-theme and persists across a reload.
 {

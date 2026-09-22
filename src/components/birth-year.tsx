@@ -19,7 +19,9 @@ const ERAS = [
 function eraLabel(year: number, locale: string) {
   const era = ERAS.find(e => year >= e.start) ?? ERAS[ERAS.length - 1];
   const num = year - era.start + 1;
-  if (locale === "ja") return num === 1 ? `${era.ja}元年` : `${era.ja}${num}年`;
+  // Era names are kanji, so they're readable as-is in Chinese too (unlike
+  // the romanized English form), including 元年 for the era's first year.
+  if (locale === "ja" || locale === "zh") return num === 1 ? `${era.ja}元年` : `${era.ja}${num}年`;
   return `${era.en} ${num}`;
 }
 
@@ -56,7 +58,7 @@ export default function BirthYear({ year }: { year: number }) {
     match?.scrollIntoView({ block: "center", behavior: "smooth" });
   }, [age, status]);
 
-  const format = (y: number) => `${y}${locale === "ja" ? "年" : ""} (${eraLabel(y, locale)})`;
+  const format = (y: number) => `${y}${locale === "ja" || locale === "zh" ? "年" : ""} (${eraLabel(y, locale)})`;
   const resultText = status === "passed"
     ? format(year - age)
     : status === "notyet"

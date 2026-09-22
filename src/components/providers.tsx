@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { ClerkProvider } from "@clerk/nextjs";
-import { enUS, jaJP } from "@clerk/localizations";
+import { enUS, jaJP, zhCN } from "@clerk/localizations";
 import { useLocale } from "next-intl";
 
 type Theme = "auto" | "light" | "dark";
@@ -56,7 +56,7 @@ export default function Providers({ children }: { children: ReactNode }) {
         signInFallbackRedirectUrl={`/${language}`}
         signUpFallbackRedirectUrl={`/${language}`}
         afterSignOutUrl={`/${language}`}
-        localization={language === "ja" ? jaJP : enUS}
+        localization={language === "ja" ? jaJP : language === "zh" ? zhCN : enUS}
         appearance={{ variables: {
           colorPrimary: resolvedTheme === "dark" ? "#7fb4dc" : "#2f638f",
           colorBackground: resolvedTheme === "dark" ? "#151f2b" : "#ffffff",

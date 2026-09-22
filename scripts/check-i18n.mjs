@@ -6,8 +6,10 @@ import { readFile } from 'node:fs/promises';
 
 // Black-box checks against the built Next.js app. Uses local .env.local keys;
 // never creates accounts, signs in, or prints keys and response bodies.
-const catalogs = await Promise.all(['ja', 'en'].map(async lang => JSON.parse(await readFile(new URL(`../messages/${lang}.json`, import.meta.url)))));
-assert.deepEqual(Object.keys(catalogs[0].App).sort(), Object.keys(catalogs[1].App).sort(), 'Translation keys must match');
+const LANGS = ['ja', 'en', 'zh'];
+const catalogs = await Promise.all(LANGS.map(async lang => JSON.parse(await readFile(new URL(`../messages/${lang}.json`, import.meta.url)))));
+const [baseKeys, ...otherKeys] = catalogs.map(c => Object.keys(c.App).sort());
+for (const keys of otherKeys) assert.deepEqual(keys, baseKeys, 'Translation keys must match');
 
 async function withServer(indexable, run) {
   // Runs against the vinext/Cloudflare Workers build (dist/server), not a plain `next build`,
@@ -46,8 +48,9 @@ async function withServer(indexable, run) {
 }
 
 await withServer(true, async request => {
-  for (const [i, lang] of ['ja', 'en'].entries()) {
-    const response = await request(`/${lang}`, { headers: { cookie: `NEXT_LOCALE=${lang === 'ja' ? 'en' : 'ja'}`, 'Accept-Language': lang === 'ja' ? 'en' : 'ja' } });
+  for (const [i, lang] of LANGS.entries()) {
+    const otherLang = LANGS.find(l => l !== lang);
+    const response = await request(`/${lang}`, { headers: { cookie: `NEXT_LOCALE=${otherLang}`, 'Accept-Language': otherLang } });
     assert.equal(response.status, 200, `${lang}: public home accessible without authentication`);
     const html = await response.text();
     assert.ok(html.includes(`<html lang="${lang}"`), `${lang}: initial HTML language`);
@@ -59,11 +62,11 @@ await withServer(true, async request => {
     const linkTags = html.match(/<link\b[^>]*>/gi) ?? [];
     const hasAlternate = (hreflang, href) => linkTags.some(tag =>
       tag.includes(`href="${href}"`) && /hreflang="([^"]+)"/i.exec(tag)?.[1] === hreflang);
-    for (const other of ['ja', 'en']) assert.ok(hasAlternate(other, `https://paibot.app/${other}`), `${lang}: alternate ${other}`);
+    for (const other of LANGS) assert.ok(hasAlternate(other, `https://paibot.app/${other}`), `${lang}: alternate ${other}`);
     assert.ok(hasAlternate('x-default', `https://paibot.app/ja`), `${lang}: x-default alternate`);
     // Clerk's signed-out controls mount after its client session state loads.
     // Check public language links here; auth page accessibility is checked below.
-    assert.ok(html.includes('href="/ja"') && html.includes('href="/en"'), 'Language links are present in initial HTML');
+    assert.ok(LANGS.every(l => html.includes(`href="/${l}"`)), 'Language links are present in initial HTML');
     assert.ok(html.includes('name="robots" content="index, follow"'), `${lang}: production indexing metadata`);
     for (const authPath of ['sign-in', 'sign-up']) {
       const authResponse = await request(`/${lang}/${authPath}`);
@@ -86,7 +89,7 @@ await withServer(true, async request => {
   const sitemap = await request('/sitemap.xml');
   assert.equal(sitemap.status, 200);
   const xml = await sitemap.text();
-  for (const lang of ['ja', 'en']) assert.ok(xml.includes(`<loc>https://paibot.app/${lang}</loc>`));
+  for (const lang of LANGS) assert.ok(xml.includes(`<loc>https://paibot.app/${lang}</loc>`));
   assert.ok(!/sign-in|sign-up/.test(xml), 'Sitemap lists public pages only');
   const robots = await (await request('/robots.txt')).text();
   assert.ok(robots.includes('Allow: /'));

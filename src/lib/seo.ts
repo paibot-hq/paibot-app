@@ -15,6 +15,7 @@ export function languageAlternates(path: string) {
     "x-default": localizedUrl(routing.defaultLocale, path),
   };
 }
+const ogLocales: Record<Locale, string> = { ja: "ja_JP", en: "en_US", zh: "zh_CN" };
 export function publicMetadata(locale: Locale, path: string, title: string, description: string): Metadata {
   return {
     title: { absolute: title }, description,
@@ -22,8 +23,8 @@ export function publicMetadata(locale: Locale, path: string, title: string, desc
     openGraph: {
       type: "website", siteName: "PAIBOT.app", title, description,
       url: localizedUrl(locale, path),
-      locale: locale === "ja" ? "ja_JP" : "en_US",
-      alternateLocale: locale === "ja" ? ["en_US"] : ["ja_JP"],
+      locale: ogLocales[locale],
+      alternateLocale: routing.locales.filter(l => l !== locale).map(l => ogLocales[l]),
     },
     twitter: { card: "summary", title, description },
   };

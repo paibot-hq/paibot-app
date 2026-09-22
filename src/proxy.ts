@@ -8,6 +8,7 @@ import { isIndexable, siteOrigin } from "./lib/seo";
 const handleI18n = createIntlMiddleware(routing);
 // Static asset extensions that must bypass locale rewriting (.json intentionally excluded).
 const STATIC_ASSET = /\.(?:html?|css|js(?!on)|jpe?g|webp|png|gif|svg|ttf|woff2?|ico|csv|docx?|xlsx?|zip|webmanifest|xml|txt)$/i;
+const AUTH_PATH = new RegExp(`^/(${routing.locales.join("|")})/(sign-in|sign-up)(/|$)`);
 // Clerk uses a `pk_test_`/`pk_live_` prefix to distinguish dev and production instances.
 // Restricting authorizedParties only makes sense once we're actually talking to production
 // Clerk — gating it on SITE_INDEXABLE instead would tie it to an unrelated SEO setting and
@@ -29,7 +30,7 @@ export default clerkMiddleware((_auth, request) => {
   if (/^\/(api|trpc|__clerk)(\/|$)/.test(path)) return withSecurityHeaders(NextResponse.next());
   if (STATIC_ASSET.test(path)) return withSecurityHeaders(NextResponse.next());
   const response = handleI18n(request);
-  if (!isIndexable || /^\/(ja|en)\/(sign-in|sign-up)(\/|$)/.test(path)) {
+  if (!isIndexable || AUTH_PATH.test(path)) {
     response.headers.set("X-Robots-Tag", "noindex");
   }
   return withSecurityHeaders(response);
