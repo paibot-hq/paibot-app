@@ -1,5 +1,7 @@
 @AGENTS.md
 
+全体のアーキテクチャ(技術スタック、リクエストの流れ、CI/CD、アカウント構成)の見取り図は`docs/architecture.md`を参照。
+
 ## 進行中の計画
 
 - **数学問題集(LLM生成+D1保存)、公開URLは`/math`**: 承認済みの計画が`docs/plans/problemset.md`にある(ファイル名は計画時の仮称`problemset`のまま)。Phase 2(vinext統一の技術検証)まで完了、Phase 3(LLM生成・検証パイプライン)以降は未着手。再開する際はまずこのファイルを読むこと。
