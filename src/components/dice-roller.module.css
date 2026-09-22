@@ -1,16 +1,20 @@
+/* Dice colors are intentionally fixed to the light-theme palette in both
+   light and dark mode (the physical dice look is the point, not theme
+   matching) — literal values here instead of the --surface/--text/--line/
+   --accent/--muted theme variables. */
 .dice-select {
   padding: .25rem 1.75rem .25rem .6rem;
-  border: 1px solid var(--line);
+  border: 1px solid #d5e0ea;
   border-radius: var(--radius);
-  background: var(--surface);
-  color: var(--text);
+  background: rgba(255, 255, 255, .86);
+  color: #162333;
   font: inherit;
   font-size: 1.1rem;
   font-weight: 700;
   text-align: center;
   cursor: pointer;
 }
-.dice-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.dice-select:focus-visible { outline: 2px solid #4f86b6; outline-offset: 2px; }
 .dice-results {
   display: flex;
   gap: 1rem;
@@ -20,7 +24,7 @@
 }
 .dice-idle {
   margin: 0;
-  color: var(--muted);
+  color: #637487;
 }
 .dice-face {
   display: grid;
@@ -30,21 +34,21 @@
   height: 5.5rem;
   padding: .7rem;
   box-sizing: border-box;
-  border: 1px solid var(--line);
+  border: 1px solid #d5e0ea;
   border-radius: var(--radius);
-  background: var(--surface);
+  background: rgba(255, 255, 255, .86);
 }
-.dice-face-rolling { border-color: var(--accent); }
+.dice-face-rolling { border-color: #4f86b6; }
 .dice-pip {
   width: .85rem;
   height: .85rem;
   border-radius: 50%;
-  background: var(--text);
+  background: #162333;
   justify-self: center;
   align-self: center;
 }
-.dice-face-rolling .dice-pip { background: var(--accent); }
-.dice-pip.dice-pip-one { background: var(--error); }
+.dice-face-rolling .dice-pip { background: #4f86b6; }
+.dice-pip.dice-pip-one { background: #d97066; }
 .dice-pip-tl { grid-column: 1; grid-row: 1; }
 .dice-pip-tr { grid-column: 3; grid-row: 1; }
 .dice-pip-ml { grid-column: 1; grid-row: 2; }
@@ -54,8 +58,8 @@
 .dice-pip-br { grid-column: 3; grid-row: 3; }
 .dice-total {
   margin: 0;
-  color: var(--muted);
+  color: #637487;
   font-size: .95rem;
   text-align: center;
 }
-.dice-total strong { color: var(--text); font-variant-numeric: tabular-nums; }
+.dice-total strong { color: #162333; font-variant-numeric: tabular-nums; }
