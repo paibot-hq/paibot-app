@@ -96,3 +96,19 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
         run: npx wrangler deploy --config dist/server/wrangler.json
+
+      # These are separate from the .env.local step above: that only affects
+      # the client bundle (NEXT_PUBLIC_*) and a local .dev.vars file, never
+      # the deployed Worker's runtime. The deployed Worker only sees values
+      # set here via `wrangler secret put`. Re-running this on every deploy
+      # is idempotent (same value in, same value out) and keeps the secret
+      # in sync with GitHub Secrets instead of relying on whatever was set
+      # by hand once and never recorded anywhere. See
+      # docs/plans/production-deploy.md for how this was discovered.
+      - name: Set Worker secrets (dev)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "${{ secrets.CLERK_SECRET_KEY }}" | npx wrangler secret put CLERK_SECRET_KEY --name paibot-app-dev
+          echo "${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}" | npx wrangler secret put NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY --name paibot-app-dev

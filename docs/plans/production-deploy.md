@@ -160,7 +160,7 @@ echo "<production publishable key>" | npx wrangler secret put NEXT_PUBLIC_CLERK_
 
 **`.env.local`ステップは無意味というわけではない**: `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`はNext.js/Viteの規約上、ビルド時にクライアントバンドルへ静的にインライン化される(ブラウザ側で使われるため、サーバー側の実行時バインディングとは別に必要)。なので、CIの`.env.local`ステップはクライアントバンドル用に必要だが、**サーバー側で使う`CLERK_SECRET_KEY`にとっては何の役にも立っておらず**、`wrangler secret put`による実行時Secretだけが効いている。
 
-**残タスク**: `wrangler secret put`はCI化されておらず、今回も手動でローカルから実行した。Worker名が変わる・Secretをローテーションする、といった場面で再度手動対応が必要になる。将来的にはこれもTerraform化(`cloudflare_workers_secret`リソース等)するか、専用のワークフローステップを設けるか検討の余地がある。
+その後、`app.yml`(dev)・`app-production.yml`(production)双方に「Set Worker secrets」ステップを追加し、デプロイのたびにGitHub Secretsから`wrangler secret put`で流し込むようにした。冪等なので毎回実行しても無害で、これで「手動で一度設定したっきり、どこにも記録が無い」状態は解消された。Terraform管理(`cloudflare_workers_secret`等)は採用しなかった。Terraform stateには`sensitive`指定でも値が平文で残るため、秘密情報をstateに持ち込むアンチパターンを避けた。
 
 ## Clerk本番インスタンス
 
@@ -196,5 +196,4 @@ devのトークンを同様に絞り直すかは別途検討(未実施)。
 
 - 初回デプロイ実施済み。`https://paibot.app`が200で表示されることは確認済み(`/ja`へのリダイレクト含む)。**Googleログインを実際に最後まで試す手動確認はまだ**
 - `PROD_CLERK_PUBLISHABLE_KEY`/`PROD_CLERK_SECRET_KEY`/`CLOUDFLARE_API_TOKEN_PRODUCTION`は現状リポジトリ全体のsecret。Environment(`production`)単位のsecretへの移行は未実施
-- `wrangler secret put`によるWorker Secretの設定がCI化されていない(手動実行した記録のみ)。Terraform化するかどうか未検討
 - devの`CLOUDFLARE_API_TOKEN`(テンプレートのまま権限が広い)を絞り直すかどうか未検討

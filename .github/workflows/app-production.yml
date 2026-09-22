@@ -93,6 +93,23 @@ jobs:
         # "no environment found" warning (confirmed locally).
         run: npx wrangler deploy --config dist/server/wrangler.json
 
+      # These are separate from the .env.local step above: that only affects
+      # the client bundle (NEXT_PUBLIC_*) and a local .dev.vars file, never
+      # the deployed Worker's runtime. The deployed Worker only sees values
+      # set here via `wrangler secret put`. Re-running this on every deploy
+      # is idempotent and keeps the secret in sync with GitHub Secrets
+      # instead of a manual one-off `wrangler secret put` nobody records
+      # anywhere (this is exactly what broke the first production deploy —
+      # see the "重大な誤解だったポイント" section in
+      # docs/plans/production-deploy.md).
+      - name: Set Worker secrets (production)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          echo "${{ secrets.PROD_CLERK_SECRET_KEY }}" | npx wrangler secret put CLERK_SECRET_KEY --name paibot-app
+          echo "${{ secrets.PROD_CLERK_PUBLISHABLE_KEY }}" | npx wrangler secret put NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY --name paibot-app
+
       - name: Create GitHub Release
         if: ${{ inputs.ref == '' }}
         run: gh release create "${{ steps.tag.outputs.tag }}" --generate-notes
