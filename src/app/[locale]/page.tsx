@@ -1,5 +1,5 @@
 import { getLocale, getTranslations } from "next-intl/server";
-import Home from "../../components/home";
+import Cover from "../../components/cover";
 import { publicMetadata } from "../../lib/seo";
 
 export async function generateMetadata() {
@@ -8,5 +8,5 @@ export async function generateMetadata() {
   return publicMetadata(locale, "", t("title"), t("description"));
 }
 export default function Page() {
-  return <Home year={new Date().getFullYear()} />;
+  return <Cover year={new Date().getFullYear()} />;
 }

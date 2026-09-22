@@ -40,8 +40,8 @@ export default function Header() {
     <header className="topbar">
       <Link className="brand" href="/"><span className="wordmark">PAIBOT</span><span className="brand-suffix">.app</span></Link>
       <nav aria-label={t("navApps")}>
-        <Link href="/#apps">{t("navApps")}</Link>
-        <Link href="/#about">{t("navAbout")}</Link>
+        <Link href="/apps">{t("navApps")}</Link>
+        <Link href="/about">{t("navAbout")}</Link>
       </nav>
       <div className="toolbar">
         <Show when="signed-out">
