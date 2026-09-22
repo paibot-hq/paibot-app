@@ -5,7 +5,7 @@ import CharCount from "../../../components/char-count";
 export async function generateMetadata() {
   const locale = await getLocale();
   const t = await getTranslations("App");
-  return publicMetadata(locale, "/wc", `${t("wcTitle")} | PAIBOT.app`, t("wcDescription"));
+  return publicMetadata(locale, "/wc", `${t("wc.title")} | PAIBOT.app`, t("wc.description"));
 }
 
 export default function WcPage() {

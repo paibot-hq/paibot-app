@@ -63,13 +63,13 @@ export default function BirthYear({ year }: { year: number }) {
     ? format(year - age)
     : status === "notyet"
       ? format(year - age - 1)
-      : `${format(year - age - 1)} ${t("ageOr")} ${format(year - age)}`;
+      : `${format(year - age - 1)} ${t("age.or")} ${format(year - age)}`;
 
   return (
-    <ToolLayout title={t("ageTitle")}>
+    <ToolLayout title={t("age.title")}>
       <div className={styles["age-controls"]}>
         <label className={styles["age-field"]} htmlFor="age-input">
-          <span className={controls.fieldLabel}>{t("ageInputLabel")}</span>
+          <span className={controls.fieldLabel}>{t("age.inputLabel")}</span>
           <select
             id="age-input"
             className={styles["age-select"]}
@@ -82,22 +82,22 @@ export default function BirthYear({ year }: { year: number }) {
           </select>
         </label>
         <div className={[styles["age-field"], styles["age-status-field"]].join(" ")}>
-          <span className={controls.fieldLabel}>{t("ageStatusLabel")}</span>
-          <div className={controls.mode} role="radiogroup" aria-label={t("ageStatusLabel")}>
+          <span className={controls.fieldLabel}>{t("age.statusLabel")}</span>
+          <div className={controls.mode} role="radiogroup" aria-label={t("age.statusLabel")}>
             <button type="button" aria-pressed={status === "unknown"} onClick={() => setStatus("unknown")}>
-              {t("ageStatusUnknown")}
+              {t("age.statusUnknown")}
             </button>
             <button type="button" aria-pressed={status === "passed"} onClick={() => setStatus("passed")}>
-              {t("ageBirthdayPassed")}
+              {t("age.birthdayPassed")}
             </button>
             <button type="button" aria-pressed={status === "notyet"} onClick={() => setStatus("notyet")}>
-              {t("ageBirthdayNotYet")}
+              {t("age.birthdayNotYet")}
             </button>
           </div>
         </div>
       </div>
 
-      <p className={controls.label}>{t("ageResultLabel")}</p>
+      <p className={controls.label}>{t("age.resultLabel")}</p>
       <p className={styles["age-result"]} aria-live="polite">{resultText}</p>
 
       <div className={styles["age-table-wrap"]}>
@@ -105,10 +105,10 @@ export default function BirthYear({ year }: { year: number }) {
           <table>
             <thead>
               <tr>
-                <th>{t("ageColYear")}</th>
-                <th>{t("ageColEra")}</th>
-                <th>{t("ageColPassed")}</th>
-                <th>{t("ageColNotYet")}</th>
+                <th>{t("age.colYear")}</th>
+                <th>{t("age.colEra")}</th>
+                <th>{t("age.colPassed")}</th>
+                <th>{t("age.colNotYet")}</th>
               </tr>
             </thead>
             <tbody>
@@ -127,7 +127,7 @@ export default function BirthYear({ year }: { year: number }) {
         </div>
       </div>
 
-      <p className={styles["age-note"]}>{t("ageNote")}</p>
+      <p className={styles["age-note"]}>{t("age.note")}</p>
       </ToolLayout>
   );
 }

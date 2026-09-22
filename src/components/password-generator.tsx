@@ -82,10 +82,10 @@ export default function PasswordGenerator() {
   }
 
   return (
-    <ToolLayout title={t("passwordTitle")}>
+    <ToolLayout title={t("password.title")}>
       <div className={styles["password-controls"]}>
         <div className={styles["password-field"]}>
-          <span className={styles["password-field-label"]}>{t("passwordLengthLabel")}: <strong>{length}</strong></span>
+          <span className={styles["password-field-label"]}>{t("password.lengthLabel")}: <strong>{length}</strong></span>
           <input
             id="password-length"
             className={styles["password-slider"]}
@@ -93,47 +93,47 @@ export default function PasswordGenerator() {
             min={MIN_LENGTH}
             max={MAX_LENGTH}
             value={length}
-            aria-label={t("passwordLengthLabel")}
+            aria-label={t("password.lengthLabel")}
             onChange={event => setLength(Number(event.target.value))}
           />
         </div>
 
         <div className={styles["password-field"]}>
-          <span className={styles["password-field-label"]}>{t("passwordOptionsLabel")}</span>
+          <span className={styles["password-field-label"]}>{t("password.optionsLabel")}</span>
           <div className={styles["password-options"]}>
             <label className={styles["password-option"]}>
               <input type="checkbox" checked={useLower} onChange={event => setUseLower(event.target.checked)} />
-              {t("passwordLower")}
+              {t("password.lower")}
             </label>
             <label className={styles["password-option"]}>
               <input type="checkbox" checked={useUpper} onChange={event => setUseUpper(event.target.checked)} />
-              {t("passwordUpper")}
+              {t("password.upper")}
             </label>
             <label className={styles["password-option"]}>
               <input type="checkbox" checked={useNumbers} onChange={event => setUseNumbers(event.target.checked)} />
-              {t("passwordNumbers")}
+              {t("password.numbers")}
             </label>
             <label className={styles["password-option"]}>
               <input type="checkbox" checked={useSymbols} onChange={event => setUseSymbols(event.target.checked)} />
-              {t("passwordSymbols")}
+              {t("password.symbols")}
             </label>
           </div>
         </div>
       </div>
 
-      <p className={controls.label}>{t("passwordResultLabel")}</p>
+      <p className={controls.label}>{t("password.resultLabel")}</p>
       {activeSets.length === 0 ? (
-        <p className={controls.error}>{t("passwordEmptyWarning")}</p>
+        <p className={controls.error}>{t("password.emptyWarning")}</p>
       ) : (
         <p className={styles["password-result"]} aria-live="polite">{password ?? " "}</p>
       )}
 
       <div className={styles["password-actions"]}>
         <button className="auth-link" type="button" onClick={regenerate} disabled={activeSets.length === 0}>
-          {t("passwordRegenerate")}
+          {t("password.regenerate")}
         </button>
         <button className="auth-link" type="button" onClick={copyPassword} disabled={!password}>
-          {copied ? t("passwordCopied") : t("passwordCopy")}
+          {copied ? t("password.copied") : t("password.copy")}
         </button>
       </div>
       </ToolLayout>

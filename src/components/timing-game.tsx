@@ -75,28 +75,28 @@ export default function TimingGame() {
   const diff = elapsed === null ? null : Math.abs(elapsed - TARGET_SECONDS);
 
   return (
-    <ToolLayout title={t("timingTitle")} layout="spacious">
-      <p className={controls.label}>{t("timingTargetLabel", { seconds: TARGET_SECONDS })}</p>
+    <ToolLayout title={t("timing.title")} layout="spacious">
+      <p className={controls.label}>{t("timing.targetLabel", { seconds: TARGET_SECONDS })}</p>
       {phase === "result" ? (
         <>
           <p className={controls.result} aria-live="polite">
-            {t("timingResultLabel")}: {elapsed!.toFixed(2)}{t("timingSecondsUnit")}
+            {t("timing.resultLabel")}: {elapsed!.toFixed(2)}{t("timing.secondsUnit")}
           </p>
           <p className={styles["timing-diff"]}>
-            {t("timingDiffLabel")}: {diff!.toFixed(2)}{t("timingSecondsUnit")}
-            {isNewRecord && <span className={controls.newRecord}> {t("timingNewRecord")}</span>}
+            {t("timing.diffLabel")}: {diff!.toFixed(2)}{t("timing.secondsUnit")}
+            {isNewRecord && <span className={controls.newRecord}> {t("timing.newRecord")}</span>}
           </p>
           <div className={controls.actions}>
-            <button className="auth-link" type="button" onClick={resetToIdle}>{t("timingRetry")}</button>
+            <button className="auth-link" type="button" onClick={resetToIdle}>{t("timing.retry")}</button>
           </div>
         </>
       ) : (
         <button type="button" className={[styles["timing-box"], styles[`timing-box-${phase}`]].filter(Boolean).join(" ")} onClick={handleBoxClick}>
-          {phase === "idle" ? t("timingIdle") : t("timingRunning")}
+          {phase === "idle" ? t("timing.idle") : t("timing.running")}
         </button>
       )}
       {bestDiff !== null && (
-        <p className={controls.best}>{t("timingBestLabel")}: {bestDiff.toFixed(2)}{t("timingSecondsUnit")}</p>
+        <p className={controls.best}>{t("timing.bestLabel")}: {bestDiff.toFixed(2)}{t("timing.secondsUnit")}</p>
       )}
       </ToolLayout>
   );

@@ -80,15 +80,15 @@ export default function ReactionTest() {
   }
 
   return (
-    <ToolLayout title={t("reactionTitle")} layout="spacious">
+    <ToolLayout title={t("reaction.title")} layout="spacious">
       {phase === "result" ? (
         <>
           <p className={controls.result} aria-live="polite">
-            {t("reactionResultLabel")}: {reactionMs}{t("reactionMsUnit")}
-            {isNewRecord && <span className={controls.newRecord}> {t("reactionNewRecord")}</span>}
+            {t("reaction.resultLabel")}: {reactionMs}{t("reaction.msUnit")}
+            {isNewRecord && <span className={controls.newRecord}> {t("reaction.newRecord")}</span>}
           </p>
           <div className={controls.actions}>
-            <button className="auth-link" type="button" onClick={startWaiting}>{t("reactionRetry")}</button>
+            <button className="auth-link" type="button" onClick={startWaiting}>{t("reaction.retry")}</button>
           </div>
         </>
       ) : (
@@ -97,14 +97,14 @@ export default function ReactionTest() {
           className={[styles["reaction-box"], styles[`reaction-box-${phase}`]].filter(Boolean).join(" ")}
           onClick={handleBoxClick}
         >
-          {phase === "idle" && t("reactionIdle")}
-          {phase === "waiting" && t("reactionWaiting")}
-          {phase === "go" && t("reactionGo")}
-          {phase === "too-early" && t("reactionTooEarly")}
+          {phase === "idle" && t("reaction.idle")}
+          {phase === "waiting" && t("reaction.waiting")}
+          {phase === "go" && t("reaction.go")}
+          {phase === "too-early" && t("reaction.tooEarly")}
         </button>
       )}
       {bestMs !== null && (
-        <p className={controls.best}>{t("reactionBestLabel")}: {bestMs}{t("reactionMsUnit")}</p>
+        <p className={controls.best}>{t("reaction.bestLabel")}: {bestMs}{t("reaction.msUnit")}</p>
       )}
       </ToolLayout>
   );

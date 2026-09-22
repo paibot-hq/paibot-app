@@ -5,7 +5,7 @@ import ReactionTest from "../../../components/reaction-test";
 export async function generateMetadata() {
   const locale = await getLocale();
   const t = await getTranslations("App");
-  return publicMetadata(locale, "/reaction", `${t("reactionTitle")} | PAIBOT.app`, t("reactionDescription"));
+  return publicMetadata(locale, "/reaction", `${t("reaction.title")} | PAIBOT.app`, t("reaction.description"));
 }
 
 export default function ReactionPage() {

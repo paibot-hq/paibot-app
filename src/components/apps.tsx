@@ -8,7 +8,7 @@ export default function Apps({ year }: { year: number }) {
   return (
     <>
     <main className="section">
-      <h1 className="eyebrow">{t("appsEyebrow")}</h1>
+      <h1 className="eyebrow">{t("apps.eyebrow")}</h1>
 
       <div className="app-grid">
         <Link className="app-card" href="/ip">
@@ -20,9 +20,9 @@ export default function Apps({ year }: { year: number }) {
             </svg>
           </span>
           <div>
-            <p className="app-kicker">{t("ipKicker")}</p>
-            <h3>{t("ipTitle")}</h3>
-            <p>{t("ipDescription")}</p>
+            <p className="app-kicker">{t("ip.kicker")}</p>
+            <h3>{t("ip.title")}</h3>
+            <p>{t("ip.description")}</p>
           </div>
         </Link>
         <Link className="app-card" href="/wc">
@@ -32,9 +32,9 @@ export default function Apps({ year }: { year: number }) {
             </svg>
           </span>
           <div>
-            <p className="app-kicker">{t("wcKicker")}</p>
-            <h3>{t("wcTitle")}</h3>
-            <p>{t("wcDescription")}</p>
+            <p className="app-kicker">{t("wc.kicker")}</p>
+            <h3>{t("wc.title")}</h3>
+            <p>{t("wc.description")}</p>
           </div>
         </Link>
         <Link className="app-card" href="/arith">
@@ -46,9 +46,9 @@ export default function Apps({ year }: { year: number }) {
             </svg>
           </span>
           <div>
-            <p className="app-kicker">{t("arithKicker")}</p>
-            <h3>{t("arithTitle")}</h3>
-            <p>{t("arithDescription")}</p>
+            <p className="app-kicker">{t("arith.kicker")}</p>
+            <h3>{t("arith.title")}</h3>
+            <p>{t("arith.description")}</p>
           </div>
         </Link>
         <Link className="app-card" href="/age">
@@ -59,9 +59,9 @@ export default function Apps({ year }: { year: number }) {
             </svg>
           </span>
           <div>
-            <p className="app-kicker">{t("ageKicker")}</p>
-            <h3>{t("ageTitle")}</h3>
-            <p>{t("ageDescription")}</p>
+            <p className="app-kicker">{t("age.kicker")}</p>
+            <h3>{t("age.title")}</h3>
+            <p>{t("age.description")}</p>
           </div>
         </Link>
         <Link className="app-card" href="/password">
@@ -72,9 +72,9 @@ export default function Apps({ year }: { year: number }) {
             </svg>
           </span>
           <div>
-            <p className="app-kicker">{t("passwordKicker")}</p>
-            <h3>{t("passwordTitle")}</h3>
-            <p>{t("passwordDescription")}</p>
+            <p className="app-kicker">{t("password.kicker")}</p>
+            <h3>{t("password.title")}</h3>
+            <p>{t("password.description")}</p>
           </div>
         </Link>
         <Link className="app-card" href="/base64">
@@ -85,9 +85,9 @@ export default function Apps({ year }: { year: number }) {
             </svg>
           </span>
           <div>
-            <p className="app-kicker">{t("base64Kicker")}</p>
-            <h3>{t("base64Title")}</h3>
-            <p>{t("base64Description")}</p>
+            <p className="app-kicker">{t("base64.kicker")}</p>
+            <h3>{t("base64.title")}</h3>
+            <p>{t("base64.description")}</p>
           </div>
         </Link>
         <Link className="app-card" href="/urlencode">
@@ -99,9 +99,9 @@ export default function Apps({ year }: { year: number }) {
             </svg>
           </span>
           <div>
-            <p className="app-kicker">{t("urlencodeKicker")}</p>
-            <h3>{t("urlencodeTitle")}</h3>
-            <p>{t("urlencodeDescription")}</p>
+            <p className="app-kicker">{t("urlencode.kicker")}</p>
+            <h3>{t("urlencode.title")}</h3>
+            <p>{t("urlencode.description")}</p>
           </div>
         </Link>
         <Link className="app-card" href="/dice">
@@ -112,9 +112,9 @@ export default function Apps({ year }: { year: number }) {
             </svg>
           </span>
           <div>
-            <p className="app-kicker">{t("diceKicker")}</p>
-            <h3>{t("diceTitle")}</h3>
-            <p>{t("diceDescription")}</p>
+            <p className="app-kicker">{t("dice.kicker")}</p>
+            <h3>{t("dice.title")}</h3>
+            <p>{t("dice.description")}</p>
           </div>
         </Link>
         <Link className="app-card" href="/reaction">
@@ -124,9 +124,9 @@ export default function Apps({ year }: { year: number }) {
             </svg>
           </span>
           <div>
-            <p className="app-kicker">{t("reactionKicker")}</p>
-            <h3>{t("reactionTitle")}</h3>
-            <p>{t("reactionDescription")}</p>
+            <p className="app-kicker">{t("reaction.kicker")}</p>
+            <h3>{t("reaction.title")}</h3>
+            <p>{t("reaction.description")}</p>
           </div>
         </Link>
         <Link className="app-card" href="/timing">
@@ -138,9 +138,9 @@ export default function Apps({ year }: { year: number }) {
             </svg>
           </span>
           <div>
-            <p className="app-kicker">{t("timingKicker")}</p>
-            <h3>{t("timingTitle")}</h3>
-            <p>{t("timingDescription")}</p>
+            <p className="app-kicker">{t("timing.kicker")}</p>
+            <h3>{t("timing.title")}</h3>
+            <p>{t("timing.description")}</p>
           </div>
         </Link>
         <Link className="app-card muted" href="/math">
@@ -152,9 +152,9 @@ export default function Apps({ year }: { year: number }) {
             </svg>
           </span>
           <div>
-            <p className="app-kicker">{t("mathKicker")}</p>
-            <h3>{t("mathTitle")}</h3>
-            <p>{t("mathDescription")}</p>
+            <p className="app-kicker">{t("math.kicker")}</p>
+            <h3>{t("math.title")}</h3>
+            <p>{t("math.description")}</p>
           </div>
         </Link>
       </div>

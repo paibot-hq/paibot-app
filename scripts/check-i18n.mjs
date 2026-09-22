@@ -8,7 +8,16 @@ import { readFile } from 'node:fs/promises';
 // never creates accounts, signs in, or prints keys and response bodies.
 const LANGS = ['ja', 'en', 'zh'];
 const catalogs = await Promise.all(LANGS.map(async lang => JSON.parse(await readFile(new URL(`../messages/${lang}.json`, import.meta.url)))));
-const [baseKeys, ...otherKeys] = catalogs.map(c => Object.keys(c.App).sort());
+// Messages nest (e.g. App.dice.title), so compare fully-qualified leaf paths,
+// not just the top-level group names — a flat Object.keys() comparison would
+// miss a missing key inside an otherwise-present group.
+function leafPaths(obj, prefix = '') {
+  return Object.entries(obj).flatMap(([key, value]) =>
+    typeof value === 'object' && value !== null
+      ? leafPaths(value, `${prefix}${key}.`)
+      : [`${prefix}${key}`]);
+}
+const [baseKeys, ...otherKeys] = catalogs.map(c => leafPaths(c.App).sort());
 for (const keys of otherKeys) assert.deepEqual(keys, baseKeys, 'Translation keys must match');
 
 async function withServer(indexable, run) {

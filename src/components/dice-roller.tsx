@@ -73,9 +73,9 @@ export default function DiceRoller() {
   const total = values?.reduce((sum, value) => sum + value, 0) ?? 0;
 
   return (
-    <ToolLayout title={t("diceTitle")} layout="spacious">
+    <ToolLayout title={t("dice.title")} layout="spacious">
       <label className={controls.field} htmlFor="dice-count">
-        <span className={controls.fieldLabel}>{t("diceCountLabel")}</span>
+        <span className={controls.fieldLabel}>{t("dice.countLabel")}</span>
         <select
           id="dice-count"
           className={styles["dice-select"]}
@@ -90,20 +90,20 @@ export default function DiceRoller() {
 
       <div className={controls.actions}>
         <button className="auth-link" type="button" onClick={() => performRoll(diceCount)} disabled={rolling}>
-          {t("diceRoll")}
+          {t("dice.roll")}
         </button>
       </div>
 
       <div className={styles["dice-results"]} aria-live="polite">
         {values === null
-          ? <p className={styles["dice-idle"]}>{t("diceIdle")}</p>
+          ? <p className={styles["dice-idle"]}>{t("dice.idle")}</p>
           : values.map((value, index) => (
               <DiceFace key={index} value={value} rolling={rolling} />
             ))}
       </div>
 
       {values !== null && diceCount > 1 && (
-        <p className={styles["dice-total"]}>{t("diceTotalLabel")}: <strong>{total}</strong></p>
+        <p className={styles["dice-total"]}>{t("dice.totalLabel")}: <strong>{total}</strong></p>
       )}
       </ToolLayout>
   );

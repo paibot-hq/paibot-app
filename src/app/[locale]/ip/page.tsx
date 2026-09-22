@@ -7,7 +7,7 @@ import IpLookup from "../../../components/ip-lookup";
 export async function generateMetadata() {
   const locale = await getLocale();
   const t = await getTranslations("App");
-  return publicMetadata(locale, "/ip", `${t("ipTitle")} | PAIBOT.app`, t("ipDescription"));
+  return publicMetadata(locale, "/ip", `${t("ip.title")} | PAIBOT.app`, t("ip.description"));
 }
 
 export default async function IpPage() {

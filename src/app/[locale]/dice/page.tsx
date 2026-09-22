@@ -5,7 +5,7 @@ import DiceRoller from "../../../components/dice-roller";
 export async function generateMetadata() {
   const locale = await getLocale();
   const t = await getTranslations("App");
-  return publicMetadata(locale, "/dice", `${t("diceTitle")} | PAIBOT.app`, t("diceDescription"));
+  return publicMetadata(locale, "/dice", `${t("dice.title")} | PAIBOT.app`, t("dice.description"));
 }
 
 export default function DicePage() {

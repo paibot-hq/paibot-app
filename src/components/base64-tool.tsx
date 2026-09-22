@@ -60,13 +60,13 @@ export default function Base64Tool() {
   }
 
   return (
-    <ToolLayout title={t("base64Title")}>
-      <div className={controls.mode} role="radiogroup" aria-label={t("base64Title")}>
+    <ToolLayout title={t("base64.title")}>
+      <div className={controls.mode} role="radiogroup" aria-label={t("base64.title")}>
         <button type="button" aria-pressed={mode === "encode"} onClick={() => switchMode("encode")}>
-          {t("base64ModeEncode")}
+          {t("base64.modeEncode")}
         </button>
         <button type="button" aria-pressed={mode === "decode"} onClick={() => switchMode("decode")}>
-          {t("base64ModeDecode")}
+          {t("base64.modeDecode")}
         </button>
       </div>
 
@@ -74,20 +74,20 @@ export default function Base64Tool() {
         className={styles["input"]}
         value={input}
         onChange={event => updateInput(event.target.value)}
-        placeholder={mode === "encode" ? t("base64InputPlaceholderEncode") : t("base64InputPlaceholderDecode")}
-        aria-label={mode === "encode" ? t("base64InputPlaceholderEncode") : t("base64InputPlaceholderDecode")}
+        placeholder={mode === "encode" ? t("base64.inputPlaceholderEncode") : t("base64.inputPlaceholderDecode")}
+        aria-label={mode === "encode" ? t("base64.inputPlaceholderEncode") : t("base64.inputPlaceholderDecode")}
       />
 
-      <p className={controls.label}>{t("base64ResultLabel")}</p>
+      <p className={controls.label}>{t("base64.resultLabel")}</p>
       {invalid ? (
-        <p className={controls.error}>{t("base64InvalidError")}</p>
+        <p className={controls.error}>{t("base64.invalidError")}</p>
       ) : (
         <p className={styles["result"]} aria-live="polite">{result || " "}</p>
       )}
 
       <div className={styles["actions"]}>
         <button className="auth-link" type="button" onClick={copyResult} disabled={!result || invalid}>
-          {copied ? t("base64Copied") : t("base64Copy")}
+          {copied ? t("base64.copied") : t("base64.copy")}
         </button>
       </div>
       </ToolLayout>

@@ -5,7 +5,7 @@ import PasswordGenerator from "../../../components/password-generator";
 export async function generateMetadata() {
   const locale = await getLocale();
   const t = await getTranslations("App");
-  return publicMetadata(locale, "/password", `${t("passwordTitle")} | PAIBOT.app`, t("passwordDescription"));
+  return publicMetadata(locale, "/password", `${t("password.title")} | PAIBOT.app`, t("password.description"));
 }
 
 export default function PasswordPage() {

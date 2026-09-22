@@ -47,13 +47,13 @@ export default function UrlEncodeTool() {
   }
 
   return (
-    <ToolLayout title={t("urlencodeTitle")}>
-      <div className={controls.mode} role="radiogroup" aria-label={t("urlencodeTitle")}>
+    <ToolLayout title={t("urlencode.title")}>
+      <div className={controls.mode} role="radiogroup" aria-label={t("urlencode.title")}>
         <button type="button" aria-pressed={mode === "encode"} onClick={() => switchMode("encode")}>
-          {t("urlencodeModeEncode")}
+          {t("urlencode.modeEncode")}
         </button>
         <button type="button" aria-pressed={mode === "decode"} onClick={() => switchMode("decode")}>
-          {t("urlencodeModeDecode")}
+          {t("urlencode.modeDecode")}
         </button>
       </div>
 
@@ -61,20 +61,20 @@ export default function UrlEncodeTool() {
         className={styles["input"]}
         value={input}
         onChange={event => updateInput(event.target.value)}
-        placeholder={mode === "encode" ? t("urlencodeInputPlaceholderEncode") : t("urlencodeInputPlaceholderDecode")}
-        aria-label={mode === "encode" ? t("urlencodeInputPlaceholderEncode") : t("urlencodeInputPlaceholderDecode")}
+        placeholder={mode === "encode" ? t("urlencode.inputPlaceholderEncode") : t("urlencode.inputPlaceholderDecode")}
+        aria-label={mode === "encode" ? t("urlencode.inputPlaceholderEncode") : t("urlencode.inputPlaceholderDecode")}
       />
 
-      <p className={controls.label}>{t("urlencodeResultLabel")}</p>
+      <p className={controls.label}>{t("urlencode.resultLabel")}</p>
       {invalid ? (
-        <p className={controls.error}>{t("urlencodeInvalidError")}</p>
+        <p className={controls.error}>{t("urlencode.invalidError")}</p>
       ) : (
         <p className={styles["result"]} aria-live="polite">{result || " "}</p>
       )}
 
       <div className={styles["actions"]}>
         <button className="auth-link" type="button" onClick={copyResult} disabled={!result || invalid}>
-          {copied ? t("urlencodeCopied") : t("urlencodeCopy")}
+          {copied ? t("urlencode.copied") : t("urlencode.copy")}
         </button>
       </div>
       </ToolLayout>

@@ -133,21 +133,21 @@ export default function ArithmeticPractice() {
 
   if (finished) {
     return (
-      <ToolLayout title={t("arithTitle")} layout="centered">
+      <ToolLayout title={t("arith.title")} layout="centered">
         <p className={styles["arith-result-summary"]} aria-live="polite">
-          {t("arithResultSummary", { total: SESSION_LENGTH, mistakes })}
+          {t("arith.resultSummary", { total: SESSION_LENGTH, mistakes })}
         </p>
         {elapsedTime !== null && (
           <p className={styles["arith-time"]}>
-            {t("arithTimeLabel")}: {elapsedTime.toFixed(1)}{t("arithSecondsUnit")}
-            {isNewRecord && <span className={controls.newRecord}> {t("arithNewRecord")}</span>}
+            {t("arith.timeLabel")}: {elapsedTime.toFixed(1)}{t("arith.secondsUnit")}
+            {isNewRecord && <span className={controls.newRecord}> {t("arith.newRecord")}</span>}
           </p>
         )}
         {bestTime !== null && (
-          <p className={styles["arith-best-time"]}>{t("arithBestTimeLabel")}: {bestTime.toFixed(1)}{t("arithSecondsUnit")}</p>
+          <p className={styles["arith-best-time"]}>{t("arith.bestTimeLabel")}: {bestTime.toFixed(1)}{t("arith.secondsUnit")}</p>
         )}
         <div className={styles["arith-actions"]}>
-          <button className="auth-link" type="button" onClick={restart}>{t("arithRetry")}</button>
+          <button className="auth-link" type="button" onClick={restart}>{t("arith.retry")}</button>
         </div>
         </ToolLayout>
     );
@@ -155,16 +155,16 @@ export default function ArithmeticPractice() {
 
   if (!problem) {
     return (
-      <ToolLayout title={t("arithTitle")} layout="centered" />
+      <ToolLayout title={t("arith.title")} layout="centered" />
     );
   }
 
   return (
-    <ToolLayout title={t("arithTitle")} layout="centered">
+    <ToolLayout title={t("arith.title")} layout="centered">
       <p className={styles["arith-progress"]} aria-live="polite">
-        {t("arithProgress", { current: completed + 1, total: SESSION_LENGTH })}
+        {t("arith.progress", { current: completed + 1, total: SESSION_LENGTH })}
       </p>
-      <p className={controls.label} aria-live="polite">{t("arithMistakesLabel")}: {mistakes}</p>
+      <p className={controls.label} aria-live="polite">{t("arith.mistakesLabel")}: {mistakes}</p>
       <p className={styles["arith-problem"]} aria-live="polite">{problem.a} {problem.operator} {problem.b}</p>
       <input
         ref={inputRef}
@@ -174,14 +174,14 @@ export default function ArithmeticPractice() {
         value={answerText}
         onChange={event => { setAnswerText(event.target.value); setIncorrect(false); }}
         onKeyDown={event => { if (event.key === "Enter") submitAnswer(); }}
-        placeholder={t("arithAnswerPlaceholder")}
-        aria-label={t("arithAnswerPlaceholder")}
+        placeholder={t("arith.answerPlaceholder")}
+        aria-label={t("arith.answerPlaceholder")}
       />
       <p className={[styles["arith-feedback"], incorrect && styles["arith-feedback-incorrect"]].filter(Boolean).join(" ")} aria-live="polite">
-        {incorrect && t("arithIncorrect")}
+        {incorrect && t("arith.incorrect")}
       </p>
       <div className={styles["arith-actions"]}>
-        <button className="auth-link" type="button" onClick={submitAnswer}>{t("arithSubmit")}</button>
+        <button className="auth-link" type="button" onClick={submitAnswer}>{t("arith.submit")}</button>
       </div>
       </ToolLayout>
   );

@@ -5,7 +5,7 @@ import BirthYear from "../../../components/birth-year";
 export async function generateMetadata() {
   const locale = await getLocale();
   const t = await getTranslations("App");
-  return publicMetadata(locale, "/age", `${t("ageTitle")} | PAIBOT.app`, t("ageDescription"));
+  return publicMetadata(locale, "/age", `${t("age.title")} | PAIBOT.app`, t("age.description"));
 }
 
 export default function AgePage() {
