@@ -142,6 +142,26 @@ npx wrangler deploy --config dist/server/wrangler.json   # --env production は�
 
 `vinext-cloudflare deploy --env production`(`package.json`の`deploy:vinext`スクリプトの本体)を使えば、この`CLOUDFLARE_ENV`の伝播を内部でよしなにやってくれる。ただし内部実装ではビルドとデプロイの両方を1コマンドで行う設計で、既存のdevワークフロー(`npm run build`→`npx wrangler deploy`を別ステップに分けてログを見やすくするスタイル)との一貫性を優先し、今回は素のwrangler + 明示的な`CLOUDFLARE_ENV`の組み合わせを採用した。
 
+## 重大な誤解だったポイント: `.env.local`はデプロイ後のWorkerには効かない
+
+上の`CLOUDFLARE_ENV`の節とは別の、もっと根本的な問題があった。初回デプロイ後、`https://paibot.app`が`[vinext] Middleware error: ... throwMissingSecretKeyError`で全ページ500になった。
+
+CIの`.env.local`ステップ(`CLERK_SECRET_KEY=${{ secrets.PROD_CLERK_SECRET_KEY }}`)は、ビルド成果物に値を「焼き込む」ものだと元の計画(このファイルの旧版、および以前のCLAUDE.md)では想定していた。だが実際に`dist/server/`の中身を調べたところ、`.env.local`の値が書き込まれる先は`dist/server/.dev.vars`だけで、これは**ローカルの`wrangler dev`/`npm start`専用のファイル**であり、実際にデプロイされる`index.js`バンドルにも、Cloudflare側のWorker実行環境にも一切反映されない。`grep`で確認済み(`sk_live_`などの値はバンドル内に存在しない)。
+
+**実際にdevの`https://dev.paibot.app`を動かしていたのは、`.env.local`ではなく、`wrangler secret put`で個別に設定された、そのWorker固有のCloudflare Workers Secret(暗号化された実行時バインディング)だった。** これはどこにもドキュメント化されておらず、CI/コードのどこを見ても分からない、手動でその場限りで設定されていたもの(`wrangler secret list --name paibot-app-dev`で存在を確認)。本番Worker(`paibot-app`)には当然何も設定されておらず、初回デプロイで露呈した。
+
+対処として、本番Workerにも同じ2つをSecretとして設定した:
+
+```sh
+export CLOUDFLARE_ACCOUNT_ID=b041431380f52e0bf2bb47b174e95b6a
+echo "<production secret key>" | npx wrangler secret put CLERK_SECRET_KEY --name paibot-app
+echo "<production publishable key>" | npx wrangler secret put NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY --name paibot-app
+```
+
+**`.env.local`ステップは無意味というわけではない**: `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`はNext.js/Viteの規約上、ビルド時にクライアントバンドルへ静的にインライン化される(ブラウザ側で使われるため、サーバー側の実行時バインディングとは別に必要)。なので、CIの`.env.local`ステップはクライアントバンドル用に必要だが、**サーバー側で使う`CLERK_SECRET_KEY`にとっては何の役にも立っておらず**、`wrangler secret put`による実行時Secretだけが効いている。
+
+**残タスク**: `wrangler secret put`はCI化されておらず、今回も手動でローカルから実行した。Worker名が変わる・Secretをローテーションする、といった場面で再度手動対応が必要になる。将来的にはこれもTerraform化(`cloudflare_workers_secret`リソース等)するか、専用のワークフローステップを設けるか検討の余地がある。
+
 ## Clerk本番インスタンス
 
 Clerk公式CLI(`npx clerk deploy`、対話式で人間の操作が必須)で作成した。
@@ -161,9 +181,9 @@ Clerk公式CLI(`npx clerk deploy`、対話式で人間の操作が必須)で作�
 
 devのトークンを同様に絞り直すかは別途検討(未実施)。
 
-## 秘密鍵の焼き込み方式について(検討事項、決着つかず据え置き)
+## 秘密鍵の管理方式(解決済み)
 
-Clerkの秘密鍵を`vinext build`のビルド時に`.env.local`経由で成果物へ焼き込む今の方式(開発環境も同様)を、本番の秘密鍵でもそのまま踏襲した。Cloudflare Workersの`wrangler secret put`によるランタイムシークレットの方が焼き込み方式より一般的には好まれるが、現状の仕組み(vinext buildが`.env.local`を読む)を変える理由が今のところ無いため、現状維持。
+以前この節は「`.env.local`経由の焼き込み方式を踏襲する」という未検証の前提で書かれていたが、上の「重大な誤解だったポイント」の通り誤りだった。実際に効いているのは`wrangler secret put`によるCloudflare Workers Secret(ランタイムバインディング)で、`.env.local`は(`NEXT_PUBLIC_*`のクライアントバンドル埋め込みを除いて)デプロイ後のWorkerには影響しない。今後この構成を変える場合は、まずこの実態を踏まえること。
 
 ## 追記(2026年9月): 決まったこと
 
@@ -174,5 +194,7 @@ Clerkの秘密鍵を`vinext build`のビルド時に`.env.local`経由で成果�
 
 ## 残っているタスク
 
-- 初回の実デプロイ(`Run workflow`)と、`https://paibot.app`の動作確認(表示・Googleログイン含む)がまだ
+- 初回デプロイ実施済み。`https://paibot.app`が200で表示されることは確認済み(`/ja`へのリダイレクト含む)。**Googleログインを実際に最後まで試す手動確認はまだ**
 - `PROD_CLERK_PUBLISHABLE_KEY`/`PROD_CLERK_SECRET_KEY`/`CLOUDFLARE_API_TOKEN_PRODUCTION`は現状リポジトリ全体のsecret。Environment(`production`)単位のsecretへの移行は未実施
+- `wrangler secret put`によるWorker Secretの設定がCI化されていない(手動実行した記録のみ)。Terraform化するかどうか未検討
+- devの`CLOUDFLARE_API_TOKEN`(テンプレートのまま権限が広い)を絞り直すかどうか未検討

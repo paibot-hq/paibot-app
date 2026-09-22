@@ -5,8 +5,9 @@
 - **数学問題集(LLM生成+D1保存)、公開URLは`/math`**: 承認済みの計画が`docs/plans/problemset.md`にある(ファイル名は計画時の仮称`problemset`のまま)。Phase 2(vinext統一の技術検証)まで完了、Phase 3(LLM生成・検証パイプライン)以降は未着手。再開する際はまずこのファイルを読むこと。
   - 以前あった手続き生成の算数ドリル(`/math`)は2026年9月にアーカイブし、公開ルートから外した(`docs/archive/math-drill-v1/`)。跡地の`/math`にはこの新しい問題集が入る。
   - `math-tex.tsx`/`math-tex.module.css`(KaTeX表示部品)はアーカイブせず`src/components/`に残してあり、新しい問題集で再利用する想定。
-- **本番デプロイ**: `docs/plans/production-deploy.md`に実装内容がある。実装済み、**初回の実デプロイ(`Run workflow`)と動作確認はまだ**。開発環境のCD(`.github/workflows/app.yml`の`deploy-dev`、`https://dev.paibot.app`)、本番のCD(`.github/workflows/app-production.yml`、`workflow_dispatch`のみ、タグ自動作成)ともに実装済み。
+- **本番デプロイ**: `docs/plans/production-deploy.md`に実装内容がある。実装・初回デプロイとも完了(`https://paibot.app`が200で表示されることを確認済み)。開発環境のCD(`.github/workflows/app.yml`の`deploy-dev`、`https://dev.paibot.app`)、本番のCD(`.github/workflows/app-production.yml`、`workflow_dispatch`のみ、タグ自動作成)ともに実装済み。
   - `wrangler.jsonc`に`env.production`追加済み。**ビルド時に`CLOUDFLARE_ENV=production`を渡さないと、`vinext build`は`env.production`を無視してdev設定を出力する**(ハマったポイント、詳細は`docs/plans/production-deploy.md`)。
+  - **`CLERK_SECRET_KEY`等はCIの`.env.local`ではなく`wrangler secret put`によるCloudflare Workers Secretで効いている**(初回デプロイで発覚。`.env.local`はローカルの`wrangler dev`用`.dev.vars`にしかならず、デプロイ後のWorkerには反映されない。`NEXT_PUBLIC_*`はクライアントバンドルへの静的埋め込みのため`.env.local`が引き続き必要、これはサーバー側の`CLERK_SECRET_KEY`とは別の話)。Worker名を変える・キーをローテーションする際は`wrangler secret put <NAME> --name <worker名>`を忘れないこと。詳細は`docs/plans/production-deploy.md`の「重大な誤解だったポイント」を参照。
   - **Clerk本番への移行は手動(Terraformでは管理しない)**: Clerk用のTerraformプロバイダはコミュニティ製のみ(`buildwithdeck/clerk`が有力だが開発者2人・v0.x、しかも設定管理にはベータのPlatform APIとその強い権限のキーが必要)で見送った。代わりにClerk公式CLIを使う: `clerk auth login` → `clerk link` → `clerk deploy`(本番インスタンス作成・CNAME案内・Google/Apple本番認証情報の入力・DNS/SSL検証までを案内)。実施済み。本番のGoogleログインには自分専用のGoogle OAuthクライアントが必要で、`paibot-app-prod`(`docs/infra/gcp.md`)に作成済み。
   - Clerkが要求するDNSレコード(カスタムドメイン+メールDKIM)は`infra/dns.tf`でTerraform管理にした(手動でCloudflareダッシュボードに入れる方式は不採用)。
   - `clerk config pull`で設定を取り出し、`config/clerk/development.json`・`production.json`として保存済み。設定を変えたら`pull`し直すこと。
