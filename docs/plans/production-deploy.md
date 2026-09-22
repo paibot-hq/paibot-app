@@ -1,6 +1,6 @@
-# 本番デプロイの設計(2026年9月に合意、未実装)
+# 本番デプロイの設計(2026年9月実装)
 
-開発環境(`paibot-app-dev`)へのCD設定と合わせて話した内容。開発環境のCD(`.github/workflows/app.yml`の`deploy-dev`)は完了済み。本番側はまだ着手していない。
+開発環境(`paibot-app-dev`)へのCD設定と合わせて話した内容。開発環境のCD(`.github/workflows/app.yml`の`deploy-dev`)、本番側(`.github/workflows/app-production.yml`)ともに実装済み。
 
 ## タグの命名規則
 
@@ -11,30 +11,46 @@ release-2026-09-17
 release-2026-09-17-2   # 同日2回目以降は末尾に連番
 ```
 
-## トリガーとフロー
+## トリガーとフロー(`workflow_dispatch`一本化)
 
-- リリース: `git tag release-2026-09-17 && git push origin release-2026-09-17` → タグpushで本番デプロイが自動的に走る
-- ロールバック/再デプロイ: `workflow_dispatch`で既存タグ名(または任意のref)を指定して手動実行。新しくタグを打ち直さなくていい
-- `environment: production`(GitHub Environments)を使い、承認者が居ないと実際のデプロイジョブが進まないようにする。タグpushで自動発火した場合でもこの承認ゲートは効く
+`push: tags:`は使わない。理由は次節。
 
-## ワークフロー案
+- **新規リリース**: Actions→`App (production)`→`Run workflow`を`ref`未入力のまま実行。ワークフロー内で現在のデフォルトブランチから日付ベースのタグを自動計算・作成・pushし、そのままビルド・デプロイ・GitHub Release作成まで行う
+- **ロールバック/再デプロイ**: `ref`に既存タグ名かコミットSHAを指定して実行。新しいタグは打たず、指定されたrefをそのままデプロイするだけ(GitHub Releaseも作らない)
+
+### なぜタグpushトリガー+承認ゲートをやめたか
+
+当初案は「`release-*`タグpushで自動デプロイ、ただし`environment: production`の承認ゲートで人間の承認待ちにする」だった。しかし**GitHub Environmentsの「承認者必須」(Required reviewers)は、Organization(`paibot-hq`)の現在のプラン(Free)だとプライベートリポジトリでは使えない**(Team/Enterprise限定機能)。`infra-apply`環境で先に判明していた制限と同じ。
+
+承認ゲートが機能しない以上、「タグをpushしたら勝手にデプロイされる」のは事故のもとでしかない。代わりに`workflow_dispatch`を手動実行すること自体を確認ステップとして扱う(`infra-apply.yml`と同じ考え方)。タグは「デプロイした結果の記録」として自動生成する側に回した。
+
+`environment: production`ブロック自体はワークフローに残してある。承認ゲートとしては機能しなくても、GitHub Environmentは将来Environment単位のsecretを使う余地を残しておける(現状はまだ`PROD_CLERK_PUBLISHABLE_KEY`等はリポジトリ全体のsecretのまま。Environment secretへの移行は未実施 — 値をチャット越しに扱わずに移行する方法を検討中)。
+
+## 実際のワークフロー(`.github/workflows/app-production.yml`)
+
+草案から変わった主なポイント:
+
+1. `on: push: tags` を削除し `workflow_dispatch` のみに
+2. `ref`未指定時にタグを自動計算・作成・pushするステップを追加
+3. ビルド時に`CLOUDFLARE_ENV=production`を渡す(次節参照)
+4. デプロイコマンドから`--env production`フラグを外す(次節参照)
 
 ```yaml
-name: Deploy (production)
+name: App (production)
 
 on:
-  push:
-    tags:
-      - "release-*"
   workflow_dispatch:
     inputs:
       ref:
-        description: "再デプロイ/ロールバック用に、タグまたはコミットを指定"
-        required: true
+        description: "再デプロイ/ロールバック時のみ指定(タグ名かコミットSHA)。空なら現在のデフォルトブランチから新規リリースする"
+        required: false
 
 concurrency:
-  group: deploy-production
+  group: app-production-deploy
   cancel-in-progress: false
+
+permissions:
+  contents: write
 
 jobs:
   deploy:
@@ -43,7 +59,27 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          ref: ${{ inputs.ref || github.ref }}
+          ref: ${{ inputs.ref || github.sha }}
+          fetch-depth: 0
+
+      - name: Determine release tag (new releases only)
+        id: tag
+        if: ${{ inputs.ref == '' }}
+        run: |
+          base="release-$(date -u +%Y-%m-%d)"
+          tag="$base"
+          n=1
+          while git rev-parse -q --verify "refs/tags/$tag" >/dev/null; do
+            n=$((n + 1))
+            tag="${base}-${n}"
+          done
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Create and push release tag
+        if: ${{ inputs.ref == '' }}
+        run: |
+          git tag "${{ steps.tag.outputs.tag }}"
+          git push origin "${{ steps.tag.outputs.tag }}"
 
       - uses: actions/setup-node@v7
         with:
@@ -52,7 +88,7 @@ jobs:
 
       - run: npm ci
 
-      - name: Set up .env.local (本番Clerkキー)
+      - name: Set up .env.local (production Clerk keys)
         run: |
           cat <<EOF > .env.local
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.PROD_CLERK_PUBLISHABLE_KEY }}
@@ -61,36 +97,82 @@ jobs:
           SITE_INDEXABLE=true
           EOF
 
-      - run: npm run build
+      - name: Build (production env)
+        env:
+          CLOUDFLARE_ENV: production
+        run: npm run build
 
-      - name: Deploy to Cloudflare Workers(production環境)
+      - name: Deploy to Cloudflare Workers (production)
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
-        run: npx wrangler deploy --config dist/server/wrangler.json --env production
+        run: npx wrangler deploy --config dist/server/wrangler.json
 
       - name: Create GitHub Release
-        run: gh release create ${{ github.ref_name }} --generate-notes
+        if: ${{ inputs.ref == '' }}
+        run: gh release create "${{ steps.tag.outputs.tag }}" --generate-notes
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 ```
 
-`gh release create --generate-notes`は前回タグからのコミット/PRを自動でまとめる。追加の秘密情報は不要(`GITHUB_TOKEN`はActions実行時に自動供給される)。
+## `wrangler.jsonc`の`env.production`と、ハマった`CLOUDFLARE_ENV`の罠
 
-## まだ揃っていない前提条件
+`wrangler.jsonc`に以下を追加した。`routes`(と`name`)は環境間で継承されないため、devと重複していても明示的に書く必要がある。
 
-- `wrangler.jsonc`に`env.production`ブロック(本番用Worker名・ルート設定)がまだ無い
-- Clerkの本番インスタンス・本番キーがまだ無い
-- `paibot.app`ドメインのCloudflareへの追加・カスタムドメイン設定がまだ
-- GitHub Secrets: `PROD_CLERK_PUBLISHABLE_KEY` / `PROD_CLERK_SECRET_KEY` / `CLOUDFLARE_API_TOKEN_PRODUCTION` がまだ無い
-- GitHubのSettings→EnvironmentsでProduction環境の承認者設定がまだ
+```jsonc
+"env": {
+  "production": {
+    "name": "paibot-app",
+    "routes": [
+      { "pattern": "paibot.app", "custom_domain": true }
+    ]
+  }
+}
+```
 
-## 検討事項として残っていること
+これだけでは不十分だった。素の`npm run build`(=`vinext build`)は**`env.production`の存在に関係なく常にトップレベル(dev)設定を`dist/server/wrangler.json`に出力する**。実際に試して確認した。
 
-- Clerkの秘密鍵を`vinext build`のビルド時に`.env.local`経由で成果物へ焼き込む今の方式(開発環境も同様)を、本番の秘密鍵でもそのまま踏襲していいか。Cloudflare Workersの`wrangler secret put`によるランタイムシークレットの方が焼き込み方式より一般的には好まれるが、現状の仕組み(vinext buildが`.env.local`を読む)と相性を要検討。
+原因は`vinext build`が内部で使っている`@cloudflare/vite-plugin`の仕様で、`process.env.CLOUDFLARE_ENV`を見て、ビルド時点でその環境向けにwrangler設定をマージしてから`dist/server/wrangler.json`に書き出す、という一段階の変換が入っているため。つまり**`--env production`はwrangler deployの引数ではなく、ビルド時点で必要**:
+
+```sh
+CLOUDFLARE_ENV=production npm run build   # これで dist/server/wrangler.json の name/routes が本番用になる
+npx wrangler deploy --config dist/server/wrangler.json   # --env production は付けない
+```
+
+`CLOUDFLARE_ENV=production`でビルドした後の`dist/server/wrangler.json`は、`env.production`の内容が**トップレベルにフラット化された状態**で出力される(=`env`セクション自体はもう残らない)。そのため`wrangler deploy`に`--env production`を追加で渡すと、「`No environment found in configuration with name "production"`」という警告が出る(実害は無い、devの設定にフォールバックすることはない。upload sizeが同一であることを実測確認済み)が、ログが紛らわしいので付けない方針にした。
+
+`vinext-cloudflare deploy --env production`(`package.json`の`deploy:vinext`スクリプトの本体)を使えば、この`CLOUDFLARE_ENV`の伝播を内部でよしなにやってくれる。ただし内部実装ではビルドとデプロイの両方を1コマンドで行う設計で、既存のdevワークフロー(`npm run build`→`npx wrangler deploy`を別ステップに分けてログを見やすくするスタイル)との一貫性を優先し、今回は素のwrangler + 明示的な`CLOUDFLARE_ENV`の組み合わせを採用した。
+
+## Clerk本番インスタンス
+
+Clerk公式CLI(`npx clerk deploy`、対話式で人間の操作が必須)で作成した。
+
+- ドメイン: `paibot.app`(Frontend APIは`clerk.paibot.app`、Account Portalは`accounts.paibot.app`)
+- DNSレコード5件(`clerk`/`accounts`/`clkmail`/`clk._domainkey`/`clk2._domainkey`)は、`clerk deploy`が出力したBINDゾーンファイルの内容を転記する形で**Terraform管理**にした(`infra/dns.tf`)。手動でCloudflareダッシュボードに入れる方式は選ばなかった(手順の再現性・レビュー可能性のため)。すべて`proxied = false`(Clerk自身がTLS終端するため)
+- 本番Google OAuthクライアントは`paibot-app-prod`という新規GCPプロジェクト(`docs/infra/gcp.md`参照、`paibot-app-dev`とは別)に作成。リダイレクトURIは`https://clerk.paibot.app/v1/oauth_callback`(Clerkの「Walk me through creating them」フローで確認した正確な値)
+- `clerk config pull --instance prod`で設定を取得し`config/clerk/production.json`として保存済み(開発用の`development.json`も同時に整備)。秘密値はCLIが自動でREDACTED済み、コミット前に目視確認もした
+- 本番キーは`clerk env pull --instance prod`で取得し、`PROD_CLERK_PUBLISHABLE_KEY`/`PROD_CLERK_SECRET_KEY`としてGitHub Secretsに登録済み
+
+## Cloudflare本番デプロイ用トークン
+
+`CLOUDFLARE_API_TOKEN_PRODUCTION`として新規発行・登録済み。既存の`CLOUDFLARE_API_TOKEN`(dev用)がCloudflareのテンプレート("Edit Cloudflare Workers")をそのまま使っていて権限が広すぎた(Containers/Pages/R2/KV/Agentsなど、paibotが使っていないものまでEdit権限)ため、本番用は個別権限で絞って作成した。
+
+- Account: Workers Scripts:Edit, Workers Observability:Edit, Account Settings:Read(対象アカウントは`Admin@paibot.co.jp's Account`のみ)
+- Zone: Workers Routes:Edit(対象ゾーンは`paibot.app`のみ)
+
+devのトークンを同様に絞り直すかは別途検討(未実施)。
+
+## 秘密鍵の焼き込み方式について(検討事項、決着つかず据え置き)
+
+Clerkの秘密鍵を`vinext build`のビルド時に`.env.local`経由で成果物へ焼き込む今の方式(開発環境も同様)を、本番の秘密鍵でもそのまま踏襲した。Cloudflare Workersの`wrangler secret put`によるランタイムシークレットの方が焼き込み方式より一般的には好まれるが、現状の仕組み(vinext buildが`.env.local`を読む)を変える理由が今のところ無いため、現状維持。
 
 ## 追記(2026年9月): 決まったこと
 
-- devのカスタムドメイン`dev.paibot.app`は`wrangler.jsonc`の`routes`(`custom_domain: true`)で紐付け済み。本番の`paibot.app`も同じ方式(`env.production`側に別途`routes`を定義)。ドメインはWorkerの属性なのでTerraformでは管理しない
-- Clerkの本番移行は手動(公式CLIの`clerk deploy`を使う)。詳細はCLAUDE.mdの「進行中の計画」を参照
-- 本番のGoogleログインには、Google Cloud Consoleで自分専用のOAuthクライアントを作る必要がある(開発インスタンスはClerkの共有認証情報)
-- タグの打ち方: `git tag release-YYYY-MM-DD && git push origin release-YYYY-MM-DD`(mainの最新で打つこと)
+- devのカスタムドメイン`dev.paibot.app`は`wrangler.jsonc`の`routes`(`custom_domain: true`)で紐付け済み。本番の`paibot.app`も同じ方式(`env.production`側に別途`routes`を定義、実装済み)。ドメインはWorkerの属性なのでTerraformでは管理しない
+- Clerkの本番移行は手動(公式CLIの`clerk deploy`を使う)。詳細は上記
+- 本番のGoogleログインには、Google Cloud Consoleで自分専用のOAuthクライアントを作る必要がある(開発インスタンスはClerkの共有認証情報)。作成先は`paibot-app-prod`(`docs/infra/gcp.md`)
+- タグの打ち方: ワークフローが自動で行う(`git tag release-YYYY-MM-DD && git push origin release-YYYY-MM-DD`相当)。手で打つのは基本不要
+
+## 残っているタスク
+
+- 初回の実デプロイ(`Run workflow`)と、`https://paibot.app`の動作確認(表示・Googleログイン含む)がまだ
+- `PROD_CLERK_PUBLISHABLE_KEY`/`PROD_CLERK_SECRET_KEY`/`CLOUDFLARE_API_TOKEN_PRODUCTION`は現状リポジトリ全体のsecret。Environment(`production`)単位のsecretへの移行は未実施

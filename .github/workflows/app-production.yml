@@ -1,0 +1,100 @@
+name: App (production)
+
+# Manual only. Tag pushes are not used as a trigger: GitHub Environments'
+# required-reviewer approval gate is unavailable on this org's Free plan (see
+# infra/README.md), so there is no way to have a tag push auto-deploy while
+# still stopping for a human confirmation. Running this workflow by hand is
+# the confirmation step instead (same reasoning as infra-apply.yml).
+#
+# With no `ref` input: treated as a new release. A date-based tag
+# (release-YYYY-MM-DD, with a numeric suffix for same-day reruns) is created
+# from the current default branch and pushed before deploying.
+# With a `ref` input: treated as a rollback/redeploy of an existing tag or
+# commit. No new tag or GitHub Release is created.
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "再デプロイ/ロールバック時のみ指定(タグ名かコミットSHA)。空なら現在のデフォルトブランチから新規リリースする"
+        required: false
+
+concurrency:
+  group: app-production-deploy
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.ref || github.sha }}
+          fetch-depth: 0
+
+      - name: Determine release tag (new releases only)
+        id: tag
+        if: ${{ inputs.ref == '' }}
+        run: |
+          base="release-$(date -u +%Y-%m-%d)"
+          tag="$base"
+          n=1
+          while git rev-parse -q --verify "refs/tags/$tag" >/dev/null; do
+            n=$((n + 1))
+            tag="${base}-${n}"
+          done
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Create and push release tag
+        if: ${{ inputs.ref == '' }}
+        run: |
+          git tag "${{ steps.tag.outputs.tag }}"
+          git push origin "${{ steps.tag.outputs.tag }}"
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      # npm ci also runs postinstall (patch-package --error-on-fail --error-on-warn),
+      # which must succeed before anything else can build correctly. See CLAUDE.md.
+      - run: npm ci
+
+      - name: Set up .env.local (production Clerk keys)
+        run: |
+          cat <<EOF > .env.local
+          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.PROD_CLERK_PUBLISHABLE_KEY }}
+          CLERK_SECRET_KEY=${{ secrets.PROD_CLERK_SECRET_KEY }}
+          SITE_URL=https://paibot.app
+          SITE_INDEXABLE=true
+          EOF
+
+      # CLOUDFLARE_ENV=production makes `@cloudflare/vite-plugin` merge
+      # wrangler.jsonc's `env.production` block into the emitted
+      # dist/server/wrangler.json at build time (name: paibot-app, routes:
+      # paibot.app). Without it, vinext build silently emits the top-level
+      # (dev) config instead — confirmed by testing locally, not documented
+      # anywhere obvious. See wrangler.jsonc's comment and
+      # docs/plans/production-deploy.md.
+      - name: Build (production env)
+        env:
+          CLOUDFLARE_ENV: production
+        run: npm run build
+
+      - name: Deploy to Cloudflare Workers (production)
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
+        # No --env flag here: the config is already resolved for production
+        # by the build step above. Passing --env production on top of an
+        # already-flattened config just produces a harmless but confusing
+        # "no environment found" warning (confirmed locally).
+        run: npx wrangler deploy --config dist/server/wrangler.json
+
+      - name: Create GitHub Release
+        if: ${{ inputs.ref == '' }}
+        run: gh release create "${{ steps.tag.outputs.tag }}" --generate-notes
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
