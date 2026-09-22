@@ -28,3 +28,7 @@ override.tf
 override.tf.json
 *_override.tf
 *_override.tf.json
+
+# `clerk deploy`'s exported BIND zone file (informational only — the actual
+# records live in infra/dns.tf, reviewed and applied via Terraform).
+clerk-*.zone

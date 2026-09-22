@@ -16,6 +16,7 @@
    - Accessを`wrangler.jsonc`ではなくTerraformで持つ理由: Wranglerの`access`ブロックは`wrangler dev`でのID模擬用で、本番のAccess設定はできないため。
    - `worker_id`はWorkerの内部ID(名前ではない)。Workerを削除して作り直すと変わるので、その場合は`access.tf`の値を更新すること。取得方法は`access.tf`のコメントを参照。
    - `paibot-app-dev`のworkers.devは無効(APIで`enabled: false`を確認)。外からの入口は`dev.paibot.app`だけ。
+3. **Clerk本番インスタンス用のDNSレコード**(`infra/dns.tf`)。`clerk deploy`が要求するCNAME5件(認証用カスタムドメイン+メール送信用DKIM)。`clerk deploy`実行時に生成されるBINDゾーンファイルの内容をそのまま`cloudflare_dns_record`として転記したもの。すべて`proxied = false`(Clerk自身がTLS終端するため、Cloudflareのプロキシを挟まない)。
 
 リソースは実際に必要になってから追加してください。実績作りのために先回りして作らないこと。
 
@@ -33,7 +34,7 @@ Cloudflareの認証情報には**性質の異なる2種類**が関わります�
 
 | 認証情報 | 用途 | 発行元 | GitHub上の名前 |
 | --- | --- | --- | --- |
-| Cloudflare APIトークン(Terraform専用) | `cloudflare`プロバイダ自体の認証(ゾーン/DNS/D1/R2バケット等の管理) | Cloudflareダッシュボード→マイプロフィール→APIトークン→カスタムトークン作成(現在の権限: アカウント→「Access: アプリとポリシー」→編集、ゾーン`paibot.app`→DNS→読み取り。ゾーンの検索はDNS読み取りだけで通ることを`Infra Plan`で確認済み。DNSレコードを管理するときはDNS→編集、D1/R2/KVを追加するときはそれぞれの権限を、そのタイミングで足す) | `CLOUDFLARE_API_TOKEN_TERRAFORM`(secret) |
+| Cloudflare APIトークン(Terraform専用) | `cloudflare`プロバイダ自体の認証(ゾーン/DNS/D1/R2バケット等の管理) | Cloudflareダッシュボード→マイプロフィール→APIトークン→カスタムトークン作成(現在必要な権限: アカウント→「Access: アプリとポリシー」→編集、ゾーン`paibot.app`→DNS→**編集**〈`infra/dns.tf`のClerk用レコード管理のため、2026年9月に読み取りから編集へ拡張〉。D1/R2/KVを追加するときはそれぞれの権限を、そのタイミングで足す) | `CLOUDFLARE_API_TOKEN_TERRAFORM`(secret) |
 | R2用S3互換アクセスキーID/シークレットアクセスキー | **stateバックエンド**の認証(R2に対するS3プロトコルでのアクセス) | R2ダッシュボード→R2 APIトークンの管理→**state用バケットだけに限定**した「Object Read & Write」権限で発行 | `TF_STATE_R2_ACCESS_KEY_ID` / `TF_STATE_R2_SECRET_ACCESS_KEY`(secret) |
 
 既存の`CLOUDFLARE_API_TOKEN`(`deploy-dev`/Wranglerが使っているもの)とは意図的に**別**にしています。Terraformには、実際に管理する範囲だけに絞った専用のトークンを持たせることで、片方の認証情報に問題が起きてももう片方に影響しないようにするためです。
