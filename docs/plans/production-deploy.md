@@ -194,6 +194,6 @@ devのトークンを同様に絞り直すかは別途検討(未実施)。
 
 ## 残っているタスク
 
-- 初回デプロイ実施済み。`https://paibot.app`が200で表示されることは確認済み(`/ja`へのリダイレクト含む)。**Googleログインを実際に最後まで試す手動確認はまだ**
+- 初回デプロイ実施済み。`https://paibot.app`が200で表示されることを確認済み(`/ja`へのリダイレクト含む)。本番Googleログインも実際にログインが通ることを手動確認済み
 - `PROD_CLERK_PUBLISHABLE_KEY`/`PROD_CLERK_SECRET_KEY`/`CLOUDFLARE_API_TOKEN_PRODUCTION`は現状リポジトリ全体のsecret。Environment(`production`)単位のsecretへの移行は未実施
 - devの`CLOUDFLARE_API_TOKEN`(テンプレートのまま権限が広い)を絞り直すかどうか未検討
