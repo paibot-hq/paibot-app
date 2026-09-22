@@ -49,7 +49,6 @@ export default function Header() {
           <Link className="auth-link" href="/sign-up">{t("signUp")}</Link>
         </Show>
         <Show when="signed-in">
-          <Link className="auth-link" href="/dashboard" prefetch={false}>{t("dashboard")}</Link>
           <UserButton />
         </Show>
         <div className="language-menu" ref={menuRef}>

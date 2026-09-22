@@ -2,9 +2,6 @@
   "App": {
     "signIn": "ログイン",
     "signUp": "新規登録",
-    "dashboard": "ダッシュボード",
-    "dashboardDescription": "PAIBOT.appへようこそ。アプリは現在準備中です。",
-    "accountSettings": "アカウント設定",
     "backHome": "トップへ戻る",
     "title": "PAIBOT.app",
     "description": "PAIBOTのアプリとクラウドユーティリティをご紹介。運用、情報整理、自動化のためのツールを開発しています。",

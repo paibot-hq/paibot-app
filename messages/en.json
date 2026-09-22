@@ -2,9 +2,6 @@
   "App": {
     "signIn": "Sign in",
     "signUp": "Sign up",
-    "dashboard": "Dashboard",
-    "dashboardDescription": "Welcome to PAIBOT.app. Apps are coming soon.",
-    "accountSettings": "Account settings",
     "backHome": "Back to home",
     "title": "PAIBOT.app",
     "description": "Explore PAIBOT apps and cloud utilities. We are building tools for operations, organizing information, and automation.",

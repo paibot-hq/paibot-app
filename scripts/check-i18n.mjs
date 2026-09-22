@@ -73,13 +73,8 @@ await withServer(true, async request => {
       assert.ok(authHtml.includes('name="robots" content="noindex, nofollow"'));
       assert.ok(!authHtml.includes('rel="canonical"'), 'Auth pages must not inherit home canonical');
     }
-    const guarded = await request(`/${lang}/dashboard`, { headers: { 'User-Agent': 'Googlebot' } });
-    const location = guarded.headers.get('location');
-    const body = await guarded.text();
-    assert.ok(location ? new URL(location, 'http://localhost:3197').pathname === `/${lang}/sign-in` : body.includes('NEXT_REDIRECT') && body.includes(`/${lang}/sign-in`), `${lang}: unauthenticated dashboard redirects to same-language sign-in`);
-    assert.match(guarded.headers.get('x-robots-tag') ?? '', /noindex/);
   }
-  for (const [from, to] of [['/', '/ja'], ['/sign-in', '/ja/sign-in'], ['/dashboard', '/ja/dashboard']]) {
+  for (const [from, to] of [['/', '/ja'], ['/sign-in', '/ja/sign-in']]) {
     const response = await request(from);
     assert.ok([307, 308].includes(response.status), `${from}: redirects`);
     assert.equal(new URL(response.headers.get('location'), 'http://localhost:3197').pathname, to);
@@ -92,7 +87,7 @@ await withServer(true, async request => {
   assert.equal(sitemap.status, 200);
   const xml = await sitemap.text();
   for (const lang of ['ja', 'en']) assert.ok(xml.includes(`<loc>https://paibot.app/${lang}</loc>`));
-  assert.ok(!/dashboard|sign-in|sign-up/.test(xml), 'Sitemap lists public pages only');
+  assert.ok(!/sign-in|sign-up/.test(xml), 'Sitemap lists public pages only');
   const robots = await (await request('/robots.txt')).text();
   assert.ok(robots.includes('Allow: /'));
   assert.ok(robots.includes('Sitemap: https://paibot.app/sitemap.xml'));

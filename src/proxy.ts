@@ -29,7 +29,7 @@ export default clerkMiddleware((_auth, request) => {
   if (/^\/(api|trpc|__clerk)(\/|$)/.test(path)) return withSecurityHeaders(NextResponse.next());
   if (STATIC_ASSET.test(path)) return withSecurityHeaders(NextResponse.next());
   const response = handleI18n(request);
-  if (!isIndexable || /^\/(ja|en)\/(sign-in|sign-up|dashboard)(\/|$)/.test(path)) {
+  if (!isIndexable || /^\/(ja|en)\/(sign-in|sign-up)(\/|$)/.test(path)) {
     response.headers.set("X-Robots-Tag", "noindex");
   }
   return withSecurityHeaders(response);

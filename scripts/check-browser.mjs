@@ -76,9 +76,6 @@ console.log(`PASS: all ${tools.length} tool pages render cleanly in ja/en`);
       await go(page, '/en/arith');
       await go(page, '/ja/arith');
     }
-    // Redirects to /sign-in, whose live Clerk widget keeps background network
-    // activity going (session sync) — 'networkidle' would never resolve.
-    await go(page, '/ja/dashboard', { waitUntil: 'load' });
   });
   const intlErrors = errors.filter(e => /No intl context found/.test(e));
   assert.deepEqual(intlErrors, [], 'locale switching/redirects must not throw "No intl context found"');
@@ -100,10 +97,7 @@ console.log(`PASS: all ${tools.length} tool pages render cleanly in ja/en`);
   // placeholder SVG warning); only fail on errors that indicate our actual bug.
   const relevantErrors = errors.filter(e => /ClerkProvider|useSession|require is not defined|Failed to load url/.test(e));
   assert.deepEqual(relevantErrors, [], '/sign-in must mount a usable form under vinext dev');
-  const dashboardRes = await fetch(`${base}/ja/dashboard`, { redirect: 'manual' });
-  assert.equal(dashboardRes.status, 307, 'unauthenticated /dashboard must redirect (not 500)');
-  assert.equal(new URL(dashboardRes.headers.get('location'), base).pathname, '/ja/sign-in');
-  console.log('PASS: /sign-in mounts a usable form and /dashboard redirects, under vinext dev');
+  console.log('PASS: /sign-in mounts a usable form under vinext dev');
 }
 
 await browser.close();

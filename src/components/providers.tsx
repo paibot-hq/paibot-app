@@ -53,8 +53,8 @@ export default function Providers({ children }: { children: ReactNode }) {
       <ClerkProvider
         signInUrl={`/${language}/sign-in`}
         signUpUrl={`/${language}/sign-up`}
-        signInFallbackRedirectUrl={`/${language}/dashboard`}
-        signUpFallbackRedirectUrl={`/${language}/dashboard`}
+        signInFallbackRedirectUrl={`/${language}`}
+        signUpFallbackRedirectUrl={`/${language}`}
         afterSignOutUrl={`/${language}`}
         localization={language === "ja" ? jaJP : enUS}
         appearance={{ variables: {
