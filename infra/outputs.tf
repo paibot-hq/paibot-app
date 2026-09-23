@@ -19,3 +19,8 @@ output "ci_access_client_secret" {
   value       = cloudflare_zero_trust_access_service_token.ci.client_secret
   sensitive   = true
 }
+
+output "d1_app_dev_database_id" {
+  description = "Database ID for the dev D1 database. Not a secret, but Terraform doesn't manage wrangler.jsonc's d1_databases binding (see infra/README.md) — copy this value in by hand after apply."
+  value       = cloudflare_d1_database.app_dev.id
+}
