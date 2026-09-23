@@ -54,8 +54,16 @@ if (Object.keys(accessHeaders).length > 0) {
 
 let errors = [];
 page.on('pageerror', (err) => errors.push(`[pageerror] ${err.message}`));
-page.on('console', (msg) => { if (msg.type() === 'error') errors.push(`[console.error] ${msg.text()}`); });
+page.on('console', (msg) => {
+  // Chromium always also fires 'requestfailed' (with the actual URL) for a
+  // network-level failure like this — skip the generic, URL-less duplicate
+  // here so failures are only reported (and filterable) via that URL.
+  if (msg.type() === 'error' && !/^Failed to load resource: net::/.test(msg.text())) {
+    errors.push(`[console.error] ${msg.text()}`);
+  }
+});
 page.on('response', (res) => { if (res.status() >= 400) errors.push(`[http ${res.status()}] ${res.url()}`); });
+page.on('requestfailed', (req) => errors.push(`[requestfailed] ${req.url()} ${req.failure()?.errorText ?? ''}`));
 
 async function withPage(run) {
   errors = [];
@@ -100,6 +108,16 @@ async function go(page, path, { waitUntil = 'networkidle' } = {}) {
 // deployed dev Worker.
 const isClerkDevBadgeNoise = (e) => /violates the following Content Security Policy/.test(e) && /data:image/.test(e);
 
+// The IP tool (src/components/ip-lookup.tsx) fetches ipv4./ipv6.icanhazip.com
+// directly from the browser and already treats a failed fetch as a normal,
+// non-fatal "unknown" state for that protocol — by design, since a real
+// visitor on an IPv4-only network would see the exact same thing for IPv6.
+// GitHub Actions runners commonly lack IPv6 egress, so ipv6.icanhazip.com
+// (an AAAA-only host) can fail to resolve there specifically. That reflects
+// the CI runner's network, not a bug in the deployed app, so it shouldn't
+// fail a deploy-health check the way a real broken page would.
+const isKnownFlakyExternal = (e) => /^\[requestfailed\] https:\/\/(ipv4|ipv6)\.icanhazip\.com\//.test(e);
+
 // 1. Every tool page renders without a JS/console error, in every locale.
 const LANGS = ['ja', 'en', 'zh'];
 for (const locale of LANGS) {
@@ -107,7 +125,7 @@ for (const locale of LANGS) {
     await go(page, `/${locale}`);
     for (const slug of tools) await go(page, `/${locale}/${slug}`);
   });
-  const relevantErrors = errors.filter(e => !isClerkDevBadgeNoise(e));
+  const relevantErrors = errors.filter(e => !isClerkDevBadgeNoise(e) && !isKnownFlakyExternal(e));
   assert.deepEqual(relevantErrors, [], `${locale}: tool pages must render without errors`);
 }
 console.log(`PASS: all ${tools.length} tool pages render cleanly in ${LANGS.join('/')}`);
