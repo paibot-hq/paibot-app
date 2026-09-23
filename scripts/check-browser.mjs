@@ -28,16 +28,30 @@ try {
 
 const browser = await chromium.launch();
 
-// One shared page for the whole run (not a fresh page per test): against
-// dev.paibot.app, each newPage() re-runs the Cloudflare Access service-token
-// handshake as a brand new session. Doing that 6 times in quick succession
-// tripped some Access-side limit after ~36 requests — the 4th fresh session
-// (the theme-toggle test) got silently redirected to the Access login page
-// instead of the app, even though the Service Token itself was still valid
-// (confirmed: earlier fresh sessions in the same run succeeded). A single
-// shared session avoids relying on undocumented Access session limits.
-// Navigating within one page resets DOM/JS state between tests anyway.
-const page = await browser.newPage({ extraHTTPHeaders: accessHeaders });
+// One shared page for the whole run instead of a fresh page per test — no
+// functional need for isolation here (each test navigates to a fresh URL
+// anyway), and it keeps things simpler.
+const page = await browser.newPage();
+
+// Only attach the Access headers to requests actually going to our own
+// origin. Playwright's context/page-level `extraHTTPHeaders` has no
+// per-origin scoping — it stamps every outgoing request, including
+// cross-origin ones the page makes to Clerk's CDN and Cloudflare Insights.
+// Those origins don't expect `cf-access-client-id` and don't allow it in
+// their CORS preflight response, so the browser blocks the request entirely
+// (confirmed: this broke Clerk's own script and the Insights beacon, surfaced
+// as console errors once the Access redirect itself was fixed).
+if (Object.keys(accessHeaders).length > 0) {
+  await page.route('**/*', async (route) => {
+    const url = new URL(route.request().url());
+    if (url.origin === new URL(base).origin) {
+      await route.continue({ headers: { ...route.request().headers(), ...accessHeaders } });
+    } else {
+      await route.continue();
+    }
+  });
+}
+
 let errors = [];
 page.on('pageerror', (err) => errors.push(`[pageerror] ${err.message}`));
 page.on('console', (msg) => { if (msg.type() === 'error') errors.push(`[console.error] ${msg.text()}`); });
