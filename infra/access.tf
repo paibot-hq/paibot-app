@@ -13,6 +13,20 @@ locals {
   paibot_app_dev_worker_id = "1e821be2bb064f4b8c6eaa8bd156471f"
 }
 
+# Lets GitHub Actions (the post-deploy e2e smoke test, see .github/workflows/app.yml's
+# smoke-test-dev job) reach dev.paibot.app without a human Access login. Scoped to just
+# this one application below via the policy's `include` — it doesn't grant access to
+# anything else Access might protect in the future.
+resource "cloudflare_zero_trust_access_service_token" "ci" {
+  account_id = var.cloudflare_account_id
+  name       = "GitHub Actions CI (dev e2e smoke test)"
+  # Not "forever": a bounded lifetime means a forgotten/leaked token stops
+  # working on its own. Rotate before expiry by re-applying (the provider
+  # reissues a new client_secret) and updating the GitHub secrets from the
+  # new `terraform output`.
+  duration = "8760h" # ~1 year
+}
+
 resource "cloudflare_zero_trust_access_application" "paibot_app_dev" {
   account_id = var.cloudflare_account_id
 
@@ -33,10 +47,16 @@ resource "cloudflare_zero_trust_access_application" "paibot_app_dev" {
       name     = "paibot-app-dev owner only"
       decision = "allow"
 
+      # `include` is OR-evaluated: either condition below is enough to pass.
       include = [
         {
           email = {
             email = "sanofc@gmail.com"
+          }
+        },
+        {
+          service_token = {
+            token_id = cloudflare_zero_trust_access_service_token.ci.id
           }
         }
       ]

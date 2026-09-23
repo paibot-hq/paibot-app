@@ -119,3 +119,35 @@ jobs:
         run: |
           echo "${{ secrets.CLERK_SECRET_KEY }}" | npx wrangler secret put CLERK_SECRET_KEY --name paibot-app-dev
           echo "${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}" | npx wrangler secret put NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY --name paibot-app-dev
+
+  # Catches "deploy succeeded but the app is actually broken" (e.g. the
+  # missing-secret 500 incident — see docs/plans/production-deploy.md) right
+  # after it happens, instead of whenever someone next looks. Best-effort:
+  # continue-on-error so a flaky run (Clerk's widget loads from an external
+  # CDN) or an Access hiccup never blocks a merge or future deploy.
+  smoke-test-dev:
+    needs: deploy-dev
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+
+      # dev.paibot.app is behind Cloudflare Access (infra/access.tf); the
+      # CF_ACCESS_CLIENT_ID/SECRET service token bypasses its login redirect.
+      # See scripts/check-browser.mjs and infra/outputs.tf for how these are
+      # issued and registered.
+      - name: check:browser against https://dev.paibot.app
+        env:
+          CHECK_BROWSER_BASE_URL: https://dev.paibot.app
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+        run: npm run check:browser
