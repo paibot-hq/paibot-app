@@ -138,11 +138,13 @@ html[data-theme="light"] .cloud-c {
 .hero-mascot {
   position: absolute;
   z-index: 4;
-  right: 4rem;
+  right: 12rem;
   top: 50%;
   width: 140px;
   height: 140px;
   transform: translateY(-50%);
+  opacity: .75;
+  filter: blur(1.5px);
 }
 
 .category-tiles {
