@@ -28,22 +28,51 @@ try {
 
 const browser = await chromium.launch();
 
+// One shared page for the whole run (not a fresh page per test): against
+// dev.paibot.app, each newPage() re-runs the Cloudflare Access service-token
+// handshake as a brand new session. Doing that 6 times in quick succession
+// tripped some Access-side limit after ~36 requests — the 4th fresh session
+// (the theme-toggle test) got silently redirected to the Access login page
+// instead of the app, even though the Service Token itself was still valid
+// (confirmed: earlier fresh sessions in the same run succeeded). A single
+// shared session avoids relying on undocumented Access session limits.
+// Navigating within one page resets DOM/JS state between tests anyway.
+const page = await browser.newPage({ extraHTTPHeaders: accessHeaders });
+let errors = [];
+page.on('pageerror', (err) => errors.push(`[pageerror] ${err.message}`));
+page.on('console', (msg) => { if (msg.type() === 'error') errors.push(`[console.error] ${msg.text()}`); });
+page.on('response', (res) => { if (res.status() >= 400) errors.push(`[http ${res.status()}] ${res.url()}`); });
+
 async function withPage(run) {
-  const page = await browser.newPage({ extraHTTPHeaders: accessHeaders });
-  const errors = [];
-  page.on('pageerror', (err) => errors.push(`[pageerror] ${err.message}`));
-  page.on('console', (msg) => { if (msg.type() === 'error') errors.push(`[console.error] ${msg.text()}`); });
-  page.on('response', (res) => { if (res.status() >= 400) errors.push(`[http ${res.status()}] ${res.url()}`); });
-  try {
-    await run(page, errors);
-  } finally {
-    await page.close();
-  }
+  errors = [];
+  await run(page, errors);
   return errors;
+}
+
+const baseHost = new URL(base).hostname;
+
+// A missing/rejected Access service token doesn't throw — it silently
+// 302s to Cloudflare's login page, which is itself a normal 200 response,
+// so nothing here fails loudly on its own. Every navigation must be checked
+// against this instead of trusting that "no console error" means the app
+// actually loaded. header.topbar (src/components/header.tsx) renders on
+// every locale page unconditionally, so its presence also rules out other
+// silent failures (a 500 page, an empty shell, etc.), not just Access.
+async function assertLandedOnApp(page, path) {
+  const landedHost = new URL(page.url()).hostname;
+  if (landedHost !== baseHost) {
+    throw new Error(
+      `Expected to be on ${baseHost}${path} but landed on ${page.url()}. ` +
+      `If this is Cloudflare's login page, the CF_ACCESS_CLIENT_ID/` +
+      `CF_ACCESS_CLIENT_SECRET service token was not honored for this request.`
+    );
+  }
+  await page.locator('header.topbar').first().waitFor({ state: 'attached', timeout: 5000 });
 }
 
 async function go(page, path, { waitUntil = 'networkidle' } = {}) {
   await page.goto(base + path, { waitUntil });
+  await assertLandedOnApp(page, path);
   await page.waitForTimeout(200);
 }
 
@@ -73,17 +102,13 @@ console.log(`PASS: all ${tools.length} tool pages render cleanly in ${LANGS.join
 {
   const errors = await withPage(async (page) => {
     await go(page, '/ja');
-    // TEMP DEBUG: diagnosing a theme-toggle click timeout seen only against
-    // the real deployed dev Worker, never locally. Remove once root-caused.
-    console.log('DEBUG url=', page.url(), 'title=', await page.title());
-    console.log('DEBUG theme-toggle count=', await page.locator('.theme-toggle').count());
-    console.log('DEBUG body snippet=', (await page.evaluate(() => document.body.innerText)).slice(0, 300));
     const initial = await page.evaluate(() => document.documentElement.dataset.theme);
     await page.click('.theme-toggle');
     await page.waitForTimeout(150);
     const toggled = await page.evaluate(() => document.documentElement.dataset.theme);
     assert.notEqual(toggled, initial, 'theme must change after clicking the toggle');
     await page.reload({ waitUntil: 'networkidle' });
+    await assertLandedOnApp(page, '/ja (reload)');
     const afterReload = await page.evaluate(() => document.documentElement.dataset.theme);
     assert.equal(afterReload, toggled, 'theme choice must persist (localStorage) across a reload');
   });
