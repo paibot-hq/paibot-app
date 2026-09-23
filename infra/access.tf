@@ -43,20 +43,33 @@ resource "cloudflare_zero_trust_access_application" "paibot_app_dev" {
   session_duration = "24h"
 
   policies = [
+    # A service token has no identity to verify, so it can't be granted access
+    # by an "allow" policy — Access still redirects those to the IdP login
+    # page regardless of what `include` says (confirmed against real traffic:
+    # smoke-test-dev's requests were silently redirected to Cloudflare's login
+    # page even though the token and this policy's old combined `include`
+    # were both valid). "non_identity" (the dashboard's "Service Auth" action)
+    # is the decision that actually skips the IdP flow for a matching token.
+    {
+      name     = "GitHub Actions CI (dev e2e smoke test)"
+      decision = "non_identity"
+
+      include = [
+        {
+          service_token = {
+            token_id = cloudflare_zero_trust_access_service_token.ci.id
+          }
+        }
+      ]
+    },
     {
       name     = "paibot-app-dev owner only"
       decision = "allow"
 
-      # `include` is OR-evaluated: either condition below is enough to pass.
       include = [
         {
           email = {
             email = "sanofc@gmail.com"
-          }
-        },
-        {
-          service_token = {
-            token_id = cloudflare_zero_trust_access_service_token.ci.id
           }
         }
       ]

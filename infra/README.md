@@ -11,7 +11,7 @@
 ## 現在の管理範囲(意図的に小さい)
 
 1. **`paibot.app`ゾーンの読み取り専用データソース参照**(`infra/data.tf`)。このゾーンはTerraformが作ったものではなく(Cloudflare APIで確認済み、ステータス`active`)、`resource`ブロックを持たないので、Terraformが削除・再作成を提案することは原理的にありません。
-2. **devのWorker(`paibot-app-dev`)を守るCloudflare Accessアプリケーション**(`infra/access.tf`)。`sanofc@gmail.com`のログインと、GitHub Actions用のService Tokenの両方を許可(`include`はOR評価)。セッションは24時間。
+2. **devのWorker(`paibot-app-dev`)を守るCloudflare Accessアプリケーション**(`infra/access.tf`)。`sanofc@gmail.com`のログインと、GitHub Actions用のService Tokenの両方を許可。この2つは**別々のポリシー**にしてある(`sanofc@gmail.com`用は`decision = "allow"`、Service Token用は`decision = "non_identity"`、ダッシュボード上の表示名は「Service Auth」)。1つの`allow`ポリシーの`include`にemailとservice_tokenを両方並べる書き方は誤り — service tokenにはそもそも検証できるアイデンティティが無いため、`allow`ポリシーはservice tokenだけのリクエストでもIdPログイン画面へのリダイレクトを止めない(実際のトラフィックで確認済み: 最初はこの誤った書き方でapplyし、`smoke-test-dev`のリクエストがCloudflareのログイン画面に静かにリダイレクトされ続ける不具合が発生した)。セッションは24時間。
    - 対象は`destinations`の`type = "worker"`(Worker単位)なので、カスタムドメイン(`dev.paibot.app`)・workers.dev・プレビューURLのすべてに掛かる。
    - Accessを`wrangler.jsonc`ではなくTerraformで持つ理由: Wranglerの`access`ブロックは`wrangler dev`でのID模擬用で、本番のAccess設定はできないため。
    - `worker_id`はWorkerの内部ID(名前ではない)。Workerを削除して作り直すと変わるので、その場合は`access.tf`の値を更新すること。取得方法は`access.tf`のコメントを参照。
