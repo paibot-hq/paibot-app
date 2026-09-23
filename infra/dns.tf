@@ -59,7 +59,7 @@ resource "cloudflare_dns_record" "ip_probe" {
   name    = each.key
   type    = each.value.type
   content = each.value.content
-  ttl     = 300
+  ttl     = 1 # Must be 1 ("Auto") when proxied — Cloudflare controls the TTL itself.
   proxied = true
   comment = "Managed by Terraform (infra/dns.tf) - IPv4/IPv6 detection for the IP tool"
 
