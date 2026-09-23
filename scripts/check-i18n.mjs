@@ -22,11 +22,14 @@ for (const keys of otherKeys) assert.deepEqual(keys, baseKeys, 'Translation keys
 
 async function withServer(indexable, run) {
   // Runs against the vinext/Cloudflare Workers build (dist/server), not a plain `next build`,
-  // since `npm run build` now targets vinext. SITE_INDEXABLE must be injected as a Workers var
-  // (--var), not a host process.env value — wrangler's simulated Workers runtime does not
+  // since `npm run build` now targets vinext. SITE_INDEXABLE/SITE_URL must be injected as Workers
+  // vars (--var), not host process.env values — wrangler's simulated Workers runtime does not
   // inherit process.env directly. Confirmed by hand that --var is read live per run (not baked
   // in at build time): toggling it flips robots.txt/X-Robots-Tag without rebuilding.
-  const child = spawn('node_modules/.bin/wrangler', ['dev', '--config', 'dist/server/wrangler.json', '--port', '3197', '--var', `SITE_INDEXABLE:${indexable}`], {
+  // This always builds the dev config (wrangler.jsonc's top level, not env.production), whose
+  // real SITE_URL is https://dev.paibot.app — overridden here to the production domain since
+  // this test simulates production-like settings and asserts against https://paibot.app URLs.
+  const child = spawn('node_modules/.bin/wrangler', ['dev', '--config', 'dist/server/wrangler.json', '--port', '3197', '--var', `SITE_INDEXABLE:${indexable}`, '--var', 'SITE_URL:https://paibot.app'], {
     cwd: new URL('..', import.meta.url),
     env: process.env,
     stdio: ['ignore', 'ignore', 'pipe'],

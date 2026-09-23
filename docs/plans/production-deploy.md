@@ -162,6 +162,16 @@ echo "<production publishable key>" | npx wrangler secret put NEXT_PUBLIC_CLERK_
 
 その後、`app.yml`(dev)・`app-production.yml`(production)双方に「Set Worker secrets」ステップを追加し、デプロイのたびにGitHub Secretsから`wrangler secret put`で流し込むようにした。冪等なので毎回実行しても無害で、これで「手動で一度設定したっきり、どこにも記録が無い」状態は解消された。Terraform管理(`cloudflare_workers_secret`等)は採用しなかった。Terraform stateには`sensitive`指定でも値が平文で残るため、秘密情報をstateに持ち込むアンチパターンを避けた。
 
+### 続編: `SITE_INDEXABLE`/`SITE_URL`も同じ罠を踏んでいた(2026年9月)
+
+`CLERK_SECRET_KEY`の件を直した後も、CIの`.env.local`には`SITE_INDEXABLE`/`SITE_URL`を書き続けていた(secretではなく非機密のvarなので、当時は「Secretとvarで扱いが違う」ことに気づいていなかった)。結果、**本番は初回デプロイからずっと`noindex`(`<meta name="robots">`・`X-Robots-Tag`ヘッダー・`robots.txt`の3箇所すべてで検索エンジンにインデックスを拒否)のまま公開されていた**。原因はまったく同じで、`SITE_INDEXABLE`/`SITE_URL`もCloudflare Workersの実行時varとしてしか読まれず(`scripts/check-i18n.mjs`が`wrangler dev --var`で個別に上書きして検証していたことからも分かる通り、これ自体は以前から把握していた設計だったが、本番ワークフローの`.env.local`側には反映されていなかった)、`.env.local`経由の値はビルド・デプロイ後のWorkerには一切届いていなかった。
+
+`SITE_URL`は本番ではフォールバック値(`https://paibot.app`)とたまたま一致していたため実害が表面化しなかったが、`SITE_INDEXABLE`はフォールバックが`false`のため、本番が丸ごと検索エンジンから見えない状態になっていた。
+
+対処: `wrangler.jsonc`のトップレベル(dev)と`env.production`それぞれに`vars`ブロックを追加し、`SITE_INDEXABLE`/`SITE_URL`を明示的に宣言(`vars`は`name`/`routes`と同じく環境間で継承されないため、両方に書く)。CIの`.env.local`からは両方の行を削除し、コメントで「ここに書いても効かない」ことを明記した。`scripts/check-i18n.mjs`の本番相当シミュレーション(`withServer(true, ...)`)にも`--var SITE_URL:https://paibot.app`を追加(devビルドの実際の値が`https://dev.paibot.app`に変わったことでテストの前提とズレていたため)。
+
+**教訓**: SecretだけでなくvarもCloudflare Workersでは同じ原則(`.env.local`はデプロイ後のWorkerに効かない)が適用される。今後このアプリで環境変数を増やす時は、「secretかvarか」に関わらず、まず`wrangler.jsonc`の`vars`(非機密)か`wrangler secret put`(機密)のどちらかで実際にWorkerへ渡す設計にすること。
+
 ## Clerk本番インスタンス
 
 Clerk公式CLI(`npx clerk deploy`、対話式で人間の操作が必須)で作成した。

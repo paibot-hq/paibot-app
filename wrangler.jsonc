@@ -23,6 +23,21 @@
   "version_metadata": {
     "binding": "CF_VERSION_METADATA"
   },
+  // SITE_URL/SITE_INDEXABLE must be real Workers vars, not just .env.local —
+  // they're read live from process.env at request time (confirmed in
+  // scripts/check-i18n.mjs), not baked in at build time. The CI .env.local
+  // step setting these never actually reached the deployed Worker: production
+  // served noindex/Disallow: / (meta tag, X-Robots-Tag, robots.txt) since the
+  // first deploy, and dev's canonical URLs pointed at paibot.app instead of
+  // dev.paibot.app (SITE_URL's fallback default happened to match prod, so
+  // only dev was visibly wrong). Same root cause as the CLERK_SECRET_KEY
+  // issue in docs/plans/production-deploy.md. `vars` isn't inherited between
+  // the top level and `env.production` any more than `name`/`routes` are, so
+  // both are declared in full at each level.
+  "vars": {
+    "SITE_URL": "https://dev.paibot.app",
+    "SITE_INDEXABLE": "false"
+  },
   "env": {
     // `routes` (and `name`) are not inherited from the top level, so both
     // must be redeclared here even though they'd otherwise match the dev
@@ -31,7 +46,11 @@
       "name": "paibot-app",
       "routes": [
         { "pattern": "paibot.app", "custom_domain": true }
-      ]
+      ],
+      "vars": {
+        "SITE_URL": "https://paibot.app",
+        "SITE_INDEXABLE": "true"
+      }
     }
   }
 }

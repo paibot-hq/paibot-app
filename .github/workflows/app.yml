@@ -44,13 +44,18 @@ jobs:
       # runtime env) for check:i18n below to exercise real auth redirects.
       # Add NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY / CLERK_SECRET_KEY as repo secrets
       # (development instance keys — never production keys) for this to pass.
+      # SITE_INDEXABLE is intentionally not set here: it's read live from a
+      # Cloudflare Workers var at request time, not from .env.local/process.env
+      # (confirmed in check-i18n.mjs, which sets it via `wrangler dev --var`
+      # for its own spawned server instead). No `vars.SITE_INDEXABLE` is
+      # declared for the dev Worker in wrangler.jsonc, so it defaults to
+      # unset/false (non-indexable) — which is what we want for dev anyway.
       - name: Set up .env.local
         run: |
           cat <<EOF > .env.local
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
           CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }}
           SITE_URL=https://paibot.app
-          SITE_INDEXABLE=false
           EOF
 
       # `npm run typecheck` depends on .next/types/validator.ts, which only a plain
@@ -80,12 +85,14 @@ jobs:
 
       - run: npm ci
 
+      # See the comment on the same step in the verify job above: SITE_INDEXABLE
+      # isn't set via .env.local, it comes from a Workers var (none declared
+      # for dev, so it defaults to non-indexable).
       - name: Set up .env.local
         run: |
           cat <<EOF > .env.local
           NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
           CLERK_SECRET_KEY=${{ secrets.CLERK_SECRET_KEY }}
-          SITE_INDEXABLE=false
           EOF
 
       - run: npm run build
