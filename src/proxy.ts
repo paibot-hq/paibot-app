@@ -41,7 +41,16 @@ export default clerkMiddleware((_auth, request) => {
     signInUrl: `/${locale}/sign-in`,
     signUpUrl: `/${locale}/sign-up`,
     ...(isProductionClerk ? { authorizedParties: [siteOrigin] } : {}),
-    contentSecurityPolicy: { directives: { "frame-ancestors": ["'none'"] } },
+    contentSecurityPolicy: {
+      directives: {
+        "frame-ancestors": ["'none'"],
+        // The IP tool fetches these directly from the browser to detect
+        // IPv4/IPv6 separately (see src/components/ip-lookup.tsx). Merged
+        // into Clerk's default connect-src, not a replacement — confirmed by
+        // reading @clerk/nextjs's content-security-policy.js.
+        "connect-src": ["https://ipv4.icanhazip.com", "https://ipv6.icanhazip.com"],
+      },
+    },
   };
 });
 export const config = {

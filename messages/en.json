@@ -16,9 +16,10 @@
     "ip": {
       "kicker": "Utility",
       "title": "IP Address Check",
-      "description": "Check the IP address your browser is currently using.",
-      "label": "Your IP address:",
-      "unknown": "Could not detect your IP address."
+      "description": "Check the IPv4 and IPv6 addresses your browser is currently using.",
+      "ipv4Label": "IPv4 Address",
+      "ipv6Label": "IPv6 Address",
+      "unknown": "Not available"
     },
     "wc": {
       "kicker": "Utility",
@@ -88,6 +89,18 @@
       "copy": "Copy",
       "copied": "Copied",
       "invalidError": "That isn't a valid Base64 string"
+    },
+    "json": {
+      "kicker": "Utility",
+      "title": "JSON Formatter",
+      "description": "Format, minify, and validate JSON.",
+      "modeFormat": "Format",
+      "modeMinify": "Minify",
+      "inputPlaceholder": "Type or paste JSON here",
+      "resultLabel": "Result",
+      "copy": "Copy",
+      "copied": "Copied",
+      "invalidError": "That isn't valid JSON"
     },
     "urlencode": {
       "kicker": "Utility",

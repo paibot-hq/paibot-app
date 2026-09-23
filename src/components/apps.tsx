@@ -90,6 +90,19 @@ export default function Apps({ year }: { year: number }) {
             <p>{t("base64.description")}</p>
           </div>
         </Link>
+        <Link className="app-card" href="/json">
+          <span className="app-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24">
+              <path d="M8 3c-2 0-3 1-3 3v3c0 1-.5 2-2 2 1.5 0 2 1 2 2v3c0 2 1 3 3 3" />
+              <path d="M16 3c2 0 3 1 3 3v3c0 1 .5 2 2 2-1.5 0-2 1-2 2v3c0 2-1 3-3 3" />
+            </svg>
+          </span>
+          <div>
+            <p className="app-kicker">{t("json.kicker")}</p>
+            <h3>{t("json.title")}</h3>
+            <p>{t("json.description")}</p>
+          </div>
+        </Link>
         <Link className="app-card" href="/urlencode">
           <span className="app-icon" aria-hidden="true">
             <svg viewBox="0 0 24 24">

@@ -16,9 +16,10 @@
     "ip": {
       "kicker": "实用工具",
       "title": "IP 地址查询",
-      "description": "查看您当前使用的 IP 地址。",
-      "label": "您正在使用的 IP 地址:",
-      "unknown": "无法获取 IP 地址。"
+      "description": "查看您当前使用的 IPv4 和 IPv6 地址。",
+      "ipv4Label": "IPv4 地址",
+      "ipv6Label": "IPv6 地址",
+      "unknown": "无法获取"
     },
     "wc": {
       "kicker": "实用工具",
@@ -88,6 +89,18 @@
       "copy": "复制",
       "copied": "已复制",
       "invalidError": "不是有效的 Base64 字符串"
+    },
+    "json": {
+      "kicker": "实用工具",
+      "title": "JSON 格式化",
+      "description": "格式化、压缩并校验 JSON。",
+      "modeFormat": "格式化",
+      "modeMinify": "压缩",
+      "inputPlaceholder": "在此输入 JSON",
+      "resultLabel": "转换结果",
+      "copy": "复制",
+      "copied": "已复制",
+      "invalidError": "不是有效的 JSON"
     },
     "urlencode": {
       "kicker": "实用工具",

@@ -6,7 +6,7 @@ import { chromium } from 'playwright';
 // an already-running dev server (`npm run dev`, default port 3001).
 // Complements check-i18n.mjs, which checks the built app without a real browser.
 const base = process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3001';
-const tools = ['age', 'arith', 'base64', 'dice', 'ip', 'password', 'reaction', 'timing', 'urlencode', 'wc'];
+const tools = ['age', 'arith', 'base64', 'dice', 'ip', 'json', 'password', 'reaction', 'timing', 'urlencode', 'wc'];
 
 try {
   await fetch(base);

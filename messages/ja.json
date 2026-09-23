@@ -16,9 +16,10 @@
     "ip": {
       "kicker": "ユーティリティ",
       "title": "IPアドレス確認",
-      "description": "今使っているIPアドレスを確認できます。",
-      "label": "あなたの利用しているIPアドレス:",
-      "unknown": "IPアドレスを取得できませんでした。"
+      "description": "今使っているIPv4・IPv6アドレスを確認できます。",
+      "ipv4Label": "IPv4アドレス",
+      "ipv6Label": "IPv6アドレス",
+      "unknown": "取得できませんでした"
     },
     "wc": {
       "kicker": "ユーティリティ",
@@ -88,6 +89,18 @@
       "copy": "コピー",
       "copied": "コピーしました",
       "invalidError": "有効なBase64文字列ではありません"
+    },
+    "json": {
+      "kicker": "ユーティリティ",
+      "title": "JSON整形",
+      "description": "JSONを整形・圧縮したり、妥当性を確認できます。",
+      "modeFormat": "整形",
+      "modeMinify": "圧縮",
+      "inputPlaceholder": "ここにJSONを入力",
+      "resultLabel": "変換結果",
+      "copy": "コピー",
+      "copied": "コピーしました",
+      "invalidError": "有効なJSONではありません"
     },
     "urlencode": {
       "kicker": "ユーティリティ",

@@ -5,7 +5,7 @@ import { routing, type Locale } from "../i18n/routing";
 export const siteOrigin = new URL(process.env.SITE_URL || "https://paibot.app").origin;
 export const isIndexable = process.env.SITE_INDEXABLE === "true";
 // Add only real public pages as tools become available.
-export const publicPaths = ["", "/apps", "/about", "/ip", "/wc", "/arith", "/age", "/password", "/base64", "/urlencode", "/dice", "/reaction", "/timing"] as const;
+export const publicPaths = ["", "/apps", "/about", "/ip", "/wc", "/arith", "/age", "/password", "/base64", "/json", "/urlencode", "/dice", "/reaction", "/timing"] as const;
 export function localizedUrl(locale: Locale, path: string) {
   return `${siteOrigin}/${locale}${path}`;
 }
