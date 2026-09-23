@@ -18,6 +18,8 @@
    - `paibot-app-dev`のworkers.devは無効(APIで`enabled: false`を確認)。外からの入口は`dev.paibot.app`だけ。
    - **Service Token(`cloudflare_zero_trust_access_service_token.ci`)**: `.github/workflows/app.yml`の`smoke-test-dev`ジョブ(`deploy-dev`後、`https://dev.paibot.app`に対して`check:browser`をPlaywrightで実行する緩いスモークテスト)がAccessのログイン画面にリダイレクトされずに済むようにするためのもの。有効期限は`duration = "8760h"`(約1年、`forever`ではなく期限切れ前提)。`client_id`/`client_secret`は`infra/outputs.tf`の`ci_access_client_id`/`ci_access_client_secret`(いずれも`sensitive = true`)から`terraform output -raw <name>`で取得し、GitHub Secretsの`CF_ACCESS_CLIENT_ID`/`CF_ACCESS_CLIENT_SECRET`に登録する(CIのログには出力されない)。ローテーション時は再applyで新しい`client_secret`が発行されるので、同じ手順でSecretsを更新する。
 3. **Clerk本番インスタンス用のDNSレコード**(`infra/dns.tf`)。`clerk deploy`が要求するCNAME5件(認証用カスタムドメイン+メール送信用DKIM)。`clerk deploy`実行時に生成されるBINDゾーンファイルの内容をそのまま`cloudflare_dns_record`として転記したもの。すべて`proxied = false`(Clerk自身がTLS終端するため、Cloudflareのプロキシを挟まない)。
+4. **devのD1データベース**(`infra/d1.tf`、`cloudflare_d1_database.app_dev`)。お気に入り機能(issue #18)向けにD1を実際に使ってみる最初のトライアルで、機能ごとにデータベースを分けず、アプリ全体で1つを共用する方針(将来`/math`の問題集でも同じDBを使う想定)。今はdevのみ。本番用(`paibot-app`という名前を想定)は、devで検証できてから別途作る。
+   - Terraformは`cloudflare_d1_database`リソース(D1データベースの存在)までを管理する。Workerからのバインディング設定自体は`wrangler.jsonc`の`d1_databases`(Wrangler管轄、上の「TerraformとWranglerの管理範囲」参照)なので、`terraform apply`後に`infra/outputs.tf`の`d1_app_dev_database_id`から`database_id`を**手で**転記すること。
 
 リソースは実際に必要になってから追加してください。実績作りのために先回りして作らないこと。
 
