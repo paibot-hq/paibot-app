@@ -38,7 +38,10 @@ export default function Header() {
 
   return (
     <header className="topbar">
-      <Link className="brand" href="/"><span className="wordmark">PAIBOT</span><span className="brand-suffix">.app</span></Link>
+      <Link className="brand" href="/">
+        <img className="brand-logo" src="/icon.svg" alt="" width="24" height="24" />
+        <span className="wordmark">PAIBOT</span><span className="brand-suffix">.app</span>
+      </Link>
       <nav aria-label={t("navApps")}>
         <Link href="/apps">{t("navApps")}</Link>
         <Link href="/about">{t("navAbout")}</Link>

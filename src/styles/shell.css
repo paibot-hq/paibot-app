@@ -57,13 +57,19 @@ a {
 
 .brand {
   display: inline-flex;
-  align-items: baseline;
-  gap: .16em;
+  align-items: center;
+  gap: .5em;
   color: var(--text);
   font-size: .95rem;
   font-weight: 600;
   letter-spacing: 0;
   text-decoration: none;
+}
+
+.brand-logo {
+  display: block;
+  width: 1.5rem;
+  height: 1.5rem;
 }
 
 .wordmark {
