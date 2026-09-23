@@ -73,6 +73,11 @@ console.log(`PASS: all ${tools.length} tool pages render cleanly in ${LANGS.join
 {
   const errors = await withPage(async (page) => {
     await go(page, '/ja');
+    // TEMP DEBUG: diagnosing a theme-toggle click timeout seen only against
+    // the real deployed dev Worker, never locally. Remove once root-caused.
+    console.log('DEBUG url=', page.url(), 'title=', await page.title());
+    console.log('DEBUG theme-toggle count=', await page.locator('.theme-toggle').count());
+    console.log('DEBUG body snippet=', (await page.evaluate(() => document.body.innerText)).slice(0, 300));
     const initial = await page.evaluate(() => document.documentElement.dataset.theme);
     await page.click('.theme-toggle');
     await page.waitForTimeout(150);
