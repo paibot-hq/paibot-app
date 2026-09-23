@@ -135,6 +135,16 @@ html[data-theme="light"] .cloud-c {
   margin-top: 1.5rem;
 }
 
+.hero-mascot {
+  position: absolute;
+  z-index: 4;
+  right: 4rem;
+  top: 50%;
+  width: 140px;
+  height: 140px;
+  transform: translateY(-50%);
+}
+
 .category-tiles {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));

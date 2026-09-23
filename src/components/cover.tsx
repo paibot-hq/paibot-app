@@ -22,6 +22,7 @@ export default function Cover({ year }: { year: number }) {
           <p className="lead">{t("lead")}</p>
           <Link className="auth-link" href="/apps">{t("heroCta")}</Link>
         </div>
+        <img className="hero-mascot" src="/icon.svg" alt="" width="140" height="140" />
       </section>
 
       <div className="category-tiles">
