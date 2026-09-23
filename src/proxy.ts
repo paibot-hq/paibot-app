@@ -49,6 +49,13 @@ export default clerkMiddleware((_auth, request) => {
         // into Clerk's default connect-src, not a replacement — confirmed by
         // reading @clerk/nextjs's content-security-policy.js.
         "connect-src": ["https://ipv4.icanhazip.com", "https://ipv6.icanhazip.com"],
+        // Clerk has no default img-src, so without this, its own inline
+        // data:image/svg+xml placeholder logo falls back to default-src
+        // (which doesn't include `data:`) and gets blocked. Only surfaced by
+        // the post-deploy smoke test (.github/workflows/app.yml's
+        // smoke-test-dev) — the CSP isn't enforced the same way under
+        // `vinext dev`, so this was invisible locally.
+        "img-src": ["https:", "data:"],
       },
     },
   };
