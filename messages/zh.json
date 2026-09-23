@@ -26,8 +26,9 @@
       "daily": "日常"
     },
     "home": {
+      "tryIt": "先试试看吧。",
       "study": { "description": "算术练习、资格考试备考等" },
-      "dev": { "description": "JSON 格式化、Base64 转换等" },
+      "utility": { "description": "字符计数、密码生成等" },
       "game": { "description": "反应速度、计时等小游戏" },
       "daily": { "description": "出生年份速查表等" }
     },
@@ -169,6 +170,19 @@
       "newRecord": "新纪录!",
       "bestLabel": "个人最佳(误差)",
       "retry": "再试一次"
+    },
+    "stopwatch": {
+      "title": "秒表",
+      "description": "计时工具,可记录分段时间。",
+      "keywords": "秒表 计时 分段",
+      "start": "开始",
+      "pause": "停止",
+      "resume": "继续",
+      "reset": "重置",
+      "lap": "计次",
+      "lapRow": "第 {n} 圈",
+      "splitLabel": "区间",
+      "totalLabel": "总计"
     },
     "math": {
       "title": "数学题库",

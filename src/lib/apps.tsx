@@ -16,7 +16,7 @@ export type DynamicT = (key: string, values?: Record<string, string | number>) =
 export type AppCategory = "study" | "dev" | "utility" | "network" | "game" | "daily";
 
 // Display order for category sections on /apps.
-export const APP_CATEGORIES: AppCategory[] = ["study", "dev", "utility", "network", "game", "daily"];
+export const APP_CATEGORIES: AppCategory[] = ["daily", "game", "utility", "study", "dev", "network"];
 
 export type AppEntry = {
   // Unique, stable id. Matches the route slug for published apps; for a
@@ -136,6 +136,17 @@ function TimingIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function StopwatchIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <circle cx="12" cy="14" r="8" />
+      <path d="M12 14V9" />
+      <path d="M9 3h6" />
+      <path d="M19 7l1.4-1.4" />
+    </svg>
+  );
+}
+
 function MathIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -159,6 +170,7 @@ export const apps: AppEntry[] = [
   // ユーティリティ / Utility
   { slug: "wc", href: "/wc", category: "utility", status: "published", messageKey: "wc", icon: WcIcon },
   { slug: "password", href: "/password", category: "utility", status: "published", messageKey: "password", icon: PasswordIcon },
+  { slug: "stopwatch", href: "/stopwatch", category: "utility", status: "published", messageKey: "stopwatch", icon: StopwatchIcon },
 
   // ネットワーク / Network
   { slug: "ip", href: "/ip", category: "network", status: "published", messageKey: "ip", icon: IpIcon },
@@ -181,11 +193,12 @@ function StudyIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-function DevToolsIcon(props: SVGProps<SVGSVGElement>) {
+function UtilityIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
-      <path d="M8 8 4 12l4 4" />
-      <path d="M16 8l4 4-4 4" />
+      <path d="M4 7h10M18 7h2M4 17h2M8 17h12" />
+      <circle cx="16" cy="7" r="2" />
+      <circle cx="6" cy="17" r="2" />
     </svg>
   );
 }
@@ -208,13 +221,12 @@ export type HomeCategoryTile = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
-// The homepage only teases the 4 broadest categories (not every /apps
-// section — "utility" and "network" are small enough for now that they'd
-// just add clutter right below the hero). Each links to that category's
-// section on /apps via an anchor (e.g. #study).
+// The homepage only teases 4 of the 6 /apps categories — "dev" and
+// "network" are left out for now to keep this from getting crowded. Each
+// tile links to that category's section on /apps via an anchor (e.g. #study).
 export const HOME_CATEGORY_TILES: HomeCategoryTile[] = [
-  { category: "study", messageKey: "study", icon: StudyIcon },
-  { category: "dev", messageKey: "dev", icon: DevToolsIcon },
-  { category: "game", messageKey: "game", icon: GameIcon },
   { category: "daily", messageKey: "daily", icon: AgeIcon },
+  { category: "game", messageKey: "game", icon: GameIcon },
+  { category: "utility", messageKey: "utility", icon: UtilityIcon },
+  { category: "study", messageKey: "study", icon: StudyIcon },
 ];

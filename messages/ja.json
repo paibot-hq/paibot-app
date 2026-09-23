@@ -26,8 +26,9 @@
       "daily": "日常"
     },
     "home": {
+      "tryIt": "まずは、使ってみましょう。",
       "study": { "description": "算数ドリルや資格試験対策など" },
-      "dev": { "description": "JSON整形・Base64変換など" },
+      "utility": { "description": "文字数カウント・パスワード生成など" },
       "game": { "description": "反応速度・タイミングなどのミニゲーム" },
       "daily": { "description": "生年早見表など" }
     },
@@ -169,6 +170,19 @@
       "newRecord": "新記録!",
       "bestLabel": "自己ベスト(誤差)",
       "retry": "もう一度"
+    },
+    "stopwatch": {
+      "title": "ストップウォッチ",
+      "description": "経過時間を計測できます。ラップタイムも記録できます。",
+      "keywords": "ストップウォッチ 時間計測 ラップ",
+      "start": "スタート",
+      "pause": "ストップ",
+      "resume": "再開",
+      "reset": "リセット",
+      "lap": "ラップ",
+      "lapRow": "ラップ {n}",
+      "splitLabel": "区間",
+      "totalLabel": "合計"
     },
     "math": {
       "title": "数学問題集",

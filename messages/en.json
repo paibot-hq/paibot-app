@@ -26,8 +26,9 @@
       "daily": "Everyday"
     },
     "home": {
+      "tryIt": "Give one a try.",
       "study": { "description": "Math drills, certification prep, and more" },
-      "dev": { "description": "JSON formatting, Base64 conversion, and more" },
+      "utility": { "description": "Character count, password generator, and more" },
       "game": { "description": "Reaction and timing mini-games" },
       "daily": { "description": "Birth year lookup and more" }
     },
@@ -169,6 +170,19 @@
       "newRecord": "New record!",
       "bestLabel": "Best (off by)",
       "retry": "Try again"
+    },
+    "stopwatch": {
+      "title": "Stopwatch",
+      "description": "Time how long something takes, with lap recording.",
+      "keywords": "stopwatch timer lap",
+      "start": "Start",
+      "pause": "Stop",
+      "resume": "Resume",
+      "reset": "Reset",
+      "lap": "Lap",
+      "lapRow": "Lap {n}",
+      "splitLabel": "Split",
+      "totalLabel": "Total"
     },
     "math": {
       "title": "Math Problem Set",
