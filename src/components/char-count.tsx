@@ -13,7 +13,7 @@ export default function CharCount() {
   const [text, setText] = useState("");
   const count = [...text].length;
   return (
-    <ToolLayout title={t("wc.title")} layout="centered">
+    <ToolLayout title={t("wc.title")}>
       <p className={controls.label}>{t("wc.countLabel")}</p>
       <p className={styles["wc-count"]} aria-live="polite">{count}</p>
       <textarea

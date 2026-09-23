@@ -133,7 +133,7 @@ export default function ArithmeticPractice() {
 
   if (finished) {
     return (
-      <ToolLayout title={t("arith.title")} layout="centered">
+      <ToolLayout title={t("arith.title")}>
         <p className={styles["arith-result-summary"]} aria-live="polite">
           {t("arith.resultSummary", { total: SESSION_LENGTH, mistakes })}
         </p>
@@ -155,12 +155,12 @@ export default function ArithmeticPractice() {
 
   if (!problem) {
     return (
-      <ToolLayout title={t("arith.title")} layout="centered" />
+      <ToolLayout title={t("arith.title")} />
     );
   }
 
   return (
-    <ToolLayout title={t("arith.title")} layout="centered">
+    <ToolLayout title={t("arith.title")}>
       <p className={styles["arith-progress"]} aria-live="polite">
         {t("arith.progress", { current: completed + 1, total: SESSION_LENGTH })}
       </p>

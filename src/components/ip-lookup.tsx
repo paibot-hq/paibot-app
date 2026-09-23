@@ -48,7 +48,7 @@ export default function IpLookup() {
   }
 
   return (
-    <ToolLayout title={t("ip.title")} layout="centered" contentWidth="auto">
+    <ToolLayout title={t("ip.title")} contentWidth="auto">
       <p className={controls.label}>{t("ip.ipv4Label")}</p>
       <p className={styles["ip-value"]} aria-live="polite">{renderValue(v4)}</p>
 
