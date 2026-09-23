@@ -135,6 +135,16 @@ html[data-theme="light"] .cloud-c {
   margin-top: 1.5rem;
 }
 
+/* A mark that floats just above the hero's glass surface rather than a flat
+   sticker or a carved-in groove: no fill, just a soft light catch on one
+   edge and a soft shadow on the other (the raised counterpart of the
+   "pressed in" neumorphic trick — same idea, shadows cast outward instead
+   of inset). */
+@keyframes hero-mascot-breathe {
+  0%, 100% { transform: translateY(-50%) scale(1); }
+  50% { transform: translateY(-50%) scale(1.045, .96); }
+}
+
 .hero-mascot {
   position: absolute;
   z-index: 4;
@@ -143,16 +153,141 @@ html[data-theme="light"] .cloud-c {
   width: 140px;
   height: 140px;
   transform: translateY(-50%);
-  opacity: .9;
-  filter: blur(.4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 22px;
+  border-radius: 46px;
+  box-shadow:
+    -6px -6px 16px rgba(255, 255, 255, .12),
+    6px 6px 16px rgba(0, 0, 0, .32);
+  animation: hero-mascot-breathe 3.2s ease-in-out infinite;
+  transition: transform .35s cubic-bezier(.34, 1.56, .64, 1);
 }
 
-.category-tiles {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.5rem;
-  margin-top: 1.5rem;
+.hero-mascot:hover {
+  animation-play-state: paused;
+  transform: translateY(-50%) scale(1.12, .9);
 }
+
+.hero-mascot:active {
+  transition-duration: .12s;
+  transform: translateY(-50%) scale(.88, 1.1);
+}
+
+.hero-mascot-eye {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  box-shadow:
+    -2px -2px 4px rgba(255, 255, 255, .16),
+    2px 2px 4px rgba(0, 0, 0, .38);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-mascot {
+    animation: none;
+  }
+}
+
+html[data-theme="light"] .hero-mascot,
+html[data-theme="light"] .hero-mascot-eye {
+  box-shadow:
+    -6px -6px 16px rgba(255, 255, 255, .95),
+    6px 6px 16px rgba(79, 134, 182, .3);
+}
+
+html[data-theme="light"] .hero-mascot-eye {
+  box-shadow:
+    -2px -2px 4px rgba(255, 255, 255, .95),
+    2px 2px 4px rgba(79, 134, 182, .35);
+}
+
+@media (prefers-color-scheme: light) {
+  .hero-mascot {
+    box-shadow:
+      -6px -6px 16px rgba(255, 255, 255, .95),
+      6px 6px 16px rgba(79, 134, 182, .3);
+  }
+
+  .hero-mascot-eye {
+    box-shadow:
+      -2px -2px 4px rgba(255, 255, 255, .95),
+      2px 2px 4px rgba(79, 134, 182, .35);
+  }
+
+  html[data-theme="dark"] .hero-mascot {
+    box-shadow:
+      -6px -6px 16px rgba(255, 255, 255, .12),
+      6px 6px 16px rgba(0, 0, 0, .32);
+  }
+
+  html[data-theme="dark"] .hero-mascot-eye {
+    box-shadow:
+      -2px -2px 4px rgba(255, 255, 255, .16),
+      2px 2px 4px rgba(0, 0, 0, .38);
+  }
+}
+
+.category-showcase-intro {
+  margin: 2rem 0 0;
+  color: var(--muted);
+  font-size: .9rem;
+  text-align: center;
+}
+
+/* Not a menu grid — a loose row introducing what's available, so no card
+   border/background/shadow here (unlike .app-card on /apps). */
+.category-showcase {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem 3rem;
+  margin-top: 1rem;
+  text-align: center;
+}
+
+.category-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .5rem;
+  width: 160px;
+  color: inherit;
+  text-decoration: none;
+}
+
+.category-item-icon {
+  display: grid;
+  place-items: center;
+  width: 72px;
+  height: 72px;
+}
+
+.category-item-icon svg {
+  width: 40px;
+  height: 40px;
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.category-item h3 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.category-item p {
+  margin: 0;
+  color: var(--muted);
+  font-size: .85rem;
+  line-height: 1.5;
+}
+
+.category-item:hover h3 { color: var(--accent); }
+.category-item:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: var(--radius); }
 
 .eyebrow {
   margin: 0 0 .75rem;
@@ -269,9 +404,6 @@ h1 .title-suffix {
 
 .app-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 22px 54px var(--shadow); }
 .app-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
-
-.category-tiles .app-icon { width: 56px; height: 56px; }
-.category-tiles .app-icon svg { width: 26px; height: 26px; }
 
 .app-icon {
   display: grid;
