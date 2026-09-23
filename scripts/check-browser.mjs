@@ -47,6 +47,16 @@ async function go(page, path, { waitUntil = 'networkidle' } = {}) {
   await page.waitForTimeout(200);
 }
 
+// Clerk shows a "development mode" badge (a small data:image/svg+xml logo)
+// whenever a pk_test_ key is used on a non-localhost hostname — expected on
+// dev.paibot.app, which intentionally uses Clerk's development instance. The
+// badge sets its own CSP unrelated to ours (confirmed: curling our own /ja
+// response shows img-src already covers data:, so this isn't our header),
+// so it's not something proxy.ts can fix. Never shows up on localhost, which
+// is why this was invisible before the smoke test started hitting the real
+// deployed dev Worker.
+const isClerkDevBadgeNoise = (e) => /violates the following Content Security Policy/.test(e) && /data:image/.test(e);
+
 // 1. Every tool page renders without a JS/console error, in every locale.
 const LANGS = ['ja', 'en', 'zh'];
 for (const locale of LANGS) {
@@ -54,7 +64,8 @@ for (const locale of LANGS) {
     await go(page, `/${locale}`);
     for (const slug of tools) await go(page, `/${locale}/${slug}`);
   });
-  assert.deepEqual(errors, [], `${locale}: tool pages must render without errors`);
+  const relevantErrors = errors.filter(e => !isClerkDevBadgeNoise(e));
+  assert.deepEqual(relevantErrors, [], `${locale}: tool pages must render without errors`);
 }
 console.log(`PASS: all ${tools.length} tool pages render cleanly in ${LANGS.join('/')}`);
 
