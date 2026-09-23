@@ -122,14 +122,13 @@ jobs:
 
   # Catches "deploy succeeded but the app is actually broken" (e.g. the
   # missing-secret 500 incident — see docs/plans/production-deploy.md) right
-  # after it happens, instead of whenever someone next looks. Best-effort:
-  # continue-on-error so a flaky run (Clerk's widget loads from an external
-  # CDN) or an Access hiccup never blocks a merge or future deploy.
+  # after it happens, instead of whenever someone next looks. Runs after
+  # deploy-dev, so a failure here can't block the deploy itself — only the
+  # workflow run's overall status, as a visible signal something's wrong.
   smoke-test-dev:
     needs: deploy-dev
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v7
 
