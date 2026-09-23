@@ -59,12 +59,18 @@ jobs:
             -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}" \
             -backend-config="endpoints={s3=\"https://${{ vars.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com\"}"
 
-      # Plan only — this workflow never applies. Uses default state locking
-      # (do not add -lock=false): a concurrent apply holding the real R2 lock
-      # should make this wait or fail, not read a state mid-write.
+      # Plan only — this workflow never applies (the -out file below is only
+      # to render a summary and is never uploaded or reused). Uses default
+      # state locking (do not add -lock=false): a concurrent apply holding
+      # the real R2 lock should make this wait or fail, not read a state
+      # mid-write. `terraform plan` runs as its own step (not piped) so a
+      # plan failure fails this step; `terraform show` is what's piped into
+      # the summary, matching infra-apply.yml's pattern.
       - name: terraform plan
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_TERRAFORM }}
           AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_R2_SECRET_ACCESS_KEY }}
-        run: terraform plan -input=false
+        run: |
+          terraform plan -input=false -out=tfplan
+          terraform show -no-color tfplan | tee "$GITHUB_STEP_SUMMARY"
