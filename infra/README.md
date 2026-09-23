@@ -11,11 +11,12 @@
 ## 現在の管理範囲(意図的に小さい)
 
 1. **`paibot.app`ゾーンの読み取り専用データソース参照**(`infra/data.tf`)。このゾーンはTerraformが作ったものではなく(Cloudflare APIで確認済み、ステータス`active`)、`resource`ブロックを持たないので、Terraformが削除・再作成を提案することは原理的にありません。
-2. **devのWorker(`paibot-app-dev`)を守るCloudflare Accessアプリケーション**(`infra/access.tf`)。`sanofc@gmail.com`だけを許可し、セッションは24時間。
+2. **devのWorker(`paibot-app-dev`)を守るCloudflare Accessアプリケーション**(`infra/access.tf`)。`sanofc@gmail.com`のログインと、GitHub Actions用のService Tokenの両方を許可(`include`はOR評価)。セッションは24時間。
    - 対象は`destinations`の`type = "worker"`(Worker単位)なので、カスタムドメイン(`dev.paibot.app`)・workers.dev・プレビューURLのすべてに掛かる。
    - Accessを`wrangler.jsonc`ではなくTerraformで持つ理由: Wranglerの`access`ブロックは`wrangler dev`でのID模擬用で、本番のAccess設定はできないため。
    - `worker_id`はWorkerの内部ID(名前ではない)。Workerを削除して作り直すと変わるので、その場合は`access.tf`の値を更新すること。取得方法は`access.tf`のコメントを参照。
    - `paibot-app-dev`のworkers.devは無効(APIで`enabled: false`を確認)。外からの入口は`dev.paibot.app`だけ。
+   - **Service Token(`cloudflare_zero_trust_access_service_token.ci`)**: `.github/workflows/app.yml`の`smoke-test-dev`ジョブ(`deploy-dev`後、`https://dev.paibot.app`に対して`check:browser`をPlaywrightで実行する緩いスモークテスト)がAccessのログイン画面にリダイレクトされずに済むようにするためのもの。有効期限は`duration = "8760h"`(約1年、`forever`ではなく期限切れ前提)。`client_id`/`client_secret`は`infra/outputs.tf`の`ci_access_client_id`/`ci_access_client_secret`(いずれも`sensitive = true`)から`terraform output -raw <name>`で取得し、GitHub Secretsの`CF_ACCESS_CLIENT_ID`/`CF_ACCESS_CLIENT_SECRET`に登録する(CIのログには出力されない)。ローテーション時は再applyで新しい`client_secret`が発行されるので、同じ手順でSecretsを更新する。
 3. **Clerk本番インスタンス用のDNSレコード**(`infra/dns.tf`)。`clerk deploy`が要求するCNAME5件(認証用カスタムドメイン+メール送信用DKIM)。`clerk deploy`実行時に生成されるBINDゾーンファイルの内容をそのまま`cloudflare_dns_record`として転記したもの。すべて`proxied = false`(Clerk自身がTLS終端するため、Cloudflareのプロキシを挟まない)。
 
 リソースは実際に必要になってから追加してください。実績作りのために先回りして作らないこと。

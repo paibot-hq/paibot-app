@@ -8,8 +8,19 @@ import { chromium } from 'playwright';
 const base = process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3001';
 const tools = ['age', 'arith', 'base64', 'dice', 'ip', 'json', 'password', 'reaction', 'timing', 'urlencode', 'wc'];
 
+// dev.paibot.app sits behind Cloudflare Access (infra/access.tf), which
+// otherwise redirects every request to its login page. A Service Token's
+// CF-Access-Client-Id/Secret headers bypass that. Unset when checking a local
+// dev server (it isn't behind Access), so no extra headers get sent.
+const accessHeaders = process.env.CF_ACCESS_CLIENT_ID && process.env.CF_ACCESS_CLIENT_SECRET
+  ? {
+      'CF-Access-Client-Id': process.env.CF_ACCESS_CLIENT_ID,
+      'CF-Access-Client-Secret': process.env.CF_ACCESS_CLIENT_SECRET,
+    }
+  : {};
+
 try {
-  await fetch(base);
+  await fetch(base, { headers: accessHeaders });
 } catch {
   console.error(`Dev server is not reachable at ${base}.\nStart it first with \`npm run dev\` (in another terminal), then re-run this check.`);
   process.exit(1);
@@ -18,7 +29,7 @@ try {
 const browser = await chromium.launch();
 
 async function withPage(run) {
-  const page = await browser.newPage();
+  const page = await browser.newPage({ extraHTTPHeaders: accessHeaders });
   const errors = [];
   page.on('pageerror', (err) => errors.push(`[pageerror] ${err.message}`));
   page.on('console', (msg) => { if (msg.type() === 'error') errors.push(`[console.error] ${msg.text()}`); });
