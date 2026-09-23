@@ -7,31 +7,49 @@
     "description": "介绍 PAIBOT 开发的应用与云端工具。我们正在打造用于运维、信息整理和自动化的工具。",
     "navApps": "应用",
     "navAbout": "关于",
-    "lead": "应用程序与云端工具。",
+    "lead": "有这个，就够了。",
     "heroCta": "查看应用",
     "apps": {
       "eyebrow": "应用",
-      "title": "已发布的应用"
+      "title": "已发布的应用",
+      "searchLabel": "搜索应用",
+      "searchPlaceholder": "按名称、说明或分类搜索",
+      "noResults": "未找到匹配的应用。",
+      "comingSoon": "即将推出"
+    },
+    "categories": {
+      "study": "学习",
+      "dev": "开发工具",
+      "utility": "实用工具",
+      "network": "网络",
+      "game": "游戏",
+      "daily": "日常"
+    },
+    "home": {
+      "study": { "description": "算术练习、资格考试备考等" },
+      "dev": { "description": "JSON 格式化、Base64 转换等" },
+      "game": { "description": "反应速度、计时等小游戏" },
+      "daily": { "description": "出生年份速查表等" }
     },
     "ip": {
-      "kicker": "实用工具",
       "title": "IP 地址查询",
       "description": "查看您当前使用的 IPv4 和 IPv6 地址。",
+      "keywords": "IP 网络 IPv4 IPv6",
       "ipv4Label": "IPv4 地址",
       "ipv6Label": "IPv6 地址",
       "unknown": "无法获取"
     },
     "wc": {
-      "kicker": "实用工具",
       "title": "字符计数",
       "description": "统计输入文本的字符数。",
+      "keywords": "字符数 计数 文本",
       "placeholder": "在此输入文本",
       "countLabel": "字符数"
     },
     "arith": {
-      "kicker": "练习",
       "title": "算术练习",
       "description": "练习加法、减法、乘法和除法题目。",
+      "keywords": "数学 算术 练习题",
       "incorrect": "答案不正确,请重新输入。",
       "mistakesLabel": "错误次数",
       "progress": "第 {current} / {total} 题",
@@ -45,9 +63,9 @@
       "bestTimeLabel": "个人最佳"
     },
     "age": {
-      "kicker": "实用工具",
       "title": "出生年份速查表",
       "description": "输入年龄,即可立即查看出生年份(公历・日本年号)。",
+      "keywords": "年龄 出生年份 公历 日本年号",
       "inputLabel": "年龄",
       "statusLabel": "今年生日",
       "statusUnknown": "不确定",
@@ -62,9 +80,9 @@
       "note": "在日本年号更替的年份(1868、1912、1926、1989、2019 年),年号的写法会因出生月份而异。此表仅供参考。"
     },
     "password": {
-      "kicker": "实用工具",
       "title": "密码生成器",
       "description": "选择条件,立即生成安全密码。",
+      "keywords": "密码 生成 安全",
       "lengthLabel": "长度",
       "optionsLabel": "使用的字符类型",
       "lower": "小写字母 (a-z)",
@@ -78,9 +96,9 @@
       "emptyWarning": "请至少选择一种字符类型"
     },
     "base64": {
-      "kicker": "实用工具",
       "title": "Base64 转换",
       "description": "在文本和 Base64 之间相互转换。",
+      "keywords": "编码 解码 转换",
       "modeEncode": "文本→Base64",
       "modeDecode": "Base64→文本",
       "inputPlaceholderEncode": "在此输入要转换的文本",
@@ -91,9 +109,9 @@
       "invalidError": "不是有效的 Base64 字符串"
     },
     "json": {
-      "kicker": "实用工具",
       "title": "JSON 格式化",
       "description": "格式化、压缩并校验 JSON。",
+      "keywords": "JSON 格式化 校验 压缩",
       "modeFormat": "格式化",
       "modeMinify": "压缩",
       "inputPlaceholder": "在此输入 JSON",
@@ -103,9 +121,9 @@
       "invalidError": "不是有效的 JSON"
     },
     "urlencode": {
-      "kicker": "实用工具",
       "title": "URL 编码转换",
       "description": "在文本和 URL 编码字符串之间相互转换。",
+      "keywords": "URL 编码 百分号编码",
       "modeEncode": "文本→编码",
       "modeDecode": "编码→文本",
       "inputPlaceholderEncode": "在此输入要转换的文本",
@@ -116,18 +134,18 @@
       "invalidError": "不是有效的 URL 编码字符串"
     },
     "dice": {
-      "kicker": "游戏",
       "title": "骰子",
       "description": "掷骰子查看点数,可更改骰子数量。",
+      "keywords": "骰子 游戏",
       "countLabel": "骰子数量",
       "idle": "请点击「掷骰子」",
       "roll": "掷骰子",
       "totalLabel": "总和"
     },
     "reaction": {
-      "kicker": "游戏",
       "title": "反应速度测试",
       "description": "在画面变色的瞬间点击。可记录您的最佳反应时间。",
+      "keywords": "反应速度 游戏 反射",
       "idle": "点击开始",
       "waiting": "请稍候...",
       "go": "现在!点击!",
@@ -139,9 +157,9 @@
       "retry": "再试一次"
     },
     "timing": {
-      "kicker": "游戏",
       "title": "5秒整点击游戏",
       "description": "从开始起恰好 5 秒后点击。可记录您的最佳误差。",
+      "keywords": "计时 游戏 5秒",
       "targetLabel": "目标时间: {seconds} 秒",
       "idle": "点击开始",
       "running": "计时中...",
@@ -153,9 +171,9 @@
       "retry": "再试一次"
     },
     "math": {
-      "kicker": "敬请期待",
       "title": "数学题库",
       "description": "正在准备涵盖小学到大学基础的分类数学题库。",
+      "keywords": "数学 代数 微积分 几何 题库",
       "comingSoonTitle": "敬请期待",
       "comingSoonBody": "我们正在准备一套涵盖小学到大学基础、按领域分类的数学题库。请稍候。"
     },

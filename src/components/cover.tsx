@@ -2,9 +2,11 @@
 
 import { useTranslations } from "next-intl";
 import { Link } from "../i18n/navigation";
+import { HOME_CATEGORY_TILES, type DynamicT } from "../lib/apps";
 
 export default function Cover({ year }: { year: number }) {
   const t = useTranslations("App");
+  const td = t as unknown as DynamicT;
   return (
     <>
     <main>
@@ -21,6 +23,18 @@ export default function Cover({ year }: { year: number }) {
           <Link className="auth-link" href="/apps">{t("heroCta")}</Link>
         </div>
       </section>
+
+      <div className="category-tiles">
+        {HOME_CATEGORY_TILES.map(({ category, messageKey, icon: Icon }) => (
+          <Link key={category} className="app-card" href={`/apps#${category}`}>
+            <span className="app-icon" aria-hidden="true"><Icon /></span>
+            <div>
+              <h3>{td(`categories.${category}`)}</h3>
+              <p>{td(`home.${messageKey}.description`)}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
     </main>
 
     <footer>

@@ -7,31 +7,49 @@
     "description": "Explore PAIBOT apps and cloud utilities. We are building tools for operations, organizing information, and automation.",
     "navApps": "Apps",
     "navAbout": "About",
-    "lead": "Applications and cloud utilities.",
+    "lead": "That's all you need.",
     "heroCta": "View apps",
     "apps": {
       "eyebrow": "Apps",
-      "title": "Available apps"
+      "title": "Available apps",
+      "searchLabel": "Search apps",
+      "searchPlaceholder": "Search by name, description, or category",
+      "noResults": "No matching apps found.",
+      "comingSoon": "Coming soon"
+    },
+    "categories": {
+      "study": "Study",
+      "dev": "Dev Tools",
+      "utility": "Utilities",
+      "network": "Network",
+      "game": "Games",
+      "daily": "Everyday"
+    },
+    "home": {
+      "study": { "description": "Math drills, certification prep, and more" },
+      "dev": { "description": "JSON formatting, Base64 conversion, and more" },
+      "game": { "description": "Reaction and timing mini-games" },
+      "daily": { "description": "Birth year lookup and more" }
     },
     "ip": {
-      "kicker": "Utility",
       "title": "IP Address Check",
       "description": "Check the IPv4 and IPv6 addresses your browser is currently using.",
+      "keywords": "IP network IPv4 IPv6",
       "ipv4Label": "IPv4 Address",
       "ipv6Label": "IPv6 Address",
       "unknown": "Not available"
     },
     "wc": {
-      "kicker": "Utility",
       "title": "Character Count",
       "description": "Count the characters in the text you enter.",
+      "keywords": "character count text",
       "placeholder": "Type or paste text here",
       "countLabel": "Characters"
     },
     "arith": {
-      "kicker": "Practice",
       "title": "Arithmetic Practice",
       "description": "Practice addition, subtraction, multiplication, and division problems.",
+      "keywords": "math arithmetic drill practice",
       "incorrect": "Incorrect. Try again.",
       "mistakesLabel": "Mistakes",
       "progress": "Question {current} of {total}",
@@ -45,9 +63,9 @@
       "bestTimeLabel": "Best time"
     },
     "age": {
-      "kicker": "Utility",
       "title": "Birth Year Lookup",
       "description": "Enter your age to find the year you were born, in both the Western and Japanese era calendars.",
+      "keywords": "age birth year era",
       "inputLabel": "Age",
       "statusLabel": "This year's birthday",
       "statusUnknown": "Not sure",
@@ -62,9 +80,9 @@
       "note": "In years when the Japanese era changed (1868, 1912, 1926, 1989, 2019), the era name depends on the birth month. Use this table as a guide."
     },
     "password": {
-      "kicker": "Utility",
       "title": "Password Generator",
       "description": "Choose your options to instantly create a secure password.",
+      "keywords": "password generator security",
       "lengthLabel": "Length",
       "optionsLabel": "Character types",
       "lower": "Lowercase (a-z)",
@@ -78,9 +96,9 @@
       "emptyWarning": "Select at least one character type"
     },
     "base64": {
-      "kicker": "Utility",
       "title": "Base64 Converter",
       "description": "Convert text to and from Base64.",
+      "keywords": "encode decode convert",
       "modeEncode": "Text → Base64",
       "modeDecode": "Base64 → Text",
       "inputPlaceholderEncode": "Type or paste the text to convert",
@@ -91,9 +109,9 @@
       "invalidError": "That isn't a valid Base64 string"
     },
     "json": {
-      "kicker": "Utility",
       "title": "JSON Formatter",
       "description": "Format, minify, and validate JSON.",
+      "keywords": "JSON format validator minify",
       "modeFormat": "Format",
       "modeMinify": "Minify",
       "inputPlaceholder": "Type or paste JSON here",
@@ -103,9 +121,9 @@
       "invalidError": "That isn't valid JSON"
     },
     "urlencode": {
-      "kicker": "Utility",
       "title": "URL Encoder",
       "description": "Convert text to and from URL-encoded strings.",
+      "keywords": "URL encode percent encoding",
       "modeEncode": "Text → Encoded",
       "modeDecode": "Encoded → Text",
       "inputPlaceholderEncode": "Type or paste the text to convert",
@@ -116,18 +134,18 @@
       "invalidError": "That isn't a valid URL-encoded string"
     },
     "dice": {
-      "kicker": "Game",
       "title": "Dice Roller",
       "description": "Roll dice and see the result. Choose how many dice to roll.",
+      "keywords": "dice game roll",
       "countLabel": "Number of dice",
       "idle": "Press \"Roll\" to start",
       "roll": "Roll",
       "totalLabel": "Total"
     },
     "reaction": {
-      "kicker": "Game",
       "title": "Reaction Test",
       "description": "Click the instant the color changes. Track your best reaction time.",
+      "keywords": "reaction game reflex",
       "idle": "Click to start",
       "waiting": "Wait...",
       "go": "Now! Click!",
@@ -139,9 +157,9 @@
       "retry": "Try again"
     },
     "timing": {
-      "kicker": "Game",
       "title": "5-Second Click",
       "description": "Click exactly 5 seconds after starting. Track your best timing accuracy.",
+      "keywords": "timing game 5 seconds",
       "targetLabel": "Target: {seconds}s",
       "idle": "Click to start",
       "running": "Timing...",
@@ -153,9 +171,9 @@
       "retry": "Try again"
     },
     "math": {
-      "kicker": "Coming soon",
       "title": "Math Problem Set",
       "description": "A problem set covering math topics from elementary through university basics, organized by subject, is on the way.",
+      "keywords": "math algebra calculus geometry problem set",
       "comingSoonTitle": "Coming soon",
       "comingSoonBody": "We're building a problem set covering math topics from elementary through university basics, organized by subject. Check back soon."
     },
