@@ -124,11 +124,23 @@ html[data-theme="light"] .cloud-c {
   }
 }
 
-.hero-copy {
+/* Groups the text and the mascot into one unit and centers that unit
+   within .hero, instead of the text sitting flush-left with the mascot
+   pinned to the hero's edge independently. */
+.hero-inner {
   position: relative;
   z-index: 4;
-  width: min(560px, 100%);
-  padding: 2.5rem 4rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4rem;
+  width: min(900px, 100%);
+  margin: 0 auto;
+}
+
+.hero-copy {
+  width: min(480px, 100%);
+  padding: 2.5rem 0;
 }
 
 .hero-copy .auth-link {
@@ -141,91 +153,45 @@ html[data-theme="light"] .cloud-c {
    "pressed in" neumorphic trick — same idea, shadows cast outward instead
    of inset). */
 @keyframes hero-mascot-breathe {
-  0%, 100% { transform: translateY(-50%) scale(1); }
-  50% { transform: translateY(-50%) scale(1.045, .96); }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.045, .96); }
 }
 
 .hero-mascot {
-  position: absolute;
-  z-index: 4;
-  right: 12rem;
-  top: 50%;
-  width: 140px;
-  height: 140px;
-  transform: translateY(-50%);
+  flex-shrink: 0;
+  width: 135px;
+  height: 135px;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 22px;
-  border-radius: 46px;
-  box-shadow:
-    -6px -6px 16px rgba(255, 255, 255, .12),
-    6px 6px 16px rgba(0, 0, 0, .32);
+  gap: 21px;
+  border-radius: 44px;
+  background: var(--accent);
+  box-shadow: 0 0 70px 14px rgba(127, 180, 220, .35);
   animation: hero-mascot-breathe 3.2s ease-in-out infinite;
   transition: transform .35s cubic-bezier(.34, 1.56, .64, 1);
 }
 
 .hero-mascot:hover {
   animation-play-state: paused;
-  transform: translateY(-50%) scale(1.12, .9);
+  transform: scale(1.12, .9);
 }
 
 .hero-mascot:active {
   transition-duration: .12s;
-  transform: translateY(-50%) scale(.88, 1.1);
+  transform: scale(.88, 1.1);
 }
 
 .hero-mascot-eye {
-  width: 22px;
-  height: 22px;
+  width: 21px;
+  height: 21px;
   border-radius: 50%;
-  box-shadow:
-    -2px -2px 4px rgba(255, 255, 255, .16),
-    2px 2px 4px rgba(0, 0, 0, .38);
+  background: #ffffff;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-mascot {
     animation: none;
-  }
-}
-
-html[data-theme="light"] .hero-mascot,
-html[data-theme="light"] .hero-mascot-eye {
-  box-shadow:
-    -6px -6px 16px rgba(255, 255, 255, .95),
-    6px 6px 16px rgba(79, 134, 182, .3);
-}
-
-html[data-theme="light"] .hero-mascot-eye {
-  box-shadow:
-    -2px -2px 4px rgba(255, 255, 255, .95),
-    2px 2px 4px rgba(79, 134, 182, .35);
-}
-
-@media (prefers-color-scheme: light) {
-  .hero-mascot {
-    box-shadow:
-      -6px -6px 16px rgba(255, 255, 255, .95),
-      6px 6px 16px rgba(79, 134, 182, .3);
-  }
-
-  .hero-mascot-eye {
-    box-shadow:
-      -2px -2px 4px rgba(255, 255, 255, .95),
-      2px 2px 4px rgba(79, 134, 182, .35);
-  }
-
-  html[data-theme="dark"] .hero-mascot {
-    box-shadow:
-      -6px -6px 16px rgba(255, 255, 255, .12),
-      6px 6px 16px rgba(0, 0, 0, .32);
-  }
-
-  html[data-theme="dark"] .hero-mascot-eye {
-    box-shadow:
-      -2px -2px 4px rgba(255, 255, 255, .16),
-      2px 2px 4px rgba(0, 0, 0, .38);
   }
 }
 

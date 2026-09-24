@@ -16,15 +16,17 @@ export default function Cover({ year }: { year: number }) {
           <span className="cloud cloud-b"></span>
           <span className="cloud cloud-c"></span>
         </div>
-        <div className="hero-copy">
-          <p className="eyebrow">PAIBOT LLC</p>
-          <h1 id="hero-title"><span className="wordmark">PAIBOT</span><span className="title-suffix">.app</span></h1>
-          <p className="lead">{t("lead")}</p>
-          <Link className="auth-link" href="/apps">{t("heroCta")}</Link>
-        </div>
-        <div className="hero-mascot" aria-hidden="true">
-          <span className="hero-mascot-eye"></span>
-          <span className="hero-mascot-eye"></span>
+        <div className="hero-inner">
+          <div className="hero-copy">
+            <p className="eyebrow">PAIBOT LLC</p>
+            <h1 id="hero-title"><span className="wordmark">PAIBOT</span><span className="title-suffix">.app</span></h1>
+            <p className="lead">{t("lead")}</p>
+            <Link className="auth-link" href="/apps">{t("heroCta")}</Link>
+          </div>
+          <div className="hero-mascot" aria-hidden="true">
+            <span className="hero-mascot-eye"></span>
+            <span className="hero-mascot-eye"></span>
+          </div>
         </div>
       </section>
 
