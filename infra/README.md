@@ -20,6 +20,7 @@
 3. **Clerk本番インスタンス用のDNSレコード**(`infra/dns.tf`)。`clerk deploy`が要求するCNAME5件(認証用カスタムドメイン+メール送信用DKIM)。`clerk deploy`実行時に生成されるBINDゾーンファイルの内容をそのまま`cloudflare_dns_record`として転記したもの。すべて`proxied = false`(Clerk自身がTLS終端するため、Cloudflareのプロキシを挟まない)。
 4. **devのD1データベース**(`infra/d1.tf`、`cloudflare_d1_database.app_dev`)。お気に入り機能(issue #18)向けにD1を実際に使ってみる最初のトライアルで、機能ごとにデータベースを分けず、アプリ全体で1つを共用する方針(将来`/math`の問題集でも同じDBを使う想定)。今はdevのみ。本番用(`paibot-app`という名前を想定)は、devで検証できてから別途作る。
    - Terraformは`cloudflare_d1_database`リソース(D1データベースの存在)までを管理する。Workerからのバインディング設定自体は`wrangler.jsonc`の`d1_databases`(Wrangler管轄、上の「TerraformとWranglerの管理範囲」参照)なので、`terraform apply`後に`infra/outputs.tf`の`d1_app_dev_database_id`から`database_id`を**手で**転記すること。
+5. **`www.paibot.app` → `paibot.app`のリダイレクト**(`infra/dns.tf`の`www`レコード + `infra/redirects.tf`)。`www`はCloudflareにプロキシされたCNAME(`proxied = true`)として登録し、`cloudflare_ruleset`(`http_request_dynamic_redirect`フェーズ、Redirect Rules)でパス・クエリ文字列を保ったまま301リダイレクトする。DNSレコードがプロキシされていないとRedirect Ruleがそもそも評価されない点に注意。
 
 リソースは実際に必要になってから追加してください。実績作りのために先回りして作らないこと。
 

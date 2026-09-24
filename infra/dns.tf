@@ -28,3 +28,17 @@ resource "cloudflare_dns_record" "clerk" {
   proxied = false
   comment = "Managed by Terraform (infra/dns.tf) - Clerk production instance"
 }
+
+# Proxied (not DNS-only) so infra/redirects.tf's Redirect Rule — which only
+# runs on traffic actually passing through Cloudflare — can catch it and
+# send visitors to the apex. CNAME-to-apex is fine here: Cloudflare
+# flattens it at the edge since the record is proxied.
+resource "cloudflare_dns_record" "www" {
+  zone_id = local.zone_id
+  name    = "www"
+  type    = "CNAME"
+  content = "paibot.app"
+  ttl     = 1 # must be 1 ("Auto") when proxied
+  proxied = true
+  comment = "Managed by Terraform (infra/dns.tf) - www redirects to the apex via infra/redirects.tf"
+}
