@@ -1,8 +1,12 @@
 .hero {
   position: relative;
   display: grid;
+  grid-template-columns: minmax(0, 360px) auto;
+  justify-content: center;
   align-items: center;
-  min-height: 300px;
+  gap: clamp(2rem, 8vw, 6rem);
+  min-height: 360px;
+  padding: 3.5rem clamp(2.5rem, 9vw, 7rem);
   overflow: hidden;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -127,105 +131,63 @@ html[data-theme="light"] .cloud-c {
 .hero-copy {
   position: relative;
   z-index: 4;
-  width: min(560px, 100%);
-  padding: 2.5rem 4rem;
+  min-width: 0;
+  padding: 0;
+}
+
+.hero-copy h1 {
+  margin-bottom: 1.25rem;
+  font-size: clamp(2.5rem, 4.5vw, 3.5rem);
+  white-space: nowrap;
 }
 
 .hero-copy .auth-link {
-  margin-top: 1.5rem;
+  margin-top: 1.75rem;
 }
 
-/* A mark that floats just above the hero's glass surface rather than a flat
-   sticker or a carved-in groove: no fill, just a soft light catch on one
-   edge and a soft shadow on the other (the raised counterpart of the
-   "pressed in" neumorphic trick — same idea, shadows cast outward instead
-   of inset). */
+/* Flat fill with a soft ambient glow (matches opengraph-image.png), not the
+   neumorphic carved/raised shadow tricks from earlier iterations. */
 @keyframes hero-mascot-breathe {
-  0%, 100% { transform: translateY(-50%) scale(1); }
-  50% { transform: translateY(-50%) scale(1.045, .96); }
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.025, .98); }
 }
 
 .hero-mascot {
-  position: absolute;
+  position: relative;
   z-index: 4;
-  right: 12rem;
-  top: 50%;
-  width: 140px;
-  height: 140px;
-  transform: translateY(-50%);
+  width: clamp(100px, 12vw, 132px);
+  aspect-ratio: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 22px;
-  border-radius: 46px;
-  box-shadow:
-    -6px -6px 16px rgba(255, 255, 255, .12),
-    6px 6px 16px rgba(0, 0, 0, .32);
+  gap: 16%;
+  border-radius: 33%;
+  background: var(--accent);
+  box-shadow: 0 0 60px 8px rgba(127, 180, 220, .2);
   animation: hero-mascot-breathe 3.2s ease-in-out infinite;
   transition: transform .35s cubic-bezier(.34, 1.56, .64, 1);
 }
 
 .hero-mascot:hover {
   animation-play-state: paused;
-  transform: translateY(-50%) scale(1.12, .9);
+  transform: scale(1.06, .96);
 }
 
 .hero-mascot:active {
   transition-duration: .12s;
-  transform: translateY(-50%) scale(.88, 1.1);
+  transform: scale(.96, 1.04);
 }
 
 .hero-mascot-eye {
-  width: 22px;
-  height: 22px;
+  width: 16%;
+  aspect-ratio: 1;
   border-radius: 50%;
-  box-shadow:
-    -2px -2px 4px rgba(255, 255, 255, .16),
-    2px 2px 4px rgba(0, 0, 0, .38);
+  background: #ffffff;
 }
 
 @media (prefers-reduced-motion: reduce) {
   .hero-mascot {
     animation: none;
-  }
-}
-
-html[data-theme="light"] .hero-mascot,
-html[data-theme="light"] .hero-mascot-eye {
-  box-shadow:
-    -6px -6px 16px rgba(255, 255, 255, .95),
-    6px 6px 16px rgba(79, 134, 182, .3);
-}
-
-html[data-theme="light"] .hero-mascot-eye {
-  box-shadow:
-    -2px -2px 4px rgba(255, 255, 255, .95),
-    2px 2px 4px rgba(79, 134, 182, .35);
-}
-
-@media (prefers-color-scheme: light) {
-  .hero-mascot {
-    box-shadow:
-      -6px -6px 16px rgba(255, 255, 255, .95),
-      6px 6px 16px rgba(79, 134, 182, .3);
-  }
-
-  .hero-mascot-eye {
-    box-shadow:
-      -2px -2px 4px rgba(255, 255, 255, .95),
-      2px 2px 4px rgba(79, 134, 182, .35);
-  }
-
-  html[data-theme="dark"] .hero-mascot {
-    box-shadow:
-      -6px -6px 16px rgba(255, 255, 255, .12),
-      6px 6px 16px rgba(0, 0, 0, .32);
-  }
-
-  html[data-theme="dark"] .hero-mascot-eye {
-    box-shadow:
-      -2px -2px 4px rgba(255, 255, 255, .16),
-      2px 2px 4px rgba(0, 0, 0, .38);
   }
 }
 
@@ -464,4 +426,3 @@ footer {
   font-size: .82rem;
   flex-wrap: wrap;
 }
-
