@@ -13,15 +13,30 @@
   }
 
   .hero {
-    min-height: 520px;
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    gap: 1.75rem;
+    min-height: 0;
+    padding: 2.75rem 1.5rem;
   }
 
   .hero-copy {
-    padding: 2rem;
+    padding: 0;
+    text-align: center;
+  }
+
+  .hero-copy h1 {
+    font-size: clamp(2rem, 8vw, 3rem);
+    margin-bottom: 1rem;
+  }
+
+  .hero-copy .auth-link {
+    margin-top: 1.5rem;
   }
 
   .hero-mascot {
-    display: none;
+    order: -1;
+    width: 64px;
   }
 
   h1 {
