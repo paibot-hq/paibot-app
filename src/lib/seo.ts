@@ -26,6 +26,6 @@ export function publicMetadata(locale: Locale, path: string, title: string, desc
       locale: ogLocales[locale],
       alternateLocale: routing.locales.filter(l => l !== locale).map(l => ogLocales[l]),
     },
-    twitter: { card: "summary", title, description },
+    twitter: { card: "summary_large_image", title, description },
   };
 }
