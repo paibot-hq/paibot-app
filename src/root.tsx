@@ -39,7 +39,7 @@ export function useSiteMeta() {
 }
 // Not a secret - GA4 measurement IDs are public (visible in every page's
 // source on any site that uses them). Only loaded when isIndexable (i.e.
-// production, per wrangler.jsonc's SITE_INDEXABLE), so dev/validation/CI
+// production, per wrangler.jsonc's SITE_INDEXABLE), so dev/CI
 // traffic never pollutes real analytics data.
 const GA_MEASUREMENT_ID = "G-5WNRMDB15J";
 

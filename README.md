@@ -27,7 +27,7 @@ local Clerk configuration. Never use production keys in local auth tests.
 
 ```sh
 npm run typecheck
-npm run check:build-targets     # production/rr-dev/dev builds and config assertions
+npm run check:build-targets     # production/dev builds and config assertions
 npx playwright install chromium # first run only
 npm run check:access            # redirects cannot leak Access headers
 npm run check:i18n              # starts/stops its own local Workers
@@ -67,7 +67,6 @@ origin and never automatically forwarded across an external redirect.
 | --- | --- | --- | --- |
 | `npm run build` | `paibot-app-dev` | `dev.paibot.app` | noindex |
 | `npm run build:production` | `paibot-app` | `paibot.app` | index |
-| `npm run build:validation` | `paibot-react-router-validation` | `rr-dev.paibot.app` | noindex |
 
 Select the environment at **build time**; deploy `build/server/wrangler.json`
 without another `--env`. Runtime keys live in Workers Secrets. Local `.dev.vars`

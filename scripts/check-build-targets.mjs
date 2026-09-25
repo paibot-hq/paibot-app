@@ -5,7 +5,6 @@ import { spawnSync } from 'node:child_process';
 // Leave the normal dev build last, so subsequent local checks use test keys.
 for (const [environment, name, host, indexable] of [
   ['production', 'paibot-app', 'paibot.app', 'true'],
-  ['validation', 'paibot-react-router-validation', 'rr-dev.paibot.app', 'false'],
   ['', 'paibot-app-dev', 'dev.paibot.app', 'false'],
 ]) {
   const env = { ...process.env };

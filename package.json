@@ -6,7 +6,6 @@
     "dev": "react-router dev --port 3002",
     "build": "react-router build",
     "build:production": "CLOUDFLARE_ENV=production react-router build",
-    "build:validation": "CLOUDFLARE_ENV=validation react-router build",
     "typecheck": "wrangler types && react-router typegen && tsc --noEmit",
     "preview": "vite preview --port 3003",
     "start": "vite preview --port 3003",

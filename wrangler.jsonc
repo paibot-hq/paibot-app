@@ -20,12 +20,6 @@
       "version_metadata": { "binding": "CF_VERSION_METADATA" },
       "routes": [{ "pattern": "paibot.app", "custom_domain": true }],
       "vars": { "SITE_URL": "https://paibot.app", "SITE_INDEXABLE": "true", "WHOIS_ROOT_SERVER": "whois.iana.org:43" }
-    },
-    "validation": {
-      "name": "paibot-react-router-validation",
-      "version_metadata": { "binding": "CF_VERSION_METADATA" },
-      "routes": [{ "pattern": "rr-dev.paibot.app", "custom_domain": true }],
-      "vars": { "SITE_URL": "https://rr-dev.paibot.app", "SITE_INDEXABLE": "false", "WHOIS_ROOT_SERVER": "whois.iana.org:43" }
     }
   }
 }
