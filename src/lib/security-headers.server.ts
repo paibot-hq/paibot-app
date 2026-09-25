@@ -29,6 +29,10 @@ export function buildContentSecurityPolicy(): string {
       "https://*.protect.clerk.com:*",
       "https://ipv4.icanhazip.com",
       "https://ipv6.icanhazip.com",
+      // Google Analytics (gtag.js, only loaded when isIndexable - see root.tsx).
+      "https://www.google-analytics.com",
+      "https://*.google-analytics.com",
+      "https://www.googletagmanager.com",
       ...(clerkHost ? [clerkHost] : []),
     ],
     "default-src": ["'self'"],

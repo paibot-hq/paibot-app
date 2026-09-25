@@ -37,12 +37,22 @@ export function useSiteMeta() {
   const data = useRouteLoaderData<typeof loader>('root');
   return { siteOrigin: data?.siteOrigin ?? 'https://paibot.app', isIndexable: data?.isIndexable ?? false };
 }
+// Not a secret - GA4 measurement IDs are public (visible in every page's
+// source on any site that uses them). Only loaded when isIndexable (i.e.
+// production, per wrangler.jsonc's SITE_INDEXABLE), so dev/validation/CI
+// traffic never pollutes real analytics data.
+const GA_MEASUREMENT_ID = "G-5WNRMDB15J";
+
 export function Layout({ children }: { children: ReactNode }) {
   const { locale } = useParams();
   const { isIndexable } = useSiteMeta();
   const { pathname } = useLocation();
   const indexPage = isIndexable && !/^\/(ja|en|zh)\/(sign-in|sign-up|math)(\/|$)/.test(pathname);
   return <html lang={isLocale(locale) ? locale : 'ja'}><head>
+    {isIndexable && <>
+      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
+      <script dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');` }} />
+    </>}
     <meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content={indexPage ? 'index, follow' : 'noindex, nofollow'} />
     <meta name="theme-color" content="#0f1720" />
