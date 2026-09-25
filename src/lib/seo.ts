@@ -8,7 +8,7 @@ import { locales, defaultLocale, isLocale, type Locale } from "../i18n/routing";
 // breaks the client build).
 
 // Add only real public pages as tools become available.
-export const publicPaths = ["", "/apps", "/about", "/ip", "/wc", "/arith", "/age", "/password", "/base64", "/json", "/urlencode", "/dice", "/reaction", "/timing", "/stopwatch"] as const;
+export const publicPaths = ["", "/apps", "/about", "/ip", "/domain", "/wc", "/arith", "/age", "/password", "/base64", "/json", "/urlencode", "/dice", "/reaction", "/timing", "/stopwatch"] as const;
 
 export function localizedUrl(origin: string, locale: Locale, path: string) {
   return `${origin}/${locale}${path}`;

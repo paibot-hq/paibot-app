@@ -31,6 +31,7 @@ npm run check:build-targets     # production/rr-dev/dev builds and config assert
 npx playwright install chromium # first run only
 npm run check:access            # redirects cannot leak Access headers
 npm run check:i18n              # starts/stops its own local Workers
+npm run check:whois             # starts/stops its own local preview + fake WHOIS server
 npm run preview                # port 3003; keep running in another terminal
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:smoke
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:tools
@@ -38,10 +39,17 @@ CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:auth
 ```
 
 - `check:i18n`: SSR/SEO/robots/sitemap with both dev and production indexing policies.
-- `check:smoke`: 45 public URLs and 9 auth/coming-soon URLs, redirects, headers,
+- `check:smoke`: 48 public URLs and 9 auth/coming-soon URLs, redirects, headers,
   Unicode input, locale navigation, persisted theme, Clerk forms and CSP violations.
-- `check:tools`: one meaningful flow for each of 12 tools. IP responses are mocked
-  to verify both protocols and partial failure without requiring runner IPv6.
+- `check:tools`: one meaningful flow for each of 13 tools. IP responses are mocked
+  to verify both protocols and partial failure without requiring runner IPv6. The
+  domain lookup tool only exercises client-side input rejection here (no socket
+  opened) — see `check:whois` for the real WHOIS lookup.
+- `check:whois`: the domain lookup tool's real server-side WHOIS flow (raw TCP via
+  `cloudflare:sockets`) against a fake local WHOIS server, plus a CRLF-injection
+  rejection check. Runs its own `vite preview` (not the shared one above) with a
+  patched `WHOIS_ROOT_SERVER` — `wrangler dev` can't be used here since its local
+  custom-domain routing breaks Clerk's dev-browser handshake for a real browser.
 - `check:auth`: real development-instance signup/email verification, authenticated
   SSR, session persistence, sign-out and sign-in. Uses Clerk's test-address flow
   (no real email), creates a unique fixture user and deletes it in `finally`.

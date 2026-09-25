@@ -40,6 +40,27 @@
       "ipv6Label": "IPv6アドレス",
       "unknown": "取得できませんでした"
     },
+    "domain": {
+      "title": "ドメイン確認(WHOIS)",
+      "description": "ドメインの登録者・登録日・有効期限などのWHOIS情報を確認できます。",
+      "keywords": "ドメイン WHOIS 登録者 有効期限",
+      "placeholder": "example.com",
+      "submit": "調べる",
+      "loading": "調べています…",
+      "registrarLabel": "レジストラ",
+      "registrantLabel": "登録者",
+      "creationLabel": "登録日",
+      "expiryLabel": "有効期限",
+      "nameServersLabel": "ネームサーバー",
+      "unknown": "情報なし",
+      "rawToggle": "WHOIS情報の原文を表示",
+      "error": {
+        "invalid_domain": "ドメイン名の形式が正しくありません。",
+        "no_server": "このドメインのWHOISサーバーが見つかりませんでした。",
+        "timeout": "WHOIS検索がタイムアウトしました。もう一度お試しください。",
+        "connection_failed": "WHOISサーバーに接続できませんでした。もう一度お試しください。"
+      }
+    },
     "wc": {
       "title": "文字数カウント",
       "description": "入力したテキストの文字数を数えます。",
