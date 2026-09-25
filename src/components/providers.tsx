@@ -1,9 +1,9 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import { ClerkProvider } from "@clerk/nextjs";
+import { createContext, useContext, useEffect, useState, type ComponentProps, type ReactNode } from "react";
+import { ClerkProvider } from "@clerk/react-router";
 import { enUS, jaJP, zhCN } from "@clerk/localizations";
-import { useLocale } from "next-intl";
+import { useLocale } from "use-intl";
 
 type Theme = "auto" | "light" | "dark";
 type Preferences = {
@@ -22,7 +22,7 @@ export function usePreferences() {
   return context;
 }
 
-export default function Providers({ children }: { children: ReactNode }) {
+export default function Providers({ children, loaderData }: { children: ReactNode; loaderData: ComponentProps<typeof ClerkProvider>["loaderData"] }) {
   const language = useLocale();
   const [theme, setTheme] = useState<Theme>("auto");
   const [prefersLight, setPrefersLight] = useState(false);
@@ -51,6 +51,7 @@ export default function Providers({ children }: { children: ReactNode }) {
   return (
     <PreferencesContext.Provider value={{ resolvedTheme, toggleTheme }}>
       <ClerkProvider
+        loaderData={loaderData}
         signInUrl={`/${language}/sign-in`}
         signUpUrl={`/${language}/sign-up`}
         signInFallbackRedirectUrl={`/${language}`}

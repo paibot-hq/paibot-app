@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Link } from "../i18n/navigation";
-import { Show, UserButton } from "@clerk/nextjs";
+import { Show, UserButton } from "@clerk/react-router";
 import { type Locale } from "../i18n/routing";
-import { useTranslations, useLocale } from "next-intl";
+import { useTranslations, useLocale } from "use-intl";
 import { usePathname } from "../i18n/navigation";
 import { usePreferences } from "./providers";
 

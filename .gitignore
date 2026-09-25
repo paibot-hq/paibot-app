@@ -32,3 +32,13 @@ override.tf.json
 # `clerk deploy`'s exported BIND zone file (informational only — the actual
 # records live in infra/dns.tf, reviewed and applied via Terraform).
 clerk-*.zone
+
+# React Router / Cloudflare Vite build output (may contain local secrets)
+/build/
+.react-router/
+!.dev.vars.example
+
+/worker-configuration.d.ts
+
+# Old spike local caches/secrets are not part of the integrated app
+/migration/react-router/

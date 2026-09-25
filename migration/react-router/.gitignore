@@ -1,8 +1,0 @@
-node_modules/
-build/
-.react-router/
-.wrangler/
-.env*
-.dev.vars*
-!.env.example
-!.dev.vars.example

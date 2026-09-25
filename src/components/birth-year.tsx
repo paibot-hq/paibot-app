@@ -6,7 +6,7 @@ import controls from "./tool-controls.module.css";
 import styles from "./birth-year.module.css";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useLocale, useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "use-intl";
 
 const ERAS = [
   { start: 2019, ja: "令和", en: "Reiwa" },
