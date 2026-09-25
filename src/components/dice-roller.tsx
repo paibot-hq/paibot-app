@@ -6,7 +6,7 @@ import controls from "./tool-controls.module.css";
 import styles from "./dice-roller.module.css";
 
 import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "use-intl";
 
 const DICE_COUNT_OPTIONS = [1, 2, 3, 4, 5, 6];
 const ROLL_DURATION_MS = 500;

@@ -1,31 +1,33 @@
-import type { Metadata } from "next";
-import { routing, type Locale } from "../i18n/routing";
+import { locales, defaultLocale, isLocale, type Locale } from "../i18n/routing";
 
-// Never derive canonical URLs from request headers or localhost.
-export const siteOrigin = new URL(process.env.SITE_URL || "https://paibot.app").origin;
-export const isIndexable = process.env.SITE_INDEXABLE === "true";
+// Pure helpers only — no env access here. This module is reachable from
+// client-rendered components (via PublicHead), so it must bundle safely for
+// the browser. siteOrigin/isIndexable read Workers runtime env and live in
+// seo.server.ts instead, which only the root loader may import (see there
+// for why: importing "cloudflare:workers" from anything client-reachable
+// breaks the client build).
+
 // Add only real public pages as tools become available.
 export const publicPaths = ["", "/apps", "/about", "/ip", "/wc", "/arith", "/age", "/password", "/base64", "/json", "/urlencode", "/dice", "/reaction", "/timing", "/stopwatch"] as const;
-export function localizedUrl(locale: Locale, path: string) {
-  return `${siteOrigin}/${locale}${path}`;
+
+export function localizedUrl(origin: string, locale: Locale, path: string) {
+  return `${origin}/${locale}${path}`;
 }
-export function languageAlternates(path: string) {
+
+export function languageAlternates(origin: string, path: string): Record<Locale | "x-default", string> {
   return {
-    ...Object.fromEntries(routing.locales.map(locale => [locale, localizedUrl(locale, path)])),
-    "x-default": localizedUrl(routing.defaultLocale, path),
+    ...(Object.fromEntries(locales.map(locale => [locale, localizedUrl(origin, locale, path)])) as Record<Locale, string>),
+    "x-default": localizedUrl(origin, defaultLocale, path),
   };
 }
-const ogLocales: Record<Locale, string> = { ja: "ja_JP", en: "en_US", zh: "zh_CN" };
-export function publicMetadata(locale: Locale, path: string, title: string, description: string): Metadata {
-  return {
-    title: { absolute: title }, description,
-    alternates: { canonical: localizedUrl(locale, path), languages: languageAlternates(path) },
-    openGraph: {
-      type: "website", siteName: "PAIBOT.app", title, description,
-      url: localizedUrl(locale, path),
-      locale: ogLocales[locale],
-      alternateLocale: routing.locales.filter(l => l !== locale).map(l => ogLocales[l]),
-    },
-    twitter: { card: "summary_large_image", title, description },
-  };
+
+export const ogLocales: Record<Locale, string> = { ja: "ja_JP", en: "en_US", zh: "zh_CN" };
+
+// Strips the /:locale prefix from a pathname to recover the path shape used
+// by publicPaths/localizedUrl (e.g. "/ja/json" -> "/json", "/ja" -> "").
+export function pathWithoutLocale(pathname: string): string {
+  const parts = pathname.split("/");
+  if (!isLocale(parts[1])) return pathname;
+  const rest = parts.slice(2).join("/");
+  return rest ? `/${rest}` : "";
 }

@@ -5,18 +5,22 @@ import controls from "./tool-controls.module.css";
 
 import styles from "./char-count.module.css";
 
-import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import { useTranslations } from "use-intl";
 
 export default function CharCount() {
   const t = useTranslations("App");
   const [text, setText] = useState("");
+  const [ready, setReady] = useState(false);
+  // SSR displays the tool before React attaches its input handler.
+  useEffect(() => { setReady(true); }, []);
   const count = [...text].length;
   return (
     <ToolLayout title={t("wc.title")}>
       <p className={controls.label}>{t("wc.countLabel")}</p>
       <p className={styles["wc-count"]} aria-live="polite">{count}</p>
       <textarea
+        disabled={!ready}
         className={styles["wc-input"]}
         value={text}
         onChange={event => setText(event.target.value)}

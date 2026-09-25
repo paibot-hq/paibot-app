@@ -7,7 +7,7 @@
 // for the rest of the steps (route, component, messages).
 import type { ComponentType, SVGProps } from "react";
 
-// next-intl types `t()` against ja.json's literal key paths (see
+// use-intl types `t()` against ja.json's literal key paths (see
 // src/i18n/types.d.ts), but category/app keys are only known at runtime
 // here (and in src/components/cover.tsx's category chips) — cast `t` to
 // this once at each call site instead of losing type-checking everywhere.

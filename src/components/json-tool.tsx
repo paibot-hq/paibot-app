@@ -6,7 +6,7 @@ import controls from "./tool-controls.module.css";
 import styles from "./text-converter.module.css";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "use-intl";
 
 type Mode = "format" | "minify";
 

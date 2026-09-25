@@ -1,6 +1,6 @@
 "use client";
 
-import { useTranslations } from "next-intl";
+import { useTranslations } from "use-intl";
 
 export default function About({ year }: { year: number }) {
   const t = useTranslations("App");

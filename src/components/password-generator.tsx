@@ -6,7 +6,7 @@ import controls from "./tool-controls.module.css";
 import styles from "./password-generator.module.css";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "use-intl";
 
 const LOWER = "abcdefghijklmnopqrstuvwxyz";
 const UPPER = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -125,7 +125,7 @@ export default function PasswordGenerator() {
       {activeSets.length === 0 ? (
         <p className={controls.error}>{t("password.emptyWarning")}</p>
       ) : (
-        <p className={styles["password-result"]} aria-live="polite">{password ?? " "}</p>
+        <p className={styles["password-result"]} aria-live="polite">{password ?? " "}</p>
       )}
 
       <div className={styles["password-actions"]}>

@@ -1,124 +1,92 @@
 name: App (production)
-
-# Manual only. Tag pushes are not used as a trigger: GitHub Environments'
-# required-reviewer approval gate is unavailable on this org's Free plan (see
-# infra/README.md), so there is no way to have a tag push auto-deploy while
-# still stopping for a human confirmation. Running this workflow by hand is
-# the confirmation step instead (same reasoning as infra-apply.yml).
-#
-# With no `ref` input: treated as a new release. A date-based tag
-# (release-YYYY-MM-DD, with a numeric suffix for same-day reruns) is created
-# from the current default branch and pushed before deploying.
-# With a `ref` input: treated as a rollback/redeploy of an existing tag or
-# commit. No new tag or GitHub Release is created.
+# Manual dispatch is the production release approval. The ref input also
+# supports pre-migration tags: their vinext build and secret names still work.
 on:
   workflow_dispatch:
     inputs:
       ref:
-        description: "再デプロイ/ロールバック時のみ指定(タグ名かコミットSHA)。空なら現在のデフォルトブランチから新規リリースする"
+        description: '再デプロイ/ロールバック時のタグまたはSHA。空なら現在のコミットをリリース'
         required: false
-
 concurrency:
   group: app-production-deploy
   cancel-in-progress: false
-
 permissions:
   contents: write
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     environment: production
     steps:
       - uses: actions/checkout@v7
         with:
           ref: ${{ inputs.ref || github.sha }}
           fetch-depth: 0
-
-      - name: Determine release tag (new releases only)
-        id: tag
-        if: ${{ inputs.ref == '' }}
-        run: |
-          base="release-$(date -u +%Y-%m-%d)"
-          tag="$base"
-          n=1
-          while git rev-parse -q --verify "refs/tags/$tag" >/dev/null; do
-            n=$((n + 1))
-            tag="${base}-${n}"
-          done
-          echo "tag=$tag" >> "$GITHUB_OUTPUT"
-
-      - name: Create and push release tag
-        if: ${{ inputs.ref == '' }}
-        run: |
-          git tag "${{ steps.tag.outputs.tag }}"
-          git push origin "${{ steps.tag.outputs.tag }}"
-
       - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
-
-      # npm ci also runs postinstall (patch-package --error-on-fail --error-on-warn),
-      # which must succeed before anything else can build correctly. See CLAUDE.md.
       - run: npm ci
-
-      # SITE_INDEXABLE is NOT set here — it's read live from a Cloudflare
-      # Workers var at request time, not from .env.local/process.env. Setting
-      # it here was dead weight: it never reached the deployed Worker, so
-      # production actually served noindex/Disallow: / (meta tag,
-      # X-Robots-Tag, and robots.txt) from the first deploy until this was
-      # caught and fixed by declaring `vars.SITE_INDEXABLE` under
-      # env.production in wrangler.jsonc instead. Same root cause as the
-      # CLERK_SECRET_KEY issue below — see docs/plans/production-deploy.md.
-      - name: Set up .env.local (production Clerk keys)
-        run: |
-          cat <<EOF > .env.local
-          NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${{ secrets.PROD_CLERK_PUBLISHABLE_KEY }}
-          CLERK_SECRET_KEY=${{ secrets.PROD_CLERK_SECRET_KEY }}
-          SITE_URL=https://paibot.app
-          EOF
-
-      # CLOUDFLARE_ENV=production makes `@cloudflare/vite-plugin` merge
-      # wrangler.jsonc's `env.production` block into the emitted
-      # dist/server/wrangler.json at build time (name: paibot-app, routes:
-      # paibot.app). Without it, vinext build silently emits the top-level
-      # (dev) config instead — confirmed by testing locally, not documented
-      # anywhere obvious. See wrangler.jsonc's comment and
-      # docs/plans/production-deploy.md.
-      - name: Build (production env)
+      - name: Detect release framework
+        id: framework
+        run: echo "react_router=$(node -p 'Boolean(require("./package.json").dependencies["react-router"])')" >> "$GITHUB_OUTPUT"
+      - name: Prepare local-only verification keys (React Router)
+        if: steps.framework.outputs.react_router == 'true'
+        env:
+          CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
+        run: node -e 'require("fs").writeFileSync(".dev.vars.production", `CLERK_PUBLISHABLE_KEY=${process.env.CLERK_PUBLISHABLE_KEY}\nCLERK_SECRET_KEY=${process.env.CLERK_SECRET_KEY}\n`)'
+      - name: Legacy rollback build keys
+        if: steps.framework.outputs.react_router != 'true'
+        env:
+          CLERK_PUBLISHABLE_KEY: ${{ secrets.PROD_CLERK_PUBLISHABLE_KEY }}
+          CLERK_SECRET_KEY: ${{ secrets.PROD_CLERK_SECRET_KEY }}
+        run: node -e 'require("fs").writeFileSync(".env.local", `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${process.env.CLERK_PUBLISHABLE_KEY}\nCLERK_SECRET_KEY=${process.env.CLERK_SECRET_KEY}\nSITE_URL=https://paibot.app\n`)'
+      - if: steps.framework.outputs.react_router == 'true'
+        run: npm run typecheck
+      - name: Build production and verify deployment target
+        id: build
         env:
           CLOUDFLARE_ENV: production
-        run: npm run build
-
-      - name: Deploy to Cloudflare Workers (production)
-        env:
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
-        # No --env flag here: the config is already resolved for production
-        # by the build step above. Passing --env production on top of an
-        # already-flattened config just produces a harmless but confusing
-        # "no environment found" warning (confirmed locally).
-        run: npx wrangler deploy --config dist/server/wrangler.json
-
-      # These are separate from the .env.local step above: that only affects
-      # the client bundle (NEXT_PUBLIC_*) and a local .dev.vars file, never
-      # the deployed Worker's runtime. The deployed Worker only sees values
-      # set here via `wrangler secret put`. Re-running this on every deploy
-      # is idempotent and keeps the secret in sync with GitHub Secrets
-      # instead of a manual one-off `wrangler secret put` nobody records
-      # anywhere (this is exactly what broke the first production deploy —
-      # see the "重大な誤解だったポイント" section in
-      # docs/plans/production-deploy.md).
-      - name: Set Worker secrets (production)
+          REACT_ROUTER: ${{ steps.framework.outputs.react_router }}
+        run: |
+          npm run build
+          if [ "$REACT_ROUTER" = true ]; then config=build/server/wrangler.json; else config=dist/server/wrangler.json; fi
+          node -e 'const c=require("./"+process.argv[1]); if(c.name!=="paibot-app" || c.vars?.SITE_INDEXABLE!=="true" || c.vars?.SITE_URL!=="https://paibot.app") throw Error("Wrong production target or indexing configuration")' "$config"
+          echo "config=$config" >> "$GITHUB_OUTPUT"
+      - if: steps.framework.outputs.react_router == 'true'
+        run: npx playwright install --with-deps chromium
+      - if: steps.framework.outputs.react_router == 'true'
+        run: npm run check:i18n
+      - name: Sync production runtime secrets
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          CLERK_PUBLISHABLE_KEY: ${{ secrets.PROD_CLERK_PUBLISHABLE_KEY }}
+          CLERK_SECRET_KEY: ${{ secrets.PROD_CLERK_SECRET_KEY }}
         run: |
-          echo "${{ secrets.PROD_CLERK_SECRET_KEY }}" | npx wrangler secret put CLERK_SECRET_KEY --name paibot-app
-          echo "${{ secrets.PROD_CLERK_PUBLISHABLE_KEY }}" | npx wrangler secret put NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY --name paibot-app
-
-      - name: Create GitHub Release
-        if: ${{ inputs.ref == '' }}
-        run: gh release create "${{ steps.tag.outputs.tag }}" --generate-notes
+          node -e 'if(!process.env.CLERK_PUBLISHABLE_KEY?.startsWith("pk_live_") || !process.env.CLERK_SECRET_KEY?.startsWith("sk_live_")) throw Error("Production Clerk keys required"); console.log(JSON.stringify({CLERK_PUBLISHABLE_KEY:process.env.CLERK_PUBLISHABLE_KEY,NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:process.env.CLERK_PUBLISHABLE_KEY,CLERK_SECRET_KEY:process.env.CLERK_SECRET_KEY}))' | npx wrangler secret bulk --config '${{ steps.build.outputs.config }}'
+      - name: Deploy production
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler deploy --config '${{ steps.build.outputs.config }}'
+      - name: Verify deployed React Router app
+        if: steps.framework.outputs.react_router == 'true'
+        env:
+          CHECK_BROWSER_BASE_URL: https://paibot.app
+          CHECK_SITE_URL: https://paibot.app
+          CHECK_SITE_INDEXABLE: 'true'
+        run: npm run check:smoke
+      - name: Tag successful new release
+        if: inputs.ref == ''
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          base="release-$(date -u +%Y-%m-%d)"
+          tag="$base"
+          n=1
+          while git rev-parse -q --verify "refs/tags/$tag" >/dev/null; do tag="${base}-${n}"; n=$((n + 1)); done
+          git tag "$tag"
+          git push origin "$tag"
+          gh release create "$tag" --generate-notes

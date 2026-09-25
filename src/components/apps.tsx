@@ -1,9 +1,11 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "use-intl";
 import { Link } from "../i18n/navigation";
-import { apps, APP_CATEGORIES, type AppEntry, type DynamicT } from "../lib/apps";
+import { apps as registeredApps, APP_CATEGORIES, type AppEntry, type DynamicT } from "../lib/apps";
+
+const apps = registeredApps;
 
 export default function Apps({ year }: { year: number }) {
   const t = useTranslations("App");

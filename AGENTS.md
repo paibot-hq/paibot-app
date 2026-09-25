@@ -1,9 +1,14 @@
-<!-- BEGIN:nextjs-agent-rules -->
+# PAIBOT.app
 
-# This is NOT the Next.js you know
+The app uses React Router Framework Mode with SSR on Cloudflare Workers.
+Read `README.md` and `docs/plans/react-router-cutover.md` before changing deployment configuration.
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
-
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
-
-<!-- END:nextjs-agent-rules -->
+- Source: `src/`; translations: `messages/`; static assets: `public/`.
+- Routes: `src/routes.ts`. Public SEO pages also belong in `src/lib/seo.ts`.
+- Runtime environment imports (`cloudflare:workers`) must stay server-only.
+- Never print or commit `.dev.vars*`, `.env*`, generated builds, or credentials.
+- Terraform owns infrastructure; Wrangler owns Worker code, bindings and routes.
+- Run `npm run typecheck`, `npm run build`, `npm run check:i18n` for routing/server changes.
+- Browser checks: `check:smoke` and `check:tools` against a running preview.
+- Use a separate port for verification. Do not stop another person's dev server.
+- Production deployment is manual. Keep rollback support for old vinext release refs.

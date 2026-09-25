@@ -6,7 +6,7 @@ import controls from "./tool-controls.module.css";
 import styles from "./text-converter.module.css";
 
 import { useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "use-intl";
 
 type Mode = "encode" | "decode";
 
@@ -82,7 +82,7 @@ export default function Base64Tool() {
       {invalid ? (
         <p className={controls.error}>{t("base64.invalidError")}</p>
       ) : (
-        <p className={styles["result"]} aria-live="polite">{result || " "}</p>
+        <p className={styles["result"]} aria-live="polite">{result || " "}</p>
       )}
 
       <div className={styles["actions"]}>

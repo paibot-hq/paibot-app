@@ -1,124 +1,71 @@
 # PAIBOT.app
 
-Next.js App Router + TypeScript + Clerk + next-intl。日本語・英語のURLを分け、公開ページを各言語でサーバー描画します。
+React Router Framework Mode + TypeScript + Clerk + use-intl, with SSR on Cloudflare Workers.
+Japanese, English and Simplified Chinese use `/ja`, `/en`, `/zh` URLs.
 
-## 開発
+## Development
 
-Node.js 20.9以上（LTS推奨）を使用します。
+Node.js 22 or later:
 
 ```sh
 npm ci
+cp .dev.vars.example .dev.vars # only when no local file exists
+# Set development Clerk keys (pk_test_ / sk_test_).
 npm run dev
 ```
 
-`npm run dev`・`npm run build`・`npm start` は [vinext](https://vinext.dev/)(Next.js on Cloudflare Workersアダプター)を通して動きます。
-`import { env } from "cloudflare:workers"` でD1などのCloudflareバインディングにアクセスするコードがあるため、素のNext.js(`next dev`/`next build`)では型チェック・ビルドの時点で失敗します。
-バインディングを使わない範囲だけ素のNext.jsで素早く確認したい場合は `npm run dev:next` / `npm run build:next` / `npm run start:next` を使ってください(型は通っても、Cloudflare固有の機能は動きません)。
+Open http://localhost:3002/ja. Source lives in `src/`, translations in `messages/`,
+and assets in `public/`. The old `migration/react-router` working directory is no
+longer used. Existing ignored files there may remain locally; do not commit them.
 
-`.env.example` を参考に `.env.local` にClerkの開発用キーを設定してください。
-既存のファイルやキーを上書きする必要はありません。
+`CLERK_PUBLISHABLE_KEY` replaces `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` in the app.
+`CLERK_SECRET_KEY` stays server-only. CI still reads the existing GitHub secret
+names, so no GitHub-secret rename is needed. `.env.local` is no longer the app's
+local Clerk configuration. Never use production keys in local auth tests.
 
-- `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY`: `pk_test_…`
-- `CLERK_SECRET_KEY`: `sk_test_…`（サーバー専用）
-- `SITE_URL`: 正規URLの親ドメイン。既定値は `https://paibot.app`
-- `SITE_INDEXABLE`: 本番公開時だけ `true`。未設定・`false` はnoindex
-
-ログイン方式（メール・Googleなど）はClerk Dashboardで設定します。
-
-## URLと言語
-
-| 日本語 | 英語 | 公開範囲 |
-| --- | --- | --- |
-| `/ja` | `/en` | 公開トップページ |
-| `/ja/sign-in` | `/en/sign-in` | ログイン（noindex） |
-| `/ja/sign-up` | `/en/sign-up` | 新規登録（noindex） |
-| `/ja/dashboard` | `/en/dashboard` | 認証必須（noindex） |
-
-`/`・`/sign-in`・`/dashboard` など言語なしURLは日本語URLへリダイレクトします。
-URLが言語の基準です。Cookie・ブラウザ言語・以前のlocalStorageの言語設定では上書きしません。
-言語メニューは同じページの別言語URLへのリンクです。
-テーマのlocalStorage設定は従来どおり引き継ぎます。
-
-`messages/ja.json`・`messages/en.json` で翻訳を管理します。
-Client Componentは `useTranslations`、Server Componentは `getTranslations` を使用します。
-`src/i18n/types.d.ts` で翻訳キーを型チェックします。
-内部リンクには `src/i18n/navigation.ts` の `Link` を使うと現在の言語を維持できます。
-
-## SEO
-
-公開トップページには翻訳したtitle・description、自己参照canonical、日英とx-defaultのhreflang、
-Open Graph・Twitterメタデータを設定します。x-defaultは日本語版を指します。
-JavaScript実行前のHTMLに言語と翻訳本文が含まれます。
-
-`/sitemap.xml` は実在する公開ページだけを掲載します。ツールを追加する際は
-`src/lib/seo.ts` の `publicPaths` にパスを追加し、ページの `generateMetadata` から
-`publicMetadata` を使って各言語のURL・文言を設定してください。
-
-**本番公開時には、CloudflareのWorker環境変数として `SITE_URL=https://paibot.app` と `SITE_INDEXABLE=true` を設定してください。**
-ローカルの `.env` を変えてビルドし直すだけではデプロイ先のWorkerには反映されません
-(`wrangler secret put` または `wrangler.jsonc` の `vars` で設定します)。
-開発・ステージングでは `SITE_INDEXABLE` を未設定のままにし、robots.txtでクロールを拒否、ページにnoindexを付けます。
-Clerkも本番用インスタンス・本番キーへ切り替えてください。
-noindexはアクセス制御ではありません。
-
-## Clerk
-
-ClerkのUIもURLの言語・選択したテーマに連動します。
-ログイン・登録後の既定遷移先は同じ言語のdashboard、ログアウト後は同じ言語のトップです。
-ProviderとProxyで言語別URLを設定するため、以前の `NEXT_PUBLIC_CLERK_SIGN_IN_URL` など4つの
-URL環境変数は不要です。残っていてもアプリ側の指定が優先されます。
-
-`src/proxy.ts` はClerkとnext-intlを組み合わせ、API・`/__clerk` 通信を言語リライトから除外します。
-認証チェックは `src/app/[locale]/dashboard/page.tsx` の `auth()` + `redirect()` で行います
-(`auth.protect()` はCloudflare Workers(vinext)環境でリダイレクトが正しく発火せず404になるため使っていません)。
-会員用ページ・API・Server Actionsを追加するときは各処理内で認証と所有者・権限を確認してください。
-パスの配下に配置しただけでは保護されません。
-
-## 検証
+## Verification
 
 ```sh
-npm run build
 npm run typecheck
-npm run check:i18n
-npm run check:browser
+npm run check:build-targets     # production/rr-dev/dev builds and config assertions
+npx playwright install chromium # first run only
+npm run check:access            # redirects cannot leak Access headers
+npm run check:i18n              # starts/stops its own local Workers
+npm run preview                # port 3003; keep running in another terminal
+CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:smoke
+CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:tools
+CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:auth
 ```
 
-`check:i18n` は `npm run build` (vinextビルド) 済みの成果物を `wrangler dev --config dist/server/wrangler.json` で
-一時的に `127.0.0.1:3197` で起動し(`SITE_INDEXABLE` は `--var` でCloudflareの変数として渡します。ホストの`process.env`はWorkerランタイムに直接は引き継がれません)、
-翻訳HTML・canonical/hreflang・認証リダイレクト・404・サイトマップ・本番/ステージングrobotsを検証します。
-有効なClerk開発キーが必要です。アカウント作成・ログイン・キーの出力は行いません。
-実行前に `npm run build` で `dist/server` を最新化しておいてください。
+- `check:i18n`: SSR/SEO/robots/sitemap with both dev and production indexing policies.
+- `check:smoke`: 45 public URLs and 9 auth/coming-soon URLs, redirects, headers,
+  Unicode input, locale navigation, persisted theme, Clerk forms and CSP violations.
+- `check:tools`: one meaningful flow for each of 12 tools. IP responses are mocked
+  to verify both protocols and partial failure without requiring runner IPv6.
+- `check:auth`: real development-instance signup/email verification, authenticated
+  SSR, session persistence, sign-out and sign-in. Uses Clerk's test-address flow
+  (no real email), creates a unique fixture user and deletes it in `finally`.
+  Requires `.dev.vars`; rejects live keys and non-local targets. This is separate
+  from routine CI because it creates a temporary user in the dev Clerk instance.
 
-`check:browser` は実際のブラウザ(Playwright)で `npm run dev`(ポート3001)に対して行う検証で、
-全ツールページがエラーなく表示できるか、テーマ切り替えが効いて永続化されるか、言語切り替え・リダイレクトを
-繰り返してもJSエラーが出ないかを確認します。実行前に `npm run dev` でdevサーバーを起動しておいてください。
-初回のみ `npx playwright install chromium` でブラウザ本体の取得が必要です。
+For deployed smoke tests set `CHECK_BROWSER_BASE_URL`, `CHECK_SITE_URL`, and
+`CHECK_SITE_INDEXABLE=true` for production. Dev Access tests additionally need
+`CF_ACCESS_CLIENT_ID` and `CF_ACCESS_CLIENT_SECRET`. Headers are scoped to the app
+origin and never automatically forwarded across an external redirect.
 
-ブラウザでは言語リンク、テーマ、Clerkログイン・登録・ログアウトの操作を確認してください。
-`npm start` は `npm run build` の成果物を `wrangler dev` でローカルのWorkerとして起動し、`npm run preview` はビルドと起動をまとめて実行します。
+## Environments and releases
 
-## Cloudflareへの公開
+| Build | Worker | Domain | Indexing |
+| --- | --- | --- | --- |
+| `npm run build` | `paibot-app-dev` | `dev.paibot.app` | noindex |
+| `npm run build:production` | `paibot-app` | `paibot.app` | index |
+| `npm run build:validation` | `paibot-react-router-validation` | `rr-dev.paibot.app` | noindex |
 
-Cloudflare公式のNext.js on Workersアダプター [vinext](https://vinext.dev/) を使ってCloudflare Workersへデプロイします。
+Select the environment at **build time**; deploy `build/server/wrangler.json`
+without another `--env`. Runtime keys live in Workers Secrets. Local `.dev.vars`
+and build output are ignored and must not be committed.
 
-```sh
-npm ci                  # devDependencies込みでインストール(patch-packageのpostinstallに必要)
-npm run build          # ビルド(vinext build)
-npm start               # ローカルでWorkerとして起動して確認(wrangler dev)
-npm run deploy:vinext  # 実際にデプロイ
-```
-
-`npm run build`の前は必ず`npm ci`(devDependencies込み)を使ってください。`--omit=dev`で入れると`patch-package`(`@clerk/nextjs`のvinext dev互換パッチ、詳細はCLAUDE.md)の`postinstall`が実行されません。`npm run deploy:vinext`自体はビルド済みの`dist/`をアップロードするだけなので、その段階では`node_modules`もdevDependenciesも不要です。
-
-デプロイには `wrangler login` でのCloudflareアカウント認証が必要です。
-`.env.local` の値(Clerkの鍵など)は自動では引き継がれないため、初回は
-`wrangler secret put <name> --config dist/server/wrangler.json` で個別に登録してください。
-
-本番公開前に必要な対応:
-- `SITE_URL=https://paibot.app`、`SITE_INDEXABLE=true` をWorkerの環境変数として設定
-- Clerkの本番インスタンス・本番キーへの切り替え
-- カスタムドメイン(`paibot.app`)とDNSの設定
-- 現時点のデプロイ先は開発環境の `https://dev.paibot.app`(開発確認用)。Cloudflare Accessで許可したメールアドレスだけに制限している(設定は`infra/access.tf`、Terraformで管理)。本番のWorkerにはこのAccessは付いていないので、本番公開時に意図せず制限されることはない。
-- 本番Clerkキーを使うがまだ`paibot.app`では公開しないステージング環境では、`SITE_URL`をそのステージング環境の実際のオリジンに設定してください。`src/proxy.ts`はClerkの本番キー使用時に`SITE_URL`のオリジンだけをログインに許可するため、`https://paibot.app`のままだとステージングでログインできなくなります。
-
-以前の静的ビルド `out/` は公開しないでください。
+The development workflow verifies then deploys on main. Production deployment is
+manual (`App (production)`), with post-deploy smoke tests and release tagging.
+The production workflow also supports rollback refs from the old vinext app.
+See [cutover checklist](docs/plans/react-router-cutover.md) before releasing.

@@ -6,7 +6,7 @@ import controls from "./tool-controls.module.css";
 import styles from "./reaction-test.module.css";
 
 import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "use-intl";
 
 type Phase = "idle" | "waiting" | "go" | "too-early" | "result";
 

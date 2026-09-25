@@ -6,7 +6,7 @@ import controls from "./tool-controls.module.css";
 import styles from "./ip-lookup.module.css";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useTranslations } from "use-intl";
 
 type Result = { status: "loading" | "ok" | "error"; ip: string | null };
 
@@ -16,7 +16,7 @@ type Result = { status: "loading" | "ok" | "error"; ip: string | null };
 // operates icanhazip.com itself; see docs/plans/production-deploy.md for why
 // this couldn't be self-hosted (the same settings.ipv4_only/ipv6_only DNS
 // feature icanhazip.com presumably relies on isn't available on this zone's
-// plan). Allowed in src/proxy.ts's CSP connect-src.
+// plan). Allowed in src/lib/security-headers.server.ts's CSP connect-src.
 async function fetchIp(host: string): Promise<string | null> {
   const response = await fetch(`https://${host}`, { signal: AbortSignal.timeout(5000) });
   if (!response.ok) return null;
