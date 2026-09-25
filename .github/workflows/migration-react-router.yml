@@ -55,11 +55,14 @@ jobs:
 
       - run: npx playwright install --with-deps chromium
 
+      # CHECK_SITE_URL must match wrangler.jsonc's `vars.SITE_URL` (only sets
+      # the smoke test's expectation, doesn't change the server) — see
+      # migration/react-router/README.md.
       - name: check:smoke against a local preview server
         run: |
           npm run preview &
           for i in $(seq 1 30); do curl -sf http://localhost:3003/robots.txt > /dev/null && break; sleep 1; done
-          CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:smoke
+          CHECK_BROWSER_BASE_URL=http://localhost:3003 CHECK_SITE_URL=https://rr-dev.paibot.app npm run check:smoke
 
   deploy-dev:
     needs: verify
