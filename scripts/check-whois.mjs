@@ -47,7 +47,11 @@ config.vars.WHOIS_ROOT_SERVER = `127.0.0.1:${fakePort}`;
 writeFileSync(wranglerJsonPath, JSON.stringify(config));
 
 const port = 3006;
-const worker = spawn('npx', ['vite', 'preview', '--port', String(port)], { stdio: ['ignore', 'pipe', 'pipe'] });
+// Direct node invocation, not `npx vite` - npx's resolution/update-check
+// overhead made this step take ~9 minutes in CI (vs. seconds locally) even
+// though it eventually passed. check-environments.mjs avoids the same trap
+// by invoking wrangler's bin script directly for the same reason.
+const worker = spawn('node', ['node_modules/vite/bin/vite.js', 'preview', '--port', String(port)], { stdio: ['ignore', 'pipe', 'pipe'] });
 let output = '';
 worker.stdout.on('data', data => { output = (output + data).slice(-4000); });
 worker.stderr.on('data', data => { output = (output + data).slice(-4000); });
