@@ -9,4 +9,11 @@
 resource "cloudflare_d1_database" "app_dev" {
   account_id = var.cloudflare_account_id
   name       = "paibot-app-dev"
+
+  # Provider bug workaround (terraform-provider-cloudflare#6309): omitting
+  # this sends `read_replication: null`, which the API rejects. "disabled"
+  # matches this database's actual state (dev-only, no replicas).
+  read_replication = {
+    mode = "disabled"
+  }
 }
