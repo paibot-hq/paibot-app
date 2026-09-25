@@ -18,6 +18,7 @@ export default [
     route('password', 'routes/password.tsx'),
     route('stopwatch', 'routes/stopwatch.tsx'),
     route('ip', 'routes/ip.tsx'),
+    route('domain', 'routes/domain.tsx'),
     route('dice', 'routes/dice.tsx'),
     route('reaction', 'routes/reaction.tsx'),
     route('timing', 'routes/timing.tsx'),

@@ -6,7 +6,7 @@ const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:300
 const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app').origin;
 const indexable = process.env.CHECK_SITE_INDEXABLE === 'true';
 const locales = ['ja', 'en', 'zh'];
-const paths = ['', '/apps', '/about', '/ip', '/wc', '/arith', '/age', '/password', '/base64', '/json', '/urlencode', '/dice', '/reaction', '/timing', '/stopwatch'];
+const paths = ['', '/apps', '/about', '/ip', '/domain', '/wc', '/arith', '/age', '/password', '/base64', '/json', '/urlencode', '/dice', '/reaction', '/timing', '/stopwatch'];
 const browser = await chromium.launch();
 try {
   // Parse the actual server response, without allowing hydration to repair it.
@@ -76,7 +76,7 @@ try {
       assert.deepEqual(head.canonical, [], `${path}: no public canonical`);
     }
   }
-  console.log('PASS: 45 public pages and 9 non-indexable pages: SSR titles, SEO tags and security headers');
+  console.log(`PASS: ${paths.length * locales.length} public pages and 9 non-indexable pages: SSR titles, SEO tags and security headers`);
 
   for (const path of ['/', ...paths.filter(Boolean), '/math', '/sign-in', '/sign-up', '/sign-in/factor-one', '/sign-up/verify-email-address']) {
     const query = '?redirect_url=%2Fen%2Fwc&source=smoke';

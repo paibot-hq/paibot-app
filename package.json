@@ -14,6 +14,7 @@
     "check:browser": "node scripts/check-smoke.mjs",
     "check:tools": "node scripts/check-tools.mjs",
     "check:i18n": "node scripts/check-environments.mjs",
+    "check:whois": "node scripts/check-whois.mjs",
     "deploy": "wrangler deploy --config build/server/wrangler.json",
     "check:auth": "node --env-file=.dev.vars scripts/check-auth.mjs",
     "check:access": "node scripts/check-access.mjs",

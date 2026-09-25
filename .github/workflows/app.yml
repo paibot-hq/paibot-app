@@ -29,6 +29,7 @@ jobs:
       - run: npx playwright install --with-deps chromium
       - run: npm run check:access
       - run: npm run check:i18n
+      - run: npm run check:whois
       - name: Browser checks against built Worker
         run: |
           npm run preview &

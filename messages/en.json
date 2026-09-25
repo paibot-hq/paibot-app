@@ -40,6 +40,27 @@
       "ipv6Label": "IPv6 Address",
       "unknown": "Not available"
     },
+    "domain": {
+      "title": "Domain Lookup (WHOIS)",
+      "description": "Look up a domain's registrar, registration date, expiry date and other WHOIS information.",
+      "keywords": "domain WHOIS registrar expiry lookup",
+      "placeholder": "example.com",
+      "submit": "Look up",
+      "loading": "Looking up…",
+      "registrarLabel": "Registrar",
+      "registrantLabel": "Registrant",
+      "creationLabel": "Registered",
+      "expiryLabel": "Expires",
+      "nameServersLabel": "Name servers",
+      "unknown": "Not available",
+      "rawToggle": "Show raw WHOIS text",
+      "error": {
+        "invalid_domain": "That doesn't look like a valid domain name.",
+        "no_server": "No WHOIS server could be found for this domain.",
+        "timeout": "The WHOIS lookup timed out. Please try again.",
+        "connection_failed": "Couldn't reach the WHOIS server. Please try again."
+      }
+    },
     "wc": {
       "title": "Character Count",
       "description": "Count the characters in the text you enter.",

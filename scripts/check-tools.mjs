@@ -110,6 +110,11 @@ try {
   await go('ip');
   await result('192.0.2.10'); await result('Not available');
   console.log('PASS: IP results and one-protocol failure (mocked network)');
+  await go('domain');
+  await main.getByLabel('example.com').fill('not a domain');
+  await main.getByRole('button', { name: 'Look up', exact: true }).click();
+  await result("That doesn't look like a valid domain name.");
+  console.log('PASS: domain lookup rejects invalid input (no socket opened; see check:whois for the real WHOIS lookup)');
   assert.deepEqual(errors, []);
-  console.log('PASS: all 12 tools, no uncaught JS errors');
+  console.log('PASS: all 13 tools, no uncaught JS errors');
 } finally { await browser.close(); }

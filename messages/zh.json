@@ -40,6 +40,27 @@
       "ipv6Label": "IPv6 地址",
       "unknown": "无法获取"
     },
+    "domain": {
+      "title": "域名查询(WHOIS)",
+      "description": "查询域名的注册商、注册日期、到期日期等WHOIS信息。",
+      "keywords": "域名 WHOIS 注册商 到期日期",
+      "placeholder": "example.com",
+      "submit": "查询",
+      "loading": "查询中…",
+      "registrarLabel": "注册商",
+      "registrantLabel": "注册人",
+      "creationLabel": "注册日期",
+      "expiryLabel": "到期日期",
+      "nameServersLabel": "域名服务器",
+      "unknown": "无信息",
+      "rawToggle": "显示WHOIS原始信息",
+      "error": {
+        "invalid_domain": "域名格式不正确。",
+        "no_server": "未找到该域名的WHOIS服务器。",
+        "timeout": "WHOIS查询超时,请重试。",
+        "connection_failed": "无法连接到WHOIS服务器,请重试。"
+      }
+    },
     "wc": {
       "title": "字符计数",
       "description": "统计输入文本的字符数。",

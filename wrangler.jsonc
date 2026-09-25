@@ -9,7 +9,9 @@
   "observability": { "enabled": true },
   "version_metadata": { "binding": "CF_VERSION_METADATA" },
   "routes": [{ "pattern": "dev.paibot.app", "custom_domain": true }],
-  "vars": { "SITE_URL": "https://dev.paibot.app", "SITE_INDEXABLE": "false" },
+  // WHOIS_ROOT_SERVER is also a test seam: scripts/check-whois.mjs points it
+  // at a local fake WHOIS server via `wrangler dev --var`. See src/lib/whois.server.ts.
+  "vars": { "SITE_URL": "https://dev.paibot.app", "SITE_INDEXABLE": "false", "WHOIS_ROOT_SERVER": "whois.iana.org:43" },
   // Select at BUILD time with CLOUDFLARE_ENV. Deploy the generated config
   // without --env. Names, routes and vars must be explicit in each env.
   "env": {
@@ -17,13 +19,13 @@
       "name": "paibot-app",
       "version_metadata": { "binding": "CF_VERSION_METADATA" },
       "routes": [{ "pattern": "paibot.app", "custom_domain": true }],
-      "vars": { "SITE_URL": "https://paibot.app", "SITE_INDEXABLE": "true" }
+      "vars": { "SITE_URL": "https://paibot.app", "SITE_INDEXABLE": "true", "WHOIS_ROOT_SERVER": "whois.iana.org:43" }
     },
     "validation": {
       "name": "paibot-react-router-validation",
       "version_metadata": { "binding": "CF_VERSION_METADATA" },
       "routes": [{ "pattern": "rr-dev.paibot.app", "custom_domain": true }],
-      "vars": { "SITE_URL": "https://rr-dev.paibot.app", "SITE_INDEXABLE": "false" }
+      "vars": { "SITE_URL": "https://rr-dev.paibot.app", "SITE_INDEXABLE": "false", "WHOIS_ROOT_SERVER": "whois.iana.org:43" }
     }
   }
 }

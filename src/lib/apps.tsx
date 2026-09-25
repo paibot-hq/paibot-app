@@ -45,6 +45,15 @@ function IpIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function DomainIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <circle cx="12" cy="12" r="9" />
+      <path d="M3 12h18M12 3c2.5 3 2.5 15 0 18M12 3c-2.5 3-2.5 15 0 18" />
+    </svg>
+  );
+}
+
 function WcIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -174,6 +183,7 @@ export const apps: AppEntry[] = [
 
   // ネットワーク / Network
   { slug: "ip", href: "/ip", category: "network", status: "published", messageKey: "ip", icon: IpIcon },
+  { slug: "domain", href: "/domain", category: "network", status: "published", messageKey: "domain", icon: DomainIcon },
 
   // ゲーム / Game
   { slug: "dice", href: "/dice", category: "game", status: "published", messageKey: "dice", icon: DiceIcon },
