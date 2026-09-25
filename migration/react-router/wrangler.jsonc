@@ -1,0 +1,14 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "paibot-react-router-validation",
+  "main": "workers/app.ts",
+  "compatibility_date": "2026-09-13",
+  "compatibility_flags": ["nodejs_compat"],
+  // No workers.dev/preview fallback — the only way in is the custom domain
+  // below, which Cloudflare Access protects (see infra/access.tf). This is
+  // a throwaway validation deploy, not a second public site.
+  "workers_dev": false,
+  "preview_urls": false,
+  "routes": [{ "pattern": "rr-dev.paibot.app", "custom_domain": true }],
+  "vars": { "SITE_URL": "https://rr-dev.paibot.app", "SITE_INDEXABLE": "false" }
+}

@@ -1,0 +1,65 @@
+/* Dice colors are intentionally fixed to the light-theme palette in both
+   light and dark mode (the physical dice look is the point, not theme
+   matching) — literal values here instead of the --surface/--text/--line/
+   --accent/--muted theme variables. */
+.dice-select {
+  padding: .25rem 1.75rem .25rem .6rem;
+  border: 1px solid #d5e0ea;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, .86);
+  color: #162333;
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  text-align: center;
+  cursor: pointer;
+}
+.dice-select:focus-visible { outline: 2px solid #4f86b6; outline-offset: 2px; }
+.dice-results {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: min(680px, 100%);
+}
+.dice-idle {
+  margin: 0;
+  color: #637487;
+}
+.dice-face {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  width: 5.5rem;
+  height: 5.5rem;
+  padding: .7rem;
+  box-sizing: border-box;
+  border: 1px solid #d5e0ea;
+  border-radius: var(--radius);
+  background: rgba(255, 255, 255, .86);
+}
+.dice-face-rolling { border-color: #4f86b6; }
+.dice-pip {
+  width: .85rem;
+  height: .85rem;
+  border-radius: 50%;
+  background: #162333;
+  justify-self: center;
+  align-self: center;
+}
+.dice-face-rolling .dice-pip { background: #4f86b6; }
+.dice-pip.dice-pip-one { background: #d97066; }
+.dice-pip-tl { grid-column: 1; grid-row: 1; }
+.dice-pip-tr { grid-column: 3; grid-row: 1; }
+.dice-pip-ml { grid-column: 1; grid-row: 2; }
+.dice-pip-mc { grid-column: 2; grid-row: 2; }
+.dice-pip-mr { grid-column: 3; grid-row: 2; }
+.dice-pip-bl { grid-column: 1; grid-row: 3; }
+.dice-pip-br { grid-column: 3; grid-row: 3; }
+.dice-total {
+  margin: 0;
+  color: #637487;
+  font-size: .95rem;
+  text-align: center;
+}
+.dice-total strong { color: #162333; font-variant-numeric: tabular-nums; }
