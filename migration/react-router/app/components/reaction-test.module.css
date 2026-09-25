@@ -1,0 +1,5 @@
+.reaction-box { composes: gameButton from "./tool-controls.module.css"; }
+.reaction-box-idle { background: var(--muted); }
+.reaction-box-waiting { background: var(--error); }
+.reaction-box-too-early { background: var(--error); }
+.reaction-box-go { background: var(--success); }

@@ -1,0 +1,10 @@
+.timing-box { composes: gameButton from "./tool-controls.module.css"; }
+.timing-box-idle { background: var(--muted); }
+.timing-box-running { background: var(--accent); }
+.timing-diff {
+  margin: 0;
+  color: var(--text);
+  font-size: 1rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}

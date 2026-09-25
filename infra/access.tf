@@ -11,6 +11,9 @@ locals {
   # the Worker is deleted and recreated. Look it up with:
   #   GET /accounts/<account_id>/workers/scripts  (the "tag" field)
   paibot_app_dev_worker_id = "1e821be2bb064f4b8c6eaa8bd156471f"
+  # paibot-react-router-validation (migration/react-router/, see its README).
+  # A throwaway validation deploy, not a second real site.
+  paibot_react_router_validation_worker_id = "710fa76013604b9f99e37f8c0055b543"
 }
 
 # Lets GitHub Actions (the post-deploy e2e smoke test, see .github/workflows/app.yml's
@@ -64,6 +67,41 @@ resource "cloudflare_zero_trust_access_application" "paibot_app_dev" {
     },
     {
       name     = "paibot-app-dev owner only"
+      decision = "allow"
+
+      include = [
+        {
+          email = {
+            email = "sanofc@gmail.com"
+          }
+        }
+      ]
+    }
+  ]
+}
+
+# Same idea as the app above, for the React Router migration validation
+# Worker (rr-dev.paibot.app). Owner-only, no CI service token needed — its
+# smoke test runs against a local preview in CI, not this deployed instance.
+# Remove this whole resource once the migration spike is adopted or dropped.
+resource "cloudflare_zero_trust_access_application" "paibot_react_router_validation" {
+  account_id = var.cloudflare_account_id
+
+  name = "Access for paibot-react-router-validation"
+  type = "self_hosted"
+
+  destinations = [
+    {
+      type      = "worker"
+      worker_id = local.paibot_react_router_validation_worker_id
+    }
+  ]
+
+  session_duration = "24h"
+
+  policies = [
+    {
+      name     = "paibot-react-router-validation owner only"
       decision = "allow"
 
       include = [
