@@ -28,21 +28,15 @@ jobs:
       # App (development) on main (verify + dev deploy + Access smoke). Catches
       # dispatching before dev finished, or a commit dev rejected. Rollbacks
       # (ref set) skip it - an incident shouldn't be blockable by CI history.
-      # App (development) skips docs/infra-only commits (paths-ignore), and those
-      # don't change the app, so the check is made against the last commit that
-      # touched anything else. KEEP THE EXCLUDES BELOW IN SYNC with app.yml's
-      # paths-ignore. --first-parent follows main itself, so a PR's merge commit
-      # (the SHA the dev push run ran on) is found, not the branch's inner commits.
+      # A commit that only touched docs/infra never triggers App (development)
+      # (paths-ignore), so release the last app commit via the ref input instead.
       - name: Require a successful development run for this commit
         if: inputs.ref == ''
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
         run: |
-          head=$(git rev-parse HEAD)
-          sha=$(git log --first-parent -1 --format=%H -- . ':(exclude,glob)**/*.md' ':(exclude)docs' ':(exclude)infra' ':(exclude,glob).github/workflows/infra-*.yml')
-          sha=${sha:-$head}
-          [ "$sha" = "$head" ] || echo "HEAD only changed docs/infra since $sha - checking that commit instead."
+          sha=$(git rev-parse HEAD)
           runs=$(gh run list --workflow app.yml --commit "$sha" --event push --json status,conclusion,url --limit 20)
           if [ "$(echo "$runs" | jq '[.[] | select(.conclusion=="success")] | length')" -gt 0 ]; then
             echo "App (development) succeeded for $sha"
@@ -50,7 +44,7 @@ jobs:
             echo "::error::App (development) is still running for $sha - wait for it to finish, then dispatch again."
             exit 1
           else
-            echo "::error::No successful App (development) run for $sha (merge to main and let dev pass first)."
+            echo "::error::No successful App (development) run for $sha (merge to main and let dev pass first; docs/infra-only commits never run it - use the ref input with the last app commit)."
             echo "$runs" | jq -r '.[] | "  \(.conclusion) \(.url)"'
             exit 1
           fi
