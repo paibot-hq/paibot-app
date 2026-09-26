@@ -16,8 +16,7 @@ npm run dev
 ```
 
 Open http://localhost:3002/ja. Source lives in `src/`, translations in `messages/`,
-and assets in `public/`. The old `migration/react-router` working directory is no
-longer used. Existing ignored files there may remain locally; do not commit them.
+and assets in `public/`.
 
 `CLERK_PUBLISHABLE_KEY` replaces `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` in the app.
 `CLERK_SECRET_KEY` stays server-only. CI still reads the existing GitHub secret

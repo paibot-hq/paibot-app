@@ -39,6 +39,3 @@ clerk-*.zone
 !.dev.vars.example
 
 /worker-configuration.d.ts
-
-# Old spike local caches/secrets are not part of the integrated app
-/migration/react-router/
