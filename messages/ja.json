@@ -1,5 +1,31 @@
 {
   "App": {
+    "lifeCalendar": {
+      "currentAge": "現在の年齢",
+      "remainingWeeks": "{years}歳までの残り期間",
+      "weeks": "{count}週",
+      "days": "{count}日",
+      "age": "{count}歳",
+      "title": "ライフカレンダー",
+      "description": "生まれてからの日々を、週ごとのマスで見渡せます。",
+      "keywords": "人生 カレンダー 週 生年月日 ライフ",
+      "intro": "小さな1マスは、あなたの1週間。",
+      "birthday": "生年月日",
+      "range": "表示する期間",
+      "years": "{count}年間",
+      "privacy": "生年月日はこの画面での計算だけに使い、保存・送信しません。",
+      "empty": "生年月日を選ぶと、あなたのカレンダーが表示されます。",
+      "invalid": "1900年以降、今日までの正しい日付を入力してください。",
+      "weeksLived": "過ごした週",
+      "daysLived": "過ごした日",
+      "past": "過ごした週",
+      "current": "今週",
+      "future": "これからの週",
+      "outside": "現在は表示期間の先にいます。表示する期間を長くすると今週も表示できます。",
+      "gridNote": "1行＝52週間。全期間が収まるようにマスの高さを調整しています。",
+      "gridLabel": "表示期間の{total}週のうち、{completed}週を過ごしています。",
+      "rangeNote": "表示期間は寿命の予測ではありません。誕生日から7日ずつ区切り、最後のマスは7日未満の場合があります。"
+    },
     "clock": {
       "timeZone": "タイムゾーン",
       "automatic": "端末に合わせる",

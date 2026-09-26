@@ -1,5 +1,31 @@
 {
   "App": {
+    "lifeCalendar": {
+      "currentAge": "Current age",
+      "remainingWeeks": "Time until age {years}",
+      "weeks": "{count} weeks",
+      "days": "{count} days",
+      "age": "Age {count}",
+      "title": "Life calendar",
+      "description": "See your life so far, one week at a time.",
+      "keywords": "life calendar weeks birthday",
+      "intro": "Each small square is one week of your life.",
+      "birthday": "Date of birth",
+      "range": "Display range",
+      "years": "{count} years",
+      "privacy": "Your birth date is used only on this screen. It is not saved or sent.",
+      "empty": "Choose your birth date to see your calendar.",
+      "invalid": "Enter a valid date from 1900 through today.",
+      "weeksLived": "Weeks lived",
+      "daysLived": "Days lived",
+      "past": "Past weeks",
+      "current": "This week",
+      "future": "Future weeks",
+      "outside": "You are beyond this display range. Choose a longer range to include this week.",
+      "gridNote": "Each row has 52 weeks. Squares adjust in height to show the entire range.",
+      "gridLabel": "{completed} of {total} weeks in the display range have passed.",
+      "rangeNote": "The display range is not a life expectancy prediction. Weeks start at birth; the final square may contain fewer than seven days."
+    },
     "clock": {
       "timeZone": "Time zone",
       "automatic": "Device time zone",

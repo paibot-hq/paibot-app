@@ -6,7 +6,7 @@ const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:300
 const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app').origin;
 const indexable = process.env.CHECK_SITE_INDEXABLE === 'true';
 const locales = ['ja', 'en', 'zh'];
-const paths = ['', '/apps', '/about', '/ip', '/domain', '/wc', '/arith', '/age', '/clock', '/password', '/base64', '/json', '/urlencode', '/dice', '/reaction', '/timing', '/stopwatch'];
+const paths = ['', '/apps', '/about', '/ip', '/domain', '/wc', '/arith', '/age', '/clock', '/life-calendar', '/password', '/base64', '/json', '/urlencode', '/dice', '/reaction', '/timing', '/stopwatch'];
 const browser = await chromium.launch();
 try {
   // Parse the actual server response, without allowing hydration to repair it.

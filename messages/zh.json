@@ -1,5 +1,31 @@
 {
   "App": {
+    "lifeCalendar": {
+      "currentAge": "当前年龄",
+      "remainingWeeks": "距{years}岁的剩余时间",
+      "weeks": "{count}周",
+      "days": "{count}天",
+      "age": "{count}岁",
+      "title": "人生周历",
+      "description": "用每周一个小格，回顾走过的日子。",
+      "keywords": "人生 日历 周 生日",
+      "intro": "每一个小格，都是你的一周。",
+      "birthday": "出生日期",
+      "range": "显示范围",
+      "years": "{count}年",
+      "privacy": "出生日期仅用于当前页面计算，不会保存或发送。",
+      "empty": "选择出生日期，查看你的人生周历。",
+      "invalid": "请输入1900年至今天之间的有效日期。",
+      "weeksLived": "已度过的周",
+      "daysLived": "已度过的天",
+      "past": "过去的周",
+      "current": "本周",
+      "future": "未来的周",
+      "outside": "当前已超出显示范围。选择更长的范围即可查看本周。",
+      "gridNote": "每行52周，格子高度会自动调整以显示完整范围。",
+      "gridLabel": "显示范围共{total}周，已度过{completed}周。",
+      "rangeNote": "显示范围并非寿命预测。从出生日起每7天一格，最后一格可能不足7天。"
+    },
     "clock": {
       "timeZone": "时区",
       "automatic": "使用设备时区",
