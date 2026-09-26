@@ -3,16 +3,8 @@ import PublicHead from '../components/public-head';
 import ToolLayout from '../components/tool-layout';
 import { Link } from '../i18n/navigation';
 import type { DynamicT } from '../lib/apps';
-import { FACTORIZATION_SETS } from '../lib/math-factorization';
+import { FACTORIZATION_SETS, SET_LABEL_KEYS } from '../lib/math-factorization';
 import styles from './math-factorization-index.module.css';
-
-// Maps each pattern to its label key; a pattern-specific translation reads
-// much better here than a generic "Problem set N" for every entry.
-const LABEL_KEYS: Record<string, string> = {
-  standard: 'setStandard',
-  wide: 'setWide',
-  differenceOfSquares: 'setDifferenceOfSquares',
-};
 
 export default function MathFactorizationIndex() {
   const locale = useLocale();
@@ -26,7 +18,7 @@ export default function MathFactorizationIndex() {
       <p>{t('chooseSet')}</p>
       <ul className={styles.sets}>
         {FACTORIZATION_SETS.map(({ id, pattern }) => (
-          <li key={id}><Link href={`/math/factorization/${id}`}>{td(LABEL_KEYS[pattern])}</Link></li>
+          <li key={id}><Link href={`/math/factorization/${id}`}>{td(SET_LABEL_KEYS[pattern])}</Link></li>
         ))}
       </ul>
     </ToolLayout>

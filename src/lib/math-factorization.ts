@@ -132,6 +132,18 @@ export const FACTORIZATION_SETS: readonly { id: number; pattern: SetPattern }[] 
 ];
 const PATTERN_BY_SET_ID = new Map(FACTORIZATION_SETS.map(set => [set.id, set.pattern]));
 
+// Maps each pattern to its label translation key (App.math.factorization.*) -
+// shared so the set picker and the quiz page (which needs to say which set
+// you're actually in, not just "Factoring") show the same name for a set.
+export const SET_LABEL_KEYS: Readonly<Record<SetPattern, string>> = {
+  standard: 'setStandard',
+  wide: 'setWide',
+  differenceOfSquares: 'setDifferenceOfSquares',
+};
+export function labelKeyForSet(setId: number): string {
+  return SET_LABEL_KEYS[PATTERN_BY_SET_ID.get(setId) ?? 'standard'];
+}
+
 const seedFor = (setId: number) => `factorization-v1-set-${String(setId).padStart(3, '0')}`;
 
 export function generateFactorizationSet(setId: number): FactorizationQuestion[] {

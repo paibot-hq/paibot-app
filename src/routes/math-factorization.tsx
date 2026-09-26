@@ -4,7 +4,8 @@ import { MathTex } from '../components/math-tex';
 import PublicHead from '../components/public-head';
 import ToolLayout from '../components/tool-layout';
 import { Link } from '../i18n/navigation';
-import { factoredTex, generateFactorizationSet, trinomialTex } from '../lib/math-factorization';
+import type { DynamicT } from '../lib/apps';
+import { factoredTex, generateFactorizationSet, labelKeyForSet, trinomialTex } from '../lib/math-factorization';
 import type { Route } from './+types/math-factorization';
 import styles from './math-factorization.module.css';
 
@@ -20,6 +21,10 @@ export default function MathFactorization({ loaderData }: Route.ComponentProps) 
   const { setId, questions } = loaderData;
   const locale = useLocale();
   const t = useTranslations('App.math.factorization');
+  // Set label keys are only known at runtime, like the app categories in
+  // src/lib/apps.tsx - cast once here, same reasoning.
+  const td = t as unknown as DynamicT;
+  const setLabel = td(labelKeyForSet(setId));
 
   // The lib returns locale-neutral numbers; the tex/explanation strings that
   // depend on locale (KaTeX notation doesn't, but the explanation text does)
@@ -64,10 +69,11 @@ export default function MathFactorization({ loaderData }: Route.ComponentProps) 
 
   if (finished) {
     const percent = Math.round((correctCount / total) * 100);
-    return <><PublicHead locale={locale} path={path} title={`${t('title')} | PAIBOT.app`} description={t('description')} />
+    return <><PublicHead locale={locale} path={path} title={`${t('title')} - ${setLabel} | PAIBOT.app`} description={t('description')} />
       <ToolLayout title={t('title')} centerTitle>
         <div className={styles.quiz}>
           <p className={styles.back}><Link href="/math/factorization">{`← ${t('backToSets')}`}</Link></p>
+          <p className={styles.setName}>{setLabel}</p>
           <p className={styles.resultLine} aria-live="polite">{t('resultCorrect', { correct: correctCount, total })}</p>
           <p className={styles.resultLine}>{t('resultAccuracy', { percent })}</p>
           <button type="button" className={styles.primary} onClick={restart}>{t('retry')}</button>
@@ -76,10 +82,11 @@ export default function MathFactorization({ loaderData }: Route.ComponentProps) 
     </>;
   }
 
-  return <><PublicHead locale={locale} path={path} title={`${t('title')} | PAIBOT.app`} description={t('description')} />
+  return <><PublicHead locale={locale} path={path} title={`${t('title')} - ${setLabel} | PAIBOT.app`} description={t('description')} />
     <ToolLayout title={t('title')}>
       <div className={styles.quiz}>
         <p className={styles.back}><Link href="/math/factorization">{`← ${t('backToSets')}`}</Link></p>
+        <p className={styles.setName}>{setLabel}</p>
         <p className={styles.progress} aria-live="polite">{t('progress', { current: index + 1, total })}</p>
         <div className={styles.question}><MathTex tex={question.tex} block /></div>
         <div className={styles.choices} role="group" aria-label={t('title')}>
