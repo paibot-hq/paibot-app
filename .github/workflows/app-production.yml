@@ -12,6 +12,8 @@ concurrency:
   cancel-in-progress: false
 permissions:
   contents: write
+  # Read App (development)'s run history for the gate below.
+  actions: read
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -22,6 +24,30 @@ jobs:
         with:
           ref: ${{ inputs.ref || github.sha }}
           fetch-depth: 0
+      # New releases only: the commit being released must already have passed
+      # App (development) on main (verify + dev deploy + Access smoke). Catches
+      # dispatching before dev finished, or a commit dev rejected. Rollbacks
+      # (ref set) skip it - an incident shouldn't be blockable by CI history.
+      # A commit that only touched docs/infra never triggers App (development)
+      # (paths-ignore), so release the last app commit via the ref input instead.
+      - name: Require a successful development run for this commit
+        if: inputs.ref == ''
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          sha=$(git rev-parse HEAD)
+          runs=$(gh run list --workflow app.yml --commit "$sha" --event push --json status,conclusion,url --limit 20)
+          if [ "$(echo "$runs" | jq '[.[] | select(.conclusion=="success")] | length')" -gt 0 ]; then
+            echo "App (development) succeeded for $sha"
+          elif [ "$(echo "$runs" | jq '[.[] | select(.status!="completed")] | length')" -gt 0 ]; then
+            echo "::error::App (development) is still running for $sha - wait for it to finish, then dispatch again."
+            exit 1
+          else
+            echo "::error::No successful App (development) run for $sha (merge to main and let dev pass first; docs/infra-only commits never run it - use the ref input with the last app commit)."
+            echo "$runs" | jq -r '.[] | "  \(.conclusion) \(.url)"'
+            exit 1
+          fi
       - uses: actions/setup-node@v7
         with:
           node-version: 22
