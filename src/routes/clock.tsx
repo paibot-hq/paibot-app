@@ -18,7 +18,13 @@ const ZONE_GROUPS: readonly (readonly [string, readonly string[]])[] = [
   ['regionAmericas', ['America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles', 'America/Sao_Paulo']],
   ['regionOceania', ['Australia/Sydney', 'Pacific/Auckland']],
 ];
-function zoneLabel(zone: string) {
+// Only ever called for a zone in ZONE_GROUPS, which always has a
+// cities.<City> translation - see the untranslated fallback path below for
+// a saved zone outside the curated list.
+function cityLabel(zone: string, td: DynamicT) {
+  return td(`cities.${zone.split('/').pop() ?? zone}`);
+}
+function rawZoneLabel(zone: string) {
   return (zone.split('/').pop() ?? zone).replaceAll('_', ' ');
 }
 const privateHeaders = { 'Cache-Control': 'private, no-store' };
@@ -106,10 +112,10 @@ function ClockFace({ settings }: { settings: Route.ComponentProps['loaderData'] 
           <select id="clock-zone" name="timeZone" value={timeZone} disabled={fetcher.state !== 'idle'} onChange={event => { setTimeZone(event.target.value); setDirty(true); }}>
             <option value="auto">{t('automatic')}</option>
             <option value="UTC">UTC</option>
-            {!isCurated && <option value={settings.timeZone}>{zoneLabel(settings.timeZone)}</option>}
+            {!isCurated && <option value={settings.timeZone}>{rawZoneLabel(settings.timeZone)}</option>}
             {ZONE_GROUPS.map(([region, zones]) => (
               <optgroup key={region} label={td(region)}>
-                {zones.map(zone => <option key={zone} value={zone}>{zoneLabel(zone)}</option>)}
+                {zones.map(zone => <option key={zone} value={zone}>{cityLabel(zone, td)}</option>)}
               </optgroup>
             ))}
           </select>
