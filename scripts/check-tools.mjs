@@ -132,7 +132,13 @@ try {
   await page.screenshot({ path: '/tmp/paibot-clock-mobile.png', fullPage: true });
   assert.deepEqual(errors, []);
   console.log('PASS: clock, local date rollover, fullscreen and mobile width');
-  await go('math/factorization/1');
+  await go('math');
+  await main.getByRole('link', { name: 'Factoring' }).click();
+  await page.waitForURL(`${base}/en/math/factorization`);
+  await main.getByRole('link', { name: 'Problem set 1' }).click();
+  await page.waitForURL(`${base}/en/math/factorization/1`);
+  await main.locator('h1').waitFor();
+  console.log('PASS: math landing links through to the factoring set picker and set 1');
   for (let q = 1; q <= 5; q++) {
     await main.getByText(new RegExp(`^${q} / 5$`)).waitFor();
     const choices = main.locator('button[aria-pressed]');

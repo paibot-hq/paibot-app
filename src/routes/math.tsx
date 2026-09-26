@@ -11,7 +11,7 @@ export default function Math() {
     <ToolLayout title={t('title')} layout="centered" centerTitle>
       <p>{t('intro')}</p>
       <ul className={styles.units}>
-        <li><Link href="/math/factorization/1">{t('factorizationLink')}</Link></li>
+        <li><Link href="/math/factorization">{t('factorizationLink')}</Link></li>
       </ul>
     </ToolLayout>
   </>;

@@ -289,6 +289,8 @@
         "title": "因式分解测验",
         "description": "通过四选一测验练习 x² + ax + b 形式的因式分解。",
         "keywords": "数学 因式分解 测验 二次式",
+        "chooseSet": "请选择要挑战的题组。",
+        "setLabel": "题组 {id}",
         "progress": "{current} / {total}",
         "answer": "作答",
         "correct": "正确",

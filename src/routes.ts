@@ -9,6 +9,7 @@ export default [
     index('routes/home.tsx'),
     route('diary', 'routes/diary.tsx'),
     route('math', 'routes/math.tsx'),
+    route('math/factorization', 'routes/math-factorization-index.tsx'),
     route('math/factorization/:setId', 'routes/math-factorization.tsx'),
     route('apps', 'routes/apps.tsx'),
     route('about', 'routes/about.tsx'),

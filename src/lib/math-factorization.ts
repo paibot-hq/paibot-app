@@ -96,6 +96,11 @@ function distractorsFor(random: () => number, correct: FactorPair): FactorPair[]
   return chosen;
 }
 
+// generateFactorizationSet works for any positive integer setId (it's a pure
+// function of the seed), but only these are linked from the set-picker page -
+// add to this list as a new set is authored and reviewed.
+export const FACTORIZATION_SET_IDS = [1] as const;
+
 const seedFor = (setId: number) => `factorization-v1-set-${String(setId).padStart(3, '0')}`;
 
 export function generateFactorizationSet(setId: number): FactorizationQuestion[] {
