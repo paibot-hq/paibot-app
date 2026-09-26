@@ -24,3 +24,8 @@ output "d1_app_dev_database_id" {
   description = "Database ID for the dev D1 database. Not a secret, but Terraform doesn't manage wrangler.jsonc's d1_databases binding (see infra/README.md) — copy this value in by hand after apply."
   value       = cloudflare_d1_database.app_dev.id
 }
+
+output "d1_app_prod_database_id" {
+  description = "Database ID for the production D1 database. Not a secret, but Terraform doesn't manage wrangler.jsonc's d1_databases binding (see infra/README.md) — copy this value into env.production's d1_databases by hand after apply, as its own PR."
+  value       = cloudflare_d1_database.app_prod.id
+}
