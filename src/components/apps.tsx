@@ -1,8 +1,9 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useFetcher } from "react-router";
+import { useFetcher, useLocation } from "react-router";
 import { useTranslations } from "use-intl";
+import { SignInButton } from "@clerk/react-router";
 import { Link } from "../i18n/navigation";
 import { apps as registeredApps, APP_CATEGORIES, type AppEntry, type DynamicT } from "../lib/apps";
 
@@ -109,15 +110,14 @@ function AppCard({ app, t, comingSoonLabel, signedIn, favorited, favoriteLabel, 
   const card = app.href ? <Link className={className} href={app.href}>{content}</Link> : <div className={className}>{content}</div>;
 
   // Only published apps have anything real to favorite - comingSoon apps
-  // (including /math) get no star. Signed-in state comes from the route's
-  // loader (SSR-correct on first paint), not a client-only auth hook, so
-  // there's no post-hydration flash across a whole grid of cards.
-  const canFavorite = signedIn && app.status === "published";
-  if (!canFavorite) return card;
+  // (including /math) get no star. The star itself renders the same
+  // regardless of signedIn (no hydration flash); only its click behavior
+  // differs (see FavoriteButton).
+  if (app.status !== "published") return card;
   return (
     <div className="app-card-wrap">
       {card}
-      <FavoriteButton slug={app.slug} favorited={favorited} addLabel={favoriteLabel} removeLabel={unfavoriteLabel} />
+      <FavoriteButton slug={app.slug} signedIn={signedIn} favorited={favorited} addLabel={favoriteLabel} removeLabel={unfavoriteLabel} />
     </div>
   );
 }
@@ -130,13 +130,34 @@ function StarIcon({ filled }: { filled: boolean }) {
   );
 }
 
-function FavoriteButton({ slug, favorited, addLabel, removeLabel }: {
+function FavoriteButton({ slug, signedIn, favorited, addLabel, removeLabel }: {
   slug: string;
+  signedIn: boolean;
   favorited: boolean;
   addLabel: string;
   removeLabel: string;
 }) {
+  // Both hooks are called unconditionally (Rules of Hooks) even though only
+  // one branch below ends up using each - signedIn can change client-side
+  // (e.g. right after the sign-in modal below succeeds) without remounting
+  // this component.
+  const { pathname } = useLocation();
   const fetcher = useFetcher();
+
+  // Signed out: clicking the (always-unfavorited) star opens Clerk's sign-in
+  // modal instead of submitting to the action - the server action also
+  // rejects unauthenticated writes on its own (see routes/apps.tsx), this is
+  // just the better UX for the common case of clicking a star while signed out.
+  if (!signedIn) {
+    return (
+      <SignInButton mode="modal" forceRedirectUrl={pathname}>
+        <button type="button" className="favorite-button" aria-label={addLabel} data-slug={slug}>
+          <StarIcon filled={false} />
+        </button>
+      </SignInButton>
+    );
+  }
+
   const pendingIntent = fetcher.formData?.get("intent");
   const isFavorited = pendingIntent ? pendingIntent === "add" : favorited;
   return (

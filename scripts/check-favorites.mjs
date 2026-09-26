@@ -28,13 +28,17 @@ try {
   await page.locator('input[autocomplete="one-time-code"]').first().fill('424242');
   await page.waitForFunction(() => Boolean(window.Clerk?.user));
 
-  // A signed-out visitor sees no star at all (server-gated, see apps.tsx's loader).
+  // A signed-out visitor sees every star (same as signed-in), but clicking
+  // one opens Clerk's sign-in modal instead of writing to D1.
   await page.goto(`${base}/en/apps`);
   await clerk.signOut({ page });
   await page.goto(`${base}/en/apps`);
   await clerk.loaded({ page });
-  assert.equal(await page.locator('.favorite-button').count(), 0, 'signed-out visitors see no favorite buttons');
-  console.log('PASS: favorite buttons hidden while signed out');
+  assert.ok((await page.locator('.favorite-button').count()) > 0, 'signed-out visitors still see favorite buttons');
+  await page.locator('[data-slug="wc"]').click();
+  await page.locator('.cl-modalContent, [role="dialog"]').first().waitFor();
+  await page.keyboard.press('Escape');
+  console.log('PASS: favoriting while signed out opens the sign-in modal, not a D1 write');
 
   await clerk.signIn({ page, signInParams: { strategy: 'email_code', identifier: email } });
   await page.goto(`${base}/en/apps`);

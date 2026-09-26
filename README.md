@@ -59,7 +59,8 @@ CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:favorites
   from routine CI because it creates a temporary user in the dev Clerk instance.
 - `check:favorites`: signs in the same way as `check:auth`, then favorites and
   unfavorites an app from `/apps`, asserting the star's state persists across a
-  reload (real D1 read/write) and that signed-out visitors see no star at all.
+  reload (real D1 read/write), and that clicking a star while signed out opens
+  Clerk's sign-in modal instead of writing to D1.
   Requires `npm run db:migrate:local` to have been run first. Same disposable-user
   caveat as `check:auth` — not part of routine CI.
 
