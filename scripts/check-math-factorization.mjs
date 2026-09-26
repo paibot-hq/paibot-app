@@ -96,3 +96,30 @@ for (const q of differenceOfSquares) {
   assert.equal(q.p, -q.q, `set 3/${q.id}: p and q are exact opposites`);
 }
 console.log('PASS: set 2 is wider than set 1, and every set 3 question is a genuine difference of squares');
+
+// --- all four distractor strategies actually get used ---
+// (candidate order used to double as the tie-breaker when all four were
+// valid, which silently dropped the sum/product mix-up in the overwhelming
+// majority of questions - each strategy should show up in most questions.)
+
+const hasPair = (question, p, q) => question.choices.some(c => (c.p === p && c.q === q) || (c.p === q && c.q === p));
+const strategyCounts = { signFlipBoth: 0, offsetOne: 0, signFlipOne: 0, sumProduct: 0 };
+let sumProductEligible = 0;
+for (let setId = 1; setId <= 300; setId++) {
+  for (const question of generateFactorizationSet(setId)) {
+    const { p, q, a, b } = question;
+    if (hasPair(question, -p, -q)) strategyCounts.signFlipBoth++;
+    if (hasPair(question, p + 1, q)) strategyCounts.offsetOne++;
+    if (hasPair(question, -p, q)) strategyCounts.signFlipOne++;
+    if (a !== 0) {
+      sumProductEligible++;
+      if (hasPair(question, a, b)) strategyCounts.sumProduct++;
+    }
+  }
+}
+const total = 300 * 5;
+for (const [name, count] of Object.entries(strategyCounts)) {
+  const denominator = name === 'sumProduct' ? sumProductEligible : total;
+  assert.ok(count / denominator > 0.5, `${name} appears in most eligible questions: ${count}/${denominator}`);
+}
+console.log('PASS: all four distractor strategies are used roughly evenly, not just the first three');

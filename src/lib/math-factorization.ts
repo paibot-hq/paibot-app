@@ -70,9 +70,11 @@ function pickQuestionPairs(random: () => number, pattern: SetPattern): FactorPai
   return pairs;
 }
 
-// Common mistakes, tried in this order: flipping both signs, nudging one
-// root, flipping only one sign, and confusing the roots with the trinomial's
-// own coefficients (a very common mix-up between "sum/product" and "roots").
+// Four common mistakes: flipping both signs, nudging one root, flipping only
+// one sign, and confusing the roots with the trinomial's own coefficients (a
+// common mix-up between "sum/product" and "roots"). Only 3 of these end up as
+// distractors, so the caller must not simply take the first 3 - see the
+// shuffle in distractorsFor, which is what actually decides which 3.
 function distractorCandidates(correct: FactorPair): FactorPair[] {
   const { p, q } = correct;
   const a = p + q;
@@ -99,7 +101,11 @@ function distractorsFor(random: () => number, correct: FactorPair): FactorPair[]
     chosen.push(candidate);
     return true;
   };
-  for (const candidate of distractorCandidates(correct)) {
+  // Shuffled so that when all four strategies happen to be valid, each has
+  // an equal chance of being the one left out - candidate order used to be
+  // the tie-breaker instead, which silently dropped the last strategy
+  // (the sum/product mix-up) in the overwhelming majority of questions.
+  for (const candidate of shuffle(random, distractorCandidates(correct))) {
     if (chosen.length >= 3) break;
     consider(candidate);
   }
