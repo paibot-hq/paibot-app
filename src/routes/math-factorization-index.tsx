@@ -13,8 +13,7 @@ export default function MathFactorizationIndex() {
   // src/lib/apps.tsx - cast once here, same reasoning.
   const td = t as unknown as DynamicT;
   return <><PublicHead locale={locale} path="/math/factorization" title={`${t('title')} | PAIBOT.app`} description={t('description')} />
-    <ToolLayout title={t('title')} centerTitle>
-      <p className={styles.back}><Link href="/math">{`← ${t('backToMath')}`}</Link></p>
+    <ToolLayout title={t('title')} centerTitle aboveTitle={<p className={styles.back}><Link href="/math">{`← ${t('backToMath')}`}</Link></p>}>
       <p>{t('chooseSet')}</p>
       <ul className={styles.sets}>
         {FACTORIZATION_SETS.map(({ id, pattern }) => (

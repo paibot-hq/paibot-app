@@ -66,13 +66,13 @@ export default function MathFactorization({ loaderData }: Route.ComponentProps) 
   }
 
   const path = `/math/factorization/${setId}`;
+  const backLink = <p className={styles.back}><Link href="/math/factorization">{`← ${t('backToSets')}`}</Link></p>;
 
   if (finished) {
     const percent = Math.round((correctCount / total) * 100);
     return <><PublicHead locale={locale} path={path} title={`${t('title')} - ${setLabel} | PAIBOT.app`} description={t('description')} />
-      <ToolLayout title={t('title')} centerTitle>
+      <ToolLayout title={t('title')} centerTitle aboveTitle={backLink}>
         <div className={styles.quiz}>
-          <p className={styles.back}><Link href="/math/factorization">{`← ${t('backToSets')}`}</Link></p>
           <p className={styles.setName}>{setLabel}</p>
           <p className={styles.resultLine} aria-live="polite">{t('resultCorrect', { correct: correctCount, total })}</p>
           <p className={styles.resultLine}>{t('resultAccuracy', { percent })}</p>
@@ -83,9 +83,8 @@ export default function MathFactorization({ loaderData }: Route.ComponentProps) 
   }
 
   return <><PublicHead locale={locale} path={path} title={`${t('title')} - ${setLabel} | PAIBOT.app`} description={t('description')} />
-    <ToolLayout title={t('title')}>
+    <ToolLayout title={t('title')} aboveTitle={backLink}>
       <div className={styles.quiz}>
-        <p className={styles.back}><Link href="/math/factorization">{`← ${t('backToSets')}`}</Link></p>
         <p className={styles.setName}>{setLabel}</p>
         <p className={styles.progress} aria-live="polite">{t('progress', { current: index + 1, total })}</p>
         <div className={styles.question}><MathTex tex={question.tex} block /></div>
