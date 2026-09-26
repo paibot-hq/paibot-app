@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
-import { index, primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { index, integer, primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import type { QuizLocale, QuizTranslation } from '../lib/quiz';
 
 export const favorites = sqliteTable("favorites", {
   userId: text("user_id").notNull(),
@@ -19,3 +20,13 @@ export const clockPreferences = sqliteTable("clock_preferences", {
   userId: text("user_id").primaryKey(),
   timeZone: text("time_zone").notNull(),
 });
+
+export const quizQuestions = sqliteTable('quiz_questions', {
+  id: text('id').primaryKey(),
+  category: text('category').notNull(),
+  published: integer('published', { mode: 'boolean' }).notNull(),
+  answerIndex: integer('answer_index').notNull(),
+  translations: text('translations', { mode: 'json' }).$type<Record<QuizLocale, QuizTranslation>>().notNull(),
+  source: text('source').notNull(),
+  reviewedAt: text('reviewed_at').notNull(),
+}, table => [index('quiz_published_idx').on(table.published)]);

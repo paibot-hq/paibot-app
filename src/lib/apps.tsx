@@ -62,6 +62,13 @@ function WcIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function QuizIcon(props: SVGProps<SVGSVGElement>) {
+  return <svg viewBox="0 0 24 24" {...props}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M9 9a3 3 0 0 1 6 0c0 2-3 2-3 4M12 17h.01" />
+  </svg>;
+}
+
 function ArithIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -169,6 +176,7 @@ function MathIcon(props: SVGProps<SVGSVGElement>) {
 export const apps: AppEntry[] = [
   // 学習 / Study
   { slug: "math", href: "/math", category: "study", status: "comingSoon", messageKey: "math", icon: MathIcon },
+  { slug: "quiz", href: "/quiz", category: "game", status: "published", messageKey: "quiz", icon: QuizIcon },
   { slug: "arith", href: "/arith", category: "study", status: "published", messageKey: "arith", icon: ArithIcon },
 
   // 開発 / Dev
