@@ -15,5 +15,6 @@ this new initial migration.
 Migrations use timestamp prefixes to preserve execution order.
 Edit `src/db/schema.ts`, run `npm run db:generate -- --name descriptive_name`,
 review the SQL (especially destructive changes), and apply using
-`npm run db:migrate:local` or `npm run db:migrate:dev` as appropriate.
+`npm run db:migrate:local` or `npm run db:migrate:dev` as appropriate. Production is
+migrated by the `App (production)` workflow (or `npm run db:migrate:prod`).
 Do not use Drizzle's migration runner or `push`: Wrangler is the sole applier.

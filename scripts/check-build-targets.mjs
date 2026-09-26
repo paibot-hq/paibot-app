@@ -3,9 +3,11 @@ import { readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 
 // Leave the normal dev build last, so subsequent local checks use test keys.
-for (const [environment, name, host, indexable] of [
-  ['production', 'paibot-app', 'paibot.app', 'true'],
-  ['', 'paibot-app-dev', 'dev.paibot.app', 'false'],
+// database: each environment must bind its own D1 database - production
+// pointing at the dev one (or vice versa) would mix real users' data with tests.
+for (const [environment, name, host, indexable, database] of [
+  ['production', 'paibot-app', 'paibot.app', 'true', 'paibot-app'],
+  ['', 'paibot-app-dev', 'dev.paibot.app', 'false', 'paibot-app-dev'],
 ]) {
   const env = { ...process.env };
   if (environment) env.CLOUDFLARE_ENV = environment;
@@ -21,6 +23,7 @@ for (const [environment, name, host, indexable] of [
   assert.deepEqual(config.routes, [{ pattern: host, custom_domain: true }]);
   assert.equal(config.vars.SITE_URL, `https://${host}`);
   assert.equal(config.vars.SITE_INDEXABLE, indexable);
+  assert.deepEqual(config.d1_databases.map(d => [d.binding, d.database_name]), [['DB', database]]);
   assert.equal(config.workers_dev, false);
   assert.equal(config.preview_urls, false);
   assert.equal(config.version_metadata.binding, 'CF_VERSION_METADATA');
