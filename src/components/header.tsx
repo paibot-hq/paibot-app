@@ -48,8 +48,8 @@ export default function Header() {
       </nav>
       <div className="toolbar">
         <Show when="signed-out">
-          <Link className="auth-link" href="/sign-in">{t("signIn")}</Link>
-          <Link className="auth-link" href="/sign-up">{t("signUp")}</Link>
+          <Link className="auth-link" href={`/sign-in?redirect_url=${encodeURIComponent(`/${language}${pathname === "/" ? "" : pathname}`)}`}>{t("signIn")}</Link>
+          <Link className="auth-link" href={`/sign-up?redirect_url=${encodeURIComponent(`/${language}${pathname === "/" ? "" : pathname}`)}`}>{t("signUp")}</Link>
         </Show>
         <Show when="signed-in">
           <UserButton />

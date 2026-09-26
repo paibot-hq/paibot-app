@@ -16,8 +16,7 @@ npm run dev
 ```
 
 Open http://localhost:3002/ja. Source lives in `src/`, translations in `messages/`,
-and assets in `public/`. The old `migration/react-router` working directory is no
-longer used. Existing ignored files there may remain locally; do not commit them.
+and assets in `public/`.
 
 `CLERK_PUBLISHABLE_KEY` replaces `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` in the app.
 `CLERK_SECRET_KEY` stays server-only. CI still reads the existing GitHub secret
@@ -63,12 +62,13 @@ CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:smoke
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:tools
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:auth
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:favorites
+CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:diary
 ```
 
 - `check:i18n`: SSR/SEO/robots/sitemap with both dev and production indexing policies.
-- `check:smoke`: 48 public URLs and 9 auth/coming-soon URLs, redirects, headers,
+- `check:smoke`: 51 public URLs and 12 non-indexable URLs, redirects, headers,
   Unicode input, locale navigation, persisted theme, Clerk forms and CSP violations.
-- `check:tools`: one meaningful flow for each of 13 tools. IP responses are mocked
+- `check:tools`: one meaningful flow for each of 14 tools. IP responses are mocked
   to verify both protocols and partial failure without requiring runner IPv6. The
   domain lookup tool only exercises client-side input rejection here (no socket
   opened) — see `check:whois` for the real WHOIS lookup.
@@ -88,6 +88,16 @@ CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:favorites
   Clerk's sign-in modal instead of writing to D1.
   Requires `npm run db:migrate:local` to have been run first. Same disposable-user
   caveat as `check:auth` — not part of routine CI.
+
+- `check:diary`: two disposable development Clerk users exercise private diary
+  create/edit/delete, SSR persistence, account isolation, validation, pagination,
+  sign-out, and no-store headers. Requires local migrations and `.dev.vars`;
+  removes fixture users and local diary rows afterwards. Run separately from CI.
+
+The diary lives at `/:locale/diary` (280 characters per post, one post per
+calendar day in JST, one post visible at a time with newer/older navigation). Every read/write is scoped to the authenticated Clerk user; it is excluded
+from the sitemap and served with `noindex` and `private, no-store`. Timestamps
+currently display in Japan time (JST).
 
 For deployed smoke tests set `CHECK_BROWSER_BASE_URL`, `CHECK_SITE_URL`, and
 `CHECK_SITE_INDEXABLE=true` for production. Dev Access tests additionally need
