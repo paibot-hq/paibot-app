@@ -63,7 +63,13 @@ export default function Providers({ children, loaderData }: { children: ReactNod
         // intermediate navigation the way sign-in has), so the current
         // pathname at click time is exactly where it should return you.
         afterSignOutUrl={`/${language}${pathname === "/" ? "" : pathname}`}
-        localization={language === "ja" ? jaJP : language === "zh" ? zhCN : enUS}
+        // ClerkProvider only re-syncs its full options (including
+        // afterSignOutUrl above) into the already-loaded Clerk instance when
+        // this `localization` object's reference changes - not on every
+        // render - so a stable jaJP/zhCN/enUS reference would leave
+        // afterSignOutUrl stuck at whatever page was active on first mount.
+        // Spreading it forces a fresh reference each render.
+        localization={{ ...(language === "ja" ? jaJP : language === "zh" ? zhCN : enUS) }}
         appearance={{ variables: {
           colorPrimary: resolvedTheme === "dark" ? "#7fb4dc" : "#2f638f",
           colorBackground: resolvedTheme === "dark" ? "#151f2b" : "#ffffff",
