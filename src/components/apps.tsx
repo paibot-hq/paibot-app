@@ -3,15 +3,17 @@
 import { useMemo, useState } from "react";
 import { useTranslations } from "use-intl";
 import { Link } from "../i18n/navigation";
+import FavoriteButton from "./favorite-button";
 import { apps as registeredApps, APP_CATEGORIES, type AppEntry, type DynamicT } from "../lib/apps";
 
 const apps = registeredApps;
 
-export default function Apps({ year }: { year: number }) {
+export default function Apps({ year, signedIn, favoriteSlugs }: { year: number; signedIn: boolean; favoriteSlugs: string[] }) {
   const t = useTranslations("App");
   const td = t as unknown as DynamicT;
   const [query, setQuery] = useState("");
   const normalizedQuery = query.trim().toLowerCase();
+  const favoriteSet = useMemo(() => new Set(favoriteSlugs), [favoriteSlugs]);
 
   const visibleApps = useMemo(() => {
     if (!normalizedQuery) return apps;
@@ -58,7 +60,16 @@ export default function Apps({ year }: { year: number }) {
             <h2 className="app-category-title">{td(`categories.${category}`)}</h2>
             <div className="app-grid">
               {items.map(app => (
-                <AppCard key={app.slug} app={app} t={td} comingSoonLabel={t("apps.comingSoon")} />
+                <AppCard
+                  key={app.slug}
+                  app={app}
+                  t={td}
+                  comingSoonLabel={t("apps.comingSoon")}
+                  signedIn={signedIn}
+                  favorited={favoriteSet.has(app.slug)}
+                  favoriteLabel={t("apps.favorite")}
+                  unfavoriteLabel={t("apps.unfavorite")}
+                />
               ))}
             </div>
           </section>
@@ -74,7 +85,15 @@ export default function Apps({ year }: { year: number }) {
   );
 }
 
-function AppCard({ app, t, comingSoonLabel }: { app: AppEntry; t: DynamicT; comingSoonLabel: string }) {
+function AppCard({ app, t, comingSoonLabel, signedIn, favorited, favoriteLabel, unfavoriteLabel }: {
+  app: AppEntry;
+  t: DynamicT;
+  comingSoonLabel: string;
+  signedIn: boolean;
+  favorited: boolean;
+  favoriteLabel: string;
+  unfavoriteLabel: string;
+}) {
   const Icon = app.icon;
   const className = `app-card${app.status === "comingSoon" ? " muted" : ""}`;
   const content = (
@@ -87,8 +106,17 @@ function AppCard({ app, t, comingSoonLabel }: { app: AppEntry; t: DynamicT; comi
       </div>
     </>
   );
-  if (app.href) {
-    return <Link className={className} href={app.href}>{content}</Link>;
-  }
-  return <div className={className}>{content}</div>;
+  const card = app.href ? <Link className={className} href={app.href}>{content}</Link> : <div className={className}>{content}</div>;
+
+  // Only published apps have anything real to favorite - comingSoon apps
+  // (including /math) get no star. The star itself renders the same
+  // regardless of signedIn (no hydration flash); only its click behavior
+  // differs (see FavoriteButton).
+  if (app.status !== "published") return card;
+  return (
+    <div className="app-card-wrap">
+      {card}
+      <FavoriteButton slug={app.slug} signedIn={signedIn} favorited={favorited} addLabel={favoriteLabel} removeLabel={unfavoriteLabel} />
+    </div>
+  );
 }

@@ -5,5 +5,6 @@ declare namespace Cloudflare {
     CLERK_PUBLISHABLE_KEY: string;
     CLERK_SECRET_KEY: string;
     WHOIS_ROOT_SERVER: string;
+    DB: D1Database;
   }
 }

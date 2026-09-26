@@ -1,4 +1,7 @@
 .page {
+  /* .favorite-button (content.css) positions itself absolutely relative to
+     this - no extra wrapper needed, same pairing as .app-card-wrap. */
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;

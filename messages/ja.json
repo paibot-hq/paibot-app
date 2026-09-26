@@ -15,7 +15,9 @@
       "searchLabel": "アプリを検索",
       "searchPlaceholder": "アプリ名・説明・カテゴリで検索",
       "noResults": "該当するアプリが見つかりませんでした。",
-      "comingSoon": "準備中"
+      "comingSoon": "準備中",
+      "favorite": "お気に入りに追加",
+      "unfavorite": "お気に入りから削除"
     },
     "categories": {
       "study": "学習",

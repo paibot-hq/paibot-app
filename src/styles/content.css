@@ -367,6 +367,30 @@ h1 .title-suffix {
 .app-card:hover { border-color: var(--accent); transform: translateY(-3px); box-shadow: 0 22px 54px var(--shadow); }
 .app-card:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 
+/* Wraps a card + its favorite-button as siblings (a <button> can't nest
+   inside the card's own <a>), positioning the button into the corner. The
+   position rule is on the button itself, not its wrapper (a <form> when
+   signed in, but SignInButton's clone has no wrapper element at all when
+   signed out) so it's positioned the same regardless of which one renders. */
+.app-card-wrap { position: relative; }
+.favorite-button {
+  position: absolute;
+  top: .6rem;
+  right: .6rem;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-strong);
+  color: var(--accent);
+  cursor: pointer;
+}
+.favorite-button svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 1.6; }
+.favorite-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
 .app-icon {
   display: grid;
   place-items: center;
