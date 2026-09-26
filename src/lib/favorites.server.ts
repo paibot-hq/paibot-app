@@ -24,7 +24,8 @@ export async function listFavorites(userId: string): Promise<FavoritesResult> {
       .bind(userId)
       .all<{ app_slug: string }>();
     return { status: "ok", slugs: results.map(row => row.app_slug) };
-  } catch {
+  } catch (error) {
+    console.error("favorites: listFavorites failed", error);
     return { status: "error", reason: "d1_error" };
   }
 }
@@ -44,7 +45,8 @@ export async function addFavorite(userId: string, appSlug: string): Promise<Favo
       .bind(userId, appSlug)
       .run();
     return { status: "ok", favorited: true };
-  } catch {
+  } catch (error) {
+    console.error("favorites: addFavorite failed", error);
     return { status: "error", reason: "d1_error" };
   }
 }
@@ -56,7 +58,8 @@ export async function removeFavorite(userId: string, appSlug: string): Promise<F
       .bind(userId, appSlug)
       .run();
     return { status: "ok", favorited: false };
-  } catch {
+  } catch (error) {
+    console.error("favorites: removeFavorite failed", error);
     return { status: "error", reason: "d1_error" };
   }
 }

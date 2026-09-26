@@ -67,6 +67,23 @@ try {
   assert.equal(await card.locator('.favorite-button').getAttribute('aria-pressed'), 'false', 'unfavorite persists after reload');
   console.log('PASS: unfavoriting an app persists across reload');
 
+  // The same star also shows on the tool's own page (ToolLayout), reading
+  // routes/locale.tsx's shared loader, and its fetcher submits cross-route
+  // to routes/apps.tsx's action (explicit actionPath, since the current
+  // page here is /wc, not /apps).
+  await page.goto(`${base}/en/wc`);
+  const toolStar = page.locator('[data-slug="wc"]');
+  await toolStar.waitFor();
+  assert.equal(await toolStar.getAttribute('aria-pressed'), 'false', 'tool page reflects unfavorited state too');
+  await toolStar.click();
+  await page.waitForFunction(() => document.querySelector('[data-slug="wc"]')?.getAttribute('aria-pressed') === 'true');
+  await page.goto(`${base}/en/apps`);
+  await card.locator('.favorite-button').waitFor();
+  assert.equal(await card.locator('.favorite-button').getAttribute('aria-pressed'), 'true', 'favoriting from the tool page reflects on /apps');
+  await card.locator('.favorite-button').click();
+  await page.waitForFunction(() => document.querySelector('[data-slug="wc"]')?.getAttribute('aria-pressed') === 'false');
+  console.log('PASS: the favorite star also works from the tool\'s own page');
+
   assert.deepEqual(errors, []);
   console.log('PASS: no uncaught browser errors');
 } finally {

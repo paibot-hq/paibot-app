@@ -1,19 +1,16 @@
 import { getAuth } from '@clerk/react-router/server';
 import Apps from '../components/apps';
 import PublicHead from '../components/public-head';
-import { addFavorite, listFavorites, removeFavorite } from '../lib/favorites.server';
+import { addFavorite, removeFavorite } from '../lib/favorites.server';
+import { useFavoritesData } from './locale';
 import { useLocale, useTranslations } from 'use-intl';
 import type { Route } from './+types/apps';
 
-export async function loader(args: Route.LoaderArgs) {
-  const { userId } = await getAuth(args);
-  if (!userId) return { signedIn: false, favoriteSlugs: [] as string[] };
-  const result = await listFavorites(userId);
-  // A D1 failure degrades to "no favorites shown", not a broken /apps page -
-  // favorites is an enhancement on top of an otherwise-static page.
-  return { signedIn: true, favoriteSlugs: result.status === 'ok' ? result.slugs : [] };
-}
-
+// Favorites state itself comes from routes/locale.tsx's shared loader (see
+// useFavoritesData) - every locale-scoped page has it, not just this one, so
+// a tool page can show its own star too (see ToolLayout). This route keeps
+// the write side: ToolLayout's fetcher submits here explicitly
+// (action={`/${locale}/apps`}) regardless of which page it's rendered from.
 export async function action(args: Route.ActionArgs) {
   const { userId } = await getAuth(args);
   if (!userId) return { status: 'error', reason: 'signed_out' } as const;
@@ -23,9 +20,10 @@ export async function action(args: Route.ActionArgs) {
   return intent === 'remove' ? removeFavorite(userId, appSlug) : addFavorite(userId, appSlug);
 }
 
-export default function Page({ loaderData }: Route.ComponentProps) {
+export default function Page() {
   const t = useTranslations('App');
   const locale = useLocale();
+  const { signedIn, favoriteSlugs } = useFavoritesData();
   return <><PublicHead locale={locale} path="/apps" title={t('apps.title')} description={t('description')} />
-    <Apps year={new Date().getFullYear()} signedIn={loaderData.signedIn} favoriteSlugs={loaderData.favoriteSlugs} /></>;
+    <Apps year={new Date().getFullYear()} signedIn={signedIn} favoriteSlugs={favoriteSlugs} /></>;
 }
