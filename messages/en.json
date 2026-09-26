@@ -59,6 +59,11 @@
       "loading": "Loading…",
       "today": "Today",
       "previousMonth": "Previous month",
+      "view": "View",
+      "monthView": "Month",
+      "yearView": "Year",
+      "previousYear": "Previous year",
+      "nextYear": "Next year",
       "nextMonth": "Next month",
       "note": "Showing Japanese public holidays, for the years 1949 through 2099.",
       "holidays": {

@@ -59,6 +59,11 @@
       "loading": "加载中…",
       "today": "今天",
       "previousMonth": "上个月",
+      "view": "切换显示",
+      "monthView": "月",
+      "yearView": "年",
+      "previousYear": "上一年",
+      "nextYear": "下一年",
       "nextMonth": "下个月",
       "note": "显示日本的法定假日，可查看1949年至2099年。",
       "holidays": {

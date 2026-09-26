@@ -15,12 +15,25 @@
 .date { font-variant-numeric: tabular-nums; font-size: .95rem; }
 .name { display: block; margin-top: .15rem; font-size: .65rem; line-height: 1.3; color: var(--accent); overflow-wrap: anywhere; }
 
-/* Saturdays blue, Sundays and holidays red, as a Japanese calendar reads. */
-.grid [data-weekday="0"], .grid td[data-holiday] { color: var(--error); }
-.grid [data-weekday="6"] { color: var(--accent); }
-.grid td[data-holiday] .name { color: var(--error); }
+/* Saturdays blue, Sundays and holidays red, as a Japanese calendar reads.
+   Applies to the month grid and to the small months in the year view. */
+.calendar [data-weekday="0"], .calendar td[data-holiday] { color: var(--error); }
+.calendar [data-weekday="6"] { color: var(--accent); }
+.calendar td[data-holiday] .name { color: var(--error); }
 .grid td[data-outside] { opacity: .35; }
 .grid td[data-today] { outline: 2px solid var(--accent); outline-offset: -2px; background: color-mix(in srgb, var(--accent) 12%, transparent); }
+
+.views { display: flex; justify-content: center; gap: .4rem; margin-bottom: 1rem; }
+.views button[aria-pressed="true"] { background: var(--text); color: var(--bg); border-color: var(--text); }
+
+.year { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.2rem .9rem; }
+.miniCaption { caption-side: top; margin-bottom: .2rem; }
+.miniCaption button { width: 100%; padding: .2rem; font-size: .85rem; font-weight: 600; border-color: transparent; background: transparent; }
+.mini { width: 100%; border-collapse: collapse; table-layout: fixed; font-variant-numeric: tabular-nums; }
+.mini th { font-size: .6rem; font-weight: 500; color: var(--muted); padding: .1rem 0; }
+.mini td { text-align: center; font-size: .7rem; padding: .15rem 0; }
+.mini td[data-outside] { visibility: hidden; }
+.mini td[data-today] { border-radius: 50%; background: var(--accent); color: var(--bg); }
 
 .list { list-style: none; padding: 0; margin: 1.2rem 0 0; display: grid; gap: .3rem; font-size: .85rem; }
 .list li { display: flex; gap: .8rem; }

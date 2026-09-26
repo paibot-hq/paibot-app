@@ -59,6 +59,11 @@
       "loading": "読み込み中…",
       "today": "今日",
       "previousMonth": "前の月",
+      "view": "表示の切り替え",
+      "monthView": "月",
+      "yearView": "年",
+      "previousYear": "前の年",
+      "nextYear": "次の年",
       "nextMonth": "次の月",
       "note": "日本の祝日を表示しています。1949年から2099年まで表示できます。",
       "holidays": {
