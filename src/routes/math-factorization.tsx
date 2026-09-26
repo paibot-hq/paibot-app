@@ -65,7 +65,7 @@ export default function MathFactorization({ loaderData }: Route.ComponentProps) 
   if (finished) {
     const percent = Math.round((correctCount / total) * 100);
     return <><PublicHead locale={locale} path={path} title={`${t('title')} | PAIBOT.app`} description={t('description')} />
-      <ToolLayout title={t('title')} layout="centered" centerTitle>
+      <ToolLayout title={t('title')} centerTitle>
         <div className={styles.quiz}>
           <p className={styles.back}><Link href="/math/factorization">{`← ${t('backToSets')}`}</Link></p>
           <p className={styles.resultLine} aria-live="polite">{t('resultCorrect', { correct: correctCount, total })}</p>

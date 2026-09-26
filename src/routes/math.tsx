@@ -8,7 +8,7 @@ export default function Math() {
   const locale = useLocale();
   const t = useTranslations('App.math');
   return <><PublicHead locale={locale} path="/math" title={`${t('title')} | PAIBOT.app`} description={t('description')} />
-    <ToolLayout title={t('title')} layout="centered" centerTitle>
+    <ToolLayout title={t('title')} centerTitle>
       <p>{t('intro')}</p>
       <ul className={styles.units}>
         <li><Link href="/math/factorization">{t('factorizationLink')}</Link></li>
