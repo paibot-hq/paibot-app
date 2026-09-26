@@ -4,6 +4,7 @@ import { createContext, useContext, useEffect, useState, type ComponentProps, ty
 import { ClerkProvider } from "@clerk/react-router";
 import { enUS, jaJP, zhCN } from "@clerk/localizations";
 import { useLocale } from "use-intl";
+import { usePathname } from "../i18n/navigation";
 
 type Theme = "auto" | "light" | "dark";
 type Preferences = {
@@ -24,6 +25,7 @@ export function usePreferences() {
 
 export default function Providers({ children, loaderData }: { children: ReactNode; loaderData: ComponentProps<typeof ClerkProvider>["loaderData"] }) {
   const language = useLocale();
+  const pathname = usePathname();
   const [theme, setTheme] = useState<Theme>("auto");
   const [prefersLight, setPrefersLight] = useState(false);
   const resolvedTheme = theme === "auto" ? (prefersLight ? "light" : "dark") : theme;
@@ -56,7 +58,11 @@ export default function Providers({ children, loaderData }: { children: ReactNod
         signUpUrl={`/${language}/sign-up`}
         signInFallbackRedirectUrl={`/${language}`}
         signUpFallbackRedirectUrl={`/${language}`}
-        afterSignOutUrl={`/${language}`}
+        // Dynamic (not a fixed home fallback like the two above): sign-out
+        // is a direct action on whatever page you're already on (no
+        // intermediate navigation the way sign-in has), so the current
+        // pathname at click time is exactly where it should return you.
+        afterSignOutUrl={`/${language}${pathname === "/" ? "" : pathname}`}
         localization={language === "ja" ? jaJP : language === "zh" ? zhCN : enUS}
         appearance={{ variables: {
           colorPrimary: resolvedTheme === "dark" ? "#7fb4dc" : "#2f638f",
