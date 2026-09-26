@@ -1,7 +1,7 @@
 "use client";
 
-import { createContext, useContext, useEffect, useState, type ComponentProps, type ReactNode } from "react";
-import { ClerkProvider } from "@clerk/react-router";
+import { createContext, useContext, useEffect, useRef, useState, type ComponentProps, type ReactNode } from "react";
+import { ClerkProvider, useClerk } from "@clerk/react-router";
 import { enUS, jaJP, zhCN } from "@clerk/localizations";
 import { useLocale } from "use-intl";
 import { usePathname } from "../i18n/navigation";
@@ -23,9 +23,40 @@ export function usePreferences() {
   return context;
 }
 
-export default function Providers({ children, loaderData }: { children: ReactNode; loaderData: ComponentProps<typeof ClerkProvider>["loaderData"] }) {
+type SignOutOptions = { redirectUrl?: string };
+type SignOut = (optionsOrCallback?: SignOutOptions | (() => void), options?: SignOutOptions) => Promise<unknown>;
+
+const patchedInstances = new WeakSet<object>();
+
+// clerk-js freezes afterSignOutUrl when it loads and ignores every later
+// update, so that prop can only ever point at the page the visitor first
+// landed on. UserButton's built-in "Sign out" then calls signOut() with a
+// callback that navigates there, stranding people who signed in on one page
+// and signed out on another. Passing redirectUrl explicitly does win, so
+// default it to wherever the visitor is right now.
+function KeepSignOutOnCurrentPage() {
   const language = useLocale();
   const pathname = usePathname();
+  const clerk = useClerk();
+  const target = useRef("");
+  target.current = `/${language}${pathname === "/" ? "" : pathname}`;
+
+  useEffect(() => {
+    const instance = (window as unknown as { Clerk?: { signOut: SignOut } }).Clerk;
+    if (!instance || patchedInstances.has(instance)) return;
+    patchedInstances.add(instance);
+    const signOut = instance.signOut.bind(instance);
+    instance.signOut = (optionsOrCallback, options) => {
+      const given = typeof optionsOrCallback === "function" ? options : optionsOrCallback;
+      return signOut({ ...given, redirectUrl: given?.redirectUrl ?? target.current });
+    };
+  }, [clerk.loaded]);
+
+  return null;
+}
+
+export default function Providers({ children, loaderData }: { children: ReactNode; loaderData: ComponentProps<typeof ClerkProvider>["loaderData"] }) {
+  const language = useLocale();
   const [theme, setTheme] = useState<Theme>("auto");
   const [prefersLight, setPrefersLight] = useState(false);
   const resolvedTheme = theme === "auto" ? (prefersLight ? "light" : "dark") : theme;
@@ -58,11 +89,9 @@ export default function Providers({ children, loaderData }: { children: ReactNod
         signUpUrl={`/${language}/sign-up`}
         signInFallbackRedirectUrl={`/${language}`}
         signUpFallbackRedirectUrl={`/${language}`}
-        // Dynamic (not a fixed home fallback like the two above): sign-out
-        // is a direct action on whatever page you're already on (no
-        // intermediate navigation the way sign-in has), so the current
-        // pathname at click time is exactly where it should return you.
-        afterSignOutUrl={`/${language}${pathname === "/" ? "" : pathname}`}
+        // Only the fallback for a visitor who signs out before clerk-js has
+        // loaded; KeepSignOutOnCurrentPage handles every other sign-out.
+        afterSignOutUrl={`/${language}`}
         localization={language === "ja" ? jaJP : language === "zh" ? zhCN : enUS}
         appearance={{ variables: {
           colorPrimary: resolvedTheme === "dark" ? "#7fb4dc" : "#2f638f",
@@ -72,6 +101,7 @@ export default function Providers({ children, loaderData }: { children: ReactNod
           colorInputForeground: resolvedTheme === "dark" ? "#eef4fb" : "#162333",
         } }}
       >
+        <KeepSignOutOnCurrentPage />
         {children}
       </ClerkProvider>
     </PreferencesContext.Provider>
