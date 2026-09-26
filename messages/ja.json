@@ -281,10 +281,24 @@
     },
     "math": {
       "title": "数学問題集",
-      "description": "小学校から大学基礎までの数学問題を分野別に練習できる問題集を準備中です。",
-      "keywords": "数学 算数 問題集 微積分 代数 幾何",
-      "comingSoonTitle": "準備中",
-      "comingSoonBody": "小学校から大学基礎までの数学問題を分野別に練習できる問題集を準備しています。もうしばらくお待ちください。"
+      "description": "因数分解などの数学問題を4択クイズで練習できます。",
+      "keywords": "数学 算数 問題集 因数分解 クイズ",
+      "intro": "数学の問題を4択クイズで練習できます。まずは因数分解から。",
+      "factorizationLink": "因数分解",
+      "factorization": {
+        "title": "因数分解クイズ",
+        "description": "x² + ax + b の形の因数分解を、4択クイズで練習できます。",
+        "keywords": "数学 因数分解 クイズ 二次式",
+        "progress": "{current} / {total}",
+        "answer": "回答する",
+        "correct": "正解",
+        "incorrect": "不正解",
+        "explanationTemplate": "掛けて{b}、足して{a}になる2つの整数は{p}と{q}です。",
+        "next": "次の問題",
+        "resultCorrect": "{correct} / {total} 正解",
+        "resultAccuracy": "正答率 {percent}%",
+        "retry": "もう一度"
+      }
     },
     "about": {
       "eyebrow": "概要",

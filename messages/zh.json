@@ -281,10 +281,24 @@
     },
     "math": {
       "title": "数学题库",
-      "description": "正在准备涵盖小学到大学基础的分类数学题库。",
-      "keywords": "数学 代数 微积分 几何 题库",
-      "comingSoonTitle": "敬请期待",
-      "comingSoonBody": "我们正在准备一套涵盖小学到大学基础、按领域分类的数学题库。请稍候。"
+      "description": "通过四选一测验练习因式分解等数学题目。",
+      "keywords": "数学 因式分解 测验 题库",
+      "intro": "通过四选一测验练习数学题目，先从因式分解开始。",
+      "factorizationLink": "因式分解",
+      "factorization": {
+        "title": "因式分解测验",
+        "description": "通过四选一测验练习 x² + ax + b 形式的因式分解。",
+        "keywords": "数学 因式分解 测验 二次式",
+        "progress": "{current} / {total}",
+        "answer": "作答",
+        "correct": "正确",
+        "incorrect": "错误",
+        "explanationTemplate": "相乘为{b}、相加为{a}的两个整数是{p}和{q}。",
+        "next": "下一题",
+        "resultCorrect": "{correct} / {total} 正确",
+        "resultAccuracy": "正确率 {percent}%",
+        "retry": "再来一次"
+      }
     },
     "about": {
       "eyebrow": "关于",

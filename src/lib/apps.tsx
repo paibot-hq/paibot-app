@@ -168,7 +168,7 @@ function MathIcon(props: SVGProps<SVGSVGElement>) {
 
 export const apps: AppEntry[] = [
   // 学習 / Study
-  { slug: "math", href: "/math", category: "study", status: "comingSoon", messageKey: "math", icon: MathIcon },
+  { slug: "math", href: "/math", category: "study", status: "published", messageKey: "math", icon: MathIcon },
   { slug: "arith", href: "/arith", category: "study", status: "published", messageKey: "arith", icon: ArithIcon },
 
   // 開発 / Dev

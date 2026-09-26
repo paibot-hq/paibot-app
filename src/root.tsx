@@ -47,7 +47,7 @@ export function Layout({ children }: { children: ReactNode }) {
   const { locale } = useParams();
   const { isIndexable } = useSiteMeta();
   const { pathname } = useLocation();
-  const indexPage = isIndexable && !/^\/(ja|en|zh)\/(sign-in|sign-up|math|diary)(\/|$)/.test(pathname);
+  const indexPage = isIndexable && !/^\/(ja|en|zh)\/(sign-in|sign-up|diary)(\/|$)/.test(pathname);
   return <html lang={isLocale(locale) ? locale : 'ja'}><head>
     {isIndexable && <>
       <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />

@@ -6,7 +6,7 @@ const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:300
 const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app').origin;
 const indexable = process.env.CHECK_SITE_INDEXABLE === 'true';
 const locales = ['ja', 'en', 'zh'];
-const paths = ['', '/apps', '/about', '/ip', '/domain', '/wc', '/arith', '/age', '/clock', '/password', '/base64', '/json', '/urlencode', '/dice', '/reaction', '/timing', '/stopwatch'];
+const paths = ['', '/apps', '/about', '/ip', '/domain', '/wc', '/arith', '/age', '/clock', '/password', '/base64', '/json', '/urlencode', '/dice', '/reaction', '/timing', '/stopwatch', '/math', '/math/factorization/1'];
 const browser = await chromium.launch();
 try {
   // Parse the actual server response, without allowing hydration to repair it.
@@ -72,7 +72,7 @@ try {
       assert.equal(head.ogTitle, head.titles[0]);
       assert.equal(head.twitterTitle, head.titles[0]);
     }
-    for (const auth of ['sign-in', 'sign-up', 'math', 'diary']) {
+    for (const auth of ['sign-in', 'sign-up', 'diary']) {
       const path = `/${locale}/${auth}`;
       const res = await request(path);
       assert.equal(res.status, 200, path);
@@ -83,9 +83,9 @@ try {
       assert.deepEqual(head.canonical, [], `${path}: no public canonical`);
     }
   }
-  console.log(`PASS: ${paths.length * locales.length} public pages and 12 non-indexable pages: SSR titles, SEO tags and security headers`);
+  console.log(`PASS: ${paths.length * locales.length} public pages and 9 non-indexable pages: SSR titles, SEO tags and security headers`);
 
-  for (const path of ['/', ...paths.filter(Boolean), '/math', '/diary', '/sign-in', '/sign-up', '/sign-in/factor-one', '/sign-up/verify-email-address']) {
+  for (const path of ['/', ...paths.filter(Boolean), '/diary', '/sign-in', '/sign-up', '/sign-in/factor-one', '/sign-up/verify-email-address']) {
     const query = '?redirect_url=%2Fen%2Fwc&source=smoke';
     const res = await request(`${path}${query}`, { redirect: 'manual' });
     assert.equal(res.status, 307, `${path}: locale redirect`);

@@ -281,10 +281,24 @@
     },
     "math": {
       "title": "Math Problem Set",
-      "description": "A problem set covering math topics from elementary through university basics, organized by subject, is on the way.",
-      "keywords": "math algebra calculus geometry problem set",
-      "comingSoonTitle": "Coming soon",
-      "comingSoonBody": "We're building a problem set covering math topics from elementary through university basics, organized by subject. Check back soon."
+      "description": "Practice math problems like factoring with multiple-choice quizzes.",
+      "keywords": "math algebra factoring quiz problem set",
+      "intro": "Practice math problems with multiple-choice quizzes. Starting with factoring.",
+      "factorizationLink": "Factoring",
+      "factorization": {
+        "title": "Factoring quiz",
+        "description": "Practice factoring x^2 + ax + b with a multiple-choice quiz.",
+        "keywords": "math factoring quiz quadratic",
+        "progress": "{current} / {total}",
+        "answer": "Answer",
+        "correct": "Correct",
+        "incorrect": "Incorrect",
+        "explanationTemplate": "The two integers that multiply to {b} and add to {a} are {p} and {q}.",
+        "next": "Next question",
+        "resultCorrect": "{correct} / {total} correct",
+        "resultAccuracy": "Accuracy {percent}%",
+        "retry": "Try again"
+      }
     },
     "about": {
       "eyebrow": "About",

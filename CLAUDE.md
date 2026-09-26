@@ -31,7 +31,10 @@ Do not print secret keys. Runtime Clerk keys must be synced to Workers Secrets;
 
 ## Math project
 
-`/math` is a noindex coming-soon page. `docs/plans/problemset.md` is the approved
-math problem-set plan. Its vinext-specific sections are historical. Existing
-KaTeX components are retained for this work; D1/infra changes are outside the
-framework migration.
+`/math` is a published landing page linking to quiz units; `/math/factorization/:setId`
+is the first unit (a super-MVP: seeded, reproducible, client-side-generated
+factoring quizzes, no login/DB). `docs/plans/problemset.md` is the previously
+approved, much larger math problem-set plan (LLM-generated + D1-backed); it is
+on hold while the super-MVP is in place. Its vinext-specific sections are
+historical. Existing KaTeX components are retained for this work; D1/infra
+changes are outside the framework migration.
