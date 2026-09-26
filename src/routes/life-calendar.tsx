@@ -1,14 +1,37 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties } from 'react';
+import { data } from 'react-router';
+import { getAuth } from '@clerk/react-router/server';
 import { useLocale, useTranslations } from 'use-intl';
 import PublicHead from '../components/public-head';
 import ToolLayout from '../components/tool-layout';
+import { Link } from '../i18n/navigation';
 import { buildLifeCalendar, localToday } from '../lib/life-calendar';
+import { getProfile } from '../lib/profile.server';
+import type { Route } from './+types/life-calendar';
 import styles from './life-calendar.module.css';
 
-export default function LifeCalendar() {
+// A birth date is personal, so this response must never be shared. The page
+// itself stays public and indexable.
+const privateHeaders = { 'Cache-Control': 'private, no-store' };
+export function headers() { return privateHeaders; }
+export async function loader(args: Route.LoaderArgs) {
+  const { userId } = await getAuth(args);
+  if (!userId) return data({ userId, birthDate: null }, { headers: privateHeaders });
+  try { return data({ userId, birthDate: (await getProfile(userId)).birthDate }, { headers: privateHeaders }); }
+  catch { return data({ userId, birthDate: null }, { headers: privateHeaders }); }
+}
+
+export default function LifeCalendar({ loaderData }: Route.ComponentProps) {
+  // Rebuild on sign-in or sign-out so the stored date is picked up.
+  return <Calendar key={loaderData.userId ?? 'guest'} settings={loaderData} />;
+}
+
+function Calendar({ settings }: { settings: Route.ComponentProps['loaderData'] }) {
   const locale = useLocale();
   const t = useTranslations('App.lifeCalendar');
-  const [birthday, setBirthday] = useState('');
+  // Prefilled from the profile, but edits here are for this visit only - the
+  // profile page is the one place that writes it.
+  const [birthday, setBirthday] = useState(settings.birthDate ?? '');
   const [years, setYears] = useState(90);
   const [today, setToday] = useState('');
   const grid = useRef<HTMLDivElement>(null);
@@ -62,7 +85,9 @@ export default function LifeCalendar() {
             {[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120].map(value => <option key={value} value={value}>{t('years', { count: value })}</option>)}
           </select></label>
         </div>
-        <p className={styles.note}>{t('privacy')}</p>
+        <p className={styles.note}>{settings.birthDate
+          ? <>{t('fromProfile')} <Link href="/profile">{t('editInProfile')}</Link></>
+          : t('privacy')}</p>
         {!birthday ? <p className={styles.empty}>{t('empty')}</p> : !calendar ? <p role="alert">{t('invalid')}</p> : <>
           <div className={styles.summary} aria-live="polite">
             <p><strong data-current-age>{t('age', { count: calendar.currentAge })}</strong><span>{t('currentAge')}</span></p>

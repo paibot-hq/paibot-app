@@ -1,10 +1,12 @@
 "use client";
 
 import { createContext, useContext, useEffect, useRef, useState, type ComponentProps, type ReactNode } from "react";
+import { useFetcher } from "react-router";
 import { ClerkProvider, useClerk } from "@clerk/react-router";
 import { enUS, jaJP, zhCN } from "@clerk/localizations";
 import { useLocale } from "use-intl";
 import { usePathname } from "../i18n/navigation";
+import { useProfileData } from "../routes/locale";
 
 type Theme = "auto" | "light" | "dark";
 type Preferences = {
@@ -57,6 +59,8 @@ function KeepSignOutOnCurrentPage() {
 
 export default function Providers({ children, loaderData }: { children: ReactNode; loaderData: ComponentProps<typeof ClerkProvider>["loaderData"] }) {
   const language = useLocale();
+  const profile = useProfileData();
+  const saveTheme = useFetcher();
   const [theme, setTheme] = useState<Theme>("auto");
   const [prefersLight, setPrefersLight] = useState(false);
   const resolvedTheme = theme === "auto" ? (prefersLight ? "light" : "dark") : theme;
@@ -73,12 +77,19 @@ export default function Providers({ children, loaderData }: { children: ReactNod
     return () => media.removeEventListener("change", update);
   }, []);
 
+  // Declared after the effect above so a saved profile beats this browser's
+  // own localStorage, and so signing in adopts the account's theme.
+  useEffect(() => { if (profile.theme) setTheme(profile.theme); }, [profile.theme]);
+
   useEffect(() => { document.documentElement.dataset.theme = resolvedTheme; }, [resolvedTheme]);
 
   function toggleTheme() {
     const value = resolvedTheme === "dark" ? "light" : "dark";
     setTheme(value);
     savePreference("paibot-app-theme", value);
+    // Optimistic: the toggle has already applied. A failed save just means the
+    // next load falls back to what the account last stored.
+    if (profile.signedIn) saveTheme.submit({ intent: "theme", value }, { method: "post", action: `/${language}/profile` });
   }
 
   return (

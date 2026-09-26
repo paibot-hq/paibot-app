@@ -22,6 +22,13 @@
       "when": 1790412098888,
       "tag": "20260926084138_add_clock_preferences",
       "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "6",
+      "when": 1790427918024,
+      "tag": "20260926130518_add_user_profiles",
+      "breakpoints": true
     }
   ]
 }

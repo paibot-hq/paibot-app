@@ -1,6 +1,31 @@
 {
   "App": {
+    "profile": {
+      "menu": "プロフィール",
+      "title": "プロフィール",
+      "intro": "ここで登録した内容は、対応するアプリで自動的に使われます。",
+      "birthDate": "生年月日",
+      "birthDateNote": "ライフカレンダーなどで初期値として使います。いつでも削除できます。",
+      "language": "言語",
+      "languageNote": "言語を指定していないURLを開いたときの言語です。",
+      "theme": "表示モード",
+      "themeLight": "ライト",
+      "themeDark": "ダーク",
+      "unset": "未設定",
+      "languages": { "ja": "日本語", "en": "English", "zh": "简体中文" },
+      "clear": "削除",
+      "confirmClear": "生年月日を削除しますか？",
+      "saving": "保存中…",
+      "saved": "保存しました",
+      "signInPrompt": "ログインすると、プロフィールを登録できます。",
+      "signIn": "ログイン",
+      "signedOut": "ログインし直してから、もう一度お試しください。",
+      "invalid": "入力内容を確認してください。",
+      "unavailable": "保存できませんでした。時間をおいて再度お試しください。"
+    },
     "lifeCalendar": {
+      "fromProfile": "プロフィールに登録した生年月日です。ここでの変更は保存されません。",
+      "editInProfile": "プロフィールを開く",
       "currentAge": "現在の年齢",
       "remainingWeeks": "{years}歳までの残り期間",
       "weeks": "{count}週",

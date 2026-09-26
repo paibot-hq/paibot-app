@@ -1,6 +1,31 @@
 {
   "App": {
+    "profile": {
+      "menu": "个人资料",
+      "title": "个人资料",
+      "intro": "在此保存的信息，会被支持的应用自动使用。",
+      "birthDate": "出生日期",
+      "birthDateNote": "用作人生周历等工具的初始值，可随时删除。",
+      "language": "语言",
+      "languageNote": "打开未指定语言的网址时使用的语言。",
+      "theme": "显示模式",
+      "themeLight": "浅色",
+      "themeDark": "深色",
+      "unset": "未设置",
+      "languages": { "ja": "日本語", "en": "English", "zh": "简体中文" },
+      "clear": "删除",
+      "confirmClear": "要删除出生日期吗？",
+      "saving": "保存中…",
+      "saved": "已保存",
+      "signInPrompt": "登录后即可设置个人资料。",
+      "signIn": "登录",
+      "signedOut": "请重新登录后重试。",
+      "invalid": "请检查输入内容。",
+      "unavailable": "无法保存，请稍后重试。"
+    },
     "lifeCalendar": {
+      "fromProfile": "这是个人资料中保存的出生日期。在此处的修改不会被保存。",
+      "editInProfile": "打开个人资料",
       "currentAge": "当前年龄",
       "remainingWeeks": "距{years}岁的剩余时间",
       "weeks": "{count}周",

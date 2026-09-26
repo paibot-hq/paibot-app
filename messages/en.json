@@ -1,6 +1,31 @@
 {
   "App": {
+    "profile": {
+      "menu": "Profile",
+      "title": "Profile",
+      "intro": "What you save here is used automatically by the apps that support it.",
+      "birthDate": "Date of birth",
+      "birthDateNote": "Used as the starting value in tools like the life calendar. You can remove it at any time.",
+      "language": "Language",
+      "languageNote": "The language used when you open a URL that doesn't specify one.",
+      "theme": "Appearance",
+      "themeLight": "Light",
+      "themeDark": "Dark",
+      "unset": "Not set",
+      "languages": { "ja": "日本語", "en": "English", "zh": "简体中文" },
+      "clear": "Remove",
+      "confirmClear": "Remove your date of birth?",
+      "saving": "Saving…",
+      "saved": "Saved",
+      "signInPrompt": "Sign in to set up your profile.",
+      "signIn": "Sign in",
+      "signedOut": "Please sign in again and retry.",
+      "invalid": "Please check what you entered.",
+      "unavailable": "Could not save. Please try again later."
+    },
     "lifeCalendar": {
+      "fromProfile": "This is the date of birth saved in your profile. Changes here are not saved.",
+      "editInProfile": "Open your profile",
       "currentAge": "Current age",
       "remainingWeeks": "Time until age {years}",
       "weeks": "{count} weeks",
