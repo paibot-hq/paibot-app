@@ -30,7 +30,7 @@ This change prepares the release; editing these files does not deploy them.
 
 ## Runtime configuration
 
-`wrangler.jsonc` has explicit names/routes/vars for dev, production and validation.
+`wrangler.jsonc` has explicit names/routes/vars for dev and production.
 Use `CLOUDFLARE_ENV=production` at build time (`build:production`). `SITE_URL` and
 `SITE_INDEXABLE` are Workers vars, not `.env.local` build inputs. `check:i18n`
 starts the built Worker with explicit local overrides to test both indexing modes.
@@ -40,9 +40,9 @@ The CI jobs read existing GitHub secret names; no secret rotation is necessary.
 Production also retains the old `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` Workers secret
 for rollback compatibility. Local verification never uploads `.dev.vars`.
 
-The `validation` build can still target the already provisioned rr-dev Worker.
-Its owner-only Access application remains in Terraform; no resources are destroyed.
-A separate snapshot/automatic validation workflow is no longer needed.
+The `validation` build/env and the rr-dev Worker it targeted (plus its Access
+application) were removed once the migration was fully adopted in production
+(2026-09-26) — they only existed for pre-adoption spike testing.
 
 ## Rollback
 
