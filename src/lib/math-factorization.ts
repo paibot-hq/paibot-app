@@ -140,6 +140,14 @@ export const SET_LABEL_KEYS: Readonly<Record<SetPattern, string>> = {
   wide: 'setWide',
   differenceOfSquares: 'setDifferenceOfSquares',
 };
+// One-line description shown on the set-picker card, below the label above -
+// this is where the "what's different about this set" detail lives, so the
+// label itself can stay a short name.
+export const SET_DESCRIPTION_KEYS: Readonly<Record<SetPattern, string>> = {
+  standard: 'setStandardDescription',
+  wide: 'setWideDescription',
+  differenceOfSquares: 'setDifferenceOfSquaresDescription',
+};
 export function labelKeyForSet(setId: number): string {
   return SET_LABEL_KEYS[PATTERN_BY_SET_ID.get(setId) ?? 'standard'];
 }
