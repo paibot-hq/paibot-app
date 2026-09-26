@@ -290,6 +290,7 @@
         "description": "x² + ax + b の形の因数分解を、4択クイズで練習できます。",
         "keywords": "数学 因数分解 クイズ 二次式",
         "chooseSet": "挑戦する問題セットを選んでください。",
+        "setComingSoon": "この問題セットは準備中です。もうしばらくお待ちください。",
         "backToMath": "数学問題集",
         "backToSets": "問題セットを選び直す",
         "setStandard": "基礎編",

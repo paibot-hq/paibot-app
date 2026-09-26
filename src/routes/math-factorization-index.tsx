@@ -3,7 +3,7 @@ import PublicHead from '../components/public-head';
 import ToolLayout from '../components/tool-layout';
 import { Link } from '../i18n/navigation';
 import type { DynamicT } from '../lib/apps';
-import { FACTORIZATION_SETS, SET_DESCRIPTION_KEYS, SET_LABEL_KEYS } from '../lib/math-factorization';
+import { FACTORIZATION_SETS } from '../lib/math-factorization-sets';
 import styles from './math-factorization-index.module.css';
 
 export default function MathFactorizationIndex() {
@@ -16,11 +16,11 @@ export default function MathFactorizationIndex() {
     <ToolLayout title={t('title')} centerTitle aboveTitle={<p className={styles.back}><Link href="/math">{`← ${t('backToMath')}`}</Link></p>}>
       <p>{t('chooseSet')}</p>
       <ul className={styles.sets}>
-        {FACTORIZATION_SETS.map(({ id, pattern }) => (
+        {FACTORIZATION_SETS.map(({ id, labelKey, descriptionKey }) => (
           <li key={id}>
             <Link href={`/math/factorization/${id}`} className={styles.card}>
-              <span className={styles.cardTitle}>{td(SET_LABEL_KEYS[pattern])}</span>
-              <span className={styles.cardDescription}>{td(SET_DESCRIPTION_KEYS[pattern])}</span>
+              <span className={styles.cardTitle}>{td(labelKey)}</span>
+              <span className={styles.cardDescription}>{td(descriptionKey)}</span>
             </Link>
           </li>
         ))}

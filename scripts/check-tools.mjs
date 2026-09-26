@@ -138,24 +138,13 @@ try {
   await main.getByRole('link', { name: /^Basics/ }).click();
   await page.waitForURL(`${base}/en/math/factorization/1`);
   await main.locator('h1').waitFor();
-  console.log('PASS: math landing links through to the factoring set picker and set 1');
-  for (let q = 1; q <= 5; q++) {
-    await main.getByText(new RegExp(`^${q} / 5$`)).waitFor();
-    const choices = main.locator('button[aria-pressed]');
-    assert.equal(await choices.count(), 4, `question ${q}: four choices`);
-    await choices.first().click();
-    await main.getByRole('button', { name: 'Answer', exact: true }).click();
-    await main.getByText(/^(Correct|Incorrect)$/).waitFor();
-    assert.equal(await main.locator('[data-state="correct"]').count(), 1, `question ${q}: exactly one choice marked correct`);
-    await main.getByRole('button', { name: 'Next question', exact: true }).click();
-  }
-  await main.getByText(/\/ 5 correct/).waitFor();
-  assert.match(await main.textContent(), /Accuracy \d+%/);
-  await main.getByRole('button', { name: 'Try again', exact: true }).click();
-  await main.getByText('1 / 5').waitFor();
+  // No live quiz yet - problems are moving to LLM-generated, verified sets
+  // (see math-factorization.tsx) - just the routing/label shell should work.
+  await main.getByText('Basics', { exact: true }).waitFor();
+  await main.getByText(/being prepared/).waitFor();
   await page.setViewportSize({ width: 390, height: 844 });
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   assert.deepEqual(errors, []);
-  console.log('PASS: math factorization quiz - answer flow, correctness highlight, results and retry');
+  console.log('PASS: math landing links through to the factoring set picker and set 1 (coming soon)');
   console.log('PASS: all 15 tools, no uncaught JS errors');
 } finally { await browser.close(); }

@@ -12,7 +12,6 @@
     "check:smoke": "node scripts/check-smoke.mjs",
     "check:browser": "node scripts/check-smoke.mjs",
     "check:tools": "node scripts/check-tools.mjs",
-    "check:math-factorization": "node scripts/check-math-factorization.mjs",
     "check:i18n": "node scripts/check-environments.mjs",
     "check:whois": "node scripts/check-whois.mjs",
     "deploy": "wrangler deploy --config build/server/wrangler.json",
