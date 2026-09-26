@@ -161,7 +161,7 @@ function FavoriteButton({ slug, signedIn, favorited, addLabel, removeLabel }: {
   const pendingIntent = fetcher.formData?.get("intent");
   const isFavorited = pendingIntent ? pendingIntent === "add" : favorited;
   return (
-    <fetcher.Form method="post" className="favorite-form">
+    <fetcher.Form method="post">
       <input type="hidden" name="appSlug" value={slug} />
       <input type="hidden" name="intent" value={isFavorited ? "remove" : "add"} />
       <button
