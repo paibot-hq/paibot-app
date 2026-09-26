@@ -17,7 +17,7 @@
 | 実行環境 | Cloudflare Workers | Vercel等ではなく、Cloudflareの単一アカウント上で動く2つのWorker(`paibot-app-dev`・`paibot-app`)としてデプロイされる |
 | 認証 | Clerk | 開発・本番で別インスタンス(後述) |
 | 国際化 | next-intl | `ja`/`en`/`zh`、`messages/*.json`(機能ごとにネストした構造) |
-| 今後使う予定 | Cloudflare D1 | まだ未導入。お気に入り機能([#18](https://github.com/paibot-hq/paibot-app/issues/18))で最初に入れる計画 |
+| データベース | Cloudflare D1 | お気に入り機能([#18](https://github.com/paibot-hq/paibot-app/issues/18))で導入済み(dev環境のみ、本番用DBは未作成)。アプリ全体で1つのDBを共用する方針(`src/lib/favorites.server.ts`、`migrations/`) |
 
 vinextはbeta版のアダプターで、他に前例の少ない「Next.js on Cloudflare Workers」という組み合わせの接続部分にあたる。ここで実際に踏んだ罠(Clerkの`require()`問題、next-intlの二重モジュール問題、ビルド時の環境変数の扱いなど)は`CLAUDE.md`の「ビルドツール」節と`docs/plans/production-deploy.md`にまとめてある。
 

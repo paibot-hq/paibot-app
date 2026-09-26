@@ -15,7 +15,9 @@
       "searchLabel": "Search apps",
       "searchPlaceholder": "Search by name, description, or category",
       "noResults": "No matching apps found.",
-      "comingSoon": "Coming soon"
+      "comingSoon": "Coming soon",
+      "favorite": "Add to favorites",
+      "unfavorite": "Remove from favorites"
     },
     "categories": {
       "study": "Study",

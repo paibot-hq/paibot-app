@@ -1,17 +1,19 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useFetcher } from "react-router";
 import { useTranslations } from "use-intl";
 import { Link } from "../i18n/navigation";
 import { apps as registeredApps, APP_CATEGORIES, type AppEntry, type DynamicT } from "../lib/apps";
 
 const apps = registeredApps;
 
-export default function Apps({ year }: { year: number }) {
+export default function Apps({ year, signedIn, favoriteSlugs }: { year: number; signedIn: boolean; favoriteSlugs: string[] }) {
   const t = useTranslations("App");
   const td = t as unknown as DynamicT;
   const [query, setQuery] = useState("");
   const normalizedQuery = query.trim().toLowerCase();
+  const favoriteSet = useMemo(() => new Set(favoriteSlugs), [favoriteSlugs]);
 
   const visibleApps = useMemo(() => {
     if (!normalizedQuery) return apps;
@@ -58,7 +60,16 @@ export default function Apps({ year }: { year: number }) {
             <h2 className="app-category-title">{td(`categories.${category}`)}</h2>
             <div className="app-grid">
               {items.map(app => (
-                <AppCard key={app.slug} app={app} t={td} comingSoonLabel={t("apps.comingSoon")} />
+                <AppCard
+                  key={app.slug}
+                  app={app}
+                  t={td}
+                  comingSoonLabel={t("apps.comingSoon")}
+                  signedIn={signedIn}
+                  favorited={favoriteSet.has(app.slug)}
+                  favoriteLabel={t("apps.favorite")}
+                  unfavoriteLabel={t("apps.unfavorite")}
+                />
               ))}
             </div>
           </section>
@@ -74,7 +85,15 @@ export default function Apps({ year }: { year: number }) {
   );
 }
 
-function AppCard({ app, t, comingSoonLabel }: { app: AppEntry; t: DynamicT; comingSoonLabel: string }) {
+function AppCard({ app, t, comingSoonLabel, signedIn, favorited, favoriteLabel, unfavoriteLabel }: {
+  app: AppEntry;
+  t: DynamicT;
+  comingSoonLabel: string;
+  signedIn: boolean;
+  favorited: boolean;
+  favoriteLabel: string;
+  unfavoriteLabel: string;
+}) {
   const Icon = app.icon;
   const className = `app-card${app.status === "comingSoon" ? " muted" : ""}`;
   const content = (
@@ -87,8 +106,52 @@ function AppCard({ app, t, comingSoonLabel }: { app: AppEntry; t: DynamicT; comi
       </div>
     </>
   );
-  if (app.href) {
-    return <Link className={className} href={app.href}>{content}</Link>;
-  }
-  return <div className={className}>{content}</div>;
+  const card = app.href ? <Link className={className} href={app.href}>{content}</Link> : <div className={className}>{content}</div>;
+
+  // Only published apps have anything real to favorite - comingSoon apps
+  // (including /math) get no star. Signed-in state comes from the route's
+  // loader (SSR-correct on first paint), not a client-only auth hook, so
+  // there's no post-hydration flash across a whole grid of cards.
+  const canFavorite = signedIn && app.status === "published";
+  if (!canFavorite) return card;
+  return (
+    <div className="app-card-wrap">
+      {card}
+      <FavoriteButton slug={app.slug} favorited={favorited} addLabel={favoriteLabel} removeLabel={unfavoriteLabel} />
+    </div>
+  );
+}
+
+function StarIcon({ filled }: { filled: boolean }) {
+  return (
+    <svg viewBox="0 0 24 24" fill={filled ? "currentColor" : "none"}>
+      <path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L12 17l-5.2 2.8 1-5.9-4.3-4.2 5.9-.8z" />
+    </svg>
+  );
+}
+
+function FavoriteButton({ slug, favorited, addLabel, removeLabel }: {
+  slug: string;
+  favorited: boolean;
+  addLabel: string;
+  removeLabel: string;
+}) {
+  const fetcher = useFetcher();
+  const pendingIntent = fetcher.formData?.get("intent");
+  const isFavorited = pendingIntent ? pendingIntent === "add" : favorited;
+  return (
+    <fetcher.Form method="post" className="favorite-form">
+      <input type="hidden" name="appSlug" value={slug} />
+      <input type="hidden" name="intent" value={isFavorited ? "remove" : "add"} />
+      <button
+        type="submit"
+        className="favorite-button"
+        aria-pressed={isFavorited}
+        aria-label={isFavorited ? removeLabel : addLabel}
+        data-slug={slug}
+      >
+        <StarIcon filled={isFavorited} />
+      </button>
+    </fetcher.Form>
+  );
 }

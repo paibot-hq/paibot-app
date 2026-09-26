@@ -12,6 +12,12 @@
   // WHOIS_ROOT_SERVER is also a test seam: scripts/check-whois.mjs points it
   // at a local fake WHOIS server via `wrangler dev --var`. See src/lib/whois.server.ts.
   "vars": { "SITE_URL": "https://dev.paibot.app", "SITE_INDEXABLE": "false", "WHOIS_ROOT_SERVER": "whois.iana.org:43" },
+  // One shared DB for the whole app (favorites now, /math problem sets later
+  // - see infra/d1.tf), not a per-feature database. Production has no D1 yet;
+  // its own database will get its own binding under env.production once created.
+  "d1_databases": [
+    { "binding": "DB", "database_name": "paibot-app-dev", "database_id": "0465f7d2-f9bc-4ac6-8e61-352c422bee50" }
+  ],
   // Select at BUILD time with CLOUDFLARE_ENV. Deploy the generated config
   // without --env. Names, routes and vars must be explicit in each env.
   "env": {

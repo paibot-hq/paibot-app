@@ -15,7 +15,9 @@
       "searchLabel": "搜索应用",
       "searchPlaceholder": "按名称、说明或分类搜索",
       "noResults": "未找到匹配的应用。",
-      "comingSoon": "即将推出"
+      "comingSoon": "即将推出",
+      "favorite": "添加到收藏",
+      "unfavorite": "从收藏中移除"
     },
     "categories": {
       "study": "学习",

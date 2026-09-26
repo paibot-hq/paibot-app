@@ -11,6 +11,7 @@ Node.js 22 or later:
 npm ci
 cp .dev.vars.example .dev.vars # only when no local file exists
 # Set development Clerk keys (pk_test_ / sk_test_).
+npm run db:migrate:local       # once, creates the local D1 tables (favorites, ...)
 npm run dev
 ```
 
@@ -36,6 +37,7 @@ npm run preview                # port 3003; keep running in another terminal
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:smoke
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:tools
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:auth
+CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:favorites
 ```
 
 - `check:i18n`: SSR/SEO/robots/sitemap with both dev and production indexing policies.
@@ -55,6 +57,11 @@ CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:auth
   (no real email), creates a unique fixture user and deletes it in `finally`.
   Requires `.dev.vars`; rejects live keys and non-local targets. This is separate
   from routine CI because it creates a temporary user in the dev Clerk instance.
+- `check:favorites`: signs in the same way as `check:auth`, then favorites and
+  unfavorites an app from `/apps`, asserting the star's state persists across a
+  reload (real D1 read/write) and that signed-out visitors see no star at all.
+  Requires `npm run db:migrate:local` to have been run first. Same disposable-user
+  caveat as `check:auth` — not part of routine CI.
 
 For deployed smoke tests set `CHECK_BROWSER_BASE_URL`, `CHECK_SITE_URL`, and
 `CHECK_SITE_INDEXABLE=true` for production. Dev Access tests additionally need
