@@ -37,6 +37,13 @@ try {
     assert.match(csp, /(?:^|; )default-src 'self'(?:;|$)/, `${path}: CSP`);
     assert.match(csp, /(?:^|; )frame-ancestors 'none'(?:;|$)/);
     assert.match(csp, /(?:^|; )img-src [^;]*data:/);
+    // GA loads only when indexable (production), which no browser check here
+    // exercises - so guard the hosts it needs at the header level instead.
+    if (indexable) {
+      assert.match(csp, /(?:^|; )img-src [^;]*https:\/\/www\.googletagmanager\.com/, `${path}: GA img-src`);
+      assert.match(csp, /(?:^|; )img-src [^;]*https:\/\/\*\.google-analytics\.com/, `${path}: GA img-src`);
+      assert.match(csp, /(?:^|; )connect-src [^;]*https:\/\/\*\.google-analytics\.com/, `${path}: GA connect-src`);
+    }
     assert.equal(res.headers.get('x-content-type-options'), 'nosniff');
     assert.equal(res.headers.get('x-frame-options'), 'DENY');
     assert.equal(res.headers.get('referrer-policy'), 'strict-origin-when-cross-origin');

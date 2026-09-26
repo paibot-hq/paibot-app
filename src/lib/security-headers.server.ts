@@ -30,9 +30,15 @@ export function buildContentSecurityPolicy(): string {
       "https://ipv4.icanhazip.com",
       "https://ipv6.icanhazip.com",
       // Google Analytics (gtag.js, only loaded when isIndexable - see root.tsx).
+      // Host set is Google's documented CSP list for GA4 without advertising
+      // features (developers.google.com/tag-platform/security/guides/csp) -
+      // don't guess at it: gtag also fires an image beacon
+      // (googletagmanager.com/a?...) only under some conditions, which is how
+      // a missing img-src slipped past local checks and broke production smoke.
       "https://www.google-analytics.com",
       "https://*.google-analytics.com",
       "https://www.googletagmanager.com",
+      "https://*.google.com",
       ...(clerkHost ? [clerkHost] : []),
     ],
     "default-src": ["'self'"],
@@ -50,7 +56,7 @@ export function buildContentSecurityPolicy(): string {
     // lack it too, so this is likely a latent gap there as well, not
     // something specific to this hand-rolled CSP. Found via an actual CSP
     // violation on /sign-in, not from Clerk's docs.
-    "img-src": ["'self'", "https://img.clerk.com", "data:"],
+    "img-src": ["'self'", "https://img.clerk.com", "data:", "https://www.googletagmanager.com", "https://*.google-analytics.com"],
     "script-src": [
       "'self'",
       "'unsafe-inline'",
