@@ -66,6 +66,17 @@ jobs:
           CLERK_SECRET_KEY: ${{ secrets.PROD_CLERK_SECRET_KEY }}
         run: |
           node -e 'if(!process.env.CLERK_PUBLISHABLE_KEY?.startsWith("pk_live_") || !process.env.CLERK_SECRET_KEY?.startsWith("sk_live_")) throw Error("Production Clerk keys required"); console.log(JSON.stringify({CLERK_PUBLISHABLE_KEY:process.env.CLERK_PUBLISHABLE_KEY,NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:process.env.CLERK_PUBLISHABLE_KEY,CLERK_SECRET_KEY:process.env.CLERK_SECRET_KEY}))' | npx wrangler secret bulk --config '${{ steps.build.outputs.config }}'
+      # Before the deploy, so the new code never sees a schema it doesn't know
+      # yet. Idempotent (wrangler skips what d1_migrations already records).
+      # Gated on the ref actually having migrations: old vinext refs used for
+      # rollbacks have no migrations/ (nor a production D1 binding), and a
+      # rollback shouldn't be touching the schema anyway.
+      - name: Apply D1 migrations (production)
+        if: steps.framework.outputs.react_router == 'true' && hashFiles('migrations/*.sql') != ''
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx wrangler d1 migrations apply DB --remote --env production
       - name: Deploy production
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
