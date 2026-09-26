@@ -1,3 +1,6 @@
+.back { text-align: center; margin: 0; }
+.back a { font-size: .85rem; color: var(--muted); text-decoration: none; }
+.back a:hover, .back a:focus-visible { color: var(--accent); }
 .sets { list-style: none; padding: 0; margin: 1.2rem auto 0; display: inline-flex; flex-direction: column; gap: .6rem; }
 .sets a { display: block; font-size: 1.05rem; text-decoration: none; color: var(--text); border: 1px solid var(--line); border-radius: var(--radius); padding: .7rem 1.4rem; background: var(--surface); }
 .sets a:hover { border-color: var(--accent); }

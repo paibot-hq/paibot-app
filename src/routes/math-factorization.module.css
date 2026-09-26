@@ -1,4 +1,7 @@
 .quiz { width: min(100%, 480px); margin: 0 auto; }
+.back { text-align: center; margin: 0 0 1rem; }
+.back a { font-size: .85rem; color: var(--muted); text-decoration: none; }
+.back a:hover, .back a:focus-visible { color: var(--accent); }
 .progress { text-align: center; color: var(--muted); font-size: .85rem; font-variant-numeric: tabular-nums; margin: 0 0 .5rem; }
 .question { text-align: center; font-size: clamp(1.3rem, 5vw, 1.8rem); margin: 1.2rem 0 1.6rem; }
 

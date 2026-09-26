@@ -290,6 +290,8 @@
         "description": "Practice factoring x^2 + ax + b with a multiple-choice quiz.",
         "keywords": "math factoring quiz quadratic",
         "chooseSet": "Choose a problem set to try.",
+        "backToMath": "Math Problem Set",
+        "backToSets": "Choose a different set",
         "setStandard": "Basics",
         "setWide": "Advanced (larger numbers)",
         "setDifferenceOfSquares": "Difference of squares (x² - a² only)",
