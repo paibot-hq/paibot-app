@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
+import { spawnSync } from 'node:child_process';
 import { chromium } from 'playwright';
 import { clerkSetup, setupClerkTestingToken, clerk } from '@clerk/testing/playwright';
 import { createClerkClient } from '@clerk/backend';
@@ -15,6 +16,7 @@ const email = `paibot-e2e-${randomUUID()}+clerk_test@example.com`;
 const backend = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY });
 await clerkSetup();
 const browser = await chromium.launch();
+let userId;
 try {
   const page = await browser.newPage();
   const errors = [];
@@ -27,6 +29,7 @@ try {
   await page.getByRole('button', { name: 'Continue', exact: true }).click();
   await page.locator('input[autocomplete="one-time-code"]').first().fill('424242');
   await page.waitForFunction(() => Boolean(window.Clerk?.user));
+  userId = await page.evaluate(() => window.Clerk.user.id);
 
   // A signed-out visitor sees every star (same as signed-in), but clicking
   // one opens Clerk's sign-in modal instead of writing to D1.
@@ -70,5 +73,14 @@ try {
   await browser.close();
   const { data } = await backend.users.getUserList({ emailAddress: [email] });
   for (const user of data) await backend.users.deleteUser(user.id);
+  // Deleting the Clerk user doesn't touch D1 - there's no cascade between
+  // the two stores - so this fixture's rows would otherwise linger forever
+  // in the local simulation (this test only ever runs against localhost,
+  // asserted above, so --local is always the right target). Skipped if the
+  // try block failed before sign-up even completed (userId never set).
+  if (userId) {
+    assert.match(userId, /^user_[A-Za-z0-9]+$/, 'unexpected Clerk user id shape');
+    spawnSync('npx', ['wrangler', 'd1', 'execute', 'DB', '--local', '--command', `DELETE FROM favorites WHERE user_id = '${userId}'`], { stdio: 'inherit' });
+  }
   console.log('Cleaned up development auth fixture');
 }
