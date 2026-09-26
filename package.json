@@ -19,6 +19,7 @@
     "check:favorites": "node --env-file=.dev.vars scripts/check-favorites.mjs",
     "check:access": "node scripts/check-access.mjs",
     "check:build-targets": "node scripts/check-build-targets.mjs",
+    "db:generate": "drizzle-kit generate",
     "db:migrate:local": "wrangler d1 migrations apply DB --local",
     "db:migrate:dev": "wrangler d1 migrations apply DB --remote"
   },
@@ -26,6 +27,7 @@
     "@clerk/localizations": "^4.16.1",
     "@clerk/react-router": "3.6.25",
     "@clerk/shared": "^4.34.0",
+    "drizzle-orm": "0.45.3",
     "isbot": "^5",
     "katex": "^0.18.7",
     "react": "^19.3.0",
@@ -41,6 +43,7 @@
     "@types/node": "^22.20.2",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
+    "drizzle-kit": "0.31.11",
     "playwright": "^1.63.0",
     "typescript": "^7.0.2",
     "vite": "^8.3.0",
