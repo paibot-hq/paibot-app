@@ -67,7 +67,6 @@ function ClockFace({ settings }: { settings: Route.ComponentProps['loaderData'] 
   const [expanded, setExpanded] = useState(false);
   const [timeZone, setTimeZone] = useState(settings.timeZone);
   const fetcher = useFetcher<typeof action>();
-  const [dirty, setDirty] = useState(false);
   const panel = useRef<HTMLDivElement>(null);
   // A previously saved zone outside the curated list (an old save, or a
   // future list change) must still appear as a selectable, selected option -
@@ -107,9 +106,13 @@ function ClockFace({ settings }: { settings: Route.ComponentProps['loaderData'] 
           <time className={styles.time} dateTime={now?.toISOString()} data-clock-time>{now ? new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23', timeZone: timeZone === 'auto' ? undefined : timeZone }).format(now) : '--:--:--'}</time>
           <p className={styles.zone}>{now ? (timeZone === 'auto' ? Intl.DateTimeFormat().resolvedOptions().timeZone : timeZone) : '\u00a0'}</p>
         </div>
-        <fetcher.Form method="post" className={styles.settings} onSubmit={() => setDirty(false)}>
+        <div className={styles.settings}>
           <label htmlFor="clock-zone">{t('timeZone')}</label>
-          <select id="clock-zone" name="timeZone" value={timeZone} disabled={fetcher.state !== 'idle'} onChange={event => { setTimeZone(event.target.value); setDirty(true); }}>
+          <select id="clock-zone" name="timeZone" value={timeZone} disabled={fetcher.state !== 'idle'} onChange={event => {
+            const zone = event.target.value;
+            setTimeZone(zone);
+            if (settings.userId) fetcher.submit({ timeZone: zone }, { method: 'post' });
+          }}>
             <option value="auto">{t('automatic')}</option>
             <option value="UTC">UTC</option>
             {!isCurated && <option value={settings.timeZone}>{rawZoneLabel(settings.timeZone)}</option>}
@@ -119,11 +122,12 @@ function ClockFace({ settings }: { settings: Route.ComponentProps['loaderData'] 
               </optgroup>
             ))}
           </select>
-          {settings.userId ? <button type="submit" disabled={fetcher.state !== 'idle'}>{fetcher.state !== 'idle' ? t('saving') : t('save')}</button> : <span className={styles.zone}>{t('signInToSave')}</span>}
+          {!settings.userId && <span className={styles.zone}>{t('signInToSave')}</span>}
           {settings.failed && <span role="alert">{t('loadError')}</span>}
-          {!dirty && fetcher.data?.error && <span role="alert">{t(fetcher.data.error)}</span>}
-          {!dirty && fetcher.state === 'idle' && fetcher.data?.ok && <span role="status">{t('saved')}</span>}
-        </fetcher.Form>
+          {settings.userId && fetcher.state !== 'idle' && <span className={styles.zone}>{t('saving')}</span>}
+          {settings.userId && fetcher.state === 'idle' && fetcher.data?.error && <span role="alert">{t(fetcher.data.error)}</span>}
+          {settings.userId && fetcher.state === 'idle' && fetcher.data?.ok && <span role="status">{t('saved')}</span>}
+        </div>
         <button type="button" onClick={toggle} aria-pressed={expanded}>{expanded ? t('exitFullscreen') : t('fullscreen')}</button>
       </div>
     </ToolLayout>
