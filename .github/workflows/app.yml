@@ -69,6 +69,10 @@ jobs:
           node -e 'console.log(JSON.stringify({CLERK_PUBLISHABLE_KEY:process.env.CLERK_PUBLISHABLE_KEY,CLERK_SECRET_KEY:process.env.CLERK_SECRET_KEY}))' | npx wrangler secret bulk --config build/server/wrangler.json
           npm run deploy
       - run: npx playwright install --with-deps chromium
+      # A brand-new route can 404 for a few seconds on edge nodes that haven't
+      # picked up this deploy yet, even though the deploy itself has finished.
+      - name: Wait for edge propagation
+        run: sleep 15
       - name: Smoke test deployed dev through Access
         env:
           CHECK_BROWSER_BASE_URL: https://dev.paibot.app
