@@ -286,7 +286,7 @@
       "intro": "Practice math problems with multiple-choice quizzes. Starting with factoring.",
       "factorizationLink": "Factoring",
       "factorization": {
-        "title": "Factoring quiz",
+        "title": "Factoring",
         "description": "Practice factoring x^2 + ax + b with a multiple-choice quiz.",
         "keywords": "math factoring quiz quadratic",
         "chooseSet": "Choose a problem set to try.",

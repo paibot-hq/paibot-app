@@ -286,7 +286,7 @@
       "intro": "数学の問題を4択クイズで練習できます。まずは因数分解から。",
       "factorizationLink": "因数分解",
       "factorization": {
-        "title": "因数分解クイズ",
+        "title": "因数分解",
         "description": "x² + ax + b の形の因数分解を、4択クイズで練習できます。",
         "keywords": "数学 因数分解 クイズ 二次式",
         "chooseSet": "挑戦する問題セットを選んでください。",
