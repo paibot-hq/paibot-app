@@ -52,6 +52,38 @@
       "gridLabel": "表示期間の{total}週のうち、{completed}週を過ごしています。",
       "rangeNote": "表示期間は寿命の予測ではありません。誕生日から7日ずつ区切り、最後のマスは7日未満の場合があります。"
     },
+    "calendar": {
+      "title": "カレンダー",
+      "description": "月ごとのカレンダーを、日本の祝日つきで確認できます。",
+      "keywords": "カレンダー 月 祝日 休日 暦",
+      "loading": "読み込み中…",
+      "today": "今日",
+      "previousMonth": "前の月",
+      "nextMonth": "次の月",
+      "note": "日本の祝日を表示しています。1949年から2099年まで表示できます。",
+      "holidays": {
+        "newYear": "元日",
+        "comingOfAge": "成人の日",
+        "nationalFoundation": "建国記念の日",
+        "emperorBirthday": "天皇誕生日",
+        "vernalEquinox": "春分の日",
+        "showa": "昭和の日",
+        "greenery": "みどりの日",
+        "constitution": "憲法記念日",
+        "children": "こどもの日",
+        "marine": "海の日",
+        "mountain": "山の日",
+        "respectForAged": "敬老の日",
+        "autumnalEquinox": "秋分の日",
+        "sports": "スポーツの日",
+        "culture": "文化の日",
+        "labor": "勤労感謝の日",
+        "enthronement": "天皇の即位の日",
+        "enthronementCeremony": "即位礼正殿の儀",
+        "substitute": "振替休日",
+        "citizens": "国民の休日"
+      }
+    },
     "clock": {
       "timeZone": "タイムゾーン",
       "automatic": "端末に合わせる",

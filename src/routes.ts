@@ -24,6 +24,7 @@ export default [
     route('dice', 'routes/dice.tsx'),
     route('reaction', 'routes/reaction.tsx'),
     route('timing', 'routes/timing.tsx'),
+    route('calendar', 'routes/calendar.tsx'),
     route('life-calendar', 'routes/life-calendar.tsx'),
     route('clock', 'routes/clock.tsx'),
     route('age', 'routes/age.tsx'),

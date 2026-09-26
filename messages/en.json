@@ -52,6 +52,38 @@
       "gridLabel": "{completed} of {total} weeks in the display range have passed.",
       "rangeNote": "The display range is not a life expectancy prediction. Weeks start at birth; the final square may contain fewer than seven days."
     },
+    "calendar": {
+      "title": "Calendar",
+      "description": "A month-by-month calendar with Japanese public holidays.",
+      "keywords": "calendar month holidays Japan",
+      "loading": "Loading…",
+      "today": "Today",
+      "previousMonth": "Previous month",
+      "nextMonth": "Next month",
+      "note": "Showing Japanese public holidays, for the years 1949 through 2099.",
+      "holidays": {
+        "newYear": "New Year's Day",
+        "comingOfAge": "Coming-of-Age Day",
+        "nationalFoundation": "National Foundation Day",
+        "emperorBirthday": "The Emperor's Birthday",
+        "vernalEquinox": "Vernal Equinox Day",
+        "showa": "Showa Day",
+        "greenery": "Greenery Day",
+        "constitution": "Constitution Memorial Day",
+        "children": "Children's Day",
+        "marine": "Marine Day",
+        "mountain": "Mountain Day",
+        "respectForAged": "Respect-for-the-Aged Day",
+        "autumnalEquinox": "Autumnal Equinox Day",
+        "sports": "Sports Day",
+        "culture": "Culture Day",
+        "labor": "Labor Thanksgiving Day",
+        "enthronement": "Day of the Enthronement",
+        "enthronementCeremony": "Enthronement Ceremony Day",
+        "substitute": "Substitute holiday",
+        "citizens": "Citizens' holiday"
+      }
+    },
     "clock": {
       "timeZone": "Time zone",
       "automatic": "Device time zone",

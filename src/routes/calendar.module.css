@@ -1,0 +1,35 @@
+.calendar { width: min(100%, 720px); margin: 0 auto; }
+.loading { text-align: center; padding: 3rem 0; color: var(--muted); }
+.controls { display: flex; align-items: center; justify-content: center; gap: .8rem; margin-bottom: 1rem; }
+.controls strong { font-size: clamp(1.1rem, 4vw, 1.5rem); min-width: 8.5em; text-align: center; }
+.calendar button { font: inherit; cursor: pointer; border: 1px solid var(--line); border-radius: 6px; padding: .45rem .8rem; background: var(--surface); color: var(--text); }
+.calendar button:hover:not(:disabled) { border-color: var(--accent); }
+.calendar button:disabled { opacity: .45; cursor: default; }
+.calendar button:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.today { font-size: .85rem; }
+
+.caption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+.grid { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.grid th { font-size: .75rem; font-weight: 600; color: var(--muted); padding: .4rem 0; }
+.grid td { vertical-align: top; height: 4.2rem; padding: .3rem; border: 1px solid var(--line); }
+.date { font-variant-numeric: tabular-nums; font-size: .95rem; }
+.name { display: block; margin-top: .15rem; font-size: .65rem; line-height: 1.3; color: var(--accent); overflow-wrap: anywhere; }
+
+/* Saturdays blue, Sundays and holidays red, as a Japanese calendar reads. */
+.grid [data-weekday="0"], .grid td[data-holiday] { color: var(--error); }
+.grid [data-weekday="6"] { color: var(--accent); }
+.grid td[data-holiday] .name { color: var(--error); }
+.grid td[data-outside] { opacity: .35; }
+.grid td[data-today] { outline: 2px solid var(--accent); outline-offset: -2px; background: color-mix(in srgb, var(--accent) 12%, transparent); }
+
+.list { list-style: none; padding: 0; margin: 1.2rem 0 0; display: grid; gap: .3rem; font-size: .85rem; }
+.list li { display: flex; gap: .8rem; }
+.list li span:first-child { color: var(--muted); min-width: 5.5em; font-variant-numeric: tabular-nums; }
+.note { color: var(--muted); text-align: center; font-size: .75rem; margin-top: 1.2rem; }
+
+@media (max-width: 480px) {
+  .grid td { height: 3.4rem; padding: .2rem; }
+  .name { font-size: .55rem; }
+  .controls { gap: .5rem; }
+  .controls strong { min-width: 6.5em; }
+}

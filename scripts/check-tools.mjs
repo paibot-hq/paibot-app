@@ -132,6 +132,30 @@ try {
   await page.screenshot({ path: '/tmp/paibot-clock-mobile.png', fullPage: true });
   assert.deepEqual(errors, []);
   console.log('PASS: clock, local date rollover, fullscreen and mobile width');
+  await page.setViewportSize({ width: 1100, height: 900 });
+  // Fixed to a month whose holidays exercise all three kinds at once.
+  await page.clock.setFixedTime(new Date('2026-09-26T03:00:00Z'));
+  await go('calendar');
+  await page.locator('[data-calendar-grid]').waitFor();
+  assert.match(await page.locator('[data-calendar-month]').textContent(), /September 2026/);
+  assert.equal(await page.locator('[data-calendar-grid] td[data-today]').textContent(), '26');
+  assert.deepEqual(await page.locator('[data-calendar-holidays] li').allTextContents(),
+    ['Sep 21Respect-for-the-Aged Day', 'Sep 22Citizens\' holiday', 'Sep 23Autumnal Equinox Day']);
+  await page.getByRole('button', { name: 'Next month' }).click();
+  await page.waitForFunction(() => document.querySelector('[data-calendar-month]')?.textContent?.includes('October'));
+  assert.equal(await page.locator('[data-calendar-grid] td[data-today]').count(), 0, 'today only marks its own month');
+  await page.getByRole('button', { name: 'Today', exact: true }).click();
+  await page.waitForFunction(() => document.querySelector('[data-calendar-month]')?.textContent?.includes('September'));
+  await page.getByRole('button', { name: 'Previous month' }).click();
+  await page.waitForFunction(() => document.querySelector('[data-calendar-month]')?.textContent?.includes('August'));
+  assert.equal(await page.locator('[data-calendar-holidays] li').count(), 1, 'August 2026 has Mountain Day only');
+  await page.setViewportSize({ width: 390, height: 844 });
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  assert.deepEqual(errors, []);
+  console.log('PASS: calendar month navigation, today and Japanese holidays');
+  await page.setViewportSize({ width: 1100, height: 900 });
+  // Back to the date the life calendar below is written against.
+  await page.clock.setFixedTime(new Date('2026-12-31T15:00:00Z'));
   await go('life-calendar');
   await main.getByLabel('Date of birth').fill('2026-12-25');
   await page.locator('[data-life-grid]').waitFor();
@@ -166,5 +190,5 @@ try {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({ path: '/tmp/paibot-life-inline.png', fullPage: true });
   console.log('PASS: life calendar shows every week inline without an overview button');
-  console.log('PASS: all 15 tools, no uncaught JS errors');
+  console.log('PASS: all 16 tools, no uncaught JS errors');
 } finally { await browser.close(); }

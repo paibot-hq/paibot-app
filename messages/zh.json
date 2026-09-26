@@ -52,6 +52,38 @@
       "gridLabel": "显示范围共{total}周，已度过{completed}周。",
       "rangeNote": "显示范围并非寿命预测。从出生日起每7天一格，最后一格可能不足7天。"
     },
+    "calendar": {
+      "title": "日历",
+      "description": "按月查看日历，并标注日本的法定假日。",
+      "keywords": "日历 月份 假日 节日 日本",
+      "loading": "加载中…",
+      "today": "今天",
+      "previousMonth": "上个月",
+      "nextMonth": "下个月",
+      "note": "显示日本的法定假日，可查看1949年至2099年。",
+      "holidays": {
+        "newYear": "元旦",
+        "comingOfAge": "成人节",
+        "nationalFoundation": "建国纪念日",
+        "emperorBirthday": "天皇诞生日",
+        "vernalEquinox": "春分日",
+        "showa": "昭和日",
+        "greenery": "绿之日",
+        "constitution": "宪法纪念日",
+        "children": "儿童节",
+        "marine": "海之日",
+        "mountain": "山之日",
+        "respectForAged": "敬老日",
+        "autumnalEquinox": "秋分日",
+        "sports": "体育日",
+        "culture": "文化日",
+        "labor": "勤劳感谢日",
+        "enthronement": "天皇即位日",
+        "enthronementCeremony": "即位礼正殿之仪",
+        "substitute": "补休日",
+        "citizens": "国民休息日"
+      }
+    },
     "clock": {
       "timeZone": "时区",
       "automatic": "使用设备时区",
