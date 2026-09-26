@@ -1,5 +1,32 @@
 {
   "App": {
+    "quiz": {
+      "title": "クイズ",
+      "description": "動物・自然・地理・生活のかんたんな4択クイズ。1回5問、解説付きで気軽に楽しめます。",
+      "keywords": "クイズ,雑学,4択,かんたん",
+      "intro": "ちょっとした空き時間に、かんたんな雑学クイズ。",
+      "note": "1回5問・時間制限なし・ログイン不要",
+      "start": "クイズをはじめる",
+      "loading": "問題を読み込んでいます…",
+      "loadError": "問題を読み込めませんでした。もう一度お試しください。",
+      "complete": "おつかれさま！",
+      "score": "{total}問中 {score}問正解",
+      "perfect": "全問正解！",
+      "encourage": "解説を読んで、また挑戦してみよう。",
+      "retry": "もう一度あそぶ",
+      "back": "はじめに戻る",
+      "review": "まちがえた問題",
+      "yourAnswer": "あなたの答え：{answer}",
+      "rightAnswer": "正解：{answer}",
+      "progress": "{current} / {total}問",
+      "progressLabel": "クイズの進み具合",
+      "pickAnswer": "答えを1つ選んでください。",
+      "correct": "せいかい！",
+      "incorrect": "ざんねん！",
+      "next": "次の問題",
+      "seeResults": "結果を見る",
+      "source": "出典"
+    },
     "clock": {
       "timeZone": "タイムゾーン",
       "automatic": "端末に合わせる",

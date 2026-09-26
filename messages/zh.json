@@ -1,5 +1,32 @@
 {
   "App": {
+    "quiz": {
+      "title": "知识问答",
+      "description": "关于动物、自然、地理和生活的简单四选一问答。每轮5题，附带解析。",
+      "keywords": "知识问答,趣味知识,选择题,简单",
+      "intro": "利用空闲时间，来玩简单的知识问答吧。",
+      "note": "每轮5题 · 不限时 · 无需登录",
+      "start": "开始答题",
+      "loading": "正在加载题目…",
+      "loadError": "无法加载题目，请重试。",
+      "complete": "本轮完成！",
+      "score": "{total}题答对{score}题",
+      "perfect": "全部答对了！",
+      "encourage": "看看解析，再试一次吧。",
+      "retry": "再玩一次",
+      "back": "返回开始",
+      "review": "错题回顾",
+      "yourAnswer": "你的答案：{answer}",
+      "rightAnswer": "正确答案：{answer}",
+      "progress": "{current} / {total}题",
+      "progressLabel": "答题进度",
+      "pickAnswer": "请选择一个答案。",
+      "correct": "答对了！",
+      "incorrect": "答错了！",
+      "next": "下一题",
+      "seeResults": "查看结果",
+      "source": "来源"
+    },
     "clock": {
       "timeZone": "时区",
       "automatic": "使用设备时区",
