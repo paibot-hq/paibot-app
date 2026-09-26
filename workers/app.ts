@@ -4,7 +4,7 @@ import { siteOrigin, isIndexable } from '../src/lib/seo.server';
 import { buildContentSecurityPolicy } from '../src/lib/security-headers.server';
 
 const handle = createRequestHandler(() => import('virtual:react-router/server-build'), import.meta.env.MODE);
-const AUTH_PATH = new RegExp(`^/(${locales.join('|')})/(sign-in|sign-up|math)(/|$)`);
+const AUTH_PATH = new RegExp(`^/(${locales.join('|')})/(sign-in|sign-up|math|diary)(/|\\.data$|$)`);
 const csp = buildContentSecurityPolicy();
 
 export default {
@@ -22,6 +22,9 @@ export default {
     const secured = new Response(response.body, response);
     if (!isIndexable || response.status >= 400 || AUTH_PATH.test(url.pathname)) {
       secured.headers.set('X-Robots-Tag', 'noindex');
+    }
+    if (/^\/(ja|en|zh)\/(diary|clock)(?:\.data|\/|$)/.test(url.pathname)) {
+      secured.headers.set('Cache-Control', 'private, no-store');
     }
     secured.headers.set('X-Content-Type-Options', 'nosniff');
     secured.headers.set('X-Frame-Options', 'DENY');

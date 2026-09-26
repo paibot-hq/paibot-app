@@ -8,6 +8,20 @@
       "when": 1790393941708,
       "tag": "20260926033901_create_favorites_table",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1790409927438,
+      "tag": "20260926080527_add_diary_entries",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1790412098888,
+      "tag": "20260926084138_add_clock_preferences",
+      "breakpoints": true
     }
   ]
 }

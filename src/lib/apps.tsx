@@ -191,6 +191,8 @@ export const apps: AppEntry[] = [
   { slug: "timing", href: "/timing", category: "game", status: "published", messageKey: "timing", icon: TimingIcon },
 
   // 日常 / Daily
+  { slug: "clock", href: "/clock", category: "daily", status: "published", messageKey: "clock", icon: TimingIcon },
+  { slug: "diary", href: "/diary", category: "daily", status: "published", messageKey: "diary", icon: WcIcon },
   { slug: "age", href: "/age", category: "daily", status: "published", messageKey: "age", icon: AgeIcon },
 ];
 

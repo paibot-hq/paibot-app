@@ -1,0 +1,21 @@
+.diary { width: min(100%, 640px); margin: 0 auto; }
+.muted, .meta { color: var(--muted); font-size: .85rem; }
+.composer { display: grid; gap: .8rem; padding: 1.2rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.composer label { font-weight: 600; }
+.composer textarea { width: 100%; resize: vertical; min-height: 100px; font: inherit; line-height: 1.7; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: .8rem; }
+.actions { display: flex; align-items: center; justify-content: flex-end; gap: .8rem; flex-wrap: wrap; }
+.actions > span:first-child { margin-right: auto; font-size: .8rem; }
+.diary button { font: inherit; font-size: .85rem; cursor: pointer; border: 1px solid var(--line); border-radius: 6px; padding: .5rem .9rem; background: var(--surface); color: var(--text); }
+.diary button.primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+.diary button:disabled { opacity: .5; cursor: default; }
+.diary button:focus-visible, .composer textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.entry { padding: 1.4rem .3rem; border-bottom: 1px solid var(--line); }
+.meta { display: flex; flex-wrap: wrap; gap: .6rem; font-size: .75rem; }
+.body { white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.8; margin: .8rem 0 1rem; }
+.empty { text-align: center; padding: 2.5rem 1rem; color: var(--muted); line-height: 1.8; }
+.error { color: var(--error); }
+.pagination a { display: inline-flex; align-items: center; text-decoration: none; font-size: .85rem; border: 1px solid var(--line); border-radius: 6px; padding: .5rem .9rem; background: var(--surface); color: var(--text); }
+.pagination a:hover { border-color: var(--accent); }
+.pagination a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.pagination { display: flex; justify-content: space-between; margin-top: 1.5rem; gap: 1rem; }
+@media (max-width: 480px) { .composer { padding: .9rem; } }
