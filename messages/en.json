@@ -3,6 +3,10 @@
     "clock": {
       "timeZone": "Time zone",
       "automatic": "Device time zone",
+      "regionAsia": "Asia",
+      "regionEurope": "Europe",
+      "regionAmericas": "Americas",
+      "regionOceania": "Oceania",
       "save": "Save preference",
       "saving": "Saving…",
       "saved": "Preference saved",

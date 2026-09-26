@@ -6,8 +6,21 @@ import type { Route } from './+types/clock';
 import { useLocale, useTranslations } from 'use-intl';
 import PublicHead from '../components/public-head';
 import ToolLayout from '../components/tool-layout';
+import type { DynamicT } from '../lib/apps';
 import styles from './clock.module.css';
 
+// A curated, region-grouped shortlist beats the ~400-entry
+// Intl.supportedValuesOf('timeZone') list for a casual daily-use tool -
+// nobody can find "Asia/Tokyo" scrolling through hundreds of IANA zones.
+const ZONE_GROUPS: readonly (readonly [string, readonly string[]])[] = [
+  ['regionAsia', ['Asia/Tokyo', 'Asia/Seoul', 'Asia/Shanghai', 'Asia/Hong_Kong', 'Asia/Taipei', 'Asia/Singapore', 'Asia/Bangkok', 'Asia/Kolkata', 'Asia/Dubai']],
+  ['regionEurope', ['Europe/London', 'Europe/Paris', 'Europe/Berlin', 'Europe/Moscow']],
+  ['regionAmericas', ['America/New_York', 'America/Chicago', 'America/Denver', 'America/Los_Angeles', 'America/Sao_Paulo']],
+  ['regionOceania', ['Australia/Sydney', 'Pacific/Auckland']],
+];
+function zoneLabel(zone: string) {
+  return (zone.split('/').pop() ?? zone).replaceAll('_', ' ');
+}
 const privateHeaders = { 'Cache-Control': 'private, no-store' };
 export function headers() { return privateHeaders; }
 export async function loader(args: Route.LoaderArgs) {
@@ -40,18 +53,25 @@ export default function Clock({ loaderData }: Route.ComponentProps) {
 function ClockFace({ settings }: { settings: Route.ComponentProps['loaderData'] }) {
   const locale = useLocale();
   const t = useTranslations('App.clock');
+  // Region group keys (ZONE_GROUPS) are only known at runtime, like
+  // src/lib/apps.tsx's category keys - cast once here, same reasoning.
+  const td = t as unknown as DynamicT;
   // The server cannot know the visitor's time zone. Start after hydration.
   const [now, setNow] = useState<Date | null>(null);
   const [expanded, setExpanded] = useState(false);
   const [timeZone, setTimeZone] = useState(settings.timeZone);
-  const [zones, setZones] = useState<string[]>([settings.timeZone].filter(zone => zone !== 'auto' && zone !== 'UTC'));
   const fetcher = useFetcher<typeof action>();
   const [dirty, setDirty] = useState(false);
   const panel = useRef<HTMLDivElement>(null);
+  // A previously saved zone outside the curated list (an old save, or a
+  // future list change) must still appear as a selectable, selected option -
+  // otherwise the <select> silently falls back to its first option while
+  // `timeZone` state still holds the real value.
+  const isCurated = settings.timeZone === 'auto' || settings.timeZone === 'UTC'
+    || ZONE_GROUPS.some(([, zones]) => zones.includes(settings.timeZone));
   useEffect(() => {
     const update = () => setNow(new Date());
     update();
-    setZones([...new Set([settings.timeZone, ...Intl.supportedValuesOf('timeZone')])].filter(zone => zone !== 'auto' && zone !== 'UTC').sort());
     const timer = setInterval(update, 250);
     document.addEventListener('visibilitychange', update);
     return () => { clearInterval(timer); document.removeEventListener('visibilitychange', update); };
@@ -86,7 +106,12 @@ function ClockFace({ settings }: { settings: Route.ComponentProps['loaderData'] 
           <select id="clock-zone" name="timeZone" value={timeZone} disabled={fetcher.state !== 'idle'} onChange={event => { setTimeZone(event.target.value); setDirty(true); }}>
             <option value="auto">{t('automatic')}</option>
             <option value="UTC">UTC</option>
-            {zones.map(zone => <option key={zone} value={zone}>{zone.replaceAll('_', ' ')}</option>)}
+            {!isCurated && <option value={settings.timeZone}>{zoneLabel(settings.timeZone)}</option>}
+            {ZONE_GROUPS.map(([region, zones]) => (
+              <optgroup key={region} label={td(region)}>
+                {zones.map(zone => <option key={zone} value={zone}>{zoneLabel(zone)}</option>)}
+              </optgroup>
+            ))}
           </select>
           {settings.userId ? <button type="submit" disabled={fetcher.state !== 'idle'}>{fetcher.state !== 'idle' ? t('saving') : t('save')}</button> : <span className={styles.zone}>{t('signInToSave')}</span>}
           {settings.failed && <span role="alert">{t('loadError')}</span>}

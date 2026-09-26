@@ -3,6 +3,10 @@
     "clock": {
       "timeZone": "タイムゾーン",
       "automatic": "端末に合わせる",
+      "regionAsia": "アジア",
+      "regionEurope": "ヨーロッパ",
+      "regionAmericas": "アメリカ大陸",
+      "regionOceania": "オセアニア",
       "save": "設定を保存",
       "saving": "保存中…",
       "saved": "設定を保存しました",

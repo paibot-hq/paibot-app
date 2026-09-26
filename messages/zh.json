@@ -3,6 +3,10 @@
     "clock": {
       "timeZone": "时区",
       "automatic": "使用设备时区",
+      "regionAsia": "亚洲",
+      "regionEurope": "欧洲",
+      "regionAmericas": "美洲",
+      "regionOceania": "大洋洲",
       "save": "保存设置",
       "saving": "保存中…",
       "saved": "设置已保存",
