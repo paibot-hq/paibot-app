@@ -88,6 +88,15 @@ function AgeIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function CalendarIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="4" y="5" width="16" height="15" rx="2" />
+      <path d="M4 9h16M8 3v4M16 3v4M8 13h3v3H8z" />
+    </svg>
+  );
+}
+
 function PasswordIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -199,6 +208,8 @@ export const apps: AppEntry[] = [
   { slug: "timing", href: "/timing", category: "game", status: "published", messageKey: "timing", icon: TimingIcon },
 
   // 日常 / Daily
+  { slug: "calendar", href: "/calendar", category: "daily", status: "published", messageKey: "calendar", icon: CalendarIcon },
+  { slug: "life-calendar", href: "/life-calendar", category: "daily", status: "published", messageKey: "lifeCalendar", icon: AgeIcon },
   { slug: "clock", href: "/clock", category: "daily", status: "published", messageKey: "clock", icon: TimingIcon },
   { slug: "diary", href: "/diary", category: "daily", status: "published", messageKey: "diary", icon: WcIcon },
   { slug: "age", href: "/age", category: "daily", status: "published", messageKey: "age", icon: AgeIcon },

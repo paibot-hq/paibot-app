@@ -26,6 +26,13 @@
     {
       "idx": 3,
       "version": "6",
+      "when": 1790427918024,
+      "tag": "20260926130518_add_user_profiles",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
       "when": 1790451034457,
       "tag": "20260926193034_add_quiz_questions",
       "breakpoints": true

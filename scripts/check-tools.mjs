@@ -132,5 +132,74 @@ try {
   await page.screenshot({ path: '/tmp/paibot-clock-mobile.png', fullPage: true });
   assert.deepEqual(errors, []);
   console.log('PASS: clock, local date rollover, fullscreen and mobile width');
-  console.log('PASS: all 14 tools, no uncaught JS errors');
+  await page.setViewportSize({ width: 1100, height: 900 });
+  // Fixed to a month whose holidays exercise all three kinds at once.
+  await page.clock.setFixedTime(new Date('2026-09-26T03:00:00Z'));
+  await go('calendar');
+  await page.locator('[data-calendar-grid]').waitFor();
+  assert.match(await page.locator('[data-calendar-label]').textContent(), /September 2026/);
+  assert.equal(await page.locator('[data-calendar-grid] td[data-today]').textContent(), '26');
+  assert.deepEqual(await page.locator('[data-calendar-grid] td[data-holiday]').allTextContents(),
+    ['21Respect-for-the-Aged Day', '22Citizens\' holiday', '23Autumnal Equinox Day']);
+  await page.getByRole('button', { name: 'Next month' }).click();
+  await page.waitForFunction(() => document.querySelector('[data-calendar-label]')?.textContent?.includes('October'));
+  assert.equal(await page.locator('[data-calendar-grid] td[data-today]').count(), 0, 'today only marks its own month');
+  await page.getByRole('button', { name: 'Today', exact: true }).click();
+  await page.waitForFunction(() => document.querySelector('[data-calendar-label]')?.textContent?.includes('September'));
+  await page.getByRole('button', { name: 'Previous month' }).click();
+  await page.waitForFunction(() => document.querySelector('[data-calendar-label]')?.textContent?.includes('August'));
+  assert.deepEqual(await page.locator('[data-calendar-grid] td[data-holiday]').allTextContents(), ['11Mountain Day'],
+    'August 2026 has Mountain Day only');
+  // Year view: twelve months at once, the whole year's holidays, and a month
+  // heading that opens that month.
+  await page.getByRole('button', { name: 'Year', exact: true }).click();
+  await page.locator('[data-calendar-year]').waitFor();
+  assert.equal(await page.locator('[data-calendar-label]').textContent(), '2026');
+  assert.equal(await page.locator('[data-calendar-year] table').count(), 12);
+  assert.equal(await page.locator('[data-calendar-year] td[data-holiday]').count(), 18, '2026 has 18 public holidays');
+  await page.getByRole('button', { name: 'September', exact: true }).click();
+  await page.waitForFunction(() => document.querySelector('[data-calendar-label]')?.textContent?.includes('September 2026'));
+  assert.equal(await page.locator('[data-calendar-year]').count(), 0, 'picking a month leaves the year view');
+  await page.setViewportSize({ width: 390, height: 844 });
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  assert.deepEqual(errors, []);
+  console.log('PASS: calendar month navigation, today and Japanese holidays');
+  await page.setViewportSize({ width: 1100, height: 900 });
+  // Back to the date the life calendar below is written against.
+  await page.clock.setFixedTime(new Date('2026-12-31T15:00:00Z'));
+  await go('life-calendar');
+  await main.getByLabel('Date of birth').fill('2026-12-25');
+  await page.locator('[data-life-grid]').waitFor();
+  assert.equal(await page.locator('[data-life-grid] [data-state="past"]').count(), 1);
+  assert.equal(await page.locator('[data-life-grid] [data-state="current"]').count(), 1);
+  const initialWeeks = await page.locator('[data-life-grid] [data-state]').count();
+  await main.getByRole('combobox', { name: /Display range/ }).selectOption('10');
+  assert.ok((await page.locator('[data-life-grid] [data-state]').count()) < initialWeeks);
+  assert.equal(await page.locator('[data-current-age]').textContent(), 'Age 0');
+  assert.equal(await page.locator('[data-remaining-weeks]').textContent(), '520 weeks');
+  await main.getByLabel('Date of birth').fill('2030-01-01');
+  await main.getByRole('alert').waitFor();
+  assert.equal(await page.locator('[data-life-grid]').count(), 0);
+  await main.getByLabel('Date of birth').fill('1990-06-15');
+  await main.getByRole('combobox', { name: /Display range/ }).selectOption('90');
+  await page.locator('[data-life-grid]').waitFor();
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  await page.screenshot({ path: '/tmp/paibot-life-calendar-mobile.png', fullPage: true });
+  assert.deepEqual(errors, []);
+  await main.getByRole('combobox', { name: /Display range/ }).selectOption('120');
+  assert.equal(await page.getByRole('dialog').count(), 0);
+  assert.equal(await main.getByRole('button', { name: 'View entire calendar' }).count(), 0);
+  const calendarGrid = page.locator('[data-life-grid]');
+  assert.ok(await calendarGrid.locator('[data-state]').count() > 6000);
+  await calendarGrid.locator('[data-age="0"]').waitFor();
+  assert.equal(await calendarGrid.locator('[data-age="120"]').textContent(), 'Age 120');
+  for (const viewport of [{ width: 390, height: 844 }, { width: 844, height: 390 }]) {
+    await page.setViewportSize(viewport);
+    await page.waitForFunction(() => document.querySelector('[data-life-grid]').getBoundingClientRect().height <= innerHeight * .7);
+    assert.ok(await calendarGrid.evaluate(grid => grid.scrollHeight <= grid.clientHeight + 2), 'all rows fit inside compact grid');
+  }
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.screenshot({ path: '/tmp/paibot-life-inline.png', fullPage: true });
+  console.log('PASS: life calendar shows every week inline without an overview button');
+  console.log('PASS: all 16 tools, no uncaught JS errors');
 } finally { await browser.close(); }

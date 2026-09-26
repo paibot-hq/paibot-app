@@ -57,6 +57,7 @@ npm run check:quiz             # quiz bank structure and review metadata
 npm run check:build-targets     # production/dev builds and config assertions
 npx playwright install chromium # first run only
 npm run check:access            # redirects cannot leak Access headers
+npm run check:life-calendar     # calendar arithmetic: leap days and week boundaries
 npm run check:i18n              # starts/stops its own local Workers
 npm run check:whois             # starts/stops its own local preview + fake WHOIS server
 npm run preview                # port 3003; keep running in another terminal
@@ -69,9 +70,9 @@ CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:diary
 ```
 
 - `check:i18n`: SSR/SEO/robots/sitemap with both dev and production indexing policies.
-- `check:smoke`: 51 public URLs and 12 non-indexable URLs, redirects, headers,
+- `check:smoke`: 54 public URLs and 12 non-indexable URLs, redirects, headers,
   Unicode input, locale navigation, persisted theme, Clerk forms and CSP violations.
-- `check:tools`: one meaningful flow for each of 14 tools. IP responses are mocked
+- `check:tools`: one meaningful flow for each of 15 tools. IP responses are mocked
   to verify both protocols and partial failure without requiring runner IPv6. The
   domain lookup tool only exercises client-side input rejection here (no socket
   opened) — see `check:whois` for the real WHOIS lookup.
@@ -122,6 +123,10 @@ The development workflow verifies then deploys on main. Production deployment is
 manual (`App (production)`), with post-deploy smoke tests and release tagging.
 The production workflow also supports rollback refs from the old vinext app.
 See [cutover checklist](docs/plans/react-router-cutover.md) before releasing.
+
+The life calendar (`/:locale/life-calendar`) calculates weeks from a birth date
+entirely in the browser, without saving the date. Each row contains 52 weeks;
+the selected range is a display horizon, not a life expectancy estimate.
 
 ## Quiz
 
