@@ -26,7 +26,12 @@
     "check:diary": "node --env-file=.dev.vars scripts/check-diary.mjs",
     "check:profile": "node --env-file=.dev.vars scripts/check-profile.mjs",
     "check:life-calendar": "node scripts/check-life-calendar.mjs",
-    "check:calendar": "node scripts/check-calendar.mjs"
+    "check:calendar": "node scripts/check-calendar.mjs",
+    "check:quiz": "node scripts/check-quiz.mjs",
+    "check:quiz-browser": "node scripts/check-quiz-browser.mjs",
+    "quiz:import:local": "node scripts/import-quiz.mjs local",
+    "quiz:import:dev": "node scripts/import-quiz.mjs dev",
+    "quiz:import:prod": "node scripts/import-quiz.mjs prod"
   },
   "dependencies": {
     "@clerk/localizations": "^4.16.1",

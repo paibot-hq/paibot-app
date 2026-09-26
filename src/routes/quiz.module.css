@@ -1,0 +1,29 @@
+.quiz { width: min(100%, 660px); margin: 0 auto; padding: 0 1rem; }
+.intro, .note { color: var(--muted); text-align: center; line-height: 1.7; }
+.note { font-size: .85rem; }
+.quiz button { font: inherit; color: var(--text); cursor: pointer; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); padding: .85rem 1rem; }
+.quiz button:hover:not(:disabled) { border-color: var(--accent); background: var(--surface-strong); }
+.quiz button:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.quiz button:disabled { cursor: default; }
+.quiz h2:focus { outline: none; }
+.topline { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem; color: var(--muted); }
+.quiz progress { width: 100%; height: .5rem; accent-color: var(--accent); margin-top: .8rem; }
+.question { font-size: clamp(1.25rem, 4vw, 1.65rem); text-align: center; margin: 2rem 0 1rem; overflow-wrap: anywhere; }
+.choices { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+.choices button { display: flex; align-items: center; gap: 1rem; text-align: center; min-height: 76px; }
+.choices small { color: var(--muted); font-size: .8rem; }
+.choices span { flex: 1; font-size: 1rem; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
+.choices button[data-result="correct"] { border: 2px solid var(--success); }
+.choices button[data-result="incorrect"] { border: 2px solid var(--error); }
+.choices button:disabled:not([data-result]) { opacity: .55; }
+.feedback { margin-top: 1rem; padding: 1rem; border-radius: 10px; background: var(--surface-strong); line-height: 1.7; }
+.feedback > p { margin: .4rem 0; }
+.solution p { margin: .5rem 0; }
+.actions { display: flex; justify-content: center; flex-wrap: wrap; gap: .75rem; margin: 1.2rem 0; }
+.actions .primary { background: var(--text); color: var(--bg); min-width: 180px; }
+.actions button:disabled { opacity: .4; }
+.back { display: block; margin: 1rem auto; font-size: .8rem !important; }
+.score { font-size: 2rem; font-weight: 700; color: var(--accent); }
+.review { border-top: 1px solid var(--line); padding: 1rem 0; }
+.review h4 { margin: .5rem 0; font-size: 1.25rem; }
+@media (max-width: 380px) { .choices button { padding: .7rem; gap: .5rem; } }

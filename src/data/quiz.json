@@ -1,0 +1,405 @@
+{
+  "version": 2,
+  "questions": [
+    {
+      "id": "insect-legs",
+      "category": "animals",
+      "published": true,
+      "reviewedAt": "2026-09-27",
+      "source": "https://naturalhistory.si.edu/education/teaching-resources/life-science/what-insect",
+      "answerIndex": 1,
+      "translations": {
+        "ja": {
+          "prompt": "成虫の昆虫の脚は、基本的に何本？",
+          "choices": [
+            "4本",
+            "6本",
+            "8本",
+            "10本"
+          ],
+          "explanation": "昆虫の脚は胸に3対、合計6本あります。"
+        },
+        "en": {
+          "prompt": "How many legs does an adult insect normally have?",
+          "choices": [
+            "Four",
+            "Six",
+            "Eight",
+            "Ten"
+          ],
+          "explanation": "Insects have three pairs of legs, making six legs in total."
+        },
+        "zh": {
+          "prompt": "成年的昆虫通常有几条腿？",
+          "choices": [
+            "4条",
+            "6条",
+            "8条",
+            "10条"
+          ],
+          "explanation": "昆虫有三对腿，一共六条。"
+        }
+      }
+    },
+    {
+      "id": "spider-legs",
+      "category": "animals",
+      "published": true,
+      "reviewedAt": "2026-09-27",
+      "source": "https://naturalhistory.si.edu/education/teaching-resources/life-science/what-insect",
+      "answerIndex": 2,
+      "translations": {
+        "ja": {
+          "prompt": "クモの脚は、基本的に何本？",
+          "choices": [
+            "4本",
+            "6本",
+            "8本",
+            "10本"
+          ],
+          "explanation": "クモの脚は8本です。昆虫とは別の仲間です。"
+        },
+        "en": {
+          "prompt": "How many legs does a spider normally have?",
+          "choices": [
+            "Four",
+            "Six",
+            "Eight",
+            "Ten"
+          ],
+          "explanation": "Spiders have eight legs. They are not insects."
+        },
+        "zh": {
+          "prompt": "蜘蛛通常有几条腿？",
+          "choices": [
+            "4条",
+            "6条",
+            "8条",
+            "10条"
+          ],
+          "explanation": "蜘蛛有八条腿，不属于昆虫。"
+        }
+      }
+    },
+    {
+      "id": "sun-star",
+      "category": "nature",
+      "published": true,
+      "reviewedAt": "2026-09-27",
+      "source": "https://science.nasa.gov/sun/facts/",
+      "answerIndex": 0,
+      "translations": {
+        "ja": {
+          "prompt": "太陽は、どの種類の天体？",
+          "choices": [
+            "恒星",
+            "惑星",
+            "衛星",
+            "彗星"
+          ],
+          "explanation": "太陽は、自ら光を出す恒星です。"
+        },
+        "en": {
+          "prompt": "What kind of object is the Sun?",
+          "choices": [
+            "A star",
+            "A planet",
+            "A moon",
+            "A comet"
+          ],
+          "explanation": "The Sun is a star that produces its own light."
+        },
+        "zh": {
+          "prompt": "太阳属于哪种天体？",
+          "choices": [
+            "恒星",
+            "行星",
+            "卫星",
+            "彗星"
+          ],
+          "explanation": "太阳是一颗自身发光的恒星。"
+        }
+      }
+    },
+    {
+      "id": "largest-planet",
+      "category": "nature",
+      "published": true,
+      "reviewedAt": "2026-09-27",
+      "source": "https://science.nasa.gov/solar-system/planets/",
+      "answerIndex": 3,
+      "translations": {
+        "ja": {
+          "prompt": "太陽系で最も大きい惑星は？",
+          "choices": [
+            "地球",
+            "火星",
+            "水星",
+            "木星"
+          ],
+          "explanation": "木星は太陽系で最も大きい惑星です。"
+        },
+        "en": {
+          "prompt": "Which is the largest planet in our solar system?",
+          "choices": [
+            "Earth",
+            "Mars",
+            "Mercury",
+            "Jupiter"
+          ],
+          "explanation": "Jupiter is the largest planet in our solar system."
+        },
+        "zh": {
+          "prompt": "太阳系中最大的行星是哪颗？",
+          "choices": [
+            "地球",
+            "火星",
+            "水星",
+            "木星"
+          ],
+          "explanation": "木星是太阳系中最大的行星。"
+        }
+      }
+    },
+    {
+      "id": "closest-planet",
+      "category": "nature",
+      "published": true,
+      "reviewedAt": "2026-09-27",
+      "source": "https://science.nasa.gov/solar-system/planets/",
+      "answerIndex": 1,
+      "translations": {
+        "ja": {
+          "prompt": "太陽に最も近い惑星は？",
+          "choices": [
+            "金星",
+            "水星",
+            "地球",
+            "土星"
+          ],
+          "explanation": "水星は太陽に最も近い惑星です。"
+        },
+        "en": {
+          "prompt": "Which planet is closest to the Sun?",
+          "choices": [
+            "Venus",
+            "Mercury",
+            "Earth",
+            "Saturn"
+          ],
+          "explanation": "Mercury is the closest planet to the Sun."
+        },
+        "zh": {
+          "prompt": "哪颗行星离太阳最近？",
+          "choices": [
+            "金星",
+            "水星",
+            "地球",
+            "土星"
+          ],
+          "explanation": "水星是离太阳最近的行星。"
+        }
+      }
+    },
+    {
+      "id": "moon-earth",
+      "category": "nature",
+      "published": true,
+      "reviewedAt": "2026-09-27",
+      "source": "https://science.nasa.gov/astrobiology/learning-resources/alp/how-did-our-solar-system-form/",
+      "answerIndex": 2,
+      "translations": {
+        "ja": {
+          "prompt": "月は、どの惑星のまわりを回っている？",
+          "choices": [
+            "火星",
+            "金星",
+            "地球",
+            "木星"
+          ],
+          "explanation": "月は地球のまわりを回る衛星です。"
+        },
+        "en": {
+          "prompt": "Which planet does our Moon orbit?",
+          "choices": [
+            "Mars",
+            "Venus",
+            "Earth",
+            "Jupiter"
+          ],
+          "explanation": "Our Moon is a natural satellite that orbits Earth."
+        },
+        "zh": {
+          "prompt": "月球围绕哪颗行星运行？",
+          "choices": [
+            "火星",
+            "金星",
+            "地球",
+            "木星"
+          ],
+          "explanation": "月球是围绕地球运行的天然卫星。"
+        }
+      }
+    },
+    {
+      "id": "ice-state",
+      "category": "nature",
+      "published": true,
+      "reviewedAt": "2026-09-27",
+      "source": "https://www.usgs.gov/water-science-school/science/sublimation-and-water-cycle",
+      "answerIndex": 0,
+      "translations": {
+        "ja": {
+          "prompt": "氷は、水がどの状態になったもの？",
+          "choices": [
+            "固体",
+            "液体",
+            "気体",
+            "プラズマ"
+          ],
+          "explanation": "水が凍って固体になったものが氷です。"
+        },
+        "en": {
+          "prompt": "What state of water is ice?",
+          "choices": [
+            "Solid",
+            "Liquid",
+            "Gas",
+            "Plasma"
+          ],
+          "explanation": "Ice is water that has frozen into a solid."
+        },
+        "zh": {
+          "prompt": "冰是水的哪种状态？",
+          "choices": [
+            "固态",
+            "液态",
+            "气态",
+            "等离子态"
+          ],
+          "explanation": "水冻结后变成固态，就是冰。"
+        }
+      }
+    },
+    {
+      "id": "largest-ocean",
+      "category": "geography",
+      "published": true,
+      "reviewedAt": "2026-09-27",
+      "source": "https://oceanservice.noaa.gov/facts/biggestocean.html",
+      "answerIndex": 3,
+      "translations": {
+        "ja": {
+          "prompt": "世界で最も面積が広い海洋は？",
+          "choices": [
+            "大西洋",
+            "インド洋",
+            "北極海",
+            "太平洋"
+          ],
+          "explanation": "太平洋は世界で最も面積が広い海洋です。"
+        },
+        "en": {
+          "prompt": "Which ocean is the largest by area?",
+          "choices": [
+            "Atlantic Ocean",
+            "Indian Ocean",
+            "Arctic Ocean",
+            "Pacific Ocean"
+          ],
+          "explanation": "The Pacific is the largest ocean by area."
+        },
+        "zh": {
+          "prompt": "世界上面积最大的海洋是哪个？",
+          "choices": [
+            "大西洋",
+            "印度洋",
+            "北冰洋",
+            "太平洋"
+          ],
+          "explanation": "太平洋是世界上面积最大的海洋。"
+        }
+      }
+    },
+    {
+      "id": "highest-japan",
+      "category": "geography",
+      "published": true,
+      "reviewedAt": "2026-09-27",
+      "source": "https://www.japan.travel/en/fuji-guide/",
+      "answerIndex": 1,
+      "translations": {
+        "ja": {
+          "prompt": "日本で最も標高が高い山は？",
+          "choices": [
+            "高尾山",
+            "富士山",
+            "筑波山",
+            "六甲山"
+          ],
+          "explanation": "日本で最も標高が高い山は富士山です。"
+        },
+        "en": {
+          "prompt": "Which is the highest mountain in Japan?",
+          "choices": [
+            "Mount Takao",
+            "Mount Fuji",
+            "Mount Tsukuba",
+            "Mount Rokko"
+          ],
+          "explanation": "Mount Fuji is the highest mountain in Japan."
+        },
+        "zh": {
+          "prompt": "日本海拔最高的山是哪座？",
+          "choices": [
+            "高尾山",
+            "富士山",
+            "筑波山",
+            "六甲山"
+          ],
+          "explanation": "富士山是日本海拔最高的山。"
+        }
+      }
+    },
+    {
+      "id": "hour-minutes",
+      "category": "everyday",
+      "published": true,
+      "reviewedAt": "2026-09-27",
+      "source": "https://www.nist.gov/publications/why-minute-divided-60-seconds-hour-60-minutes-and-only-24-hours-day",
+      "answerIndex": 2,
+      "translations": {
+        "ja": {
+          "prompt": "1時間は何分？",
+          "choices": [
+            "30分",
+            "50分",
+            "60分",
+            "100分"
+          ],
+          "explanation": "時間の単位では、60分で1時間です。"
+        },
+        "en": {
+          "prompt": "How many minutes are in one hour?",
+          "choices": [
+            "30 minutes",
+            "50 minutes",
+            "60 minutes",
+            "100 minutes"
+          ],
+          "explanation": "One hour equals 60 minutes."
+        },
+        "zh": {
+          "prompt": "一小时有多少分钟？",
+          "choices": [
+            "30分钟",
+            "50分钟",
+            "60分钟",
+            "100分钟"
+          ],
+          "explanation": "一小时等于60分钟。"
+        }
+      }
+    }
+  ]
+}

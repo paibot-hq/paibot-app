@@ -24,8 +24,17 @@ jobs:
           CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
         run: node -e 'require("fs").writeFileSync(".dev.vars", `CLERK_PUBLISHABLE_KEY=${process.env.CLERK_PUBLISHABLE_KEY}\nCLERK_SECRET_KEY=${process.env.CLERK_SECRET_KEY}\n`)'
+      - run: npm run check:quiz
+      - run: npm run db:migrate:local
+      - run: npm run quiz:import:local
       - run: npm run typecheck
       - run: npm run check:build-targets
+      # Only the browser download is cached; install still runs so the OS
+      # packages it needs land on the fresh runner either way.
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
       - run: npm run check:access
       - run: npm run check:i18n
@@ -38,6 +47,7 @@ jobs:
           for i in $(seq 1 60); do curl -sf http://localhost:3003/robots.txt > /dev/null && break; sleep 1; done
           CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:smoke
           CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:tools
+          CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:quiz-browser
   deploy-dev:
     needs: verify
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
@@ -58,7 +68,9 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-        run: npm run db:migrate:dev
+        run: |
+          npm run db:migrate:dev
+          npm run quiz:import:dev
       - name: Sync runtime Clerk keys and deploy dev
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
@@ -68,6 +80,10 @@ jobs:
         run: |
           node -e 'console.log(JSON.stringify({CLERK_PUBLISHABLE_KEY:process.env.CLERK_PUBLISHABLE_KEY,CLERK_SECRET_KEY:process.env.CLERK_SECRET_KEY}))' | npx wrangler secret bulk --config build/server/wrangler.json
           npm run deploy
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
       # A brand-new route can 404 for a few seconds on edge nodes that haven't
       # picked up this deploy yet, even though the deploy itself has finished.
@@ -79,4 +95,6 @@ jobs:
           CHECK_SITE_URL: https://dev.paibot.app
           CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
-        run: npm run check:smoke
+        run: |
+          npm run check:smoke
+          npm run check:quiz-browser

@@ -4,6 +4,7 @@ export default [
   index('routes/redirect.ts'),
   ...[...publicPaths.filter(path => path !== '').map(path => path.slice(1)), 'math', 'diary', 'profile', 'sign-in/*', 'sign-up/*']
     .map(path => route(path, 'routes/redirect.ts', { id: `locale-redirect/${path}` })),
+  route('api/quiz', 'routes/api.quiz.ts'),
   route('sitemap.xml', 'routes/sitemap.ts'),
   route(':locale', 'routes/locale.tsx', [
     index('routes/home.tsx'),
@@ -14,6 +15,7 @@ export default [
     route('about', 'routes/about.tsx'),
     route('wc', 'routes/wc.tsx'),
     route('json', 'routes/json.tsx'),
+    route('quiz', 'routes/quiz.tsx'),
     route('arith', 'routes/arith.tsx'),
     route('base64', 'routes/base64.tsx'),
     route('urlencode', 'routes/urlencode.tsx'),
