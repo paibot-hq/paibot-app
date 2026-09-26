@@ -135,7 +135,7 @@ try {
   await go('math');
   await main.getByRole('link', { name: 'Factoring' }).click();
   await page.waitForURL(`${base}/en/math/factorization`);
-  await main.getByRole('link', { name: 'Problem set 1' }).click();
+  await main.getByRole('link', { name: 'Basics' }).click();
   await page.waitForURL(`${base}/en/math/factorization/1`);
   await main.locator('h1').waitFor();
   console.log('PASS: math landing links through to the factoring set picker and set 1');

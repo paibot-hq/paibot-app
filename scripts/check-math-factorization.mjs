@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { createRandom, randomInt, shuffle } from '../src/lib/seeded-random.ts';
-import { factoredTex, generateFactorizationSet, trinomialTex } from '../src/lib/math-factorization.ts';
+import { FACTORIZATION_SETS, factoredTex, generateFactorizationSet, trinomialTex } from '../src/lib/math-factorization.ts';
 
 // --- seeded-random.ts ---
 
@@ -79,3 +79,20 @@ for (let setId = 1; setId <= 500; setId++) {
   }
 }
 console.log('PASS: 500 sets are structurally valid (distinct problems, correct answers, distinct choices)');
+
+// --- pattern-specific behavior for the published sets ---
+
+assert.deepEqual(FACTORIZATION_SETS.map(s => s.id), [1, 2, 3], 'three sets are currently published');
+
+const standard = generateFactorizationSet(1);
+assert.ok(standard.every(q => Math.abs(q.p) <= 9 && Math.abs(q.q) <= 9), 'set 1 (standard) stays within the small range');
+
+const wide = generateFactorizationSet(2);
+assert.ok(wide.some(q => Math.abs(q.p) > 9 || Math.abs(q.q) > 9), 'set 2 (wide) actually reaches beyond the standard range');
+
+const differenceOfSquares = generateFactorizationSet(3);
+for (const q of differenceOfSquares) {
+  assert.equal(q.a, 0, `set 3/${q.id}: every question is a true difference of squares (a === 0)`);
+  assert.equal(q.p, -q.q, `set 3/${q.id}: p and q are exact opposites`);
+}
+console.log('PASS: set 2 is wider than set 1, and every set 3 question is a genuine difference of squares');

@@ -16,7 +16,13 @@ export type FactorizationQuestion = {
 
 // Small nonzero integers only - large or zero roots produce factorizations
 // that read as unnaturally easy or unnaturally big for a first quiz.
-const MAX_MAGNITUDE = 9;
+const STANDARD_MAX_MAGNITUDE = 9;
+// "Advanced": same shape, just a wider range of roots.
+const WIDE_MAX_MAGNITUDE = 20;
+// "Difference of squares": p is drawn from a small positive range and q is
+// always -p, so a = p + q is always 0 - every question in this set is
+// x^2 - n^2 = (x + n)(x - n).
+const DIFFERENCE_OF_SQUARES_RANGE = { min: 2, max: 12 };
 
 function pairKey(pair: FactorPair): string {
   return `${Math.min(pair.p, pair.q)},${Math.max(pair.p, pair.q)}`;
@@ -28,26 +34,38 @@ function coefficientsOf(pair: FactorPair) {
   return { a: pair.p + pair.q, b: pair.p * pair.q };
 }
 
-// An integer in [-MAX_MAGNITUDE, MAX_MAGNITUDE], excluding 0: draw from
-// [1, 2*MAX_MAGNITUDE] and fold the lower half onto the negatives.
-function randomRoot(random: () => number): number {
-  const value = randomInt(random, 1, MAX_MAGNITUDE * 2);
-  return value <= MAX_MAGNITUDE ? value - MAX_MAGNITUDE - 1 : value - MAX_MAGNITUDE;
+// An integer in [-maxMagnitude, maxMagnitude], excluding 0: draw from
+// [1, 2*maxMagnitude] and fold the lower half onto the negatives.
+function randomRoot(random: () => number, maxMagnitude: number): number {
+  const value = randomInt(random, 1, maxMagnitude * 2);
+  return value <= maxMagnitude ? value - maxMagnitude - 1 : value - maxMagnitude;
+}
+
+// The three patterns a problem set can draw its five trinomials from - see
+// SET_PATTERNS below for which setId uses which.
+export type SetPattern = 'standard' | 'wide' | 'differenceOfSquares';
+
+function drawPair(random: () => number, pattern: SetPattern): FactorPair {
+  if (pattern === 'differenceOfSquares') {
+    const n = randomInt(random, DIFFERENCE_OF_SQUARES_RANGE.min, DIFFERENCE_OF_SQUARES_RANGE.max);
+    return { p: n, q: -n };
+  }
+  const maxMagnitude = pattern === 'wide' ? WIDE_MAX_MAGNITUDE : STANDARD_MAX_MAGNITUDE;
+  return { p: randomRoot(random, maxMagnitude), q: randomRoot(random, maxMagnitude) };
 }
 
 // Draws five distinct trinomials (distinct by their (a, b), which is
 // equivalent to distinct unordered {p, q} pairs since a and b together
 // determine {p, q} uniquely as the roots of t^2 - at + b = 0).
-function pickQuestionPairs(random: () => number): FactorPair[] {
+function pickQuestionPairs(random: () => number, pattern: SetPattern): FactorPair[] {
   const seen = new Set<string>();
   const pairs: FactorPair[] = [];
   while (pairs.length < 5) {
-    const p = randomRoot(random);
-    const q = randomRoot(random);
-    const key = pairKey({ p, q });
+    const pair = drawPair(random, pattern);
+    const key = pairKey(pair);
     if (seen.has(key)) continue;
     seen.add(key);
-    pairs.push({ p, q });
+    pairs.push(pair);
   }
   return pairs;
 }
@@ -85,10 +103,10 @@ function distractorsFor(random: () => number, correct: FactorPair): FactorPair[]
     if (chosen.length >= 3) break;
     consider(candidate);
   }
-  // Top up with small random offsets if the strategies above collided
-  // (rare, e.g. when p === q). Capped so a pathological seed cannot loop
-  // forever; the offset range is large enough relative to MAX_MAGNITUDE
-  // that this always succeeds well before the cap.
+  // Top up with small random offsets if the strategies above collided (rare,
+  // e.g. when p === q, or routinely for differenceOfSquares - see drawPair -
+  // where the sign-flip-both candidate always equals the correct pair).
+  // Capped so a pathological seed cannot loop forever.
   for (let attempt = 0; chosen.length < 3 && attempt < 50; attempt++) {
     const offset = randomInt(random, -3, 3) || 1;
     consider({ p: correct.p + offset, q: correct.q });
@@ -97,15 +115,23 @@ function distractorsFor(random: () => number, correct: FactorPair): FactorPair[]
 }
 
 // generateFactorizationSet works for any positive integer setId (it's a pure
-// function of the seed), but only these are linked from the set-picker page -
-// add to this list as a new set is authored and reviewed.
-export const FACTORIZATION_SET_IDS = [1] as const;
+// function of the seed, defaulting to the 'standard' pattern), but only the
+// sets listed here are linked from the set-picker page - add an entry (and
+// its setLabel-* translation, see math-factorization-index.tsx) as a new set
+// is authored and reviewed.
+export const FACTORIZATION_SETS: readonly { id: number; pattern: SetPattern }[] = [
+  { id: 1, pattern: 'standard' },
+  { id: 2, pattern: 'wide' },
+  { id: 3, pattern: 'differenceOfSquares' },
+];
+const PATTERN_BY_SET_ID = new Map(FACTORIZATION_SETS.map(set => [set.id, set.pattern]));
 
 const seedFor = (setId: number) => `factorization-v1-set-${String(setId).padStart(3, '0')}`;
 
 export function generateFactorizationSet(setId: number): FactorizationQuestion[] {
+  const pattern = PATTERN_BY_SET_ID.get(setId) ?? 'standard';
   const random = createRandom(seedFor(setId));
-  return pickQuestionPairs(random).map((correct, index) => {
+  return pickQuestionPairs(random, pattern).map((correct, index) => {
     const distractors = distractorsFor(random, correct);
     const options = shuffle(random, [correct, ...distractors]);
     const correctIndex = options.findIndex(option => sameUnorderedPair(option, correct));
