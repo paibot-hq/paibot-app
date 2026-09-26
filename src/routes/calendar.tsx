@@ -3,7 +3,7 @@ import { useLocale, useTranslations } from 'use-intl';
 import PublicHead from '../components/public-head';
 import ToolLayout from '../components/tool-layout';
 import type { DynamicT } from '../lib/apps';
-import { formatDay, holidaysOfYear, HOLIDAY_YEARS, monthGrid, toDay } from '../lib/japanese-holidays';
+import { formatDay, HOLIDAY_YEARS, monthGrid, toDay } from '../lib/japanese-holidays';
 import { localToday } from '../lib/life-calendar';
 import styles from './calendar.module.css';
 
@@ -51,7 +51,6 @@ export default function Calendar() {
     const format = new Intl.DateTimeFormat(locale, { month: 'long', timeZone: 'UTC' });
     return Array.from({ length: 12 }, (_, index) => format.format(toDay(2026, index + 1, 1)));
   }, [locale]);
-  const dayFormat = useMemo(() => new Intl.DateTimeFormat(locale, { month: 'short', day: 'numeric', timeZone: 'UTC' }), [locale]);
 
   function step(direction: number) {
     setCursor(current => {
@@ -71,13 +70,6 @@ export default function Calendar() {
     setView('month');
   }
 
-  // In year view the list covers the whole year; in month view, that month.
-  const listed = useMemo(() => {
-    if (!cursor) return [];
-    return [...holidaysOfYear(cursor.year)]
-      .filter(([day]) => view === 'year' || new Date(day).getUTCMonth() + 1 === cursor.month)
-      .sort(([a], [b]) => a - b);
-  }, [cursor, view]);
   const showingToday = Boolean(cursor && (view === 'year'
     ? today.startsWith(`${cursor.year}-`)
     : today.startsWith(`${cursor.year}-${String(cursor.month).padStart(2, '0')}`)));
@@ -126,12 +118,6 @@ export default function Calendar() {
               {Array.from({ length: 12 }, (_, index) => <div key={index}>{renderMonth(index + 1, true)}</div>)}
             </div>}
 
-          {listed.length > 0 && <ul className={styles.list} data-calendar-holidays>
-            {listed.map(([day, key]) => <li key={day}>
-              <span>{dayFormat.format(day)}</span>
-              <span>{td(`holidays.${key}`)}</span>
-            </li>)}
-          </ul>}
           <p className={styles.note}>{t('note')}</p>
         </>}
       </div>
