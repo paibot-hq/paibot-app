@@ -37,7 +37,7 @@ try {
     // Only inspect server HTML; do not let hydration turn a signed-out SSR
     // response into an apparently successful authenticated page.
     assert.equal(html.includes(userId), signedIn, 'Clerk SSR auth state');
-    const hasSignInLink = /<a\b[^>]*href="\/en\/sign-in"/.test(html);
+    const hasSignInLink = /<a\b[^>]*href="\/en\/sign-in[?"]/.test(html);
     assert.equal(hasSignInLink, !signedIn, 'SSR header reflects auth state');
   }
   await page.goto(`${base}/en`);
@@ -55,10 +55,22 @@ try {
   await clerk.signIn({ page, signInParams: { strategy: 'email_code', identifier: email } });
   await page.goto(`${base}/en`);
   await assertSsr(true);
-  await clerk.signOut({ page });
+  console.log('PASS: existing-account sign-in');
+  // Signing out must land on the page you are on, not the one you signed in
+  // from. Navigate client-side: a full load would rebuild the Clerk instance
+  // and hide the stale redirect target this guards against.
+  await page.goto(`${base}/en`);
+  await clerk.loaded({ page });
+  await page.getByRole('link', { name: 'Apps', exact: true }).click();
+  await page.waitForURL(`${base}/en/apps`);
+  await page.locator('.cl-userButtonTrigger').click();
+  await page.getByText('Sign out', { exact: true }).click();
+  await page.waitForSelector('a[href^="/en/sign-in"]');
+  await page.waitForTimeout(500);
+  assert.equal(new URL(page.url()).pathname, '/en/apps', 'sign-out stays on the current page');
   assert.deepEqual(errors, []);
   assert.deepEqual(violations, [], "auth flow CSP violations");
-  console.log('PASS: existing-account sign-in; no uncaught browser errors');
+  console.log('PASS: sign-out returns to the current page; no uncaught browser errors');
 } finally {
   await browser.close();
   // Delete only this run's unique fixture; never touch existing users.
