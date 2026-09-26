@@ -9,6 +9,7 @@
       "language": "语言",
       "languageNote": "打开未指定语言的网址时使用的语言。",
       "theme": "显示模式",
+      "themeAuto": "跟随设备",
       "themeLight": "浅色",
       "themeDark": "深色",
       "unset": "未设置",

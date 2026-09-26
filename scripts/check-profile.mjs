@@ -77,6 +77,21 @@ try {
   assert.equal(redirected.headers()['cache-control'], 'private, no-store', 'that redirect is never shared');
   console.log('PASS: saved language redirects only this visitor');
 
+  // Both settings must be reversible, not one-way.
+  assert.equal(await post(page, { intent: 'locale', value: '' }, base), 200, 'language can be unset');
+  const unset = await page.request.get(`${base}/`, { maxRedirects: 0 });
+  assert.equal(unset.headers()['location'], '/ja', 'unsetting the language restores the default');
+  await page.goto(`${base}/en/profile`);
+  assert.equal(await page.locator('#profile-locale').inputValue(), '', 'the language shows as unset');
+  await page.locator('#profile-theme').selectOption('');
+  await page.waitForFunction(() => !document.documentElement.dataset.theme || ['light', 'dark'].includes(document.documentElement.dataset.theme));
+  await page.reload();
+  assert.equal(await page.locator('#profile-theme').inputValue(), '', 'the appearance shows as unset');
+  // Put both back for the checks below.
+  await post(page, { intent: 'locale', value: 'en' }, base);
+  await post(page, { intent: 'theme', value: 'light' }, base);
+  console.log('PASS: language and appearance can both be set back to unset');
+
   // A second browser context proves the theme travels with the account, not
   // with this browser's localStorage.
   const elsewhere = await browser.newPage();

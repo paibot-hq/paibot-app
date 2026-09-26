@@ -77,9 +77,11 @@ export default function Providers({ children, loaderData }: { children: ReactNod
     return () => media.removeEventListener("change", update);
   }, []);
 
-  // Declared after the effect above so a saved profile beats this browser's
-  // own localStorage, and so signing in adopts the account's theme.
-  useEffect(() => { if (profile.theme) setTheme(profile.theme); }, [profile.theme]);
+  // Signed in, the account decides and this browser's localStorage steps
+  // aside: otherwise clearing the setting could never take effect, with the
+  // old value still sitting in storage. No stored theme means follow the
+  // device. Declared after the effect above so it wins on mount.
+  useEffect(() => { if (profile.signedIn) setTheme(profile.theme ?? "auto"); }, [profile.signedIn, profile.theme]);
 
   useEffect(() => { document.documentElement.dataset.theme = resolvedTheme; }, [resolvedTheme]);
 

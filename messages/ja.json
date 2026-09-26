@@ -9,6 +9,7 @@
       "language": "言語",
       "languageNote": "言語を指定していないURLを開いたときの言語です。",
       "theme": "表示モード",
+      "themeAuto": "端末に合わせる",
       "themeLight": "ライト",
       "themeDark": "ダーク",
       "unset": "未設定",

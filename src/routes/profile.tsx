@@ -41,8 +41,9 @@ export async function action(args: Route.ActionArgs) {
   const update: Partial<Profile> | null =
     intent === 'clearBirthDate' ? { birthDate: null }
     : intent === 'birthDate' ? (isBirthDate(value) ? { birthDate: value } : null)
-    : intent === 'locale' ? (isLocale(value) ? { locale: value } : null)
-    : intent === 'theme' ? (value === 'light' || value === 'dark' ? { theme: value } : null)
+    // An empty value clears the setting: these must be reversible.
+    : intent === 'locale' ? (value === '' ? { locale: null } : isLocale(value) ? { locale: value } : null)
+    : intent === 'theme' ? (value === '' ? { theme: null } : value === 'light' || value === 'dark' ? { theme: value } : null)
     : null;
   if (!update) return fail('invalid', 400);
   try {
@@ -90,7 +91,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
         <section className={styles.field}>
           <label htmlFor="profile-locale">{t('language')}</label>
           <select id="profile-locale" value={language} disabled={busy} onChange={event => save('locale', event.target.value)}>
-            <option value="" disabled>{t('unset')}</option>
+            <option value="">{t('unset')}</option>
             {locales.map(value => <option key={value} value={value}>{t(`languages.${value}` as 'languages.ja')}</option>)}
           </select>
           <p className={styles.muted}>{t('languageNote')}</p>
@@ -99,7 +100,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
         <section className={styles.field}>
           <label htmlFor="profile-theme">{t('theme')}</label>
           <select id="profile-theme" value={theme} disabled={busy} onChange={event => save('theme', event.target.value)}>
-            <option value="" disabled>{t('unset')}</option>
+            <option value="">{t('themeAuto')}</option>
             <option value="light">{t('themeLight')}</option>
             <option value="dark">{t('themeDark')}</option>
           </select>

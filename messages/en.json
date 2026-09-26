@@ -9,6 +9,7 @@
       "language": "Language",
       "languageNote": "The language used when you open a URL that doesn't specify one.",
       "theme": "Appearance",
+      "themeAuto": "Follow the device",
       "themeLight": "Light",
       "themeDark": "Dark",
       "unset": "Not set",
