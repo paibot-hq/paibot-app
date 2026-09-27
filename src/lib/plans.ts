@@ -1,9 +1,8 @@
 // Paid plans and the contact details the legal pages and the plan page share,
 // so a price or address is changed in exactly one place.
 
-// Placeholder until the support address exists; scripts/check-legal.mjs fails
-// while it is still here, so the pages cannot ship with it.
-export const CONTACT_EMAIL = 'TODO-contact-email@paibot.app';
+// Shared support address for all localized legal documents.
+export const CONTACT_EMAIL = 'support@paibot.co.jp';
 
 export const SELLER = { ja: '合同会社PAIBOT', en: 'PAIBOT LLC', zh: 'PAIBOT LLC（合同会社PAIBOT）' } as const;
 
