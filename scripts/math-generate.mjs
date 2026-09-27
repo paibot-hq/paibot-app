@@ -15,6 +15,7 @@ try {
     else throw new Error(`Unknown option: ${options[i]}`);
   }
   const { set, bank, path, original } = context(unit, setId);
+  assert.ok(set.rule, `Set ${setId} is coming soon: add its rule and prompt before generating problems`);
   const existing = bank.problems.map(p => unit === 'pythagoras' ? JSON.stringify(p.figure) : unit === 'factorization' ? blindProblem(unit, p).trinomial : `${p.expression}${p.word ? ` | ${p.word.ja.prompt}` : ''}`);
   const position = Math.max(0, ...bank.problems.filter(p => p.setId === setId).map(p => p.position)) + 1;
   const prompt = [promptFile('_rules'), promptFile(unit), promptFile(set.rule),
