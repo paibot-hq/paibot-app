@@ -21,7 +21,7 @@ type RouteArgs = Parameters<typeof getAuth>[0];
 export async function saveAttemptAction(
   args: RouteArgs,
   unit: MathUnit,
-  loadSet: (setId: number) => Promise<{ id: string; answerIndex: number }[]>,
+  loadSet: (setId: string) => Promise<{ id: string; answerIndex: number }[]>,
 ) {
   const fail = (error: 'signedOut' | 'invalid' | 'stale' | 'unavailable', status: number) =>
     data({ ok: false as const, error }, { status, headers: privateHeaders });
@@ -29,8 +29,8 @@ export async function saveAttemptAction(
   const { userId } = await getAuth(args);
   if (!userId) return fail('signedOut', 401);
   if (args.request.headers.get('Origin') !== new URL(args.request.url).origin) return fail('invalid', 403);
-  const setId = Number(args.params.setId);
-  if (!Number.isInteger(setId) || setId < 1) return fail('invalid', 400);
+  const setId = args.params.setId;
+  if (!setId || !/^[a-z0-9-]{1,40}$/.test(setId)) return fail('invalid', 400);
   let problemIds: unknown;
   let answers: unknown;
   try {
@@ -56,7 +56,7 @@ export async function saveAttemptAction(
 
 // Latest and best result per set, for the set picker. Signed-out visitors
 // never reach D1; a failed read just hides the records.
-export async function getSetRecords(args: RouteArgs, unit: MathUnit): Promise<Record<number, MathSetRecord>> {
+export async function getSetRecords(args: RouteArgs, unit: MathUnit): Promise<Record<string, MathSetRecord>> {
   const { userId } = await getAuth(args);
   if (!userId) return {};
   try {

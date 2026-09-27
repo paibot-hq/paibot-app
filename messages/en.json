@@ -401,7 +401,7 @@
       "keywords": "math arithmetic algebra factoring quiz problem set",
       "intro": "Practice math problems with multiple-choice quizzes. Choose a unit.",
       "arithLink": "Arithmetic",
-      "arithSummary": "From addition and subtraction to the order of operations, negative numbers and word problems. Start with the easy sets and work up.",
+      "arithSummary": "From addition and subtraction to the order of operations and word problems. Start with the easy sets and work up.",
       "factorizationLink": "Factoring",
       "factorizationSummary": "Factor x² + ax + b into the form (x + p)(x + q). Practice for factoring quadratics.",
       "quiz": {
@@ -424,8 +424,8 @@
       },
       "arith": {
         "title": "Arithmetic",
-        "description": "Practice everything from addition and subtraction to the order of operations, negative numbers and word problems with multiple-choice quizzes.",
-        "keywords": "math arithmetic order of operations negative numbers word problems quiz",
+        "description": "Practice arithmetic, from addition and subtraction to the order of operations and word problems, with multiple-choice quizzes.",
+        "keywords": "math arithmetic order of operations word problems quiz",
         "setAddSub": "Addition & subtraction",
         "setAddSubDescription": "Adding and subtracting numbers up to 100. Start here if you are new.",
         "setMulDiv": "Multiplication & division",
@@ -434,8 +434,6 @@
         "setEasyWordDescription": "Short word problems you can solve in one or two steps.",
         "setOrder": "Order of operations",
         "setOrderDescription": "Parentheses first, then × and ÷. Check the order you calculate in.",
-        "setSigned": "Negative numbers",
-        "setSignedDescription": "Arithmetic with negative numbers - watch the signs.",
         "setWord": "Word problem mix",
         "setWordDescription": "Word problems mixed with calculations - practice writing the expression.",
         "formula": "Expression:",
@@ -452,6 +450,17 @@
         "setDifferenceOfSquares": "Difference of squares",
         "setDifferenceOfSquaresDescription": "Only the x² − a² form - good for learning to spot the pattern.",
         "explanationTemplate": "The two integers that multiply to {b} and add to {a} are {p} and {q}."
+      },
+      "signedLink": "Negative numbers",
+      "signedSummary": "Arithmetic with negative numbers - practice keeping the signs right.",
+      "signed": {
+        "title": "Negative numbers",
+        "description": "Practice arithmetic with negative numbers with multiple-choice quizzes.",
+        "keywords": "math negative numbers integers arithmetic quiz",
+        "setFourOps": "Negative numbers",
+        "setFourOpsDescription": "Arithmetic with negative numbers - watch the signs.",
+        "formula": "Expression:",
+        "valueWithUnit": "{value} {unit}"
       }
     },
     "about": {

@@ -6,10 +6,22 @@
 
 | 単元 | URL | セット | 問題数 | 公開 |
 | --- | --- | --- | --- | --- |
-| 四則演算 | `/math/arith` | たし算・ひき算(4)、かけ算・わり算(5)、かんたん文章題(6)、計算の順序(1)、正負の数(2)、文章題ミックス(3) | 30 | すべて `published: false` |
-| 因数分解 | `/math/factorization` | 基礎編(1)、発展編(2)、平方差編(3) | 15 | すべて `published: false` |
+| 四則演算 | `/math/arith` | たし算・ひき算(`add-sub-a`)、かけ算・わり算(`mul-div-a`)、計算の順序(`order-a`)、かんたん文章題(`word-a`)、文章題ミックス(`word-b`) | 25 | 原本はすべて `published: false` |
+| 正負の数 | `/math/signed` | 正負の数(`four-ops-a`) | 5 | 原本はすべて `published: false` |
+| 因数分解 | `/math/factorization` | 基礎編(`trinomial-a`)、発展編(`trinomial-b`)、平方差編(`squares-a`) | 15 | 原本はすべて `published: false` |
 
-括弧内はセットID(URLと問題データに使うため変更しない)。表示順はセット一覧(`src/lib/math-*-sets.ts`)で決める。
+### 固定ID
+
+| 階層 | ID形式 | 例 |
+| --- | --- | --- |
+| 単元 | 英小文字 | `arith`, `signed`, `factorization` |
+| 学習項目 | `単元.項目` | `arith.add-sub` |
+| 問題セット | 単元内で一意の文字列(項目の短縮名+練習A/B) | `add-sub-a` |
+| 問題 | 単元+3桁の通し番号 | `arith-001` |
+
+表示順はセット一覧(`src/lib/math-*-sets.ts`)の並びで決め、IDは変えない。問題IDはセットに依存しない。
+
+学習項目は `arith.add-sub`、`arith.mul-div`、`arith.order-of-operations`、`arith.word-problems`、`signed.four-operations`、`factorization.trinomial`、`factorization.difference-of-squares`。文章題のA/Bと因数分解の三項式のA/Bは、それぞれ同じ学習項目に属する。
 
 ### 共通の仕組み
 
@@ -61,7 +73,8 @@ Antigravity(agy -p)が問題を生成
 
 | 単元 | 主な学習項目 | 検算 |
 | --- | --- | --- |
-| 四則演算 ✅ | 計算の順序、正負の数、文章題ミックス | 整数 |
+| 四則演算 ✅ | 計算の順序、文章題ミックス | 整数 |
+| 正負の数 ✅ | 負の数をふくむ四則演算 | 整数 |
 | 文字式 | 式の値(代入)、同類項をまとめる、分配法則 | 多項式の係数比較 |
 | 一次方程式 | 移項の基本、かっこを含む、分数係数、文章から立式 | 解集合の独立計算 |
 | 連立方程式 | 加減法、代入法、文章題 | 行列式+解集合 |
@@ -158,6 +171,6 @@ Codex には答えだけでなく、内部の式と解説も伏せ、**公開さ
 ## 8. 未決事項
 
 - 利用者層(学び直しの大人か、小中学生か)。段階1〜3の間に決めたい。
-- 学習項目の固定IDの命名形式と、前提知識の持ち方([problemset.md](problemset.md) の `taxonomy_nodes`・`topic_prerequisites` との関係)。
+- 前提知識の持ち方([problemset.md](problemset.md) の `taxonomy_nodes`・`topic_prerequisites` との関係)。
 - 内容ハッシュ・レビュー結果の保存場所(JSON の原本か、D1 の別テーブルか)。
 - SymPy を CI に導入する時期(段階6より前に必要になるかどうか)。

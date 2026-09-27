@@ -46,7 +46,7 @@ export const quizQuestions = sqliteTable('quiz_questions', {
 export const mathProblems = sqliteTable('math_problems', {
   id: text('id').primaryKey().notNull(),
   unit: text('unit').notNull(),
-  setId: integer('set_id').notNull(),
+  setId: text('set_id').notNull(),
   position: integer('position').notNull(),
   published: integer('published', { mode: 'boolean' }).notNull(),
   answerIndex: integer('answer_index').notNull(),
@@ -62,7 +62,7 @@ export const mathAttempts = sqliteTable('math_attempts', {
   id: text('id').primaryKey(),
   userId: text('user_id').notNull(),
   unit: text('unit').notNull(),
-  setId: integer('set_id').notNull(),
+  setId: text('set_id').notNull(),
   setVersion: text('set_version').notNull(),
   problemIds: text('problem_ids', { mode: 'json' }).$type<string[]>().notNull(),
   answers: text('answers', { mode: 'json' }).$type<number[]>().notNull(),

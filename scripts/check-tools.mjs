@@ -136,25 +136,30 @@ try {
   await main.getByRole('link', { name: 'Factoring' }).click();
   await page.waitForURL(`${base}/en/math/factorization`);
   await main.getByRole('link', { name: /^Basics/ }).click();
-  await page.waitForURL(`${base}/en/math/factorization/1`);
+  await page.waitForURL(`${base}/en/math/factorization/trinomial-a`);
   await main.locator('h1').waitFor();
-  // No live quiz yet - problems are moving to LLM-generated, verified sets
-  // (see math-factorization.tsx) - just the routing/label shell should work.
   await main.getByText('Basics', { exact: true }).waitFor();
-  await main.getByText(/being prepared/).waitFor();
   await page.setViewportSize({ width: 390, height: 844 });
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   assert.deepEqual(errors, []);
-  console.log('PASS: math landing links through to the factoring set picker and set 1 (coming soon)');
+  console.log('PASS: math landing links through to the factoring set picker and set trinomial-a');
   await go('math');
-  await main.getByRole('link', { name: 'Arithmetic' }).click();
+  // Anchored: the negative-numbers card's summary also mentions arithmetic.
+  await main.getByRole('link', { name: /^Arithmetic/ }).click();
   await page.waitForURL(`${base}/en/math/arith`);
   await main.getByRole('link', { name: /^Word problem mix/ }).click();
-  await page.waitForURL(`${base}/en/math/arith/3`);
+  await page.waitForURL(`${base}/en/math/arith/word-b`);
   await main.getByText('Word problem mix', { exact: true }).waitFor();
-  await main.getByText(/being prepared/).waitFor();
   assert.deepEqual(errors, []);
-  console.log('PASS: math landing links through to the arithmetic set picker and set 3 (coming soon)');
+  console.log('PASS: math landing links through to the arithmetic set picker and set word-b');
+  await go('math');
+  await main.getByRole('link', { name: /^Negative numbers/ }).click();
+  await page.waitForURL(`${base}/en/math/signed`);
+  await main.getByRole('link', { name: /^Negative numbers/ }).click();
+  await page.waitForURL(`${base}/en/math/signed/four-ops-a`);
+  await main.getByText('Negative numbers', { exact: true }).last().waitFor();
+  assert.deepEqual(errors, []);
+  console.log('PASS: math landing links through to the signed-number set picker and set four-ops-a');
   await page.setViewportSize({ width: 1100, height: 900 });
   // Fixed to a month whose holidays exercise all three kinds at once.
   await page.clock.setFixedTime(new Date('2026-09-26T03:00:00Z'));

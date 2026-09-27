@@ -13,15 +13,17 @@ import type { Route } from './+types/math-factorization';
 // Same 404 pattern as locale.tsx's isLocale check: an invalid setId is a
 // routing error, not a state the UI needs to render around.
 export async function loader({ params }: Route.LoaderArgs) {
-  const setId = Number(params.setId);
-  if (!Number.isInteger(setId) || setId < 1) throw new Response('Not Found', { status: 404 });
+  const setId = params.setId;
+  const labelKey = labelKeyForSet(setId);
+  if (!labelKey) throw new Response('Not Found', { status: 404 });
   // Problems are LLM-generated and verified by scripts/check-math-factorization.mjs
   // before import; a set with nothing published yet shows "being prepared".
-  return { setId, problems: await getMathSet('factorization', setId) };
+  return { setId, labelKey, problems: await getMathSet('factorization', setId) };
 }
 
 // A signed-in user's finished attempt (see MathSetQuiz); rescored on the server.
 export async function action(args: Route.ActionArgs) {
+  if (!labelKeyForSet(args.params.setId)) throw new Response('Not Found', { status: 404 });
   return saveAttemptAction(args, 'factorization', setId => getMathSet('factorization', setId));
 }
 
@@ -32,7 +34,7 @@ export default function MathFactorization({ loaderData }: Route.ComponentProps) 
   // Set label keys are only known at runtime, like the app categories in
   // src/lib/apps.tsx - cast once here, same reasoning.
   const td = t as unknown as DynamicT;
-  const setLabel = td(labelKeyForSet(setId));
+  const setLabel = td(loaderData.labelKey);
 
   // Problems are locale-neutral numbers; only the explanation text depends
   // on locale, so it is built here from the translated template.

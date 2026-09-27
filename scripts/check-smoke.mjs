@@ -6,7 +6,7 @@ const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:300
 const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app').origin;
 const indexable = process.env.CHECK_SITE_INDEXABLE === 'true';
 const locales = ['ja', 'en', 'zh'];
-const paths = ['', '/apps', '/about', '/ip', '/domain', '/wc', '/arith', '/quiz', '/age', '/clock', '/calendar', '/life-calendar', '/password', '/base64', '/json', '/urlencode', '/dice', '/reaction', '/timing', '/stopwatch', '/math', '/math/factorization', '/math/factorization/1', '/math/arith', '/math/arith/1'];
+const paths = ['', '/apps', '/about', '/ip', '/domain', '/wc', '/arith', '/quiz', '/age', '/clock', '/calendar', '/life-calendar', '/password', '/base64', '/json', '/urlencode', '/dice', '/reaction', '/timing', '/stopwatch', '/math', '/math/factorization', '/math/factorization/trinomial-a', '/math/arith', '/math/arith/add-sub-a', '/math/signed', '/math/signed/four-ops-a'];
 const authPaths = ['sign-in', 'sign-up', 'diary', 'profile'];
 const browser = await chromium.launch();
 try {

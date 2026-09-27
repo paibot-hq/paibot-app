@@ -401,7 +401,7 @@
       "keywords": "数学 四则运算 因式分解 测验 题库",
       "intro": "通过四选一测验练习数学题目。请选择单元。",
       "arithLink": "四则运算",
-      "arithSummary": "从加减法到运算顺序、正负数和应用题。可以从简单的题组开始逐步挑战。",
+      "arithSummary": "从加减法到运算顺序和应用题。从简单的题组开始逐步练习。",
       "factorizationLink": "因式分解",
       "factorizationSummary": "把 x² + ax + b 分解成 (x + p)(x + q) 的形式，练习二次式的因式分解。",
       "quiz": {
@@ -424,8 +424,8 @@
       },
       "arith": {
         "title": "四则运算",
-        "description": "通过四选一测验练习从加减法到运算顺序、正负数和应用题的计算。",
-        "keywords": "数学 四则运算 运算顺序 正负数 应用题 测验",
+        "description": "通过四选一测验练习从加减法到运算顺序和应用题的四则运算。",
+        "keywords": "数学 四则运算 运算顺序 应用题 测验",
         "setAddSub": "加法与减法",
         "setAddSubDescription": "100以内的加法和减法。初次练习请从这里开始。",
         "setMulDiv": "乘法与除法",
@@ -434,8 +434,6 @@
         "setEasyWordDescription": "一两步就能解答的简短应用题。",
         "setOrder": "运算顺序",
         "setOrderDescription": "先算括号，再算乘除，确认计算的顺序。",
-        "setSigned": "正负数",
-        "setSignedDescription": "含有负数的四则运算，注意符号。",
         "setWord": "应用题混合",
         "setWordDescription": "应用题与计算题混合，练习列式。",
         "formula": "算式：",
@@ -452,6 +450,17 @@
         "setDifferenceOfSquares": "平方差篇",
         "setDifferenceOfSquaresDescription": "只收录 x² − a² 形式，用来记住这个公式规律。",
         "explanationTemplate": "相乘为{b}、相加为{a}的两个整数是{p}和{q}。"
+      },
+      "signedLink": "正负数",
+      "signedSummary": "含有负数的四则运算，练习正确处理符号。",
+      "signed": {
+        "title": "正负数",
+        "description": "通过四选一测验练习含有负数的四则运算。",
+        "keywords": "数学 正负数 负数 四则运算 测验",
+        "setFourOps": "正负数",
+        "setFourOpsDescription": "含有负数的四则运算，注意符号。",
+        "formula": "算式：",
+        "valueWithUnit": "{value}{unit}"
       }
     },
     "about": {

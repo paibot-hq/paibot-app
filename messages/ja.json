@@ -401,7 +401,7 @@
       "keywords": "数学 算数 問題集 四則演算 因数分解 クイズ",
       "intro": "数学の問題を4択クイズで練習できます。単元を選んでください。",
       "arithLink": "四則演算",
-      "arithSummary": "たし算・ひき算から、計算の順序・正負の数・文章題まで。やさしいセットから順に挑戦できます。",
+      "arithSummary": "たし算・ひき算から計算の順序・文章題まで。やさしいセットから順に練習できます。",
       "factorizationLink": "因数分解",
       "factorizationSummary": "x² + ax + b を (x + p)(x + q) の形に分解します。二次式の因数分解の練習に。",
       "quiz": {
@@ -424,8 +424,8 @@
       },
       "arith": {
         "title": "四則演算",
-        "description": "たし算・ひき算から計算の順序・正負の数・文章題まで、4択クイズで練習できます。",
-        "keywords": "数学 算数 四則演算 計算の順序 正負の数 文章題 クイズ",
+        "description": "たし算・ひき算から計算の順序・文章題まで、4択クイズで練習できます。",
+        "keywords": "数学 四則演算 計算の順序 文章題 クイズ",
         "setAddSub": "たし算・ひき算",
         "setAddSubDescription": "100までの数のたし算とひき算。はじめての人はここから。",
         "setMulDiv": "かけ算・わり算",
@@ -434,8 +434,6 @@
         "setEasyWordDescription": "1〜2回の計算で解ける、短い文章題です。",
         "setOrder": "計算の順序",
         "setOrderDescription": "かっこ、かけ算・わり算を先に。計算する順番を確かめます。",
-        "setSigned": "正負の数",
-        "setSignedDescription": "負の数をふくむ四則演算。符号のミスに気をつけて。",
         "setWord": "文章題ミックス",
         "setWordDescription": "文章題と計算問題をまぜました。式を立てる練習に。",
         "formula": "式：",
@@ -452,6 +450,17 @@
         "setDifferenceOfSquares": "平方差編",
         "setDifferenceOfSquaresDescription": "x² − a² の形だけを集めました。公式のパターンを覚えたいときに。",
         "explanationTemplate": "掛けて{b}、足して{a}になる2つの整数は{p}と{q}です。"
+      },
+      "signedLink": "正負の数",
+      "signedSummary": "負の数をふくむ四則演算。符号のミスに気をつけて練習できます。",
+      "signed": {
+        "title": "正負の数",
+        "description": "負の数をふくむ四則演算を、4択クイズで練習できます。",
+        "keywords": "数学 正負の数 負の数 四則演算 クイズ",
+        "setFourOps": "正負の数",
+        "setFourOpsDescription": "負の数をふくむ四則演算。符号のミスに気をつけて。",
+        "formula": "式：",
+        "valueWithUnit": "{value}{unit}"
       }
     },
     "about": {

@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
-import { bank as arithBank } from './check-math-arith.mjs';
+import { bank as arithBank, signedBank } from './check-math-arith.mjs';
 import { bank as factorizationBank } from './check-math-factorization.mjs';
 
 // Explicit target only; importing never creates or resets any tables.
@@ -10,6 +10,7 @@ if (!Object.hasOwn(targets, target) || process.argv.length !== 3) throw new Erro
 const quote = value => `'${String(value).replaceAll("'", "''")}'`;
 const units = [
   { unit: 'arith', bank: arithBank, payload: ({ expression, word, choices }) => ({ expression, word, choices }) },
+  { unit: 'signed', bank: signedBank, payload: ({ expression, word, choices }) => ({ expression, word, choices }) },
   { unit: 'factorization', bank: factorizationBank, payload: ({ p, q, choices }) => ({ p, q, choices }) },
 ];
 const statements = units.flatMap(({ unit, bank, payload }) => bank.problems.map(problem => {

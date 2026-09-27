@@ -2,8 +2,8 @@
   "version": 1,
   "problems": [
     {
-      "id": "factorization-s1-q1",
-      "setId": 1,
+      "id": "factorization-001",
+      "setId": "trinomial-a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -18,8 +18,8 @@
       "answerIndex": 0
     },
     {
-      "id": "factorization-s1-q2",
-      "setId": 1,
+      "id": "factorization-002",
+      "setId": "trinomial-a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -34,8 +34,8 @@
       "answerIndex": 2
     },
     {
-      "id": "factorization-s1-q3",
-      "setId": 1,
+      "id": "factorization-003",
+      "setId": "trinomial-a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -50,8 +50,8 @@
       "answerIndex": 1
     },
     {
-      "id": "factorization-s1-q4",
-      "setId": 1,
+      "id": "factorization-004",
+      "setId": "trinomial-a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -66,8 +66,8 @@
       "answerIndex": 3
     },
     {
-      "id": "factorization-s1-q5",
-      "setId": 1,
+      "id": "factorization-005",
+      "setId": "trinomial-a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -82,8 +82,8 @@
       "answerIndex": 0
     },
     {
-      "id": "factorization-s2-q1",
-      "setId": 2,
+      "id": "factorization-006",
+      "setId": "trinomial-b",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -98,8 +98,8 @@
       "answerIndex": 1
     },
     {
-      "id": "factorization-s2-q2",
-      "setId": 2,
+      "id": "factorization-007",
+      "setId": "trinomial-b",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -114,8 +114,8 @@
       "answerIndex": 3
     },
     {
-      "id": "factorization-s2-q3",
-      "setId": 2,
+      "id": "factorization-008",
+      "setId": "trinomial-b",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -130,8 +130,8 @@
       "answerIndex": 0
     },
     {
-      "id": "factorization-s2-q4",
-      "setId": 2,
+      "id": "factorization-009",
+      "setId": "trinomial-b",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -146,8 +146,8 @@
       "answerIndex": 2
     },
     {
-      "id": "factorization-s2-q5",
-      "setId": 2,
+      "id": "factorization-010",
+      "setId": "trinomial-b",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -162,8 +162,8 @@
       "answerIndex": 3
     },
     {
-      "id": "factorization-s3-q1",
-      "setId": 3,
+      "id": "factorization-011",
+      "setId": "squares-a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -178,8 +178,8 @@
       "answerIndex": 2
     },
     {
-      "id": "factorization-s3-q2",
-      "setId": 3,
+      "id": "factorization-012",
+      "setId": "squares-a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -194,8 +194,8 @@
       "answerIndex": 0
     },
     {
-      "id": "factorization-s3-q3",
-      "setId": 3,
+      "id": "factorization-013",
+      "setId": "squares-a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -210,8 +210,8 @@
       "answerIndex": 3
     },
     {
-      "id": "factorization-s3-q4",
-      "setId": 3,
+      "id": "factorization-014",
+      "setId": "squares-a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -226,8 +226,8 @@
       "answerIndex": 1
     },
     {
-      "id": "factorization-s3-q5",
-      "setId": 3,
+      "id": "factorization-015",
+      "setId": "squares-a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-27",

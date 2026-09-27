@@ -13,6 +13,8 @@ export default [
     route('math', 'routes/math.tsx'),
     route('math/factorization', 'routes/math-factorization-index.tsx'),
     route('math/factorization/:setId', 'routes/math-factorization.tsx'),
+    route('math/signed', 'routes/math-signed-index.tsx'),
+    route('math/signed/:setId', 'routes/math-signed.tsx'),
     route('math/arith', 'routes/math-arith-index.tsx'),
     route('math/arith/:setId', 'routes/math-arith.tsx'),
     route('apps', 'routes/apps.tsx'),

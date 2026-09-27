@@ -9,6 +9,7 @@ export default function Math() {
   const t = useTranslations('App.math');
   const units = [
     { href: '/math/arith', label: t('arithLink'), summary: t('arithSummary') },
+    { href: '/math/signed', label: t('signedLink'), summary: t('signedSummary') },
     { href: '/math/factorization', label: t('factorizationLink'), summary: t('factorizationSummary') },
   ];
   return <><PublicHead locale={locale} path="/math" title={`${t('title')} | PAIBOT.app`} description={t('description')} />

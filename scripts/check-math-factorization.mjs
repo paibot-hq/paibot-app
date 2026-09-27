@@ -1,17 +1,18 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { FACTORIZATION_SETS } from '../src/lib/math-factorization-sets.ts';
 
 // Problems are LLM-generated, so the answer key is never trusted: every choice
 // is expanded here and compared with the problem's own x^2 + ax + b.
 const expand = ([p, q]) => `${p + q},${p * q}`;
 const isRoot = n => Number.isInteger(n) && n !== 0;
 const SETS = {
-  1: ([p, q]) => [p, q].every(n => Math.abs(n) <= 9) && p !== -q,
-  2: ([p, q]) => [p, q].every(n => Math.abs(n) <= 20) && Math.max(Math.abs(p), Math.abs(q)) >= 10 && p !== -q,
-  3: ([p, q]) => q === -p && p >= 2 && p <= 12,
+  'trinomial-a': ([p, q]) => [p, q].every(n => Math.abs(n) <= 9) && p !== -q,
+  'trinomial-b': ([p, q]) => [p, q].every(n => Math.abs(n) <= 20) && Math.max(Math.abs(p), Math.abs(q)) >= 10 && p !== -q,
+  'squares-a': ([p, q]) => q === -p && p >= 2 && p <= 12,
 };
 
-export function validateBank(bank) {
+export function validateBank(bank, catalog = FACTORIZATION_SETS) {
   assert.equal(bank.version, 1);
   assert.ok(Array.isArray(bank.problems));
   const ids = new Set();
@@ -21,7 +22,7 @@ export function validateBank(bank) {
     const { id, setId, position, p, q, choices, answerIndex } = problem;
     assert.match(id, /^[a-z0-9-]{1,80}$/);
     assert.ok(!ids.has(id), `Duplicate ID: ${id}`); ids.add(id);
-    assert.ok(Object.hasOwn(SETS, setId), `${id}: unknown set`);
+    assert.ok(catalog.some(set => set.id === setId) && Object.hasOwn(SETS, setId), `${id}: unknown set`);
     assert.ok(Number.isInteger(position) && position >= 1, `${id}: position`);
     assert.ok(!positions.has(`${setId}:${position}`), `${id}: duplicate position`); positions.add(`${setId}:${position}`);
     assert.equal(typeof problem.published, 'boolean');

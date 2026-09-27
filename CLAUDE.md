@@ -33,12 +33,13 @@ Do not print secret keys. Runtime Clerk keys must be synced to Workers Secrets;
 
 `/math` is a published landing page linking to quiz units, each a set picker plus
 five-problem, four-choice sets served from D1: `/math/arith/:setId`
-(order of operations, negative numbers, word problems) and
-`/math/factorization/:setId`. Both use the shared `math_problems` table, indexed by
+(addition/subtraction, multiplication/division, order of operations, word problems),
+`/math/signed/:setId` (negative numbers), and
+`/math/factorization/:setId`. All use the shared `math_problems` table, indexed by
 unit, set, publication status and position. Unit-specific data lives in a JSON
 `payload`, typed in `src/lib/math-arith.ts` and `math-factorization.ts`.
-`src/lib/math-problems.server.ts` reads published sets for either unit; routes
-convert payloads for display. Both render through
+`src/lib/math-problems.server.ts` reads published sets for all units; routes
+convert payloads for display. All render through
 `src/components/math-set-picker.tsx` and `math-set-quiz.tsx`.
 
 Problems are LLM-generated into `src/data/math-*.json` and never trusted as-is:
@@ -47,7 +48,16 @@ Problems are LLM-generated into `src/data/math-*.json` and never trusted as-is:
 rules. Word problems' prose also gets a blind second-model review before they
 are published. Problems start as `published: false` and are imported with
 `npm run math:import:local|dev|prod` through `scripts/import-math.mjs`, which
-validates both banks before upserting common columns and payloads; a set with no
+validates all banks before upserting common columns and payloads; a set with no
 published problems shows "being prepared". `docs/plans/math-units.md` is the unit roadmap and the verification
 rules new units must follow; `docs/plans/problemset.md` is the larger plan it
 refines (its vinext-specific sections are historical).
+
+| 階層 | ID形式 | 例 |
+| --- | --- | --- |
+| 単元 | 英小文字 | `arith`, `signed`, `factorization` |
+| 学習項目 | `単元.項目` | `arith.add-sub` |
+| 問題セット | 単元内で一意の文字列(項目の短縮名+練習A/B) | `add-sub-a` |
+| 問題 | 単元+3桁の通し番号 | `arith-001` |
+
+表示順はセット一覧(`src/lib/math-*-sets.ts`)の並びで決め、IDは変えない。問題IDはセットに依存しない。

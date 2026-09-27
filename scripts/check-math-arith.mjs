@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
+import { ARITH_SETS } from '../src/lib/math-arith-sets.ts';
+import { SIGNED_SETS } from '../src/lib/math-signed-sets.ts';
 
 // Problems are LLM-generated, so the answer key is never trusted: every
 // expression is parsed and evaluated here, independently of the app, and the
@@ -75,23 +77,23 @@ export function evaluate(expression) {
   return { value: value === 0 ? 0 : value, ...stats };
 }
 
-// Sets 4-6 are the easy ones (listed first on the picker); 1-3 came first historically.
+// Set rules use stable catalog IDs, independent of display order.
 const onlyOperators = (s, allowed) => [...s.operators].every(operator => allowed.includes(operator));
 const SETS = {
-  1: (s, word) => !word && s.negatives === 0 && s.numbers.every(n => n >= 1 && n <= 100) && s.operations >= 3 && s.operations <= 4
+  'order-a': (s, word) => !word && s.negatives === 0 && s.numbers.every(n => n >= 1 && n <= 100) && s.operations >= 3 && s.operations <= 4
     && s.operators.size >= 3 && s.parentheses >= 1 && s.value >= 0 && s.value <= 999,
-  2: (s, word) => !word && s.negatives >= 1 && s.numbers.every(n => Math.abs(n) <= 50) && s.operations >= 2 && s.operations <= 4
+  'four-ops-a': (s, word) => !word && s.negatives >= 1 && s.numbers.every(n => Math.abs(n) <= 50) && s.operations >= 2 && s.operations <= 4
     && Math.abs(s.value) <= 999,
-  3: (s, word, position) => (position % 2 === 1) === word && s.negatives === 0 && s.numbers.every(n => n >= 1) && s.operations >= 1 && s.value >= 0,
-  4: (s, word) => !word && s.negatives === 0 && !s.negativeStep && s.parentheses === 0 && onlyOperators(s, '+-')
+  'word-b': (s, word, position) => (position % 2 === 1) === word && s.negatives === 0 && s.numbers.every(n => n >= 1) && s.operations >= 1 && s.value >= 0,
+  'add-sub-a': (s, word) => !word && s.negatives === 0 && !s.negativeStep && s.parentheses === 0 && onlyOperators(s, '+-')
     && s.numbers.every(n => n >= 1 && n <= 100) && s.operations >= 1 && s.operations <= 2 && s.value <= 200,
-  5: (s, word) => !word && s.negatives === 0 && s.parentheses === 0 && onlyOperators(s, '*/')
+  'mul-div-a': (s, word) => !word && s.negatives === 0 && s.parentheses === 0 && onlyOperators(s, '*/')
     && s.numbers.every(n => n >= 1 && n <= 81) && s.operations >= 1 && s.operations <= 2 && s.value >= 0 && s.value <= 100,
-  6: (s, word) => word && s.negatives === 0 && !s.negativeStep && s.numbers.every(n => n >= 1 && n <= 100)
+  'word-a': (s, word) => word && s.negatives === 0 && !s.negativeStep && s.numbers.every(n => n >= 1 && n <= 100)
     && s.operations >= 1 && s.operations <= 2 && s.value >= 0 && s.value <= 500,
 };
 
-export function validateBank(bank) {
+export function validateBank(bank, catalog = ARITH_SETS) {
   assert.equal(bank.version, 1);
   assert.ok(Array.isArray(bank.problems));
   const ids = new Set();
@@ -102,7 +104,7 @@ export function validateBank(bank) {
     const { id, setId, position, expression, word, choices, answerIndex } = problem;
     assert.match(id, /^[a-z0-9-]{1,80}$/);
     assert.ok(!ids.has(id), `Duplicate ID: ${id}`); ids.add(id);
-    assert.ok(Object.hasOwn(SETS, setId), `${id}: unknown set`);
+    assert.ok(catalog.some(set => set.id === setId) && Object.hasOwn(SETS, setId), `${id}: unknown set`);
     assert.ok(Number.isInteger(position) && position >= 1, `${id}: position`);
     assert.ok(!positions.has(`${setId}:${position}`), `${id}: duplicate position`); positions.add(`${setId}:${position}`);
     assert.equal(typeof problem.published, 'boolean');
@@ -111,7 +113,7 @@ export function validateBank(bank) {
     assert.equal(typeof expression, 'string');
     assert.ok(!expressions.has(expression.replaceAll(' ', '')), `${id}: duplicate expression`); expressions.add(expression.replaceAll(' ', ''));
     const result = evaluate(expression);
-    if (setId === 2 && result.value < 0) negativeAnswers++;
+    if (setId === 'four-ops-a' && result.value < 0) negativeAnswers++;
     if (word !== null) {
       for (const locale of ['ja', 'en', 'zh']) {
         const t = word[locale];
@@ -124,9 +126,12 @@ export function validateBank(bank) {
     const correct = choices.map((choice, index) => choice === result.value ? index : -1).filter(index => index >= 0);
     assert.deepEqual(correct, [answerIndex], `${id}: answerIndex ${answerIndex}, but "${expression}" = ${result.value}`);
   }
-  if (bank.problems.some(problem => problem.setId === 2)) assert.ok(negativeAnswers >= 2, 'Set 2 needs at least two negative answers');
+  if (bank.problems.some(problem => problem.setId === 'four-ops-a')) assert.ok(negativeAnswers >= 2, 'Set four-ops-a needs at least two negative answers');
   return bank;
 }
 export const bank = validateBank(JSON.parse(readFileSync(new URL('../src/data/math-arith.json', import.meta.url), 'utf8')));
 const published = bank.problems.filter(problem => problem.published).length;
 console.log(`PASS: ${bank.problems.length} arithmetic problems (${published} published): set rules, exact integer division, answers re-derived by evaluation`);
+
+export const signedBank = validateBank(JSON.parse(readFileSync(new URL('../src/data/math-signed.json', import.meta.url), 'utf8')), SIGNED_SETS);
+console.log(`PASS: ${signedBank.problems.length} signed problems (${signedBank.problems.filter(problem => problem.published).length} published): set rules, exact integer division, answers re-derived by evaluation`);

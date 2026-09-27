@@ -2,212 +2,8 @@
   "version": 1,
   "problems": [
     {
-      "id": "arith-s1-q1",
-      "setId": 1,
-      "position": 1,
-      "published": false,
-      "reviewedAt": "2026-09-27",
-      "expression": "75 - (15 + 9) / 3 * 4",
-      "word": null,
-      "choices": [68, 72, 43, 73],
-      "answerIndex": 2
-    },
-    {
-      "id": "arith-s1-q2",
-      "setId": 1,
-      "position": 2,
-      "published": false,
-      "reviewedAt": "2026-09-27",
-      "expression": "50 - 32 / (2 + 6) * 4",
-      "word": null,
-      "choices": [34, 49, 66, 184],
-      "answerIndex": 0
-    },
-    {
-      "id": "arith-s1-q3",
-      "setId": 1,
-      "position": 3,
-      "published": false,
-      "reviewedAt": "2026-09-27",
-      "expression": "(24 + 16) * 3 - 48 / 4",
-      "word": null,
-      "choices": [18, 60, 132, 108],
-      "answerIndex": 3
-    },
-    {
-      "id": "arith-s1-q4",
-      "setId": 1,
-      "position": 4,
-      "published": false,
-      "reviewedAt": "2026-09-27",
-      "expression": "90 - (36 - 12) / 4 * 7",
-      "word": null,
-      "choices": [33, 48, 6, 588],
-      "answerIndex": 1
-    },
-    {
-      "id": "arith-s1-q5",
-      "setId": 1,
-      "position": 5,
-      "published": false,
-      "reviewedAt": "2026-09-27",
-      "expression": "16 + 8 * (25 - 15) / 5",
-      "word": null,
-      "choices": [48, 0, 32, 213],
-      "answerIndex": 2
-    },
-    {
-      "id": "arith-s2-q1",
-      "setId": 2,
-      "position": 1,
-      "published": false,
-      "reviewedAt": "2026-09-27",
-      "expression": "(-6) * 4 - (-18) / 3",
-      "word": null,
-      "choices": [-44, -18, -30, 18],
-      "answerIndex": 1
-    },
-    {
-      "id": "arith-s2-q2",
-      "setId": 2,
-      "position": 2,
-      "published": false,
-      "reviewedAt": "2026-09-27",
-      "expression": "(-30) + 18 / (5 - 8) * 2",
-      "word": null,
-      "choices": [-42, -33, -18, 42],
-      "answerIndex": 0
-    },
-    {
-      "id": "arith-s2-q3",
-      "setId": 2,
-      "position": 3,
-      "published": false,
-      "reviewedAt": "2026-09-27",
-      "expression": "24 - (-5) * 6 + (-32) / 4",
-      "word": null,
-      "choices": [-14, 62, 166, 46],
-      "answerIndex": 3
-    },
-    {
-      "id": "arith-s2-q4",
-      "setId": 2,
-      "position": 4,
-      "published": false,
-      "reviewedAt": "2026-09-27",
-      "expression": "(-8) * (7 - 12) + (-20) / (-5)",
-      "word": null,
-      "choices": [36, -36, 44, -44],
-      "answerIndex": 2
-    },
-    {
-      "id": "arith-s2-q5",
-      "setId": 2,
-      "position": 5,
-      "published": false,
-      "reviewedAt": "2026-09-27",
-      "expression": "(-36) / (4 - 10) * (-3) + 7",
-      "word": null,
-      "choices": [-25, -11, 5, 25],
-      "answerIndex": 1
-    },
-    {
-      "id": "arith-s3-q1",
-      "setId": 3,
-      "position": 1,
-      "published": false,
-      "reviewedAt": "2026-09-27",
-      "expression": "(50 - 2) / 6 + 5",
-      "word": {
-        "ja": {
-          "prompt": "かごに50個のリンゴがあります。傷んでいた2個を取り除き、残りを6つの袋に同じ数ずつ分けました。そのうちの1つの袋に、さらに5個のリンゴを入れました。この袋のリンゴは何個になりましたか。",
-          "unit": "個"
-        },
-        "en": {
-          "prompt": "There are 50 apples in a basket. After removing 2 bad apples, the remaining apples are divided equally into 6 bags. Then, 5 more apples are added to one of the bags. How many apples are in that bag now?",
-          "unit": "apples"
-        },
-        "zh": {
-          "prompt": "篮子里有50个苹果。拿走2个坏的后，把剩下的苹果平均分装进6个袋子里。然后向其中一个袋子里又放进5个苹果。现在这个袋子里有多少个苹果？",
-          "unit": "个"
-        }
-      },
-      "choices": [13, 8, 3, 40],
-      "answerIndex": 0
-    },
-    {
-      "id": "arith-s3-q2",
-      "setId": 3,
-      "position": 2,
-      "published": false,
-      "reviewedAt": "2026-09-27",
-      "expression": "45 + 15 * (16 - 8) / 6",
-      "word": null,
-      "choices": [25, 80, 105, 65],
-      "answerIndex": 3
-    },
-    {
-      "id": "arith-s3-q3",
-      "setId": 3,
-      "position": 3,
-      "published": false,
-      "reviewedAt": "2026-09-27",
-      "expression": "(180 - 20 * 3) / 4",
-      "word": {
-        "ja": {
-          "prompt": "180ページある本があります。最初の3日間に毎日20ページずつ読みました。残りのページを4日間で同じページ数ずつ読んで読み終えるには、1日に何ページずつ読めばよいですか。",
-          "unit": "ページ"
-        },
-        "en": {
-          "prompt": "A book has 180 pages. A student read 20 pages each day for the first 3 days. To finish the rest of the book by reading an equal number of pages each day for 4 days, how many pages must the student read per day?",
-          "unit": "pages"
-        },
-        "zh": {
-          "prompt": "一本书共有180页。前3天每天读20页。剩下的页数计划在4天内每天读相同的页数读完，每天需要读多少页？",
-          "unit": "页"
-        }
-      },
-      "choices": [40, 30, 120, 165],
-      "answerIndex": 1
-    },
-    {
-      "id": "arith-s3-q4",
-      "setId": 3,
-      "position": 4,
-      "published": false,
-      "reviewedAt": "2026-09-27",
-      "expression": "72 / (3 + 5) + 4 * 8",
-      "word": null,
-      "choices": [41, 21, 61, 104],
-      "answerIndex": 0
-    },
-    {
-      "id": "arith-s3-q5",
-      "setId": 3,
-      "position": 5,
-      "published": false,
-      "reviewedAt": "2026-09-27",
-      "expression": "(4 * 8 + 28) / 6",
-      "word": {
-        "ja": {
-          "prompt": "4人の子どもがそれぞれアメを8個ずつ持っています。そこに先生が28個のアメを追加し、すべてのアメを合わせてから、今度は6人の子どもに同じ数ずつ分け直しました。1人分のアメは何個になりますか。",
-          "unit": "個"
-        },
-        "en": {
-          "prompt": "4 children have 8 candies each. A teacher brings 28 more candies, and all the candies are combined together. Then, all the candies are divided equally among 6 children. How many candies does each child get?",
-          "unit": "candies"
-        },
-        "zh": {
-          "prompt": "4个孩子每人有8颗糖果。老师又拿来28颗糖果，把所有的糖果合在一起后，平均分给6个孩子。每个孩子分到多少颗糖果？",
-          "unit": "颗"
-        }
-      },
-      "choices": [15, 24, 10, 60],
-      "answerIndex": 2
-    },
-    {
-      "id": "arith-s4-q1",
-      "setId": 4,
+      "id": "arith-001",
+      "setId": "add-sub-a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -217,8 +13,8 @@
       "answerIndex": 1
     },
     {
-      "id": "arith-s4-q2",
-      "setId": 4,
+      "id": "arith-002",
+      "setId": "add-sub-a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -228,8 +24,8 @@
       "answerIndex": 0
     },
     {
-      "id": "arith-s4-q3",
-      "setId": 4,
+      "id": "arith-003",
+      "setId": "add-sub-a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -239,8 +35,8 @@
       "answerIndex": 3
     },
     {
-      "id": "arith-s4-q4",
-      "setId": 4,
+      "id": "arith-004",
+      "setId": "add-sub-a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -250,8 +46,8 @@
       "answerIndex": 2
     },
     {
-      "id": "arith-s4-q5",
-      "setId": 4,
+      "id": "arith-005",
+      "setId": "add-sub-a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -261,8 +57,8 @@
       "answerIndex": 1
     },
     {
-      "id": "arith-s5-q1",
-      "setId": 5,
+      "id": "arith-006",
+      "setId": "mul-div-a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -272,8 +68,8 @@
       "answerIndex": 1
     },
     {
-      "id": "arith-s5-q2",
-      "setId": 5,
+      "id": "arith-007",
+      "setId": "mul-div-a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -283,8 +79,8 @@
       "answerIndex": 2
     },
     {
-      "id": "arith-s5-q3",
-      "setId": 5,
+      "id": "arith-008",
+      "setId": "mul-div-a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -294,8 +90,8 @@
       "answerIndex": 0
     },
     {
-      "id": "arith-s5-q4",
-      "setId": 5,
+      "id": "arith-009",
+      "setId": "mul-div-a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -305,8 +101,8 @@
       "answerIndex": 3
     },
     {
-      "id": "arith-s5-q5",
-      "setId": 5,
+      "id": "arith-010",
+      "setId": "mul-div-a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -316,8 +112,63 @@
       "answerIndex": 1
     },
     {
-      "id": "arith-s6-q1",
-      "setId": 6,
+      "id": "arith-011",
+      "setId": "order-a",
+      "position": 1,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "75 - (15 + 9) / 3 * 4",
+      "word": null,
+      "choices": [68, 72, 43, 73],
+      "answerIndex": 2
+    },
+    {
+      "id": "arith-012",
+      "setId": "order-a",
+      "position": 2,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "50 - 32 / (2 + 6) * 4",
+      "word": null,
+      "choices": [34, 49, 66, 184],
+      "answerIndex": 0
+    },
+    {
+      "id": "arith-013",
+      "setId": "order-a",
+      "position": 3,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "(24 + 16) * 3 - 48 / 4",
+      "word": null,
+      "choices": [18, 60, 132, 108],
+      "answerIndex": 3
+    },
+    {
+      "id": "arith-014",
+      "setId": "order-a",
+      "position": 4,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "90 - (36 - 12) / 4 * 7",
+      "word": null,
+      "choices": [33, 48, 6, 588],
+      "answerIndex": 1
+    },
+    {
+      "id": "arith-015",
+      "setId": "order-a",
+      "position": 5,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "16 + 8 * (25 - 15) / 5",
+      "word": null,
+      "choices": [48, 0, 32, 213],
+      "answerIndex": 2
+    },
+    {
+      "id": "arith-016",
+      "setId": "word-a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -340,8 +191,8 @@
       "answerIndex": 1
     },
     {
-      "id": "arith-s6-q2",
-      "setId": 6,
+      "id": "arith-017",
+      "setId": "word-a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -364,8 +215,8 @@
       "answerIndex": 0
     },
     {
-      "id": "arith-s6-q3",
-      "setId": 6,
+      "id": "arith-018",
+      "setId": "word-a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -388,8 +239,8 @@
       "answerIndex": 2
     },
     {
-      "id": "arith-s6-q4",
-      "setId": 6,
+      "id": "arith-019",
+      "setId": "word-a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -412,8 +263,8 @@
       "answerIndex": 3
     },
     {
-      "id": "arith-s6-q5",
-      "setId": 6,
+      "id": "arith-020",
+      "setId": "word-a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-27",
@@ -434,6 +285,100 @@
       },
       "choices": [28, 38, 52, 25],
       "answerIndex": 0
+    },
+    {
+      "id": "arith-021",
+      "setId": "word-b",
+      "position": 1,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "(50 - 2) / 6 + 5",
+      "word": {
+        "ja": {
+          "prompt": "かごに50個のリンゴがあります。傷んでいた2個を取り除き、残りを6つの袋に同じ数ずつ分けました。そのうちの1つの袋に、さらに5個のリンゴを入れました。この袋のリンゴは何個になりましたか。",
+          "unit": "個"
+        },
+        "en": {
+          "prompt": "There are 50 apples in a basket. After removing 2 bad apples, the remaining apples are divided equally into 6 bags. Then, 5 more apples are added to one of the bags. How many apples are in that bag now?",
+          "unit": "apples"
+        },
+        "zh": {
+          "prompt": "篮子里有50个苹果。拿走2个坏的后，把剩下的苹果平均分装进6个袋子里。然后向其中一个袋子里又放进5个苹果。现在这个袋子里有多少个苹果？",
+          "unit": "个"
+        }
+      },
+      "choices": [13, 8, 3, 40],
+      "answerIndex": 0
+    },
+    {
+      "id": "arith-022",
+      "setId": "word-b",
+      "position": 2,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "45 + 15 * (16 - 8) / 6",
+      "word": null,
+      "choices": [25, 80, 105, 65],
+      "answerIndex": 3
+    },
+    {
+      "id": "arith-023",
+      "setId": "word-b",
+      "position": 3,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "(180 - 20 * 3) / 4",
+      "word": {
+        "ja": {
+          "prompt": "180ページある本があります。最初の3日間に毎日20ページずつ読みました。残りのページを4日間で同じページ数ずつ読んで読み終えるには、1日に何ページずつ読めばよいですか。",
+          "unit": "ページ"
+        },
+        "en": {
+          "prompt": "A book has 180 pages. A student read 20 pages each day for the first 3 days. To finish the rest of the book by reading an equal number of pages each day for 4 days, how many pages must the student read per day?",
+          "unit": "pages"
+        },
+        "zh": {
+          "prompt": "一本书共有180页。前3天每天读20页。剩下的页数计划在4天内每天读相同的页数读完，每天需要读多少页？",
+          "unit": "页"
+        }
+      },
+      "choices": [40, 30, 120, 165],
+      "answerIndex": 1
+    },
+    {
+      "id": "arith-024",
+      "setId": "word-b",
+      "position": 4,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "72 / (3 + 5) + 4 * 8",
+      "word": null,
+      "choices": [41, 21, 61, 104],
+      "answerIndex": 0
+    },
+    {
+      "id": "arith-025",
+      "setId": "word-b",
+      "position": 5,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "(4 * 8 + 28) / 6",
+      "word": {
+        "ja": {
+          "prompt": "4人の子どもがそれぞれアメを8個ずつ持っています。そこに先生が28個のアメを追加し、すべてのアメを合わせてから、今度は6人の子どもに同じ数ずつ分け直しました。1人分のアメは何個になりますか。",
+          "unit": "個"
+        },
+        "en": {
+          "prompt": "4 children have 8 candies each. A teacher brings 28 more candies, and all the candies are combined together. Then, all the candies are divided equally among 6 children. How many candies does each child get?",
+          "unit": "candies"
+        },
+        "zh": {
+          "prompt": "4个孩子每人有8颗糖果。老师又拿来28颗糖果，把所有的糖果合在一起后，平均分给6个孩子。每个孩子分到多少颗糖果？",
+          "unit": "颗"
+        }
+      },
+      "choices": [15, 24, 10, 60],
+      "answerIndex": 2
     }
   ]
 }

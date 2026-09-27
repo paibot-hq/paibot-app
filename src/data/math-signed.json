@@ -1,0 +1,60 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "signed-001",
+      "setId": "four-ops-a",
+      "position": 1,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "(-6) * 4 - (-18) / 3",
+      "word": null,
+      "choices": [-44, -18, -30, 18],
+      "answerIndex": 1
+    },
+    {
+      "id": "signed-002",
+      "setId": "four-ops-a",
+      "position": 2,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "(-30) + 18 / (5 - 8) * 2",
+      "word": null,
+      "choices": [-42, -33, -18, 42],
+      "answerIndex": 0
+    },
+    {
+      "id": "signed-003",
+      "setId": "four-ops-a",
+      "position": 3,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "24 - (-5) * 6 + (-32) / 4",
+      "word": null,
+      "choices": [-14, 62, 166, 46],
+      "answerIndex": 3
+    },
+    {
+      "id": "signed-004",
+      "setId": "four-ops-a",
+      "position": 4,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "(-8) * (7 - 12) + (-20) / (-5)",
+      "word": null,
+      "choices": [36, -36, 44, -44],
+      "answerIndex": 2
+    },
+    {
+      "id": "signed-005",
+      "setId": "four-ops-a",
+      "position": 5,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "(-36) / (4 - 10) * (-3) + 7",
+      "word": null,
+      "choices": [-25, -11, 5, 25],
+      "answerIndex": 1
+    }
+  ]
+}
