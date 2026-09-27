@@ -399,7 +399,7 @@
       "title": "数学题库",
       "description": "通过四选一测验练习四则运算、因式分解等数学题目。",
       "keywords": "数学 四则运算 因式分解 测验 题库",
-      "intro": "通过四选一测验练习数学题目。请选择单元。",
+      "intro": "从小学到高中的数学单元中选择想练习的内容，更多题集将陆续上线。",
       "arithLink": "四则运算",
       "arithSummary": "从加减法到运算顺序和应用题。从简单的题组开始逐步练习。",
       "factorizationLink": "因式分解",
@@ -462,6 +462,217 @@
         "setFourOpsDescription": "含有负数的四则运算，注意符号。",
         "formula": "算式：",
         "valueWithUnit": "{value}{unit}"
+      },
+      "stages": {
+        "elementary": "小学",
+        "middle": "初中",
+        "high": "高中"
+      },
+      "comingSoon": "准备中",
+      "units": {
+        "decimal": {
+          "title": "小数",
+          "summary": "练习小数的加减乘除。",
+          "sets": {
+            "add-sub-a": "小数加减法",
+            "mul-div-a": "小数乘除法"
+          }
+        },
+        "fraction": {
+          "title": "分数",
+          "summary": "练习约分、通分和分数的四则运算。",
+          "sets": {
+            "simplify-a": "约分与通分",
+            "add-sub-a": "分数加减法",
+            "mul-div-a": "分数乘除法"
+          }
+        },
+        "divisors": {
+          "title": "因数与倍数",
+          "summary": "利用因数与倍数的性质求公因数和公倍数。",
+          "sets": {
+            "divisors-a": "因数与倍数",
+            "gcd-lcm-a": "最大公因数与最小公倍数"
+          }
+        },
+        "ratio": {
+          "title": "百分数与比",
+          "summary": "学习百分数与比的基础知识，并练习应用题。",
+          "sets": {
+            "percent-a": "百分数",
+            "ratio-a": "化简比",
+            "word-a": "百分数应用题"
+          }
+        },
+        "measurement": {
+          "title": "测量",
+          "summary": "练习单位换算以及面积和体积的计算。",
+          "sets": {
+            "units-a": "单位换算",
+            "area-volume-a": "面积与体积"
+          }
+        },
+        "data": {
+          "title": "数据的运用",
+          "summary": "通过计算平均数、中位数和极差了解数据的特点。",
+          "sets": {
+            "average-a": "平均数",
+            "median-range-a": "中位数与极差"
+          }
+        },
+        "expression": {
+          "title": "代数式",
+          "summary": "练习代入求值、合并同类项和代数式运算。",
+          "sets": {
+            "value-a": "代数式求值",
+            "like-terms-a": "合并同类项",
+            "distribute-a": "分配律"
+          }
+        },
+        "linear-equation": {
+          "title": "一元一次方程",
+          "summary": "从移项基础到应用题，练习解一元一次方程。",
+          "sets": {
+            "basic-a": "移项基础",
+            "parentheses-a": "含括号的方程",
+            "fraction-a": "含分数的方程",
+            "word-a": "应用题"
+          }
+        },
+        "simultaneous": {
+          "title": "二元一次方程组",
+          "summary": "用加减消元法和代入消元法解方程组。",
+          "sets": {
+            "elimination-a": "加减消元法",
+            "substitution-a": "代入消元法",
+            "word-a": "应用题"
+          }
+        },
+        "linear-function": {
+          "title": "正比例与一次函数",
+          "summary": "学习正比例、反比例以及直线的斜率和截距。",
+          "sets": {
+            "proportion-a": "正比例与反比例",
+            "slope-a": "斜率与截距",
+            "two-points-a": "经过两点的直线"
+          }
+        },
+        "inequality": {
+          "title": "不等式",
+          "summary": "解一元一次不等式，求出满足条件的取值范围。",
+          "sets": {
+            "linear-a": "一元一次不等式"
+          }
+        },
+        "expansion": {
+          "title": "整式的展开",
+          "summary": "利用乘法公式展开含括号的代数式。",
+          "sets": {
+            "formulas-a": "乘法公式",
+            "square-a": "完全平方公式",
+            "sum-difference-a": "和与差的乘积"
+          }
+        },
+        "sqrt": {
+          "title": "平方根",
+          "summary": "练习平方根运算和分母有理化。",
+          "sets": {
+            "simplify-a": "化简根式",
+            "add-sub-a": "平方根的加减法",
+            "rationalize-a": "分母有理化"
+          }
+        },
+        "prime": {
+          "title": "分解质因数",
+          "summary": "练习把整数分解成质数的乘积。",
+          "sets": {
+            "prime-a": "分解质因数"
+          }
+        },
+        "pythagoras": {
+          "title": "勾股定理",
+          "summary": "利用勾股定理求直角三角形的边长。",
+          "sets": {
+            "sides-a": "求边长"
+          }
+        },
+        "probability": {
+          "title": "概率",
+          "summary": "通过列举可能的结果学习概率基础。",
+          "sets": {
+            "basic-a": "概率基础"
+          }
+        },
+        "quadratic": {
+          "title": "一元二次方程",
+          "summary": "用因式分解法和求根公式解一元二次方程。",
+          "sets": {
+            "factoring-a": "因式分解法",
+            "formula-a": "求根公式",
+            "discriminant-a": "判别式"
+          }
+        },
+        "quadratic-function": {
+          "title": "二次函数",
+          "summary": "求抛物线的顶点以及二次函数的最大值和最小值。",
+          "sets": {
+            "vertex-a": "顶点",
+            "max-min-a": "最大值与最小值"
+          }
+        },
+        "sequence": {
+          "title": "数列",
+          "summary": "学习等差数列、等比数列的性质及求和方法。",
+          "sets": {
+            "arithmetic-a": "等差数列",
+            "geometric-a": "等比数列",
+            "sigma-a": "Σ 求和运算"
+          }
+        },
+        "trig": {
+          "title": "三角比与三角函数",
+          "summary": "练习特殊角的三角函数值、弧度制和两角和公式。",
+          "sets": {
+            "values-a": "特殊角的三角函数值",
+            "radian-a": "弧度制",
+            "addition-a": "两角和公式"
+          }
+        },
+        "exp-log": {
+          "title": "指数与对数",
+          "summary": "练习指数运算法则和对数的基本运算。",
+          "sets": {
+            "exponent-a": "指数运算法则",
+            "log-a": "对数运算"
+          }
+        },
+        "combinatorics": {
+          "title": "计数与概率",
+          "summary": "利用排列组合计数并计算概率。",
+          "sets": {
+            "permutations-a": "排列",
+            "combinations-a": "组合",
+            "probability-a": "概率"
+          }
+        },
+        "derivative": {
+          "title": "微分",
+          "summary": "通过多项式求导，求切线和极值。",
+          "sets": {
+            "polynomial-a": "多项式求导",
+            "tangent-a": "导数与切线",
+            "extrema-a": "极值"
+          }
+        },
+        "integral": {
+          "title": "积分",
+          "summary": "练习不定积分、定积分以及用积分求面积。",
+          "sets": {
+            "indefinite-a": "不定积分",
+            "definite-a": "定积分",
+            "area-a": "面积"
+          }
+        }
       }
     },
     "about": {

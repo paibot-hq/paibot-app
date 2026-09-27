@@ -8,6 +8,7 @@ import Providers from './components/providers';
 import Header from './components/header';
 import { isLocale } from './i18n/routing';
 import { siteOrigin, isIndexable } from './lib/seo.server';
+import { isComingSoonMathPath } from './lib/math-catalog';
 import ja from '../messages/ja.json';
 import en from '../messages/en.json';
 import zh from '../messages/zh.json';
@@ -47,7 +48,7 @@ export function Layout({ children }: { children: ReactNode }) {
   const { locale } = useParams();
   const { isIndexable } = useSiteMeta();
   const { pathname } = useLocation();
-  const indexPage = isIndexable && !/^\/(ja|en|zh)\/(sign-in|sign-up|diary|profile)(\/|$)/.test(pathname);
+  const indexPage = isIndexable && !isComingSoonMathPath(pathname) && !/^\/(ja|en|zh)\/(sign-in|sign-up|diary|profile)(\/|$)/.test(pathname);
   return <html lang={isLocale(locale) ? locale : 'ja'}><head>
     {isIndexable && <>
       <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />

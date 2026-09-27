@@ -399,7 +399,7 @@
       "title": "数学問題集",
       "description": "四則演算や因数分解などの数学問題を4択クイズで練習できます。",
       "keywords": "数学 算数 問題集 四則演算 因数分解 クイズ",
-      "intro": "数学の問題を4択クイズで練習できます。単元を選んでください。",
+      "intro": "小学校から高校までの単元から、練習したい内容を選んでください。準備中の単元も順次追加します。",
       "arithLink": "四則演算",
       "arithSummary": "たし算・ひき算から計算の順序・文章題まで。やさしいセットから順に練習できます。",
       "factorizationLink": "因数分解",
@@ -462,6 +462,217 @@
         "setFourOpsDescription": "負の数をふくむ四則演算。符号のミスに気をつけて。",
         "formula": "式：",
         "valueWithUnit": "{value}{unit}"
+      },
+      "stages": {
+        "elementary": "小学校",
+        "middle": "中学校",
+        "high": "高校"
+      },
+      "comingSoon": "準備中",
+      "units": {
+        "decimal": {
+          "title": "小数",
+          "summary": "小数のたし算・ひき算からかけ算・わり算まで練習します。",
+          "sets": {
+            "add-sub-a": "小数のたし算・ひき算",
+            "mul-div-a": "小数のかけ算・わり算"
+          }
+        },
+        "fraction": {
+          "title": "分数",
+          "summary": "約分・通分と分数の四則演算を練習します。",
+          "sets": {
+            "simplify-a": "約分・通分",
+            "add-sub-a": "分数のたし算・ひき算",
+            "mul-div-a": "分数のかけ算・わり算"
+          }
+        },
+        "divisors": {
+          "title": "約数と倍数",
+          "summary": "約数と倍数の性質を使って、公約数や公倍数を求めます。",
+          "sets": {
+            "divisors-a": "約数と倍数",
+            "gcd-lcm-a": "最大公約数・最小公倍数"
+          }
+        },
+        "ratio": {
+          "title": "割合と比",
+          "summary": "百分率や比の基本を学び、文章題に取り組みます。",
+          "sets": {
+            "percent-a": "百分率",
+            "ratio-a": "比を簡単にする",
+            "word-a": "割合の文章題"
+          }
+        },
+        "measurement": {
+          "title": "測定",
+          "summary": "単位の換算や図形の面積・体積を練習します。",
+          "sets": {
+            "units-a": "単位の換算",
+            "area-volume-a": "面積・体積"
+          }
+        },
+        "data": {
+          "title": "データの活用",
+          "summary": "平均・中央値・範囲を求めて、データの特徴を調べます。",
+          "sets": {
+            "average-a": "平均",
+            "median-range-a": "中央値・範囲"
+          }
+        },
+        "expression": {
+          "title": "文字式",
+          "summary": "文字に数を代入したり、同類項をまとめたりして式を扱います。",
+          "sets": {
+            "value-a": "式の値",
+            "like-terms-a": "同類項をまとめる",
+            "distribute-a": "分配法則"
+          }
+        },
+        "linear-equation": {
+          "title": "一次方程式",
+          "summary": "移項の基本から文章題まで、一次方程式の解き方を練習します。",
+          "sets": {
+            "basic-a": "移項の基本",
+            "parentheses-a": "かっこを含む",
+            "fraction-a": "分数を含む",
+            "word-a": "文章題"
+          }
+        },
+        "simultaneous": {
+          "title": "連立方程式",
+          "summary": "加減法と代入法を使って連立方程式を解きます。",
+          "sets": {
+            "elimination-a": "加減法",
+            "substitution-a": "代入法",
+            "word-a": "文章題"
+          }
+        },
+        "linear-function": {
+          "title": "比例・一次関数",
+          "summary": "比例・反比例や直線の傾きと切片を学びます。",
+          "sets": {
+            "proportion-a": "比例・反比例",
+            "slope-a": "傾きと切片",
+            "two-points-a": "2点を通る直線"
+          }
+        },
+        "inequality": {
+          "title": "不等式",
+          "summary": "一次不等式を解いて、条件を満たす数の範囲を求めます。",
+          "sets": {
+            "linear-a": "一次不等式"
+          }
+        },
+        "expansion": {
+          "title": "展開",
+          "summary": "乗法公式を使って、かっこのある式を展開します。",
+          "sets": {
+            "formulas-a": "乗法公式",
+            "square-a": "平方の展開",
+            "sum-difference-a": "和と差の積"
+          }
+        },
+        "sqrt": {
+          "title": "平方根",
+          "summary": "根号のある式の計算と分母の有理化を練習します。",
+          "sets": {
+            "simplify-a": "根号を簡単にする",
+            "add-sub-a": "平方根のたし算・ひき算",
+            "rationalize-a": "分母の有理化"
+          }
+        },
+        "prime": {
+          "title": "素因数分解",
+          "summary": "整数を素数の積に分解する練習をします。",
+          "sets": {
+            "prime-a": "素因数分解"
+          }
+        },
+        "pythagoras": {
+          "title": "三平方の定理",
+          "summary": "直角三角形の辺の長さを三平方の定理で求めます。",
+          "sets": {
+            "sides-a": "辺の長さを求める"
+          }
+        },
+        "probability": {
+          "title": "確率",
+          "summary": "起こりうる結果を数えて、確率の基本を学びます。",
+          "sets": {
+            "basic-a": "確率の基本"
+          }
+        },
+        "quadratic": {
+          "title": "二次方程式",
+          "summary": "因数分解や解の公式を使って二次方程式を解きます。",
+          "sets": {
+            "factoring-a": "因数分解で解く",
+            "formula-a": "解の公式",
+            "discriminant-a": "判別式"
+          }
+        },
+        "quadratic-function": {
+          "title": "二次関数",
+          "summary": "放物線の頂点や二次関数の最大値・最小値を求めます。",
+          "sets": {
+            "vertex-a": "頂点",
+            "max-min-a": "最大・最小"
+          }
+        },
+        "sequence": {
+          "title": "数列",
+          "summary": "等差数列・等比数列の性質と和の計算を学びます。",
+          "sets": {
+            "arithmetic-a": "等差数列",
+            "geometric-a": "等比数列",
+            "sigma-a": "Σ の計算"
+          }
+        },
+        "trig": {
+          "title": "三角比・三角関数",
+          "summary": "特殊角の値から弧度法・加法定理まで練習します。",
+          "sets": {
+            "values-a": "特殊角の値",
+            "radian-a": "弧度法",
+            "addition-a": "加法定理"
+          }
+        },
+        "exp-log": {
+          "title": "指数・対数",
+          "summary": "指数法則を使った計算と対数の基本を練習します。",
+          "sets": {
+            "exponent-a": "指数法則",
+            "log-a": "対数の計算"
+          }
+        },
+        "combinatorics": {
+          "title": "場合の数と確率",
+          "summary": "順列と組合せで場合の数を数え、確率を求めます。",
+          "sets": {
+            "permutations-a": "順列",
+            "combinations-a": "組合せ",
+            "probability-a": "確率"
+          }
+        },
+        "derivative": {
+          "title": "微分",
+          "summary": "多項式を微分して、接線や極値を求めます。",
+          "sets": {
+            "polynomial-a": "多項式の微分",
+            "tangent-a": "微分係数と接線",
+            "extrema-a": "極値"
+          }
+        },
+        "integral": {
+          "title": "積分",
+          "summary": "不定積分・定積分の計算と面積の求め方を練習します。",
+          "sets": {
+            "indefinite-a": "不定積分",
+            "definite-a": "定積分",
+            "area-a": "面積"
+          }
+        }
       }
     },
     "about": {

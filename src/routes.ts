@@ -17,6 +17,8 @@ export default [
     route('math/signed/:setId', 'routes/math-signed.tsx'),
     route('math/arith', 'routes/math-arith-index.tsx'),
     route('math/arith/:setId', 'routes/math-arith.tsx'),
+    route('math/:unit', 'routes/math-unit-index.tsx'),
+    route('math/:unit/:setId', 'routes/math-unit-set.tsx'),
     route('apps', 'routes/apps.tsx'),
     route('about', 'routes/about.tsx'),
     route('wc', 'routes/wc.tsx'),

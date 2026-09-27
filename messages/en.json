@@ -399,7 +399,7 @@
       "title": "Math Problem Set",
       "description": "Practice math problems like arithmetic and factoring with multiple-choice quizzes.",
       "keywords": "math arithmetic algebra factoring quiz problem set",
-      "intro": "Practice math problems with multiple-choice quizzes. Choose a unit.",
+      "intro": "Choose a topic from elementary through high school math. More problem sets are on the way.",
       "arithLink": "Arithmetic",
       "arithSummary": "From addition and subtraction to the order of operations and word problems. Start with the easy sets and work up.",
       "factorizationLink": "Factoring",
@@ -462,6 +462,217 @@
         "setFourOpsDescription": "Arithmetic with negative numbers - watch the signs.",
         "formula": "Expression:",
         "valueWithUnit": "{value} {unit}"
+      },
+      "stages": {
+        "elementary": "Elementary school",
+        "middle": "Middle school",
+        "high": "High school"
+      },
+      "comingSoon": "Coming soon",
+      "units": {
+        "decimal": {
+          "title": "Decimals",
+          "summary": "Practice adding, subtracting, multiplying, and dividing decimals.",
+          "sets": {
+            "add-sub-a": "Adding & subtracting decimals",
+            "mul-div-a": "Multiplying & dividing decimals"
+          }
+        },
+        "fraction": {
+          "title": "Fractions",
+          "summary": "Practice simplifying fractions, finding common denominators, and calculating with fractions.",
+          "sets": {
+            "simplify-a": "Simplifying & common denominators",
+            "add-sub-a": "Adding & subtracting fractions",
+            "mul-div-a": "Multiplying & dividing fractions"
+          }
+        },
+        "divisors": {
+          "title": "Factors & multiples",
+          "summary": "Use factors and multiples to find common factors and common multiples.",
+          "sets": {
+            "divisors-a": "Factors & multiples",
+            "gcd-lcm-a": "Greatest common factor & least common multiple"
+          }
+        },
+        "ratio": {
+          "title": "Percentages & ratios",
+          "summary": "Learn the basics of percentages and ratios, then try word problems.",
+          "sets": {
+            "percent-a": "Percentages",
+            "ratio-a": "Simplifying ratios",
+            "word-a": "Percentage word problems"
+          }
+        },
+        "measurement": {
+          "title": "Measurement",
+          "summary": "Practice converting units and finding areas and volumes.",
+          "sets": {
+            "units-a": "Converting units",
+            "area-volume-a": "Area & volume"
+          }
+        },
+        "data": {
+          "title": "Working with data",
+          "summary": "Explore data by finding the mean, median, and range.",
+          "sets": {
+            "average-a": "Mean",
+            "median-range-a": "Median & range"
+          }
+        },
+        "expression": {
+          "title": "Algebraic expressions",
+          "summary": "Practice substitution, combining like terms, and working with algebraic expressions.",
+          "sets": {
+            "value-a": "Evaluating expressions",
+            "like-terms-a": "Combining like terms",
+            "distribute-a": "Distributive property"
+          }
+        },
+        "linear-equation": {
+          "title": "Linear equations",
+          "summary": "Practice solving linear equations, from moving terms to word problems.",
+          "sets": {
+            "basic-a": "Moving terms across the equals sign",
+            "parentheses-a": "Equations with parentheses",
+            "fraction-a": "Equations with fractions",
+            "word-a": "Word problems"
+          }
+        },
+        "simultaneous": {
+          "title": "Systems of equations",
+          "summary": "Solve systems of equations using elimination and substitution.",
+          "sets": {
+            "elimination-a": "Elimination",
+            "substitution-a": "Substitution",
+            "word-a": "Word problems"
+          }
+        },
+        "linear-function": {
+          "title": "Proportionality & linear functions",
+          "summary": "Explore direct and inverse proportion, slopes, and intercepts.",
+          "sets": {
+            "proportion-a": "Direct & inverse proportion",
+            "slope-a": "Slope & intercept",
+            "two-points-a": "Line through two points"
+          }
+        },
+        "inequality": {
+          "title": "Inequalities",
+          "summary": "Solve linear inequalities to find the range of values that satisfy them.",
+          "sets": {
+            "linear-a": "Linear inequalities"
+          }
+        },
+        "expansion": {
+          "title": "Expanding expressions",
+          "summary": "Use algebraic identities to expand expressions with parentheses.",
+          "sets": {
+            "formulas-a": "Multiplication identities",
+            "square-a": "Expanding squares",
+            "sum-difference-a": "Product of a sum and a difference"
+          }
+        },
+        "sqrt": {
+          "title": "Square roots",
+          "summary": "Practice calculating with square roots and rationalizing denominators.",
+          "sets": {
+            "simplify-a": "Simplifying radicals",
+            "add-sub-a": "Adding & subtracting square roots",
+            "rationalize-a": "Rationalizing denominators"
+          }
+        },
+        "prime": {
+          "title": "Prime factorization",
+          "summary": "Practice writing integers as products of prime numbers.",
+          "sets": {
+            "prime-a": "Prime factorization"
+          }
+        },
+        "pythagoras": {
+          "title": "Pythagorean theorem",
+          "summary": "Use the Pythagorean theorem to find side lengths in right triangles.",
+          "sets": {
+            "sides-a": "Finding side lengths"
+          }
+        },
+        "probability": {
+          "title": "Probability",
+          "summary": "Learn probability basics by counting possible outcomes.",
+          "sets": {
+            "basic-a": "Probability basics"
+          }
+        },
+        "quadratic": {
+          "title": "Quadratic equations",
+          "summary": "Solve quadratic equations by factoring and using the quadratic formula.",
+          "sets": {
+            "factoring-a": "Solving by factoring",
+            "formula-a": "Quadratic formula",
+            "discriminant-a": "Discriminant"
+          }
+        },
+        "quadratic-function": {
+          "title": "Quadratic functions",
+          "summary": "Find the vertex of a parabola and the maximum or minimum of a quadratic function.",
+          "sets": {
+            "vertex-a": "Vertex",
+            "max-min-a": "Maximum & minimum"
+          }
+        },
+        "sequence": {
+          "title": "Sequences",
+          "summary": "Explore arithmetic and geometric sequences and calculate their sums.",
+          "sets": {
+            "arithmetic-a": "Arithmetic sequences",
+            "geometric-a": "Geometric sequences",
+            "sigma-a": "Sigma notation & sums"
+          }
+        },
+        "trig": {
+          "title": "Trigonometric ratios & functions",
+          "summary": "Practice special-angle values, radians, and angle addition formulas.",
+          "sets": {
+            "values-a": "Special-angle values",
+            "radian-a": "Radians",
+            "addition-a": "Angle addition formulas"
+          }
+        },
+        "exp-log": {
+          "title": "Exponents & logarithms",
+          "summary": "Practice exponent rules and basic logarithm calculations.",
+          "sets": {
+            "exponent-a": "Exponent rules",
+            "log-a": "Calculating logarithms"
+          }
+        },
+        "combinatorics": {
+          "title": "Counting & probability",
+          "summary": "Use permutations and combinations to count outcomes and calculate probabilities.",
+          "sets": {
+            "permutations-a": "Permutations",
+            "combinations-a": "Combinations",
+            "probability-a": "Probability"
+          }
+        },
+        "derivative": {
+          "title": "Differentiation",
+          "summary": "Differentiate polynomials to find tangent lines and local extrema.",
+          "sets": {
+            "polynomial-a": "Differentiating polynomials",
+            "tangent-a": "Derivative at a point & tangent lines",
+            "extrema-a": "Local extrema"
+          }
+        },
+        "integral": {
+          "title": "Integration",
+          "summary": "Practice indefinite and definite integrals and use them to find areas.",
+          "sets": {
+            "indefinite-a": "Indefinite integrals",
+            "definite-a": "Definite integrals",
+            "area-a": "Area"
+          }
+        }
       }
     },
     "about": {

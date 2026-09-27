@@ -42,6 +42,15 @@ unit, set, publication status and position. Unit-specific data lives in a JSON
 convert payloads for display. All render through
 `src/components/math-set-picker.tsx` and `math-set-quiz.tsx`.
 
+`src/lib/math-catalog.ts` defines unit order, school stages and publication status.
+`/math` renders this catalog; coming-soon units share `math-unit-index.tsx` and
+`math-unit-set.tsx`, which show set names and an empty quiz. Their pages are
+noindex and excluded from publicPaths/the sitemap. Published units retain their
+static routes and existing `math-*-sets.ts` catalogs, which take precedence.
+To publish a new unit, add dedicated routes, a set catalog, payload/display
+conversion, independent verification and import support like the existing units,
+then change the catalog status to `published` and register its public SEO paths.
+
 Problems are LLM-generated into `src/data/math-*.json` and never trusted as-is:
 `npm run check:math-arith` / `check:math-factorization` re-derive every answer
 (by evaluating the expression / expanding each choice) and enforce each set's

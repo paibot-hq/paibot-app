@@ -133,7 +133,8 @@ try {
   assert.deepEqual(errors, []);
   console.log('PASS: clock, local date rollover, fullscreen and mobile width');
   await go('math');
-  await main.getByRole('link', { name: 'Factoring' }).click();
+  // Anchored: other units' summaries (e.g. quadratics) also mention factoring.
+  await main.getByRole('link', { name: /^Factoring/ }).click();
   await page.waitForURL(`${base}/en/math/factorization`);
   await main.getByRole('link', { name: /^Basics/ }).click();
   await page.waitForURL(`${base}/en/math/factorization/trinomial-a`);
@@ -160,6 +161,22 @@ try {
   await main.getByText('Negative numbers', { exact: true }).last().waitFor();
   assert.deepEqual(errors, []);
   console.log('PASS: math landing links through to the signed-number set picker and set four-ops-a');
+  await go('math');
+  await main.getByRole('link', { name: /^Fractions/ }).click();
+  await page.waitForURL(`${base}/en/math/fraction`);
+  for (const name of ['Simplifying & common denominators', 'Adding & subtracting fractions', 'Multiplying & dividing fractions']) {
+    await main.getByRole('link', { name: `${name} Coming soon`, exact: true }).waitFor();
+  }
+  assert.equal(await page.title(), 'Fractions | PAIBOT.app');
+  assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'noindex, nofollow');
+  await main.getByRole('link', { name: /^Simplifying & common denominators/ }).click();
+  await page.waitForURL(`${base}/en/math/fraction/simplify-a`);
+  await main.getByRole('status').filter({ hasText: 'being prepared' }).waitFor();
+  assert.equal(await page.title(), 'Fractions - Simplifying & common denominators | PAIBOT.app');
+  assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'noindex, nofollow');
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  assert.deepEqual(errors, []);
+  console.log('PASS: coming-soon fractions unit lists sets and shows the preparation message');
   await page.setViewportSize({ width: 1100, height: 900 });
   // Fixed to a month whose holidays exercise all three kinds at once.
   await page.clock.setFixedTime(new Date('2026-09-26T03:00:00Z'));
