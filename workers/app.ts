@@ -1,3 +1,4 @@
+import { env } from 'cloudflare:workers';
 import { createRequestHandler } from 'react-router';
 import { isComingSoonMathPath } from '../src/lib/math-catalog';
 import { locales } from '../src/i18n/routing';
@@ -28,6 +29,8 @@ export default {
     if (/^\/(ja|en|zh)\/(diary|clock|profile|life-calendar|math\/(?:arith|factorization|pythagoras))(?:\.data|\/|$)/.test(url.pathname)) {
       secured.headers.set('Cache-Control', 'private, no-store');
     }
+    // Lets CI tell when a deploy has reached the edge (scripts/wait-for-deploy.mjs).
+    secured.headers.set('X-App-Version', env.APP_VERSION);
     secured.headers.set('X-Content-Type-Options', 'nosniff');
     secured.headers.set('X-Frame-Options', 'DENY');
     secured.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
