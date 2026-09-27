@@ -1,6 +1,6 @@
 import { PYTHAGORAS_SETS } from './math-pythagoras-sets';
 
-export type MathDomain = 'number' | 'algebra' | 'functions' | 'geometry' | 'data' | 'linear-algebra' | 'calculus';
+export type MathDomain = 'number' | 'algebra' | 'functions' | 'geometry' | 'data' | 'logic' | 'linear-algebra' | 'calculus';
 export type MathStage = 'elementary' | 'middle' | 'high' | 'university';
 export interface MathCatalogUnit {
   id: string;
@@ -13,7 +13,7 @@ export interface MathCatalogUnit {
 
 export const MATH_STAGES: readonly MathStage[] = ['elementary', 'middle', 'high', 'university'];
 
-export const MATH_DOMAINS: readonly MathDomain[] = ['number', 'algebra', 'functions', 'geometry', 'data', 'linear-algebra', 'calculus'];
+export const MATH_DOMAINS: readonly MathDomain[] = ['number', 'algebra', 'functions', 'geometry', 'data', 'logic', 'linear-algebra', 'calculus'];
 
 // Display order and stable IDs for the math roadmap; no problem data here.
 export const MATH_CATALOG: readonly MathCatalogUnit[] = [
@@ -31,6 +31,10 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'divisors-a', item: 'divisors.divisors' },
     { id: 'gcd-lcm-a', item: 'divisors.gcd-lcm' },
   ] },
+  { id: 'rounding', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
+    { id: 'rounding-a', item: 'rounding.rounding' },
+    { id: 'estimate-a', item: 'rounding.estimate' },
+  ] },
   { id: 'ratio', domain: 'data', stage: 'elementary', status: 'comingSoon', sets: [
     { id: 'percent-a', item: 'ratio.percent' },
     { id: 'ratio-a', item: 'ratio.ratio' },
@@ -45,6 +49,10 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'median-range-a', item: 'data.median-range' },
   ] },
   { id: 'signed', domain: 'number', stage: 'middle', status: 'published', sets: [] },
+  { id: 'exponents', domain: 'number', stage: 'middle', status: 'comingSoon', sets: [
+    { id: 'powers-a', item: 'exponents.powers' },
+    { id: 'scientific-a', item: 'exponents.scientific' },
+  ] },
   { id: 'expression', domain: 'algebra', stage: 'middle', status: 'comingSoon', sets: [
     { id: 'value-a', item: 'expression.value' },
     { id: 'like-terms-a', item: 'expression.like-terms' },
@@ -83,6 +91,11 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'prime', domain: 'number', stage: 'middle', status: 'comingSoon', sets: [
     { id: 'prime-a', item: 'prime.prime' },
   ] },
+  { id: 'integers', domain: 'number', stage: 'high', status: 'comingSoon', sets: [
+    { id: 'euclid-a', item: 'integers.euclid' },
+    { id: 'base-n-a', item: 'integers.base-n' },
+    { id: 'congruence-a', item: 'integers.congruence' },
+  ] },
   { id: 'pythagoras', domain: 'geometry', stage: 'middle', status: 'published', sets: [...PYTHAGORAS_SETS] },
   { id: 'probability', domain: 'data', stage: 'middle', status: 'comingSoon', sets: [
     { id: 'basic-a', item: 'probability.basic' },
@@ -92,6 +105,14 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'formula-a', item: 'quadratic.formula' },
     { id: 'discriminant-a', item: 'quadratic.discriminant' },
   ] },
+  { id: 'identities', domain: 'algebra', stage: 'high', status: 'comingSoon', sets: [
+    { id: 'binomial-a', item: 'identities.binomial' },
+    { id: 'identity-a', item: 'identities.identity' },
+  ] },
+  { id: 'polynomial-equations', domain: 'algebra', stage: 'high', status: 'comingSoon', sets: [
+    { id: 'remainder-a', item: 'polynomial-equations.remainder' },
+    { id: 'higher-degree-a', item: 'polynomial-equations.higher-degree' },
+  ] },
   { id: 'quadratic-function', domain: 'functions', stage: 'high', status: 'comingSoon', sets: [
     { id: 'vertex-a', item: 'quadratic-function.vertex' },
     { id: 'max-min-a', item: 'quadratic-function.max-min' },
@@ -100,6 +121,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'arithmetic-a', item: 'sequence.arithmetic' },
     { id: 'geometric-a', item: 'sequence.geometric' },
     { id: 'sigma-a', item: 'sequence.sigma' },
+    { id: 'recurrence-a', item: 'sequence.recurrence' },
   ] },
   { id: 'trig', domain: 'functions', stage: 'high', status: 'comingSoon', sets: [
     { id: 'values-a', item: 'trig.values' },
@@ -110,20 +132,40 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'exponent-a', item: 'exp-log.exponent' },
     { id: 'log-a', item: 'exp-log.log' },
   ] },
+  { id: 'conic', domain: 'functions', stage: 'high', status: 'comingSoon', sets: [
+    { id: 'parabola-a', item: 'conic.parabola' },
+    { id: 'ellipse-hyperbola-a', item: 'conic.ellipse-hyperbola' },
+    { id: 'polar-a', item: 'conic.polar' },
+  ] },
   { id: 'combinatorics', domain: 'data', stage: 'high', status: 'comingSoon', sets: [
     { id: 'permutations-a', item: 'combinatorics.permutations' },
     { id: 'combinations-a', item: 'combinatorics.combinations' },
     { id: 'probability-a', item: 'combinatorics.probability' },
+    { id: 'conditional-a', item: 'combinatorics.conditional' },
+    { id: 'expectation-a', item: 'combinatorics.expectation' },
+  ] },
+  { id: 'distributions', domain: 'data', stage: 'high', status: 'comingSoon', sets: [
+    { id: 'binomial-a', item: 'distributions.binomial' },
+    { id: 'normal-a', item: 'distributions.normal' },
+  ] },
+  { id: 'limit', domain: 'calculus', stage: 'high', status: 'comingSoon', sets: [
+    { id: 'sequence-a', item: 'limit.sequence' },
+    { id: 'function-a', item: 'limit.function' },
   ] },
   { id: 'derivative', domain: 'calculus', stage: 'high', status: 'comingSoon', sets: [
     { id: 'polynomial-a', item: 'derivative.polynomial' },
     { id: 'tangent-a', item: 'derivative.tangent' },
     { id: 'extrema-a', item: 'derivative.extrema' },
+    { id: 'transcendental-a', item: 'derivative.transcendental' },
+    { id: 'chain-rule-a', item: 'derivative.chain-rule' },
   ] },
   { id: 'integral', domain: 'calculus', stage: 'high', status: 'comingSoon', sets: [
     { id: 'indefinite-a', item: 'integral.indefinite' },
     { id: 'definite-a', item: 'integral.definite' },
     { id: 'area-a', item: 'integral.area' },
+    { id: 'substitution-a', item: 'integral.substitution' },
+    { id: 'by-parts-a', item: 'integral.by-parts' },
+    { id: 'volume-a', item: 'integral.volume' },
   ] },
   { id: 'complex', domain: 'number', stage: 'high', status: 'comingSoon', sets: [
     { id: 'arithmetic-a', item: 'complex.arithmetic' },
@@ -149,9 +191,93 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'elimination-a', item: 'linear-system.elimination' },
     { id: 'solutions-a', item: 'linear-system.solutions' },
   ] },
+  { id: 'vector-space', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', sets: [
+    { id: 'independence-a', item: 'vector-space.independence' },
+    { id: 'basis-a', item: 'vector-space.basis' },
+    { id: 'rank-a', item: 'vector-space.rank' },
+  ] },
+  { id: 'linear-map', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', sets: [
+    { id: 'matrix-rep-a', item: 'linear-map.matrix-rep' },
+    { id: 'kernel-image-a', item: 'linear-map.kernel-image' },
+  ] },
   { id: 'eigen', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', sets: [
     { id: 'eigenvalues-a', item: 'eigen.eigenvalues' },
     { id: 'eigenvectors-a', item: 'eigen.eigenvectors' },
+    { id: 'diagonalize-a', item: 'eigen.diagonalize' },
+  ] },
+  { id: 'inner-product', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', sets: [
+    { id: 'orthogonal-a', item: 'inner-product.orthogonal' },
+    { id: 'gram-schmidt-a', item: 'inner-product.gram-schmidt' },
+  ] },
+  { id: 'rate', domain: 'functions', stage: 'elementary', status: 'comingSoon', sets: [
+    { id: 'speed-a', item: 'rate.speed' },
+    { id: 'per-unit-a', item: 'rate.per-unit' },
+  ] },
+  { id: 'angles', domain: 'geometry', stage: 'middle', status: 'comingSoon', sets: [
+    { id: 'parallel-a', item: 'angles.parallel' },
+    { id: 'polygon-a', item: 'angles.polygon' },
+  ] },
+  { id: 'circle-solid', domain: 'geometry', stage: 'middle', status: 'comingSoon', sets: [
+    { id: 'sector-a', item: 'circle-solid.sector' },
+    { id: 'solid-a', item: 'circle-solid.solid' },
+  ] },
+  { id: 'similarity', domain: 'geometry', stage: 'middle', status: 'comingSoon', sets: [
+    { id: 'similarity-a', item: 'similarity.similarity' },
+    { id: 'inscribed-angle-a', item: 'similarity.inscribed-angle' },
+  ] },
+  { id: 'transformations', domain: 'geometry', stage: 'middle', status: 'comingSoon', sets: [
+    { id: 'moves-a', item: 'transformations.moves' },
+  ] },
+  { id: 'triangle-trig', domain: 'geometry', stage: 'high', status: 'comingSoon', sets: [
+    { id: 'sine-law-a', item: 'triangle-trig.sine-law' },
+    { id: 'cosine-law-a', item: 'triangle-trig.cosine-law' },
+    { id: 'area-a', item: 'triangle-trig.area' },
+  ] },
+  { id: 'triangle-properties', domain: 'geometry', stage: 'high', status: 'comingSoon', sets: [
+    { id: 'centers-a', item: 'triangle-properties.centers' },
+    { id: 'power-a', item: 'triangle-properties.power' },
+    { id: 'ceva-menelaus-a', item: 'triangle-properties.ceva-menelaus' },
+  ] },
+  { id: 'quartiles', domain: 'data', stage: 'middle', status: 'comingSoon', sets: [
+    { id: 'quartiles-a', item: 'quartiles.quartiles' },
+    { id: 'boxplot-a', item: 'quartiles.boxplot' },
+  ] },
+  { id: 'statistics', domain: 'data', stage: 'high', status: 'comingSoon', sets: [
+    { id: 'variance-a', item: 'statistics.variance' },
+    { id: 'correlation-a', item: 'statistics.correlation' },
+  ] },
+  { id: 'inference', domain: 'data', stage: 'university', status: 'comingSoon', sets: [
+    { id: 'estimation-a', item: 'inference.estimation' },
+    { id: 'testing-a', item: 'inference.testing' },
+  ] },
+  { id: 'sets', domain: 'logic', stage: 'high', status: 'comingSoon', sets: [
+    { id: 'operations-a', item: 'sets.operations' },
+    { id: 'venn-a', item: 'sets.venn' },
+  ] },
+  { id: 'logic', domain: 'logic', stage: 'high', status: 'comingSoon', sets: [
+    { id: 'negation-a', item: 'logic.negation' },
+    { id: 'conditions-a', item: 'logic.conditions' },
+    { id: 'truth-table-a', item: 'logic.truth-table' },
+  ] },
+  { id: 'mapping', domain: 'logic', stage: 'university', status: 'comingSoon', sets: [
+    { id: 'injective-a', item: 'mapping.injective' },
+    { id: 'equivalence-a', item: 'mapping.equivalence' },
+  ] },
+  { id: 'series', domain: 'calculus', stage: 'university', status: 'comingSoon', sets: [
+    { id: 'series-a', item: 'series.series' },
+    { id: 'taylor-a', item: 'series.taylor' },
+  ] },
+  { id: 'improper-integral', domain: 'calculus', stage: 'university', status: 'comingSoon', sets: [
+    { id: 'improper-a', item: 'improper-integral.improper' },
+  ] },
+  { id: 'multivariable', domain: 'calculus', stage: 'university', status: 'comingSoon', sets: [
+    { id: 'partial-a', item: 'multivariable.partial' },
+    { id: 'double-integral-a', item: 'multivariable.double-integral' },
+  ] },
+  { id: 'ode', domain: 'calculus', stage: 'university', status: 'comingSoon', sets: [
+    { id: 'separable-a', item: 'ode.separable' },
+    { id: 'linear-first-a', item: 'ode.linear-first' },
+    { id: 'second-order-a', item: 'ode.second-order' },
   ] },
 ];
 

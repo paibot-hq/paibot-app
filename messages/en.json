@@ -501,6 +501,7 @@
         "university": "Higher"
       },
       "comingSoon": "Coming soon",
+      "unitCount": "{count, plural, one {# unit} other {# units}}",
       "units": {
         "decimal": {
           "title": "Decimals",
@@ -658,7 +659,8 @@
           "sets": {
             "arithmetic-a": "Arithmetic sequences",
             "geometric-a": "Geometric sequences",
-            "sigma-a": "Sigma notation & sums"
+            "sigma-a": "Sigma notation & sums",
+            "recurrence-a": "Recurrence relations"
           }
         },
         "trig": {
@@ -684,7 +686,9 @@
           "sets": {
             "permutations-a": "Permutations",
             "combinations-a": "Combinations",
-            "probability-a": "Probability"
+            "probability-a": "Probability",
+            "conditional-a": "Conditional probability",
+            "expectation-a": "Expected value"
           }
         },
         "derivative": {
@@ -693,7 +697,9 @@
           "sets": {
             "polynomial-a": "Differentiating polynomials",
             "tangent-a": "Derivative at a point & tangent lines",
-            "extrema-a": "Local extrema"
+            "extrema-a": "Local extrema",
+            "transcendental-a": "Derivatives of trig, exponential and log functions",
+            "chain-rule-a": "Chain, product and quotient rules"
           }
         },
         "integral": {
@@ -702,7 +708,10 @@
           "sets": {
             "indefinite-a": "Indefinite integrals",
             "definite-a": "Definite integrals",
-            "area-a": "Area"
+            "area-a": "Area",
+            "substitution-a": "Integration by substitution",
+            "by-parts-a": "Integration by parts",
+            "volume-a": "Volumes and arc length"
           }
         },
         "complex": {
@@ -754,7 +763,237 @@
           "summary": "Practice finding eigenvalues and eigenvectors of 2×2 matrices.",
           "sets": {
             "eigenvalues-a": "2×2 eigenvalues",
-            "eigenvectors-a": "Eigenvectors"
+            "eigenvectors-a": "Eigenvectors",
+            "diagonalize-a": "Diagonalization"
+          }
+        },
+        "rounding": {
+          "title": "Rounding & estimation",
+          "summary": "Round numbers up, down and to the nearest place to estimate results.",
+          "sets": {
+            "rounding-a": "Rounding",
+            "estimate-a": "Estimation"
+          }
+        },
+        "exponents": {
+          "title": "Powers & exponents",
+          "summary": "Work with powers, the laws of exponents and scientific notation.",
+          "sets": {
+            "powers-a": "Powers and exponent laws",
+            "scientific-a": "Scientific notation and significant figures"
+          }
+        },
+        "integers": {
+          "title": "Number theory basics",
+          "summary": "The Euclidean algorithm, number bases and modular arithmetic.",
+          "sets": {
+            "euclid-a": "Euclidean algorithm",
+            "base-n-a": "Number bases",
+            "congruence-a": "Modular arithmetic"
+          }
+        },
+        "identities": {
+          "title": "Identities & the binomial theorem",
+          "summary": "Use the binomial theorem and polynomial identities.",
+          "sets": {
+            "binomial-a": "Binomial theorem",
+            "identity-a": "Identities"
+          }
+        },
+        "polynomial-equations": {
+          "title": "Polynomial equations",
+          "summary": "Solve higher-degree equations with the remainder and factor theorems.",
+          "sets": {
+            "remainder-a": "Remainder and factor theorems",
+            "higher-degree-a": "Higher-degree equations"
+          }
+        },
+        "rate": {
+          "title": "Speed & unit rates",
+          "summary": "Find speed, time and distance, and compare quantities per unit.",
+          "sets": {
+            "speed-a": "Speed, time and distance",
+            "per-unit-a": "Unit rates"
+          }
+        },
+        "conic": {
+          "title": "Conic sections",
+          "summary": "Parabolas, ellipses and hyperbolas, with parametric and polar forms.",
+          "sets": {
+            "parabola-a": "Parabolas",
+            "ellipse-hyperbola-a": "Ellipses and hyperbolas",
+            "polar-a": "Parametric and polar forms"
+          }
+        },
+        "angles": {
+          "title": "Angles & polygons",
+          "summary": "Find angles with parallel lines and the interior and exterior angles of polygons.",
+          "sets": {
+            "parallel-a": "Angles and parallel lines",
+            "polygon-a": "Interior and exterior angles"
+          }
+        },
+        "circle-solid": {
+          "title": "Circles & solids",
+          "summary": "Sectors, and the volume and surface area of cones, pyramids and spheres.",
+          "sets": {
+            "sector-a": "Sectors",
+            "solid-a": "Volume and surface area of solids"
+          }
+        },
+        "similarity": {
+          "title": "Similarity & circle theorems",
+          "summary": "Use similar figures and the inscribed angle theorem.",
+          "sets": {
+            "similarity-a": "Similar figures",
+            "inscribed-angle-a": "Inscribed angle theorem"
+          }
+        },
+        "transformations": {
+          "title": "Transformations",
+          "summary": "Move figures by translation, rotation and reflection.",
+          "sets": {
+            "moves-a": "Translations, rotations and reflections"
+          }
+        },
+        "triangle-trig": {
+          "title": "Solving triangles",
+          "summary": "Find sides, angles and areas of triangles with the laws of sines and cosines.",
+          "sets": {
+            "sine-law-a": "Law of sines",
+            "cosine-law-a": "Law of cosines",
+            "area-a": "Area of a triangle"
+          }
+        },
+        "triangle-properties": {
+          "title": "Properties of figures",
+          "summary": "Triangle centers, the power of a point, and Ceva's and Menelaus's theorems.",
+          "sets": {
+            "centers-a": "Triangle centers",
+            "power-a": "Power of a point",
+            "ceva-menelaus-a": "Ceva's and Menelaus's theorems"
+          }
+        },
+        "quartiles": {
+          "title": "Quartiles & box plots",
+          "summary": "Find quartiles and read the spread of data from box plots.",
+          "sets": {
+            "quartiles-a": "Quartiles",
+            "boxplot-a": "Box plots"
+          }
+        },
+        "statistics": {
+          "title": "Variance & correlation",
+          "summary": "Find the variance, standard deviation and correlation coefficient.",
+          "sets": {
+            "variance-a": "Variance and standard deviation",
+            "correlation-a": "Correlation coefficient"
+          }
+        },
+        "distributions": {
+          "title": "Probability distributions",
+          "summary": "Expected values, variances and probabilities of binomial and normal distributions.",
+          "sets": {
+            "binomial-a": "Binomial distribution",
+            "normal-a": "Normal distribution"
+          }
+        },
+        "inference": {
+          "title": "Estimation & hypothesis testing",
+          "summary": "Estimate means and proportions and carry out hypothesis tests.",
+          "sets": {
+            "estimation-a": "Estimation",
+            "testing-a": "Hypothesis testing"
+          }
+        },
+        "sets": {
+          "title": "Sets",
+          "summary": "Unions, intersections and complements, and counting with Venn diagrams.",
+          "sets": {
+            "operations-a": "Union, intersection and complement",
+            "venn-a": "Venn diagrams and counting"
+          }
+        },
+        "logic": {
+          "title": "Propositions & logic",
+          "summary": "Negation and contrapositive, necessary and sufficient conditions, and truth tables.",
+          "sets": {
+            "negation-a": "Negation and contrapositive",
+            "conditions-a": "Necessary and sufficient conditions",
+            "truth-table-a": "Truth tables"
+          }
+        },
+        "mapping": {
+          "title": "Functions & relations",
+          "summary": "Injective and surjective maps, and equivalence relations.",
+          "sets": {
+            "injective-a": "Injective and surjective maps",
+            "equivalence-a": "Equivalence relations"
+          }
+        },
+        "vector-space": {
+          "title": "Vector spaces",
+          "summary": "Linear independence, bases and dimension, and matrix rank.",
+          "sets": {
+            "independence-a": "Linear independence",
+            "basis-a": "Basis and dimension",
+            "rank-a": "Rank"
+          }
+        },
+        "linear-map": {
+          "title": "Linear maps",
+          "summary": "Find matrix representations, kernels and images.",
+          "sets": {
+            "matrix-rep-a": "Matrix representation",
+            "kernel-image-a": "Kernel and image"
+          }
+        },
+        "inner-product": {
+          "title": "Inner products & orthogonality",
+          "summary": "Orthogonal and orthonormal bases, and Gram-Schmidt orthogonalization.",
+          "sets": {
+            "orthogonal-a": "Orthogonal and orthonormal bases",
+            "gram-schmidt-a": "Gram-Schmidt process"
+          }
+        },
+        "limit": {
+          "title": "Limits",
+          "summary": "Find limits of sequences and functions.",
+          "sets": {
+            "sequence-a": "Limits of sequences",
+            "function-a": "Limits of functions"
+          }
+        },
+        "series": {
+          "title": "Series & Taylor expansions",
+          "summary": "Sums and convergence of series, and Taylor expansions.",
+          "sets": {
+            "series-a": "Sums and convergence of series",
+            "taylor-a": "Taylor expansions"
+          }
+        },
+        "improper-integral": {
+          "title": "Improper integrals",
+          "summary": "Integrals over infinite intervals or with singularities.",
+          "sets": {
+            "improper-a": "Improper integrals"
+          }
+        },
+        "multivariable": {
+          "title": "Partial derivatives & multiple integrals",
+          "summary": "Partial derivatives and multiple integrals of functions of several variables.",
+          "sets": {
+            "partial-a": "Partial derivatives",
+            "double-integral-a": "Multiple integrals"
+          }
+        },
+        "ode": {
+          "title": "Differential equations",
+          "summary": "Solve separable, first-order linear and constant-coefficient second-order equations.",
+          "sets": {
+            "separable-a": "Separable equations",
+            "linear-first-a": "First-order linear equations",
+            "second-order-a": "Second-order with constant coefficients"
           }
         }
       },
@@ -764,6 +1003,7 @@
         "functions": "Functions",
         "geometry": "Geometry & measurement",
         "data": "Statistics & probability",
+        "logic": "Sets & logic",
         "linear-algebra": "Vectors & matrices",
         "calculus": "Calculus"
       },

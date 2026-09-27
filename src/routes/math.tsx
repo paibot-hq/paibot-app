@@ -19,8 +19,12 @@ export default function Math() {
     <ToolLayout title={t('title')} centerTitle>
       <p>{t('intro')}</p>
       {MATH_DOMAINS.map(domain => (
-        <section key={domain} className={styles.domain} aria-labelledby={`math-domain-${domain}`}>
-          <h2 id={`math-domain-${domain}`}>{t(`domains.${domain}`)}</h2>
+        // Collapsible so ~60 units stay scannable; domains with playable units start open.
+        <details key={domain} className={styles.domain} open={MATH_CATALOG.some(unit => unit.domain === domain && unit.status === 'published')}>
+          <summary>
+            <h2 id={`math-domain-${domain}`}>{t(`domains.${domain}`)}</h2>
+            <span className={styles.domainCount}>{t('unitCount', { count: MATH_CATALOG.filter(unit => unit.domain === domain).length })}</span>
+          </summary>
           <ul className={styles.units}>
             {MATH_STAGES.flatMap(stage => MATH_CATALOG.filter(unit => unit.domain === domain && unit.stage === stage)).map(unit => (
               <li key={unit.id}>
@@ -37,7 +41,7 @@ export default function Math() {
               </li>
             ))}
           </ul>
-        </section>
+        </details>
       ))}
     </ToolLayout>
   </>;

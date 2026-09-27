@@ -501,6 +501,7 @@
         "university": "高等"
       },
       "comingSoon": "准备中",
+      "unitCount": "{count}个单元",
       "units": {
         "decimal": {
           "title": "小数",
@@ -658,7 +659,8 @@
           "sets": {
             "arithmetic-a": "等差数列",
             "geometric-a": "等比数列",
-            "sigma-a": "Σ 求和运算"
+            "sigma-a": "Σ 求和运算",
+            "recurrence-a": "递推公式"
           }
         },
         "trig": {
@@ -684,7 +686,9 @@
           "sets": {
             "permutations-a": "排列",
             "combinations-a": "组合",
-            "probability-a": "概率"
+            "probability-a": "概率",
+            "conditional-a": "条件概率",
+            "expectation-a": "期望"
           }
         },
         "derivative": {
@@ -693,7 +697,9 @@
           "sets": {
             "polynomial-a": "多项式求导",
             "tangent-a": "导数与切线",
-            "extrema-a": "极值"
+            "extrema-a": "极值",
+            "transcendental-a": "三角、指数与对数函数的导数",
+            "chain-rule-a": "复合函数、积与商的求导"
           }
         },
         "integral": {
@@ -702,7 +708,10 @@
           "sets": {
             "indefinite-a": "不定积分",
             "definite-a": "定积分",
-            "area-a": "面积"
+            "area-a": "面积",
+            "substitution-a": "换元积分",
+            "by-parts-a": "分部积分",
+            "volume-a": "体积与曲线长度"
           }
         },
         "complex": {
@@ -754,7 +763,237 @@
           "summary": "练习求二阶矩阵的特征值与特征向量。",
           "sets": {
             "eigenvalues-a": "二阶矩阵的特征值",
-            "eigenvectors-a": "特征向量"
+            "eigenvectors-a": "特征向量",
+            "diagonalize-a": "对角化"
+          }
+        },
+        "rounding": {
+          "title": "近似数与四舍五入",
+          "summary": "用四舍五入、进一法和去尾法练习估算。",
+          "sets": {
+            "rounding-a": "四舍五入",
+            "estimate-a": "估算"
+          }
+        },
+        "exponents": {
+          "title": "乘方与指数法则",
+          "summary": "练习乘方运算、指数法则和科学记数法。",
+          "sets": {
+            "powers-a": "乘方与指数法则",
+            "scientific-a": "科学记数法与有效数字"
+          }
+        },
+        "integers": {
+          "title": "整数的性质",
+          "summary": "用辗转相除法、n进制和同余处理整数问题。",
+          "sets": {
+            "euclid-a": "辗转相除法",
+            "base-n-a": "n进制",
+            "congruence-a": "同余"
+          }
+        },
+        "identities": {
+          "title": "式与证明",
+          "summary": "运用二项式定理和恒等式处理代数式。",
+          "sets": {
+            "binomial-a": "二项式定理",
+            "identity-a": "恒等式"
+          }
+        },
+        "polynomial-equations": {
+          "title": "高次方程",
+          "summary": "用余式定理和因式定理解高次方程。",
+          "sets": {
+            "remainder-a": "余式定理与因式定理",
+            "higher-degree-a": "高次方程"
+          }
+        },
+        "rate": {
+          "title": "速度与单位量",
+          "summary": "求速度、时间和路程，以及单位量的大小。",
+          "sets": {
+            "speed-a": "速度、时间与路程",
+            "per-unit-a": "单位量的大小"
+          }
+        },
+        "conic": {
+          "title": "二次曲线",
+          "summary": "学习抛物线、椭圆、双曲线，以及参数方程和极坐标。",
+          "sets": {
+            "parabola-a": "抛物线",
+            "ellipse-hyperbola-a": "椭圆与双曲线",
+            "polar-a": "参数方程与极坐标"
+          }
+        },
+        "angles": {
+          "title": "平面图形与角",
+          "summary": "求平行线形成的角，以及多边形的内角与外角。",
+          "sets": {
+            "parallel-a": "平行线与角",
+            "polygon-a": "多边形的内角与外角"
+          }
+        },
+        "circle-solid": {
+          "title": "圆与立体的计量",
+          "summary": "求扇形，以及锥体和球的体积与表面积。",
+          "sets": {
+            "sector-a": "扇形",
+            "solid-a": "锥体与球的体积和表面积"
+          }
+        },
+        "similarity": {
+          "title": "相似与圆",
+          "summary": "运用相似图形的性质和圆周角定理。",
+          "sets": {
+            "similarity-a": "相似",
+            "inscribed-angle-a": "圆周角定理"
+          }
+        },
+        "transformations": {
+          "title": "图形的变换",
+          "summary": "通过平移、旋转和轴对称移动图形。",
+          "sets": {
+            "moves-a": "平移、旋转与轴对称"
+          }
+        },
+        "triangle-trig": {
+          "title": "三角形的计量",
+          "summary": "用正弦定理和余弦定理求三角形的边、角和面积。",
+          "sets": {
+            "sine-law-a": "正弦定理",
+            "cosine-law-a": "余弦定理",
+            "area-a": "三角形的面积"
+          }
+        },
+        "triangle-properties": {
+          "title": "图形的性质",
+          "summary": "运用三角形的五心、圆幂定理以及塞瓦定理和梅涅劳斯定理。",
+          "sets": {
+            "centers-a": "三角形的五心",
+            "power-a": "圆幂定理",
+            "ceva-menelaus-a": "塞瓦定理与梅涅劳斯定理"
+          }
+        },
+        "quartiles": {
+          "title": "四分位数与箱线图",
+          "summary": "求四分位数，并从箱线图读出数据的分布。",
+          "sets": {
+            "quartiles-a": "四分位数",
+            "boxplot-a": "箱线图"
+          }
+        },
+        "statistics": {
+          "title": "方差与相关",
+          "summary": "求方差、标准差和相关系数。",
+          "sets": {
+            "variance-a": "方差与标准差",
+            "correlation-a": "相关系数"
+          }
+        },
+        "distributions": {
+          "title": "概率分布",
+          "summary": "求二项分布和正态分布的期望、方差与概率。",
+          "sets": {
+            "binomial-a": "二项分布",
+            "normal-a": "正态分布"
+          }
+        },
+        "inference": {
+          "title": "统计推断与检验",
+          "summary": "估计总体均值与比例，并进行假设检验。",
+          "sets": {
+            "estimation-a": "估计",
+            "testing-a": "假设检验"
+          }
+        },
+        "sets": {
+          "title": "集合",
+          "summary": "学习并集、交集、补集，以及用维恩图计数。",
+          "sets": {
+            "operations-a": "并集、交集与补集",
+            "venn-a": "维恩图与元素个数"
+          }
+        },
+        "logic": {
+          "title": "命题与逻辑",
+          "summary": "学习否定与逆否命题、必要条件与充分条件以及真值表。",
+          "sets": {
+            "negation-a": "否定与逆否命题",
+            "conditions-a": "必要条件与充分条件",
+            "truth-table-a": "真值表"
+          }
+        },
+        "mapping": {
+          "title": "映射与关系",
+          "summary": "学习单射、满射以及等价关系。",
+          "sets": {
+            "injective-a": "单射与满射",
+            "equivalence-a": "等价关系"
+          }
+        },
+        "vector-space": {
+          "title": "向量空间",
+          "summary": "学习线性无关、基与维数以及矩阵的秩。",
+          "sets": {
+            "independence-a": "线性无关",
+            "basis-a": "基与维数",
+            "rank-a": "秩"
+          }
+        },
+        "linear-map": {
+          "title": "线性映射",
+          "summary": "求表示矩阵以及核与像。",
+          "sets": {
+            "matrix-rep-a": "表示矩阵",
+            "kernel-image-a": "核与像"
+          }
+        },
+        "inner-product": {
+          "title": "内积与正交化",
+          "summary": "学习正交基、标准正交基以及格拉姆-施密特正交化。",
+          "sets": {
+            "orthogonal-a": "正交与标准正交基",
+            "gram-schmidt-a": "格拉姆-施密特正交化"
+          }
+        },
+        "limit": {
+          "title": "极限",
+          "summary": "求数列和函数的极限。",
+          "sets": {
+            "sequence-a": "数列的极限",
+            "function-a": "函数的极限"
+          }
+        },
+        "series": {
+          "title": "级数与泰勒展开",
+          "summary": "学习级数的和与收敛以及泰勒展开。",
+          "sets": {
+            "series-a": "级数的和与收敛",
+            "taylor-a": "泰勒展开"
+          }
+        },
+        "improper-integral": {
+          "title": "反常积分",
+          "summary": "求无穷区间上的积分和含奇点的积分。",
+          "sets": {
+            "improper-a": "反常积分"
+          }
+        },
+        "multivariable": {
+          "title": "偏导数与重积分",
+          "summary": "求多元函数的偏导数和重积分。",
+          "sets": {
+            "partial-a": "偏导数",
+            "double-integral-a": "重积分"
+          }
+        },
+        "ode": {
+          "title": "微分方程",
+          "summary": "求解可分离变量、一阶线性和常系数二阶线性微分方程。",
+          "sets": {
+            "separable-a": "可分离变量方程",
+            "linear-first-a": "一阶线性方程",
+            "second-order-a": "常系数二阶线性方程"
           }
         }
       },
@@ -764,6 +1003,7 @@
         "functions": "函数",
         "geometry": "几何与测量",
         "data": "统计与概率",
+        "logic": "集合与逻辑",
         "linear-algebra": "向量与矩阵",
         "calculus": "微积分"
       },

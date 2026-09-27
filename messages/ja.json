@@ -501,6 +501,7 @@
         "university": "上級"
       },
       "comingSoon": "準備中",
+      "unitCount": "{count}単元",
       "units": {
         "decimal": {
           "title": "小数",
@@ -658,7 +659,8 @@
           "sets": {
             "arithmetic-a": "等差数列",
             "geometric-a": "等比数列",
-            "sigma-a": "Σ の計算"
+            "sigma-a": "Σ の計算",
+            "recurrence-a": "漸化式"
           }
         },
         "trig": {
@@ -684,7 +686,9 @@
           "sets": {
             "permutations-a": "順列",
             "combinations-a": "組合せ",
-            "probability-a": "確率"
+            "probability-a": "確率",
+            "conditional-a": "条件付き確率",
+            "expectation-a": "期待値"
           }
         },
         "derivative": {
@@ -693,7 +697,9 @@
           "sets": {
             "polynomial-a": "多項式の微分",
             "tangent-a": "微分係数と接線",
-            "extrema-a": "極値"
+            "extrema-a": "極値",
+            "transcendental-a": "三角・指数・対数関数の微分",
+            "chain-rule-a": "合成関数・積・商の微分"
           }
         },
         "integral": {
@@ -702,7 +708,10 @@
           "sets": {
             "indefinite-a": "不定積分",
             "definite-a": "定積分",
-            "area-a": "面積"
+            "area-a": "面積",
+            "substitution-a": "置換積分",
+            "by-parts-a": "部分積分",
+            "volume-a": "体積と曲線の長さ"
           }
         },
         "complex": {
@@ -754,7 +763,237 @@
           "summary": "2×2 の行列の固有値と固有ベクトルを求める練習をします。",
           "sets": {
             "eigenvalues-a": "2×2 の固有値",
-            "eigenvectors-a": "固有ベクトル"
+            "eigenvectors-a": "固有ベクトル",
+            "diagonalize-a": "対角化"
+          }
+        },
+        "rounding": {
+          "title": "概数と四捨五入",
+          "summary": "四捨五入や切り上げ・切り捨てで、数を見積もる練習をします。",
+          "sets": {
+            "rounding-a": "四捨五入",
+            "estimate-a": "見積もり"
+          }
+        },
+        "exponents": {
+          "title": "累乗と指数法則",
+          "summary": "累乗の計算と指数法則、科学的表記を練習します。",
+          "sets": {
+            "powers-a": "累乗と指数法則",
+            "scientific-a": "科学的表記と有効数字"
+          }
+        },
+        "integers": {
+          "title": "整数の性質",
+          "summary": "ユークリッドの互除法、n進法、合同式で整数を扱います。",
+          "sets": {
+            "euclid-a": "ユークリッドの互除法",
+            "base-n-a": "n進法",
+            "congruence-a": "合同式"
+          }
+        },
+        "identities": {
+          "title": "式と証明",
+          "summary": "二項定理と恒等式を使って式を扱います。",
+          "sets": {
+            "binomial-a": "二項定理",
+            "identity-a": "恒等式"
+          }
+        },
+        "polynomial-equations": {
+          "title": "高次方程式",
+          "summary": "剰余の定理・因数定理を使って、高次方程式を解きます。",
+          "sets": {
+            "remainder-a": "剰余の定理・因数定理",
+            "higher-degree-a": "高次方程式"
+          }
+        },
+        "rate": {
+          "title": "速さと単位量あたり",
+          "summary": "速さ・時間・道のりや、単位量あたりの大きさを求めます。",
+          "sets": {
+            "speed-a": "速さ・時間・道のり",
+            "per-unit-a": "単位量あたりの大きさ"
+          }
+        },
+        "conic": {
+          "title": "二次曲線",
+          "summary": "放物線・楕円・双曲線と、媒介変数・極座標を扱います。",
+          "sets": {
+            "parabola-a": "放物線",
+            "ellipse-hyperbola-a": "楕円と双曲線",
+            "polar-a": "媒介変数と極座標"
+          }
+        },
+        "angles": {
+          "title": "平面図形と角",
+          "summary": "平行線と角、多角形の内角・外角を求めます。",
+          "sets": {
+            "parallel-a": "平行線と角",
+            "polygon-a": "多角形の内角・外角"
+          }
+        },
+        "circle-solid": {
+          "title": "円と立体の計量",
+          "summary": "おうぎ形や、錐体・球の体積と表面積を求めます。",
+          "sets": {
+            "sector-a": "おうぎ形",
+            "solid-a": "錐体・球の体積と表面積"
+          }
+        },
+        "similarity": {
+          "title": "相似と円",
+          "summary": "相似な図形の性質と、円周角の定理を使います。",
+          "sets": {
+            "similarity-a": "相似",
+            "inscribed-angle-a": "円周角の定理"
+          }
+        },
+        "transformations": {
+          "title": "図形の移動",
+          "summary": "平行移動・回転移動・対称移動で図形を動かします。",
+          "sets": {
+            "moves-a": "平行移動・回転・対称移動"
+          }
+        },
+        "triangle-trig": {
+          "title": "三角形の計量",
+          "summary": "正弦定理・余弦定理で、三角形の辺・角・面積を求めます。",
+          "sets": {
+            "sine-law-a": "正弦定理",
+            "cosine-law-a": "余弦定理",
+            "area-a": "三角形の面積"
+          }
+        },
+        "triangle-properties": {
+          "title": "図形の性質",
+          "summary": "三角形の五心や、方べき・チェバ・メネラウスの定理を使います。",
+          "sets": {
+            "centers-a": "三角形の五心",
+            "power-a": "方べきの定理",
+            "ceva-menelaus-a": "チェバ・メネラウスの定理"
+          }
+        },
+        "quartiles": {
+          "title": "四分位数と箱ひげ図",
+          "summary": "四分位数を求め、箱ひげ図からデータの散らばりを読み取ります。",
+          "sets": {
+            "quartiles-a": "四分位数",
+            "boxplot-a": "箱ひげ図"
+          }
+        },
+        "statistics": {
+          "title": "分散と相関",
+          "summary": "分散・標準偏差と、相関係数を求めます。",
+          "sets": {
+            "variance-a": "分散・標準偏差",
+            "correlation-a": "相関係数"
+          }
+        },
+        "distributions": {
+          "title": "確率分布",
+          "summary": "二項分布と正規分布の期待値・分散・確率を求めます。",
+          "sets": {
+            "binomial-a": "二項分布",
+            "normal-a": "正規分布"
+          }
+        },
+        "inference": {
+          "title": "統計的推定と検定",
+          "summary": "母平均・母比率の推定と、仮説検定を行います。",
+          "sets": {
+            "estimation-a": "推定",
+            "testing-a": "検定"
+          }
+        },
+        "sets": {
+          "title": "集合",
+          "summary": "和集合・共通部分・補集合と、ベン図を使った要素の個数を扱います。",
+          "sets": {
+            "operations-a": "和集合・共通部分・補集合",
+            "venn-a": "ベン図と要素の個数"
+          }
+        },
+        "logic": {
+          "title": "命題と論理",
+          "summary": "否定と対偶、必要条件・十分条件、真理値表を扱います。",
+          "sets": {
+            "negation-a": "否定と対偶",
+            "conditions-a": "必要条件・十分条件",
+            "truth-table-a": "真理値表"
+          }
+        },
+        "mapping": {
+          "title": "写像と関係",
+          "summary": "単射・全射と、同値関係を扱います。",
+          "sets": {
+            "injective-a": "単射・全射",
+            "equivalence-a": "同値関係"
+          }
+        },
+        "vector-space": {
+          "title": "ベクトル空間",
+          "summary": "1次独立、基底と次元、行列の階数を扱います。",
+          "sets": {
+            "independence-a": "1次独立",
+            "basis-a": "基底と次元",
+            "rank-a": "階数"
+          }
+        },
+        "linear-map": {
+          "title": "線形写像",
+          "summary": "表現行列と、核・像を求めます。",
+          "sets": {
+            "matrix-rep-a": "表現行列",
+            "kernel-image-a": "核と像"
+          }
+        },
+        "inner-product": {
+          "title": "内積と直交化",
+          "summary": "直交・正規直交基底と、グラム・シュミットの直交化を扱います。",
+          "sets": {
+            "orthogonal-a": "直交と正規直交基底",
+            "gram-schmidt-a": "グラム・シュミットの直交化"
+          }
+        },
+        "limit": {
+          "title": "極限",
+          "summary": "数列と関数の極限を求めます。",
+          "sets": {
+            "sequence-a": "数列の極限",
+            "function-a": "関数の極限"
+          }
+        },
+        "series": {
+          "title": "級数とテイラー展開",
+          "summary": "級数の和と収束、テイラー展開を扱います。",
+          "sets": {
+            "series-a": "級数の和と収束",
+            "taylor-a": "テイラー展開"
+          }
+        },
+        "improper-integral": {
+          "title": "広義積分",
+          "summary": "積分区間が無限の積分や、特異点をもつ積分を求めます。",
+          "sets": {
+            "improper-a": "広義積分"
+          }
+        },
+        "multivariable": {
+          "title": "偏微分と重積分",
+          "summary": "多変数関数の偏微分と重積分を求めます。",
+          "sets": {
+            "partial-a": "偏微分",
+            "double-integral-a": "重積分"
+          }
+        },
+        "ode": {
+          "title": "微分方程式",
+          "summary": "変数分離形・一階線形・定数係数の二階線形微分方程式を解きます。",
+          "sets": {
+            "separable-a": "変数分離形",
+            "linear-first-a": "一階線形",
+            "second-order-a": "定数係数の二階線形"
           }
         }
       },
@@ -764,6 +1003,7 @@
         "functions": "関数",
         "geometry": "図形と測定",
         "data": "データと確率",
+        "logic": "集合と論理",
         "linear-algebra": "ベクトルと行列",
         "calculus": "微分積分"
       },
