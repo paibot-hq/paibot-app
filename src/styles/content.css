@@ -304,12 +304,18 @@ h1 .title-suffix {
   margin-bottom: 2.5rem;
 }
 
+/* The one-column list, its search box and headings share a centered column. */
+/* Keeps main's 1rem side gutters (shell.css) while capping the width. */
+.app-list {
+  width: min(720px, calc(100% - 2rem));
+}
+
 .app-search {
   margin-bottom: 2.5rem;
 }
 
 .app-search input {
-  width: min(420px, 100%);
+  width: 100%;
   padding: .65rem 1rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
@@ -340,16 +346,15 @@ h1 .title-suffix {
 
 .app-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 1rem;
 }
 
 .app-card {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   gap: 1rem;
-  min-height: 190px;
-  padding: 1.25rem;
+  padding: 1.1rem 3.2rem 1.1rem 1.25rem;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);
@@ -421,14 +426,14 @@ h1 .title-suffix {
 }
 
 .app-card h3 {
-  margin-bottom: .5rem;
-  font-size: 1.35rem;
+  margin-bottom: .3rem;
+  font-size: 1.15rem;
 }
 
 .app-card p {
   margin-bottom: 0;
   color: var(--muted);
-  line-height: 1.75;
+  line-height: 1.6;
 }
 
 .about p {
