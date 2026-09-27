@@ -230,6 +230,37 @@
       "ipv6Label": "IPv6アドレス",
       "unknown": "取得できませんでした"
     },
+    "cidr": {
+      "title": "CIDR計算機",
+      "description": "IPv4アドレスとCIDR表記から、ネットワークアドレス・ブロードキャスト・ホスト数などを計算します。",
+      "keywords": "CIDR サブネット サブネットマスク IPアドレス 計算 ネットワーク",
+      "inputLabel": "IPv4アドレスとプレフィックス長",
+      "inputHint": "例: 192.168.1.10/24、192.168.1.10 255.255.255.0。計算はブラウザの中だけで行います。",
+      "invalid": "正しいIPv4アドレスと、プレフィックス長（0〜32）またはサブネットマスクを入力してください。",
+      "note31": "/31 は2点間の接続用で、2つのアドレスをどちらもホストとして使えます（RFC 3021）。",
+      "labels": {
+        "network": "ネットワークアドレス",
+        "broadcast": "ブロードキャストアドレス",
+        "mask": "サブネットマスク",
+        "wildcard": "ワイルドカードマスク",
+        "hostRange": "利用可能なホスト",
+        "hostCount": "ホスト数",
+        "totalCount": "アドレス数",
+        "kind": "アドレスの種類",
+        "addressBinary": "アドレス（2進数）",
+        "maskBinary": "マスク（2進数）"
+      },
+      "kinds": {
+        "private": "プライベート（RFC 1918）",
+        "loopback": "ループバック",
+        "linkLocal": "リンクローカル",
+        "sharedAddress": "共有アドレス空間（CGNAT）",
+        "multicast": "マルチキャスト",
+        "reserved": "予約済み",
+        "unspecified": "未指定アドレス",
+        "public": "グローバル"
+      }
+    },
     "domain": {
       "title": "ドメイン確認(WHOIS)",
       "description": "ドメインの登録者・登録日・有効期限などのWHOIS情報を確認できます。",

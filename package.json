@@ -40,7 +40,8 @@
     "math:import:prod": "node scripts/import-math.mjs prod",
     "math:generate": "node scripts/math-generate.mjs",
     "math:review": "node scripts/math-review.mjs",
-    "check:math-pythagoras": "node scripts/check-math-pythagoras.mjs"
+    "check:math-pythagoras": "node scripts/check-math-pythagoras.mjs",
+    "check:cidr": "node scripts/check-cidr.mjs"
   },
   "dependencies": {
     "@clerk/localizations": "^4.16.1",

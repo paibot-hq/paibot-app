@@ -230,6 +230,37 @@
       "ipv6Label": "IPv6 地址",
       "unknown": "无法获取"
     },
+    "cidr": {
+      "title": "CIDR计算器",
+      "description": "根据CIDR表示的IPv4地址，计算网络地址、广播地址、可用主机范围等。",
+      "keywords": "CIDR 子网 子网掩码 IP地址 计算 网络",
+      "inputLabel": "IPv4地址和前缀长度",
+      "inputHint": "例：192.168.1.10/24 或 192.168.1.10 255.255.255.0。计算仅在浏览器中进行。",
+      "invalid": "请输入有效的IPv4地址，以及前缀长度（0–32）或子网掩码。",
+      "note31": "/31 用于点对点连接，两个地址都可以作为主机使用（RFC 3021）。",
+      "labels": {
+        "network": "网络地址",
+        "broadcast": "广播地址",
+        "mask": "子网掩码",
+        "wildcard": "通配符掩码",
+        "hostRange": "可用主机",
+        "hostCount": "主机数",
+        "totalCount": "地址总数",
+        "kind": "地址类型",
+        "addressBinary": "地址（二进制）",
+        "maskBinary": "掩码（二进制）"
+      },
+      "kinds": {
+        "private": "私有（RFC 1918）",
+        "loopback": "环回",
+        "linkLocal": "链路本地",
+        "sharedAddress": "共享地址空间（CGNAT）",
+        "multicast": "组播",
+        "reserved": "保留",
+        "unspecified": "未指定地址",
+        "public": "公网"
+      }
+    },
     "domain": {
       "title": "域名查询(WHOIS)",
       "description": "查询域名的注册商、注册日期、到期日期等WHOIS信息。",

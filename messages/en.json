@@ -230,6 +230,37 @@
       "ipv6Label": "IPv6 Address",
       "unknown": "Not available"
     },
+    "cidr": {
+      "title": "CIDR Calculator",
+      "description": "Calculate the network address, broadcast address, host range and more from an IPv4 address in CIDR notation.",
+      "keywords": "CIDR subnet calculator netmask IPv4 network",
+      "inputLabel": "IPv4 address and prefix length",
+      "inputHint": "e.g. 192.168.1.10/24 or 192.168.1.10 255.255.255.0. Everything is calculated in your browser.",
+      "invalid": "Enter a valid IPv4 address with a prefix length (0–32) or a subnet mask.",
+      "note31": "A /31 is a point-to-point link, so both addresses are usable hosts (RFC 3021).",
+      "labels": {
+        "network": "Network address",
+        "broadcast": "Broadcast address",
+        "mask": "Subnet mask",
+        "wildcard": "Wildcard mask",
+        "hostRange": "Usable hosts",
+        "hostCount": "Host count",
+        "totalCount": "Total addresses",
+        "kind": "Address type",
+        "addressBinary": "Address (binary)",
+        "maskBinary": "Mask (binary)"
+      },
+      "kinds": {
+        "private": "Private (RFC 1918)",
+        "loopback": "Loopback",
+        "linkLocal": "Link-local",
+        "sharedAddress": "Shared address space (CGNAT)",
+        "multicast": "Multicast",
+        "reserved": "Reserved",
+        "unspecified": "Unspecified",
+        "public": "Public"
+      }
+    },
     "domain": {
       "title": "Domain Lookup (WHOIS)",
       "description": "Look up a domain's registrar, registration date, expiry date and other WHOIS information.",
