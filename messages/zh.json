@@ -399,7 +399,7 @@
       "title": "数学题库",
       "description": "通过四选一测验练习四则运算、因式分解等数学题目。",
       "keywords": "数学 四则运算 因式分解 测验 题库",
-      "intro": "从小学到高中的数学单元中选择想练习的内容，更多题集将陆续上线。",
+      "intro": "从基础到进阶，选择想练习的单元。更多题集将陆续上线。",
       "arithLink": "四则运算",
       "arithSummary": "从加减法到运算顺序和应用题。从简单的题组开始逐步练习。",
       "factorizationLink": "因式分解",
@@ -464,9 +464,9 @@
         "valueWithUnit": "{value}{unit}"
       },
       "stages": {
-        "elementary": "小学",
-        "middle": "初中",
-        "high": "高中"
+        "elementary": "基础",
+        "middle": "中级",
+        "high": "进阶"
       },
       "comingSoon": "准备中",
       "units": {

@@ -399,7 +399,7 @@
       "title": "数学問題集",
       "description": "四則演算や因数分解などの数学問題を4択クイズで練習できます。",
       "keywords": "数学 算数 問題集 四則演算 因数分解 クイズ",
-      "intro": "小学校から高校までの単元から、練習したい内容を選んでください。準備中の単元も順次追加します。",
+      "intro": "基礎から発展まで、練習したい単元を選んでください。準備中の単元も順次追加します。",
       "arithLink": "四則演算",
       "arithSummary": "たし算・ひき算から計算の順序・文章題まで。やさしいセットから順に練習できます。",
       "factorizationLink": "因数分解",
@@ -464,9 +464,9 @@
         "valueWithUnit": "{value}{unit}"
       },
       "stages": {
-        "elementary": "小学校",
-        "middle": "中学校",
-        "high": "高校"
+        "elementary": "基礎",
+        "middle": "標準",
+        "high": "発展"
       },
       "comingSoon": "準備中",
       "units": {

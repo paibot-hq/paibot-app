@@ -399,7 +399,7 @@
       "title": "Math Problem Set",
       "description": "Practice math problems like arithmetic and factoring with multiple-choice quizzes.",
       "keywords": "math arithmetic algebra factoring quiz problem set",
-      "intro": "Choose a topic from elementary through high school math. More problem sets are on the way.",
+      "intro": "Choose a topic, from the foundations to advanced math. More problem sets are on the way.",
       "arithLink": "Arithmetic",
       "arithSummary": "From addition and subtraction to the order of operations and word problems. Start with the easy sets and work up.",
       "factorizationLink": "Factoring",
@@ -464,9 +464,9 @@
         "valueWithUnit": "{value} {unit}"
       },
       "stages": {
-        "elementary": "Elementary school",
-        "middle": "Middle school",
-        "high": "High school"
+        "elementary": "Foundations",
+        "middle": "Intermediate",
+        "high": "Advanced"
       },
       "comingSoon": "Coming soon",
       "units": {
