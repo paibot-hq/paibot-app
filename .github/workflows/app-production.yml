@@ -87,6 +87,10 @@ jobs:
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - if: steps.framework.outputs.react_router == 'true'
         run: npx playwright install --with-deps chromium
+      # check:i18n serves pages that read D1 (e.g. /math sets), so the local
+      # database it shares needs the schema; this never touches production D1.
+      - if: steps.framework.outputs.react_router == 'true'
+        run: npm run db:migrate:local
       - if: steps.framework.outputs.react_router == 'true'
         run: npm run check:i18n
       - name: Sync production runtime secrets
