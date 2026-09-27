@@ -17,8 +17,8 @@ export default function MathFactorizationIndex({ loaderData }: Route.ComponentPr
   // Pattern label keys are only known at runtime, like the app categories in
   // src/lib/apps.tsx - cast once here, same reasoning.
   const td = t as unknown as DynamicT;
-  const sets = FACTORIZATION_SETS.map(({ id, labelKey, descriptionKey }) => ({
-    href: `/math/factorization/${id}`, label: td(labelKey), description: td(descriptionKey), record: loaderData.records[id],
+  const sets = FACTORIZATION_SETS.map(({ id, rule, labelKey, descriptionKey }) => ({
+    href: `/math/factorization/${id}`, label: td(labelKey), description: td(descriptionKey), record: loaderData.records[id], comingSoon: !rule,
   }));
   return <><PublicHead locale={locale} path="/math/factorization" title={`${t('title')} | PAIBOT.app`} description={t('description')} />
     <MathSetPicker title={t('title')} sets={sets} />

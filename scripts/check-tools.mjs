@@ -157,10 +157,11 @@ try {
   // Anchored: other units' summaries (e.g. quadratics) also mention factoring.
   await main.getByRole('link', { name: /^Factoring/ }).click();
   await page.waitForURL(`${base}/en/math/factorization`);
-  await main.getByRole('link', { name: /^Basics/ }).click();
+  // Matched by the exact set name: the "(larger numbers)" set starts the same.
+  await main.getByRole('link').filter({ has: page.getByText('Factoring trinomials', { exact: true }) }).click();
   await page.waitForURL(`${base}/en/math/factorization/trinomial-a`);
   await main.locator('h1').waitFor();
-  await main.getByText('Basics', { exact: true }).waitFor();
+  await main.getByText('Factoring trinomials', { exact: true }).waitFor();
   await page.setViewportSize({ width: 390, height: 844 });
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   assert.deepEqual(errors, []);
