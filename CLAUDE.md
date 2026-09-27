@@ -31,10 +31,23 @@ Do not print secret keys. Runtime Clerk keys must be synced to Workers Secrets;
 
 ## Math project
 
-`/math` is a published landing page linking to quiz units; `/math/factorization/:setId`
-is the first unit (a super-MVP: seeded, reproducible, client-side-generated
-factoring quizzes, no login/DB). `docs/plans/problemset.md` is the previously
-approved, much larger math problem-set plan (LLM-generated + D1-backed); it is
-on hold while the super-MVP is in place. Its vinext-specific sections are
-historical. Existing KaTeX components are retained for this work; D1/infra
-changes are outside the framework migration.
+`/math` is a published landing page linking to quiz units, each a set picker plus
+five-problem, four-choice sets served from D1: `/math/arith/:setId`
+(order of operations, negative numbers, word problems) and
+`/math/factorization/:setId`. Both use the shared `math_problems` table, indexed by
+unit, set, publication status and position. Unit-specific data lives in a JSON
+`payload`, typed in `src/lib/math-arith.ts` and `math-factorization.ts`.
+`src/lib/math-problems.server.ts` reads published sets for either unit; routes
+convert payloads for display. Both render through
+`src/components/math-set-picker.tsx` and `math-set-quiz.tsx`.
+
+Problems are LLM-generated into `src/data/math-*.json` and never trusted as-is:
+`npm run check:math-arith` / `check:math-factorization` re-derive every answer
+(by evaluating the expression / expanding each choice) and enforce each set's
+rules. Word problems' prose also gets a blind second-model review before they
+are published. Problems start as `published: false` and are imported with
+`npm run math:import:local|dev|prod` through `scripts/import-math.mjs`, which
+validates both banks before upserting common columns and payloads; a set with no
+published problems shows "being prepared". `docs/plans/math-units.md` is the unit roadmap and the verification
+rules new units must follow; `docs/plans/problemset.md` is the larger plan it
+refines (its vinext-specific sections are historical).

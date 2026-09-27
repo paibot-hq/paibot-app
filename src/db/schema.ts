@@ -1,5 +1,8 @@
 import { sql } from "drizzle-orm";
-import { index, primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import { index, integer, primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
+import type { ArithPayload } from '../lib/math-arith';
+import type { FactorizationPayload } from '../lib/math-factorization';
+import type { QuizLocale, QuizTranslation } from '../lib/quiz';
 
 export const favorites = sqliteTable("favorites", {
   userId: text("user_id").notNull(),
@@ -19,3 +22,41 @@ export const clockPreferences = sqliteTable("clock_preferences", {
   userId: text("user_id").primaryKey(),
   timeZone: text("time_zone").notNull(),
 });
+
+export const quizQuestions = sqliteTable('quiz_questions', {
+  id: text('id').primaryKey(),
+  category: text('category').notNull(),
+  published: integer('published', { mode: 'boolean' }).notNull(),
+  answerIndex: integer('answer_index').notNull(),
+  translations: text('translations', { mode: 'json' }).$type<Record<QuizLocale, QuizTranslation>>().notNull(),
+  source: text('source').notNull(),
+  reviewedAt: text('reviewed_at').notNull(),
+}, table => [index('quiz_published_idx').on(table.published)]);
+
+export const mathProblems = sqliteTable('math_problems', {
+  id: text('id').primaryKey().notNull(),
+  unit: text('unit').notNull(),
+  setId: integer('set_id').notNull(),
+  position: integer('position').notNull(),
+  published: integer('published', { mode: 'boolean' }).notNull(),
+  answerIndex: integer('answer_index').notNull(),
+  payload: text('payload', { mode: 'json' }).$type<ArithPayload | FactorizationPayload>().notNull(),
+  reviewedAt: text('reviewed_at').notNull(),
+}, table => [index('math_problems_unit_set_idx').on(table.unit, table.setId, table.published, table.position)]);
+
+// One row per finished /math set by a signed-in user. `answers` are the chosen
+// choice indexes, in `problemIds` order; `correct` is recounted on the server.
+// `setVersion` hashes the problems as served, so records can later be told
+// apart from attempts at an edited set.
+export const mathAttempts = sqliteTable('math_attempts', {
+  id: text('id').primaryKey(),
+  userId: text('user_id').notNull(),
+  unit: text('unit').notNull(),
+  setId: integer('set_id').notNull(),
+  setVersion: text('set_version').notNull(),
+  problemIds: text('problem_ids', { mode: 'json' }).$type<string[]>().notNull(),
+  answers: text('answers', { mode: 'json' }).$type<number[]>().notNull(),
+  correct: integer('correct').notNull(),
+  total: integer('total').notNull(),
+  completedAt: text('completed_at').notNull(),
+}, table => [index('math_attempts_user_unit_idx').on(table.userId, table.unit, table.setId, table.completedAt)]);

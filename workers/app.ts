@@ -23,7 +23,8 @@ export default {
     if (!isIndexable || response.status >= 400 || AUTH_PATH.test(url.pathname)) {
       secured.headers.set('X-Robots-Tag', 'noindex');
     }
-    if (/^\/(ja|en|zh)\/(diary|clock)(?:\.data|\/|$)/.test(url.pathname)) {
+    // Math unit pages carry a signed-in user's scores (set pickers) or save them (set pages).
+    if (/^\/(ja|en|zh)\/(diary|clock|math\/(?:arith|factorization))(?:\.data|\/|$)/.test(url.pathname)) {
       secured.headers.set('Cache-Control', 'private, no-store');
     }
     secured.headers.set('X-Content-Type-Options', 'nosniff');

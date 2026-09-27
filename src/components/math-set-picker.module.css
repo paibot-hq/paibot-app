@@ -14,3 +14,4 @@
 .card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .cardTitle { display: block; font-size: 1.05rem; font-weight: 600; }
 .cardDescription { display: block; margin-top: .3rem; font-size: .85rem; color: var(--muted); line-height: 1.5; }
+.cardRecord { display: block; margin-top: .4rem; font-size: .8rem; font-weight: 600; color: var(--accent); font-variant-numeric: tabular-nums; }

@@ -146,5 +146,14 @@ try {
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   assert.deepEqual(errors, []);
   console.log('PASS: math landing links through to the factoring set picker and set 1 (coming soon)');
+  await go('math');
+  await main.getByRole('link', { name: 'Arithmetic' }).click();
+  await page.waitForURL(`${base}/en/math/arith`);
+  await main.getByRole('link', { name: /^Word problem mix/ }).click();
+  await page.waitForURL(`${base}/en/math/arith/3`);
+  await main.getByText('Word problem mix', { exact: true }).waitFor();
+  await main.getByText(/being prepared/).waitFor();
+  assert.deepEqual(errors, []);
+  console.log('PASS: math landing links through to the arithmetic set picker and set 3 (coming soon)');
   console.log('PASS: all 15 tools, no uncaught JS errors');
 } finally { await browser.close(); }
