@@ -10,6 +10,11 @@ export default function Math() {
   const locale = useLocale();
   const t = useTranslations('App.math');
   const td = t as unknown as DynamicT;
+  // Units added through the catalog keep their text under units.<id>, whether
+  // coming soon or published; only the first three units use <id>Link/<id>Summary.
+  const hasUnitText = (id: string) => t.has(`units.${id}.title` as Parameters<typeof t.has>[0]);
+  const unitText = (id: string, part: 'title' | 'summary') =>
+    td(hasUnitText(id) ? `units.${id}.${part}` : `${id}${part === 'title' ? 'Link' : 'Summary'}`);
   return <><PublicHead locale={locale} path="/math" title={`${t('title')} | PAIBOT.app`} description={t('description')} />
     <ToolLayout title={t('title')} centerTitle>
       <p>{t('intro')}</p>
@@ -21,12 +26,12 @@ export default function Math() {
               <li key={unit.id}>
                 <Link href={`/math/${unit.id}`} className={styles.card}>
                   <span className={styles.cardTitle}>
-                    {td(unit.status === 'published' ? `${unit.id}Link` : `units.${unit.id}.title`)}
+                    {unitText(unit.id, 'title')}
                     <span className={styles.badge}>{t(`stages.${unit.stage}`)}</span>
                     {unit.status === 'comingSoon' && <span className={`${styles.badge} ${styles.comingSoon}`}>{t('comingSoon')}</span>}
                   </span>
                   <span className={styles.cardDescription}>
-                    {td(unit.status === 'published' ? `${unit.id}Summary` : `units.${unit.id}.summary`)}
+                    {unitText(unit.id, 'summary')}
                   </span>
                 </Link>
               </li>

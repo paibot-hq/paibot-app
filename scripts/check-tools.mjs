@@ -132,7 +132,9 @@ try {
   await page.screenshot({ path: '/tmp/paibot-clock-mobile.png', fullPage: true });
   assert.deepEqual(errors, []);
   console.log('PASS: clock, local date rollover, fullscreen and mobile width');
+  // A missing translation renders its key (e.g. "App.math.pythagorasLink").
   await go('math');
+  assert.ok(!(await main.textContent()).includes('App.math.'), 'no untranslated keys on the math landing');
   // Anchored: other units' summaries (e.g. quadratics) also mention factoring.
   await main.getByRole('link', { name: /^Factoring/ }).click();
   await page.waitForURL(`${base}/en/math/factorization`);
