@@ -61,3 +61,5 @@ refines (its vinext-specific sections are historical).
 | 問題 | 単元+3桁の通し番号 | `arith-001` |
 
 表示順はセット一覧(`src/lib/math-*-sets.ts`)の並びで決め、IDは変えない。問題IDはセットに依存しない。
+
+問題の生成・検算・盲検レビューから公開までの操作は [問題を追加する手順](docs/plans/math-units.md#9-問題を追加する手順) を参照。

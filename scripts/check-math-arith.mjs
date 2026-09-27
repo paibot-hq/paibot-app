@@ -77,9 +77,9 @@ export function evaluate(expression) {
   return { value: value === 0 ? 0 : value, ...stats };
 }
 
-// Set rules use stable catalog IDs, independent of display order.
+// Rules can be shared by multiple practice sets.
 const onlyOperators = (s, allowed) => [...s.operators].every(operator => allowed.includes(operator));
-const SETS = {
+const RULES = {
   'order-a': (s, word) => !word && s.negatives === 0 && s.numbers.every(n => n >= 1 && n <= 100) && s.operations >= 3 && s.operations <= 4
     && s.operators.size >= 3 && s.parentheses >= 1 && s.value >= 0 && s.value <= 999,
   'four-ops-a': (s, word) => !word && s.negatives >= 1 && s.numbers.every(n => Math.abs(n) <= 50) && s.operations >= 2 && s.operations <= 4
@@ -96,15 +96,17 @@ const SETS = {
 export function validateBank(bank, catalog = ARITH_SETS) {
   assert.equal(bank.version, 1);
   assert.ok(Array.isArray(bank.problems));
+  for (const set of catalog) assert.ok(Object.hasOwn(RULES, set.rule), `Unknown rule: ${set.rule}`);
   const ids = new Set();
   const positions = new Set();
   const expressions = new Set();
-  let negativeAnswers = 0;
+  const negativeAnswers = new Map();
   for (const problem of bank.problems) {
     const { id, setId, position, expression, word, choices, answerIndex } = problem;
     assert.match(id, /^[a-z0-9-]{1,80}$/);
     assert.ok(!ids.has(id), `Duplicate ID: ${id}`); ids.add(id);
-    assert.ok(catalog.some(set => set.id === setId) && Object.hasOwn(SETS, setId), `${id}: unknown set`);
+    const set = catalog.find(set => set.id === setId);
+    assert.ok(set, `${id}: unknown set`);
     assert.ok(Number.isInteger(position) && position >= 1, `${id}: position`);
     assert.ok(!positions.has(`${setId}:${position}`), `${id}: duplicate position`); positions.add(`${setId}:${position}`);
     assert.equal(typeof problem.published, 'boolean');
@@ -113,25 +115,27 @@ export function validateBank(bank, catalog = ARITH_SETS) {
     assert.equal(typeof expression, 'string');
     assert.ok(!expressions.has(expression.replaceAll(' ', '')), `${id}: duplicate expression`); expressions.add(expression.replaceAll(' ', ''));
     const result = evaluate(expression);
-    if (setId === 'four-ops-a' && result.value < 0) negativeAnswers++;
+    if (set.rule === 'four-ops-a' && result.value < 0) negativeAnswers.set(setId, (negativeAnswers.get(setId) ?? 0) + 1);
     if (word !== null) {
       for (const locale of ['ja', 'en', 'zh']) {
         const t = word[locale];
         for (const value of [t?.prompt, t?.unit]) assert.ok(typeof value === 'string' && value.trim() && value.length <= 1000, `${id}: word.${locale}`);
       }
     }
-    assert.ok(SETS[setId](result, word !== null, position), `${id}: "${expression}" does not fit set ${setId}`);
+    assert.ok(RULES[set.rule](result, word !== null, position), `${id}: "${expression}" does not fit set ${setId}`);
     assert.ok(Array.isArray(choices) && choices.length === 4 && choices.every(Number.isSafeInteger), `${id}: four integer choices`);
     assert.equal(new Set(choices).size, 4, `${id}: duplicate choices`);
     const correct = choices.map((choice, index) => choice === result.value ? index : -1).filter(index => index >= 0);
     assert.deepEqual(correct, [answerIndex], `${id}: answerIndex ${answerIndex}, but "${expression}" = ${result.value}`);
   }
-  if (bank.problems.some(problem => problem.setId === 'four-ops-a')) assert.ok(negativeAnswers >= 2, 'Set four-ops-a needs at least two negative answers');
+  for (const set of catalog.filter(set => set.rule === 'four-ops-a')) {
+    if (bank.problems.some(problem => problem.setId === set.id)) assert.ok((negativeAnswers.get(set.id) ?? 0) >= 2, `Set ${set.id} needs at least two negative answers`);
+  }
   return bank;
 }
-export const bank = validateBank(JSON.parse(readFileSync(new URL('../src/data/math-arith.json', import.meta.url), 'utf8')));
+export const bank = validateBank(JSON.parse(readFileSync(process.env.MATH_BANK_ARITH || new URL('../src/data/math-arith.json', import.meta.url), 'utf8')));
 const published = bank.problems.filter(problem => problem.published).length;
 console.log(`PASS: ${bank.problems.length} arithmetic problems (${published} published): set rules, exact integer division, answers re-derived by evaluation`);
 
-export const signedBank = validateBank(JSON.parse(readFileSync(new URL('../src/data/math-signed.json', import.meta.url), 'utf8')), SIGNED_SETS);
+export const signedBank = validateBank(JSON.parse(readFileSync(process.env.MATH_BANK_SIGNED || new URL('../src/data/math-signed.json', import.meta.url), 'utf8')), SIGNED_SETS);
 console.log(`PASS: ${signedBank.problems.length} signed problems (${signedBank.problems.filter(problem => problem.published).length} published): set rules, exact integer division, answers re-derived by evaluation`);

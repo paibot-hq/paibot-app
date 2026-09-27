@@ -6,7 +6,7 @@ import { FACTORIZATION_SETS } from '../src/lib/math-factorization-sets.ts';
 // is expanded here and compared with the problem's own x^2 + ax + b.
 const expand = ([p, q]) => `${p + q},${p * q}`;
 const isRoot = n => Number.isInteger(n) && n !== 0;
-const SETS = {
+const RULES = {
   'trinomial-a': ([p, q]) => [p, q].every(n => Math.abs(n) <= 9) && p !== -q,
   'trinomial-b': ([p, q]) => [p, q].every(n => Math.abs(n) <= 20) && Math.max(Math.abs(p), Math.abs(q)) >= 10 && p !== -q,
   'squares-a': ([p, q]) => q === -p && p >= 2 && p <= 12,
@@ -15,6 +15,7 @@ const SETS = {
 export function validateBank(bank, catalog = FACTORIZATION_SETS) {
   assert.equal(bank.version, 1);
   assert.ok(Array.isArray(bank.problems));
+  for (const set of catalog) assert.ok(Object.hasOwn(RULES, set.rule), `Unknown rule: ${set.rule}`);
   const ids = new Set();
   const positions = new Set();
   const trinomials = new Set();
@@ -22,14 +23,15 @@ export function validateBank(bank, catalog = FACTORIZATION_SETS) {
     const { id, setId, position, p, q, choices, answerIndex } = problem;
     assert.match(id, /^[a-z0-9-]{1,80}$/);
     assert.ok(!ids.has(id), `Duplicate ID: ${id}`); ids.add(id);
-    assert.ok(catalog.some(set => set.id === setId) && Object.hasOwn(SETS, setId), `${id}: unknown set`);
+    const set = catalog.find(set => set.id === setId);
+    assert.ok(set, `${id}: unknown set`);
     assert.ok(Number.isInteger(position) && position >= 1, `${id}: position`);
     assert.ok(!positions.has(`${setId}:${position}`), `${id}: duplicate position`); positions.add(`${setId}:${position}`);
     assert.equal(typeof problem.published, 'boolean');
     assert.match(problem.reviewedAt, /^\d{4}-\d{2}-\d{2}$/);
     assert.equal(new Date(problem.reviewedAt).toISOString().slice(0, 10), problem.reviewedAt);
     assert.ok(isRoot(p) && isRoot(q), `${id}: p and q must be nonzero integers`);
-    assert.ok(SETS[setId]([p, q]), `${id}: (${p}, ${q}) is outside set ${setId}`);
+    assert.ok(RULES[set.rule]([p, q]), `${id}: (${p}, ${q}) is outside set ${setId}`);
     const trinomial = expand([p, q]);
     assert.ok(!trinomials.has(`${setId}:${trinomial}`), `${id}: duplicate trinomial in set`); trinomials.add(`${setId}:${trinomial}`);
     assert.ok(Array.isArray(choices) && choices.length === 4, `${id}: four choices`);
@@ -41,6 +43,6 @@ export function validateBank(bank, catalog = FACTORIZATION_SETS) {
   }
   return bank;
 }
-export const bank = validateBank(JSON.parse(readFileSync(new URL('../src/data/math-factorization.json', import.meta.url), 'utf8')));
+export const bank = validateBank(JSON.parse(readFileSync(process.env.MATH_BANK_FACTORIZATION || new URL('../src/data/math-factorization.json', import.meta.url), 'utf8')));
 const published = bank.problems.filter(problem => problem.published).length;
 console.log(`PASS: ${bank.problems.length} factoring problems (${published} published): set ranges, distinct choices, answers re-derived by expansion`);

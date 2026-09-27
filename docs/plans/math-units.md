@@ -174,3 +174,17 @@ Codex には答えだけでなく、内部の式と解説も伏せ、**公開さ
 - 前提知識の持ち方([problemset.md](problemset.md) の `taxonomy_nodes`・`topic_prerequisites` との関係)。
 - 内容ハッシュ・レビュー結果の保存場所(JSON の原本か、D1 の別テーブルか)。
 - SymPy を CI に導入する時期(段階6より前に必要になるかどうか)。
+
+## 9. 問題を追加する手順
+
+1. `npm run math:generate -- arith add-sub-a --dry-run` で追加予定を確認する。単元は `arith`・`signed`・`factorization`、問題数は `--count N`（既定5）で指定できる。
+2. `npm run math:generate -- arith add-sub-a` で生成する。Antigravity CLI (`agy`) が一時ディレクトリで生成し、同じ単元の既存問題を渡して重複を避ける。ID とセット内 position は最大値の続き、`published: false`、`reviewedAt` は生成日で追加される。`reviewedAt` だけではレビュー済みを保証しない。
+3. 検算は生成コマンドが自動実行する。失敗時は原本を復元し、生成結果を `.math-work/` に残す。dry-run は一時ファイル上で原本と追加問題を合わせて検算する。手動では `npm run check:math-arith`（signed も含む）、`npm run check:math-factorization`。
+4. `npm run math:review -- arith add-sub-a` で Codex CLI (`codex exec`) に盲検レビューを依頼する。setId を省略すると単元の全問題が対象。文章題の内部式と正解情報は渡さない。一致/不一致・文章から立てた式・指摘事項を表で確認し、`.math-work/review-<unit>-<日時>.json` の記録を読む。不一致・指摘ありは終了コード1。修正後は検算とレビューを再実行する。
+5. 人が問題・3言語・選択肢・レビュー結果を確認して `published: true` にする。
+6. `npm run math:import:local` で取り込み、ローカル画面で確認する。
+7. 問題原本と必要な変更をコミットする。`.math-work/` は Git 管理対象外。
+
+事前に `agy` と `codex` が PATH 上で使え、認証済みであることが必要。両CLIは stdin を閉じ、一時ディレクトリで実行する。生成・レビューの指示文は `scripts/math-prompts/` に保存している。
+
+新しいセットを足す場合は `src/lib/math-<unit>-sets.ts` のセット一覧と3言語の翻訳を追加する。`rule` は生成条件と検算条件を指す。同条件の練習Bなら練習Aと同じ `rule` を使える。新条件なら検算スクリプトの条件表と `scripts/math-prompts/<rule>.md` も追加する。既存セットへの追加時は position の続きを使うため、文章題ミックスの奇数/偶数の条件も継続する。
