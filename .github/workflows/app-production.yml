@@ -48,9 +48,12 @@ jobs:
             echo "$runs" | jq -r '.[] | "  \(.conclusion) \(.url)"'
             exit 1
           fi
+      # Releases use the repo's pinned Node; rollback refs from before the pin
+      # have no .tool-versions and keep the Node 22 they were built with.
       - uses: actions/setup-node@v7
         with:
-          node-version: 22
+          node-version-file: ${{ hashFiles('.tool-versions') != '' && '.tool-versions' || '' }}
+          node-version: ${{ hashFiles('.tool-versions') == '' && '22' || '' }}
           cache: npm
       - run: npm ci
       - name: Detect release framework
