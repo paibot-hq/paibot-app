@@ -399,7 +399,7 @@
       "title": "数学問題集",
       "description": "四則演算や因数分解などの数学問題を4択クイズで練習できます。",
       "keywords": "数学 算数 問題集 四則演算 因数分解 クイズ",
-      "intro": "基礎から発展まで、練習したい単元を選んでください。準備中の単元も順次追加します。",
+      "intro": "数学の領域から単元を探せます。難しさの目印を参考に、練習したい単元を選んでください。",
       "arithLink": "四則演算",
       "arithSummary": "たし算・ひき算から計算の順序・文章題まで。やさしいセットから順に練習できます。",
       "factorizationLink": "因数分解",
@@ -466,7 +466,8 @@
       "stages": {
         "elementary": "基礎",
         "middle": "標準",
-        "high": "発展"
+        "high": "発展",
+        "university": "上級"
       },
       "comingSoon": "準備中",
       "units": {
@@ -672,7 +673,68 @@
             "definite-a": "定積分",
             "area-a": "面積"
           }
+        },
+        "complex": {
+          "title": "複素数",
+          "summary": "複素数の計算、二次方程式の虚数解、複素数平面を練習します。",
+          "sets": {
+            "arithmetic-a": "複素数の計算",
+            "quadratic-roots-a": "二次方程式の虚数解",
+            "plane-a": "複素数平面"
+          }
+        },
+        "coordinate-geometry": {
+          "title": "図形と方程式",
+          "summary": "直線や円の方程式と軌跡を練習します。",
+          "sets": {
+            "line-a": "直線の方程式",
+            "circle-a": "円の方程式",
+            "locus-a": "軌跡"
+          }
+        },
+        "vector": {
+          "title": "ベクトル",
+          "summary": "ベクトルの成分と大きさ、内積、なす角を練習します。",
+          "sets": {
+            "components-a": "成分と大きさ",
+            "dot-product-a": "内積",
+            "angle-a": "なす角"
+          }
+        },
+        "matrix": {
+          "title": "行列",
+          "summary": "行列の和と積、2×2 の行列式、逆行列を練習します。",
+          "sets": {
+            "operations-a": "行列の和と積",
+            "determinant-a": "2×2 の行列式",
+            "inverse-a": "逆行列"
+          }
+        },
+        "linear-system": {
+          "title": "連立一次方程式と行列",
+          "summary": "掃き出し法で連立一次方程式を解き、解の個数を調べます。",
+          "sets": {
+            "elimination-a": "掃き出し法",
+            "solutions-a": "解の個数"
+          }
+        },
+        "eigen": {
+          "title": "固有値と固有ベクトル",
+          "summary": "2×2 の行列の固有値と固有ベクトルを求める練習をします。",
+          "sets": {
+            "eigenvalues-a": "2×2 の固有値",
+            "eigenvectors-a": "固有ベクトル"
+          }
         }
+      },
+      "domains": {
+        "number": "数と計算",
+        "algebra": "式と方程式",
+        "functions": "関数",
+        "geometry": "図形と測定",
+        "data": "データと確率",
+        "linear-algebra": "ベクトルと行列",
+        "calculus": "微分積分"
       }
     },
     "about": {

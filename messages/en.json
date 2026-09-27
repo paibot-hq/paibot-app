@@ -399,7 +399,7 @@
       "title": "Math Problem Set",
       "description": "Practice math problems like arithmetic and factoring with multiple-choice quizzes.",
       "keywords": "math arithmetic algebra factoring quiz problem set",
-      "intro": "Choose a topic, from the foundations to advanced math. More problem sets are on the way.",
+      "intro": "Browse units by area of mathematics and use the difficulty badges to choose what to practice.",
       "arithLink": "Arithmetic",
       "arithSummary": "From addition and subtraction to the order of operations and word problems. Start with the easy sets and work up.",
       "factorizationLink": "Factoring",
@@ -466,7 +466,8 @@
       "stages": {
         "elementary": "Foundations",
         "middle": "Intermediate",
-        "high": "Advanced"
+        "high": "Advanced",
+        "university": "Higher"
       },
       "comingSoon": "Coming soon",
       "units": {
@@ -672,7 +673,68 @@
             "definite-a": "Definite integrals",
             "area-a": "Area"
           }
+        },
+        "complex": {
+          "title": "Complex numbers",
+          "summary": "Practice complex arithmetic, non-real roots of quadratic equations, and the complex plane.",
+          "sets": {
+            "arithmetic-a": "Complex arithmetic",
+            "quadratic-roots-a": "Non-real roots of quadratic equations",
+            "plane-a": "The complex plane"
+          }
+        },
+        "coordinate-geometry": {
+          "title": "Coordinate geometry",
+          "summary": "Practice equations of lines and circles, and loci.",
+          "sets": {
+            "line-a": "Equations of lines",
+            "circle-a": "Equations of circles",
+            "locus-a": "Loci"
+          }
+        },
+        "vector": {
+          "title": "Vectors",
+          "summary": "Practice vector components and magnitude, dot products, and angles between vectors.",
+          "sets": {
+            "components-a": "Components & magnitude",
+            "dot-product-a": "Dot products",
+            "angle-a": "Angles between vectors"
+          }
+        },
+        "matrix": {
+          "title": "Matrices",
+          "summary": "Practice matrix addition and multiplication, 2×2 determinants, and inverse matrices.",
+          "sets": {
+            "operations-a": "Matrix addition & multiplication",
+            "determinant-a": "2×2 determinants",
+            "inverse-a": "Inverse matrices"
+          }
+        },
+        "linear-system": {
+          "title": "Linear systems & matrices",
+          "summary": "Solve systems of linear equations using row reduction and determine the number of solutions.",
+          "sets": {
+            "elimination-a": "Row reduction",
+            "solutions-a": "Number of solutions"
+          }
+        },
+        "eigen": {
+          "title": "Eigenvalues & eigenvectors",
+          "summary": "Practice finding eigenvalues and eigenvectors of 2×2 matrices.",
+          "sets": {
+            "eigenvalues-a": "2×2 eigenvalues",
+            "eigenvectors-a": "Eigenvectors"
+          }
         }
+      },
+      "domains": {
+        "number": "Number",
+        "algebra": "Algebra",
+        "functions": "Functions",
+        "geometry": "Geometry & measurement",
+        "data": "Statistics & probability",
+        "linear-algebra": "Vectors & matrices",
+        "calculus": "Calculus"
       }
     },
     "about": {

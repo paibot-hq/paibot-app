@@ -399,7 +399,7 @@
       "title": "数学题库",
       "description": "通过四选一测验练习四则运算、因式分解等数学题目。",
       "keywords": "数学 四则运算 因式分解 测验 题库",
-      "intro": "从基础到进阶，选择想练习的单元。更多题集将陆续上线。",
+      "intro": "按数学领域查找单元，参考难度标记，选择想练习的内容。",
       "arithLink": "四则运算",
       "arithSummary": "从加减法到运算顺序和应用题。从简单的题组开始逐步练习。",
       "factorizationLink": "因式分解",
@@ -466,7 +466,8 @@
       "stages": {
         "elementary": "基础",
         "middle": "中级",
-        "high": "进阶"
+        "high": "进阶",
+        "university": "高等"
       },
       "comingSoon": "准备中",
       "units": {
@@ -672,7 +673,68 @@
             "definite-a": "定积分",
             "area-a": "面积"
           }
+        },
+        "complex": {
+          "title": "复数",
+          "summary": "练习复数运算、一元二次方程的非实根和复平面。",
+          "sets": {
+            "arithmetic-a": "复数运算",
+            "quadratic-roots-a": "一元二次方程的非实根",
+            "plane-a": "复平面"
+          }
+        },
+        "coordinate-geometry": {
+          "title": "直线与圆的方程",
+          "summary": "练习直线方程、圆的方程和轨迹。",
+          "sets": {
+            "line-a": "直线方程",
+            "circle-a": "圆的方程",
+            "locus-a": "轨迹"
+          }
+        },
+        "vector": {
+          "title": "向量",
+          "summary": "练习向量的分量与模、数量积和夹角。",
+          "sets": {
+            "components-a": "分量与模",
+            "dot-product-a": "数量积",
+            "angle-a": "夹角"
+          }
+        },
+        "matrix": {
+          "title": "矩阵",
+          "summary": "练习矩阵加法与乘法、二阶行列式和逆矩阵。",
+          "sets": {
+            "operations-a": "矩阵加法与乘法",
+            "determinant-a": "二阶行列式",
+            "inverse-a": "逆矩阵"
+          }
+        },
+        "linear-system": {
+          "title": "线性方程组与矩阵",
+          "summary": "用行化简法求解线性方程组，并判断解的个数。",
+          "sets": {
+            "elimination-a": "行化简法",
+            "solutions-a": "解的个数"
+          }
+        },
+        "eigen": {
+          "title": "特征值与特征向量",
+          "summary": "练习求二阶矩阵的特征值与特征向量。",
+          "sets": {
+            "eigenvalues-a": "二阶矩阵的特征值",
+            "eigenvectors-a": "特征向量"
+          }
         }
+      },
+      "domains": {
+        "number": "数与运算",
+        "algebra": "代数",
+        "functions": "函数",
+        "geometry": "几何与测量",
+        "data": "统计与概率",
+        "linear-algebra": "向量与矩阵",
+        "calculus": "微积分"
       }
     },
     "about": {

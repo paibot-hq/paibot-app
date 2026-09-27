@@ -42,7 +42,11 @@ unit, set, publication status and position. Unit-specific data lives in a JSON
 convert payloads for display. All render through
 `src/components/math-set-picker.tsx` and `math-set-quiz.tsx`.
 
-`src/lib/math-catalog.ts` defines unit order, school stages and publication status.
+`src/lib/math-catalog.ts` defines mathematical domains (`domain`), difficulty
+badges (`stage`: elementary/middle/high/university = foundations/intermediate/advanced/higher),
+unit order and publication status. `/math` groups units by domain, then difficulty,
+keeping catalog order within each difficulty. Grade mappings belong in separate
+country/region curriculum tables; stages are not school assignments.
 `/math` renders this catalog; coming-soon units share `math-unit-index.tsx` and
 `math-unit-set.tsx`, which show set names and an empty quiz. Their pages are
 noindex and excluded from publicPaths/the sitemap. Published units retain their

@@ -177,6 +177,21 @@ try {
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   assert.deepEqual(errors, []);
   console.log('PASS: coming-soon fractions unit lists sets and shows the preparation message');
+  await go('math');
+  assert.deepEqual(await main.getByRole('heading', { level: 2 }).allTextContents(), [
+    'Number', 'Algebra', 'Functions', 'Geometry & measurement',
+    'Statistics & probability', 'Vectors & matrices', 'Calculus',
+  ]);
+  await main.getByRole('link', { name: /^Matrices Higher Coming soon/ }).click();
+  await page.waitForURL(`${base}/en/math/matrix`);
+  for (const name of ['Matrix addition & multiplication', '2×2 determinants', 'Inverse matrices']) {
+    await main.getByRole('link', { name: `${name} Coming soon`, exact: true }).waitFor();
+  }
+  assert.equal(await page.title(), 'Matrices | PAIBOT.app');
+  assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'noindex, nofollow');
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  assert.deepEqual(errors, []);
+  console.log('PASS: math domains and coming-soon matrices unit with all three sets');
   await page.setViewportSize({ width: 1100, height: 900 });
   // Fixed to a month whose holidays exercise all three kinds at once.
   await page.clock.setFixedTime(new Date('2026-09-26T03:00:00Z'));
