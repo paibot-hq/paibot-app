@@ -7,7 +7,8 @@ on:
     paths-ignore: ['**/*.md', 'docs/**', 'infra/**', '.github/workflows/infra-*.yml']
 concurrency:
   group: app-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  # Superseded PR runs can stop; a main run may be mid-migration or mid-deploy.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
   verify:
     runs-on: ubuntu-latest
@@ -37,7 +38,7 @@ jobs:
       - run: npm run check:build-targets
       # Only the browser download is cached; install still runs so the OS
       # packages it needs land on the fresh runner either way.
-      - uses: actions/cache@v4
+      - uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
@@ -86,16 +87,21 @@ jobs:
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
         run: |
           node -e 'console.log(JSON.stringify({CLERK_PUBLISHABLE_KEY:process.env.CLERK_PUBLISHABLE_KEY,CLERK_SECRET_KEY:process.env.CLERK_SECRET_KEY}))' | npx wrangler secret bulk --config build/server/wrangler.json
-          npm run deploy
-      - uses: actions/cache@v4
+          npm run deploy -- --var APP_VERSION:${{ github.sha }}
+      - uses: actions/cache@v6
         with:
           path: ~/.cache/ms-playwright
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
-      # A brand-new route can 404 for a few seconds on edge nodes that haven't
-      # picked up this deploy yet, even though the deploy itself has finished.
-      - name: Wait for edge propagation
-        run: sleep 15
+      # A brand-new route can 404 on edge nodes that still serve the previous
+      # version, so wait until dev reports this commit rather than sleeping.
+      - name: Wait for the deploy to reach the edge
+        env:
+          CHECK_BROWSER_BASE_URL: https://dev.paibot.app
+          EXPECTED_APP_VERSION: ${{ github.sha }}
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+        run: node scripts/wait-for-deploy.mjs
       - name: Smoke test deployed dev through Access
         env:
           CHECK_BROWSER_BASE_URL: https://dev.paibot.app
