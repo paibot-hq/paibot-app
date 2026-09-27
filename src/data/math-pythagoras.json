@@ -5,7 +5,7 @@
       "id": "pythagoras-001",
       "setId": "sides-a",
       "position": 1,
-      "published": false,
+      "published": true,
       "reviewedAt": "2026-09-27",
       "figure": {
         "points": {
@@ -36,7 +36,7 @@
       "id": "pythagoras-002",
       "setId": "sides-a",
       "position": 2,
-      "published": false,
+      "published": true,
       "reviewedAt": "2026-09-27",
       "figure": {
         "points": {
@@ -67,7 +67,7 @@
       "id": "pythagoras-003",
       "setId": "sides-a",
       "position": 3,
-      "published": false,
+      "published": true,
       "reviewedAt": "2026-09-27",
       "figure": {
         "points": {
@@ -98,7 +98,7 @@
       "id": "pythagoras-004",
       "setId": "sides-a",
       "position": 4,
-      "published": false,
+      "published": true,
       "reviewedAt": "2026-09-27",
       "figure": {
         "points": {
@@ -129,7 +129,7 @@
       "id": "pythagoras-005",
       "setId": "sides-a",
       "position": 5,
-      "published": false,
+      "published": true,
       "reviewedAt": "2026-09-27",
       "figure": {
         "points": {
