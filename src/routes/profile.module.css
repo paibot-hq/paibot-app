@@ -1,0 +1,13 @@
+.profile { width: min(100%, 560px); margin: 0 auto; }
+.muted { color: var(--muted); font-size: .85rem; line-height: 1.7; }
+.field { display: grid; gap: .5rem; padding: 1.2rem 0; border-bottom: 1px solid var(--line); }
+.field > label { font-weight: 600; font-size: .95rem; }
+.row { display: flex; align-items: center; gap: .8rem; flex-wrap: wrap; }
+.profile input, .profile select { font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: .6rem .8rem; min-width: 190px; max-width: 100%; }
+.profile button { font: inherit; font-size: .85rem; cursor: pointer; border: 1px solid var(--line); border-radius: 6px; padding: .5rem .9rem; background: var(--surface); color: var(--text); }
+.profile button.primary { background: var(--text); color: var(--bg); border-color: var(--text); }
+.profile button:disabled, .profile input:disabled, .profile select:disabled { opacity: .5; cursor: default; }
+.profile button:focus-visible, .profile input:focus-visible, .profile select:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.status { min-height: 1.4em; margin-top: 1rem; font-size: .85rem; color: var(--muted); }
+.status [role="alert"] { color: var(--error); }
+.empty { text-align: center; padding: 2.5rem 1rem; color: var(--muted); line-height: 1.8; }

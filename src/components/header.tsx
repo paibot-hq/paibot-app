@@ -1,18 +1,29 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useFetcher } from "react-router";
 import { Link } from "../i18n/navigation";
 import { Show, UserButton } from "@clerk/react-router";
+import { useProfileData } from "../routes/locale";
 import { type Locale } from "../i18n/routing";
 import { useTranslations, useLocale } from "use-intl";
 import { usePathname } from "../i18n/navigation";
 import { usePreferences } from "./providers";
+
+const languageNames: Record<Locale, string> = { ja: "日本語", en: "English", zh: "简体中文" };
 
 export default function Header() {
   const language = useLocale() as Locale;
   const pathname = usePathname();
   const t = useTranslations("App");
   const { resolvedTheme, toggleTheme } = usePreferences();
+  const { signedIn } = useProfileData();
+  const saveLanguage = useFetcher();
+  // The switch itself is the setting, so remember it. The page navigates
+  // immediately either way; this just rides along.
+  const chooseLanguage = (value: Locale) => {
+    if (signedIn && value !== language) saveLanguage.submit({ intent: "locale", value }, { method: "post", action: `/${language}/profile` });
+  };
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const languageButtonRef = useRef<HTMLButtonElement>(null);
@@ -52,7 +63,16 @@ export default function Header() {
           <Link className="auth-link" href={`/sign-up?redirect_url=${encodeURIComponent(`/${language}${pathname === "/" ? "" : pathname}`)}`}>{t("signUp")}</Link>
         </Show>
         <Show when="signed-in">
-          <UserButton />
+          <UserButton>
+            <UserButton.MenuItems>
+              {/* Clerk renders this link itself, so it cannot use the
+                  locale-aware Link - spell the locale out. */}
+              <UserButton.Link href={`/${language}/profile`} label={t("profile.menu")} labelIcon={
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" aria-hidden="true">
+                  <circle cx="12" cy="8" r="4" /><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5" />
+                </svg>} />
+            </UserButton.MenuItems>
+          </UserButton>
         </Show>
         <div className="language-menu" ref={menuRef}>
           <button ref={languageButtonRef} className="language-toggle" type="button" onClick={() => setMenuOpen(!menuOpen)} aria-label={t("languageSelect")} aria-expanded={menuOpen} aria-controls="language-options">
@@ -62,9 +82,9 @@ export default function Header() {
             </svg>
           </button>
           <div className="language-options" id="language-options" role="menu" hidden={!menuOpen}>
-            <Link href={pathname} locale="ja" role="menuitem" aria-current={language === "ja" ? "page" : undefined} onClick={() => setMenuOpen(false)}>日本語</Link>
-            <Link href={pathname} locale="en" role="menuitem" aria-current={language === "en" ? "page" : undefined} onClick={() => setMenuOpen(false)}>English</Link>
-            <Link href={pathname} locale="zh" role="menuitem" aria-current={language === "zh" ? "page" : undefined} onClick={() => setMenuOpen(false)}>简体中文</Link>
+            {(["ja", "en", "zh"] as const).map(value =>
+              <Link key={value} href={pathname} locale={value} role="menuitem" aria-current={language === value ? "page" : undefined}
+                onClick={() => { setMenuOpen(false); chooseLanguage(value); }}>{languageNames[value]}</Link>)}
           </div>
         </div>
         <button className="theme-toggle" type="button" onClick={toggleTheme} aria-pressed={resolvedTheme === "dark"} aria-label={resolvedTheme === "dark" ? t("themeToLight") : t("themeToDark")}>

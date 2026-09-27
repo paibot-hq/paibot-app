@@ -32,6 +32,12 @@ jobs:
       - run: npm run math:import:local
       - run: npm run typecheck
       - run: npm run check:build-targets
+      # Only the browser download is cached; install still runs so the OS
+      # packages it needs land on the fresh runner either way.
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
       - run: npm run check:access
       - run: npm run check:i18n
@@ -78,6 +84,10 @@ jobs:
         run: |
           node -e 'console.log(JSON.stringify({CLERK_PUBLISHABLE_KEY:process.env.CLERK_PUBLISHABLE_KEY,CLERK_SECRET_KEY:process.env.CLERK_SECRET_KEY}))' | npx wrangler secret bulk --config build/server/wrangler.json
           npm run deploy
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
       # A brand-new route can 404 for a few seconds on edge nodes that haven't
       # picked up this deploy yet, even though the deploy itself has finished.
@@ -89,4 +99,6 @@ jobs:
           CHECK_SITE_URL: https://dev.paibot.app
           CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
-        run: npm run check:smoke
+        run: |
+          npm run check:smoke
+          npm run check:quiz-browser

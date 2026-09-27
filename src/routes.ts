@@ -2,13 +2,14 @@ import { index, route, type RouteConfig } from '@react-router/dev/routes';
 import { publicPaths } from './lib/seo';
 export default [
   index('routes/redirect.ts'),
-  ...[...publicPaths.filter(path => path !== '').map(path => path.slice(1)), 'diary', 'sign-in/*', 'sign-up/*']
+  ...[...publicPaths.filter(path => path !== '').map(path => path.slice(1)), 'diary', 'profile', 'sign-in/*', 'sign-up/*']
     .map(path => route(path, 'routes/redirect.ts', { id: `locale-redirect/${path}` })),
   route('api/quiz', 'routes/api.quiz.ts'),
   route('sitemap.xml', 'routes/sitemap.ts'),
   route(':locale', 'routes/locale.tsx', [
     index('routes/home.tsx'),
     route('diary', 'routes/diary.tsx'),
+    route('profile', 'routes/profile.tsx'),
     route('math', 'routes/math.tsx'),
     route('math/factorization', 'routes/math-factorization-index.tsx'),
     route('math/factorization/:setId', 'routes/math-factorization.tsx'),
@@ -29,6 +30,8 @@ export default [
     route('dice', 'routes/dice.tsx'),
     route('reaction', 'routes/reaction.tsx'),
     route('timing', 'routes/timing.tsx'),
+    route('calendar', 'routes/calendar.tsx'),
+    route('life-calendar', 'routes/life-calendar.tsx'),
     route('clock', 'routes/clock.tsx'),
     route('age', 'routes/age.tsx'),
     route('sign-in/*', 'routes/sign-in.tsx'),

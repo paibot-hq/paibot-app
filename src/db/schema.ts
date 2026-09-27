@@ -23,6 +23,16 @@ export const clockPreferences = sqliteTable("clock_preferences", {
   timeZone: text("time_zone").notNull(),
 });
 
+// Every column is nullable: null means "not set", so clearing the birth date
+// cannot take the language and theme down with it.
+export const userProfiles = sqliteTable("user_profiles", {
+  userId: text("user_id").primaryKey(),
+  birthDate: text("birth_date"),
+  locale: text("locale"),
+  theme: text("theme"),
+  updatedAt: text("updated_at").notNull(),
+});
+
 export const quizQuestions = sqliteTable('quiz_questions', {
   id: text('id').primaryKey(),
   category: text('category').notNull(),

@@ -81,6 +81,11 @@ jobs:
           node -e 'const c=require("./"+process.argv[1]); if(c.name!=="paibot-app" || c.vars?.SITE_INDEXABLE!=="true" || c.vars?.SITE_URL!=="https://paibot.app") throw Error("Wrong production target or indexing configuration")' "$config"
           echo "config=$config" >> "$GITHUB_OUTPUT"
       - if: steps.framework.outputs.react_router == 'true'
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - if: steps.framework.outputs.react_router == 'true'
         run: npx playwright install --with-deps chromium
       - if: steps.framework.outputs.react_router == 'true'
         run: npm run check:i18n
@@ -130,7 +135,9 @@ jobs:
           CHECK_BROWSER_BASE_URL: https://paibot.app
           CHECK_SITE_URL: https://paibot.app
           CHECK_SITE_INDEXABLE: 'true'
-        run: npm run check:smoke
+        run: |
+          npm run check:smoke
+          if [ -f scripts/check-quiz-browser.mjs ]; then npm run check:quiz-browser; fi
       - name: Tag successful new release
         if: inputs.ref == ''
         env:

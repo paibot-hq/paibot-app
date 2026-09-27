@@ -26,33 +26,40 @@
     {
       "idx": 3,
       "version": "6",
+      "when": 1790427918024,
+      "tag": "20260926130518_add_user_profiles",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "6",
       "when": 1790451034457,
       "tag": "20260926193034_add_quiz_questions",
       "breakpoints": true
     },
     {
-      "idx": 4,
+      "idx": 5,
       "version": "6",
       "when": 1790508096641,
       "tag": "20260927112136_add_math_factorization_problems",
       "breakpoints": true
     },
     {
-      "idx": 5,
+      "idx": 6,
       "version": "6",
       "when": 1790508884967,
       "tag": "20260927113444_add_math_arith_problems",
       "breakpoints": true
     },
     {
-      "idx": 6,
+      "idx": 7,
       "version": "6",
       "when": 1790510529241,
       "tag": "20260927120209_add_math_attempts",
       "breakpoints": true
     },
     {
-      "idx": 7,
+      "idx": 8,
       "version": "6",
       "when": 1790511110734,
       "tag": "20260927121150_add_math_problems",

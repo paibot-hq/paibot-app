@@ -11,7 +11,8 @@ Node.js 22 or later:
 npm ci
 cp .dev.vars.example .dev.vars # only when no local file exists
 # Set development Clerk keys (pk_test_ / sk_test_).
-npm run db:migrate:local       # once, creates the local D1 tables (favorites, ...)
+npm run db:migrate:local       # creates/updates local D1 tables
+npm run quiz:import:local      # imports the reviewed quiz bank
 npm run dev
 ```
 
@@ -52,23 +53,26 @@ so write schema changes to stay compatible with the previous release.
 
 ```sh
 npm run typecheck
+npm run check:quiz             # quiz bank structure and review metadata
 npm run check:build-targets     # production/dev builds and config assertions
 npx playwright install chromium # first run only
 npm run check:access            # redirects cannot leak Access headers
+npm run check:life-calendar     # calendar arithmetic: leap days and week boundaries
 npm run check:i18n              # starts/stops its own local Workers
 npm run check:whois             # starts/stops its own local preview + fake WHOIS server
 npm run preview                # port 3003; keep running in another terminal
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:smoke
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:tools
+CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:quiz-browser
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:auth
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:favorites
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:diary
 ```
 
 - `check:i18n`: SSR/SEO/robots/sitemap with both dev and production indexing policies.
-- `check:smoke`: 51 public URLs and 12 non-indexable URLs, redirects, headers,
+- `check:smoke`: 54 public URLs and 12 non-indexable URLs, redirects, headers,
   Unicode input, locale navigation, persisted theme, Clerk forms and CSP violations.
-- `check:tools`: one meaningful flow for each of 14 tools. IP responses are mocked
+- `check:tools`: one meaningful flow for each of 15 tools. IP responses are mocked
   to verify both protocols and partial failure without requiring runner IPv6. The
   domain lookup tool only exercises client-side input rejection here (no socket
   opened) — see `check:whois` for the real WHOIS lookup.
@@ -119,3 +123,43 @@ The development workflow verifies then deploys on main. Production deployment is
 manual (`App (production)`), with post-deploy smoke tests and release tagging.
 The production workflow also supports rollback refs from the old vinext app.
 See [cutover checklist](docs/plans/react-router-cutover.md) before releasing.
+
+The life calendar (`/:locale/life-calendar`) calculates weeks from a birth date
+entirely in the browser, without saving the date. Each row contains 52 weeks;
+the selected range is a display horizon, not a life expectancy estimate.
+
+## Quiz
+
+`/:locale/quiz` offers easy general trivia: five randomly selected questions per
+round, four choices, immediate feedback, explanations and mistake review.
+No account or AI API key is needed. Initially there are ten questions in ja/en/zh.
+
+`src/data/quiz.json` is the version-controlled authoring source. Each entry has a
+stable ID, category, four choices and one answer index shared across translations,
+an explanation, source URL and review date. Create questions during development;
+check the answer, distractors and all translations against the cited source before
+publishing. `npm run check:quiz` validates structure and metadata, **not factual
+truth**. Never mark an unreviewed draft as published.
+
+```sh
+npm run check:quiz
+npm run db:migrate:local
+npm run quiz:import:local
+```
+
+Drizzle defines `quiz_questions`; Wrangler alone applies its schema migration.
+The importer validates the entire source before executing idempotent upserts.
+To retire a question, retain its ID and set `published: false`, then import;
+omitting an ID does not delete it from D1. Imports only modify the quiz table.
+Dev CI migrates/imports before deploying, and the manual production workflow does
+the same (older rollback refs without an importer skip the import).
+
+The public `GET /api/quiz?locale=ja` endpoint samples five published IDs from D1
+and returns only those questions in the requested language, with `no-store`.
+The JSON source is not bundled in the browser or Worker. Random ID sorting scans
+the published index; this is suitable for thousands of questions, not an unlimited
+bank. The casual quiz scores on the client and includes answers in the response;
+it is not intended for ranked competitions. A failed or incomplete DB response
+shows a retry message rather than an empty quiz. No player answers are stored.
+`check:quiz-browser` covers real D1 rounds, scoring, retry, localization, request
+failure recovery and mobile layout. Local verification does not deploy anything.

@@ -4,7 +4,7 @@ import { siteOrigin, isIndexable } from '../src/lib/seo.server';
 import { buildContentSecurityPolicy } from '../src/lib/security-headers.server';
 
 const handle = createRequestHandler(() => import('virtual:react-router/server-build'), import.meta.env.MODE);
-const AUTH_PATH = new RegExp(`^/(${locales.join('|')})/(sign-in|sign-up|diary)(/|\\.data$|$)`);
+const AUTH_PATH = new RegExp(`^/(${locales.join('|')})/(sign-in|sign-up|diary|profile)(/|\\.data$|$)`);
 const csp = buildContentSecurityPolicy();
 
 export default {
@@ -24,7 +24,7 @@ export default {
       secured.headers.set('X-Robots-Tag', 'noindex');
     }
     // Math unit pages carry a signed-in user's scores (set pickers) or save them (set pages).
-    if (/^\/(ja|en|zh)\/(diary|clock|math\/(?:arith|factorization))(?:\.data|\/|$)/.test(url.pathname)) {
+    if (/^\/(ja|en|zh)\/(diary|clock|profile|life-calendar|math\/(?:arith|factorization))(?:\.data|\/|$)/.test(url.pathname)) {
       secured.headers.set('Cache-Control', 'private, no-store');
     }
     secured.headers.set('X-Content-Type-Options', 'nosniff');

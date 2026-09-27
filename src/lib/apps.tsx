@@ -62,6 +62,13 @@ function WcIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function QuizIcon(props: SVGProps<SVGSVGElement>) {
+  return <svg viewBox="0 0 24 24" {...props}>
+    <circle cx="12" cy="12" r="9" />
+    <path d="M9 9a3 3 0 0 1 6 0c0 2-3 2-3 4M12 17h.01" />
+  </svg>;
+}
+
 function ArithIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -77,6 +84,15 @@ function AgeIcon(props: SVGProps<SVGSVGElement>) {
     <svg viewBox="0 0 24 24" {...props}>
       <rect x="4" y="5" width="16" height="15" rx="2" />
       <path d="M4 9h16M8 3v4M16 3v4" />
+    </svg>
+  );
+}
+
+function CalendarIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="4" y="5" width="16" height="15" rx="2" />
+      <path d="M4 9h16M8 3v4M16 3v4M8 13h3v3H8z" />
     </svg>
   );
 }
@@ -169,6 +185,7 @@ function MathIcon(props: SVGProps<SVGSVGElement>) {
 export const apps: AppEntry[] = [
   // 学習 / Study
   { slug: "math", href: "/math", category: "study", status: "published", messageKey: "math", icon: MathIcon },
+  { slug: "quiz", href: "/quiz", category: "game", status: "published", messageKey: "quiz", icon: QuizIcon },
   { slug: "arith", href: "/arith", category: "study", status: "published", messageKey: "arith", icon: ArithIcon },
 
   // 開発 / Dev
@@ -191,6 +208,8 @@ export const apps: AppEntry[] = [
   { slug: "timing", href: "/timing", category: "game", status: "published", messageKey: "timing", icon: TimingIcon },
 
   // 日常 / Daily
+  { slug: "calendar", href: "/calendar", category: "daily", status: "published", messageKey: "calendar", icon: CalendarIcon },
+  { slug: "life-calendar", href: "/life-calendar", category: "daily", status: "published", messageKey: "lifeCalendar", icon: AgeIcon },
   { slug: "clock", href: "/clock", category: "daily", status: "published", messageKey: "clock", icon: TimingIcon },
   { slug: "diary", href: "/diary", category: "daily", status: "published", messageKey: "diary", icon: WcIcon },
   { slug: "age", href: "/age", category: "daily", status: "published", messageKey: "age", icon: AgeIcon },
