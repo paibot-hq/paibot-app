@@ -203,10 +203,6 @@ try {
     'Number', 'Algebra', 'Functions', 'Geometry & measurement',
     'Statistics & probability', 'Sets & logic', 'Vectors & matrices', 'Calculus',
   ]);
-  // Domains without playable units start collapsed; open this one to reach its units.
-  const linearAlgebra = main.locator('details', { has: page.getByRole('heading', { name: 'Vectors & matrices' }) });
-  assert.equal(await linearAlgebra.getAttribute('open'), null);
-  await linearAlgebra.locator('summary').click();
   await main.getByRole('link', { name: /^Matrices Higher Coming soon/ }).click();
   await page.waitForURL(`${base}/en/math/matrix`);
   for (const name of ['Matrix addition & multiplication', '2×2 determinants', 'Inverse matrices']) {

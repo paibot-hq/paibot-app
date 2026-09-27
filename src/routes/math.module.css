@@ -12,11 +12,7 @@
 .cardDescription { display: block; margin-top: .3rem; font-size: .85rem; color: var(--muted); line-height: 1.5; }
 
 .domain { margin: 1.6rem auto 0; width: min(100%, 420px); }
-.domain summary { display: flex; align-items: baseline; gap: .6rem; cursor: pointer; list-style: none; }
-.domain summary::-webkit-details-marker { display: none; }
-.domain summary::before { content: "▸"; color: var(--muted); font-size: .8rem; transition: transform .15s ease; }
-.domain[open] summary::before { transform: rotate(90deg); }
-.domain summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-radius: var(--radius); }
+.domainHeading { display: flex; align-items: baseline; gap: .6rem; }
 .domain h2 { margin: 0; font-size: 1.15rem; }
 .domainCount { color: var(--muted); font-size: .8rem; }
 .badge { display: inline-block; margin-left: .6rem; padding: .1rem .4rem; border: 1px solid var(--line); border-radius: var(--radius); font-size: .7rem; font-weight: 400; color: var(--muted); vertical-align: middle; }
