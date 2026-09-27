@@ -264,12 +264,12 @@ export type HomeCategoryTile = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
-// The homepage only teases 4 of the 6 /apps categories — "dev" and
-// "network" are left out for now to keep this from getting crowded. Each
-// tile links to that category's section on /apps via an anchor (e.g. #study).
+// Every category has its own landing page linked from the homepage.
 export const HOME_CATEGORY_TILES: HomeCategoryTile[] = [
   { category: "daily", messageKey: "daily", icon: AgeIcon },
   { category: "game", messageKey: "game", icon: GameIcon },
   { category: "utility", messageKey: "utility", icon: UtilityIcon },
   { category: "study", messageKey: "study", icon: StudyIcon },
+  { category: "dev", messageKey: "dev", icon: JsonIcon },
+  { category: "network", messageKey: "network", icon: CidrIcon },
 ];

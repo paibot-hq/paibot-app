@@ -205,7 +205,9 @@
       "noResults": "No matching apps found.",
       "comingSoon": "Coming soon",
       "favorite": "Add to favorites",
-      "unfavorite": "Remove from favorites"
+      "unfavorite": "Remove from favorites",
+      "allApps": "All apps",
+      "categoryNavigation": "App categories"
     },
     "categories": {
       "study": "Study",
@@ -217,10 +219,30 @@
     },
     "home": {
       "tryIt": "Give one a try.",
-      "study": { "description": "Math drills, certification prep, and more" },
-      "utility": { "description": "Character count, password generator, and more" },
-      "game": { "description": "Reaction and timing mini-games" },
-      "daily": { "description": "Birth year lookup and more" }
+      "study": {
+        "description": "Practice calculations and individual topics with arithmetic drills and math problem sets.",
+        "summary": "Calculations and math topics"
+      },
+      "utility": {
+        "description": "Count characters, measure time, and generate passwords with tools for small tasks.",
+        "summary": "Character counts and passwords"
+      },
+      "game": {
+        "description": "Quizzes, reaction tests, timing challenges, and other quick games.",
+        "summary": "Quizzes, reaction, and timing"
+      },
+      "daily": {
+        "description": "Calendars, clocks, a diary, and other apps for everyday life.",
+        "summary": "Calendars, clocks, and a diary"
+      },
+      "dev": {
+        "description": "Format JSON and work with Base64 and URL encoding using tools for development.",
+        "summary": "JSON formatting and data conversion"
+      },
+      "network": {
+        "description": "Check IP addresses, look up domains, and calculate CIDR subnets.",
+        "summary": "IP, domain, and subnet tools"
+      }
     },
     "ip": {
       "title": "IP Address Check",
@@ -260,6 +282,32 @@
         "unspecified": "Unspecified",
         "public": "Public"
       }
+    },
+    "footer": {
+      "label": "Company information",
+      "supporter": "Supporter",
+      "terms": "Terms of Service",
+      "privacy": "Privacy Policy",
+      "commerce": "Commercial transactions notice"
+    },
+    "supporter": {
+      "title": "Supporter plan",
+      "description": "A monthly plan that supports the development of PAIBOT.app. Basic features are free.",
+      "lead": "Support the development of PAIBOT.app. Basic features are free. Supporters receive benefits such as early access to features, higher usage limits, and exclusive features.",
+      "planName": "Supporter",
+      "price": "¥{price} per month (tax included)",
+      "perkEarlyFeatures": "Early access to features",
+      "perkHigherLimits": "Higher usage limits",
+      "perkExclusiveFeatures": "Access to exclusive features",
+      "autoRenew": "Renews automatically every month until you cancel.",
+      "cancel": "Cancel at any time; you keep access until the end of the period you have paid for.",
+      "refund": "Payments already made are not refunded.",
+      "signUp": "Become a Supporter",
+      "signUpComingSoon": "Sign-up is coming soon",
+      "legalLead": "Please review before signing up:",
+      "legalCommerce": "Commercial transactions notice",
+      "legalTerms": "Terms of Service",
+      "legalPrivacy": "Privacy Policy"
     },
     "domain": {
       "title": "Domain Lookup (WHOIS)",
@@ -427,8 +475,8 @@
       "totalLabel": "Total"
     },
     "math": {
-      "title": "Math Problem Set",
-      "description": "Practice math problems like arithmetic and factoring with multiple-choice quizzes.",
+      "title": "Math",
+      "description": "Practice arithmetic, factoring, and other math topics, one topic at a time.",
       "keywords": "math arithmetic algebra factoring quiz problem set",
       "intro": "Browse units by area of mathematics and use the difficulty badges to choose what to practice.",
       "arithLink": "Arithmetic",
@@ -438,7 +486,7 @@
       "quiz": {
         "chooseSet": "Choose a problem set to try.",
         "setComingSoon": "This problem set is being prepared. Check back soon.",
-        "backToMath": "Math Problem Set",
+        "backToMath": "Math",
         "backToSets": "Choose a different set",
         "progress": "{current} / {total}",
         "answer": "Answer",
@@ -1031,8 +1079,13 @@
     },
     "about": {
       "eyebrow": "About",
-      "title": "About paibot.app",
-      "body": "paibot.app is the application surface for PAIBOT. Corporate information stays on paibot.co.jp; this domain is reserved for software, hosted tools, and experiments that are meant to be used."
+      "title": "About PAIBOT.app",
+      "body": "PAIBOT.app is a collection of browser-based apps and tools for everyday tasks and learning.",
+      "toolsTitle": "For everyday tasks and regular practice",
+      "toolsBody": "Count characters, convert data, use a calendar or stopwatch, or practice arithmetic and mathematics. Browse the app list to find a tool for what you want to do.",
+      "operatorTitle": "Who runs PAIBOT.app",
+      "operatorBody": "PAIBOT.app is developed and operated by {seller}. For the conditions of use and how we handle personal information, see the Terms of Service and Privacy Policy linked at the bottom of this page.",
+      "browseApps": "Browse apps"
     },
     "languageSelect": "Select language",
     "themeToLight": "Switch to light mode",

@@ -42,7 +42,8 @@
     "math:generate": "node scripts/math-generate.mjs",
     "math:review": "node scripts/math-review.mjs",
     "check:math-pythagoras": "node scripts/check-math-pythagoras.mjs",
-    "check:cidr": "node scripts/check-cidr.mjs"
+    "check:cidr": "node scripts/check-cidr.mjs",
+    "check:legal": "node scripts/check-legal.mjs"
   },
   "dependencies": {
     "@clerk/localizations": "^4.16.1",

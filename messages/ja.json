@@ -205,22 +205,44 @@
       "noResults": "該当するアプリが見つかりませんでした。",
       "comingSoon": "準備中",
       "favorite": "お気に入りに追加",
-      "unfavorite": "お気に入りから削除"
+      "unfavorite": "お気に入りから削除",
+      "allApps": "すべてのアプリ",
+      "categoryNavigation": "アプリのカテゴリ"
     },
     "categories": {
       "study": "学習",
       "dev": "開発ツール",
-      "utility": "ユーティリティ",
+      "utility": "便利ツール",
       "network": "ネットワーク",
       "game": "ゲーム",
       "daily": "日常"
     },
     "home": {
       "tryIt": "まずは、使ってみましょう。",
-      "study": { "description": "算数ドリルや資格試験対策など" },
-      "utility": { "description": "文字数カウント・パスワード生成など" },
-      "game": { "description": "反応速度・タイミングなどのミニゲーム" },
-      "daily": { "description": "生年早見表など" }
+      "study": {
+        "description": "計算練習や単元ごとの数学で、基礎から学べます。",
+        "summary": "計算練習・単元ごとの数学"
+      },
+      "utility": {
+        "description": "文字を数える、時間を測る、パスワードを作る。小さな作業に使えるツールです。",
+        "summary": "文字数カウント・パスワード生成"
+      },
+      "game": {
+        "description": "クイズや反応速度、タイミングなど、気軽に遊べるミニゲームです。",
+        "summary": "クイズ・反応速度・タイミング"
+      },
+      "daily": {
+        "description": "カレンダーや時計、日記など、毎日の暮らしに使えるアプリです。",
+        "summary": "カレンダー・時計・日記など"
+      },
+      "dev": {
+        "description": "JSON整形やBase64・URLエンコードなど、開発作業に使えるツールです。",
+        "summary": "JSON整形・データ変換"
+      },
+      "network": {
+        "description": "IPアドレスの確認、ドメイン調査、CIDR計算などのネットワークツールです。",
+        "summary": "IP確認・ドメイン調査"
+      }
     },
     "ip": {
       "title": "IPアドレス確認",
@@ -260,6 +282,32 @@
         "unspecified": "未指定アドレス",
         "public": "グローバル"
       }
+    },
+    "footer": {
+      "label": "運営情報",
+      "supporter": "サポーター",
+      "terms": "利用規約",
+      "privacy": "プライバシーポリシー",
+      "commerce": "特定商取引法に基づく表記"
+    },
+    "supporter": {
+      "title": "サポータープラン",
+      "description": "PAIBOT.app の開発を支援する月額プランです。基本機能は無料で利用できます。",
+      "lead": "PAIBOT.app の開発を支援するプランです。基本機能は無料。サポーターには先行機能、上限緩和、限定機能などを提供します。",
+      "planName": "Supporter",
+      "price": "月額{price}円（税込）",
+      "perkEarlyFeatures": "先行機能の利用",
+      "perkHigherLimits": "利用上限の緩和",
+      "perkExclusiveFeatures": "限定機能の利用",
+      "autoRenew": "解約するまで、毎月自動で更新されます。",
+      "cancel": "いつでも解約できます。解約後も、お支払い済みの期間の終了までご利用いただけます。",
+      "refund": "お支払い済みの料金は返金いたしません。",
+      "signUp": "サポーターになる",
+      "signUpComingSoon": "お申し込みは準備中です",
+      "legalLead": "お申し込みの前にご確認ください:",
+      "legalCommerce": "特定商取引法に基づく表記",
+      "legalTerms": "利用規約",
+      "legalPrivacy": "プライバシーポリシー"
     },
     "domain": {
       "title": "ドメイン確認(WHOIS)",
@@ -427,8 +475,8 @@
       "totalLabel": "合計"
     },
     "math": {
-      "title": "数学問題集",
-      "description": "四則演算や因数分解などの数学問題を4択クイズで練習できます。",
+      "title": "数学",
+      "description": "四則演算や因数分解などを、単元ごとに練習できます。",
       "keywords": "数学 算数 問題集 四則演算 因数分解 クイズ",
       "intro": "数学の領域から単元を探せます。難しさの目印を参考に、練習したい単元を選んでください。",
       "arithLink": "四則演算",
@@ -438,7 +486,7 @@
       "quiz": {
         "chooseSet": "挑戦する問題セットを選んでください。",
         "setComingSoon": "この問題セットは準備中です。もうしばらくお待ちください。",
-        "backToMath": "数学問題集",
+        "backToMath": "数学",
         "backToSets": "問題セットを選び直す",
         "progress": "{current} / {total}",
         "answer": "回答する",
@@ -1031,8 +1079,13 @@
     },
     "about": {
       "eyebrow": "概要",
-      "title": "paibot.app について",
-      "body": "paibot.app では、PAIBOTが開発したアプリやツールを公開しています。"
+      "title": "PAIBOT.app について",
+      "body": "PAIBOT.app は、日々の作業や学習に使える、ブラウザで動くアプリとツールのサイトです。",
+      "toolsTitle": "ちょっとした作業から、毎日の学習まで",
+      "toolsBody": "文字数のカウントやデータの変換、カレンダーやストップウォッチ、算数・数学の問題集などを公開しています。用途に合わせて、アプリ一覧から選んで使えます。",
+      "operatorTitle": "運営について",
+      "operatorBody": "PAIBOT.app は、{seller}が開発・運営しています。サービスの利用条件や個人情報の取り扱いについては、ページ下部の利用規約・プライバシーポリシーをご確認ください。",
+      "browseApps": "アプリ一覧を見る"
     },
     "languageSelect": "言語を選択",
     "themeToLight": "ライトモードに切り替え",

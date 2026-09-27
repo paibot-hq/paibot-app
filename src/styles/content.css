@@ -198,14 +198,13 @@ html[data-theme="light"] .cloud-c {
   text-align: center;
 }
 
-/* Not a menu grid — a loose row introducing what's available, so no card
-   border/background/shadow here (unlike .app-card on /apps). */
+/* Six categories stay balanced across rows at every viewport size. */
 .category-showcase {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1rem 3rem;
-  margin-top: 1rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.75rem 2rem;
+  width: min(100%, 840px);
+  margin: 1.25rem auto 2.5rem;
   text-align: center;
 }
 
@@ -214,7 +213,7 @@ html[data-theme="light"] .cloud-c {
   flex-direction: column;
   align-items: center;
   gap: .5rem;
-  width: 160px;
+  min-width: 0;
   color: inherit;
   text-decoration: none;
 }
@@ -242,6 +241,7 @@ html[data-theme="light"] .cloud-c {
 }
 
 .category-item p {
+  max-width: 24ch;
   margin: 0;
   color: var(--muted);
   font-size: .85rem;
@@ -425,6 +425,7 @@ h1 .title-suffix {
   text-transform: uppercase;
 }
 
+.app-card h2,
 .app-card h3 {
   margin-bottom: .3rem;
   font-size: 1.15rem;
@@ -436,12 +437,12 @@ h1 .title-suffix {
   line-height: 1.6;
 }
 
-.about p {
-  max-width: 720px;
-  margin-bottom: 0;
-  color: var(--muted);
-  line-height: 1.9;
-}
+.about { width: min(720px, calc(100% - 2rem)); }
+.about h1 { font-size: clamp(1.6rem, 5vw, 2.2rem); line-height: 1.35; }
+.about h2 { margin-bottom: .75rem; font-size: 1.15rem; line-height: 1.5; }
+.about p:not(.eyebrow) { margin-bottom: 0; color: var(--muted); line-height: 1.9; }
+.about section { margin-top: 2.5rem; padding-top: 2rem; border-top: 1px solid var(--line); }
+.about-cta { margin-top: 1.25rem; }
 
 footer {
   display: flex;
@@ -455,3 +456,16 @@ footer {
   font-size: .82rem;
   flex-wrap: wrap;
 }
+
+.footer-links { display: flex; flex-wrap: wrap; gap: .4rem 1.2rem; }
+.footer-links a { color: var(--muted); text-decoration: none; }
+.footer-links a:hover, .footer-links a:focus-visible { color: var(--accent); }
+
+.category-intro { margin-bottom: 1.5rem; }
+.category-intro p { color: var(--muted); line-height: 1.8; margin-bottom: 0; }
+.category-nav { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1.5rem; }
+.category-nav a { padding: .5rem .75rem; border: 1px solid var(--line); border-radius: var(--radius); text-decoration: none; font-size: .85rem; color: var(--muted); }
+.category-nav a[aria-current="page"] { color: var(--accent); border-color: var(--accent); background: var(--surface); }
+.category-nav a:hover, .app-category-title a:hover { color: var(--accent); }
+.category-nav a:focus-visible, .app-category-title a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.app-category-title a { color: inherit; text-decoration: none; }

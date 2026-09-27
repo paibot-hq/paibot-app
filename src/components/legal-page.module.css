@@ -1,0 +1,13 @@
+.document { width: min(100%, 720px); margin: 0 auto; line-height: 1.8; }
+.document h2 { margin: 2rem 0 .6rem; font-size: 1.05rem; }
+.document p { margin: 0 0 .8rem; }
+.document ul { margin: 0 0 .8rem; padding-left: 1.4rem; }
+.document li { margin-bottom: .3rem; }
+.updated { color: var(--muted); font-size: .85rem; }
+.notice { padding: .7rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--muted); font-size: .85rem; }
+.rows { margin: 1.5rem 0 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.rows > div { display: grid; grid-template-columns: minmax(8rem, 30%) 1fr; gap: 1rem; padding: .8rem 1rem; border-top: 1px solid var(--line); }
+.rows > div:first-child { border-top: 0; }
+.rows dt { color: var(--muted); font-size: .9rem; }
+.rows dd { margin: 0; overflow-wrap: anywhere; }
+@media (max-width: 480px) { .rows > div { grid-template-columns: 1fr; gap: .2rem; } }

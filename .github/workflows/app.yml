@@ -29,6 +29,7 @@ jobs:
       - run: npm run check:math-factorization
       - run: npm run check:math-pythagoras
       - run: npm run check:cidr
+      - run: npm run check:legal
       - run: node scripts/check-math-pythagoras-tests.mjs
       - run: npm run check:math-arith
       - run: npm run db:migrate:local
