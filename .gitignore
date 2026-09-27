@@ -39,3 +39,5 @@ clerk-*.zone
 !.dev.vars.example
 
 /worker-configuration.d.ts
+
+.math-work/

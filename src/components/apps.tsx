@@ -39,7 +39,7 @@ export default function Apps({ year, signedIn, favoriteSlugs }: { year: number; 
 
   return (
     <>
-    <main className="section">
+    <main className="section app-list">
       <h1 className="eyebrow">{t("apps.eyebrow")}</h1>
 
       <div className="app-search">

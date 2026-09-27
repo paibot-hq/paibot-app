@@ -31,7 +31,54 @@ Do not print secret keys. Runtime Clerk keys must be synced to Workers Secrets;
 
 ## Math project
 
-`/math` is a noindex coming-soon page. `docs/plans/problemset.md` is the approved
-math problem-set plan. Its vinext-specific sections are historical. Existing
-KaTeX components are retained for this work; D1/infra changes are outside the
-framework migration.
+`/math` is a published landing page linking to quiz units, each a set picker plus
+five-problem, four-choice sets served from D1: `/math/arith/:setId`
+(addition/subtraction, multiplication/division, order of operations, word problems),
+`/math/signed/:setId` (negative numbers), `/math/factorization/:setId`, and
+`/math/pythagoras/:setId` (right-triangle side lengths). All use the shared
+`math_problems` table, indexed by
+unit, set, publication status and position. Unit-specific data lives in a JSON
+`payload`, typed in `src/lib/math-arith.ts`, `math-factorization.ts`, and
+`math-pythagoras.ts`.
+`src/lib/math-problems.server.ts` reads published sets for all units; routes
+convert payloads for display. All render through
+`src/components/math-set-picker.tsx` and `math-set-quiz.tsx`.
+
+`src/lib/math-catalog.ts` defines mathematical domains (`domain`), difficulty
+badges (`stage`: elementary/middle/high/university = foundations/intermediate/advanced/higher),
+unit order and publication status. `/math` groups units by domain, then difficulty,
+keeping catalog order within each difficulty. Grade mappings belong in separate
+country/region curriculum tables; stages are not school assignments.
+`/math` renders this catalog; coming-soon units share `math-unit-index.tsx` and
+`math-unit-set.tsx`, which show set names and an empty quiz. Their pages are
+noindex and excluded from publicPaths/the sitemap. Published units retain their
+static routes and existing `math-*-sets.ts` catalogs, which take precedence.
+To publish a new unit, add dedicated routes, a set catalog, payload/display
+conversion, independent verification and import support like the existing units,
+then change the catalog status to `published` and register its public SEO paths.
+
+Pythagoras figures use integer coordinates and `math-figure.tsx` SVG rendering; labels
+and localized accessible descriptions are calculated, never stored.
+`check:math-pythagoras` independently verifies geometry, radicals and set coverage.
+
+Problems are LLM-generated into `src/data/math-*.json` and never trusted as-is:
+`npm run check:math-arith` / `check:math-factorization` re-derive every answer
+(by evaluating the expression / expanding each choice) and enforce each set's
+rules. Word problems' prose also gets a blind second-model review before they
+are published. Problems start as `published: false` and are imported with
+`npm run math:import:local|dev|prod` through `scripts/import-math.mjs`, which
+validates all banks before upserting common columns and payloads; a set with no
+published problems shows "being prepared". `docs/plans/math-units.md` is the unit roadmap and the verification
+rules new units must follow; `docs/plans/problemset.md` is the larger plan it
+refines (its vinext-specific sections are historical).
+
+| 階層 | ID形式 | 例 |
+| --- | --- | --- |
+| 単元 | 英小文字 | `arith`, `signed`, `factorization` |
+| 学習項目 | `単元.項目` | `arith.add-sub` |
+| 問題セット | 単元内で一意の文字列(項目の短縮名+練習A/B) | `add-sub-a` |
+| 問題 | 単元+3桁の通し番号 | `arith-001` |
+
+表示順はセット一覧(`src/lib/math-*-sets.ts`)の並びで決め、IDは変えない。問題IDはセットに依存しない。
+
+問題の生成・検算・盲検レビューから公開までの操作は [問題を追加する手順](docs/plans/math-units.md#9-問題を追加する手順) を参照。

@@ -400,6 +400,206 @@
           "explanation": "一小时等于60分钟。"
         }
       }
+    },
+    {
+      "id": "highest-mountain-everest",
+      "category": "geography",
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "source": "https://www.britannica.com/place/Mount-Everest",
+      "answerIndex": 0,
+      "translations": {
+        "ja": {
+          "prompt": "世界で最も標高が高い山は？",
+          "choices": [
+            "エベレスト",
+            "キリマンジャロ",
+            "モンブラン",
+            "富士山"
+          ],
+          "explanation": "エベレストは標高8848.86mで、世界で最も標高が高い山です。"
+        },
+        "en": {
+          "prompt": "What is the highest mountain in the world above sea level?",
+          "choices": [
+            "Mount Everest",
+            "Mount Kilimanjaro",
+            "Mont Blanc",
+            "Mount Fuji"
+          ],
+          "explanation": "Mount Everest is the highest mountain in the world, with an elevation of 8,848.86 meters."
+        },
+        "zh": {
+          "prompt": "世界上最高峰是哪座山？",
+          "choices": [
+            "珠穆朗玛峰",
+            "乞力马扎罗山",
+            "勃朗峰",
+            "富士山"
+          ],
+          "explanation": "珠穆朗玛峰海拔8848.86米，是世界上海拔最高的高峰。"
+        }
+      }
+    },
+    {
+      "id": "penguin-animal-group",
+      "category": "animals",
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "source": "https://www.britannica.com/animal/penguin",
+      "answerIndex": 1,
+      "translations": {
+        "ja": {
+          "prompt": "ペンギンは、どの生物のグループに分類される？",
+          "choices": [
+            "哺乳類",
+            "鳥類",
+            "魚類",
+            "爬虫類"
+          ],
+          "explanation": "ペンギンは空を飛ぶことはできませんが、羽毛やくちばしを持つ鳥類に分類されます。"
+        },
+        "en": {
+          "prompt": "Which group of animals do penguins belong to?",
+          "choices": [
+            "Mammals",
+            "Birds",
+            "Fish",
+            "Reptiles"
+          ],
+          "explanation": "Although penguins cannot fly, they are classified as birds because they have feathers and beaks."
+        },
+        "zh": {
+          "prompt": "企鹅属于哪一类动物？",
+          "choices": [
+            "哺乳动物",
+            "鸟类",
+            "鱼类",
+            "爬行动物"
+          ],
+          "explanation": "企鹅虽然不会飞，但拥有羽毛和喙，属于鸟类。"
+        }
+      }
+    },
+    {
+      "id": "largest-animal-blue-whale",
+      "category": "animals",
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "source": "https://www.britannica.com/animal/blue-whale",
+      "answerIndex": 2,
+      "translations": {
+        "ja": {
+          "prompt": "地球上で最も体が大きい（体重が重い）動物は？",
+          "choices": [
+            "アフリカゾウ",
+            "ジンベエザメ",
+            "シロナガスクジラ",
+            "カバ"
+          ],
+          "explanation": "シロナガスクジラは体長約30メートル、体重150トン以上にも達する地球上最大の動物です。"
+        },
+        "en": {
+          "prompt": "What is the largest (heaviest) animal on Earth?",
+          "choices": [
+            "African elephant",
+            "Whale shark",
+            "Blue whale",
+            "Hippopotamus"
+          ],
+          "explanation": "The blue whale can reach lengths of around 30 meters and weigh over 150 tons, making it the largest animal on Earth."
+        },
+        "zh": {
+          "prompt": "地球上体型最大（体重最重）的动物是什么？",
+          "choices": [
+            "非洲象",
+            "鲸鲨",
+            "蓝鲸",
+            "河马"
+          ],
+          "explanation": "蓝鲸体长可达约30米，体重超过150吨，是地球上现存体型最大的动物。"
+        }
+      }
+    },
+    {
+      "id": "largest-country-by-area",
+      "category": "geography",
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "source": "https://www.britannica.com/place/Russia",
+      "answerIndex": 3,
+      "translations": {
+        "ja": {
+          "prompt": "世界で最も国土面積が広い国はどこ？",
+          "choices": [
+            "アメリカ合衆国",
+            "中国",
+            "カナダ",
+            "ロシア"
+          ],
+          "explanation": "ロシアは世界最大の面積を持つ国で、総面積は約1700万平方キロメートルあります。"
+        },
+        "en": {
+          "prompt": "Which country has the largest total area in the world?",
+          "choices": [
+            "United States",
+            "China",
+            "Canada",
+            "Russia"
+          ],
+          "explanation": "Russia is the largest country in the world by area, covering approximately 17 million square kilometers."
+        },
+        "zh": {
+          "prompt": "世界上国土面积最大的国家是哪个？",
+          "choices": [
+            "美国",
+            "中国",
+            "加拿大",
+            "俄罗斯"
+          ],
+          "explanation": "俄罗斯是世界上领土面积最大的国家，总面积约为1700万平方公里。"
+        }
+      }
+    },
+    {
+      "id": "days-in-a-common-year",
+      "category": "everyday",
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "source": "https://www.britannica.com/science/calendar/The-Gregorian-calendar",
+      "answerIndex": 1,
+      "translations": {
+        "ja": {
+          "prompt": "うるう年ではない平年の1年は何日？",
+          "choices": [
+            "360日",
+            "365日",
+            "366日",
+            "370日"
+          ],
+          "explanation": "平年の1年は365日です。うるう年は1日多い366日になります。"
+        },
+        "en": {
+          "prompt": "How many days are there in a standard common year?",
+          "choices": [
+            "360 days",
+            "365 days",
+            "366 days",
+            "370 days"
+          ],
+          "explanation": "A common year has 365 days, while a leap year has 366 days."
+        },
+        "zh": {
+          "prompt": "在平年（非闰年）中，一年有多少天？",
+          "choices": [
+            "360天",
+            "365天",
+            "366天",
+            "370天"
+          ],
+          "explanation": "平年一年有365天，闰年一年有366天。"
+        }
+      }
     }
   ]
 }

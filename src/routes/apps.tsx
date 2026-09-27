@@ -24,6 +24,6 @@ export default function Page() {
   const t = useTranslations('App');
   const locale = useLocale();
   const { signedIn, favoriteSlugs } = useFavoritesData();
-  return <><PublicHead locale={locale} path="/apps" title={t('apps.title')} description={t('description')} />
+  return <><PublicHead locale={locale} path="/apps" title={`${t('apps.title')} | PAIBOT.app`} description={t('description')} />
     <Apps year={new Date().getFullYear()} signedIn={signedIn} favoriteSlugs={favoriteSlugs} /></>;
 }

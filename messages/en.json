@@ -230,6 +230,37 @@
       "ipv6Label": "IPv6 Address",
       "unknown": "Not available"
     },
+    "cidr": {
+      "title": "CIDR Calculator",
+      "description": "Calculate the network address, broadcast address, host range and more from an IPv4 address in CIDR notation.",
+      "keywords": "CIDR subnet calculator netmask IPv4 network",
+      "inputLabel": "IPv4 address and prefix length",
+      "inputHint": "e.g. 192.168.1.10/24 or 192.168.1.10 255.255.255.0. Everything is calculated in your browser.",
+      "invalid": "Enter a valid IPv4 address with a prefix length (0–32) or a subnet mask.",
+      "note31": "A /31 is a point-to-point link, so both addresses are usable hosts (RFC 3021).",
+      "labels": {
+        "network": "Network address",
+        "broadcast": "Broadcast address",
+        "mask": "Subnet mask",
+        "wildcard": "Wildcard mask",
+        "hostRange": "Usable hosts",
+        "hostCount": "Host count",
+        "totalCount": "Total addresses",
+        "kind": "Address type",
+        "addressBinary": "Address (binary)",
+        "maskBinary": "Mask (binary)"
+      },
+      "kinds": {
+        "private": "Private (RFC 1918)",
+        "loopback": "Loopback",
+        "linkLocal": "Link-local",
+        "sharedAddress": "Shared address space (CGNAT)",
+        "multicast": "Multicast",
+        "reserved": "Reserved",
+        "unspecified": "Unspecified",
+        "public": "Public"
+      }
+    },
     "domain": {
       "title": "Domain Lookup (WHOIS)",
       "description": "Look up a domain's registrar, registration date, expiry date and other WHOIS information.",
@@ -397,10 +428,594 @@
     },
     "math": {
       "title": "Math Problem Set",
-      "description": "A problem set covering math topics from elementary through university basics, organized by subject, is on the way.",
-      "keywords": "math algebra calculus geometry problem set",
-      "comingSoonTitle": "Coming soon",
-      "comingSoonBody": "We're building a problem set covering math topics from elementary through university basics, organized by subject. Check back soon."
+      "description": "Practice math problems like arithmetic and factoring with multiple-choice quizzes.",
+      "keywords": "math arithmetic algebra factoring quiz problem set",
+      "intro": "Browse units by area of mathematics and use the difficulty badges to choose what to practice.",
+      "arithLink": "Arithmetic",
+      "arithSummary": "From addition and subtraction to the order of operations and word problems. Start with the easy sets and work up.",
+      "factorizationLink": "Factoring",
+      "factorizationSummary": "Factor x² + ax + b into the form (x + p)(x + q). Practice for factoring quadratics.",
+      "quiz": {
+        "chooseSet": "Choose a problem set to try.",
+        "setComingSoon": "This problem set is being prepared. Check back soon.",
+        "backToMath": "Math Problem Set",
+        "backToSets": "Choose a different set",
+        "progress": "{current} / {total}",
+        "answer": "Answer",
+        "correct": "Correct",
+        "incorrect": "Incorrect",
+        "next": "Next question",
+        "resultCorrect": "{correct} / {total} correct",
+        "resultAccuracy": "Accuracy {percent}%",
+        "retry": "Try again",
+        "record": "Last {last} / {total} · Best {best} / {total}",
+        "saved": "Your score has been saved.",
+        "saveFailed": "Your score could not be saved.",
+        "signInToSave": "Sign in to keep a record of your scores."
+      },
+      "arith": {
+        "title": "Arithmetic",
+        "description": "Practice arithmetic, from addition and subtraction to the order of operations and word problems, with multiple-choice quizzes.",
+        "keywords": "math arithmetic order of operations word problems quiz",
+        "setAddSub": "Addition & subtraction",
+        "setAddSubDescription": "Adding and subtracting numbers up to 100. Start here if you are new.",
+        "setMulDiv": "Multiplication & division",
+        "setMulDivDescription": "Times-table multiplication and division. Every division comes out even.",
+        "setEasyWord": "Easy word problems",
+        "setEasyWordDescription": "Short word problems you can solve in one or two steps.",
+        "setOrder": "Order of operations",
+        "setOrderDescription": "Parentheses first, then × and ÷. Check the order you calculate in.",
+        "setOrderB": "Order of operations (practice B)",
+        "setWord": "Multi-step word problems",
+        "setWordDescription": "Word problems that take two or three calculations. Try these after the easy ones.",
+        "formula": "Expression:",
+        "valueWithUnit": "{value} {unit}"
+      },
+      "factorization": {
+        "title": "Factoring",
+        "description": "Practice factoring x² + ax + b with a multiple-choice quiz.",
+        "keywords": "math factoring quiz quadratic",
+        "setStandard": "Basics",
+        "setStandardDescription": "Integers from 1 to 9 - get comfortable with the basic form.",
+        "setWide": "Advanced",
+        "setWideDescription": "Larger and negative numbers up to 20. Try this once the basics feel easy.",
+        "setDifferenceOfSquares": "Difference of squares",
+        "setDifferenceOfSquaresDescription": "Only the x² − a² form - good for learning to spot the pattern.",
+        "explanationTemplate": "The two integers that multiply to {b} and add to {a} are {p} and {q}."
+      },
+      "signedLink": "Negative numbers",
+      "signedSummary": "Arithmetic with negative numbers - practice keeping the signs right.",
+      "signed": {
+        "title": "Negative numbers",
+        "description": "Practice arithmetic with negative numbers with multiple-choice quizzes.",
+        "keywords": "math negative numbers integers arithmetic quiz",
+        "setFourOps": "Negative numbers",
+        "setFourOpsDescription": "Arithmetic with negative numbers - watch the signs.",
+        "formula": "Expression:",
+        "valueWithUnit": "{value} {unit}"
+      },
+      "stages": {
+        "elementary": "Foundations",
+        "middle": "Intermediate",
+        "high": "Advanced",
+        "university": "Higher"
+      },
+      "comingSoon": "Coming soon",
+      "unitCount": "{count, plural, one {# unit} other {# units}}",
+      "units": {
+        "decimal": {
+          "title": "Decimals",
+          "summary": "Practice adding, subtracting, multiplying, and dividing decimals.",
+          "sets": {
+            "add-sub-a": "Adding & subtracting decimals",
+            "mul-div-a": "Multiplying & dividing decimals"
+          }
+        },
+        "fraction": {
+          "title": "Fractions",
+          "summary": "Practice simplifying fractions, finding common denominators, and calculating with fractions.",
+          "sets": {
+            "simplify-a": "Simplifying & common denominators",
+            "add-sub-a": "Adding & subtracting fractions",
+            "mul-div-a": "Multiplying & dividing fractions"
+          }
+        },
+        "divisors": {
+          "title": "Factors & multiples",
+          "summary": "Use factors and multiples to find common factors and common multiples.",
+          "sets": {
+            "divisors-a": "Factors & multiples",
+            "gcd-lcm-a": "Greatest common factor & least common multiple"
+          }
+        },
+        "ratio": {
+          "title": "Percentages & ratios",
+          "summary": "Learn the basics of percentages and ratios, then try word problems.",
+          "sets": {
+            "percent-a": "Percentages",
+            "ratio-a": "Simplifying ratios",
+            "word-a": "Percentage word problems"
+          }
+        },
+        "measurement": {
+          "title": "Measurement",
+          "summary": "Practice converting units and finding areas and volumes.",
+          "sets": {
+            "units-a": "Converting units",
+            "area-volume-a": "Area & volume"
+          }
+        },
+        "data": {
+          "title": "Working with data",
+          "summary": "Explore data by finding the mean, median, and range.",
+          "sets": {
+            "average-a": "Mean",
+            "median-range-a": "Median & range"
+          }
+        },
+        "expression": {
+          "title": "Algebraic expressions",
+          "summary": "Practice substitution, combining like terms, and working with algebraic expressions.",
+          "sets": {
+            "value-a": "Evaluating expressions",
+            "like-terms-a": "Combining like terms",
+            "distribute-a": "Distributive property"
+          }
+        },
+        "linear-equation": {
+          "title": "Linear equations",
+          "summary": "Practice solving linear equations, from moving terms to word problems.",
+          "sets": {
+            "basic-a": "Moving terms across the equals sign",
+            "parentheses-a": "Equations with parentheses",
+            "fraction-a": "Equations with fractions",
+            "word-a": "Word problems"
+          }
+        },
+        "simultaneous": {
+          "title": "Systems of equations",
+          "summary": "Solve systems of equations using elimination and substitution.",
+          "sets": {
+            "elimination-a": "Elimination",
+            "substitution-a": "Substitution",
+            "word-a": "Word problems"
+          }
+        },
+        "linear-function": {
+          "title": "Proportionality & linear functions",
+          "summary": "Explore direct and inverse proportion, slopes, and intercepts.",
+          "sets": {
+            "proportion-a": "Direct & inverse proportion",
+            "slope-a": "Slope & intercept",
+            "two-points-a": "Line through two points"
+          }
+        },
+        "inequality": {
+          "title": "Inequalities",
+          "summary": "Solve linear inequalities to find the range of values that satisfy them.",
+          "sets": {
+            "linear-a": "Linear inequalities"
+          }
+        },
+        "expansion": {
+          "title": "Expanding expressions",
+          "summary": "Use algebraic identities to expand expressions with parentheses.",
+          "sets": {
+            "formulas-a": "Multiplication identities",
+            "square-a": "Expanding squares",
+            "sum-difference-a": "Product of a sum and a difference"
+          }
+        },
+        "sqrt": {
+          "title": "Square roots",
+          "summary": "Practice calculating with square roots and rationalizing denominators.",
+          "sets": {
+            "simplify-a": "Simplifying radicals",
+            "add-sub-a": "Adding & subtracting square roots",
+            "rationalize-a": "Rationalizing denominators"
+          }
+        },
+        "prime": {
+          "title": "Prime factorization",
+          "summary": "Practice writing integers as products of prime numbers.",
+          "sets": {
+            "prime-a": "Prime factorization"
+          }
+        },
+        "pythagoras": {
+          "title": "Pythagorean theorem",
+          "summary": "Use the Pythagorean theorem to find side lengths in right triangles.",
+          "sets": {
+            "sides-a": "Finding side lengths"
+          }
+        },
+        "probability": {
+          "title": "Probability",
+          "summary": "Learn probability basics by counting possible outcomes.",
+          "sets": {
+            "basic-a": "Probability basics"
+          }
+        },
+        "quadratic": {
+          "title": "Quadratic equations",
+          "summary": "Solve quadratic equations by factoring and using the quadratic formula.",
+          "sets": {
+            "factoring-a": "Solving by factoring",
+            "formula-a": "Quadratic formula",
+            "discriminant-a": "Discriminant"
+          }
+        },
+        "quadratic-function": {
+          "title": "Quadratic functions",
+          "summary": "Find the vertex of a parabola and the maximum or minimum of a quadratic function.",
+          "sets": {
+            "vertex-a": "Vertex",
+            "max-min-a": "Maximum & minimum"
+          }
+        },
+        "sequence": {
+          "title": "Sequences",
+          "summary": "Explore arithmetic and geometric sequences and calculate their sums.",
+          "sets": {
+            "arithmetic-a": "Arithmetic sequences",
+            "geometric-a": "Geometric sequences",
+            "sigma-a": "Sigma notation & sums",
+            "recurrence-a": "Recurrence relations"
+          }
+        },
+        "trig": {
+          "title": "Trigonometric ratios & functions",
+          "summary": "Practice special-angle values, radians, and angle addition formulas.",
+          "sets": {
+            "values-a": "Special-angle values",
+            "radian-a": "Radians",
+            "addition-a": "Angle addition formulas"
+          }
+        },
+        "exp-log": {
+          "title": "Exponents & logarithms",
+          "summary": "Practice exponent rules and basic logarithm calculations.",
+          "sets": {
+            "exponent-a": "Exponent rules",
+            "log-a": "Calculating logarithms"
+          }
+        },
+        "combinatorics": {
+          "title": "Counting & probability",
+          "summary": "Use permutations and combinations to count outcomes and calculate probabilities.",
+          "sets": {
+            "permutations-a": "Permutations",
+            "combinations-a": "Combinations",
+            "probability-a": "Probability",
+            "conditional-a": "Conditional probability",
+            "expectation-a": "Expected value"
+          }
+        },
+        "derivative": {
+          "title": "Differentiation",
+          "summary": "Differentiate polynomials to find tangent lines and local extrema.",
+          "sets": {
+            "polynomial-a": "Differentiating polynomials",
+            "tangent-a": "Derivative at a point & tangent lines",
+            "extrema-a": "Local extrema",
+            "transcendental-a": "Derivatives of trig, exponential and log functions",
+            "chain-rule-a": "Chain, product and quotient rules"
+          }
+        },
+        "integral": {
+          "title": "Integration",
+          "summary": "Practice indefinite and definite integrals and use them to find areas.",
+          "sets": {
+            "indefinite-a": "Indefinite integrals",
+            "definite-a": "Definite integrals",
+            "area-a": "Area",
+            "substitution-a": "Integration by substitution",
+            "by-parts-a": "Integration by parts",
+            "volume-a": "Volumes and arc length"
+          }
+        },
+        "complex": {
+          "title": "Complex numbers",
+          "summary": "Practice complex arithmetic, non-real roots of quadratic equations, and the complex plane.",
+          "sets": {
+            "arithmetic-a": "Complex arithmetic",
+            "quadratic-roots-a": "Non-real roots of quadratic equations",
+            "plane-a": "The complex plane"
+          }
+        },
+        "coordinate-geometry": {
+          "title": "Coordinate geometry",
+          "summary": "Practice equations of lines and circles, and loci.",
+          "sets": {
+            "line-a": "Equations of lines",
+            "circle-a": "Equations of circles",
+            "locus-a": "Loci"
+          }
+        },
+        "vector": {
+          "title": "Vectors",
+          "summary": "Practice vector components and magnitude, dot products, and angles between vectors.",
+          "sets": {
+            "components-a": "Components & magnitude",
+            "dot-product-a": "Dot products",
+            "angle-a": "Angles between vectors"
+          }
+        },
+        "matrix": {
+          "title": "Matrices",
+          "summary": "Practice matrix addition and multiplication, 2×2 determinants, and inverse matrices.",
+          "sets": {
+            "operations-a": "Matrix addition & multiplication",
+            "determinant-a": "2×2 determinants",
+            "inverse-a": "Inverse matrices"
+          }
+        },
+        "linear-system": {
+          "title": "Linear systems & matrices",
+          "summary": "Solve systems of linear equations using row reduction and determine the number of solutions.",
+          "sets": {
+            "elimination-a": "Row reduction",
+            "solutions-a": "Number of solutions"
+          }
+        },
+        "eigen": {
+          "title": "Eigenvalues & eigenvectors",
+          "summary": "Practice finding eigenvalues and eigenvectors of 2×2 matrices.",
+          "sets": {
+            "eigenvalues-a": "2×2 eigenvalues",
+            "eigenvectors-a": "Eigenvectors",
+            "diagonalize-a": "Diagonalization"
+          }
+        },
+        "rounding": {
+          "title": "Rounding & estimation",
+          "summary": "Round numbers up, down and to the nearest place to estimate results.",
+          "sets": {
+            "rounding-a": "Rounding",
+            "estimate-a": "Estimation"
+          }
+        },
+        "exponents": {
+          "title": "Powers & exponents",
+          "summary": "Work with powers, the laws of exponents and scientific notation.",
+          "sets": {
+            "powers-a": "Powers and exponent laws",
+            "scientific-a": "Scientific notation and significant figures"
+          }
+        },
+        "integers": {
+          "title": "Number theory basics",
+          "summary": "The Euclidean algorithm, number bases and modular arithmetic.",
+          "sets": {
+            "euclid-a": "Euclidean algorithm",
+            "base-n-a": "Number bases",
+            "congruence-a": "Modular arithmetic"
+          }
+        },
+        "identities": {
+          "title": "Identities & the binomial theorem",
+          "summary": "Use the binomial theorem and polynomial identities.",
+          "sets": {
+            "binomial-a": "Binomial theorem",
+            "identity-a": "Identities"
+          }
+        },
+        "polynomial-equations": {
+          "title": "Polynomial equations",
+          "summary": "Solve higher-degree equations with the remainder and factor theorems.",
+          "sets": {
+            "remainder-a": "Remainder and factor theorems",
+            "higher-degree-a": "Higher-degree equations"
+          }
+        },
+        "rate": {
+          "title": "Speed & unit rates",
+          "summary": "Find speed, time and distance, and compare quantities per unit.",
+          "sets": {
+            "speed-a": "Speed, time and distance",
+            "per-unit-a": "Unit rates"
+          }
+        },
+        "conic": {
+          "title": "Conic sections",
+          "summary": "Parabolas, ellipses and hyperbolas, with parametric and polar forms.",
+          "sets": {
+            "parabola-a": "Parabolas",
+            "ellipse-hyperbola-a": "Ellipses and hyperbolas",
+            "polar-a": "Parametric and polar forms"
+          }
+        },
+        "angles": {
+          "title": "Angles & polygons",
+          "summary": "Find angles with parallel lines and the interior and exterior angles of polygons.",
+          "sets": {
+            "parallel-a": "Angles and parallel lines",
+            "polygon-a": "Interior and exterior angles"
+          }
+        },
+        "circle-solid": {
+          "title": "Circles & solids",
+          "summary": "Sectors, and the volume and surface area of cones, pyramids and spheres.",
+          "sets": {
+            "sector-a": "Sectors",
+            "solid-a": "Volume and surface area of solids"
+          }
+        },
+        "similarity": {
+          "title": "Similarity & circle theorems",
+          "summary": "Use similar figures and the inscribed angle theorem.",
+          "sets": {
+            "similarity-a": "Similar figures",
+            "inscribed-angle-a": "Inscribed angle theorem"
+          }
+        },
+        "transformations": {
+          "title": "Transformations",
+          "summary": "Move figures by translation, rotation and reflection.",
+          "sets": {
+            "moves-a": "Translations, rotations and reflections"
+          }
+        },
+        "triangle-trig": {
+          "title": "Solving triangles",
+          "summary": "Find sides, angles and areas of triangles with the laws of sines and cosines.",
+          "sets": {
+            "sine-law-a": "Law of sines",
+            "cosine-law-a": "Law of cosines",
+            "area-a": "Area of a triangle"
+          }
+        },
+        "triangle-properties": {
+          "title": "Properties of figures",
+          "summary": "Triangle centers, the power of a point, and Ceva's and Menelaus's theorems.",
+          "sets": {
+            "centers-a": "Triangle centers",
+            "power-a": "Power of a point",
+            "ceva-menelaus-a": "Ceva's and Menelaus's theorems"
+          }
+        },
+        "quartiles": {
+          "title": "Quartiles & box plots",
+          "summary": "Find quartiles and read the spread of data from box plots.",
+          "sets": {
+            "quartiles-a": "Quartiles",
+            "boxplot-a": "Box plots"
+          }
+        },
+        "statistics": {
+          "title": "Variance & correlation",
+          "summary": "Find the variance, standard deviation and correlation coefficient.",
+          "sets": {
+            "variance-a": "Variance and standard deviation",
+            "correlation-a": "Correlation coefficient"
+          }
+        },
+        "distributions": {
+          "title": "Probability distributions",
+          "summary": "Expected values, variances and probabilities of binomial and normal distributions.",
+          "sets": {
+            "binomial-a": "Binomial distribution",
+            "normal-a": "Normal distribution"
+          }
+        },
+        "inference": {
+          "title": "Estimation & hypothesis testing",
+          "summary": "Estimate means and proportions and carry out hypothesis tests.",
+          "sets": {
+            "estimation-a": "Estimation",
+            "testing-a": "Hypothesis testing"
+          }
+        },
+        "sets": {
+          "title": "Sets",
+          "summary": "Unions, intersections and complements, and counting with Venn diagrams.",
+          "sets": {
+            "operations-a": "Union, intersection and complement",
+            "venn-a": "Venn diagrams and counting"
+          }
+        },
+        "logic": {
+          "title": "Propositions & logic",
+          "summary": "Negation and contrapositive, necessary and sufficient conditions, and truth tables.",
+          "sets": {
+            "negation-a": "Negation and contrapositive",
+            "conditions-a": "Necessary and sufficient conditions",
+            "truth-table-a": "Truth tables"
+          }
+        },
+        "mapping": {
+          "title": "Functions & relations",
+          "summary": "Injective and surjective maps, and equivalence relations.",
+          "sets": {
+            "injective-a": "Injective and surjective maps",
+            "equivalence-a": "Equivalence relations"
+          }
+        },
+        "vector-space": {
+          "title": "Vector spaces",
+          "summary": "Linear independence, bases and dimension, and matrix rank.",
+          "sets": {
+            "independence-a": "Linear independence",
+            "basis-a": "Basis and dimension",
+            "rank-a": "Rank"
+          }
+        },
+        "linear-map": {
+          "title": "Linear maps",
+          "summary": "Find matrix representations, kernels and images.",
+          "sets": {
+            "matrix-rep-a": "Matrix representation",
+            "kernel-image-a": "Kernel and image"
+          }
+        },
+        "inner-product": {
+          "title": "Inner products & orthogonality",
+          "summary": "Orthogonal and orthonormal bases, and Gram-Schmidt orthogonalization.",
+          "sets": {
+            "orthogonal-a": "Orthogonal and orthonormal bases",
+            "gram-schmidt-a": "Gram-Schmidt process"
+          }
+        },
+        "limit": {
+          "title": "Limits",
+          "summary": "Find limits of sequences and functions.",
+          "sets": {
+            "sequence-a": "Limits of sequences",
+            "function-a": "Limits of functions"
+          }
+        },
+        "series": {
+          "title": "Series & Taylor expansions",
+          "summary": "Sums and convergence of series, and Taylor expansions.",
+          "sets": {
+            "series-a": "Sums and convergence of series",
+            "taylor-a": "Taylor expansions"
+          }
+        },
+        "improper-integral": {
+          "title": "Improper integrals",
+          "summary": "Integrals over infinite intervals or with singularities.",
+          "sets": {
+            "improper-a": "Improper integrals"
+          }
+        },
+        "multivariable": {
+          "title": "Partial derivatives & multiple integrals",
+          "summary": "Partial derivatives and multiple integrals of functions of several variables.",
+          "sets": {
+            "partial-a": "Partial derivatives",
+            "double-integral-a": "Multiple integrals"
+          }
+        },
+        "ode": {
+          "title": "Differential equations",
+          "summary": "Solve separable, first-order linear and constant-coefficient second-order equations.",
+          "sets": {
+            "separable-a": "Separable equations",
+            "linear-first-a": "First-order linear equations",
+            "second-order-a": "Second-order with constant coefficients"
+          }
+        }
+      },
+      "domains": {
+        "number": "Number",
+        "algebra": "Algebra",
+        "functions": "Functions",
+        "geometry": "Geometry & measurement",
+        "data": "Statistics & probability",
+        "logic": "Sets & logic",
+        "linear-algebra": "Vectors & matrices",
+        "calculus": "Calculus"
+      },
+      "pythagoras": {
+        "title": "Pythagorean theorem",
+        "description": "Use the Pythagorean theorem to find a side length in the diagram.",
+        "setSides": "Side lengths",
+        "setSidesDescription": "Find side lengths of right triangles using integers and square roots.",
+        "prompt": "In the right triangle shown, find the length x.",
+        "explanationPrefix": "By the Pythagorean theorem,",
+        "figureDescription": "Right triangle ABC. Angle {rightAngle} is a right angle. {first} is {firstLength} cm, {second} is {secondLength} cm, and {unknown} is x."
+      }
     },
     "about": {
       "eyebrow": "About",

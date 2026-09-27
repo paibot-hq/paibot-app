@@ -35,6 +35,17 @@ export type AppEntry = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
+function CidrIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="9" y="3" width="6" height="5" rx="1" />
+      <rect x="3" y="16" width="6" height="5" rx="1" />
+      <rect x="15" y="16" width="6" height="5" rx="1" />
+      <path d="M12 8v4M6 16v-4h12v4" />
+    </svg>
+  );
+}
+
 function IpIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -184,7 +195,7 @@ function MathIcon(props: SVGProps<SVGSVGElement>) {
 
 export const apps: AppEntry[] = [
   // 学習 / Study
-  { slug: "math", href: "/math", category: "study", status: "comingSoon", messageKey: "math", icon: MathIcon },
+  { slug: "math", href: "/math", category: "study", status: "published", messageKey: "math", icon: MathIcon },
   { slug: "quiz", href: "/quiz", category: "game", status: "published", messageKey: "quiz", icon: QuizIcon },
   { slug: "arith", href: "/arith", category: "study", status: "published", messageKey: "arith", icon: ArithIcon },
 
@@ -201,6 +212,7 @@ export const apps: AppEntry[] = [
   // ネットワーク / Network
   { slug: "ip", href: "/ip", category: "network", status: "published", messageKey: "ip", icon: IpIcon },
   { slug: "domain", href: "/domain", category: "network", status: "published", messageKey: "domain", icon: DomainIcon },
+  { slug: "cidr", href: "/cidr", category: "network", status: "published", messageKey: "cidr", icon: CidrIcon },
 
   // ゲーム / Game
   { slug: "dice", href: "/dice", category: "game", status: "published", messageKey: "dice", icon: DiceIcon },

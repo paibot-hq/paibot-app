@@ -230,6 +230,37 @@
       "ipv6Label": "IPv6 地址",
       "unknown": "无法获取"
     },
+    "cidr": {
+      "title": "CIDR计算器",
+      "description": "根据CIDR表示的IPv4地址，计算网络地址、广播地址、可用主机范围等。",
+      "keywords": "CIDR 子网 子网掩码 IP地址 计算 网络",
+      "inputLabel": "IPv4地址和前缀长度",
+      "inputHint": "例：192.168.1.10/24 或 192.168.1.10 255.255.255.0。计算仅在浏览器中进行。",
+      "invalid": "请输入有效的IPv4地址，以及前缀长度（0–32）或子网掩码。",
+      "note31": "/31 用于点对点连接，两个地址都可以作为主机使用（RFC 3021）。",
+      "labels": {
+        "network": "网络地址",
+        "broadcast": "广播地址",
+        "mask": "子网掩码",
+        "wildcard": "通配符掩码",
+        "hostRange": "可用主机",
+        "hostCount": "主机数",
+        "totalCount": "地址总数",
+        "kind": "地址类型",
+        "addressBinary": "地址（二进制）",
+        "maskBinary": "掩码（二进制）"
+      },
+      "kinds": {
+        "private": "私有（RFC 1918）",
+        "loopback": "环回",
+        "linkLocal": "链路本地",
+        "sharedAddress": "共享地址空间（CGNAT）",
+        "multicast": "组播",
+        "reserved": "保留",
+        "unspecified": "未指定地址",
+        "public": "公网"
+      }
+    },
     "domain": {
       "title": "域名查询(WHOIS)",
       "description": "查询域名的注册商、注册日期、到期日期等WHOIS信息。",
@@ -397,10 +428,594 @@
     },
     "math": {
       "title": "数学题库",
-      "description": "正在准备涵盖小学到大学基础的分类数学题库。",
-      "keywords": "数学 代数 微积分 几何 题库",
-      "comingSoonTitle": "敬请期待",
-      "comingSoonBody": "我们正在准备一套涵盖小学到大学基础、按领域分类的数学题库。请稍候。"
+      "description": "通过四选一测验练习四则运算、因式分解等数学题目。",
+      "keywords": "数学 四则运算 因式分解 测验 题库",
+      "intro": "按数学领域查找单元，参考难度标记，选择想练习的内容。",
+      "arithLink": "四则运算",
+      "arithSummary": "从加减法到运算顺序和应用题。从简单的题组开始逐步练习。",
+      "factorizationLink": "因式分解",
+      "factorizationSummary": "把 x² + ax + b 分解成 (x + p)(x + q) 的形式，练习二次式的因式分解。",
+      "quiz": {
+        "chooseSet": "请选择要挑战的题组。",
+        "setComingSoon": "此题组正在准备中，请稍候。",
+        "backToMath": "数学题库",
+        "backToSets": "重新选择题组",
+        "progress": "{current} / {total}",
+        "answer": "作答",
+        "correct": "正确",
+        "incorrect": "错误",
+        "next": "下一题",
+        "resultCorrect": "{correct} / {total} 正确",
+        "resultAccuracy": "正确率 {percent}%",
+        "retry": "再来一次",
+        "record": "上次 {last} / {total}・最高 {best} / {total}",
+        "saved": "成绩已记录。",
+        "saveFailed": "无法记录成绩。",
+        "signInToSave": "登录后可记录成绩。"
+      },
+      "arith": {
+        "title": "四则运算",
+        "description": "通过四选一测验练习从加减法到运算顺序和应用题的四则运算。",
+        "keywords": "数学 四则运算 运算顺序 应用题 测验",
+        "setAddSub": "加法与减法",
+        "setAddSubDescription": "100以内的加法和减法。初次练习请从这里开始。",
+        "setMulDiv": "乘法与除法",
+        "setMulDivDescription": "用乘法口诀做乘除法，除法都能整除。",
+        "setEasyWord": "简单应用题",
+        "setEasyWordDescription": "一两步就能解答的简短应用题。",
+        "setOrder": "运算顺序",
+        "setOrderDescription": "先算括号，再算乘除，确认计算的顺序。",
+        "setOrderB": "运算顺序（练习B）",
+        "setWord": "多步应用题",
+        "setWordDescription": "需要两到三步计算的应用题。熟悉简单应用题后再来挑战。",
+        "formula": "算式：",
+        "valueWithUnit": "{value}{unit}"
+      },
+      "factorization": {
+        "title": "因式分解",
+        "description": "通过四选一测验练习 x² + ax + b 形式的因式分解。",
+        "keywords": "数学 因式分解 测验 二次式",
+        "setStandard": "基础篇",
+        "setStandardDescription": "1到9的整数，先熟悉基本形式。",
+        "setWide": "进阶篇",
+        "setWideDescription": "包含到20的较大数字和负数，基础篇熟练后再挑战。",
+        "setDifferenceOfSquares": "平方差篇",
+        "setDifferenceOfSquaresDescription": "只收录 x² − a² 形式，用来记住这个公式规律。",
+        "explanationTemplate": "相乘为{b}、相加为{a}的两个整数是{p}和{q}。"
+      },
+      "signedLink": "正负数",
+      "signedSummary": "含有负数的四则运算，练习正确处理符号。",
+      "signed": {
+        "title": "正负数",
+        "description": "通过四选一测验练习含有负数的四则运算。",
+        "keywords": "数学 正负数 负数 四则运算 测验",
+        "setFourOps": "正负数",
+        "setFourOpsDescription": "含有负数的四则运算，注意符号。",
+        "formula": "算式：",
+        "valueWithUnit": "{value}{unit}"
+      },
+      "stages": {
+        "elementary": "基础",
+        "middle": "中级",
+        "high": "进阶",
+        "university": "高等"
+      },
+      "comingSoon": "准备中",
+      "unitCount": "{count}个单元",
+      "units": {
+        "decimal": {
+          "title": "小数",
+          "summary": "练习小数的加减乘除。",
+          "sets": {
+            "add-sub-a": "小数加减法",
+            "mul-div-a": "小数乘除法"
+          }
+        },
+        "fraction": {
+          "title": "分数",
+          "summary": "练习约分、通分和分数的四则运算。",
+          "sets": {
+            "simplify-a": "约分与通分",
+            "add-sub-a": "分数加减法",
+            "mul-div-a": "分数乘除法"
+          }
+        },
+        "divisors": {
+          "title": "因数与倍数",
+          "summary": "利用因数与倍数的性质求公因数和公倍数。",
+          "sets": {
+            "divisors-a": "因数与倍数",
+            "gcd-lcm-a": "最大公因数与最小公倍数"
+          }
+        },
+        "ratio": {
+          "title": "百分数与比",
+          "summary": "学习百分数与比的基础知识，并练习应用题。",
+          "sets": {
+            "percent-a": "百分数",
+            "ratio-a": "化简比",
+            "word-a": "百分数应用题"
+          }
+        },
+        "measurement": {
+          "title": "测量",
+          "summary": "练习单位换算以及面积和体积的计算。",
+          "sets": {
+            "units-a": "单位换算",
+            "area-volume-a": "面积与体积"
+          }
+        },
+        "data": {
+          "title": "数据的运用",
+          "summary": "通过计算平均数、中位数和极差了解数据的特点。",
+          "sets": {
+            "average-a": "平均数",
+            "median-range-a": "中位数与极差"
+          }
+        },
+        "expression": {
+          "title": "代数式",
+          "summary": "练习代入求值、合并同类项和代数式运算。",
+          "sets": {
+            "value-a": "代数式求值",
+            "like-terms-a": "合并同类项",
+            "distribute-a": "分配律"
+          }
+        },
+        "linear-equation": {
+          "title": "一元一次方程",
+          "summary": "从移项基础到应用题，练习解一元一次方程。",
+          "sets": {
+            "basic-a": "移项基础",
+            "parentheses-a": "含括号的方程",
+            "fraction-a": "含分数的方程",
+            "word-a": "应用题"
+          }
+        },
+        "simultaneous": {
+          "title": "二元一次方程组",
+          "summary": "用加减消元法和代入消元法解方程组。",
+          "sets": {
+            "elimination-a": "加减消元法",
+            "substitution-a": "代入消元法",
+            "word-a": "应用题"
+          }
+        },
+        "linear-function": {
+          "title": "正比例与一次函数",
+          "summary": "学习正比例、反比例以及直线的斜率和截距。",
+          "sets": {
+            "proportion-a": "正比例与反比例",
+            "slope-a": "斜率与截距",
+            "two-points-a": "经过两点的直线"
+          }
+        },
+        "inequality": {
+          "title": "不等式",
+          "summary": "解一元一次不等式，求出满足条件的取值范围。",
+          "sets": {
+            "linear-a": "一元一次不等式"
+          }
+        },
+        "expansion": {
+          "title": "整式的展开",
+          "summary": "利用乘法公式展开含括号的代数式。",
+          "sets": {
+            "formulas-a": "乘法公式",
+            "square-a": "完全平方公式",
+            "sum-difference-a": "和与差的乘积"
+          }
+        },
+        "sqrt": {
+          "title": "平方根",
+          "summary": "练习平方根运算和分母有理化。",
+          "sets": {
+            "simplify-a": "化简根式",
+            "add-sub-a": "平方根的加减法",
+            "rationalize-a": "分母有理化"
+          }
+        },
+        "prime": {
+          "title": "分解质因数",
+          "summary": "练习把整数分解成质数的乘积。",
+          "sets": {
+            "prime-a": "分解质因数"
+          }
+        },
+        "pythagoras": {
+          "title": "勾股定理",
+          "summary": "利用勾股定理求直角三角形的边长。",
+          "sets": {
+            "sides-a": "求边长"
+          }
+        },
+        "probability": {
+          "title": "概率",
+          "summary": "通过列举可能的结果学习概率基础。",
+          "sets": {
+            "basic-a": "概率基础"
+          }
+        },
+        "quadratic": {
+          "title": "一元二次方程",
+          "summary": "用因式分解法和求根公式解一元二次方程。",
+          "sets": {
+            "factoring-a": "因式分解法",
+            "formula-a": "求根公式",
+            "discriminant-a": "判别式"
+          }
+        },
+        "quadratic-function": {
+          "title": "二次函数",
+          "summary": "求抛物线的顶点以及二次函数的最大值和最小值。",
+          "sets": {
+            "vertex-a": "顶点",
+            "max-min-a": "最大值与最小值"
+          }
+        },
+        "sequence": {
+          "title": "数列",
+          "summary": "学习等差数列、等比数列的性质及求和方法。",
+          "sets": {
+            "arithmetic-a": "等差数列",
+            "geometric-a": "等比数列",
+            "sigma-a": "Σ 求和运算",
+            "recurrence-a": "递推公式"
+          }
+        },
+        "trig": {
+          "title": "三角比与三角函数",
+          "summary": "练习特殊角的三角函数值、弧度制和两角和公式。",
+          "sets": {
+            "values-a": "特殊角的三角函数值",
+            "radian-a": "弧度制",
+            "addition-a": "两角和公式"
+          }
+        },
+        "exp-log": {
+          "title": "指数与对数",
+          "summary": "练习指数运算法则和对数的基本运算。",
+          "sets": {
+            "exponent-a": "指数运算法则",
+            "log-a": "对数运算"
+          }
+        },
+        "combinatorics": {
+          "title": "计数与概率",
+          "summary": "利用排列组合计数并计算概率。",
+          "sets": {
+            "permutations-a": "排列",
+            "combinations-a": "组合",
+            "probability-a": "概率",
+            "conditional-a": "条件概率",
+            "expectation-a": "期望"
+          }
+        },
+        "derivative": {
+          "title": "微分",
+          "summary": "通过多项式求导，求切线和极值。",
+          "sets": {
+            "polynomial-a": "多项式求导",
+            "tangent-a": "导数与切线",
+            "extrema-a": "极值",
+            "transcendental-a": "三角、指数与对数函数的导数",
+            "chain-rule-a": "复合函数、积与商的求导"
+          }
+        },
+        "integral": {
+          "title": "积分",
+          "summary": "练习不定积分、定积分以及用积分求面积。",
+          "sets": {
+            "indefinite-a": "不定积分",
+            "definite-a": "定积分",
+            "area-a": "面积",
+            "substitution-a": "换元积分",
+            "by-parts-a": "分部积分",
+            "volume-a": "体积与曲线长度"
+          }
+        },
+        "complex": {
+          "title": "复数",
+          "summary": "练习复数运算、一元二次方程的非实根和复平面。",
+          "sets": {
+            "arithmetic-a": "复数运算",
+            "quadratic-roots-a": "一元二次方程的非实根",
+            "plane-a": "复平面"
+          }
+        },
+        "coordinate-geometry": {
+          "title": "直线与圆的方程",
+          "summary": "练习直线方程、圆的方程和轨迹。",
+          "sets": {
+            "line-a": "直线方程",
+            "circle-a": "圆的方程",
+            "locus-a": "轨迹"
+          }
+        },
+        "vector": {
+          "title": "向量",
+          "summary": "练习向量的分量与模、数量积和夹角。",
+          "sets": {
+            "components-a": "分量与模",
+            "dot-product-a": "数量积",
+            "angle-a": "夹角"
+          }
+        },
+        "matrix": {
+          "title": "矩阵",
+          "summary": "练习矩阵加法与乘法、二阶行列式和逆矩阵。",
+          "sets": {
+            "operations-a": "矩阵加法与乘法",
+            "determinant-a": "二阶行列式",
+            "inverse-a": "逆矩阵"
+          }
+        },
+        "linear-system": {
+          "title": "线性方程组与矩阵",
+          "summary": "用行化简法求解线性方程组，并判断解的个数。",
+          "sets": {
+            "elimination-a": "行化简法",
+            "solutions-a": "解的个数"
+          }
+        },
+        "eigen": {
+          "title": "特征值与特征向量",
+          "summary": "练习求二阶矩阵的特征值与特征向量。",
+          "sets": {
+            "eigenvalues-a": "二阶矩阵的特征值",
+            "eigenvectors-a": "特征向量",
+            "diagonalize-a": "对角化"
+          }
+        },
+        "rounding": {
+          "title": "近似数与四舍五入",
+          "summary": "用四舍五入、进一法和去尾法练习估算。",
+          "sets": {
+            "rounding-a": "四舍五入",
+            "estimate-a": "估算"
+          }
+        },
+        "exponents": {
+          "title": "乘方与指数法则",
+          "summary": "练习乘方运算、指数法则和科学记数法。",
+          "sets": {
+            "powers-a": "乘方与指数法则",
+            "scientific-a": "科学记数法与有效数字"
+          }
+        },
+        "integers": {
+          "title": "整数的性质",
+          "summary": "用辗转相除法、n进制和同余处理整数问题。",
+          "sets": {
+            "euclid-a": "辗转相除法",
+            "base-n-a": "n进制",
+            "congruence-a": "同余"
+          }
+        },
+        "identities": {
+          "title": "式与证明",
+          "summary": "运用二项式定理和恒等式处理代数式。",
+          "sets": {
+            "binomial-a": "二项式定理",
+            "identity-a": "恒等式"
+          }
+        },
+        "polynomial-equations": {
+          "title": "高次方程",
+          "summary": "用余式定理和因式定理解高次方程。",
+          "sets": {
+            "remainder-a": "余式定理与因式定理",
+            "higher-degree-a": "高次方程"
+          }
+        },
+        "rate": {
+          "title": "速度与单位量",
+          "summary": "求速度、时间和路程，以及单位量的大小。",
+          "sets": {
+            "speed-a": "速度、时间与路程",
+            "per-unit-a": "单位量的大小"
+          }
+        },
+        "conic": {
+          "title": "二次曲线",
+          "summary": "学习抛物线、椭圆、双曲线，以及参数方程和极坐标。",
+          "sets": {
+            "parabola-a": "抛物线",
+            "ellipse-hyperbola-a": "椭圆与双曲线",
+            "polar-a": "参数方程与极坐标"
+          }
+        },
+        "angles": {
+          "title": "平面图形与角",
+          "summary": "求平行线形成的角，以及多边形的内角与外角。",
+          "sets": {
+            "parallel-a": "平行线与角",
+            "polygon-a": "多边形的内角与外角"
+          }
+        },
+        "circle-solid": {
+          "title": "圆与立体的计量",
+          "summary": "求扇形，以及锥体和球的体积与表面积。",
+          "sets": {
+            "sector-a": "扇形",
+            "solid-a": "锥体与球的体积和表面积"
+          }
+        },
+        "similarity": {
+          "title": "相似与圆",
+          "summary": "运用相似图形的性质和圆周角定理。",
+          "sets": {
+            "similarity-a": "相似",
+            "inscribed-angle-a": "圆周角定理"
+          }
+        },
+        "transformations": {
+          "title": "图形的变换",
+          "summary": "通过平移、旋转和轴对称移动图形。",
+          "sets": {
+            "moves-a": "平移、旋转与轴对称"
+          }
+        },
+        "triangle-trig": {
+          "title": "三角形的计量",
+          "summary": "用正弦定理和余弦定理求三角形的边、角和面积。",
+          "sets": {
+            "sine-law-a": "正弦定理",
+            "cosine-law-a": "余弦定理",
+            "area-a": "三角形的面积"
+          }
+        },
+        "triangle-properties": {
+          "title": "图形的性质",
+          "summary": "运用三角形的五心、圆幂定理以及塞瓦定理和梅涅劳斯定理。",
+          "sets": {
+            "centers-a": "三角形的五心",
+            "power-a": "圆幂定理",
+            "ceva-menelaus-a": "塞瓦定理与梅涅劳斯定理"
+          }
+        },
+        "quartiles": {
+          "title": "四分位数与箱线图",
+          "summary": "求四分位数，并从箱线图读出数据的分布。",
+          "sets": {
+            "quartiles-a": "四分位数",
+            "boxplot-a": "箱线图"
+          }
+        },
+        "statistics": {
+          "title": "方差与相关",
+          "summary": "求方差、标准差和相关系数。",
+          "sets": {
+            "variance-a": "方差与标准差",
+            "correlation-a": "相关系数"
+          }
+        },
+        "distributions": {
+          "title": "概率分布",
+          "summary": "求二项分布和正态分布的期望、方差与概率。",
+          "sets": {
+            "binomial-a": "二项分布",
+            "normal-a": "正态分布"
+          }
+        },
+        "inference": {
+          "title": "统计推断与检验",
+          "summary": "估计总体均值与比例，并进行假设检验。",
+          "sets": {
+            "estimation-a": "估计",
+            "testing-a": "假设检验"
+          }
+        },
+        "sets": {
+          "title": "集合",
+          "summary": "学习并集、交集、补集，以及用维恩图计数。",
+          "sets": {
+            "operations-a": "并集、交集与补集",
+            "venn-a": "维恩图与元素个数"
+          }
+        },
+        "logic": {
+          "title": "命题与逻辑",
+          "summary": "学习否定与逆否命题、必要条件与充分条件以及真值表。",
+          "sets": {
+            "negation-a": "否定与逆否命题",
+            "conditions-a": "必要条件与充分条件",
+            "truth-table-a": "真值表"
+          }
+        },
+        "mapping": {
+          "title": "映射与关系",
+          "summary": "学习单射、满射以及等价关系。",
+          "sets": {
+            "injective-a": "单射与满射",
+            "equivalence-a": "等价关系"
+          }
+        },
+        "vector-space": {
+          "title": "向量空间",
+          "summary": "学习线性无关、基与维数以及矩阵的秩。",
+          "sets": {
+            "independence-a": "线性无关",
+            "basis-a": "基与维数",
+            "rank-a": "秩"
+          }
+        },
+        "linear-map": {
+          "title": "线性映射",
+          "summary": "求表示矩阵以及核与像。",
+          "sets": {
+            "matrix-rep-a": "表示矩阵",
+            "kernel-image-a": "核与像"
+          }
+        },
+        "inner-product": {
+          "title": "内积与正交化",
+          "summary": "学习正交基、标准正交基以及格拉姆-施密特正交化。",
+          "sets": {
+            "orthogonal-a": "正交与标准正交基",
+            "gram-schmidt-a": "格拉姆-施密特正交化"
+          }
+        },
+        "limit": {
+          "title": "极限",
+          "summary": "求数列和函数的极限。",
+          "sets": {
+            "sequence-a": "数列的极限",
+            "function-a": "函数的极限"
+          }
+        },
+        "series": {
+          "title": "级数与泰勒展开",
+          "summary": "学习级数的和与收敛以及泰勒展开。",
+          "sets": {
+            "series-a": "级数的和与收敛",
+            "taylor-a": "泰勒展开"
+          }
+        },
+        "improper-integral": {
+          "title": "反常积分",
+          "summary": "求无穷区间上的积分和含奇点的积分。",
+          "sets": {
+            "improper-a": "反常积分"
+          }
+        },
+        "multivariable": {
+          "title": "偏导数与重积分",
+          "summary": "求多元函数的偏导数和重积分。",
+          "sets": {
+            "partial-a": "偏导数",
+            "double-integral-a": "重积分"
+          }
+        },
+        "ode": {
+          "title": "微分方程",
+          "summary": "求解可分离变量、一阶线性和常系数二阶线性微分方程。",
+          "sets": {
+            "separable-a": "可分离变量方程",
+            "linear-first-a": "一阶线性方程",
+            "second-order-a": "常系数二阶线性方程"
+          }
+        }
+      },
+      "domains": {
+        "number": "数与运算",
+        "algebra": "代数",
+        "functions": "函数",
+        "geometry": "几何与测量",
+        "data": "统计与概率",
+        "logic": "集合与逻辑",
+        "linear-algebra": "向量与矩阵",
+        "calculus": "微积分"
+      },
+      "pythagoras": {
+        "title": "勾股定理",
+        "description": "根据图形，用勾股定理求边长。",
+        "setSides": "求边长",
+        "setSidesDescription": "用整数和根式表示直角三角形的边长。",
+        "prompt": "在图中的直角三角形中，求 x 的长度。",
+        "explanationPrefix": "根据勾股定理，",
+        "figureDescription": "直角三角形ABC。角{rightAngle}是直角。{first}为{firstLength} cm，{second}为{secondLength} cm，{unknown}为x。"
+      }
     },
     "about": {
       "eyebrow": "关于",

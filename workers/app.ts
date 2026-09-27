@@ -1,10 +1,11 @@
 import { createRequestHandler } from 'react-router';
+import { isComingSoonMathPath } from '../src/lib/math-catalog';
 import { locales } from '../src/i18n/routing';
 import { siteOrigin, isIndexable } from '../src/lib/seo.server';
 import { buildContentSecurityPolicy } from '../src/lib/security-headers.server';
 
 const handle = createRequestHandler(() => import('virtual:react-router/server-build'), import.meta.env.MODE);
-const AUTH_PATH = new RegExp(`^/(${locales.join('|')})/(sign-in|sign-up|math|diary|profile)(/|\\.data$|$)`);
+const AUTH_PATH = new RegExp(`^/(${locales.join('|')})/(sign-in|sign-up|diary|profile)(/|\\.data$|$)`);
 const csp = buildContentSecurityPolicy();
 
 export default {
@@ -20,10 +21,11 @@ export default {
       response = await handle(request);
     }
     const secured = new Response(response.body, response);
-    if (!isIndexable || response.status >= 400 || AUTH_PATH.test(url.pathname)) {
+    if (!isIndexable || response.status >= 400 || AUTH_PATH.test(url.pathname) || isComingSoonMathPath(url.pathname)) {
       secured.headers.set('X-Robots-Tag', 'noindex');
     }
-    if (/^\/(ja|en|zh)\/(diary|clock|profile|life-calendar)(?:\.data|\/|$)/.test(url.pathname)) {
+    // Math unit pages carry a signed-in user's scores (set pickers) or save them (set pages).
+    if (/^\/(ja|en|zh)\/(diary|clock|profile|life-calendar|math\/(?:arith|factorization|pythagoras))(?:\.data|\/|$)/.test(url.pathname)) {
       secured.headers.set('Cache-Control', 'private, no-store');
     }
     secured.headers.set('X-Content-Type-Options', 'nosniff');

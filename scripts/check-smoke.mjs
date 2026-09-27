@@ -6,8 +6,8 @@ const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:300
 const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app').origin;
 const indexable = process.env.CHECK_SITE_INDEXABLE === 'true';
 const locales = ['ja', 'en', 'zh'];
-const paths = ['', '/apps', '/about', '/ip', '/domain', '/wc', '/arith', '/quiz', '/age', '/clock', '/calendar', '/life-calendar', '/password', '/base64', '/json', '/urlencode', '/dice', '/reaction', '/timing', '/stopwatch'];
-const authPaths = ['sign-in', 'sign-up', 'math', 'diary', 'profile'];
+const paths = ['', '/apps', '/about', '/ip', '/domain', '/cidr', '/wc', '/arith', '/quiz', '/age', '/clock', '/calendar', '/life-calendar', '/password', '/base64', '/json', '/urlencode', '/dice', '/reaction', '/timing', '/stopwatch', '/math', '/math/pythagoras', '/math/pythagoras/sides-a', '/math/factorization', '/math/factorization/trinomial-a', '/math/arith', '/math/arith/add-sub-a', '/math/signed', '/math/signed/four-ops-a'];
+const authPaths = ['sign-in', 'sign-up', 'diary', 'profile'];
 const browser = await chromium.launch();
 try {
   // Parse the actual server response, without allowing hydration to repair it.
@@ -17,7 +17,7 @@ try {
       const doc = new DOMParser().parseFromString(html, 'text/html');
       return {
         lang: doc.documentElement.lang,
-        titles: [...doc.querySelectorAll('title')].map(el => el.textContent),
+        titles: [...doc.head.querySelectorAll('title')].map(el => el.textContent),
         canonical: [...doc.querySelectorAll('link[rel="canonical"]')].map(el => el.getAttribute('href')),
         alternates: [...doc.querySelectorAll('link[rel="alternate"][hreflang]')].map(el => [el.getAttribute('hreflang'), el.getAttribute('href')]),
         robots: doc.querySelector('meta[name="robots"]')?.content,
@@ -86,7 +86,7 @@ try {
   }
   console.log(`PASS: ${paths.length * locales.length} public pages and ${authPaths.length * locales.length} non-indexable pages: SSR titles, SEO tags and security headers`);
 
-  for (const path of ['/', ...paths.filter(Boolean), '/math', '/diary', '/profile', '/sign-in', '/sign-up', '/sign-in/factor-one', '/sign-up/verify-email-address']) {
+  for (const path of ['/', ...paths.filter(Boolean), '/diary', '/profile', '/sign-in', '/sign-up', '/sign-in/factor-one', '/sign-up/verify-email-address']) {
     const query = '?redirect_url=%2Fen%2Fwc&source=smoke';
     const res = await request(`${path}${query}`, { redirect: 'manual' });
     assert.equal(res.status, 307, `${path}: locale redirect`);

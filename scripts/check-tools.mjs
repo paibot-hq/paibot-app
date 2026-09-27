@@ -115,6 +115,25 @@ try {
   await main.getByRole('button', { name: 'Look up', exact: true }).click();
   await result("That doesn't look like a valid domain name.");
   console.log('PASS: domain lookup rejects invalid input (no socket opened; see check:whois for the real WHOIS lookup)');
+  await go('cidr');
+  const cidrValue = key => page.locator(`[data-cidr="${key}"] dd`).textContent();
+  const cidrInput = main.getByLabel('IPv4 address and prefix length');
+  await cidrInput.fill('10.20.30.40/255.255.240.0');
+  await page.waitForFunction(() => document.querySelector('[data-cidr="network"] dd')?.textContent === '10.20.16.0/20');
+  assert.equal(await cidrValue('broadcast'), '10.20.31.255');
+  assert.equal(await cidrValue('hostRange'), '10.20.16.1 – 10.20.31.254');
+  assert.equal(await cidrValue('hostCount'), '4,094');
+  assert.equal(await cidrValue('kind'), 'Private (RFC 1918)');
+  await cidrInput.fill('192.168.1.300/24');
+  await main.getByRole('alert').waitFor();
+  assert.equal(await page.locator('[data-cidr]').count(), 0);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await cidrInput.fill('203.0.113.7/31');
+  await main.getByText(/point-to-point/).waitFor();
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  await page.setViewportSize({ width: 1100, height: 900 });
+  assert.deepEqual(errors, []);
+  console.log('PASS: CIDR calculator: subnet mask input, host range and count, address type, invalid input, /31 note, mobile width');
   assert.deepEqual(errors, []);
   await page.clock.setFixedTime(new Date('2026-12-31T14:59:59Z'));
   await go('clock');
@@ -132,6 +151,68 @@ try {
   await page.screenshot({ path: '/tmp/paibot-clock-mobile.png', fullPage: true });
   assert.deepEqual(errors, []);
   console.log('PASS: clock, local date rollover, fullscreen and mobile width');
+  // A missing translation renders its key (e.g. "App.math.pythagorasLink").
+  await go('math');
+  assert.ok(!(await main.textContent()).includes('App.math.'), 'no untranslated keys on the math landing');
+  // Anchored: other units' summaries (e.g. quadratics) also mention factoring.
+  await main.getByRole('link', { name: /^Factoring/ }).click();
+  await page.waitForURL(`${base}/en/math/factorization`);
+  await main.getByRole('link', { name: /^Basics/ }).click();
+  await page.waitForURL(`${base}/en/math/factorization/trinomial-a`);
+  await main.locator('h1').waitFor();
+  await main.getByText('Basics', { exact: true }).waitFor();
+  await page.setViewportSize({ width: 390, height: 844 });
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  assert.deepEqual(errors, []);
+  console.log('PASS: math landing links through to the factoring set picker and set trinomial-a');
+  await go('math');
+  // Anchored: the negative-numbers card's summary also mentions arithmetic.
+  await main.getByRole('link', { name: /^Arithmetic/ }).click();
+  await page.waitForURL(`${base}/en/math/arith`);
+  await main.getByRole('link', { name: /^Multi-step word problems/ }).click();
+  await page.waitForURL(`${base}/en/math/arith/word-b`);
+  await main.getByText('Multi-step word problems', { exact: true }).waitFor();
+  assert.deepEqual(errors, []);
+  console.log('PASS: math landing links through to the arithmetic set picker and set word-b');
+  await go('math');
+  await main.getByRole('link', { name: /^Negative numbers/ }).click();
+  await page.waitForURL(`${base}/en/math/signed`);
+  await main.getByRole('link', { name: /^Negative numbers/ }).click();
+  await page.waitForURL(`${base}/en/math/signed/four-ops-a`);
+  await main.getByText('Negative numbers', { exact: true }).last().waitFor();
+  assert.deepEqual(errors, []);
+  console.log('PASS: math landing links through to the signed-number set picker and set four-ops-a');
+  await go('math');
+  await main.getByRole('link', { name: /^Fractions/ }).click();
+  await page.waitForURL(`${base}/en/math/fraction`);
+  for (const name of ['Simplifying & common denominators', 'Adding & subtracting fractions', 'Multiplying & dividing fractions']) {
+    await main.getByRole('link', { name: `${name} Coming soon`, exact: true }).waitFor();
+  }
+  assert.equal(await page.title(), 'Fractions | PAIBOT.app');
+  assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'noindex, nofollow');
+  await main.getByRole('link', { name: /^Simplifying & common denominators/ }).click();
+  await page.waitForURL(`${base}/en/math/fraction/simplify-a`);
+  await main.getByRole('status').filter({ hasText: 'being prepared' }).waitFor();
+  assert.equal(await page.title(), 'Fractions - Simplifying & common denominators | PAIBOT.app');
+  assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'noindex, nofollow');
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  assert.deepEqual(errors, []);
+  console.log('PASS: coming-soon fractions unit lists sets and shows the preparation message');
+  await go('math');
+  assert.deepEqual(await main.getByRole('heading', { level: 2 }).allTextContents(), [
+    'Number', 'Algebra', 'Functions', 'Geometry & measurement',
+    'Statistics & probability', 'Sets & logic', 'Vectors & matrices', 'Calculus',
+  ]);
+  await main.getByRole('link', { name: /^Matrices Higher Coming soon/ }).click();
+  await page.waitForURL(`${base}/en/math/matrix`);
+  for (const name of ['Matrix addition & multiplication', '2×2 determinants', 'Inverse matrices']) {
+    await main.getByRole('link', { name: `${name} Coming soon`, exact: true }).waitFor();
+  }
+  assert.equal(await page.title(), 'Matrices | PAIBOT.app');
+  assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'noindex, nofollow');
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  assert.deepEqual(errors, []);
+  console.log('PASS: math domains and coming-soon matrices unit with all three sets');
   await page.setViewportSize({ width: 1100, height: 900 });
   // Fixed to a month whose holidays exercise all three kinds at once.
   await page.clock.setFixedTime(new Date('2026-09-26T03:00:00Z'));
@@ -201,5 +282,5 @@ try {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({ path: '/tmp/paibot-life-inline.png', fullPage: true });
   console.log('PASS: life calendar shows every week inline without an overview button');
-  console.log('PASS: all 16 tools, no uncaught JS errors');
+  console.log('PASS: all 17 tools, no uncaught JS errors');
 } finally { await browser.close(); }

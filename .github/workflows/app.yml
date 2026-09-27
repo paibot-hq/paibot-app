@@ -25,8 +25,14 @@ jobs:
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
         run: node -e 'require("fs").writeFileSync(".dev.vars", `CLERK_PUBLISHABLE_KEY=${process.env.CLERK_PUBLISHABLE_KEY}\nCLERK_SECRET_KEY=${process.env.CLERK_SECRET_KEY}\n`)'
       - run: npm run check:quiz
+      - run: npm run check:math-factorization
+      - run: npm run check:math-pythagoras
+      - run: npm run check:cidr
+      - run: node scripts/check-math-pythagoras-tests.mjs
+      - run: npm run check:math-arith
       - run: npm run db:migrate:local
       - run: npm run quiz:import:local
+      - run: npm run math:import:local
       - run: npm run typecheck
       - run: npm run check:build-targets
       # Only the browser download is cached; install still runs so the OS
@@ -71,6 +77,7 @@ jobs:
         run: |
           npm run db:migrate:dev
           npm run quiz:import:dev
+          npm run math:import:dev
       - name: Sync runtime Clerk keys and deploy dev
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

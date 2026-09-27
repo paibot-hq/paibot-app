@@ -1,0 +1,19 @@
+.figure {
+  display: block;
+  width: 100%;
+  max-width: 360px;
+  height: auto;
+  margin: 0.5rem auto;
+  color: var(--text);
+}
+.figure text {
+  fill: var(--text);
+  font-family: inherit;
+  font-size: 16px;
+  text-anchor: middle;
+  dominant-baseline: central;
+}
+.edge { fill: none; stroke: var(--text); stroke-width: 2; stroke-linejoin: round; }
+.marker { fill: none; stroke: var(--muted); stroke-width: 1.5; }
+.figure .label { fill: var(--text); }
+.figure .unknown { fill: var(--accent); font-size: 20px; font-style: italic; }

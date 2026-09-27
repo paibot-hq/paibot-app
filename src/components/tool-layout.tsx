@@ -12,10 +12,14 @@ type ToolLayoutProps = {
   layout?: "stacked" | "centered" | "spacious";
   contentWidth?: "full" | "auto";
   centerTitle?: boolean;
+  // A breadcrumb-style link (or similar) above the title - e.g. "back to the
+  // parent page" for a tool with sub-pages, like the math factorization set
+  // picker/quiz. Rendered above <h1>, unlike children which render below it.
+  aboveTitle?: ReactNode;
 };
 
 export default function ToolLayout({
-  title, children, layout = "stacked", contentWidth = "full", centerTitle = false,
+  title, children, layout = "stacked", contentWidth = "full", centerTitle = false, aboveTitle,
 }: ToolLayoutProps) {
   const t = useTranslations("App");
   const locale = useLocale();
@@ -28,6 +32,7 @@ export default function ToolLayout({
 
   return (
     <main className={styles.page}>
+      {aboveTitle}
       <h1 className={styles.title} data-centered={centerTitle || undefined}>{title}</h1>
       {app && (
         <FavoriteButton

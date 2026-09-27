@@ -2,7 +2,7 @@ import { index, route, type RouteConfig } from '@react-router/dev/routes';
 import { publicPaths } from './lib/seo';
 export default [
   index('routes/redirect.ts'),
-  ...[...publicPaths.filter(path => path !== '').map(path => path.slice(1)), 'math', 'diary', 'profile', 'sign-in/*', 'sign-up/*']
+  ...[...publicPaths.filter(path => path !== '').map(path => path.slice(1)), 'diary', 'profile', 'sign-in/*', 'sign-up/*']
     .map(path => route(path, 'routes/redirect.ts', { id: `locale-redirect/${path}` })),
   route('api/quiz', 'routes/api.quiz.ts'),
   route('sitemap.xml', 'routes/sitemap.ts'),
@@ -11,6 +11,16 @@ export default [
     route('diary', 'routes/diary.tsx'),
     route('profile', 'routes/profile.tsx'),
     route('math', 'routes/math.tsx'),
+    route('math/pythagoras', 'routes/math-pythagoras-index.tsx'),
+    route('math/pythagoras/:setId', 'routes/math-pythagoras.tsx'),
+    route('math/factorization', 'routes/math-factorization-index.tsx'),
+    route('math/factorization/:setId', 'routes/math-factorization.tsx'),
+    route('math/signed', 'routes/math-signed-index.tsx'),
+    route('math/signed/:setId', 'routes/math-signed.tsx'),
+    route('math/arith', 'routes/math-arith-index.tsx'),
+    route('math/arith/:setId', 'routes/math-arith.tsx'),
+    route('math/:unit', 'routes/math-unit-index.tsx'),
+    route('math/:unit/:setId', 'routes/math-unit-set.tsx'),
     route('apps', 'routes/apps.tsx'),
     route('about', 'routes/about.tsx'),
     route('wc', 'routes/wc.tsx'),
@@ -23,6 +33,7 @@ export default [
     route('stopwatch', 'routes/stopwatch.tsx'),
     route('ip', 'routes/ip.tsx'),
     route('domain', 'routes/domain.tsx'),
+    route('cidr', 'routes/cidr.tsx'),
     route('dice', 'routes/dice.tsx'),
     route('reaction', 'routes/reaction.tsx'),
     route('timing', 'routes/timing.tsx'),

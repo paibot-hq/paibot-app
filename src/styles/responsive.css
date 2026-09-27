@@ -46,12 +46,4 @@
   .lead {
     font-size: 1rem;
   }
-
-  .app-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .app-card {
-    min-height: auto;
-  }
 }
