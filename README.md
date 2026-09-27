@@ -5,7 +5,7 @@ Japanese, English and Simplified Chinese use `/ja`, `/en`, `/zh` URLs.
 
 ## Development
 
-Node.js 22 or later:
+Node.js 24 (pinned in `.tool-versions`, which mise and asdf read; React Router needs at least 22.22):
 
 ```sh
 npm ci
