@@ -30,3 +30,37 @@ resource "cloudflare_d1_database" "app_prod" {
     mode = "disabled"
   }
 }
+
+# Replacements for the two databases above, with their primary in Asia-Pacific.
+# Without a location hint D1 places a new primary near whoever creates it; the
+# ones above were created from a GitHub Actions runner and landed in ENAM, so
+# every query from the Tokyo edge added ~140ms (2026-09-28: set pages 173ms vs
+# 25-45ms for pages without a query). The site targets Japan.
+#
+# Added alongside instead of setting primary_location_hint on the resources
+# above: changing it there forces a replacement, i.e. destroying the current
+# production database and its users' data. Data moves over with
+# `wrangler d1 export` / `d1 execute --file`, wrangler.jsonc switches its
+# database_id by hand, and the old resources are removed only after that.
+resource "cloudflare_d1_database" "app_dev_apac" {
+  account_id            = var.cloudflare_account_id
+  name                  = "paibot-app-dev-apac"
+  primary_location_hint = "apac"
+
+  # Same provider-bug workaround as app_dev above.
+  read_replication = {
+    mode = "disabled"
+  }
+}
+
+resource "cloudflare_d1_database" "app_prod_apac" {
+  account_id            = var.cloudflare_account_id
+  name                  = "paibot-app-apac"
+  primary_location_hint = "apac"
+
+  # Same provider-bug workaround as app_dev above. Overseas readers could later
+  # be served by read replicas (no extra cost) instead of moving the primary.
+  read_replication = {
+    mode = "disabled"
+  }
+}
