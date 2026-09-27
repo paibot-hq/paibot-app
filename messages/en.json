@@ -735,6 +735,15 @@
         "data": "Statistics & probability",
         "linear-algebra": "Vectors & matrices",
         "calculus": "Calculus"
+      },
+      "pythagoras": {
+        "title": "Pythagorean theorem",
+        "description": "Use the Pythagorean theorem to find a side length in the diagram.",
+        "setSides": "Side lengths",
+        "setSidesDescription": "Find side lengths of right triangles using integers and square roots.",
+        "prompt": "In the right triangle shown, find the length x.",
+        "explanationPrefix": "By the Pythagorean theorem,",
+        "figureDescription": "Right triangle ABC. Angle {rightAngle} is a right angle. {first} is {firstLength} cm, {second} is {secondLength} cm, and {unknown} is x."
       }
     },
     "about": {

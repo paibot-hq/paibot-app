@@ -5,7 +5,10 @@ import type { ArithPayload } from './math-arith';
 import type { MathUnit } from './math-attempts';
 import type { FactorizationPayload } from './math-factorization';
 
+import type { PythagorasPayload } from './math-pythagoras';
+
 type PayloadByUnit = {
+  pythagoras: PythagorasPayload;
   arith: ArithPayload;
   signed: ArithPayload;
   factorization: FactorizationPayload;

@@ -4,11 +4,12 @@ import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { ARITH_SETS } from '../src/lib/math-arith-sets.ts';
 import { SIGNED_SETS } from '../src/lib/math-signed-sets.ts';
+import { PYTHAGORAS_SETS } from '../src/lib/math-pythagoras-sets.ts';
 import { FACTORIZATION_SETS } from '../src/lib/math-factorization-sets.ts';
 
 export const root = fileURLToPath(new URL('../', import.meta.url));
 export function context(unit, setId) {
-  const catalogs = { arith: ARITH_SETS, signed: SIGNED_SETS, factorization: FACTORIZATION_SETS };
+  const catalogs = { arith: ARITH_SETS, signed: SIGNED_SETS, factorization: FACTORIZATION_SETS, pythagoras: PYTHAGORAS_SETS };
   assert.ok(Object.hasOwn(catalogs, unit), `Unknown unit: ${unit}`);
   const catalog = catalogs[unit];
   const set = catalog.find(set => set.id === setId);
@@ -54,7 +55,7 @@ export function additions(unit, setId, bank, generated, count, date = new Date()
   return generated.problems.map((p, index) => ({
     id: `${unit}-${String(maxId + index + 1).padStart(3, '0')}`, setId,
     position: maxPosition + index + 1, published: false, reviewedAt: date,
-    ...(unit === 'factorization' ? { p: p.p, q: p.q } : { expression: p.expression, word: p.word }),
+    ...(unit === 'pythagoras' ? { figure: p.figure } : unit === 'factorization' ? { p: p.p, q: p.q } : { expression: p.expression, word: p.word }),
     choices: p.choices, answerIndex: p.answerIndex,
   }));
 }
@@ -78,7 +79,15 @@ export function run(command, args, cwd, env = process.env) {
 }
 const signedTerm = n => `${n < 0 ? '-' : '+'} ${Math.abs(n)}`;
 export const factorChoice = ([p, q]) => `(x ${signedTerm(p)})(x ${signedTerm(q)})`;
+export const radicalChoice = ([a, b]) => b === 1 ? String(a) : `${a === 1 ? '' : a}√${b}`;
 export function blindProblem(unit, p) {
+  if (unit === 'pythagoras') return {
+    id: p.id, type: 'pythagoras',
+    figure: { rightAngle: p.figure.rightAngle, given: p.figure.given.map(side => {
+      const [a, b] = [...side].map(v => p.figure.points[v]);
+      return { side, length: Math.sqrt((a[0] - b[0]) ** 2 + (a[1] - b[1]) ** 2) };
+    }), unknown: p.figure.unknown }, choices: p.choices.map(radicalChoice),
+  };
   if (unit === 'factorization') {
     const a = p.p + p.q, b = p.p * p.q;
     return { id: p.id, type: 'factorization', trinomial: `x^2${a ? ` ${signedTerm(a).replace(/ 1$/, ' ')}x` : ''}${b ? ` ${signedTerm(b)}` : ''}`, choices: p.choices.map(factorChoice) };
@@ -98,7 +107,7 @@ export function compareReviews(unit, problems, result) {
   }
   return problems.map(p => {
     const review = result.reviews.find(r => r.id === p.id);
-    const answer = unit === 'factorization' ? factorChoice(p.choices[p.answerIndex]) : p.choices[p.answerIndex];
+    const answer = unit === 'pythagoras' ? radicalChoice(p.choices[p.answerIndex]) : unit === 'factorization' ? factorChoice(p.choices[p.answerIndex]) : p.choices[p.answerIndex];
     const matches = review.answer === answer && review.choiceIndex === p.answerIndex;
     const issues = [...review.issues];
     if (p.word && !review.wordExpression?.trim()) issues.push('文章題の立式がありません');

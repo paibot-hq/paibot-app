@@ -8,6 +8,7 @@
 | --- | --- | --- | --- | --- |
 | 四則演算 | `/math/arith` | たし算・ひき算(`add-sub-a`)、かけ算・わり算(`mul-div-a`)、計算の順序(`order-a`)、かんたん文章題(`word-a`)、文章題ミックス(`word-b`) | 25 | 原本はすべて `published: false` |
 | 正負の数 | `/math/signed` | 正負の数(`four-ops-a`) | 5 | 原本はすべて `published: false` |
+| 三平方の定理 | `/math/pythagoras` | 辺の長さ(`sides-a`) | 5 | 原本はすべて `published: false` |
 | 因数分解 | `/math/factorization` | 基礎編(`trinomial-a`)、発展編(`trinomial-b`)、平方差編(`squares-a`) | 15 | 原本はすべて `published: false` |
 
 ### 固定ID
@@ -26,14 +27,14 @@
 ### 共通の仕組み
 
 - 単元の領域(`domain`)・難しさ(`stage`)・表示順・公開状態は `src/lib/math-catalog.ts` で管理する。`/math` は領域ごとにカードを表示し、領域内は基礎→標準→発展→上級、同じ難しさではカタログ順に並べる。難しさと準備中の状態は別々の目印で示す。
-- 準備中の単元・セットは共通ルート `math-unit-index.tsx`・`math-unit-set.tsx` で表示し、問題は空の配列を渡して「準備中」にする。カタログにない単元・セットは404。既存3単元は静的ルートが優先され、各 `math-*-sets.ts` のセット一覧を引き続き使う。
+- 準備中の単元・セットは共通ルート `math-unit-index.tsx`・`math-unit-set.tsx` で表示し、問題は空の配列を渡して「準備中」にする。カタログにない単元・セットは404。公開済み単元は静的ルートが優先され、各 `math-*-sets.ts` のセット一覧を引き続き使う。
 - 準備中のページは HTML の robots と Worker の X-Robots-Tag で noindex にし、`publicPaths`・サイトマップには載せない。
 - 準備中の単元に問題を入れる際は、既存単元と同様に専用ルート・セット一覧・payload型と表示変換・独立した検算・取り込みを用意する。その後カタログの `status` を `published` にし、公開ページを `src/lib/seo.ts` に登録する。問題自体の公開は第9節の手順に従う。
 
 - 画面: `src/components/math-set-picker.tsx`(セット選択)と `math-set-quiz.tsx`(4択・5問・結果)。単元ごとのルートは問題データを表示用に変換するだけ。
 - データ: 原本は `src/data/math-*.json`、配信は共通の D1 テーブル `math_problems`。単元・セット・公開状態・表示順は共通列、単元固有の内容は JSON の `payload` に格納し、型は `src/lib/math-arith.ts`・`math-factorization.ts` で定義する。
 - 読み出し: `src/lib/math-problems.server.ts` の `getMathSet(unit, setId)` が公開済みの問題を表示順に返す。ルートは payload を従来の表示用に変換し、成績は引き続き `math_attempts` に保存する。
-- 取り込み: `npm run math:import:local|dev|prod`。共通の `scripts/import-math.mjs` が各単元の検算モジュールの bank を読み込み、共通列と payload に変換して upsert する。単元追加時は検算・payload 型・表示の変換と取り込み対象の登録を追加し、テーブル・マイグレーション・サーバー処理・CI 手順の追加は不要。
+- 取り込み: `npm run math:import:local|dev|prod`。共通の `scripts/import-math.mjs` が各単元の検算モジュールの bank を読み込み、共通列と payload に変換して upsert する。単元追加時は検算・payload 型・表示の変換と取り込み対象の登録を追加し、テーブル・マイグレーション・サーバー処理の追加は不要（payload 型と CI の検算コマンドは登録する）。
 - 生成と検証:
 
 ```text
@@ -204,9 +205,9 @@ Codex には答えだけでなく、内部の式と解説も伏せ、**公開さ
 
 ## 9. 問題を追加する手順
 
-1. `npm run math:generate -- arith add-sub-a --dry-run` で追加予定を確認する。単元は `arith`・`signed`・`factorization`、問題数は `--count N`（既定5）で指定できる。
+1. `npm run math:generate -- arith add-sub-a --dry-run` で追加予定を確認する。単元は `arith`・`signed`・`factorization`・`pythagoras`、問題数は `--count N`（既定5）で指定できる。
 2. `npm run math:generate -- arith add-sub-a` で生成する。Antigravity CLI (`agy`) が一時ディレクトリで生成し、同じ単元の既存問題を渡して重複を避ける。ID とセット内 position は最大値の続き、`published: false`、`reviewedAt` は生成日で追加される。`reviewedAt` だけではレビュー済みを保証しない。
-3. 検算は生成コマンドが自動実行する。失敗時は原本を復元し、生成結果を `.math-work/` に残す。dry-run は一時ファイル上で原本と追加問題を合わせて検算する。手動では `npm run check:math-arith`（signed も含む）、`npm run check:math-factorization`。
+3. 検算は生成コマンドが自動実行する。失敗時は原本を復元し、生成結果を `.math-work/` に残す。dry-run は一時ファイル上で原本と追加問題を合わせて検算する。手動では `npm run check:math-arith`（signed も含む）、`npm run check:math-factorization`、`npm run check:math-pythagoras`。
 4. `npm run math:review -- arith add-sub-a` で Codex CLI (`codex exec`) に盲検レビューを依頼する。setId を省略すると単元の全問題が対象。文章題の内部式と正解情報は渡さない。一致/不一致・文章から立てた式・指摘事項を表で確認し、`.math-work/review-<unit>-<日時>.json` の記録を読む。不一致・指摘ありは終了コード1。修正後は検算とレビューを再実行する。
 5. 人が問題・3言語・選択肢・レビュー結果を確認して `published: true` にする。
 6. `npm run math:import:local` で取り込み、ローカル画面で確認する。
@@ -215,3 +216,18 @@ Codex には答えだけでなく、内部の式と解説も伏せ、**公開さ
 事前に `agy` と `codex` が PATH 上で使え、認証済みであることが必要。両CLIは stdin を閉じ、一時ディレクトリで実行する。生成・レビューの指示文は `scripts/math-prompts/` に保存している。
 
 新しいセットを足す場合は `src/lib/math-<unit>-sets.ts` のセット一覧と3言語の翻訳を追加する。`rule` は生成条件と検算条件を指す。同条件の練習Bなら練習Aと同じ `rule` を使える。新条件なら検算スクリプトの条件表と `scripts/math-prompts/<rule>.md` も追加する。既存セットへの追加時は position の続きを使うため、文章題ミックスの奇数/偶数の条件も継続する。
+
+## 10. 図を使う問題
+
+図は座標などの構造化データから共通コンポーネントで描き、LLM に SVG を描かせない。
+辺の長さのラベルは保存せず座標から計算する。読み上げ用の説明文を3言語で持ち、
+図の直角・既知の辺と長さ・未知の辺を文章からも復元できるようにする。
+
+三平方の定理は `figure.points`（整数座標）、`rightAngle`、`given`、`unknown` を保存する。
+検算は表示コードとは独立に座標から距離の二乗と内積を計算し、直角、既知の整数の長さ、
+全辺を1回ずつ指定していることを確認する。選択肢は正規化した `[a,b] = a√b` で、
+全4択を照合して正解がちょうど1つであることを確認する。
+`sides-a` は全辺の二乗400以下、斜辺と脚、整数と根号の答えの両方を含む。
+合同で同じ長さの辺を求める問題は、座標移動・回転・頂点名が違っても重複として拒否する。
+盲検レビューには座標や正解を渡さず、直角の頂点、既知の辺と計算済みの長さ、未知の辺、
+正規化した選択肢だけを渡す。原本の `published: false` は人によるレビュー後に変更する。

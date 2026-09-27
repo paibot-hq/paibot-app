@@ -3,12 +3,15 @@ import { spawnSync } from 'node:child_process';
 import { bank as arithBank, signedBank } from './check-math-arith.mjs';
 import { bank as factorizationBank } from './check-math-factorization.mjs';
 
+import { bank as pythagorasBank } from './check-math-pythagoras.mjs';
+
 // Explicit target only; importing never creates or resets any tables.
 const targets = { local: ['--local'], dev: ['--remote'], prod: ['--remote', '--env', 'production'] };
 const target = process.argv[2];
 if (!Object.hasOwn(targets, target) || process.argv.length !== 3) throw new Error('Usage: node scripts/import-math.mjs local|dev|prod');
 const quote = value => `'${String(value).replaceAll("'", "''")}'`;
 const units = [
+  { unit: 'pythagoras', bank: pythagorasBank, payload: ({ figure, choices }) => ({ figure, choices }) },
   { unit: 'arith', bank: arithBank, payload: ({ expression, word, choices }) => ({ expression, word, choices }) },
   { unit: 'signed', bank: signedBank, payload: ({ expression, word, choices }) => ({ expression, word, choices }) },
   { unit: 'factorization', bank: factorizationBank, payload: ({ p, q, choices }) => ({ p, q, choices }) },

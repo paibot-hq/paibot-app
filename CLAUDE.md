@@ -34,10 +34,12 @@ Do not print secret keys. Runtime Clerk keys must be synced to Workers Secrets;
 `/math` is a published landing page linking to quiz units, each a set picker plus
 five-problem, four-choice sets served from D1: `/math/arith/:setId`
 (addition/subtraction, multiplication/division, order of operations, word problems),
-`/math/signed/:setId` (negative numbers), and
-`/math/factorization/:setId`. All use the shared `math_problems` table, indexed by
+`/math/signed/:setId` (negative numbers), `/math/factorization/:setId`, and
+`/math/pythagoras/:setId` (right-triangle side lengths). All use the shared
+`math_problems` table, indexed by
 unit, set, publication status and position. Unit-specific data lives in a JSON
-`payload`, typed in `src/lib/math-arith.ts` and `math-factorization.ts`.
+`payload`, typed in `src/lib/math-arith.ts`, `math-factorization.ts`, and
+`math-pythagoras.ts`.
 `src/lib/math-problems.server.ts` reads published sets for all units; routes
 convert payloads for display. All render through
 `src/components/math-set-picker.tsx` and `math-set-quiz.tsx`.
@@ -54,6 +56,10 @@ static routes and existing `math-*-sets.ts` catalogs, which take precedence.
 To publish a new unit, add dedicated routes, a set catalog, payload/display
 conversion, independent verification and import support like the existing units,
 then change the catalog status to `published` and register its public SEO paths.
+
+Pythagoras figures use integer coordinates and `math-figure.tsx` SVG rendering; labels
+and localized accessible descriptions are calculated, never stored.
+`check:math-pythagoras` independently verifies geometry, radicals and set coverage.
 
 Problems are LLM-generated into `src/data/math-*.json` and never trusted as-is:
 `npm run check:math-arith` / `check:math-factorization` re-derive every answer

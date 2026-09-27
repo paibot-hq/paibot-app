@@ -6,7 +6,7 @@ const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:300
 const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app').origin;
 const indexable = process.env.CHECK_SITE_INDEXABLE === 'true';
 const locales = ['ja', 'en', 'zh'];
-const paths = ['', '/apps', '/about', '/ip', '/domain', '/wc', '/arith', '/quiz', '/age', '/clock', '/calendar', '/life-calendar', '/password', '/base64', '/json', '/urlencode', '/dice', '/reaction', '/timing', '/stopwatch', '/math', '/math/factorization', '/math/factorization/trinomial-a', '/math/arith', '/math/arith/add-sub-a', '/math/signed', '/math/signed/four-ops-a'];
+const paths = ['', '/apps', '/about', '/ip', '/domain', '/wc', '/arith', '/quiz', '/age', '/clock', '/calendar', '/life-calendar', '/password', '/base64', '/json', '/urlencode', '/dice', '/reaction', '/timing', '/stopwatch', '/math', '/math/pythagoras', '/math/pythagoras/sides-a', '/math/factorization', '/math/factorization/trinomial-a', '/math/arith', '/math/arith/add-sub-a', '/math/signed', '/math/signed/four-ops-a'];
 const authPaths = ['sign-in', 'sign-up', 'diary', 'profile'];
 const browser = await chromium.launch();
 try {
@@ -17,7 +17,7 @@ try {
       const doc = new DOMParser().parseFromString(html, 'text/html');
       return {
         lang: doc.documentElement.lang,
-        titles: [...doc.querySelectorAll('title')].map(el => el.textContent),
+        titles: [...doc.head.querySelectorAll('title')].map(el => el.textContent),
         canonical: [...doc.querySelectorAll('link[rel="canonical"]')].map(el => el.getAttribute('href')),
         alternates: [...doc.querySelectorAll('link[rel="alternate"][hreflang]')].map(el => [el.getAttribute('hreflang'), el.getAttribute('href')]),
         robots: doc.querySelector('meta[name="robots"]')?.content,

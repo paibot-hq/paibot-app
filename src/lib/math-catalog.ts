@@ -1,3 +1,5 @@
+import { PYTHAGORAS_SETS } from './math-pythagoras-sets';
+
 export type MathDomain = 'number' | 'algebra' | 'functions' | 'geometry' | 'data' | 'linear-algebra' | 'calculus';
 export type MathStage = 'elementary' | 'middle' | 'high' | 'university';
 export interface MathCatalogUnit {
@@ -81,9 +83,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'prime', domain: 'number', stage: 'middle', status: 'comingSoon', sets: [
     { id: 'prime-a', item: 'prime.prime' },
   ] },
-  { id: 'pythagoras', domain: 'geometry', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'sides-a', item: 'pythagoras.sides' },
-  ] },
+  { id: 'pythagoras', domain: 'geometry', stage: 'middle', status: 'published', sets: [...PYTHAGORAS_SETS] },
   { id: 'probability', domain: 'data', stage: 'middle', status: 'comingSoon', sets: [
     { id: 'basic-a', item: 'probability.basic' },
   ] },

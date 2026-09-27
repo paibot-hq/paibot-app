@@ -1,6 +1,7 @@
 import { sql } from "drizzle-orm";
 import { index, integer, primaryKey, sqliteTable, text } from "drizzle-orm/sqlite-core";
 import type { ArithPayload } from '../lib/math-arith';
+import type { PythagorasPayload } from '../lib/math-pythagoras';
 import type { FactorizationPayload } from '../lib/math-factorization';
 import type { QuizLocale, QuizTranslation } from '../lib/quiz';
 
@@ -50,7 +51,7 @@ export const mathProblems = sqliteTable('math_problems', {
   position: integer('position').notNull(),
   published: integer('published', { mode: 'boolean' }).notNull(),
   answerIndex: integer('answer_index').notNull(),
-  payload: text('payload', { mode: 'json' }).$type<ArithPayload | FactorizationPayload>().notNull(),
+  payload: text('payload', { mode: 'json' }).$type<ArithPayload | FactorizationPayload | PythagorasPayload>().notNull(),
   reviewedAt: text('reviewed_at').notNull(),
 }, table => [index('math_problems_unit_set_idx').on(table.unit, table.setId, table.published, table.position)]);
 

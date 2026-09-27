@@ -39,7 +39,8 @@
     "math:import:dev": "node scripts/import-math.mjs dev",
     "math:import:prod": "node scripts/import-math.mjs prod",
     "math:generate": "node scripts/math-generate.mjs",
-    "math:review": "node scripts/math-review.mjs"
+    "math:review": "node scripts/math-review.mjs",
+    "check:math-pythagoras": "node scripts/check-math-pythagoras.mjs"
   },
   "dependencies": {
     "@clerk/localizations": "^4.16.1",

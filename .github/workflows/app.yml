@@ -26,6 +26,8 @@ jobs:
         run: node -e 'require("fs").writeFileSync(".dev.vars", `CLERK_PUBLISHABLE_KEY=${process.env.CLERK_PUBLISHABLE_KEY}\nCLERK_SECRET_KEY=${process.env.CLERK_SECRET_KEY}\n`)'
       - run: npm run check:quiz
       - run: npm run check:math-factorization
+      - run: npm run check:math-pythagoras
+      - run: node scripts/check-math-pythagoras-tests.mjs
       - run: npm run check:math-arith
       - run: npm run db:migrate:local
       - run: npm run quiz:import:local

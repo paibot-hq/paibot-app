@@ -735,6 +735,15 @@
         "data": "统计与概率",
         "linear-algebra": "向量与矩阵",
         "calculus": "微积分"
+      },
+      "pythagoras": {
+        "title": "勾股定理",
+        "description": "根据图形，用勾股定理求边长。",
+        "setSides": "求边长",
+        "setSidesDescription": "用整数和根式表示直角三角形的边长。",
+        "prompt": "在图中的直角三角形中，求 x 的长度。",
+        "explanationPrefix": "根据勾股定理，",
+        "figureDescription": "直角三角形ABC。角{rightAngle}是直角。{first}为{firstLength} cm，{second}为{secondLength} cm，{unknown}为x。"
       }
     },
     "about": {

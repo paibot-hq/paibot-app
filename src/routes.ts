@@ -11,6 +11,8 @@ export default [
     route('diary', 'routes/diary.tsx'),
     route('profile', 'routes/profile.tsx'),
     route('math', 'routes/math.tsx'),
+    route('math/pythagoras', 'routes/math-pythagoras-index.tsx'),
+    route('math/pythagoras/:setId', 'routes/math-pythagoras.tsx'),
     route('math/factorization', 'routes/math-factorization-index.tsx'),
     route('math/factorization/:setId', 'routes/math-factorization.tsx'),
     route('math/signed', 'routes/math-signed-index.tsx'),

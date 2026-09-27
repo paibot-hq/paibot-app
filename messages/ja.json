@@ -735,6 +735,15 @@
         "data": "データと確率",
         "linear-algebra": "ベクトルと行列",
         "calculus": "微分積分"
+      },
+      "pythagoras": {
+        "title": "三平方の定理",
+        "description": "図を見て、三平方の定理で辺の長さを求めましょう。",
+        "setSides": "辺の長さ",
+        "setSidesDescription": "整数や根号を使って、直角三角形の辺の長さを求めます。",
+        "prompt": "図の直角三角形で、x の長さを求めなさい。",
+        "explanationPrefix": "三平方の定理より、",
+        "figureDescription": "直角三角形ABC。角{rightAngle}が直角。{first}は{firstLength} cm、{second}は{secondLength} cm、{unknown}はx。"
       }
     },
     "about": {

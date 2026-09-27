@@ -25,7 +25,7 @@ export default {
       secured.headers.set('X-Robots-Tag', 'noindex');
     }
     // Math unit pages carry a signed-in user's scores (set pickers) or save them (set pages).
-    if (/^\/(ja|en|zh)\/(diary|clock|profile|life-calendar|math\/(?:arith|factorization))(?:\.data|\/|$)/.test(url.pathname)) {
+    if (/^\/(ja|en|zh)\/(diary|clock|profile|life-calendar|math\/(?:arith|factorization|pythagoras))(?:\.data|\/|$)/.test(url.pathname)) {
       secured.headers.set('Cache-Control', 'private, no-store');
     }
     secured.headers.set('X-Content-Type-Options', 'nosniff');

@@ -15,7 +15,7 @@ try {
     else throw new Error(`Unknown option: ${options[i]}`);
   }
   const { set, bank, path, original } = context(unit, setId);
-  const existing = bank.problems.map(p => unit === 'factorization' ? blindProblem(unit, p).trinomial : `${p.expression}${p.word ? ` | ${p.word.ja.prompt}` : ''}`);
+  const existing = bank.problems.map(p => unit === 'pythagoras' ? JSON.stringify(p.figure) : unit === 'factorization' ? blindProblem(unit, p).trinomial : `${p.expression}${p.word ? ` | ${p.word.ja.prompt}` : ''}`);
   const position = Math.max(0, ...bank.problems.filter(p => p.setId === setId).map(p => p.position)) + 1;
   const prompt = [promptFile('_rules'), promptFile(unit), promptFile(set.rule),
     `このセットの既存の問題（重複を避けること）。同じ単元の全問題:\n${existing.join('\n')}`,
@@ -34,7 +34,7 @@ try {
   assert.equal(readFileSync(path, 'utf8'), original, 'Bank changed during generation; retry');
   if (!dryRun) writeFileSync(path, combined);
   try {
-    const output = run(process.execPath, [`${root}scripts/check-math-${unit === 'factorization' ? 'factorization' : 'arith'}.mjs`], root,
+    const output = run(process.execPath, [`${root}scripts/check-math-${['factorization', 'pythagoras'].includes(unit) ? unit : 'arith'}.mjs`], root,
       { ...process.env, [`MATH_BANK_${unit.toUpperCase()}`]: dryRun ? candidate : path });
     console.log(output.trim());
   } catch (error) {
