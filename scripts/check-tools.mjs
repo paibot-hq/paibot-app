@@ -147,9 +147,9 @@ try {
   // Anchored: the negative-numbers card's summary also mentions arithmetic.
   await main.getByRole('link', { name: /^Arithmetic/ }).click();
   await page.waitForURL(`${base}/en/math/arith`);
-  await main.getByRole('link', { name: /^Word problem mix/ }).click();
+  await main.getByRole('link', { name: /^Multi-step word problems/ }).click();
   await page.waitForURL(`${base}/en/math/arith/word-b`);
-  await main.getByText('Word problem mix', { exact: true }).waitFor();
+  await main.getByText('Multi-step word problems', { exact: true }).waitFor();
   assert.deepEqual(errors, []);
   console.log('PASS: math landing links through to the arithmetic set picker and set word-b');
   await go('math');

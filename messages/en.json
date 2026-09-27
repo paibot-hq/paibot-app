@@ -434,8 +434,9 @@
         "setEasyWordDescription": "Short word problems you can solve in one or two steps.",
         "setOrder": "Order of operations",
         "setOrderDescription": "Parentheses first, then × and ÷. Check the order you calculate in.",
-        "setWord": "Word problem mix",
-        "setWordDescription": "Word problems mixed with calculations - practice writing the expression.",
+        "setOrderB": "Order of operations (practice B)",
+        "setWord": "Multi-step word problems",
+        "setWordDescription": "Word problems that take two or three calculations. Try these after the easy ones.",
         "formula": "Expression:",
         "valueWithUnit": "{value} {unit}"
       },

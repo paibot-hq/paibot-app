@@ -434,8 +434,9 @@
         "setEasyWordDescription": "1〜2回の計算で解ける、短い文章題です。",
         "setOrder": "計算の順序",
         "setOrderDescription": "かっこ、かけ算・わり算を先に。計算する順番を確かめます。",
-        "setWord": "文章題ミックス",
-        "setWordDescription": "文章題と計算問題をまぜました。式を立てる練習に。",
+        "setOrderB": "計算の順序（練習B）",
+        "setWord": "少し長い文章題",
+        "setWordDescription": "2〜3回の計算が必要な文章題です。かんたん文章題に慣れたら挑戦を。",
         "formula": "式：",
         "valueWithUnit": "{value}{unit}"
       },

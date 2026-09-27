@@ -434,8 +434,9 @@
         "setEasyWordDescription": "一两步就能解答的简短应用题。",
         "setOrder": "运算顺序",
         "setOrderDescription": "先算括号，再算乘除，确认计算的顺序。",
-        "setWord": "应用题混合",
-        "setWordDescription": "应用题与计算题混合，练习列式。",
+        "setOrderB": "运算顺序（练习B）",
+        "setWord": "多步应用题",
+        "setWordDescription": "需要两到三步计算的应用题。熟悉简单应用题后再来挑战。",
         "formula": "算式：",
         "valueWithUnit": "{value}{unit}"
       },

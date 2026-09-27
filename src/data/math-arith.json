@@ -312,8 +312,8 @@
     },
     {
       "id": "arith-022",
-      "setId": "word-b",
-      "position": 2,
+      "setId": "order-b",
+      "position": 1,
       "published": false,
       "reviewedAt": "2026-09-27",
       "expression": "45 + 15 * (16 - 8) / 6",
@@ -324,7 +324,7 @@
     {
       "id": "arith-023",
       "setId": "word-b",
-      "position": 3,
+      "position": 2,
       "published": false,
       "reviewedAt": "2026-09-27",
       "expression": "(180 - 20 * 3) / 4",
@@ -347,8 +347,8 @@
     },
     {
       "id": "arith-024",
-      "setId": "word-b",
-      "position": 4,
+      "setId": "order-b",
+      "position": 2,
       "published": false,
       "reviewedAt": "2026-09-27",
       "expression": "72 / (3 + 5) + 4 * 8",
@@ -359,7 +359,7 @@
     {
       "id": "arith-025",
       "setId": "word-b",
-      "position": 5,
+      "position": 3,
       "published": false,
       "reviewedAt": "2026-09-27",
       "expression": "(4 * 8 + 28) / 6",
@@ -379,6 +379,87 @@
       },
       "choices": [15, 24, 10, 60],
       "answerIndex": 2
+    },
+    {
+      "id": "arith-026",
+      "setId": "word-b",
+      "position": 4,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "(75 - 15) / 4 - 3",
+      "word": {
+        "ja": {
+          "prompt": "全部で75枚の折り紙があります。工作で15枚使い、残りを4つの箱に同じ枚数ずつ分けました。そのうちの1つの箱から、さらに3枚の折り紙を使いました。この箱に残っている折り紙は何枚ですか。",
+          "unit": "枚"
+        },
+        "en": {
+          "prompt": "There are 75 sheets of origami paper in total. After 15 sheets were used for a craft project, the rest were divided equally into 4 boxes. Then, 3 sheets were used from one of the boxes. How many sheets of origami paper are left in this box?",
+          "unit": "sheets"
+        },
+        "zh": {
+          "prompt": "一共有75张折纸。做手工用掉了15张，剩下的平均分装在4个盒子里。之后，又从其中一个盒子里用掉了3张。这个盒子里还剩下多少张折纸？",
+          "unit": "张"
+        }
+      },
+      "choices": [15, 18, 12, 57],
+      "answerIndex": 2
+    },
+    {
+      "id": "arith-027",
+      "setId": "word-b",
+      "position": 5,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "(35 + 45) / 5 + 3",
+      "word": {
+        "ja": {
+          "prompt": "ある体験教室に、男子が35人、女子が45人集まりました。全員を5つの同じ人数のグループに分けました。そのうちの1つのグループに先生が3人加わると、そのグループは全部で何人になりますか。",
+          "unit": "人"
+        },
+        "en": {
+          "prompt": "35 boys and 45 girls gathered for a workshop. Everyone was divided into 5 groups of equal size. If 3 teachers joined one of the groups, how many people in total are in that group?",
+          "unit": "people"
+        },
+        "zh": {
+          "prompt": "35名男生和45名女生参加了一次体验活动。所有人被平均分成了5个小组。如果3位老师加入其中一个小组，这个小组一共有多少人？",
+          "unit": "人"
+        }
+      },
+      "choices": [16, 19, 13, 83],
+      "answerIndex": 1
+    },
+    {
+      "id": "arith-028",
+      "setId": "order-b",
+      "position": 3,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "8 * (12 + 36 / 6)",
+      "word": null,
+      "choices": [144, 64, 102, 22],
+      "answerIndex": 0
+    },
+    {
+      "id": "arith-029",
+      "setId": "order-b",
+      "position": 4,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "(18 + 6 * 7) / 6 - 4",
+      "word": null,
+      "choices": [24, 6, 30, 14],
+      "answerIndex": 1
+    },
+    {
+      "id": "arith-030",
+      "setId": "order-b",
+      "position": 5,
+      "published": false,
+      "reviewedAt": "2026-09-27",
+      "expression": "(72 - 18) / 9 + 8 * 5",
+      "word": null,
+      "choices": [70, 110, 34, 46],
+      "answerIndex": 3
     }
   ]
 }
