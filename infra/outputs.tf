@@ -29,3 +29,13 @@ output "d1_app_prod_database_id" {
   description = "Database ID for the production D1 database. Not a secret, but Terraform doesn't manage wrangler.jsonc's d1_databases binding (see infra/README.md) — copy this value into env.production's d1_databases by hand after apply, as its own PR."
   value       = cloudflare_d1_database.app_prod.id
 }
+
+output "d1_app_dev_apac_database_id" {
+  description = "Database ID for the Asia-Pacific dev D1 database that replaces paibot-app-dev. Copy it into wrangler.jsonc's top-level d1_databases by hand after apply."
+  value       = cloudflare_d1_database.app_dev_apac.id
+}
+
+output "d1_app_prod_apac_database_id" {
+  description = "Database ID for the Asia-Pacific production D1 database that replaces paibot-app. Copy it into env.production's d1_databases by hand after apply, once the data has moved."
+  value       = cloudflare_d1_database.app_prod_apac.id
+}
