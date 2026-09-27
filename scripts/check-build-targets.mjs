@@ -6,8 +6,8 @@ import { spawnSync } from 'node:child_process';
 // database: each environment must bind its own D1 database - production
 // pointing at the dev one (or vice versa) would mix real users' data with tests.
 for (const [environment, name, host, indexable, database] of [
-  ['production', 'paibot-app', 'paibot.app', 'true', 'paibot-app'],
-  ['', 'paibot-app-dev', 'dev.paibot.app', 'false', 'paibot-app-dev'],
+  ['production', 'paibot-app', 'paibot.app', 'true', 'paibot-app-apac'],
+  ['', 'paibot-app-dev', 'dev.paibot.app', 'false', 'paibot-app-dev-apac'],
 ]) {
   const env = { ...process.env };
   if (environment) env.CLOUDFLARE_ENV = environment;
