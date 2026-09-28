@@ -27,6 +27,8 @@ const SLING_KICK = 9;
 const KICKBACK_SPEED = 20;
 // A ball lost this soon after its launch comes back (once per ball).
 export const SAVER_STEPS = 60 * 5;
+// Lighting both inlanes raises the center post between the flippers for this long.
+export const POST_STEPS = 60 * 20;
 
 const FLIPPER = { length: 80, width: 14, rest: 0.5, up: -0.42, upSpeed: 0.2, downSpeed: 0.12 } as const;
 const CENTER = LANE.wall / 2 + 5;
@@ -34,7 +36,7 @@ const CENTER = LANE.wall / 2 + 5;
 const mirror = (x: number) => 2 * CENTER - x;
 
 export type Side = "left" | "right";
-export type Part = "wall" | "flipper" | "bumper" | "sling" | "lanePost" | "lane" | "target" | "inlane" | "outlane" | "kickback" | "ball" | "plunger" | "drain";
+export type Part = "wall" | "flipper" | "bumper" | "sling" | "lanePost" | "lane" | "target" | "inlane" | "outlane" | "kickback" | "centerPost" | "ball" | "plunger" | "drain";
 export type PinballEvent =
   | { type: "launch" }
   | { type: "bumper"; index: number; id: number }
@@ -45,6 +47,8 @@ export type PinballEvent =
   | { type: "targetsBonus" }
   | { type: "inlane"; side: Side }
   | { type: "inlanesBonus" }
+  | { type: "postUp" }
+  | { type: "postDown" }
   | { type: "kickback" }
   | { type: "saved" }
   | { type: "drain" }
@@ -97,14 +101,17 @@ export function createPinball(M: Matter) {
   // Three standup targets on the left wall; all three relight the kickback.
   [330, 375, 420].forEach((y, i) => add(Bodies.rectangle(17, y, 8, 30, { isStatic: true, restitution: 0.5 }), "target", i));
 
-  // Lower playfield, mirrored left/right. Each side has an outlane by the wall
-  // (drains, unless the kickback saves it) and an inlane that feeds the flipper.
+  // Lower playfield, mirrored left/right. Both sides have an inlane feeding
+  // the flipper. Only the left has an outlane (drains unless the kickback
+  // saves it): on the right, balls sliding down the plunger-lane wall fell
+  // into one far too often, so the right inlane guide starts at that wall.
+  segment(38, 510, 38, 620, 6);                          // left outlane / inlane divider
+  segment(38, 620, 132, 662);
+  sensor(23, 640, 18, 12, "outlane", 0);
+  segment(LANE.wall - 4, 612, mirror(132), 662);
   for (const side of ["left", "right"] as Side[]) {
     const x = (v: number) => (side === "left" ? v : mirror(v));
-    segment(x(38), 510, x(38), 620, 6);                  // outlane / inlane divider
-    segment(x(38), 620, x(132), 662);                    // inlane guide to the flipper
     sensor(x(52), 560, 14, 12, "inlane", side === "left" ? 0 : 1);
-    sensor(x(23), 640, 18, 12, "outlane", side === "left" ? 0 : 1);
     const sling = Bodies.fromVertices(0, 0, [[[68, 468], [68, 548], [116, 586]].map(([px, py]) => ({ x: x(px), y: py }))], { isStatic: true, restitution: 0.6 });
     Body.setPosition(sling, { x: x((68 + 68 + 116) / 3), y: (468 + 548 + 586) / 3 });
     add(sling, "sling");
@@ -123,6 +130,11 @@ export function createPinball(M: Matter) {
     return { side, body, pivot, rest, up, pressed: false };
   });
 
+  // Center post: out of the world until raised, then it closes the gap
+  // between the flipper tips so the ball rests on it instead of draining.
+  const centerPost = Bodies.circle(CENTER, 722, 8, { isStatic: true, restitution: 0.3 });
+  parts.set(centerPost.id, "centerPost");
+
   sensor(TABLE.width / 2, TABLE.height + 30, TABLE.width, 20, "drain");
 
   const state = {
@@ -132,6 +144,7 @@ export function createPinball(M: Matter) {
     targets: [false, false, false],
     inlanes: [false, false],
     kickback: true,
+    post: 0,
     // Steps left on this ball's saver; it starts counting at the launch.
     saver: 0,
     saverUsed: false,
@@ -194,7 +207,14 @@ export function createPinball(M: Matter) {
       } else if (part === "inlane") {
         state.score += POINTS.inlane;
         emit({ type: "inlane", side: i === 0 ? "left" : "right" });
-        if (light(state.inlanes, i, POINTS.inlanesBonus)) emit({ type: "inlanesBonus" });
+        if (light(state.inlanes, i, POINTS.inlanesBonus)) {
+          emit({ type: "inlanesBonus" });
+          if (state.post === 0) {
+            Composite.add(engine.world, centerPost);
+            emit({ type: "postUp" });
+          }
+          state.post = POST_STEPS;
+        }
       } else if (part === "kickback" && state.kickback) {
         state.kickback = false;
         Body.setVelocity(ball, { x: 0, y: -KICKBACK_SPEED });
@@ -240,6 +260,7 @@ export function createPinball(M: Matter) {
     plunger,
     flippers,
     bumpers,
+    centerPost,
     get ball() { return ball; },
     partOf: (body: MatterJS.Body) => parts.get(body.id) ?? "wall",
     indexOf: (body: MatterJS.Body) => index.get(body.id) ?? 0,
@@ -268,6 +289,10 @@ export function createPinball(M: Matter) {
       state.steps++;
       if (state.charging) state.charge = Math.min(1, state.charge + 1 / CHARGE_STEPS);
       if (state.saver > 0 && ball && ball.position.x < LANE.wall) state.saver--;
+      if (state.post > 0 && --state.post === 0) {
+        Composite.remove(engine.world, centerPost);
+        emit({ type: "postDown" });
+      }
       if (state.nextBallIn > 0 && --state.nextBallIn === 0) serve();
       for (let i = 0; i < SUBSTEPS; i++) {
         moveFlippers();

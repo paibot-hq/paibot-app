@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import Matter from 'matter-js';
-import { createPinball } from '../src/lib/pinball.ts';
+import { createPinball, POST_STEPS } from '../src/lib/pinball.ts';
 
 // Plays the pinball table headlessly: the plunger, the flippers and the
 // three-ball game must work, and flipping must actually keep the ball alive.
@@ -78,6 +78,25 @@ function launch(game, charge) {
   assert.equal(kicks, 1, 'an unlit kickback lets the ball go');
 }
 
+// Both inlanes raise the center post: a ball dropping between the flippers
+// rests on it instead of draining, until the post drops again.
+{
+  const game = createPinball(Matter);
+  const events = [];
+  game.onEvent(event => events.push(event.type));
+  settle(game);
+  const pass = x => { Matter.Body.setPosition(game.ball, { x, y: 545 }); Matter.Body.setVelocity(game.ball, { x: 0, y: 3 }); for (let i = 0; i < 12; i++) game.step(); };
+  pass(52);
+  pass(390);
+  assert.ok(events.includes('inlanesBonus') && events.includes('postUp'), 'both inlanes raise the post');
+  Matter.Body.setPosition(game.ball, { x: 221, y: 680 });
+  Matter.Body.setVelocity(game.ball, { x: 0, y: 2 });
+  for (let i = 0; i < 120; i++) game.step();
+  assert.ok(game.ball && game.state.ballsLeft === 3 && !events.includes('drain'), 'the raised post stops a ball between the flippers');
+  for (let i = 0; i < POST_STEPS; i++) game.step();
+  assert.ok(events.includes('postDown'), 'the post drops after its time');
+}
+
 // Three balls per game; a naive tapping player keeps each ball far longer
 // than not flipping at all.
 function playGame(tapFlippers, events = {}) {
@@ -111,4 +130,4 @@ assert.ok(idle.over && idle.ballsLeft === 0, 'the game ends after three drained 
 assert.ok(tapping.seconds >= idle.seconds * 2, `flipping keeps balls alive longer: ${tapping.seconds.toFixed(1)}s vs ${idle.seconds.toFixed(1)}s`);
 assert.deepEqual(playGame(true), tapping, 'the same inputs replay identically');
 
-console.log(`PASS: pinball plunger, flippers, ball saver, kickback and three-ball game; every feature reached in play; a tapping player lasts ${tapping.seconds.toFixed(0)}s (${tapping.score} pts) vs ${idle.seconds.toFixed(0)}s without flipping; replays identically`);
+console.log(`PASS: pinball plunger, flippers, ball saver, kickback, center post and three-ball game; every feature reached in play; a tapping player lasts ${tapping.seconds.toFixed(0)}s (${tapping.score} pts) vs ${idle.seconds.toFixed(0)}s without flipping; replays identically`);

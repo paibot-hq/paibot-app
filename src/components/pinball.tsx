@@ -41,6 +41,7 @@ function playSound(audio: AudioContext, event: PinballEvent) {
   if (event.type === "targetsBonus" || event.type === "inlanesBonus") [659, 880, 1319].forEach((f, i) => tone(audio, f, 0.18, "triangle", 0.12, i * 0.08));
   if (event.type === "kickback") tone(audio, 140, 0.2, "sawtooth", 0.12);
   if (event.type === "saved") [523, 659].forEach((f, i) => tone(audio, f, 0.2, "triangle", 0.12, i * 0.12));
+  if (event.type === "postUp") [392, 523, 784].forEach((f, i) => tone(audio, f, 0.15, "square", 0.07, i * 0.07));
   if (event.type === "drain") [330, 247, 165].forEach((f, i) => tone(audio, f, 0.25, "triangle", 0.1, i * 0.15));
 }
 
@@ -80,6 +81,7 @@ function draw(canvas: HTMLCanvasElement, game: Pinball, flashes: Map<number, num
     if (part === "sling") fill = flashing ? color("--success") : color("--accent-dark");
     if (part === "target") fill = state.targets[i] ? color("--success") : color("--accent-dark");
     if (part === "flipper") fill = color("--text");
+    if (part === "centerPost") fill = color("--success");
     if (part === "ball") fill = color("--accent-dark");
     context.beginPath();
     if (body.circleRadius) context.arc(x, y, body.circleRadius, 0, Math.PI * 2);
@@ -98,10 +100,10 @@ function draw(canvas: HTMLCanvasElement, game: Pinball, flashes: Map<number, num
   context.textAlign = "center";
   context.textBaseline = "middle";
   context.font = "bold 13px system-ui, sans-serif";
-  if (state.saver > 0 && !state.saverUsed) {
-    context.fillStyle = color("--success");
-    context.fillText("SAVE", TABLE.width / 2 - 20, 735);
-  }
+  context.fillStyle = lit(state.saver > 0 && !state.saverUsed);
+  context.fillText("SAVE", 175, 748);
+  context.fillStyle = lit(state.post > 0);
+  context.fillText("POST", 267, 748);
   context.fillStyle = lit(state.kickback);
   context.fillText("KICK", 30, 725);
 }
@@ -137,6 +139,7 @@ export default function PinballGame() {
       if (event.type === "inlanesBonus") setMessage(t("inlanesBonus"));
       if (event.type === "kickback") setMessage(t("kickback"));
       if (event.type === "saved") setMessage(t("saved"));
+      if (event.type === "postUp") setMessage(t("postUp"));
       if (event.type === "launch") setMessage("");
       if (event.type === "drain" && !game.state.over) setMessage(t("drained"));
       if (event.type === "gameOver") {
