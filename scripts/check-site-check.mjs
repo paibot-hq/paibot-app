@@ -105,6 +105,11 @@ try {
   assert.equal(Math.floor(Date.now() / 60_000), minute, 'the checks ran into the next minute, so the limit count was reset');
   assert.equal(allowed, 10, `the 11th check in a minute is refused (refused after ${allowed})`);
   console.log('PASS: the 11th check within a minute from one IP is refused');
+  // Only requests that would reach the network count: once limited, a typo
+  // still gets its own message (and never used up the quota). Blocked hosts
+  // are checked the same way, but this run allows 127.0.0.1 for the fake site.
+  await check('not a url', "That doesn't look like a valid URL. Enter a URL starting with http:// or https://, or a domain name.");
+  console.log('PASS: an invalid URL is rejected before the rate limit');
 
   assert.deepEqual(errors, []);
 } finally {

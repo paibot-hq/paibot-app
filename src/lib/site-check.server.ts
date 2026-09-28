@@ -67,7 +67,9 @@ export function isPrivateHost(hostname: string): boolean {
   return false;
 }
 
-export async function checkSite(input: string): Promise<SiteCheckResult> {
+// `allowRequest` (the per-IP rate limit) is asked only once the input is a
+// valid, public URL, so typos and blocked hosts never use up the quota.
+export async function checkSite(input: string, allowRequest: () => Promise<boolean> = async () => true): Promise<SiteCheckResult> {
   const start = normalizeUrl(input);
   if (!start) return { status: "error", reason: "invalid_url" };
   // Test seam, like WHOIS_ROOT_SERVER: scripts/check-site-check.mjs sets it
@@ -79,6 +81,7 @@ export async function checkSite(input: string): Promise<SiteCheckResult> {
 
   for (let hop = 0; ; hop++) {
     if (!allowPrivate && isPrivateHost(url.hostname)) return { status: "error", reason: "blocked_host" };
+    if (hop === 0 && !(await allowRequest())) return { status: "error", reason: "rate_limited" };
     const began = Date.now();
     let response: Response;
     try {

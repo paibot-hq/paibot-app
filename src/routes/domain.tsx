@@ -9,9 +9,8 @@ import type { Route } from './+types/domain';
 // all resolve to a WhoisResult), so this needs no try/catch - the action
 // always returns typed data for the client to render, never a 500/ErrorBoundary.
 export async function action({ request }: Route.ActionArgs): Promise<WhoisResult> {
-  if (!(await withinToolLimit(request, 'domain'))) return { status: 'error', reason: 'rate_limited' };
   const form = await request.formData();
-  return lookupWhois(String(form.get('domain') ?? ''));
+  return lookupWhois(String(form.get('domain') ?? ''), () => withinToolLimit(request, 'domain'));
 }
 
 export default function Page() {

@@ -7,9 +7,8 @@ import type { Route } from './+types/site-check';
 
 // checkSite never throws, so the action always returns data to render.
 export async function action({ request }: Route.ActionArgs): Promise<SiteCheckResult> {
-  if (!(await withinToolLimit(request, 'site-check'))) return { status: 'error', reason: 'rate_limited' };
   const form = await request.formData();
-  return checkSite(String(form.get('url') ?? ''));
+  return checkSite(String(form.get('url') ?? ''), () => withinToolLimit(request, 'site-check'));
 }
 
 export default function Page() {

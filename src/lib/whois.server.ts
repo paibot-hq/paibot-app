@@ -233,9 +233,12 @@ async function lookupRdap(domain: string, deadline: number): Promise<WhoisResult
   }
 }
 
-export async function lookupWhois(domainInput: string): Promise<WhoisResult> {
+// `allowRequest` (the per-IP rate limit) is asked only for a valid domain,
+// so typos never use up the quota.
+export async function lookupWhois(domainInput: string, allowRequest: () => Promise<boolean> = async () => true): Promise<WhoisResult> {
   const domain = normalizeDomain(domainInput);
   if (!domain) return { status: "error", reason: "invalid_domain" };
+  if (!(await allowRequest())) return { status: "error", reason: "rate_limited" };
 
   const deadline = Date.now() + TOTAL_BUDGET_MS;
   const rdap = await lookupRdap(domain, deadline);
