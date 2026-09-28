@@ -110,6 +110,13 @@ function draw(canvas: HTMLCanvasElement, game: Pinball, flashes: Map<number, num
     }
     context.fillStyle = fill;
     context.fill();
+    if (part === "sling") {
+      // A lighter rubber ring around the slingshot.
+      context.lineJoin = "round";
+      context.lineWidth = 4;
+      context.strokeStyle = flashing ? color("--success") : color("--accent");
+      context.stroke();
+    }
     if (part === "bumper") dot(x, y, (body.circleRadius ?? 20) * 0.45, color("--surface"));
     if (part === "ball") dot(x - 3, y - 3, 3, color("--surface"));
   }

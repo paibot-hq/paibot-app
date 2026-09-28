@@ -29,8 +29,9 @@ export const SAVER_STEPS = 60 * 5;
 // The kickout hole holds the ball this long before firing it back up.
 const SAUCER_HOLD = 60;
 // Distance from an inlane guide's center line to the slingshot base above
-// it: half the guide (5) plus room for the ball (18) with some play.
-const INLANE_WIDTH = 30;
+// it: half the guide (5) plus room for the ball (18) with play for the
+// slingshot's rounded corners.
+const INLANE_WIDTH = 34;
 const SAUCER_KICK = { x: 3, y: -13 } as const;
 
 const FLIPPER = { length: 80, width: 14, rest: 0.5, up: -0.42, upSpeed: 0.2, downSpeed: 0.12 } as const;
@@ -58,7 +59,7 @@ export type PinballEvent =
 type Matter = typeof MatterJS;
 
 export function createPinball(M: Matter) {
-  const { Bodies, Body, Composite, Engine, Events, Vector } = M;
+  const { Bodies, Body, Composite, Engine, Events, Vector, Vertices } = M;
   // @types/matter-js lags Matter 0.20, whose rotate also takes a pivot and updateVelocity.
   const rotate = Body.rotate as (body: MatterJS.Body, rotation: number, point?: MatterJS.Vector, updateVelocity?: boolean) => void;
   const engine = Engine.create({ gravity: { x: 0, y: 0.75, scale: 0.001 }, positionIterations: 10, velocityIterations: 8 });
@@ -95,7 +96,7 @@ export function createPinball(M: Matter) {
   }
   // Plunger lane on the right.
   segment(LANE.wall, 200, LANE.wall, TABLE.height + 20, 8);
-  const plunger = wall(LANE.x, PLUNGER_TOP + 7, 30, 14, 0, "plunger");
+  const plunger = add(Bodies.rectangle(LANE.x, PLUNGER_TOP + 7, 30, 14, { isStatic: true, chamfer: { radius: 5 } }), "plunger");
 
   // Pop bumpers: the main three, plus one in the upper-left corner where a
   // ball riding the top edge would otherwise circle round to the left wall.
@@ -107,7 +108,7 @@ export function createPinball(M: Matter) {
   [180, 220, 260].forEach((x, i) => sensor(x, 172, 16, 20, "lane", i));
 
   // Three standup targets on the left wall; all three pay a bonus.
-  [330, 375, 420].forEach((y, i) => add(Bodies.rectangle(17, y, 8, 30, { isStatic: true, restitution: 0.5 }), "target", i));
+  [330, 375, 420].forEach((y, i) => add(Bodies.rectangle(17, y, 10, 30, { isStatic: true, restitution: 0.5, chamfer: { radius: 4 } }), "target", i));
 
   // Lower playfield. Each side has an inlane: a channel between a guide
   // running from the wall into the flipper pivot and the slingshot above
@@ -134,7 +135,12 @@ export function createPinball(M: Matter) {
     // Start the base so the sling's outer edge stands about 55px in from the wall.
     const [bx, by] = onBase(46);
     const points = [[bx, 480], [bx, by], onBase(length - 12)];
-    const sling = Bodies.fromVertices(0, 0, [points.map(([px, py]) => ({ x: px, y: py }))], { isStatic: true, restitution: 0.6 });
+    // Rounded corners, like rubber stretched around three posts.
+    // chamfer() rounds inward only for clockwise points, and the two mirrored
+    // sides list theirs in opposite orders, so sort first.
+    const corners = Vertices.clockwiseSort(points.map(([px, py]) => ({ x: px, y: py })));
+    const outline = Vertices.chamfer(corners, [10], -1, 2, 14) as unknown as MatterJS.Vector[];
+    const sling = Bodies.fromVertices(0, 0, [outline], { isStatic: true, restitution: 0.6 });
     Body.setPosition(sling, { x: points.reduce((sum, [px]) => sum + px, 0) / 3, y: points.reduce((sum, [, py]) => sum + py, 0) / 3 });
     add(sling, "sling");
     // The slanted face runs from the top point to the base's lower end.
