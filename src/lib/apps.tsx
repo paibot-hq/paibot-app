@@ -55,6 +55,16 @@ function PulseIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function PachinkoIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M5 21V10a7 7 0 0 1 14 0v11" />
+      <path d="M9 11h.01M15 11h.01M12 14h.01M9 17h.01M15 17h.01" />
+      <circle cx="12" cy="7" r="1.5" />
+    </svg>
+  );
+}
+
 function WcIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -188,7 +198,7 @@ const APP_ICONS: Record<AppSlug, Icon> = {
   json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon,
   wc: WcIcon, password: PasswordIcon, stopwatch: StopwatchIcon,
   ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
-  dice: DiceIcon, reaction: ReactionIcon, timing: TimingIcon,
+  dice: DiceIcon, reaction: ReactionIcon, timing: TimingIcon, pachinko: PachinkoIcon,
   calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, diary: WcIcon, age: AgeIcon,
 };
 

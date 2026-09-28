@@ -500,6 +500,25 @@
       "bestLabel": "Best (off by)",
       "retry": "Try again"
     },
+    "pachinko": {
+      "title": "Pachinko",
+      "description": "Adjust the launch strength and aim for the center pocket. A jackpot opens the big pocket and your balls pile up. Free, with no money involved.",
+      "keywords": "pachinko game physics balls free",
+      "intro": "Set the strength and press Fire to shoot balls continuously. A ball in the center pocket spins the reels; three of a kind is a jackpot.",
+      "balls": "Balls",
+      "best": "Best",
+      "boardLabel": "A pachinko board. Balls shot from the bottom left ride the top rail, bounce off the pins and fall into the pockets",
+      "power": "Launch strength",
+      "fire": "Fire",
+      "stop": "Stop",
+      "restart": "Restart",
+      "soundOn": "Sound: on",
+      "soundOff": "Sound: off",
+      "jackpot": "Jackpot! The big pocket is open",
+      "jackpotEnd": "The big pocket closed",
+      "over": "Out of balls",
+      "note": "Center pocket +3 balls, side pockets +2, big pocket +10. Balls are just a score; there is no money or prize."
+    },
     "stopwatch": {
       "title": "Stopwatch",
       "description": "Time how long something takes, with lap recording.",

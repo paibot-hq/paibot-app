@@ -125,6 +125,17 @@ try {
   await main.getByRole('button', { name: 'Check', exact: true }).click();
   await result("Internal addresses such as localhost or private IP addresses can't be checked.");
   console.log('PASS: site check rejects invalid URLs and internal addresses (see check:site-check for real requests)');
+  await go('pachinko');
+  const pachinkoBalls = () => page.locator('[data-pachinko="balls"]').textContent();
+  await page.waitForFunction(() => document.querySelector('[data-pachinko="balls"]')?.textContent === '100');
+  await main.getByRole('button', { name: 'Fire', exact: true }).click();
+  await page.waitForFunction(() => Number(document.querySelector('[data-pachinko="balls"]')?.textContent) < 100);
+  await main.getByRole('button', { name: 'Stop', exact: true }).click();
+  // Stopped: no more launches, so the count can only grow (balls in play may still pay out).
+  const afterStop = Number(await pachinkoBalls());
+  await page.waitForTimeout(1500);
+  assert.ok(Number(await pachinkoBalls()) >= afterStop, 'no balls are fired after Stop');
+  console.log('PASS: pachinko fires balls from 100 and stops (see check-pachinko for the board and rules)');
   await go('cidr');
   const cidrValue = key => page.locator(`[data-cidr="${key}"] dd`).textContent();
   const cidrInput = main.getByLabel('IPv4 address and prefix length');
@@ -293,5 +304,5 @@ try {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({ path: '/tmp/paibot-life-inline.png', fullPage: true });
   console.log('PASS: life calendar shows every week inline without an overview button');
-  console.log('PASS: all 18 tools, no uncaught JS errors');
+  console.log('PASS: all 19 tools, no uncaught JS errors');
 } finally { await browser.close(); }

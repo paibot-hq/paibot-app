@@ -1,0 +1,75 @@
+.score {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin: 0;
+}
+.score div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.score dt {
+  color: var(--muted);
+  font-size: .85rem;
+}
+.score dd {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.6rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.board {
+  display: block;
+  width: min(480px, 100%);
+  aspect-ratio: 2 / 3;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.status {
+  min-height: 1.5em;
+  margin: 0;
+  color: var(--text);
+  font-weight: 700;
+  text-align: center;
+}
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .75rem;
+  width: min(480px, 100%);
+}
+.power {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .25rem;
+  width: 100%;
+  color: var(--muted);
+  font-size: .9rem;
+}
+.power input {
+  width: 100%;
+  accent-color: var(--accent);
+}
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  justify-content: center;
+}
+.secondary {
+  padding: .45rem .9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  cursor: pointer;
+}
+.secondary[aria-pressed="true"] {
+  color: var(--text);
+}
