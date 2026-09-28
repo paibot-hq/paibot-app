@@ -539,7 +539,12 @@
         "purple": "Purple",
         "gray": "Gray"
       },
-      "qr": "Add a QR code with my contact details (scan it with a phone to save the contact)",
+      "qrLabel": "QR code",
+      "qrModes": {
+        "none": "None",
+        "contact": "Contact details (scanning saves the contact)",
+        "website": "Website (scanning opens the site)"
+      },
       "details": "On the card",
       "fields": {
         "name": "Name",

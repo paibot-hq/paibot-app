@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import qrcode from 'qrcode-generator';
-import { buildVCard, EMPTY_CARD, fitSize, qrPath, textEms } from '../src/lib/business-card.ts';
+import { buildVCard, EMPTY_CARD, fitSize, qrPath, qrPayload, textEms, websiteUrl } from '../src/lib/business-card.ts';
 
 // vCard: required lines, escaping, and empty fields left out.
 const card = { ...EMPTY_CARD, name: '山田 太郎', company: 'Paibot, Inc.', title: '営業部; 部長', phone: '03-1234-5678', email: 'taro@example.com', address: '東京都千代田区1-2-3\n4F' };
@@ -20,10 +20,19 @@ assert.equal(qrcode.stringToBytes('山').length, 3, 'QR payloads are UTF-8');
 const path = qrPath(vcard, 0, 0, 16);
 assert.ok(path.startsWith('M0.000 0.000') && path.split('M').length > 100, 'the QR path starts with the finder pattern corner');
 
+// QR payload per mode; the website gets a scheme when it has none.
+assert.equal(qrPayload(card, 'none'), '');
+assert.equal(qrPayload(card, 'contact'), vcard);
+assert.equal(qrPayload({ ...card, name: '' }, 'contact'), '', 'no contact QR without a name');
+assert.equal(qrPayload({ ...card, website: 'example.com' }, 'website'), 'https://example.com');
+assert.equal(websiteUrl('http://example.com/a'), 'http://example.com/a');
+assert.equal(websiteUrl('example.com:8080'), 'https://example.com:8080');
+assert.equal(qrPayload(card, 'website'), '', 'no website QR without a website');
+
 // Text sizing: full-width characters count as 1em, others about half.
 assert.equal(textEms('名刺'), 2);
 assert.ok(Math.abs(textEms('abcd') - 2.24) < 1e-9);
 assert.equal(fitSize('名刺', 5, 20), 5, 'short text keeps its size');
 assert.equal(fitSize('名刺名刺名刺名刺名刺', 5, 20), 2, 'long text shrinks to fit');
 
-console.log('PASS: business card vCard (escaping, empty fields, UTF-8 QR) and text sizing');
+console.log('PASS: business card vCard (escaping, empty fields, UTF-8 QR), QR payload per mode and text sizing');

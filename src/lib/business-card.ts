@@ -54,6 +54,24 @@ export function buildVCard(card: CardData): string {
   return lines.join("\r\n");
 }
 
+// What the card's QR code carries: nothing, the contact as a vCard (a phone
+// camera offers to save it), or the website URL (the camera opens it).
+export const QR_MODES = ["none", "contact", "website"] as const;
+export type QrMode = (typeof QR_MODES)[number];
+
+export function websiteUrl(website: string): string {
+  const url = website.trim();
+  // Only "scheme://" counts as a scheme, so "example.com:8080" still gets https://.
+  return !url || /^[a-z][a-z0-9+.-]*:\/\//i.test(url) ? url : `https://${url}`;
+}
+
+// The QR payload for a mode, or "" when there is nothing to encode.
+export function qrPayload(card: CardData, mode: QrMode): string {
+  if (mode === "contact") return card.name.trim() ? buildVCard(card) : "";
+  if (mode === "website") return websiteUrl(card.website);
+  return "";
+}
+
 // SVG path for the QR code of `text`, drawn in a size×size square at (x, y).
 export function qrPath(text: string, x: number, y: number, size: number): string {
   const qr = qrcode(0, "M");

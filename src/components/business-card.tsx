@@ -6,8 +6,8 @@ import controls from "./tool-controls.module.css";
 import styles from "./business-card.module.css";
 import type { DynamicT } from "../lib/apps";
 import {
-  buildVCard, CARD, COLORS, CONTACT_FIELDS, EMPTY_CARD, fitSize, qrPath, TEMPLATES,
-  type CardData, type Template,
+  CARD, COLORS, CONTACT_FIELDS, EMPTY_CARD, fitSize, qrPath, qrPayload, QR_MODES, TEMPLATES,
+  type CardData, type QrMode, type Template,
 } from "../lib/business-card";
 
 const STORAGE_KEY = "paibot.businessCard";
@@ -17,18 +17,20 @@ const COLOR_NAMES = ["blue", "green", "red", "purple", "gray"] as const;
 const PNG = { width: 1075, height: 650 } as const;
 const FONT = "'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif";
 
-type Settings = { card: CardData; template: Template; color: string; qr: boolean };
-const DEFAULTS: Settings = { card: EMPTY_CARD, template: "simple", color: COLORS[0], qr: true };
+type Settings = { card: CardData; template: Template; color: string; qr: QrMode };
+// No QR code by default: most cards don't carry one.
+const DEFAULTS: Settings = { card: EMPTY_CARD, template: "simple", color: COLORS[0], qr: "none" };
 
 function readSettings(): Settings {
   try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null") as Partial<Settings> | null;
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null") as (Omit<Partial<Settings>, "qr"> & { qr?: QrMode | boolean }) | null;
     if (!saved) return DEFAULTS;
     return {
       card: { ...EMPTY_CARD, ...saved.card },
       template: TEMPLATES.includes(saved.template as Template) ? (saved.template as Template) : DEFAULTS.template,
       color: COLORS.includes(saved.color as (typeof COLORS)[number]) ? (saved.color as string) : DEFAULTS.color,
-      qr: saved.qr ?? DEFAULTS.qr,
+      // Earlier versions stored an on/off switch for the contact QR code.
+      qr: saved.qr === true ? "contact" : QR_MODES.includes(saved.qr as QrMode) ? (saved.qr as QrMode) : DEFAULTS.qr,
     };
   } catch {
     return DEFAULTS;
@@ -41,7 +43,8 @@ const CONTACT_LABEL: Record<(typeof CONTACT_FIELDS)[number], string> = { phone: 
 function CardSvg({ card, template, color, qr, label }: Settings & { label?: string }) {
   const pad = 6;
   const qrSize = template === "center" ? 12 : 15;
-  const showQr = qr && card.name.trim() !== "";
+  const payload = qrPayload(card, qr);
+  const showQr = payload !== "";
   const left = template === "stripe" ? 5 + pad : pad;
   const centered = template === "center";
   const x = centered ? CARD.width / 2 : left;
@@ -72,7 +75,7 @@ function CardSvg({ card, template, color, qr, label }: Settings & { label?: stri
           <text key={i} x={x} y={lastLine - (contacts.length - 1 - i) * lineHeight} fontSize={fitSize(line, 2.2, contactWidth)} textAnchor={anchor}>{line}</text>
         ))}
       </g>
-      {showQr && <path d={qrPath(buildVCard(card), CARD.width - pad - qrSize, CARD.height - pad - qrSize, qrSize)} fill="#222" />}
+      {showQr && <path d={qrPath(payload, CARD.width - pad - qrSize, CARD.height - pad - qrSize, qrSize)} fill="#222" />}
     </svg>
   );
 }
@@ -167,10 +170,6 @@ export default function BusinessCard() {
                 className={styles["swatch"]} style={{ background: color }} onClick={() => update({ color })} />
             ))}
           </div>
-          <label className={styles["check"]}>
-            <input type="checkbox" checked={settings.qr} onChange={event => update({ qr: event.target.checked })} />
-            {t("qr")}
-          </label>
         </fieldset>
 
         <fieldset className={styles["group"]}>
@@ -184,6 +183,16 @@ export default function BusinessCard() {
                     value={card[field]} placeholder={example(field)} autoComplete="off" onChange={event => setField(field, event.target.value)} />}
             </label>
           ))}
+          <div className={styles["qr"]} role="radiogroup" aria-label={t("qrLabel")}>
+            <span>{t("qrLabel")}</span>
+            {QR_MODES.map(mode => (
+              <label key={mode} className={styles["check"]}>
+                <input type="radio" name="qr" value={mode} checked={settings.qr === mode}
+                  disabled={mode === "website" && !card.website.trim()} onChange={() => update({ qr: mode })} />
+                {td(`qrModes.${mode}`)}
+              </label>
+            ))}
+          </div>
           <button className={styles["secondary"]} type="button" onClick={() => update({ card: EMPTY_CARD })} disabled={empty}>{t("clear")}</button>
         </fieldset>
         <p className={controls.label}>{t("privacy")}</p>
