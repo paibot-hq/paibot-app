@@ -170,6 +170,7 @@ try {
     for (const [category, slugs] of Object.entries(categoryApps)) {
       await page.locator(`.category-item[href="/${locale}/${category}"]`).click();
       await page.waitForURL(`${base}/${locale}/${category}`);
+      await page.locator(`.category-nav a[aria-current="page"][href="/${locale}/${category}"]`).waitFor();
       assert.equal(await page.locator('main h1').count(), 1);
       assert.deepEqual((await page.locator('.app-card').evaluateAll(links => links.map(link => link.getAttribute('href')))).sort(), slugs.map(slug => `/${locale}/${slug}`).sort());
       assert.equal(await page.locator('.category-nav [aria-current="page"]').getAttribute('href'), `/${locale}/${category}`);
@@ -178,6 +179,10 @@ try {
       assert.equal(await page.locator('.app-card').count(), 0);
       await page.locator(`.category-nav a[href="/${locale}/apps"]`).click();
       await page.waitForURL(`${base}/${locale}/apps`);
+      // React Router can update the URL before React commits the new page.
+      // The old category still shows zero search results until that commit.
+      await page.locator(`.category-nav a[aria-current="page"][href="/${locale}/apps"]`).waitFor();
+      assert.equal(await page.getByRole('searchbox').inputValue(), '', 'all-app navigation resets the category search');
       assert.equal(await page.locator('.app-card').count(), 20);
       await go(`/${locale}`);
     }
