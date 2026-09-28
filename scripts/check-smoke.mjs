@@ -162,7 +162,7 @@ try {
     utility: ['wc', 'password', 'stopwatch'],
     study: ['math', 'arith'],
     dev: ['json', 'base64', 'urlencode'],
-    network: ['ip', 'domain', 'cidr'],
+    network: ['ip', 'domain', 'cidr', 'site-check'],
   };
   for (const locale of locales) {
     await go(`/${locale}`);
@@ -184,7 +184,7 @@ try {
       await page.locator(`.category-nav a[aria-current="page"][href="/${locale}/apps"]`).waitFor();
       assert.equal(await page.getByRole('searchbox').inputValue(), '', 'all-app navigation resets the category search');
       await page.locator('.app-card').first().waitFor();
-      assert.equal(await page.locator('.app-card').count(), 20);
+      assert.equal(await page.locator('.app-card').count(), 21);
       await go(`/${locale}`);
     }
   }

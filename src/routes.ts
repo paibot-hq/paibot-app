@@ -44,6 +44,7 @@ export default [
     route('ip', 'routes/ip.tsx'),
     route('domain', 'routes/domain.tsx'),
     route('cidr', 'routes/cidr.tsx'),
+    route('site-check', 'routes/site-check.tsx'),
     route('dice', 'routes/dice.tsx'),
     route('reaction', 'routes/reaction.tsx'),
     route('timing', 'routes/timing.tsx'),

@@ -1,0 +1,17 @@
+import SiteCheck from '../components/site-check';
+import PublicHead from '../components/public-head';
+import { checkSite } from '../lib/site-check.server';
+import { useLocale, useTranslations } from 'use-intl';
+import type { Route } from './+types/site-check';
+
+// checkSite never throws, so the action always returns data to render.
+export async function action({ request }: Route.ActionArgs) {
+  const form = await request.formData();
+  return checkSite(String(form.get('url') ?? ''));
+}
+
+export default function Page() {
+  const t = useTranslations('App');
+  const locale = useLocale();
+  return <><PublicHead locale={locale} path="/site-check" title={`${t('siteCheck.title')} | PAIBOT.app`} description={t('siteCheck.description')} /><SiteCheck /></>;
+}

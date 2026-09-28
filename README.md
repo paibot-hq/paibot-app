@@ -60,6 +60,7 @@ npm run check:access            # redirects cannot leak Access headers
 npm run check:life-calendar     # calendar arithmetic: leap days and week boundaries
 npm run check:i18n              # starts/stops its own local Workers
 npm run check:whois             # starts/stops its own local preview + fake WHOIS server
+npm run check:site-check        # starts/stops its own local preview + fake website
 npm run preview                # port 3003; keep running in another terminal
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:smoke
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:tools
@@ -81,6 +82,11 @@ CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:diary
   rejection check. Runs its own `vite preview` (not the shared one above) with a
   patched `WHOIS_ROOT_SERVER` — `wrangler dev` can't be used here since its local
   custom-domain routing breaks Clerk's dev-browser handshake for a real browser.
+- `check:site-check`: the website status check's real server-side requests against
+  a fake local site (redirect chain, 503, redirect loop). Loopback is refused in
+  production, so it runs its own `vite preview` with `SITE_CHECK_ALLOW_PRIVATE`
+  patched to `"true"`, like `check:whois`. `check:tools` covers the refusal of
+  invalid URLs and internal addresses.
 - `check:auth`: real development-instance signup/email verification, authenticated
   SSR, session persistence, sign-out and sign-in. Uses Clerk's test-address flow
   (no real email), creates a unique fixture user and deletes it in `finally`.

@@ -283,6 +283,38 @@
         "public": "Public"
       }
     },
+    "siteCheck": {
+      "title": "Website Status Check",
+      "description": "Enter a URL to see whether the site responds, with its status code, response time and redirect chain.",
+      "keywords": "website status uptime check status code response time redirect",
+      "placeholder": "https://example.com",
+      "submit": "Check",
+      "loading": "Checking…",
+      "hint": "The check runs from PAIBOT.app's servers (Cloudflare), so some sites may block it as a bot.",
+      "ms": "{ms} ms",
+      "none": "None",
+      "verdict": {
+        "ok": "The site is responding normally ({status})",
+        "redirect": "The site responded with a redirect ({status})",
+        "tooManyRedirects": "Stopped after more than 5 redirects",
+        "clientError": "The site returned an error ({status}); the server itself is up",
+        "serverError": "The site returned a server error ({status})"
+      },
+      "labels": {
+        "status": "Status code",
+        "time": "Response time",
+        "finalUrl": "Final URL",
+        "contentType": "Content-Type",
+        "server": "Server",
+        "redirects": "Redirects ({count})"
+      },
+      "error": {
+        "invalid_url": "That doesn't look like a valid URL. Enter a URL starting with http:// or https://, or a domain name.",
+        "blocked_host": "Internal addresses such as localhost or private IP addresses can't be checked.",
+        "timeout": "No response within 10 seconds.",
+        "connection_failed": "Couldn't connect. Check the domain name, the server and its SSL certificate."
+      }
+    },
     "footer": {
       "label": "Company information",
       "supporter": "Supporter",

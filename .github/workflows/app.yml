@@ -53,6 +53,7 @@ jobs:
       - run: npm run check:access
       - run: npm run check:i18n
       - run: npm run check:whois
+      - run: npm run check:site-check
       - name: Browser checks against built Worker
         run: |
           npm run preview &

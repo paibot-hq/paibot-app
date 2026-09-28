@@ -65,6 +65,14 @@ function DomainIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function PulseIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M3 12h4l2-5 4 10 2-5h6" />
+    </svg>
+  );
+}
+
 function WcIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -213,6 +221,7 @@ export const apps: AppEntry[] = [
   { slug: "ip", href: "/ip", category: "network", status: "published", messageKey: "ip", icon: IpIcon },
   { slug: "domain", href: "/domain", category: "network", status: "published", messageKey: "domain", icon: DomainIcon },
   { slug: "cidr", href: "/cidr", category: "network", status: "published", messageKey: "cidr", icon: CidrIcon },
+  { slug: "site-check", href: "/site-check", category: "network", status: "published", messageKey: "siteCheck", icon: PulseIcon },
 
   // ゲーム / Game
   { slug: "dice", href: "/dice", category: "game", status: "published", messageKey: "dice", icon: DiceIcon },

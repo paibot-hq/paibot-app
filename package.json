@@ -14,6 +14,7 @@
     "check:tools": "node scripts/check-tools.mjs",
     "check:i18n": "node scripts/check-environments.mjs",
     "check:whois": "node scripts/check-whois.mjs",
+    "check:site-check": "node scripts/check-site-check.mjs",
     "deploy": "wrangler deploy --config build/server/wrangler.json",
     "check:auth": "node --env-file=.dev.vars scripts/check-auth.mjs",
     "check:favorites": "node --env-file=.dev.vars scripts/check-favorites.mjs",

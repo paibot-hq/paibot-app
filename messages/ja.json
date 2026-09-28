@@ -283,6 +283,38 @@
         "public": "グローバル"
       }
     },
+    "siteCheck": {
+      "title": "Webサイト稼働チェック",
+      "description": "URLを入れると、サイトが応答しているか、ステータスコード・応答時間・リダイレクトの経路を確認できます。",
+      "keywords": "サイト 稼働確認 死活監視 ステータスコード 応答時間 リダイレクト",
+      "placeholder": "https://example.com",
+      "submit": "確認する",
+      "loading": "確認しています…",
+      "hint": "PAIBOT.appのサーバー(Cloudflare)からアクセスして確かめます。ボット対策で拒否されるサイトもあります。",
+      "ms": "{ms} ms",
+      "none": "なし",
+      "verdict": {
+        "ok": "正常に応答しています({status})",
+        "redirect": "リダイレクトで応答しました({status})",
+        "tooManyRedirects": "リダイレクトが5回を超えたため、途中で止めました",
+        "clientError": "エラーを返しています({status})。サーバー自体は動いています",
+        "serverError": "サーバーエラーを返しています({status})"
+      },
+      "labels": {
+        "status": "ステータスコード",
+        "time": "応答時間",
+        "finalUrl": "最終的なURL",
+        "contentType": "Content-Type",
+        "server": "Server",
+        "redirects": "リダイレクト({count}回)"
+      },
+      "error": {
+        "invalid_url": "URLの形式が正しくありません。http:// か https:// で始まるURL、またはドメイン名を入力してください。",
+        "blocked_host": "localhostやプライベートIPアドレスなど、内部向けのアドレスは確認できません。",
+        "timeout": "10秒以内に応答がありませんでした。",
+        "connection_failed": "接続できませんでした。ドメイン名、サーバーの状態、SSL証明書を確認してください。"
+      }
+    },
     "footer": {
       "label": "運営情報",
       "supporter": "サポーター",

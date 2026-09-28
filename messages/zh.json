@@ -283,6 +283,38 @@
         "public": "公网"
       }
     },
+    "siteCheck": {
+      "title": "网站状态检测",
+      "description": "输入网址,即可查看网站是否有响应,以及状态码、响应时间和重定向路径。",
+      "keywords": "网站 状态 在线检测 状态码 响应时间 重定向",
+      "placeholder": "https://example.com",
+      "submit": "检测",
+      "loading": "正在检测…",
+      "hint": "检测从 PAIBOT.app 的服务器(Cloudflare)发起,部分网站可能会将其视为机器人而拒绝访问。",
+      "ms": "{ms} 毫秒",
+      "none": "无",
+      "verdict": {
+        "ok": "网站响应正常({status})",
+        "redirect": "网站返回了重定向({status})",
+        "tooManyRedirects": "重定向超过 5 次,已停止",
+        "clientError": "网站返回了错误({status}),服务器本身在运行",
+        "serverError": "网站返回了服务器错误({status})"
+      },
+      "labels": {
+        "status": "状态码",
+        "time": "响应时间",
+        "finalUrl": "最终网址",
+        "contentType": "Content-Type",
+        "server": "Server",
+        "redirects": "重定向({count} 次)"
+      },
+      "error": {
+        "invalid_url": "网址格式不正确。请输入以 http:// 或 https:// 开头的网址,或输入域名。",
+        "blocked_host": "无法检测 localhost 或私有 IP 地址等内部地址。",
+        "timeout": "10 秒内没有响应。",
+        "connection_failed": "无法连接。请检查域名、服务器状态和 SSL 证书。"
+      }
+    },
     "footer": {
       "label": "运营信息",
       "supporter": "支持者",
