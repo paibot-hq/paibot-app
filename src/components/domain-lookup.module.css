@@ -28,6 +28,29 @@
   gap: .75rem;
   width: min(560px, 100%);
 }
+.verdict {
+  width: 100%;
+  padding: .75rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-align: center;
+}
+.verdict.available { border-color: var(--success); }
+.verdict.registered { border-color: var(--muted); }
+.verdictTitle {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.1rem;
+  font-weight: 700;
+  word-break: break-word;
+}
+.available .verdictTitle { color: var(--success); }
+.verdictNote {
+  margin: .35rem 0 0;
+  color: var(--muted);
+  font-size: .85rem;
+}
 .field {
   display: flex;
   flex-direction: column;

@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { createServer } from 'node:net';
+import { createServer as createHttpServer } from 'node:http';
 import { spawn } from 'node:child_process';
 import { readFileSync, writeFileSync } from 'node:fs';
 import { setTimeout as delay } from 'node:timers/promises';
@@ -32,8 +33,38 @@ const FAKE_TLD_RESPONSE = [
 
 async function startFakeWhoisServer() {
   const server = createServer(socket => {
-    socket.on('data', () => socket.end(FAKE_TLD_RESPONSE));
+    socket.on('data', data => socket.end(String(data).startsWith('free.') ? 'No match for domain "FREE.TEST".\r\n' : FAKE_TLD_RESPONSE));
     socket.on('error', () => {});
+  });
+  await new Promise((resolve, reject) => { server.once('error', reject); server.listen(0, '127.0.0.1', resolve); });
+  return { server, port: server.address().port };
+}
+
+// Serves both the RDAP bootstrap (only the made-up `rdaptest` TLD, so `.test`
+// still goes to the fake WHOIS server) and the RDAP answers: one registered
+// domain, 404 for everything else.
+const FAKE_RDAP_DOMAIN = {
+  objectClassName: 'domain',
+  ldhName: 'taken.rdaptest',
+  status: ['active'],
+  events: [{ eventAction: 'registration', eventDate: '2021-02-03T00:00:00Z' }, { eventAction: 'expiration', eventDate: '2031-02-03T00:00:00Z' }],
+  nameservers: [{ ldhName: 'NS1.RDAP.TEST' }],
+  entities: [{ roles: ['registrar'], vcardArray: ['vcard', [['version', {}, 'text', '4.0'], ['fn', {}, 'text', 'RDAP Registrar, Inc.']]] }],
+};
+
+async function startFakeRdapServer() {
+  const server = createHttpServer((req, res) => {
+    const { port } = server.address();
+    if (req.url === '/dns.json') {
+      res.writeHead(200, { 'content-type': 'application/json' });
+      return res.end(JSON.stringify({ services: [[['rdaptest'], [`http://127.0.0.1:${port}/rdap/`]]] }));
+    }
+    if (req.url === '/rdap/domain/taken.rdaptest') {
+      res.writeHead(200, { 'content-type': 'application/rdap+json' });
+      return res.end(JSON.stringify(FAKE_RDAP_DOMAIN));
+    }
+    res.writeHead(404, { 'content-type': 'application/rdap+json' });
+    res.end(JSON.stringify({ errorCode: 404, title: 'Not Found' }));
   });
   await new Promise((resolve, reject) => { server.once('error', reject); server.listen(0, '127.0.0.1', resolve); });
   return { server, port: server.address().port };
@@ -42,8 +73,10 @@ async function startFakeWhoisServer() {
 const wranglerJsonPath = 'build/server/wrangler.json';
 const originalWranglerJson = readFileSync(wranglerJsonPath, 'utf8');
 const { server: fakeWhois, port: fakePort } = await startFakeWhoisServer();
+const { server: fakeRdap, port: rdapPort } = await startFakeRdapServer();
 const config = JSON.parse(originalWranglerJson);
 config.vars.WHOIS_ROOT_SERVER = `127.0.0.1:${fakePort}`;
+config.vars.RDAP_BOOTSTRAP_URL = `http://127.0.0.1:${rdapPort}/dns.json`;
 writeFileSync(wranglerJsonPath, JSON.stringify(config));
 
 const port = 3006;
@@ -84,9 +117,26 @@ try {
   await page.getByText('Example Registrant Org', { exact: true }).waitFor();
   await page.getByText('2030-01-01T00:00:00Z', { exact: true }).waitFor();
   await page.getByText('NS1.EXAMPLE.TEST, NS2.EXAMPLE.TEST', { exact: true }).waitFor();
-  await page.getByText('Show raw WHOIS text').click();
+  await page.getByText('example.test is already registered', { exact: true }).waitFor();
+  await page.getByText('Show raw response').click();
   await page.getByText('Domain Status: clientTransferProhibited').waitFor();
   console.log('PASS: WHOIS lookup follows the fake server response and renders parsed + raw fields');
+
+  const lookUp = async (domain, text) => {
+    await page.goto(`http://localhost:${port}/en/domain`);
+    await main.locator('h1').waitFor();
+    await page.getByLabel('example.com').fill(domain);
+    await page.getByRole('button', { name: 'Look up', exact: true }).click();
+    await page.getByText(text, { exact: true }).waitFor();
+  };
+  await lookUp('free.test', 'free.test is not registered');
+  console.log('PASS: a WHOIS "No match" answer is shown as not registered');
+  await lookUp('taken.rdaptest', 'taken.rdaptest is already registered');
+  await page.getByText('RDAP Registrar, Inc.', { exact: true }).waitFor();
+  await page.getByText('2031-02-03T00:00:00Z', { exact: true }).waitFor();
+  await page.getByText('ns1.rdap.test', { exact: true }).waitFor();
+  await lookUp('free.rdaptest', 'free.rdaptest is not registered');
+  console.log('PASS: RDAP is used when the TLD has a service: 200 is registered with parsed fields, 404 is not registered');
 
   // A domain string carrying a CRLF injection attempt must never reach the
   // socket write - normalizeDomain rejects it before any connection opens.
@@ -103,5 +153,6 @@ try {
   worker.kill('SIGTERM');
   await new Promise(resolve => { if (worker.exitCode !== null) resolve(); else worker.once('exit', resolve); });
   fakeWhois.close();
+  fakeRdap.close();
   writeFileSync(wranglerJsonPath, originalWranglerJson);
 }
