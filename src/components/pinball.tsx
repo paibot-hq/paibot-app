@@ -37,6 +37,10 @@ function playSound(audio: AudioContext, event: PinballEvent) {
   if (event.type === "lane") tone(audio, 1100, 0.08, "triangle", 0.1);
   if (event.type === "lanesBonus") [784, 988, 1175, 1568].forEach((f, i) => tone(audio, f, 0.2, "triangle", 0.12, i * 0.08));
   if (event.type === "launch") tone(audio, 180, 0.12, "sawtooth", 0.05);
+  if (event.type === "target" || event.type === "inlane") tone(audio, 880, 0.07, "triangle", 0.09);
+  if (event.type === "targetsBonus" || event.type === "inlanesBonus") [659, 880, 1319].forEach((f, i) => tone(audio, f, 0.18, "triangle", 0.12, i * 0.08));
+  if (event.type === "kickback") tone(audio, 140, 0.2, "sawtooth", 0.12);
+  if (event.type === "saved") [523, 659].forEach((f, i) => tone(audio, f, 0.2, "triangle", 0.12, i * 0.12));
   if (event.type === "drain") [330, 247, 165].forEach((f, i) => tone(audio, f, 0.25, "triangle", 0.1, i * 0.15));
 }
 
@@ -48,38 +52,58 @@ function draw(canvas: HTMLCanvasElement, game: Pinball, flashes: Map<number, num
   if (!context) return;
   const css = getComputedStyle(canvas);
   const color = (name: string) => css.getPropertyValue(name).trim();
+  const { state } = game;
   const scale = canvas.width / TABLE.width;
   context.setTransform(scale, 0, 0, scale, 0, 0);
   context.clearRect(0, 0, TABLE.width, TABLE.height);
-  let laneIndex = 0;
+  const lit = (on: boolean) => (on ? color("--success") : color("--line"));
+  const dot = (x: number, y: number, r: number, fill: string) => {
+    context.beginPath();
+    context.arc(x, y, r, 0, Math.PI * 2);
+    context.fillStyle = fill;
+    context.fill();
+  };
 
   for (const body of game.engine.world.bodies) {
     const part = game.partOf(body);
-    if (part === "drain") continue;
-    const flashing = (flashes.get(body.id) ?? 0) > game.state.steps;
+    const i = game.indexOf(body);
+    const { x, y } = body.position;
+    // Sensors are drawn as lamps, or not at all.
+    if (part === "drain" || part === "outlane") continue;
+    if (part === "inlane") { dot(x, y, 5, lit(state.inlanes[i])); continue; }
+    if (part === "kickback") { dot(x, y, 6, lit(state.kickback)); continue; }
+    if (part === "lane") { dot(x, y, 6, lit(state.lanes[i])); continue; }
+
+    const flashing = (flashes.get(body.id) ?? 0) > state.steps;
     let fill = color("--muted");
     if (part === "bumper") fill = flashing ? color("--success") : color("--accent");
     if (part === "sling") fill = flashing ? color("--success") : color("--accent-dark");
+    if (part === "target") fill = state.targets[i] ? color("--success") : color("--accent-dark");
     if (part === "flipper") fill = color("--text");
     if (part === "ball") fill = color("--accent-dark");
-    if (part === "lane") fill = game.state.lanes[laneIndex++] ? color("--success") : color("--line");
     context.beginPath();
-    if (body.circleRadius) context.arc(body.position.x, body.position.y, body.circleRadius, 0, Math.PI * 2);
+    if (body.circleRadius) context.arc(x, y, body.circleRadius, 0, Math.PI * 2);
     else {
       // The plunger sinks as it charges.
-      const drop = part === "plunger" ? game.state.charge * 18 : 0;
-      body.vertices.forEach((v, i) => (i ? context.lineTo(v.x, v.y + drop) : context.moveTo(v.x, v.y + drop)));
+      const drop = part === "plunger" ? state.charge * 18 : 0;
+      body.vertices.forEach((v, n) => (n ? context.lineTo(v.x, v.y + drop) : context.moveTo(v.x, v.y + drop)));
       context.closePath();
     }
     context.fillStyle = fill;
     context.fill();
-    if (part === "ball") {
-      context.beginPath();
-      context.arc(body.position.x - 3, body.position.y - 3, 3, 0, Math.PI * 2);
-      context.fillStyle = color("--surface");
-      context.fill();
-    }
+    if (part === "bumper") dot(x, y, (body.circleRadius ?? 20) * 0.45, color("--surface"));
+    if (part === "ball") dot(x - 3, y - 3, 3, color("--surface"));
   }
+
+  context.textAlign = "center";
+  context.textBaseline = "middle";
+  context.font = "bold 13px system-ui, sans-serif";
+  if (state.saver > 0 && !state.saverUsed) {
+    context.fillStyle = color("--success");
+    context.fillText("SAVE", TABLE.width / 2 - 20, 735);
+  }
+  context.fillStyle = lit(state.kickback);
+  context.fillText("KICK", 30, 725);
 }
 
 export default function PinballGame() {
@@ -109,6 +133,10 @@ export default function PinballGame() {
       if (soundRef.current && audioRef.current) playSound(audioRef.current, event);
       if (event.type === "bumper" || event.type === "sling") flashesRef.current.set(event.id, game.state.steps + FLASH_STEPS);
       if (event.type === "lanesBonus") setMessage(t("lanesBonus"));
+      if (event.type === "targetsBonus") setMessage(t("targetsBonus"));
+      if (event.type === "inlanesBonus") setMessage(t("inlanesBonus"));
+      if (event.type === "kickback") setMessage(t("kickback"));
+      if (event.type === "saved") setMessage(t("saved"));
       if (event.type === "launch") setMessage("");
       if (event.type === "drain" && !game.state.over) setMessage(t("drained"));
       if (event.type === "gameOver") {
