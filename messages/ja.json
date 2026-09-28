@@ -343,7 +343,7 @@
     },
     "domain": {
       "title": "ドメイン確認(WHOIS)",
-      "description": "ドメインの登録者・登録日・有効期限などのWHOIS情報を確認できます。",
+      "description": "ドメインが空いているか(登録済みか)と、登録者・登録日・有効期限などを確認できます。",
       "keywords": "ドメイン WHOIS 登録者 有効期限",
       "placeholder": "example.com",
       "submit": "調べる",
@@ -354,12 +354,19 @@
       "expiryLabel": "有効期限",
       "nameServersLabel": "ネームサーバー",
       "unknown": "情報なし",
-      "rawToggle": "WHOIS情報の原文を表示",
+      "rawToggle": "取得した情報の原文を表示",
       "error": {
         "invalid_domain": "ドメイン名の形式が正しくありません。",
+        "unknown_tld": "このトップレベルドメイン(.com や .jp にあたる部分)は存在しません。",
         "no_server": "このドメインのWHOISサーバーが見つかりませんでした。",
         "timeout": "WHOIS検索がタイムアウトしました。もう一度お試しください。",
         "connection_failed": "WHOISサーバーに接続できませんでした。もう一度お試しください。"
+      },
+      "availability": {
+        "available": "{domain} は登録されていません",
+        "availableNote": "取得できる可能性があります。予約済みやプレミアム価格のドメインもあるため、実際に取得できるかはレジストラで確認してください。",
+        "registered": "{domain} は登録済みです",
+        "unknown": "{domain} が登録済みかどうか判定できませんでした"
       }
     },
     "wc": {

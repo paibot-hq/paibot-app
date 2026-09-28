@@ -343,7 +343,7 @@
     },
     "domain": {
       "title": "域名查询(WHOIS)",
-      "description": "查询域名的注册商、注册日期、到期日期等WHOIS信息。",
+      "description": "查询域名是否可注册(是否已被注册),以及注册人、注册日期和到期日等信息。",
       "keywords": "域名 WHOIS 注册商 到期日期",
       "placeholder": "example.com",
       "submit": "查询",
@@ -354,12 +354,19 @@
       "expiryLabel": "到期日期",
       "nameServersLabel": "域名服务器",
       "unknown": "无信息",
-      "rawToggle": "显示WHOIS原始信息",
+      "rawToggle": "显示获取信息的原文",
       "error": {
         "invalid_domain": "域名格式不正确。",
+        "unknown_tld": "该顶级域名(相当于 .com 或 .jp 的部分)不存在。",
         "no_server": "未找到该域名的WHOIS服务器。",
         "timeout": "WHOIS查询超时,请重试。",
         "connection_failed": "无法连接到WHOIS服务器,请重试。"
+      },
+      "availability": {
+        "available": "{domain} 尚未被注册",
+        "availableNote": "可能可以注册。部分域名为保留或溢价域名,请在注册商处确认能否实际注册。",
+        "registered": "{domain} 已被注册",
+        "unknown": "无法判断 {domain} 是否已被注册"
       }
     },
     "wc": {
