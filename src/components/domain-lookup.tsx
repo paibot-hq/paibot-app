@@ -47,7 +47,11 @@ export default function DomainLookup() {
 
       {result?.status === "ok" && (
         <div className={styles["result"]} aria-live="polite">
-          {fields.map(field => (
+          <div className={`${styles["verdict"]} ${styles[result.availability]}`}>
+            <p className={styles["verdictTitle"]}>{t(`domain.availability.${result.availability}`, { domain: result.domain })}</p>
+            {result.availability === "available" && <p className={styles["verdictNote"]}>{t("domain.availability.availableNote")}</p>}
+          </div>
+          {result.availability !== "available" && fields.map(field => (
             <div key={field.label} className={styles["field"]}>
               <p className={controls.label}>{field.label}</p>
               <p className={styles["value"]}>{field.value ?? t("domain.unknown")}</p>

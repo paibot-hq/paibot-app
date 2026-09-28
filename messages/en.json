@@ -311,7 +311,7 @@
     },
     "domain": {
       "title": "Domain Lookup (WHOIS)",
-      "description": "Look up a domain's registrar, registration date, expiry date and other WHOIS information.",
+      "description": "Check whether a domain is available or already registered, plus its registrant, registration date and expiry.",
       "keywords": "domain WHOIS registrar expiry lookup",
       "placeholder": "example.com",
       "submit": "Look up",
@@ -322,12 +322,19 @@
       "expiryLabel": "Expires",
       "nameServersLabel": "Name servers",
       "unknown": "Not available",
-      "rawToggle": "Show raw WHOIS text",
+      "rawToggle": "Show raw response",
       "error": {
         "invalid_domain": "That doesn't look like a valid domain name.",
+        "unknown_tld": "That top-level domain (the part like .com or .jp) doesn't exist.",
         "no_server": "No WHOIS server could be found for this domain.",
         "timeout": "The WHOIS lookup timed out. Please try again.",
         "connection_failed": "Couldn't reach the WHOIS server. Please try again."
+      },
+      "availability": {
+        "available": "{domain} is not registered",
+        "availableNote": "It may be available. Some names are reserved or premium-priced, so confirm with a registrar before counting on it.",
+        "registered": "{domain} is already registered",
+        "unknown": "Couldn't tell whether {domain} is registered"
       }
     },
     "wc": {
