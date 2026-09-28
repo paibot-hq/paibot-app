@@ -183,6 +183,7 @@ try {
       // The old category still shows zero search results until that commit.
       await page.locator(`.category-nav a[aria-current="page"][href="/${locale}/apps"]`).waitFor();
       assert.equal(await page.getByRole('searchbox').inputValue(), '', 'all-app navigation resets the category search');
+      await page.locator('.app-card').first().waitFor();
       assert.equal(await page.locator('.app-card').count(), 20);
       await go(`/${locale}`);
     }
