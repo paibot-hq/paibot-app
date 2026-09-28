@@ -11,7 +11,7 @@ import { APP_CATALOG, type AppData } from "./app-catalog.ts";
 // Every published, non-private app in the catalog is public, so a new tool
 // needs no edit here; add only pages outside the catalog below.
 const sitePaths = ["", "/apps", "/daily", "/game", "/utility", "/study", "/dev", "/network", "/about", "/supporter", "/legal/terms", "/legal/privacy", "/legal/commerce"];
-const mathSetPaths = ["/math/pythagoras", "/math/pythagoras/sides-a", "/math/factorization", "/math/factorization/trinomial-a", "/math/arith", "/math/arith/add-sub-a", "/math/signed", "/math/signed/four-ops-a"];
+const mathSetPaths = ["/math/units", "/math/level/elementary", "/math/level/middle", "/math/level/high", "/math/level/university", "/math/kentei", "/math/pythagoras", "/math/pythagoras/sides-a", "/math/factorization", "/math/factorization/trinomial-a", "/math/arith", "/math/arith/add-sub-a", "/math/signed", "/math/signed/four-ops-a"];
 export const publicPaths: readonly string[] = [
   ...sitePaths,
   ...(APP_CATALOG as readonly AppData[]).filter(app => app.status === "published" && app.href && !app.private).map(app => app.href!),
@@ -22,10 +22,19 @@ export function localizedUrl(origin: string, locale: Locale, path: string) {
   return `${origin}/${locale}${path}`;
 }
 
-export function languageAlternates(origin: string, path: string): Record<Locale | "x-default", string> {
+// Pages that exist only in some locales (the rest 404): a Japan-only exam.
+const localeOnlyPaths: Record<string, readonly Locale[]> = { "/math/kentei": ["ja"] };
+
+// The locales a public path is served in, for hreflang and the sitemap.
+export function pathLocales(path: string): readonly Locale[] {
+  return localeOnlyPaths[path] ?? locales;
+}
+
+export function languageAlternates(origin: string, path: string): Partial<Record<Locale, string>> & { "x-default": string } {
+  const available = pathLocales(path);
   return {
-    ...(Object.fromEntries(locales.map(locale => [locale, localizedUrl(origin, locale, path)])) as Record<Locale, string>),
-    "x-default": localizedUrl(origin, defaultLocale, path),
+    ...Object.fromEntries(available.map(locale => [locale, localizedUrl(origin, locale, path)])),
+    "x-default": localizedUrl(origin, available.includes(defaultLocale) ? defaultLocale : available[0], path),
   };
 }
 
