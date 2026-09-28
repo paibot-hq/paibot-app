@@ -125,6 +125,17 @@ try {
   await main.getByRole('button', { name: 'Check', exact: true }).click();
   await result("Internal addresses such as localhost or private IP addresses can't be checked.");
   console.log('PASS: site check rejects invalid URLs and internal addresses (see check:site-check for real requests)');
+  await go('pinball');
+  await main.getByText('Hold Launch and release to shoot the ball', { exact: true }).waitFor();
+  await page.keyboard.down('Space');
+  await page.waitForTimeout(700);
+  await page.keyboard.up('Space');
+  // The launch clears the hint; the flippers answer to keys without errors.
+  await page.waitForFunction(() => !document.querySelector('main [aria-live]')?.textContent);
+  await page.keyboard.down('KeyZ'); await page.keyboard.down('Slash');
+  await page.waitForTimeout(200);
+  await page.keyboard.up('KeyZ'); await page.keyboard.up('Slash');
+  console.log('PASS: pinball launches with Space and flips with Z and / (see check-pinball for the table)');
   await go('business-card');
   await main.getByLabel('Name', { exact: true }).fill('Alex Taylor');
   await page.waitForFunction(() => document.querySelector('main [role=img]')?.textContent?.includes('Alex Taylor'));
@@ -306,5 +317,5 @@ try {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({ path: '/tmp/paibot-life-inline.png', fullPage: true });
   console.log('PASS: life calendar shows every week inline without an overview button');
-  console.log('PASS: all 19 tools, no uncaught JS errors');
+  console.log('PASS: all 20 tools, no uncaught JS errors');
 } finally { await browser.close(); }
