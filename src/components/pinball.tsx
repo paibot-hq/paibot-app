@@ -80,7 +80,8 @@ function draw(canvas: HTMLCanvasElement, game: Pinball, flashes: Map<number, num
   }
   // Kickout hole: a dark ring; the ball sits in it while held.
   const saucer = game.saucer;
-  dot(saucer.x, saucer.y, 14, state.saucerHold > 0 ? color("--success") : color("--accent-dark"));
+  // The ring is lit while the hole can catch the ball.
+  dot(saucer.x, saucer.y, 14, state.saucerHold > 0 ? color("--success") : state.saucerArmed ? color("--accent") : color("--line"));
   dot(saucer.x, saucer.y, 9, color("--text"));
 
   for (const body of game.engine.world.bodies) {
