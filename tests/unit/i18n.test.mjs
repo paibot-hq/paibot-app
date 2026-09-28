@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { locales } from '../src/i18n/routing.ts';
+import { locales } from '../../src/i18n/routing.ts';
 
 // Every catalog must have exactly ja.json's keys, and each message must use
 // the same placeholders ({domain}, {count, plural, ...}) in every locale:
 // a missing key or a renamed placeholder only fails at runtime otherwise.
-const load = locale => JSON.parse(readFileSync(new URL(`../messages/${locale}.json`, import.meta.url), 'utf8'));
+const load = locale => JSON.parse(readFileSync(new URL(`../../messages/${locale}.json`, import.meta.url), 'utf8'));
 
 function flatten(value, prefix = '', out = new Map()) {
   if (value && typeof value === 'object' && !Array.isArray(value)) {

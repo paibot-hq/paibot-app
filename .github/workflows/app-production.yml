@@ -96,10 +96,10 @@ jobs:
       # never touches the real production database).
       - if: steps.framework.outputs.react_router == 'true'
         run: npm run db:migrate:local:production
-      # Called by file, not `npm run check:environments`: a rollback can deploy
-      # a ref from before that script name existed (it was `check:i18n`).
+      # Called by file, not an npm script: a rollback can deploy a ref from
+      # before the tests moved to tests/ (scripts/check-*.mjs until 2026-09).
       - if: steps.framework.outputs.react_router == 'true'
-        run: node scripts/check-environments.mjs
+        run: if [ -f tests/e2e/environments.mjs ]; then node tests/e2e/environments.mjs; else node scripts/check-environments.mjs; fi
       - name: Sync production runtime secrets
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
@@ -155,8 +155,10 @@ jobs:
           CHECK_SITE_URL: https://paibot.app
           CHECK_SITE_INDEXABLE: 'true'
         run: |
-          npm run check:smoke
-          if [ -f scripts/check-quiz-browser.mjs ]; then npm run check:quiz-browser; fi
+          if [ -f tests/e2e/run.mjs ]; then npm run e2e -- smoke quiz-browser; else
+            npm run check:smoke
+            if [ -f scripts/check-quiz-browser.mjs ]; then npm run check:quiz-browser; fi
+          fi
       - name: Tag successful new release
         if: inputs.ref == ''
         env:

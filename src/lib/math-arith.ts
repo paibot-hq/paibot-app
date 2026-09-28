@@ -12,7 +12,7 @@ export interface ArithPayload {
   choices: number[];
 }
 
-// Problems are LLM-generated and checked by scripts/check-math-arith.mjs
+// Problems are LLM-generated and checked by scripts/validate-math-arith.mjs
 // before import, so this module only formats them.
 export function expressionTex(expression: string): string {
   return expression.replace(/\s+/g, '').replace(/[+\-*/]/g, operator => ({

@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { contactLines, EMPTY_CARD, fitSize, textEms } from '../src/lib/business-card.ts';
+import { contactLines, EMPTY_CARD, fitSize, textEms } from '../../src/lib/business-card.ts';
 
 // The contact block: address with postal mark, TEL and FAX on one line, email, website.
 const card = { ...EMPTY_CARD, name: '山田 太郎', postalCode: '100-0005', address: '東京都千代田区1-2-3\n4F', phone: '03-1234-5678', fax: '03-1234-5679', email: 'taro@example.com', website: 'https://example.com' };

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import Matter from 'matter-js';
-import { createPinball } from '../src/lib/pinball.ts';
+import { createPinball } from '../../src/lib/pinball.ts';
 
 // Plays the pinball table headlessly: the plunger, the flippers and the
 // three-ball game must work, and flipping must actually keep the ball alive.

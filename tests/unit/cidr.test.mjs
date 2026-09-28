@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { formatAddress, formatBinary, parseCidr } from '../src/lib/cidr.ts';
+import { formatAddress, formatBinary, parseCidr } from '../../src/lib/cidr.ts';
 
 // Expected values are written out by hand, not derived from the code under test.
 const cases = [

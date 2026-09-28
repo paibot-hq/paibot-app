@@ -1,4 +1,4 @@
-// check:all skips this file: needs a running preview and Clerk test keys.
+// Needs: a running preview and Clerk test keys.
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { chromium } from 'playwright';

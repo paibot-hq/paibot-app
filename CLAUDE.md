@@ -25,7 +25,7 @@ Do not print secret keys. Runtime Clerk keys must be synced to Workers Secrets;
 - Components/CSS Modules belong in `src/components/`; shared styles in `src/styles/`.
 - Add translations to all three `messages/*.json` catalogs.
 - Public pages render `PublicHead` and are listed in `src/lib/seo.ts`.
-- The catalog is `src/lib/app-catalog.ts` (plain data, also read by `check-smoke.mjs`);
+- The catalog is `src/lib/app-catalog.ts` (plain data, also read by `tests/e2e/smoke.mjs` and `catalog.mjs`);
   give the new slug an icon in `APP_ICONS` in `src/lib/apps.tsx`. Keep coming-soon pages out of the sitemap.
 - Authenticate/authorize in each protected loader/action using Clerk's server API;
   merely nesting a route does not protect it.
@@ -60,19 +60,19 @@ then change the catalog status to `published` and register its public SEO paths.
 
 Pythagoras figures use integer coordinates and `math-figure.tsx` SVG rendering; labels
 and localized accessible descriptions are calculated, never stored.
-`check:math-pythagoras` independently verifies geometry, radicals and set coverage.
+`scripts/validate-math-pythagoras.mjs` independently verifies geometry, radicals and set coverage.
 
 Problems are LLM-generated into `src/data/math-*.json` and never trusted as-is:
-`npm run check:math-sympy` (`scripts/verify_math.py`) re-derives every unit's
+`npm run test:sympy` (`scripts/verify_math.py`) re-derives every unit's
 answer with SymPy: each unit only converts a problem into its answer and four
 choices, and one shared check requires exactly one matching choice. The Node
-checkers (`check:math-arith`, `check:math-factorization`, `check:math-pythagoras`)
+validators (`scripts/validate-math-*.mjs`, run by `npm test`)
 enforce only each set's rules (ranges, exact division, coverage, duplicates);
 they no longer check answer keys. Word problems' prose also gets a blind second-model review before they
 are published. Problems start as `published: false` and are imported with
 `npm run math:import:local|dev|prod` through `scripts/import-math.mjs`, which
 runs the Node set-rule checks before upserting common columns and payloads
-(answers are gated by CI's `check:math-sympy` on `main`, which every deploy needs); a set with no
+(answers are gated by CI's `test:sympy` on `main`, which every deploy needs); a set with no
 published problems shows "being prepared". `docs/plans/math-units.md` is the unit roadmap and the verification
 rules new units must follow; `docs/plans/problemset.md` is the larger plan it
 refines (its vinext-specific sections are historical).

@@ -72,7 +72,7 @@ export function isPrivateHost(hostname: string): boolean {
 export async function checkSite(input: string, allowRequest: () => Promise<boolean> = async () => true): Promise<SiteCheckResult> {
   const start = normalizeUrl(input);
   if (!start) return { status: "error", reason: "invalid_url" };
-  // Test seam, like WHOIS_ROOT_SERVER: scripts/check-site-check.mjs sets it
+  // Test seam, like WHOIS_ROOT_SERVER: tests/e2e/site-check.mjs sets it
   // to reach a fake server on 127.0.0.1. "false" in every deployed config.
   const allowPrivate = (env.SITE_CHECK_ALLOW_PRIVATE as string) === "true";
   const deadline = Date.now() + TOTAL_BUDGET_MS;

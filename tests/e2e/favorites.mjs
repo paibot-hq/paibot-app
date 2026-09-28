@@ -1,4 +1,4 @@
-// check:all skips this file: needs a running preview and Clerk test keys.
+// Needs: a running preview and Clerk test keys.
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { spawnSync } from 'node:child_process';
@@ -6,7 +6,7 @@ import { chromium } from 'playwright';
 import { clerkSetup, setupClerkTestingToken, clerk } from '@clerk/testing/playwright';
 import { createClerkClient } from '@clerk/backend';
 
-// Same disposable-test-user technique as check-auth.mjs (a real Clerk
+// Same disposable-test-user technique as tests/e2e/auth.mjs (a real Clerk
 // sign-up against the dev instance, deleted in `finally`) - favorites needs
 // a real signed-in userId, which nothing else in this repo can fake.
 const base = process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002';

@@ -1,5 +1,5 @@
 // The app list as plain data, without icons (those live in apps.tsx), so
-// Node scripts such as check-smoke.mjs can import it and derive their
+// Node scripts such as tests/e2e/smoke.mjs can import it and derive their
 // expectations instead of repeating the list.
 
 export type AppCategory = "study" | "dev" | "utility" | "network" | "game" | "daily";

@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
-import { commerce, privacy, terms } from '../src/content/legal.ts';
-import { CONTACT_EMAIL, SUPPORTER_PLAN } from '../src/lib/plans.ts';
+import { commerce, privacy, terms } from '../../src/content/legal.ts';
+import { CONTACT_EMAIL, SUPPORTER_PLAN } from '../../src/lib/plans.ts';
 
 // The legal pages go to a payment provider's review and to customers, so they
 // must not ship with placeholder contact details or a missing translation.

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
-import { additions, blindProblem, compareReviews, context, extractJSON, formatBank } from './math-pipeline.mjs';
-import { validateBank as validateArith } from './check-math-arith.mjs';
-import { validateBank as validateFactor } from './check-math-factorization.mjs';
+import { additions, blindProblem, compareReviews, context, extractJSON, formatBank } from '../../scripts/math-pipeline.mjs';
+import { validateBank as validateArith } from '../../scripts/validate-math-arith.mjs';
+import { validateBank as validateFactor } from '../../scripts/validate-math-factorization.mjs';
 
 const { bank, catalog } = context('arith', 'add-sub-a');
 const raw = 'Preamble {invalid}\n```json\n{"problems":[{"expression":"99 - 11 + 2","word":null,"choices":[90,80,100,88],"answerIndex":0}]}\n```\nDone';

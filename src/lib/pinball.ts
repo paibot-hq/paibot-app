@@ -1,6 +1,6 @@
 import type MatterJS from "matter-js";
 
-// Pinball table and rules, shared by the page and scripts/check-pinball.mjs.
+// Pinball table and rules, shared by the page and tests/unit/pinball.test.mjs.
 // Matter is passed in so Node can play the same table headlessly.
 //
 // Flippers are static bodies turned about their pivot each substep with

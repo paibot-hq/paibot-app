@@ -8,9 +8,9 @@ Read `README.md` and `docs/plans/react-router-cutover.md` before changing deploy
 - Runtime environment imports (`cloudflare:workers`) must stay server-only.
 - Never print or commit `.dev.vars*`, `.env*`, generated builds, or credentials.
 - Terraform owns infrastructure; Wrangler owns Worker code, bindings and routes.
-- Run `npm run typecheck`, `npm run build`, `npm run check:environments` for routing/server changes.
-- `npm run check:all` runs every check that needs no build, server or browser; a new `scripts/check-*.mjs` joins it automatically unless its first line is `// check:all skips this file: <reason>`.
-- Browser checks: `check:smoke` and `check:tools` against a running preview.
+- Run `npm run typecheck`, `npm run build`, `npm run e2e -- environments` for routing/server changes.
+- Tests live in `tests/`: `npm test` runs every `tests/unit/*.test.mjs` (no build, server or browser; a new file joins automatically). `npm run e2e -- <name>` runs `tests/e2e/<name>.mjs` (build, preview, Clerk keys or local D1; see README). `scripts/` is tooling only.
+- Every published tool in `src/lib/app-catalog.ts` is covered by `e2e -- catalog` (loads in ja/en/zh, no uncaught errors, fits 390px) with no test code; add a tool-specific flow to `tests/e2e/tools.mjs` and pure logic tests to `tests/unit/`.
 - Work in a worktree (`git worktree add ../worktrees/<branch>` from `app/`); leave the `app/` checkout on `main` and untouched.
 - Use a separate port for verification. Do not stop another person's dev server.
 - Production deployment is manual. Keep rollback support for old vinext release refs.

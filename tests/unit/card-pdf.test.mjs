@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { imagePdf } from '../src/lib/card-pdf.ts';
+import { imagePdf } from '../../src/lib/card-pdf.ts';
 
 // The hand-written PDF must be structurally valid: every xref offset points at
 // its object, the image stream holds the JPEG bytes unchanged, and the page is

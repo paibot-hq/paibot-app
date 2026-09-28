@@ -15,7 +15,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   const setId = params.setId;
   const labelKey = labelKeyForSet(setId);
   if (!labelKey) throw new Response('Not Found', { status: 404 });
-  // Problems are LLM-generated and verified by scripts/check-math-arith.mjs
+  // Problems are LLM-generated and verified by scripts/validate-math-arith.mjs
   // before import; a set with nothing published yet shows "being prepared".
   return { setId, labelKey, problems: await getMathSet('signed', setId) };
 }

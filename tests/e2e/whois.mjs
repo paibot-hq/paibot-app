@@ -1,4 +1,4 @@
-// check:all skips this file: needs a build and starts its own preview.
+// Needs: a build (starts its own preview).
 import assert from 'node:assert/strict';
 import { createServer } from 'node:net';
 import { createServer as createHttpServer } from 'node:http';
@@ -10,9 +10,9 @@ import { chromium } from 'playwright';
 // `wrangler dev`'s local routing simulates the Worker's configured custom
 // domain (wrangler.jsonc's `routes`), which makes Clerk's server-side dev
 // handshake redirect back to the real "dev.paibot.app" instead of this local
-// origin - fine for check-environments.mjs (SSR-only, no browser), but a
+// origin - fine for tests/e2e/environments.mjs (SSR-only, no browser), but a
 // real browser navigation there gets stuck on the real, Access-protected
-// dev.paibot.app. `vite preview` (what check-tools.mjs/check-smoke.mjs
+// dev.paibot.app. `vite preview` (what tests/e2e/tools.mjs/tests/e2e/smoke.mjs
 // already use) doesn't have this problem, so this script uses that instead
 // - but vite preview reads `vars` from the generated build/server/wrangler.json
 // once at startup with no per-invocation override, so WHOIS_ROOT_SERVER is
@@ -87,7 +87,7 @@ writeFileSync(wranglerJsonPath, JSON.stringify(config));
 const port = 3006;
 // Direct node invocation, not `npx vite` - npx's resolution/update-check
 // overhead made this step take ~9 minutes in CI (vs. seconds locally) even
-// though it eventually passed. check-environments.mjs avoids the same trap
+// though it eventually passed. tests/e2e/environments.mjs avoids the same trap
 // by invoking wrangler's bin script directly for the same reason.
 const worker = spawn('node', ['node_modules/vite/bin/vite.js', 'preview', '--port', String(port)], { stdio: ['ignore', 'pipe', 'pipe'] });
 let output = '';

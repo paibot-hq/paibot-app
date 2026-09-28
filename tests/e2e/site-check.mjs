@@ -1,4 +1,4 @@
-// check:all skips this file: needs a build and starts its own preview.
+// Needs: a build (starts its own preview).
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
@@ -9,7 +9,7 @@ import { chromium } from 'playwright';
 // Real requests from the Worker to a fake site on 127.0.0.1. Loopback is
 // refused in production, so SITE_CHECK_ALLOW_PRIVATE is switched on in the
 // generated build/server/wrangler.json for this run only and restored after
-// (same approach and reasons as check-whois.mjs).
+// (same approach and reasons as tests/e2e/whois.mjs).
 
 function startFakeSite() {
   const server = createServer((req, res) => {

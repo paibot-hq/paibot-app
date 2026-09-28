@@ -1,7 +1,7 @@
-// check:all skips this file: needs a running preview.
+// Needs: a running preview.
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
-import { configureAccess } from './lib/access.mjs';
+import { configureAccess } from '../../scripts/lib/access.mjs';
 
 const base = process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002';
 const browser = await chromium.launch();
@@ -115,7 +115,7 @@ try {
   await main.getByLabel('example.com').fill('not a domain');
   await main.getByRole('button', { name: 'Look up', exact: true }).click();
   await result("That doesn't look like a valid domain name.");
-  console.log('PASS: domain lookup rejects invalid input (no socket opened; see check:whois for the real WHOIS lookup)');
+  console.log('PASS: domain lookup rejects invalid input (no socket opened; see e2e whois for the real WHOIS lookup)');
   await go('site-check');
   const siteInput = main.getByLabel('https://example.com');
   await siteInput.fill('not a url');
@@ -124,7 +124,7 @@ try {
   await siteInput.fill('http://127.0.0.1:8080/admin');
   await main.getByRole('button', { name: 'Check', exact: true }).click();
   await result("Internal addresses such as localhost or private IP addresses can't be checked.");
-  console.log('PASS: site check rejects invalid URLs and internal addresses (see check:site-check for real requests)');
+  console.log('PASS: site check rejects invalid URLs and internal addresses (see e2e site-check for real requests)');
   await go('pinball');
   await main.getByText('Hold Launch and release to shoot the ball', { exact: true }).waitFor();
   await page.keyboard.down('Space');
@@ -135,7 +135,7 @@ try {
   await page.keyboard.down('KeyZ'); await page.keyboard.down('Slash');
   await page.waitForTimeout(200);
   await page.keyboard.up('KeyZ'); await page.keyboard.up('Slash');
-  console.log('PASS: pinball launches with Space and flips with Z and / (see check-pinball for the table)');
+  console.log('PASS: pinball launches with Space and flips with Z and / (see tests/unit/pinball for the table)');
   await go('business-card');
   await main.getByLabel('Name', { exact: true }).fill('Alex Taylor');
   await page.waitForFunction(() => document.querySelector('main [role=img]')?.textContent?.includes('Alex Taylor'));
@@ -148,7 +148,7 @@ try {
   assert.ok(pdfStart.subarray(0, 8).toString() === '%PDF-1.4' && pdfStart.includes('/DCTDecode'), 'the PDF download is a PDF with the card image');
   await page.reload();
   await main.getByLabel('Name', { exact: true }).and(page.locator('[value="Alex Taylor"]')).waitFor();
-  console.log('PASS: business card previews typed details, saves a PNG and a one-card PDF and keeps the input after reload (see check-business-card for the contact block)');
+  console.log('PASS: business card previews typed details, saves a PNG and a one-card PDF and keeps the input after reload (see tests/unit/business-card for the contact block)');
   await go('cidr');
   const cidrValue = key => page.locator(`[data-cidr="${key}"] dd`).textContent();
   const cidrInput = main.getByLabel('IPv4 address and prefix length');

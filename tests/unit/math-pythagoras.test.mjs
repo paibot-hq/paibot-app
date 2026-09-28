@@ -4,9 +4,9 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import katex from 'katex';
-import { bank, validateBank } from './check-math-pythagoras.mjs';
-import { additions, blindProblem, compareReviews, context, formatBank } from './math-pipeline.mjs';
-import { explanationTex, lengthTex } from '../src/lib/math-pythagoras.ts';
+import { bank, validateBank } from '../../scripts/validate-math-pythagoras.mjs';
+import { additions, blindProblem, compareReviews, context, formatBank } from '../../scripts/math-pipeline.mjs';
+import { explanationTex, lengthTex } from '../../src/lib/math-pythagoras.ts';
 
 const reject = mutate => { const copy = structuredClone(bank); mutate(copy.problems, copy); assert.throws(() => validateBank(copy)); };
 reject(p => p[0].figure.points.A[0] = 0.5);
@@ -53,9 +53,9 @@ const temp = mkdtempSync(join(tmpdir(), 'pythagoras-check-'));
 try {
   const path = join(temp, 'bank.json');
   writeFileSync(path, formatBank(bank));
-  const result = spawnSync(process.execPath, ['scripts/check-math-pythagoras.mjs'], { env: { ...process.env, MATH_BANK_PYTHAGORAS: path }, encoding: 'utf8' });
+  const result = spawnSync(process.execPath, ['scripts/validate-math-pythagoras.mjs'], { env: { ...process.env, MATH_BANK_PYTHAGORAS: path }, encoding: 'utf8' });
   assert.equal(result.status, 0, result.stderr);
   writeFileSync(path, JSON.stringify({ version: 0, problems: [] }));
-  assert.notEqual(spawnSync(process.execPath, ['scripts/check-math-pythagoras.mjs'], { env: { ...process.env, MATH_BANK_PYTHAGORAS: path } }).status, 0);
+  assert.notEqual(spawnSync(process.execPath, ['scripts/validate-math-pythagoras.mjs'], { env: { ...process.env, MATH_BANK_PYTHAGORAS: path } }).status, 0);
 } finally { rmSync(temp, { recursive: true, force: true }); }
 console.log('PASS: Pythagoras invalid geometry/metadata/choices/coverage, duplicates, blind review, numbering, TeX and dry-run bank override');

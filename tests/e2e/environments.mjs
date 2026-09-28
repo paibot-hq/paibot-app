@@ -1,4 +1,4 @@
-// check:all skips this file: needs a build and starts its own Workers.
+// Needs: a build (starts its own Workers).
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { setTimeout as delay } from 'node:timers/promises';
@@ -27,7 +27,7 @@ for (const [indexable, origin, port] of [[false, 'https://dev.paibot.app', 4311]
       await delay(500);
     }
     assert.ok(ready, 'Local Worker did not start');
-    await run('node', ['scripts/check-smoke.mjs'], { CHECK_BROWSER_BASE_URL: `http://localhost:${port}`, CHECK_SITE_URL: origin, CHECK_SITE_INDEXABLE: String(indexable), CHECK_SSR_ONLY: 'true' });
+    await run('node', ['tests/e2e/smoke.mjs'], { CHECK_BROWSER_BASE_URL: `http://localhost:${port}`, CHECK_SITE_URL: origin, CHECK_SITE_INDEXABLE: String(indexable), CHECK_SSR_ONLY: 'true' });
   } finally {
     server.kill('SIGTERM');
     await new Promise(resolve => { if (server.exitCode !== null) resolve(); else server.once('exit', resolve); });

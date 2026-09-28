@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { formatDay, holidaysOfYear, monthGrid, toDay } from '../src/lib/japanese-holidays.ts';
+import { formatDay, holidaysOfYear, monthGrid, toDay } from '../../src/lib/japanese-holidays.ts';
 
 const named = year => {
   const out = {};

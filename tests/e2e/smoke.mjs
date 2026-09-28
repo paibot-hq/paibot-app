@@ -1,10 +1,10 @@
-// check:all skips this file: needs a running preview.
+// Needs: a running preview.
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
-import { appFetch, configureAccess } from './lib/access.mjs';
-import { locales } from '../src/i18n/routing.ts';
-import { publicPaths as paths } from '../src/lib/seo.ts';
-import { APP_CATALOG, APP_CATEGORIES } from '../src/lib/app-catalog.ts';
+import { appFetch, configureAccess } from '../../scripts/lib/access.mjs';
+import { locales } from '../../src/i18n/routing.ts';
+import { publicPaths as paths } from '../../src/lib/seo.ts';
+import { APP_CATALOG, APP_CATEGORIES } from '../../src/lib/app-catalog.ts';
 
 const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002').origin;
 const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app').origin;

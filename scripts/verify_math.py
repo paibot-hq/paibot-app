@@ -5,7 +5,7 @@ Each unit only converts a problem into SymPy expressions: the answer derived
 from what the learner sees, and the four choices. One shared check then
 requires the choices to be mathematically distinct and exactly one of them,
 the one at answerIndex, to equal the answer. Set rules (number ranges, exact
-division, coverage) stay in scripts/check-math-*.mjs.
+division, coverage) stay in scripts/validate-math-*.mjs.
 
 Usage: uv run python scripts/verify_math.py [unit ...]
 MATH_BANK_<UNIT> overrides a unit's bank file, as in the Node checkers.

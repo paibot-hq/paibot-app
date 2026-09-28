@@ -1,6 +1,6 @@
 // Display order follows this catalog; IDs remain stable when sets move.
 // A set without a rule is coming soon: it has no checker yet, so it cannot
-// hold problems (see scripts/check-math-factorization.mjs).
+// hold problems (see scripts/validate-math-factorization.mjs).
 export type FactorizationSet = { id: string; rule?: string; item: string; labelKey: string; descriptionKey: string };
 
 export const FACTORIZATION_SETS: readonly FactorizationSet[] = [

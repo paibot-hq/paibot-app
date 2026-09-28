@@ -1,4 +1,4 @@
-// check:all skips this file: needs a running preview, Clerk test keys and local D1.
+// Needs: a running preview, Clerk test keys and local D1.
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { readFileSync } from 'node:fs';
@@ -7,7 +7,7 @@ import { chromium } from 'playwright';
 import { clerkSetup, setupClerkTestingToken, clerk } from '@clerk/testing/playwright';
 import { createClerkClient } from '@clerk/backend';
 
-// Same disposable-test-user technique as check-favorites.mjs. Needs arithmetic
+// Same disposable-test-user technique as tests/e2e/favorites.mjs. Needs arithmetic
 // set add-sub-a published in the local D1 the target server reads (see CLAUDE.md), and
 // removes the test user's attempts and Clerk account afterwards.
 const base = process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002';
@@ -15,7 +15,7 @@ assert.ok(['localhost', '127.0.0.1'].includes(new URL(base).hostname), 'Auth fix
 assert.ok(process.env.CLERK_PUBLISHABLE_KEY?.startsWith('pk_test_'), 'Development publishable key required');
 assert.ok(process.env.CLERK_SECRET_KEY?.startsWith('sk_test_'), 'Development secret key required');
 const SET = 'add-sub-a';
-const problems = JSON.parse(readFileSync(new URL('../src/data/math-arith.json', import.meta.url), 'utf8'))
+const problems = JSON.parse(readFileSync(new URL('../../src/data/math-arith.json', import.meta.url), 'utf8'))
   .problems.filter(problem => problem.setId === SET).sort((a, b) => a.position - b.position);
 const email = `paibot-e2e-${randomUUID()}+clerk_test@example.com`;
 const backend = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY });

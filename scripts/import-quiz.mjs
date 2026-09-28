@@ -1,6 +1,6 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
-import { bank } from './check-quiz.mjs';
+import { bank } from './validate-quiz.mjs';
 
 // Explicit target only; importing never creates or resets any tables.
 const targets = { local: ['--local'], dev: ['--remote'], prod: ['--remote', '--env', 'production'] };

@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { buildLifeCalendar, parseCalendarDay, localToday } from '../src/lib/life-calendar.ts';
+import { buildLifeCalendar, parseCalendarDay, localToday } from '../../src/lib/life-calendar.ts';
 assert.equal(parseCalendarDay('2025-02-29'), null);
 assert.equal(buildLifeCalendar('2027-01-01', '2026-01-01', 90), null);
 assert.equal(buildLifeCalendar('1899-12-31', '2026-01-01', 90), null);

@@ -1,8 +1,8 @@
-// check:all skips this file: needs a running preview.
+// Needs: a running preview.
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
-import { bank } from './check-quiz.mjs';
-import { appFetch, configureAccess } from './lib/access.mjs';
+import { bank } from '../../scripts/validate-quiz.mjs';
+import { appFetch, configureAccess } from '../../scripts/lib/access.mjs';
 
 const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002').origin;
 for (const locale of ['ja', 'en', 'zh']) {

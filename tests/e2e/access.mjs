@@ -1,8 +1,8 @@
-// check:all skips this file: launches a Playwright browser.
+// Needs: a Playwright browser (no server).
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { chromium } from 'playwright';
-import { appFetch, configureAccess } from './lib/access.mjs';
+import { appFetch, configureAccess } from '../../scripts/lib/access.mjs';
 
 process.env.CF_ACCESS_CLIENT_ID = 'test-client-id';
 process.env.CF_ACCESS_CLIENT_SECRET = 'test-client-secret';
