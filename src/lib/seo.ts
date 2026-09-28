@@ -1,4 +1,5 @@
 import { locales, defaultLocale, isLocale, type Locale } from "../i18n/routing.ts";
+import { APP_CATALOG, type AppData } from "./app-catalog.ts";
 
 // Pure helpers only — no env access here. This module is reachable from
 // client-rendered components (via PublicHead), so it must bundle safely for
@@ -7,8 +8,15 @@ import { locales, defaultLocale, isLocale, type Locale } from "../i18n/routing.t
 // for why: importing "cloudflare:workers" from anything client-reachable
 // breaks the client build).
 
-// Add only real public pages as tools become available.
-export const publicPaths = ["", "/apps", "/daily", "/game", "/utility", "/study", "/dev", "/network", "/about", "/supporter", "/legal/terms", "/legal/privacy", "/legal/commerce", "/ip", "/domain", "/cidr", "/site-check", "/wc", "/arith", "/quiz", "/age", "/clock", "/calendar", "/life-calendar", "/password", "/base64", "/json", "/urlencode", "/dice", "/reaction", "/timing", "/pinball", "/stopwatch", "/business-card", "/math", "/math/pythagoras", "/math/pythagoras/sides-a", "/math/factorization", "/math/factorization/trinomial-a", "/math/arith", "/math/arith/add-sub-a", "/math/signed", "/math/signed/four-ops-a"] as const;
+// Every published, non-private app in the catalog is public, so a new tool
+// needs no edit here; add only pages outside the catalog below.
+const sitePaths = ["", "/apps", "/daily", "/game", "/utility", "/study", "/dev", "/network", "/about", "/supporter", "/legal/terms", "/legal/privacy", "/legal/commerce"];
+const mathSetPaths = ["/math/pythagoras", "/math/pythagoras/sides-a", "/math/factorization", "/math/factorization/trinomial-a", "/math/arith", "/math/arith/add-sub-a", "/math/signed", "/math/signed/four-ops-a"];
+export const publicPaths: readonly string[] = [
+  ...sitePaths,
+  ...(APP_CATALOG as readonly AppData[]).filter(app => app.status === "published" && app.href && !app.private).map(app => app.href!),
+  ...mathSetPaths,
+];
 
 export function localizedUrl(origin: string, locale: Locale, path: string) {
   return `${origin}/${locale}${path}`;

@@ -58,13 +58,13 @@ import, bank validators).
 
 ```sh
 npm run typecheck
-npm test                       # every tests/unit/*.test.mjs (node --test)
+npm test                       # tests/unit/*.test.mjs and src/tools/*/*.test.mjs (node --test)
 npm run test:sympy             # math answers re-derived with SymPy (needs uv)
 npx playwright install chromium # first run only
 npm run e2e -- <name...>       # tests/e2e/<name>.mjs; loads .dev.vars if present
 ```
 
-`npm test` picks up a new `tests/unit/*.test.mjs` automatically; a file passes by
+`npm test` picks up a new `*.test.mjs` in either place automatically; a file passes by
 exiting 0, so plain top-level `assert`s work as well as `node:test`'s `test()`.
 
 End-to-end checks (`npm run e2e -- <name>`):
@@ -78,7 +78,7 @@ End-to-end checks (`npm run e2e -- <name>`):
 | `site-check` | build | own preview + fake website: redirect chain, 503, loop, the per-IP limit (`TOOL_RATE_LIMIT`, 10 a minute per tool; only requests that reach the network count) |
 | `smoke` | preview | public and non-indexable URLs, redirects, headers, locale navigation, theme, Clerk forms, CSP |
 | `catalog` | preview | every published tool in `src/lib/app-catalog.ts` × ja/en/zh: loads, hydrates, has a title, no untranslated keys or uncaught errors, fits 390px. New tools are covered with no test code |
-| `tools` | preview | one meaningful flow per tool (IP responses mocked; the domain and site checks only exercise input rejection here) |
+| `tools` | preview | each tool's own flow, `src/tools/<slug>/e2e.mjs` (math: `tests/e2e/flows/math.mjs`), in a fresh browser context (IP responses mocked; the domain and site checks only exercise input rejection here) |
 | `quiz-browser` | preview + local D1 | quiz flow |
 | `auth` | preview + `.dev.vars` | real dev-instance signup/verification, SSR session, sign-out/in; creates and deletes a fixture user |
 | `favorites` | preview + `.dev.vars` + local D1 | favorite/unfavorite persists; signed-out star opens sign-in |
@@ -89,6 +89,8 @@ End-to-end checks (`npm run e2e -- <name>`):
 npm run build && npm run e2e -- access environments whois site-check
 npm run preview                # port 3003; keep running in another terminal
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run e2e -- smoke catalog tools quiz-browser
+CHECK_TOOLS=cidr,json CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run e2e -- catalog tools
+node scripts/affected-tools.mjs   # tools this branch can affect (what PR CI passes as CHECK_TOOLS)
 ```
 
 `auth`, `favorites`, `diary`, `profile` and `math-history` create temporary users

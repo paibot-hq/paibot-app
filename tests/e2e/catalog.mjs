@@ -6,11 +6,11 @@
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { configureAccess } from '../../scripts/lib/access.mjs';
-import { APP_CATALOG } from '../../src/lib/app-catalog.ts';
+import { selectedTools } from './lib/selected-tools.mjs';
 
 const base = process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002';
 const locales = ['ja', 'en', 'zh'];
-const tools = APP_CATALOG.filter(app => app.status === 'published' && app.href);
+const tools = selectedTools();
 const browser = await chromium.launch();
 try {
   const page = await browser.newPage({ viewport: { width: 390, height: 844 }, serviceWorkers: 'block' });

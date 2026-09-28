@@ -19,6 +19,9 @@ export type AppData = {
   // Key under the `App` namespace in messages/*.json holding this app's
   // `title`/`description`/`keywords` (e.g. "json" → App.json.title).
   messageKey: string;
+  // Signed-in only (noindex, not in the sitemap); every other published app
+  // with an href is a public SEO page (see publicPaths in seo.ts).
+  private?: true;
 };
 
 export const APP_CATALOG = [
@@ -54,7 +57,7 @@ export const APP_CATALOG = [
   { slug: "calendar", href: "/calendar", category: "daily", status: "published", messageKey: "calendar" },
   { slug: "life-calendar", href: "/life-calendar", category: "daily", status: "published", messageKey: "lifeCalendar" },
   { slug: "clock", href: "/clock", category: "daily", status: "published", messageKey: "clock" },
-  { slug: "diary", href: "/diary", category: "daily", status: "published", messageKey: "diary" },
+  { slug: "diary", href: "/diary", category: "daily", status: "published", messageKey: "diary", private: true },
   { slug: "age", href: "/age", category: "daily", status: "published", messageKey: "age" },
 ] as const satisfies readonly AppData[];
 
