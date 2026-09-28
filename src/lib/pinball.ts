@@ -188,7 +188,9 @@ export function createPinball(M: Matter) {
     targets: [false, false, false],
     inlanes: [false, false],
     saucerHold: 0,
-    saucerCooldown: 0,
+    // After firing, the hole stays shut until the ball touches a flipper:
+    // otherwise its kick falls straight back in, again and again.
+    saucerArmed: true,
     saucerKicks: 0,
     // Steps left on this ball's saver; it starts counting at the launch.
     saver: 0,
@@ -207,6 +209,7 @@ export function createPinball(M: Matter) {
     ball = add(Bodies.circle(LANE.x, PLUNGER_TOP - BALL_RADIUS - 1, BALL_RADIUS,
       { restitution: 0.3, friction: 0.005, frictionAir: 0.0005, density: 0.004 }), "ball");
     state.saver = 0;
+    state.saucerArmed = true;
   };
   serve();
 
@@ -257,7 +260,9 @@ export function createPinball(M: Matter) {
       } else if (part === "gate") {
         // At least 2 px/step back, or a slow ball drops onto the lane wall's top and rolls in.
         if (ball.velocity.x > 0 && ball.position.x < LANE.wall) Body.setVelocity(ball, { x: -Math.max(2, ball.velocity.x * 0.6), y: ball.velocity.y });
-      } else if (part === "saucer" && state.saucerHold === 0 && state.saucerCooldown === 0) {
+      } else if (part === "flipper") {
+        state.saucerArmed = true;
+      } else if (part === "saucer" && state.saucerArmed && state.saucerHold === 0) {
         // Captured: park the ball in the hole, then kick it out in step().
         state.saucerHold = SAUCER_HOLD;
         state.score += POINTS.saucer;
@@ -337,13 +342,12 @@ export function createPinball(M: Matter) {
       state.steps++;
       if (state.charging) state.charge = Math.min(1, state.charge + 1 / CHARGE_STEPS);
       if (state.saver > 0 && ball && ball.position.x < LANE.wall) state.saver--;
-      if (state.saucerCooldown > 0) state.saucerCooldown--;
       if (state.saucerHold > 0 && --state.saucerHold === 0 && ball) {
         // Alternate left and right so repeated captures don't repeat one path.
         const dir = state.saucerKicks++ % 2 === 0 ? -1 : 1;
         Body.setStatic(ball, false);
         Body.setVelocity(ball, { x: dir * SAUCER_KICK.x, y: SAUCER_KICK.y });
-        state.saucerCooldown = 30;
+        state.saucerArmed = false;
       }
       if (state.nextBallIn > 0 && --state.nextBallIn === 0) serve();
       for (let i = 0; i < SUBSTEPS; i++) {

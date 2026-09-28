@@ -78,6 +78,18 @@ function launch(game, charge) {
   let rose = false;
   for (let i = 0; i < 60; i++) { game.step(); if (game.ball.position.y < game.saucer.y - 80) rose = true; }
   assert.ok(!game.ball.isStatic && rose, 'then it is fired back up the table');
+  // Shut until the ball touches a flipper, so its kick can't fall straight back in.
+  const dropIntoHole = () => { Matter.Body.setPosition(game.ball, { x: game.saucer.x, y: game.saucer.y - 30 }); Matter.Body.setVelocity(game.ball, { x: 0, y: 3 }); for (let i = 0; i < 20; i++) game.step(); };
+  const caught = () => events.filter(type => type === 'saucer').length;
+  dropIntoHole();
+  assert.ok(caught() === 1 && !game.ball.isStatic, 'the hole stays shut after firing');
+  const [left] = game.flippers;
+  Matter.Body.setPosition(game.ball, { x: left.pivot.x + 30, y: left.pivot.y - 20 });
+  Matter.Body.setVelocity(game.ball, { x: 0, y: 3 });
+  for (let i = 0; i < 20 && !game.state.saucerArmed; i++) game.step();
+  assert.ok(game.state.saucerArmed, 'touching a flipper re-arms the hole');
+  dropIntoHole();
+  assert.equal(caught(), 2, 'then it catches again');
 }
 
 // Three balls per game; a naive tapping player keeps each ball far longer
