@@ -116,9 +116,12 @@ export function createPinball(M: Matter) {
   // (balls slide down the side walls into them), so a ball can only be lost
   // between the flippers.
   const pivotY = 668;
+  // Each guide slopes at the flipper's rest angle, so it runs straight into
+  // the resting flipper instead of meeting it at a kink.
+  const guideRise = (LANE.wall - 4 - (CENTER + 78)) * Math.tan(FLIPPER.rest);
   const guides = {
-    left: { x1: mirror(LANE.wall - 4), y1: 612, x2: CENTER - 78, y2: pivotY },
-    right: { x1: LANE.wall - 4, y1: 612, x2: CENTER + 78, y2: pivotY },
+    left: { x1: mirror(LANE.wall - 4), y1: pivotY - guideRise, x2: CENTER - 78, y2: pivotY },
+    right: { x1: LANE.wall - 4, y1: pivotY - guideRise, x2: CENTER + 78, y2: pivotY },
   };
   for (const side of ["left", "right"] as Side[]) {
     const g = guides[side];
