@@ -32,6 +32,12 @@ jobs:
       - run: npm run check:legal
       - run: node scripts/check-math-pythagoras-tests.mjs
       - run: npm run check:math-arith
+      # Deploy jobs need this job, so they import only SymPy-verified banks
+      # and do not need Python themselves.
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+      - run: npm run check:math-sympy
       - run: npm run db:migrate:local
       - run: npm run quiz:import:local
       - run: npm run math:import:local

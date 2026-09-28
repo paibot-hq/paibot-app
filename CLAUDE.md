@@ -62,9 +62,11 @@ and localized accessible descriptions are calculated, never stored.
 `check:math-pythagoras` independently verifies geometry, radicals and set coverage.
 
 Problems are LLM-generated into `src/data/math-*.json` and never trusted as-is:
-`npm run check:math-arith` / `check:math-factorization` re-derive every answer
-(by evaluating the expression / expanding each choice) and enforce each set's
-rules. Word problems' prose also gets a blind second-model review before they
+`npm run check:math-sympy` (`scripts/verify_math.py`) re-derives every unit's
+answer with SymPy: each unit only converts a problem into its answer and four
+choices, and one shared check requires exactly one matching choice. The Node
+checkers (`check:math-arith`, `check:math-factorization`, `check:math-pythagoras`)
+enforce each set's rules and, until they are removed, also re-check answers. Word problems' prose also gets a blind second-model review before they
 are published. Problems start as `published: false` and are imported with
 `npm run math:import:local|dev|prod` through `scripts/import-math.mjs`, which
 validates all banks before upserting common columns and payloads; a set with no
