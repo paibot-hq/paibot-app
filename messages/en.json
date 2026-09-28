@@ -523,7 +523,7 @@
       "download": "Save image (PNG)",
       "print": "Print (10 on A4)",
       "printHint": "To get a PDF, choose “Save as PDF” in the print dialog. Cards are the Japanese standard 91 × 55 mm, laid out for A4 10-up card stock.",
-      "sampleHint": "Fill in the fields below and the sample turns into your card.",
+      "sampleHint": "Fill in the fields above and the sample turns into your card.",
       "design": "Design",
       "template": "Layout",
       "templates": {

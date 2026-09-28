@@ -523,7 +523,7 @@
       "download": "保存图片(PNG)",
       "print": "打印(A4排10张)",
       "printHint": "在打印对话框中选择「另存为PDF」即可得到PDF。名片为日本标准尺寸91×55毫米,按A4十格名片纸排版。",
-      "sampleHint": "在下方填写内容后,示例会变成你的名片。",
+      "sampleHint": "在上方填写内容后,示例会变成你的名片。",
       "design": "设计",
       "template": "版式",
       "templates": {

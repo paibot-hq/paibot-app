@@ -173,10 +173,6 @@ export default function BusinessCard() {
     <ToolLayout title={t("title")}>
       <p className={controls.label}>{t("intro")}</p>
       <div className={styles["layout"]}>
-        <div className={styles["preview"]} ref={previewRef} data-empty={empty || undefined}>
-          <CardSvg {...shown} postalMark={t("postalMark")} label={t("previewLabel")} />
-        </div>
-        {empty && <p className={controls.label}>{t("sampleHint")}</p>}
 
         <fieldset className={styles["group"]}>
           <legend>{t("design")}</legend>
@@ -207,6 +203,10 @@ export default function BusinessCard() {
           ))}
           <button className={styles["secondary"]} type="button" onClick={() => update({ card: EMPTY_CARD })} disabled={empty}>{t("clear")}</button>
         </fieldset>
+        <div className={styles["preview"]} ref={previewRef} data-empty={empty || undefined}>
+          <CardSvg {...shown} postalMark={t("postalMark")} label={t("previewLabel")} />
+        </div>
+        {empty && <p className={controls.label}>{t("sampleHint")}</p>}
         <div className={styles["actions"]}>
           <button className="auth-link" type="button" onClick={downloadPng} disabled={empty}>{t("download")}</button>
           <button className={styles["secondary"]} type="button" onClick={print} disabled={empty}>{t("print")}</button>
