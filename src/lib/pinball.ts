@@ -91,7 +91,9 @@ export function createPinball(M: Matter) {
   segment(5, 240, 5, TABLE.height + 20);
   segment(TABLE.width - 5, 240, TABLE.width - 5, TABLE.height + 20);
   // The arc is many short bodies for physics but one stroke on screen.
-  const arc = { x: 240, y: 240, r: 238, width: 16 };
+  // Same thickness as the side walls and centered on them (x = 5 and 475), so
+  // the arc fits inside the canvas and joins them; its inner face stays at 230.
+  const arc = { x: 240, y: 240, r: 235, width: 10 };
   for (let i = 0, n = 40; i < n; i++) {
     const a = Math.PI + (i + 0.5) * Math.PI / n;
     wall(arc.x + arc.r * Math.cos(a), arc.y + arc.r * Math.sin(a), 2 * arc.r * Math.sin(Math.PI / n / 2) + 2, arc.width, a + Math.PI / 2, "arc");
