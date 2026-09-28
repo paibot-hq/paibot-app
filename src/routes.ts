@@ -41,6 +41,7 @@ export default [
     route('urlencode', 'routes/urlencode.tsx'),
     route('password', 'routes/password.tsx'),
     route('stopwatch', 'routes/stopwatch.tsx'),
+    route('business-card', 'routes/business-card.tsx'),
     route('ip', 'routes/ip.tsx'),
     route('domain', 'routes/domain.tsx'),
     route('cidr', 'routes/cidr.tsx'),

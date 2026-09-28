@@ -36,6 +36,7 @@ export const APP_CATALOG = [
   { slug: "wc", href: "/wc", category: "utility", status: "published", messageKey: "wc" },
   { slug: "password", href: "/password", category: "utility", status: "published", messageKey: "password" },
   { slug: "stopwatch", href: "/stopwatch", category: "utility", status: "published", messageKey: "stopwatch" },
+  { slug: "business-card", href: "/business-card", category: "utility", status: "published", messageKey: "businessCard" },
 
   // ネットワーク / Network
   { slug: "ip", href: "/ip", category: "network", status: "published", messageKey: "ip" },

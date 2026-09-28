@@ -513,6 +513,63 @@
       "splitLabel": "区間",
       "totalLabel": "合計"
     },
+    "businessCard": {
+      "title": "名刺メーカー",
+      "description": "名前や連絡先を入れるだけで名刺をデザインし、画像やPDFで保存できます。",
+      "keywords": "名刺 作成 無料 印刷 テンプレート 画像",
+      "intro": "入力すると、その場で名刺ができあがります。デザインと色を選んで、画像かPDFで保存できます。",
+      "privacy": "入力した内容はサーバーに送られません。次に開いたときのために、この端末のブラウザにだけ保存されます。",
+      "previewLabel": "名刺のプレビュー",
+      "download": "画像で保存(PNG)",
+      "pdf": "PDFで保存(1枚)",
+      "pdfHint": "「PDFで保存」は名刺1枚分(91×55mm)のPDFです。印刷所への入稿や、ご自宅のプリンターでの印刷に使えます。",
+      "sampleHint": "上の欄に入力すると、見本があなたの名刺に変わります。",
+      "design": "デザイン",
+      "template": "レイアウト",
+      "templates": {
+        "simple": "シンプル",
+        "stripe": "帯入り",
+        "center": "中央ぞろえ"
+      },
+      "color": "色",
+      "colors": {
+        "blue": "青",
+        "green": "緑",
+        "red": "赤",
+        "purple": "紫",
+        "gray": "グレー"
+      },
+      "details": "名刺に載せる内容",
+      "fields": {
+        "name": "名前",
+        "reading": "ふりがな・ローマ字",
+        "company": "会社・団体名",
+        "department": "部署",
+        "title": "役職",
+        "postalCode": "郵便番号",
+        "address": "住所",
+        "phone": "電話番号",
+        "fax": "FAX番号",
+        "email": "メールアドレス",
+        "website": "Webサイト"
+      },
+      "sample": {
+        "name": "山田 花子",
+        "reading": "Hanako Yamada",
+        "company": "株式会社サンプル",
+        "department": "第一営業部",
+        "title": "マネージャー",
+        "postalCode": "100-0005",
+        "address": "東京都千代田区丸の内1-2-3 サンプルビル4F",
+        "phone": "03-1234-5678",
+        "fax": "03-1234-5679",
+        "email": "hanako@example.com",
+        "website": "https://example.com"
+      },
+      "clear": "入力を消す",
+      "example": "例: {value}",
+      "postalMark": "〒"
+    },
     "math": {
       "title": "数学",
       "description": "四則演算や因数分解などを、単元ごとに練習できます。",

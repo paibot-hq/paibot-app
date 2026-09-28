@@ -513,6 +513,63 @@
       "splitLabel": "区间",
       "totalLabel": "总计"
     },
+    "businessCard": {
+      "title": "名片制作",
+      "description": "输入姓名和联系方式即可设计名片,并保存为图片或PDF。",
+      "keywords": "名片 制作 免费 打印 模板 图片",
+      "intro": "边输入边生成名片。选择版式和颜色后,可以保存为图片或PDF。",
+      "privacy": "输入的内容不会发送到服务器,只会保存在这台设备的浏览器中,方便下次使用。",
+      "previewLabel": "名片预览",
+      "download": "保存图片(PNG)",
+      "pdf": "保存PDF(1张)",
+      "pdfHint": "「保存PDF」为单张名片大小(91×55毫米)的PDF,可交给印刷店或自行打印。",
+      "sampleHint": "在上方填写内容后,示例会变成你的名片。",
+      "design": "设计",
+      "template": "版式",
+      "templates": {
+        "simple": "简约",
+        "stripe": "色条",
+        "center": "居中"
+      },
+      "color": "颜色",
+      "colors": {
+        "blue": "蓝",
+        "green": "绿",
+        "red": "红",
+        "purple": "紫",
+        "gray": "灰"
+      },
+      "details": "名片内容",
+      "fields": {
+        "name": "姓名",
+        "reading": "读音或拼音",
+        "company": "公司或机构",
+        "department": "部门",
+        "title": "职务",
+        "postalCode": "邮政编码",
+        "address": "地址",
+        "phone": "电话",
+        "fax": "传真",
+        "email": "邮箱",
+        "website": "网站"
+      },
+      "sample": {
+        "name": "李 明",
+        "reading": "Li Ming",
+        "company": "示例有限公司",
+        "department": "销售部",
+        "title": "经理",
+        "postalCode": "100020",
+        "address": "北京市朝阳区示例路1号",
+        "phone": "010-1234-5678",
+        "fax": "010-1234-5679",
+        "email": "liming@example.com",
+        "website": "https://example.com"
+      },
+      "clear": "清空",
+      "example": "例如:{value}",
+      "postalMark": ""
+    },
     "math": {
       "title": "数学",
       "description": "按单元练习四则运算、因式分解等数学内容。",
