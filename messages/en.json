@@ -500,6 +500,27 @@
       "bestLabel": "Best (off by)",
       "retry": "Try again"
     },
+    "pinball": {
+      "title": "Pinball",
+      "description": "Launch the ball with the plunger and keep it in play with the flippers. Score on bumpers and lanes and chase a high score over three balls.",
+      "keywords": "pinball game flippers physics free",
+      "intro": "Hold Launch (Space) and release to shoot the ball. Hit it back with the flippers and don't let it drain.",
+      "score": "Score",
+      "ball": "Ball",
+      "best": "Best",
+      "tableLabel": "A pinball table with three bumpers and three lanes at the top and two flippers at the bottom",
+      "left": "◀ Left",
+      "right": "Right ▶",
+      "launch": "Launch",
+      "keys": "Keyboard: left flipper Z / ←, right flipper / / →, launch Space (hold longer for a stronger shot). On a phone, tapping the left or right half of the table also works the flippers.",
+      "howToLaunch": "Hold Launch and release to shoot the ball",
+      "drained": "Ball drained. Next ball",
+      "lanesBonus": "All lanes lit! Bonus +1,000",
+      "gameOver": "Game over",
+      "again": "Play again",
+      "soundOn": "Sound: on",
+      "soundOff": "Sound: off"
+    },
     "stopwatch": {
       "title": "Stopwatch",
       "description": "Time how long something takes, with lap recording.",

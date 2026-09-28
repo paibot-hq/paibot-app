@@ -8,7 +8,7 @@ import { locales, defaultLocale, isLocale, type Locale } from "../i18n/routing.t
 // breaks the client build).
 
 // Add only real public pages as tools become available.
-export const publicPaths = ["", "/apps", "/daily", "/game", "/utility", "/study", "/dev", "/network", "/about", "/supporter", "/legal/terms", "/legal/privacy", "/legal/commerce", "/ip", "/domain", "/cidr", "/site-check", "/wc", "/arith", "/quiz", "/age", "/clock", "/calendar", "/life-calendar", "/password", "/base64", "/json", "/urlencode", "/dice", "/reaction", "/timing", "/stopwatch", "/math", "/math/pythagoras", "/math/pythagoras/sides-a", "/math/factorization", "/math/factorization/trinomial-a", "/math/arith", "/math/arith/add-sub-a", "/math/signed", "/math/signed/four-ops-a"] as const;
+export const publicPaths = ["", "/apps", "/daily", "/game", "/utility", "/study", "/dev", "/network", "/about", "/supporter", "/legal/terms", "/legal/privacy", "/legal/commerce", "/ip", "/domain", "/cidr", "/site-check", "/wc", "/arith", "/quiz", "/age", "/clock", "/calendar", "/life-calendar", "/password", "/base64", "/json", "/urlencode", "/dice", "/reaction", "/timing", "/pinball", "/stopwatch", "/math", "/math/pythagoras", "/math/pythagoras/sides-a", "/math/factorization", "/math/factorization/trinomial-a", "/math/arith", "/math/arith/add-sub-a", "/math/signed", "/math/signed/four-ops-a"] as const;
 
 export function localizedUrl(origin: string, locale: Locale, path: string) {
   return `${origin}/${locale}${path}`;
