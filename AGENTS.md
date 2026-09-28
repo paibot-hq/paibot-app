@@ -10,5 +10,6 @@ Read `README.md` and `docs/plans/react-router-cutover.md` before changing deploy
 - Terraform owns infrastructure; Wrangler owns Worker code, bindings and routes.
 - Run `npm run typecheck`, `npm run build`, `npm run check:i18n` for routing/server changes.
 - Browser checks: `check:smoke` and `check:tools` against a running preview.
+- Work in a worktree (`git worktree add ../worktrees/<branch>` from `app/`); leave the `app/` checkout on `main` and untouched.
 - Use a separate port for verification. Do not stop another person's dev server.
 - Production deployment is manual. Keep rollback support for old vinext release refs.
