@@ -1,7 +1,8 @@
 import { useTranslations } from 'use-intl';
 import { Link } from '../i18n/navigation';
 
-// Shared by the pages that end with a footer (home, app list, about). Links
+// Shared by the pages that end with a footer (home, app list, about,
+// the plan page and the legal pages). Links
 // the plan page and the legal pages a payment provider reviews.
 export default function SiteFooter({ year }: { year: number }) {
   const t = useTranslations('App.footer');
