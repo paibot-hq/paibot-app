@@ -312,7 +312,8 @@
         "invalid_url": "That doesn't look like a valid URL. Enter a URL starting with http:// or https://, or a domain name.",
         "blocked_host": "Internal addresses such as localhost or private IP addresses can't be checked.",
         "timeout": "No response within 10 seconds.",
-        "connection_failed": "Couldn't connect. Check the domain name, the server and its SSL certificate."
+        "connection_failed": "Couldn't connect. Check the domain name, the server and its SSL certificate.",
+        "rate_limited": "Too many in a short time. Please wait a minute and try again (up to 10 a minute)."
       }
     },
     "footer": {
@@ -360,7 +361,8 @@
         "unknown_tld": "That top-level domain (the part like .com or .jp) doesn't exist.",
         "no_server": "No WHOIS server could be found for this domain.",
         "timeout": "The WHOIS lookup timed out. Please try again.",
-        "connection_failed": "Couldn't reach the WHOIS server. Please try again."
+        "connection_failed": "Couldn't reach the WHOIS server. Please try again.",
+        "rate_limited": "Too many in a short time. Please wait a minute and try again (up to 10 a minute)."
       },
       "availability": {
         "available": "{domain} is not registered",

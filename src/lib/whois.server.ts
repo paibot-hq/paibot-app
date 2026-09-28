@@ -26,7 +26,7 @@ export type Availability = "available" | "registered" | "unknown";
 
 export type WhoisResult =
   | { status: "ok"; domain: string; source: "rdap" | "whois"; server: string; availability: Availability; raw: string; parsed: ParsedWhois }
-  | { status: "error"; reason: "invalid_domain" | "unknown_tld" | "no_server" | "timeout" | "connection_failed" };
+  | { status: "error"; reason: "invalid_domain" | "unknown_tld" | "no_server" | "timeout" | "connection_failed" | "rate_limited" };
 
 // Total wall-clock budget across every hop (IANA -> registry -> registrar),
 // not per-socket — otherwise 3 hops at, say, 5s each could stack to 15s.
