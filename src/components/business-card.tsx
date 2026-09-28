@@ -176,11 +176,7 @@ export default function BusinessCard() {
         <div className={styles["preview"]} ref={previewRef} data-empty={empty || undefined}>
           <CardSvg {...shown} postalMark={t("postalMark")} label={t("previewLabel")} />
         </div>
-        <div className={styles["actions"]}>
-          <button className="auth-link" type="button" onClick={downloadPng} disabled={empty}>{t("download")}</button>
-          <button className={styles["secondary"]} type="button" onClick={print} disabled={empty}>{t("print")}</button>
-        </div>
-        <p className={controls.label}>{empty ? t("sampleHint") : t("printHint")}</p>
+        {empty && <p className={controls.label}>{t("sampleHint")}</p>}
 
         <fieldset className={styles["group"]}>
           <legend>{t("design")}</legend>
@@ -211,6 +207,11 @@ export default function BusinessCard() {
           ))}
           <button className={styles["secondary"]} type="button" onClick={() => update({ card: EMPTY_CARD })} disabled={empty}>{t("clear")}</button>
         </fieldset>
+        <div className={styles["actions"]}>
+          <button className="auth-link" type="button" onClick={downloadPng} disabled={empty}>{t("download")}</button>
+          <button className={styles["secondary"]} type="button" onClick={print} disabled={empty}>{t("print")}</button>
+        </div>
+        <p className={controls.label}>{t("printHint")}</p>
         <p className={controls.label}>{t("privacy")}</p>
       </div>
 
