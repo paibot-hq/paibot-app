@@ -23,7 +23,7 @@
 .table {
   display: block;
   width: min(480px, 100%);
-  aspect-ratio: 480 / 760;
+  aspect-ratio: 480 / 680;
   border: 1px solid var(--line);
   border-radius: var(--radius);
   background: var(--surface);

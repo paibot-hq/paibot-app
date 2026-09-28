@@ -78,6 +78,14 @@ function draw(canvas: HTMLCanvasElement, game: Pinball, flashes: Map<number, num
     context.lineTo(line.x2, line.y2);
     context.stroke();
   }
+  // One-way gate at the top of the plunger lane.
+  context.setLineDash([4, 4]);
+  context.lineWidth = 2;
+  context.beginPath();
+  context.moveTo(game.gate.x, game.gate.y1);
+  context.lineTo(game.gate.x, game.gate.y2);
+  context.stroke();
+  context.setLineDash([]);
   // Kickout hole: a dark ring; the ball sits in it while held.
   const saucer = game.saucer;
   dot(saucer.x, saucer.y, 14, state.saucerHold > 0 ? color("--success") : color("--accent-dark"));
@@ -85,7 +93,7 @@ function draw(canvas: HTMLCanvasElement, game: Pinball, flashes: Map<number, num
 
   for (const body of game.engine.world.bodies) {
     const part = game.partOf(body);
-    if (part === "wall" || part === "arc" || part === "lanePost" || part === "saucer") continue;
+    if (part === "wall" || part === "arc" || part === "lanePost" || part === "saucer" || part === "gate") continue;
     const i = game.indexOf(body);
     const { x, y } = body.position;
     // Sensors are drawn as lamps, or not at all.
@@ -125,7 +133,7 @@ function draw(canvas: HTMLCanvasElement, game: Pinball, flashes: Map<number, num
   context.textBaseline = "middle";
   context.font = "bold 13px system-ui, sans-serif";
   context.fillStyle = lit(state.saver > 0 && !state.saverUsed);
-  context.fillText("SAVE", TABLE.width / 2 - 20, 748);
+  context.fillText("SAVE", TABLE.width / 2 - 20, TABLE.height - 12);
 
 }
 

@@ -50,7 +50,7 @@ function launch(game, charge) {
   game.onEvent(event => events.push(event.type));
   settle(game);
   launch(game, 0.9);
-  const dropIntoDrain = () => { Matter.Body.setPosition(game.ball, { x: 221, y: 745 }); Matter.Body.setVelocity(game.ball, { x: 0, y: 5 }); };
+  const dropIntoDrain = () => { Matter.Body.setPosition(game.ball, { x: 221, y: 665 }); Matter.Body.setVelocity(game.ball, { x: 0, y: 5 }); };
   for (let i = 0; i < 20; i++) game.step();
   dropIntoDrain();
   for (let i = 0; i < 90; i++) game.step();
@@ -93,7 +93,7 @@ function playGame(tapFlippers, events = {}) {
     if (game.state.charging && game.state.charge >= 1) game.setPlunger(false);
     if (tapFlippers && ball) {
       for (const [i, side] of [[0, 'left'], [1, 'right']]) {
-        const near = ball.position.y > 600 && ball.position.y < 700
+        const near = ball.position.y > 520 && ball.position.y < 620
           && (i === 0 ? ball.position.x > 100 && ball.position.x < 221 : ball.position.x >= 221 && ball.position.x < 345);
         cool[i] = Math.max(0, cool[i] - 1);
         if (near && cool[i] === 0) cool[i] = 30;

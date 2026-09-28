@@ -8,7 +8,7 @@ import type MatterJS from "matter-js";
 // body's velocity from position/angle minus the previous ones, static or not,
 // so a swinging flipper hits the ball with its real surface speed.
 
-export const TABLE = { width: 480, height: 760 } as const;
+export const TABLE = { width: 480, height: 680 } as const;
 export const STEP_MS = 1000 / 60;
 const SUBSTEPS = 3;
 
@@ -18,7 +18,7 @@ export const POINTS = {
 } as const;
 const BALL_RADIUS = 9;
 const LANE = { x: 453, wall: 432 } as const;
-const PLUNGER_TOP = 738;
+const PLUNGER_TOP = TABLE.height - 22;
 const LAUNCH_SPEED = { min: 7, max: 26 } as const;
 const CHARGE_STEPS = 60;
 const NEXT_BALL_STEPS = 45;
@@ -32,7 +32,9 @@ const SAUCER_HOLD = 60;
 // it: half the guide (5) plus room for the ball (18) with play for the
 // slingshot's rounded corners.
 const INLANE_WIDTH = 34;
-const SAUCER_KICK = { x: 3, y: -13 } as const;
+// Steeply sideways, so the ball clears the bumper just above the hole
+// (straight up, it bounced off it back into the hole forever).
+const SAUCER_KICK = { x: 7, y: -12 } as const;
 
 const FLIPPER = { length: 80, width: 14, rest: 0.5, up: -0.42, upSpeed: 0.2, downSpeed: 0.12 } as const;
 const CENTER = LANE.wall / 2 + 5;
@@ -40,7 +42,7 @@ const CENTER = LANE.wall / 2 + 5;
 const mirror = (x: number) => 2 * CENTER - x;
 
 export type Side = "left" | "right";
-export type Part = "wall" | "arc" | "flipper" | "bumper" | "sling" | "lanePost" | "lane" | "target" | "inlane" | "saucer" | "ball" | "plunger" | "drain";
+export type Part = "wall" | "arc" | "flipper" | "bumper" | "sling" | "lanePost" | "lane" | "target" | "inlane" | "saucer" | "gate" | "ball" | "plunger" | "drain";
 export type PinballEvent =
   | { type: "launch" }
   | { type: "bumper"; index: number; id: number }
@@ -96,11 +98,17 @@ export function createPinball(M: Matter) {
   }
   // Plunger lane on the right.
   segment(LANE.wall, 200, LANE.wall, TABLE.height + 20, 8);
+  // One-way gate across the lane's top opening: a launched ball leaves
+  // through it (moving left), but a ball from the table moving right is
+  // turned back instead of falling down to the plunger.
+  const gate = { x: LANE.wall, y1: 100, y2: 204 };
+  sensor(gate.x, (gate.y1 + gate.y2) / 2, 8, gate.y2 - gate.y1, "gate");
   const plunger = add(Bodies.rectangle(LANE.x, PLUNGER_TOP + 7, 30, 14, { isStatic: true, chamfer: { radius: 5 } }), "plunger");
 
-  // Pop bumpers: the main three, plus one in the upper-left corner where a
-  // ball riding the top edge would otherwise circle round to the left wall.
-  const bumpers = [[130, 285], [322, 285], [226, 365], [74, 126]].map(([x, y], i) =>
+  // Pop bumpers: the main three, plus one low in the upper-left corner where
+  // a ball riding the top edge would otherwise circle round to the left wall;
+  // placed there, it kicks the ball down into the top lanes.
+  const bumpers = [[130, 285], [322, 285], [226, 365], [46, 185]].map(([x, y], i) =>
     add(Bodies.circle(x, y, i === 3 ? 18 : 22, { isStatic: true, restitution: 0.8 }), "bumper", i));
 
   // Three rollover lanes at the top; light all three for a bonus.
@@ -115,7 +123,8 @@ export function createPinball(M: Matter) {
   // it. There are no outlanes: in simulated play they took most drains
   // (balls slide down the side walls into them), so a ball can only be lost
   // between the flippers.
-  const pivotY = 668;
+  // The lower playfield hangs from the bottom edge; the upper one is fixed.
+  const pivotY = TABLE.height - 92;
   // Each guide slopes at the flipper's rest angle, so it runs straight into
   // the resting flipper instead of meeting it at a kink.
   const guideRise = (LANE.wall - 4 - (CENTER + 78)) * Math.tan(FLIPPER.rest);
@@ -137,7 +146,7 @@ export function createPinball(M: Matter) {
       [g.x1 + along.x * t + inward.x * INLANE_WIDTH, g.y1 + along.y * t + inward.y * INLANE_WIDTH];
     // Start the base so the sling's outer edge stands about 55px in from the wall.
     const [bx, by] = onBase(46);
-    const points = [[bx, 480], [bx, by], onBase(length - 12)];
+    const points = [[bx, pivotY - 188], [bx, by], onBase(length - 12)];
     // Rounded corners, like rubber stretched around three posts.
     // chamfer() rounds inward only for clockwise points, and the two mirrored
     // sides list theirs in opposite orders, so sort first.
@@ -151,10 +160,10 @@ export function createPinball(M: Matter) {
     const faceLength = Math.hypot(cx - ax, cy - ay);
     const nx = (side === "left" ? 1 : -1) * (cy - ay) / faceLength, ny = -Math.abs(cx - ax) / faceLength;
     slingFaces.set(sling.id, { nx, ny, px: ax, py: ay });
-    sensor(x(56), 560, 14, 12, "inlane", side === "left" ? 0 : 1);
+    sensor(x(56), pivotY - 108, 14, 12, "inlane", side === "left" ? 0 : 1);
   }
   // Kickout hole in the middle of the table.
-  const saucer = { x: CENTER, y: 470 };
+  const saucer = { x: CENTER, y: 460 };
   sensor(saucer.x, saucer.y, 14, 14, "saucer");
 
   // Flippers.
@@ -243,6 +252,9 @@ export function createPinball(M: Matter) {
         state.score += POINTS.inlane;
         emit({ type: "inlane", side: i === 0 ? "left" : "right" });
         if (light(state.inlanes, i, POINTS.inlanesBonus)) emit({ type: "inlanesBonus" });
+      } else if (part === "gate") {
+        // At least 2 px/step back, or a slow ball drops onto the lane wall's top and rolls in.
+        if (ball.velocity.x > 0 && ball.position.x < LANE.wall) Body.setVelocity(ball, { x: -Math.max(2, ball.velocity.x * 0.6), y: ball.velocity.y });
       } else if (part === "saucer" && state.saucerHold === 0 && state.saucerCooldown === 0) {
         // Captured: park the ball in the hole, then kick it out in step().
         state.saucerHold = SAUCER_HOLD;
@@ -293,6 +305,7 @@ export function createPinball(M: Matter) {
     bumpers,
     outlines,
     arc,
+    gate,
     saucer,
     get ball() { return ball; },
     partOf: (body: MatterJS.Body) => parts.get(body.id) ?? "wall",
