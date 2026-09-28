@@ -1,3 +1,4 @@
+import SiteFooter from './site-footer';
 import ToolLayout from './tool-layout';
 import type { CommerceDocument, LegalDocument } from '../content/legal';
 import styles from './legal-page.module.css';
@@ -11,7 +12,7 @@ function Header({ updated, notice }: { updated: string; notice?: string }) {
 
 // Terms, privacy and similar documents: numbered sections of prose and lists.
 export function LegalPage({ document }: { document: LegalDocument }) {
-  return <ToolLayout title={document.title}>
+  return <><ToolLayout title={document.title}>
     <article className={styles.document}>
       <Header updated={document.updated} notice={document.notice} />
       {document.sections.map(section => (
@@ -22,12 +23,13 @@ export function LegalPage({ document }: { document: LegalDocument }) {
         </section>
       ))}
     </article>
-  </ToolLayout>;
+  </ToolLayout>
+  <SiteFooter year={new Date().getFullYear()} /></>;
 }
 
 // The Specified Commercial Transactions Act notice: a label/value table.
 export function CommercePage({ document }: { document: CommerceDocument }) {
-  return <ToolLayout title={document.title}>
+  return <><ToolLayout title={document.title}>
     <article className={styles.document}>
       <Header updated={document.updated} notice={document.notice} />
       <dl className={styles.rows}>
@@ -39,5 +41,6 @@ export function CommercePage({ document }: { document: CommerceDocument }) {
         ))}
       </dl>
     </article>
-  </ToolLayout>;
+  </ToolLayout>
+  <SiteFooter year={new Date().getFullYear()} /></>;
 }
