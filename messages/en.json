@@ -550,24 +550,31 @@
         "name": "Name",
         "reading": "Name reading or romanization",
         "company": "Company or organization",
-        "title": "Department and title",
+        "department": "Department",
+        "title": "Title",
+        "postalCode": "Postal code",
+        "address": "Address",
         "phone": "Phone",
+        "fax": "Fax",
         "email": "Email",
-        "website": "Website",
-        "address": "Address"
+        "website": "Website"
       },
       "sample": {
         "name": "Alex Taylor",
         "reading": "",
         "company": "Sample Inc.",
-        "title": "Sales Manager",
+        "department": "Sales",
+        "title": "Manager",
+        "postalCode": "12345",
+        "address": "123 Main Street, Springfield",
         "phone": "+1 555-0100",
+        "fax": "+1 555-0101",
         "email": "alex@example.com",
-        "website": "https://example.com",
-        "address": "123 Main Street, Springfield"
+        "website": "https://example.com"
       },
       "clear": "Clear",
-      "example": "e.g. {value}"
+      "example": "e.g. {value}",
+      "postalMark": ""
     },
     "math": {
       "title": "Math",

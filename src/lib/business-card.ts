@@ -16,22 +16,36 @@ export type CardData = {
   name: string;
   reading: string;
   company: string;
+  department: string;
   title: string;
+  postalCode: string;
+  address: string;
   phone: string;
+  fax: string;
   email: string;
   website: string;
-  address: string;
 };
 
-export const EMPTY_CARD: CardData = { name: "", reading: "", company: "", title: "", phone: "", email: "", website: "", address: "" };
+export const EMPTY_CARD: CardData = {
+  name: "", reading: "", company: "", department: "", title: "", postalCode: "", address: "", phone: "", fax: "", email: "", website: "",
+};
 
-export const TEMPLATES = ["simple", "stripe", "center"] as const;
+// "stripe" is the classic Japanese layout (and the default): a dark band, mincho name.
+export const TEMPLATES = ["stripe", "simple", "center"] as const;
 export type Template = (typeof TEMPLATES)[number];
 
 // Fixed print colors (not theme colors): the card is printed on white paper.
 export const COLORS = ["#2f5d8a", "#1f7a5a", "#b3452c", "#6b4fa0", "#333333"] as const;
 
-export const CONTACT_FIELDS = ["phone", "email", "website", "address"] as const satisfies readonly (keyof CardData)[];
+// The contact block, in the usual Japanese order: address, phone and fax,
+// email, website. Empty items are left out.
+// `postalMark` prefixes the postal code ("〒" in Japanese, nothing elsewhere).
+export function contactLines(card: CardData, postalMark = ""): string[] {
+  const value = (field: keyof CardData) => card[field].trim();
+  const address = [value("postalCode") && `${postalMark}${value("postalCode")}`, value("address").replace(/\s*\n\s*/g, " ")].filter(Boolean).join(" ");
+  const phones = [value("phone") && `TEL: ${value("phone")}`, value("fax") && `FAX: ${value("fax")}`].filter(Boolean).join("   ");
+  return [address, phones, value("email") && `E-mail: ${value("email")}`, value("website")].filter(Boolean);
+}
 
 const escape = (value: string) => value.replace(/[\\,;]/g, match => `\\${match}`).replace(/\r?\n/g, "\\n");
 
@@ -40,16 +54,19 @@ export function buildVCard(card: CardData): string {
   const lines = ["BEGIN:VCARD", "VERSION:3.0"];
   const name = card.name.trim();
   lines.push(`N:${escape(name)};;;;`, `FN:${escape(name)}`);
+  // ORG is "company;department".
+  const company = card.company.trim(), department = card.department.trim();
+  if (company || department) lines.push(`ORG:${escape(company)}${department ? `;${escape(department)}` : ""}`);
   const optional: [string, string][] = [
-    ["ORG", card.company], ["TITLE", card.title], ["TEL;TYPE=WORK,VOICE", card.phone],
-    ["EMAIL;TYPE=INTERNET", card.email], ["URL", card.website], ["ADR;TYPE=WORK", card.address],
+    ["TITLE", card.title], ["TEL;TYPE=WORK,VOICE", card.phone], ["TEL;TYPE=WORK,FAX", card.fax],
+    ["EMAIL;TYPE=INTERNET", card.email], ["URL", card.website],
   ];
   for (const [key, value] of optional) {
     const text = value.trim();
-    if (!text) continue;
-    // ADR's seven parts: only the street part carries the free-form address.
-    lines.push(key.startsWith("ADR") ? `${key}:;;${escape(text)};;;;` : `${key}:${escape(text)}`);
+    if (text) lines.push(`${key}:${escape(text)}`);
   }
+  // ADR's seven parts: the free-form address in the street part, the postal code in its own.
+  if (card.address.trim() || card.postalCode.trim()) lines.push(`ADR;TYPE=WORK:;;${escape(card.address.trim())};;;${escape(card.postalCode.trim())};`);
   lines.push("END:VCARD");
   return lines.join("\r\n");
 }
@@ -97,8 +114,9 @@ export function textEms(text: string): number {
   return ems;
 }
 
-// The font size (mm) that keeps `text` within `maxWidth` mm, never above `size`.
-export function fitSize(text: string, size: number, maxWidth: number): number {
-  const ems = textEms(text);
+// The font size (mm) that keeps `text` within `maxWidth` mm, never above
+// `size`; `spacing` is letter-spacing in ems between characters.
+export function fitSize(text: string, size: number, maxWidth: number, spacing = 0): number {
+  const ems = textEms(text) + spacing * Math.max(0, [...text].length - 1);
   return ems === 0 ? size : Math.min(size, maxWidth / ems);
 }

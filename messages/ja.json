@@ -550,24 +550,31 @@
         "name": "名前",
         "reading": "ふりがな・ローマ字",
         "company": "会社・団体名",
-        "title": "部署・肩書",
+        "department": "部署",
+        "title": "役職",
+        "postalCode": "郵便番号",
+        "address": "住所",
         "phone": "電話番号",
+        "fax": "FAX番号",
         "email": "メールアドレス",
-        "website": "Webサイト",
-        "address": "住所"
+        "website": "Webサイト"
       },
       "sample": {
         "name": "山田 花子",
         "reading": "Hanako Yamada",
         "company": "株式会社サンプル",
-        "title": "営業部 マネージャー",
+        "department": "第一営業部",
+        "title": "マネージャー",
+        "postalCode": "100-0005",
+        "address": "東京都千代田区丸の内1-2-3 サンプルビル4F",
         "phone": "03-1234-5678",
+        "fax": "03-1234-5679",
         "email": "hanako@example.com",
-        "website": "https://example.com",
-        "address": "東京都千代田区丸の内1-2-3"
+        "website": "https://example.com"
       },
       "clear": "入力を消す",
-      "example": "例: {value}"
+      "example": "例: {value}",
+      "postalMark": "〒"
     },
     "math": {
       "title": "数学",

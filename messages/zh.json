@@ -550,24 +550,31 @@
         "name": "姓名",
         "reading": "读音或拼音",
         "company": "公司或机构",
-        "title": "部门和职务",
+        "department": "部门",
+        "title": "职务",
+        "postalCode": "邮政编码",
+        "address": "地址",
         "phone": "电话",
+        "fax": "传真",
         "email": "邮箱",
-        "website": "网站",
-        "address": "地址"
+        "website": "网站"
       },
       "sample": {
         "name": "李 明",
         "reading": "Li Ming",
         "company": "示例有限公司",
-        "title": "销售部 经理",
+        "department": "销售部",
+        "title": "经理",
+        "postalCode": "100020",
+        "address": "北京市朝阳区示例路1号",
         "phone": "010-1234-5678",
+        "fax": "010-1234-5679",
         "email": "liming@example.com",
-        "website": "https://example.com",
-        "address": "北京市朝阳区示例路1号"
+        "website": "https://example.com"
       },
       "clear": "清空",
-      "example": "例如:{value}"
+      "example": "例如:{value}",
+      "postalMark": ""
     },
     "math": {
       "title": "数学",
