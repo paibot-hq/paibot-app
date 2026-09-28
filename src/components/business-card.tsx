@@ -61,7 +61,7 @@ function ClassicCard({ card, color, postalMark, label }: CardProps) {
     <Svg label={label}>
       <rect width={band} height={CARD.height} fill={color} />
       <g fill="#222">
-        {card.company.trim() && <text x={band + 3.6} y={8.2} fontSize={fitSize(card.company.trim(), 3.6, CARD.width - band - 3.6 - right)} fontWeight={700}>{card.company.trim()}</text>}
+        {card.company.trim() && <text x={band + 3.6} y={8.2} fontSize={fitSize(card.company.trim(), 3.6, CARD.width - band - 3.6 - right)} fill={color} fontWeight={700}>{card.company.trim()}</text>}
         {line(card.department, 16.5, 2.5)}
         {line(card.title, 19.8, 2.5)}
         {line(card.name, 27, 6, { fontWeight: 700 })}
