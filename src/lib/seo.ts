@@ -1,4 +1,4 @@
-import { locales, defaultLocale, isLocale, type Locale } from "../i18n/routing";
+import { locales, defaultLocale, isLocale, type Locale } from "../i18n/routing.ts";
 
 // Pure helpers only — no env access here. This module is reachable from
 // client-rendered components (via PublicHead), so it must bundle safely for
