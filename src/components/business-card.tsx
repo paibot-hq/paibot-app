@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
-import { createPortal } from "react-dom";
 import { useTranslations } from "use-intl";
 import ToolLayout from "./tool-layout";
 import controls from "./tool-controls.module.css";
@@ -104,7 +103,7 @@ function ModernCard({ card, template, color, postalMark, label }: CardProps) {
   );
 }
 
-// The card itself, in millimetres. Used for the preview, the PNG and the print sheet.
+// The card itself, in millimetres. Used for the preview, the PNG and the PDF.
 function CardSvg(props: CardProps) {
   return props.template === "stripe" ? <ClassicCard {...props} /> : <ModernCard {...props} />;
 }
@@ -115,8 +114,6 @@ export default function BusinessCard() {
   const previewRef = useRef<HTMLDivElement>(null);
   const [settings, setSettings] = useState<Settings>(DEFAULTS);
   const [loaded, setLoaded] = useState(false);
-  // The print sheet lives directly under <body> (see the CSS), set after mount.
-  const [body, setBody] = useState<HTMLElement | null>(null);
   const { card } = settings;
   const empty = FIELDS.every(field => !card[field].trim());
   // Until something is typed, preview a sample card so the layout is visible.
@@ -126,7 +123,6 @@ export default function BusinessCard() {
   useEffect(() => {
     setSettings(readSettings());
     setLoaded(true);
-    setBody(document.body);
   }, []);
   useEffect(() => {
     if (!loaded) return;
@@ -173,15 +169,6 @@ export default function BusinessCard() {
     save(new Blob([imagePdf(jpeg, PDF_PIXELS, CARD)], { type: "application/pdf" }), "business-card.pdf");
   };
 
-  // The print sheet's CSS only applies while this flag is set, so printing
-  // other pages later is unaffected.
-  const print = () => {
-    const root = document.documentElement;
-    root.dataset.print = "business-card";
-    window.addEventListener("afterprint", () => { delete root.dataset.print; }, { once: true });
-    window.print();
-  };
-
   return (
     <ToolLayout title={t("title")}>
       <p className={controls.label}>{t("intro")}</p>
@@ -223,18 +210,10 @@ export default function BusinessCard() {
         <div className={styles["actions"]}>
           <button className="auth-link" type="button" onClick={downloadPng} disabled={empty}>{t("download")}</button>
           <button className={styles["secondary"]} type="button" onClick={downloadPdf} disabled={empty}>{t("pdf")}</button>
-          <button className={styles["secondary"]} type="button" onClick={print} disabled={empty}>{t("print")}</button>
         </div>
-        <p className={controls.label}>{t("printHint")}</p>
+        <p className={controls.label}>{t("pdfHint")}</p>
         <p className={controls.label}>{t("privacy")}</p>
       </div>
-
-      {body && createPortal(
-        <div className={styles["sheet"]} aria-hidden="true">
-          {Array.from({ length: 10 }, (_, i) => <CardSvg key={i} {...shown} postalMark={t("postalMark")} />)}
-        </div>,
-        body,
-      )}
     </ToolLayout>
   );
 }

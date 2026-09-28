@@ -122,30 +122,3 @@
   color: var(--muted);
   cursor: default;
 }
-
-/* A4 sheet of ten 91 × 55 mm cards, laid out for standard 10-up card
-   stock (11 mm top, 14 mm side margins). It is portaled directly under
-   <body>, so while printing from this page (html[data-print="business-card"],
-   set by the Print button) everything else can be display: none and add no
-   pages. */
-.sheet {
-  display: none;
-}
-@page business-card {
-  size: A4 portrait;
-  margin: 11mm 14mm;
-}
-@media print {
-  :global(html[data-print="business-card"] body) > *:not(.sheet) {
-    display: none !important;
-  }
-  :global(html[data-print="business-card"]) .sheet {
-    page: business-card;
-    display: grid;
-    grid-template-columns: repeat(2, 91mm);
-    grid-auto-rows: 55mm;
-  }
-  :global(html[data-print="business-card"]) .sheet svg {
-    display: block;
-  }
-}
