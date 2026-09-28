@@ -538,6 +538,63 @@
       "splitLabel": "Split",
       "totalLabel": "Total"
     },
+    "businessCard": {
+      "title": "Business Card Maker",
+      "description": "Type your name and contact details to design a business card, then save it as an image or a PDF.",
+      "keywords": "business card maker free print template image",
+      "intro": "Your card appears as you type. Pick a layout and color, then save it as an image or a PDF.",
+      "privacy": "Nothing you enter is sent to a server. It is kept only in this browser, for next time.",
+      "previewLabel": "Business card preview",
+      "download": "Save image (PNG)",
+      "pdf": "Save PDF (1 card)",
+      "pdfHint": "“Save PDF” gives one 91 × 55 mm card, ready for a print shop or your own printer.",
+      "sampleHint": "Fill in the fields above and the sample turns into your card.",
+      "design": "Design",
+      "template": "Layout",
+      "templates": {
+        "simple": "Simple",
+        "stripe": "Stripe",
+        "center": "Centered"
+      },
+      "color": "Color",
+      "colors": {
+        "blue": "Blue",
+        "green": "Green",
+        "red": "Red",
+        "purple": "Purple",
+        "gray": "Gray"
+      },
+      "details": "On the card",
+      "fields": {
+        "name": "Name",
+        "reading": "Name reading or romanization",
+        "company": "Company or organization",
+        "department": "Department",
+        "title": "Title",
+        "postalCode": "Postal code",
+        "address": "Address",
+        "phone": "Phone",
+        "fax": "Fax",
+        "email": "Email",
+        "website": "Website"
+      },
+      "sample": {
+        "name": "Alex Taylor",
+        "reading": "",
+        "company": "Sample Inc.",
+        "department": "Sales",
+        "title": "Manager",
+        "postalCode": "12345",
+        "address": "123 Main Street, Springfield",
+        "phone": "+1 555-0100",
+        "fax": "+1 555-0101",
+        "email": "alex@example.com",
+        "website": "https://example.com"
+      },
+      "clear": "Clear",
+      "example": "e.g. {value}",
+      "postalMark": ""
+    },
     "math": {
       "title": "Math",
       "description": "Practice arithmetic, factoring, and other math topics, one topic at a time.",
