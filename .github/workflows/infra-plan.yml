@@ -18,7 +18,7 @@ concurrency:
 jobs:
   fmt-and-validate:
     # Safe for any PR, including forks: no credentials involved.
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: infra
@@ -38,7 +38,7 @@ jobs:
     # anyway; this makes the trust boundary explicit and skips a guaranteed-to-
     # fail auth attempt). A manual dispatch is always trusted.
     if: github.event_name == 'workflow_dispatch' || github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     defaults:
       run:
         working-directory: infra
