@@ -15,6 +15,9 @@ jobs:
     timeout-minutes: 15
     steps:
       - uses: actions/checkout@v7
+        with:
+          # PRs compare against the base branch to pick the affected tools.
+          fetch-depth: ${{ github.event_name == 'pull_request' && 0 || 1 }}
       - uses: actions/setup-node@v7
         with:
           node-version-file: .tool-versions
@@ -54,6 +57,12 @@ jobs:
           preview_pid=$!
           trap 'kill "$preview_pid" 2>/dev/null || true' EXIT
           for i in $(seq 1 60); do curl -sf http://localhost:3003/robots.txt > /dev/null && break; sleep 1; done
+          # PRs run the per-tool checks only for the tools they can affect
+          # (scripts/affected-tools.mjs); main runs every tool.
+          if [ "${{ github.event_name }}" = pull_request ]; then
+            export CHECK_TOOLS="$(node scripts/affected-tools.mjs "origin/${{ github.base_ref }}")"
+            echo "Affected tools: ${CHECK_TOOLS:-none}"
+          fi
           CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run e2e -- smoke catalog tools quiz-browser
   deploy-dev:
     needs: verify

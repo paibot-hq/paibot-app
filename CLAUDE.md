@@ -21,12 +21,23 @@ Do not print secret keys. Runtime Clerk keys must be synced to Workers Secrets;
 
 ## Adding a tool
 
-- Add a route in `src/routes.ts` and a leaf component in `src/routes/`.
-- Components/CSS Modules belong in `src/components/`; shared styles in `src/styles/`.
-- Add translations to all three `messages/*.json` catalogs.
-- Public pages render `PublicHead` and are listed in `src/lib/seo.ts`.
-- The catalog is `src/lib/app-catalog.ts` (plain data, also read by `tests/e2e/smoke.mjs` and `catalog.mjs`);
-  give the new slug an icon in `APP_ICONS` in `src/lib/apps.tsx`. Keep coming-soon pages out of the sitemap.
+A tool is a folder, `src/tools/<slug>/`, holding everything that is only its own:
+- `route.tsx` (the page; renders `PublicHead`), components, CSS Modules, logic
+  (`*.server.ts` for server-only code) and `*.test.mjs` unit tests (run by `npm test`).
+- `e2e.mjs`: one short browser flow (`export default async function ({ page, main, go, result, errors })`),
+  run by `npm run e2e -- tools`. Checks every tool shares (loads in three locales,
+  no uncaught errors, fits 390px) come from `e2e -- catalog` with no code.
+
+Then register it in the shared lists (these, and nothing else, change outside the folder):
+- `src/lib/app-catalog.ts`: the entry (`slug` = folder name, `href`). Routes
+  (`src/routes.ts`) and public SEO paths (`src/lib/seo.ts`) are derived from it;
+  `private: true` keeps a signed-in page out of the sitemap. Coming-soon entries have no page.
+- `APP_ICONS` in `src/lib/apps.tsx`, and `App.<messageKey>` in all three `messages/*.json`.
+
+Code shared by several tools stays in `src/components/`, `src/lib/` and `src/styles/`.
+PR CI runs per-tool browser checks only for the tools a change can affect
+(`scripts/affected-tools.mjs`: the tool's folder, its messages, registry additions);
+a change to shared code runs every tool, as does every push to `main`.
 - Authenticate/authorize in each protected loader/action using Clerk's server API;
   merely nesting a route does not protect it.
 

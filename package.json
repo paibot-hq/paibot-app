@@ -9,7 +9,7 @@
     "typecheck": "wrangler types && react-router typegen && tsc --noEmit",
     "preview": "vite preview --port 3003",
     "start": "vite preview --port 3003",
-    "test": "node --test \"tests/unit/*.test.mjs\"",
+    "test": "node --test \"tests/unit/*.test.mjs\" \"src/tools/*/*.test.mjs\"",
     "test:sympy": "uv run --locked python scripts/verify_math.py && uv run --locked python tests/unit/test_verify_math.py",
     "e2e": "node tests/e2e/run.mjs",
     "deploy": "wrangler deploy --config build/server/wrangler.json",

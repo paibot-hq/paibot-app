@@ -9,8 +9,8 @@ Read `README.md` and `docs/plans/react-router-cutover.md` before changing deploy
 - Never print or commit `.dev.vars*`, `.env*`, generated builds, or credentials.
 - Terraform owns infrastructure; Wrangler owns Worker code, bindings and routes.
 - Run `npm run typecheck`, `npm run build`, `npm run e2e -- environments` for routing/server changes.
-- Tests live in `tests/`: `npm test` runs every `tests/unit/*.test.mjs` (no build, server or browser; a new file joins automatically). `npm run e2e -- <name>` runs `tests/e2e/<name>.mjs` (build, preview, Clerk keys or local D1; see README). `scripts/` is tooling only.
-- Every published tool in `src/lib/app-catalog.ts` is covered by `e2e -- catalog` (loads in ja/en/zh, no uncaught errors, fits 390px) with no test code; add a tool-specific flow to `tests/e2e/tools.mjs` and pure logic tests to `tests/unit/`.
+- Tests live in `tests/` and next to each tool: `npm test` runs every `tests/unit/*.test.mjs` and `src/tools/*/*.test.mjs` (no build, server or browser; a new file joins automatically). `npm run e2e -- <name>` runs `tests/e2e/<name>.mjs` (build, preview, Clerk keys or local D1; see README). `scripts/` is tooling only.
+- A tool is a folder `src/tools/<slug>/` (route, components, logic, `*.test.mjs`, `e2e.mjs` flow) plus its catalog entry, icon and messages; see CLAUDE.md "Adding a tool". `e2e -- catalog` covers every published tool with no test code. `CHECK_TOOLS=slug,slug` limits `catalog`/`tools` to some tools.
 - Work in a worktree (`git worktree add ../worktrees/<branch>` from `app/`); leave the `app/` checkout on `main` and untouched.
 - Use a separate port for verification. Do not stop another person's dev server.
 - Production deployment is manual. Keep rollback support for old vinext release refs.
