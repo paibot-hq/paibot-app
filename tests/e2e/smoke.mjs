@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { appFetch, configureAccess } from '../../scripts/lib/access.mjs';
 import { locales } from '../../src/i18n/routing.ts';
-import { publicPaths as paths } from '../../src/lib/seo.ts';
+import { pathLocales, publicPaths as paths } from '../../src/lib/seo.ts';
 import { APP_CATALOG, APP_CATEGORIES } from '../../src/lib/app-catalog.ts';
 
 const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002').origin;
@@ -56,9 +56,19 @@ try {
   async function request(path, options) {
     return appFetch(base, path, options);
   }
+  const alternatesOf = path => [...pathLocales(path).map(l => [l, `${siteOrigin}/${l}${path}`]), ['x-default', `${siteOrigin}/ja${path}`]];
+  let publicPages = 0;
   for (const locale of locales) {
     for (const path of paths) {
       const pathname = `/${locale}${path}`;
+      if (!pathLocales(path).includes(locale)) {
+        // A page served in other locales only (a Japan-only exam) 404s here.
+        const res = await request(pathname);
+        assert.equal(res.status, 404, pathname);
+        await res.body?.cancel();
+        continue;
+      }
+      publicPages++;
       const res = await request(pathname);
       assert.equal(res.status, 200, pathname);
       assert.equal(new URL(res.url).pathname, pathname, `${pathname}: must land on app`);
@@ -68,7 +78,7 @@ try {
       assert.equal(head.lang, locale);
       assert.equal(head.robots, indexable ? 'index, follow' : 'noindex, nofollow');
       assert.deepEqual(head.canonical, [`${siteOrigin}${pathname}`]);
-      assert.deepEqual(head.alternates, [...locales.map(l => [l, `${siteOrigin}/${l}${path}`]), ['x-default', `${siteOrigin}/ja${path}`]]);
+      assert.deepEqual(head.alternates, alternatesOf(path));
       assert.ok(head.description?.trim());
       assert.equal(head.ogUrl, head.canonical[0]);
       assert.equal(head.ogImage, `${siteOrigin}/opengraph-image.png`);
@@ -86,7 +96,7 @@ try {
       assert.deepEqual(head.canonical, [], `${path}: no public canonical`);
     }
   }
-  console.log(`PASS: ${paths.length * locales.length} public pages and ${authPaths.length * locales.length} non-indexable pages: SSR titles, SEO tags and security headers`);
+  console.log(`PASS: ${publicPages} public pages and ${authPaths.length * locales.length} non-indexable pages: SSR titles, SEO tags and security headers`);
 
   for (const path of ['/', ...paths.filter(Boolean), '/diary', '/profile', '/sign-in', '/sign-up', '/sign-in/factor-one', '/sign-up/verify-email-address']) {
     const query = '?redirect_url=%2Fen%2Fwc&source=smoke';
@@ -121,9 +131,9 @@ try {
       alternates: [...url.getElementsByTagNameNS('http://www.w3.org/1999/xhtml', 'link')].map(el => [el.getAttribute('hreflang'), el.getAttribute('href')]),
     }));
   }, sitemap);
-  assert.deepEqual(entries, paths.flatMap(path => locales.map(locale => ({
+  assert.deepEqual(entries, paths.flatMap(path => pathLocales(path).map(locale => ({
     loc: `${siteOrigin}/${locale}${path}`,
-    alternates: [...locales.map(l => [l, `${siteOrigin}/${l}${path}`]), ['x-default', `${siteOrigin}/ja${path}`]],
+    alternates: alternatesOf(path),
   }))));
   await parser.close();
   console.log('PASS: locale redirects preserve queries, 404s, robots and sitemap');

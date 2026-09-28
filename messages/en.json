@@ -151,7 +151,6 @@
       "saveError": "Could not save. Please try again.",
       "invalidZone": "Please select a valid time zone.",
       "loadError": "Could not load your preference. Please reload.",
-
       "title": "Clock",
       "description": "A clear display of today’s date and the current time.",
       "keywords": "clock date time fullscreen",
@@ -601,7 +600,7 @@
       "title": "Math",
       "description": "Practice arithmetic, factoring, and other math topics, one topic at a time.",
       "keywords": "math arithmetic algebra factoring quiz problem set",
-      "intro": "Browse units by area of mathematics and use the difficulty badges to choose what to practice.",
+      "intro": "Find a unit to practice by area of mathematics or by level.",
       "arithLink": "Arithmetic",
       "arithSummary": "From addition and subtraction to the order of operations and word problems. Start with the easy sets and work up.",
       "factorizationLink": "Factoring",
@@ -1198,6 +1197,58 @@
         "prompt": "In the right triangle shown, find the length x.",
         "explanationPrefix": "By the Pythagorean theorem,",
         "figureDescription": "Right triangle ABC. Angle {rightAngle} is a right angle. {first} is {firstLength} cm, {second} is {secondLength} cm, and {unknown} is x."
+      },
+      "entrances": {
+        "units": {
+          "title": "By area & unit",
+          "body": "Browse everything in mathematics"
+        },
+        "level": {
+          "title": "By level",
+          "body": "Pick a level, from foundations to higher mathematics"
+        },
+        "kentei": {
+          "title": "Suken prep",
+          "body": "Practice by grade"
+        }
+      },
+      "unitsIntro": "Every unit, grouped by area of mathematics.",
+      "levelTitle": "{stage} units",
+      "levelIntro": "Units at this level, grouped by area of mathematics.",
+      "kentei": {
+        "intro": "Units that prepare for each grade of Japan's Mathematics Certification (Suken).",
+        "note": "The grade-to-unit mapping is a guide; check the official ranges on the Mathematics Certification Institute of Japan's site. This site is not affiliated with the institute. \"Suken\" is a registered trademark of the Mathematics Certification Institute of Japan.",
+        "official": "Official site",
+        "grades": {
+          "11": "Grade 11",
+          "10": "Grade 10",
+          "9": "Grade 9",
+          "8": "Grade 8",
+          "7": "Grade 7",
+          "6": "Grade 6",
+          "5": "Grade 5",
+          "4": "Grade 4",
+          "3": "Grade 3",
+          "pre2": "Grade pre-2",
+          "2": "Grade 2",
+          "pre1": "Grade pre-1",
+          "1": "Grade 1"
+        },
+        "targets": {
+          "e1": "Elementary grade 1",
+          "e2": "Elementary grade 2",
+          "e3": "Elementary grade 3",
+          "e4": "Elementary grade 4",
+          "e5": "Elementary grade 5",
+          "e6": "Elementary grade 6",
+          "m1": "Junior high year 1",
+          "m2": "Junior high year 2",
+          "m3": "Junior high year 3",
+          "h1": "High school year 1",
+          "h2": "High school year 2",
+          "h3": "High school year 3",
+          "university": "University"
+        }
       }
     },
     "about": {
