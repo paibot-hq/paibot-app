@@ -115,6 +115,15 @@ try {
   await main.getByRole('button', { name: 'Look up', exact: true }).click();
   await result("That doesn't look like a valid domain name.");
   console.log('PASS: domain lookup rejects invalid input (no socket opened; see check:whois for the real WHOIS lookup)');
+  await go('site-check');
+  const siteInput = main.getByLabel('https://example.com');
+  await siteInput.fill('not a url');
+  await main.getByRole('button', { name: 'Check', exact: true }).click();
+  await result("That doesn't look like a valid URL. Enter a URL starting with http:// or https://, or a domain name.");
+  await siteInput.fill('http://127.0.0.1:8080/admin');
+  await main.getByRole('button', { name: 'Check', exact: true }).click();
+  await result("Internal addresses such as localhost or private IP addresses can't be checked.");
+  console.log('PASS: site check rejects invalid URLs and internal addresses (see check:site-check for real requests)');
   await go('cidr');
   const cidrValue = key => page.locator(`[data-cidr="${key}"] dd`).textContent();
   const cidrInput = main.getByLabel('IPv4 address and prefix length');
@@ -283,5 +292,5 @@ try {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({ path: '/tmp/paibot-life-inline.png', fullPage: true });
   console.log('PASS: life calendar shows every week inline without an overview button');
-  console.log('PASS: all 17 tools, no uncaught JS errors');
+  console.log('PASS: all 18 tools, no uncaught JS errors');
 } finally { await browser.close(); }
