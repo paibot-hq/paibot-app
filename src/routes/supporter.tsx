@@ -1,5 +1,6 @@
 import { useLocale, useTranslations } from 'use-intl';
 import PublicHead from '../components/public-head';
+import SiteFooter from '../components/site-footer';
 import ToolLayout from '../components/tool-layout';
 import { Link } from '../i18n/navigation';
 import { SUPPORTER_PLAN } from '../lib/plans';
@@ -40,5 +41,6 @@ export default function Supporter() {
         </p>
       </div>
     </ToolLayout>
+    <SiteFooter year={new Date().getFullYear()} />
   </>;
 }
