@@ -500,6 +500,26 @@
       "bestLabel": "Best (off by)",
       "retry": "Try again"
     },
+    "marbleMachine": {
+      "title": "Marble Machine",
+      "description": "Press start and watch a marble roll down a ramp, bounce off a spring, topple dominoes and send a second marble into the cup.",
+      "keywords": "marble machine chain reaction dominoes physics simulation",
+      "intro": "Press start and each part sets off the next. It plays out the same way every time.",
+      "canvasLabel": "A marble rolls down a ramp, bounces off a spring, knocks over dominoes, and a second marble drops into a cup",
+      "loading": "Getting ready…",
+      "ready": "Press start",
+      "start": "Start",
+      "again": "Again",
+      "soundOn": "Sound: on",
+      "soundOff": "Sound: off",
+      "events": {
+        "start": "The marble is rolling",
+        "spring": "Boing! Off the spring",
+        "domino": "The dominoes are falling…",
+        "ballB": "The second marble is on its way",
+        "goal": "Ding! Goal"
+      }
+    },
     "stopwatch": {
       "title": "Stopwatch",
       "description": "Time how long something takes, with lap recording.",
