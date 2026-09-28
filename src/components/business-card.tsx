@@ -68,7 +68,6 @@ function CardSvg({ card, template, color, qr, label }: Settings & { label?: stri
         {text(card.title, 21.5, 2.5, width)}
         {text(card.reading, 26, 2.1, width, { fill: "#666" })}
         {text(card.name, 33, 6, width, { fontWeight: 700 })}
-        {!centered && card.name.trim() && <rect x={left} y={35.5} width={14} height={0.5} fill={color} />}
         {contacts.map((line, i) => (
           <text key={i} x={x} y={lastLine - (contacts.length - 1 - i) * lineHeight} fontSize={fitSize(line, 2.2, contactWidth)} textAnchor={anchor}>{line}</text>
         ))}
