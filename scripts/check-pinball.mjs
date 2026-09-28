@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import Matter from 'matter-js';
-import { createPinball, POST_STEPS } from '../src/lib/pinball.ts';
+import { createPinball } from '../src/lib/pinball.ts';
 
 // Plays the pinball table headlessly: the plunger, the flippers and the
 // three-ball game must work, and flipping must actually keep the ball alive.
@@ -62,39 +62,22 @@ function launch(game, charge) {
   assert.equal(game.state.ballsLeft, 2, 'the saver works once per ball');
 }
 
-// Kickback: fires a ball in the left outlane back up once, then needs relighting.
-{
-  const game = createPinball(Matter);
-  let kicks = 0;
-  game.onEvent(event => { if (event.type === 'kickback') kicks++; });
-  const dropIntoLeftOutlane = () => { Matter.Body.setPosition(game.ball, { x: 23, y: 660 }); Matter.Body.setVelocity(game.ball, { x: 0, y: 4 }); };
-  for (let i = 0; i < 5; i++) game.step();
-  dropIntoLeftOutlane();
-  let rose = false;
-  for (let i = 0; i < 60; i++) { game.step(); if (game.ball && game.ball.position.y < 500) rose = true; }
-  assert.ok(kicks === 1 && rose && !game.state.kickback, 'the kickback sends the ball back up once');
-  dropIntoLeftOutlane();
-  for (let i = 0; i < 60; i++) game.step();
-  assert.equal(kicks, 1, 'an unlit kickback lets the ball go');
-}
-
-// Both inlanes raise the center post: a ball dropping between the flippers
-// rests on it instead of draining, until the post drops again.
+// Kickout hole: holds the ball for a moment, pays, then fires it back up.
 {
   const game = createPinball(Matter);
   const events = [];
   game.onEvent(event => events.push(event.type));
   settle(game);
-  const pass = x => { Matter.Body.setPosition(game.ball, { x, y: 545 }); Matter.Body.setVelocity(game.ball, { x: 0, y: 3 }); for (let i = 0; i < 12; i++) game.step(); };
-  pass(52);
-  pass(390);
-  assert.ok(events.includes('inlanesBonus') && events.includes('postUp'), 'both inlanes raise the post');
-  Matter.Body.setPosition(game.ball, { x: 221, y: 680 });
-  Matter.Body.setVelocity(game.ball, { x: 0, y: 2 });
-  for (let i = 0; i < 120; i++) game.step();
-  assert.ok(game.ball && game.state.ballsLeft === 3 && !events.includes('drain'), 'the raised post stops a ball between the flippers');
-  for (let i = 0; i < POST_STEPS; i++) game.step();
-  assert.ok(events.includes('postDown'), 'the post drops after its time');
+  Matter.Body.setPosition(game.ball, { x: game.saucer.x, y: game.saucer.y - 30 });
+  Matter.Body.setVelocity(game.ball, { x: 0, y: 3 });
+  for (let i = 0; i < 20; i++) game.step();
+  assert.ok(events.includes('saucer') && game.ball.isStatic, 'the kickout hole captures the ball');
+  const held = { ...game.ball.position };
+  for (let i = 0; i < 30; i++) game.step();
+  assert.deepEqual(game.ball.position, held, 'the ball stays put while held');
+  let rose = false;
+  for (let i = 0; i < 60; i++) { game.step(); if (game.ball.position.y < game.saucer.y - 80) rose = true; }
+  assert.ok(!game.ball.isStatic && rose, 'then it is fired back up the table');
 }
 
 // Three balls per game; a naive tapping player keeps each ball far longer
@@ -125,9 +108,9 @@ const idle = playGame(false);
 const seen = {};
 const tapping = playGame(true, seen);
 // Every feature is reachable in real play, not only when placed by hand.
-for (const type of ['bumper', 'sling', 'lanesBonus', 'targetsBonus', 'inlane', 'kickback']) assert.ok(seen[type], `a tapping game reaches ${type}`);
+for (const type of ['bumper', 'sling', 'lanesBonus', 'targetsBonus', 'inlane', 'saucer']) assert.ok(seen[type], `a tapping game reaches ${type}`);
 assert.ok(idle.over && idle.ballsLeft === 0, 'the game ends after three drained balls');
 assert.ok(tapping.seconds >= idle.seconds * 2, `flipping keeps balls alive longer: ${tapping.seconds.toFixed(1)}s vs ${idle.seconds.toFixed(1)}s`);
 assert.deepEqual(playGame(true), tapping, 'the same inputs replay identically');
 
-console.log(`PASS: pinball plunger, flippers, ball saver, kickback, center post and three-ball game; every feature reached in play; a tapping player lasts ${tapping.seconds.toFixed(0)}s (${tapping.score} pts) vs ${idle.seconds.toFixed(0)}s without flipping; replays identically`);
+console.log(`PASS: pinball plunger, flippers, ball saver, kickout hole and three-ball game; every feature reached in play; a tapping player lasts ${tapping.seconds.toFixed(0)}s (${tapping.score} pts) vs ${idle.seconds.toFixed(0)}s without flipping; replays identically`);

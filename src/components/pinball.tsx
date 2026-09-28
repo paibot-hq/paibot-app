@@ -39,9 +39,8 @@ function playSound(audio: AudioContext, event: PinballEvent) {
   if (event.type === "launch") tone(audio, 180, 0.12, "sawtooth", 0.05);
   if (event.type === "target" || event.type === "inlane") tone(audio, 880, 0.07, "triangle", 0.09);
   if (event.type === "targetsBonus" || event.type === "inlanesBonus") [659, 880, 1319].forEach((f, i) => tone(audio, f, 0.18, "triangle", 0.12, i * 0.08));
-  if (event.type === "kickback") tone(audio, 140, 0.2, "sawtooth", 0.12);
   if (event.type === "saved") [523, 659].forEach((f, i) => tone(audio, f, 0.2, "triangle", 0.12, i * 0.12));
-  if (event.type === "postUp") [392, 523, 784].forEach((f, i) => tone(audio, f, 0.15, "square", 0.07, i * 0.07));
+  if (event.type === "saucer") [262, 330, 392, 523].forEach((f, i) => tone(audio, f, 0.12, "square", 0.07, i * 0.09));
   if (event.type === "drain") [330, 247, 165].forEach((f, i) => tone(audio, f, 0.25, "triangle", 0.1, i * 0.15));
 }
 
@@ -65,14 +64,33 @@ function draw(canvas: HTMLCanvasElement, game: Pinball, flashes: Map<number, num
     context.fill();
   };
 
+  // Walls: one continuous arc and round-ended lines, so joints don't show.
+  context.lineCap = "round";
+  context.strokeStyle = color("--muted");
+  context.lineWidth = game.arc.width;
+  context.beginPath();
+  context.arc(game.arc.x, game.arc.y, game.arc.r, Math.PI, 2 * Math.PI);
+  context.stroke();
+  for (const line of game.outlines) {
+    context.lineWidth = line.width;
+    context.beginPath();
+    context.moveTo(line.x1, line.y1);
+    context.lineTo(line.x2, line.y2);
+    context.stroke();
+  }
+  // Kickout hole: a dark ring; the ball sits in it while held.
+  const saucer = game.saucer;
+  dot(saucer.x, saucer.y, 14, state.saucerHold > 0 ? color("--success") : color("--accent-dark"));
+  dot(saucer.x, saucer.y, 9, color("--text"));
+
   for (const body of game.engine.world.bodies) {
     const part = game.partOf(body);
+    if (part === "wall" || part === "arc" || part === "lanePost" || part === "saucer") continue;
     const i = game.indexOf(body);
     const { x, y } = body.position;
     // Sensors are drawn as lamps, or not at all.
-    if (part === "drain" || part === "outlane") continue;
+    if (part === "drain") continue;
     if (part === "inlane") { dot(x, y, 5, lit(state.inlanes[i])); continue; }
-    if (part === "kickback") { dot(x, y, 6, lit(state.kickback)); continue; }
     if (part === "lane") { dot(x, y, 6, lit(state.lanes[i])); continue; }
 
     const flashing = (flashes.get(body.id) ?? 0) > state.steps;
@@ -81,7 +99,6 @@ function draw(canvas: HTMLCanvasElement, game: Pinball, flashes: Map<number, num
     if (part === "sling") fill = flashing ? color("--success") : color("--accent-dark");
     if (part === "target") fill = state.targets[i] ? color("--success") : color("--accent-dark");
     if (part === "flipper") fill = color("--text");
-    if (part === "centerPost") fill = color("--success");
     if (part === "ball") fill = color("--accent-dark");
     context.beginPath();
     if (body.circleRadius) context.arc(x, y, body.circleRadius, 0, Math.PI * 2);
@@ -101,11 +118,8 @@ function draw(canvas: HTMLCanvasElement, game: Pinball, flashes: Map<number, num
   context.textBaseline = "middle";
   context.font = "bold 13px system-ui, sans-serif";
   context.fillStyle = lit(state.saver > 0 && !state.saverUsed);
-  context.fillText("SAVE", 175, 748);
-  context.fillStyle = lit(state.post > 0);
-  context.fillText("POST", 267, 748);
-  context.fillStyle = lit(state.kickback);
-  context.fillText("KICK", 30, 725);
+  context.fillText("SAVE", TABLE.width / 2 - 20, 748);
+
 }
 
 export default function PinballGame() {
@@ -137,9 +151,8 @@ export default function PinballGame() {
       if (event.type === "lanesBonus") setMessage(t("lanesBonus"));
       if (event.type === "targetsBonus") setMessage(t("targetsBonus"));
       if (event.type === "inlanesBonus") setMessage(t("inlanesBonus"));
-      if (event.type === "kickback") setMessage(t("kickback"));
       if (event.type === "saved") setMessage(t("saved"));
-      if (event.type === "postUp") setMessage(t("postUp"));
+      if (event.type === "saucer") setMessage(t("saucer"));
       if (event.type === "launch") setMessage("");
       if (event.type === "drain" && !game.state.over) setMessage(t("drained"));
       if (event.type === "gameOver") {
