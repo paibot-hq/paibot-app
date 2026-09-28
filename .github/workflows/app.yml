@@ -29,7 +29,8 @@ jobs:
       - run: npm run check:all
       # Deploy jobs need this job, so they import only SymPy-verified banks
       # and do not need Python themselves.
-      - uses: astral-sh/setup-uv@v6
+      # setup-uv publishes no major-version tags after v7, so pin the release.
+      - uses: astral-sh/setup-uv@v10.2.0
         with:
           enable-cache: true
       - run: npm run check:math-sympy
