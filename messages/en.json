@@ -325,6 +325,7 @@
       "rawToggle": "Show raw response",
       "error": {
         "invalid_domain": "That doesn't look like a valid domain name.",
+        "unknown_tld": "That top-level domain (the part like .com or .jp) doesn't exist.",
         "no_server": "No WHOIS server could be found for this domain.",
         "timeout": "The WHOIS lookup timed out. Please try again.",
         "connection_failed": "Couldn't reach the WHOIS server. Please try again."

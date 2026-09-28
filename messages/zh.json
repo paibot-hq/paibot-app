@@ -325,6 +325,7 @@
       "rawToggle": "显示获取信息的原文",
       "error": {
         "invalid_domain": "域名格式不正确。",
+        "unknown_tld": "该顶级域名(相当于 .com 或 .jp 的部分)不存在。",
         "no_server": "未找到该域名的WHOIS服务器。",
         "timeout": "WHOIS查询超时,请重试。",
         "connection_failed": "无法连接到WHOIS服务器,请重试。"

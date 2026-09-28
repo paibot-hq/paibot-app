@@ -26,7 +26,7 @@ export type Availability = "available" | "registered" | "unknown";
 
 export type WhoisResult =
   | { status: "ok"; domain: string; source: "rdap" | "whois"; server: string; availability: Availability; raw: string; parsed: ParsedWhois }
-  | { status: "error"; reason: "invalid_domain" | "no_server" | "timeout" | "connection_failed" };
+  | { status: "error"; reason: "invalid_domain" | "unknown_tld" | "no_server" | "timeout" | "connection_failed" };
 
 // Total wall-clock budget across every hop (IANA -> registry -> registrar),
 // not per-socket — otherwise 3 hops at, say, 5s each could stack to 15s.
@@ -269,6 +269,8 @@ export async function lookupWhois(domainInput: string): Promise<WhoisResult> {
   }
 
   if (!raw.trim()) return { status: "error", reason: lastError ?? "no_server" };
+  // IANA knows every TLD, so "0 objects" from it means the TLD does not exist.
+  if (/^%\s*This query returned 0 objects/im.test(raw)) return { status: "error", reason: "unknown_tld" };
   // IANA answered with its record for the TLD itself and no referral: the TLD
   // has no WHOIS server, and that record says nothing about this domain.
   if (/^source:\s*IANA\s*$/im.test(raw)) return { status: "error", reason: lastError ?? "no_server" };

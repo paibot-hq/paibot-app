@@ -325,6 +325,7 @@
       "rawToggle": "取得した情報の原文を表示",
       "error": {
         "invalid_domain": "ドメイン名の形式が正しくありません。",
+        "unknown_tld": "このトップレベルドメイン(.com や .jp にあたる部分)は存在しません。",
         "no_server": "このドメインのWHOISサーバーが見つかりませんでした。",
         "timeout": "WHOIS検索がタイムアウトしました。もう一度お試しください。",
         "connection_failed": "WHOISサーバーに接続できませんでした。もう一度お試しください。"

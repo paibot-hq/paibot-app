@@ -33,7 +33,11 @@ const FAKE_TLD_RESPONSE = [
 
 async function startFakeWhoisServer() {
   const server = createServer(socket => {
-    socket.on('data', data => socket.end(String(data).startsWith('free.') ? 'No match for domain "FREE.TEST".\r\n' : FAKE_TLD_RESPONSE));
+    socket.on('data', data => {
+      const query = String(data).trim();
+      if (query.endsWith('.nosuchtld')) return socket.end(`% IANA WHOIS server\r\n% This query returned 0 objects.\r\n%\r\n% You queried for ${query} but this server does not have\r\n% any data for ${query}.\r\n`);
+      socket.end(query.startsWith('free.') ? 'No match for domain "FREE.TEST".\r\n' : FAKE_TLD_RESPONSE);
+    });
     socket.on('error', () => {});
   });
   await new Promise((resolve, reject) => { server.once('error', reject); server.listen(0, '127.0.0.1', resolve); });
@@ -131,6 +135,8 @@ try {
   };
   await lookUp('free.test', 'free.test is not registered');
   console.log('PASS: a WHOIS "No match" answer is shown as not registered');
+  await lookUp('paibot.nosuchtld', "That top-level domain (the part like .com or .jp) doesn't exist.");
+  console.log('PASS: a TLD unknown to IANA is reported as nonexistent');
   await lookUp('taken.rdaptest', 'taken.rdaptest is already registered');
   await page.getByText('RDAP Registrar, Inc.', { exact: true }).waitFor();
   await page.getByText('2031-02-03T00:00:00Z', { exact: true }).waitFor();
