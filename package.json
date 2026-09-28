@@ -35,6 +35,7 @@
     "quiz:import:prod": "node scripts/import-quiz.mjs prod",
     "check:math-factorization": "node scripts/check-math-factorization.mjs",
     "check:math-arith": "node scripts/check-math-arith.mjs",
+    "check:math-sympy": "python3 scripts/verify_math.py && python3 scripts/test_verify_math.py",
     "check:math-history": "node --env-file=.dev.vars scripts/check-math-history.mjs",
     "math:import:local": "node scripts/import-math.mjs local",
     "math:import:dev": "node scripts/import-math.mjs dev",

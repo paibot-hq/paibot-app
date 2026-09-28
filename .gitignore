@@ -41,3 +41,4 @@ clerk-*.zone
 /worker-configuration.d.ts
 
 .math-work/
+__pycache__/
