@@ -14,8 +14,7 @@ function StarIcon({ filled }: { filled: boolean }) {
 // Shared by the /apps grid (src/components/apps.tsx) and every tool page
 // (via ToolLayout) - the write side always lives on routes/apps.tsx's
 // action, so a submission from a tool page passes an explicit actionPath
-// (`/${locale}/apps`); apps.tsx itself omits it (defaults to the current,
-// same route).
+// (`/${locale}/apps`), including category lists.
 export default function FavoriteButton({ slug, signedIn, favorited, addLabel, removeLabel, actionPath }: {
   slug: string;
   signedIn: boolean;

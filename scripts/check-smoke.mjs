@@ -6,7 +6,7 @@ const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:300
 const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app').origin;
 const indexable = process.env.CHECK_SITE_INDEXABLE === 'true';
 const locales = ['ja', 'en', 'zh'];
-const paths = ['', '/apps', '/about', '/ip', '/domain', '/cidr', '/wc', '/arith', '/quiz', '/age', '/clock', '/calendar', '/life-calendar', '/password', '/base64', '/json', '/urlencode', '/dice', '/reaction', '/timing', '/stopwatch', '/math', '/math/pythagoras', '/math/pythagoras/sides-a', '/math/factorization', '/math/factorization/trinomial-a', '/math/arith', '/math/arith/add-sub-a', '/math/signed', '/math/signed/four-ops-a'];
+const paths = ['', '/apps', '/daily', '/game', '/utility', '/study', '/dev', '/network', '/about', '/supporter', '/legal/terms', '/legal/privacy', '/legal/commerce', '/ip', '/domain', '/cidr', '/wc', '/arith', '/quiz', '/age', '/clock', '/calendar', '/life-calendar', '/password', '/base64', '/json', '/urlencode', '/dice', '/reaction', '/timing', '/stopwatch', '/math', '/math/pythagoras', '/math/pythagoras/sides-a', '/math/factorization', '/math/factorization/trinomial-a', '/math/arith', '/math/arith/add-sub-a', '/math/signed', '/math/signed/four-ops-a'];
 const authPaths = ['sign-in', 'sign-up', 'diary', 'profile'];
 const browser = await chromium.launch();
 try {
@@ -156,6 +156,43 @@ try {
     assert.equal(await page.locator('title').count(), 1, `${path}: hydrated title`);
     assert.ok((await page.title()).trim());
   }
+  const categoryApps = {
+    daily: ['calendar', 'life-calendar', 'clock', 'diary', 'age'],
+    game: ['quiz', 'dice', 'reaction', 'timing'],
+    utility: ['wc', 'password', 'stopwatch'],
+    study: ['math', 'arith'],
+    dev: ['json', 'base64', 'urlencode'],
+    network: ['ip', 'domain', 'cidr'],
+  };
+  for (const locale of locales) {
+    await go(`/${locale}`);
+    assert.deepEqual((await page.locator('.category-item').evaluateAll(links => links.map(link => link.getAttribute('href')))).sort(), Object.keys(categoryApps).map(category => `/${locale}/${category}`).sort());
+    for (const [category, slugs] of Object.entries(categoryApps)) {
+      await page.locator(`.category-item[href="/${locale}/${category}"]`).click();
+      await page.waitForURL(`${base}/${locale}/${category}`);
+      await page.locator(`.category-nav a[aria-current="page"][href="/${locale}/${category}"]`).waitFor();
+      assert.equal(await page.locator('main h1').count(), 1);
+      assert.deepEqual((await page.locator('.app-card').evaluateAll(links => links.map(link => link.getAttribute('href')))).sort(), slugs.map(slug => `/${locale}/${slug}`).sort());
+      assert.equal(await page.locator('.category-nav [aria-current="page"]').getAttribute('href'), `/${locale}/${category}`);
+      await page.getByRole('searchbox').fill('no-such-app-987654');
+      await page.locator('.app-empty').waitFor();
+      assert.equal(await page.locator('.app-card').count(), 0);
+      await page.locator(`.category-nav a[href="/${locale}/apps"]`).click();
+      await page.waitForURL(`${base}/${locale}/apps`);
+      // React Router can update the URL before React commits the new page.
+      // The old category still shows zero search results until that commit.
+      await page.locator(`.category-nav a[aria-current="page"][href="/${locale}/apps"]`).waitFor();
+      assert.equal(await page.getByRole('searchbox').inputValue(), '', 'all-app navigation resets the category search');
+      await page.locator('.app-card').first().waitFor();
+      assert.equal(await page.locator('.app-card').count(), 20);
+      await go(`/${locale}`);
+    }
+  }
+  await page.setViewportSize({ width: 375, height: 812 });
+  await go('/ja/network');
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'category page fits mobile width');
+  await page.setViewportSize({ width: 1280, height: 720 });
+  console.log('PASS: six categories in three locales, home links, scoped search, all-app navigation and mobile width');
   for (const locale of locales) {
     await go(`/${locale}/wc`);
     // fill auto-waits for the textarea to become enabled after hydration.

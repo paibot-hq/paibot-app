@@ -205,7 +205,9 @@
       "noResults": "未找到匹配的应用。",
       "comingSoon": "即将推出",
       "favorite": "添加到收藏",
-      "unfavorite": "从收藏中移除"
+      "unfavorite": "从收藏中移除",
+      "allApps": "全部应用",
+      "categoryNavigation": "应用分类"
     },
     "categories": {
       "study": "学习",
@@ -217,10 +219,30 @@
     },
     "home": {
       "tryIt": "先试试看吧。",
-      "study": { "description": "算术练习、资格考试备考等" },
-      "utility": { "description": "字符计数、密码生成等" },
-      "game": { "description": "反应速度、计时等小游戏" },
-      "daily": { "description": "出生年份速查表等" }
+      "study": {
+        "description": "通过算术练习和数学题集，练习计算和各个知识单元。",
+        "summary": "计算练习与数学单元"
+      },
+      "utility": {
+        "description": "统计字符、计时、生成密码，帮助您完成日常小任务。",
+        "summary": "字符统计与密码生成"
+      },
+      "game": {
+        "description": "测验、反应速度、节奏挑战等轻松好玩的小游戏。",
+        "summary": "测验、反应速度与节奏挑战"
+      },
+      "daily": {
+        "description": "日历、时钟、日记等日常生活中实用的应用。",
+        "summary": "日历、时钟与日记"
+      },
+      "dev": {
+        "description": "JSON格式化、Base64与URL编码等开发工具。",
+        "summary": "JSON格式化与数据转换"
+      },
+      "network": {
+        "description": "IP地址查询、域名查询和CIDR子网计算等网络工具。",
+        "summary": "IP、域名与子网工具"
+      }
     },
     "ip": {
       "title": "IP 地址查询",
@@ -260,6 +282,32 @@
         "unspecified": "未指定地址",
         "public": "公网"
       }
+    },
+    "footer": {
+      "label": "运营信息",
+      "supporter": "支持者",
+      "terms": "使用条款",
+      "privacy": "隐私政策",
+      "commerce": "特定商业交易法标示"
+    },
+    "supporter": {
+      "title": "支持者方案",
+      "description": "支持 PAIBOT.app 开发的月付方案。基本功能免费使用。",
+      "lead": "支持 PAIBOT.app 的开发。基本功能免费，支持者可享有功能抢先体验、更高的使用上限、专属功能等权益。",
+      "planName": "Supporter",
+      "price": "每月{price}日元（含税）",
+      "perkEarlyFeatures": "功能抢先体验",
+      "perkHigherLimits": "更高的使用上限",
+      "perkExclusiveFeatures": "专属功能使用权",
+      "autoRenew": "在解约前每月自动续订。",
+      "cancel": "可随时解约，解约后在已付费期间结束前仍可使用。",
+      "refund": "已支付的费用不予退还。",
+      "signUp": "成为支持者",
+      "signUpComingSoon": "申请功能准备中",
+      "legalLead": "申请前请确认：",
+      "legalCommerce": "特定商业交易法标示",
+      "legalTerms": "使用条款",
+      "legalPrivacy": "隐私政策"
     },
     "domain": {
       "title": "域名查询(WHOIS)",
@@ -427,8 +475,8 @@
       "totalLabel": "总计"
     },
     "math": {
-      "title": "数学题库",
-      "description": "通过四选一测验练习四则运算、因式分解等数学题目。",
+      "title": "数学",
+      "description": "按单元练习四则运算、因式分解等数学内容。",
       "keywords": "数学 四则运算 因式分解 测验 题库",
       "intro": "按数学领域查找单元，参考难度标记，选择想练习的内容。",
       "arithLink": "四则运算",
@@ -438,7 +486,7 @@
       "quiz": {
         "chooseSet": "请选择要挑战的题组。",
         "setComingSoon": "此题组正在准备中，请稍候。",
-        "backToMath": "数学题库",
+        "backToMath": "数学",
         "backToSets": "重新选择题组",
         "progress": "{current} / {total}",
         "answer": "作答",
@@ -1031,8 +1079,13 @@
     },
     "about": {
       "eyebrow": "关于",
-      "title": "关于 paibot.app",
-      "body": "paibot.app 发布了 PAIBOT 开发的应用与工具。"
+      "title": "关于 PAIBOT.app",
+      "body": "PAIBOT.app 汇集了可在浏览器中使用的应用与工具，帮助您完成日常任务和学习。",
+      "toolsTitle": "从日常小事到学习练习",
+      "toolsBody": "这里提供字符统计、数据转换、日历、秒表，以及算术和数学练习等应用。您可以从应用列表中选择适合自己需求的工具。",
+      "operatorTitle": "关于运营方",
+      "operatorBody": "PAIBOT.app 由{seller}开发和运营。有关使用条件和个人信息的处理方式，请参阅本页底部链接中的使用条款和隐私政策。",
+      "browseApps": "查看应用列表"
     },
     "languageSelect": "选择语言",
     "themeToLight": "切换为浅色模式",

@@ -3,6 +3,7 @@
 import { useTranslations } from "use-intl";
 import { Link } from "../i18n/navigation";
 import { HOME_CATEGORY_TILES, type DynamicT } from "../lib/apps";
+import SiteFooter from "./site-footer";
 
 export default function Cover({ year }: { year: number }) {
   const t = useTranslations("App");
@@ -31,19 +32,16 @@ export default function Cover({ year }: { year: number }) {
       <p className="category-showcase-intro">{t("home.tryIt")}</p>
       <div className="category-showcase">
         {HOME_CATEGORY_TILES.map(({ category, messageKey, icon: Icon }) => (
-          <Link key={category} className="category-item" href={`/apps#${category}`}>
+          <Link key={category} className="category-item" href={`/${category}`}>
             <span className="category-item-icon" aria-hidden="true"><Icon /></span>
             <h3>{td(`categories.${category}`)}</h3>
-            <p>{td(`home.${messageKey}.description`)}</p>
+            <p>{td(`home.${messageKey}.summary`)}</p>
           </Link>
         ))}
       </div>
     </main>
 
-    <footer>
-      <span>PAIBOT.app</span>
-      <span>&copy; <span>{year}</span> PAIBOT LLC.</span>
-    </footer>
+    <SiteFooter year={year} />
     </>
   );
 }
