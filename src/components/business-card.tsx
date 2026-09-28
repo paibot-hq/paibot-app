@@ -9,13 +9,16 @@ import {
   CARD, COLORS, contactLines, EMPTY_CARD, fitSize, TEMPLATES,
   type CardData, type Template,
 } from "../lib/business-card";
+import { imagePdf } from "../lib/card-pdf";
 
 const STORAGE_KEY = "paibot.businessCard";
 const FIELDS = ["name", "reading", "company", "department", "title", "postalCode", "address", "phone", "fax", "email", "website"] as const satisfies readonly (keyof CardData)[];
 const INPUT_TYPES: Partial<Record<keyof CardData, string>> = { phone: "tel", fax: "tel", email: "email", website: "url" };
 const COLOR_NAMES = ["blue", "green", "red", "purple", "gray"] as const;
-// 300 dpi: 91 × 55 mm.
+// 91 × 55 mm at 300 dpi for the PNG, and at 600 dpi for the PDF (an image
+// inside, so it is rendered finer for print).
 const PNG = { width: 1075, height: 650 } as const;
+const PDF_PIXELS = { width: 2150, height: 1300 } as const;
 const GOTHIC = "'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif";
 
 type Settings = { card: CardData; template: Template; color: string };
@@ -135,29 +138,39 @@ export default function BusinessCard() {
   const example = (field: keyof CardData) => (sample[field] ? t("example", { value: sample[field] }) : undefined);
   const setField = (field: keyof CardData, value: string) => update({ card: { ...card, [field]: value } });
 
-  const downloadPng = () => {
+  // Draws the preview SVG onto a canvas of the given size.
+  const renderCard = (size: { width: number; height: number }) => new Promise<HTMLCanvasElement>((resolve, reject) => {
     const svg = previewRef.current?.querySelector("svg");
-    if (!svg) return;
+    if (!svg) return reject(new Error("no preview"));
     const copy = svg.cloneNode(true) as SVGSVGElement;
-    copy.setAttribute("width", String(PNG.width));
-    copy.setAttribute("height", String(PNG.height));
+    copy.setAttribute("width", String(size.width));
+    copy.setAttribute("height", String(size.height));
     const image = new Image();
     image.onload = () => {
       const canvas = document.createElement("canvas");
-      canvas.width = PNG.width;
-      canvas.height = PNG.height;
+      canvas.width = size.width;
+      canvas.height = size.height;
       canvas.getContext("2d")?.drawImage(image, 0, 0);
-      canvas.toBlob(blob => {
-        if (!blob) return;
-        const link = document.createElement("a");
-        link.href = URL.createObjectURL(blob);
-        link.download = "business-card.png";
-        link.click();
-        setTimeout(() => URL.revokeObjectURL(link.href), 1000);
-      }, "image/png");
+      resolve(canvas);
     };
+    image.onerror = reject;
     // A data: URL, not blob:, because the CSP's img-src allows data: only.
     image.src = `data:image/svg+xml;charset=utf-8,${encodeURIComponent(new XMLSerializer().serializeToString(copy))}`;
+  });
+  const toBlob = (canvas: HTMLCanvasElement, type: string, quality?: number) =>
+    new Promise<Blob>((resolve, reject) => canvas.toBlob(blob => (blob ? resolve(blob) : reject(new Error("toBlob"))), type, quality));
+  const save = (blob: Blob, name: string) => {
+    const link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = name;
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+  };
+  const downloadPng = async () => save(await toBlob(await renderCard(PNG), "image/png"), "business-card.png");
+  // One card on a 91 × 55 mm page.
+  const downloadPdf = async () => {
+    const jpeg = new Uint8Array(await (await toBlob(await renderCard(PDF_PIXELS), "image/jpeg", 0.92)).arrayBuffer());
+    save(new Blob([imagePdf(jpeg, PDF_PIXELS, CARD)], { type: "application/pdf" }), "business-card.pdf");
   };
 
   // The print sheet's CSS only applies while this flag is set, so printing
@@ -209,6 +222,7 @@ export default function BusinessCard() {
         </fieldset>
         <div className={styles["actions"]}>
           <button className="auth-link" type="button" onClick={downloadPng} disabled={empty}>{t("download")}</button>
+          <button className={styles["secondary"]} type="button" onClick={downloadPdf} disabled={empty}>{t("pdf")}</button>
           <button className={styles["secondary"]} type="button" onClick={print} disabled={empty}>{t("print")}</button>
         </div>
         <p className={controls.label}>{t("printHint")}</p>
