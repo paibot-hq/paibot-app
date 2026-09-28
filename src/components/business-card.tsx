@@ -174,21 +174,6 @@ export default function BusinessCard() {
       <p className={controls.label}>{t("intro")}</p>
       <div className={styles["layout"]}>
 
-        <fieldset className={styles["group"]}>
-          <legend>{t("design")}</legend>
-          <div className={styles["choices"]} role="radiogroup" aria-label={t("template")}>
-            {TEMPLATES.map(template => (
-              <button key={template} type="button" role="radio" aria-checked={settings.template === template}
-                className={styles["choice"]} onClick={() => update({ template })}>{td(`templates.${template}`)}</button>
-            ))}
-          </div>
-          <div className={styles["colors"]} role="radiogroup" aria-label={t("color")}>
-            {COLORS.map((color, i) => (
-              <button key={color} type="button" role="radio" aria-checked={settings.color === color} aria-label={td(`colors.${COLOR_NAMES[i]}`)}
-                className={styles["swatch"]} style={{ background: color }} onClick={() => update({ color })} />
-            ))}
-          </div>
-        </fieldset>
 
         <fieldset className={styles["group"]}>
           <legend>{t("details")}</legend>
@@ -207,6 +192,21 @@ export default function BusinessCard() {
           <CardSvg {...shown} postalMark={t("postalMark")} label={t("previewLabel")} />
         </div>
         {empty && <p className={controls.label}>{t("sampleHint")}</p>}
+        <fieldset className={styles["group"]}>
+          <legend>{t("design")}</legend>
+          <div className={styles["choices"]} role="radiogroup" aria-label={t("template")}>
+            {TEMPLATES.map(template => (
+              <button key={template} type="button" role="radio" aria-checked={settings.template === template}
+                className={styles["choice"]} onClick={() => update({ template })}>{td(`templates.${template}`)}</button>
+            ))}
+          </div>
+          <div className={styles["colors"]} role="radiogroup" aria-label={t("color")}>
+            {COLORS.map((color, i) => (
+              <button key={color} type="button" role="radio" aria-checked={settings.color === color} aria-label={td(`colors.${COLOR_NAMES[i]}`)}
+                className={styles["swatch"]} style={{ background: color }} onClick={() => update({ color })} />
+            ))}
+          </div>
+        </fieldset>
         <div className={styles["actions"]}>
           <button className="auth-link" type="button" onClick={downloadPng} disabled={empty}>{t("download")}</button>
           <button className={styles["secondary"]} type="button" onClick={print} disabled={empty}>{t("print")}</button>
