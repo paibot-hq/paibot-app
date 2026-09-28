@@ -75,13 +75,6 @@
 .swatch[aria-checked="true"] {
   box-shadow: 0 0 0 2px var(--text);
 }
-.qr {
-  display: flex;
-  flex-direction: column;
-  gap: .4rem;
-  color: var(--muted);
-  font-size: .9rem;
-}
 .check {
   display: flex;
   gap: .5rem;

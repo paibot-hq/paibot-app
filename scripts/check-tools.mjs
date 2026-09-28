@@ -133,7 +133,7 @@ try {
   assert.equal(cardDownload.suggestedFilename(), 'business-card.png');
   await page.reload();
   await main.getByLabel('Name', { exact: true }).and(page.locator('[value="Alex Taylor"]')).waitFor();
-  console.log('PASS: business card previews typed details, saves a PNG and keeps the input after reload (see check-business-card for the vCard)');
+  console.log('PASS: business card previews typed details, saves a PNG and keeps the input after reload (see check-business-card for the contact block)');
   await go('cidr');
   const cidrValue = key => page.locator(`[data-cidr="${key}"] dd`).textContent();
   const cidrInput = main.getByLabel('IPv4 address and prefix length');

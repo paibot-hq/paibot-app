@@ -6,8 +6,8 @@ import controls from "./tool-controls.module.css";
 import styles from "./business-card.module.css";
 import type { DynamicT } from "../lib/apps";
 import {
-  CARD, COLORS, contactLines, EMPTY_CARD, fitSize, qrPath, qrPayload, QR_MODES, TEMPLATES,
-  type CardData, type QrMode, type Template,
+  CARD, COLORS, contactLines, EMPTY_CARD, fitSize, TEMPLATES,
+  type CardData, type Template,
 } from "../lib/business-card";
 
 const STORAGE_KEY = "paibot.businessCard";
@@ -17,23 +17,19 @@ const COLOR_NAMES = ["blue", "green", "red", "purple", "gray"] as const;
 // 300 dpi: 91 × 55 mm.
 const PNG = { width: 1075, height: 650 } as const;
 const GOTHIC = "'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic', Meiryo, sans-serif";
-const MINCHO = "'Hiragino Mincho ProN', 'Yu Mincho', YuMincho, 'Noto Serif JP', serif";
-const ROMAN = "Georgia, 'Times New Roman', serif";
 
-type Settings = { card: CardData; template: Template; color: string; qr: QrMode };
-// The classic banded layout in near-black, and no QR code (most cards carry none).
-const DEFAULTS: Settings = { card: EMPTY_CARD, template: "stripe", color: COLORS[4], qr: "none" };
+type Settings = { card: CardData; template: Template; color: string };
+// The classic banded layout, in near-black.
+const DEFAULTS: Settings = { card: EMPTY_CARD, template: "stripe", color: COLORS[4] };
 
 function readSettings(): Settings {
   try {
-    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null") as (Omit<Partial<Settings>, "qr"> & { qr?: QrMode | boolean }) | null;
+    const saved = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "null") as Partial<Settings> | null;
     if (!saved) return DEFAULTS;
     return {
       card: { ...EMPTY_CARD, ...saved.card },
       template: TEMPLATES.includes(saved.template as Template) ? (saved.template as Template) : DEFAULTS.template,
       color: COLORS.includes(saved.color as (typeof COLORS)[number]) ? (saved.color as string) : DEFAULTS.color,
-      // Earlier versions stored an on/off switch for the contact QR code.
-      qr: saved.qr === true ? "contact" : QR_MODES.includes(saved.qr as QrMode) ? (saved.qr as QrMode) : DEFAULTS.qr,
     };
   } catch {
     return DEFAULTS;
@@ -53,52 +49,40 @@ function Svg({ label, children }: { label?: string; children: ReactNode }) {
 }
 
 // The classic layout: a band down the left, the company at the top, then
-// department, title, a spaced-out mincho name with its reading, and the
-// contact block along the bottom.
-function ClassicCard({ card, color, qr, postalMark, label }: CardProps) {
+// department and title, the name and its reading, and the contact block
+// along the bottom.
+function ClassicCard({ card, color, postalMark, label }: CardProps) {
   const band = 3.6, indent = 20, right = 5;
-  const payload = qrPayload(card, qr);
-  const qrSize = 14;
   const width = CARD.width - indent - right;
   const contacts = contactLines(card, postalMark);
-  const contactWidth = payload ? width - qrSize - 3 : width;
-  // CJK names are set evenly spaced, so the space between family and given
-  // name goes (it would add to the letter spacing); Latin names keep theirs.
-  const name = /[A-Za-z]/.test(card.name) ? card.name.trim() : card.name.replace(/\s+/g, "");
-  const nameSize = fitSize(name, 6, width, 0.35);
   const line = (value: string, y: number, size: number, extra: Record<string, string | number> = {}) =>
     value.trim() && <text x={indent} y={y} fontSize={fitSize(value.trim(), size, width)} {...extra}>{value.trim()}</text>;
   return (
     <Svg label={label}>
       <rect width={band} height={CARD.height} fill={color} />
-      <g fill="#1a1a1a">
+      <g fill="#222">
         {card.company.trim() && <text x={band + 3.6} y={8.2} fontSize={fitSize(card.company.trim(), 3.6, CARD.width - band - 3.6 - right)} fontWeight={700}>{card.company.trim()}</text>}
-        {line(card.department, 16.5, 2.4, { fontFamily: MINCHO })}
-        {line(card.title, 19.6, 2.4, { fontFamily: MINCHO })}
-        {name && <text x={indent} y={26.4} fontSize={nameSize} letterSpacing={nameSize * 0.35} fontFamily={MINCHO}>{name}</text>}
-        {line(card.reading, 30, 2, { fontFamily: ROMAN, fontStyle: "italic", letterSpacing: 0.25, fill: "#333" })}
+        {line(card.department, 16.5, 2.5)}
+        {line(card.title, 19.8, 2.5)}
+        {line(card.name, 27, 6, { fontWeight: 700 })}
+        {line(card.reading, 30.6, 2.1, { fill: "#666" })}
         {contacts.map((text, i) => (
           // xml:space keeps the run of spaces between TEL and FAX.
-          <text key={i} x={indent} y={49.3 - (contacts.length - 1 - i) * 2.9} fontSize={fitSize(text, 2.3, contactWidth)} xmlSpace="preserve">{text}</text>
+          <text key={i} x={indent} y={49.3 - (contacts.length - 1 - i) * 2.9} fontSize={fitSize(text, 2.3, width)} xmlSpace="preserve">{text}</text>
         ))}
       </g>
-      {payload && <path d={qrPath(payload, CARD.width - right - qrSize, CARD.height - right - qrSize, qrSize)} fill="#1a1a1a" />}
     </Svg>
   );
 }
 
-// "simple" and "center": the company in color, one title line, a bold gothic name.
-function ModernCard({ card, template, color, qr, postalMark, label }: CardProps) {
+// "simple" and "center": the company in color, one title line, a bold name.
+function ModernCard({ card, template, color, postalMark, label }: CardProps) {
   const pad = 6;
   const centered = template === "center";
-  const qrSize = centered ? 12 : 15;
-  const payload = qrPayload(card, qr);
   const x = centered ? CARD.width / 2 : pad;
   const anchor = centered ? "middle" : "start";
   const width = CARD.width - 2 * pad;
   const contacts = contactLines(card, postalMark);
-  // Keep contact lines clear of the QR code (on both sides when centered).
-  const contactWidth = payload ? (centered ? CARD.width - 2 * (pad + qrSize + 2) : width - qrSize - 3) : width;
   const lastLine = CARD.height - pad + 0.5;
   const text = (value: string, y: number, size: number, extra: Record<string, string | number> = {}) =>
     value.trim() && <text x={x} y={y} fontSize={fitSize(value.trim(), size, width)} textAnchor={anchor} {...extra}>{value.trim()}</text>;
@@ -110,10 +94,9 @@ function ModernCard({ card, template, color, qr, postalMark, label }: CardProps)
         {text(card.reading, 26, 2.1, { fill: "#666" })}
         {text(card.name, 33, 6, { fontWeight: 700 })}
         {contacts.map((line, i) => (
-          <text key={i} x={x} y={lastLine - (contacts.length - 1 - i) * 3.1} fontSize={fitSize(line, 2.2, contactWidth)} textAnchor={anchor} xmlSpace="preserve">{line}</text>
+          <text key={i} x={x} y={lastLine - (contacts.length - 1 - i) * 3.1} fontSize={fitSize(line, 2.2, width)} textAnchor={anchor} xmlSpace="preserve">{line}</text>
         ))}
       </g>
-      {payload && <path d={qrPath(payload, CARD.width - pad - qrSize, CARD.height - pad - qrSize, qrSize)} fill="#222" />}
     </Svg>
   );
 }
@@ -226,16 +209,6 @@ export default function BusinessCard() {
                     value={card[field]} placeholder={example(field)} autoComplete="off" onChange={event => setField(field, event.target.value)} />}
             </label>
           ))}
-          <div className={styles["qr"]} role="radiogroup" aria-label={t("qrLabel")}>
-            <span>{t("qrLabel")}</span>
-            {QR_MODES.map(mode => (
-              <label key={mode} className={styles["check"]}>
-                <input type="radio" name="qr" value={mode} checked={settings.qr === mode}
-                  disabled={mode === "website" && !card.website.trim()} onChange={() => update({ qr: mode })} />
-                {td(`qrModes.${mode}`)}
-              </label>
-            ))}
-          </div>
           <button className={styles["secondary"]} type="button" onClick={() => update({ card: EMPTY_CARD })} disabled={empty}>{t("clear")}</button>
         </fieldset>
         <p className={controls.label}>{t("privacy")}</p>

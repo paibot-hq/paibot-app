@@ -515,8 +515,8 @@
     },
     "businessCard": {
       "title": "Business Card Maker",
-      "description": "Type your name and contact details to design a business card, then save it as an image or print it. You can add a QR code with your contact details.",
-      "keywords": "business card maker free print QR code vCard template",
+      "description": "Type your name and contact details to design a business card, then save it as an image or print it.",
+      "keywords": "business card maker free print template image",
       "intro": "Your card appears as you type. Pick a layout and color, then save it as an image or print ten on an A4 sheet.",
       "privacy": "Nothing you enter is sent to a server. It is kept only in this browser, for next time.",
       "previewLabel": "Business card preview",
@@ -538,12 +538,6 @@
         "red": "Red",
         "purple": "Purple",
         "gray": "Gray"
-      },
-      "qrLabel": "QR code",
-      "qrModes": {
-        "none": "None",
-        "contact": "Contact details (scanning saves the contact)",
-        "website": "Website (scanning opens the site)"
       },
       "details": "On the card",
       "fields": {
