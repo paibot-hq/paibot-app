@@ -67,10 +67,12 @@ Problems are LLM-generated into `src/data/math-*.json` and never trusted as-is:
 answer with SymPy: each unit only converts a problem into its answer and four
 choices, and one shared check requires exactly one matching choice. The Node
 checkers (`check:math-arith`, `check:math-factorization`, `check:math-pythagoras`)
-enforce each set's rules and, until they are removed, also re-check answers. Word problems' prose also gets a blind second-model review before they
+enforce only each set's rules (ranges, exact division, coverage, duplicates);
+they no longer check answer keys. Word problems' prose also gets a blind second-model review before they
 are published. Problems start as `published: false` and are imported with
 `npm run math:import:local|dev|prod` through `scripts/import-math.mjs`, which
-validates all banks before upserting common columns and payloads; a set with no
+runs the Node set-rule checks before upserting common columns and payloads
+(answers are gated by CI's `check:math-sympy` on `main`, which every deploy needs); a set with no
 published problems shows "being prepared". `docs/plans/math-units.md` is the unit roadmap and the verification
 rules new units must follow; `docs/plans/problemset.md` is the larger plan it
 refines (its vinext-specific sections are historical).
