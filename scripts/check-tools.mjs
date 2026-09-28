@@ -1,3 +1,4 @@
+// check:all skips this file: needs a running preview.
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { configureAccess } from './lib/access.mjs';

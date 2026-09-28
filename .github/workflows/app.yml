@@ -25,13 +25,8 @@ jobs:
           CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
         run: node -e 'require("fs").writeFileSync(".dev.vars", `CLERK_PUBLISHABLE_KEY=${process.env.CLERK_PUBLISHABLE_KEY}\nCLERK_SECRET_KEY=${process.env.CLERK_SECRET_KEY}\n`)'
-      - run: npm run check:quiz
-      - run: npm run check:math-factorization
-      - run: npm run check:math-pythagoras
-      - run: npm run check:cidr
-      - run: npm run check:legal
-      - run: node scripts/check-math-pythagoras-tests.mjs
-      - run: npm run check:math-arith
+      # Every scripts/check-*.mjs that needs no build, server or browser.
+      - run: npm run check:all
       # Deploy jobs need this job, so they import only SymPy-verified banks
       # and do not need Python themselves.
       - uses: astral-sh/setup-uv@v6
@@ -51,7 +46,7 @@ jobs:
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - run: npx playwright install --with-deps chromium
       - run: npm run check:access
-      - run: npm run check:i18n
+      - run: npm run check:environments
       - run: npm run check:whois
       - run: npm run check:site-check
       - name: Browser checks against built Worker

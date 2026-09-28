@@ -57,13 +57,13 @@ devとprodは**別々のWorker**(`paibot-app-dev`/`paibot-app`)で、`wrangler.j
 
 | ワークフロー | トリガー | やること |
 | --- | --- | --- |
-| `app.yml` | `main`へのpush/PR(`infra/**`除く) | typecheck・ビルド・`check:i18n` → 成功したら`paibot-app-dev`へ自動デプロイ |
+| `app.yml` | `main`へのpush/PR(`infra/**`除く) | typecheck・`check:all`・ビルド・`check:environments` → 成功したら`paibot-app-dev`へ自動デプロイ |
 | `app-production.yml` | 手動実行(`workflow_dispatch`)のみ | `ref`未指定なら日付タグを自動作成して新規リリース、指定ありならロールバック。承認ゲートはOrganizationのFreeプランで使えないため、手動実行そのものが確認ステップ |
 | `infra-plan.yml` / `infra-apply.yml` | `infra/**`変更のPR / 手動実行 | Terraformのplan/apply(下記) |
 
 ```mermaid
 flowchart TD
-    Push["git push (main)"] --> Verify["app.yml: verify\ntypecheck / build / check:i18n"]
+    Push["git push (main)"] --> Verify["app.yml: verify\ntypecheck / check:all / build / check:environments"]
     Verify -- 成功 --> DeployDev["deploy-dev"]
     DeployDev --> WorkerDev["Worker: paibot-app-dev\n(dev.paibot.app)"]
 

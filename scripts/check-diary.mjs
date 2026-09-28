@@ -1,3 +1,4 @@
+// check:all skips this file: needs a running preview and Clerk test keys.
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { spawnSync } from 'node:child_process';

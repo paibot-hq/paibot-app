@@ -1,8 +1,10 @@
+// check:all skips this file: needs a running preview.
 import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { appFetch, configureAccess } from './lib/access.mjs';
 import { locales } from '../src/i18n/routing.ts';
 import { publicPaths as paths } from '../src/lib/seo.ts';
+import { APP_CATALOG, APP_CATEGORIES } from '../src/lib/app-catalog.ts';
 
 const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002').origin;
 const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app').origin;
@@ -156,23 +158,17 @@ try {
     assert.equal(await page.locator('title').count(), 1, `${path}: hydrated title`);
     assert.ok((await page.title()).trim());
   }
-  const categoryApps = {
-    daily: ['calendar', 'life-calendar', 'clock', 'diary', 'age'],
-    game: ['quiz', 'dice', 'reaction', 'timing'],
-    utility: ['wc', 'password', 'stopwatch'],
-    study: ['math', 'arith'],
-    dev: ['json', 'base64', 'urlencode'],
-    network: ['ip', 'domain', 'cidr', 'site-check'],
-  };
+  // Expected card links per category, straight from the app catalog.
+  const categoryApps = Object.fromEntries(APP_CATEGORIES.map(category => [category, APP_CATALOG.filter(app => app.category === category).map(app => app.href)]));
   for (const locale of locales) {
     await go(`/${locale}`);
     assert.deepEqual((await page.locator('.category-item').evaluateAll(links => links.map(link => link.getAttribute('href')))).sort(), Object.keys(categoryApps).map(category => `/${locale}/${category}`).sort());
-    for (const [category, slugs] of Object.entries(categoryApps)) {
+    for (const [category, hrefs] of Object.entries(categoryApps)) {
       await page.locator(`.category-item[href="/${locale}/${category}"]`).click();
       await page.waitForURL(`${base}/${locale}/${category}`);
       await page.locator(`.category-nav a[aria-current="page"][href="/${locale}/${category}"]`).waitFor();
       assert.equal(await page.locator('main h1').count(), 1);
-      assert.deepEqual((await page.locator('.app-card').evaluateAll(links => links.map(link => link.getAttribute('href')))).sort(), slugs.map(slug => `/${locale}/${slug}`).sort());
+      assert.deepEqual((await page.locator('.app-card').evaluateAll(links => links.map(link => link.getAttribute('href')))).sort(), hrefs.map(href => `/${locale}${href}`).sort());
       assert.equal(await page.locator('.category-nav [aria-current="page"]').getAttribute('href'), `/${locale}/${category}`);
       await page.getByRole('searchbox').fill('no-such-app-987654');
       await page.locator('.app-empty').waitFor();
@@ -184,7 +180,7 @@ try {
       await page.locator(`.category-nav a[aria-current="page"][href="/${locale}/apps"]`).waitFor();
       assert.equal(await page.getByRole('searchbox').inputValue(), '', 'all-app navigation resets the category search');
       await page.locator('.app-card').first().waitFor();
-      assert.equal(await page.locator('.app-card').count(), 21);
+      assert.equal(await page.locator('.app-card').count(), APP_CATALOG.length);
       await go(`/${locale}`);
     }
   }
