@@ -38,7 +38,7 @@ try {
     const env = { ...process.env, [`MATH_BANK_${unit.toUpperCase()}`]: dryRun ? candidate : path };
     const output = run(process.execPath, [`${root}scripts/check-math-${['factorization', 'pythagoras'].includes(unit) ? unit : 'arith'}.mjs`], root, env);
     console.log(output.trim());
-    console.log(run('python3', [`${root}scripts/verify_math.py`, unit], root, env).trim());
+    console.log(run('uv', ['run', '--locked', 'python', `${root}scripts/verify_math.py`, unit], root, env).trim());
   } catch (error) {
     if (!dryRun && readFileSync(path, 'utf8') === combined) writeFileSync(path, original);
     const saved = saveWork(`generate-${unit}-failed`, JSON.stringify({ raw, problems: newProblems }, null, 2));

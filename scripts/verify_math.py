@@ -7,7 +7,7 @@ requires the choices to be mathematically distinct and exactly one of them,
 the one at answerIndex, to equal the answer. Set rules (number ranges, exact
 division, coverage) stay in scripts/check-math-*.mjs.
 
-Usage: python3 scripts/verify_math.py [unit ...]
+Usage: uv run python scripts/verify_math.py [unit ...]
 MATH_BANK_<UNIT> overrides a unit's bank file, as in the Node checkers.
 """
 import ast

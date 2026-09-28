@@ -42,3 +42,4 @@ clerk-*.zone
 
 .math-work/
 __pycache__/
+.venv/

@@ -244,7 +244,7 @@ Codex には答えだけでなく、内部の式と解説も伏せ、**公開さ
 6. `npm run math:import:local` で取り込み、ローカル画面で確認する。
 7. 問題原本と必要な変更をコミットする。`.math-work/` は Git 管理対象外。
 
-事前に `agy` と `codex` が PATH 上で使え、認証済みであること、`python3` で `pip install -r scripts/requirements.txt` 済みであることが必要。両CLIは stdin を閉じ、一時ディレクトリで実行する。生成・レビューの指示文は `scripts/math-prompts/` に保存している。
+事前に `agy` と `codex` が PATH 上で使え、認証済みであること、`uv` が PATH 上にあることが必要(Python と SymPy は `pyproject.toml`・`uv.lock` に従って uv が用意する)。両CLIは stdin を閉じ、一時ディレクトリで実行する。生成・レビューの指示文は `scripts/math-prompts/` に保存している。
 
 新しいセットを足す場合は `src/lib/math-<unit>-sets.ts` のセット一覧と3言語の翻訳を追加する。`rule` は生成条件と検算条件を指す。同条件の練習Bなら練習Aと同じ `rule` を使える。新条件なら検算スクリプトの条件表と `scripts/math-prompts/<rule>.md` も追加する。既存セットへの追加時は position の続きを使うため、文章題ミックスの奇数/偶数の条件も継続する。
 
