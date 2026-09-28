@@ -90,14 +90,16 @@ jobs:
           key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
       - if: steps.framework.outputs.react_router == 'true'
         run: npx playwright install --with-deps chromium
-      # check:i18n serves the production build, whose DB binding is the
+      # check-environments serves the production build, whose DB binding is the
       # production database ID, and /math set pages read D1 during SSR. Local
       # D1 state is kept per database ID, so migrate that one (--local: this
       # never touches the real production database).
       - if: steps.framework.outputs.react_router == 'true'
         run: npm run db:migrate:local:production
+      # Called by file, not `npm run check:environments`: a rollback can deploy
+      # a ref from before that script name existed (it was `check:i18n`).
       - if: steps.framework.outputs.react_router == 'true'
-        run: npm run check:i18n
+        run: node scripts/check-environments.mjs
       - name: Sync production runtime secrets
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}

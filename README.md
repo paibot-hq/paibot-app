@@ -58,7 +58,8 @@ npm run check:build-targets     # production/dev builds and config assertions
 npx playwright install chromium # first run only
 npm run check:access            # redirects cannot leak Access headers
 npm run check:life-calendar     # calendar arithmetic: leap days and week boundaries
-npm run check:i18n              # starts/stops its own local Workers
+npm run check:all               # every check that needs no build, server or browser
+npm run check:environments      # starts/stops its own local Workers
 npm run check:whois             # starts/stops its own local preview + fake WHOIS server
 npm run check:site-check        # starts/stops its own local preview + fake website
 npm run preview                # port 3003; keep running in another terminal
@@ -70,7 +71,11 @@ CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:favorites
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:diary
 ```
 
-- `check:i18n`: SSR/SEO/robots/sitemap with both dev and production indexing policies.
+- `check:all`: runs every `scripts/check-*.mjs` whose first line is not
+  `// check:all skips this file: <reason>` — data and unit checks such as
+  `check:i18n` (en/zh have exactly ja's keys and placeholders), calendars, CIDR,
+  quiz and math banks. A new check of that kind needs no CI or package.json edit.
+- `check:environments`: SSR/SEO/robots/sitemap with both dev and production indexing policies.
 - `check:smoke`: 54 public URLs and 12 non-indexable URLs, redirects, headers,
   Unicode input, locale navigation, persisted theme, Clerk forms and CSP violations.
 - `check:tools`: one meaningful flow for each of 15 tools. IP responses are mocked

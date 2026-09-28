@@ -1,3 +1,4 @@
+// check:all skips this file: rebuilds the app for each environment.
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';

@@ -1,3 +1,4 @@
+// check:all skips this file: needs a running preview, Clerk test keys and local D1.
 import assert from 'node:assert/strict';
 import { randomUUID } from 'node:crypto';
 import { readFileSync } from 'node:fs';

@@ -1,11 +1,12 @@
-// Central registry of every app shown on /apps — the single place that knows
-// an app's route, category, and icon. src/components/apps.tsx only renders
-// from this list; it never hardcodes an app's title/description (those come
-// from messages/*.json via `messageKey`) or grid position (derived from
-// `category`). To add a new app: add one entry here (plus its messages) —
-// no JSX changes needed. See CLAUDE.md's "新しいツールページを追加するとき"
-// for the rest of the steps (route, component, messages).
+// Icons for the app list. The list itself (routes, categories, status) is
+// plain data in app-catalog.ts so Node scripts can read it too;
+// src/components/apps.tsx only renders from `apps` below. To add an app, add
+// it to APP_CATALOG and give it an icon in APP_ICONS (TypeScript requires
+// one per slug), plus its messages. See CLAUDE.md's "Adding a tool".
 import type { ComponentType, SVGProps } from "react";
+import { APP_CATALOG, type AppCategory, type AppData, type AppSlug } from "./app-catalog";
+
+export { APP_CATEGORIES, type AppCategory } from "./app-catalog";
 
 // use-intl types `t()` against ja.json's literal key paths (see
 // src/i18n/types.d.ts), but category/app keys are only known at runtime
@@ -13,27 +14,8 @@ import type { ComponentType, SVGProps } from "react";
 // this once at each call site instead of losing type-checking everywhere.
 export type DynamicT = (key: string, values?: Record<string, string | number>) => string;
 
-export type AppCategory = "study" | "dev" | "utility" | "network" | "game" | "daily";
-
-// Display order for category sections on /apps.
-export const APP_CATEGORIES: AppCategory[] = ["daily", "game", "utility", "study", "dev", "network"];
-
-export type AppEntry = {
-  // Unique, stable id. Matches the route slug for published apps; for a
-  // not-yet-built app (no `href`) it's just an id used as the messages key.
-  slug: string;
-  // Omitted for apps that don't have a page yet — rendered as a
-  // non-interactive card instead of a link. `/math` keeps an href even
-  // though it's comingSoon: unlike the others, it already has a real page
-  // (a placeholder), just not the full problem-set feature yet.
-  href?: string;
-  category: AppCategory;
-  status: "published" | "comingSoon";
-  // Key under the `App` namespace in messages/*.json holding this app's
-  // `title`/`description`/`keywords` (e.g. "json" → App.json.title).
-  messageKey: string;
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
-};
+type Icon = ComponentType<SVGProps<SVGSVGElement>>;
+export type AppEntry = AppData & { icon: Icon };
 
 function CidrIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -201,40 +183,16 @@ function MathIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
-export const apps: AppEntry[] = [
-  // 学習 / Study
-  { slug: "math", href: "/math", category: "study", status: "published", messageKey: "math", icon: MathIcon },
-  { slug: "quiz", href: "/quiz", category: "game", status: "published", messageKey: "quiz", icon: QuizIcon },
-  { slug: "arith", href: "/arith", category: "study", status: "published", messageKey: "arith", icon: ArithIcon },
+const APP_ICONS: Record<AppSlug, Icon> = {
+  math: MathIcon, quiz: QuizIcon, arith: ArithIcon,
+  json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon,
+  wc: WcIcon, password: PasswordIcon, stopwatch: StopwatchIcon,
+  ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
+  dice: DiceIcon, reaction: ReactionIcon, timing: TimingIcon,
+  calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, diary: WcIcon, age: AgeIcon,
+};
 
-  // 開発 / Dev
-  { slug: "json", href: "/json", category: "dev", status: "published", messageKey: "json", icon: JsonIcon },
-  { slug: "base64", href: "/base64", category: "dev", status: "published", messageKey: "base64", icon: Base64Icon },
-  { slug: "urlencode", href: "/urlencode", category: "dev", status: "published", messageKey: "urlencode", icon: UrlencodeIcon },
-
-  // ユーティリティ / Utility
-  { slug: "wc", href: "/wc", category: "utility", status: "published", messageKey: "wc", icon: WcIcon },
-  { slug: "password", href: "/password", category: "utility", status: "published", messageKey: "password", icon: PasswordIcon },
-  { slug: "stopwatch", href: "/stopwatch", category: "utility", status: "published", messageKey: "stopwatch", icon: StopwatchIcon },
-
-  // ネットワーク / Network
-  { slug: "ip", href: "/ip", category: "network", status: "published", messageKey: "ip", icon: IpIcon },
-  { slug: "domain", href: "/domain", category: "network", status: "published", messageKey: "domain", icon: DomainIcon },
-  { slug: "cidr", href: "/cidr", category: "network", status: "published", messageKey: "cidr", icon: CidrIcon },
-  { slug: "site-check", href: "/site-check", category: "network", status: "published", messageKey: "siteCheck", icon: PulseIcon },
-
-  // ゲーム / Game
-  { slug: "dice", href: "/dice", category: "game", status: "published", messageKey: "dice", icon: DiceIcon },
-  { slug: "reaction", href: "/reaction", category: "game", status: "published", messageKey: "reaction", icon: ReactionIcon },
-  { slug: "timing", href: "/timing", category: "game", status: "published", messageKey: "timing", icon: TimingIcon },
-
-  // 日常 / Daily
-  { slug: "calendar", href: "/calendar", category: "daily", status: "published", messageKey: "calendar", icon: CalendarIcon },
-  { slug: "life-calendar", href: "/life-calendar", category: "daily", status: "published", messageKey: "lifeCalendar", icon: AgeIcon },
-  { slug: "clock", href: "/clock", category: "daily", status: "published", messageKey: "clock", icon: TimingIcon },
-  { slug: "diary", href: "/diary", category: "daily", status: "published", messageKey: "diary", icon: WcIcon },
-  { slug: "age", href: "/age", category: "daily", status: "published", messageKey: "age", icon: AgeIcon },
-];
+export const apps: AppEntry[] = APP_CATALOG.map(app => ({ ...app, icon: APP_ICONS[app.slug] }));
 
 function StudyIcon(props: SVGProps<SVGSVGElement>) {
   return (

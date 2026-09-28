@@ -1,3 +1,4 @@
+// check:all skips this file: needs a build and starts its own preview.
 import assert from 'node:assert/strict';
 import { createServer } from 'node:net';
 import { createServer as createHttpServer } from 'node:http';

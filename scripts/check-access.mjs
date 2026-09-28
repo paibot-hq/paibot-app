@@ -1,3 +1,4 @@
+// check:all skips this file: launches a Playwright browser.
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { chromium } from 'playwright';

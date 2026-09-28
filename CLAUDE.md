@@ -25,7 +25,8 @@ Do not print secret keys. Runtime Clerk keys must be synced to Workers Secrets;
 - Components/CSS Modules belong in `src/components/`; shared styles in `src/styles/`.
 - Add translations to all three `messages/*.json` catalogs.
 - Public pages render `PublicHead` and are listed in `src/lib/seo.ts`.
-- The catalog is `src/lib/apps.tsx`. Keep coming-soon pages out of the sitemap.
+- The catalog is `src/lib/app-catalog.ts` (plain data, also read by `check-smoke.mjs`);
+  give the new slug an icon in `APP_ICONS` in `src/lib/apps.tsx`. Keep coming-soon pages out of the sitemap.
 - Authenticate/authorize in each protected loader/action using Clerk's server API;
   merely nesting a route does not protect it.
 
