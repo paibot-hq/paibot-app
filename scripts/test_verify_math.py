@@ -52,4 +52,12 @@ for expression in ["__import__('os').system('true')", '9 ** 9 ** 9', 'x.real', '
 
 rejects('arith', lambda problem: problem.update(expression='7 / 2'), 'answer is 7/2')
 
+
+def wrong_choice(problem):
+    problem['choices'][problem['answerIndex']] += 1000
+
+
+rejects('arith', wrong_choice, 'matching choices')
+rejects('signed', wrong_choice, 'matching choices')
+
 print('PASS: verify_math rejects wrong keys, equal choices, unsafe syntax and non-integer answers')

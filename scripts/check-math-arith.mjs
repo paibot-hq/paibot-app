@@ -3,11 +3,10 @@ import { readFileSync } from 'node:fs';
 import { ARITH_SETS } from '../src/lib/math-arith-sets.ts';
 import { SIGNED_SETS } from '../src/lib/math-signed-sets.ts';
 
-// Problems are LLM-generated, so the answer key is never trusted: every
-// expression is parsed and evaluated here, independently of the app, and the
-// only choice equal to the result must be the one marked correct.
-// Word problems are additionally reviewed by a second model (see CLAUDE.md);
-// this script can only check that their expression, not their prose, is right.
+// Set rules only: the expression is parsed here for its shape (operators,
+// negatives, exact division) and value range. The answer key is checked by
+// scripts/verify_math.py (SymPy), like every other unit's.
+// Word problems are additionally reviewed by a second model (see CLAUDE.md).
 
 // Grammar: expr = term (('+'|'-') term)*; term = factor (('*'|'/') factor)*;
 // factor = integer | '(' expr ')' | '(' '-' integer ')'. Negative literals must be
@@ -124,9 +123,7 @@ export function validateBank(bank, catalog = ARITH_SETS) {
     }
     assert.ok(RULES[set.rule](result, word !== null, position), `${id}: "${expression}" does not fit set ${setId}`);
     assert.ok(Array.isArray(choices) && choices.length === 4 && choices.every(Number.isSafeInteger), `${id}: four integer choices`);
-    assert.equal(new Set(choices).size, 4, `${id}: duplicate choices`);
-    const correct = choices.map((choice, index) => choice === result.value ? index : -1).filter(index => index >= 0);
-    assert.deepEqual(correct, [answerIndex], `${id}: answerIndex ${answerIndex}, but "${expression}" = ${result.value}`);
+    assert.ok(Number.isInteger(answerIndex) && answerIndex >= 0 && answerIndex < 4, `${id}: answerIndex`);
   }
   for (const set of catalog.filter(set => set.rule === 'four-ops-a')) {
     if (bank.problems.some(problem => problem.setId === set.id)) assert.ok((negativeAnswers.get(set.id) ?? 0) >= 2, `Set ${set.id} needs at least two negative answers`);
@@ -135,7 +132,7 @@ export function validateBank(bank, catalog = ARITH_SETS) {
 }
 export const bank = validateBank(JSON.parse(readFileSync(process.env.MATH_BANK_ARITH || new URL('../src/data/math-arith.json', import.meta.url), 'utf8')));
 const published = bank.problems.filter(problem => problem.published).length;
-console.log(`PASS: ${bank.problems.length} arithmetic problems (${published} published): set rules, exact integer division, answers re-derived by evaluation`);
+console.log(`PASS: ${bank.problems.length} arithmetic problems (${published} published): set rules, exact integer division`);
 
 export const signedBank = validateBank(JSON.parse(readFileSync(process.env.MATH_BANK_SIGNED || new URL('../src/data/math-signed.json', import.meta.url), 'utf8')), SIGNED_SETS);
-console.log(`PASS: ${signedBank.problems.length} signed problems (${signedBank.problems.filter(problem => problem.published).length} published): set rules, exact integer division, answers re-derived by evaluation`);
+console.log(`PASS: ${signedBank.problems.length} signed problems (${signedBank.problems.filter(problem => problem.published).length} published): set rules, exact integer division`);
