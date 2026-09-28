@@ -81,6 +81,24 @@ try {
   assert.equal(await page.locator('main ol li').count(), 6);
   console.log('PASS: a redirect loop stops after 5 redirects');
 
+  // Per-IP limit: 10 checks a minute. Three were made above; the limit must
+  // stop further checks within the next ten, without contacting the site.
+  const limited = "Too many in a short time. Please wait a minute and try again (up to 10 a minute).";
+  let allowed = 3;
+  for (; allowed <= 11; allowed++) {
+    await page.goto(`http://localhost:${port}/en/site-check`);
+    await page.locator('main h1').waitFor();
+    await page.getByLabel('https://example.com').fill(`${site}/ok`);
+    await page.getByRole('button', { name: 'Check', exact: true }).click();
+    const outcome = await Promise.race([
+      page.getByText(limited, { exact: true }).waitFor().then(() => 'limited'),
+      page.getByText('The site is responding normally (200)', { exact: true }).waitFor().then(() => 'ok'),
+    ]);
+    if (outcome === 'limited') break;
+  }
+  assert.equal(allowed, 10, `the 11th check in a minute is refused (refused after ${allowed})`);
+  console.log('PASS: the 11th check within a minute from one IP is refused');
+
   assert.deepEqual(errors, []);
 } finally {
   await browser.close();

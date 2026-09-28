@@ -91,7 +91,8 @@ CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:diary
   a fake local site (redirect chain, 503, redirect loop). Loopback is refused in
   production, so it runs its own `vite preview` with `SITE_CHECK_ALLOW_PRIVATE`
   patched to `"true"`, like `check:whois`. `check:tools` covers the refusal of
-  invalid URLs and internal addresses.
+  invalid URLs and internal addresses. `check:site-check` also checks the per-IP limit
+  (`TOOL_RATE_LIMIT`, 10 a minute per tool, shared with the domain lookup).
 - `check:auth`: real development-instance signup/email verification, authenticated
   SSR, session persistence, sign-out and sign-in. Uses Clerk's test-address flow
   (no real email), creates a unique fixture user and deletes it in `finally`.

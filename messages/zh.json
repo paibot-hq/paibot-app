@@ -312,7 +312,8 @@
         "invalid_url": "网址格式不正确。请输入以 http:// 或 https:// 开头的网址,或输入域名。",
         "blocked_host": "无法检测 localhost 或私有 IP 地址等内部地址。",
         "timeout": "10 秒内没有响应。",
-        "connection_failed": "无法连接。请检查域名、服务器状态和 SSL 证书。"
+        "connection_failed": "无法连接。请检查域名、服务器状态和 SSL 证书。",
+        "rate_limited": "短时间内请求过多,请等待约一分钟后再试(每分钟最多10次)。"
       }
     },
     "footer": {
@@ -360,7 +361,8 @@
         "unknown_tld": "该顶级域名(相当于 .com 或 .jp 的部分)不存在。",
         "no_server": "未找到该域名的WHOIS服务器。",
         "timeout": "WHOIS查询超时,请重试。",
-        "connection_failed": "无法连接到WHOIS服务器,请重试。"
+        "connection_failed": "无法连接到WHOIS服务器,请重试。",
+        "rate_limited": "短时间内请求过多,请等待约一分钟后再试(每分钟最多10次)。"
       },
       "availability": {
         "available": "{domain} 尚未被注册",

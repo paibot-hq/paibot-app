@@ -1,11 +1,13 @@
 import SiteCheck from '../components/site-check';
 import PublicHead from '../components/public-head';
-import { checkSite } from '../lib/site-check.server';
+import { checkSite, type SiteCheckResult } from '../lib/site-check.server';
+import { withinToolLimit } from '../lib/rate-limit.server';
 import { useLocale, useTranslations } from 'use-intl';
 import type { Route } from './+types/site-check';
 
 // checkSite never throws, so the action always returns data to render.
-export async function action({ request }: Route.ActionArgs) {
+export async function action({ request }: Route.ActionArgs): Promise<SiteCheckResult> {
+  if (!(await withinToolLimit(request, 'site-check'))) return { status: 'error', reason: 'rate_limited' };
   const form = await request.formData();
   return checkSite(String(form.get('url') ?? ''));
 }

@@ -22,7 +22,7 @@ export type SiteCheckResult =
       contentType?: string;
       server?: string;
     }
-  | { status: "error"; reason: "invalid_url" | "blocked_host" | "timeout" | "connection_failed" };
+  | { status: "error"; reason: "invalid_url" | "blocked_host" | "timeout" | "connection_failed" | "rate_limited" };
 
 const TOTAL_BUDGET_MS = 10_000;
 const MAX_REDIRECTS = 5;
