@@ -513,6 +513,57 @@
       "splitLabel": "Split",
       "totalLabel": "Total"
     },
+    "businessCard": {
+      "title": "Business Card Maker",
+      "description": "Type your name and contact details to design a business card, then save it as an image or print it. You can add a QR code with your contact details.",
+      "keywords": "business card maker free print QR code vCard template",
+      "intro": "Your card appears as you type. Pick a layout and color, then save it as an image or print ten on an A4 sheet.",
+      "privacy": "Nothing you enter is sent to a server. It is kept only in this browser, for next time.",
+      "previewLabel": "Business card preview",
+      "download": "Save image (PNG)",
+      "print": "Print (10 on A4)",
+      "printHint": "To get a PDF, choose “Save as PDF” in the print dialog. Cards are the Japanese standard 91 × 55 mm, laid out for A4 10-up card stock.",
+      "sampleHint": "Fill in the fields below and the sample turns into your card.",
+      "design": "Design",
+      "template": "Layout",
+      "templates": {
+        "simple": "Simple",
+        "stripe": "Stripe",
+        "center": "Centered"
+      },
+      "color": "Color",
+      "colors": {
+        "blue": "Blue",
+        "green": "Green",
+        "red": "Red",
+        "purple": "Purple",
+        "gray": "Gray"
+      },
+      "qr": "Add a QR code with my contact details (scan it with a phone to save the contact)",
+      "details": "On the card",
+      "fields": {
+        "name": "Name",
+        "reading": "Name reading or romanization",
+        "company": "Company or organization",
+        "title": "Department and title",
+        "phone": "Phone",
+        "email": "Email",
+        "website": "Website",
+        "address": "Address"
+      },
+      "sample": {
+        "name": "Alex Taylor",
+        "reading": "",
+        "company": "Sample Inc.",
+        "title": "Sales Manager",
+        "phone": "+1 555-0100",
+        "email": "alex@example.com",
+        "website": "https://example.com",
+        "address": "123 Main Street, Springfield"
+      },
+      "clear": "Clear",
+      "example": "e.g. {value}"
+    },
     "math": {
       "title": "Math",
       "description": "Practice arithmetic, factoring, and other math topics, one topic at a time.",

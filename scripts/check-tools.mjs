@@ -125,6 +125,15 @@ try {
   await main.getByRole('button', { name: 'Check', exact: true }).click();
   await result("Internal addresses such as localhost or private IP addresses can't be checked.");
   console.log('PASS: site check rejects invalid URLs and internal addresses (see check:site-check for real requests)');
+  await go('business-card');
+  await main.getByLabel('Name', { exact: true }).fill('Alex Taylor');
+  await page.waitForFunction(() => document.querySelector('main [role=img]')?.textContent?.includes('Alex Taylor'));
+  await main.getByRole('radio', { name: 'Stripe' }).click();
+  const [cardDownload] = await Promise.all([page.waitForEvent('download'), main.getByRole('button', { name: 'Save image (PNG)' }).click()]);
+  assert.equal(cardDownload.suggestedFilename(), 'business-card.png');
+  await page.reload();
+  await main.getByLabel('Name', { exact: true }).and(page.locator('[value="Alex Taylor"]')).waitFor();
+  console.log('PASS: business card previews typed details, saves a PNG and keeps the input after reload (see check-business-card for the vCard)');
   await go('cidr');
   const cidrValue = key => page.locator(`[data-cidr="${key}"] dd`).textContent();
   const cidrInput = main.getByLabel('IPv4 address and prefix length');
@@ -293,5 +302,5 @@ try {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.screenshot({ path: '/tmp/paibot-life-inline.png', fullPage: true });
   console.log('PASS: life calendar shows every week inline without an overview button');
-  console.log('PASS: all 18 tools, no uncaught JS errors');
+  console.log('PASS: all 19 tools, no uncaught JS errors');
 } finally { await browser.close(); }

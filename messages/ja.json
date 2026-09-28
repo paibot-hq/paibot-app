@@ -513,6 +513,57 @@
       "splitLabel": "区間",
       "totalLabel": "合計"
     },
+    "businessCard": {
+      "title": "名刺メーカー",
+      "description": "名前や連絡先を入れるだけで名刺をデザインし、画像で保存したり印刷したりできます。連絡先のQRコードも入れられます。",
+      "keywords": "名刺 作成 無料 印刷 QRコード vCard テンプレート",
+      "intro": "入力すると、その場で名刺ができあがります。デザインと色を選んで、画像で保存するか、A4用紙に10枚並べて印刷できます。",
+      "privacy": "入力した内容はサーバーに送られません。次に開いたときのために、この端末のブラウザにだけ保存されます。",
+      "previewLabel": "名刺のプレビュー",
+      "download": "画像で保存(PNG)",
+      "print": "印刷(A4に10枚)",
+      "printHint": "印刷画面で「PDFに保存」を選ぶとPDFにもできます。市販のA4・10面の名刺用紙(91×55mm)に合わせた配置です。",
+      "sampleHint": "下の欄に入力すると、見本があなたの名刺に変わります。",
+      "design": "デザイン",
+      "template": "レイアウト",
+      "templates": {
+        "simple": "シンプル",
+        "stripe": "帯入り",
+        "center": "中央ぞろえ"
+      },
+      "color": "色",
+      "colors": {
+        "blue": "青",
+        "green": "緑",
+        "red": "赤",
+        "purple": "紫",
+        "gray": "グレー"
+      },
+      "qr": "連絡先のQRコードを入れる(スマホで読み取ると連絡先に登録できます)",
+      "details": "名刺に載せる内容",
+      "fields": {
+        "name": "名前",
+        "reading": "ふりがな・ローマ字",
+        "company": "会社・団体名",
+        "title": "部署・肩書",
+        "phone": "電話番号",
+        "email": "メールアドレス",
+        "website": "Webサイト",
+        "address": "住所"
+      },
+      "sample": {
+        "name": "山田 花子",
+        "reading": "Hanako Yamada",
+        "company": "株式会社サンプル",
+        "title": "営業部 マネージャー",
+        "phone": "03-1234-5678",
+        "email": "hanako@example.com",
+        "website": "https://example.com",
+        "address": "東京都千代田区丸の内1-2-3"
+      },
+      "clear": "入力を消す",
+      "example": "例: {value}"
+    },
     "math": {
       "title": "数学",
       "description": "四則演算や因数分解などを、単元ごとに練習できます。",

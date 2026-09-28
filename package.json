@@ -56,6 +56,7 @@
     "drizzle-orm": "0.45.3",
     "isbot": "^5",
     "katex": "^0.18.7",
+    "qrcode-generator": "^2.0.4",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "react-router": "8.4.0",

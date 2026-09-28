@@ -55,6 +55,15 @@ function PulseIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function CardIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="3" y="6" width="18" height="12" rx="2" />
+      <path d="M6.5 10h6M6.5 13h4M15 12.5h3v3h-3z" />
+    </svg>
+  );
+}
+
 function WcIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -186,7 +195,7 @@ function MathIcon(props: SVGProps<SVGSVGElement>) {
 const APP_ICONS: Record<AppSlug, Icon> = {
   math: MathIcon, quiz: QuizIcon, arith: ArithIcon,
   json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon,
-  wc: WcIcon, password: PasswordIcon, stopwatch: StopwatchIcon,
+  wc: WcIcon, password: PasswordIcon, stopwatch: StopwatchIcon, "business-card": CardIcon,
   ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
   dice: DiceIcon, reaction: ReactionIcon, timing: TimingIcon,
   calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, diary: WcIcon, age: AgeIcon,

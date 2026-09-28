@@ -513,6 +513,57 @@
       "splitLabel": "区间",
       "totalLabel": "总计"
     },
+    "businessCard": {
+      "title": "名片制作",
+      "description": "输入姓名和联系方式即可设计名片,并保存为图片或打印。还可以加入包含联系方式的二维码。",
+      "keywords": "名片 制作 免费 打印 二维码 vCard 模板",
+      "intro": "边输入边生成名片。选择版式和颜色后,可以保存为图片,或在A4纸上排10张打印。",
+      "privacy": "输入的内容不会发送到服务器,只会保存在这台设备的浏览器中,方便下次使用。",
+      "previewLabel": "名片预览",
+      "download": "保存图片(PNG)",
+      "print": "打印(A4排10张)",
+      "printHint": "在打印对话框中选择「另存为PDF」即可得到PDF。名片为日本标准尺寸91×55毫米,按A4十格名片纸排版。",
+      "sampleHint": "在下方填写内容后,示例会变成你的名片。",
+      "design": "设计",
+      "template": "版式",
+      "templates": {
+        "simple": "简约",
+        "stripe": "色条",
+        "center": "居中"
+      },
+      "color": "颜色",
+      "colors": {
+        "blue": "蓝",
+        "green": "绿",
+        "red": "红",
+        "purple": "紫",
+        "gray": "灰"
+      },
+      "qr": "加入联系方式二维码(用手机扫描即可保存联系人)",
+      "details": "名片内容",
+      "fields": {
+        "name": "姓名",
+        "reading": "读音或拼音",
+        "company": "公司或机构",
+        "title": "部门和职务",
+        "phone": "电话",
+        "email": "邮箱",
+        "website": "网站",
+        "address": "地址"
+      },
+      "sample": {
+        "name": "李 明",
+        "reading": "Li Ming",
+        "company": "示例有限公司",
+        "title": "销售部 经理",
+        "phone": "010-1234-5678",
+        "email": "liming@example.com",
+        "website": "https://example.com",
+        "address": "北京市朝阳区示例路1号"
+      },
+      "clear": "清空",
+      "example": "例如:{value}"
+    },
     "math": {
       "title": "数学",
       "description": "按单元练习四则运算、因式分解等数学内容。",
