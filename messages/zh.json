@@ -619,6 +619,8 @@
         "signInToSave": "登录后可记录成绩。",
         "practice": "练习{number}",
         "chooseSet": "请选择要练习的题组。",
+        "backToUnit": "返回{unit}",
+        "chooseItem": "请选择要练习的项目。",
         "tierCount": "{tier} {count}题",
         "tierSeparator": "・"
       },

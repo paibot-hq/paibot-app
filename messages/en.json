@@ -619,6 +619,8 @@
         "signInToSave": "Sign in to keep a record of your scores.",
         "practice": "Practice {number}",
         "chooseSet": "Choose a set to practice.",
+        "backToUnit": "Back to {unit}",
+        "chooseItem": "Choose what to practice.",
         "tierCount": "{tier} {count}",
         "tierSeparator": ", "
       },

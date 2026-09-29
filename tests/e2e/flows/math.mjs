@@ -40,6 +40,15 @@ export default async function ({ page, main, base, go, errors }) {
 
   // An item's page lists its practice sets; a set opens its quiz, whose
   // "choose a different set" returns to the item's page.
+  // A unit's page lists its learning items; the top page links to both.
+  assert.ok(await link('/en/math/arith').isVisible());
+  await link('/en/math/arith').click();
+  await page.waitForURL(`${base}/en/math/arith`);
+  await main.getByRole('heading', { level: 1, name: 'Order of operations & word problems' }).waitFor();
+  assert.ok((await main.locator('ul a').evaluateAll(cards => cards.map(card => card.getAttribute('href')))).includes('/en/math/arith/order-of-operations'));
+  assert.equal(await page.title(), 'Order of operations & word problems | PAIBOT.app');
+  assert.equal((await page.goto(`${base}/en/math/nothing`)).status(), 404);
+  await go('math');
   await link('/en/math/arith/order-of-operations').click();
   await page.waitForURL(`${base}/en/math/arith/order-of-operations`);
   await main.getByRole('heading', { level: 1, name: 'Order of operations' }).waitFor();
@@ -61,6 +70,8 @@ export default async function ({ page, main, base, go, errors }) {
     await main.getByText(label, { exact: true }).last().waitFor();
     await main.getByText('1 / 5', { exact: true }).waitFor();
     assert.match(await main.locator('[data-tier]').innerText(), /^(Basic|Standard|Advanced)$/);
+    // From a problem, back to its unit's page as well as its practice sets.
+    assert.ok(await page.getByRole('link', { name: /^Back to / }).getAttribute('href').then(href => href === `/en/math/${item.split('/')[0]}`));
     await page.getByRole('link', { name: '← Choose a different set' }).click();
     await page.waitForURL(`${base}/en/math/${item}`);
   }
@@ -77,7 +88,7 @@ export default async function ({ page, main, base, go, errors }) {
   console.log('PASS: coming-soon sets show the preparation message; unknown items and sets are 404');
 
   // Former URLs land on the new pages.
-  for (const [from, to] of [['arith', '/ja/math'], ['units', '/ja/math'], ['level/middle', '/ja/math'],
+  for (const [from, to] of [['units', '/ja/math'], ['level/middle', '/ja/math'],
     ['arith/order-a', '/ja/math/arith/order-of-operations/1'], ['factorization/squares-a', '/ja/math/factorization/difference-of-squares/1'],
     ['factorization/trinomial-a', '/ja/math/factorization/trinomial/1'], ['fraction/add-sub-a', '/ja/math/fraction/add-sub/1']]) {
     await page.goto(`${base}/ja/math/${from}`);

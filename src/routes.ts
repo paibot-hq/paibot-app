@@ -22,8 +22,7 @@ export default [
     route('math', 'routes/math.tsx'),
     route('math/units', 'routes/math-redirect.ts', { id: 'math-redirect/units' }),
     route('math/level/:stage', 'routes/math-redirect.ts', { id: 'math-redirect/level' }),
-    // Units have no page of their own: /math lists every learning item.
-    route('math/:unit', 'routes/math-redirect.ts', { id: 'math-redirect/unit' }),
+    route('math/:unit', 'routes/math-unit.tsx'),
     route('math/:unit/:item', 'routes/math-item.tsx'),
     route('math/:unit/:item/:set', 'routes/math-quiz.tsx'),
     route('apps', 'routes/apps.tsx'),

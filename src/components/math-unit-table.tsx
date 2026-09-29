@@ -83,7 +83,7 @@ export default function MathUnitTable({ playable }: { playable: readonly string[
           {rows.map(({ unit, title, items }) => (
             <li key={unit.id} className={styles.row}>
               <div className={styles.rowHead}>
-                <h3 className={styles.title}>{title}</h3>
+                <h3 className={styles.title}><Link href={`/math/${unit.id}`}>{title}</Link></h3>
                 <span className={styles.badge}>{t(`stages.${unit.stage}`)}</span>
               </div>
               <ul className={styles.sets}>

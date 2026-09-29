@@ -22,10 +22,12 @@ export interface MathSetQuestion {
 // Render with key={setId} so moving between sets starts a fresh quiz.
 // A signed-in user's finished attempt is posted to the page's own route action
 // (see saveAttemptAction in lib/math-attempts.server.ts), which rescores it.
-export default function MathSetQuiz({ title, setLabel, questions, backHref }: {
+export default function MathSetQuiz({ title, setLabel, questions, backHref, unitHref }: {
   title: string; setLabel: string; questions: MathSetQuestion[];
   // The learning item's page, where its practice sets are chosen.
   backHref: string;
+  // The unit's page.
+  unitHref: string;
 }) {
   const t = useTranslations('App.math.quiz');
   const tm = useTranslations('App.math');
@@ -40,7 +42,7 @@ export default function MathSetQuiz({ title, setLabel, questions, backHref }: {
   const question = questions[index];
   const total = questions.length;
   const correctCount = answers.filter((answer, answerIndex) => answer === questions[answerIndex].answerIndex).length;
-  const backLink = <p className={styles.back}><Link href={backHref}>{`← ${t('backToSets')}`}</Link></p>;
+  const backLink = <p className={styles.back}><Link href={backHref}>{`← ${t('backToSets')}`}</Link><span aria-hidden="true">・</span><Link href={unitHref}>{t('backToUnit', { unit: title })}</Link></p>;
 
   function submit() {
     if (selected === null) return;

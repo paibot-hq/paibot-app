@@ -48,14 +48,15 @@ Math is organized unit → learning item → practice set, all in
 `messages/*.json`). Pages:
 - `/math` ("Math Drills", `routes/math.tsx` + `components/math-unit-table.tsx`):
   every unit with its learning items, filtered in the browser by level,
-  playability and name. Items with published problems in D1 are highlighted.
+  playability and name. Each unit's name links to its page and each item to its
+  own; items with published problems in D1 are highlighted.
+- `/math/<unit>` (`routes/math-unit.tsx`): the unit and its learning items.
 - `/math/<unit>/<item>` (`routes/math-item.tsx`): the item and its practice sets
-  (練習1, 2, ...) with a signed-in user's latest and best score. Units have no
-  page of their own (`/math/<unit>` 301s to `/math`); old set URLs
-  (`/math/<unit>/<set id>`) 301 to the new ones.
+  (練習1, 2, ...) with a signed-in user's latest and best score, and a way back
+  to the unit. Old set URLs (`/math/<unit>/<set id>`) 301 to the new ones.
 - `/math/<unit>/<item>/<set>` (`routes/math-quiz.tsx`): a five-problem,
-  four-choice quiz (`components/math-set-quiz.tsx`), whose back link returns to
-  the item. A set without published problems shows "being prepared".
+  four-choice quiz (`components/math-set-quiz.tsx`), which links back to the
+  item's sets and to the unit. A set without published problems shows "being prepared".
 
 A unit's `kind` says what shape its problems have, and so which payload, checker
 and display it uses (`components/math-questions.tsx`):
