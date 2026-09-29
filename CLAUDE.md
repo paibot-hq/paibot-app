@@ -45,7 +45,7 @@ a change to shared code runs every tool, as does every push to `main`.
 
 `/math` ("Math Drills") is the only math index: every unit and all of its sets
 on one page (`src/components/math-unit-table.tsx`), filtered in the browser by
-level, playability, name and (Japanese only) Suken grade (`src/lib/math-kentei.ts`).
+level, playability and name.
 Sets with published problems in D1 are highlighted, and a signed-in user's
 scores are shown. Units have no page of their own; former unit and entry URLs
 301 to `/math`. Sets are five-problem, four-choice quizzes served from D1: `/math/arith/:setId`

@@ -644,23 +644,15 @@
         "keywords": "数学 因数分解 クイズ 二次式",
         "setStandard": "二次三項式の因数分解",
         "setStandardDescription": "1から9までの整数で、基本の形に慣れます。",
-        "setWide": "二次三項式の因数分解（大きな数）",
-        "setWideDescription": "20までの大きい数や負の数が混ざります。",
         "setDifferenceOfSquares": "平方の差の因数分解",
         "setDifferenceOfSquaresDescription": "x² − a² の形だけを集めました。公式のパターンを覚えたいときに。",
         "explanationTemplate": "掛けて{b}、足して{a}になる2つの整数は{p}と{q}です。",
+        "setVarious": "たすき掛け・おきかえなど",
+        "setVariousDescription": "高校で学ぶ、たすき掛け、おきかえ、2つの文字を含む式、3乗の和と差の因数分解です。",
         "setCommonFactor": "共通因数のくくり出し",
         "setCommonFactorDescription": "各項に共通な因数をくくり出します。くくったあとに公式を使う式もあります。",
         "setPerfectSquare": "完全平方式の因数分解",
-        "setPerfectSquareDescription": "x² + 2ax + a² を (x + a)² の形にします。",
-        "setTwoVariables": "2つの文字を含む式の因数分解",
-        "setTwoVariablesDescription": "x² + 5xy + 6y² のように、文字が2つある式を因数分解します。",
-        "setAcMethod": "たすき掛け",
-        "setAcMethodDescription": "2x² + 7x + 3 のように、x² の係数が1でない式を因数分解します。",
-        "setSubstitution": "おきかえによる因数分解",
-        "setSubstitutionDescription": "式の一部を1つの文字におきかえてから因数分解します。",
-        "setCubes": "3乗の和と差の因数分解",
-        "setCubesDescription": "x³ − 8 のように、3乗の和と差の公式を使います。"
+        "setPerfectSquareDescription": "x² + 2ax + a² を (x + a)² の形にします。"
       },
       "signedLink": "正負の数",
       "signedSummary": "負の数をふくむ四則演算。符号のミスに気をつけて練習できます。",
@@ -1308,34 +1300,11 @@
         "explanationPrefix": "三平方の定理より、",
         "figureDescription": "直角三角形ABC。角{rightAngle}が直角。{first}は{firstLength} cm、{second}は{secondLength} cm、{unknown}はx。"
       },
-      "kentei": {
-        "note": "級と単元の対応は目安です。正式な出題範囲は日本数学検定協会の公式サイトで確認してください。当サイトは日本数学検定協会とは関係ありません。「数検」は公益財団法人日本数学検定協会の登録商標です。",
-        "official": "公式サイト",
-        "grades": {
-          "5": "5級",
-          "4": "4級",
-          "3": "3級",
-          "pre2": "準2級",
-          "2": "2級",
-          "pre1": "準1級",
-          "1": "1級"
-        },
-        "targets": {
-          "m1": "中学1年程度",
-          "m2": "中学2年程度",
-          "m3": "中学3年程度",
-          "h1": "高校1年程度",
-          "h2": "高校2年程度",
-          "h3": "高校3年程度",
-          "university": "大学程度"
-        }
-      },
       "unitList": {
         "filters": "絞り込み",
         "playableOnly": "遊べるセットだけ",
         "search": "単元・セットを検索",
         "empty": "条件に合う単元がありません。",
-        "kentei": "数検の級で絞り込む",
         "best": "最高 {best}/{total}"
       }
     },

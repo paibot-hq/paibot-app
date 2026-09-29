@@ -22,7 +22,6 @@ export default [
     route('math', 'routes/math.tsx'),
     route('math/units', 'routes/math-redirect.ts', { id: 'math-redirect/units' }),
     route('math/level/:stage', 'routes/math-redirect.ts', { id: 'math-redirect/level' }),
-    route('math/kentei', 'routes/math-redirect.ts', { id: 'math-redirect/kentei' }),
     route('math/pythagoras/:setId', 'routes/math-pythagoras.tsx'),
     route('math/factorization/:setId', 'routes/math-factorization.tsx'),
     route('math/signed/:setId', 'routes/math-signed.tsx'),

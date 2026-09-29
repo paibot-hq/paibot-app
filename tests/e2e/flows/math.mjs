@@ -6,7 +6,6 @@ export default async function ({ page, main, base, go, errors }) {
   // A missing translation renders its key (e.g. "App.math.pythagorasLink").
   await go('math');
   assert.ok(!(await main.textContent()).includes('App.math.'), 'no untranslated keys on the math page');
-  assert.equal(await main.getByRole('combobox').count(), 0, 'the Suken filter is Japanese only');
   assert.deepEqual(await main.getByRole('heading', { level: 2 }).allTextContents(), [
     'Number', 'Algebra', 'Functions', 'Geometry & measurement',
     'Statistics & probability', 'Sets & logic', 'Vectors & matrices', 'Calculus',
@@ -57,16 +56,10 @@ export default async function ({ page, main, base, go, errors }) {
   assert.deepEqual(errors, []);
   console.log('PASS: coming-soon sets show the preparation message');
 
-  // Former pages (unit set pickers, entry pages by area, level, grade) land on /math.
-  for (const path of ['arith', 'factorization', 'fraction', 'units', 'level/middle', 'kentei']) {
+  // Former pages (unit set pickers, entry pages by area and level) land on /math.
+  for (const path of ['arith', 'factorization', 'fraction', 'units', 'level/middle']) {
     await page.goto(`${base}/ja/math/${path}`);
     assert.equal(new URL(page.url()).pathname, '/ja/math', path);
   }
-  await page.waitForFunction(() => document.documentElement.dataset.theme);
-  await main.getByRole('combobox', { name: '数検の級で絞り込む' }).selectOption('3');
-  assert.ok(await chip('/ja/math/factorization/trinomial-a').isVisible());
-  assert.equal(await chip('/ja/math/arith/order-a').count(), 0, 'only units for grade 3');
-  await main.getByText('日本数学検定協会とは関係ありません', { exact: false }).waitFor();
-  assert.deepEqual(errors, []);
-  console.log('PASS: former pages redirect to /math, and the Japanese Suken filter lists a grade\'s units');
+  console.log('PASS: former pages redirect to /math');
 }

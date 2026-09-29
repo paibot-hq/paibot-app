@@ -644,23 +644,15 @@
         "keywords": "math factoring quiz quadratic",
         "setStandard": "Factoring trinomials",
         "setStandardDescription": "Integers from 1 to 9 - get comfortable with the basic form.",
-        "setWide": "Factoring trinomials (larger numbers)",
-        "setWideDescription": "Larger and negative numbers up to 20.",
         "setDifferenceOfSquares": "Difference of squares",
         "setDifferenceOfSquaresDescription": "Only the x² − a² form - good for learning to spot the pattern.",
         "explanationTemplate": "The two integers that multiply to {b} and add to {a} are {p} and {q}.",
+        "setVarious": "The ac method, substitution & more",
+        "setVariousDescription": "High-school factoring: the ac method, substitution, two variables, and sums and differences of cubes.",
         "setCommonFactor": "Factoring out common factors",
         "setCommonFactorDescription": "Take out the factor common to every term, sometimes followed by a formula.",
         "setPerfectSquare": "Perfect square trinomials",
-        "setPerfectSquareDescription": "Write x² + 2ax + a² as (x + a)².",
-        "setTwoVariables": "Factoring in two variables",
-        "setTwoVariablesDescription": "Factor expressions with two letters, such as x² + 5xy + 6y².",
-        "setAcMethod": "Factoring ax² + bx + c",
-        "setAcMethodDescription": "Factor quadratics whose x² coefficient is not 1, such as 2x² + 7x + 3.",
-        "setSubstitution": "Factoring by substitution",
-        "setSubstitutionDescription": "Replace part of an expression with a single letter, then factor.",
-        "setCubes": "Sum and difference of cubes",
-        "setCubesDescription": "Use the sum and difference of cubes formulas, as in x³ − 8."
+        "setPerfectSquareDescription": "Write x² + 2ax + a² as (x + a)²."
       },
       "signedLink": "Negative numbers",
       "signedSummary": "Arithmetic with negative numbers - practice keeping the signs right.",
@@ -1308,34 +1300,11 @@
         "explanationPrefix": "By the Pythagorean theorem,",
         "figureDescription": "Right triangle ABC. Angle {rightAngle} is a right angle. {first} is {firstLength} cm, {second} is {secondLength} cm, and {unknown} is x."
       },
-      "kentei": {
-        "note": "The grade-to-unit mapping is a guide; check the official ranges on the Mathematics Certification Institute of Japan's site. This site is not affiliated with the institute. \"Suken\" is a registered trademark of the Mathematics Certification Institute of Japan.",
-        "official": "Official site",
-        "grades": {
-          "5": "Grade 5",
-          "4": "Grade 4",
-          "3": "Grade 3",
-          "pre2": "Grade pre-2",
-          "2": "Grade 2",
-          "pre1": "Grade pre-1",
-          "1": "Grade 1"
-        },
-        "targets": {
-          "m1": "Junior high year 1",
-          "m2": "Junior high year 2",
-          "m3": "Junior high year 3",
-          "h1": "High school year 1",
-          "h2": "High school year 2",
-          "h3": "High school year 3",
-          "university": "University"
-        }
-      },
       "unitList": {
         "filters": "Filters",
         "playableOnly": "Playable sets only",
         "search": "Search units and sets",
         "empty": "No units match these filters.",
-        "kentei": "Filter by Suken grade",
         "best": "Best {best}/{total}"
       }
     },

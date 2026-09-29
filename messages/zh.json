@@ -644,23 +644,15 @@
         "keywords": "数学 因式分解 测验 二次式",
         "setStandard": "二次三项式的因式分解",
         "setStandardDescription": "1到9的整数，先熟悉基本形式。",
-        "setWide": "二次三项式的因式分解（较大的数）",
-        "setWideDescription": "包含到20的较大数字和负数。",
         "setDifferenceOfSquares": "平方差公式",
         "setDifferenceOfSquaresDescription": "只收录 x² − a² 形式，用来记住这个公式规律。",
         "explanationTemplate": "相乘为{b}、相加为{a}的两个整数是{p}和{q}。",
+        "setVarious": "十字相乘法、换元等",
+        "setVariousDescription": "高中阶段的十字相乘法、换元、含两个字母的式子以及立方和与立方差的因式分解。",
         "setCommonFactor": "提公因式",
         "setCommonFactorDescription": "提取各项的公因式，有时提取后还要再用公式。",
         "setPerfectSquare": "完全平方公式",
-        "setPerfectSquareDescription": "把 x² + 2ax + a² 写成 (x + a)² 的形式。",
-        "setTwoVariables": "含两个字母的因式分解",
-        "setTwoVariablesDescription": "分解像 x² + 5xy + 6y² 这样含两个字母的式子。",
-        "setAcMethod": "十字相乘法",
-        "setAcMethodDescription": "分解像 2x² + 7x + 3 这样二次项系数不为1的式子。",
-        "setSubstitution": "换元法",
-        "setSubstitutionDescription": "把式子的一部分换成一个字母后再分解。",
-        "setCubes": "立方和与立方差公式",
-        "setCubesDescription": "运用立方和与立方差公式，例如 x³ − 8。"
+        "setPerfectSquareDescription": "把 x² + 2ax + a² 写成 (x + a)² 的形式。"
       },
       "signedLink": "正负数",
       "signedSummary": "含有负数的四则运算，练习正确处理符号。",
@@ -1308,34 +1300,11 @@
         "explanationPrefix": "根据勾股定理，",
         "figureDescription": "直角三角形ABC。角{rightAngle}是直角。{first}为{firstLength} cm，{second}为{secondLength} cm，{unknown}为x。"
       },
-      "kentei": {
-        "note": "级别与单元的对应仅供参考，正式考试范围请查看日本数学检定协会官方网站。本站与该协会无关。“数検”是日本数学检定协会的注册商标。",
-        "official": "官方网站",
-        "grades": {
-          "5": "5级",
-          "4": "4级",
-          "3": "3级",
-          "pre2": "准2级",
-          "2": "2级",
-          "pre1": "准1级",
-          "1": "1级"
-        },
-        "targets": {
-          "m1": "初中1年级程度",
-          "m2": "初中2年级程度",
-          "m3": "初中3年级程度",
-          "h1": "高中1年级程度",
-          "h2": "高中2年级程度",
-          "h3": "高中3年级程度",
-          "university": "大学程度"
-        }
-      },
       "unitList": {
         "filters": "筛选",
         "playableOnly": "只看可练习的题组",
         "search": "搜索单元和题组",
         "empty": "没有符合条件的单元。",
-        "kentei": "按数检级别筛选",
         "best": "最高 {best}/{total}"
       }
     },

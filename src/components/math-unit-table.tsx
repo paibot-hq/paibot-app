@@ -1,9 +1,8 @@
 import { useState } from 'react';
-import { useLocale, useTranslations } from 'use-intl';
+import { useTranslations } from 'use-intl';
 import { Link } from '../i18n/navigation';
 import type { DynamicT } from '../lib/apps';
 import { MATH_CATALOG, MATH_DOMAINS, MATH_STAGES, type MathStage } from '../lib/math-catalog';
-import { KENTEI_GRADES, KENTEI_LOCALES, KENTEI_OFFICIAL_URL } from '../lib/math-kentei';
 import type { MathSetRecord } from '../lib/math-attempts';
 import { unitSets } from '../lib/math-unit-sets';
 import styles from './math-unit-table.module.css';
@@ -14,24 +13,20 @@ import styles from './math-unit-table.module.css';
 // client-side; the server renders the full list.
 export default function MathUnitTable({ playable, records }: { playable: readonly string[]; records: Record<string, MathSetRecord> }) {
   const tq = useTranslations('App.math.quiz');
-  const locale = useLocale();
   const t = useTranslations('App.math');
   const td = t as unknown as DynamicT;
   // Units added through the catalog keep their text under units.<id>; only
   // the first three units use <id>Link.
   const unitTitle = (id: string) => td(t.has(`units.${id}.title` as Parameters<typeof t.has>[0]) ? `units.${id}.title` : `${id}Link`);
   const [stage, setStage] = useState<MathStage | ''>('');
-  const [grade, setGrade] = useState('');
   const [playableOnly, setPlayableOnly] = useState(false);
   const [query, setQuery] = useState('');
-  const showKentei = (KENTEI_LOCALES as readonly string[]).includes(locale);
-  const gradeUnits = KENTEI_GRADES.find(g => g.id === grade)?.units;
   const q = query.trim().toLowerCase();
   const matches = (text: string) => !q || text.toLowerCase().includes(q);
 
   const sections = MATH_DOMAINS.map(domain => {
     const rows = MATH_STAGES.flatMap(s => MATH_CATALOG.filter(unit => unit.domain === domain && unit.stage === s))
-      .filter(unit => (!stage || unit.stage === stage) && (!gradeUnits || gradeUnits.includes(unit.id)))
+      .filter(unit => !stage || unit.stage === stage)
       .map(unit => {
         const title = unitTitle(unit.id);
         const sets = unitSets(unit).map(set => ({ ...set, label: td(set.labelKey), playable: playable.includes(`${unit.id}/${set.id}`) }))
@@ -49,10 +44,6 @@ export default function MathUnitTable({ playable, records }: { playable: readonl
           <li key={s}><button type="button" className={styles.chip} aria-pressed={stage === s} onClick={() => setStage(stage === s ? '' : s)}>{t(`stages.${s}`)}</button></li>
         ))}
       </ul>
-      {showKentei && <select className={styles.select} value={grade} onChange={event => setGrade(event.target.value)} aria-label={t('unitList.kentei')}>
-        <option value="">{t('unitList.kentei')}</option>
-        {KENTEI_GRADES.map(g => <option key={g.id} value={g.id}>{`${td(`kentei.grades.${g.id}`)}（${td(`kentei.targets.${g.target}`)}）`}</option>)}
-      </select>}
       <label className={styles.check}>
         <input type="checkbox" checked={playableOnly} onChange={event => setPlayableOnly(event.target.checked)} />
         {t('unitList.playableOnly')}
@@ -60,9 +51,6 @@ export default function MathUnitTable({ playable, records }: { playable: readonl
       <input type="search" className={styles.search} value={query} onChange={event => setQuery(event.target.value)}
         placeholder={t('unitList.search')} aria-label={t('unitList.search')} />
     </div>
-    {gradeUnits && <p className={styles.note}>
-      {t('kentei.note')} <a href={KENTEI_OFFICIAL_URL} rel="noopener noreferrer" target="_blank">{t('kentei.official')}</a>
-    </p>}
     {sections.length === 0 && <p className={styles.note}>{t('unitList.empty')}</p>}
     {sections.map(({ domain, rows }) => (
       <section key={domain} className={styles.domain} aria-labelledby={`math-domain-${domain}`}>

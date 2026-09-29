@@ -8,7 +8,6 @@ const trinomialKey = ([p, q]) => `${p + q},${p * q}`;
 const isRoot = n => Number.isInteger(n) && n !== 0;
 const RULES = {
   'trinomial-a': ([p, q]) => [p, q].every(n => Math.abs(n) <= 9) && p !== -q,
-  'trinomial-b': ([p, q]) => [p, q].every(n => Math.abs(n) <= 20) && Math.max(Math.abs(p), Math.abs(q)) >= 10 && p !== -q,
   'squares-a': ([p, q]) => q === -p && p >= 2 && p <= 12,
 };
 
