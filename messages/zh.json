@@ -647,8 +647,6 @@
         "setDifferenceOfSquares": "平方差公式",
         "setDifferenceOfSquaresDescription": "只收录 x² − a² 形式，用来记住这个公式规律。",
         "explanationTemplate": "相乘为{b}、相加为{a}的两个整数是{p}和{q}。",
-        "setVarious": "十字相乘法、换元等",
-        "setVariousDescription": "高中阶段的十字相乘法、换元、含两个字母的式子以及立方和与立方差的因式分解。",
         "setCommonFactor": "提公因式",
         "setCommonFactorDescription": "提取各项的公因式，有时提取后还要再用公式。",
         "setPerfectSquare": "完全平方公式",

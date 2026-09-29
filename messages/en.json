@@ -647,8 +647,6 @@
         "setDifferenceOfSquares": "Difference of squares",
         "setDifferenceOfSquaresDescription": "Only the x² − a² form - good for learning to spot the pattern.",
         "explanationTemplate": "The two integers that multiply to {b} and add to {a} are {p} and {q}.",
-        "setVarious": "The ac method, substitution & more",
-        "setVariousDescription": "High-school factoring: the ac method, substitution, two variables, and sums and differences of cubes.",
         "setCommonFactor": "Factoring out common factors",
         "setCommonFactorDescription": "Take out the factor common to every term, sometimes followed by a formula.",
         "setPerfectSquare": "Perfect square trinomials",

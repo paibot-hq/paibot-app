@@ -8,7 +8,6 @@ export const FACTORIZATION_SETS: readonly FactorizationSet[] = [
   { id: 'trinomial-a', rule: 'trinomial-a', item: 'factorization.trinomial', labelKey: 'setStandard', descriptionKey: 'setStandardDescription' },
   { id: 'perfect-square-a', item: 'factorization.perfect-square', labelKey: 'setPerfectSquare', descriptionKey: 'setPerfectSquareDescription' },
   { id: 'squares-a', rule: 'squares-a', item: 'factorization.difference-of-squares', labelKey: 'setDifferenceOfSquares', descriptionKey: 'setDifferenceOfSquaresDescription' },
-  { id: 'various-a', item: 'factorization.various', labelKey: 'setVarious', descriptionKey: 'setVariousDescription' },
 ];
 
 export function labelKeyForSet(setId: string): string | undefined {

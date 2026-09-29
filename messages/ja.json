@@ -647,8 +647,6 @@
         "setDifferenceOfSquares": "平方の差の因数分解",
         "setDifferenceOfSquaresDescription": "x² − a² の形だけを集めました。公式のパターンを覚えたいときに。",
         "explanationTemplate": "掛けて{b}、足して{a}になる2つの整数は{p}と{q}です。",
-        "setVarious": "たすき掛け・おきかえなど",
-        "setVariousDescription": "高校で学ぶ、たすき掛け、おきかえ、2つの文字を含む式、3乗の和と差の因数分解です。",
         "setCommonFactor": "共通因数のくくり出し",
         "setCommonFactorDescription": "各項に共通な因数をくくり出します。くくったあとに公式を使う式もあります。",
         "setPerfectSquare": "完全平方式の因数分解",
