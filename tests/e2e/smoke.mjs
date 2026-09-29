@@ -56,7 +56,7 @@ try {
   async function request(path, options) {
     return appFetch(base, path, options);
   }
-  const alternatesOf = path => [...pathLocales(path).map(l => [l, `${siteOrigin}/${l}${path}`]), ['x-default', `${siteOrigin}/ja${path}`]];
+  const alternatesOf = path => [...pathLocales(path).map(l => [l, `${siteOrigin}/${l}${path}`]), ['x-default', `${siteOrigin}${path || '/'}`]];
   let publicPages = 0;
   for (const locale of locales) {
     for (const path of paths) {

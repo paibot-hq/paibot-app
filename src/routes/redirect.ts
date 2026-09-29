@@ -7,7 +7,8 @@ import { getProfile } from '../lib/profile.server';
 
 // A locale-less URL goes to, in order: the signed-in profile's language, the
 // language last picked in the header menu (cookie), the browser's language,
-// then Japanese — also what crawlers get, matching hreflang's x-default.
+// then Japanese — also what crawlers get. These locale-less URLs are
+// hreflang's x-default (src/lib/seo.ts).
 // Only locale-less URLs are negotiated; /ja/... never redirects by language,
 // so crawlers reach every locale through hreflang and the sitemap.
 export async function loader(args: Route.LoaderArgs) {
