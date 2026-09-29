@@ -40,11 +40,12 @@ async function play(page, correct) {
   await page.waitForFunction(() => document.querySelector('main [role=status]')?.textContent?.trim());
   return (await status.textContent()).trim();
 }
+// The set's chip on /math: its full record is the tooltip, its best score the label.
 async function cardRecord(page) {
-  await page.goto(`${base}/en/math/arith`);
-  const card = page.locator('main a', { hasText: 'Addition & subtraction' });
-  await card.waitFor();
-  return (await card.textContent()).match(/Last .*$/)?.[0] ?? null;
+  await page.goto(`${base}/en/math`);
+  const chip = page.locator(`main a[href="/en/math/arith/${SET}"]`);
+  await chip.waitFor();
+  return chip.getAttribute('title');
 }
 
 try {
@@ -73,7 +74,8 @@ try {
   assert.equal(await play(page, 5), 'Your score has been saved.');
   assert.equal(await play(page, 1), 'Your score has been saved.');
   assert.equal(await cardRecord(page), 'Last 1 / 5 · Best 5 / 5');
-  console.log('PASS: finished sets are saved; cards show the latest and the best score');
+  assert.match(await page.locator(`main a[href="/en/math/arith/${SET}"]`).textContent(), /Best 5\/5$/);
+  console.log('PASS: finished sets are saved; the set list shows the latest and the best score');
 
   // The server rescores and refuses anything that is not an attempt at the set as served.
   const url = `${base}/en/math/arith/${SET}.data`;
@@ -87,10 +89,10 @@ try {
   assert.equal(await cardRecord(page), 'Last 1 / 5 · Best 5 / 5', 'refused posts change nothing');
   console.log('PASS: stale problem ids, out-of-range answers and cross-origin posts are refused');
 
-  const response = await page.request.get(`${base}/en/math/arith`);
+  const response = await page.request.get(`${base}/en/math`);
   assert.equal(response.headers()['cache-control'], 'private, no-store');
   assert.deepEqual(errors, []);
-  console.log('PASS: unit pages are private, no-store; no browser errors');
+  console.log('PASS: the set list is private, no-store; no browser errors');
 } finally {
   await browser.close();
   if (userId) {

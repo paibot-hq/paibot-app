@@ -606,7 +606,6 @@
       "factorizationLink": "因式分解",
       "factorizationSummary": "把 x² + ax + b 分解成 (x + p)(x + q) 的形式，练习二次式的因式分解。",
       "quiz": {
-        "chooseSet": "请选择要挑战的题组。",
         "setComingSoon": "此题组正在准备中，请稍候。",
         "backToMath": "数学练习",
         "backToSets": "重新选择题组",
@@ -1311,7 +1310,8 @@
         "playableOnly": "只看可练习的题组",
         "search": "搜索单元和题组",
         "empty": "没有符合条件的单元。",
-        "kentei": "按数检级别筛选"
+        "kentei": "按数检级别筛选",
+        "best": "最高 {best}/{total}"
       }
     },
     "about": {

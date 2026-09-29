@@ -606,7 +606,6 @@
       "factorizationLink": "因数分解",
       "factorizationSummary": "x² + ax + b を (x + p)(x + q) の形に分解します。二次式の因数分解の練習に。",
       "quiz": {
-        "chooseSet": "挑戦する問題セットを選んでください。",
         "setComingSoon": "この問題セットは準備中です。もうしばらくお待ちください。",
         "backToMath": "数学ドリル",
         "backToSets": "問題セットを選び直す",
@@ -1311,7 +1310,8 @@
         "playableOnly": "遊べるセットだけ",
         "search": "単元・セットを検索",
         "empty": "条件に合う単元がありません。",
-        "kentei": "数検の級で絞り込む"
+        "kentei": "数検の級で絞り込む",
+        "best": "最高 {best}/{total}"
       }
     },
     "about": {

@@ -606,7 +606,6 @@
       "factorizationLink": "Factoring",
       "factorizationSummary": "Factor x² + ax + b into the form (x + p)(x + q). Practice for factoring quadratics.",
       "quiz": {
-        "chooseSet": "Choose a problem set to try.",
         "setComingSoon": "This problem set is being prepared. Check back soon.",
         "backToMath": "Math Drills",
         "backToSets": "Choose a different set",
@@ -1311,7 +1310,8 @@
         "playableOnly": "Playable sets only",
         "search": "Search units and sets",
         "empty": "No units match these filters.",
-        "kentei": "Filter by Suken grade"
+        "kentei": "Filter by Suken grade",
+        "best": "Best {best}/{total}"
       }
     },
     "about": {

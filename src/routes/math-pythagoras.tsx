@@ -48,6 +48,6 @@ export default function MathPythagoras({ loaderData }: Route.ComponentProps) {
   })), [problems, t]);
 
   return <><PublicHead locale={locale} path={`/math/pythagoras/${setId}`} title={`${t('title')} - ${setLabel} | PAIBOT.app`} description={t('description')} />
-    <MathSetQuiz key={setId} title={t('title')} setLabel={setLabel} backHref="/math/pythagoras" questions={questions} />
+    <MathSetQuiz key={setId} title={t('title')} setLabel={setLabel} questions={questions} />
   </>;
 }

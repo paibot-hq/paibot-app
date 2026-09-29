@@ -4,13 +4,16 @@ import { Link } from '../i18n/navigation';
 import type { DynamicT } from '../lib/apps';
 import { MATH_CATALOG, MATH_DOMAINS, MATH_STAGES, type MathStage } from '../lib/math-catalog';
 import { KENTEI_GRADES, KENTEI_LOCALES, KENTEI_OFFICIAL_URL } from '../lib/math-kentei';
+import type { MathSetRecord } from '../lib/math-attempts';
 import { unitSets } from '../lib/math-unit-sets';
 import styles from './math-unit-table.module.css';
 
 // Every unit with all of its sets, grouped by area of mathematics. `playable`
-// lists "unit/setId" of the sets with published problems. The filters are
+// lists "unit/setId" of the sets with published problems; `records` holds a
+// signed-in user's scores by the same key. The filters are
 // client-side; the server renders the full list.
-export default function MathUnitTable({ playable }: { playable: readonly string[] }) {
+export default function MathUnitTable({ playable, records }: { playable: readonly string[]; records: Record<string, MathSetRecord> }) {
+  const tq = useTranslations('App.math.quiz');
   const locale = useLocale();
   const t = useTranslations('App.math');
   const td = t as unknown as DynamicT;
@@ -71,17 +74,20 @@ export default function MathUnitTable({ playable }: { playable: readonly string[
           {rows.map(({ unit, title, sets }) => (
             <li key={unit.id} className={styles.row}>
               <div className={styles.rowHead}>
-                <Link href={`/math/${unit.id}`} className={styles.title}>{title}</Link>
+                <h3 className={styles.title}>{title}</h3>
                 <span className={styles.badge}>{t(`stages.${unit.stage}`)}</span>
               </div>
               <ul className={styles.sets}>
-                {sets.map(set => (
-                  <li key={set.id}>
-                    <Link href={`/math/${unit.id}/${set.id}`} className={styles.set} data-playable={set.playable || undefined}>
+                {sets.map(set => {
+                  const record = records[`${unit.id}/${set.id}`];
+                  return <li key={set.id}>
+                    <Link href={`/math/${unit.id}/${set.id}`} className={styles.set} data-playable={set.playable || undefined}
+                      title={record ? tq('record', { last: record.last, best: record.best, total: record.total }) : undefined}>
                       {set.label}{!set.playable && <span className={styles.srOnly}> ({t('comingSoon')})</span>}
+                      {record && <span className={styles.record}>{t('unitList.best', { best: record.best, total: record.total })}</span>}
                     </Link>
-                  </li>
-                ))}
+                  </li>;
+                })}
               </ul>
             </li>
           ))}
