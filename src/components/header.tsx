@@ -6,6 +6,7 @@ import { Link } from "../i18n/navigation";
 import { Show, UserButton } from "@clerk/react-router";
 import { useProfileData } from "../routes/locale";
 import { type Locale } from "../i18n/routing";
+import { LOCALE_COOKIE } from "../i18n/negotiate";
 import { useTranslations, useLocale } from "use-intl";
 import { usePathname } from "../i18n/navigation";
 import { usePreferences } from "./providers";
@@ -19,9 +20,11 @@ export default function Header() {
   const { resolvedTheme, toggleTheme } = usePreferences();
   const { signedIn } = useProfileData();
   const saveLanguage = useFetcher();
-  // The switch itself is the setting, so remember it. The page navigates
-  // immediately either way; this just rides along.
+  // The switch itself is the setting, so remember it: a cookie for the
+  // locale-less redirect (routes/redirect.ts), and the profile when signed
+  // in. The page navigates immediately either way; this just rides along.
   const chooseLanguage = (value: Locale) => {
+    document.cookie = `${LOCALE_COOKIE}=${value}; Path=/; Max-Age=31536000; SameSite=Lax; Secure`;
     if (signedIn && value !== language) saveLanguage.submit({ intent: "locale", value }, { method: "post", action: `/${language}/profile` });
   };
   const [menuOpen, setMenuOpen] = useState(false);

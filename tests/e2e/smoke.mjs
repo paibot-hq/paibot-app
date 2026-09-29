@@ -104,6 +104,23 @@ try {
     assert.equal(res.status, 307, `${path}: locale redirect`);
     assert.equal(res.headers.get('location'), `/ja${path === '/' ? '' : path}${query}`);
   }
+  // Signed out, a locale-less URL follows the language picked in the menu
+  // (cookie), then the browser's language; no header (crawlers) means ja.
+  for (const [headers, expected] of [
+    [{ 'Accept-Language': 'en-US,en;q=0.9,ja;q=0.8' }, 'en'],
+    [{ 'Accept-Language': 'zh-TW,zh;q=0.9' }, 'zh'],
+    [{ 'Accept-Language': 'fr-FR,fr;q=0.9' }, 'ja'],
+    [{ 'Accept-Language': 'en-US', Cookie: 'locale=zh' }, 'zh'],
+  ]) {
+    const res = await request('/json?x=1', { redirect: 'manual', headers });
+    assert.equal(res.status, 307);
+    assert.equal(res.headers.get('location'), `/${expected}/json?x=1`, JSON.stringify(headers));
+    assert.match(res.headers.get('vary') ?? '', /Accept-Language/);
+  }
+  // Locale URLs never redirect by language, so crawlers can reach every one.
+  const pinned = await request('/ja/json', { redirect: 'manual', headers: { 'Accept-Language': 'en' } });
+  assert.equal(pinned.status, 200);
+  await pinned.body?.cancel();
   for (const path of ['/invalid/wc', '/ja/missing', '/api/missing', '/missing']) {
     const res = await request(path, { redirect: 'manual' });
     assert.equal(res.status, 404, path);
@@ -136,7 +153,7 @@ try {
     alternates: alternatesOf(path),
   }))));
   await parser.close();
-  console.log('PASS: locale redirects preserve queries, 404s, robots and sitemap');
+  console.log('PASS: locale redirects preserve queries and follow the language cookie and Accept-Language; 404s, robots and sitemap');
 
   if (process.env.CHECK_SSR_ONLY === 'true') process.exitCode = 0;
   else {
@@ -211,6 +228,8 @@ try {
   await page.getByRole('menuitem', { name: 'English', exact: true }).click();
   await page.waitForURL(`${base}/en/wc`);
   await page.waitForFunction(() => document.documentElement.lang === 'en');
+  // Remembered for locale-less URLs (see the redirect checks above).
+  assert.equal((await page.context().cookies()).find(cookie => cookie.name === 'locale')?.value, 'en');
   assert.equal(await page.locator('title').count(), 1);
   assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), `${siteOrigin}/en/wc`);
   const beforeTheme = await page.locator('html').getAttribute('data-theme');
