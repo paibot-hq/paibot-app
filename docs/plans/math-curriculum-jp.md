@@ -298,8 +298,8 @@
 
 | 領域 | 学習項目 | 状態 | キー |
 | --- | --- | --- | --- |
-| 関数・変化と関係 | 数列 / 等差数列 | B | `sequence/arithmetic` |
-| 関数・変化と関係 | 数列 / 等比数列 | B | `sequence/geometric` |
+| 関数・変化と関係 | 数列 / 等差数列 | ✅ | `sequence/arithmetic` |
+| 関数・変化と関係 | 数列 / 等比数列 | ✅ | `sequence/geometric` |
 | 関数・変化と関係 | 数列 / Σ の計算 | ✅ | `sequence/sigma` |
 | 関数・変化と関係 | 数列 / 漸化式 | B | `sequence/recurrence` |
 | 関数・変化と関係 | 数列 / 数学的帰納法 | C | `sequence/induction` |

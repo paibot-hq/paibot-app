@@ -53,6 +53,12 @@ assert.deepEqual(formulaInstruction(tangent), { key: 'tangent', tex: { given: 'x
 assert.deepEqual(formulaInstruction({ kind: 'remainder', question: 'x^3 + 1', given: null, divisor: 'x - 2', choices: [] }), { key: 'remainder', tex: { divisor: 'x - 2' } });
 assert.deepEqual(formulaInstruction({ kind: 'extremum', question: 'x^3 - 3*x', given: null, which: 'max', choices: [] }), { key: 'extremumMax', tex: {} });
 for (const tex of [formulaQuestionTex(integral), formulaQuestionTex(area)]) katex.renderToString(tex, { throwOnError: true });
+const term = { kind: 'term', progression: 'geometric', question: '3, 6, 12', given: null, choices: ['3*2^(n - 1)'] };
+assert.equal(formulaQuestionTex(term), '3,\\ 6,\\ 12,\\ \\ldots');
+assert.equal(formulaChoiceTex(term, term.choices[0]), '3 \\cdot 2^{n - 1}');
+assert.deepEqual(formulaInstruction(term), { key: 'geometricTerm', tex: { an: 'a_n' } });
+assert.deepEqual(formulaInstruction({ ...term, kind: 'series', progression: 'arithmetic', given: 'n = 10' }), { key: 'arithmeticSumAt', tex: { n: '10' } });
+assert.deepEqual(formulaInstruction({ ...term, kind: 'series', given: null }), { key: 'geometricSum', tex: { n: 'n', sn: 'S_n' } });
 for (const bad of ['sin(1, 2)', 'sum(k, 2, 1, 3)', 'log(8)', '2i']) assert.throws(() => parseExpression(bad), bad);
 for (const bad of ['2x', '__import__(1)', '1 +', '2 ** 3', 'π']) assert.throws(() => parseExpression(bad), bad);
 console.log('PASS: formula grammar renders school-style TeX and rejects anything else');

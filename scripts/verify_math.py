@@ -267,6 +267,37 @@ def area_between(curves, low, high):
     return sum(abs(integrate(difference, (x, a, b))) for a, b in zip(edges, edges[1:]))
 
 
+def progression(problem):
+    """The term (or sum of the first n terms) of the sequence the first terms start:
+    at `given` (n = 10), or as an expression in n."""
+    terms = [parse_formula(part) for part in split_top(problem['question'], ',')]
+    if len(terms) < 3:
+        raise ValueError('expected at least three first terms')
+    n = LETTERS['n']
+    first = terms[0]
+    if problem.get('progression') == 'arithmetic':
+        d = terms[1] - first
+        if any(simplify(b - a - d) != 0 for a, b in zip(terms, terms[1:])):
+            raise ValueError(f'{problem["question"]!r} is not arithmetic')
+        general, total = first + (n - 1) * d, n * (2 * first + (n - 1) * d) / 2
+    elif problem.get('progression') == 'geometric':
+        if first == 0:
+            raise ValueError('a geometric sequence cannot start with 0')
+        r = simplify(terms[1] / first)
+        if r in (0, 1) or any(simplify(b - a * r) != 0 for a, b in zip(terms, terms[1:])):
+            raise ValueError(f'{problem["question"]!r} is not geometric (ratio other than 0 and 1)')
+        general, total = first * r ** (n - 1), first * (r ** n - 1) / (r - 1)
+    else:
+        raise ValueError('progression must be "arithmetic" or "geometric"')
+    value = general if problem['kind'] == 'term' else total
+    if problem.get('given'):
+        found = assignments(problem['given'])
+        if list(found) != [n] or not (found[n].is_Integer and found[n] >= 1):
+            raise ValueError('given must be "n = <positive integer>"')
+        return value.subs(found)
+    return value
+
+
 def formula(problem):
     kind, question, choices = problem['kind'], problem['question'], problem['choices']
     keyed = problem['answerIndex']
@@ -324,6 +355,8 @@ def formula(problem):
     if kind == 'area':
         low, high = bounds(problem)
         return area_between([parse_formula(part) for part in question.split(';')], low, high), parsed
+    if kind in ('term', 'series'):
+        return progression(problem), parsed
     raise ValueError(f'unknown kind {kind!r}')
 
 

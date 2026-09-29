@@ -34,7 +34,10 @@
 //   extremum   the local maximum or minimum value (`which`)
 //   integral   the indefinite integral (no constant), or the definite one over `bounds`
 //   area       the area between y = question (or "f; g", two curves) and the x-axis over `bounds`
-export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area';
+//   term       a `progression` given by its first terms ("3, 7, 11"): the term at
+//              `given` (n = 10), or with no `given` the general term, an expression in n
+//   series     the same, but the sum of the first n terms (at `given`, or S_n in n)
+export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series';
 
 export interface FormulaPayload {
   kind: FormulaKind;
@@ -47,6 +50,8 @@ export interface FormulaPayload {
   bounds?: string;
   // extremum: which one.
   which?: 'max' | 'min';
+  // term/series: what kind of sequence the first terms in `question` start.
+  progression?: 'arithmetic' | 'geometric';
   // Expressions; for solve the solution, comma-separated values of the one
   // unknown ("-2, 5") or assignments ("x = 1, y = 2"); for tangent "y = ...".
   choices: string[];
@@ -188,6 +193,7 @@ export function toTex(node: Node): string {
       if (node.op === '*' && node.right.type === 'bin' && node.right.op === '/' && !hasFraction(node.left)) {
         return toTex({ type: 'bin', op: '/', left: { type: 'bin', op: '*', left: node.left, right: node.right.left }, right: node.right.right });
       }
+      if (node.op === '*' && node.right.type === 'pow' && node.right.base.type === 'num' && node.right.exp.type !== 'num') return `${left} \\cdot ${right}`;
       if (node.op === '*') return startsWithNumber(node.right) ? `${left} \\times ${right}` : `${left}${right}`;
       return `${left} ${node.op} ${right}`;
     }
@@ -241,6 +247,7 @@ export function formulaQuestionTex(p: Pick<FormulaPayload, 'kind' | 'question' |
     }
     case 'area': return p.question.split(';').map(curve => `y = ${expressionTex(curve)}`).join(',\\ ');
     case 'derivative': case 'tangent': case 'extremum': return `y = ${expressionTex(p.question)}`;
+    case 'term': case 'series': return `${splitTop(p.question, ',').map(expressionTex).join(',\\ ')},\\ \\ldots`;
     default: return expressionTex(p.question);
   }
 }
@@ -259,6 +266,12 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
     case 'area': {
       const [a, b] = splitTop(p.bounds ?? '0, 1', ',').map(expressionTex);
       return { key: p.question.includes(';') ? 'areaCurves' : 'areaAxis', tex: { a: `x = ${a}`, b: `x = ${b}` } };
+    }
+    case 'term': case 'series': {
+      const kind = p.kind === 'term' ? 'Term' : 'Sum';
+      const n = p.given ? expressionTex(p.given.split('=')[1]) : 'n';
+      if (p.given) return { key: `${p.progression}${kind}At`, tex: { n } };
+      return { key: `${p.progression}${kind}`, tex: p.kind === 'term' ? { an: 'a_n' } : { n, sn: 'S_n' } };
     }
     default: return { key: p.kind, tex: {} };
   }

@@ -1963,7 +1963,15 @@
         "indefinite": "次の不定積分を求めなさい（積分定数は省略）。",
         "definite": "次の定積分を求めなさい。",
         "areaAxis": "次の曲線と x 軸、直線 <a></a>、<b></b> で囲まれた部分の面積を求めなさい。",
-        "areaCurves": "次の2つの曲線と直線 <a></a>、<b></b> で囲まれた部分の面積を求めなさい。"
+        "areaCurves": "次の2つの曲線と直線 <a></a>、<b></b> で囲まれた部分の面積を求めなさい。",
+        "arithmeticTermAt": "次の等差数列の第 <n></n> 項を求めなさい。",
+        "arithmeticTerm": "次の等差数列の一般項 <an></an> を求めなさい。",
+        "arithmeticSumAt": "次の等差数列の初項から第 <n></n> 項までの和を求めなさい。",
+        "arithmeticSum": "次の等差数列の初項から第 <n></n> 項までの和 <sn></sn> を求めなさい。",
+        "geometricTermAt": "次の等比数列の第 <n></n> 項を求めなさい。",
+        "geometricTerm": "次の等比数列の一般項 <an></an> を求めなさい。",
+        "geometricSumAt": "次の等比数列の初項から第 <n></n> 項までの和を求めなさい。",
+        "geometricSum": "次の等比数列の初項から第 <n></n> 項までの和 <sn></sn> を求めなさい。"
       },
       "grades": {
         "e1": "小1",

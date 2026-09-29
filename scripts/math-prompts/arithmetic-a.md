@@ -1,0 +1,1 @@
+等差数列（kind "term" と "series"、progression "arithmetic"）。5問を 第 n 項の値（term, given "n = 10" など）2問、一般項 a_n（term, given null）1問、和の値（series, given あり）1問、和 S_n（series, given null）1問 にする。初項・公差は負の数や分数も混ぜる。誤答は n と n - 1 の取り違え、公差の符号、和の公式の 1/2 の忘れなどから作る。

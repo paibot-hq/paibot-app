@@ -1963,7 +1963,15 @@
         "indefinite": "Find the indefinite integral (omit the constant).",
         "definite": "Evaluate the definite integral.",
         "areaAxis": "Find the area enclosed by the curve, the x-axis and the lines <a></a> and <b></b>.",
-        "areaCurves": "Find the area enclosed by the two curves and the lines <a></a> and <b></b>."
+        "areaCurves": "Find the area enclosed by the two curves and the lines <a></a> and <b></b>.",
+        "arithmeticTermAt": "Find term <n></n> of the arithmetic sequence below.",
+        "arithmeticTerm": "Find the general term <an></an> of the arithmetic sequence below.",
+        "arithmeticSumAt": "Find the sum of the first <n></n> terms of the arithmetic sequence below.",
+        "arithmeticSum": "Find the sum <sn></sn> of the first <n></n> terms of the arithmetic sequence below.",
+        "geometricTermAt": "Find term <n></n> of the geometric sequence below.",
+        "geometricTerm": "Find the general term <an></an> of the geometric sequence below.",
+        "geometricSumAt": "Find the sum of the first <n></n> terms of the geometric sequence below.",
+        "geometricSum": "Find the sum <sn></sn> of the first <n></n> terms of the geometric sequence below."
       },
       "grades": {
         "e1": "Elementary 1",

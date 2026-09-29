@@ -89,6 +89,8 @@ const RULES = {
   'definite-a': ['integral', (s, p) => s.letters.size === 1 && !s.calls.size && !!p.bounds],
   'area-a': ['area', (s, p) => s.letters.size === 1 && !s.calls.size && !!p.bounds],
   'sigma-a': ['calc', s => s.calls.has('sum')],
+  'arithmetic-a': [['term', 'series'], (s, p) => p.progression === 'arithmetic' && !s.letters.size && !s.calls.size],
+  'geometric-a': [['term', 'series'], (s, p) => p.progression === 'geometric' && !s.letters.size && !s.calls.size],
 };
 
 // A choice parses in the kind's format: an expression; for solve the values
@@ -125,11 +127,11 @@ export function validateBank(bank, catalog) {
     assert.match(problem.reviewedAt, /^\d{4}-\d{2}-\d{2}$/);
     assert.equal(new Date(problem.reviewedAt).toISOString().slice(0, 10), problem.reviewedAt);
     const [ruleKind, fits] = RULES[set.rule];
-    assert.equal(kind, ruleKind, `${id}: kind`);
+    assert.ok([ruleKind].flat().includes(kind), `${id}: kind`);
     assert.ok(typeof question === 'string' && question.length <= 200, `${id}: question`);
     const key = `${question.replaceAll(' ', '')}|${given ?? ''}`;
     assert.ok(!questions.has(key), `${id}: duplicate question`); questions.add(key);
-    assert.ok(given === null || (['calc', 'derivative', 'tangent'].includes(kind) && typeof given === 'string'), `${id}: given`);
+    assert.ok(given === null || (['calc', 'derivative', 'tangent', 'term', 'series'].includes(kind) && typeof given === 'string'), `${id}: given`);
     if (given) for (const pair of splitTop(given, ',')) { assert.match(pair, /^\s*[a-z]\s*=/, `${id}: given`); parseExpression(pair.split('=')[1]); }
     // Fields only some kinds have.
     assert.ok((kind === 'remainder') === (problem.divisor !== undefined), `${id}: divisor is for remainder`);
@@ -138,7 +140,10 @@ export function validateBank(bank, catalog) {
     if (kind === 'area') assert.ok(problem.bounds, `${id}: area needs bounds`);
     if (problem.bounds !== undefined) { const parts = splitTop(problem.bounds, ','); assert.equal(parts.length, 2, `${id}: bounds "a, b"`); parts.forEach(part => parseExpression(part)); }
     assert.ok((kind === 'extremum') === (problem.which !== undefined), `${id}: which is for extremum`);
-    const s = stats(kind === 'area' ? question.replace(';', '+') : question);
+    const sequence = ['term', 'series'].includes(kind);
+    assert.ok(sequence === (problem.progression !== undefined), `${id}: progression is for term and series`);
+    if (sequence) { assert.ok(splitTop(question, ',').length >= 3, `${id}: at least three first terms`); if (given) assert.match(given, /^\s*n\s*=\s*\d+\s*$/, `${id}: given "n = 10"`); }
+    const s = stats(kind === 'area' ? question.replace(';', '+') : sequence ? splitTop(question, ',').join(' + ') : question);
     assert.ok(kind === 'solve' ? s.equations >= 1 : s.equations === 0, `${id}: equations`);
     assert.ok(fits(s, problem), `${id}: "${question}" does not fit set ${setId}`);
     assert.ok(Array.isArray(choices) && choices.length === 4, `${id}: four choices`);

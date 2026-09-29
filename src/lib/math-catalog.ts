@@ -244,8 +244,8 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'max-min', sets: [{ id: '1' }] },
   ] },
   { id: 'sequence', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
-    { id: 'arithmetic', sets: [{ id: '1' }] },
-    { id: 'geometric', sets: [{ id: '1' }] },
+    { id: 'arithmetic', sets: [{ id: '1', rule: 'arithmetic-a' }] },
+    { id: 'geometric', sets: [{ id: '1', rule: 'geometric-a' }] },
     { id: 'sigma', sets: [{ id: '1', rule: 'sigma-a' }] },
     { id: 'recurrence', sets: [{ id: '1' }] },
     { id: 'induction', sets: [{ id: '1' }] },

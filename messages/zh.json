@@ -1963,7 +1963,15 @@
         "indefinite": "求下列不定积分（省略积分常数）。",
         "definite": "求下列定积分。",
         "areaAxis": "求曲线与 x 轴及直线 <a></a>、<b></b> 所围成部分的面积。",
-        "areaCurves": "求两条曲线与直线 <a></a>、<b></b> 所围成部分的面积。"
+        "areaCurves": "求两条曲线与直线 <a></a>、<b></b> 所围成部分的面积。",
+        "arithmeticTermAt": "求下列等差数列的第 <n></n> 项。",
+        "arithmeticTerm": "求下列等差数列的通项 <an></an>。",
+        "arithmeticSumAt": "求下列等差数列前 <n></n> 项的和。",
+        "arithmeticSum": "求下列等差数列前 <n></n> 项的和 <sn></sn>。",
+        "geometricTermAt": "求下列等比数列的第 <n></n> 项。",
+        "geometricTerm": "求下列等比数列的通项 <an></an>。",
+        "geometricSumAt": "求下列等比数列前 <n></n> 项的和。",
+        "geometricSum": "求下列等比数列前 <n></n> 项的和 <sn></sn>。"
       },
       "grades": {
         "e1": "小学1年级",

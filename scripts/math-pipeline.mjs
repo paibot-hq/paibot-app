@@ -60,7 +60,7 @@ export function additions(unit, item, setId, bank, generated, count, date = new 
     id: `${unit}-${String(maxId + index + 1).padStart(3, '0')}`, item, setId,
     position: maxPosition + index + 1, tier, published: false, reviewedAt: date,
     ...(unit === 'pythagoras' ? { figure: p.figure } : unit === 'factorization' ? { p: p.p, q: p.q }
-      : isFormulaUnit(unit) ? { kind: p.kind, question: p.question, given: p.given ?? null, ...(p.divisor && { divisor: p.divisor }), ...(p.bounds && { bounds: p.bounds }), ...(p.which && { which: p.which }) }
+      : isFormulaUnit(unit) ? { kind: p.kind, question: p.question, given: p.given ?? null, ...(p.divisor && { divisor: p.divisor }), ...(p.bounds && { bounds: p.bounds }), ...(p.which && { which: p.which }), ...(p.progression && { progression: p.progression }) }
       : { expression: p.expression, word: p.word }),
     choices: p.choices, answerIndex: p.answerIndex,
   }));
@@ -102,7 +102,7 @@ export function blindProblem(unit, p) {
   if (isFormulaUnit(unit)) return {
     id: p.id, type: 'formula', kind: p.kind, instruction: instructionJa(p),
     question: formulaQuestionTex(p), given: p.given && solutionTex(p.given, 'x'),
-    ...(p.divisor && { divisor: p.divisor }), ...(p.bounds && { bounds: p.bounds }), ...(p.which && { which: p.which }),
+    ...(p.divisor && { divisor: p.divisor }), ...(p.bounds && { bounds: p.bounds }), ...(p.which && { which: p.which }), ...(p.progression && { progression: p.progression }),
     choices: p.choices.map(choice => formulaChoiceTex(p, choice)),
   };
   if (p.word !== null) return { id: p.id, type: 'word', word: Object.fromEntries(['ja', 'en', 'zh'].map(locale => [locale, { prompt: p.word[locale].prompt, unit: p.word[locale].unit }])), choices: p.choices };
