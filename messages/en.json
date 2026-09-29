@@ -1153,7 +1153,13 @@
             "difference-of-squares": {
               "title": "Difference of squares",
               "description": "Only the x² − a² form - good for learning to spot the pattern."
-            },
+            }
+          }
+        },
+        "factoring": {
+          "title": "Factoring (high school)",
+          "summary": "High-school factoring: the ac method, two variables, substitution, sums and differences of cubes.",
+          "items": {
             "ac-method": {
               "title": "The ac (cross) method"
             },
@@ -1943,7 +1949,19 @@
         "expand": "Simplify.",
         "solve": "Solve the equation.",
         "given": "Find the value when <given></given>.",
-        "answer": "Answer:"
+        "answer": "Answer:",
+        "transform": "Choose the expression equal to this one.",
+        "factor": "Factor.",
+        "derivative": "Differentiate.",
+        "derivativeAt": "Find the derivative at <given></given>.",
+        "tangent": "Find the tangent line to the curve at <given></given>.",
+        "remainder": "Find the remainder when divided by <divisor></divisor>.",
+        "extremumMax": "Find the local maximum value.",
+        "extremumMin": "Find the local minimum value.",
+        "indefinite": "Find the indefinite integral (omit the constant).",
+        "definite": "Evaluate the definite integral.",
+        "areaAxis": "Find the area enclosed by the curve, the x-axis and the lines <a></a> and <b></b>.",
+        "areaCurves": "Find the area enclosed by the two curves and the lines <a></a> and <b></b>."
       },
       "grades": {
         "e1": "Elementary 1",

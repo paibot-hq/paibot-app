@@ -1,0 +1,75 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "sequence-001",
+      "item": "sigma",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "sum(3*k^2 - k, k, 1, 6)",
+      "given": null,
+      "choices": ["231", "252", "273", "294"],
+      "answerIndex": 1
+    },
+    {
+      "id": "sequence-002",
+      "item": "sigma",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "sum(k*(k + 3), k, 1, 5)",
+      "given": null,
+      "choices": ["70", "85", "100", "115"],
+      "answerIndex": 2
+    },
+    {
+      "id": "sequence-003",
+      "item": "sigma",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "sum(4*k - 5, k, 1, 8)",
+      "given": null,
+      "choices": ["139", "184", "96", "104"],
+      "answerIndex": 3
+    },
+    {
+      "id": "sequence-004",
+      "item": "sigma",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "sum(2^k, k, 1, 6)",
+      "given": null,
+      "choices": ["126", "63", "127", "254"],
+      "answerIndex": 0
+    },
+    {
+      "id": "sequence-005",
+      "item": "sigma",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "sum((k - 1)*(2*k + 1), k, 1, 5)",
+      "given": null,
+      "choices": ["94", "100", "90", "120"],
+      "answerIndex": 2
+    }
+  ]
+}

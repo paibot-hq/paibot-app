@@ -3,7 +3,11 @@ import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { findUnit, unitSets } from '../src/lib/math-catalog.ts';
-import { expressionTex, solutionTex, statementTex, unknownOf } from '../src/lib/math-formula.ts';
+import { formulaChoiceTex, formulaInstruction, formulaQuestionTex, solutionTex } from '../src/lib/math-formula.ts';
+
+const FORMULA_JA = JSON.parse(readFileSync(new URL('../messages/ja.json', import.meta.url), 'utf8')).App.math.formulaQuiz;
+// The Japanese instruction line as learners read it, with its formulas as TeX.
+const instructionJa = p => { const { key, tex } = formulaInstruction(p); return FORMULA_JA[key].replace(/<(\w+)><\/\1>/g, (_, tag) => `$${tex[tag]}$`); };
 
 export const root = fileURLToPath(new URL('../', import.meta.url));
 // A unit that can hold problems, and optionally one of its sets (item + set number).
@@ -56,7 +60,8 @@ export function additions(unit, item, setId, bank, generated, count, date = new 
     id: `${unit}-${String(maxId + index + 1).padStart(3, '0')}`, item, setId,
     position: maxPosition + index + 1, tier, published: false, reviewedAt: date,
     ...(unit === 'pythagoras' ? { figure: p.figure } : unit === 'factorization' ? { p: p.p, q: p.q }
-      : isFormulaUnit(unit) ? { kind: p.kind, question: p.question, given: p.given ?? null } : { expression: p.expression, word: p.word }),
+      : isFormulaUnit(unit) ? { kind: p.kind, question: p.question, given: p.given ?? null, ...(p.divisor && { divisor: p.divisor }), ...(p.bounds && { bounds: p.bounds }), ...(p.which && { which: p.which }) }
+      : { expression: p.expression, word: p.word }),
     choices: p.choices, answerIndex: p.answerIndex,
   }));
 }
@@ -95,10 +100,10 @@ export function blindProblem(unit, p) {
   }
   // The reviewer sees the formulas as learners do, rendered (÷ and fraction bars, not ':' and '/').
   if (isFormulaUnit(unit)) return {
-    id: p.id, type: 'formula', kind: p.kind,
-    question: p.kind === 'solve' ? statementTex(p.question) : expressionTex(p.question),
-    given: p.given && solutionTex(p.given, 'x'),
-    choices: p.choices.map(choice => p.kind === 'solve' ? solutionTex(choice, unknownOf(p.question)) : expressionTex(choice)),
+    id: p.id, type: 'formula', kind: p.kind, instruction: instructionJa(p),
+    question: formulaQuestionTex(p), given: p.given && solutionTex(p.given, 'x'),
+    ...(p.divisor && { divisor: p.divisor }), ...(p.bounds && { bounds: p.bounds }), ...(p.which && { which: p.which }),
+    choices: p.choices.map(choice => formulaChoiceTex(p, choice)),
   };
   if (p.word !== null) return { id: p.id, type: 'word', word: Object.fromEntries(['ja', 'en', 'zh'].map(locale => [locale, { prompt: p.word[locale].prompt, unit: p.word[locale].unit }])), choices: p.choices };
   return { id: p.id, type: 'expression', expression: p.expression, choices: p.choices };

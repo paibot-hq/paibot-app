@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { parseExpression } from '../src/lib/math-formula.ts';
+import { parseExpression, splitTop } from '../src/lib/math-formula.ts';
 import { unitSets, unitsOfKind } from '../src/lib/math-catalog.ts';
 
 // Set rules only, for the formula units: every question, `given` and choice
@@ -10,15 +10,22 @@ import { unitSets, unitsOfKind } from '../src/lib/math-catalog.ts';
 
 // What a question is made of, collected from its parse trees.
 export function stats(question) {
-  const s = { ops: new Set(), letters: new Set(), numbers: [], decimals: 0, places: 0, groups: 0, sqrts: 0, powers: [], fractions: [], equations: 0 };
+  const s = { ops: new Set(), letters: new Set(), numbers: [], decimals: 0, places: 0, groups: 0, sqrts: 0, powers: [], fractions: [], equations: 0, calls: new Set(), consts: new Set(), fractionalPowers: 0 };
   const walk = node => {
     switch (node.type) {
       case 'num': s.numbers.push(Number(node.value)); if (node.value.includes('.')) { s.decimals++; s.places = Math.max(s.places, node.value.split('.')[1].length); } break;
       case 'var': s.letters.add(node.name); break;
       case 'neg': walk(node.arg); break;
       case 'group': s.groups++; walk(node.arg); break;
-      case 'sqrt': s.sqrts++; walk(node.arg); break;
-      case 'pow': s.ops.add('^'); if (node.exp.type === 'num') s.powers.push(Number(node.exp.value)); walk(node.base); walk(node.exp); break;
+      case 'const': s.consts.add(node.name); break;
+      case 'call': s.calls.add(node.name); if (node.name === 'sqrt') s.sqrts++; node.args.forEach(walk); break;
+      case 'pow': {
+        s.ops.add('^');
+        const exp = node.exp.type === 'group' ? node.exp.arg : node.exp;
+        if (exp.type === 'num') s.powers.push(Number(exp.value));
+        else if (exp.type === 'neg' || (exp.type === 'bin' && exp.op === '/')) s.fractionalPowers++;
+        walk(node.base); walk(node.exp); break;
+      }
       case 'bin':
         s.ops.add(node.op);
         if (node.op === '/') s.fractions.push({ top: node.left, bottom: node.right });
@@ -61,13 +68,35 @@ const RULES = {
   'sqrt-rationalize-a': ['calc', s => s.sqrts >= 1 && s.fractions.some(f => JSON.stringify(f.bottom).includes('"sqrt"')) && !s.letters.size],
   'quadratic-factoring-a': ['solve', s => s.equations === 1 && s.letters.size === 1 && s.powers.includes(2)],
   'quadratic-formula-a': ['solve', s => s.equations === 1 && s.letters.size === 1 && s.powers.includes(2)],
+  // 数学II・B
+  'binomial-a': ['expand', s => s.groups >= 1 && s.powers.some(n => n >= 4 && n <= 7)],
+  'remainder-a': ['remainder', (s, p) => s.letters.size === 1 && Math.max(...s.powers) >= 3 && /^[a-z] [-+] \d+$/.test(p.divisor ?? '')],
+  'higher-degree-a': ['solve', s => s.equations === 1 && s.letters.size === 1 && s.powers.some(n => n >= 3 && n <= 4)],
+  // (x + 2)^3, or a product that expands to a cubic such as (x + 3)(x^2 - 3x + 9).
+  'expansion-cubic-a': ['expand', s => s.groups >= 1 && (s.powers.includes(3) || (s.groups >= 2 && s.powers.includes(2)))],
+  'factoring-cubes-a': ['factor', s => s.letters.size >= 1 && s.powers.includes(3) && !s.groups],
+  'complex-arithmetic-a': ['calc', s => s.consts.has('i') && !s.letters.size],
+  'complex-roots-a': ['solve', (s, p) => s.equations === 1 && s.powers.includes(2) && p.choices.every(c => /(?<![a-z])i(?![a-z])/.test(c))],
+  'trig-values-a': ['calc', s => ['sin', 'cos', 'tan'].some(f => s.calls.has(f)) && !s.letters.size],
+  'trig-addition-a': ['calc', s => ['sin', 'cos', 'tan'].some(f => s.calls.has(f)) && !s.letters.size],
+  'trig-synthesis-a': ['transform', s => s.calls.has('sin') && s.calls.has('cos') && s.letters.size === 1],
+  'exponent-a': ['calc', s => s.ops.has('^') && s.fractionalPowers >= 1 && !s.letters.size],
+  'log-a': ['calc', s => s.calls.has('log') && !s.letters.size],
+  'derivative-polynomial-a': ['derivative', (s, p) => s.letters.size === 1 && !s.calls.size && !p.given],
+  'tangent-a': ['tangent', (s, p) => s.letters.size === 1 && !s.calls.size && /^\s*x\s*=/.test(p.given ?? '')],
+  'extrema-a': ['extremum', (s, p) => s.letters.size === 1 && !s.calls.size && ['max', 'min'].includes(p.which)],
+  'indefinite-a': ['integral', (s, p) => s.letters.size === 1 && !s.calls.size && !p.bounds],
+  'definite-a': ['integral', (s, p) => s.letters.size === 1 && !s.calls.size && !!p.bounds],
+  'area-a': ['area', (s, p) => s.letters.size === 1 && !s.calls.size && !!p.bounds],
+  'sigma-a': ['calc', s => s.calls.has('sum')],
 };
 
-// A choice parses in the kind's format: an expression, or for solve the
-// values of the one unknown ("-2, 5") or assignments ("x = 1, y = 2").
+// A choice parses in the kind's format: an expression; for solve the values
+// of the one unknown ("-2, 5") or assignments ("x = 1, y = 2"); for tangent "y = ...".
 function checkChoice(kind, choice, id) {
   assert.ok(typeof choice === 'string' && choice.trim() && choice.length <= 200, `${id}: choice`);
-  const items = kind === 'solve' ? choice.split(',') : [choice];
+  if (kind === 'tangent') { assert.match(choice, /^\s*y\s*=/, `${id}: tangent choices are "y = ..."`); parseExpression(choice.split('=')[1]); return; }
+  const items = kind === 'solve' ? splitTop(choice, ',') : [choice];
   for (const item of items) parseExpression(item.includes('=') ? item.split('=')[1] : item);
 }
 
@@ -100,9 +129,16 @@ export function validateBank(bank, catalog) {
     assert.ok(typeof question === 'string' && question.length <= 200, `${id}: question`);
     const key = `${question.replaceAll(' ', '')}|${given ?? ''}`;
     assert.ok(!questions.has(key), `${id}: duplicate question`); questions.add(key);
-    assert.ok(given === null || (kind === 'calc' && typeof given === 'string'), `${id}: given`);
-    if (given) for (const pair of given.split(',')) { assert.match(pair, /^\s*[a-z]\s*=/, `${id}: given`); parseExpression(pair.split('=')[1]); }
-    const s = stats(question);
+    assert.ok(given === null || (['calc', 'derivative', 'tangent'].includes(kind) && typeof given === 'string'), `${id}: given`);
+    if (given) for (const pair of splitTop(given, ',')) { assert.match(pair, /^\s*[a-z]\s*=/, `${id}: given`); parseExpression(pair.split('=')[1]); }
+    // Fields only some kinds have.
+    assert.ok((kind === 'remainder') === (problem.divisor !== undefined), `${id}: divisor is for remainder`);
+    if (problem.divisor !== undefined) parseExpression(problem.divisor);
+    assert.ok(problem.bounds === undefined || ['integral', 'area'].includes(kind), `${id}: bounds are for integral and area`);
+    if (kind === 'area') assert.ok(problem.bounds, `${id}: area needs bounds`);
+    if (problem.bounds !== undefined) { const parts = splitTop(problem.bounds, ','); assert.equal(parts.length, 2, `${id}: bounds "a, b"`); parts.forEach(part => parseExpression(part)); }
+    assert.ok((kind === 'extremum') === (problem.which !== undefined), `${id}: which is for extremum`);
+    const s = stats(kind === 'area' ? question.replace(';', '+') : question);
     assert.ok(kind === 'solve' ? s.equations >= 1 : s.equations === 0, `${id}: equations`);
     assert.ok(fits(s, problem), `${id}: "${question}" does not fit set ${setId}`);
     assert.ok(Array.isArray(choices) && choices.length === 4, `${id}: four choices`);

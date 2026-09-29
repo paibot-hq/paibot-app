@@ -64,8 +64,12 @@ and display it uses (`components/math-questions.tsx`):
 - `factorization`: (x + p)(x + q); `pythagoras`: integer-coordinate figures
   drawn by `math-figure.tsx`, labels and accessible descriptions calculated.
 - `formula`: `FormulaPayload` (`src/lib/math-formula.ts`), a question and four
-  choices in one small formula grammar, of kind `calc`, `expand` or `solve`. The
-  page renders the TeX from those strings, and `scripts/verify_math.py` parses the
+  choices in one small formula grammar (numbers, letters, `pi`, `i`, `sqrt`,
+  `sin`/`cos`/`tan`, `abs`, `log(x, base)`, `C`/`P`, `sum(term, k, from, to)`),
+  of kind `calc`, `expand`, `transform`, `factor`, `solve`, `remainder`,
+  `derivative`, `tangent`, `extremum`, `integral` or `area` (the grammar comment
+  there lists each kind's extra fields). The page renders the TeX and the
+  instruction line from those strings, and `scripts/verify_math.py` parses the
   same grammar to re-derive the answer, so what is shown is what was checked.
 A unit without a kind cannot hold problems yet. Only sets with a `rule` (a key in
 `scripts/validate-math-<kind>.mjs`; expression uses `validate-math-arith.mjs`)

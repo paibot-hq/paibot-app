@@ -22,7 +22,7 @@ export const NEEDS = {
   signed: 'A', exponents: 'A', 'exponents/scientific': 'B', expression: 'A', 'expression/rearrange': 'B',
   'linear-equation': 'A', 'linear-equation/word-problems': 'C', 'linear-equation/proportion': 'B',
   simultaneous: 'A', 'simultaneous/word-problems': 'C', 'linear-function': 'B', 'square-function': 'B', 'square-function/graph': 'D',
-  inequality: 'B', expansion: 'A', factorization: 'B', sqrt: 'A', 'sqrt/rational-irrational': 'C', prime: 'B', integers: 'B',
+  inequality: 'B', expansion: 'A', factorization: 'B', factoring: 'A', sqrt: 'A', 'sqrt/rational-irrational': 'C', prime: 'B', integers: 'B',
   pythagoras: 'D', probability: 'C', quadratic: 'A', 'quadratic/discriminant': 'B',
   identities: 'B', 'identities/binomial': 'A', 'identities/inequality-proof': 'C', 'polynomial-equations': 'A',
   'quadratic-function': 'B', sequence: 'B', 'sequence/induction': 'C', trig: 'B', 'exp-log': 'B', conic: 'B',

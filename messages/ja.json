@@ -1153,7 +1153,13 @@
             "difference-of-squares": {
               "title": "平方の差の因数分解",
               "description": "x² − a² の形だけを集めました。公式のパターンを覚えたいときに。"
-            },
+            }
+          }
+        },
+        "factoring": {
+          "title": "因数分解（高校）",
+          "summary": "たすき掛け、2つの文字、おきかえ、3乗の和と差など、高校で学ぶ因数分解です。",
+          "items": {
             "ac-method": {
               "title": "たすき掛け"
             },
@@ -1943,7 +1949,19 @@
         "expand": "次の式を計算しなさい。",
         "solve": "次の方程式を解きなさい。",
         "given": "<given></given> のとき、次の式の値を求めなさい。",
-        "answer": "答え:"
+        "answer": "答え:",
+        "transform": "次の式と等しいものを選びなさい。",
+        "factor": "次の式を因数分解しなさい。",
+        "derivative": "次の関数を微分しなさい。",
+        "derivativeAt": "次の関数の <given></given> における微分係数を求めなさい。",
+        "tangent": "次の曲線の <given></given> における接線の方程式を求めなさい。",
+        "remainder": "次の式を <divisor></divisor> で割った余りを求めなさい。",
+        "extremumMax": "次の関数の極大値を求めなさい。",
+        "extremumMin": "次の関数の極小値を求めなさい。",
+        "indefinite": "次の不定積分を求めなさい（積分定数は省略）。",
+        "definite": "次の定積分を求めなさい。",
+        "areaAxis": "次の曲線と x 軸、直線 <a></a>、<b></b> で囲まれた部分の面積を求めなさい。",
+        "areaCurves": "次の2つの曲線と直線 <a></a>、<b></b> で囲まれた部分の面積を求めなさい。"
       },
       "grades": {
         "e1": "小1",

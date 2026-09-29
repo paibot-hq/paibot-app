@@ -7,14 +7,21 @@ import { MathTex } from './math-tex';
 import type { ArithPayload } from '../lib/math-arith';
 import type { MathKind } from '../lib/math-catalog';
 import { factoredTex, trinomialTex, type FactorizationPayload } from '../lib/math-factorization';
-import { expressionTex, solutionTex, statementTex, unknownOf, type FormulaPayload } from '../lib/math-formula';
+import { formulaChoiceTex, formulaInstruction, formulaQuestionTex, type FormulaPayload } from '../lib/math-formula';
 import { explanationTex, lengthTex, type PythagorasPayload } from '../lib/math-pythagoras';
 import type { QuizLocale } from '../lib/quiz';
 
+type FormulaT = ReturnType<typeof useTranslations<'App.math.formulaQuiz'>>;
+
+// The line above a formula problem, by kind; math in it (the point, divisor,
+// bounds) is rendered inline.
+function formulaInstructionLine(p: FormulaPayload, tq: FormulaT) {
+  const { key, tex } = formulaInstruction(p);
+  return tq.rich(key as Parameters<FormulaT>[0], Object.fromEntries(Object.entries(tex).map(([tag, t]) => [tag, () => <MathTex tex={t} />])));
+}
+
 export type MathProblemRow = { id: string; answerIndex: number; payload: unknown };
 
-const formulaChoiceTex = (payload: FormulaPayload, choice: string) =>
-  payload.kind === 'solve' ? solutionTex(choice, unknownOf(payload.question)) : expressionTex(choice);
 
 // Turns a set's locale-neutral problems into quiz questions, by the unit's kind
 // (see MathKind in src/lib/math-catalog.ts). Only explanations and prompts
@@ -47,8 +54,8 @@ export function useMathQuestions(kind: MathKind | undefined, problems: readonly 
         return (problems as { id: string; answerIndex: number; payload: FormulaPayload }[]).map(({ id, answerIndex, payload }) => ({
           id, answerIndex,
           prompt: <>
-            <p>{payload.given ? tq.rich('given', { given: () => <MathTex tex={solutionTex(payload.given!, 'x')} /> }) : tq(payload.kind)}</p>
-            <MathTex tex={payload.kind === 'solve' ? statementTex(payload.question) : expressionTex(payload.question)} block />
+            <p>{formulaInstructionLine(payload, tq)}</p>
+            <MathTex tex={formulaQuestionTex(payload)} block />
           </>,
           choices: payload.choices.map(choice => <MathTex tex={formulaChoiceTex(payload, choice)} />),
           explanation: <>{tq('answer')} <MathTex tex={formulaChoiceTex(payload, payload.choices[answerIndex])} /></>,

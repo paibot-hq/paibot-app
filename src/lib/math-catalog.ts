@@ -187,17 +187,19 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'square', sets: [{ id: '1', rule: 'expansion-square-a' }] },
     { id: 'sum-difference', sets: [{ id: '1', rule: 'expansion-sum-difference-a' }] },
     { id: 'three-terms', sets: [{ id: '1' }] },
-    { id: 'cubic', sets: [{ id: '1' }] },
+    { id: 'cubic', sets: [{ id: '1', rule: 'expansion-cubic-a' }] },
   ] },
   { id: 'factorization', domain: 'algebra', stage: 'middle', status: 'published', kind: 'factorization', items: [
     { id: 'common-factor', sets: [{ id: '1' }] },
     { id: 'trinomial', sets: [{ id: '1', rule: 'trinomial-a' }] },
     { id: 'perfect-square', sets: [{ id: '1', rule: 'perfect-square-a' }] },
     { id: 'difference-of-squares', sets: [{ id: '1', rule: 'squares-a' }] },
+  ] },
+  { id: 'factoring', domain: 'algebra', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'ac-method', sets: [{ id: '1' }] },
     { id: 'two-variables', sets: [{ id: '1' }] },
     { id: 'substitution', sets: [{ id: '1' }] },
-    { id: 'cubes', sets: [{ id: '1' }] },
+    { id: 'cubes', sets: [{ id: '1', rule: 'factoring-cubes-a' }] },
   ] },
   { id: 'sqrt', domain: 'number', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'rational-irrational', sets: [{ id: '1' }] },
@@ -228,36 +230,36 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'formula', sets: [{ id: '1', rule: 'quadratic-formula-a' }] },
     { id: 'discriminant', sets: [{ id: '1' }] },
   ] },
-  { id: 'identities', domain: 'algebra', stage: 'high', status: 'comingSoon', items: [
-    { id: 'binomial', sets: [{ id: '1' }] },
+  { id: 'identities', domain: 'algebra', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'binomial', sets: [{ id: '1', rule: 'binomial-a' }] },
     { id: 'identity', sets: [{ id: '1' }] },
     { id: 'inequality-proof', sets: [{ id: '1' }] },
   ] },
-  { id: 'polynomial-equations', domain: 'algebra', stage: 'high', status: 'comingSoon', items: [
-    { id: 'remainder', sets: [{ id: '1' }] },
-    { id: 'higher-degree', sets: [{ id: '1' }] },
+  { id: 'polynomial-equations', domain: 'algebra', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'remainder', sets: [{ id: '1', rule: 'remainder-a' }] },
+    { id: 'higher-degree', sets: [{ id: '1', rule: 'higher-degree-a' }] },
   ] },
   { id: 'quadratic-function', domain: 'functions', stage: 'high', status: 'comingSoon', items: [
     { id: 'vertex', sets: [{ id: '1' }] },
     { id: 'max-min', sets: [{ id: '1' }] },
   ] },
-  { id: 'sequence', domain: 'functions', stage: 'high', status: 'comingSoon', items: [
+  { id: 'sequence', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'arithmetic', sets: [{ id: '1' }] },
     { id: 'geometric', sets: [{ id: '1' }] },
-    { id: 'sigma', sets: [{ id: '1' }] },
+    { id: 'sigma', sets: [{ id: '1', rule: 'sigma-a' }] },
     { id: 'recurrence', sets: [{ id: '1' }] },
     { id: 'induction', sets: [{ id: '1' }] },
   ] },
-  { id: 'trig', domain: 'functions', stage: 'high', status: 'comingSoon', items: [
-    { id: 'values', sets: [{ id: '1' }] },
+  { id: 'trig', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'values', sets: [{ id: '1', rule: 'trig-values-a' }] },
     { id: 'radian', sets: [{ id: '1' }] },
-    { id: 'addition', sets: [{ id: '1' }] },
+    { id: 'addition', sets: [{ id: '1', rule: 'trig-addition-a' }] },
     { id: 'double-angle', sets: [{ id: '1' }] },
-    { id: 'synthesis', sets: [{ id: '1' }] },
+    { id: 'synthesis', sets: [{ id: '1', rule: 'trig-synthesis-a' }] },
   ] },
-  { id: 'exp-log', domain: 'functions', stage: 'high', status: 'comingSoon', items: [
-    { id: 'exponent', sets: [{ id: '1' }] },
-    { id: 'log', sets: [{ id: '1' }] },
+  { id: 'exp-log', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'exponent', sets: [{ id: '1', rule: 'exponent-a' }] },
+    { id: 'log', sets: [{ id: '1', rule: 'log-a' }] },
     { id: 'common-log', sets: [{ id: '1' }] },
   ] },
   { id: 'conic', domain: 'functions', stage: 'high', status: 'comingSoon', items: [
@@ -285,26 +287,26 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'univ-calculus', domain: 'calculus', stage: 'university', status: 'comingSoon', items: [
     { id: 'mean-value', sets: [{ id: '1' }] },
   ] },
-  { id: 'derivative', domain: 'calculus', stage: 'high', status: 'comingSoon', items: [
-    { id: 'polynomial', sets: [{ id: '1' }] },
-    { id: 'tangent', sets: [{ id: '1' }] },
-    { id: 'extrema', sets: [{ id: '1' }] },
+  { id: 'derivative', domain: 'calculus', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'polynomial', sets: [{ id: '1', rule: 'derivative-polynomial-a' }] },
+    { id: 'tangent', sets: [{ id: '1', rule: 'tangent-a' }] },
+    { id: 'extrema', sets: [{ id: '1', rule: 'extrema-a' }] },
     { id: 'transcendental', sets: [{ id: '1' }] },
     { id: 'chain-rule', sets: [{ id: '1' }] },
     { id: 'parametric', sets: [{ id: '1' }] },
     { id: 'motion', sets: [{ id: '1' }] },
   ] },
-  { id: 'integral', domain: 'calculus', stage: 'high', status: 'comingSoon', items: [
-    { id: 'indefinite', sets: [{ id: '1' }] },
-    { id: 'definite', sets: [{ id: '1' }] },
-    { id: 'area', sets: [{ id: '1' }] },
+  { id: 'integral', domain: 'calculus', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'indefinite', sets: [{ id: '1', rule: 'indefinite-a' }] },
+    { id: 'definite', sets: [{ id: '1', rule: 'definite-a' }] },
+    { id: 'area', sets: [{ id: '1', rule: 'area-a' }] },
     { id: 'substitution', sets: [{ id: '1' }] },
     { id: 'by-parts', sets: [{ id: '1' }] },
     { id: 'volume', sets: [{ id: '1' }] },
   ] },
-  { id: 'complex', domain: 'number', stage: 'high', status: 'comingSoon', items: [
-    { id: 'arithmetic', sets: [{ id: '1' }] },
-    { id: 'quadratic-roots', sets: [{ id: '1' }] },
+  { id: 'complex', domain: 'number', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'arithmetic', sets: [{ id: '1', rule: 'complex-arithmetic-a' }] },
+    { id: 'quadratic-roots', sets: [{ id: '1', rule: 'complex-roots-a' }] },
     { id: 'plane', sets: [{ id: '1' }] },
   ] },
   { id: 'coordinate-geometry', domain: 'geometry', stage: 'high', status: 'comingSoon', items: [

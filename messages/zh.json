@@ -1153,7 +1153,13 @@
             "difference-of-squares": {
               "title": "平方差公式",
               "description": "只收录 x² − a² 形式，用来记住这个公式规律。"
-            },
+            }
+          }
+        },
+        "factoring": {
+          "title": "因式分解（高中）",
+          "summary": "高中阶段的因式分解：十字相乘法、含两个字母、换元、立方和与立方差等。",
+          "items": {
             "ac-method": {
               "title": "十字相乘法"
             },
@@ -1943,7 +1949,19 @@
         "expand": "化简下列各式。",
         "solve": "解下列方程。",
         "given": "当 <given></given> 时，求下式的值。",
-        "answer": "答案："
+        "answer": "答案：",
+        "transform": "选出与下式相等的式子。",
+        "factor": "将下式因式分解。",
+        "derivative": "求下列函数的导数。",
+        "derivativeAt": "求下列函数在 <given></given> 处的导数值。",
+        "tangent": "求曲线在 <given></given> 处的切线方程。",
+        "remainder": "求下式除以 <divisor></divisor> 所得的余式。",
+        "extremumMax": "求下列函数的极大值。",
+        "extremumMin": "求下列函数的极小值。",
+        "indefinite": "求下列不定积分（省略积分常数）。",
+        "definite": "求下列定积分。",
+        "areaAxis": "求曲线与 x 轴及直线 <a></a>、<b></b> 所围成部分的面积。",
+        "areaCurves": "求两条曲线与直线 <a></a>、<b></b> 所围成部分的面积。"
       },
       "grades": {
         "e1": "小学1年级",

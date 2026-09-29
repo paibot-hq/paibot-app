@@ -20,6 +20,10 @@ def rejects(unit, mutate, expected):
     assert errors and expected in errors[0], f'{unit}: expected "{expected}", got {errors}'
 
 
+# Every bank in src/data has a converter here.
+banks = {path.name[len('math-'):-len('.json')] for path in (ROOT / 'src' / 'data').glob('math-*.json')}
+assert banks == set(UNITS), f'units without a converter: {banks - set(UNITS)}, converters without a bank: {set(UNITS) - banks}'
+
 for unit in UNITS:
     assert verify_bank(bank(unit), UNITS[unit][1]) == [], unit
 

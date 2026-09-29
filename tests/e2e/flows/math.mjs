@@ -30,7 +30,7 @@ export default async function ({ page, main, base, go, errors }) {
   assert.equal(await main.getByRole('combobox').count(), 1);
   await main.getByRole('combobox', { name: 'Filter by Japanese school year' }).selectOption('m3');
   assert.ok(await link('/en/math/factorization/trinomial').isVisible());
-  assert.equal(await link('/en/math/factorization/ac-method').count(), 0, 'Math I items are not Junior high 3');
+  assert.equal(await link('/en/math/factoring/ac-method').count(), 0, 'Math I items are not Junior high 3');
   assert.equal(await link('/en/math/arith/order-of-operations').count(), 0);
   await main.getByRole('combobox', { name: 'Filter by Japanese school year' }).selectOption('');
   await page.setViewportSize({ width: 390, height: 844 });
@@ -87,7 +87,7 @@ export default async function ({ page, main, base, go, errors }) {
   await page.goto(`${base}/ja/math`);
   await page.waitForFunction(() => document.documentElement.dataset.theme);
   await main.getByRole('combobox', { name: '数検の級で絞り込む' }).selectOption('pre2');
-  assert.ok(await link('/ja/math/factorization/ac-method').isVisible());
+  assert.ok(await link('/ja/math/factoring/ac-method').isVisible());
   assert.equal(await link('/ja/math/factorization/trinomial').count(), 0, '中3 items are 3級');
   await main.getByText('日本数学検定協会とは関係ありません', { exact: false }).waitFor();
   // 準1級 = 数学III・C, plus the matrices its official topic list names.

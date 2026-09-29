@@ -224,9 +224,9 @@
 | 式と方程式 | 不等式 / 二次不等式 | B | `inequality/quadratic` |
 | 式と方程式 | 不等式 / 絶対値を含む式 | B | `inequality/absolute` |
 | 式と方程式 | 展開 / 3つの項の展開 | A | `expansion/three-terms` |
-| 式と方程式 | 因数分解 / たすき掛け | B | `factorization/ac-method` |
-| 式と方程式 | 因数分解 / 2つの文字を含む式の因数分解 | B | `factorization/two-variables` |
-| 式と方程式 | 因数分解 / おきかえ・複二次式 | B | `factorization/substitution` |
+| 式と方程式 | 因数分解（高校） / たすき掛け | A | `factoring/ac-method` |
+| 式と方程式 | 因数分解（高校） / 2つの文字を含む式の因数分解 | A | `factoring/two-variables` |
+| 式と方程式 | 因数分解（高校） / おきかえ・複二次式 | A | `factoring/substitution` |
 | 式と方程式 | 二次方程式 / 判別式 | B | `quadratic/discriminant` |
 | 関数・変化と関係 | 二次関数 / 頂点 | B | `quadratic-function/vertex` |
 | 関数・変化と関係 | 二次関数 / 最大・最小 | B | `quadratic-function/max-min` |
@@ -266,33 +266,33 @@
 
 | 領域 | 学習項目 | 状態 | キー |
 | --- | --- | --- | --- |
-| 数と計算 | 複素数 / 複素数の計算 | B | `complex/arithmetic` |
-| 数と計算 | 複素数 / 二次方程式の虚数解 | B | `complex/quadratic-roots` |
-| 式と方程式 | 展開 / 3次の展開 | A | `expansion/cubic` |
-| 式と方程式 | 因数分解 / 3乗の和と差 | B | `factorization/cubes` |
-| 式と方程式 | 式と証明 / 二項定理 | A | `identities/binomial` |
+| 数と計算 | 複素数 / 複素数の計算 | ✅ | `complex/arithmetic` |
+| 数と計算 | 複素数 / 二次方程式の虚数解 | ✅ | `complex/quadratic-roots` |
+| 式と方程式 | 展開 / 3次の展開 | ✅ | `expansion/cubic` |
+| 式と方程式 | 因数分解（高校） / 3乗の和と差 | ✅ | `factoring/cubes` |
+| 式と方程式 | 式と証明 / 二項定理 | ✅ | `identities/binomial` |
 | 式と方程式 | 式と証明 / 恒等式 | B | `identities/identity` |
 | 式と方程式 | 式と証明 / 不等式の証明 | C | `identities/inequality-proof` |
-| 式と方程式 | 高次方程式 / 剰余の定理・因数定理 | A | `polynomial-equations/remainder` |
-| 式と方程式 | 高次方程式 / 高次方程式 | A | `polynomial-equations/higher-degree` |
-| 関数・変化と関係 | 三角比・三角関数 / 三角関数の値 | B | `trig/values` |
+| 式と方程式 | 高次方程式 / 剰余の定理・因数定理 | ✅ | `polynomial-equations/remainder` |
+| 式と方程式 | 高次方程式 / 高次方程式 | ✅ | `polynomial-equations/higher-degree` |
+| 関数・変化と関係 | 三角比・三角関数 / 三角関数の値 | ✅ | `trig/values` |
 | 関数・変化と関係 | 三角比・三角関数 / 弧度法 | B | `trig/radian` |
-| 関数・変化と関係 | 三角比・三角関数 / 加法定理 | B | `trig/addition` |
+| 関数・変化と関係 | 三角比・三角関数 / 加法定理 | ✅ | `trig/addition` |
 | 関数・変化と関係 | 三角比・三角関数 / 倍角・半角の公式 | B | `trig/double-angle` |
-| 関数・変化と関係 | 三角比・三角関数 / 三角関数の合成 | B | `trig/synthesis` |
-| 関数・変化と関係 | 指数・対数 / 指数法則 | B | `exp-log/exponent` |
-| 関数・変化と関係 | 指数・対数 / 対数の計算 | B | `exp-log/log` |
+| 関数・変化と関係 | 三角比・三角関数 / 三角関数の合成 | ✅ | `trig/synthesis` |
+| 関数・変化と関係 | 指数・対数 / 指数法則 | ✅ | `exp-log/exponent` |
+| 関数・変化と関係 | 指数・対数 / 対数の計算 | ✅ | `exp-log/log` |
 | 関数・変化と関係 | 指数・対数 / 常用対数 | B | `exp-log/common-log` |
 | 図形と測定 | 図形と方程式 / 直線の方程式 | B | `coordinate-geometry/line` |
 | 図形と測定 | 図形と方程式 / 円の方程式 | B | `coordinate-geometry/circle` |
 | 図形と測定 | 図形と方程式 / 軌跡 | B | `coordinate-geometry/locus` |
 | 図形と測定 | 図形と方程式 / 不等式の表す領域 | D | `coordinate-geometry/region` |
-| 微分積分 | 微分 / 多項式の微分 | B | `derivative/polynomial` |
-| 微分積分 | 微分 / 微分係数と接線 | B | `derivative/tangent` |
-| 微分積分 | 微分 / 極値 | B | `derivative/extrema` |
-| 微分積分 | 積分 / 不定積分 | B | `integral/indefinite` |
-| 微分積分 | 積分 / 定積分 | B | `integral/definite` |
-| 微分積分 | 積分 / 面積 | B | `integral/area` |
+| 微分積分 | 微分 / 多項式の微分 | ✅ | `derivative/polynomial` |
+| 微分積分 | 微分 / 微分係数と接線 | ✅ | `derivative/tangent` |
+| 微分積分 | 微分 / 極値 | ✅ | `derivative/extrema` |
+| 微分積分 | 積分 / 不定積分 | ✅ | `integral/indefinite` |
+| 微分積分 | 積分 / 定積分 | ✅ | `integral/definite` |
+| 微分積分 | 積分 / 面積 | ✅ | `integral/area` |
 
 ## 数学B（`h-b`）
 
@@ -300,7 +300,7 @@
 | --- | --- | --- | --- |
 | 関数・変化と関係 | 数列 / 等差数列 | B | `sequence/arithmetic` |
 | 関数・変化と関係 | 数列 / 等比数列 | B | `sequence/geometric` |
-| 関数・変化と関係 | 数列 / Σ の計算 | B | `sequence/sigma` |
+| 関数・変化と関係 | 数列 / Σ の計算 | ✅ | `sequence/sigma` |
 | 関数・変化と関係 | 数列 / 漸化式 | B | `sequence/recurrence` |
 | 関数・変化と関係 | 数列 / 数学的帰納法 | C | `sequence/induction` |
 | データと確率 | 確率分布 / 確率変数と期待値・分散 | B | `distributions/random-variables` |
