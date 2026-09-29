@@ -597,9 +597,9 @@
       "postalMark": ""
     },
     "math": {
-      "title": "Math",
+      "title": "Math Drills",
       "description": "Practice arithmetic, factoring, and other math topics, one topic at a time.",
-      "keywords": "math arithmetic algebra factoring quiz problem set",
+      "keywords": "math drills arithmetic algebra factoring quiz problem set",
       "intro": "Every unit and problem set, grouped by area of mathematics. Highlighted sets are ready to practice.",
       "arithLink": "Arithmetic",
       "arithSummary": "From addition and subtraction to the order of operations and word problems. Start with the easy sets and work up.",
@@ -608,7 +608,7 @@
       "quiz": {
         "chooseSet": "Choose a problem set to try.",
         "setComingSoon": "This problem set is being prepared. Check back soon.",
-        "backToMath": "Math",
+        "backToMath": "Math Drills",
         "backToSets": "Choose a different set",
         "progress": "{current} / {total}",
         "answer": "Answer",
