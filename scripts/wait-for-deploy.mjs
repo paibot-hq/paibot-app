@@ -21,11 +21,36 @@ while (Date.now() < deadline) {
     last = error.message;
     streak = 0;
   }
-  if (streak >= needed) {
-    console.log(`PASS: ${base} served ${expected} ${needed} times in a row`);
-    process.exit(0);
-  }
+  if (streak >= needed) break;
   await delay(3000);
 }
-console.error(`Timed out waiting for ${base} to serve ${expected} (last: ${last})`);
-process.exit(1);
+if (streak < needed) {
+  console.error(`Timed out waiting for ${base} to serve ${expected} (last: ${last})`);
+  process.exit(1);
+}
+console.log(`PASS: ${base} served ${expected} ${needed} times in a row`);
+
+// The version header can come from an edge that already runs the new code
+// while others still serve the previous version and 404 a brand-new page
+// (run 36512726421: /ja/business-card). So also wait until every page in the
+// sitemap answers 200 before the post-deploy checks - and search crawlers -
+// are told the release is done.
+const sitemap = await (await appFetch(base, `/sitemap.xml?deploy-check=${Date.now()}`)).text();
+let pending = [...sitemap.matchAll(/<loc>([^<]+)<\/loc>/g)].map(match => new URL(match[1]).pathname);
+const total = pending.length;
+while (pending.length && Date.now() < deadline) {
+  const results = await Promise.all(pending.map(async path => {
+    try {
+      const response = await appFetch(base, `${path}?deploy-check=${Date.now()}`, { redirect: 'manual' });
+      await response.body?.cancel();
+      return response.status === 200;
+    } catch { return false; }
+  }));
+  pending = pending.filter((_, index) => !results[index]);
+  if (pending.length) await delay(3000);
+}
+if (pending.length) {
+  console.error(`Timed out waiting for ${pending.length}/${total} sitemap pages to answer 200 (e.g. ${pending.slice(0, 3).join(', ')})`);
+  process.exit(1);
+}
+console.log(`PASS: all ${total} sitemap pages answer 200`);
