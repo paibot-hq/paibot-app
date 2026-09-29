@@ -110,10 +110,13 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'triangles', sets: [{ id: '1' }] },
     { id: 'quadrilaterals', sets: [{ id: '1' }] },
     { id: 'circles', sets: [{ id: '1' }] },
+    { id: 'compass-drawing', sets: [{ id: '1' }] },
     { id: 'angles', sets: [{ id: '1' }] },
     { id: 'perpendicular-parallel', sets: [{ id: '1' }] },
+    { id: 'parallel-drawing', sets: [{ id: '1' }] },
     { id: 'cuboids', sets: [{ id: '1' }] },
     { id: 'congruent', sets: [{ id: '1' }] },
+    { id: 'congruent-drawing', sets: [{ id: '1' }] },
     { id: 'angle-sum', sets: [{ id: '1' }] },
     { id: 'prisms', sets: [{ id: '1' }] },
   ] },
@@ -243,6 +246,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'geometric', sets: [{ id: '1' }] },
     { id: 'sigma', sets: [{ id: '1' }] },
     { id: 'recurrence', sets: [{ id: '1' }] },
+    { id: 'induction', sets: [{ id: '1' }] },
   ] },
   { id: 'trig', domain: 'functions', stage: 'high', status: 'comingSoon', items: [
     { id: 'values', sets: [{ id: '1' }] },
@@ -373,6 +377,12 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'transformations', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
     { id: 'moves', sets: [{ id: '1' }] },
   ] },
+  { id: 'geometric-reasoning', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'construction', sets: [{ id: '1' }] },
+    { id: 'congruence-proof', sets: [{ id: '1' }] },
+    { id: 'similarity-proof', sets: [{ id: '1' }] },
+    { id: 'circle-proof', sets: [{ id: '1' }] },
+  ] },
   { id: 'triangle-trig', domain: 'geometry', stage: 'high', status: 'comingSoon', items: [
     { id: 'ratios', sets: [{ id: '1' }] },
     { id: 'sine-law', sets: [{ id: '1' }] },
@@ -384,6 +394,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'power', sets: [{ id: '1' }] },
     { id: 'ceva-menelaus', sets: [{ id: '1' }] },
     { id: 'polyhedra', sets: [{ id: '1' }] },
+    { id: 'construction', sets: [{ id: '1' }] },
   ] },
   { id: 'quartiles', domain: 'data', stage: 'middle', status: 'comingSoon', items: [
     { id: 'quartiles', sets: [{ id: '1' }] },

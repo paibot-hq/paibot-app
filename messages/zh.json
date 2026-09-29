@@ -897,17 +897,26 @@
             "circles": {
               "title": "圆与球"
             },
+            "compass-drawing": {
+              "title": "用圆规画图"
+            },
             "angles": {
               "title": "角的大小"
             },
             "perpendicular-parallel": {
               "title": "垂直与平行"
             },
+            "parallel-drawing": {
+              "title": "平行线与垂线的画法"
+            },
             "cuboids": {
               "title": "长方体与正方体（展开图、直观图）"
             },
             "congruent": {
               "title": "全等图形"
+            },
+            "congruent-drawing": {
+              "title": "全等图形的画法"
             },
             "angle-sum": {
               "title": "三角形、四边形的内角和"
@@ -1301,6 +1310,9 @@
             },
             "recurrence": {
               "title": "递推公式"
+            },
+            "induction": {
+              "title": "数学归纳法"
             }
           }
         },
@@ -1691,6 +1703,24 @@
             }
           }
         },
+        "geometric-reasoning": {
+          "title": "作图与证明",
+          "summary": "学习基本作图，以及用全等、相似、圆周角进行证明的方法。",
+          "items": {
+            "construction": {
+              "title": "基本作图"
+            },
+            "congruence-proof": {
+              "title": "全等的证明"
+            },
+            "similarity-proof": {
+              "title": "相似的证明"
+            },
+            "circle-proof": {
+              "title": "利用圆周角的证明"
+            }
+          }
+        },
         "triangle-trig": {
           "title": "三角形的计量",
           "summary": "用正弦定理和余弦定理求三角形的边、角和面积。",
@@ -1724,6 +1754,9 @@
             },
             "polyhedra": {
               "title": "多面体"
+            },
+            "construction": {
+              "title": "尺规作图"
             }
           }
         },

@@ -21,7 +21,7 @@ export const JP_GRADE_OF: Record<string, Record<string, JpGrade>> = {
   'rounding': { 'rounding': 'e4', 'estimate': 'e4' },
   'ratio': { 'percent': 'e5', 'ratio': 'e6', 'word-problems': 'e5', 'simple-ratio': 'e4' },
   'measurement': { 'length-capacity': 'e2', 'weight': 'e3', 'area-units': 'e4', 'rect-area': 'e4', 'area': 'e5', 'volume': 'e5', 'circumference': 'e5', 'circle-area': 'e6', 'prism-volume': 'e6' },
-  'shapes': { 'basic-shapes': 'e2', 'triangles': 'e3', 'quadrilaterals': 'e4', 'circles': 'e3', 'angles': 'e4', 'solids-basic': 'e1', 'boxes': 'e2', 'perpendicular-parallel': 'e4', 'cuboids': 'e4', 'congruent': 'e5', 'angle-sum': 'e5', 'prisms': 'e5' },
+  'shapes': { 'basic-shapes': 'e2', 'triangles': 'e3', 'quadrilaterals': 'e4', 'circles': 'e3', 'angles': 'e4', 'solids-basic': 'e1', 'boxes': 'e2', 'perpendicular-parallel': 'e4', 'cuboids': 'e4', 'congruent': 'e5', 'angle-sum': 'e5', 'prisms': 'e5', 'compass-drawing': 'e3', 'parallel-drawing': 'e4', 'congruent-drawing': 'e5' },
   'symmetry': { 'symmetry': 'e6', 'scale': 'e6' },
   'data': { 'average': 'e5', 'median-range': 'e6' },
   'graphs': { 'tables': 'e2', 'bar-graph': 'e3', 'line-graph': 'e4', 'pie-band': 'e5', 'histogram': 'e6', 'two-way-table': 'e4' },
@@ -45,7 +45,7 @@ export const JP_GRADE_OF: Record<string, Record<string, JpGrade>> = {
   'identities': { 'binomial': 'h-ii', 'identity': 'h-ii', 'inequality-proof': 'h-ii' },
   'polynomial-equations': { 'remainder': 'h-ii', 'higher-degree': 'h-ii' },
   'quadratic-function': { 'vertex': 'h-i', 'max-min': 'h-i' },
-  'sequence': { 'arithmetic': 'h-b', 'geometric': 'h-b', 'sigma': 'h-b', 'recurrence': 'h-b' },
+  'sequence': { 'arithmetic': 'h-b', 'geometric': 'h-b', 'sigma': 'h-b', 'recurrence': 'h-b', 'induction': 'h-b' },
   'trig': { 'values': 'h-ii', 'radian': 'h-ii', 'addition': 'h-ii', 'synthesis': 'h-ii', 'double-angle': 'h-ii' },
   'exp-log': { 'exponent': 'h-ii', 'log': 'h-ii', 'common-log': 'h-ii' },
   'conic': { 'parabola': 'h-c', 'ellipse-hyperbola': 'h-c', 'polar': 'h-c' },
@@ -70,7 +70,7 @@ export const JP_GRADE_OF: Record<string, Record<string, JpGrade>> = {
   'similarity': { 'similarity': 'm3', 'inscribed-angle': 'm3' },
   'transformations': { 'moves': 'm1' },
   'triangle-trig': { 'ratios': 'h-i', 'sine-law': 'h-i', 'cosine-law': 'h-i', 'area': 'h-i' },
-  'triangle-properties': { 'centers': 'h-a', 'power': 'h-a', 'ceva-menelaus': 'h-a', 'polyhedra': 'h-a' },
+  'triangle-properties': { 'centers': 'h-a', 'power': 'h-a', 'ceva-menelaus': 'h-a', 'polyhedra': 'h-a', 'construction': 'h-a' },
   'quartiles': { 'quartiles': 'm2', 'boxplot': 'm2' },
   'sampling': { 'population-sample': 'm3', 'estimate': 'm3' },
   'statistics': { 'variance': 'h-i', 'correlation': 'h-i', 'hypothesis': 'h-i' },
@@ -86,6 +86,7 @@ export const JP_GRADE_OF: Record<string, Record<string, JpGrade>> = {
   'relations': { 'change': 'e4', 'simple-proportion': 'e5', 'proportion': 'e6' },
   'frequency': { 'frequency': 'm1' },
   'univ-calculus': { 'mean-value': 'u1' },
+  'geometric-reasoning': { 'construction': 'm1', 'congruence-proof': 'm2', 'similarity-proof': 'm3', 'circle-proof': 'm3' },
 };
 
 export function jpGrade(unit: string, item: string): JpGrade | undefined {

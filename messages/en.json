@@ -897,17 +897,26 @@
             "circles": {
               "title": "Circles & spheres"
             },
+            "compass-drawing": {
+              "title": "Drawing with a compass"
+            },
             "angles": {
               "title": "Measuring angles"
             },
             "perpendicular-parallel": {
               "title": "Perpendicular & parallel lines"
             },
+            "parallel-drawing": {
+              "title": "Drawing parallel & perpendicular lines"
+            },
             "cuboids": {
               "title": "Cuboids & cubes: nets & sketches"
             },
             "congruent": {
               "title": "Congruent figures"
+            },
+            "congruent-drawing": {
+              "title": "Drawing congruent figures"
             },
             "angle-sum": {
               "title": "Angle sums of triangles & quadrilaterals"
@@ -1301,6 +1310,9 @@
             },
             "recurrence": {
               "title": "Recurrence relations"
+            },
+            "induction": {
+              "title": "Mathematical induction"
             }
           }
         },
@@ -1691,6 +1703,24 @@
             }
           }
         },
+        "geometric-reasoning": {
+          "title": "Constructions & proofs",
+          "summary": "Basic constructions, and how proofs with congruence, similarity and inscribed angles go.",
+          "items": {
+            "construction": {
+              "title": "Basic constructions"
+            },
+            "congruence-proof": {
+              "title": "Proofs with congruent triangles"
+            },
+            "similarity-proof": {
+              "title": "Proofs with similar triangles"
+            },
+            "circle-proof": {
+              "title": "Proofs with inscribed angles"
+            }
+          }
+        },
         "triangle-trig": {
           "title": "Solving triangles",
           "summary": "Find sides, angles and areas of triangles with the laws of sines and cosines.",
@@ -1724,6 +1754,9 @@
             },
             "polyhedra": {
               "title": "Polyhedra"
+            },
+            "construction": {
+              "title": "Geometric constructions"
             }
           }
         },
