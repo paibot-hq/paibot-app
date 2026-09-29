@@ -8,13 +8,13 @@ import { clerkSetup, setupClerkTestingToken, clerk } from '@clerk/testing/playwr
 import { createClerkClient } from '@clerk/backend';
 
 // Same disposable-test-user technique as tests/e2e/favorites.mjs. Needs arithmetic
-// set add-sub-a published in the local D1 the target server reads (see CLAUDE.md), and
+// set order-a published in the local D1 the target server reads (see CLAUDE.md), and
 // removes the test user's attempts and Clerk account afterwards.
 const base = process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002';
 assert.ok(['localhost', '127.0.0.1'].includes(new URL(base).hostname), 'Auth fixture test is local-only');
 assert.ok(process.env.CLERK_PUBLISHABLE_KEY?.startsWith('pk_test_'), 'Development publishable key required');
 assert.ok(process.env.CLERK_SECRET_KEY?.startsWith('sk_test_'), 'Development secret key required');
-const SET = 'add-sub-a';
+const SET = 'order-a';
 const problems = JSON.parse(readFileSync(new URL('../../src/data/math-arith.json', import.meta.url), 'utf8'))
   .problems.filter(problem => problem.setId === SET).sort((a, b) => a.position - b.position);
 const email = `paibot-e2e-${randomUUID()}+clerk_test@example.com`;
@@ -40,11 +40,12 @@ async function play(page, correct) {
   await page.waitForFunction(() => document.querySelector('main [role=status]')?.textContent?.trim());
   return (await status.textContent()).trim();
 }
+// The set's chip on /math: its full record is the tooltip, its best score the label.
 async function cardRecord(page) {
-  await page.goto(`${base}/en/math/arith`);
-  const card = page.locator('main a', { hasText: 'Addition & subtraction' });
-  await card.waitFor();
-  return (await card.textContent()).match(/Last .*$/)?.[0] ?? null;
+  await page.goto(`${base}/en/math`);
+  const chip = page.locator(`main a[href="/en/math/arith/${SET}"]`);
+  await chip.waitFor();
+  return chip.getAttribute('title');
 }
 
 try {
@@ -73,7 +74,8 @@ try {
   assert.equal(await play(page, 5), 'Your score has been saved.');
   assert.equal(await play(page, 1), 'Your score has been saved.');
   assert.equal(await cardRecord(page), 'Last 1 / 5 · Best 5 / 5');
-  console.log('PASS: finished sets are saved; cards show the latest and the best score');
+  assert.match(await page.locator(`main a[href="/en/math/arith/${SET}"]`).textContent(), /Best 5\/5$/);
+  console.log('PASS: finished sets are saved; the set list shows the latest and the best score');
 
   // The server rescores and refuses anything that is not an attempt at the set as served.
   const url = `${base}/en/math/arith/${SET}.data`;
@@ -87,10 +89,10 @@ try {
   assert.equal(await cardRecord(page), 'Last 1 / 5 · Best 5 / 5', 'refused posts change nothing');
   console.log('PASS: stale problem ids, out-of-range answers and cross-origin posts are refused');
 
-  const response = await page.request.get(`${base}/en/math/arith`);
+  const response = await page.request.get(`${base}/en/math`);
   assert.equal(response.headers()['cache-control'], 'private, no-store');
   assert.deepEqual(errors, []);
-  console.log('PASS: unit pages are private, no-store; no browser errors');
+  console.log('PASS: the set list is private, no-store; no browser errors');
 } finally {
   await browser.close();
   if (userId) {

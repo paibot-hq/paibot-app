@@ -77,17 +77,12 @@ export function evaluate(expression) {
 }
 
 // Rules can be shared by multiple practice sets.
-const onlyOperators = (s, allowed) => [...s.operators].every(operator => allowed.includes(operator));
 const RULES = {
   'order-a': (s, word) => !word && s.negatives === 0 && s.numbers.every(n => n >= 1 && n <= 100) && s.operations >= 3 && s.operations <= 4
     && s.operators.size >= 3 && s.parentheses >= 1 && s.value >= 0 && s.value <= 999,
   'four-ops-a': (s, word) => !word && s.negatives >= 1 && s.numbers.every(n => Math.abs(n) <= 50) && s.operations >= 2 && s.operations <= 4
     && Math.abs(s.value) <= 999,
   'word-b': (s, word) => word && s.negatives === 0 && !s.negativeStep && s.numbers.every(n => n >= 1) && s.operations >= 2 && s.operations <= 3 && s.value >= 0,
-  'add-sub-a': (s, word) => !word && s.negatives === 0 && !s.negativeStep && s.parentheses === 0 && onlyOperators(s, '+-')
-    && s.numbers.every(n => n >= 1 && n <= 100) && s.operations >= 1 && s.operations <= 2 && s.value <= 200,
-  'mul-div-a': (s, word) => !word && s.negatives === 0 && s.parentheses === 0 && onlyOperators(s, '*/')
-    && s.numbers.every(n => n >= 1 && n <= 81) && s.operations >= 1 && s.operations <= 2 && s.value >= 0 && s.value <= 100,
   'word-a': (s, word) => word && s.negatives === 0 && !s.negativeStep && s.numbers.every(n => n >= 1 && n <= 100)
     && s.operations >= 1 && s.operations <= 2 && s.value >= 0 && s.value <= 500,
 };
@@ -95,7 +90,8 @@ const RULES = {
 export function validateBank(bank, catalog = ARITH_SETS) {
   assert.equal(bank.version, 1);
   assert.ok(Array.isArray(bank.problems));
-  for (const set of catalog) assert.ok(Object.hasOwn(RULES, set.rule), `Unknown rule: ${set.rule}`);
+  // Sets without a rule are coming soon and may not hold problems yet.
+  for (const set of catalog) assert.ok(set.rule === undefined || Object.hasOwn(RULES, set.rule), `Unknown rule: ${set.rule}`);
   const ids = new Set();
   const positions = new Set();
   const expressions = new Set();
@@ -106,6 +102,7 @@ export function validateBank(bank, catalog = ARITH_SETS) {
     assert.ok(!ids.has(id), `Duplicate ID: ${id}`); ids.add(id);
     const set = catalog.find(set => set.id === setId);
     assert.ok(set, `${id}: unknown set`);
+    assert.ok(set.rule, `${id}: set ${setId} is coming soon (no rule yet)`);
     assert.ok(Number.isInteger(position) && position >= 1, `${id}: position`);
     assert.ok(!positions.has(`${setId}:${position}`), `${id}: duplicate position`); positions.add(`${setId}:${position}`);
     assert.equal(typeof problem.published, 'boolean');

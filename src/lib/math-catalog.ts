@@ -17,7 +17,30 @@ export const MATH_DOMAINS: readonly MathDomain[] = ['number', 'algebra', 'functi
 
 // Display order and stable IDs for the math roadmap; no problem data here.
 export const MATH_CATALOG: readonly MathCatalogUnit[] = [
+  { id: 'addition', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
+    { id: 'carry-a', item: 'addition.carry' },
+    { id: 'two-digit-a', item: 'addition.two-digit' },
+    { id: 'column-a', item: 'addition.column' },
+  ] },
+  { id: 'multiplication', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
+    { id: 'times-table-a', item: 'multiplication.times-table' },
+    { id: 'by-one-digit-a', item: 'multiplication.by-one-digit' },
+    { id: 'by-two-digit-a', item: 'multiplication.by-two-digit' },
+  ] },
+  { id: 'division', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
+    { id: 'basic-a', item: 'division.basic' },
+    { id: 'remainder-a', item: 'division.remainder' },
+    { id: 'by-two-digit-a', item: 'division.by-two-digit' },
+  ] },
   { id: 'arith', domain: 'number', stage: 'elementary', status: 'published', sets: [] },
+  { id: 'place-value', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
+    { id: 'place-value-a', item: 'place-value.place-value' },
+    { id: 'large-numbers-a', item: 'place-value.large-numbers' },
+  ] },
+  { id: 'time', domain: 'geometry', stage: 'elementary', status: 'comingSoon', sets: [
+    { id: 'reading-a', item: 'time.reading' },
+    { id: 'elapsed-a', item: 'time.elapsed' },
+  ] },
   { id: 'decimal', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
     { id: 'add-sub-a', item: 'decimal.add-sub' },
     { id: 'mul-div-a', item: 'decimal.mul-div' },
@@ -43,10 +66,30 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'measurement', domain: 'geometry', stage: 'elementary', status: 'comingSoon', sets: [
     { id: 'units-a', item: 'measurement.units' },
     { id: 'area-volume-a', item: 'measurement.area-volume' },
+    { id: 'circle-a', item: 'measurement.circle' },
+  ] },
+  { id: 'shapes', domain: 'geometry', stage: 'elementary', status: 'comingSoon', sets: [
+    { id: 'triangles-quads-a', item: 'shapes.triangles-quads' },
+    { id: 'circles-a', item: 'shapes.circles' },
+    { id: 'angles-a', item: 'shapes.angles' },
+  ] },
+  { id: 'symmetry', domain: 'geometry', stage: 'elementary', status: 'comingSoon', sets: [
+    { id: 'symmetry-a', item: 'symmetry.symmetry' },
+    { id: 'scale-a', item: 'symmetry.scale' },
   ] },
   { id: 'data', domain: 'data', stage: 'elementary', status: 'comingSoon', sets: [
     { id: 'average-a', item: 'data.average' },
     { id: 'median-range-a', item: 'data.median-range' },
+  ] },
+  { id: 'graphs', domain: 'data', stage: 'elementary', status: 'comingSoon', sets: [
+    { id: 'tables-a', item: 'graphs.tables' },
+    { id: 'line-graph-a', item: 'graphs.line-graph' },
+    { id: 'pie-band-a', item: 'graphs.pie-band' },
+    { id: 'histogram-a', item: 'graphs.histogram' },
+  ] },
+  { id: 'counting', domain: 'data', stage: 'elementary', status: 'comingSoon', sets: [
+    { id: 'arrangements-a', item: 'counting.arrangements' },
+    { id: 'combinations-a', item: 'counting.combinations' },
   ] },
   { id: 'signed', domain: 'number', stage: 'middle', status: 'published', sets: [] },
   { id: 'exponents', domain: 'number', stage: 'middle', status: 'comingSoon', sets: [
@@ -57,6 +100,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'value-a', item: 'expression.value' },
     { id: 'like-terms-a', item: 'expression.like-terms' },
     { id: 'distribute-a', item: 'expression.distribute' },
+    { id: 'rearrange-a', item: 'expression.rearrange' },
   ] },
   { id: 'linear-equation', domain: 'algebra', stage: 'middle', status: 'comingSoon', sets: [
     { id: 'basic-a', item: 'linear-equation.basic' },
@@ -73,9 +117,17 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'proportion-a', item: 'linear-function.proportion' },
     { id: 'slope-a', item: 'linear-function.slope' },
     { id: 'two-points-a', item: 'linear-function.two-points' },
+    { id: 'equations-a', item: 'linear-function.equations' },
   ] },
-  { id: 'inequality', domain: 'algebra', stage: 'middle', status: 'comingSoon', sets: [
+  { id: 'square-function', domain: 'functions', stage: 'middle', status: 'comingSoon', sets: [
+    { id: 'graph-a', item: 'square-function.graph' },
+    { id: 'rate-of-change-a', item: 'square-function.rate-of-change' },
+    { id: 'intersection-a', item: 'square-function.intersection' },
+  ] },
+  { id: 'inequality', domain: 'algebra', stage: 'high', status: 'comingSoon', sets: [
     { id: 'linear-a', item: 'inequality.linear' },
+    { id: 'quadratic-a', item: 'inequality.quadratic' },
+    { id: 'absolute-a', item: 'inequality.absolute' },
   ] },
   { id: 'expansion', domain: 'algebra', stage: 'middle', status: 'comingSoon', sets: [
     { id: 'formulas-a', item: 'expansion.formulas' },
@@ -100,7 +152,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'probability', domain: 'data', stage: 'middle', status: 'comingSoon', sets: [
     { id: 'basic-a', item: 'probability.basic' },
   ] },
-  { id: 'quadratic', domain: 'algebra', stage: 'high', status: 'comingSoon', sets: [
+  { id: 'quadratic', domain: 'algebra', stage: 'middle', status: 'comingSoon', sets: [
     { id: 'factoring-a', item: 'quadratic.factoring' },
     { id: 'formula-a', item: 'quadratic.formula' },
     { id: 'discriminant-a', item: 'quadratic.discriminant' },
@@ -108,6 +160,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'identities', domain: 'algebra', stage: 'high', status: 'comingSoon', sets: [
     { id: 'binomial-a', item: 'identities.binomial' },
     { id: 'identity-a', item: 'identities.identity' },
+    { id: 'inequality-proof-a', item: 'identities.inequality-proof' },
   ] },
   { id: 'polynomial-equations', domain: 'algebra', stage: 'high', status: 'comingSoon', sets: [
     { id: 'remainder-a', item: 'polynomial-equations.remainder' },
@@ -127,6 +180,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'values-a', item: 'trig.values' },
     { id: 'radian-a', item: 'trig.radian' },
     { id: 'addition-a', item: 'trig.addition' },
+    { id: 'synthesis-a', item: 'trig.synthesis' },
   ] },
   { id: 'exp-log', domain: 'functions', stage: 'high', status: 'comingSoon', sets: [
     { id: 'exponent-a', item: 'exp-log.exponent' },
@@ -176,11 +230,13 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'line-a', item: 'coordinate-geometry.line' },
     { id: 'circle-a', item: 'coordinate-geometry.circle' },
     { id: 'locus-a', item: 'coordinate-geometry.locus' },
+    { id: 'region-a', item: 'coordinate-geometry.region' },
   ] },
   { id: 'vector', domain: 'linear-algebra', stage: 'high', status: 'comingSoon', sets: [
     { id: 'components-a', item: 'vector.components' },
     { id: 'dot-product-a', item: 'vector.dot-product' },
     { id: 'angle-a', item: 'vector.angle' },
+    { id: 'space-a', item: 'vector.space' },
   ] },
   { id: 'matrix', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', sets: [
     { id: 'operations-a', item: 'matrix.operations' },
@@ -217,6 +273,11 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'parallel-a', item: 'angles.parallel' },
     { id: 'polygon-a', item: 'angles.polygon' },
   ] },
+  { id: 'congruence', domain: 'geometry', stage: 'middle', status: 'comingSoon', sets: [
+    { id: 'conditions-a', item: 'congruence.conditions' },
+    { id: 'triangles-a', item: 'congruence.triangles' },
+    { id: 'parallelogram-a', item: 'congruence.parallelogram' },
+  ] },
   { id: 'circle-solid', domain: 'geometry', stage: 'middle', status: 'comingSoon', sets: [
     { id: 'sector-a', item: 'circle-solid.sector' },
     { id: 'solid-a', item: 'circle-solid.solid' },
@@ -241,6 +302,10 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'quartiles', domain: 'data', stage: 'middle', status: 'comingSoon', sets: [
     { id: 'quartiles-a', item: 'quartiles.quartiles' },
     { id: 'boxplot-a', item: 'quartiles.boxplot' },
+  ] },
+  { id: 'sampling', domain: 'data', stage: 'middle', status: 'comingSoon', sets: [
+    { id: 'population-sample-a', item: 'sampling.population-sample' },
+    { id: 'estimate-a', item: 'sampling.estimate' },
   ] },
   { id: 'statistics', domain: 'data', stage: 'high', status: 'comingSoon', sets: [
     { id: 'variance-a', item: 'statistics.variance' },

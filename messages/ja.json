@@ -597,18 +597,17 @@
       "postalMark": "〒"
     },
     "math": {
-      "title": "数学",
+      "title": "数学ドリル",
       "description": "四則演算や因数分解などを、単元ごとに練習できます。",
-      "keywords": "数学 算数 問題集 四則演算 因数分解 クイズ",
-      "intro": "分野・単元やレベルから、練習したい単元を探せます。",
-      "arithLink": "四則演算",
-      "arithSummary": "たし算・ひき算から計算の順序・文章題まで。やさしいセットから順に練習できます。",
+      "keywords": "数学 ドリル 算数 問題集 四則演算 因数分解 クイズ",
+      "intro": "分野ごとに、すべての単元と問題セットを並べています。色の付いたセットは今すぐ練習できます。",
+      "arithLink": "計算の順序と文章題",
+      "arithSummary": "計算の順序や計算のきまりと、文章題を練習します。",
       "factorizationLink": "因数分解",
       "factorizationSummary": "x² + ax + b を (x + p)(x + q) の形に分解します。二次式の因数分解の練習に。",
       "quiz": {
-        "chooseSet": "挑戦する問題セットを選んでください。",
         "setComingSoon": "この問題セットは準備中です。もうしばらくお待ちください。",
-        "backToMath": "数学",
+        "backToMath": "数学ドリル",
         "backToSets": "問題セットを選び直す",
         "progress": "{current} / {total}",
         "answer": "回答する",
@@ -624,13 +623,9 @@
         "signInToSave": "ログインすると成績が記録されます。"
       },
       "arith": {
-        "title": "四則演算",
-        "description": "たし算・ひき算から計算の順序・文章題まで、4択クイズで練習できます。",
+        "title": "計算の順序と文章題",
+        "description": "計算の順序や計算のきまり、文章題を4択クイズで練習できます。",
         "keywords": "数学 四則演算 計算の順序 文章題 クイズ",
-        "setAddSub": "たし算・ひき算",
-        "setAddSubDescription": "100までの数のたし算とひき算。はじめての人はここから。",
-        "setMulDiv": "かけ算・わり算",
-        "setMulDivDescription": "九九を使うかけ算とわり算。わり切れる問題だけです。",
         "setEasyWord": "かんたん文章題",
         "setEasyWordDescription": "1〜2回の計算で解ける、短い文章題です。",
         "setOrder": "計算の順序",
@@ -639,7 +634,9 @@
         "setWord": "少し長い文章題",
         "setWordDescription": "2〜3回の計算が必要な文章題です。かんたん文章題に慣れたら挑戦を。",
         "formula": "式：",
-        "valueWithUnit": "{value}{unit}"
+        "valueWithUnit": "{value}{unit}",
+        "setRules": "計算のきまり",
+        "setRulesDescription": "結合法則・分配法則などを使って、くふうして計算します。"
       },
       "factorization": {
         "title": "因数分解",
@@ -647,23 +644,15 @@
         "keywords": "数学 因数分解 クイズ 二次式",
         "setStandard": "二次三項式の因数分解",
         "setStandardDescription": "1から9までの整数で、基本の形に慣れます。",
-        "setWide": "二次三項式の因数分解（大きな数）",
-        "setWideDescription": "20までの大きい数や負の数が混ざります。",
         "setDifferenceOfSquares": "平方の差の因数分解",
         "setDifferenceOfSquaresDescription": "x² − a² の形だけを集めました。公式のパターンを覚えたいときに。",
         "explanationTemplate": "掛けて{b}、足して{a}になる2つの整数は{p}と{q}です。",
+        "setVarious": "たすき掛け・おきかえなど",
+        "setVariousDescription": "高校で学ぶ、たすき掛け、おきかえ、2つの文字を含む式、3乗の和と差の因数分解です。",
         "setCommonFactor": "共通因数のくくり出し",
         "setCommonFactorDescription": "各項に共通な因数をくくり出します。くくったあとに公式を使う式もあります。",
         "setPerfectSquare": "完全平方式の因数分解",
-        "setPerfectSquareDescription": "x² + 2ax + a² を (x + a)² の形にします。",
-        "setTwoVariables": "2つの文字を含む式の因数分解",
-        "setTwoVariablesDescription": "x² + 5xy + 6y² のように、文字が2つある式を因数分解します。",
-        "setAcMethod": "たすき掛け",
-        "setAcMethodDescription": "2x² + 7x + 3 のように、x² の係数が1でない式を因数分解します。",
-        "setSubstitution": "おきかえによる因数分解",
-        "setSubstitutionDescription": "式の一部を1つの文字におきかえてから因数分解します。",
-        "setCubes": "3乗の和と差の因数分解",
-        "setCubesDescription": "x³ − 8 のように、3乗の和と差の公式を使います。"
+        "setPerfectSquareDescription": "x² + 2ax + a² を (x + a)² の形にします。"
       },
       "signedLink": "正負の数",
       "signedSummary": "負の数をふくむ四則演算。符号のミスに気をつけて練習できます。",
@@ -724,7 +713,8 @@
           "summary": "単位の換算や図形の面積・体積を練習します。",
           "sets": {
             "units-a": "単位の換算",
-            "area-volume-a": "面積・体積"
+            "area-volume-a": "面積・体積",
+            "circle-a": "円周と円の面積"
           }
         },
         "data": {
@@ -741,7 +731,8 @@
           "sets": {
             "value-a": "式の値",
             "like-terms-a": "同類項をまとめる",
-            "distribute-a": "分配法則"
+            "distribute-a": "分配法則",
+            "rearrange-a": "等式の変形"
           }
         },
         "linear-equation": {
@@ -769,14 +760,17 @@
           "sets": {
             "proportion-a": "比例・反比例",
             "slope-a": "傾きと切片",
-            "two-points-a": "2点を通る直線"
+            "two-points-a": "2点を通る直線",
+            "equations-a": "一次関数と方程式"
           }
         },
         "inequality": {
           "title": "不等式",
           "summary": "一次不等式を解いて、条件を満たす数の範囲を求めます。",
           "sets": {
-            "linear-a": "一次不等式"
+            "linear-a": "一次不等式",
+            "quadratic-a": "二次不等式",
+            "absolute-a": "絶対値を含む式"
           }
         },
         "expansion": {
@@ -851,7 +845,8 @@
           "sets": {
             "values-a": "特殊角の値",
             "radian-a": "弧度法",
-            "addition-a": "加法定理"
+            "addition-a": "加法定理",
+            "synthesis-a": "三角関数の合成"
           }
         },
         "exp-log": {
@@ -911,7 +906,8 @@
           "sets": {
             "line-a": "直線の方程式",
             "circle-a": "円の方程式",
-            "locus-a": "軌跡"
+            "locus-a": "軌跡",
+            "region-a": "不等式の表す領域"
           }
         },
         "vector": {
@@ -920,7 +916,8 @@
           "sets": {
             "components-a": "成分と大きさ",
             "dot-product-a": "内積",
-            "angle-a": "なす角"
+            "angle-a": "なす角",
+            "space-a": "空間ベクトル"
           }
         },
         "matrix": {
@@ -979,7 +976,8 @@
           "summary": "二項定理と恒等式を使って式を扱います。",
           "sets": {
             "binomial-a": "二項定理",
-            "identity-a": "恒等式"
+            "identity-a": "恒等式",
+            "inequality-proof-a": "不等式の証明"
           }
         },
         "polynomial-equations": {
@@ -1177,6 +1175,110 @@
             "linear-first-a": "一階線形",
             "second-order-a": "定数係数の二階線形"
           }
+        },
+        "place-value": {
+          "title": "大きな数",
+          "summary": "位取りのしくみから、万・億・兆の大きな数まで練習します。",
+          "sets": {
+            "place-value-a": "位取り",
+            "large-numbers-a": "万・億・兆"
+          }
+        },
+        "time": {
+          "title": "時刻と時間",
+          "summary": "時計の読み方と、時間の計算を練習します。",
+          "sets": {
+            "reading-a": "時計の読み方",
+            "elapsed-a": "時刻と時間の計算"
+          }
+        },
+        "shapes": {
+          "title": "図形の基本",
+          "summary": "三角形・四角形・円の性質と、角の大きさを学びます。",
+          "sets": {
+            "triangles-quads-a": "三角形と四角形",
+            "circles-a": "円と球",
+            "angles-a": "角の大きさ"
+          }
+        },
+        "symmetry": {
+          "title": "対称と拡大・縮小",
+          "summary": "線対称・点対称な図形と、拡大図・縮図を学びます。",
+          "sets": {
+            "symmetry-a": "線対称と点対称",
+            "scale-a": "拡大図と縮図"
+          }
+        },
+        "graphs": {
+          "title": "表とグラフ",
+          "summary": "表・棒グラフ・折れ線グラフから、帯グラフ・円グラフ・柱状グラフまで読み取ります。",
+          "sets": {
+            "tables-a": "表と棒グラフ",
+            "line-graph-a": "折れ線グラフ",
+            "pie-band-a": "帯グラフと円グラフ",
+            "histogram-a": "柱状グラフ"
+          }
+        },
+        "counting": {
+          "title": "並べ方と組み合わせ",
+          "summary": "並べ方や組み合わせを、もれなく重なりなく数えます。",
+          "sets": {
+            "arrangements-a": "並べ方",
+            "combinations-a": "組み合わせ"
+          }
+        },
+        "congruence": {
+          "title": "合同と図形の性質",
+          "summary": "三角形の合同条件と、二等辺三角形・平行四辺形の性質を学びます。",
+          "sets": {
+            "conditions-a": "三角形の合同条件",
+            "triangles-a": "二等辺三角形と直角三角形",
+            "parallelogram-a": "平行四辺形になる条件"
+          }
+        },
+        "square-function": {
+          "title": "関数 y=ax²",
+          "summary": "y=ax² のグラフ、変化の割合、放物線と直線の交点を学びます。",
+          "sets": {
+            "graph-a": "グラフと式",
+            "rate-of-change-a": "変化の割合",
+            "intersection-a": "放物線と直線"
+          }
+        },
+        "sampling": {
+          "title": "標本調査",
+          "summary": "全数調査と標本調査の違いと、標本から全体を推定する方法を学びます。",
+          "sets": {
+            "population-sample-a": "母集団と標本",
+            "estimate-a": "標本からの推定"
+          }
+        },
+        "addition": {
+          "title": "たし算・ひき算",
+          "summary": "くり上がり・くり下がりから、大きな数の筆算まで練習します。",
+          "sets": {
+            "carry-a": "1桁のくり上がり・くり下がり",
+            "two-digit-a": "2桁のたし算・ひき算",
+            "column-a": "3〜4桁の筆算"
+          }
+        },
+        "multiplication": {
+          "title": "かけ算",
+          "summary": "九九から、2桁・3桁のかけ算まで練習します。",
+          "sets": {
+            "times-table-a": "九九",
+            "by-one-digit-a": "2〜3桁×1桁",
+            "by-two-digit-a": "2〜3桁×2桁"
+          }
+        },
+        "division": {
+          "title": "わり算",
+          "summary": "九九を使うわり算から、あまりのあるわり算、2桁でわるわり算まで練習します。",
+          "sets": {
+            "basic-a": "九九を使うわり算",
+            "remainder-a": "あまりのあるわり算",
+            "by-two-digit-a": "2桁でわるわり算"
+          }
         }
       },
       "domains": {
@@ -1198,57 +1300,12 @@
         "explanationPrefix": "三平方の定理より、",
         "figureDescription": "直角三角形ABC。角{rightAngle}が直角。{first}は{firstLength} cm、{second}は{secondLength} cm、{unknown}はx。"
       },
-      "entrances": {
-        "units": {
-          "title": "分野・単元から",
-          "body": "数学全体から自由に探す"
-        },
-        "level": {
-          "title": "レベルから",
-          "body": "小学から大学まで、レベルを選んで探す"
-        },
-        "kentei": {
-          "title": "数検対策",
-          "body": "級を選んで練習"
-        }
-      },
-      "unitsIntro": "数学の分野ごとに、すべての単元を並べています。",
-      "levelTitle": "{stage}レベルの単元",
-      "levelIntro": "選んだレベルの単元を、数学の分野ごとに並べています。",
-      "kentei": {
-        "intro": "実用数学技能検定（数検）の級ごとに、対策になる単元を並べています。",
-        "note": "級と単元の対応は目安です。正式な出題範囲は日本数学検定協会の公式サイトで確認してください。当サイトは日本数学検定協会とは関係ありません。「数検」は公益財団法人日本数学検定協会の登録商標です。",
-        "official": "公式サイト",
-        "grades": {
-          "11": "11級",
-          "10": "10級",
-          "9": "9級",
-          "8": "8級",
-          "7": "7級",
-          "6": "6級",
-          "5": "5級",
-          "4": "4級",
-          "3": "3級",
-          "pre2": "準2級",
-          "2": "2級",
-          "pre1": "準1級",
-          "1": "1級"
-        },
-        "targets": {
-          "e1": "小学1年程度",
-          "e2": "小学2年程度",
-          "e3": "小学3年程度",
-          "e4": "小学4年程度",
-          "e5": "小学5年程度",
-          "e6": "小学6年程度",
-          "m1": "中学1年程度",
-          "m2": "中学2年程度",
-          "m3": "中学3年程度",
-          "h1": "高校1年程度",
-          "h2": "高校2年程度",
-          "h3": "高校3年程度",
-          "university": "大学程度"
-        }
+      "unitList": {
+        "filters": "絞り込み",
+        "playableOnly": "遊べるセットだけ",
+        "search": "単元・セットを検索",
+        "empty": "条件に合う単元がありません。",
+        "best": "最高 {best}/{total}"
       }
     },
     "about": {

@@ -25,8 +25,8 @@ export default {
     if (!isIndexable || response.status >= 400 || AUTH_PATH.test(url.pathname) || isComingSoonMathPath(url.pathname)) {
       secured.headers.set('X-Robots-Tag', 'noindex');
     }
-    // Math unit pages carry a signed-in user's scores (set pickers) or save them (set pages).
-    if (/^\/(ja|en|zh)\/(diary|clock|profile|life-calendar|math\/(?:arith|factorization|pythagoras))(?:\.data|\/|$)/.test(url.pathname)) {
+    // Math pages carry a signed-in user's scores (the set list) or save them (set pages).
+    if (/^\/(ja|en|zh)\/(diary|clock|profile|life-calendar|math)(?:\.data|\/|$)/.test(url.pathname)) {
       secured.headers.set('Cache-Control', 'private, no-store');
     }
     // Lets CI tell when a deploy has reached the edge (scripts/wait-for-deploy.mjs).

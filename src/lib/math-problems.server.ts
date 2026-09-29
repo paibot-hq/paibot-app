@@ -28,3 +28,11 @@ export async function getMathSet<U extends MathUnit>(unit: U, setId: string): Pr
   // The importer validates each unit's payload; the unit filter narrows its type.
   return rows as MathProblem<U>[];
 }
+
+// "unit/setId" of every set with published problems, i.e. every set a visitor
+// can play; the unit list marks the rest as coming soon.
+export async function getPlayableSets(): Promise<string[]> {
+  const t = mathProblems;
+  const rows = await getDb().selectDistinct({ unit: t.unit, setId: t.setId }).from(t).where(eq(t.published, true));
+  return rows.map(row => `${row.unit}/${row.setId}`);
+}

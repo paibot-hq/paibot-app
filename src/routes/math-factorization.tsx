@@ -47,6 +47,6 @@ export default function MathFactorization({ loaderData }: Route.ComponentProps) 
   })), [problems, t]);
 
   return <><PublicHead locale={locale} path={`/math/factorization/${setId}`} title={`${t('title')} - ${setLabel} | PAIBOT.app`} description={t('description')} />
-    <MathSetQuiz key={setId} title={t('title')} setLabel={setLabel} backHref="/math/factorization" questions={questions} />
+    <MathSetQuiz key={setId} title={t('title')} setLabel={setLabel} questions={questions} />
   </>;
 }

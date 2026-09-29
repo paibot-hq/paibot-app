@@ -43,8 +43,12 @@ a change to shared code runs every tool, as does every push to `main`.
 
 ## Math project
 
-`/math` is a published landing page linking to quiz units, each a set picker plus
-five-problem, four-choice sets served from D1: `/math/arith/:setId`
+`/math` ("Math Drills") is the only math index: every unit and all of its sets
+on one page (`src/components/math-unit-table.tsx`), filtered in the browser by
+level, playability and name.
+Sets with published problems in D1 are highlighted, and a signed-in user's
+scores are shown. Units have no page of their own; former unit and entry URLs
+301 to `/math`. Sets are five-problem, four-choice quizzes served from D1: `/math/arith/:setId`
 (addition/subtraction, multiplication/division, order of operations, word problems),
 `/math/signed/:setId` (negative numbers), `/math/factorization/:setId`, and
 `/math/pythagoras/:setId` (right-triangle side lengths). All use the shared
@@ -53,17 +57,16 @@ unit, set, publication status and position. Unit-specific data lives in a JSON
 `payload`, typed in `src/lib/math-arith.ts`, `math-factorization.ts`, and
 `math-pythagoras.ts`.
 `src/lib/math-problems.server.ts` reads published sets for all units; routes
-convert payloads for display. All render through
-`src/components/math-set-picker.tsx` and `math-set-quiz.tsx`.
+convert payloads for display. All render through `src/components/math-set-quiz.tsx`,
+whose back link returns to `/math`.
 
 `src/lib/math-catalog.ts` defines mathematical domains (`domain`), difficulty
 badges (`stage`: elementary/middle/high/university = foundations/intermediate/advanced/higher),
 unit order and publication status. `/math` groups units by domain, then difficulty,
 keeping catalog order within each difficulty. Grade mappings belong in separate
 country/region curriculum tables; stages are not school assignments.
-`/math` renders this catalog; coming-soon units share `math-unit-index.tsx` and
-`math-unit-set.tsx`, which show set names and an empty quiz. Their pages are
-noindex and excluded from publicPaths/the sitemap. Published units retain their
+Coming-soon units' sets share `math-unit-set.tsx`, which shows an empty quiz;
+those pages are noindex and excluded from publicPaths/the sitemap. Published units retain their
 static routes and existing `math-*-sets.ts` catalogs, which take precedence.
 To publish a new unit, add dedicated routes, a set catalog, payload/display
 conversion, independent verification and import support like the existing units,

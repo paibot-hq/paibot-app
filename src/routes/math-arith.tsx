@@ -38,6 +38,6 @@ export default function MathArith({ loaderData }: Route.ComponentProps) {
   const questions = useMemo(() => expressionQuestions(problems, locale, t), [problems, locale, t]);
 
   return <><PublicHead locale={locale} path={`/math/arith/${setId}`} title={`${t('title')} - ${setLabel} | PAIBOT.app`} description={t('description')} />
-    <MathSetQuiz key={setId} title={t('title')} setLabel={setLabel} backHref="/math/arith" questions={questions} />
+    <MathSetQuiz key={setId} title={t('title')} setLabel={setLabel} questions={questions} />
   </>;
 }

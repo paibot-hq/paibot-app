@@ -1,33 +1,30 @@
 import { useLocale, useTranslations } from 'use-intl';
+import MathUnitTable from '../components/math-unit-table';
 import PublicHead from '../components/public-head';
 import ToolLayout from '../components/tool-layout';
-import { mathUnitStyles as styles, StageLinks } from '../components/math-units';
-import { Link } from '../i18n/navigation';
-import { pathLocales } from '../lib/seo';
+import { getSetRecords } from '../lib/math-attempts.server';
+import type { MathUnit } from '../lib/math-attempts';
+import { getPlayableSets } from '../lib/math-problems.server';
+import type { Route } from './+types/math';
 
-// Three ways in: by area of mathematics, by level, and (Japanese only) by
-// Suken grade.
-export default function Math() {
+// Signed-in users also see their latest and best score on each set they finished.
+export async function loader(args: Route.LoaderArgs) {
+  const units: MathUnit[] = ['arith', 'signed', 'factorization', 'pythagoras'];
+  const [playable, ...records] = await Promise.all([getPlayableSets(), ...units.map(unit => getSetRecords(args, unit))]);
+  return {
+    playable,
+    records: Object.fromEntries(units.flatMap((unit, i) => Object.entries(records[i]).map(([setId, record]) => [`${unit}/${setId}`, record]))),
+  };
+}
+
+// One page for all of math: every unit and set, filtered in the browser.
+export default function Math({ loaderData }: Route.ComponentProps) {
   const locale = useLocale();
   const t = useTranslations('App.math');
   return <><PublicHead locale={locale} path="/math" title={`${t('title')} | PAIBOT.app`} description={t('description')} />
     <ToolLayout title={t('title')} centerTitle>
       <p>{t('intro')}</p>
-      <ul className={styles.entrances}>
-        <li className={styles.entrance}>
-          <h2><Link href="/math/units">{t('entrances.units.title')}</Link></h2>
-          <p>{t('entrances.units.body')}</p>
-        </li>
-        <li className={styles.entrance}>
-          <h2>{t('entrances.level.title')}</h2>
-          <p>{t('entrances.level.body')}</p>
-          <StageLinks />
-        </li>
-        {(pathLocales('/math/kentei') as readonly string[]).includes(locale) && <li className={styles.entrance}>
-          <h2><Link href="/math/kentei">{t('entrances.kentei.title')}</Link></h2>
-          <p>{t('entrances.kentei.body')}</p>
-        </li>}
-      </ul>
+      <MathUnitTable playable={loaderData.playable} records={loaderData.records} />
     </ToolLayout>
   </>;
 }

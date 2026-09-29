@@ -597,18 +597,17 @@
       "postalMark": ""
     },
     "math": {
-      "title": "Math",
+      "title": "Math Drills",
       "description": "Practice arithmetic, factoring, and other math topics, one topic at a time.",
-      "keywords": "math arithmetic algebra factoring quiz problem set",
-      "intro": "Find a unit to practice by area of mathematics or by level.",
-      "arithLink": "Arithmetic",
-      "arithSummary": "From addition and subtraction to the order of operations and word problems. Start with the easy sets and work up.",
+      "keywords": "math drills arithmetic algebra factoring quiz problem set",
+      "intro": "Every unit and problem set, grouped by area of mathematics. Highlighted sets are ready to practice.",
+      "arithLink": "Order of operations & word problems",
+      "arithSummary": "Order of operations, calculation rules and word problems.",
       "factorizationLink": "Factoring",
       "factorizationSummary": "Factor x² + ax + b into the form (x + p)(x + q). Practice for factoring quadratics.",
       "quiz": {
-        "chooseSet": "Choose a problem set to try.",
         "setComingSoon": "This problem set is being prepared. Check back soon.",
-        "backToMath": "Math",
+        "backToMath": "Math Drills",
         "backToSets": "Choose a different set",
         "progress": "{current} / {total}",
         "answer": "Answer",
@@ -624,13 +623,9 @@
         "signInToSave": "Sign in to keep a record of your scores."
       },
       "arith": {
-        "title": "Arithmetic",
-        "description": "Practice arithmetic, from addition and subtraction to the order of operations and word problems, with multiple-choice quizzes.",
+        "title": "Order of operations & word problems",
+        "description": "Practice the order of operations, calculation rules and word problems with four-choice quizzes.",
         "keywords": "math arithmetic order of operations word problems quiz",
-        "setAddSub": "Addition & subtraction",
-        "setAddSubDescription": "Adding and subtracting numbers up to 100. Start here if you are new.",
-        "setMulDiv": "Multiplication & division",
-        "setMulDivDescription": "Times-table multiplication and division. Every division comes out even.",
         "setEasyWord": "Easy word problems",
         "setEasyWordDescription": "Short word problems you can solve in one or two steps.",
         "setOrder": "Order of operations",
@@ -639,7 +634,9 @@
         "setWord": "Multi-step word problems",
         "setWordDescription": "Word problems that take two or three calculations. Try these after the easy ones.",
         "formula": "Expression:",
-        "valueWithUnit": "{value} {unit}"
+        "valueWithUnit": "{value} {unit}",
+        "setRules": "Calculation rules",
+        "setRulesDescription": "Use the associative and distributive laws to calculate smartly."
       },
       "factorization": {
         "title": "Factoring",
@@ -647,23 +644,15 @@
         "keywords": "math factoring quiz quadratic",
         "setStandard": "Factoring trinomials",
         "setStandardDescription": "Integers from 1 to 9 - get comfortable with the basic form.",
-        "setWide": "Factoring trinomials (larger numbers)",
-        "setWideDescription": "Larger and negative numbers up to 20.",
         "setDifferenceOfSquares": "Difference of squares",
         "setDifferenceOfSquaresDescription": "Only the x² − a² form - good for learning to spot the pattern.",
         "explanationTemplate": "The two integers that multiply to {b} and add to {a} are {p} and {q}.",
+        "setVarious": "The ac method, substitution & more",
+        "setVariousDescription": "High-school factoring: the ac method, substitution, two variables, and sums and differences of cubes.",
         "setCommonFactor": "Factoring out common factors",
         "setCommonFactorDescription": "Take out the factor common to every term, sometimes followed by a formula.",
         "setPerfectSquare": "Perfect square trinomials",
-        "setPerfectSquareDescription": "Write x² + 2ax + a² as (x + a)².",
-        "setTwoVariables": "Factoring in two variables",
-        "setTwoVariablesDescription": "Factor expressions with two letters, such as x² + 5xy + 6y².",
-        "setAcMethod": "Factoring ax² + bx + c",
-        "setAcMethodDescription": "Factor quadratics whose x² coefficient is not 1, such as 2x² + 7x + 3.",
-        "setSubstitution": "Factoring by substitution",
-        "setSubstitutionDescription": "Replace part of an expression with a single letter, then factor.",
-        "setCubes": "Sum and difference of cubes",
-        "setCubesDescription": "Use the sum and difference of cubes formulas, as in x³ − 8."
+        "setPerfectSquareDescription": "Write x² + 2ax + a² as (x + a)²."
       },
       "signedLink": "Negative numbers",
       "signedSummary": "Arithmetic with negative numbers - practice keeping the signs right.",
@@ -724,7 +713,8 @@
           "summary": "Practice converting units and finding areas and volumes.",
           "sets": {
             "units-a": "Converting units",
-            "area-volume-a": "Area & volume"
+            "area-volume-a": "Area & volume",
+            "circle-a": "Circumference & area of circles"
           }
         },
         "data": {
@@ -741,7 +731,8 @@
           "sets": {
             "value-a": "Evaluating expressions",
             "like-terms-a": "Combining like terms",
-            "distribute-a": "Distributive property"
+            "distribute-a": "Distributive property",
+            "rearrange-a": "Rearranging formulas"
           }
         },
         "linear-equation": {
@@ -769,14 +760,17 @@
           "sets": {
             "proportion-a": "Direct & inverse proportion",
             "slope-a": "Slope & intercept",
-            "two-points-a": "Line through two points"
+            "two-points-a": "Line through two points",
+            "equations-a": "Linear functions & equations"
           }
         },
         "inequality": {
           "title": "Inequalities",
           "summary": "Solve linear inequalities to find the range of values that satisfy them.",
           "sets": {
-            "linear-a": "Linear inequalities"
+            "linear-a": "Linear inequalities",
+            "quadratic-a": "Quadratic inequalities",
+            "absolute-a": "Absolute value"
           }
         },
         "expansion": {
@@ -851,7 +845,8 @@
           "sets": {
             "values-a": "Special-angle values",
             "radian-a": "Radians",
-            "addition-a": "Angle addition formulas"
+            "addition-a": "Angle addition formulas",
+            "synthesis-a": "Combining sine & cosine"
           }
         },
         "exp-log": {
@@ -911,7 +906,8 @@
           "sets": {
             "line-a": "Equations of lines",
             "circle-a": "Equations of circles",
-            "locus-a": "Loci"
+            "locus-a": "Loci",
+            "region-a": "Regions defined by inequalities"
           }
         },
         "vector": {
@@ -920,7 +916,8 @@
           "sets": {
             "components-a": "Components & magnitude",
             "dot-product-a": "Dot products",
-            "angle-a": "Angles between vectors"
+            "angle-a": "Angles between vectors",
+            "space-a": "Vectors in space"
           }
         },
         "matrix": {
@@ -979,7 +976,8 @@
           "summary": "Use the binomial theorem and polynomial identities.",
           "sets": {
             "binomial-a": "Binomial theorem",
-            "identity-a": "Identities"
+            "identity-a": "Identities",
+            "inequality-proof-a": "Proving inequalities"
           }
         },
         "polynomial-equations": {
@@ -1177,6 +1175,110 @@
             "linear-first-a": "First-order linear equations",
             "second-order-a": "Second-order with constant coefficients"
           }
+        },
+        "place-value": {
+          "title": "Place value & large numbers",
+          "summary": "Place value, from tens and hundreds up to millions and billions.",
+          "sets": {
+            "place-value-a": "Place value",
+            "large-numbers-a": "Large numbers"
+          }
+        },
+        "time": {
+          "title": "Clocks & time",
+          "summary": "Reading clocks and working out elapsed time.",
+          "sets": {
+            "reading-a": "Reading clocks",
+            "elapsed-a": "Elapsed time"
+          }
+        },
+        "shapes": {
+          "title": "Basic shapes",
+          "summary": "Triangles, quadrilaterals, circles and measuring angles.",
+          "sets": {
+            "triangles-quads-a": "Triangles & quadrilaterals",
+            "circles-a": "Circles & spheres",
+            "angles-a": "Measuring angles"
+          }
+        },
+        "symmetry": {
+          "title": "Symmetry & scale drawings",
+          "summary": "Line and point symmetry, and enlargements and reductions.",
+          "sets": {
+            "symmetry-a": "Line & point symmetry",
+            "scale-a": "Scale drawings"
+          }
+        },
+        "graphs": {
+          "title": "Tables & graphs",
+          "summary": "Reading tables, bar and line graphs, pie charts and histograms.",
+          "sets": {
+            "tables-a": "Tables & bar graphs",
+            "line-graph-a": "Line graphs",
+            "pie-band-a": "Pie & bar-percentage charts",
+            "histogram-a": "Histograms"
+          }
+        },
+        "counting": {
+          "title": "Arrangements & combinations",
+          "summary": "Counting arrangements and choices without missing or repeating any.",
+          "sets": {
+            "arrangements-a": "Arrangements",
+            "combinations-a": "Combinations"
+          }
+        },
+        "congruence": {
+          "title": "Congruence & properties of shapes",
+          "summary": "Congruence conditions for triangles, and properties of isosceles triangles and parallelograms.",
+          "sets": {
+            "conditions-a": "Congruence conditions",
+            "triangles-a": "Isosceles & right triangles",
+            "parallelogram-a": "Conditions for parallelograms"
+          }
+        },
+        "square-function": {
+          "title": "The function y = ax²",
+          "summary": "Graphs of y = ax², rates of change, and where parabolas meet lines.",
+          "sets": {
+            "graph-a": "Graphs & equations",
+            "rate-of-change-a": "Rate of change",
+            "intersection-a": "Parabolas & lines"
+          }
+        },
+        "sampling": {
+          "title": "Sampling",
+          "summary": "Census versus sampling, and estimating a population from a sample.",
+          "sets": {
+            "population-sample-a": "Populations & samples",
+            "estimate-a": "Estimating from a sample"
+          }
+        },
+        "addition": {
+          "title": "Addition & subtraction",
+          "summary": "From carrying and borrowing to column addition and subtraction.",
+          "sets": {
+            "carry-a": "Carrying & borrowing",
+            "two-digit-a": "Two-digit numbers",
+            "column-a": "Column addition & subtraction"
+          }
+        },
+        "multiplication": {
+          "title": "Multiplication",
+          "summary": "From times tables to multiplying two- and three-digit numbers.",
+          "sets": {
+            "times-table-a": "Times tables",
+            "by-one-digit-a": "2–3 digits × 1 digit",
+            "by-two-digit-a": "2–3 digits × 2 digits"
+          }
+        },
+        "division": {
+          "title": "Division",
+          "summary": "From division with times tables to remainders and dividing by two-digit numbers.",
+          "sets": {
+            "basic-a": "Division with times tables",
+            "remainder-a": "Division with remainders",
+            "by-two-digit-a": "Dividing by two-digit numbers"
+          }
         }
       },
       "domains": {
@@ -1198,57 +1300,12 @@
         "explanationPrefix": "By the Pythagorean theorem,",
         "figureDescription": "Right triangle ABC. Angle {rightAngle} is a right angle. {first} is {firstLength} cm, {second} is {secondLength} cm, and {unknown} is x."
       },
-      "entrances": {
-        "units": {
-          "title": "By area & unit",
-          "body": "Browse everything in mathematics"
-        },
-        "level": {
-          "title": "By level",
-          "body": "Pick a level, from foundations to higher mathematics"
-        },
-        "kentei": {
-          "title": "Suken prep",
-          "body": "Practice by grade"
-        }
-      },
-      "unitsIntro": "Every unit, grouped by area of mathematics.",
-      "levelTitle": "{stage} units",
-      "levelIntro": "Units at this level, grouped by area of mathematics.",
-      "kentei": {
-        "intro": "Units that prepare for each grade of Japan's Mathematics Certification (Suken).",
-        "note": "The grade-to-unit mapping is a guide; check the official ranges on the Mathematics Certification Institute of Japan's site. This site is not affiliated with the institute. \"Suken\" is a registered trademark of the Mathematics Certification Institute of Japan.",
-        "official": "Official site",
-        "grades": {
-          "11": "Grade 11",
-          "10": "Grade 10",
-          "9": "Grade 9",
-          "8": "Grade 8",
-          "7": "Grade 7",
-          "6": "Grade 6",
-          "5": "Grade 5",
-          "4": "Grade 4",
-          "3": "Grade 3",
-          "pre2": "Grade pre-2",
-          "2": "Grade 2",
-          "pre1": "Grade pre-1",
-          "1": "Grade 1"
-        },
-        "targets": {
-          "e1": "Elementary grade 1",
-          "e2": "Elementary grade 2",
-          "e3": "Elementary grade 3",
-          "e4": "Elementary grade 4",
-          "e5": "Elementary grade 5",
-          "e6": "Elementary grade 6",
-          "m1": "Junior high year 1",
-          "m2": "Junior high year 2",
-          "m3": "Junior high year 3",
-          "h1": "High school year 1",
-          "h2": "High school year 2",
-          "h3": "High school year 3",
-          "university": "University"
-        }
+      "unitList": {
+        "filters": "Filters",
+        "playableOnly": "Playable sets only",
+        "search": "Search units and sets",
+        "empty": "No units match these filters.",
+        "best": "Best {best}/{total}"
       }
     },
     "about": {

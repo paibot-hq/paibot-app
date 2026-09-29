@@ -16,6 +16,6 @@ export default function MathUnitSet({ loaderData: { unitId, setId } }: Route.Com
   const title = t(`units.${unitId}.title`);
   const setLabel = t(`units.${unitId}.sets.${setId}`);
   return <><title>{`${title} - ${setLabel} | PAIBOT.app`}</title>
-    <MathSetQuiz key={`${unitId}/${setId}`} title={title} setLabel={setLabel} backHref={`/math/${unitId}`} questions={[]} />
+    <MathSetQuiz key={`${unitId}/${setId}`} title={title} setLabel={setLabel} questions={[]} />
   </>;
 }
