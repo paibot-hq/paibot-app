@@ -604,7 +604,7 @@
       "quiz": {
         "setComingSoon": "この問題セットは準備中です。もうしばらくお待ちください。",
         "backToMath": "数学ドリル",
-        "backToSets": "問題セットを選び直す",
+        "breadcrumb": "パンくずリスト",
         "progress": "{current} / {total}",
         "answer": "回答する",
         "correct": "正解",
@@ -619,7 +619,6 @@
         "signInToSave": "ログインすると成績が記録されます。",
         "practice": "練習{number}",
         "chooseSet": "練習する問題セットを選んでください。",
-        "backToUnit": "{unit}に戻る",
         "chooseItem": "学習する項目を選んでください。",
         "tierCount": "{tier} {count}問",
         "tierSeparator": "・"

@@ -1,5 +1,6 @@
 import { useLocale, useTranslations } from 'use-intl';
 import PublicHead from '../components/public-head';
+import MathBreadcrumb from '../components/math-breadcrumb';
 import ToolLayout from '../components/tool-layout';
 import { Link } from '../i18n/navigation';
 import type { DynamicT } from '../lib/apps';
@@ -34,7 +35,7 @@ export default function MathUnit({ loaderData: { unitId, published, stage, domai
   const head = `${title} | PAIBOT.app`;
   return <>
     {published ? <PublicHead locale={locale} path={`/math/${unitId}`} title={head} description={description} /> : <title>{head}</title>}
-    <ToolLayout title={title} centerTitle aboveTitle={<p className={styles.back}><Link href="/math">{`← ${tq('backToMath')}`}</Link></p>}>
+    <ToolLayout title={title} centerTitle aboveTitle={<MathBreadcrumb crumbs={[{ label: title }]} />}>
       <p className={styles.meta}>{t(`domains.${domain}`)}・{t(`stages.${stage}`)}</p>
       <p className={styles.description}>{description}</p>
       <p className={styles.choose}>{tq('chooseItem')}</p>

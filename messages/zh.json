@@ -604,7 +604,7 @@
       "quiz": {
         "setComingSoon": "此题组正在准备中，请稍候。",
         "backToMath": "数学练习",
-        "backToSets": "重新选择题组",
+        "breadcrumb": "面包屑导航",
         "progress": "{current} / {total}",
         "answer": "作答",
         "correct": "正确",
@@ -619,7 +619,6 @@
         "signInToSave": "登录后可记录成绩。",
         "practice": "练习{number}",
         "chooseSet": "请选择要练习的题组。",
-        "backToUnit": "返回{unit}",
         "chooseItem": "请选择要练习的项目。",
         "tierCount": "{tier} {count}题",
         "tierSeparator": "・"

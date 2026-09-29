@@ -604,7 +604,7 @@
       "quiz": {
         "setComingSoon": "This problem set is being prepared. Check back soon.",
         "backToMath": "Math Drills",
-        "backToSets": "Choose a different set",
+        "breadcrumb": "Breadcrumb",
         "progress": "{current} / {total}",
         "answer": "Answer",
         "correct": "Correct",
@@ -619,7 +619,6 @@
         "signInToSave": "Sign in to keep a record of your scores.",
         "practice": "Practice {number}",
         "chooseSet": "Choose a set to practice.",
-        "backToUnit": "Back to {unit}",
         "chooseItem": "Choose what to practice.",
         "tierCount": "{tier} {count}",
         "tierSeparator": ", "

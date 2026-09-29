@@ -38,6 +38,6 @@ export default function MathQuiz({ loaderData: { unitId, itemId, setId, kind, pu
   const path = `/math/${unitId}/${itemId}/${setId}`;
   return <>
     {published ? <PublicHead locale={locale} path={path} title={head} description={t(`units.${unitId}.summary`)} /> : <title>{head}</title>}
-    <MathSetQuiz key={path} title={t(`units.${unitId}.title`)} setLabel={setLabel} questions={questions} backHref={`/math/${unitId}/${itemId}`} unitHref={`/math/${unitId}`} />
+    <MathSetQuiz key={path} title={t(`units.${unitId}.title`)} setLabel={setLabel} questions={questions} crumbs={[{ label: t(`units.${unitId}.title`), href: `/math/${unitId}` }, { label: title, href: `/math/${unitId}/${itemId}` }, { label: tq('practice', { number: setId }) }]} />
   </>;
 }

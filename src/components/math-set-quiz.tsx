@@ -3,6 +3,7 @@ import { useFetcher } from 'react-router';
 import { useTranslations } from 'use-intl';
 import { Link } from '../i18n/navigation';
 import { useFavoritesData } from '../routes/locale';
+import MathBreadcrumb, { type MathCrumb } from './math-breadcrumb';
 import ToolLayout from './tool-layout';
 import styles from './math-set-quiz.module.css';
 
@@ -22,12 +23,10 @@ export interface MathSetQuestion {
 // Render with key={setId} so moving between sets starts a fresh quiz.
 // A signed-in user's finished attempt is posted to the page's own route action
 // (see saveAttemptAction in lib/math-attempts.server.ts), which rescores it.
-export default function MathSetQuiz({ title, setLabel, questions, backHref, unitHref }: {
+export default function MathSetQuiz({ title, setLabel, questions, crumbs }: {
   title: string; setLabel: string; questions: MathSetQuestion[];
-  // The learning item's page, where its practice sets are chosen.
-  backHref: string;
-  // The unit's page.
-  unitHref: string;
+  // Where the set sits: unit > learning item (linked) > the set itself (current).
+  crumbs: MathCrumb[];
 }) {
   const t = useTranslations('App.math.quiz');
   const tm = useTranslations('App.math');
@@ -42,7 +41,7 @@ export default function MathSetQuiz({ title, setLabel, questions, backHref, unit
   const question = questions[index];
   const total = questions.length;
   const correctCount = answers.filter((answer, answerIndex) => answer === questions[answerIndex].answerIndex).length;
-  const backLink = <p className={styles.back}><Link href={backHref}>{`← ${t('backToSets')}`}</Link><span aria-hidden="true">・</span><Link href={unitHref}>{t('backToUnit', { unit: title })}</Link></p>;
+  const backLink = <MathBreadcrumb crumbs={crumbs} />;
 
   function submit() {
     if (selected === null) return;

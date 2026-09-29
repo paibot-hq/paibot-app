@@ -1,6 +1,7 @@
 import { redirect } from 'react-router';
 import { useLocale, useTranslations } from 'use-intl';
 import PublicHead from '../components/public-head';
+import MathBreadcrumb from '../components/math-breadcrumb';
 import ToolLayout from '../components/tool-layout';
 import { Link } from '../i18n/navigation';
 import type { DynamicT } from '../lib/apps';
@@ -48,7 +49,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
   const head = `${unitTitle} - ${title} | PAIBOT.app`;
   return <>
     {published ? <PublicHead locale={locale} path={`/math/${unitId}/${itemId}`} title={head} description={description} /> : <title>{head}</title>}
-    <ToolLayout title={title} centerTitle aboveTitle={<p className={styles.back}><Link href={`/math/${unitId}`}>{`← ${tq('backToUnit', { unit: unitTitle })}`}</Link></p>}>
+    <ToolLayout title={title} centerTitle aboveTitle={<MathBreadcrumb crumbs={[{ label: unitTitle, href: `/math/${unitId}` }, { label: title }]} />}>
       <p className={styles.unit}><Link href={`/math/${unitId}`}>{unitTitle}</Link></p>
       {grade && <p className={styles.grade}>{t('gradeLabel', { grade: t(`grades.${grade}`) })}</p>}
       <p className={styles.description}>{description}</p>

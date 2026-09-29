@@ -70,9 +70,12 @@ export default async function ({ page, main, base, go, errors }) {
     await main.getByText(label, { exact: true }).last().waitFor();
     await main.getByText('1 / 5', { exact: true }).waitFor();
     assert.match(await main.locator('[data-tier]').innerText(), /^(Basic|Standard|Advanced)$/);
-    // From a problem, back to its unit's page as well as its practice sets.
-    assert.ok(await page.getByRole('link', { name: /^Back to / }).getAttribute('href').then(href => href === `/en/math/${item.split('/')[0]}`));
-    await page.getByRole('link', { name: '← Choose a different set' }).click();
+    // A breadcrumb: Math Drills > unit > learning item > set (current, not a link).
+    const crumbs = page.getByRole('navigation', { name: 'Breadcrumb' });
+    assert.deepEqual(await crumbs.getByRole('link').evaluateAll(links => links.map(link => link.getAttribute('href'))),
+      ['/en/math', `/en/math/${item.split('/')[0]}`, `/en/math/${item}`]);
+    assert.match(await crumbs.locator('[aria-current=page]').innerText(), /^Practice \d$/);
+    await crumbs.getByRole('link').last().click();
     await page.waitForURL(`${base}/en/math/${item}`);
   }
   assert.deepEqual(errors, []);

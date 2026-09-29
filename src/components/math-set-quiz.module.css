@@ -1,8 +1,4 @@
 .quiz { width: min(100%, 480px); margin: 0 auto; }
-.back { text-align: center; margin: 0 0 1rem; }
-.back a { font-size: .85rem; color: var(--muted); text-decoration: none; }
-.back a:hover, .back a:focus-visible { color: var(--accent); }
-.back span { color: var(--muted); font-size: .85rem; margin: 0 .5rem; }
 .setName { text-align: center; color: var(--accent); font-weight: 600; font-size: .95rem; margin: 0 0 .5rem; }
 .progress { text-align: center; color: var(--muted); font-size: .85rem; font-variant-numeric: tabular-nums; margin: 0 0 .5rem; }
 .tier { margin-left: .6rem; padding: .05rem .45rem; border: 1px solid var(--line); border-radius: var(--radius); font-size: .75rem; }
