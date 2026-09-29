@@ -1,0 +1,9 @@
+/* A worked solution: one block per line, each scrolling on its own when a long
+   line is wider than the screen, so the page itself never scrolls sideways. */
+.steps { display: grid; gap: .3rem; margin: 0 0 .6rem; max-width: 100%; }
+.steps > * { max-width: 100%; overflow-x: auto; overflow-y: hidden; }
+/* KaTeX centres display math; a long line must start at the left edge and scroll. */
+.steps { font-size: .9em; }
+.steps :global(.katex-display) { margin: 0; text-align: left; }
+.steps :global(.katex-display > .katex) { text-align: left; }
+.steps :global(.katex-display > .katex > .katex-html) { display: inline-block; padding-bottom: .2rem; }

@@ -53,6 +53,11 @@ def unsimplified_radical(problem):
 
 rejects('pythagoras', unsimplified_radical, 'are equal')
 
+# A wrong line in the worked solution is rejected (formula units).
+rejects('fraction', lambda problem: problem.update(steps=[problem['steps'][0] + ' = 0']), 'not equal to the answer')
+rejects('linear-equation', lambda problem: problem.update(steps=['x = 1000']), 'does not hold')
+rejects('fraction', lambda problem: problem.update(steps=[]), 'steps must be 1 to 6')
+
 for expression in ["__import__('os').system('true')", '9 ** 9 ** 9', 'x.real', '1 if 1 else 2']:
     rejects('arith', lambda problem: problem.update(expression=expression), 'unsupported syntax')
 

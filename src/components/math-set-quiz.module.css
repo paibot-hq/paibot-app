@@ -37,7 +37,7 @@
 .feedback { margin-top: 1.2rem; text-align: center; }
 .verdict { font-weight: 700; color: var(--error); }
 .verdict[data-correct] { color: var(--success); }
-.explanation { color: var(--muted); font-size: .9rem; margin: .5rem 0 0; }
+.explanation { color: var(--muted); font-size: .9rem; margin: .5rem 0 0; min-width: 0; max-width: 100%; }
 
 .resultLine { text-align: center; font-size: 1.1rem; margin: .5rem 0; }
 /* Word problems: prose instead of a displayed formula. */

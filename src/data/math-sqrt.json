@@ -13,7 +13,10 @@
       "question": "sqrt(48)",
       "given": null,
       "choices": ["2*sqrt(6)", "4*sqrt(2)", "4*sqrt(3)", "6*sqrt(2)"],
-      "answerIndex": 2
+      "answerIndex": 2,
+      "steps": [
+        "sqrt(48) = sqrt(16*3) = 4*sqrt(3)"
+      ]
     },
     {
       "id": "sqrt-002",
@@ -27,7 +30,10 @@
       "question": "sqrt(14)*sqrt(21)",
       "given": null,
       "choices": ["7*sqrt(6)", "7*sqrt(5)", "6*sqrt(7)", "14*sqrt(3)"],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "steps": [
+        "sqrt(14)*sqrt(21) = sqrt(2*7*3*7) = sqrt(7^2*6) = 7*sqrt(6)"
+      ]
     },
     {
       "id": "sqrt-003",
@@ -41,7 +47,10 @@
       "question": "sqrt(54) : sqrt(2)",
       "given": null,
       "choices": ["3*sqrt(2)", "3*sqrt(6)", "9*sqrt(3)", "3*sqrt(3)"],
-      "answerIndex": 3
+      "answerIndex": 3,
+      "steps": [
+        "sqrt(54) : sqrt(2) = sqrt(54/2) = sqrt(27) = 3*sqrt(3)"
+      ]
     },
     {
       "id": "sqrt-004",
@@ -55,7 +64,10 @@
       "question": "6/sqrt(3)",
       "given": null,
       "choices": ["6*sqrt(3)", "2*sqrt(3)", "3*sqrt(2)", "2*sqrt(6)"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "6/sqrt(3) = (6*sqrt(3))/(sqrt(3)*sqrt(3)) = (6*sqrt(3))/3 = 2*sqrt(3)"
+      ]
     },
     {
       "id": "sqrt-005",
@@ -69,7 +81,10 @@
       "question": "2*sqrt(3)*sqrt(6)",
       "given": null,
       "choices": ["6*sqrt(3)", "12*sqrt(2)", "6*sqrt(2)", "3*sqrt(6)"],
-      "answerIndex": 2
+      "answerIndex": 2,
+      "steps": [
+        "2*sqrt(3)*sqrt(6) = 2*sqrt(18) = 2*3*sqrt(2) = 6*sqrt(2)"
+      ]
     },
     {
       "id": "sqrt-006",
@@ -83,7 +98,10 @@
       "question": "sqrt(12) + sqrt(27)",
       "given": null,
       "choices": ["sqrt(39)", "5*sqrt(6)", "5*sqrt(3)", "sqrt(3)"],
-      "answerIndex": 2
+      "answerIndex": 2,
+      "steps": [
+        "sqrt(12) + sqrt(27) = 2*sqrt(3) + 3*sqrt(3) = 5*sqrt(3)"
+      ]
     },
     {
       "id": "sqrt-007",
@@ -97,7 +115,10 @@
       "question": "sqrt(18) - sqrt(8)",
       "given": null,
       "choices": ["sqrt(10)", "sqrt(2)", "5*sqrt(2)", "2*sqrt(2)"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "sqrt(18) - sqrt(8) = 3*sqrt(2) - 2*sqrt(2) = sqrt(2)"
+      ]
     },
     {
       "id": "sqrt-008",
@@ -111,7 +132,10 @@
       "question": "sqrt(45) + 2*sqrt(20)",
       "given": null,
       "choices": ["5*sqrt(5)", "sqrt(85)", "7*sqrt(10)", "7*sqrt(5)"],
-      "answerIndex": 3
+      "answerIndex": 3,
+      "steps": [
+        "sqrt(45) + 2*sqrt(20) = 3*sqrt(5) + 2*(2*sqrt(5)) = 3*sqrt(5) + 4*sqrt(5) = 7*sqrt(5)"
+      ]
     },
     {
       "id": "sqrt-009",
@@ -125,7 +149,10 @@
       "question": "sqrt(24) + 6/sqrt(6)",
       "given": null,
       "choices": ["3*sqrt(6)", "8*sqrt(6)", "4*sqrt(6)", "sqrt(30)"],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "steps": [
+        "sqrt(24) + 6/sqrt(6) = 2*sqrt(6) + (6*sqrt(6))/6 = 2*sqrt(6) + sqrt(6) = 3*sqrt(6)"
+      ]
     },
     {
       "id": "sqrt-010",
@@ -139,7 +166,10 @@
       "question": "sqrt(32) - sqrt(8) + sqrt(50)",
       "given": null,
       "choices": ["sqrt(74)", "11*sqrt(2)", "7*sqrt(2)", "5*sqrt(2)"],
-      "answerIndex": 2
+      "answerIndex": 2,
+      "steps": [
+        "sqrt(32) - sqrt(8) + sqrt(50) = 4*sqrt(2) - 2*sqrt(2) + 5*sqrt(2) = 7*sqrt(2)"
+      ]
     },
     {
       "id": "sqrt-011",
@@ -153,7 +183,10 @@
       "question": "1/sqrt(3)",
       "given": null,
       "choices": ["sqrt(3)/3", "1/3", "sqrt(3)", "sqrt(3)/9"],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "steps": [
+        "1/sqrt(3) = (1*sqrt(3))/(sqrt(3)*sqrt(3)) = sqrt(3)/3"
+      ]
     },
     {
       "id": "sqrt-012",
@@ -167,7 +200,10 @@
       "question": "6/sqrt(2)",
       "given": null,
       "choices": ["3", "3*sqrt(2)", "6*sqrt(2)", "sqrt(2)"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "6/sqrt(2) = (6*sqrt(2))/(sqrt(2)*sqrt(2)) = (6*sqrt(2))/2 = 3*sqrt(2)"
+      ]
     },
     {
       "id": "sqrt-013",
@@ -181,7 +217,10 @@
       "question": "sqrt(2)/sqrt(5)",
       "given": null,
       "choices": ["sqrt(10)/2", "sqrt(7)/5", "sqrt(10)/5", "2/5"],
-      "answerIndex": 2
+      "answerIndex": 2,
+      "steps": [
+        "sqrt(2)/sqrt(5) = (sqrt(2)*sqrt(5))/(sqrt(5)*sqrt(5)) = sqrt(10)/5"
+      ]
     },
     {
       "id": "sqrt-014",
@@ -195,7 +234,10 @@
       "question": "2/sqrt(6)",
       "given": null,
       "choices": ["sqrt(6)/2", "2*sqrt(6)", "1/3", "sqrt(6)/3"],
-      "answerIndex": 3
+      "answerIndex": 3,
+      "steps": [
+        "2/sqrt(6) = (2*sqrt(6))/(sqrt(6)*sqrt(6)) = (2*sqrt(6))/6 = sqrt(6)/3"
+      ]
     },
     {
       "id": "sqrt-015",
@@ -209,7 +251,10 @@
       "question": "sqrt(3)/sqrt(8)",
       "given": null,
       "choices": ["sqrt(6)/2", "sqrt(6)/4", "sqrt(6)/8", "sqrt(3)/4"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "sqrt(3)/sqrt(8) = sqrt(3)/(2*sqrt(2)) = (sqrt(3)*sqrt(2))/(2*sqrt(2)*sqrt(2)) = sqrt(6)/4"
+      ]
     }
   ]
 }

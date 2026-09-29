@@ -52,6 +52,9 @@ export interface FormulaPayload {
   which?: 'max' | 'min';
   // term/series: what kind of sequence the first terms in `question` start.
   progression?: 'arithmetic' | 'geometric';
+  // The worked solution, one line each: a chain "a = b = c" (or, for equations,
+  // "x = 2, x = -2"), shown under the answer. SymPy checks every line.
+  steps?: string[];
   // Expressions; for solve the solution, comma-separated values of the one
   // unknown ("-2, 5") or assignments ("x = 1, y = 2"); for tangent "y = ...".
   choices: string[];
@@ -281,4 +284,15 @@ export function formulaChoiceTex(p: Pick<FormulaPayload, 'kind' | 'question'>, c
   if (p.kind === 'solve') return solutionTex(choice, unknownOf(p.question));
   if (p.kind === 'tangent') return solutionTex(choice, 'y');
   return expressionTex(choice);
+}
+
+// A worked-solution line as TeX, aligned on its equals signs so a long chain
+// "a = b = c" breaks into rows: a = b / = c. Comma-separated equations are one
+// block each row group.
+export function stepTex(line: string): string {
+  const rows = splitTop(line, ',').flatMap(item => {
+    const parts = item.split('=').map(expressionTex);
+    return parts.length === 1 ? [parts[0]] : parts.slice(1).map((part, index) => `${index === 0 ? parts[0] : ''} &= ${part}`);
+  });
+  return `\\begin{aligned} ${rows.map(row => row.includes('&') ? row : `&${row}`).join(' \\\\ ')} \\end{aligned}`;
 }

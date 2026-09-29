@@ -13,7 +13,10 @@
       "question": "(-4)^2",
       "given": null,
       "choices": ["-16", "16", "-8", "8"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "(-4)^2 = (-4) * (-4) = 16"
+      ]
     },
     {
       "id": "exponents-002",
@@ -27,7 +30,10 @@
       "question": "-3^4",
       "given": null,
       "choices": ["-81", "81", "-12", "12"],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "steps": [
+        "-3^4 = -(3 * 3 * 3 * 3) = -81"
+      ]
     },
     {
       "id": "exponents-003",
@@ -41,7 +47,10 @@
       "question": "(-2)^3 * 5",
       "given": null,
       "choices": ["-30", "40", "-40", "30"],
-      "answerIndex": 2
+      "answerIndex": 2,
+      "steps": [
+        "(-2)^3 * 5 = -8 * 5 = -40"
+      ]
     },
     {
       "id": "exponents-004",
@@ -55,7 +64,10 @@
       "question": "5 - (-3)^2",
       "given": null,
       "choices": ["14", "-1", "11", "-4"],
-      "answerIndex": 3
+      "answerIndex": 3,
+      "steps": [
+        "5 - (-3)^2 = 5 - 9 = -4"
+      ]
     },
     {
       "id": "exponents-005",
@@ -69,7 +81,10 @@
       "question": "-5^2 + (-4)^2",
       "given": null,
       "choices": ["41", "-9", "9", "-41"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "-5^2 + (-4)^2 = -25 + 16 = -9"
+      ]
     }
   ]
 }

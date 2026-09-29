@@ -147,6 +147,11 @@ export function validateBank(bank, catalog) {
     assert.ok(kind === 'solve' ? s.equations >= 1 : s.equations === 0, `${id}: equations`);
     assert.ok(fits(s, problem), `${id}: "${question}" does not fit set ${setId}`);
     assert.ok(Array.isArray(choices) && choices.length === 4, `${id}: four choices`);
+    // The worked solution, required (SymPy checks its mathematics, verify_math.py).
+    {
+      assert.ok(Array.isArray(problem.steps) && problem.steps.length >= 1 && problem.steps.length <= 6, `${id}: 1 to 6 steps`);
+      for (const line of problem.steps) { assert.equal(typeof line, 'string', `${id}: step`); for (const item of splitTop(line, ',')) item.split('=').forEach(side => parseExpression(side)); }
+    }
     for (const choice of choices) checkChoice(kind, choice, id);
     if (set.rule.startsWith('fraction-')) assert.ok(choices.every(reduced), `${id}: fractions in lowest terms`);
     assert.ok(Number.isInteger(answerIndex) && answerIndex >= 0 && answerIndex < 4, `${id}: answerIndex`);

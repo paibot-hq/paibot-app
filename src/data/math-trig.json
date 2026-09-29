@@ -13,7 +13,10 @@
       "question": "sin(5*pi/6) + cos(5*pi/6)",
       "given": null,
       "choices": ["(1 + sqrt(3))/2", "(1 - sqrt(3))/2", "(-1 + sqrt(3))/2", "(-1 - sqrt(3))/2"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "sin(5*pi/6) + cos(5*pi/6) = 1/2 - sqrt(3)/2 = (1 - sqrt(3))/2"
+      ]
     },
     {
       "id": "trig-002",
@@ -27,7 +30,10 @@
       "question": "sin(3*pi/4) * cos(4*pi/3)",
       "given": null,
       "choices": ["sqrt(2)/4", "-sqrt(6)/4", "-sqrt(2)/4", "sqrt(6)/4"],
-      "answerIndex": 2
+      "answerIndex": 2,
+      "steps": [
+        "sin(3*pi/4) * cos(4*pi/3) = (sqrt(2)/2) * (-1/2) = -sqrt(2)/4"
+      ]
     },
     {
       "id": "trig-003",
@@ -41,7 +47,10 @@
       "question": "cos(7*pi/4) - sin(5*pi/4)",
       "given": null,
       "choices": ["sqrt(2)", "-sqrt(2)", "0", "1"],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "steps": [
+        "cos(7*pi/4) - sin(5*pi/4) = sqrt(2)/2 - (-sqrt(2)/2) = sqrt(2)/2 + sqrt(2)/2 = sqrt(2)"
+      ]
     },
     {
       "id": "trig-004",
@@ -55,7 +64,10 @@
       "question": "tan(5*pi/3) + cos(pi/6)",
       "given": null,
       "choices": ["sqrt(3)/2", "-sqrt(3)/6", "sqrt(3)/6", "-sqrt(3)/2"],
-      "answerIndex": 3
+      "answerIndex": 3,
+      "steps": [
+        "tan(5*pi/3) + cos(pi/6) = -sqrt(3) + sqrt(3)/2 = -2*sqrt(3)/2 + sqrt(3)/2 = -sqrt(3)/2"
+      ]
     },
     {
       "id": "trig-005",
@@ -69,7 +81,10 @@
       "question": "cos(5*pi/4) * tan(4*pi/3)",
       "given": null,
       "choices": ["-sqrt(6)/6", "-sqrt(6)/2", "sqrt(6)/6", "sqrt(6)/2"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "cos(5*pi/4) * tan(4*pi/3) = (-sqrt(2)/2) * sqrt(3) = -sqrt(6)/2"
+      ]
     },
     {
       "id": "trig-006",
@@ -83,7 +98,11 @@
       "question": "cos(pi/12)",
       "given": null,
       "choices": ["(sqrt(6) - sqrt(2))/4", "(sqrt(6) + sqrt(2))/4", "(sqrt(2) - sqrt(6))/4", "(-sqrt(6) - sqrt(2))/4"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "cos(pi/12) = cos(pi/3 - pi/4) = cos(pi/3)*cos(pi/4) + sin(pi/3)*sin(pi/4)",
+        "(1/2)*(sqrt(2)/2) + (sqrt(3)/2)*(sqrt(2)/2) = sqrt(2)/4 + sqrt(6)/4 = (sqrt(6) + sqrt(2))/4"
+      ]
     },
     {
       "id": "trig-007",
@@ -97,7 +116,11 @@
       "question": "sin(pi/12)",
       "given": null,
       "choices": ["(sqrt(6) + sqrt(2))/4", "(sqrt(2) - sqrt(6))/4", "(sqrt(6) - sqrt(2))/4", "(-sqrt(6) - sqrt(2))/4"],
-      "answerIndex": 2
+      "answerIndex": 2,
+      "steps": [
+        "sin(pi/12) = sin(pi/3 - pi/4) = sin(pi/3)*cos(pi/4) - cos(pi/3)*sin(pi/4)",
+        "(sqrt(3)/2)*(sqrt(2)/2) - (1/2)*(sqrt(2)/2) = sqrt(6)/4 - sqrt(2)/4 = (sqrt(6) - sqrt(2))/4"
+      ]
     },
     {
       "id": "trig-008",
@@ -111,7 +134,11 @@
       "question": "tan(7*pi/12)",
       "given": null,
       "choices": ["-2 - sqrt(3)", "-2 + sqrt(3)", "2 - sqrt(3)", "2 + sqrt(3)"],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "steps": [
+        "tan(7*pi/12) = tan(pi/3 + pi/4) = (tan(pi/3) + tan(pi/4))/(1 - tan(pi/3)*tan(pi/4))",
+        "(sqrt(3) + 1)/(1 - sqrt(3)) = (sqrt(3) + 1)^2/(1 - 3) = (4 + 2*sqrt(3))/(-2) = -2 - sqrt(3)"
+      ]
     },
     {
       "id": "trig-009",
@@ -125,7 +152,11 @@
       "question": "cos(7*pi/12)",
       "given": null,
       "choices": ["(sqrt(6) + sqrt(2))/4", "(sqrt(6) - sqrt(2))/4", "(-sqrt(6) - sqrt(2))/4", "(sqrt(2) - sqrt(6))/4"],
-      "answerIndex": 3
+      "answerIndex": 3,
+      "steps": [
+        "cos(7*pi/12) = cos(pi/3 + pi/4) = cos(pi/3)*cos(pi/4) - sin(pi/3)*sin(pi/4)",
+        "(1/2)*(sqrt(2)/2) - (sqrt(3)/2)*(sqrt(2)/2) = sqrt(2)/4 - sqrt(6)/4 = (sqrt(2) - sqrt(6))/4"
+      ]
     },
     {
       "id": "trig-010",
@@ -139,7 +170,11 @@
       "question": "tan(5*pi/12)",
       "given": null,
       "choices": ["2 - sqrt(3)", "2 + sqrt(3)", "-2 + sqrt(3)", "-2 - sqrt(3)"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "tan(5*pi/12) = tan(pi/4 + pi/6) = (tan(pi/4) + tan(pi/6))/(1 - tan(pi/4)*tan(pi/6))",
+        "(1 + sqrt(3)/3)/(1 - sqrt(3)/3) = (3 + sqrt(3))/(3 - sqrt(3)) = (3 + sqrt(3))^2/(9 - 3) = (12 + 6*sqrt(3))/6 = 2 + sqrt(3)"
+      ]
     },
     {
       "id": "trig-011",
@@ -153,7 +188,10 @@
       "question": "sin(x) - cos(x)",
       "given": null,
       "choices": ["sqrt(2)*sin(x - pi/4)", "sqrt(2)*sin(x + pi/4)", "sqrt(2)*sin(x - 3*pi/4)", "2*sin(x - pi/4)"],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "steps": [
+        "sin(x) - cos(x) = sqrt(2)*(sin(x)*(1/sqrt(2)) - cos(x)*(1/sqrt(2))) = sqrt(2)*(sin(x)*cos(pi/4) - cos(x)*sin(pi/4)) = sqrt(2)*sin(x - pi/4)"
+      ]
     },
     {
       "id": "trig-012",
@@ -167,7 +205,10 @@
       "question": "sqrt(3)*sin(x) - cos(x)",
       "given": null,
       "choices": ["2*sin(x + pi/6)", "2*sin(x - pi/3)", "2*sin(x - pi/6)", "2*sin(x + pi/3)"],
-      "answerIndex": 2
+      "answerIndex": 2,
+      "steps": [
+        "sqrt(3)*sin(x) - cos(x) = 2*(sin(x)*(sqrt(3)/2) - cos(x)*(1/2)) = 2*(sin(x)*cos(pi/6) - cos(x)*sin(pi/6)) = 2*sin(x - pi/6)"
+      ]
     },
     {
       "id": "trig-013",
@@ -181,7 +222,11 @@
       "question": "-sin(x) + sqrt(3)*cos(x)",
       "given": null,
       "choices": ["2*sin(x + pi/3)", "2*sin(x + 2*pi/3)", "2*sin(x - pi/3)", "2*sin(x + 5*pi/6)"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "-sin(x) + sqrt(3)*cos(x) = 2*((-1/2)*sin(x) + (sqrt(3)/2)*cos(x))",
+        "2*((-1/2)*sin(x) + (sqrt(3)/2)*cos(x)) = 2*(sin(x)*cos(2*pi/3) + cos(x)*sin(2*pi/3)) = 2*sin(x + 2*pi/3)"
+      ]
     },
     {
       "id": "trig-014",
@@ -195,7 +240,11 @@
       "question": "-sin(x) - cos(x)",
       "given": null,
       "choices": ["sqrt(2)*sin(x + 3*pi/4)", "sqrt(2)*sin(x - pi/4)", "sqrt(2)*sin(x + pi/4)", "sqrt(2)*sin(x - 3*pi/4)"],
-      "answerIndex": 3
+      "answerIndex": 3,
+      "steps": [
+        "-sin(x) - cos(x) = sqrt(2)*((-sqrt(2)/2)*sin(x) + (-sqrt(2)/2)*cos(x))",
+        "sqrt(2)*((-sqrt(2)/2)*sin(x) + (-sqrt(2)/2)*cos(x)) = sqrt(2)*(sin(x)*cos(-3*pi/4) + cos(x)*sin(-3*pi/4)) = sqrt(2)*sin(x - 3*pi/4)"
+      ]
     },
     {
       "id": "trig-015",
@@ -209,7 +258,11 @@
       "question": "cos(x) - sqrt(3)*sin(x)",
       "given": null,
       "choices": ["2*sin(x + 5*pi/6)", "2*sin(x - pi/3)", "2*sin(x + pi/6)", "2*sin(x - 5*pi/6)"],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "steps": [
+        "cos(x) - sqrt(3)*sin(x) = -sqrt(3)*sin(x) + cos(x) = 2*((-sqrt(3)/2)*sin(x) + (1/2)*cos(x))",
+        "2*((-sqrt(3)/2)*sin(x) + (1/2)*cos(x)) = 2*(sin(x)*cos(5*pi/6) + cos(x)*sin(5*pi/6)) = 2*sin(x + 5*pi/6)"
+      ]
     }
   ]
 }

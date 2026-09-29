@@ -13,7 +13,12 @@
       "question": "3*x + 2 = x + 10",
       "given": null,
       "choices": ["4", "6", "2", "3"],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "steps": [
+        "3*x - x = 10 - 2",
+        "2*x = 8",
+        "x = 4"
+      ]
     },
     {
       "id": "linear-equation-002",
@@ -27,7 +32,12 @@
       "question": "5*x - 3 = 2*x + 9",
       "given": null,
       "choices": ["2", "4", "-4", "-2"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "5*x - 2*x = 9 + 3",
+        "3*x = 12",
+        "x = 4"
+      ]
     },
     {
       "id": "linear-equation-003",
@@ -41,7 +51,12 @@
       "question": "4*x + 9 = x - 3",
       "given": null,
       "choices": ["2", "-2", "-4", "4"],
-      "answerIndex": 2
+      "answerIndex": 2,
+      "steps": [
+        "4*x - x = -3 - 9",
+        "3*x = -12",
+        "x = -4"
+      ]
     },
     {
       "id": "linear-equation-004",
@@ -55,7 +70,12 @@
       "question": "3*x + 11 = x - 1",
       "given": null,
       "choices": ["-3", "5", "6", "-6"],
-      "answerIndex": 3
+      "answerIndex": 3,
+      "steps": [
+        "3*x - x = -1 - 11",
+        "2*x = -12",
+        "x = -6"
+      ]
     },
     {
       "id": "linear-equation-005",
@@ -69,7 +89,12 @@
       "question": "7*x - 8 = 3*x + 12",
       "given": null,
       "choices": ["1", "5", "2", "-5"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "7*x - 3*x = 12 + 8",
+        "4*x = 20",
+        "x = 5"
+      ]
     },
     {
       "id": "linear-equation-006",
@@ -83,7 +108,12 @@
       "question": "2*(x + 3) = x + 11",
       "given": null,
       "choices": ["5", "8", "-5", "17"],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "steps": [
+        "2*x + 6 = x + 11",
+        "2*x - x = 11 - 6",
+        "x = 5"
+      ]
     },
     {
       "id": "linear-equation-007",
@@ -97,7 +127,13 @@
       "question": "3*(x - 2) = x + 8",
       "given": null,
       "choices": ["1", "7", "5", "-7"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "3*x - 6 = x + 8",
+        "3*x - x = 8 + 6",
+        "2*x = 14",
+        "x = 7"
+      ]
     },
     {
       "id": "linear-equation-008",
@@ -111,7 +147,13 @@
       "question": "5*x - (x - 4) = 16",
       "given": null,
       "choices": ["5", "2", "3", "-3"],
-      "answerIndex": 2
+      "answerIndex": 2,
+      "steps": [
+        "5*x - x + 4 = 16",
+        "4*x + 4 = 16",
+        "4*x = 12",
+        "x = 3"
+      ]
     },
     {
       "id": "linear-equation-009",
@@ -125,7 +167,13 @@
       "question": "7 - 2*(x - 3) = 1",
       "given": null,
       "choices": ["-6", "0", "7", "6"],
-      "answerIndex": 3
+      "answerIndex": 3,
+      "steps": [
+        "7 - 2*x + 6 = 1",
+        "-2*x + 13 = 1",
+        "-2*x = -12",
+        "x = 6"
+      ]
     },
     {
       "id": "linear-equation-010",
@@ -139,7 +187,13 @@
       "question": "3*(x + 2) = 5*(x - 2)",
       "given": null,
       "choices": ["6", "8", "4", "-8"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "3*x + 6 = 5*x - 10",
+        "3*x - 5*x = -10 - 6",
+        "-2*x = -16",
+        "x = 8"
+      ]
     },
     {
       "id": "linear-equation-011",
@@ -153,7 +207,13 @@
       "question": "0.6*x - 1.4 = 0.2*x + 1",
       "given": null,
       "choices": ["6", "3", "-1", "-6"],
-      "answerIndex": 0
+      "answerIndex": 0,
+      "steps": [
+        "6*x - 14 = 2*x + 10",
+        "6*x - 2*x = 10 + 14",
+        "4*x = 24",
+        "x = 6"
+      ]
     },
     {
       "id": "linear-equation-012",
@@ -167,7 +227,12 @@
       "question": "x/2 - 1 = x/3 + 1",
       "given": null,
       "choices": ["2", "12", "-12", "7"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "3*x - 6 = 2*x + 6",
+        "3*x - 2*x = 6 + 6",
+        "x = 12"
+      ]
     },
     {
       "id": "linear-equation-013",
@@ -181,7 +246,13 @@
       "question": "0.3*(x - 2) = 0.1*x + 1",
       "given": null,
       "choices": ["6", "2", "8", "-8"],
-      "answerIndex": 2
+      "answerIndex": 2,
+      "steps": [
+        "3*(x - 2) = x + 10",
+        "3*x - 6 = x + 10",
+        "2*x = 16",
+        "x = 8"
+      ]
     },
     {
       "id": "linear-equation-014",
@@ -195,7 +266,12 @@
       "question": "(x - 3)/2 = (x + 1)/3",
       "given": null,
       "choices": ["4", "-7", "-11", "11"],
-      "answerIndex": 3
+      "answerIndex": 3,
+      "steps": [
+        "3*(x - 3) = 2*(x + 1)",
+        "3*x - 9 = 2*x + 2",
+        "x = 11"
+      ]
     },
     {
       "id": "linear-equation-015",
@@ -209,7 +285,13 @@
       "question": "(x + 5)/6 = (2*x - 1)/3",
       "given": null,
       "choices": ["1", "7/3", "-7/3", "2"],
-      "answerIndex": 1
+      "answerIndex": 1,
+      "steps": [
+        "x + 5 = 2*(2*x - 1)",
+        "x + 5 = 4*x - 2",
+        "-3*x = -7",
+        "x = 7/3"
+      ]
     }
   ]
 }

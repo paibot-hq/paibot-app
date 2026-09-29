@@ -298,7 +298,7 @@ def progression(problem):
     return value
 
 
-def formula(problem):
+def _formula(problem):
     kind, question, choices = problem['kind'], problem['question'], problem['choices']
     keyed = problem['answerIndex']
     if kind == 'solve':
@@ -358,6 +358,75 @@ def formula(problem):
     if kind in ('term', 'series'):
         return progression(problem), parsed
     raise ValueError(f'unknown kind {kind!r}')
+
+
+def formula(problem):
+    answer, choices = _formula(problem)
+    if problem.get('steps') is not None:
+        check_steps(problem, answer)
+    return answer, choices
+
+
+def holds(sides, values):
+    """True when the chain a = b = c is true with the letters replaced by values."""
+    parsed = [parse_formula(side).subs(values) for side in sides]
+    return all(simplify(expand(a - b)) == 0 for a, b in zip(parsed, parsed[1:]))
+
+
+def check_steps(problem, answer):
+    """Worked steps: lines that are chains "a = b = c", checked with SymPy.
+
+    Most kinds: every part of every line equals the answer (a value, or an
+    expression in n, x, ...); an indefinite integral: every part has the
+    integrand as its derivative. Equation kinds: solve, every line holds for
+    every solution ("x = 2, x = -2" for each root in turn); tangent, every line
+    holds on the tangent line; extremum, every line holds at some critical point."""
+    kind, steps = problem['kind'], problem['steps']
+    if not (isinstance(steps, list) and 1 <= len(steps) <= 6 and all(isinstance(line, str) and line.strip() for line in steps)):
+        raise ValueError('steps must be 1 to 6 non-empty lines')
+    for line in steps:
+        if kind in ('solve', 'tangent', 'extremum'):
+            check_equation_line(problem, answer, line)
+            continue
+        parts = line.split('=')
+        if len(parts) > 1 and any(not part.strip() for part in parts):
+            raise ValueError(f'empty side in step {line!r}')
+        for part in parts:
+            value = parse_formula(part)
+            if kind == 'integral' and not problem.get('bounds'):
+                ok = same(diff(value, variable_of(answer)), answer)
+            else:
+                ok = same(value, answer)
+            if not ok:
+                raise ValueError(f'step {line!r}: {part.strip()!r} is not equal to the answer {answer}')
+
+
+def check_equation_line(problem, answer, line):
+    kind = problem['kind']
+    if kind == 'solve':
+        _, names = solution_set(problem['question'], complex_roots=True)
+        candidates = [dict(zip(names, value if isinstance(value, Tuple) else [value])) for value in answer]
+        every = True
+    elif kind == 'tangent':
+        candidates = [{LETTERS['y']: answer}]
+        every = True
+    else:
+        f = parse_formula(problem['question'])
+        x = variable_of(f)
+        candidates = [{x: c} for c in solve(diff(f, x), x) if c.is_real]
+        every = False
+    items = split_top(line, ',')
+    if len(items) == 1:
+        results = [holds(items[0].split('='), values) for values in candidates]
+        ok = all(results) if every else any(results)
+    else:
+        ok = all(any(holds(item.split('='), values) for values in candidates) for item in items)
+        if every:
+            ok = ok and all(any(holds(item.split('='), values) for item in items) for values in candidates)
+    if kind == 'tangent':
+        ok = ok and all(len(item.split('=')) > 1 for item in items)
+    if not ok:
+        raise ValueError(f'step {line!r} does not hold for the {kind} problem')
 
 
 def factorization(problem):
