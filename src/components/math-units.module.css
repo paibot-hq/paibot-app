@@ -37,3 +37,23 @@
 .back { text-align: center; margin: 0; }
 .back a { font-size: .85rem; color: var(--muted); text-decoration: none; }
 .back a:hover, .back a:focus-visible { color: var(--accent); }
+
+/* The unit list: every unit with its sets. */
+.filters { width: min(100%, 720px); margin: 1.2rem auto 0; display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; }
+.filters .stageLinks { margin: 0; }
+.filterChip { font: inherit; font-size: .9rem; padding: .35rem .8rem; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--text); cursor: pointer; }
+.filterChip[aria-pressed="true"] { border-color: var(--accent); background: var(--accent); color: #fff; }
+.filterCheck { display: inline-flex; align-items: center; gap: .35rem; font-size: .9rem; }
+.filterSearch { flex: 1 1 12rem; min-width: 0; font: inherit; font-size: .9rem; padding: .4rem .7rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); }
+.unitRows { list-style: none; padding: 0; margin: .8rem 0 0; display: grid; gap: .6rem; }
+.unitRow { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: .75rem 1rem; display: grid; gap: .5rem; text-align: left; }
+.unitRowHead { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem; }
+.unitRowHead .badge { margin-left: 0; }
+.unitRowTitle { font-size: 1.02rem; font-weight: 600; color: var(--text); text-decoration: none; }
+.unitRowTitle:hover { color: var(--accent); }
+.setChips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .4rem; }
+.setChip { display: inline-block; font-size: .82rem; padding: .2rem .6rem; border-radius: 6px; border: 1px solid var(--line); color: var(--muted); text-decoration: none; }
+.setChip[data-playable] { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.setChip:hover { border-color: var(--accent); color: var(--accent); }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.wide { width: min(100%, 720px); }

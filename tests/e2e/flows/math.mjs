@@ -10,8 +10,8 @@ export default async function ({ page, main, base, go, errors }) {
   assert.deepEqual(await main.getByRole('listitem').getByRole('list').getByRole('link').allTextContents(), ['Foundations', 'Intermediate', 'Advanced', 'Higher']);
   await main.getByRole('link', { name: 'By area & unit', exact: true }).click();
   await page.waitForURL(`${base}/en/math/units`);
-  // Anchored: other units' summaries (e.g. quadratics) also mention factoring.
-  await main.getByRole('link', { name: /^Factoring/ }).click();
+  // Unit titles by href: a unit and one of its sets can share a name.
+  await main.locator('a[href="/en/math/factorization"]').click();
   await page.waitForURL(`${base}/en/math/factorization`);
   // Matched by the exact set name: the "(larger numbers)" set starts the same.
   await main.getByRole('link').filter({ has: page.getByText('Factoring trinomials', { exact: true }) }).click();
@@ -23,8 +23,7 @@ export default async function ({ page, main, base, go, errors }) {
   assert.deepEqual(errors, []);
   console.log('PASS: math landing and unit list link through to the factoring set picker and set trinomial-a');
   await go('math/units');
-  // Anchored: the negative-numbers card's summary also mentions arithmetic.
-  await main.getByRole('link', { name: /^Arithmetic/ }).click();
+  await main.locator('a[href="/en/math/arith"]').click();
   await page.waitForURL(`${base}/en/math/arith`);
   await main.getByRole('link', { name: /^Multi-step word problems/ }).click();
   await page.waitForURL(`${base}/en/math/arith/word-b`);
@@ -32,15 +31,16 @@ export default async function ({ page, main, base, go, errors }) {
   assert.deepEqual(errors, []);
   console.log('PASS: math landing links through to the arithmetic set picker and set word-b');
   await go('math/units');
-  await main.getByRole('link', { name: /^Negative numbers/ }).click();
+  await main.locator('a[href="/en/math/signed"]').click();
   await page.waitForURL(`${base}/en/math/signed`);
-  await main.getByRole('link', { name: /^Negative numbers/ }).click();
+  await page.locator('h1', { hasText: 'Negative numbers' }).waitFor();
+  await main.locator('a[href="/en/math/signed/four-ops-a"]').click();
   await page.waitForURL(`${base}/en/math/signed/four-ops-a`);
   await main.getByText('Negative numbers', { exact: true }).last().waitFor();
   assert.deepEqual(errors, []);
   console.log('PASS: math landing links through to the signed-number set picker and set four-ops-a');
   await go('math/units');
-  await main.getByRole('link', { name: /^Fractions/ }).click();
+  await main.locator('a[href="/en/math/fraction"]').click();
   await page.waitForURL(`${base}/en/math/fraction`);
   for (const name of ['Simplifying & common denominators', 'Adding & subtracting fractions', 'Multiplying & dividing fractions']) {
     await main.getByRole('link', { name: `${name} Coming soon`, exact: true }).waitFor();
@@ -60,7 +60,23 @@ export default async function ({ page, main, base, go, errors }) {
     'Number', 'Algebra', 'Functions', 'Geometry & measurement',
     'Statistics & probability', 'Sets & logic', 'Vectors & matrices', 'Calculus',
   ]);
-  await main.getByRole('link', { name: /^Matrices Higher Coming soon/ }).click();
+  // Every set is listed and linked; only sets with problems are highlighted.
+  const chip = href => main.locator(`a[href="${href}"]`);
+  assert.equal(await chip('/en/math/factorization/trinomial-a').getAttribute('data-playable'), 'true');
+  assert.equal(await chip('/en/math/fraction/simplify-a').getAttribute('data-playable'), null);
+  await main.getByRole('button', { name: 'Higher', exact: true }).click();
+  assert.deepEqual(await main.getByRole('heading', { level: 2 }).allTextContents(), ['Statistics & probability', 'Sets & logic', 'Vectors & matrices', 'Calculus']);
+  await main.getByRole('button', { name: 'Higher', exact: true }).click();
+  await main.getByLabel('Playable sets only').check();
+  assert.deepEqual(await main.getByRole('heading', { level: 2 }).allTextContents(), ['Number', 'Algebra', 'Geometry & measurement']);
+  assert.equal(await main.locator('a[data-playable]').count(), await main.locator('ul ul a').count(), 'only playable sets');
+  await main.getByLabel('Playable sets only').uncheck();
+  await main.getByRole('searchbox').fill('determinant');
+  assert.deepEqual(await main.locator('ul ul a').allTextContents(), ['2×2 determinants (Coming soon)']);
+  await main.getByRole('searchbox').fill('');
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  console.log('PASS: unit list shows every set, highlights playable ones and filters by level, playability and name');
+  await main.locator('a[href="/en/math/matrix"]').click();
   await page.waitForURL(`${base}/en/math/matrix`);
   for (const name of ['Matrix addition & multiplication', '2×2 determinants', 'Inverse matrices']) {
     await main.getByRole('link', { name: `${name} Coming soon`, exact: true }).waitFor();

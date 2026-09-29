@@ -1298,7 +1298,7 @@
           "body": "按级别练习"
         }
       },
-      "unitsIntro": "按数学领域列出全部单元。",
+      "unitsIntro": "按数学领域列出全部单元和题组。带颜色的题组现在就可以练习。",
       "levelTitle": "{stage}单元",
       "levelIntro": "按数学领域列出所选难度的单元。",
       "kentei": {
@@ -1324,6 +1324,12 @@
           "university": "大学程度"
         },
         "elementary": "6级及以下（算数检定）的内容，请在“按难度”的“基础”中查找。"
+      },
+      "unitList": {
+        "filters": "筛选",
+        "playableOnly": "只看可练习的题组",
+        "search": "搜索单元和题组",
+        "empty": "没有符合条件的单元。"
       }
     },
     "about": {

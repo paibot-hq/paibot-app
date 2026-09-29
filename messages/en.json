@@ -1298,7 +1298,7 @@
           "body": "Practice by grade"
         }
       },
-      "unitsIntro": "Every unit, grouped by area of mathematics.",
+      "unitsIntro": "Every unit and problem set, grouped by area of mathematics. Highlighted sets are ready to practice.",
       "levelTitle": "{stage} units",
       "levelIntro": "Units at this level, grouped by area of mathematics.",
       "kentei": {
@@ -1324,6 +1324,12 @@
           "university": "University"
         },
         "elementary": "For grades 6 and below (the arithmetic exam), browse the Foundations level."
+      },
+      "unitList": {
+        "filters": "Filters",
+        "playableOnly": "Playable sets only",
+        "search": "Search units and sets",
+        "empty": "No units match these filters."
       }
     },
     "about": {

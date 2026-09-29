@@ -1,17 +1,23 @@
 import { useLocale, useTranslations } from 'use-intl';
 import PublicHead from '../components/public-head';
 import ToolLayout from '../components/tool-layout';
-import { BackToMath, UnitsByDomain } from '../components/math-units';
-import { MATH_CATALOG } from '../lib/math-catalog';
+import MathUnitTable from '../components/math-unit-table';
+import { BackToMath } from '../components/math-units';
+import { getPlayableSets } from '../lib/math-problems.server';
+import type { Route } from './+types/math-units';
 
-export default function MathUnits() {
+export async function loader() {
+  return { playable: await getPlayableSets() };
+}
+
+export default function MathUnits({ loaderData }: Route.ComponentProps) {
   const locale = useLocale();
   const t = useTranslations('App.math');
   const title = t('entrances.units.title');
   return <><PublicHead locale={locale} path="/math/units" title={`${title} - ${t('title')} | PAIBOT.app`} description={t('unitsIntro')} />
     <ToolLayout title={title} centerTitle aboveTitle={<BackToMath />}>
       <p>{t('unitsIntro')}</p>
-      <UnitsByDomain units={MATH_CATALOG} />
+      <MathUnitTable playable={loaderData.playable} />
     </ToolLayout>
   </>;
 }
