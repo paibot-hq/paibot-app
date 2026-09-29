@@ -30,11 +30,17 @@ export function pathLocales(path: string): readonly Locale[] {
   return localeOnlyPaths[path] ?? locales;
 }
 
+// x-default is the locale-less URL (e.g. https://paibot.app/), which
+// routes/redirect.ts sends to the visitor's language - what Google recommends
+// for auto-redirecting pages. A page missing from some locales can't use it
+// (the redirect could land on a 404), so it points at a served locale.
 export function languageAlternates(origin: string, path: string): Partial<Record<Locale, string>> & { "x-default": string } {
   const available = pathLocales(path);
   return {
     ...Object.fromEntries(available.map(locale => [locale, localizedUrl(origin, locale, path)])),
-    "x-default": localizedUrl(origin, available.includes(defaultLocale) ? defaultLocale : available[0], path),
+    "x-default": available.length === locales.length
+      ? `${origin}${path || "/"}`
+      : localizedUrl(origin, available.includes(defaultLocale) ? defaultLocale : available[0], path),
   };
 }
 
