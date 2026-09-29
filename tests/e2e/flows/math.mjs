@@ -26,6 +26,13 @@ export default async function ({ page, main, base, go, errors }) {
   await main.getByRole('searchbox').fill('cramer');
   assert.deepEqual(await main.locator('ul ul a').allTextContents(), ["n×n determinants: cofactors & Cramer's rule (Coming soon)"]);
   await main.getByRole('searchbox').fill('');
+  // Japanese school year: only that year's items; the Suken filter is Japanese only.
+  assert.equal(await main.getByRole('combobox').count(), 1);
+  await main.getByRole('combobox', { name: 'Filter by Japanese school year' }).selectOption('m3');
+  assert.ok(await link('/en/math/factorization/trinomial').isVisible());
+  assert.equal(await link('/en/math/factorization/ac-method').count(), 0, 'Math I items are not Junior high 3');
+  assert.equal(await link('/en/math/arith/order-of-operations').count(), 0);
+  await main.getByRole('combobox', { name: 'Filter by Japanese school year' }).selectOption('');
   await page.setViewportSize({ width: 390, height: 844 });
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   await page.setViewportSize({ width: 1100, height: 900 });
@@ -75,4 +82,21 @@ export default async function ({ page, main, base, go, errors }) {
   }
   assert.deepEqual(errors, []);
   console.log('PASS: former unit, entry and set URLs redirect to the new pages');
+
+  // Suken levels (Japanese only) follow the school years: 準2級 = 数学I・A.
+  await page.goto(`${base}/ja/math`);
+  await page.waitForFunction(() => document.documentElement.dataset.theme);
+  await main.getByRole('combobox', { name: '数検の級で絞り込む' }).selectOption('pre2');
+  assert.ok(await link('/ja/math/factorization/ac-method').isVisible());
+  assert.equal(await link('/ja/math/factorization/trinomial').count(), 0, '中3 items are 3級');
+  await main.getByText('日本数学検定協会とは関係ありません', { exact: false }).waitFor();
+  // 準1級 = 数学III・C, plus the matrices its official topic list names.
+  await main.getByRole('combobox', { name: '数検の級で絞り込む' }).selectOption('pre1');
+  assert.ok(await link('/ja/math/limit/sequence').isVisible());
+  assert.ok(await link('/ja/math/matrix/operations').isVisible());
+  assert.equal(await link('/ja/math/sequence/arithmetic').count(), 0, '数列 (数学B) is 2級');
+  await main.getByRole('combobox', { name: '数検の級で絞り込む' }).selectOption('11');
+  assert.ok(await link('/ja/math/addition/within-10').isVisible());
+  assert.deepEqual(errors, []);
+  console.log('PASS: school-year and (Japanese) Suken filters');
 }

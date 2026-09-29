@@ -1,18 +1,32 @@
 import { useState } from 'react';
-import { useTranslations } from 'use-intl';
+import { useLocale, useTranslations } from 'use-intl';
 import { Link } from '../i18n/navigation';
 import type { DynamicT } from '../lib/apps';
 import { MATH_CATALOG, MATH_DOMAINS, MATH_STAGES, type MathStage } from '../lib/math-catalog';
+import { JP_GRADES, jpGrade, type JpGrade } from '../lib/math-curriculum-jp';
+import { KENTEI_LEVELS, KENTEI_LOCALES, KENTEI_OFFICIAL_URL } from '../lib/math-kentei';
 import styles from './math-unit-table.module.css';
 
 // Every unit with its learning items, grouped by area of mathematics; each
 // item links to its page, where a practice set is chosen. `playable` lists
 // "unit/item/set" of the sets with published problems: an item with any is
 // highlighted. The filters are client-side; the server renders the full list.
+// Grades are Japan's school years (math-curriculum-jp.ts); the Suken filter,
+// derived from them, is shown in Japanese only.
 export default function MathUnitTable({ playable }: { playable: readonly string[] }) {
   const t = useTranslations('App.math');
   const td = t as unknown as DynamicT;
+  const locale = useLocale();
   const [stage, setStage] = useState<MathStage | ''>('');
+  const [grade, setGrade] = useState<JpGrade | ''>('');
+  const [kentei, setKentei] = useState('');
+  const showKentei = (KENTEI_LOCALES as readonly string[]).includes(locale);
+  const level = KENTEI_LEVELS.find(entry => entry.id === kentei);
+  const gradeFits = (unitId: string, itemId: string) => {
+    const itemGrade = jpGrade(unitId, itemId);
+    const inLevel = !level || (!!itemGrade && level.grades.includes(itemGrade)) || !!level.extra?.includes(`${unitId}/${itemId}`);
+    return (!grade || itemGrade === grade) && inLevel;
+  };
   const [playableOnly, setPlayableOnly] = useState(false);
   const [query, setQuery] = useState('');
   const q = query.trim().toLowerCase();
@@ -26,7 +40,7 @@ export default function MathUnitTable({ playable }: { playable: readonly string[
         const items = unit.items.map(item => ({
           id: item.id, label: td(`units.${unit.id}.items.${item.id}.title`),
           playable: item.sets.some(set => playable.includes(`${unit.id}/${item.id}/${set.id}`)),
-        })).filter(item => (!playableOnly || item.playable) && (matches(title) || matches(item.label)));
+        })).filter(item => (!playableOnly || item.playable) && gradeFits(unit.id, item.id) && (matches(title) || matches(item.label)));
         return { unit, title, items };
       })
       .filter(row => row.items.length);
@@ -40,6 +54,14 @@ export default function MathUnitTable({ playable }: { playable: readonly string[
           <li key={s}><button type="button" className={styles.chip} aria-pressed={stage === s} onClick={() => setStage(stage === s ? '' : s)}>{t(`stages.${s}`)}</button></li>
         ))}
       </ul>
+      <select className={styles.select} value={grade} onChange={event => setGrade(event.target.value as JpGrade | '')} aria-label={t('unitList.grade')}>
+        <option value="">{t('unitList.grade')}</option>
+        {JP_GRADES.map(code => <option key={code} value={code}>{td(`grades.${code}`)}</option>)}
+      </select>
+      {showKentei && <select className={styles.select} value={kentei} onChange={event => setKentei(event.target.value)} aria-label={t('unitList.kentei')}>
+        <option value="">{t('unitList.kentei')}</option>
+        {KENTEI_LEVELS.map(level => <option key={level.id} value={level.id}>{td(`kentei.levels.${level.id}`)}</option>)}
+      </select>}
       <label className={styles.check}>
         <input type="checkbox" checked={playableOnly} onChange={event => setPlayableOnly(event.target.checked)} />
         {t('unitList.playableOnly')}
@@ -47,6 +69,9 @@ export default function MathUnitTable({ playable }: { playable: readonly string[
       <input type="search" className={styles.search} value={query} onChange={event => setQuery(event.target.value)}
         placeholder={t('unitList.search')} aria-label={t('unitList.search')} />
     </div>
+    {level && <p className={styles.note}>
+      {t('kentei.note')} <a href={KENTEI_OFFICIAL_URL} rel="noopener noreferrer" target="_blank">{t('kentei.official')}</a>
+    </p>}
     {sections.length === 0 && <p className={styles.note}>{t('unitList.empty')}</p>}
     {sections.map(({ domain, rows }) => (
       <section key={domain} className={styles.domain} aria-labelledby={`math-domain-${domain}`}>

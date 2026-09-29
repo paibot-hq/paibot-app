@@ -1934,7 +1934,9 @@
         "playableOnly": "Playable sets only",
         "search": "Search units and sets",
         "empty": "No units match these filters.",
-        "best": "Best {best}/{total}"
+        "best": "Best {best}/{total}",
+        "grade": "Filter by Japanese school year",
+        "kentei": "Filter by Suken grade"
       },
       "formulaQuiz": {
         "calc": "Calculate.",
@@ -1962,7 +1964,26 @@
         "u1": "University year 1",
         "u2": "University year 2"
       },
-      "gradeLabel": "Japanese school year: {grade}"
+      "gradeLabel": "Japanese school year: {grade}",
+      "kentei": {
+        "levels": {
+          "11": "Grade 11 (arithmetic)",
+          "10": "Grade 10 (arithmetic)",
+          "9": "Grade 9 (arithmetic)",
+          "8": "Grade 8 (arithmetic)",
+          "7": "Grade 7 (arithmetic)",
+          "6": "Grade 6 (arithmetic)",
+          "5": "Grade 5",
+          "4": "Grade 4",
+          "3": "Grade 3",
+          "pre2": "Grade Pre-2",
+          "2": "Grade 2",
+          "pre1": "Grade Pre-1",
+          "1": "Grade 1"
+        },
+        "note": "The grade ranges follow the association's guide and are approximate. This site is not affiliated with the Mathematics Certification Institute of Japan.",
+        "official": "Official ranges"
+      }
     },
     "about": {
       "eyebrow": "About",
