@@ -3,11 +3,12 @@ import { getDb } from '../db/client.server';
 import { mathProblems } from '../db/schema';
 import type { ArithPayload } from './math-arith';
 import type { MathUnit } from './math-attempts';
+import type { ExpressionUnit } from './math-expression-units';
 import type { FactorizationPayload } from './math-factorization';
 
 import type { PythagorasPayload } from './math-pythagoras';
 
-type PayloadByUnit = {
+type PayloadByUnit = Record<ExpressionUnit, ArithPayload> & {
   pythagoras: PythagorasPayload;
   arith: ArithPayload;
   signed: ArithPayload;

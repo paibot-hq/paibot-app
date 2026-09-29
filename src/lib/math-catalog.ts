@@ -1,4 +1,4 @@
-import { PYTHAGORAS_SETS } from './math-pythagoras-sets';
+import { PYTHAGORAS_SETS } from './math-pythagoras-sets.ts';
 
 export type MathDomain = 'number' | 'algebra' | 'functions' | 'geometry' | 'data' | 'logic' | 'linear-algebra' | 'calculus';
 export type MathStage = 'elementary' | 'middle' | 'high' | 'university';
@@ -8,7 +8,9 @@ export interface MathCatalogUnit {
   stage: MathStage;
   status: 'published' | 'comingSoon';
   // Published units keep their sets in their existing math-*-sets.ts files.
-  sets: { id: string; item: string }[];
+  // Expression units (math-expression-units.ts) keep theirs here: a set with
+  // a `rule` (a key in scripts/validate-math-arith.mjs) can hold problems.
+  sets: { id: string; item: string; rule?: string }[];
 }
 
 export const MATH_STAGES: readonly MathStage[] = ['elementary', 'middle', 'high', 'university'];
@@ -18,19 +20,19 @@ export const MATH_DOMAINS: readonly MathDomain[] = ['number', 'algebra', 'functi
 // Display order and stable IDs for the math roadmap; no problem data here.
 export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'addition', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'carry-a', item: 'addition.carry' },
-    { id: 'two-digit-a', item: 'addition.two-digit' },
-    { id: 'column-a', item: 'addition.column' },
+    { id: 'carry-a', item: 'addition.carry', rule: 'carry-a' },
+    { id: 'two-digit-a', item: 'addition.two-digit', rule: 'two-digit-a' },
+    { id: 'column-a', item: 'addition.column', rule: 'column-a' },
   ] },
   { id: 'multiplication', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'times-table-a', item: 'multiplication.times-table' },
-    { id: 'by-one-digit-a', item: 'multiplication.by-one-digit' },
-    { id: 'by-two-digit-a', item: 'multiplication.by-two-digit' },
+    { id: 'times-table-a', item: 'multiplication.times-table', rule: 'times-table-a' },
+    { id: 'by-one-digit-a', item: 'multiplication.by-one-digit', rule: 'mul-by-one-digit-a' },
+    { id: 'by-two-digit-a', item: 'multiplication.by-two-digit', rule: 'mul-by-two-digit-a' },
   ] },
   { id: 'division', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'basic-a', item: 'division.basic' },
+    { id: 'basic-a', item: 'division.basic', rule: 'div-basic-a' },
     { id: 'remainder-a', item: 'division.remainder' },
-    { id: 'by-two-digit-a', item: 'division.by-two-digit' },
+    { id: 'by-two-digit-a', item: 'division.by-two-digit', rule: 'div-by-two-digit-a' },
   ] },
   { id: 'arith', domain: 'number', stage: 'elementary', status: 'published', sets: [] },
   { id: 'place-value', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [

@@ -1,0 +1,170 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "addition-001",
+      "setId": "carry-a",
+      "position": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "7 + 5",
+      "word": null,
+      "choices": [11, 13, 12, 2],
+      "answerIndex": 2
+    },
+    {
+      "id": "addition-002",
+      "setId": "carry-a",
+      "position": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "13 - 6",
+      "word": null,
+      "choices": [7, 8, 6, 4],
+      "answerIndex": 0
+    },
+    {
+      "id": "addition-003",
+      "setId": "carry-a",
+      "position": 3,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "8 + 6",
+      "word": null,
+      "choices": [13, 15, 4, 14],
+      "answerIndex": 3
+    },
+    {
+      "id": "addition-004",
+      "setId": "carry-a",
+      "position": 4,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "12 - 7",
+      "word": null,
+      "choices": [6, 5, 4, 3],
+      "answerIndex": 1
+    },
+    {
+      "id": "addition-005",
+      "setId": "carry-a",
+      "position": 5,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "9 + 4",
+      "word": null,
+      "choices": [12, 14, 13, 3],
+      "answerIndex": 2
+    },
+    {
+      "id": "addition-006",
+      "setId": "two-digit-a",
+      "position": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "27 + 8",
+      "word": null,
+      "choices": [25, 35, 36, 19],
+      "answerIndex": 1
+    },
+    {
+      "id": "addition-007",
+      "setId": "two-digit-a",
+      "position": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "52 - 16",
+      "word": null,
+      "choices": [36, 46, 44, 26],
+      "answerIndex": 0
+    },
+    {
+      "id": "addition-008",
+      "setId": "two-digit-a",
+      "position": 3,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "48 + 37",
+      "word": null,
+      "choices": [75, 84, 85, 95],
+      "answerIndex": 2
+    },
+    {
+      "id": "addition-009",
+      "setId": "two-digit-a",
+      "position": 4,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "83 - 47",
+      "word": null,
+      "choices": [44, 46, 37, 36],
+      "answerIndex": 3
+    },
+    {
+      "id": "addition-010",
+      "setId": "two-digit-a",
+      "position": 5,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "64 + 29",
+      "word": null,
+      "choices": [94, 83, 93, 103],
+      "answerIndex": 2
+    },
+    {
+      "id": "addition-011",
+      "setId": "column-a",
+      "position": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "468 + 275",
+      "word": null,
+      "choices": [743, 733, 643, 753],
+      "answerIndex": 0
+    },
+    {
+      "id": "addition-012",
+      "setId": "column-a",
+      "position": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "624 - 358",
+      "word": null,
+      "choices": [366, 266, 276, 334],
+      "answerIndex": 1
+    },
+    {
+      "id": "addition-013",
+      "setId": "column-a",
+      "position": 3,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "1586 + 748",
+      "word": null,
+      "choices": [2324, 2234, 2334, 1334],
+      "answerIndex": 2
+    },
+    {
+      "id": "addition-014",
+      "setId": "column-a",
+      "position": 4,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "1004 - 368",
+      "word": null,
+      "choices": [646, 736, 1636, 636],
+      "answerIndex": 3
+    },
+    {
+      "id": "addition-015",
+      "setId": "column-a",
+      "position": 5,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "3002 - 1458",
+      "word": null,
+      "choices": [1554, 1544, 1644, 2544],
+      "answerIndex": 1
+    }
+  ]
+}

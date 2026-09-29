@@ -79,6 +79,9 @@ def pythagoras(problem):
 UNITS = {
     'arith': ('math-arith.json', arith),
     'signed': ('math-signed.json', arith),
+    'addition': ('math-addition.json', arith),
+    'multiplication': ('math-multiplication.json', arith),
+    'division': ('math-division.json', arith),
     'factorization': ('math-factorization.json', factorization),
     'pythagoras': ('math-pythagoras.json', pythagoras),
 }

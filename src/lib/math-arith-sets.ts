@@ -6,7 +6,7 @@ export type ArithSet = { id: string; rule?: string; item: string; labelKey: stri
 export const ARITH_SETS: readonly ArithSet[] = [
   { id: 'order-a', rule: 'order-a', item: 'arith.order-of-operations', labelKey: 'setOrder', descriptionKey: 'setOrderDescription' },
   { id: 'order-b', rule: 'order-a', item: 'arith.order-of-operations', labelKey: 'setOrderB', descriptionKey: 'setOrderDescription' },
-  { id: 'rules-a', item: 'arith.rules', labelKey: 'setRules', descriptionKey: 'setRulesDescription' },
+  { id: 'rules-a', rule: 'rules-a', item: 'arith.rules', labelKey: 'setRules', descriptionKey: 'setRulesDescription' },
   { id: 'word-a', rule: 'word-a', item: 'arith.word-problems', labelKey: 'setEasyWord', descriptionKey: 'setEasyWordDescription' },
   { id: 'word-b', rule: 'word-b', item: 'arith.word-problems', labelKey: 'setWord', descriptionKey: 'setWordDescription' },
 ];

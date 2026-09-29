@@ -350,6 +350,61 @@
       "word": null,
       "choices": [70, 110, 34, 46],
       "answerIndex": 3
+    },
+    {
+      "id": "arith-031",
+      "setId": "rules-a",
+      "position": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "25 * 17 * 4",
+      "word": null,
+      "choices": [170, 1500, 1700, 117],
+      "answerIndex": 2
+    },
+    {
+      "id": "arith-032",
+      "setId": "rules-a",
+      "position": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "46 * 8 + 54 * 8",
+      "word": null,
+      "choices": [800, 1600, 720, 478],
+      "answerIndex": 0
+    },
+    {
+      "id": "arith-033",
+      "setId": "rules-a",
+      "position": 3,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "136 * 7 - 36 * 7",
+      "word": null,
+      "choices": [916, 1400, 630, 700],
+      "answerIndex": 3
+    },
+    {
+      "id": "arith-034",
+      "setId": "rules-a",
+      "position": 4,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "125 * 9 * 8",
+      "word": null,
+      "choices": [900, 9000, 1009, 90000],
+      "answerIndex": 1
+    },
+    {
+      "id": "arith-035",
+      "setId": "rules-a",
+      "position": 5,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "expression": "99 * 16 + 16",
+      "word": null,
+      "choices": [1584, 3168, 1600, 160],
+      "answerIndex": 2
     }
   ]
 }

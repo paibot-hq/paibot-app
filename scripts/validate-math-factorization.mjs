@@ -9,6 +9,7 @@ const isRoot = n => Number.isInteger(n) && n !== 0;
 const RULES = {
   'trinomial-a': ([p, q]) => [p, q].every(n => Math.abs(n) <= 9) && p !== -q,
   'squares-a': ([p, q]) => q === -p && p >= 2 && p <= 12,
+  'perfect-square-a': ([p, q]) => p === q && Math.abs(p) >= 1 && Math.abs(p) <= 12,
 };
 
 export function validateBank(bank, catalog = FACTORIZATION_SETS) {

@@ -6,10 +6,12 @@ import { ARITH_SETS } from '../src/lib/math-arith-sets.ts';
 import { SIGNED_SETS } from '../src/lib/math-signed-sets.ts';
 import { PYTHAGORAS_SETS } from '../src/lib/math-pythagoras-sets.ts';
 import { FACTORIZATION_SETS } from '../src/lib/math-factorization-sets.ts';
+import { EXPRESSION_UNITS, expressionUnitSets } from '../src/lib/math-expression-units.ts';
 
 export const root = fileURLToPath(new URL('../', import.meta.url));
 export function context(unit, setId) {
-  const catalogs = { arith: ARITH_SETS, signed: SIGNED_SETS, factorization: FACTORIZATION_SETS, pythagoras: PYTHAGORAS_SETS };
+  const catalogs = { arith: ARITH_SETS, signed: SIGNED_SETS, factorization: FACTORIZATION_SETS, pythagoras: PYTHAGORAS_SETS,
+    ...Object.fromEntries(EXPRESSION_UNITS.map(unit => [unit, expressionUnitSets(unit)])) };
   assert.ok(Object.hasOwn(catalogs, unit), `Unknown unit: ${unit}`);
   const catalog = catalogs[unit];
   const set = catalog.find(set => set.id === setId);

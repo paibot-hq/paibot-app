@@ -28,8 +28,10 @@ def shift_answer(problem):
     problem['answerIndex'] = (problem['answerIndex'] + 1) % 4
 
 
+# Units whose bank is still empty have nothing to break.
 for unit in UNITS:
-    rejects(unit, shift_answer, 'matching choices')
+    if bank(unit)['problems']:
+        rejects(unit, shift_answer, 'matching choices')
 
 
 def swapped_factors(problem):

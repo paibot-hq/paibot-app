@@ -3,13 +3,13 @@ import MathUnitTable from '../components/math-unit-table';
 import PublicHead from '../components/public-head';
 import ToolLayout from '../components/tool-layout';
 import { getSetRecords } from '../lib/math-attempts.server';
-import type { MathUnit } from '../lib/math-attempts';
+import { MATH_UNITS } from '../lib/math-attempts';
 import { getPlayableSets } from '../lib/math-problems.server';
 import type { Route } from './+types/math';
 
 // Signed-in users also see their latest and best score on each set they finished.
 export async function loader(args: Route.LoaderArgs) {
-  const units: MathUnit[] = ['arith', 'signed', 'factorization', 'pythagoras'];
+  const units = MATH_UNITS;
   const [playable, ...records] = await Promise.all([getPlayableSets(), ...units.map(unit => getSetRecords(args, unit))]);
   return {
     playable,
