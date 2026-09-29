@@ -17,6 +17,21 @@ export const MATH_DOMAINS: readonly MathDomain[] = ['number', 'algebra', 'functi
 
 // Display order and stable IDs for the math roadmap; no problem data here.
 export const MATH_CATALOG: readonly MathCatalogUnit[] = [
+  { id: 'addition', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
+    { id: 'carry-a', item: 'addition.carry' },
+    { id: 'two-digit-a', item: 'addition.two-digit' },
+    { id: 'column-a', item: 'addition.column' },
+  ] },
+  { id: 'multiplication', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
+    { id: 'times-table-a', item: 'multiplication.times-table' },
+    { id: 'by-one-digit-a', item: 'multiplication.by-one-digit' },
+    { id: 'by-two-digit-a', item: 'multiplication.by-two-digit' },
+  ] },
+  { id: 'division', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
+    { id: 'basic-a', item: 'division.basic' },
+    { id: 'remainder-a', item: 'division.remainder' },
+    { id: 'by-two-digit-a', item: 'division.by-two-digit' },
+  ] },
   { id: 'arith', domain: 'number', stage: 'elementary', status: 'published', sets: [] },
   { id: 'place-value', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
     { id: 'place-value-a', item: 'place-value.place-value' },

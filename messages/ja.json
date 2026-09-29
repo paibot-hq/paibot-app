@@ -601,8 +601,8 @@
       "description": "四則演算や因数分解などを、単元ごとに練習できます。",
       "keywords": "数学 ドリル 算数 問題集 四則演算 因数分解 クイズ",
       "intro": "分野ごとに、すべての単元と問題セットを並べています。色の付いたセットは今すぐ練習できます。",
-      "arithLink": "四則演算",
-      "arithSummary": "たし算・ひき算から計算の順序・文章題まで。やさしいセットから順に練習できます。",
+      "arithLink": "計算の順序と文章題",
+      "arithSummary": "計算の順序や計算のきまりと、文章題を練習します。",
       "factorizationLink": "因数分解",
       "factorizationSummary": "x² + ax + b を (x + p)(x + q) の形に分解します。二次式の因数分解の練習に。",
       "quiz": {
@@ -623,13 +623,9 @@
         "signInToSave": "ログインすると成績が記録されます。"
       },
       "arith": {
-        "title": "四則演算",
-        "description": "たし算・ひき算から計算の順序・文章題まで、4択クイズで練習できます。",
+        "title": "計算の順序と文章題",
+        "description": "計算の順序や計算のきまり、文章題を4択クイズで練習できます。",
         "keywords": "数学 四則演算 計算の順序 文章題 クイズ",
-        "setAddSub": "たし算・ひき算",
-        "setAddSubDescription": "100までの数のたし算とひき算。はじめての人はここから。",
-        "setMulDiv": "かけ算・わり算",
-        "setMulDivDescription": "九九を使うかけ算とわり算。わり切れる問題だけです。",
         "setEasyWord": "かんたん文章題",
         "setEasyWordDescription": "1〜2回の計算で解ける、短い文章題です。",
         "setOrder": "計算の順序",
@@ -638,7 +634,9 @@
         "setWord": "少し長い文章題",
         "setWordDescription": "2〜3回の計算が必要な文章題です。かんたん文章題に慣れたら挑戦を。",
         "formula": "式：",
-        "valueWithUnit": "{value}{unit}"
+        "valueWithUnit": "{value}{unit}",
+        "setRules": "計算のきまり",
+        "setRulesDescription": "結合法則・分配法則などを使って、くふうして計算します。"
       },
       "factorization": {
         "title": "因数分解",
@@ -1261,6 +1259,33 @@
           "sets": {
             "population-sample-a": "母集団と標本",
             "estimate-a": "標本からの推定"
+          }
+        },
+        "addition": {
+          "title": "たし算・ひき算",
+          "summary": "くり上がり・くり下がりから、大きな数の筆算まで練習します。",
+          "sets": {
+            "carry-a": "1桁のくり上がり・くり下がり",
+            "two-digit-a": "2桁のたし算・ひき算",
+            "column-a": "3〜4桁の筆算"
+          }
+        },
+        "multiplication": {
+          "title": "かけ算",
+          "summary": "九九から、2桁・3桁のかけ算まで練習します。",
+          "sets": {
+            "times-table-a": "九九",
+            "by-one-digit-a": "2〜3桁×1桁",
+            "by-two-digit-a": "2〜3桁×2桁"
+          }
+        },
+        "division": {
+          "title": "わり算",
+          "summary": "九九を使うわり算から、あまりのあるわり算、2桁でわるわり算まで練習します。",
+          "sets": {
+            "basic-a": "九九を使うわり算",
+            "remainder-a": "あまりのあるわり算",
+            "by-two-digit-a": "2桁でわるわり算"
           }
         }
       },

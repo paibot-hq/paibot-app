@@ -601,8 +601,8 @@
       "description": "按单元练习四则运算、因式分解等数学内容。",
       "keywords": "数学 练习 四则运算 因式分解 测验 题库",
       "intro": "按数学领域列出全部单元和题组。带颜色的题组现在就可以练习。",
-      "arithLink": "四则运算",
-      "arithSummary": "从加减法到运算顺序和应用题。从简单的题组开始逐步练习。",
+      "arithLink": "运算顺序与应用题",
+      "arithSummary": "练习运算顺序、运算定律和应用题。",
       "factorizationLink": "因式分解",
       "factorizationSummary": "把 x² + ax + b 分解成 (x + p)(x + q) 的形式，练习二次式的因式分解。",
       "quiz": {
@@ -623,13 +623,9 @@
         "signInToSave": "登录后可记录成绩。"
       },
       "arith": {
-        "title": "四则运算",
-        "description": "通过四选一测验练习从加减法到运算顺序和应用题的四则运算。",
+        "title": "运算顺序与应用题",
+        "description": "用四选一测验练习运算顺序、运算定律和应用题。",
         "keywords": "数学 四则运算 运算顺序 应用题 测验",
-        "setAddSub": "加法与减法",
-        "setAddSubDescription": "100以内的加法和减法。初次练习请从这里开始。",
-        "setMulDiv": "乘法与除法",
-        "setMulDivDescription": "用乘法口诀做乘除法，除法都能整除。",
         "setEasyWord": "简单应用题",
         "setEasyWordDescription": "一两步就能解答的简短应用题。",
         "setOrder": "运算顺序",
@@ -638,7 +634,9 @@
         "setWord": "多步应用题",
         "setWordDescription": "需要两到三步计算的应用题。熟悉简单应用题后再来挑战。",
         "formula": "算式：",
-        "valueWithUnit": "{value}{unit}"
+        "valueWithUnit": "{value}{unit}",
+        "setRules": "运算定律",
+        "setRulesDescription": "运用结合律、分配律等进行简便计算。"
       },
       "factorization": {
         "title": "因式分解",
@@ -1261,6 +1259,33 @@
           "sets": {
             "population-sample-a": "总体与样本",
             "estimate-a": "用样本估计"
+          }
+        },
+        "addition": {
+          "title": "加法与减法",
+          "summary": "从进位、退位到大数的竖式计算。",
+          "sets": {
+            "carry-a": "一位数的进位与退位",
+            "two-digit-a": "两位数的加减法",
+            "column-a": "三到四位数的竖式"
+          }
+        },
+        "multiplication": {
+          "title": "乘法",
+          "summary": "从九九乘法表到两位数、三位数的乘法。",
+          "sets": {
+            "times-table-a": "九九乘法表",
+            "by-one-digit-a": "两三位数乘一位数",
+            "by-two-digit-a": "两三位数乘两位数"
+          }
+        },
+        "division": {
+          "title": "除法",
+          "summary": "从用九九的除法到有余数的除法和除数是两位数的除法。",
+          "sets": {
+            "basic-a": "用九九的除法",
+            "remainder-a": "有余数的除法",
+            "by-two-digit-a": "除数是两位数的除法"
           }
         }
       },

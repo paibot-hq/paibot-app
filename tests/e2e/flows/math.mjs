@@ -65,7 +65,7 @@ export default async function ({ page, main, base, go, errors }) {
   await page.waitForFunction(() => document.documentElement.dataset.theme);
   await main.getByRole('combobox', { name: '数検の級で絞り込む' }).selectOption('3');
   assert.ok(await chip('/ja/math/factorization/trinomial-a').isVisible());
-  assert.equal(await chip('/ja/math/arith/add-sub-a').count(), 0, 'only units for grade 3');
+  assert.equal(await chip('/ja/math/arith/order-a').count(), 0, 'only units for grade 3');
   await main.getByText('日本数学検定協会とは関係ありません', { exact: false }).waitFor();
   assert.deepEqual(errors, []);
   console.log('PASS: former pages redirect to /math, and the Japanese Suken filter lists a grade\'s units');

@@ -95,7 +95,8 @@ const RULES = {
 export function validateBank(bank, catalog = ARITH_SETS) {
   assert.equal(bank.version, 1);
   assert.ok(Array.isArray(bank.problems));
-  for (const set of catalog) assert.ok(Object.hasOwn(RULES, set.rule), `Unknown rule: ${set.rule}`);
+  // Sets without a rule are coming soon and may not hold problems yet.
+  for (const set of catalog) assert.ok(set.rule === undefined || Object.hasOwn(RULES, set.rule), `Unknown rule: ${set.rule}`);
   const ids = new Set();
   const positions = new Set();
   const expressions = new Set();
@@ -106,6 +107,7 @@ export function validateBank(bank, catalog = ARITH_SETS) {
     assert.ok(!ids.has(id), `Duplicate ID: ${id}`); ids.add(id);
     const set = catalog.find(set => set.id === setId);
     assert.ok(set, `${id}: unknown set`);
+    assert.ok(set.rule, `${id}: set ${setId} is coming soon (no rule yet)`);
     assert.ok(Number.isInteger(position) && position >= 1, `${id}: position`);
     assert.ok(!positions.has(`${setId}:${position}`), `${id}: duplicate position`); positions.add(`${setId}:${position}`);
     assert.equal(typeof problem.published, 'boolean');
