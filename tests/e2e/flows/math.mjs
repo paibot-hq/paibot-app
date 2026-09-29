@@ -23,8 +23,8 @@ export default async function ({ page, main, base, go, errors }) {
   assert.ok(await main.locator('ul ul a').count() > 0);
   assert.equal(await main.locator('a[data-playable]').count(), await main.locator('ul ul a').count(), 'only playable items');
   await main.getByLabel('Playable sets only').uncheck();
-  await main.getByRole('searchbox').fill('determinant');
-  assert.deepEqual(await main.locator('ul ul a').allTextContents(), ['2×2 determinants (Coming soon)']);
+  await main.getByRole('searchbox').fill('cramer');
+  assert.deepEqual(await main.locator('ul ul a').allTextContents(), ["n×n determinants: cofactors & Cramer's rule (Coming soon)"]);
   await main.getByRole('searchbox').fill('');
   await page.setViewportSize({ width: 390, height: 844 });
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));

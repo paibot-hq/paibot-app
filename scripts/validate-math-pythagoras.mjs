@@ -20,7 +20,8 @@ const RULES = {
 export function validateBank(bank, catalog = unitSets('pythagoras')) {
   assert.equal(bank.version, 1);
   assert.ok(Array.isArray(bank.problems));
-  for (const set of catalog) assert.ok(Object.hasOwn(RULES, set.rule), `Unknown rule: ${set.rule}`);
+  // Sets without a rule are coming soon and may not hold problems yet.
+  for (const set of catalog) assert.ok(set.rule === undefined || Object.hasOwn(RULES, set.rule), `Unknown rule: ${set.rule}`);
   const ids = new Set(), positions = new Set(), figures = new Set();
   const coverage = new Map(catalog.map(s => [`${s.item}/${s.id}`, []]));
   for (const p of bank.problems) {
@@ -29,6 +30,7 @@ export function validateBank(bank, catalog = unitSets('pythagoras')) {
     assert.ok(!ids.has(id), `${id}: duplicate ID`); ids.add(id);
     const set = catalog.find(s => s.item === item && s.id === setId);
     assert.ok(set, `${id}: unknown set`);
+    assert.ok(set.rule, `${id}: set ${item} ${setId} is coming soon (no rule yet)`);
     assert.ok(positive(position), `${id}: position`);
     assert.ok(!positions.has(`${item}/${setId}:${position}`), `${id}: duplicate position`); positions.add(`${item}/${setId}:${position}`);
     assert.equal(typeof p.published, 'boolean');
@@ -72,7 +74,7 @@ export function validateBank(bank, catalog = unitSets('pythagoras')) {
   }
   for (const set of catalog) {
     const rows = coverage.get(`${set.item}/${set.id}`);
-    if (rows.length) assert.ok(RULES[set.rule].set(rows), `${set.id}: needs hypotenuse/leg and integer/radical answers`);
+    if (set.rule && rows.length) assert.ok(RULES[set.rule].set(rows), `${set.id}: needs hypotenuse/leg and integer/radical answers`);
   }
   return bank;
 }

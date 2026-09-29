@@ -27,6 +27,7 @@ export const MATH_DOMAINS: readonly MathDomain[] = ['number', 'algebra', 'functi
 // /math/<unit>/<item>/<set>. Names live under App.math.units.<unit>.
 export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'addition', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'expression', items: [
+    { id: 'within-10', sets: [{ id: '1' }] },
     { id: 'carry', sets: [{ id: '1', rule: 'carry-a' }] },
     { id: 'two-digit', sets: [{ id: '1', rule: 'two-digit-a' }] },
     { id: 'column', sets: [{ id: '1', rule: 'column-a' }] },
@@ -47,6 +48,10 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'simple-word-problems', sets: [{ id: '1', rule: 'word-a' }] },
     { id: 'word-problems', sets: [{ id: '1', rule: 'word-b' }] },
   ] },
+  { id: 'unknowns', domain: 'algebra', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'box', sets: [{ id: '1' }] },
+    { id: 'letters', sets: [{ id: '1' }] },
+  ] },
   { id: 'place-value', domain: 'number', stage: 'elementary', status: 'comingSoon', items: [
     { id: 'to-100', sets: [{ id: '1' }] },
     { id: 'to-10000', sets: [{ id: '1' }] },
@@ -64,8 +69,12 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'mul-div', sets: [{ id: '1', rule: 'decimal-mul-div-a' }] },
   ] },
   { id: 'fraction', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'unit-fractions', sets: [{ id: '1' }] },
+    { id: 'meaning', sets: [{ id: '1' }] },
     { id: 'simplify', sets: [{ id: '1', rule: 'fraction-simplify-a' }] },
+    { id: 'fraction-decimal', sets: [{ id: '1' }] },
     { id: 'add-sub-like', sets: [{ id: '1' }] },
+    { id: 'mixed', sets: [{ id: '1' }] },
     { id: 'add-sub', sets: [{ id: '1', rule: 'fraction-add-sub-a' }] },
     { id: 'mul-div', sets: [{ id: '1', rule: 'fraction-mul-div-a' }] },
   ] },
@@ -78,6 +87,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'estimate', sets: [{ id: '1' }] },
   ] },
   { id: 'ratio', domain: 'data', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'simple-ratio', sets: [{ id: '1' }] },
     { id: 'percent', sets: [{ id: '1' }] },
     { id: 'ratio', sets: [{ id: '1' }] },
     { id: 'word-problems', sets: [{ id: '1' }] },
@@ -91,13 +101,21 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'volume', sets: [{ id: '1' }] },
     { id: 'circumference', sets: [{ id: '1' }] },
     { id: 'circle-area', sets: [{ id: '1' }] },
+    { id: 'prism-volume', sets: [{ id: '1' }] },
   ] },
   { id: 'shapes', domain: 'geometry', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'solids-basic', sets: [{ id: '1' }] },
     { id: 'basic-shapes', sets: [{ id: '1' }] },
+    { id: 'boxes', sets: [{ id: '1' }] },
     { id: 'triangles', sets: [{ id: '1' }] },
     { id: 'quadrilaterals', sets: [{ id: '1' }] },
     { id: 'circles', sets: [{ id: '1' }] },
     { id: 'angles', sets: [{ id: '1' }] },
+    { id: 'perpendicular-parallel', sets: [{ id: '1' }] },
+    { id: 'cuboids', sets: [{ id: '1' }] },
+    { id: 'congruent', sets: [{ id: '1' }] },
+    { id: 'angle-sum', sets: [{ id: '1' }] },
+    { id: 'prisms', sets: [{ id: '1' }] },
   ] },
   { id: 'symmetry', domain: 'geometry', stage: 'elementary', status: 'comingSoon', items: [
     { id: 'symmetry', sets: [{ id: '1' }] },
@@ -111,6 +129,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'tables', sets: [{ id: '1' }] },
     { id: 'bar-graph', sets: [{ id: '1' }] },
     { id: 'line-graph', sets: [{ id: '1' }] },
+    { id: 'two-way-table', sets: [{ id: '1' }] },
     { id: 'pie-band', sets: [{ id: '1' }] },
     { id: 'histogram', sets: [{ id: '1' }] },
   ] },
@@ -129,12 +148,14 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'value', sets: [{ id: '1', rule: 'expression-value-a' }] },
     { id: 'like-terms', sets: [{ id: '1', rule: 'like-terms-a' }] },
     { id: 'distribute', sets: [{ id: '1', rule: 'distribute-a' }] },
+    { id: 'polynomials', sets: [{ id: '1' }] },
     { id: 'rearrange', sets: [{ id: '1' }] },
   ] },
   { id: 'linear-equation', domain: 'algebra', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'basic', sets: [{ id: '1', rule: 'linear-basic-a' }] },
     { id: 'parentheses', sets: [{ id: '1', rule: 'linear-parentheses-a' }] },
     { id: 'fraction', sets: [{ id: '1', rule: 'linear-fraction-a' }] },
+    { id: 'proportion', sets: [{ id: '1' }] },
     { id: 'word-problems', sets: [{ id: '1' }] },
   ] },
   { id: 'simultaneous', domain: 'algebra', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
@@ -162,30 +183,41 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'formulas', sets: [{ id: '1', rule: 'expansion-formulas-a' }] },
     { id: 'square', sets: [{ id: '1', rule: 'expansion-square-a' }] },
     { id: 'sum-difference', sets: [{ id: '1', rule: 'expansion-sum-difference-a' }] },
+    { id: 'three-terms', sets: [{ id: '1' }] },
+    { id: 'cubic', sets: [{ id: '1' }] },
   ] },
   { id: 'factorization', domain: 'algebra', stage: 'middle', status: 'published', kind: 'factorization', items: [
     { id: 'common-factor', sets: [{ id: '1' }] },
     { id: 'trinomial', sets: [{ id: '1', rule: 'trinomial-a' }] },
     { id: 'perfect-square', sets: [{ id: '1', rule: 'perfect-square-a' }] },
     { id: 'difference-of-squares', sets: [{ id: '1', rule: 'squares-a' }] },
+    { id: 'ac-method', sets: [{ id: '1' }] },
+    { id: 'two-variables', sets: [{ id: '1' }] },
+    { id: 'substitution', sets: [{ id: '1' }] },
+    { id: 'cubes', sets: [{ id: '1' }] },
   ] },
   { id: 'sqrt', domain: 'number', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'rational-irrational', sets: [{ id: '1' }] },
     { id: 'simplify', sets: [{ id: '1', rule: 'sqrt-simplify-a' }] },
     { id: 'add-sub', sets: [{ id: '1', rule: 'sqrt-add-sub-a' }] },
     { id: 'rationalize', sets: [{ id: '1', rule: 'sqrt-rationalize-a' }] },
+    { id: 'double-radical', sets: [{ id: '1' }] },
   ] },
   { id: 'prime', domain: 'number', stage: 'middle', status: 'comingSoon', items: [
     { id: 'prime', sets: [{ id: '1' }] },
   ] },
   { id: 'integers', domain: 'number', stage: 'high', status: 'comingSoon', items: [
     { id: 'euclid', sets: [{ id: '1' }] },
+    { id: 'diophantine', sets: [{ id: '1' }] },
     { id: 'base-n', sets: [{ id: '1' }] },
     { id: 'congruence', sets: [{ id: '1' }] },
   ] },
   { id: 'pythagoras', domain: 'geometry', stage: 'middle', status: 'published', kind: 'pythagoras', items: [
     { id: 'sides', sets: [{ id: '1', rule: 'sides-a' }] },
+    { id: 'applications', sets: [{ id: '1' }] },
   ] },
   { id: 'probability', domain: 'data', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'relative-frequency', sets: [{ id: '1' }] },
     { id: 'basic', sets: [{ id: '1' }] },
   ] },
   { id: 'quadratic', domain: 'algebra', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
@@ -216,11 +248,13 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'values', sets: [{ id: '1' }] },
     { id: 'radian', sets: [{ id: '1' }] },
     { id: 'addition', sets: [{ id: '1' }] },
+    { id: 'double-angle', sets: [{ id: '1' }] },
     { id: 'synthesis', sets: [{ id: '1' }] },
   ] },
   { id: 'exp-log', domain: 'functions', stage: 'high', status: 'comingSoon', items: [
     { id: 'exponent', sets: [{ id: '1' }] },
     { id: 'log', sets: [{ id: '1' }] },
+    { id: 'common-log', sets: [{ id: '1' }] },
   ] },
   { id: 'conic', domain: 'functions', stage: 'high', status: 'comingSoon', items: [
     { id: 'parabola', sets: [{ id: '1' }] },
@@ -231,10 +265,12 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'permutations', sets: [{ id: '1' }] },
     { id: 'combinations', sets: [{ id: '1' }] },
     { id: 'probability', sets: [{ id: '1' }] },
+    { id: 'independent', sets: [{ id: '1' }] },
     { id: 'conditional', sets: [{ id: '1' }] },
     { id: 'expectation', sets: [{ id: '1' }] },
   ] },
   { id: 'distributions', domain: 'data', stage: 'high', status: 'comingSoon', items: [
+    { id: 'random-variables', sets: [{ id: '1' }] },
     { id: 'binomial', sets: [{ id: '1' }] },
     { id: 'normal', sets: [{ id: '1' }] },
   ] },
@@ -242,12 +278,17 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'sequence', sets: [{ id: '1' }] },
     { id: 'function', sets: [{ id: '1' }] },
   ] },
+  { id: 'univ-calculus', domain: 'calculus', stage: 'university', status: 'comingSoon', items: [
+    { id: 'mean-value', sets: [{ id: '1' }] },
+  ] },
   { id: 'derivative', domain: 'calculus', stage: 'high', status: 'comingSoon', items: [
     { id: 'polynomial', sets: [{ id: '1' }] },
     { id: 'tangent', sets: [{ id: '1' }] },
     { id: 'extrema', sets: [{ id: '1' }] },
     { id: 'transcendental', sets: [{ id: '1' }] },
     { id: 'chain-rule', sets: [{ id: '1' }] },
+    { id: 'parametric', sets: [{ id: '1' }] },
+    { id: 'motion', sets: [{ id: '1' }] },
   ] },
   { id: 'integral', domain: 'calculus', stage: 'high', status: 'comingSoon', items: [
     { id: 'indefinite', sets: [{ id: '1' }] },
@@ -277,6 +318,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'matrix', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', items: [
     { id: 'operations', sets: [{ id: '1' }] },
     { id: 'determinant', sets: [{ id: '1' }] },
+    { id: 'general-determinant', sets: [{ id: '1' }] },
     { id: 'inverse', sets: [{ id: '1' }] },
   ] },
   { id: 'linear-system', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', items: [
@@ -305,6 +347,11 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'speed', sets: [{ id: '1' }] },
     { id: 'per-unit', sets: [{ id: '1' }] },
   ] },
+  { id: 'relations', domain: 'functions', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'change', sets: [{ id: '1' }] },
+    { id: 'simple-proportion', sets: [{ id: '1' }] },
+    { id: 'proportion', sets: [{ id: '1' }] },
+  ] },
   { id: 'angles', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
     { id: 'parallel', sets: [{ id: '1' }] },
     { id: 'polygon', sets: [{ id: '1' }] },
@@ -315,6 +362,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'parallelogram', sets: [{ id: '1' }] },
   ] },
   { id: 'circle-solid', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'solid-views', sets: [{ id: '1' }] },
     { id: 'sector', sets: [{ id: '1' }] },
     { id: 'solid', sets: [{ id: '1' }] },
   ] },
@@ -335,10 +383,14 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'centers', sets: [{ id: '1' }] },
     { id: 'power', sets: [{ id: '1' }] },
     { id: 'ceva-menelaus', sets: [{ id: '1' }] },
+    { id: 'polyhedra', sets: [{ id: '1' }] },
   ] },
   { id: 'quartiles', domain: 'data', stage: 'middle', status: 'comingSoon', items: [
     { id: 'quartiles', sets: [{ id: '1' }] },
     { id: 'boxplot', sets: [{ id: '1' }] },
+  ] },
+  { id: 'frequency', domain: 'data', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'frequency', sets: [{ id: '1' }] },
   ] },
   { id: 'sampling', domain: 'data', stage: 'middle', status: 'comingSoon', items: [
     { id: 'population-sample', sets: [{ id: '1' }] },
@@ -347,8 +399,10 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'statistics', domain: 'data', stage: 'high', status: 'comingSoon', items: [
     { id: 'variance', sets: [{ id: '1' }] },
     { id: 'correlation', sets: [{ id: '1' }] },
+    { id: 'hypothesis', sets: [{ id: '1' }] },
   ] },
   { id: 'inference', domain: 'data', stage: 'university', status: 'comingSoon', items: [
+    { id: 'random-variables', sets: [{ id: '1' }] },
     { id: 'estimation', sets: [{ id: '1' }] },
     { id: 'testing', sets: [{ id: '1' }] },
   ] },
@@ -375,6 +429,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'multivariable', domain: 'calculus', stage: 'university', status: 'comingSoon', items: [
     { id: 'partial', sets: [{ id: '1' }] },
     { id: 'double-integral', sets: [{ id: '1' }] },
+    { id: 'polar', sets: [{ id: '1' }] },
   ] },
   { id: 'ode', domain: 'calculus', stage: 'university', status: 'comingSoon', items: [
     { id: 'separable', sets: [{ id: '1' }] },

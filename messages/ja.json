@@ -640,6 +640,118 @@
       "comingSoon": "準備中",
       "unitCount": "{count}単元",
       "units": {
+        "addition": {
+          "title": "たし算・ひき算",
+          "summary": "くり上がり・くり下がりから、大きな数の筆算まで練習します。",
+          "items": {
+            "within-10": {
+              "title": "10までのたし算・ひき算"
+            },
+            "carry": {
+              "title": "1桁のくり上がり・くり下がり"
+            },
+            "two-digit": {
+              "title": "2桁のたし算・ひき算"
+            },
+            "column": {
+              "title": "3〜4桁の筆算"
+            }
+          }
+        },
+        "multiplication": {
+          "title": "かけ算",
+          "summary": "九九から、2桁・3桁のかけ算まで練習します。",
+          "items": {
+            "times-table": {
+              "title": "九九"
+            },
+            "by-one-digit": {
+              "title": "2〜3桁×1桁"
+            },
+            "by-two-digit": {
+              "title": "2〜3桁×2桁"
+            }
+          }
+        },
+        "division": {
+          "title": "わり算",
+          "summary": "九九を使うわり算から、あまりのあるわり算、2桁でわるわり算まで練習します。",
+          "items": {
+            "basic": {
+              "title": "九九を使うわり算"
+            },
+            "remainder": {
+              "title": "あまりのあるわり算"
+            },
+            "by-two-digit": {
+              "title": "2桁でわるわり算"
+            }
+          }
+        },
+        "arith": {
+          "title": "計算の順序と文章題",
+          "summary": "計算の順序や計算のきまりと、文章題を練習します。",
+          "items": {
+            "order-of-operations": {
+              "title": "計算の順序",
+              "description": "かっこ、かけ算・わり算を先に。計算する順番を確かめます。"
+            },
+            "rules": {
+              "title": "計算のきまり",
+              "description": "結合法則・分配法則などを使って、くふうして計算します。"
+            },
+            "simple-word-problems": {
+              "title": "かんたん文章題",
+              "description": "1〜2回の計算で解ける、短い文章題です。"
+            },
+            "word-problems": {
+              "title": "少し長い文章題",
+              "description": "2〜3回の計算が必要な文章題です。かんたん文章題に慣れたら挑戦を。"
+            }
+          }
+        },
+        "unknowns": {
+          "title": "□や文字を使った式",
+          "summary": "わからない数を□や x で表し、式に表したり求めたりします。",
+          "items": {
+            "box": {
+              "title": "□を使った式"
+            },
+            "letters": {
+              "title": "文字を使った式"
+            }
+          }
+        },
+        "place-value": {
+          "title": "大きな数",
+          "summary": "位取りのしくみから、万・億・兆の大きな数まで練習します。",
+          "items": {
+            "to-100": {
+              "title": "100までの数"
+            },
+            "to-10000": {
+              "title": "10000までの数"
+            },
+            "ten-thousands": {
+              "title": "万の位の数"
+            },
+            "large-numbers": {
+              "title": "万・億・兆"
+            }
+          }
+        },
+        "time": {
+          "title": "時刻と時間",
+          "summary": "時計の読み方と、時間の計算を練習します。",
+          "items": {
+            "reading": {
+              "title": "時計の読み方"
+            },
+            "elapsed": {
+              "title": "時刻と時間の計算"
+            }
+          }
+        },
         "decimal": {
           "title": "小数",
           "summary": "小数のたし算・ひき算からかけ算・わり算まで練習します。",
@@ -662,11 +774,23 @@
           "title": "分数",
           "summary": "約分・通分と分数の四則演算を練習します。",
           "items": {
+            "unit-fractions": {
+              "title": "分数の意味（1/2・1/4）"
+            },
+            "meaning": {
+              "title": "分数の大きさ"
+            },
             "simplify": {
               "title": "約分・通分"
             },
+            "fraction-decimal": {
+              "title": "分数と小数・整数の関係"
+            },
             "add-sub-like": {
               "title": "同分母の分数のたし算・ひき算"
+            },
+            "mixed": {
+              "title": "帯分数と仮分数"
             },
             "add-sub": {
               "title": "異分母の分数のたし算・ひき算"
@@ -688,10 +812,25 @@
             }
           }
         },
+        "rounding": {
+          "title": "概数と四捨五入",
+          "summary": "四捨五入や切り上げ・切り捨てで、数を見積もる練習をします。",
+          "items": {
+            "rounding": {
+              "title": "四捨五入"
+            },
+            "estimate": {
+              "title": "見積もり"
+            }
+          }
+        },
         "ratio": {
           "title": "割合と比",
           "summary": "百分率や比の基本を学び、文章題に取り組みます。",
           "items": {
+            "simple-ratio": {
+              "title": "簡単な割合（何倍か）"
+            },
             "percent": {
               "title": "百分率"
             },
@@ -730,6 +869,63 @@
             },
             "circle-area": {
               "title": "円の面積"
+            },
+            "prism-volume": {
+              "title": "角柱・円柱の体積"
+            }
+          }
+        },
+        "shapes": {
+          "title": "図形の基本",
+          "summary": "三角形・四角形・円の性質と、角の大きさを学びます。",
+          "items": {
+            "solids-basic": {
+              "title": "立体のかたち"
+            },
+            "basic-shapes": {
+              "title": "長方形・正方形・直角三角形"
+            },
+            "boxes": {
+              "title": "箱の形"
+            },
+            "triangles": {
+              "title": "二等辺三角形と正三角形"
+            },
+            "quadrilaterals": {
+              "title": "平行四辺形・台形・ひし形"
+            },
+            "circles": {
+              "title": "円と球"
+            },
+            "angles": {
+              "title": "角の大きさ"
+            },
+            "perpendicular-parallel": {
+              "title": "垂直と平行"
+            },
+            "cuboids": {
+              "title": "直方体と立方体（展開図・見取図）"
+            },
+            "congruent": {
+              "title": "図形の合同"
+            },
+            "angle-sum": {
+              "title": "三角形・四角形の角の和"
+            },
+            "prisms": {
+              "title": "角柱と円柱"
+            }
+          }
+        },
+        "symmetry": {
+          "title": "対称と拡大・縮小",
+          "summary": "線対称・点対称な図形と、拡大図・縮図を学びます。",
+          "items": {
+            "symmetry": {
+              "title": "線対称と点対称"
+            },
+            "scale": {
+              "title": "拡大図と縮図"
             }
           }
         },
@@ -745,6 +941,64 @@
             }
           }
         },
+        "graphs": {
+          "title": "表とグラフ",
+          "summary": "表・棒グラフ・折れ線グラフから、帯グラフ・円グラフ・柱状グラフまで読み取ります。",
+          "items": {
+            "tables": {
+              "title": "表とグラフ"
+            },
+            "bar-graph": {
+              "title": "棒グラフ"
+            },
+            "line-graph": {
+              "title": "折れ線グラフ"
+            },
+            "two-way-table": {
+              "title": "二次元の表"
+            },
+            "pie-band": {
+              "title": "帯グラフと円グラフ"
+            },
+            "histogram": {
+              "title": "柱状グラフ"
+            }
+          }
+        },
+        "counting": {
+          "title": "並べ方と組み合わせ",
+          "summary": "並べ方や組み合わせを、もれなく重なりなく数えます。",
+          "items": {
+            "arrangements": {
+              "title": "並べ方"
+            },
+            "combinations": {
+              "title": "組み合わせ"
+            }
+          }
+        },
+        "signed": {
+          "title": "正負の数",
+          "summary": "負の数をふくむ四則演算。符号のミスに気をつけて練習できます。",
+          "items": {
+            "four-operations": {
+              "title": "正負の数",
+              "description": "負の数をふくむ四則演算。符号のミスに気をつけて。"
+            }
+          }
+        },
+        "exponents": {
+          "title": "累乗と指数法則",
+          "summary": "累乗の計算と指数法則、科学的表記を練習します。",
+          "items": {
+            "powers": {
+              "title": "累乗と指数法則"
+            },
+            "scientific": {
+              "title": "科学的表記と有効数字"
+            }
+          }
+        },
         "expression": {
           "title": "文字式",
           "summary": "文字に数を代入したり、同類項をまとめたりして式を扱います。",
@@ -757,6 +1011,9 @@
             },
             "distribute": {
               "title": "分配法則"
+            },
+            "polynomials": {
+              "title": "単項式・多項式の計算"
             },
             "rearrange": {
               "title": "等式の変形"
@@ -775,6 +1032,9 @@
             },
             "fraction": {
               "title": "分数を含む"
+            },
+            "proportion": {
+              "title": "比例式"
             },
             "word-problems": {
               "title": "文章題"
@@ -814,6 +1074,21 @@
             }
           }
         },
+        "square-function": {
+          "title": "関数 y=ax²",
+          "summary": "y=ax² のグラフ、変化の割合、放物線と直線の交点を学びます。",
+          "items": {
+            "graph": {
+              "title": "グラフと式"
+            },
+            "rate-of-change": {
+              "title": "変化の割合"
+            },
+            "intersection": {
+              "title": "放物線と直線"
+            }
+          }
+        },
         "inequality": {
           "title": "不等式",
           "summary": "一次不等式を解いて、条件を満たす数の範囲を求めます。",
@@ -841,6 +1116,46 @@
             },
             "sum-difference": {
               "title": "和と差の積"
+            },
+            "three-terms": {
+              "title": "3つの項の展開"
+            },
+            "cubic": {
+              "title": "3次の展開"
+            }
+          }
+        },
+        "factorization": {
+          "title": "因数分解",
+          "summary": "x² + ax + b を (x + p)(x + q) の形に分解します。二次式の因数分解の練習に。",
+          "items": {
+            "common-factor": {
+              "title": "共通因数のくくり出し",
+              "description": "各項に共通な因数をくくり出します。くくったあとに公式を使う式もあります。"
+            },
+            "trinomial": {
+              "title": "二次三項式の因数分解",
+              "description": "1から9までの整数で、基本の形に慣れます。"
+            },
+            "perfect-square": {
+              "title": "完全平方式の因数分解",
+              "description": "x² + 2ax + a² を (x + a)² の形にします。"
+            },
+            "difference-of-squares": {
+              "title": "平方の差の因数分解",
+              "description": "x² − a² の形だけを集めました。公式のパターンを覚えたいときに。"
+            },
+            "ac-method": {
+              "title": "たすき掛け"
+            },
+            "two-variables": {
+              "title": "2つの文字を含む式の因数分解"
+            },
+            "substitution": {
+              "title": "おきかえ・複二次式"
+            },
+            "cubes": {
+              "title": "3乗の和と差"
             }
           }
         },
@@ -848,6 +1163,9 @@
           "title": "平方根",
           "summary": "根号のある式の計算と分母の有理化を練習します。",
           "items": {
+            "rational-irrational": {
+              "title": "有理数と無理数"
+            },
             "simplify": {
               "title": "根号を簡単にする"
             },
@@ -856,6 +1174,9 @@
             },
             "rationalize": {
               "title": "分母の有理化"
+            },
+            "double-radical": {
+              "title": "二重根号"
             }
           }
         },
@@ -868,6 +1189,24 @@
             }
           }
         },
+        "integers": {
+          "title": "整数の性質",
+          "summary": "ユークリッドの互除法、n進法、合同式で整数を扱います。",
+          "items": {
+            "euclid": {
+              "title": "ユークリッドの互除法"
+            },
+            "diophantine": {
+              "title": "不定方程式"
+            },
+            "base-n": {
+              "title": "n進法"
+            },
+            "congruence": {
+              "title": "合同式"
+            }
+          }
+        },
         "pythagoras": {
           "title": "三平方の定理",
           "summary": "直角三角形の辺の長さを三平方の定理で求めます。",
@@ -875,6 +1214,9 @@
             "sides": {
               "title": "辺の長さ",
               "description": "整数や根号を使って、直角三角形の辺の長さを求めます。"
+            },
+            "applications": {
+              "title": "三平方の定理の応用（座標・空間図形）"
             }
           }
         },
@@ -882,6 +1224,9 @@
           "title": "確率",
           "summary": "起こりうる結果を数えて、確率の基本を学びます。",
           "items": {
+            "relative-frequency": {
+              "title": "多数回の試行と確率"
+            },
             "basic": {
               "title": "確率の基本"
             }
@@ -899,6 +1244,33 @@
             },
             "discriminant": {
               "title": "判別式"
+            }
+          }
+        },
+        "identities": {
+          "title": "式と証明",
+          "summary": "二項定理と恒等式を使って式を扱います。",
+          "items": {
+            "binomial": {
+              "title": "二項定理"
+            },
+            "identity": {
+              "title": "恒等式"
+            },
+            "inequality-proof": {
+              "title": "不等式の証明"
+            }
+          }
+        },
+        "polynomial-equations": {
+          "title": "高次方程式",
+          "summary": "剰余の定理・因数定理を使って、高次方程式を解きます。",
+          "items": {
+            "remainder": {
+              "title": "剰余の定理・因数定理"
+            },
+            "higher-degree": {
+              "title": "高次方程式"
             }
           }
         },
@@ -945,6 +1317,9 @@
             "addition": {
               "title": "加法定理"
             },
+            "double-angle": {
+              "title": "倍角・半角の公式"
+            },
             "synthesis": {
               "title": "三角関数の合成"
             }
@@ -959,6 +1334,24 @@
             },
             "log": {
               "title": "対数の計算"
+            },
+            "common-log": {
+              "title": "常用対数"
+            }
+          }
+        },
+        "conic": {
+          "title": "二次曲線",
+          "summary": "放物線・楕円・双曲線と、媒介変数・極座標を扱います。",
+          "items": {
+            "parabola": {
+              "title": "放物線"
+            },
+            "ellipse-hyperbola": {
+              "title": "楕円と双曲線"
+            },
+            "polar": {
+              "title": "媒介変数と極座標"
             }
           }
         },
@@ -975,11 +1368,50 @@
             "probability": {
               "title": "確率"
             },
+            "independent": {
+              "title": "独立な試行・反復試行"
+            },
             "conditional": {
               "title": "条件付き確率"
             },
             "expectation": {
               "title": "期待値"
+            }
+          }
+        },
+        "distributions": {
+          "title": "確率分布",
+          "summary": "二項分布と正規分布の期待値・分散・確率を求めます。",
+          "items": {
+            "random-variables": {
+              "title": "確率変数と期待値・分散"
+            },
+            "binomial": {
+              "title": "二項分布"
+            },
+            "normal": {
+              "title": "正規分布"
+            }
+          }
+        },
+        "limit": {
+          "title": "極限",
+          "summary": "数列と関数の極限を求めます。",
+          "items": {
+            "sequence": {
+              "title": "数列の極限"
+            },
+            "function": {
+              "title": "関数の極限"
+            }
+          }
+        },
+        "univ-calculus": {
+          "title": "大学の微分積分",
+          "summary": "平均値の定理やロピタルの定理など、大学で学ぶ1変数の微分積分です。",
+          "items": {
+            "mean-value": {
+              "title": "平均値の定理・ロピタルの定理"
             }
           }
         },
@@ -1001,6 +1433,12 @@
             },
             "chain-rule": {
               "title": "合成関数・積・商の微分"
+            },
+            "parametric": {
+              "title": "媒介変数表示の関数の微分"
+            },
+            "motion": {
+              "title": "速度と加速度"
             }
           }
         },
@@ -1089,6 +1527,9 @@
             "determinant": {
               "title": "2×2 の行列式"
             },
+            "general-determinant": {
+              "title": "n次の行列式（余因子展開・クラメルの公式）"
+            },
             "inverse": {
               "title": "逆行列"
             }
@@ -1103,6 +1544,33 @@
             },
             "solutions": {
               "title": "解の個数"
+            }
+          }
+        },
+        "vector-space": {
+          "title": "ベクトル空間",
+          "summary": "1次独立、基底と次元、行列の階数を扱います。",
+          "items": {
+            "independence": {
+              "title": "1次独立"
+            },
+            "basis": {
+              "title": "基底と次元"
+            },
+            "rank": {
+              "title": "階数"
+            }
+          }
+        },
+        "linear-map": {
+          "title": "線形写像",
+          "summary": "表現行列と、核・像を求めます。",
+          "items": {
+            "matrix-rep": {
+              "title": "表現行列"
+            },
+            "kernel-image": {
+              "title": "核と像"
             }
           }
         },
@@ -1121,69 +1589,15 @@
             }
           }
         },
-        "rounding": {
-          "title": "概数と四捨五入",
-          "summary": "四捨五入や切り上げ・切り捨てで、数を見積もる練習をします。",
+        "inner-product": {
+          "title": "内積と直交化",
+          "summary": "直交・正規直交基底と、グラム・シュミットの直交化を扱います。",
           "items": {
-            "rounding": {
-              "title": "四捨五入"
+            "orthogonal": {
+              "title": "直交と正規直交基底"
             },
-            "estimate": {
-              "title": "見積もり"
-            }
-          }
-        },
-        "exponents": {
-          "title": "累乗と指数法則",
-          "summary": "累乗の計算と指数法則、科学的表記を練習します。",
-          "items": {
-            "powers": {
-              "title": "累乗と指数法則"
-            },
-            "scientific": {
-              "title": "科学的表記と有効数字"
-            }
-          }
-        },
-        "integers": {
-          "title": "整数の性質",
-          "summary": "ユークリッドの互除法、n進法、合同式で整数を扱います。",
-          "items": {
-            "euclid": {
-              "title": "ユークリッドの互除法"
-            },
-            "base-n": {
-              "title": "n進法"
-            },
-            "congruence": {
-              "title": "合同式"
-            }
-          }
-        },
-        "identities": {
-          "title": "式と証明",
-          "summary": "二項定理と恒等式を使って式を扱います。",
-          "items": {
-            "binomial": {
-              "title": "二項定理"
-            },
-            "identity": {
-              "title": "恒等式"
-            },
-            "inequality-proof": {
-              "title": "不等式の証明"
-            }
-          }
-        },
-        "polynomial-equations": {
-          "title": "高次方程式",
-          "summary": "剰余の定理・因数定理を使って、高次方程式を解きます。",
-          "items": {
-            "remainder": {
-              "title": "剰余の定理・因数定理"
-            },
-            "higher-degree": {
-              "title": "高次方程式"
+            "gram-schmidt": {
+              "title": "グラム・シュミットの直交化"
             }
           }
         },
@@ -1199,18 +1613,18 @@
             }
           }
         },
-        "conic": {
-          "title": "二次曲線",
-          "summary": "放物線・楕円・双曲線と、媒介変数・極座標を扱います。",
+        "relations": {
+          "title": "変わり方と比例",
+          "summary": "伴って変わる2つの量の関係から、比例・反比例までを学びます。",
           "items": {
-            "parabola": {
-              "title": "放物線"
+            "change": {
+              "title": "伴って変わる2つの量"
             },
-            "ellipse-hyperbola": {
-              "title": "楕円と双曲線"
+            "simple-proportion": {
+              "title": "簡単な比例"
             },
-            "polar": {
-              "title": "媒介変数と極座標"
+            "proportion": {
+              "title": "比例と反比例"
             }
           }
         },
@@ -1226,10 +1640,28 @@
             }
           }
         },
+        "congruence": {
+          "title": "合同と図形の性質",
+          "summary": "三角形の合同条件と、二等辺三角形・平行四辺形の性質を学びます。",
+          "items": {
+            "conditions": {
+              "title": "三角形の合同条件"
+            },
+            "triangles": {
+              "title": "二等辺三角形と直角三角形"
+            },
+            "parallelogram": {
+              "title": "平行四辺形になる条件"
+            }
+          }
+        },
         "circle-solid": {
           "title": "円と立体の計量",
           "summary": "おうぎ形や、錐体・球の体積と表面積を求めます。",
           "items": {
+            "solid-views": {
+              "title": "見取図・展開図・投影図"
+            },
             "sector": {
               "title": "おうぎ形"
             },
@@ -1289,6 +1721,9 @@
             },
             "ceva-menelaus": {
               "title": "チェバ・メネラウスの定理"
+            },
+            "polyhedra": {
+              "title": "多面体"
             }
           }
         },
@@ -1304,6 +1739,27 @@
             }
           }
         },
+        "frequency": {
+          "title": "度数分布",
+          "summary": "度数分布表やヒストグラムを読み、相対度数を求めます。",
+          "items": {
+            "frequency": {
+              "title": "度数分布と相対度数"
+            }
+          }
+        },
+        "sampling": {
+          "title": "標本調査",
+          "summary": "全数調査と標本調査の違いと、標本から全体を推定する方法を学びます。",
+          "items": {
+            "population-sample": {
+              "title": "母集団と標本"
+            },
+            "estimate": {
+              "title": "標本からの推定"
+            }
+          }
+        },
         "statistics": {
           "title": "分散と相関",
           "summary": "分散・標準偏差と、相関係数を求めます。",
@@ -1313,18 +1769,9 @@
             },
             "correlation": {
               "title": "相関係数"
-            }
-          }
-        },
-        "distributions": {
-          "title": "確率分布",
-          "summary": "二項分布と正規分布の期待値・分散・確率を求めます。",
-          "items": {
-            "binomial": {
-              "title": "二項分布"
             },
-            "normal": {
-              "title": "正規分布"
+            "hypothesis": {
+              "title": "仮説検定の考え方"
             }
           }
         },
@@ -1332,6 +1779,9 @@
           "title": "統計的推定と検定",
           "summary": "母平均・母比率の推定と、仮説検定を行います。",
           "items": {
+            "random-variables": {
+              "title": "確率変数と確率分布"
+            },
             "estimation": {
               "title": "推定"
             },
@@ -1379,57 +1829,6 @@
             }
           }
         },
-        "vector-space": {
-          "title": "ベクトル空間",
-          "summary": "1次独立、基底と次元、行列の階数を扱います。",
-          "items": {
-            "independence": {
-              "title": "1次独立"
-            },
-            "basis": {
-              "title": "基底と次元"
-            },
-            "rank": {
-              "title": "階数"
-            }
-          }
-        },
-        "linear-map": {
-          "title": "線形写像",
-          "summary": "表現行列と、核・像を求めます。",
-          "items": {
-            "matrix-rep": {
-              "title": "表現行列"
-            },
-            "kernel-image": {
-              "title": "核と像"
-            }
-          }
-        },
-        "inner-product": {
-          "title": "内積と直交化",
-          "summary": "直交・正規直交基底と、グラム・シュミットの直交化を扱います。",
-          "items": {
-            "orthogonal": {
-              "title": "直交と正規直交基底"
-            },
-            "gram-schmidt": {
-              "title": "グラム・シュミットの直交化"
-            }
-          }
-        },
-        "limit": {
-          "title": "極限",
-          "summary": "数列と関数の極限を求めます。",
-          "items": {
-            "sequence": {
-              "title": "数列の極限"
-            },
-            "function": {
-              "title": "関数の極限"
-            }
-          }
-        },
         "series": {
           "title": "級数とテイラー展開",
           "summary": "級数の和と収束、テイラー展開を扱います。",
@@ -1460,6 +1859,9 @@
             },
             "double-integral": {
               "title": "重積分"
+            },
+            "polar": {
+              "title": "極座標変換"
             }
           }
         },
@@ -1475,243 +1877,6 @@
             },
             "second-order": {
               "title": "定数係数の二階線形"
-            }
-          }
-        },
-        "place-value": {
-          "title": "大きな数",
-          "summary": "位取りのしくみから、万・億・兆の大きな数まで練習します。",
-          "items": {
-            "to-100": {
-              "title": "100までの数"
-            },
-            "to-10000": {
-              "title": "10000までの数"
-            },
-            "ten-thousands": {
-              "title": "万の位の数"
-            },
-            "large-numbers": {
-              "title": "万・億・兆"
-            }
-          }
-        },
-        "time": {
-          "title": "時刻と時間",
-          "summary": "時計の読み方と、時間の計算を練習します。",
-          "items": {
-            "reading": {
-              "title": "時計の読み方"
-            },
-            "elapsed": {
-              "title": "時刻と時間の計算"
-            }
-          }
-        },
-        "shapes": {
-          "title": "図形の基本",
-          "summary": "三角形・四角形・円の性質と、角の大きさを学びます。",
-          "items": {
-            "basic-shapes": {
-              "title": "長方形・正方形・直角三角形"
-            },
-            "triangles": {
-              "title": "二等辺三角形と正三角形"
-            },
-            "quadrilaterals": {
-              "title": "平行四辺形・台形・ひし形"
-            },
-            "circles": {
-              "title": "円と球"
-            },
-            "angles": {
-              "title": "角の大きさ"
-            }
-          }
-        },
-        "symmetry": {
-          "title": "対称と拡大・縮小",
-          "summary": "線対称・点対称な図形と、拡大図・縮図を学びます。",
-          "items": {
-            "symmetry": {
-              "title": "線対称と点対称"
-            },
-            "scale": {
-              "title": "拡大図と縮図"
-            }
-          }
-        },
-        "graphs": {
-          "title": "表とグラフ",
-          "summary": "表・棒グラフ・折れ線グラフから、帯グラフ・円グラフ・柱状グラフまで読み取ります。",
-          "items": {
-            "tables": {
-              "title": "表とグラフ"
-            },
-            "bar-graph": {
-              "title": "棒グラフ"
-            },
-            "line-graph": {
-              "title": "折れ線グラフ"
-            },
-            "pie-band": {
-              "title": "帯グラフと円グラフ"
-            },
-            "histogram": {
-              "title": "柱状グラフ"
-            }
-          }
-        },
-        "counting": {
-          "title": "並べ方と組み合わせ",
-          "summary": "並べ方や組み合わせを、もれなく重なりなく数えます。",
-          "items": {
-            "arrangements": {
-              "title": "並べ方"
-            },
-            "combinations": {
-              "title": "組み合わせ"
-            }
-          }
-        },
-        "congruence": {
-          "title": "合同と図形の性質",
-          "summary": "三角形の合同条件と、二等辺三角形・平行四辺形の性質を学びます。",
-          "items": {
-            "conditions": {
-              "title": "三角形の合同条件"
-            },
-            "triangles": {
-              "title": "二等辺三角形と直角三角形"
-            },
-            "parallelogram": {
-              "title": "平行四辺形になる条件"
-            }
-          }
-        },
-        "square-function": {
-          "title": "関数 y=ax²",
-          "summary": "y=ax² のグラフ、変化の割合、放物線と直線の交点を学びます。",
-          "items": {
-            "graph": {
-              "title": "グラフと式"
-            },
-            "rate-of-change": {
-              "title": "変化の割合"
-            },
-            "intersection": {
-              "title": "放物線と直線"
-            }
-          }
-        },
-        "sampling": {
-          "title": "標本調査",
-          "summary": "全数調査と標本調査の違いと、標本から全体を推定する方法を学びます。",
-          "items": {
-            "population-sample": {
-              "title": "母集団と標本"
-            },
-            "estimate": {
-              "title": "標本からの推定"
-            }
-          }
-        },
-        "addition": {
-          "title": "たし算・ひき算",
-          "summary": "くり上がり・くり下がりから、大きな数の筆算まで練習します。",
-          "items": {
-            "carry": {
-              "title": "1桁のくり上がり・くり下がり"
-            },
-            "two-digit": {
-              "title": "2桁のたし算・ひき算"
-            },
-            "column": {
-              "title": "3〜4桁の筆算"
-            }
-          }
-        },
-        "multiplication": {
-          "title": "かけ算",
-          "summary": "九九から、2桁・3桁のかけ算まで練習します。",
-          "items": {
-            "times-table": {
-              "title": "九九"
-            },
-            "by-one-digit": {
-              "title": "2〜3桁×1桁"
-            },
-            "by-two-digit": {
-              "title": "2〜3桁×2桁"
-            }
-          }
-        },
-        "division": {
-          "title": "わり算",
-          "summary": "九九を使うわり算から、あまりのあるわり算、2桁でわるわり算まで練習します。",
-          "items": {
-            "basic": {
-              "title": "九九を使うわり算"
-            },
-            "remainder": {
-              "title": "あまりのあるわり算"
-            },
-            "by-two-digit": {
-              "title": "2桁でわるわり算"
-            }
-          }
-        },
-        "arith": {
-          "title": "計算の順序と文章題",
-          "summary": "計算の順序や計算のきまりと、文章題を練習します。",
-          "items": {
-            "order-of-operations": {
-              "title": "計算の順序",
-              "description": "かっこ、かけ算・わり算を先に。計算する順番を確かめます。"
-            },
-            "rules": {
-              "title": "計算のきまり",
-              "description": "結合法則・分配法則などを使って、くふうして計算します。"
-            },
-            "simple-word-problems": {
-              "title": "かんたん文章題",
-              "description": "1〜2回の計算で解ける、短い文章題です。"
-            },
-            "word-problems": {
-              "title": "少し長い文章題",
-              "description": "2〜3回の計算が必要な文章題です。かんたん文章題に慣れたら挑戦を。"
-            }
-          }
-        },
-        "signed": {
-          "title": "正負の数",
-          "summary": "負の数をふくむ四則演算。符号のミスに気をつけて練習できます。",
-          "items": {
-            "four-operations": {
-              "title": "正負の数",
-              "description": "負の数をふくむ四則演算。符号のミスに気をつけて。"
-            }
-          }
-        },
-        "factorization": {
-          "title": "因数分解",
-          "summary": "x² + ax + b を (x + p)(x + q) の形に分解します。二次式の因数分解の練習に。",
-          "items": {
-            "common-factor": {
-              "title": "共通因数のくくり出し",
-              "description": "各項に共通な因数をくくり出します。くくったあとに公式を使う式もあります。"
-            },
-            "trinomial": {
-              "title": "二次三項式の因数分解",
-              "description": "1から9までの整数で、基本の形に慣れます。"
-            },
-            "perfect-square": {
-              "title": "完全平方式の因数分解",
-              "description": "x² + 2ax + a² を (x + a)² の形にします。"
-            },
-            "difference-of-squares": {
-              "title": "平方の差の因数分解",
-              "description": "x² − a² の形だけを集めました。公式のパターンを覚えたいときに。"
             }
           }
         }

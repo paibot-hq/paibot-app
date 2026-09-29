@@ -640,6 +640,118 @@
       "comingSoon": "准备中",
       "unitCount": "{count}个单元",
       "units": {
+        "addition": {
+          "title": "加法与减法",
+          "summary": "从进位、退位到大数的竖式计算。",
+          "items": {
+            "within-10": {
+              "title": "10以内的加减法"
+            },
+            "carry": {
+              "title": "一位数的进位与退位"
+            },
+            "two-digit": {
+              "title": "两位数的加减法"
+            },
+            "column": {
+              "title": "三到四位数的竖式"
+            }
+          }
+        },
+        "multiplication": {
+          "title": "乘法",
+          "summary": "从九九乘法表到两位数、三位数的乘法。",
+          "items": {
+            "times-table": {
+              "title": "九九乘法表"
+            },
+            "by-one-digit": {
+              "title": "两三位数乘一位数"
+            },
+            "by-two-digit": {
+              "title": "两三位数乘两位数"
+            }
+          }
+        },
+        "division": {
+          "title": "除法",
+          "summary": "从用九九的除法到有余数的除法和除数是两位数的除法。",
+          "items": {
+            "basic": {
+              "title": "用九九的除法"
+            },
+            "remainder": {
+              "title": "有余数的除法"
+            },
+            "by-two-digit": {
+              "title": "除数是两位数的除法"
+            }
+          }
+        },
+        "arith": {
+          "title": "运算顺序与应用题",
+          "summary": "练习运算顺序、运算定律和应用题。",
+          "items": {
+            "order-of-operations": {
+              "title": "运算顺序",
+              "description": "先算括号，再算乘除，确认计算的顺序。"
+            },
+            "rules": {
+              "title": "运算定律",
+              "description": "运用结合律、分配律等进行简便计算。"
+            },
+            "simple-word-problems": {
+              "title": "简单应用题",
+              "description": "一两步就能解答的简短应用题。"
+            },
+            "word-problems": {
+              "title": "稍长的应用题",
+              "description": "需要两到三步计算的应用题。熟悉简单应用题后再来挑战。"
+            }
+          }
+        },
+        "unknowns": {
+          "title": "用□和字母表示的式子",
+          "summary": "用□或 x 表示未知的数，列式并求出它。",
+          "items": {
+            "box": {
+              "title": "含□的式子"
+            },
+            "letters": {
+              "title": "含字母的式子"
+            }
+          }
+        },
+        "place-value": {
+          "title": "大数与数位",
+          "summary": "从数位开始，练习万、亿、兆等大数。",
+          "items": {
+            "to-100": {
+              "title": "100以内的数"
+            },
+            "to-10000": {
+              "title": "10000以内的数"
+            },
+            "ten-thousands": {
+              "title": "万位的数"
+            },
+            "large-numbers": {
+              "title": "万、亿、兆"
+            }
+          }
+        },
+        "time": {
+          "title": "时刻与时间",
+          "summary": "练习读钟表和计算时间。",
+          "items": {
+            "reading": {
+              "title": "读钟表"
+            },
+            "elapsed": {
+              "title": "时刻与时间的计算"
+            }
+          }
+        },
         "decimal": {
           "title": "小数",
           "summary": "练习小数的加减乘除。",
@@ -662,11 +774,23 @@
           "title": "分数",
           "summary": "练习约分、通分和分数的四则运算。",
           "items": {
+            "unit-fractions": {
+              "title": "简单分数（1/2、1/4）"
+            },
+            "meaning": {
+              "title": "分数的大小"
+            },
             "simplify": {
               "title": "约分与通分"
             },
+            "fraction-decimal": {
+              "title": "分数与小数、整数的关系"
+            },
             "add-sub-like": {
               "title": "同分母分数的加减法"
+            },
+            "mixed": {
+              "title": "带分数与假分数"
             },
             "add-sub": {
               "title": "异分母分数的加减法"
@@ -688,10 +812,25 @@
             }
           }
         },
+        "rounding": {
+          "title": "近似数与四舍五入",
+          "summary": "用四舍五入、进一法和去尾法练习估算。",
+          "items": {
+            "rounding": {
+              "title": "四舍五入"
+            },
+            "estimate": {
+              "title": "估算"
+            }
+          }
+        },
         "ratio": {
           "title": "百分数与比",
           "summary": "学习百分数与比的基础知识，并练习应用题。",
           "items": {
+            "simple-ratio": {
+              "title": "简单的倍数关系"
+            },
             "percent": {
               "title": "百分数"
             },
@@ -730,6 +869,63 @@
             },
             "circle-area": {
               "title": "圆的面积"
+            },
+            "prism-volume": {
+              "title": "棱柱与圆柱的体积"
+            }
+          }
+        },
+        "shapes": {
+          "title": "图形的基础",
+          "summary": "学习三角形、四边形、圆的性质和角的大小。",
+          "items": {
+            "solids-basic": {
+              "title": "立体图形的认识"
+            },
+            "basic-shapes": {
+              "title": "长方形、正方形与直角三角形"
+            },
+            "boxes": {
+              "title": "箱子的形状（面、棱、顶点）"
+            },
+            "triangles": {
+              "title": "等腰三角形与等边三角形"
+            },
+            "quadrilaterals": {
+              "title": "平行四边形、梯形与菱形"
+            },
+            "circles": {
+              "title": "圆与球"
+            },
+            "angles": {
+              "title": "角的大小"
+            },
+            "perpendicular-parallel": {
+              "title": "垂直与平行"
+            },
+            "cuboids": {
+              "title": "长方体与正方体（展开图、直观图）"
+            },
+            "congruent": {
+              "title": "全等图形"
+            },
+            "angle-sum": {
+              "title": "三角形、四边形的内角和"
+            },
+            "prisms": {
+              "title": "棱柱与圆柱"
+            }
+          }
+        },
+        "symmetry": {
+          "title": "对称与放大缩小",
+          "summary": "学习轴对称、中心对称图形和放大图、缩小图。",
+          "items": {
+            "symmetry": {
+              "title": "轴对称与中心对称"
+            },
+            "scale": {
+              "title": "放大图与缩小图"
             }
           }
         },
@@ -745,6 +941,64 @@
             }
           }
         },
+        "graphs": {
+          "title": "表格与图表",
+          "summary": "读取表格、条形图、折线图、扇形图和直方图。",
+          "items": {
+            "tables": {
+              "title": "表格与简单统计图"
+            },
+            "bar-graph": {
+              "title": "条形统计图"
+            },
+            "line-graph": {
+              "title": "折线图"
+            },
+            "two-way-table": {
+              "title": "二维表格"
+            },
+            "pie-band": {
+              "title": "百分比条形图与扇形图"
+            },
+            "histogram": {
+              "title": "直方图"
+            }
+          }
+        },
+        "counting": {
+          "title": "排列与组合",
+          "summary": "不重不漏地数出排列和组合。",
+          "items": {
+            "arrangements": {
+              "title": "排列"
+            },
+            "combinations": {
+              "title": "组合"
+            }
+          }
+        },
+        "signed": {
+          "title": "正负数",
+          "summary": "含有负数的四则运算，练习正确处理符号。",
+          "items": {
+            "four-operations": {
+              "title": "正负数",
+              "description": "含有负数的四则运算，注意符号。"
+            }
+          }
+        },
+        "exponents": {
+          "title": "乘方与指数法则",
+          "summary": "练习乘方运算、指数法则和科学记数法。",
+          "items": {
+            "powers": {
+              "title": "乘方与指数法则"
+            },
+            "scientific": {
+              "title": "科学记数法与有效数字"
+            }
+          }
+        },
         "expression": {
           "title": "代数式",
           "summary": "练习代入求值、合并同类项和代数式运算。",
@@ -757,6 +1011,9 @@
             },
             "distribute": {
               "title": "分配律"
+            },
+            "polynomials": {
+              "title": "单项式与多项式的运算"
             },
             "rearrange": {
               "title": "等式的变形"
@@ -775,6 +1032,9 @@
             },
             "fraction": {
               "title": "含分数的方程"
+            },
+            "proportion": {
+              "title": "比例式"
             },
             "word-problems": {
               "title": "应用题"
@@ -814,6 +1074,21 @@
             }
           }
         },
+        "square-function": {
+          "title": "函数 y=ax²",
+          "summary": "学习 y=ax² 的图像、变化率以及抛物线与直线的交点。",
+          "items": {
+            "graph": {
+              "title": "图像与式子"
+            },
+            "rate-of-change": {
+              "title": "变化率"
+            },
+            "intersection": {
+              "title": "抛物线与直线"
+            }
+          }
+        },
         "inequality": {
           "title": "不等式",
           "summary": "解一元一次不等式，求出满足条件的取值范围。",
@@ -841,6 +1116,46 @@
             },
             "sum-difference": {
               "title": "和与差的乘积"
+            },
+            "three-terms": {
+              "title": "三项式的展开"
+            },
+            "cubic": {
+              "title": "三次式的展开"
+            }
+          }
+        },
+        "factorization": {
+          "title": "因式分解",
+          "summary": "把 x² + ax + b 分解成 (x + p)(x + q) 的形式，练习二次式的因式分解。",
+          "items": {
+            "common-factor": {
+              "title": "提公因式",
+              "description": "提取各项的公因式，有时提取后还要再用公式。"
+            },
+            "trinomial": {
+              "title": "二次三项式的因式分解",
+              "description": "1到9的整数，先熟悉基本形式。"
+            },
+            "perfect-square": {
+              "title": "完全平方公式",
+              "description": "把 x² + 2ax + a² 写成 (x + a)² 的形式。"
+            },
+            "difference-of-squares": {
+              "title": "平方差公式",
+              "description": "只收录 x² − a² 形式，用来记住这个公式规律。"
+            },
+            "ac-method": {
+              "title": "十字相乘法"
+            },
+            "two-variables": {
+              "title": "含两个字母的式子的因式分解"
+            },
+            "substitution": {
+              "title": "换元与双二次式"
+            },
+            "cubes": {
+              "title": "立方和与立方差"
             }
           }
         },
@@ -848,6 +1163,9 @@
           "title": "平方根",
           "summary": "练习平方根运算和分母有理化。",
           "items": {
+            "rational-irrational": {
+              "title": "有理数与无理数"
+            },
             "simplify": {
               "title": "化简根式"
             },
@@ -856,6 +1174,9 @@
             },
             "rationalize": {
               "title": "分母有理化"
+            },
+            "double-radical": {
+              "title": "双重根号"
             }
           }
         },
@@ -868,6 +1189,24 @@
             }
           }
         },
+        "integers": {
+          "title": "整数的性质",
+          "summary": "用辗转相除法、n进制和同余处理整数问题。",
+          "items": {
+            "euclid": {
+              "title": "辗转相除法"
+            },
+            "diophantine": {
+              "title": "不定方程"
+            },
+            "base-n": {
+              "title": "n进制"
+            },
+            "congruence": {
+              "title": "同余"
+            }
+          }
+        },
         "pythagoras": {
           "title": "勾股定理",
           "summary": "利用勾股定理求直角三角形的边长。",
@@ -875,6 +1214,9 @@
             "sides": {
               "title": "求边长",
               "description": "用整数和根式表示直角三角形的边长。"
+            },
+            "applications": {
+              "title": "勾股定理的应用"
             }
           }
         },
@@ -882,6 +1224,9 @@
           "title": "概率",
           "summary": "通过列举可能的结果学习概率基础。",
           "items": {
+            "relative-frequency": {
+              "title": "大量试验与概率"
+            },
             "basic": {
               "title": "概率基础"
             }
@@ -899,6 +1244,33 @@
             },
             "discriminant": {
               "title": "判别式"
+            }
+          }
+        },
+        "identities": {
+          "title": "式与证明",
+          "summary": "运用二项式定理和恒等式处理代数式。",
+          "items": {
+            "binomial": {
+              "title": "二项式定理"
+            },
+            "identity": {
+              "title": "恒等式"
+            },
+            "inequality-proof": {
+              "title": "不等式的证明"
+            }
+          }
+        },
+        "polynomial-equations": {
+          "title": "高次方程",
+          "summary": "用余式定理和因式定理解高次方程。",
+          "items": {
+            "remainder": {
+              "title": "余式定理与因式定理"
+            },
+            "higher-degree": {
+              "title": "高次方程"
             }
           }
         },
@@ -945,6 +1317,9 @@
             "addition": {
               "title": "两角和公式"
             },
+            "double-angle": {
+              "title": "二倍角与半角公式"
+            },
             "synthesis": {
               "title": "三角函数的合成"
             }
@@ -959,6 +1334,24 @@
             },
             "log": {
               "title": "对数运算"
+            },
+            "common-log": {
+              "title": "常用对数"
+            }
+          }
+        },
+        "conic": {
+          "title": "二次曲线",
+          "summary": "学习抛物线、椭圆、双曲线，以及参数方程和极坐标。",
+          "items": {
+            "parabola": {
+              "title": "抛物线"
+            },
+            "ellipse-hyperbola": {
+              "title": "椭圆与双曲线"
+            },
+            "polar": {
+              "title": "参数方程与极坐标"
             }
           }
         },
@@ -975,11 +1368,50 @@
             "probability": {
               "title": "概率"
             },
+            "independent": {
+              "title": "独立试验与重复试验"
+            },
             "conditional": {
               "title": "条件概率"
             },
             "expectation": {
               "title": "期望"
+            }
+          }
+        },
+        "distributions": {
+          "title": "概率分布",
+          "summary": "求二项分布和正态分布的期望、方差与概率。",
+          "items": {
+            "random-variables": {
+              "title": "随机变量的期望与方差"
+            },
+            "binomial": {
+              "title": "二项分布"
+            },
+            "normal": {
+              "title": "正态分布"
+            }
+          }
+        },
+        "limit": {
+          "title": "极限",
+          "summary": "求数列和函数的极限。",
+          "items": {
+            "sequence": {
+              "title": "数列的极限"
+            },
+            "function": {
+              "title": "函数的极限"
+            }
+          }
+        },
+        "univ-calculus": {
+          "title": "大学微积分",
+          "summary": "大学里的一元微积分：中值定理、洛必达法则等。",
+          "items": {
+            "mean-value": {
+              "title": "中值定理与洛必达法则"
             }
           }
         },
@@ -1001,6 +1433,12 @@
             },
             "chain-rule": {
               "title": "复合函数、积与商的求导"
+            },
+            "parametric": {
+              "title": "参数方程的导数"
+            },
+            "motion": {
+              "title": "速度与加速度"
             }
           }
         },
@@ -1089,6 +1527,9 @@
             "determinant": {
               "title": "二阶行列式"
             },
+            "general-determinant": {
+              "title": "n阶行列式（余子式展开、克拉默法则）"
+            },
             "inverse": {
               "title": "逆矩阵"
             }
@@ -1103,6 +1544,33 @@
             },
             "solutions": {
               "title": "解的个数"
+            }
+          }
+        },
+        "vector-space": {
+          "title": "向量空间",
+          "summary": "学习线性无关、基与维数以及矩阵的秩。",
+          "items": {
+            "independence": {
+              "title": "线性无关"
+            },
+            "basis": {
+              "title": "基与维数"
+            },
+            "rank": {
+              "title": "秩"
+            }
+          }
+        },
+        "linear-map": {
+          "title": "线性映射",
+          "summary": "求表示矩阵以及核与像。",
+          "items": {
+            "matrix-rep": {
+              "title": "表示矩阵"
+            },
+            "kernel-image": {
+              "title": "核与像"
             }
           }
         },
@@ -1121,69 +1589,15 @@
             }
           }
         },
-        "rounding": {
-          "title": "近似数与四舍五入",
-          "summary": "用四舍五入、进一法和去尾法练习估算。",
+        "inner-product": {
+          "title": "内积与正交化",
+          "summary": "学习正交基、标准正交基以及格拉姆-施密特正交化。",
           "items": {
-            "rounding": {
-              "title": "四舍五入"
+            "orthogonal": {
+              "title": "正交与标准正交基"
             },
-            "estimate": {
-              "title": "估算"
-            }
-          }
-        },
-        "exponents": {
-          "title": "乘方与指数法则",
-          "summary": "练习乘方运算、指数法则和科学记数法。",
-          "items": {
-            "powers": {
-              "title": "乘方与指数法则"
-            },
-            "scientific": {
-              "title": "科学记数法与有效数字"
-            }
-          }
-        },
-        "integers": {
-          "title": "整数的性质",
-          "summary": "用辗转相除法、n进制和同余处理整数问题。",
-          "items": {
-            "euclid": {
-              "title": "辗转相除法"
-            },
-            "base-n": {
-              "title": "n进制"
-            },
-            "congruence": {
-              "title": "同余"
-            }
-          }
-        },
-        "identities": {
-          "title": "式与证明",
-          "summary": "运用二项式定理和恒等式处理代数式。",
-          "items": {
-            "binomial": {
-              "title": "二项式定理"
-            },
-            "identity": {
-              "title": "恒等式"
-            },
-            "inequality-proof": {
-              "title": "不等式的证明"
-            }
-          }
-        },
-        "polynomial-equations": {
-          "title": "高次方程",
-          "summary": "用余式定理和因式定理解高次方程。",
-          "items": {
-            "remainder": {
-              "title": "余式定理与因式定理"
-            },
-            "higher-degree": {
-              "title": "高次方程"
+            "gram-schmidt": {
+              "title": "格拉姆-施密特正交化"
             }
           }
         },
@@ -1199,18 +1613,18 @@
             }
           }
         },
-        "conic": {
-          "title": "二次曲线",
-          "summary": "学习抛物线、椭圆、双曲线，以及参数方程和极坐标。",
+        "relations": {
+          "title": "变化与比例",
+          "summary": "从一起变化的两个量的关系学到正比例与反比例。",
           "items": {
-            "parabola": {
-              "title": "抛物线"
+            "change": {
+              "title": "一起变化的两个量"
             },
-            "ellipse-hyperbola": {
-              "title": "椭圆与双曲线"
+            "simple-proportion": {
+              "title": "简单的比例"
             },
-            "polar": {
-              "title": "参数方程与极坐标"
+            "proportion": {
+              "title": "正比例与反比例"
             }
           }
         },
@@ -1226,10 +1640,28 @@
             }
           }
         },
+        "congruence": {
+          "title": "全等与图形的性质",
+          "summary": "学习三角形全等条件，以及等腰三角形、平行四边形的性质。",
+          "items": {
+            "conditions": {
+              "title": "三角形全等条件"
+            },
+            "triangles": {
+              "title": "等腰三角形与直角三角形"
+            },
+            "parallelogram": {
+              "title": "平行四边形的判定"
+            }
+          }
+        },
         "circle-solid": {
           "title": "圆与立体的计量",
           "summary": "求扇形，以及锥体和球的体积与表面积。",
           "items": {
+            "solid-views": {
+              "title": "立体的直观图、展开图与投影图"
+            },
             "sector": {
               "title": "扇形"
             },
@@ -1289,6 +1721,9 @@
             },
             "ceva-menelaus": {
               "title": "塞瓦定理与梅涅劳斯定理"
+            },
+            "polyhedra": {
+              "title": "多面体"
             }
           }
         },
@@ -1304,6 +1739,27 @@
             }
           }
         },
+        "frequency": {
+          "title": "频数分布",
+          "summary": "读频数分布表和直方图，求相对频率。",
+          "items": {
+            "frequency": {
+              "title": "频数分布与相对频率"
+            }
+          }
+        },
+        "sampling": {
+          "title": "抽样调查",
+          "summary": "学习普查与抽样调查的区别，以及用样本估计总体。",
+          "items": {
+            "population-sample": {
+              "title": "总体与样本"
+            },
+            "estimate": {
+              "title": "用样本估计"
+            }
+          }
+        },
         "statistics": {
           "title": "方差与相关",
           "summary": "求方差、标准差和相关系数。",
@@ -1313,18 +1769,9 @@
             },
             "correlation": {
               "title": "相关系数"
-            }
-          }
-        },
-        "distributions": {
-          "title": "概率分布",
-          "summary": "求二项分布和正态分布的期望、方差与概率。",
-          "items": {
-            "binomial": {
-              "title": "二项分布"
             },
-            "normal": {
-              "title": "正态分布"
+            "hypothesis": {
+              "title": "假设检验的思想"
             }
           }
         },
@@ -1332,6 +1779,9 @@
           "title": "统计推断与检验",
           "summary": "估计总体均值与比例，并进行假设检验。",
           "items": {
+            "random-variables": {
+              "title": "随机变量与概率分布"
+            },
             "estimation": {
               "title": "估计"
             },
@@ -1379,57 +1829,6 @@
             }
           }
         },
-        "vector-space": {
-          "title": "向量空间",
-          "summary": "学习线性无关、基与维数以及矩阵的秩。",
-          "items": {
-            "independence": {
-              "title": "线性无关"
-            },
-            "basis": {
-              "title": "基与维数"
-            },
-            "rank": {
-              "title": "秩"
-            }
-          }
-        },
-        "linear-map": {
-          "title": "线性映射",
-          "summary": "求表示矩阵以及核与像。",
-          "items": {
-            "matrix-rep": {
-              "title": "表示矩阵"
-            },
-            "kernel-image": {
-              "title": "核与像"
-            }
-          }
-        },
-        "inner-product": {
-          "title": "内积与正交化",
-          "summary": "学习正交基、标准正交基以及格拉姆-施密特正交化。",
-          "items": {
-            "orthogonal": {
-              "title": "正交与标准正交基"
-            },
-            "gram-schmidt": {
-              "title": "格拉姆-施密特正交化"
-            }
-          }
-        },
-        "limit": {
-          "title": "极限",
-          "summary": "求数列和函数的极限。",
-          "items": {
-            "sequence": {
-              "title": "数列的极限"
-            },
-            "function": {
-              "title": "函数的极限"
-            }
-          }
-        },
         "series": {
           "title": "级数与泰勒展开",
           "summary": "学习级数的和与收敛以及泰勒展开。",
@@ -1460,6 +1859,9 @@
             },
             "double-integral": {
               "title": "重积分"
+            },
+            "polar": {
+              "title": "极坐标变换"
             }
           }
         },
@@ -1475,243 +1877,6 @@
             },
             "second-order": {
               "title": "常系数二阶线性方程"
-            }
-          }
-        },
-        "place-value": {
-          "title": "大数与数位",
-          "summary": "从数位开始，练习万、亿、兆等大数。",
-          "items": {
-            "to-100": {
-              "title": "100以内的数"
-            },
-            "to-10000": {
-              "title": "10000以内的数"
-            },
-            "ten-thousands": {
-              "title": "万位的数"
-            },
-            "large-numbers": {
-              "title": "万、亿、兆"
-            }
-          }
-        },
-        "time": {
-          "title": "时刻与时间",
-          "summary": "练习读钟表和计算时间。",
-          "items": {
-            "reading": {
-              "title": "读钟表"
-            },
-            "elapsed": {
-              "title": "时刻与时间的计算"
-            }
-          }
-        },
-        "shapes": {
-          "title": "图形的基础",
-          "summary": "学习三角形、四边形、圆的性质和角的大小。",
-          "items": {
-            "basic-shapes": {
-              "title": "长方形、正方形与直角三角形"
-            },
-            "triangles": {
-              "title": "等腰三角形与等边三角形"
-            },
-            "quadrilaterals": {
-              "title": "平行四边形、梯形与菱形"
-            },
-            "circles": {
-              "title": "圆与球"
-            },
-            "angles": {
-              "title": "角的大小"
-            }
-          }
-        },
-        "symmetry": {
-          "title": "对称与放大缩小",
-          "summary": "学习轴对称、中心对称图形和放大图、缩小图。",
-          "items": {
-            "symmetry": {
-              "title": "轴对称与中心对称"
-            },
-            "scale": {
-              "title": "放大图与缩小图"
-            }
-          }
-        },
-        "graphs": {
-          "title": "表格与图表",
-          "summary": "读取表格、条形图、折线图、扇形图和直方图。",
-          "items": {
-            "tables": {
-              "title": "表格与简单统计图"
-            },
-            "bar-graph": {
-              "title": "条形统计图"
-            },
-            "line-graph": {
-              "title": "折线图"
-            },
-            "pie-band": {
-              "title": "百分比条形图与扇形图"
-            },
-            "histogram": {
-              "title": "直方图"
-            }
-          }
-        },
-        "counting": {
-          "title": "排列与组合",
-          "summary": "不重不漏地数出排列和组合。",
-          "items": {
-            "arrangements": {
-              "title": "排列"
-            },
-            "combinations": {
-              "title": "组合"
-            }
-          }
-        },
-        "congruence": {
-          "title": "全等与图形的性质",
-          "summary": "学习三角形全等条件，以及等腰三角形、平行四边形的性质。",
-          "items": {
-            "conditions": {
-              "title": "三角形全等条件"
-            },
-            "triangles": {
-              "title": "等腰三角形与直角三角形"
-            },
-            "parallelogram": {
-              "title": "平行四边形的判定"
-            }
-          }
-        },
-        "square-function": {
-          "title": "函数 y=ax²",
-          "summary": "学习 y=ax² 的图像、变化率以及抛物线与直线的交点。",
-          "items": {
-            "graph": {
-              "title": "图像与式子"
-            },
-            "rate-of-change": {
-              "title": "变化率"
-            },
-            "intersection": {
-              "title": "抛物线与直线"
-            }
-          }
-        },
-        "sampling": {
-          "title": "抽样调查",
-          "summary": "学习普查与抽样调查的区别，以及用样本估计总体。",
-          "items": {
-            "population-sample": {
-              "title": "总体与样本"
-            },
-            "estimate": {
-              "title": "用样本估计"
-            }
-          }
-        },
-        "addition": {
-          "title": "加法与减法",
-          "summary": "从进位、退位到大数的竖式计算。",
-          "items": {
-            "carry": {
-              "title": "一位数的进位与退位"
-            },
-            "two-digit": {
-              "title": "两位数的加减法"
-            },
-            "column": {
-              "title": "三到四位数的竖式"
-            }
-          }
-        },
-        "multiplication": {
-          "title": "乘法",
-          "summary": "从九九乘法表到两位数、三位数的乘法。",
-          "items": {
-            "times-table": {
-              "title": "九九乘法表"
-            },
-            "by-one-digit": {
-              "title": "两三位数乘一位数"
-            },
-            "by-two-digit": {
-              "title": "两三位数乘两位数"
-            }
-          }
-        },
-        "division": {
-          "title": "除法",
-          "summary": "从用九九的除法到有余数的除法和除数是两位数的除法。",
-          "items": {
-            "basic": {
-              "title": "用九九的除法"
-            },
-            "remainder": {
-              "title": "有余数的除法"
-            },
-            "by-two-digit": {
-              "title": "除数是两位数的除法"
-            }
-          }
-        },
-        "arith": {
-          "title": "运算顺序与应用题",
-          "summary": "练习运算顺序、运算定律和应用题。",
-          "items": {
-            "order-of-operations": {
-              "title": "运算顺序",
-              "description": "先算括号，再算乘除，确认计算的顺序。"
-            },
-            "rules": {
-              "title": "运算定律",
-              "description": "运用结合律、分配律等进行简便计算。"
-            },
-            "simple-word-problems": {
-              "title": "简单应用题",
-              "description": "一两步就能解答的简短应用题。"
-            },
-            "word-problems": {
-              "title": "稍长的应用题",
-              "description": "需要两到三步计算的应用题。熟悉简单应用题后再来挑战。"
-            }
-          }
-        },
-        "signed": {
-          "title": "正负数",
-          "summary": "含有负数的四则运算，练习正确处理符号。",
-          "items": {
-            "four-operations": {
-              "title": "正负数",
-              "description": "含有负数的四则运算，注意符号。"
-            }
-          }
-        },
-        "factorization": {
-          "title": "因式分解",
-          "summary": "把 x² + ax + b 分解成 (x + p)(x + q) 的形式，练习二次式的因式分解。",
-          "items": {
-            "common-factor": {
-              "title": "提公因式",
-              "description": "提取各项的公因式，有时提取后还要再用公式。"
-            },
-            "trinomial": {
-              "title": "二次三项式的因式分解",
-              "description": "1到9的整数，先熟悉基本形式。"
-            },
-            "perfect-square": {
-              "title": "完全平方公式",
-              "description": "把 x² + 2ax + a² 写成 (x + a)² 的形式。"
-            },
-            "difference-of-squares": {
-              "title": "平方差公式",
-              "description": "只收录 x² − a² 形式，用来记住这个公式规律。"
             }
           }
         }

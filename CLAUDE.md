@@ -80,6 +80,8 @@ apart, so tests can be assembled as "these grades or items, so many of each tier
   (`src/lib/math-curriculum-jp.ts`: e1-e6, m1-m3, h-i/h-a/h-ii/h-b/h-iii/h-c,
   u1-u2), copied onto each problem on import. The catalog itself stays
   curriculum-neutral; an item that spans years is split. Shown on the item page.
+  `docs/plans/math-curriculum-jp.md` lists every item by grade as a checklist
+  against the Course of Study (a unit test keeps it in step with the table).
 - tier: difficulty within the item and grade, 1 basic, 2 standard, 3 advanced
   (`scripts/math-prompts/_tiers.md`), stored per problem in the bank. New problems
   get it from `math:generate -- ... --tier N` and the review checks it;
