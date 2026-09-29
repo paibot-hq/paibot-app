@@ -1,0 +1,45 @@
+.arith-answer { composes: numberInput from "../../components/tool-controls.module.css"; }
+.arith-progress {
+  margin: 0;
+  color: var(--muted);
+  font-size: .82rem;
+  letter-spacing: .04em;
+  text-align: center;
+}
+.arith-result-summary {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.25rem;
+  font-weight: 700;
+  text-align: center;
+}
+.arith-time {
+  margin: 0;
+  color: var(--text);
+  font-size: 1rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.arith-best-time {
+  margin: 0;
+  color: var(--muted);
+  font-size: .85rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.arith-problem {
+  margin: 0;
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: clamp(2rem, 6vw, 3rem);
+  font-weight: 700;
+  text-align: center;
+}
+.arith-feedback {
+  margin: 0;
+  min-height: 1.4em;
+  font-size: .95rem;
+  text-align: center;
+}
+.arith-feedback-incorrect { color: var(--error); }
+.arith-actions { margin-top: .5rem; }

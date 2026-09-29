@@ -36,7 +36,7 @@ try {
   if (!dryRun) writeFileSync(path, combined);
   try {
     const env = { ...process.env, [`MATH_BANK_${unit.toUpperCase()}`]: dryRun ? candidate : path };
-    const output = run(process.execPath, [`${root}scripts/check-math-${['factorization', 'pythagoras'].includes(unit) ? unit : 'arith'}.mjs`], root, env);
+    const output = run(process.execPath, [`${root}scripts/validate-math-${['factorization', 'pythagoras'].includes(unit) ? unit : 'arith'}.mjs`], root, env);
     console.log(output.trim());
     console.log(run('uv', ['run', '--locked', 'python', `${root}scripts/verify_math.py`, unit], root, env).trim());
   } catch (error) {

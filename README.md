@@ -51,71 +51,60 @@ so write schema changes to stay compatible with the previous release.
 
 ## Verification
 
+Tests live in `tests/`: `tests/unit/` needs no build, server or browser;
+`tests/e2e/` needs a build, a running preview, Clerk test keys or local D1
+(each file's header says which). `scripts/` holds only tooling (generation,
+import, bank validators).
+
 ```sh
 npm run typecheck
-npm run check:quiz             # quiz bank structure and review metadata
-npm run check:build-targets     # production/dev builds and config assertions
+npm test                       # tests/unit/*.test.mjs and src/tools/*/*.test.mjs (node --test)
+npm run test:sympy             # math answers re-derived with SymPy (needs uv)
 npx playwright install chromium # first run only
-npm run check:access            # redirects cannot leak Access headers
-npm run check:life-calendar     # calendar arithmetic: leap days and week boundaries
-npm run check:all               # every check that needs no build, server or browser
-npm run check:environments      # starts/stops its own local Workers
-npm run check:whois             # starts/stops its own local preview + fake WHOIS server
-npm run check:site-check        # starts/stops its own local preview + fake website
-npm run preview                # port 3003; keep running in another terminal
-CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:smoke
-CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:tools
-CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:quiz-browser
-CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:auth
-CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:favorites
-CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run check:diary
+npm run e2e -- <name...>       # tests/e2e/<name>.mjs; loads .dev.vars if present
 ```
 
-- `check:all`: runs every `scripts/check-*.mjs` whose first line is not
-  `// check:all skips this file: <reason>` — data and unit checks such as
-  `check:i18n` (en/zh have exactly ja's keys and placeholders), calendars, CIDR,
-  quiz and math banks. A new check of that kind needs no CI or package.json edit.
-- `check:environments`: SSR/SEO/robots/sitemap with both dev and production indexing policies.
-- `check:smoke`: 54 public URLs and 12 non-indexable URLs, redirects, headers,
-  Unicode input, locale navigation, persisted theme, Clerk forms and CSP violations.
-- `check:tools`: one meaningful flow for each of 15 tools. IP responses are mocked
-  to verify both protocols and partial failure without requiring runner IPv6. The
-  domain lookup tool only exercises client-side input rejection here (no socket
-  opened) — see `check:whois` for the real WHOIS lookup.
-- `check:whois`: the domain lookup tool's real server-side WHOIS flow (raw TCP via
-  `cloudflare:sockets`) against a fake local WHOIS server, plus a CRLF-injection
-  rejection check. Runs its own `vite preview` (not the shared one above) with a
-  patched `WHOIS_ROOT_SERVER` — `wrangler dev` can't be used here since its local
-  custom-domain routing breaks Clerk's dev-browser handshake for a real browser.
-- `check:site-check`: the website status check's real server-side requests against
-  a fake local site (redirect chain, 503, redirect loop). Loopback is refused in
-  production, so it runs its own `vite preview` with `SITE_CHECK_ALLOW_PRIVATE`
-  patched to `"true"`, like `check:whois`. `check:tools` covers the refusal of
-  invalid URLs and internal addresses. `check:site-check` also checks the per-IP limit
-  (`TOOL_RATE_LIMIT`, 10 a minute per tool, shared with the domain lookup).
-- `check:auth`: real development-instance signup/email verification, authenticated
-  SSR, session persistence, sign-out and sign-in. Uses Clerk's test-address flow
-  (no real email), creates a unique fixture user and deletes it in `finally`.
-  Requires `.dev.vars`; rejects live keys and non-local targets. This is separate
-  from routine CI because it creates a temporary user in the dev Clerk instance.
-- `check:favorites`: signs in the same way as `check:auth`, then favorites and
-  unfavorites an app from `/apps`, asserting the star's state persists across a
-  reload (real D1 read/write), and that clicking a star while signed out opens
-  Clerk's sign-in modal instead of writing to D1.
-  Requires `npm run db:migrate:local` to have been run first. Same disposable-user
-  caveat as `check:auth` — not part of routine CI.
+`npm test` picks up a new `*.test.mjs` in either place automatically; a file passes by
+exiting 0, so plain top-level `assert`s work as well as `node:test`'s `test()`.
 
-- `check:diary`: two disposable development Clerk users exercise private diary
-  create/edit/delete, SSR persistence, account isolation, validation, pagination,
-  sign-out, and no-store headers. Requires local migrations and `.dev.vars`;
-  removes fixture users and local diary rows afterwards. Run separately from CI.
+End-to-end checks (`npm run e2e -- <name>`):
+
+| Name | Needs | Covers |
+| --- | --- | --- |
+| `build-targets` | — (rebuilds) | production/dev builds and config assertions |
+| `access` | — | redirects cannot leak Access headers |
+| `environments` | build | starts its own Workers: SSR/SEO/robots/sitemap with dev and production indexing |
+| `whois` | build | own preview + fake WHOIS server: real server-side WHOIS (raw TCP), CRLF rejection |
+| `site-check` | build | own preview + fake website: redirect chain, 503, loop, the per-IP limit (`TOOL_RATE_LIMIT`, 10 a minute per tool; only requests that reach the network count) |
+| `smoke` | preview | public and non-indexable URLs, redirects, headers, locale navigation, theme, Clerk forms, CSP |
+| `catalog` | preview | every published tool in `src/lib/app-catalog.ts` × ja/en/zh: loads, hydrates, has a title, no untranslated keys or uncaught errors, fits 390px. New tools are covered with no test code |
+| `tools` | preview | each tool's own flow, `src/tools/<slug>/e2e.mjs` (math: `tests/e2e/flows/math.mjs`), in a fresh browser context (IP responses mocked; the domain and site checks only exercise input rejection here) |
+| `quiz-browser` | preview + local D1 | quiz flow |
+| `auth` | preview + `.dev.vars` | real dev-instance signup/verification, SSR session, sign-out/in; creates and deletes a fixture user |
+| `favorites` | preview + `.dev.vars` + local D1 | favorite/unfavorite persists; signed-out star opens sign-in |
+| `diary` | preview + `.dev.vars` + local D1 | private diary CRUD, isolation, validation, pagination, no-store |
+| `profile`, `math-history` | preview + `.dev.vars` + local D1 | signed-in profile and math history |
+
+```sh
+npm run build && npm run e2e -- access environments whois site-check
+npm run preview                # port 3003; keep running in another terminal
+CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run e2e -- smoke catalog tools quiz-browser
+CHECK_TOOLS=cidr,json CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run e2e -- catalog tools
+node scripts/affected-tools.mjs   # tools this branch can affect (what PR CI passes as CHECK_TOOLS)
+```
+
+`auth`, `favorites`, `diary`, `profile` and `math-history` create temporary users
+in the development Clerk instance, reject live keys and non-local targets, and
+are not part of routine CI. `whois` and `site-check` use their own `vite preview`
+because `wrangler dev`'s local custom-domain routing breaks Clerk's dev-browser
+handshake for a real browser.
 
 The diary lives at `/:locale/diary` (280 characters per post, one post per
 calendar day in JST, one post visible at a time with newer/older navigation). Every read/write is scoped to the authenticated Clerk user; it is excluded
 from the sitemap and served with `noindex` and `private, no-store`. Timestamps
 currently display in Japan time (JST).
 
-For deployed smoke tests set `CHECK_BROWSER_BASE_URL`, `CHECK_SITE_URL`, and
+For deployed smoke tests (`npm run e2e -- smoke`) set `CHECK_BROWSER_BASE_URL`, `CHECK_SITE_URL`, and
 `CHECK_SITE_INDEXABLE=true` for production. Dev Access tests additionally need
 `CF_ACCESS_CLIENT_ID` and `CF_ACCESS_CLIENT_SECRET`. Headers are scoped to the app
 origin and never automatically forwarded across an external redirect.
@@ -150,11 +139,11 @@ No account or AI API key is needed. Initially there are ten questions in ja/en/z
 stable ID, category, four choices and one answer index shared across translations,
 an explanation, source URL and review date. Create questions during development;
 check the answer, distractors and all translations against the cited source before
-publishing. `npm run check:quiz` validates structure and metadata, **not factual
+publishing. `node scripts/validate-quiz.mjs` (also run by `npm test`) validates structure and metadata, **not factual
 truth**. Never mark an unreviewed draft as published.
 
 ```sh
-npm run check:quiz
+node scripts/validate-quiz.mjs
 npm run db:migrate:local
 npm run quiz:import:local
 ```
@@ -173,5 +162,5 @@ the published index; this is suitable for thousands of questions, not an unlimit
 bank. The casual quiz scores on the client and includes answers in the response;
 it is not intended for ranked competitions. A failed or incomplete DB response
 shows a retry message rather than an empty quiz. No player answers are stored.
-`check:quiz-browser` covers real D1 rounds, scoring, retry, localization, request
+`npm run e2e -- quiz-browser` covers real D1 rounds, scoring, retry, localization, request
 failure recovery and mobile layout. Local verification does not deploy anything.

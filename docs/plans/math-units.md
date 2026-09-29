@@ -39,7 +39,7 @@
 
 ```text
 Antigravity(agy -p)が問題を生成
-  → 検算スクリプト(npm run check:math-*)がセットの条件を確認し、SymPy(npm run check:math-sympy)が答えを独立に再計算
+  → 検算スクリプト(scripts/validate-math-*.mjs)がセットの条件を確認し、SymPy(npm run test:sympy)が答えを独立に再計算
   → Codex(codex exec)が答えと内部の式を伏せた状態で解き、正解と照合・問題文をレビュー
   → 人が確認して published: true
   → D1 へ取り込み
@@ -238,7 +238,7 @@ Codex には答えだけでなく、内部の式と解説も伏せ、**公開さ
 
 1. `npm run math:generate -- arith add-sub-a --dry-run` で追加予定を確認する。単元は `arith`・`signed`・`factorization`・`pythagoras`、問題数は `--count N`（既定5）で指定できる。
 2. `npm run math:generate -- arith add-sub-a` で生成する。Antigravity CLI (`agy`) が一時ディレクトリで生成し、同じ単元の既存問題を渡して重複を避ける。ID とセット内 position は最大値の続き、`published: false`、`reviewedAt` は生成日で追加される。`reviewedAt` だけではレビュー済みを保証しない。
-3. 検算は生成コマンドが自動実行する。失敗時は原本を復元し、生成結果を `.math-work/` に残す。dry-run は一時ファイル上で原本と追加問題を合わせて検算する。手動では `npm run check:math-arith`（signed も含む）、`npm run check:math-factorization`、`npm run check:math-pythagoras`、`npm run check:math-sympy`(全単元の答えを SymPy で再計算)。
+3. 検算は生成コマンドが自動実行する。失敗時は原本を復元し、生成結果を `.math-work/` に残す。dry-run は一時ファイル上で原本と追加問題を合わせて検算する。手動では `node scripts/validate-math-arith.mjs`（signed も含む）、`validate-math-factorization.mjs`、`validate-math-pythagoras.mjs`（`npm test` でもまとめて実行）、`npm run test:sympy`(全単元の答えを SymPy で再計算)。
 4. `npm run math:review -- arith add-sub-a` で Codex CLI (`codex exec`) に盲検レビューを依頼する。setId を省略すると単元の全問題が対象。文章題の内部式と正解情報は渡さない。一致/不一致・文章から立てた式・指摘事項を表で確認し、`.math-work/review-<unit>-<日時>.json` の記録を読む。不一致・指摘ありは終了コード1。修正後は検算とレビューを再実行する。
 5. 人が問題・3言語・選択肢・レビュー結果を確認して `published: true` にする。
 6. `npm run math:import:local` で取り込み、ローカル画面で確認する。

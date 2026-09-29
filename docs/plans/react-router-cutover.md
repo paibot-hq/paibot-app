@@ -32,7 +32,7 @@ This change prepares the release; editing these files does not deploy them.
 
 `wrangler.jsonc` has explicit names/routes/vars for dev and production.
 Use `CLOUDFLARE_ENV=production` at build time (`build:production`). `SITE_URL` and
-`SITE_INDEXABLE` are Workers vars, not `.env.local` build inputs. `check:environments`
+`SITE_INDEXABLE` are Workers vars, not `.env.local` build inputs. `npm run e2e -- environments`
 starts the built Worker with explicit local overrides to test both indexing modes.
 
 Clerk's `CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY` are runtime secrets.

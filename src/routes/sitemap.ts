@@ -1,5 +1,4 @@
-import { locales } from '../i18n/routing';
-import { publicPaths, localizedUrl, languageAlternates } from '../lib/seo';
+import { publicPaths, localizedUrl, languageAlternates, pathLocales } from '../lib/seo';
 import { siteOrigin } from '../lib/seo.server';
 
 function escapeXml(value: string) {
@@ -7,7 +6,7 @@ function escapeXml(value: string) {
 }
 
 export function loader() {
-  const entries = publicPaths.flatMap(path => locales.map(locale => {
+  const entries = publicPaths.flatMap(path => pathLocales(path).map(locale => {
     const alternates = languageAlternates(siteOrigin, path);
     const links = Object.entries(alternates)
       .map(([hreflang, href]) => `<xhtml:link rel="alternate" hreflang="${hreflang}" href="${escapeXml(href)}" />`)

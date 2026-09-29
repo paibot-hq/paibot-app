@@ -1,5 +1,5 @@
 // A choice (x + p)(x + q), stored as [p, q]. Problems are LLM-generated and
-// checked by scripts/check-math-factorization.mjs before import, so this
+// checked by scripts/validate-math-factorization.mjs before import, so this
 // module only formats them - it holds no generation or grading logic.
 export type FactorPair = [p: number, q: number];
 

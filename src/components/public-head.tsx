@@ -1,5 +1,5 @@
-import { locales, defaultLocale, isLocale } from "../i18n/routing";
-import { localizedUrl, languageAlternates, ogLocales } from "../lib/seo";
+import { defaultLocale, isLocale } from "../i18n/routing";
+import { localizedUrl, languageAlternates, ogLocales, pathLocales } from "../lib/seo";
 import { useSiteMeta } from "../root";
 
 // Renders the <title>/<meta>/<link> tags for a public, indexable page.
@@ -25,7 +25,7 @@ export default function PublicHead({ locale: rawLocale, path, title, description
       <title>{title}</title>
       <meta name="description" content={description} />
       <link rel="canonical" href={url} />
-      {locales.map(l => (
+      {pathLocales(path).map(l => (
         <link key={l} rel="alternate" hrefLang={l} href={alternates[l]} />
       ))}
       <link rel="alternate" hrefLang="x-default" href={alternates["x-default"]} />
@@ -35,7 +35,7 @@ export default function PublicHead({ locale: rawLocale, path, title, description
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />
       <meta property="og:locale" content={ogLocales[locale]} />
-      {locales.filter(l => l !== locale).map(l => (
+      {pathLocales(path).filter(l => l !== locale).map(l => (
         <meta key={l} property="og:locale:alternate" content={ogLocales[l]} />
       ))}
       <meta property="og:image" content={`${siteOrigin}/opengraph-image.png`} />

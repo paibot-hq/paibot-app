@@ -1,5 +1,14 @@
+import { existsSync } from 'node:fs';
 import { index, route, type RouteConfig } from '@react-router/dev/routes';
+import { APP_CATALOG } from './lib/app-catalog';
 import { publicPaths } from './lib/seo';
+
+// A tool is a folder: src/tools/<slug>/route.tsx serves the catalog entry's
+// href, so adding one needs no edit here. Tools whose page lives elsewhere
+// (math's set pages, the diary) are routed explicitly below.
+const toolRoutes = APP_CATALOG
+  .filter(app => app.href && existsSync(new URL(`./tools/${app.slug}/route.tsx`, import.meta.url)))
+  .map(app => route(app.href!.slice(1), `tools/${app.slug}/route.tsx`));
 export default [
   index('routes/redirect.ts'),
   ...[...publicPaths.filter(path => path !== '').map(path => path.slice(1)), 'diary', 'profile', 'sign-in/*', 'sign-up/*']
@@ -11,6 +20,9 @@ export default [
     route('diary', 'routes/diary.tsx'),
     route('profile', 'routes/profile.tsx'),
     route('math', 'routes/math.tsx'),
+    route('math/units', 'routes/math-units.tsx'),
+    route('math/level/:stage', 'routes/math-level.tsx'),
+    route('math/kentei', 'routes/math-kentei.tsx'),
     route('math/pythagoras', 'routes/math-pythagoras-index.tsx'),
     route('math/pythagoras/:setId', 'routes/math-pythagoras.tsx'),
     route('math/factorization', 'routes/math-factorization-index.tsx'),
@@ -33,27 +45,7 @@ export default [
     route('legal/terms', 'routes/legal-terms.tsx'),
     route('legal/privacy', 'routes/legal-privacy.tsx'),
     route('legal/commerce', 'routes/legal-commerce.tsx'),
-    route('wc', 'routes/wc.tsx'),
-    route('json', 'routes/json.tsx'),
-    route('quiz', 'routes/quiz.tsx'),
-    route('arith', 'routes/arith.tsx'),
-    route('base64', 'routes/base64.tsx'),
-    route('urlencode', 'routes/urlencode.tsx'),
-    route('password', 'routes/password.tsx'),
-    route('stopwatch', 'routes/stopwatch.tsx'),
-    route('business-card', 'routes/business-card.tsx'),
-    route('ip', 'routes/ip.tsx'),
-    route('domain', 'routes/domain.tsx'),
-    route('cidr', 'routes/cidr.tsx'),
-    route('site-check', 'routes/site-check.tsx'),
-    route('dice', 'routes/dice.tsx'),
-    route('reaction', 'routes/reaction.tsx'),
-    route('timing', 'routes/timing.tsx'),
-    route('pinball', 'routes/pinball.tsx'),
-    route('calendar', 'routes/calendar.tsx'),
-    route('life-calendar', 'routes/life-calendar.tsx'),
-    route('clock', 'routes/clock.tsx'),
-    route('age', 'routes/age.tsx'),
+    ...toolRoutes,
     route('sign-in/*', 'routes/sign-in.tsx'),
     route('sign-up/*', 'routes/sign-up.tsx'),
     route('*', 'routes/not-found.tsx'),

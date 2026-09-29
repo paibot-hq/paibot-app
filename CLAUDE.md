@@ -21,12 +21,23 @@ Do not print secret keys. Runtime Clerk keys must be synced to Workers Secrets;
 
 ## Adding a tool
 
-- Add a route in `src/routes.ts` and a leaf component in `src/routes/`.
-- Components/CSS Modules belong in `src/components/`; shared styles in `src/styles/`.
-- Add translations to all three `messages/*.json` catalogs.
-- Public pages render `PublicHead` and are listed in `src/lib/seo.ts`.
-- The catalog is `src/lib/app-catalog.ts` (plain data, also read by `check-smoke.mjs`);
-  give the new slug an icon in `APP_ICONS` in `src/lib/apps.tsx`. Keep coming-soon pages out of the sitemap.
+A tool is a folder, `src/tools/<slug>/`, holding everything that is only its own:
+- `route.tsx` (the page; renders `PublicHead`), components, CSS Modules, logic
+  (`*.server.ts` for server-only code) and `*.test.mjs` unit tests (run by `npm test`).
+- `e2e.mjs`: one short browser flow (`export default async function ({ page, main, go, result, errors })`),
+  run by `npm run e2e -- tools`. Checks every tool shares (loads in three locales,
+  no uncaught errors, fits 390px) come from `e2e -- catalog` with no code.
+
+Then register it in the shared lists (these, and nothing else, change outside the folder):
+- `src/lib/app-catalog.ts`: the entry (`slug` = folder name, `href`). Routes
+  (`src/routes.ts`) and public SEO paths (`src/lib/seo.ts`) are derived from it;
+  `private: true` keeps a signed-in page out of the sitemap. Coming-soon entries have no page.
+- `APP_ICONS` in `src/lib/apps.tsx`, and `App.<messageKey>` in all three `messages/*.json`.
+
+Code shared by several tools stays in `src/components/`, `src/lib/` and `src/styles/`.
+PR CI runs per-tool browser checks only for the tools a change can affect
+(`scripts/affected-tools.mjs`: the tool's folder, its messages, registry additions);
+a change to shared code runs every tool, as does every push to `main`.
 - Authenticate/authorize in each protected loader/action using Clerk's server API;
   merely nesting a route does not protect it.
 
@@ -60,19 +71,19 @@ then change the catalog status to `published` and register its public SEO paths.
 
 Pythagoras figures use integer coordinates and `math-figure.tsx` SVG rendering; labels
 and localized accessible descriptions are calculated, never stored.
-`check:math-pythagoras` independently verifies geometry, radicals and set coverage.
+`scripts/validate-math-pythagoras.mjs` independently verifies geometry, radicals and set coverage.
 
 Problems are LLM-generated into `src/data/math-*.json` and never trusted as-is:
-`npm run check:math-sympy` (`scripts/verify_math.py`) re-derives every unit's
+`npm run test:sympy` (`scripts/verify_math.py`) re-derives every unit's
 answer with SymPy: each unit only converts a problem into its answer and four
 choices, and one shared check requires exactly one matching choice. The Node
-checkers (`check:math-arith`, `check:math-factorization`, `check:math-pythagoras`)
+validators (`scripts/validate-math-*.mjs`, run by `npm test`)
 enforce only each set's rules (ranges, exact division, coverage, duplicates);
 they no longer check answer keys. Word problems' prose also gets a blind second-model review before they
 are published. Problems start as `published: false` and are imported with
 `npm run math:import:local|dev|prod` through `scripts/import-math.mjs`, which
 runs the Node set-rule checks before upserting common columns and payloads
-(answers are gated by CI's `check:math-sympy` on `main`, which every deploy needs); a set with no
+(answers are gated by CI's `test:sympy` on `main`, which every deploy needs); a set with no
 published problems shows "being prepared". `docs/plans/math-units.md` is the unit roadmap and the verification
 rules new units must follow; `docs/plans/problemset.md` is the larger plan it
 refines (its vinext-specific sections are historical).

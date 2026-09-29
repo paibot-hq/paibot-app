@@ -1,9 +1,9 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
-import { bank as arithBank, signedBank } from './check-math-arith.mjs';
-import { bank as factorizationBank } from './check-math-factorization.mjs';
+import { bank as arithBank, signedBank } from './validate-math-arith.mjs';
+import { bank as factorizationBank } from './validate-math-factorization.mjs';
 
-import { bank as pythagorasBank } from './check-math-pythagoras.mjs';
+import { bank as pythagorasBank } from './validate-math-pythagoras.mjs';
 
 // Explicit target only; importing never creates or resets any tables.
 const targets = { local: ['--local'], dev: ['--remote'], prod: ['--remote', '--env', 'production'] };
