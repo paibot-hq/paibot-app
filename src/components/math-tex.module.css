@@ -1,1 +1,3 @@
 .math-tex { font-size: 1.35rem; }
+/* The hidden MathML copy (for screen readers) must not widen the page. */
+.math-tex :global(.katex-mathml) { overflow: hidden; max-width: 1px; }

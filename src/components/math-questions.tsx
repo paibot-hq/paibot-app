@@ -8,7 +8,7 @@ import styles from './math-questions.module.css';
 import type { ArithPayload } from '../lib/math-arith';
 import type { MathKind } from '../lib/math-catalog';
 import { factoredTex, trinomialTex, type FactorizationPayload } from '../lib/math-factorization';
-import { formulaChoiceTex, formulaInstruction, formulaQuestionTex, stepTex, type FormulaPayload } from '../lib/math-formula';
+import { formulaChoiceTex, formulaInstruction, formulaQuestionTex, stepRows, type FormulaPayload } from '../lib/math-formula';
 import { explanationTex, lengthTex, type PythagorasPayload } from '../lib/math-pythagoras';
 import type { QuizLocale } from '../lib/quiz';
 
@@ -60,7 +60,7 @@ export function useMathQuestions(kind: MathKind | undefined, problems: readonly 
           </>,
           choices: payload.choices.map(choice => <MathTex tex={formulaChoiceTex(payload, choice)} />),
           explanation: <>
-            {payload.steps && <div className={styles.steps}>{payload.steps.map(line => <MathTex key={line} tex={stepTex(line)} block />)}</div>}
+            {payload.steps && <div className={styles.steps}>{payload.steps.flatMap(line => stepRows(line)).map((row, index) => <div key={index} className={styles.row}>{row.map((piece, at) => <MathTex key={at} tex={`{{}${piece}}`} />)}</div>)}</div>}
             {tq('answer')} <MathTex tex={formulaChoiceTex(payload, payload.choices[answerIndex])} />
           </>,
         }));

@@ -286,13 +286,25 @@ export function formulaChoiceTex(p: Pick<FormulaPayload, 'kind' | 'question'>, c
   return expressionTex(choice);
 }
 
-// A worked-solution line as TeX, aligned on its equals signs so a long chain
-// "a = b = c" breaks into rows: a = b / = c. Comma-separated equations are one
-// block each row group.
-export function stepTex(line: string): string {
-  const rows = splitTop(line, ',').flatMap(item => {
-    const parts = item.split('=').map(expressionTex);
-    return parts.length === 1 ? [parts[0]] : parts.slice(1).map((part, index) => `${index === 0 ? parts[0] : ''} &= ${part}`);
+// A sum's terms as TeX, so a long expression can wrap between them:
+// "x^2 + 5*x - 6" -> ["x^{2}", "+ 5x", "- 6"].
+function termsTex(text: string): string[] {
+  const terms: string[] = [];
+  const walk = (node: Node): void => {
+    if (node.type === 'bin' && (node.op === '+' || node.op === '-')) { walk(node.left); terms.push(`${node.op} ${toTex(node.right)}`); }
+    else terms.push(toTex(node));
+  };
+  walk(parseExpression(text));
+  return terms;
+}
+
+// A worked-solution line as rows of TeX pieces (the page wraps a row between
+// pieces when it is too wide): "a = b = c" is the rows [a, = b] and [= c];
+// comma-separated equations are rows of their own.
+export function stepRows(line: string): string[][] {
+  return splitTop(line, ',').flatMap(item => {
+    const parts = item.split('=').map(termsTex);
+    const prefixed = (terms: string[]) => [`= ${terms[0]}`, ...terms.slice(1)];
+    return parts.length === 1 ? [parts[0]] : [[...parts[0], ...prefixed(parts[1])], ...parts.slice(2).map(prefixed)];
   });
-  return `\\begin{aligned} ${rows.map(row => row.includes('&') ? row : `&${row}`).join(' \\\\ ')} \\end{aligned}`;
 }

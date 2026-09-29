@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import katex from 'katex';
-import { expressionTex, formulaChoiceTex, formulaInstruction, formulaQuestionTex, parseExpression, stepTex, solutionTex, statementTex, unknownOf } from '../../src/lib/math-formula.ts';
+import { expressionTex, formulaChoiceTex, formulaInstruction, formulaQuestionTex, parseExpression, stepRows, solutionTex, statementTex, unknownOf } from '../../src/lib/math-formula.ts';
 
 // Formulas render the way school math writes them, and every rendering is valid TeX.
 const cases = {
@@ -59,11 +59,11 @@ assert.equal(formulaChoiceTex(term, term.choices[0]), '3 \\cdot 2^{n - 1}');
 assert.deepEqual(formulaInstruction(term), { key: 'geometricTerm', tex: { an: 'a_n' } });
 assert.deepEqual(formulaInstruction({ ...term, kind: 'series', progression: 'arithmetic', given: 'n = 10' }), { key: 'arithmeticSumAt', tex: { n: '10' } });
 assert.deepEqual(formulaInstruction({ ...term, kind: 'series', given: null }), { key: 'geometricSum', tex: { n: 'n', sn: 'S_n' } });
-// Worked-solution lines: a chain breaks into rows aligned on "=", equations side by side.
-assert.equal(stepTex('2/3 + 1/4 = 8/12 + 3/12 = 11/12'), '\\begin{aligned} \\frac{2}{3} + \\frac{1}{4} &= \\frac{8}{12} + \\frac{3}{12} \\\\  &= \\frac{11}{12} \\end{aligned}');
-assert.equal(stepTex('x = 2, x = -2'), '\\begin{aligned} x &= 2 \\\\ x &= -2 \\end{aligned}');
-assert.equal(stepTex('3*x^3/3 - 2*x'), '\\begin{aligned} &\\frac{3x^{3}}{3} - 2x \\end{aligned}');
-katex.renderToString(stepTex('a = b = c'), { throwOnError: true });
+// Worked-solution lines: rows of pieces, a chain "a = b = c" continuing on its own row.
+assert.deepEqual(stepRows('2/3 + 1/4 = 8/12 + 3/12 = 11/12'), [['\\frac{2}{3}', '+ \\frac{1}{4}', '= \\frac{8}{12}', '+ \\frac{3}{12}'], ['= \\frac{11}{12}']]);
+assert.deepEqual(stepRows('x = 2, x = -2'), [['x', '= 2'], ['x', '= -2']]);
+assert.deepEqual(stepRows('x^2 + 5*x - 6'), [['x^{2}', '+ 5x', '- 6']]);
+for (const row of stepRows('(a + b)^5 = a^5 + 5*a^4*b - b^5 = 1')) for (const piece of row) katex.renderToString(piece, { throwOnError: true });
 for (const bad of ['sin(1, 2)', 'sum(k, 2, 1, 3)', 'log(8)', '2i']) assert.throws(() => parseExpression(bad), bad);
 for (const bad of ['2x', '__import__(1)', '1 +', '2 ** 3', 'π']) assert.throws(() => parseExpression(bad), bad);
 console.log('PASS: formula grammar renders school-style TeX and rejects anything else');
