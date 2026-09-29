@@ -2,6 +2,7 @@ import { useLocale, useTranslations } from 'use-intl';
 import PublicHead from '../components/public-head';
 import ToolLayout from '../components/tool-layout';
 import { BackToMath, mathUnitStyles as styles, UnitCards } from '../components/math-units';
+import { Link } from '../i18n/navigation';
 import type { DynamicT } from '../lib/apps';
 import { MATH_CATALOG } from '../lib/math-catalog';
 import { KENTEI_GRADES, KENTEI_OFFICIAL_URL } from '../lib/math-kentei';
@@ -23,6 +24,7 @@ export default function MathKentei() {
   return <><PublicHead locale={locale} path="/math/kentei" title={`${title} - ${t('title')} | PAIBOT.app`} description={t('kentei.intro')} />
     <ToolLayout title={title} centerTitle aboveTitle={<BackToMath />}>
       <p>{t('kentei.intro')}</p>
+      <p className={styles.note}>{t('kentei.elementary')} <Link href="/math/level/elementary">{t('stages.elementary')}</Link></p>
       {KENTEI_GRADES.map(grade => {
         const units = grade.units.map(id => MATH_CATALOG.find(unit => unit.id === id)!);
         return <section key={grade.id} id={`grade-${grade.id}`} className={styles.domain} aria-labelledby={`kentei-${grade.id}`}>

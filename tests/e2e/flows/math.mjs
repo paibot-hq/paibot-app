@@ -84,8 +84,8 @@ export default async function ({ page, main, base, go, errors }) {
   assert.equal(kentei.status(), 200);
   await page.waitForFunction(() => document.documentElement.dataset.theme);
   assert.equal(await page.title(), '数検対策 - 数学 | PAIBOT.app');
-  assert.deepEqual((await main.getByRole('heading', { level: 2 }).allTextContents()).slice(0, 2), ['11級', '10級']);
-  assert.ok((await main.getByRole('heading', { level: 2 }).allTextContents()).includes('準2級'));
+  assert.deepEqual(await main.getByRole('heading', { level: 2 }).allTextContents(), ['5級', '4級', '3級', '準2級', '2級', '準1級', '1級']);
+  await main.getByRole('link', { name: '小学', exact: true }).waitFor();
   await main.locator('#grade-3').getByRole('link', { name: /^因数分解/ }).waitFor();
   await main.getByText('日本数学検定協会とは関係ありません', { exact: false }).waitFor();
   assert.deepEqual(await page.locator('link[rel="alternate"]').evaluateAll(links => links.map(link => link.hreflang)), ['ja', 'x-default']);

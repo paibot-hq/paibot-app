@@ -1,5 +1,7 @@
-// Japan's Mathematics Certification (実用数学技能検定, "Suken") grades and the
-// units that prepare for each, easiest first. A curriculum table kept apart
+// Japan's Mathematics Certification (実用数学技能検定, "Suken") grades 5 to 1
+// (junior high to university) and the units that prepare for each, easiest
+// first. Grades 6 to 11 are the separate arithmetic exam (算数検定); the
+// elementary units are found by level instead. A curriculum table kept apart
 // from the stages in math-catalog.ts (see CLAUDE.md), and a guide only: the
 // official ranges are on the association's site. A unit can serve several
 // grades (e.g. fractions span grades 7 and 6). Shown in Japanese only.
@@ -11,12 +13,6 @@ export type KenteiGrade = {
 };
 
 export const KENTEI_GRADES: readonly KenteiGrade[] = [
-  { id: '11', target: 'e1', units: ['arith', 'place-value', 'time', 'shapes'] },
-  { id: '10', target: 'e2', units: ['arith', 'place-value', 'time', 'shapes', 'graphs'] },
-  { id: '9', target: 'e3', units: ['arith', 'place-value', 'time', 'shapes', 'graphs'] },
-  { id: '8', target: 'e4', units: ['arith', 'place-value', 'decimal', 'rounding', 'measurement', 'shapes', 'graphs'] },
-  { id: '7', target: 'e5', units: ['decimal', 'fraction', 'divisors', 'ratio', 'rate', 'measurement', 'data', 'graphs'] },
-  { id: '6', target: 'e6', units: ['fraction', 'ratio', 'rate', 'measurement', 'symmetry', 'data', 'graphs', 'counting'] },
   { id: '5', target: 'm1', units: ['signed', 'exponents', 'prime', 'expression', 'linear-equation', 'linear-function', 'angles', 'transformations', 'circle-solid'] },
   { id: '4', target: 'm2', units: ['expression', 'simultaneous', 'linear-function', 'angles', 'congruence', 'probability', 'quartiles'] },
   { id: '3', target: 'm3', units: ['expansion', 'factorization', 'sqrt', 'quadratic', 'square-function', 'pythagoras', 'similarity', 'circle-solid', 'sampling'] },

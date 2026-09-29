@@ -1302,16 +1302,10 @@
       "levelTitle": "{stage} units",
       "levelIntro": "Units at this level, grouped by area of mathematics.",
       "kentei": {
-        "intro": "Units that prepare for each grade of Japan's Mathematics Certification (Suken).",
+        "intro": "Units that prepare for grades 5 to 1 of Japan's Mathematics Certification (Suken).",
         "note": "The grade-to-unit mapping is a guide; check the official ranges on the Mathematics Certification Institute of Japan's site. This site is not affiliated with the institute. \"Suken\" is a registered trademark of the Mathematics Certification Institute of Japan.",
         "official": "Official site",
         "grades": {
-          "11": "Grade 11",
-          "10": "Grade 10",
-          "9": "Grade 9",
-          "8": "Grade 8",
-          "7": "Grade 7",
-          "6": "Grade 6",
           "5": "Grade 5",
           "4": "Grade 4",
           "3": "Grade 3",
@@ -1321,12 +1315,6 @@
           "1": "Grade 1"
         },
         "targets": {
-          "e1": "Elementary grade 1",
-          "e2": "Elementary grade 2",
-          "e3": "Elementary grade 3",
-          "e4": "Elementary grade 4",
-          "e5": "Elementary grade 5",
-          "e6": "Elementary grade 6",
           "m1": "Junior high year 1",
           "m2": "Junior high year 2",
           "m3": "Junior high year 3",
@@ -1334,7 +1322,8 @@
           "h2": "High school year 2",
           "h3": "High school year 3",
           "university": "University"
-        }
+        },
+        "elementary": "For grades 6 and below (the arithmetic exam), browse the Foundations level."
       }
     },
     "about": {
