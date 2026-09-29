@@ -39,6 +39,7 @@ export default async function ({ page, main, base, go, errors }) {
   assert.deepEqual(await main.locator('ul a').evaluateAll(cards => cards.map(card => card.getAttribute('href'))),
     ['/en/math/arith/order-of-operations/1', '/en/math/arith/order-of-operations/2']);
   assert.equal(await page.title(), 'Order of operations & word problems - Order of operations | PAIBOT.app');
+  await main.getByText('Japanese school year: Elementary 4', { exact: true }).waitFor();
   for (const [item, set, label] of [
     ['arith/order-of-operations', '2', 'Order of operations Practice 2'],
     ['factorization/trinomial', '1', 'Factoring trinomials'],

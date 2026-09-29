@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "d0c2a458-2157-4f8a-9405-5c9a0bffe463",
+  "id": "98adced8-0d66-4f81-bc1e-bbbb8332f816",
   "prevId": "42b4ebdb-4229-4e0e-8b46-59ae9606702c",
   "tables": {
     "clock_preferences": {
@@ -283,13 +283,21 @@
           "notNull": true,
           "autoincrement": false
         },
-        "difficulty": {
-          "name": "difficulty",
+        "grade": {
+          "name": "grade",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "''"
+        },
+        "tier": {
+          "name": "tier",
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false,
-          "default": 1
+          "default": 2
         },
         "reviewed_at": {
           "name": "reviewed_at",
@@ -311,12 +319,11 @@
           ],
           "isUnique": false
         },
-        "math_problems_difficulty_idx": {
-          "name": "math_problems_difficulty_idx",
+        "math_problems_grade_tier_idx": {
+          "name": "math_problems_grade_tier_idx",
           "columns": [
-            "unit",
-            "item",
-            "difficulty",
+            "grade",
+            "tier",
             "published"
           ],
           "isUnique": false

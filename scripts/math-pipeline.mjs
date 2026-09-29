@@ -44,7 +44,7 @@ export function extractJSON(raw, key) {
   }
   throw new Error(`No JSON object containing ${key} found`);
 }
-export function additions(unit, item, setId, bank, generated, count, date = new Date().toISOString().slice(0, 10)) {
+export function additions(unit, item, setId, bank, generated, count, date = new Date().toISOString().slice(0, 10), tier = 2) {
   assert.equal(generated.problems.length, count, `Expected ${count} problems`);
   const maxId = Math.max(0, ...bank.problems.map(p => {
     const match = p.id.match(new RegExp(`^${unit}-(\\d+)$`));
@@ -54,7 +54,7 @@ export function additions(unit, item, setId, bank, generated, count, date = new 
   const maxPosition = Math.max(0, ...bank.problems.filter(p => p.item === item && p.setId === setId).map(p => p.position));
   return generated.problems.map((p, index) => ({
     id: `${unit}-${String(maxId + index + 1).padStart(3, '0')}`, item, setId,
-    position: maxPosition + index + 1, published: false, reviewedAt: date,
+    position: maxPosition + index + 1, tier, published: false, reviewedAt: date,
     ...(unit === 'pythagoras' ? { figure: p.figure } : unit === 'factorization' ? { p: p.p, q: p.q }
       : isFormulaUnit(unit) ? { kind: p.kind, question: p.question, given: p.given ?? null } : { expression: p.expression, word: p.word }),
     choices: p.choices, answerIndex: p.answerIndex,

@@ -46,9 +46,10 @@ export const quizQuestions = sqliteTable('quiz_questions', {
 }, table => [index('quiz_published_idx').on(table.published)]);
 
 // A problem belongs to unit → learning item → practice set (see
-// src/lib/math-catalog.ts). `difficulty` (1-5) is estimated from the problem
-// itself on import (scripts/lib/math-difficulty.mjs), for assembling tests
-// across items and units; it can later be recalibrated from attempts.
+// src/lib/math-catalog.ts). `grade` is the item's school year in Japan's
+// curriculum (src/lib/math-curriculum-jp.ts, copied on import) and `tier` its
+// difficulty within that item and grade (1 basic, 2 standard, 3 advanced), so
+// tests can be assembled by scope and tier with SQL alone.
 export const mathProblems = sqliteTable('math_problems', {
   id: text('id').primaryKey().notNull(),
   unit: text('unit').notNull(),
@@ -58,11 +59,12 @@ export const mathProblems = sqliteTable('math_problems', {
   published: integer('published', { mode: 'boolean' }).notNull(),
   answerIndex: integer('answer_index').notNull(),
   payload: text('payload', { mode: 'json' }).$type<ArithPayload | FactorizationPayload | PythagorasPayload | FormulaPayload>().notNull(),
-  difficulty: integer('difficulty').notNull().default(1),
+  grade: text('grade').notNull().default(''),
+  tier: integer('tier').notNull().default(2),
   reviewedAt: text('reviewed_at').notNull(),
 }, table => [
   index('math_problems_set_idx').on(table.unit, table.item, table.setId, table.published, table.position),
-  index('math_problems_difficulty_idx').on(table.unit, table.item, table.difficulty, table.published),
+  index('math_problems_grade_tier_idx').on(table.grade, table.tier, table.published),
 ]);
 
 // One row per finished /math set by a signed-in user. `answers` are the chosen

@@ -73,10 +73,18 @@ can hold problems; a new set of an existing kind needs its rule and prompt
 (`scripts/math-prompts/<rule>.md`), a new unit also `src/data/math-<unit>.json`.
 
 Problems live in D1's `math_problems` (unit, item, set_id, position, published,
-answer_index, JSON `payload`, `difficulty`, reviewed_at); attempts in
-`math_attempts` (unit, item, set_id, answers). `difficulty` (1-5) is estimated
-on import from the unit's level, the practice set and the problem's extra work
-(`scripts/lib/math-difficulty.mjs`), for assembling tests across items later.
+answer_index, JSON `payload`, grade, tier, reviewed_at); attempts in
+`math_attempts` (unit, item, set_id, answers). Scope and difficulty are kept
+apart, so tests can be assembled as "these grades or items, so many of each tier":
+- grade: the item's school year in Japan's curriculum
+  (`src/lib/math-curriculum-jp.ts`: e1-e6, m1-m3, h-i/h-a/h-ii/h-b/h-iii/h-c,
+  u1-u2), copied onto each problem on import. The catalog itself stays
+  curriculum-neutral; an item that spans years is split. Shown on the item page.
+- tier: difficulty within the item and grade, 1 basic, 2 standard, 3 advanced
+  (`scripts/math-prompts/_tiers.md`), stored per problem in the bank. New problems
+  get it from `math:generate -- ... --tier N` and the review checks it;
+  `scripts/math-tier.mjs <unit>` has Codex judge problems made before tiers.
+  Correct rates from `math_attempts` can recalibrate tiers once there are enough.
 Coming-soon units' pages are noindex and excluded from publicPaths/the sitemap;
 `src/lib/seo.ts` lists the public item pages of published units.
 

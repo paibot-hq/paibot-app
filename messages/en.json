@@ -644,11 +644,17 @@
           "title": "Decimals",
           "summary": "Practice adding, subtracting, multiplying, and dividing decimals.",
           "items": {
+            "add-sub-tenths": {
+              "title": "Adding & subtracting tenths"
+            },
             "add-sub": {
-              "title": "Adding & subtracting decimals"
+              "title": "Adding & subtracting hundredths"
+            },
+            "mul-div-whole": {
+              "title": "Decimals × and ÷ whole numbers"
             },
             "mul-div": {
-              "title": "Multiplying & dividing decimals"
+              "title": "Decimals × and ÷ decimals"
             }
           }
         },
@@ -659,8 +665,11 @@
             "simplify": {
               "title": "Simplifying & common denominators"
             },
+            "add-sub-like": {
+              "title": "Adding & subtracting like fractions"
+            },
             "add-sub": {
-              "title": "Adding & subtracting fractions"
+              "title": "Adding & subtracting unlike fractions"
             },
             "mul-div": {
               "title": "Multiplying & dividing fractions"
@@ -698,14 +707,29 @@
           "title": "Measurement",
           "summary": "Practice converting units and finding areas and volumes.",
           "items": {
-            "units": {
-              "title": "Converting units"
+            "length-capacity": {
+              "title": "Length & capacity"
             },
-            "area-volume": {
-              "title": "Area & volume"
+            "weight": {
+              "title": "Weight"
             },
-            "circle": {
-              "title": "Circumference & area of circles"
+            "area-units": {
+              "title": "Units of area"
+            },
+            "rect-area": {
+              "title": "Area of rectangles & squares"
+            },
+            "area": {
+              "title": "Area of triangles, parallelograms & trapezoids"
+            },
+            "volume": {
+              "title": "Volume of cuboids & cubes"
+            },
+            "circumference": {
+              "title": "Circumference"
+            },
+            "circle-area": {
+              "title": "Area of circles"
             }
           }
         },
@@ -913,7 +937,7 @@
           "summary": "Practice special-angle values, radians, and angle addition formulas.",
           "items": {
             "values": {
-              "title": "Special-angle values"
+              "title": "Values of trigonometric functions"
             },
             "radian": {
               "title": "Radians"
@@ -1239,6 +1263,9 @@
           "title": "Solving triangles",
           "summary": "Find sides, angles and areas of triangles with the laws of sines and cosines.",
           "items": {
+            "ratios": {
+              "title": "Trigonometric ratios"
+            },
             "sine-law": {
               "title": "Law of sines"
             },
@@ -1455,8 +1482,14 @@
           "title": "Place value & large numbers",
           "summary": "Place value, from tens and hundreds up to millions and billions.",
           "items": {
-            "place-value": {
-              "title": "Place value"
+            "to-100": {
+              "title": "Numbers to 100"
+            },
+            "to-10000": {
+              "title": "Numbers to 10,000"
+            },
+            "ten-thousands": {
+              "title": "Numbers in the ten thousands"
             },
             "large-numbers": {
               "title": "Large numbers"
@@ -1479,8 +1512,14 @@
           "title": "Basic shapes",
           "summary": "Triangles, quadrilaterals, circles and measuring angles.",
           "items": {
-            "triangles-quads": {
-              "title": "Triangles & quadrilaterals"
+            "basic-shapes": {
+              "title": "Rectangles, squares & right triangles"
+            },
+            "triangles": {
+              "title": "Isosceles & equilateral triangles"
+            },
+            "quadrilaterals": {
+              "title": "Parallelograms, trapezoids & rhombuses"
             },
             "circles": {
               "title": "Circles & spheres"
@@ -1507,7 +1546,10 @@
           "summary": "Reading tables, bar and line graphs, pie charts and histograms.",
           "items": {
             "tables": {
-              "title": "Tables & bar graphs"
+              "title": "Tables & picture graphs"
+            },
+            "bar-graph": {
+              "title": "Bar graphs"
             },
             "line-graph": {
               "title": "Line graphs"
@@ -1631,12 +1673,13 @@
               "title": "Calculation rules",
               "description": "Use the associative and distributive laws to calculate smartly."
             },
+            "simple-word-problems": {
+              "title": "Simple word problems",
+              "description": "Short word problems you can solve in one or two steps."
+            },
             "word-problems": {
-              "title": "Word problems",
-              "sets": {
-                "1": "Easy word problems: Short word problems you can solve in one or two steps.",
-                "2": "Multi-step word problems: Word problems that take two or three calculations. Try these after the easy ones."
-              }
+              "title": "Multi-step word problems",
+              "description": "Word problems that take two or three calculations. Try these after the easy ones."
             }
           }
         },
@@ -1701,7 +1744,27 @@
         "solve": "Solve the equation.",
         "given": "Find the value when <given></given>.",
         "answer": "Answer:"
-      }
+      },
+      "grades": {
+        "e1": "Elementary 1",
+        "e2": "Elementary 2",
+        "e3": "Elementary 3",
+        "e4": "Elementary 4",
+        "e5": "Elementary 5",
+        "e6": "Elementary 6",
+        "m1": "Junior high 1",
+        "m2": "Junior high 2",
+        "m3": "Junior high 3",
+        "h-i": "Math I",
+        "h-a": "Math A",
+        "h-ii": "Math II",
+        "h-b": "Math B",
+        "h-iii": "Math III",
+        "h-c": "Math C",
+        "u1": "University year 1",
+        "u2": "University year 2"
+      },
+      "gradeLabel": "Japanese school year: {grade}"
     },
     "about": {
       "eyebrow": "About",

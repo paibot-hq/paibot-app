@@ -6,12 +6,13 @@
       "item": "factoring",
       "setId": "1",
       "position": 1,
+      "tier": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
       "kind": "solve",
       "question": "x^2 - 4*x = 0",
       "given": null,
-      "choices": ["0,   4", "0,   -4", "4", "-4"],
+      "choices": ["0,    4", "0,    -4", "4", "-4"],
       "answerIndex": 0
     },
     {
@@ -19,12 +20,13 @@
       "item": "factoring",
       "setId": "1",
       "position": 2,
+      "tier": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
       "kind": "solve",
       "question": "x^2 + 7*x + 12 = 0",
       "given": null,
-      "choices": ["3,   4", "-4,   3", "-3,   4", "-4,   -3"],
+      "choices": ["3,    4", "-4,    3", "-3,    4", "-4,    -3"],
       "answerIndex": 3
     },
     {
@@ -32,12 +34,13 @@
       "item": "factoring",
       "setId": "1",
       "position": 3,
+      "tier": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
       "kind": "solve",
       "question": "x^2 - 2*x - 15 = 0",
       "given": null,
-      "choices": ["-5,   3", "-5,   -3", "-3,   5", "3,   5"],
+      "choices": ["-5,    3", "-5,    -3", "-3,    5", "3,    5"],
       "answerIndex": 2
     },
     {
@@ -45,12 +48,13 @@
       "item": "factoring",
       "setId": "1",
       "position": 4,
+      "tier": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
       "kind": "solve",
       "question": "x^2 - 8*x + 16 = 0",
       "given": null,
-      "choices": ["-4", "4", "-4,   4", "2,   8"],
+      "choices": ["-4", "4", "-4,    4", "2,    8"],
       "answerIndex": 1
     },
     {
@@ -58,12 +62,13 @@
       "item": "factoring",
       "setId": "1",
       "position": 5,
+      "tier": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
       "kind": "solve",
       "question": "x^2 + 5*x = 6",
       "given": null,
-      "choices": ["-6,   1", "-1,   6", "-3,   -2", "2,   3"],
+      "choices": ["-6,    1", "-1,    6", "-3,    -2", "2,    3"],
       "answerIndex": 0
     },
     {
@@ -71,12 +76,13 @@
       "item": "formula",
       "setId": "1",
       "position": 1,
+      "tier": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
       "kind": "solve",
       "question": "x^2 + 3*x + 1 = 0",
       "given": null,
-      "choices": ["(3 + sqrt(5))/2,  (3 - sqrt(5))/2", "(-3 + sqrt(13))/2,  (-3 - sqrt(13))/2", "(-3 + sqrt(5))/2,  (-3 - sqrt(5))/2", "(3 + sqrt(13))/2,  (3 - sqrt(13))/2"],
+      "choices": ["(3 + sqrt(5))/2,   (3 - sqrt(5))/2", "(-3 + sqrt(13))/2,   (-3 - sqrt(13))/2", "(-3 + sqrt(5))/2,   (-3 - sqrt(5))/2", "(3 + sqrt(13))/2,   (3 - sqrt(13))/2"],
       "answerIndex": 2
     },
     {
@@ -84,12 +90,13 @@
       "item": "formula",
       "setId": "1",
       "position": 2,
+      "tier": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
       "kind": "solve",
       "question": "x^2 + 4*x + 1 = 0",
       "given": null,
-      "choices": ["2 + sqrt(3),  2 - sqrt(3)", "-4 + sqrt(3),  -4 - sqrt(3)", "-2 + 2*sqrt(3),  -2 - 2*sqrt(3)", "-2 + sqrt(3),  -2 - sqrt(3)"],
+      "choices": ["2 + sqrt(3),   2 - sqrt(3)", "-4 + sqrt(3),   -4 - sqrt(3)", "-2 + 2*sqrt(3),   -2 - 2*sqrt(3)", "-2 + sqrt(3),   -2 - sqrt(3)"],
       "answerIndex": 3
     },
     {
@@ -97,12 +104,13 @@
       "item": "formula",
       "setId": "1",
       "position": 3,
+      "tier": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
       "kind": "solve",
       "question": "x^2 - 5*x + 3 = 0",
       "given": null,
-      "choices": ["(5 + sqrt(13))/2,  (5 - sqrt(13))/2", "(-5 + sqrt(13))/2,  (-5 - sqrt(13))/2", "(5 + sqrt(37))/2,  (5 - sqrt(37))/2", "(-5 + sqrt(37))/2,  (-5 - sqrt(37))/2"],
+      "choices": ["(5 + sqrt(13))/2,   (5 - sqrt(13))/2", "(-5 + sqrt(13))/2,   (-5 - sqrt(13))/2", "(5 + sqrt(37))/2,   (5 - sqrt(37))/2", "(-5 + sqrt(37))/2,   (-5 - sqrt(37))/2"],
       "answerIndex": 0
     },
     {
@@ -110,12 +118,13 @@
       "item": "formula",
       "setId": "1",
       "position": 4,
+      "tier": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
       "kind": "solve",
       "question": "x^2 - 6*x + 7 = 0",
       "given": null,
-      "choices": ["-3 + sqrt(2),  -3 - sqrt(2)", "3 + sqrt(2),  3 - sqrt(2)", "3 + 2*sqrt(2),  3 - 2*sqrt(2)", "6 + sqrt(2),  6 - sqrt(2)"],
+      "choices": ["-3 + sqrt(2),   -3 - sqrt(2)", "3 + sqrt(2),   3 - sqrt(2)", "3 + 2*sqrt(2),   3 - 2*sqrt(2)", "6 + sqrt(2),   6 - sqrt(2)"],
       "answerIndex": 1
     },
     {
@@ -123,12 +132,13 @@
       "item": "formula",
       "setId": "1",
       "position": 5,
+      "tier": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
       "kind": "solve",
       "question": "2*x^2 + 5*x + 1 = 0",
       "given": null,
-      "choices": ["(-5 + sqrt(17))/2,  (-5 - sqrt(17))/2", "(5 + sqrt(17))/4,  (5 - sqrt(17))/4", "(-5 + sqrt(17))/4,  (-5 - sqrt(17))/4", "(5 + sqrt(33))/4,  (5 - sqrt(33))/4"],
+      "choices": ["(-5 + sqrt(17))/2,   (-5 - sqrt(17))/2", "(5 + sqrt(17))/4,   (5 - sqrt(17))/4", "(-5 + sqrt(17))/4,   (-5 - sqrt(17))/4", "(5 + sqrt(33))/4,   (5 - sqrt(33))/4"],
       "answerIndex": 2
     }
   ]

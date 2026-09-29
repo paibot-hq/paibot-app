@@ -248,7 +248,7 @@ Codex には答えだけでなく、内部の式と解説も伏せ、**公開さ
 
 ## 9. 問題を追加する手順
 
-1. `npm run math:generate -- arith order-of-operations 1 --dry-run` で追加予定を確認する。単元は `arith`・`signed`・`factorization`・`pythagoras` と、式の単元(`src/lib/math-expression-units.ts`)・数式の単元(`src/lib/math-formula-units.ts`)。問題数は `--count N`（既定5）で指定できる。数式の単元の生成指示には `scripts/math-prompts/_formula.md`(数式の書き方)が自動で加わる。
+1. `npm run math:generate -- arith order-of-operations 1 --dry-run` で追加予定を確認する。単元は `arith`・`signed`・`factorization`・`pythagoras` と、式の単元(`src/lib/math-expression-units.ts`)・数式の単元(`src/lib/math-formula-units.ts`)。問題数は `--count N`（既定5）、ティア（1 基本・2 標準・3 発展、`scripts/math-prompts/_tiers.md`）は `--tier N`（既定2）で指定できる。学年は学習項目で決まる（`src/lib/math-curriculum-jp.ts`）。数式の単元の生成指示には `scripts/math-prompts/_formula.md`(数式の書き方)が自動で加わる。
 2. `npm run math:generate -- arith order-of-operations 1` で生成する。Antigravity CLI (`agy`) が一時ディレクトリで生成し、同じ単元の既存問題を渡して重複を避ける。ID とセット内 position は最大値の続き、`published: false`、`reviewedAt` は生成日で追加される。`reviewedAt` だけではレビュー済みを保証しない。
 3. 検算は生成コマンドが自動実行する。失敗時は原本を復元し、生成結果を `.math-work/` に残す。dry-run は一時ファイル上で原本と追加問題を合わせて検算する。手動では `node scripts/validate-math-arith.mjs`（signed も含む）、`validate-math-factorization.mjs`、`validate-math-pythagoras.mjs`（`npm test` でもまとめて実行）、`npm run test:sympy`(全単元の答えを SymPy で再計算)。
 4. `npm run math:review -- arith order-of-operations 1` で Codex CLI (`codex exec`) に盲検レビューを依頼する。学習項目とセットを省略すると単元の全問題が対象。文章題の内部式と正解情報は渡さない。一致/不一致・文章から立てた式・指摘事項を表で確認し、`.math-work/review-<unit>-<日時>.json` の記録を読む。不一致・指摘ありは終了コード1。修正後は検算とレビューを再実行する。

@@ -644,11 +644,17 @@
           "title": "小数",
           "summary": "练习小数的加减乘除。",
           "items": {
+            "add-sub-tenths": {
+              "title": "一位小数的加减法"
+            },
             "add-sub": {
-              "title": "小数加减法"
+              "title": "两位小数的加减法"
+            },
+            "mul-div-whole": {
+              "title": "小数乘除以整数"
             },
             "mul-div": {
-              "title": "小数乘除法"
+              "title": "小数乘除以小数"
             }
           }
         },
@@ -659,8 +665,11 @@
             "simplify": {
               "title": "约分与通分"
             },
+            "add-sub-like": {
+              "title": "同分母分数的加减法"
+            },
             "add-sub": {
-              "title": "分数加减法"
+              "title": "异分母分数的加减法"
             },
             "mul-div": {
               "title": "分数乘除法"
@@ -698,14 +707,29 @@
           "title": "测量",
           "summary": "练习单位换算以及面积和体积的计算。",
           "items": {
-            "units": {
-              "title": "单位换算"
+            "length-capacity": {
+              "title": "长度与容量"
             },
-            "area-volume": {
-              "title": "面积与体积"
+            "weight": {
+              "title": "重量"
             },
-            "circle": {
-              "title": "圆周长与圆面积"
+            "area-units": {
+              "title": "面积单位"
+            },
+            "rect-area": {
+              "title": "长方形与正方形的面积"
+            },
+            "area": {
+              "title": "三角形、平行四边形、梯形的面积"
+            },
+            "volume": {
+              "title": "长方体与正方体的体积"
+            },
+            "circumference": {
+              "title": "圆周长"
+            },
+            "circle-area": {
+              "title": "圆的面积"
             }
           }
         },
@@ -913,7 +937,7 @@
           "summary": "练习特殊角的三角函数值、弧度制和两角和公式。",
           "items": {
             "values": {
-              "title": "特殊角的三角函数值"
+              "title": "三角函数的值"
             },
             "radian": {
               "title": "弧度制"
@@ -1239,6 +1263,9 @@
           "title": "三角形的计量",
           "summary": "用正弦定理和余弦定理求三角形的边、角和面积。",
           "items": {
+            "ratios": {
+              "title": "三角比"
+            },
             "sine-law": {
               "title": "正弦定理"
             },
@@ -1455,8 +1482,14 @@
           "title": "大数与数位",
           "summary": "从数位开始，练习万、亿、兆等大数。",
           "items": {
-            "place-value": {
-              "title": "数位"
+            "to-100": {
+              "title": "100以内的数"
+            },
+            "to-10000": {
+              "title": "10000以内的数"
+            },
+            "ten-thousands": {
+              "title": "万位的数"
             },
             "large-numbers": {
               "title": "万、亿、兆"
@@ -1479,8 +1512,14 @@
           "title": "图形的基础",
           "summary": "学习三角形、四边形、圆的性质和角的大小。",
           "items": {
-            "triangles-quads": {
-              "title": "三角形与四边形"
+            "basic-shapes": {
+              "title": "长方形、正方形与直角三角形"
+            },
+            "triangles": {
+              "title": "等腰三角形与等边三角形"
+            },
+            "quadrilaterals": {
+              "title": "平行四边形、梯形与菱形"
             },
             "circles": {
               "title": "圆与球"
@@ -1507,7 +1546,10 @@
           "summary": "读取表格、条形图、折线图、扇形图和直方图。",
           "items": {
             "tables": {
-              "title": "表格与条形图"
+              "title": "表格与简单统计图"
+            },
+            "bar-graph": {
+              "title": "条形统计图"
             },
             "line-graph": {
               "title": "折线图"
@@ -1631,12 +1673,13 @@
               "title": "运算定律",
               "description": "运用结合律、分配律等进行简便计算。"
             },
+            "simple-word-problems": {
+              "title": "简单应用题",
+              "description": "一两步就能解答的简短应用题。"
+            },
             "word-problems": {
-              "title": "应用题",
-              "sets": {
-                "1": "简单应用题：一两步就能解答的简短应用题。",
-                "2": "多步应用题：需要两到三步计算的应用题。熟悉简单应用题后再来挑战。"
-              }
+              "title": "稍长的应用题",
+              "description": "需要两到三步计算的应用题。熟悉简单应用题后再来挑战。"
             }
           }
         },
@@ -1701,7 +1744,27 @@
         "solve": "解下列方程。",
         "given": "当 <given></given> 时，求下式的值。",
         "answer": "答案："
-      }
+      },
+      "grades": {
+        "e1": "小学1年级",
+        "e2": "小学2年级",
+        "e3": "小学3年级",
+        "e4": "小学4年级",
+        "e5": "小学5年级",
+        "e6": "小学6年级",
+        "m1": "初中1年级",
+        "m2": "初中2年级",
+        "m3": "初中3年级",
+        "h-i": "数学I",
+        "h-a": "数学A",
+        "h-ii": "数学II",
+        "h-b": "数学B",
+        "h-iii": "数学III",
+        "h-c": "数学C",
+        "u1": "大学1年级",
+        "u2": "大学2年级"
+      },
+      "gradeLabel": "日本学年参考：{grade}"
     },
     "about": {
       "eyebrow": "关于",

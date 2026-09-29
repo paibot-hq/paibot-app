@@ -6,6 +6,7 @@ import { Link } from '../i18n/navigation';
 import type { DynamicT } from '../lib/apps';
 import { getSetRecords } from '../lib/math-attempts.server';
 import { findUnit } from '../lib/math-catalog';
+import { jpGrade } from '../lib/math-curriculum-jp';
 import { getPlayableSets } from '../lib/math-problems.server';
 import { catalogEntry } from '../lib/math-routes.server';
 import styles from './math-item.module.css';
@@ -14,7 +15,7 @@ import type { Route } from './+types/math-item';
 // Set pages used to live at /math/<unit>/<set id>; the id was usually
 // "<item>-<letter>" (a, b, ... are now sets 1, 2, ...), except for these
 // published before items had their own names.
-const LEGACY_SETS: Record<string, string> = { 'arith/order-a': 'order-of-operations/1', 'arith/order-b': 'order-of-operations/2', 'arith/word-a': 'word-problems/1', 'arith/word-b': 'word-problems/2', 'factorization/squares-a': 'difference-of-squares/1', 'signed/four-ops-a': 'four-operations/1' };
+const LEGACY_SETS: Record<string, string> = { 'arith/order-a': 'order-of-operations/1', 'arith/order-b': 'order-of-operations/2', 'arith/word-a': 'simple-word-problems/1', 'arith/word-b': 'word-problems/1', 'factorization/squares-a': 'difference-of-squares/1', 'signed/four-ops-a': 'four-operations/1' };
 
 // A learning item: what it covers and its practice sets (1, 2, ...), with a
 // signed-in user's latest and best score on each.
@@ -30,12 +31,12 @@ export async function loader(args: Route.LoaderArgs) {
   const entry = catalogEntry(params);
   const [playable, records] = await Promise.all([getPlayableSets(), getSetRecords(args, entry.unit.id, entry.item.id)]);
   return {
-    unitId: entry.unit.id, itemId: entry.item.id, published: entry.unit.status === 'published',
+    unitId: entry.unit.id, itemId: entry.item.id, published: entry.unit.status === 'published', grade: jpGrade(entry.unit.id, entry.item.id),
     sets: entry.item.sets.map(set => ({ id: set.id, playable: playable.includes(`${entry.unit.id}/${entry.item.id}/${set.id}`), record: records[set.id] })),
   };
 }
 
-export default function MathItem({ loaderData: { unitId, itemId, published, sets } }: Route.ComponentProps) {
+export default function MathItem({ loaderData: { unitId, itemId, published, grade, sets } }: Route.ComponentProps) {
   const locale = useLocale();
   const t = useTranslations('App.math') as unknown as DynamicT;
   const tq = useTranslations('App.math.quiz');
@@ -49,6 +50,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, sets
     {published ? <PublicHead locale={locale} path={`/math/${unitId}/${itemId}`} title={head} description={description} /> : <title>{head}</title>}
     <ToolLayout title={title} centerTitle aboveTitle={<p className={styles.back}><Link href="/math">{`← ${tq('backToMath')}`}</Link></p>}>
       <p className={styles.unit}>{unitTitle}</p>
+      {grade && <p className={styles.grade}>{t('gradeLabel', { grade: t(`grades.${grade}`) })}</p>}
       <p className={styles.description}>{description}</p>
       <p className={styles.choose}>{tq('chooseSet')}</p>
       <ul className={styles.sets}>

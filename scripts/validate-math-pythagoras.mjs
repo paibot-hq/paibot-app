@@ -32,6 +32,7 @@ export function validateBank(bank, catalog = unitSets('pythagoras')) {
     assert.ok(positive(position), `${id}: position`);
     assert.ok(!positions.has(`${item}/${setId}:${position}`), `${id}: duplicate position`); positions.add(`${item}/${setId}:${position}`);
     assert.equal(typeof p.published, 'boolean');
+    assert.ok([1, 2, 3].includes(p.tier), `${id}: tier 1-3 (basic, standard, advanced)`);
     assert.match(p.reviewedAt, /^\d{4}-\d{2}-\d{2}$/);
     assert.equal(new Date(p.reviewedAt).toISOString().slice(0, 10), p.reviewedAt);
     assert.ok(f && f.points);

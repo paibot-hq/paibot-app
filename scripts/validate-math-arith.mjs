@@ -127,6 +127,7 @@ export function validateBank(bank, catalog = unitSets('arith')) {
     assert.ok(Number.isInteger(position) && position >= 1, `${id}: position`);
     assert.ok(!positions.has(`${item}/${setId}:${position}`), `${id}: duplicate position`); positions.add(`${item}/${setId}:${position}`);
     assert.equal(typeof problem.published, 'boolean');
+    assert.ok([1, 2, 3].includes(problem.tier), `${id}: tier 1-3 (basic, standard, advanced)`);
     assert.match(problem.reviewedAt, /^\d{4}-\d{2}-\d{2}$/);
     assert.equal(new Date(problem.reviewedAt).toISOString().slice(0, 10), problem.reviewedAt);
     assert.equal(typeof expression, 'string');

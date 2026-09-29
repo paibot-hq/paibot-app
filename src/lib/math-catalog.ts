@@ -44,10 +44,13 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'arith', domain: 'number', stage: 'elementary', status: 'published', kind: 'expression', items: [
     { id: 'order-of-operations', sets: [{ id: '1', rule: 'order-a' }, { id: '2', rule: 'order-a' }] },
     { id: 'rules', sets: [{ id: '1', rule: 'rules-a' }] },
-    { id: 'word-problems', sets: [{ id: '1', rule: 'word-a' }, { id: '2', rule: 'word-b' }] },
+    { id: 'simple-word-problems', sets: [{ id: '1', rule: 'word-a' }] },
+    { id: 'word-problems', sets: [{ id: '1', rule: 'word-b' }] },
   ] },
   { id: 'place-value', domain: 'number', stage: 'elementary', status: 'comingSoon', items: [
-    { id: 'place-value', sets: [{ id: '1' }] },
+    { id: 'to-100', sets: [{ id: '1' }] },
+    { id: 'to-10000', sets: [{ id: '1' }] },
+    { id: 'ten-thousands', sets: [{ id: '1' }] },
     { id: 'large-numbers', sets: [{ id: '1' }] },
   ] },
   { id: 'time', domain: 'geometry', stage: 'elementary', status: 'comingSoon', items: [
@@ -55,11 +58,14 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'elapsed', sets: [{ id: '1' }] },
   ] },
   { id: 'decimal', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'add-sub-tenths', sets: [{ id: '1' }] },
     { id: 'add-sub', sets: [{ id: '1', rule: 'decimal-add-sub-a' }] },
+    { id: 'mul-div-whole', sets: [{ id: '1' }] },
     { id: 'mul-div', sets: [{ id: '1', rule: 'decimal-mul-div-a' }] },
   ] },
   { id: 'fraction', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
     { id: 'simplify', sets: [{ id: '1', rule: 'fraction-simplify-a' }] },
+    { id: 'add-sub-like', sets: [{ id: '1' }] },
     { id: 'add-sub', sets: [{ id: '1', rule: 'fraction-add-sub-a' }] },
     { id: 'mul-div', sets: [{ id: '1', rule: 'fraction-mul-div-a' }] },
   ] },
@@ -77,12 +83,19 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'word-problems', sets: [{ id: '1' }] },
   ] },
   { id: 'measurement', domain: 'geometry', stage: 'elementary', status: 'comingSoon', items: [
-    { id: 'units', sets: [{ id: '1' }] },
-    { id: 'area-volume', sets: [{ id: '1' }] },
-    { id: 'circle', sets: [{ id: '1' }] },
+    { id: 'length-capacity', sets: [{ id: '1' }] },
+    { id: 'weight', sets: [{ id: '1' }] },
+    { id: 'area-units', sets: [{ id: '1' }] },
+    { id: 'rect-area', sets: [{ id: '1' }] },
+    { id: 'area', sets: [{ id: '1' }] },
+    { id: 'volume', sets: [{ id: '1' }] },
+    { id: 'circumference', sets: [{ id: '1' }] },
+    { id: 'circle-area', sets: [{ id: '1' }] },
   ] },
   { id: 'shapes', domain: 'geometry', stage: 'elementary', status: 'comingSoon', items: [
-    { id: 'triangles-quads', sets: [{ id: '1' }] },
+    { id: 'basic-shapes', sets: [{ id: '1' }] },
+    { id: 'triangles', sets: [{ id: '1' }] },
+    { id: 'quadrilaterals', sets: [{ id: '1' }] },
     { id: 'circles', sets: [{ id: '1' }] },
     { id: 'angles', sets: [{ id: '1' }] },
   ] },
@@ -96,6 +109,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   ] },
   { id: 'graphs', domain: 'data', stage: 'elementary', status: 'comingSoon', items: [
     { id: 'tables', sets: [{ id: '1' }] },
+    { id: 'bar-graph', sets: [{ id: '1' }] },
     { id: 'line-graph', sets: [{ id: '1' }] },
     { id: 'pie-band', sets: [{ id: '1' }] },
     { id: 'histogram', sets: [{ id: '1' }] },
@@ -312,6 +326,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'moves', sets: [{ id: '1' }] },
   ] },
   { id: 'triangle-trig', domain: 'geometry', stage: 'high', status: 'comingSoon', items: [
+    { id: 'ratios', sets: [{ id: '1' }] },
     { id: 'sine-law', sets: [{ id: '1' }] },
     { id: 'cosine-law', sets: [{ id: '1' }] },
     { id: 'area', sets: [{ id: '1' }] },

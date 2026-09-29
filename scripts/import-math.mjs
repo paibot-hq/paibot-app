@@ -4,8 +4,7 @@ import { expressionBanks } from './validate-math-arith.mjs';
 import { bank as factorizationBank } from './validate-math-factorization.mjs';
 import { formulaBanks } from './validate-math-formula.mjs';
 import { bank as pythagorasBank } from './validate-math-pythagoras.mjs';
-import { estimateDifficulty } from './lib/math-difficulty.mjs';
-import { findUnit } from '../src/lib/math-catalog.ts';
+import { jpGrade } from '../src/lib/math-curriculum-jp.ts';
 
 // Explicit target only; importing never creates or resets any tables.
 const targets = { local: ['--local'], dev: ['--remote'], prod: ['--remote', '--env', 'production'] };
@@ -20,9 +19,10 @@ const units = [
   { unit: 'pythagoras', bank: pythagorasBank, payload: ({ figure, choices }) => ({ figure, choices }) },
 ];
 const statements = units.flatMap(({ unit, bank, payload }) => bank.problems.map(problem => {
-  const difficulty = estimateDifficulty(findUnit(unit), problem);
-  const values = [problem.id, unit, problem.item, problem.setId, problem.position, Number(problem.published), problem.answerIndex, JSON.stringify(payload(problem)), difficulty, problem.reviewedAt].map(quote).join(',');
-  return `INSERT INTO math_problems (id, unit, item, set_id, position, published, answer_index, payload, difficulty, reviewed_at) VALUES (${values}) ON CONFLICT(id) DO UPDATE SET unit=excluded.unit, item=excluded.item, set_id=excluded.set_id, position=excluded.position, published=excluded.published, answer_index=excluded.answer_index, payload=excluded.payload, difficulty=excluded.difficulty, reviewed_at=excluded.reviewed_at;`;
+  const grade = jpGrade(unit, problem.item);
+  if (!grade) throw new Error(`${problem.id}: no grade for ${unit}/${problem.item} in src/lib/math-curriculum-jp.ts`);
+  const values = [problem.id, unit, problem.item, problem.setId, problem.position, Number(problem.published), problem.answerIndex, JSON.stringify(payload(problem)), grade, problem.tier, problem.reviewedAt].map(quote).join(',');
+  return `INSERT INTO math_problems (id, unit, item, set_id, position, published, answer_index, payload, grade, tier, reviewed_at) VALUES (${values}) ON CONFLICT(id) DO UPDATE SET unit=excluded.unit, item=excluded.item, set_id=excluded.set_id, position=excluded.position, published=excluded.published, answer_index=excluded.answer_index, payload=excluded.payload, grade=excluded.grade, tier=excluded.tier, reviewed_at=excluded.reviewed_at;`;
 }));
 mkdirSync('.wrangler', { recursive: true });
 const file = '.wrangler/math-import.sql';

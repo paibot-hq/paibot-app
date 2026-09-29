@@ -7,10 +7,11 @@ import { context, root, promptFile, extractJSON, additions, formatBank, saveWork
 let temp;
 try {
   const [unit, item, setId, ...options] = process.argv.slice(2);
-  assert.ok(unit && item && setId, 'Usage: math:generate -- <unit> <item> <set> [--count N] [--dry-run]');
-  let count = 5, dryRun = false;
+  assert.ok(unit && item && setId, 'Usage: math:generate -- <unit> <item> <set> [--tier 1|2|3] [--count N] [--dry-run]');
+  let count = 5, dryRun = false, tier = 2;
   for (let i = 0; i < options.length; i++) {
     if (options[i] === '--dry-run') dryRun = true;
+    else if (options[i] === '--tier') { tier = Number(options[++i]); assert.ok([1, 2, 3].includes(tier), 'Tier is 1 (basic), 2 (standard) or 3 (advanced)'); }
     else if (options[i] === '--count') { count = Number(options[++i]); assert.ok(Number.isSafeInteger(count) && count > 0, 'Invalid count'); }
     else throw new Error(`Unknown option: ${options[i]}`);
   }
@@ -20,6 +21,7 @@ try {
     : isFormulaUnit(unit) ? `${p.question}${p.given ? ` | ${p.given}` : ''}` : `${p.expression}${p.word ? ` | ${p.word.ja.prompt}` : ''}`);
   const position = Math.max(0, ...bank.problems.filter(p => p.item === item && p.setId === setId).map(p => p.position)) + 1;
   const prompt = [promptFile('_rules'), ...(isFormulaUnit(unit) ? [promptFile('_formula')] : []), promptFile(unit), promptFile(set.rule),
+    `${promptFile('_tiers')}\nこのセットの問題はすべてティア ${tier} にすること。`,
     `このセットの既存の問題（重複を避けること）。同じ単元の全問題:\n${existing.join('\n')}`,
     `${count}問作ること。追加先の position は ${position} から。問題順の条件は追加先の position に合わせること。id・setId・position・published・reviewedAt は出力しない。`].join('\n\n');
   temp = mkdtempSync(join(tmpdir(), 'math-generate-'));
@@ -27,7 +29,7 @@ try {
   try { raw = run('agy', ['--sandbox', '--print-timeout', '10m', '-p', prompt], temp); }
   catch (error) { const saved = saveWork(`generate-${unit}-error`, error.message, 'txt'); throw new Error(`${error.message}\nSaved: ${saved}`); }
   let newProblems;
-  try { newProblems = additions(unit, item, setId, bank, extractJSON(raw, 'problems'), count); }
+  try { newProblems = additions(unit, item, setId, bank, extractJSON(raw, 'problems'), count, undefined, tier); }
   catch (error) { throw new Error(`${error.message}\nRaw output: ${saveWork(`generate-${unit}-raw`, raw, 'txt')}`); }
   const combined = formatBank({ ...bank, problems: [...bank.problems, ...newProblems] });
   const candidate = join(temp, 'bank.json');
