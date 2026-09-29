@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useLocale, useTranslations } from 'use-intl';
 import { expressionQuestions } from './math-expression-questions';
 import MathFigure from './math-figure';
+import MathGraph from './math-graph';
 import type { MathSetQuestion } from './math-set-quiz';
 import { MathTex } from './math-tex';
 import styles from './math-questions.module.css';
@@ -56,7 +57,7 @@ export function useMathQuestions(kind: MathKind | undefined, problems: readonly 
           id, answerIndex,
           prompt: <>
             <p>{formulaInstructionLine(payload, tq)}</p>
-            <MathTex tex={formulaQuestionTex(payload)} block />
+            {payload.kind === 'graph' ? <MathGraph which={payload.which!} question={payload.question} /> : <MathTex tex={formulaQuestionTex(payload)} block />}
           </>,
           choices: payload.choices.map(choice => <MathTex tex={formulaChoiceTex(payload, choice)} />),
           explanation: <>

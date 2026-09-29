@@ -57,8 +57,13 @@
 //              ("phat, n", given z), test-z ("xbar, mu0, sigma, n"); intervals answer "lo, hi"
 //   region     "lhs; rhs; op" (op is <, >, <= or >=): the point ("x, y") in it (`which` in) or not in it (out)
 //   geometry also has locus-equidistant ("x1, y1; x2, y2") and locus-ratio (".; .; m, n": PA : PB = m : n)
+//   graph      a figure drawn from the hidden `question` (the learner reads the graph), by `which`:
+//              line, parabola, trig (question f(x): choices "y = ..."), vertex (question f(x):
+//              choices the point "h, k"), circle (question "cx, cy; r": choices equations),
+//              region (question "lhs; rhs; op" in the region form of `region`, shaded: choices
+//              inequalities "lhs; rhs; op")
 //   identity   an equation in x with unknown constants; choices "a = 1, b = 2" make it an identity in x
-export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity' | 'inequality' | 'induction' | 'inference' | 'region';
+export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity' | 'inequality' | 'induction' | 'inference' | 'region' | 'graph';
 
 export interface FormulaPayload {
   kind: FormulaKind;
@@ -332,10 +337,8 @@ export function formulaQuestionTex(p: Pick<FormulaPayload, 'kind' | 'question' |
       const body = term.type === 'bin' && (term.op === '+' || term.op === '-') ? `\\left(${toTex(term)}\\right)` : toTex(term);
       return `\\sum_{k=1}^{n} ${body} = ${expressionTex(f)}`;
     }
-    case 'region': {
-      const [lhs, rhs, op] = splitTop(p.question, ';');
-      return `${expressionTex(lhs)} ${({ '<': '<', '>': '>', '<=': '\\le', '>=': '\\ge' } as Record<string, string>)[op.trim()]} ${expressionTex(rhs)}`;
-    }
+    case 'region': return inequalityTex(p.question);
+    case 'graph': return '';
     case 'inference': {
       const v = list(splitTop(p.question, ';')[0]);
       if (p.which === 'mean-interval') return `\\bar{x} = ${v[0]},\\ \\sigma = ${v[1]},\\ n = ${v[2]}`;
@@ -369,6 +372,7 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
     case 'induction': return { key: `induction${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
     case 'inference': return { key: p.which!.replace(/-(\w)/g, (_, c: string) => c.toUpperCase()), tex: p.given ? { z: expressionTex(p.given.split('=')[1]) } : {} };
     case 'region': return { key: p.which === 'in' ? 'regionIn' : 'regionOut', tex: {} };
+    case 'graph': return { key: `graph${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
     case 'geometry': return { key: p.which!.replace(/-(\w)/g, (_, c: string) => c.toUpperCase()), tex: {} };
     case 'term': case 'series': {
       const kind = p.kind === 'term' ? 'Term' : 'Sum';
@@ -387,6 +391,12 @@ export function formulaChoiceTex(p: Pick<FormulaPayload, 'kind' | 'question'> & 
   if (p.kind === 'degree') return `${expressionTex(choice)}^{\\circ}`;
   if (p.kind === 'geometry') return p.which?.startsWith('line-') ? solutionTex(choice, 'y') : /^(circle|locus)-/.test(p.which ?? '') ? statementTex(choice) : expressionTex(choice);
   if (p.kind === 'region') return `\\left(${list(choice).join(', ')}\\right)`;
+  if (p.kind === 'graph') {
+    if (p.which === 'vertex') return `\\left(${list(choice).join(', ')}\\right)`;
+    if (p.which === 'circle') return statementTex(choice);
+    if (p.which === 'region') return inequalityTex(choice);
+    return solutionTex(choice, 'y');
+  }
   if (p.kind === 'inference' && p.which?.endsWith('interval')) return `\\left[${list(choice).join(',\\ ')}\\right]`;
   return expressionTex(choice);
 }
@@ -412,4 +422,42 @@ export function stepRows(line: string): string[][] {
     const prefixed = (terms: string[]) => [`= ${terms[0]}`, ...terms.slice(1)];
     return parts.length === 1 ? [parts[0]] : [[...parts[0], ...prefixed(parts[1])], ...parts.slice(2).map(prefixed)];
   });
+}
+
+// A formula's value at the given letters (the graph component draws with this).
+// Unknown letters and undefined operations give NaN.
+export function evalExpression(text: string, vars: Record<string, number> = {}): number {
+  const run = (node: Node): number => {
+    switch (node.type) {
+      case 'num': return Number(node.value);
+      case 'var': return vars[node.name] ?? NaN;
+      case 'const': return node.name === 'pi' ? Math.PI : NaN;
+      case 'neg': return -run(node.arg);
+      case 'group': return run(node.arg);
+      case 'pow': return Math.pow(run(node.base), run(node.exp));
+      case 'call': {
+        const [a, b] = node.args.map(run);
+        switch (node.name) {
+          case 'sqrt': return Math.sqrt(a);
+          case 'sin': return Math.sin(a);
+          case 'cos': return Math.cos(a);
+          case 'tan': return Math.tan(a);
+          case 'abs': return Math.abs(a);
+          case 'log': return Math.log(a) / Math.log(b);
+          default: return NaN;
+        }
+      }
+      case 'bin': {
+        const l = run(node.left), r = run(node.right);
+        return node.op === '+' ? l + r : node.op === '-' ? l - r : node.op === '*' ? l * r : l / r;
+      }
+    }
+  };
+  return run(parseExpression(text));
+}
+
+// "lhs; rhs; op" (op is <, >, <= or >=) as TeX.
+export function inequalityTex(text: string): string {
+  const [lhs, rhs, op] = splitTop(text, ';');
+  return `${expressionTex(lhs)} ${({ '<': '<', '>': '>', '<=': '\\le', '>=': '\\ge' } as Record<string, string>)[op.trim()]} ${expressionTex(rhs)}`;
 }

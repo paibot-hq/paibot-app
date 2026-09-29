@@ -27,6 +27,7 @@
 - "induction": 数学的帰納法で "g(1) + ... + g(n) = f(n)" を示す場面。question は "g; f"（g は k の式、f は n の式。例 "k*(k + 1); n*(n + 1)*(n + 2)/3"）。等式は実際に成り立つものにする（f(1) = g(1) かつ f(k) + g(k + 1) = f(k + 1)）。which: "base" は n = 1 の左辺の値、"add" は n = k のとき n = k + 1 で左辺に加わる項 g(k + 1)（k の式）、"target" は n = k + 1 のときの右辺 f(k + 1)（k の式）、"combine" は仮定を使って左辺を計算した結果（f(k + 1) を因数分解などで整理した形、k の式）。
 - "inference": which で種類を決める。"mean-interval": question は "標本平均, 母標準偏差, n"（"50, 10, 100"）、given は "z = 1.96"（95%）などで、母平均の信頼区間 [x - z*s/sqrt(n), x + z*s/sqrt(n)]。choices は "48.04, 51.96" の形（小さい方, 大きい方）。"ratio-interval": question は "標本比率, n"（"0.4, 600"）、given は "z = 1.96"、母比率の信頼区間 p ± z*sqrt(p*(1 - p)/n)。"test-z": question は "標本平均, 帰無仮説の母平均, 母標準偏差, n"（"52, 50, 10, 100"）、検定統計量 Z = (x - m)/(s/sqrt(n))（given は null）。答えは有限小数か分数で表せる値になる数を選ぶ。
 - "region": question は "左辺; 右辺; 不等号"（"x + 2*y; 4; >="、不等号は < > <= >=）。which "in" は領域に含まれる点、"out" は含まれない点を選ぶ。choices は点 "x, y"（"1, 2"）。"in" は4点のうちちょうど1つだけ領域に含まれ、"out" はちょうど1つだけ含まれない。境界線上の点は不等号が < か > のときは含まれない。
+- "graph": 学習者がグラフを見て答える問題。question は描かれるグラフの元の式（学習者には表示されない）。which: "line"（question は一次式 "2*x - 1"、choices は "y = 2*x - 1" の形）、"parabola"（二次式、choices は "y = ..."、頂点と少なくとも3つの格子点が -6〜6 の範囲に入る）、"vertex"（二次式、choices は頂点 "1, -4"）、"circle"（question は "cx, cy; r"（整数の中心と半径）、choices は "(x - 1)^2 + (y + 2)^2 = 9" の形）、"region"（question は "y; g(x); 不等号" か "x^2 + y^2; r2; 不等号"、choices は同じ形の不等式 "y; x^2 - 1; >"、4つは互いに異なる領域）、"trig"（question は sin か cos を使った式 "2*sin(x)"、"cos(2*x)"、"sin(x) + 1"、choices は "y = ..."）。座標の範囲は x, y とも -6〜6（trig は x が -2π〜2π、y が -3〜3）に収まるようにし、傾き・頂点などが格子点にのる整数にする。誤答は符号、係数、平行移動の取り違えから作る。
 choices は数学的に互いに異なる4つで、正解は1つだけ。分数は約分した形で書く。正解だけ書式が異なるなどの手がかりを作らない。answerIndex（0始まり）は0〜3をばらけさせる。
 出力形式: {"problems":[{"kind":"calc","question":"2/3 + 1/4","given":null,"choices":["11/12","3/7","3/12","5/6"],"answerIndex":0}]}
 term の例: {"kind":"term","progression":"arithmetic","question":"3, 7, 11, 15","given":"n = 10","choices":["39","43","40","35"],"answerIndex":0}
@@ -38,5 +39,6 @@ remainder の例: {"kind":"remainder","question":"x^3 - 2*x + 1","divisor":"x - 
 - extremum: 各行はどれかの極値の点で成り立つ式（"3*x^2 - 3 = 0"、"x = 1"、"1^3 - 3*1 = -2"）。
 - recurrence: 各行の式は数列の項の値（"3*2 - 1 = 5"）か、一般項に等しい式。distribution・radian・degree・geometry の distance: 各行の式はすべて答えと等しい値。geometry の直線・円: 各行は直線・円上で成り立つ式（"y - 2 = 3*(x - 1)"、"(x - 2)^2 + (y + 3)^2 = 5^2 = 25"）。identity: 各行は解の定数を代入すると成り立つ式（"a + b = 3" など）。
 - region・inference: 各行は数だけの計算（"1 + 2*2 = 5"、"10/sqrt(100) = 1"）。inequality の amgm-equal: 各行は最小になる x で成り立つ式（"x = 4/x"、"x^2 = 4"、"x = 2"）。それ以外の inequality・induction: 各行の式はすべて答えと等しい式。geometry の locus: 各行は軌跡上で成り立つ式（"(x - 1)^2 + y^2 = 4"など）。
+- graph の line・parabola・trig: 各行は曲線上で成り立つ式（"y = (x - 1)^2 - 4"、"-3 = 0^2 - 2*0 - 3"）。vertex・region: 各行は数だけの計算。circle: 各行は円上で成り立つ式。
 - 最後の行は答えで終える。途中で近似や省略をしない。
 出力に steps を含める: {"kind":"calc","question":"2/3 + 1/4","given":null,"steps":["2/3 + 1/4 = 8/12 + 3/12 = 11/12"],"choices":["11/12","3/7","3/12","5/6"],"answerIndex":0}

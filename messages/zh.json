@@ -1297,10 +1297,16 @@
           "summary": "求抛物线的顶点以及二次函数的最大值和最小值。",
           "items": {
             "vertex": {
-              "title": "顶点"
+              "title": "顶点",
+              "sets": {
+                "1": "从图像读出顶点"
+              }
             },
             "max-min": {
               "title": "最大值与最小值"
+            },
+            "graph": {
+              "title": "图像与方程"
             }
           }
         },
@@ -1343,6 +1349,9 @@
             },
             "synthesis": {
               "title": "三角函数的合成"
+            },
+            "graph": {
+              "title": "三角函数的图像"
             }
           }
         },
@@ -1507,16 +1516,25 @@
           "summary": "练习直线方程、圆的方程和轨迹。",
           "items": {
             "line": {
-              "title": "直线方程"
+              "title": "直线方程",
+              "sets": {
+                "2": "看图选择"
+              }
             },
             "circle": {
-              "title": "圆的方程"
+              "title": "圆的方程",
+              "sets": {
+                "2": "看图选择"
+              }
             },
             "locus": {
               "title": "轨迹"
             },
             "region": {
-              "title": "不等式表示的区域"
+              "title": "不等式表示的区域",
+              "sets": {
+                "2": "看图选择"
+              }
             }
           }
         },
@@ -2004,7 +2022,14 @@
         "regionIn": "选出属于下列不等式所表示区域的点。",
         "regionOut": "选出不属于下列不等式所表示区域的点。",
         "locusEquidistant": "求到两点 A、B 距离相等的点 P 的轨迹方程。",
-        "locusRatio": "求使 PA : PB 等于下列比值的点 P 的轨迹方程。"
+        "locusRatio": "求使 PA : PB 等于下列比值的点 P 的轨迹方程。",
+        "graphDescription": "坐标平面上的图像",
+        "graphLine": "选出图中直线的方程。",
+        "graphParabola": "选出图中抛物线的方程。",
+        "graphTrig": "选出图中曲线的方程。",
+        "graphVertex": "选出图中抛物线顶点的坐标。",
+        "graphCircle": "选出图中圆的方程。",
+        "graphRegion": "选出图中着色部分所表示的不等式（实线边界包含在内，虚线边界不含）。"
       },
       "grades": {
         "e1": "小学1年级",

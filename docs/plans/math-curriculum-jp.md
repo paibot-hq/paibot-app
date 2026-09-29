@@ -228,7 +228,8 @@
 | 式と方程式 | 因数分解（高校） / 2つの文字を含む式の因数分解 | A | `factoring/two-variables` |
 | 式と方程式 | 因数分解（高校） / おきかえ・複二次式 | A | `factoring/substitution` |
 | 式と方程式 | 二次方程式 / 判別式 | B | `quadratic/discriminant` |
-| 関数・変化と関係 | 二次関数 / 頂点 | B | `quadratic-function/vertex` |
+| 関数・変化と関係 | 二次関数 / 頂点 | ✅ | `quadratic-function/vertex` |
+| 関数・変化と関係 | 二次関数 / グラフと式 | ✅ | `quadratic-function/graph` |
 | 関数・変化と関係 | 二次関数 / 最大・最小 | B | `quadratic-function/max-min` |
 | 図形と測定 | 三角形の計量 / 三角比 | B | `triangle-trig/ratios` |
 | 図形と測定 | 三角形の計量 / 正弦定理 | B | `triangle-trig/sine-law` |
@@ -280,6 +281,7 @@
 | 関数・変化と関係 | 三角比・三角関数 / 加法定理 | ✅ | `trig/addition` |
 | 関数・変化と関係 | 三角比・三角関数 / 倍角・半角の公式 | ✅ | `trig/double-angle` |
 | 関数・変化と関係 | 三角比・三角関数 / 三角関数の合成 | ✅ | `trig/synthesis` |
+| 関数・変化と関係 | 三角比・三角関数 / 三角関数のグラフ | ✅ | `trig/graph` |
 | 関数・変化と関係 | 指数・対数 / 指数法則 | ✅ | `exp-log/exponent` |
 | 関数・変化と関係 | 指数・対数 / 対数の計算 | ✅ | `exp-log/log` |
 | 関数・変化と関係 | 指数・対数 / 常用対数 | ✅ | `exp-log/common-log` |

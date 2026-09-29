@@ -1297,10 +1297,16 @@
           "summary": "Find the vertex of a parabola and the maximum or minimum of a quadratic function.",
           "items": {
             "vertex": {
-              "title": "Vertex"
+              "title": "Vertex",
+              "sets": {
+                "1": "Reading the vertex from a graph"
+              }
             },
             "max-min": {
               "title": "Maximum & minimum"
+            },
+            "graph": {
+              "title": "Graphs and equations"
             }
           }
         },
@@ -1343,6 +1349,9 @@
             },
             "synthesis": {
               "title": "Combining sine & cosine"
+            },
+            "graph": {
+              "title": "Graphs of trigonometric functions"
             }
           }
         },
@@ -1507,16 +1516,25 @@
           "summary": "Practice equations of lines and circles, and loci.",
           "items": {
             "line": {
-              "title": "Equations of lines"
+              "title": "Equations of lines",
+              "sets": {
+                "2": "Reading a graph"
+              }
             },
             "circle": {
-              "title": "Equations of circles"
+              "title": "Equations of circles",
+              "sets": {
+                "2": "Reading a graph"
+              }
             },
             "locus": {
               "title": "Loci"
             },
             "region": {
-              "title": "Regions defined by inequalities"
+              "title": "Regions defined by inequalities",
+              "sets": {
+                "2": "Reading a graph"
+              }
             }
           }
         },
@@ -2004,7 +2022,14 @@
         "regionIn": "Choose the point that lies in the region given by the inequality.",
         "regionOut": "Choose the point that does not lie in the region given by the inequality.",
         "locusEquidistant": "Find the equation of the locus of points P equidistant from A and B.",
-        "locusRatio": "Find the equation of the locus of points P for which PA : PB has the given ratio."
+        "locusRatio": "Find the equation of the locus of points P for which PA : PB has the given ratio.",
+        "graphDescription": "A graph on a coordinate plane",
+        "graphLine": "Choose the equation of the line in the graph.",
+        "graphParabola": "Choose the equation of the parabola in the graph.",
+        "graphTrig": "Choose the equation of the curve in the graph.",
+        "graphVertex": "Choose the vertex of the parabola in the graph.",
+        "graphCircle": "Choose the equation of the circle in the graph.",
+        "graphRegion": "Choose the inequality for the shaded region (a solid boundary is included, a dashed one is not)."
       },
       "grades": {
         "e1": "Elementary 1",

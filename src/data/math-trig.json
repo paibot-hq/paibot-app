@@ -433,6 +433,106 @@
       ],
       "choices": ["(2 + sqrt(2))/4", "(2 - sqrt(2))/4", "(1 + sqrt(2))/2", "(2 + sqrt(3))/4"],
       "answerIndex": 0
+    },
+    {
+      "id": "trig-026",
+      "item": "graph",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "graph",
+      "question": "2*sin(x)",
+      "given": null,
+      "which": "trig",
+      "steps": [
+        "2*sin(0) = 0",
+        "2*sin(pi/2) = 2*1 = 2",
+        "y = 2*sin(x)"
+      ],
+      "choices": ["y = 2*sin(x)", "y = sin(2*x)", "y = -2*sin(x)", "y = (1/2)*sin(x)"],
+      "answerIndex": 0
+    },
+    {
+      "id": "trig-027",
+      "item": "graph",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "graph",
+      "question": "cos(2*x)",
+      "given": null,
+      "which": "trig",
+      "steps": [
+        "cos(2*0) = cos(0) = 1",
+        "cos(2*(pi/2)) = cos(pi) = -1",
+        "y = cos(2*x)"
+      ],
+      "choices": ["y = 2*cos(x)", "y = cos(2*x)", "y = cos(x/2)", "y = -cos(2*x)"],
+      "answerIndex": 1
+    },
+    {
+      "id": "trig-028",
+      "item": "graph",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "graph",
+      "question": "sin(x) + 1",
+      "given": null,
+      "which": "trig",
+      "steps": [
+        "sin(0) + 1 = 0 + 1 = 1",
+        "sin(pi/2) + 1 = 1 + 1 = 2",
+        "y = sin(x) + 1"
+      ],
+      "choices": ["y = sin(x) - 1", "y = 2*sin(x)", "y = sin(x) + 1", "y = -sin(x) + 1"],
+      "answerIndex": 2
+    },
+    {
+      "id": "trig-029",
+      "item": "graph",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "graph",
+      "question": "-cos(x)",
+      "given": null,
+      "which": "trig",
+      "steps": [
+        "-cos(0) = -1",
+        "-cos(pi) = -(-1) = 1",
+        "y = -cos(x)"
+      ],
+      "choices": ["y = cos(x)", "y = -sin(x)", "y = cos(x) - 1", "y = -cos(x)"],
+      "answerIndex": 3
+    },
+    {
+      "id": "trig-030",
+      "item": "graph",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "graph",
+      "question": "sin(x/2)",
+      "given": null,
+      "which": "trig",
+      "steps": [
+        "sin(0/2) = sin(0) = 0",
+        "sin(pi/2) = 1",
+        "y = sin(x/2)"
+      ],
+      "choices": ["y = sin(x/2)", "y = (1/2)*sin(x)", "y = sin(2*x)", "y = cos(x/2)"],
+      "answerIndex": 0
     }
   ]
 }

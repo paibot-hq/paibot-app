@@ -3,7 +3,31 @@ import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { findUnit, unitSets } from '../src/lib/math-catalog.ts';
-import { formulaChoiceTex, formulaInstruction, formulaQuestionTex, solutionTex } from '../src/lib/math-formula.ts';
+import { evalExpression, formulaChoiceTex, formulaInstruction, formulaQuestionTex, solutionTex, splitTop } from '../src/lib/math-formula.ts';
+
+// What a learner can read off a drawn graph (kind "graph"): the reviewer gets this
+// instead of the formula, so it checks the answer from the picture alone.
+export function graphReading(p) {
+  const round = v => Math.round(v * 100) / 100;
+  const inWindow = (x, y) => Number.isFinite(y) && Math.abs(y) <= 6.5;
+  if (p.which === 'region') {
+    const [lhs, rhs, op] = splitTop(p.question, ';').map(part => part.trim());
+    const test = { '<': v => v < 0, '>': v => v > 0, '<=': v => v <= 0, '>=': v => v >= 0 }[op];
+    const rows = [];
+    for (let j = 12; j >= -12; j--) rows.push(`${String(j / 2).padStart(4)} ${Array.from({ length: 25 }, (_, i) => test(evalExpression(lhs, { x: (i - 12) / 2, y: j / 2 }) - evalExpression(rhs, { x: (i - 12) / 2, y: j / 2 })) ? '#' : '.').join('')}`);
+    return `x=-6..6（0.5刻み）、y=6..-6（0.5刻み）の各点が色つきの領域内なら # 。境界は${op.includes('=') ? '実線（領域に含む）' : '破線（領域に含まない）'}。\n${rows.join('\n')}`;
+  }
+  if (p.which === 'circle') {
+    const [center, radius] = splitTop(p.question, ';');
+    const [cx, cy] = splitTop(center, ',').map(part => evalExpression(part)), r = evalExpression(radius);
+    const points = [];
+    for (let i = -12; i <= 12; i++) { const x = i / 2, d = r * r - (x - cx) ** 2; if (d >= 0) points.push(`(${x}, ${round(cy + Math.sqrt(d))})${d > 0 ? `(${x}, ${round(cy - Math.sqrt(d))})` : ''}`); }
+    return `円周上の点（x を0.5刻み、y は小数第2位までの近似値）: ${points.join(' ')}`;
+  }
+  const xs = p.which === 'trig' ? Array.from({ length: 17 }, (_, i) => ((i - 8) * Math.PI) / 4) : Array.from({ length: 25 }, (_, i) => (i - 12) / 2);
+  const points = xs.map(x => [x, evalExpression(p.question, { x })]).filter(([x, y]) => inWindow(x, y));
+  return `曲線上の点（${p.which === 'trig' ? 'x = kπ/4' : 'x を0.5刻み'}、y は小数第2位までの近似値）: ${points.map(([x, y]) => `(${p.which === 'trig' ? `${round(x / Math.PI)}π` : x}, ${round(y)})`).join(' ')}`;
+}
 
 const FORMULA_JA = JSON.parse(readFileSync(new URL('../messages/ja.json', import.meta.url), 'utf8')).App.math.formulaQuiz;
 // The Japanese instruction line as learners read it, with its formulas as TeX.
@@ -99,6 +123,10 @@ export function blindProblem(unit, p) {
     return { id: p.id, type: 'factorization', trinomial: `x^2${a ? ` ${signedTerm(a).replace(/ 1$/, ' ')}x` : ''}${b ? ` ${signedTerm(b)}` : ''}`, choices: p.choices.map(factorChoice) };
   }
   // The reviewer sees the formulas as learners do, rendered (÷ and fraction bars, not ':' and '/').
+  if (isFormulaUnit(unit) && p.kind === 'graph') return {
+    id: p.id, type: 'formula', kind: 'graph', instruction: instructionJa(p), figure: graphReading(p),
+    choices: p.choices.map(choice => formulaChoiceTex(p, choice)),
+  };
   if (isFormulaUnit(unit)) return {
     id: p.id, type: 'formula', kind: p.kind, instruction: instructionJa(p),
     question: formulaQuestionTex(p), given: p.given && solutionTex(p.given, 'x'),

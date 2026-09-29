@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import katex from 'katex';
-import { expressionTex, formulaChoiceTex, formulaInstruction, formulaQuestionTex, parseExpression, stepRows, solutionTex, statementTex, unknownOf } from '../../src/lib/math-formula.ts';
+import { evalExpression, expressionTex, inequalityTex, formulaChoiceTex, formulaInstruction, formulaQuestionTex, parseExpression, stepRows, solutionTex, statementTex, unknownOf } from '../../src/lib/math-formula.ts';
 
 // Formulas render the way school math writes them, and every rendering is valid TeX.
 const cases = {
@@ -98,6 +98,17 @@ assert.equal(formulaQuestionTex({ kind: 'geometry', which: 'locus-ratio', questi
 has({ kind: 'geometry', which: 'locus-equidistant', question: '' }, 'locusEquidistant');
 has({ kind: 'inequality', which: 'amgm-min', question: 'x + 4/x' }, 'amgmMin');
 assert.equal(formulaQuestionTex({ kind: 'inequality', which: 'product-sum', question: '16', given: null }), 'a b = 16');
+
+// Graph problems: the question is the hidden drawing, the choices are what is shown.
+assert.equal(formulaQuestionTex({ kind: 'graph', which: 'parabola', question: 'x^2 - 2*x - 3' }), '');
+has({ kind: 'graph', which: 'parabola', question: '' }, 'graphParabola');
+assert.equal(formulaChoiceTex({ kind: 'graph', which: 'line', question: '' }, 'y = 2*x - 1'), 'y = 2x - 1');
+assert.equal(formulaChoiceTex({ kind: 'graph', which: 'vertex', question: '' }, '1, -4'), '\\left(1, -4\\right)');
+assert.equal(formulaChoiceTex({ kind: 'graph', which: 'region', question: '' }, 'y; x^2 - 1; >='), 'y \\ge x^{2} - 1');
+assert.equal(inequalityTex('x^2 + y^2; 9; <'), 'x^{2} + y^{2} < 9');
+assert.equal(evalExpression('x^2 - 2*x - 3', { x: 4 }), 5);
+assert.ok(Math.abs(evalExpression('2*sin(x)', { x: Math.PI / 2 }) - 2) < 1e-12);
+assert.ok(Number.isNaN(evalExpression('sqrt(x)', { x: -1 })) && Number.isNaN(evalExpression('x + z', { x: 1 })));
 
 // Worked-solution lines: rows of pieces, a chain "a = b = c" continuing on its own row.
 assert.deepEqual(stepRows('2/3 + 1/4 = 8/12 + 3/12 = 11/12'), [['\\frac{2}{3}', '+ \\frac{1}{4}', '= \\frac{8}{12}', '+ \\frac{3}{12}'], ['= \\frac{11}{12}']]);

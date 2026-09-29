@@ -60,6 +60,9 @@ rejects('coordinate-geometry', lambda problem: problem.update(steps=['y = 1000*x
 rejects('inference', shift_answer, 'matching choices')
 rejects('coordinate-geometry', lambda problem: problem.update(steps=['y = 1000*x']), 'does not hold')
 
+rejects('quadratic-function', shift_answer, 'matching choices')
+rejects('quadratic-function', lambda problem: problem.update(steps=['1 = 2']), 'not a true chain')
+
 # A wrong line in the worked solution is rejected (formula units).
 rejects('fraction', lambda problem: problem.update(steps=[problem['steps'][0] + ' = 0']), 'not equal to the answer')
 rejects('linear-equation', lambda problem: problem.update(steps=['x = 1000']), 'does not hold')

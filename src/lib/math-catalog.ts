@@ -239,8 +239,9 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'remainder', sets: [{ id: '1', rule: 'remainder-a' }] },
     { id: 'higher-degree', sets: [{ id: '1', rule: 'higher-degree-a' }] },
   ] },
-  { id: 'quadratic-function', domain: 'functions', stage: 'high', status: 'comingSoon', items: [
-    { id: 'vertex', sets: [{ id: '1' }] },
+  { id: 'quadratic-function', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'vertex', sets: [{ id: '1', rule: 'graph-vertex-a' }] },
+    { id: 'graph', sets: [{ id: '1', rule: 'graph-parabola-a' }] },
     { id: 'max-min', sets: [{ id: '1' }] },
   ] },
   { id: 'sequence', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
@@ -256,6 +257,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'addition', sets: [{ id: '1', rule: 'trig-addition-a' }] },
     { id: 'double-angle', sets: [{ id: '1', rule: 'double-angle-a' }] },
     { id: 'synthesis', sets: [{ id: '1', rule: 'trig-synthesis-a' }] },
+    { id: 'graph', sets: [{ id: '1', rule: 'graph-trig-a' }] },
   ] },
   { id: 'exp-log', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'exponent', sets: [{ id: '1', rule: 'exponent-a' }] },
@@ -310,10 +312,10 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'plane', sets: [{ id: '1' }] },
   ] },
   { id: 'coordinate-geometry', domain: 'geometry', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
-    { id: 'line', sets: [{ id: '1', rule: 'line-a' }] },
-    { id: 'circle', sets: [{ id: '1', rule: 'circle-a' }] },
+    { id: 'line', sets: [{ id: '1', rule: 'line-a' }, { id: '2', rule: 'graph-line-a' }] },
+    { id: 'circle', sets: [{ id: '1', rule: 'circle-a' }, { id: '2', rule: 'graph-circle-a' }] },
     { id: 'locus', sets: [{ id: '1', rule: 'locus-a' }] },
-    { id: 'region', sets: [{ id: '1', rule: 'region-a' }] },
+    { id: 'region', sets: [{ id: '1', rule: 'region-a' }, { id: '2', rule: 'graph-region-a' }] },
   ] },
   { id: 'vector', domain: 'linear-algebra', stage: 'high', status: 'comingSoon', items: [
     { id: 'components', sets: [{ id: '1' }] },

@@ -511,9 +511,61 @@ def region(problem):
     return hits[0], points
 
 
+def region_signature(text):
+    """Which of a grid of points (-6 to 6 in halves) satisfy "lhs; rhs; op": 1 or 0 for each."""
+    lhs, rhs, op = [part.strip() for part in text.split(';')]
+    x, y = LETTERS['x'], LETTERS['y']
+    difference = parse_formula(lhs) - parse_formula(rhs)
+    test = {'<': lambda v: v < 0, '>': lambda v: v > 0, '<=': lambda v: v <= 0, '>=': lambda v: v >= 0}[op]
+    grid = [Rational(k, 2) for k in range(-12, 13)]
+    return Tuple(*[Integer(1 if test(difference.subs({x: px, y: py})) else 0) for py in grid for px in grid])
+
+
+def graph(problem):
+    """A graph the learner reads: the hidden question is what is drawn."""
+    which, question = problem['which'], problem['question']
+    x, y = LETTERS['x'], LETTERS['y']
+    choices = problem['choices']
+    if which == 'region':
+        lhs = question.split(';')[0].strip()
+        if lhs not in ('y', 'x^2 + y^2'):
+            raise ValueError('a drawn region is y op g(x) or x^2 + y^2 op r')
+        return region_signature(question), [region_signature(choice) for choice in choices]
+    if which == 'circle':
+        center, radius = question.split(';')
+        (cx, cy), r = pair(center), parse_formula(radius)
+        if not (cx.is_Integer and cy.is_Integer and r > 0 and abs(cx) + r <= 6 and abs(cy) + r <= 6):
+            raise ValueError('the circle must have an integer center and fit in the window (-6 to 6)')
+        return circle_form((x - cx) ** 2 + (y - cy) ** 2 - r ** 2), [circle_form(choice) for choice in choices]
+    f = parse_formula(question)
+    if f.free_symbols - {x}:
+        raise ValueError('a drawn curve is a function of x')
+    lattice = [X for X in range(-6, 7) if f.subs(x, X).is_Integer and abs(f.subs(x, X)) <= 6] if which != 'trig' else [0]
+    if which == 'line':
+        if Poly(f, x).degree() != 1 or len(lattice) < 2:
+            raise ValueError('a line needs degree 1 and two lattice points in the window')
+    elif which in ('parabola', 'vertex'):
+        if Poly(f, x).degree() != 2:
+            raise ValueError('a parabola needs degree 2')
+        a, b, _ = Poly(f, x).all_coeffs()
+        h = -b / (2 * a)
+        k = f.subs(x, h)
+        if not (h.is_Integer and k.is_Integer and abs(h) <= 5 and abs(k) <= 5):
+            raise ValueError(f'the vertex ({h}, {k}) must be a lattice point in the window')
+        if which == 'parabola' and len(lattice) < 3:
+            raise ValueError('a parabola needs three lattice points in the window')
+        if which == 'vertex':
+            return Tuple(h, k), [Tuple(*pair(choice)) for choice in choices]
+    elif which != 'trig':
+        raise ValueError(f'unknown graph variant {which!r}')
+    return f, [line_choice(choice) for choice in choices]
+
+
 def _formula(problem):
     kind, question, choices = problem['kind'], problem['question'], problem['choices']
     keyed = problem['answerIndex']
+    if kind == 'graph':
+        return graph(problem)
     if kind == 'region':
         return region(problem)
     if kind == 'inference':
@@ -608,10 +660,23 @@ def formula(problem):
     return answer, choices
 
 
-def holds(sides, values):
-    """True when the chain a = b = c is true with the letters replaced by values."""
+def holds(sides, values, constants=False):
+    """True when the chain a = b = c is true with the letters replaced by values.
+
+    With constants=True, other letters (a, b, c in y = a*(x - 1)^2 + 3) may be
+    unknown constants: the step holds if some values of them make it true for every x."""
     parsed = [parse_formula(side).subs(values) for side in sides]
-    return all(simplify(expand(a - b)) == 0 for a, b in zip(parsed, parsed[1:]))
+    x = LETTERS['x']
+    for a, b in zip(parsed, parsed[1:]):
+        difference = expand(a - b)
+        unknowns = sorted(difference.free_symbols - {x}, key=lambda s: s.name)
+        if constants and unknowns and x in difference.free_symbols:
+            equations = Poly(difference, x).all_coeffs()
+            if not solve(equations, unknowns, dict=True):
+                return False
+        elif simplify(difference) != 0:
+            return False
+    return True
 
 
 def check_steps(problem, answer):
@@ -628,10 +693,10 @@ def check_steps(problem, answer):
     if kind == 'recurrence':
         return check_recurrence_steps(problem, answer, steps)
     for line in steps:
-        if kind in ('region', 'inference'):
+        if kind in ('region', 'inference') or (kind == 'graph' and problem['which'] in ('vertex', 'region')):
             check_numeric_chain(line)
             continue
-        if kind in ('solve', 'tangent', 'extremum', 'identity') or (kind == 'inequality' and problem['which'] == 'amgm-equal') or (kind == 'geometry' and problem['which'].startswith(('line-', 'circle-', 'locus-'))):
+        if kind in ('solve', 'tangent', 'extremum', 'identity') or (kind == 'inequality' and problem['which'] == 'amgm-equal') or kind == 'graph' or (kind == 'geometry' and problem['which'].startswith(('line-', 'circle-', 'locus-'))):
             check_equation_line(problem, answer, line)
             continue
         parts = line.split('=')
@@ -682,7 +747,7 @@ def on_circle(sides, circle):
 
 def check_equation_line(problem, answer, line):
     kind = problem['kind']
-    if kind == 'geometry' and problem['which'].startswith(('circle-', 'locus-')):
+    if (kind == 'geometry' and problem['which'].startswith(('circle-', 'locus-'))) or (kind == 'graph' and problem['which'] == 'circle'):
         items = split_top(line, ',')
         if not all(on_circle(item.split('='), answer) for item in items):
             raise ValueError(f'step {line!r} does not hold for the circle')
@@ -698,7 +763,7 @@ def check_equation_line(problem, answer, line):
     elif kind == 'inequality':
         candidates = [{variable_of(parse_formula(problem['question'])): answer}]
         every = True
-    elif kind in ('tangent', 'geometry'):
+    elif kind in ('tangent', 'geometry', 'graph'):
         candidates = [{LETTERS['y']: answer}]
         every = True
     else:
@@ -708,13 +773,13 @@ def check_equation_line(problem, answer, line):
         every = False
     items = split_top(line, ',')
     if len(items) == 1:
-        results = [holds(items[0].split('='), values) for values in candidates]
+        results = [holds(items[0].split('='), values, kind == 'graph') for values in candidates]
         ok = all(results) if every else any(results)
     else:
-        ok = all(any(holds(item.split('='), values) for values in candidates) for item in items)
+        ok = all(any(holds(item.split('='), values, kind == 'graph') for values in candidates) for item in items)
         if every:
             ok = ok and all(any(holds(item.split('='), values) for item in items) for values in candidates)
-    if kind in ('tangent', 'geometry'):
+    if kind in ('tangent', 'geometry', 'graph'):
         ok = ok and all(len(item.split('=')) > 1 for item in items)
     if not ok:
         raise ValueError(f'step {line!r} does not hold for the {kind} problem')
@@ -772,6 +837,7 @@ UNITS = {
     'coordinate-geometry': ('math-coordinate-geometry.json', formula),
     'distributions': ('math-distributions.json', formula),
     'inference': ('math-inference.json', formula),
+    'quadratic-function': ('math-quadratic-function.json', formula),
     'factorization': ('math-factorization.json', factorization),
     'pythagoras': ('math-pythagoras.json', pythagoras),
 }

@@ -70,7 +70,7 @@ and display it uses (`components/math-questions.tsx`):
   of kind `calc`, `expand`, `transform`, `factor`, `solve`, `remainder`,
   `derivative`, `tangent`, `extremum`, `integral`, `area`, `term`, `series`,
   `radian`, `degree`, `recurrence`, `distribution`, `geometry`, `identity`,
-  `inequality`, `induction`, `inference` or `region` (the
+  `inequality`, `induction`, `inference`, `region` or `graph` (the
   grammar comment there lists each kind's extra fields and variants). The page renders the TeX and the
   instruction line from those strings, and `scripts/verify_math.py` parses the
   same grammar to re-derive the answer, so what is shown is what was checked.
@@ -78,6 +78,9 @@ and display it uses (`components/math-questions.tsx`):
   grammar (a chain "a = b = c", or "x = 2, x = -2"), shown under the answer;
   SymPy checks each line (`check_steps`). `npm run math:steps -- <unit>` has an
   LLM write and verify steps for problems that lack them.
+  A `graph` problem draws its hidden `question` with `components/math-graph.tsx`
+  (a curve, circle or shaded region) and asks the learner to read it; the blind
+  review is given the same readings as text (`graphReading` in math-pipeline.mjs).
 A unit without a kind cannot hold problems yet. Only sets with a `rule` (a key in
 `scripts/validate-math-<kind>.mjs`; expression uses `validate-math-arith.mjs`)
 can hold problems; a new set of an existing kind needs its rule and prompt
