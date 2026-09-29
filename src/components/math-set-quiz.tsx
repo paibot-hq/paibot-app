@@ -12,6 +12,8 @@ export interface MathSetQuestion {
   choices: ReactNode[];
   answerIndex: number;
   explanation: ReactNode;
+  // 1 basic, 2 standard, 3 advanced; shown beside the progress.
+  tier?: number;
 }
 
 // The four-choice quiz shared by every /math unit: a fixed, ordered set of
@@ -26,6 +28,7 @@ export default function MathSetQuiz({ title, setLabel, questions, backHref }: {
   backHref: string;
 }) {
   const t = useTranslations('App.math.quiz');
+  const tm = useTranslations('App.math');
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [revealed, setRevealed] = useState(false);
@@ -91,7 +94,10 @@ export default function MathSetQuiz({ title, setLabel, questions, backHref }: {
   return <ToolLayout title={title} aboveTitle={backLink}>
     <div className={styles.quiz}>
       <p className={styles.setName}>{setLabel}</p>
-      <p className={styles.progress} aria-live="polite">{t('progress', { current: index + 1, total })}</p>
+      <p className={styles.progress} aria-live="polite">
+        <span>{t('progress', { current: index + 1, total })}</span>
+        {question.tier && <span className={styles.tier} data-tier={question.tier}>{tm(`tiers.${question.tier}` as 'tiers.1')}</span>}
+      </p>
       <div className={styles.question}>{question.prompt}</div>
       <div className={styles.choices} role="group" aria-label={title}>
         {question.choices.map((choice, choiceIndex) => {

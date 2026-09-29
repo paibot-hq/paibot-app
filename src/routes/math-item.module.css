@@ -14,3 +14,4 @@
 .badge { padding: .1rem .4rem; border: 1px solid var(--line); border-radius: var(--radius); font-size: .7rem; font-weight: 400; color: var(--muted); background: var(--line); }
 .note { font-size: .85rem; color: var(--muted); line-height: 1.5; }
 .record { font-size: .8rem; color: var(--accent); font-variant-numeric: tabular-nums; }
+.tiers { font-size: .8rem; color: var(--muted); }

@@ -4,6 +4,8 @@
 .back a:hover, .back a:focus-visible { color: var(--accent); }
 .setName { text-align: center; color: var(--accent); font-weight: 600; font-size: .95rem; margin: 0 0 .5rem; }
 .progress { text-align: center; color: var(--muted); font-size: .85rem; font-variant-numeric: tabular-nums; margin: 0 0 .5rem; }
+.tier { margin-left: .6rem; padding: .05rem .45rem; border: 1px solid var(--line); border-radius: var(--radius); font-size: .75rem; }
+.tier[data-tier="3"] { border-color: var(--accent); color: var(--accent); }
 .question { text-align: center; font-size: clamp(1.3rem, 5vw, 1.8rem); margin: 1.2rem 0 1.6rem; }
 
 .choices { display: grid; gap: .7rem; }

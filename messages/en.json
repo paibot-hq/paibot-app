@@ -618,7 +618,9 @@
         "saveFailed": "Your score could not be saved.",
         "signInToSave": "Sign in to keep a record of your scores.",
         "practice": "Practice {number}",
-        "chooseSet": "Choose a set to practice."
+        "chooseSet": "Choose a set to practice.",
+        "tierCount": "{tier} {count}",
+        "tierSeparator": ", "
       },
       "arith": {
         "formula": "Expression:",
@@ -2001,6 +2003,11 @@
         },
         "note": "The grade ranges follow the association's guide and are approximate. This site is not affiliated with the Mathematics Certification Institute of Japan.",
         "official": "Official ranges"
+      },
+      "tiers": {
+        "1": "Basic",
+        "2": "Standard",
+        "3": "Advanced"
       }
     },
     "about": {

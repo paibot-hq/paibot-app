@@ -618,7 +618,9 @@
         "saveFailed": "无法记录成绩。",
         "signInToSave": "登录后可记录成绩。",
         "practice": "练习{number}",
-        "chooseSet": "请选择要练习的题组。"
+        "chooseSet": "请选择要练习的题组。",
+        "tierCount": "{tier} {count}题",
+        "tierSeparator": "・"
       },
       "arith": {
         "formula": "算式：",
@@ -2001,6 +2003,11 @@
         },
         "note": "级别范围参照协会的“学年参考”，仅供参考。本站与日本数学检定协会无关。",
         "official": "官方考试范围"
+      },
+      "tiers": {
+        "1": "基础",
+        "2": "标准",
+        "3": "提高"
       }
     },
     "about": {

@@ -7,7 +7,7 @@ import type { DynamicT } from '../lib/apps';
 import { getSetRecords } from '../lib/math-attempts.server';
 import { findUnit } from '../lib/math-catalog';
 import { jpGrade } from '../lib/math-curriculum-jp';
-import { getPlayableSets } from '../lib/math-problems.server';
+import { getPlayableSets, getSetTiers } from '../lib/math-problems.server';
 import { catalogEntry } from '../lib/math-routes.server';
 import styles from './math-item.module.css';
 import type { Route } from './+types/math-item';
@@ -29,10 +29,10 @@ export async function loader(args: Route.LoaderArgs) {
     throw redirect(`/${params.locale}/math/${params.unit}/${legacy[0]}/${legacy[1]}`, 301);
   }
   const entry = catalogEntry(params);
-  const [playable, records] = await Promise.all([getPlayableSets(), getSetRecords(args, entry.unit.id, entry.item.id)]);
+  const [playable, records, tiers] = await Promise.all([getPlayableSets(), getSetRecords(args, entry.unit.id, entry.item.id), getSetTiers(entry.unit.id, entry.item.id)]);
   return {
     unitId: entry.unit.id, itemId: entry.item.id, published: entry.unit.status === 'published', grade: jpGrade(entry.unit.id, entry.item.id),
-    sets: entry.item.sets.map(set => ({ id: set.id, playable: playable.includes(`${entry.unit.id}/${entry.item.id}/${set.id}`), record: records[set.id] })),
+    sets: entry.item.sets.map(set => ({ id: set.id, playable: playable.includes(`${entry.unit.id}/${entry.item.id}/${set.id}`), record: records[set.id], tiers: tiers[set.id] })),
   };
 }
 
@@ -54,7 +54,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
       <p className={styles.description}>{description}</p>
       <p className={styles.choose}>{tq('chooseSet')}</p>
       <ul className={styles.sets}>
-        {sets.map(({ id, playable, record }) => (
+        {sets.map(({ id, playable, record, tiers }) => (
           <li key={id}>
             <Link href={`/math/${unitId}/${itemId}/${id}`} className={styles.card} data-playable={playable || undefined}>
               <span className={styles.cardTitle}>
@@ -62,6 +62,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
                 {!playable && <span className={styles.badge}>{t('comingSoon')}</span>}
               </span>
               {has(`${itemKey}.sets.${id}`) && <span className={styles.note}>{t(`${itemKey}.sets.${id}`)}</span>}
+              {tiers && <span className={styles.tiers}>{Object.entries(tiers).map(([tier, n]) => tq('tierCount', { tier: t(`tiers.${tier}`), count: n })).join(tq('tierSeparator'))}</span>}
               {record && <span className={styles.record}>{tq('record', { last: record.last, best: record.best, total: record.total })}</span>}
             </Link>
           </li>

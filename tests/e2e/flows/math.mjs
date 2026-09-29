@@ -47,6 +47,8 @@ export default async function ({ page, main, base, go, errors }) {
     ['/en/math/arith/order-of-operations/1', '/en/math/arith/order-of-operations/2']);
   assert.equal(await page.title(), 'Order of operations & word problems - Order of operations | PAIBOT.app');
   await main.getByText('Japanese school year: Elementary 4', { exact: true }).waitFor();
+  // Each playable set shows how many problems of each tier it has.
+  assert.match(await main.locator('ul a').first().innerText(), /(Basic|Standard|Advanced) \d/);
   for (const [item, set, label] of [
     ['arith/order-of-operations', '2', 'Order of operations Practice 2'],
     ['factorization/trinomial', '1', 'Factoring trinomials'],
@@ -58,11 +60,12 @@ export default async function ({ page, main, base, go, errors }) {
     await page.waitForURL(`${base}/en/math/${item}/${set}`);
     await main.getByText(label, { exact: true }).last().waitFor();
     await main.getByText('1 / 5', { exact: true }).waitFor();
+    assert.match(await main.locator('[data-tier]').innerText(), /^(Basic|Standard|Advanced)$/);
     await page.getByRole('link', { name: '← Choose a different set' }).click();
     await page.waitForURL(`${base}/en/math/${item}`);
   }
   assert.deepEqual(errors, []);
-  console.log('PASS: item pages list their sets; sets open their quiz and link back to the item');
+  console.log('PASS: item pages list their sets with tier counts; sets open their quiz (with each problem\'s tier) and link back to the item');
 
   // A unit without problems yet: its sets show the preparation message and are noindex.
   await go('math/matrix/operations/1');
