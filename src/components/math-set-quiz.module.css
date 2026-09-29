@@ -11,10 +11,18 @@
 .choices { display: grid; grid-template-columns: minmax(0, 1fr); gap: .7rem; }
 .choice {
   font: inherit; font-size: 1.05rem; cursor: pointer; text-align: center;
-  min-height: 3.1rem; padding: .7rem 1rem;
+  position: relative; min-height: 3.1rem; padding: .7rem 2.4rem;
   border: 1px solid var(--line); border-radius: var(--radius);
   background: var(--surface); color: var(--text);
 }
+/* The choice's number, at the left edge; the formula stays centred. */
+.number {
+  position: absolute; left: .7rem; top: 50%; transform: translateY(-50%);
+  width: 1.5rem; height: 1.5rem; display: grid; place-items: center;
+  border: 1px solid var(--line); border-radius: 50%;
+  font-size: .8rem; font-variant-numeric: tabular-nums; color: var(--muted);
+}
+.choice[aria-pressed="true"] .number { border-color: var(--accent); color: var(--accent); }
 /* KaTeX draws radicals with boxes that reach into the neighboring choice; clicks
    must land on the button they are inside. */
 .choice * { pointer-events: none; }

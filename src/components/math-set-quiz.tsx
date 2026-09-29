@@ -107,6 +107,7 @@ export default function MathSetQuiz({ title, setLabel, questions, backHref }: {
           return <button key={choiceIndex} type="button" className={styles.choice} data-state={state}
             aria-pressed={isSelected} disabled={revealed}
             onClick={() => setSelected(choiceIndex)}>
+            <span className={styles.number} aria-hidden="true">{choiceIndex + 1}</span>
             {choice}
           </button>;
         })}
