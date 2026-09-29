@@ -6,7 +6,7 @@ import { findUnit, unitSets } from '../src/lib/math-catalog.ts';
 import { expressionTex, solutionTex, statementTex, unknownOf } from '../src/lib/math-formula.ts';
 
 export const root = fileURLToPath(new URL('../', import.meta.url));
-// A unit that can hold problems, and optionally one of its sets (item + set letter).
+// A unit that can hold problems, and optionally one of its sets (item + set number).
 export function context(unit, item, setId) {
   const entry = findUnit(unit);
   assert.ok(entry?.kind, `Unknown unit, or one that cannot hold problems: ${unit}`);

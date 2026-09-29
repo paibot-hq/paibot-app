@@ -4,7 +4,7 @@
     {
       "id": "pythagoras-001",
       "item": "sides",
-      "setId": "a",
+      "setId": "1",
       "position": 1,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -36,7 +36,7 @@
     {
       "id": "pythagoras-002",
       "item": "sides",
-      "setId": "a",
+      "setId": "1",
       "position": 2,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -68,7 +68,7 @@
     {
       "id": "pythagoras-003",
       "item": "sides",
-      "setId": "a",
+      "setId": "1",
       "position": 3,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -100,7 +100,7 @@
     {
       "id": "pythagoras-004",
       "item": "sides",
-      "setId": "a",
+      "setId": "1",
       "position": 4,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -132,7 +132,7 @@
     {
       "id": "pythagoras-005",
       "item": "sides",
-      "setId": "a",
+      "setId": "1",
       "position": 5,
       "published": true,
       "reviewedAt": "2026-09-27",

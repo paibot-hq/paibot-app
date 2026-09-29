@@ -8,13 +8,13 @@ import { clerkSetup, setupClerkTestingToken, clerk } from '@clerk/testing/playwr
 import { createClerkClient } from '@clerk/backend';
 
 // Same disposable-test-user technique as tests/e2e/favorites.mjs. Needs arithmetic
-// set order-of-operations/a published in the local D1 the target server reads (see CLAUDE.md), and
+// set order-of-operations/1 published in the local D1 the target server reads (see CLAUDE.md), and
 // removes the test user's attempts and Clerk account afterwards.
 const base = process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002';
 assert.ok(['localhost', '127.0.0.1'].includes(new URL(base).hostname), 'Auth fixture test is local-only');
 assert.ok(process.env.CLERK_PUBLISHABLE_KEY?.startsWith('pk_test_'), 'Development publishable key required');
 assert.ok(process.env.CLERK_SECRET_KEY?.startsWith('sk_test_'), 'Development secret key required');
-const ITEM = 'order-of-operations', SET = 'a';
+const ITEM = 'order-of-operations', SET = '1';
 const problems = JSON.parse(readFileSync(new URL('../../src/data/math-arith.json', import.meta.url), 'utf8'))
   .problems.filter(problem => problem.item === ITEM && problem.setId === SET).sort((a, b) => a.position - b.position);
 const email = `paibot-e2e-${randomUUID()}+clerk_test@example.com`;

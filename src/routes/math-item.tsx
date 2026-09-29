@@ -12,14 +12,17 @@ import styles from './math-item.module.css';
 import type { Route } from './+types/math-item';
 
 // Set pages used to live at /math/<unit>/<set id>; the id was usually
-// "<item>-<letter>", except for these published before items had their own names.
-const LEGACY_SETS: Record<string, string> = { 'arith/order-a': 'order-of-operations/a', 'arith/order-b': 'order-of-operations/b', 'arith/word-a': 'word-problems/a', 'arith/word-b': 'word-problems/b', 'factorization/squares-a': 'difference-of-squares/a', 'signed/four-ops-a': 'four-operations/a' };
+// "<item>-<letter>" (a, b, ... are now sets 1, 2, ...), except for these
+// published before items had their own names.
+const LEGACY_SETS: Record<string, string> = { 'arith/order-a': 'order-of-operations/1', 'arith/order-b': 'order-of-operations/2', 'arith/word-a': 'word-problems/1', 'arith/word-b': 'word-problems/2', 'factorization/squares-a': 'difference-of-squares/1', 'signed/four-ops-a': 'four-operations/1' };
 
-// A learning item: what it covers and its practice sets (A, B, ...), with a
+// A learning item: what it covers and its practice sets (1, 2, ...), with a
 // signed-in user's latest and best score on each.
 export async function loader(args: Route.LoaderArgs) {
   const { params } = args;
-  const legacy = LEGACY_SETS[`${params.unit}/${params.item}`]?.split('/') ?? /^(.+)-([a-z])$/.exec(params.item)?.slice(1);
+  const lettered = /^(.+)-([a-z])$/.exec(params.item);
+  const legacy = LEGACY_SETS[`${params.unit}/${params.item}`]?.split('/')
+    ?? (lettered ? [lettered[1], String(lettered[2].charCodeAt(0) - 96)] : undefined);
   const unit = findUnit(params.unit);
   if (legacy && unit?.items.some(item => item.id === legacy[0] && item.sets.some(set => set.id === legacy[1]))) {
     throw redirect(`/${params.locale}/math/${params.unit}/${legacy[0]}/${legacy[1]}`, 301);
@@ -53,7 +56,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, sets
           <li key={id}>
             <Link href={`/math/${unitId}/${itemId}/${id}`} className={styles.card} data-playable={playable || undefined}>
               <span className={styles.cardTitle}>
-                {tq('practice', { letter: id.toUpperCase() })}
+                {tq('practice', { number: id })}
                 {!playable && <span className={styles.badge}>{t('comingSoon')}</span>}
               </span>
               {has(`${itemKey}.sets.${id}`) && <span className={styles.note}>{t(`${itemKey}.sets.${id}`)}</span>}

@@ -4,7 +4,7 @@
     {
       "id": "expansion-001",
       "item": "formulas",
-      "setId": "a",
+      "setId": "1",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -17,7 +17,7 @@
     {
       "id": "expansion-002",
       "item": "formulas",
-      "setId": "a",
+      "setId": "1",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -30,7 +30,7 @@
     {
       "id": "expansion-003",
       "item": "formulas",
-      "setId": "a",
+      "setId": "1",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -43,7 +43,7 @@
     {
       "id": "expansion-004",
       "item": "formulas",
-      "setId": "a",
+      "setId": "1",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -56,7 +56,7 @@
     {
       "id": "expansion-005",
       "item": "formulas",
-      "setId": "a",
+      "setId": "1",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -69,7 +69,7 @@
     {
       "id": "expansion-006",
       "item": "square",
-      "setId": "a",
+      "setId": "1",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -82,7 +82,7 @@
     {
       "id": "expansion-007",
       "item": "square",
-      "setId": "a",
+      "setId": "1",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -95,7 +95,7 @@
     {
       "id": "expansion-008",
       "item": "square",
-      "setId": "a",
+      "setId": "1",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -108,7 +108,7 @@
     {
       "id": "expansion-009",
       "item": "square",
-      "setId": "a",
+      "setId": "1",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -121,7 +121,7 @@
     {
       "id": "expansion-010",
       "item": "square",
-      "setId": "a",
+      "setId": "1",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -134,7 +134,7 @@
     {
       "id": "expansion-011",
       "item": "sum-difference",
-      "setId": "a",
+      "setId": "1",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -147,7 +147,7 @@
     {
       "id": "expansion-012",
       "item": "sum-difference",
-      "setId": "a",
+      "setId": "1",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -160,7 +160,7 @@
     {
       "id": "expansion-013",
       "item": "sum-difference",
-      "setId": "a",
+      "setId": "1",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -173,7 +173,7 @@
     {
       "id": "expansion-014",
       "item": "sum-difference",
-      "setId": "a",
+      "setId": "1",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -186,7 +186,7 @@
     {
       "id": "expansion-015",
       "item": "sum-difference",
-      "setId": "a",
+      "setId": "1",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",

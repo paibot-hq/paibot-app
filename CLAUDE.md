@@ -50,7 +50,7 @@ Math is organized unit → learning item → practice set, all in
   every unit with its learning items, filtered in the browser by level,
   playability and name. Items with published problems in D1 are highlighted.
 - `/math/<unit>/<item>` (`routes/math-item.tsx`): the item and its practice sets
-  (練習A, B, ...) with a signed-in user's latest and best score. Units have no
+  (練習1, 2, ...) with a signed-in user's latest and best score. Units have no
   page of their own (`/math/<unit>` 301s to `/math`); old set URLs
   (`/math/<unit>/<set id>`) 301 to the new ones.
 - `/math/<unit>/<item>/<set>` (`routes/math-quiz.tsx`): a five-problem,
@@ -99,7 +99,7 @@ refines (its vinext-specific sections are historical).
 | --- | --- | --- |
 | 単元 | 英小文字 | `arith`, `signed`, `factorization` |
 | 学習項目 | 単元内で一意の英小文字 | `order-of-operations` |
-| 問題セット | 学習項目内の練習の文字 | `a`, `b` |
+| 問題セット | 学習項目内の練習の番号 | `1`, `2` |
 | 問題 | 単元+3桁の通し番号 | `arith-001` |
 
 表示順はカタログ(`src/lib/math-catalog.ts`)の並びで決め、IDは変えない。問題IDはセットに依存しない。

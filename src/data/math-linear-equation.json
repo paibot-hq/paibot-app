@@ -4,7 +4,7 @@
     {
       "id": "linear-equation-001",
       "item": "basic",
-      "setId": "a",
+      "setId": "1",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -17,7 +17,7 @@
     {
       "id": "linear-equation-002",
       "item": "basic",
-      "setId": "a",
+      "setId": "1",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -30,7 +30,7 @@
     {
       "id": "linear-equation-003",
       "item": "basic",
-      "setId": "a",
+      "setId": "1",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -43,7 +43,7 @@
     {
       "id": "linear-equation-004",
       "item": "basic",
-      "setId": "a",
+      "setId": "1",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -56,7 +56,7 @@
     {
       "id": "linear-equation-005",
       "item": "basic",
-      "setId": "a",
+      "setId": "1",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -69,7 +69,7 @@
     {
       "id": "linear-equation-006",
       "item": "parentheses",
-      "setId": "a",
+      "setId": "1",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -82,7 +82,7 @@
     {
       "id": "linear-equation-007",
       "item": "parentheses",
-      "setId": "a",
+      "setId": "1",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -95,7 +95,7 @@
     {
       "id": "linear-equation-008",
       "item": "parentheses",
-      "setId": "a",
+      "setId": "1",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -108,7 +108,7 @@
     {
       "id": "linear-equation-009",
       "item": "parentheses",
-      "setId": "a",
+      "setId": "1",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -121,7 +121,7 @@
     {
       "id": "linear-equation-010",
       "item": "parentheses",
-      "setId": "a",
+      "setId": "1",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -134,7 +134,7 @@
     {
       "id": "linear-equation-011",
       "item": "fraction",
-      "setId": "a",
+      "setId": "1",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -147,7 +147,7 @@
     {
       "id": "linear-equation-012",
       "item": "fraction",
-      "setId": "a",
+      "setId": "1",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -160,7 +160,7 @@
     {
       "id": "linear-equation-013",
       "item": "fraction",
-      "setId": "a",
+      "setId": "1",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -173,7 +173,7 @@
     {
       "id": "linear-equation-014",
       "item": "fraction",
-      "setId": "a",
+      "setId": "1",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -186,7 +186,7 @@
     {
       "id": "linear-equation-015",
       "item": "fraction",
-      "setId": "a",
+      "setId": "1",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",

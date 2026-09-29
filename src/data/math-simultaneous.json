@@ -4,7 +4,7 @@
     {
       "id": "simultaneous-001",
       "item": "elimination",
-      "setId": "a",
+      "setId": "1",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -17,7 +17,7 @@
     {
       "id": "simultaneous-002",
       "item": "elimination",
-      "setId": "a",
+      "setId": "1",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -30,7 +30,7 @@
     {
       "id": "simultaneous-003",
       "item": "elimination",
-      "setId": "a",
+      "setId": "1",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -43,7 +43,7 @@
     {
       "id": "simultaneous-004",
       "item": "elimination",
-      "setId": "a",
+      "setId": "1",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -56,7 +56,7 @@
     {
       "id": "simultaneous-005",
       "item": "elimination",
-      "setId": "a",
+      "setId": "1",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -69,7 +69,7 @@
     {
       "id": "simultaneous-006",
       "item": "substitution",
-      "setId": "a",
+      "setId": "1",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -82,7 +82,7 @@
     {
       "id": "simultaneous-007",
       "item": "substitution",
-      "setId": "a",
+      "setId": "1",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -95,7 +95,7 @@
     {
       "id": "simultaneous-008",
       "item": "substitution",
-      "setId": "a",
+      "setId": "1",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -108,7 +108,7 @@
     {
       "id": "simultaneous-009",
       "item": "substitution",
-      "setId": "a",
+      "setId": "1",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -121,7 +121,7 @@
     {
       "id": "simultaneous-010",
       "item": "substitution",
-      "setId": "a",
+      "setId": "1",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",

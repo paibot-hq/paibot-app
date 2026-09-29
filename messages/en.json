@@ -617,7 +617,7 @@
         "saved": "Your score has been saved.",
         "saveFailed": "Your score could not be saved.",
         "signInToSave": "Sign in to keep a record of your scores.",
-        "practice": "Practice {letter}",
+        "practice": "Practice {number}",
         "chooseSet": "Choose a set to practice."
       },
       "arith": {
@@ -1634,8 +1634,8 @@
             "word-problems": {
               "title": "Word problems",
               "sets": {
-                "a": "Easy word problems: Short word problems you can solve in one or two steps.",
-                "b": "Multi-step word problems: Word problems that take two or three calculations. Try these after the easy ones."
+                "1": "Easy word problems: Short word problems you can solve in one or two steps.",
+                "2": "Multi-step word problems: Word problems that take two or three calculations. Try these after the easy ones."
               }
             }
           }

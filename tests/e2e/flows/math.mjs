@@ -37,13 +37,13 @@ export default async function ({ page, main, base, go, errors }) {
   await page.waitForURL(`${base}/en/math/arith/order-of-operations`);
   await main.getByRole('heading', { level: 1, name: 'Order of operations' }).waitFor();
   assert.deepEqual(await main.locator('ul a').evaluateAll(cards => cards.map(card => card.getAttribute('href'))),
-    ['/en/math/arith/order-of-operations/a', '/en/math/arith/order-of-operations/b']);
+    ['/en/math/arith/order-of-operations/1', '/en/math/arith/order-of-operations/2']);
   assert.equal(await page.title(), 'Order of operations & word problems - Order of operations | PAIBOT.app');
   for (const [item, set, label] of [
-    ['arith/order-of-operations', 'b', 'Order of operations Practice B'],
-    ['factorization/trinomial', 'a', 'Factoring trinomials'],
-    ['signed/four-operations', 'a', 'Negative numbers'],
-    ['pythagoras/sides', 'a', 'Side lengths'],
+    ['arith/order-of-operations', '2', 'Order of operations Practice 2'],
+    ['factorization/trinomial', '1', 'Factoring trinomials'],
+    ['signed/four-operations', '1', 'Negative numbers'],
+    ['pythagoras/sides', '1', 'Side lengths'],
   ]) {
     await go(`math/${item}`);
     await link(`/en/math/${item}/${set}`).click();
@@ -57,18 +57,18 @@ export default async function ({ page, main, base, go, errors }) {
   console.log('PASS: item pages list their sets; sets open their quiz and link back to the item');
 
   // A unit without problems yet: its sets show the preparation message and are noindex.
-  await go('math/matrix/operations/a');
+  await go('math/matrix/operations/1');
   await main.getByRole('status').filter({ hasText: 'being prepared' }).waitFor();
   assert.equal(await page.title(), 'Matrices - Matrix addition & multiplication | PAIBOT.app');
   assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'noindex, nofollow');
   assert.equal((await page.goto(`${base}/en/math/arith/nothing`)).status(), 404);
-  assert.equal((await page.goto(`${base}/en/math/arith/order-of-operations/z`)).status(), 404);
+  assert.equal((await page.goto(`${base}/en/math/arith/order-of-operations/9`)).status(), 404);
   console.log('PASS: coming-soon sets show the preparation message; unknown items and sets are 404');
 
   // Former URLs land on the new pages.
   for (const [from, to] of [['arith', '/ja/math'], ['units', '/ja/math'], ['level/middle', '/ja/math'],
-    ['arith/order-a', '/ja/math/arith/order-of-operations/a'], ['factorization/squares-a', '/ja/math/factorization/difference-of-squares/a'],
-    ['factorization/trinomial-a', '/ja/math/factorization/trinomial/a'], ['fraction/add-sub-a', '/ja/math/fraction/add-sub/a']]) {
+    ['arith/order-a', '/ja/math/arith/order-of-operations/1'], ['factorization/squares-a', '/ja/math/factorization/difference-of-squares/1'],
+    ['factorization/trinomial-a', '/ja/math/factorization/trinomial/1'], ['fraction/add-sub-a', '/ja/math/fraction/add-sub/1']]) {
     await page.goto(`${base}/ja/math/${from}`);
     assert.equal(new URL(page.url()).pathname, to, from);
   }

@@ -1,7 +1,7 @@
 import { parseExpression } from '../../src/lib/math-formula.ts';
 
 // A first difficulty estimate (1-5) for one problem, from the problem itself:
-// the unit's level, the practice set's letter (B and later are the harder
+// the unit's level, the practice set (2 and later are the harder
 // practice) and signs of extra work in the problem. Stored on import
 // (math_problems.difficulty) for assembling tests; once there are enough
 // attempts it can be recalibrated from how often each problem is answered right.
@@ -44,6 +44,6 @@ function extraWork(kind, problem) {
 }
 
 export function estimateDifficulty(unit, problem) {
-  const level = BASE[unit.stage] + (problem.setId === 'a' ? 0 : 1) + (extraWork(unit.kind, problem) ? 1 : 0);
+  const level = BASE[unit.stage] + (problem.setId === '1' ? 0 : 1) + (extraWork(unit.kind, problem) ? 1 : 0);
   return Math.min(5, Math.max(1, level));
 }

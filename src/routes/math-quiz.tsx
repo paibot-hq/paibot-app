@@ -32,7 +32,7 @@ export default function MathQuiz({ loaderData: { unitId, itemId, setId, kind, pu
   const tq = useTranslations('App.math.quiz');
   const title = t(`units.${unitId}.items.${itemId}.title`);
   // With one set the item's name is enough; otherwise say which practice set.
-  const setLabel = several ? `${title} ${tq('practice', { letter: setId.toUpperCase() })}` : title;
+  const setLabel = several ? `${title} ${tq('practice', { number: setId })}` : title;
   const questions = useMathQuestions(kind, problems);
   const head = `${t(`units.${unitId}.title`)} - ${setLabel} | PAIBOT.app`;
   const path = `/math/${unitId}/${itemId}/${setId}`;

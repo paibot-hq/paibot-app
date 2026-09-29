@@ -4,7 +4,7 @@
     {
       "id": "factorization-001",
       "item": "trinomial",
-      "setId": "a",
+      "setId": "1",
       "position": 1,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -16,7 +16,7 @@
     {
       "id": "factorization-002",
       "item": "trinomial",
-      "setId": "a",
+      "setId": "1",
       "position": 2,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -28,7 +28,7 @@
     {
       "id": "factorization-003",
       "item": "trinomial",
-      "setId": "a",
+      "setId": "1",
       "position": 3,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -40,7 +40,7 @@
     {
       "id": "factorization-004",
       "item": "trinomial",
-      "setId": "a",
+      "setId": "1",
       "position": 4,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -52,7 +52,7 @@
     {
       "id": "factorization-005",
       "item": "trinomial",
-      "setId": "a",
+      "setId": "1",
       "position": 5,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -64,7 +64,7 @@
     {
       "id": "factorization-011",
       "item": "difference-of-squares",
-      "setId": "a",
+      "setId": "1",
       "position": 1,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -76,7 +76,7 @@
     {
       "id": "factorization-012",
       "item": "difference-of-squares",
-      "setId": "a",
+      "setId": "1",
       "position": 2,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -88,7 +88,7 @@
     {
       "id": "factorization-013",
       "item": "difference-of-squares",
-      "setId": "a",
+      "setId": "1",
       "position": 3,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -100,7 +100,7 @@
     {
       "id": "factorization-014",
       "item": "difference-of-squares",
-      "setId": "a",
+      "setId": "1",
       "position": 4,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -112,7 +112,7 @@
     {
       "id": "factorization-015",
       "item": "difference-of-squares",
-      "setId": "a",
+      "setId": "1",
       "position": 5,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -124,7 +124,7 @@
     {
       "id": "factorization-016",
       "item": "perfect-square",
-      "setId": "a",
+      "setId": "1",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -136,7 +136,7 @@
     {
       "id": "factorization-017",
       "item": "perfect-square",
-      "setId": "a",
+      "setId": "1",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -148,7 +148,7 @@
     {
       "id": "factorization-018",
       "item": "perfect-square",
-      "setId": "a",
+      "setId": "1",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -160,7 +160,7 @@
     {
       "id": "factorization-019",
       "item": "perfect-square",
-      "setId": "a",
+      "setId": "1",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -172,7 +172,7 @@
     {
       "id": "factorization-020",
       "item": "perfect-square",
-      "setId": "a",
+      "setId": "1",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",
