@@ -233,7 +233,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'identities', domain: 'algebra', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'binomial', sets: [{ id: '1', rule: 'binomial-a' }] },
     { id: 'identity', sets: [{ id: '1', rule: 'identity-a' }] },
-    { id: 'inequality-proof', sets: [{ id: '1' }] },
+    { id: 'inequality-proof', sets: [{ id: '1', rule: 'amgm-a' }] },
   ] },
   { id: 'polynomial-equations', domain: 'algebra', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'remainder', sets: [{ id: '1', rule: 'remainder-a' }] },
@@ -248,7 +248,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'geometric', sets: [{ id: '1', rule: 'geometric-a' }] },
     { id: 'sigma', sets: [{ id: '1', rule: 'sigma-a' }] },
     { id: 'recurrence', sets: [{ id: '1', rule: 'recurrence-a' }] },
-    { id: 'induction', sets: [{ id: '1' }] },
+    { id: 'induction', sets: [{ id: '1', rule: 'induction-a' }] },
   ] },
   { id: 'trig', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'values', sets: [{ id: '1', rule: 'trig-values-a' }] },
@@ -312,8 +312,8 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'coordinate-geometry', domain: 'geometry', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'line', sets: [{ id: '1', rule: 'line-a' }] },
     { id: 'circle', sets: [{ id: '1', rule: 'circle-a' }] },
-    { id: 'locus', sets: [{ id: '1' }] },
-    { id: 'region', sets: [{ id: '1' }] },
+    { id: 'locus', sets: [{ id: '1', rule: 'locus-a' }] },
+    { id: 'region', sets: [{ id: '1', rule: 'region-a' }] },
   ] },
   { id: 'vector', domain: 'linear-algebra', stage: 'high', status: 'comingSoon', items: [
     { id: 'components', sets: [{ id: '1' }] },
@@ -414,10 +414,10 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'correlation', sets: [{ id: '1' }] },
     { id: 'hypothesis', sets: [{ id: '1' }] },
   ] },
-  { id: 'inference', domain: 'data', stage: 'university', status: 'comingSoon', items: [
+  { id: 'inference', domain: 'data', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
     { id: 'random-variables', sets: [{ id: '1' }] },
-    { id: 'estimation', sets: [{ id: '1' }] },
-    { id: 'testing', sets: [{ id: '1' }] },
+    { id: 'estimation', sets: [{ id: '1', rule: 'estimation-a' }] },
+    { id: 'testing', sets: [{ id: '1', rule: 'testing-a' }] },
   ] },
   { id: 'sets', domain: 'logic', stage: 'high', status: 'comingSoon', items: [
     { id: 'operations', sets: [{ id: '1' }] },

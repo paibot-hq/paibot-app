@@ -1990,7 +1990,21 @@
         "linePerpendicular": "Find the equation of the line through A perpendicular to the line ℓ.",
         "circleCenter": "Find the equation of the circle with the given center and radius.",
         "circleDiameter": "Find the equation of the circle with diameter AB.",
-        "distance": "Find the distance from the point P to the line ℓ."
+        "distance": "Find the distance from the point P to the line ℓ.",
+        "amgmMin": "For x > 0, find the minimum value of the expression.",
+        "amgmEqual": "For x > 0, find the value of x that minimizes the expression.",
+        "productSum": "For a > 0, b > 0 satisfying the condition, find the minimum of a + b.",
+        "inductionBase": "We prove the equation by mathematical induction. Find the left side for n = 1.",
+        "inductionAdd": "We prove the equation by induction. Assuming it holds for n = k, choose the term added to the left side when going to n = k + 1.",
+        "inductionTarget": "We prove the equation by induction. Choose the right side for n = k + 1.",
+        "inductionCombine": "We prove the equation by induction. Assuming it holds for n = k, what does the left side for n = k + 1 become?",
+        "meanInterval": "A sample of size n from a population with standard deviation σ has sample mean x̄. Using z = <z></z>, find the confidence interval for the population mean.",
+        "ratioInterval": "A sample of size n has sample proportion p̂. Using z = <z></z>, find the confidence interval for the population proportion.",
+        "testZ": "In a hypothesis test for the mean μ₀, find the test statistic Z from the sample mean x̄ (standard deviation σ, sample size n).",
+        "regionIn": "Choose the point that lies in the region given by the inequality.",
+        "regionOut": "Choose the point that does not lie in the region given by the inequality.",
+        "locusEquidistant": "Find the equation of the locus of points P equidistant from A and B.",
+        "locusRatio": "Find the equation of the locus of points P for which PA : PB has the given ratio."
       },
       "grades": {
         "e1": "Elementary 1",

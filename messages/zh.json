@@ -1990,7 +1990,21 @@
         "linePerpendicular": "求过点 A 且与直线 ℓ 垂直的直线方程。",
         "circleCenter": "求以下列点为圆心、给定半径的圆的方程。",
         "circleDiameter": "求以线段 AB 为直径的圆的方程。",
-        "distance": "求点 P 到直线 ℓ 的距离。"
+        "distance": "求点 P 到直线 ℓ 的距离。",
+        "amgmMin": "当 x > 0 时，求下列式子的最小值。",
+        "amgmEqual": "当 x > 0 时，求使下列式子取最小值的 x。",
+        "productSum": "设 a > 0，b > 0 且满足下列条件，求 a + b 的最小值。",
+        "inductionBase": "用数学归纳法证明下列等式。求 n = 1 时左边的值。",
+        "inductionAdd": "用数学归纳法证明下列等式。假设 n = k 时成立，考虑 n = k + 1，选出左边增加的项。",
+        "inductionTarget": "用数学归纳法证明下列等式。选出 n = k + 1 时的右边。",
+        "inductionCombine": "用数学归纳法证明下列等式。假设 n = k 时成立，那么 n = k + 1 时的左边化简后是下列哪一个？",
+        "meanInterval": "从总体标准差为 σ 的总体中抽取容量为 n 的样本，样本均值为 x̄。用 z = <z></z> 求总体均值的置信区间。",
+        "ratioInterval": "容量为 n 的样本的样本比例为 p̂。用 z = <z></z> 求总体比例的置信区间。",
+        "testZ": "在关于均值 μ₀ 的假设检验中，由样本均值 x̄（总体标准差 σ，样本容量 n）求检验统计量 Z。",
+        "regionIn": "选出属于下列不等式所表示区域的点。",
+        "regionOut": "选出不属于下列不等式所表示区域的点。",
+        "locusEquidistant": "求到两点 A、B 距离相等的点 P 的轨迹方程。",
+        "locusRatio": "求使 PA : PB 等于下列比值的点 P 的轨迹方程。"
       },
       "grades": {
         "e1": "小学1年级",

@@ -85,6 +85,20 @@ assert.equal(formulaQuestionTex({ kind: 'identity', question: 'a*(x + 1) + b*(x 
 assert.equal(expressionTex('sin(x)^2'), '\\sin^{2} x');
 assert.equal(expressionTex('2*cos(x/2)^2'), '2\\cos^{2} \\frac{x}{2}');
 
+// Proof, statistics, region and locus kinds.
+assert.equal(formulaQuestionTex({ kind: 'induction', which: 'add', question: '3*k - 1; n*(3*n + 1)/2', given: null }), '\\sum_{k=1}^{n} \\left(3k - 1\\right) = \\frac{n\\left(3n + 1\\right)}{2}');
+has({ kind: 'induction', which: 'combine', question: 'k; n' }, 'inductionCombine');
+assert.equal(formulaQuestionTex({ kind: 'inference', which: 'mean-interval', question: '50, 10, 100', given: 'z = 1.96' }), '\\bar{x} = 50,\\ \\sigma = 10,\\ n = 100');
+assert.deepEqual(formulaInstruction({ kind: 'inference', which: 'ratio-interval', question: '0.4, 600', given: 'z = 1.96' }), { key: 'ratioInterval', tex: { z: '1.96' } });
+assert.equal(formulaChoiceTex({ kind: 'inference', which: 'mean-interval', question: '' }, '48.04, 51.96'), '\\left[48.04,\\ 51.96\\right]');
+assert.equal(formulaQuestionTex({ kind: 'region', which: 'in', question: 'x + 2*y; 4; >=', given: null }), 'x + 2y \\ge 4');
+assert.equal(formulaChoiceTex({ kind: 'region', which: 'in', question: '' }, '1, -2'), '\\left(1, -2\\right)');
+has({ kind: 'region', which: 'out', question: '' }, 'regionOut');
+assert.equal(formulaQuestionTex({ kind: 'geometry', which: 'locus-ratio', question: '1, 0; 4, 0; 1, 2', given: null }), 'A\\left(1, 0\\right),\\ B\\left(4, 0\\right),\\ \\mathrm{PA} : \\mathrm{PB} = 1 : 2');
+has({ kind: 'geometry', which: 'locus-equidistant', question: '' }, 'locusEquidistant');
+has({ kind: 'inequality', which: 'amgm-min', question: 'x + 4/x' }, 'amgmMin');
+assert.equal(formulaQuestionTex({ kind: 'inequality', which: 'product-sum', question: '16', given: null }), 'a b = 16');
+
 // Worked-solution lines: rows of pieces, a chain "a = b = c" continuing on its own row.
 assert.deepEqual(stepRows('2/3 + 1/4 = 8/12 + 3/12 = 11/12'), [['\\frac{2}{3}', '+ \\frac{1}{4}', '= \\frac{8}{12}', '+ \\frac{3}{12}'], ['= \\frac{11}{12}']]);
 assert.deepEqual(stepRows('x = 2, x = -2'), [['x', '= 2'], ['x', '= -2']]);

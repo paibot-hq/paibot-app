@@ -49,8 +49,16 @@
 //              line y = f through the point), circle-center ("cx, cy; r"),
 //              circle-diameter ("x1, y1; x2, y2"), distance ("a, b, c; px, py":
 //              the point to ax + by + c = 0). Lines and circles answer with an equation.
+//   inequality by `which`: amgm-min, amgm-equal (question f(x): the minimum of f, or where it is
+//              attained, for x > 0), product-sum (question k: the least a + b for a, b > 0, ab = k)
+//   induction  "g; f" is the claim g(1) + ... + g(n) = f(n) (g in k, f in n), by `which`: base
+//              (g(1)), add (g(k+1)), target (f(k+1)), combine (f(k) + g(k+1), simplified)
+//   inference  by `which`: mean-interval ("xbar, sigma, n", given z = 1.96), ratio-interval
+//              ("phat, n", given z), test-z ("xbar, mu0, sigma, n"); intervals answer "lo, hi"
+//   region     "lhs; rhs; op" (op is <, >, <= or >=): the point ("x, y") in it (`which` in) or not in it (out)
+//   geometry also has locus-equidistant ("x1, y1; x2, y2") and locus-ratio (".; .; m, n": PA : PB = m : n)
 //   identity   an equation in x with unknown constants; choices "a = 1, b = 2" make it an identity in x
-export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity';
+export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity' | 'inequality' | 'induction' | 'inference' | 'region';
 
 export interface FormulaPayload {
   kind: FormulaKind;
@@ -311,10 +319,29 @@ export function formulaQuestionTex(p: Pick<FormulaPayload, 'kind' | 'question' |
         case 'line-slope': return `${point(parts[0], 'A')},\\ m = ${expressionTex(parts[1])}`;
         case 'line-parallel': case 'line-perpendicular': return `\\ell: y = ${expressionTex(parts[0])},\\ ${point(parts[1], 'A')}`;
         case 'circle-center': return `${point(parts[0], 'C')},\\ r = ${expressionTex(parts[1])}`;
+        case 'locus-equidistant': return `${point(parts[0], 'A')},\\ ${point(parts[1], 'B')}`;
+        case 'locus-ratio': { const [m, n] = list(parts[2]); return `${point(parts[0], 'A')},\\ ${point(parts[1], 'B')},\\ \\mathrm{PA} : \\mathrm{PB} = ${m} : ${n}`; }
         default: { const [a, b, c] = splitTop(parts[0], ',').map(Number); return `\\ell: ${lineTex(a, b, c)} = 0,\\ ${point(parts[1], 'P')}`; }
       }
     }
     case 'identity': return statementTex(p.question);
+    case 'inequality': return p.which === 'product-sum' ? `a b = ${expressionTex(p.question)}` : expressionTex(p.question);
+    case 'induction': {
+      const [g, f] = splitTop(p.question, ';');
+      const term = parseExpression(g);
+      const body = term.type === 'bin' && (term.op === '+' || term.op === '-') ? `\\left(${toTex(term)}\\right)` : toTex(term);
+      return `\\sum_{k=1}^{n} ${body} = ${expressionTex(f)}`;
+    }
+    case 'region': {
+      const [lhs, rhs, op] = splitTop(p.question, ';');
+      return `${expressionTex(lhs)} ${({ '<': '<', '>': '>', '<=': '\\le', '>=': '\\ge' } as Record<string, string>)[op.trim()]} ${expressionTex(rhs)}`;
+    }
+    case 'inference': {
+      const v = list(splitTop(p.question, ';')[0]);
+      if (p.which === 'mean-interval') return `\\bar{x} = ${v[0]},\\ \\sigma = ${v[1]},\\ n = ${v[2]}`;
+      if (p.which === 'ratio-interval') return `\\hat{p} = ${v[0]},\\ n = ${v[1]}`;
+      return `\\bar{x} = ${v[0]},\\ \\mu_0 = ${v[1]},\\ \\sigma = ${v[2]},\\ n = ${v[3]}`;
+    }
     case 'term': case 'series': return `${splitTop(p.question, ',').map(expressionTex).join(',\\ ')},\\ \\ldots`;
     default: return expressionTex(p.question);
   }
@@ -338,6 +365,10 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
     case 'radian': case 'degree': case 'identity': return { key: p.kind, tex: {} };
     case 'recurrence': return p.given ? { key: 'recurrenceAt', tex: { n: expressionTex(p.given.split('=')[1]) } } : { key: 'recurrence', tex: { an: 'a_n' } };
     case 'distribution': return { key: p.which === 'mean' || p.which === 'variance' ? `${p.which}Table` : p.which!, tex: p.given ? { k: expressionTex(p.given.split('=')[1]) } : {} };
+    case 'inequality': return { key: p.which!.replace(/-(\w)/g, (_, c: string) => c.toUpperCase()), tex: {} };
+    case 'induction': return { key: `induction${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
+    case 'inference': return { key: p.which!.replace(/-(\w)/g, (_, c: string) => c.toUpperCase()), tex: p.given ? { z: expressionTex(p.given.split('=')[1]) } : {} };
+    case 'region': return { key: p.which === 'in' ? 'regionIn' : 'regionOut', tex: {} };
     case 'geometry': return { key: p.which!.replace(/-(\w)/g, (_, c: string) => c.toUpperCase()), tex: {} };
     case 'term': case 'series': {
       const kind = p.kind === 'term' ? 'Term' : 'Sum';
@@ -354,7 +385,9 @@ export function formulaChoiceTex(p: Pick<FormulaPayload, 'kind' | 'question'> & 
   if (p.kind === 'tangent') return solutionTex(choice, 'y');
   if (p.kind === 'identity') return solutionTex(choice, 'a');
   if (p.kind === 'degree') return `${expressionTex(choice)}^{\\circ}`;
-  if (p.kind === 'geometry') return p.which?.startsWith('line-') ? solutionTex(choice, 'y') : p.which?.startsWith('circle-') ? statementTex(choice) : expressionTex(choice);
+  if (p.kind === 'geometry') return p.which?.startsWith('line-') ? solutionTex(choice, 'y') : /^(circle|locus)-/.test(p.which ?? '') ? statementTex(choice) : expressionTex(choice);
+  if (p.kind === 'region') return `\\left(${list(choice).join(', ')}\\right)`;
+  if (p.kind === 'inference' && p.which?.endsWith('interval')) return `\\left[${list(choice).join(',\\ ')}\\right]`;
   return expressionTex(choice);
 }
 

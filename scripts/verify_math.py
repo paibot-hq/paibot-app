@@ -363,9 +363,11 @@ def circle_form(text_or_expr):
         expression = expand(parse_formula(sides[0]) - parse_formula(sides[1]))
     else:
         expression = expand(text_or_expr)
-    lead = Poly(expression, x, y).coeff_monomial(x ** 2)
+    poly = Poly(expression, x, y)
+    # Scale so equal curves compare equal: divide by the first non-zero coefficient.
+    lead = next((poly.coeff_monomial(m) for m in (x ** 2, y ** 2, x * y, x, y, 1) if poly.coeff_monomial(m) != 0), 0)
     if lead == 0:
-        raise ValueError('not a circle: no x^2 term')
+        raise ValueError('not a curve: the equation is 0 = 0')
     return expand(expression / lead)
 
 
@@ -395,6 +397,16 @@ def geometry(problem):
     if which == 'circle-diameter':
         (x1, y1), (x2, y2) = pair(parts[0]), pair(parts[1])
         return circle_form((x - x1) * (x - x2) + (y - y1) * (y - y2))
+    if which == 'locus-equidistant':
+        (x1, y1), (x2, y2) = pair(parts[0]), pair(parts[1])
+        if (x1, y1) == (x2, y2):
+            raise ValueError('A and B must differ')
+        return circle_form((x - x1) ** 2 + (y - y1) ** 2 - (x - x2) ** 2 - (y - y2) ** 2)
+    if which == 'locus-ratio':
+        (x1, y1), (x2, y2), (m, n) = pair(parts[0]), pair(parts[1]), pair(parts[2])
+        if not (m.is_Integer and n.is_Integer and m > 0 and n > 0 and m != n):
+            raise ValueError('the ratio must be two different positive integers')
+        return circle_form(n ** 2 * ((x - x1) ** 2 + (y - y1) ** 2) - m ** 2 * ((x - x2) ** 2 + (y - y2) ** 2))
     if which == 'distance':
         (a, b, c), (px, py) = pair(parts[0]), pair(parts[1])
         return abs(a * px + b * py + c) / sqrt(a ** 2 + b ** 2)
@@ -405,7 +417,7 @@ def geometry_choice(problem, text):
     which = problem['which']
     if which.startswith('line-'):
         return line_choice(text)
-    if which.startswith('circle-'):
+    if which.startswith(('circle-', 'locus-')):
         return circle_form(text)
     return parse_formula(text)
 
@@ -424,9 +436,89 @@ def identity_solution(problem):
     return names, [found[0][name] for name in names]
 
 
+def inequality(problem):
+    """Least value for positive numbers (arithmetic-geometric mean problems)."""
+    which, question = problem['which'], problem['question']
+    if which == 'product-sum':
+        product = parse_formula(question)
+        if not product > 0:
+            raise ValueError('the product must be positive')
+        return 2 * sqrt(product)
+    f = parse_formula(question)
+    x = variable_of(f)
+    second = diff(f, x, 2)
+    found = [c for c in solve(diff(f, x), x) if c.is_real and c > 0 and second.subs(x, c) > 0]
+    if len(found) != 1:
+        raise ValueError(f'expected exactly one positive minimum, found {found}')
+    return simplify(f.subs(x, found[0])) if which == 'amgm-min' else found[0]
+
+
+def induction(problem):
+    """Steps of proving g(1) + ... + g(n) = f(n) by induction; the claim itself must be true."""
+    which = problem['which']
+    g_text, f_text = problem['question'].split(';')
+    g, f = parse_formula(g_text), parse_formula(f_text)
+    k, n = LETTERS['k'], LETTERS['n']
+    if simplify(f.subs(n, 1) - g.subs(k, 1)) != 0:
+        raise ValueError('the formula fails for n = 1')
+    if simplify(f.subs(n, k) + g.subs(k, k + 1) - f.subs(n, k + 1)) != 0:
+        raise ValueError('f(k) + g(k + 1) is not f(k + 1): the claim is not provable by induction')
+    if which == 'base':
+        return g.subs(k, 1)
+    if which == 'add':
+        return g.subs(k, k + 1)
+    if which in ('target', 'combine'):
+        return f.subs(n, k + 1)
+    raise ValueError(f'unknown induction variant {which!r}')
+
+
+def inference(problem):
+    which, values = problem['which'], pair(problem['question'].split(';')[0])
+    z = None
+    if which.endswith('interval'):
+        found = assignments(problem['given'])
+        z = found[LETTERS['z']]
+    if which == 'mean-interval':
+        xbar, sigma, n = values
+        margin = z * sigma / sqrt(n)
+        result = Tuple(xbar - margin, xbar + margin)
+    elif which == 'ratio-interval':
+        p, n = values
+        margin = z * sqrt(p * (1 - p) / n)
+        result = Tuple(p - margin, p + margin)
+    elif which == 'test-z':
+        xbar, mu0, sigma, n = values
+        result = (xbar - mu0) / (sigma / sqrt(n))
+    else:
+        raise ValueError(f'unknown inference variant {which!r}')
+    parts = result if isinstance(result, Tuple) else [result]
+    if not all(part.is_Rational for part in parts):
+        raise ValueError(f'the answer {result} is not a clean number')
+    return result
+
+
+def region(problem):
+    lhs, rhs, op = [part.strip() for part in problem['question'].split(';')]
+    x, y = LETTERS['x'], LETTERS['y']
+    difference = parse_formula(lhs) - parse_formula(rhs)
+    test = {'<': lambda v: v < 0, '>': lambda v: v > 0, '<=': lambda v: v <= 0, '>=': lambda v: v >= 0}[op]
+    points = [Tuple(*pair(choice)) for choice in problem['choices']]
+    inside = [bool(test(difference.subs({x: px, y: py}))) for px, py in points]
+    want = problem['which'] == 'in'
+    hits = [point for point, flag in zip(points, inside) if flag == want]
+    if len(hits) != 1:
+        raise ValueError(f'exactly one point must be {"inside" if want else "outside"} the region, found {len(hits)}')
+    return hits[0], points
+
+
 def _formula(problem):
     kind, question, choices = problem['kind'], problem['question'], problem['choices']
     keyed = problem['answerIndex']
+    if kind == 'region':
+        return region(problem)
+    if kind == 'inference':
+        answer = inference(problem)
+        return answer, [Tuple(*pair(choice)) if isinstance(answer, Tuple) else parse_formula(choice) for choice in choices]
     if kind == 'geometry':
         return geometry(problem), [geometry_choice(problem, choice) for choice in choices]
     if kind == 'identity':
@@ -502,6 +594,10 @@ def _formula(problem):
         return recurrence(problem), parsed
     if kind == 'distribution':
         return distribution(problem), parsed
+    if kind == 'inequality':
+        return inequality(problem), parsed
+    if kind == 'induction':
+        return induction(problem), parsed
     raise ValueError(f'unknown kind {kind!r}')
 
 
@@ -532,7 +628,10 @@ def check_steps(problem, answer):
     if kind == 'recurrence':
         return check_recurrence_steps(problem, answer, steps)
     for line in steps:
-        if kind in ('solve', 'tangent', 'extremum', 'identity') or (kind == 'geometry' and problem['which'].startswith(('line-', 'circle-'))):
+        if kind in ('region', 'inference'):
+            check_numeric_chain(line)
+            continue
+        if kind in ('solve', 'tangent', 'extremum', 'identity') or (kind == 'inequality' and problem['which'] == 'amgm-equal') or (kind == 'geometry' and problem['which'].startswith(('line-', 'circle-', 'locus-'))):
             check_equation_line(problem, answer, line)
             continue
         parts = line.split('=')
@@ -546,6 +645,16 @@ def check_steps(problem, answer):
                 ok = same(value, answer)
             if not ok:
                 raise ValueError(f'step {line!r}: {part.strip()!r} is not equal to the answer {answer}')
+
+
+def check_numeric_chain(line):
+    """A line of plain numbers a = b = c that are all equal (a calculation written out)."""
+    for item in split_top(line, ','):   # "lo = a, hi = b" lists two chains
+        values = [parse_formula(part) for part in item.split('=')]
+        if any(value.free_symbols for value in values):
+            raise ValueError(f'step {line!r} must be numbers only')
+        if any(not same(values[0], value) for value in values[1:]):
+            raise ValueError(f'step {line!r} is not a true chain of equal numbers')
 
 
 def check_recurrence_steps(problem, answer, steps):
@@ -573,7 +682,7 @@ def on_circle(sides, circle):
 
 def check_equation_line(problem, answer, line):
     kind = problem['kind']
-    if kind == 'geometry' and problem['which'].startswith('circle-'):
+    if kind == 'geometry' and problem['which'].startswith(('circle-', 'locus-')):
         items = split_top(line, ',')
         if not all(on_circle(item.split('='), answer) for item in items):
             raise ValueError(f'step {line!r} does not hold for the circle')
@@ -585,6 +694,9 @@ def check_equation_line(problem, answer, line):
     elif kind == 'solve':
         _, names = solution_set(problem['question'], complex_roots=True)
         candidates = [dict(zip(names, value if isinstance(value, Tuple) else [value])) for value in answer]
+        every = True
+    elif kind == 'inequality':
+        candidates = [{variable_of(parse_formula(problem['question'])): answer}]
         every = True
     elif kind in ('tangent', 'geometry'):
         candidates = [{LETTERS['y']: answer}]
@@ -659,6 +771,7 @@ UNITS = {
     'sequence': ('math-sequence.json', formula),
     'coordinate-geometry': ('math-coordinate-geometry.json', formula),
     'distributions': ('math-distributions.json', formula),
+    'inference': ('math-inference.json', formula),
     'factorization': ('math-factorization.json', factorization),
     'pythagoras': ('math-pythagoras.json', pythagoras),
 }

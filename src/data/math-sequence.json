@@ -375,6 +375,96 @@
       ],
       "choices": ["4*n + 3", "4*n - 1", "4*n + 1", "3*n + 1"],
       "answerIndex": 1
+    },
+    {
+      "id": "sequence-021",
+      "item": "induction",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "induction",
+      "question": "3*k - 1; n*(3*n + 1)/2",
+      "given": null,
+      "which": "base",
+      "steps": [
+        "3*1 - 1 = 2"
+      ],
+      "choices": ["1", "4", "2", "3"],
+      "answerIndex": 2
+    },
+    {
+      "id": "sequence-022",
+      "item": "induction",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "induction",
+      "question": "4*k - 3; n*(2*n - 1)",
+      "given": null,
+      "which": "add",
+      "steps": [
+        "4*(k + 1) - 3 = 4*k + 4 - 3 = 4*k + 1"
+      ],
+      "choices": ["4*k + 1", "4*k - 3", "4*k - 1", "4*k + 5"],
+      "answerIndex": 0
+    },
+    {
+      "id": "sequence-023",
+      "item": "induction",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "induction",
+      "question": "1/((2*k - 1)*(2*k + 1)); n/(2*n + 1)",
+      "given": null,
+      "which": "target",
+      "steps": [
+        "(k + 1)/(2*(k + 1) + 1) = (k + 1)/(2*k + 3)"
+      ],
+      "choices": ["(k + 1)/(2*k + 1)", "k/(2*k + 1)", "k/(2*k + 3)", "(k + 1)/(2*k + 3)"],
+      "answerIndex": 3
+    },
+    {
+      "id": "sequence-024",
+      "item": "induction",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "induction",
+      "question": "1/(k*(k + 1)); n/(n + 1)",
+      "given": null,
+      "which": "combine",
+      "steps": [
+        "k/(k + 1) + 1/((k + 1)*(k + 2)) = (k^2 + 2*k + 1)/((k + 1)*(k + 2)) = (k + 1)^2/((k + 1)*(k + 2)) = (k + 1)/(k + 2)"
+      ],
+      "choices": ["k/(k + 1)", "(k + 1)/(k + 2)", "(k + 1)/(k + 3)", "k/(k + 2)"],
+      "answerIndex": 1
+    },
+    {
+      "id": "sequence-025",
+      "item": "induction",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "induction",
+      "question": "3*k - 2; n*(3*n - 1)/2",
+      "given": null,
+      "which": "combine",
+      "steps": [
+        "k*(3*k - 1)/2 + (3*(k + 1) - 2) = (3*k^2 - k + 6*k + 2)/2 = (3*k^2 + 5*k + 2)/2 = (k + 1)*(3*k + 2)/2"
+      ],
+      "choices": ["(k + 1)*(3*k + 1)/2", "(k + 1)*(3*k + 4)/2", "(k + 1)*(3*k + 2)/2", "k*(3*k - 1)/2"],
+      "answerIndex": 2
     }
   ]
 }

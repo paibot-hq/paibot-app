@@ -20,8 +20,13 @@
 - "radian": question は度数の数（"150"）。答えは弧度法の式（"5*pi/6"）。"degree": question は弧度（"5*pi/6"）、答えは度数の数（"150"）。
 - "recurrence": question は "初項; 次の項の式"（"2; 3*a - 1" は a_1 = 2、a_(n+1) = 3a_n - 1。文字 a が前の項、n も使える）。given が "n = 5" なら第5項の値、null なら一般項 a_n（n の式、"(3^n + 1)/2" など）。
 - "distribution": which で種類を決める。"mean"/"variance": question は "値1, 値2, 値3; 確率1, 確率2, 確率3"（確率の和は1）で期待値・分散。"binomialMean"/"binomialVariance": question は "n, p"（"12, 1/3"）で二項分布 B(n, p) の期待値・分散。"binomialProb": question は "n, p"、given は "k = 2"、ちょうど k 回の確率。"zscore": question は "x, m, s"（"76, 60, 8"）で正規分布 N(m, s^2) のとき X = x を標準化した値。
+- "geometry" の which には locus-equidistant（question "x1, y1; x2, y2"、2点から等しい距離にある点 P の軌跡の方程式）と locus-ratio（question "x1, y1; x2, y2; m, n"、PA : PB = m : n となる点 P の軌跡の方程式。m ≠ n）もある。choices は "x + y = 3" のように 左辺 = 右辺 の方程式。
 - "geometry": which で種類を決める。"line-two-points": question "x1, y1; x2, y2" の2点を通る直線（choices は "y = 3*x - 1"）。"line-slope": "x1, y1; 傾き" の点を通る直線。"line-parallel"/"line-perpendicular": "f; x1, y1"（直線 y = f に平行/垂直で点を通る直線）。"circle-center": "cx, cy; r" の円の方程式（choices は "(x - 2)^2 + (y + 3)^2 = 25" の形）。"circle-diameter": "x1, y1; x2, y2" を直径の両端とする円の方程式。"distance": "a, b, c; px, py" の点と直線 ax + by + c = 0 の距離（値）。直線は垂直にならないものだけ。
 - "identity": question は x についての等式で未知の定数（a, b, c など）を含む（"a*(x + 1) + b*(x - 2) = 3*x + 3"）。choices は恒等式になる定数の組（"a = 3, b = 0"）。
+- "inequality": which で種類を決める。"amgm-min": question は x の式（"x + 4/x"）、x > 0 のときの最小値。"amgm-equal": 同じ式で最小になる x の値。"product-sum": question は正の数 k（"16"）、a > 0, b > 0, ab = k のときの a + b の最小値。式は x > 0 でちょうど1つの最小値をもつ相加・相乗平均型（"x + 9/x"、"2*x + 8/x"、"x + 1/x + 2"）にする。
+- "induction": 数学的帰納法で "g(1) + ... + g(n) = f(n)" を示す場面。question は "g; f"（g は k の式、f は n の式。例 "k*(k + 1); n*(n + 1)*(n + 2)/3"）。等式は実際に成り立つものにする（f(1) = g(1) かつ f(k) + g(k + 1) = f(k + 1)）。which: "base" は n = 1 の左辺の値、"add" は n = k のとき n = k + 1 で左辺に加わる項 g(k + 1)（k の式）、"target" は n = k + 1 のときの右辺 f(k + 1)（k の式）、"combine" は仮定を使って左辺を計算した結果（f(k + 1) を因数分解などで整理した形、k の式）。
+- "inference": which で種類を決める。"mean-interval": question は "標本平均, 母標準偏差, n"（"50, 10, 100"）、given は "z = 1.96"（95%）などで、母平均の信頼区間 [x - z*s/sqrt(n), x + z*s/sqrt(n)]。choices は "48.04, 51.96" の形（小さい方, 大きい方）。"ratio-interval": question は "標本比率, n"（"0.4, 600"）、given は "z = 1.96"、母比率の信頼区間 p ± z*sqrt(p*(1 - p)/n)。"test-z": question は "標本平均, 帰無仮説の母平均, 母標準偏差, n"（"52, 50, 10, 100"）、検定統計量 Z = (x - m)/(s/sqrt(n))（given は null）。答えは有限小数か分数で表せる値になる数を選ぶ。
+- "region": question は "左辺; 右辺; 不等号"（"x + 2*y; 4; >="、不等号は < > <= >=）。which "in" は領域に含まれる点、"out" は含まれない点を選ぶ。choices は点 "x, y"（"1, 2"）。"in" は4点のうちちょうど1つだけ領域に含まれ、"out" はちょうど1つだけ含まれない。境界線上の点は不等号が < か > のときは含まれない。
 choices は数学的に互いに異なる4つで、正解は1つだけ。分数は約分した形で書く。正解だけ書式が異なるなどの手がかりを作らない。answerIndex（0始まり）は0〜3をばらけさせる。
 出力形式: {"problems":[{"kind":"calc","question":"2/3 + 1/4","given":null,"choices":["11/12","3/7","3/12","5/6"],"answerIndex":0}]}
 term の例: {"kind":"term","progression":"arithmetic","question":"3, 7, 11, 15","given":"n = 10","choices":["39","43","40","35"],"answerIndex":0}
@@ -32,5 +37,6 @@ remainder の例: {"kind":"remainder","question":"x^3 - 2*x + 1","divisor":"x - 
 - tangent: 各行は接線上で成り立つ式（"3*2^2 - 3 = 9"、"y - 2 = 9*(x - 2)"）。
 - extremum: 各行はどれかの極値の点で成り立つ式（"3*x^2 - 3 = 0"、"x = 1"、"1^3 - 3*1 = -2"）。
 - recurrence: 各行の式は数列の項の値（"3*2 - 1 = 5"）か、一般項に等しい式。distribution・radian・degree・geometry の distance: 各行の式はすべて答えと等しい値。geometry の直線・円: 各行は直線・円上で成り立つ式（"y - 2 = 3*(x - 1)"、"(x - 2)^2 + (y + 3)^2 = 5^2 = 25"）。identity: 各行は解の定数を代入すると成り立つ式（"a + b = 3" など）。
+- region・inference: 各行は数だけの計算（"1 + 2*2 = 5"、"10/sqrt(100) = 1"）。inequality の amgm-equal: 各行は最小になる x で成り立つ式（"x = 4/x"、"x^2 = 4"、"x = 2"）。それ以外の inequality・induction: 各行の式はすべて答えと等しい式。geometry の locus: 各行は軌跡上で成り立つ式（"(x - 1)^2 + y^2 = 4"など）。
 - 最後の行は答えで終える。途中で近似や省略をしない。
 出力に steps を含める: {"kind":"calc","question":"2/3 + 1/4","given":null,"steps":["2/3 + 1/4 = 8/12 + 3/12 = 11/12"],"choices":["11/12","3/7","3/12","5/6"],"answerIndex":0}

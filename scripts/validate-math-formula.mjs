@@ -100,6 +100,12 @@ const RULES = {
   'normal-a': ['distribution', (s, p) => p.which === 'zscore'],
   'line-a': ['geometry', (s, p) => /^(line-|distance$)/.test(p.which)],
   'circle-a': ['geometry', (s, p) => /^circle-/.test(p.which)],
+  'amgm-a': ['inequality', (s, p) => ['amgm-min', 'amgm-equal', 'product-sum'].includes(p.which)],
+  'induction-a': ['induction', (s, p) => s.letters.has('k') && s.letters.has('n') && ['base', 'add', 'target', 'combine'].includes(p.which)],
+  'estimation-a': ['inference', (s, p) => ['mean-interval', 'ratio-interval'].includes(p.which)],
+  'testing-a': ['inference', (s, p) => p.which === 'test-z'],
+  'locus-a': ['geometry', (s, p) => /^locus-/.test(p.which)],
+  'region-a': ['region', (s, p) => ['in', 'out'].includes(p.which) && s.letters.has('x') && s.letters.has('y')],
   'geometric-a': [['term', 'series'], (s, p) => p.progression === 'geometric' && !s.letters.size && !s.calls.size],
 };
 
@@ -108,7 +114,9 @@ const RULES = {
 function checkChoice(kind, choice, id, which) {
   assert.ok(typeof choice === 'string' && choice.trim() && choice.length <= 200, `${id}: choice`);
   if (kind === 'geometry' && /^line-/.test(which)) { assert.match(choice, /^\s*y\s*=/, `${id}: line choices are "y = ..."`); parseExpression(choice.split('=')[1]); return; }
-  if (kind === 'geometry' && /^circle-/.test(which)) { const sides = choice.split('='); assert.equal(sides.length, 2, `${id}: circle choices are equations`); sides.forEach(side => parseExpression(side)); return; }
+  if (kind === 'region') { const parts = splitTop(choice, ','); assert.equal(parts.length, 2, `${id}: region choices are points "x, y"`); parts.forEach(part => parseExpression(part)); return; }
+  if (kind === 'inference' && /interval$/.test(which)) { const parts = splitTop(choice, ','); assert.equal(parts.length, 2, `${id}: interval choices are "lo, hi"`); parts.forEach(part => parseExpression(part)); return; }
+  if (kind === 'geometry' && /^(circle|locus)-/.test(which)) { const sides = choice.split('='); assert.equal(sides.length, 2, `${id}: circle choices are equations`); sides.forEach(side => parseExpression(side)); return; }
   if (kind === 'identity') { for (const item of splitTop(choice, ',')) { assert.match(item, /^\s*[a-z]\s*=/, `${id}: identity choices are "a = 1, b = 2"`); parseExpression(item.split('=')[1]); } return; }
   if (kind === 'tangent') { assert.match(choice, /^\s*y\s*=/, `${id}: tangent choices are "y = ..."`); parseExpression(choice.split('=')[1]); return; }
   const items = kind === 'solve' ? splitTop(choice, ',') : [choice];
@@ -144,7 +152,7 @@ export function validateBank(bank, catalog) {
     assert.ok(typeof question === 'string' && question.length <= 200, `${id}: question`);
     const key = `${question.replaceAll(' ', '')}|${given ?? ''}`;
     assert.ok(!questions.has(key), `${id}: duplicate question`); questions.add(key);
-    assert.ok(given === null || (['calc', 'derivative', 'tangent', 'term', 'series', 'recurrence', 'distribution'].includes(kind) && typeof given === 'string'), `${id}: given`);
+    assert.ok(given === null || (['calc', 'derivative', 'tangent', 'term', 'series', 'recurrence', 'distribution', 'inference'].includes(kind) && typeof given === 'string'), `${id}: given`);
     if (given) for (const pair of splitTop(given, ',')) { assert.match(pair, /^\s*[a-z]\s*=/, `${id}: given`); parseExpression(pair.split('=')[1]); }
     // Fields only some kinds have.
     assert.ok((kind === 'remainder') === (problem.divisor !== undefined), `${id}: divisor is for remainder`);
@@ -152,16 +160,19 @@ export function validateBank(bank, catalog) {
     assert.ok(problem.bounds === undefined || ['integral', 'area'].includes(kind), `${id}: bounds are for integral and area`);
     if (kind === 'area') assert.ok(problem.bounds, `${id}: area needs bounds`);
     if (problem.bounds !== undefined) { const parts = splitTop(problem.bounds, ','); assert.equal(parts.length, 2, `${id}: bounds "a, b"`); parts.forEach(part => parseExpression(part)); }
-    const variants = { extremum: ['max', 'min'], distribution: ['mean', 'variance', 'binomialMean', 'binomialVariance', 'binomialProb', 'zscore'], geometry: ['line-two-points', 'line-slope', 'line-parallel', 'line-perpendicular', 'circle-center', 'circle-diameter', 'distance'] };
+    const variants = { extremum: ['max', 'min'], distribution: ['mean', 'variance', 'binomialMean', 'binomialVariance', 'binomialProb', 'zscore'], geometry: ['line-two-points', 'line-slope', 'line-parallel', 'line-perpendicular', 'circle-center', 'circle-diameter', 'distance', 'locus-equidistant', 'locus-ratio'], inequality: ['amgm-min', 'amgm-equal', 'product-sum'], induction: ['base', 'add', 'target', 'combine'], inference: ['mean-interval', 'ratio-interval', 'test-z'], region: ['in', 'out'] };
     assert.ok((problem.which !== undefined) === Object.hasOwn(variants, kind), `${id}: which is for extremum, distribution and geometry`);
     if (problem.which !== undefined) assert.ok(variants[kind].includes(problem.which), `${id}: which`);
     if (kind === 'distribution') assert.ok((problem.which === 'binomialProb') === (given !== null), `${id}: given k is for binomialProb only`);
+    if (kind === 'inference') assert.ok((problem.which !== 'test-z') === (given !== null), `${id}: given z is for intervals only`);
+    if (kind === 'inference' && given) assert.match(given, /^\s*z\s*=\s*\d+(\.\d+)?\s*$/, `${id}: given "z = 1.96"`);
+    if (kind === 'region') assert.ok(['<', '>', '<=', '>='].includes(splitTop(question, ';')[2]?.trim()), `${id}: region ends with < > <= >=`);
     if (kind === 'recurrence' && given) assert.match(given, /^\s*n\s*=\s*\d+\s*$/, `${id}: given "n = 5"`);
     const sequence = ['term', 'series'].includes(kind);
     assert.ok(sequence === (problem.progression !== undefined), `${id}: progression is for term and series`);
     if (sequence) { assert.ok(splitTop(question, ',').length >= 3, `${id}: at least three first terms`); if (given) assert.match(given, /^\s*n\s*=\s*\d+\s*$/, `${id}: given "n = 10"`); }
-    const listed = ['distribution', 'geometry', 'recurrence'].includes(kind);
-    const s = stats(kind === 'area' ? question.replace(';', '+') : sequence ? splitTop(question, ',').join(' + ') : listed ? splitTop(question, ';').flatMap(part => splitTop(part, ',')).join(' + ') : question);
+    const listed = ['distribution', 'geometry', 'recurrence', 'inequality', 'induction', 'inference', 'region'].includes(kind);
+    const s = stats(kind === 'area' ? question.replace(';', '+') : sequence ? splitTop(question, ',').join(' + ') : listed ? splitTop(question, ';').slice(0, kind === 'region' ? 2 : undefined).flatMap(part => splitTop(part, ',')).join(' + ') : question);
     assert.ok(kind === 'solve' ? s.equations >= 1 : kind === 'identity' ? s.equations === 1 : s.equations === 0, `${id}: equations`);
     assert.ok(fits(s, problem), `${id}: "${question}" does not fit set ${setId}`);
     assert.ok(Array.isArray(choices) && choices.length === 4, `${id}: four choices`);
