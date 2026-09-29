@@ -281,6 +281,100 @@
       "steps": [
         "1*(3^n - 1)/(3 - 1) = (3^n - 1)/2"
       ]
+    },
+    {
+      "id": "sequence-016",
+      "item": "recurrence",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "recurrence",
+      "question": "3; 2*a + 3",
+      "given": "n = 5",
+      "steps": [
+        "2*3 + 3 = 9",
+        "2*9 + 3 = 21",
+        "2*21 + 3 = 45",
+        "2*45 + 3 = 93"
+      ],
+      "choices": ["93", "45", "189", "87"],
+      "answerIndex": 0
+    },
+    {
+      "id": "sequence-017",
+      "item": "recurrence",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "recurrence",
+      "question": "1; 3*a - 4",
+      "given": "n = 5",
+      "steps": [
+        "3*1 - 4 = -1",
+        "3*(-1) - 4 = -7",
+        "3*(-7) - 4 = -25",
+        "3*(-25) - 4 = -79"
+      ],
+      "choices": ["-25", "-79", "-71", "79"],
+      "answerIndex": 1
+    },
+    {
+      "id": "sequence-018",
+      "item": "recurrence",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "recurrence",
+      "question": "5; -3*a",
+      "given": "n = 5",
+      "steps": [
+        "-3*5 = -15",
+        "-3*(-15) = 45",
+        "-3*45 = -135",
+        "-3*(-135) = 405"
+      ],
+      "choices": ["-135", "-405", "405", "1215"],
+      "answerIndex": 2
+    },
+    {
+      "id": "sequence-019",
+      "item": "recurrence",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "recurrence",
+      "question": "2; 3*a - 1",
+      "given": null,
+      "steps": [
+        "(2 - 1/2)*3^(n - 1) + 1/2 = (3/2)*3^(n - 1) + 1/2 = (3^n + 1)/2"
+      ],
+      "choices": ["(3^(n - 1) + 1)/2", "(3^n - 1)/2", "3^n - 1", "(3^n + 1)/2"],
+      "answerIndex": 3
+    },
+    {
+      "id": "sequence-020",
+      "item": "recurrence",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "recurrence",
+      "question": "3; a + 4",
+      "given": null,
+      "steps": [
+        "3 + 4*(n - 1) = 3 + 4*n - 4 = 4*n - 1"
+      ],
+      "choices": ["4*n + 3", "4*n - 1", "4*n + 1", "3*n + 1"],
+      "answerIndex": 1
     }
   ]
 }

@@ -1,0 +1,1 @@
+二項分布 B(n, p)（kind "distribution"、which は binomialMean・binomialVariance・binomialProb）。5問を 期待値2問・分散2問・確率1問（given "k = 2" など）にする。n は 4〜20、p は 1/2、1/3、1/4、1/5 など。誤答は np と np(1 - p) の取り違え、C(n, k) の忘れなどから作る。

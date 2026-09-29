@@ -37,7 +37,20 @@
 //   term       a `progression` given by its first terms ("3, 7, 11"): the term at
 //              `given` (n = 10), or with no `given` the general term, an expression in n
 //   series     the same, but the sum of the first n terms (at `given`, or S_n in n)
-export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series';
+//   radian     degrees (a number) to radians, an expression in pi
+//   degree     radians (an expression in pi) to degrees
+//   recurrence "first; f" is a_1 = first, a_(n+1) = f (in a and n): term n at `given`
+//              (n = 5), or with no `given` the general term, an expression in n
+//   distribution  by `which`: mean, variance ("x1, x2; p1, p2" a table),
+//              binomialMean, binomialVariance, binomialProb ("n, p", given k = 2),
+//              zscore ("x, m, s": X in N(m, s^2))
+//   geometry   by `which`: line-two-points ("x1, y1; x2, y2"), line-slope
+//              ("x1, y1; m"), line-parallel, line-perpendicular ("f; x1, y1", the
+//              line y = f through the point), circle-center ("cx, cy; r"),
+//              circle-diameter ("x1, y1; x2, y2"), distance ("a, b, c; px, py":
+//              the point to ax + by + c = 0). Lines and circles answer with an equation.
+//   identity   an equation in x with unknown constants; choices "a = 1, b = 2" make it an identity in x
+export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity';
 
 export interface FormulaPayload {
   kind: FormulaKind;
@@ -48,8 +61,8 @@ export interface FormulaPayload {
   divisor?: string;
   // integral/area: "a, b".
   bounds?: string;
-  // extremum: which one.
-  which?: 'max' | 'min';
+  // extremum: 'max' or 'min'; distribution and geometry: the variant (see the kinds).
+  which?: string;
   // term/series: what kind of sequence the first terms in `question` start.
   progression?: 'arithmetic' | 'geometric';
   // The worked solution, one line each: a chain "a = b = c" (or, for equations,
@@ -176,7 +189,12 @@ export function toTex(node: Node): string {
     case 'const': return node.name === 'pi' ? '\\pi ' : 'i';
     case 'neg': return `-${toTex(node.arg)}`;
     case 'group': return `\\left(${toTex(node.arg)}\\right)`;
-    case 'pow': return `${toTex(node.base)}^{${toTex(unwrap(node.exp))}}`;
+    case 'pow': {
+      // sin(x)^2 is written \sin^{2} x, never \sin x^{2} (which reads as sin(x^2)).
+      const base = unwrap(node.base);
+      if (base.type === 'call' && ['sin', 'cos', 'tan'].includes(base.name) && node.exp.type === 'num') return `\\${base.name}^{${node.exp.value}}${argTex(base.args[0])}`;
+      return `${toTex(node.base)}^{${toTex(unwrap(node.exp))}}`;
+    }
     case 'call': {
       const [a, b, c, d] = node.args;
       switch (node.name) {
@@ -235,9 +253,29 @@ export function unknownOf(question: string): string {
   return letters.includes('x') ? 'x' : letters.sort()[0] ?? 'x';
 }
 
+// The same expression with a letter replaced by another name (a -> a_{n}).
+function renameVar(node: Node, from: string, to: string): Node {
+  switch (node.type) {
+    case 'var': return node.name === from ? { type: 'var', name: to } : node;
+    case 'neg': case 'group': return { ...node, arg: renameVar(node.arg, from, to) };
+    case 'call': return { ...node, args: node.args.map(arg => renameVar(arg, from, to)) };
+    case 'pow': return { ...node, base: renameVar(node.base, from, to), exp: renameVar(node.exp, from, to) };
+    case 'bin': return { ...node, left: renameVar(node.left, from, to), right: renameVar(node.right, from, to) };
+    default: return node;
+  }
+}
+
+const list = (text: string) => splitTop(text, ',').map(expressionTex);
+const point = (text: string, name: string) => `${name}\\left(${list(text).join(', ')}\\right)`;
+// ax + by + c with integer coefficients, signs folded into the operators.
+function lineTex(a: number, b: number, c: number): string {
+  const term = (n: number, letter: string, first: boolean) => n === 0 ? '' : `${first ? (n < 0 ? '-' : '') : n < 0 ? ' - ' : ' + '}${Math.abs(n) === 1 && letter ? '' : Math.abs(n)}${letter}`;
+  return `${term(a, 'x', true)}${term(b, 'y', !a)}${c === 0 ? '' : term(c, '', !a && !b)}`;
+}
+
 // The question as shown, by kind: an integral sign with its bounds, curves as
 // y = ..., equations as a system; the instruction line comes from the page's text.
-export function formulaQuestionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'>): string {
+export function formulaQuestionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & { which?: string }): string {
   const x = unknownOf(p.question);
   switch (p.kind) {
     case 'solve': return statementTex(p.question);
@@ -250,6 +288,33 @@ export function formulaQuestionTex(p: Pick<FormulaPayload, 'kind' | 'question' |
     }
     case 'area': return p.question.split(';').map(curve => `y = ${expressionTex(curve)}`).join(',\\ ');
     case 'derivative': case 'tangent': case 'extremum': return `y = ${expressionTex(p.question)}`;
+    case 'radian': return `${expressionTex(p.question)}^{\\circ}`;
+    case 'degree': return `${expressionTex(p.question)}\\,\\mathrm{rad}`;
+    case 'recurrence': {
+      const [first, rule] = splitTop(p.question, ';');
+      return `a_{1} = ${expressionTex(first)},\\ a_{n+1} = ${toTex(renameVar(parseExpression(rule), 'a', 'a_{n}'))}`;
+    }
+    case 'distribution': {
+      const parts = splitTop(p.question, ';');
+      if (['mean', 'variance'].includes(p.which ?? '')) {
+        const values = list(parts[0]), probs = list(parts[1]);
+        return `\\begin{array}{c|${'c'.repeat(values.length)}} X & ${values.join(' & ')} \\\\ \\hline P & ${probs.join(' & ')} \\end{array}`;
+      }
+      const [a, b, c] = list(parts[0]);
+      if (p.which === 'zscore') return `X \\sim N\\left(${b}, ${c}^{2}\\right),\\ X = ${a}`;
+      return `X \\sim B\\left(${a}, ${b}\\right)`;
+    }
+    case 'geometry': {
+      const parts = splitTop(p.question, ';');
+      switch (p.which) {
+        case 'line-two-points': case 'circle-diameter': return `${point(parts[0], 'A')},\\ ${point(parts[1], 'B')}`;
+        case 'line-slope': return `${point(parts[0], 'A')},\\ m = ${expressionTex(parts[1])}`;
+        case 'line-parallel': case 'line-perpendicular': return `\\ell: y = ${expressionTex(parts[0])},\\ ${point(parts[1], 'A')}`;
+        case 'circle-center': return `${point(parts[0], 'C')},\\ r = ${expressionTex(parts[1])}`;
+        default: { const [a, b, c] = splitTop(parts[0], ',').map(Number); return `\\ell: ${lineTex(a, b, c)} = 0,\\ ${point(parts[1], 'P')}`; }
+      }
+    }
+    case 'identity': return statementTex(p.question);
     case 'term': case 'series': return `${splitTop(p.question, ',').map(expressionTex).join(',\\ ')},\\ \\ldots`;
     default: return expressionTex(p.question);
   }
@@ -270,6 +335,10 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
       const [a, b] = splitTop(p.bounds ?? '0, 1', ',').map(expressionTex);
       return { key: p.question.includes(';') ? 'areaCurves' : 'areaAxis', tex: { a: `x = ${a}`, b: `x = ${b}` } };
     }
+    case 'radian': case 'degree': case 'identity': return { key: p.kind, tex: {} };
+    case 'recurrence': return p.given ? { key: 'recurrenceAt', tex: { n: expressionTex(p.given.split('=')[1]) } } : { key: 'recurrence', tex: { an: 'a_n' } };
+    case 'distribution': return { key: p.which === 'mean' || p.which === 'variance' ? `${p.which}Table` : p.which!, tex: p.given ? { k: expressionTex(p.given.split('=')[1]) } : {} };
+    case 'geometry': return { key: p.which!.replace(/-(\w)/g, (_, c: string) => c.toUpperCase()), tex: {} };
     case 'term': case 'series': {
       const kind = p.kind === 'term' ? 'Term' : 'Sum';
       const n = p.given ? expressionTex(p.given.split('=')[1]) : 'n';
@@ -280,9 +349,12 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
   }
 }
 
-export function formulaChoiceTex(p: Pick<FormulaPayload, 'kind' | 'question'>, choice: string): string {
+export function formulaChoiceTex(p: Pick<FormulaPayload, 'kind' | 'question'> & { which?: string }, choice: string): string {
   if (p.kind === 'solve') return solutionTex(choice, unknownOf(p.question));
   if (p.kind === 'tangent') return solutionTex(choice, 'y');
+  if (p.kind === 'identity') return solutionTex(choice, 'a');
+  if (p.kind === 'degree') return `${expressionTex(choice)}^{\\circ}`;
+  if (p.kind === 'geometry') return p.which?.startsWith('line-') ? solutionTex(choice, 'y') : p.which?.startsWith('circle-') ? statementTex(choice) : expressionTex(choice);
   return expressionTex(choice);
 }
 

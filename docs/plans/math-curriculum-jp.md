@@ -271,20 +271,20 @@
 | 式と方程式 | 展開 / 3次の展開 | ✅ | `expansion/cubic` |
 | 式と方程式 | 因数分解（高校） / 3乗の和と差 | ✅ | `factoring/cubes` |
 | 式と方程式 | 式と証明 / 二項定理 | ✅ | `identities/binomial` |
-| 式と方程式 | 式と証明 / 恒等式 | B | `identities/identity` |
+| 式と方程式 | 式と証明 / 恒等式 | ✅ | `identities/identity` |
 | 式と方程式 | 式と証明 / 不等式の証明 | C | `identities/inequality-proof` |
 | 式と方程式 | 高次方程式 / 剰余の定理・因数定理 | ✅ | `polynomial-equations/remainder` |
 | 式と方程式 | 高次方程式 / 高次方程式 | ✅ | `polynomial-equations/higher-degree` |
 | 関数・変化と関係 | 三角比・三角関数 / 三角関数の値 | ✅ | `trig/values` |
-| 関数・変化と関係 | 三角比・三角関数 / 弧度法 | B | `trig/radian` |
+| 関数・変化と関係 | 三角比・三角関数 / 弧度法 | ✅ | `trig/radian` |
 | 関数・変化と関係 | 三角比・三角関数 / 加法定理 | ✅ | `trig/addition` |
-| 関数・変化と関係 | 三角比・三角関数 / 倍角・半角の公式 | B | `trig/double-angle` |
+| 関数・変化と関係 | 三角比・三角関数 / 倍角・半角の公式 | ✅ | `trig/double-angle` |
 | 関数・変化と関係 | 三角比・三角関数 / 三角関数の合成 | ✅ | `trig/synthesis` |
 | 関数・変化と関係 | 指数・対数 / 指数法則 | ✅ | `exp-log/exponent` |
 | 関数・変化と関係 | 指数・対数 / 対数の計算 | ✅ | `exp-log/log` |
-| 関数・変化と関係 | 指数・対数 / 常用対数 | B | `exp-log/common-log` |
-| 図形と測定 | 図形と方程式 / 直線の方程式 | B | `coordinate-geometry/line` |
-| 図形と測定 | 図形と方程式 / 円の方程式 | B | `coordinate-geometry/circle` |
+| 関数・変化と関係 | 指数・対数 / 常用対数 | ✅ | `exp-log/common-log` |
+| 図形と測定 | 図形と方程式 / 直線の方程式 | ✅ | `coordinate-geometry/line` |
+| 図形と測定 | 図形と方程式 / 円の方程式 | ✅ | `coordinate-geometry/circle` |
 | 図形と測定 | 図形と方程式 / 軌跡 | B | `coordinate-geometry/locus` |
 | 図形と測定 | 図形と方程式 / 不等式の表す領域 | D | `coordinate-geometry/region` |
 | 微分積分 | 微分 / 多項式の微分 | ✅ | `derivative/polynomial` |
@@ -301,11 +301,11 @@
 | 関数・変化と関係 | 数列 / 等差数列 | ✅ | `sequence/arithmetic` |
 | 関数・変化と関係 | 数列 / 等比数列 | ✅ | `sequence/geometric` |
 | 関数・変化と関係 | 数列 / Σ の計算 | ✅ | `sequence/sigma` |
-| 関数・変化と関係 | 数列 / 漸化式 | B | `sequence/recurrence` |
+| 関数・変化と関係 | 数列 / 漸化式 | ✅ | `sequence/recurrence` |
 | 関数・変化と関係 | 数列 / 数学的帰納法 | C | `sequence/induction` |
-| データと確率 | 確率分布 / 確率変数と期待値・分散 | B | `distributions/random-variables` |
-| データと確率 | 確率分布 / 二項分布 | B | `distributions/binomial` |
-| データと確率 | 確率分布 / 正規分布 | B | `distributions/normal` |
+| データと確率 | 確率分布 / 確率変数と期待値・分散 | ✅ | `distributions/random-variables` |
+| データと確率 | 確率分布 / 二項分布 | ✅ | `distributions/binomial` |
+| データと確率 | 確率分布 / 正規分布 | ✅ | `distributions/normal` |
 | データと確率 | 統計的推定と検定 / 推定 | C | `inference/estimation` |
 | データと確率 | 統計的推定と検定 / 検定 | C | `inference/testing` |
 

@@ -232,7 +232,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   ] },
   { id: 'identities', domain: 'algebra', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'binomial', sets: [{ id: '1', rule: 'binomial-a' }] },
-    { id: 'identity', sets: [{ id: '1' }] },
+    { id: 'identity', sets: [{ id: '1', rule: 'identity-a' }] },
     { id: 'inequality-proof', sets: [{ id: '1' }] },
   ] },
   { id: 'polynomial-equations', domain: 'algebra', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
@@ -247,20 +247,20 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'arithmetic', sets: [{ id: '1', rule: 'arithmetic-a' }] },
     { id: 'geometric', sets: [{ id: '1', rule: 'geometric-a' }] },
     { id: 'sigma', sets: [{ id: '1', rule: 'sigma-a' }] },
-    { id: 'recurrence', sets: [{ id: '1' }] },
+    { id: 'recurrence', sets: [{ id: '1', rule: 'recurrence-a' }] },
     { id: 'induction', sets: [{ id: '1' }] },
   ] },
   { id: 'trig', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'values', sets: [{ id: '1', rule: 'trig-values-a' }] },
-    { id: 'radian', sets: [{ id: '1' }] },
+    { id: 'radian', sets: [{ id: '1', rule: 'radian-a' }] },
     { id: 'addition', sets: [{ id: '1', rule: 'trig-addition-a' }] },
-    { id: 'double-angle', sets: [{ id: '1' }] },
+    { id: 'double-angle', sets: [{ id: '1', rule: 'double-angle-a' }] },
     { id: 'synthesis', sets: [{ id: '1', rule: 'trig-synthesis-a' }] },
   ] },
   { id: 'exp-log', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'exponent', sets: [{ id: '1', rule: 'exponent-a' }] },
     { id: 'log', sets: [{ id: '1', rule: 'log-a' }] },
-    { id: 'common-log', sets: [{ id: '1' }] },
+    { id: 'common-log', sets: [{ id: '1', rule: 'common-log-a' }] },
   ] },
   { id: 'conic', domain: 'functions', stage: 'high', status: 'comingSoon', items: [
     { id: 'parabola', sets: [{ id: '1' }] },
@@ -275,10 +275,10 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'conditional', sets: [{ id: '1' }] },
     { id: 'expectation', sets: [{ id: '1' }] },
   ] },
-  { id: 'distributions', domain: 'data', stage: 'high', status: 'comingSoon', items: [
-    { id: 'random-variables', sets: [{ id: '1' }] },
-    { id: 'binomial', sets: [{ id: '1' }] },
-    { id: 'normal', sets: [{ id: '1' }] },
+  { id: 'distributions', domain: 'data', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'random-variables', sets: [{ id: '1', rule: 'random-variables-a' }] },
+    { id: 'binomial', sets: [{ id: '1', rule: 'binomial-dist-a' }] },
+    { id: 'normal', sets: [{ id: '1', rule: 'normal-a' }] },
   ] },
   { id: 'limit', domain: 'calculus', stage: 'high', status: 'comingSoon', items: [
     { id: 'sequence', sets: [{ id: '1' }] },
@@ -309,9 +309,9 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'quadratic-roots', sets: [{ id: '1', rule: 'complex-roots-a' }] },
     { id: 'plane', sets: [{ id: '1' }] },
   ] },
-  { id: 'coordinate-geometry', domain: 'geometry', stage: 'high', status: 'comingSoon', items: [
-    { id: 'line', sets: [{ id: '1' }] },
-    { id: 'circle', sets: [{ id: '1' }] },
+  { id: 'coordinate-geometry', domain: 'geometry', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'line', sets: [{ id: '1', rule: 'line-a' }] },
+    { id: 'circle', sets: [{ id: '1', rule: 'circle-a' }] },
     { id: 'locus', sets: [{ id: '1' }] },
     { id: 'region', sets: [{ id: '1' }] },
   ] },

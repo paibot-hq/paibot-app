@@ -68,8 +68,9 @@ and display it uses (`components/math-questions.tsx`):
   choices in one small formula grammar (numbers, letters, `pi`, `i`, `sqrt`,
   `sin`/`cos`/`tan`, `abs`, `log(x, base)`, `C`/`P`, `sum(term, k, from, to)`),
   of kind `calc`, `expand`, `transform`, `factor`, `solve`, `remainder`,
-  `derivative`, `tangent`, `extremum`, `integral` or `area` (the grammar comment
-  there lists each kind's extra fields). The page renders the TeX and the
+  `derivative`, `tangent`, `extremum`, `integral`, `area`, `term`, `series`,
+  `radian`, `degree`, `recurrence`, `distribution`, `geometry` or `identity` (the
+  grammar comment there lists each kind's extra fields and variants). The page renders the TeX and the
   instruction line from those strings, and `scripts/verify_math.py` parses the
   same grammar to re-derive the answer, so what is shown is what was checked.
   Every problem carries `steps`, its worked solution as 1-6 lines of the same

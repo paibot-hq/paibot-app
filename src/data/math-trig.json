@@ -263,6 +263,176 @@
         "cos(x) - sqrt(3)*sin(x) = -sqrt(3)*sin(x) + cos(x) = 2*((-sqrt(3)/2)*sin(x) + (1/2)*cos(x))",
         "2*((-sqrt(3)/2)*sin(x) + (1/2)*cos(x)) = 2*(sin(x)*cos(5*pi/6) + cos(x)*sin(5*pi/6)) = 2*sin(x + 5*pi/6)"
       ]
+    },
+    {
+      "id": "trig-016",
+      "item": "radian",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "radian",
+      "question": "120",
+      "given": null,
+      "steps": [
+        "120 * pi / 180 = 2*pi/3"
+      ],
+      "choices": ["pi/3", "2*pi/3", "3*pi/4", "5*pi/6"],
+      "answerIndex": 1
+    },
+    {
+      "id": "trig-017",
+      "item": "radian",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "radian",
+      "question": "210",
+      "given": null,
+      "steps": [
+        "210 * pi / 180 = 7*pi/6"
+      ],
+      "choices": ["5*pi/6", "4*pi/3", "5*pi/4", "7*pi/6"],
+      "answerIndex": 3
+    },
+    {
+      "id": "trig-018",
+      "item": "radian",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "radian",
+      "question": "315",
+      "given": null,
+      "steps": [
+        "315 * pi / 180 = 7*pi/4"
+      ],
+      "choices": ["7*pi/4", "5*pi/4", "7*pi/6", "11*pi/6"],
+      "answerIndex": 0
+    },
+    {
+      "id": "trig-019",
+      "item": "radian",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "degree",
+      "question": "4*pi/3",
+      "given": null,
+      "steps": [
+        "4*pi/3 * 180 / pi = 4 * 60 = 240"
+      ],
+      "choices": ["210", "225", "240", "300"],
+      "answerIndex": 2
+    },
+    {
+      "id": "trig-020",
+      "item": "radian",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "degree",
+      "question": "11*pi/6",
+      "given": null,
+      "steps": [
+        "11*pi/6 * 180 / pi = 11 * 30 = 330"
+      ],
+      "choices": ["300", "330", "315", "210"],
+      "answerIndex": 1
+    },
+    {
+      "id": "trig-021",
+      "item": "double-angle",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "sin(2*x)",
+      "given": "x = 5*pi/8",
+      "steps": [
+        "sin(2*(5*pi/8)) = sin(5*pi/4) = -sqrt(2)/2"
+      ],
+      "choices": ["sqrt(2)/2", "-sqrt(2)/2", "-1/2", "1/2"],
+      "answerIndex": 1
+    },
+    {
+      "id": "trig-022",
+      "item": "double-angle",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "transform",
+      "question": "2*sin(x)*cos(x)",
+      "given": null,
+      "steps": [
+        "2*sin(x)*cos(x) = sin(2*x)"
+      ],
+      "choices": ["sin(2*x)", "cos(2*x)", "2*sin(2*x)", "sin(x)^2"],
+      "answerIndex": 0
+    },
+    {
+      "id": "trig-023",
+      "item": "double-angle",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "cos(2*x)",
+      "given": "x = 7*pi/12",
+      "steps": [
+        "cos(2*(7*pi/12)) = cos(7*pi/6) = -sqrt(3)/2"
+      ],
+      "choices": ["sqrt(3)/2", "-1/2", "1/2", "-sqrt(3)/2"],
+      "answerIndex": 3
+    },
+    {
+      "id": "trig-024",
+      "item": "double-angle",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "transform",
+      "question": "sin(x)^2",
+      "given": null,
+      "steps": [
+        "sin(x)^2 = (1 - cos(2*x))/2"
+      ],
+      "choices": ["(1 + cos(2*x))/2", "(1 - cos(x))/2", "(1 - cos(2*x))/2", "(1 - sin(2*x))/2"],
+      "answerIndex": 2
+    },
+    {
+      "id": "trig-025",
+      "item": "double-angle",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "sin(x/2)^2",
+      "given": "x = 3*pi/4",
+      "steps": [
+        "(1 - cos(3*pi/4))/2 = (1 - (-sqrt(2)/2))/2 = (2 + sqrt(2))/4"
+      ],
+      "choices": ["(2 + sqrt(2))/4", "(2 - sqrt(2))/4", "(1 + sqrt(2))/2", "(2 + sqrt(3))/4"],
+      "answerIndex": 0
     }
   ]
 }

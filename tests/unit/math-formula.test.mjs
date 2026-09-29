@@ -59,6 +59,32 @@ assert.equal(formulaChoiceTex(term, term.choices[0]), '3 \\cdot 2^{n - 1}');
 assert.deepEqual(formulaInstruction(term), { key: 'geometricTerm', tex: { an: 'a_n' } });
 assert.deepEqual(formulaInstruction({ ...term, kind: 'series', progression: 'arithmetic', given: 'n = 10' }), { key: 'arithmeticSumAt', tex: { n: '10' } });
 assert.deepEqual(formulaInstruction({ ...term, kind: 'series', given: null }), { key: 'geometricSum', tex: { n: 'n', sn: 'S_n' } });
+// 数学II・B kinds: each question and choice renders, and the instruction line is keyed by its variant.
+const has = (p, key) => assert.equal(formulaInstruction(p).key, key);
+const radian = { kind: 'radian', question: '150', given: null, choices: ['5*pi/6'] };
+assert.equal(formulaQuestionTex(radian), '150^{\\circ}');
+const degree = { kind: 'degree', question: '5*pi/6', given: null, choices: ['150'] };
+assert.equal(formulaChoiceTex(degree, '150'), '150^{\\circ}');
+const recurrence = { kind: 'recurrence', question: '2; 3*a - 1', given: 'n = 5', choices: [] };
+assert.equal(formulaQuestionTex(recurrence), 'a_{1} = 2,\\ a_{n+1} = 3a_{n} - 1');
+assert.deepEqual(formulaInstruction(recurrence), { key: 'recurrenceAt', tex: { n: '5' } });
+has({ ...recurrence, given: null }, 'recurrence');
+const mean = { kind: 'distribution', which: 'mean', question: '1, 2, 3; 1/2, 1/3, 1/6', given: null, choices: [] };
+assert.match(formulaQuestionTex(mean), /^\\begin\{array\}\{c\|ccc\} X & 1 & 2 & 3/);
+has(mean, 'meanTable');
+assert.equal(formulaQuestionTex({ kind: 'distribution', which: 'zscore', question: '76, 60, 8', given: null }), 'X \\sim N\\left(60, 8^{2}\\right),\\ X = 76');
+assert.deepEqual(formulaInstruction({ kind: 'distribution', which: 'binomialProb', question: '4, 1/2', given: 'k = 2' }), { key: 'binomialProb', tex: { k: '2' } });
+const circle = { kind: 'geometry', which: 'circle-center', question: '2, -3; 5', given: null, choices: [] };
+assert.equal(formulaQuestionTex(circle), 'C\\left(2, -3\\right),\\ r = 5');
+assert.equal(formulaChoiceTex(circle, '(x - 2)^2 + (y + 3)^2 = 25'), '\\left(x - 2\\right)^{2} + \\left(y + 3\\right)^{2} = 25');
+has(circle, 'circleCenter');
+assert.equal(formulaChoiceTex({ kind: 'geometry', which: 'line-slope', question: '' }, 'y = 3*x - 1'), 'y = 3x - 1');
+assert.equal(formulaQuestionTex({ kind: 'geometry', which: 'distance', question: '3, -4, 5; 2, 1', given: null }), '\\ell: 3x - 4y + 5 = 0,\\ P\\left(2, 1\\right)');
+has({ kind: 'geometry', which: 'line-two-points', question: '', given: null }, 'lineTwoPoints');
+assert.equal(formulaQuestionTex({ kind: 'identity', question: 'a*(x + 1) + b*(x - 2) = 3*x + 3', given: null }), 'a\\left(x + 1\\right) + b\\left(x - 2\\right) = 3x + 3');
+assert.equal(expressionTex('sin(x)^2'), '\\sin^{2} x');
+assert.equal(expressionTex('2*cos(x/2)^2'), '2\\cos^{2} \\frac{x}{2}');
+
 // Worked-solution lines: rows of pieces, a chain "a = b = c" continuing on its own row.
 assert.deepEqual(stepRows('2/3 + 1/4 = 8/12 + 3/12 = 11/12'), [['\\frac{2}{3}', '+ \\frac{1}{4}', '= \\frac{8}{12}', '+ \\frac{3}{12}'], ['= \\frac{11}{12}']]);
 assert.deepEqual(stepRows('x = 2, x = -2'), [['x', '= 2'], ['x', '= -2']]);

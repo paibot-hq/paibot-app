@@ -25,7 +25,10 @@ export function MathTex({ tex, block }: { tex: string; block?: boolean }) {
       if (!content) return;
       const style = getComputedStyle(box);
       const available = box.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
-      const needed = content.getBoundingClientRect().width;
+      // The formula's own width: from its first piece to the last one's far edge
+      // (the wrapper itself may be as wide as the box, whatever runs past it).
+      const pieces = Array.from(content.children, child => child.getBoundingClientRect());
+      const needed = Math.max(content.getBoundingClientRect().width * 0, ...pieces.map(rect => rect.right)) - Math.min(...pieces.map(rect => rect.left));
       if (available > 0 && needed > available) {
         element.style.fontSize = `${parseFloat(getComputedStyle(element).fontSize) * Math.max(SMALLEST, available / needed)}px`;
       }

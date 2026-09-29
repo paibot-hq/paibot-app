@@ -53,6 +53,10 @@ def unsimplified_radical(problem):
 
 rejects('pythagoras', unsimplified_radical, 'are equal')
 
+# The 数学II・B kinds re-derive their answers (a wrong key or a wrong step is rejected).
+rejects('distributions', shift_answer, 'matching choices')
+rejects('coordinate-geometry', lambda problem: problem.update(steps=['y = 1000*x']), 'does not hold')
+
 # A wrong line in the worked solution is rejected (formula units).
 rejects('fraction', lambda problem: problem.update(steps=[problem['steps'][0] + ' = 0']), 'not equal to the answer')
 rejects('linear-equation', lambda problem: problem.update(steps=['x = 1000']), 'does not hold')
