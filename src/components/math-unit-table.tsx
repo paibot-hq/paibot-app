@@ -60,7 +60,7 @@ export default function MathUnitTable({ playable }: { playable: readonly string[
       </select>
       {showKentei && <select className={styles.select} value={kentei} onChange={event => setKentei(event.target.value)} aria-label={t('unitList.kentei')}>
         <option value="">{t('unitList.kentei')}</option>
-        {KENTEI_LEVELS.map(level => <option key={level.id} value={level.id}>{td(`kentei.levels.${level.id}`)}</option>)}
+        {[...KENTEI_LEVELS].reverse().map(level => <option key={level.id} value={level.id}>{td(`kentei.levels.${level.id}`)}</option>)}
       </select>}
       <label className={styles.check}>
         <input type="checkbox" checked={playableOnly} onChange={event => setPlayableOnly(event.target.checked)} />

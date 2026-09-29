@@ -1,6 +1,7 @@
 import type { JpGrade } from './math-curriculum-jp';
 
-// 実用数学技能検定 (数学検定 1-5級, 算数検定 6-11級) levels, easiest first, and
+// 実用数学技能検定 (数学検定 1-5級, 算数検定 6-11級) levels, easiest first (the
+// page's menu lists them hardest first: 1級 at the top), and
 // the school years each covers, per the official guide ("学年の目安" on
 // https://www.su-gaku.net/suken/examination/summary/): 準2級 = 数学I・A,
 // 2級 = 数学II・B, 準1級 = 数学III・C, 1級 = university. Mapping through grades
