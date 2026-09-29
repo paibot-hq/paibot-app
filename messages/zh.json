@@ -724,7 +724,8 @@
           "summary": "练习单位换算以及面积和体积的计算。",
           "sets": {
             "units-a": "单位换算",
-            "area-volume-a": "面积与体积"
+            "area-volume-a": "面积与体积",
+            "circle-a": "圆周长与圆面积"
           }
         },
         "data": {
@@ -741,7 +742,8 @@
           "sets": {
             "value-a": "代数式求值",
             "like-terms-a": "合并同类项",
-            "distribute-a": "分配律"
+            "distribute-a": "分配律",
+            "rearrange-a": "等式的变形"
           }
         },
         "linear-equation": {
@@ -769,14 +771,17 @@
           "sets": {
             "proportion-a": "正比例与反比例",
             "slope-a": "斜率与截距",
-            "two-points-a": "经过两点的直线"
+            "two-points-a": "经过两点的直线",
+            "equations-a": "一次函数与方程"
           }
         },
         "inequality": {
           "title": "不等式",
           "summary": "解一元一次不等式，求出满足条件的取值范围。",
           "sets": {
-            "linear-a": "一元一次不等式"
+            "linear-a": "一元一次不等式",
+            "quadratic-a": "一元二次不等式",
+            "absolute-a": "含绝对值的式子"
           }
         },
         "expansion": {
@@ -851,7 +856,8 @@
           "sets": {
             "values-a": "特殊角的三角函数值",
             "radian-a": "弧度制",
-            "addition-a": "两角和公式"
+            "addition-a": "两角和公式",
+            "synthesis-a": "三角函数的合成"
           }
         },
         "exp-log": {
@@ -911,7 +917,8 @@
           "sets": {
             "line-a": "直线方程",
             "circle-a": "圆的方程",
-            "locus-a": "轨迹"
+            "locus-a": "轨迹",
+            "region-a": "不等式表示的区域"
           }
         },
         "vector": {
@@ -920,7 +927,8 @@
           "sets": {
             "components-a": "分量与模",
             "dot-product-a": "数量积",
-            "angle-a": "夹角"
+            "angle-a": "夹角",
+            "space-a": "空间向量"
           }
         },
         "matrix": {
@@ -979,7 +987,8 @@
           "summary": "运用二项式定理和恒等式处理代数式。",
           "sets": {
             "binomial-a": "二项式定理",
-            "identity-a": "恒等式"
+            "identity-a": "恒等式",
+            "inequality-proof-a": "不等式的证明"
           }
         },
         "polynomial-equations": {
@@ -1176,6 +1185,83 @@
             "separable-a": "可分离变量方程",
             "linear-first-a": "一阶线性方程",
             "second-order-a": "常系数二阶线性方程"
+          }
+        },
+        "place-value": {
+          "title": "大数与数位",
+          "summary": "从数位开始，练习万、亿、兆等大数。",
+          "sets": {
+            "place-value-a": "数位",
+            "large-numbers-a": "万、亿、兆"
+          }
+        },
+        "time": {
+          "title": "时刻与时间",
+          "summary": "练习读钟表和计算时间。",
+          "sets": {
+            "reading-a": "读钟表",
+            "elapsed-a": "时刻与时间的计算"
+          }
+        },
+        "shapes": {
+          "title": "图形的基础",
+          "summary": "学习三角形、四边形、圆的性质和角的大小。",
+          "sets": {
+            "triangles-quads-a": "三角形与四边形",
+            "circles-a": "圆与球",
+            "angles-a": "角的大小"
+          }
+        },
+        "symmetry": {
+          "title": "对称与放大缩小",
+          "summary": "学习轴对称、中心对称图形和放大图、缩小图。",
+          "sets": {
+            "symmetry-a": "轴对称与中心对称",
+            "scale-a": "放大图与缩小图"
+          }
+        },
+        "graphs": {
+          "title": "表格与图表",
+          "summary": "读取表格、条形图、折线图、扇形图和直方图。",
+          "sets": {
+            "tables-a": "表格与条形图",
+            "line-graph-a": "折线图",
+            "pie-band-a": "百分比条形图与扇形图",
+            "histogram-a": "直方图"
+          }
+        },
+        "counting": {
+          "title": "排列与组合",
+          "summary": "不重不漏地数出排列和组合。",
+          "sets": {
+            "arrangements-a": "排列",
+            "combinations-a": "组合"
+          }
+        },
+        "congruence": {
+          "title": "全等与图形的性质",
+          "summary": "学习三角形全等条件，以及等腰三角形、平行四边形的性质。",
+          "sets": {
+            "conditions-a": "三角形全等条件",
+            "triangles-a": "等腰三角形与直角三角形",
+            "parallelogram-a": "平行四边形的判定"
+          }
+        },
+        "square-function": {
+          "title": "函数 y=ax²",
+          "summary": "学习 y=ax² 的图像、变化率以及抛物线与直线的交点。",
+          "sets": {
+            "graph-a": "图像与式子",
+            "rate-of-change-a": "变化率",
+            "intersection-a": "抛物线与直线"
+          }
+        },
+        "sampling": {
+          "title": "抽样调查",
+          "summary": "学习普查与抽样调查的区别，以及用样本估计总体。",
+          "sets": {
+            "population-sample-a": "总体与样本",
+            "estimate-a": "用样本估计"
           }
         }
       },

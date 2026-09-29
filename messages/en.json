@@ -724,7 +724,8 @@
           "summary": "Practice converting units and finding areas and volumes.",
           "sets": {
             "units-a": "Converting units",
-            "area-volume-a": "Area & volume"
+            "area-volume-a": "Area & volume",
+            "circle-a": "Circumference & area of circles"
           }
         },
         "data": {
@@ -741,7 +742,8 @@
           "sets": {
             "value-a": "Evaluating expressions",
             "like-terms-a": "Combining like terms",
-            "distribute-a": "Distributive property"
+            "distribute-a": "Distributive property",
+            "rearrange-a": "Rearranging formulas"
           }
         },
         "linear-equation": {
@@ -769,14 +771,17 @@
           "sets": {
             "proportion-a": "Direct & inverse proportion",
             "slope-a": "Slope & intercept",
-            "two-points-a": "Line through two points"
+            "two-points-a": "Line through two points",
+            "equations-a": "Linear functions & equations"
           }
         },
         "inequality": {
           "title": "Inequalities",
           "summary": "Solve linear inequalities to find the range of values that satisfy them.",
           "sets": {
-            "linear-a": "Linear inequalities"
+            "linear-a": "Linear inequalities",
+            "quadratic-a": "Quadratic inequalities",
+            "absolute-a": "Absolute value"
           }
         },
         "expansion": {
@@ -851,7 +856,8 @@
           "sets": {
             "values-a": "Special-angle values",
             "radian-a": "Radians",
-            "addition-a": "Angle addition formulas"
+            "addition-a": "Angle addition formulas",
+            "synthesis-a": "Combining sine & cosine"
           }
         },
         "exp-log": {
@@ -911,7 +917,8 @@
           "sets": {
             "line-a": "Equations of lines",
             "circle-a": "Equations of circles",
-            "locus-a": "Loci"
+            "locus-a": "Loci",
+            "region-a": "Regions defined by inequalities"
           }
         },
         "vector": {
@@ -920,7 +927,8 @@
           "sets": {
             "components-a": "Components & magnitude",
             "dot-product-a": "Dot products",
-            "angle-a": "Angles between vectors"
+            "angle-a": "Angles between vectors",
+            "space-a": "Vectors in space"
           }
         },
         "matrix": {
@@ -979,7 +987,8 @@
           "summary": "Use the binomial theorem and polynomial identities.",
           "sets": {
             "binomial-a": "Binomial theorem",
-            "identity-a": "Identities"
+            "identity-a": "Identities",
+            "inequality-proof-a": "Proving inequalities"
           }
         },
         "polynomial-equations": {
@@ -1176,6 +1185,83 @@
             "separable-a": "Separable equations",
             "linear-first-a": "First-order linear equations",
             "second-order-a": "Second-order with constant coefficients"
+          }
+        },
+        "place-value": {
+          "title": "Place value & large numbers",
+          "summary": "Place value, from tens and hundreds up to millions and billions.",
+          "sets": {
+            "place-value-a": "Place value",
+            "large-numbers-a": "Large numbers"
+          }
+        },
+        "time": {
+          "title": "Clocks & time",
+          "summary": "Reading clocks and working out elapsed time.",
+          "sets": {
+            "reading-a": "Reading clocks",
+            "elapsed-a": "Elapsed time"
+          }
+        },
+        "shapes": {
+          "title": "Basic shapes",
+          "summary": "Triangles, quadrilaterals, circles and measuring angles.",
+          "sets": {
+            "triangles-quads-a": "Triangles & quadrilaterals",
+            "circles-a": "Circles & spheres",
+            "angles-a": "Measuring angles"
+          }
+        },
+        "symmetry": {
+          "title": "Symmetry & scale drawings",
+          "summary": "Line and point symmetry, and enlargements and reductions.",
+          "sets": {
+            "symmetry-a": "Line & point symmetry",
+            "scale-a": "Scale drawings"
+          }
+        },
+        "graphs": {
+          "title": "Tables & graphs",
+          "summary": "Reading tables, bar and line graphs, pie charts and histograms.",
+          "sets": {
+            "tables-a": "Tables & bar graphs",
+            "line-graph-a": "Line graphs",
+            "pie-band-a": "Pie & bar-percentage charts",
+            "histogram-a": "Histograms"
+          }
+        },
+        "counting": {
+          "title": "Arrangements & combinations",
+          "summary": "Counting arrangements and choices without missing or repeating any.",
+          "sets": {
+            "arrangements-a": "Arrangements",
+            "combinations-a": "Combinations"
+          }
+        },
+        "congruence": {
+          "title": "Congruence & properties of shapes",
+          "summary": "Congruence conditions for triangles, and properties of isosceles triangles and parallelograms.",
+          "sets": {
+            "conditions-a": "Congruence conditions",
+            "triangles-a": "Isosceles & right triangles",
+            "parallelogram-a": "Conditions for parallelograms"
+          }
+        },
+        "square-function": {
+          "title": "The function y = ax²",
+          "summary": "Graphs of y = ax², rates of change, and where parabolas meet lines.",
+          "sets": {
+            "graph-a": "Graphs & equations",
+            "rate-of-change-a": "Rate of change",
+            "intersection-a": "Parabolas & lines"
+          }
+        },
+        "sampling": {
+          "title": "Sampling",
+          "summary": "Census versus sampling, and estimating a population from a sample.",
+          "sets": {
+            "population-sample-a": "Populations & samples",
+            "estimate-a": "Estimating from a sample"
           }
         }
       },

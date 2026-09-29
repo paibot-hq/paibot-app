@@ -11,15 +11,15 @@ export type KenteiGrade = {
 };
 
 export const KENTEI_GRADES: readonly KenteiGrade[] = [
-  { id: '11', target: 'e1', units: ['arith'] },
-  { id: '10', target: 'e2', units: ['arith'] },
-  { id: '9', target: 'e3', units: ['arith'] },
-  { id: '8', target: 'e4', units: ['arith', 'decimal', 'rounding', 'measurement'] },
-  { id: '7', target: 'e5', units: ['decimal', 'fraction', 'divisors', 'ratio', 'rate', 'measurement', 'data'] },
-  { id: '6', target: 'e6', units: ['fraction', 'ratio', 'rate', 'measurement', 'data'] },
+  { id: '11', target: 'e1', units: ['arith', 'place-value', 'time', 'shapes'] },
+  { id: '10', target: 'e2', units: ['arith', 'place-value', 'time', 'shapes', 'graphs'] },
+  { id: '9', target: 'e3', units: ['arith', 'place-value', 'time', 'shapes', 'graphs'] },
+  { id: '8', target: 'e4', units: ['arith', 'place-value', 'decimal', 'rounding', 'measurement', 'shapes', 'graphs'] },
+  { id: '7', target: 'e5', units: ['decimal', 'fraction', 'divisors', 'ratio', 'rate', 'measurement', 'data', 'graphs'] },
+  { id: '6', target: 'e6', units: ['fraction', 'ratio', 'rate', 'measurement', 'symmetry', 'data', 'graphs', 'counting'] },
   { id: '5', target: 'm1', units: ['signed', 'exponents', 'prime', 'expression', 'linear-equation', 'linear-function', 'angles', 'transformations', 'circle-solid'] },
-  { id: '4', target: 'm2', units: ['expression', 'simultaneous', 'linear-function', 'angles', 'probability', 'quartiles'] },
-  { id: '3', target: 'm3', units: ['expansion', 'factorization', 'sqrt', 'quadratic', 'pythagoras', 'similarity', 'circle-solid'] },
+  { id: '4', target: 'm2', units: ['expression', 'simultaneous', 'linear-function', 'angles', 'congruence', 'probability', 'quartiles'] },
+  { id: '3', target: 'm3', units: ['expansion', 'factorization', 'sqrt', 'quadratic', 'square-function', 'pythagoras', 'similarity', 'circle-solid', 'sampling'] },
   { id: 'pre2', target: 'h1', units: ['inequality', 'quadratic', 'quadratic-function', 'sets', 'logic', 'triangle-trig', 'triangle-properties', 'statistics', 'combinatorics', 'integers'] },
   { id: '2', target: 'h2', units: ['identities', 'polynomial-equations', 'complex', 'coordinate-geometry', 'trig', 'exp-log', 'derivative', 'integral', 'sequence', 'combinatorics', 'distributions'] },
   { id: 'pre1', target: 'h3', units: ['complex', 'vector', 'conic', 'limit', 'series', 'derivative', 'integral'] },

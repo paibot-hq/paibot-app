@@ -724,7 +724,8 @@
           "summary": "単位の換算や図形の面積・体積を練習します。",
           "sets": {
             "units-a": "単位の換算",
-            "area-volume-a": "面積・体積"
+            "area-volume-a": "面積・体積",
+            "circle-a": "円周と円の面積"
           }
         },
         "data": {
@@ -741,7 +742,8 @@
           "sets": {
             "value-a": "式の値",
             "like-terms-a": "同類項をまとめる",
-            "distribute-a": "分配法則"
+            "distribute-a": "分配法則",
+            "rearrange-a": "等式の変形"
           }
         },
         "linear-equation": {
@@ -769,14 +771,17 @@
           "sets": {
             "proportion-a": "比例・反比例",
             "slope-a": "傾きと切片",
-            "two-points-a": "2点を通る直線"
+            "two-points-a": "2点を通る直線",
+            "equations-a": "一次関数と方程式"
           }
         },
         "inequality": {
           "title": "不等式",
           "summary": "一次不等式を解いて、条件を満たす数の範囲を求めます。",
           "sets": {
-            "linear-a": "一次不等式"
+            "linear-a": "一次不等式",
+            "quadratic-a": "二次不等式",
+            "absolute-a": "絶対値を含む式"
           }
         },
         "expansion": {
@@ -851,7 +856,8 @@
           "sets": {
             "values-a": "特殊角の値",
             "radian-a": "弧度法",
-            "addition-a": "加法定理"
+            "addition-a": "加法定理",
+            "synthesis-a": "三角関数の合成"
           }
         },
         "exp-log": {
@@ -911,7 +917,8 @@
           "sets": {
             "line-a": "直線の方程式",
             "circle-a": "円の方程式",
-            "locus-a": "軌跡"
+            "locus-a": "軌跡",
+            "region-a": "不等式の表す領域"
           }
         },
         "vector": {
@@ -920,7 +927,8 @@
           "sets": {
             "components-a": "成分と大きさ",
             "dot-product-a": "内積",
-            "angle-a": "なす角"
+            "angle-a": "なす角",
+            "space-a": "空間ベクトル"
           }
         },
         "matrix": {
@@ -979,7 +987,8 @@
           "summary": "二項定理と恒等式を使って式を扱います。",
           "sets": {
             "binomial-a": "二項定理",
-            "identity-a": "恒等式"
+            "identity-a": "恒等式",
+            "inequality-proof-a": "不等式の証明"
           }
         },
         "polynomial-equations": {
@@ -1176,6 +1185,83 @@
             "separable-a": "変数分離形",
             "linear-first-a": "一階線形",
             "second-order-a": "定数係数の二階線形"
+          }
+        },
+        "place-value": {
+          "title": "大きな数",
+          "summary": "位取りのしくみから、万・億・兆の大きな数まで練習します。",
+          "sets": {
+            "place-value-a": "位取り",
+            "large-numbers-a": "万・億・兆"
+          }
+        },
+        "time": {
+          "title": "時刻と時間",
+          "summary": "時計の読み方と、時間の計算を練習します。",
+          "sets": {
+            "reading-a": "時計の読み方",
+            "elapsed-a": "時刻と時間の計算"
+          }
+        },
+        "shapes": {
+          "title": "図形の基本",
+          "summary": "三角形・四角形・円の性質と、角の大きさを学びます。",
+          "sets": {
+            "triangles-quads-a": "三角形と四角形",
+            "circles-a": "円と球",
+            "angles-a": "角の大きさ"
+          }
+        },
+        "symmetry": {
+          "title": "対称と拡大・縮小",
+          "summary": "線対称・点対称な図形と、拡大図・縮図を学びます。",
+          "sets": {
+            "symmetry-a": "線対称と点対称",
+            "scale-a": "拡大図と縮図"
+          }
+        },
+        "graphs": {
+          "title": "表とグラフ",
+          "summary": "表・棒グラフ・折れ線グラフから、帯グラフ・円グラフ・柱状グラフまで読み取ります。",
+          "sets": {
+            "tables-a": "表と棒グラフ",
+            "line-graph-a": "折れ線グラフ",
+            "pie-band-a": "帯グラフと円グラフ",
+            "histogram-a": "柱状グラフ"
+          }
+        },
+        "counting": {
+          "title": "並べ方と組み合わせ",
+          "summary": "並べ方や組み合わせを、もれなく重なりなく数えます。",
+          "sets": {
+            "arrangements-a": "並べ方",
+            "combinations-a": "組み合わせ"
+          }
+        },
+        "congruence": {
+          "title": "合同と図形の性質",
+          "summary": "三角形の合同条件と、二等辺三角形・平行四辺形の性質を学びます。",
+          "sets": {
+            "conditions-a": "三角形の合同条件",
+            "triangles-a": "二等辺三角形と直角三角形",
+            "parallelogram-a": "平行四辺形になる条件"
+          }
+        },
+        "square-function": {
+          "title": "関数 y=ax²",
+          "summary": "y=ax² のグラフ、変化の割合、放物線と直線の交点を学びます。",
+          "sets": {
+            "graph-a": "グラフと式",
+            "rate-of-change-a": "変化の割合",
+            "intersection-a": "放物線と直線"
+          }
+        },
+        "sampling": {
+          "title": "標本調査",
+          "summary": "全数調査と標本調査の違いと、標本から全体を推定する方法を学びます。",
+          "sets": {
+            "population-sample-a": "母集団と標本",
+            "estimate-a": "標本からの推定"
           }
         }
       },
