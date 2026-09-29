@@ -5,3 +5,4 @@ import '../../scripts/validate-quiz.mjs';
 import '../../scripts/validate-math-arith.mjs';
 import '../../scripts/validate-math-factorization.mjs';
 import '../../scripts/validate-math-pythagoras.mjs';
+import '../../scripts/validate-math-formula.mjs';

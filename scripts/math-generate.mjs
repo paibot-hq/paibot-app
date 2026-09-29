@@ -3,6 +3,7 @@ import { mkdtempSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { context, root, promptFile, extractJSON, additions, formatBank, saveWork, run, blindProblem } from './math-pipeline.mjs';
+import { isFormulaUnit } from '../src/lib/math-formula-units.ts';
 
 let temp;
 try {
@@ -16,9 +17,10 @@ try {
   }
   const { set, bank, path, original } = context(unit, setId);
   assert.ok(set.rule, `Set ${setId} is coming soon: add its rule and prompt before generating problems`);
-  const existing = bank.problems.map(p => unit === 'pythagoras' ? JSON.stringify(p.figure) : unit === 'factorization' ? blindProblem(unit, p).trinomial : `${p.expression}${p.word ? ` | ${p.word.ja.prompt}` : ''}`);
+  const existing = bank.problems.map(p => unit === 'pythagoras' ? JSON.stringify(p.figure) : unit === 'factorization' ? blindProblem(unit, p).trinomial
+    : isFormulaUnit(unit) ? `${p.question}${p.given ? ` | ${p.given}` : ''}` : `${p.expression}${p.word ? ` | ${p.word.ja.prompt}` : ''}`);
   const position = Math.max(0, ...bank.problems.filter(p => p.setId === setId).map(p => p.position)) + 1;
-  const prompt = [promptFile('_rules'), promptFile(unit), promptFile(set.rule),
+  const prompt = [promptFile('_rules'), ...(isFormulaUnit(unit) ? [promptFile('_formula')] : []), promptFile(unit), promptFile(set.rule),
     `このセットの既存の問題（重複を避けること）。同じ単元の全問題:\n${existing.join('\n')}`,
     `${count}問作ること。追加先の position は ${position} から。問題順の条件は追加先の position に合わせること。id・setId・position・published・reviewedAt は出力しない。`].join('\n\n');
   temp = mkdtempSync(join(tmpdir(), 'math-generate-'));
@@ -35,8 +37,8 @@ try {
   assert.equal(readFileSync(path, 'utf8'), original, 'Bank changed during generation; retry');
   if (!dryRun) writeFileSync(path, combined);
   try {
-    const env = { ...process.env, [`MATH_BANK_${unit.toUpperCase()}`]: dryRun ? candidate : path };
-    const output = run(process.execPath, [`${root}scripts/validate-math-${['factorization', 'pythagoras'].includes(unit) ? unit : 'arith'}.mjs`], root, env);
+    const env = { ...process.env, [`MATH_BANK_${unit.toUpperCase().replaceAll('-', '_')}`]: dryRun ? candidate : path };
+    const output = run(process.execPath, [`${root}scripts/validate-math-${['factorization', 'pythagoras'].includes(unit) ? unit : isFormulaUnit(unit) ? 'formula' : 'arith'}.mjs`], root, env);
     console.log(output.trim());
     console.log(run('uv', ['run', '--locked', 'python', `${root}scripts/verify_math.py`, unit], root, env).trim());
   } catch (error) {

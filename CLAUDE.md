@@ -72,6 +72,20 @@ To publish a new unit, add dedicated routes, a set catalog, payload/display
 conversion, independent verification and import support like the existing units,
 then change the catalog status to `published` and register its public SEO paths.
 
+Newer units don't get their own routes. Expression units
+(`src/lib/math-expression-units.ts`: addition, multiplication, division) reuse
+arith's integer-expression payload; formula units (`src/lib/math-formula-units.ts`:
+decimals, fractions, powers, expressions, equations, expansion, square roots,
+quadratics) use `FormulaPayload` (`src/lib/math-formula.ts`): a question and four
+choices in one small formula grammar, of kind `calc`, `expand` or `solve`. The page
+renders the TeX from those strings, and `scripts/verify_math.py` parses the same
+grammar to re-derive the answer, so what is shown is what was checked. Both kinds
+keep their sets (with `rule`s) in the catalog and their text under
+`App.math.units.<unit>`, and share `routes/math-expression.tsx` / `math-formula.tsx`.
+A new unit of either kind needs its registry entry, catalog sets with rules,
+`src/data/math-<unit>.json`, rules in `scripts/validate-math-arith.mjs` or
+`validate-math-formula.mjs`, and prompts in `scripts/math-prompts/`.
+
 Pythagoras figures use integer coordinates and `math-figure.tsx` SVG rendering; labels
 and localized accessible descriptions are calculated, never stored.
 `scripts/validate-math-pythagoras.mjs` independently verifies geometry, radicals and set coverage.

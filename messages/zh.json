@@ -1306,6 +1306,13 @@
         "search": "搜索单元和题组",
         "empty": "没有符合条件的单元。",
         "best": "最高 {best}/{total}"
+      },
+      "formulaQuiz": {
+        "calc": "计算下列各式。",
+        "expand": "化简下列各式。",
+        "solve": "解下列方程。",
+        "given": "当 <given></given> 时，求下式的值。",
+        "answer": "答案："
       }
     },
     "about": {

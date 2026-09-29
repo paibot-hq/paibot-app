@@ -7,11 +7,14 @@ import { SIGNED_SETS } from '../src/lib/math-signed-sets.ts';
 import { PYTHAGORAS_SETS } from '../src/lib/math-pythagoras-sets.ts';
 import { FACTORIZATION_SETS } from '../src/lib/math-factorization-sets.ts';
 import { EXPRESSION_UNITS, expressionUnitSets } from '../src/lib/math-expression-units.ts';
+import { FORMULA_UNITS, formulaUnitSets, isFormulaUnit } from '../src/lib/math-formula-units.ts';
+import { expressionTex, solutionTex, statementTex, unknownOf } from '../src/lib/math-formula.ts';
 
 export const root = fileURLToPath(new URL('../', import.meta.url));
 export function context(unit, setId) {
   const catalogs = { arith: ARITH_SETS, signed: SIGNED_SETS, factorization: FACTORIZATION_SETS, pythagoras: PYTHAGORAS_SETS,
-    ...Object.fromEntries(EXPRESSION_UNITS.map(unit => [unit, expressionUnitSets(unit)])) };
+    ...Object.fromEntries(EXPRESSION_UNITS.map(unit => [unit, expressionUnitSets(unit)])),
+    ...Object.fromEntries(FORMULA_UNITS.map(unit => [unit, formulaUnitSets(unit)])) };
   assert.ok(Object.hasOwn(catalogs, unit), `Unknown unit: ${unit}`);
   const catalog = catalogs[unit];
   const set = catalog.find(set => set.id === setId);
@@ -57,7 +60,8 @@ export function additions(unit, setId, bank, generated, count, date = new Date()
   return generated.problems.map((p, index) => ({
     id: `${unit}-${String(maxId + index + 1).padStart(3, '0')}`, setId,
     position: maxPosition + index + 1, published: false, reviewedAt: date,
-    ...(unit === 'pythagoras' ? { figure: p.figure } : unit === 'factorization' ? { p: p.p, q: p.q } : { expression: p.expression, word: p.word }),
+    ...(unit === 'pythagoras' ? { figure: p.figure } : unit === 'factorization' ? { p: p.p, q: p.q }
+      : isFormulaUnit(unit) ? { kind: p.kind, question: p.question, given: p.given ?? null } : { expression: p.expression, word: p.word }),
     choices: p.choices, answerIndex: p.answerIndex,
   }));
 }
@@ -94,6 +98,13 @@ export function blindProblem(unit, p) {
     const a = p.p + p.q, b = p.p * p.q;
     return { id: p.id, type: 'factorization', trinomial: `x^2${a ? ` ${signedTerm(a).replace(/ 1$/, ' ')}x` : ''}${b ? ` ${signedTerm(b)}` : ''}`, choices: p.choices.map(factorChoice) };
   }
+  // The reviewer sees the formulas as learners do, rendered (÷ and fraction bars, not ':' and '/').
+  if (isFormulaUnit(unit)) return {
+    id: p.id, type: 'formula', kind: p.kind,
+    question: p.kind === 'solve' ? statementTex(p.question) : expressionTex(p.question),
+    given: p.given && solutionTex(p.given, 'x'),
+    choices: p.choices.map(choice => p.kind === 'solve' ? solutionTex(choice, unknownOf(p.question)) : expressionTex(choice)),
+  };
   if (p.word !== null) return { id: p.id, type: 'word', word: Object.fromEntries(['ja', 'en', 'zh'].map(locale => [locale, { prompt: p.word[locale].prompt, unit: p.word[locale].unit }])), choices: p.choices };
   return { id: p.id, type: 'expression', expression: p.expression, choices: p.choices };
 }
@@ -110,7 +121,8 @@ export function compareReviews(unit, problems, result) {
   return problems.map(p => {
     const review = result.reviews.find(r => r.id === p.id);
     const answer = unit === 'pythagoras' ? radicalChoice(p.choices[p.answerIndex]) : unit === 'factorization' ? factorChoice(p.choices[p.answerIndex]) : p.choices[p.answerIndex];
-    const matches = review.answer === answer && review.choiceIndex === p.answerIndex;
+    // Formula answers can be written many ways; the chosen index decides.
+    const matches = review.choiceIndex === p.answerIndex && (isFormulaUnit(unit) || review.answer === answer);
     const issues = [...review.issues];
     if (p.word && !review.wordExpression?.trim()) issues.push('文章題の立式がありません');
     return { id: p.id, matches, answer: review.answer, choiceIndex: review.choiceIndex, wordExpression: review.wordExpression, issues };

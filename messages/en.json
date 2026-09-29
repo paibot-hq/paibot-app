@@ -1306,6 +1306,13 @@
         "search": "Search units and sets",
         "empty": "No units match these filters.",
         "best": "Best {best}/{total}"
+      },
+      "formulaQuiz": {
+        "calc": "Calculate.",
+        "expand": "Simplify.",
+        "solve": "Solve the equation.",
+        "given": "Find the value when <given></given>.",
+        "answer": "Answer:"
       }
     },
     "about": {

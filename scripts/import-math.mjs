@@ -2,6 +2,7 @@ import { mkdirSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { bank as arithBank, signedBank, expressionBanks } from './validate-math-arith.mjs';
 import { bank as factorizationBank } from './validate-math-factorization.mjs';
+import { formulaBanks } from './validate-math-formula.mjs';
 
 import { bank as pythagorasBank } from './validate-math-pythagoras.mjs';
 
@@ -14,6 +15,7 @@ const units = [
   { unit: 'pythagoras', bank: pythagorasBank, payload: ({ figure, choices }) => ({ figure, choices }) },
   { unit: 'arith', bank: arithBank, payload: ({ expression, word, choices }) => ({ expression, word, choices }) },
   { unit: 'signed', bank: signedBank, payload: ({ expression, word, choices }) => ({ expression, word, choices }) },
+  ...Object.entries(formulaBanks).map(([unit, bank]) => ({ unit, bank, payload: ({ kind, question, given, choices }) => ({ kind, question, given, choices }) })),
   ...Object.entries(expressionBanks).map(([unit, bank]) => ({ unit, bank, payload: ({ expression, word, choices }) => ({ expression, word, choices }) })),
   { unit: 'factorization', bank: factorizationBank, payload: ({ p, q, choices }) => ({ p, q, choices }) },
 ];

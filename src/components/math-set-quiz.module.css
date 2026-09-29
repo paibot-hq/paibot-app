@@ -13,6 +13,9 @@
   border: 1px solid var(--line); border-radius: var(--radius);
   background: var(--surface); color: var(--text);
 }
+/* KaTeX draws radicals with boxes that reach into the neighboring choice; clicks
+   must land on the button they are inside. */
+.choice * { pointer-events: none; }
 .choice[aria-pressed="true"] { border-color: var(--accent); outline: 2px solid var(--accent); outline-offset: -2px; }
 .choice:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .choice:disabled { cursor: default; opacity: .75; }

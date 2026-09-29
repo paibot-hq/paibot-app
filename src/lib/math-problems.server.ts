@@ -4,11 +4,13 @@ import { mathProblems } from '../db/schema';
 import type { ArithPayload } from './math-arith';
 import type { MathUnit } from './math-attempts';
 import type { ExpressionUnit } from './math-expression-units';
+import type { FormulaPayload } from './math-formula';
+import type { FormulaUnit } from './math-formula-units';
 import type { FactorizationPayload } from './math-factorization';
 
 import type { PythagorasPayload } from './math-pythagoras';
 
-type PayloadByUnit = Record<ExpressionUnit, ArithPayload> & {
+type PayloadByUnit = Record<ExpressionUnit, ArithPayload> & Record<FormulaUnit, FormulaPayload> & {
   pythagoras: PythagorasPayload;
   arith: ArithPayload;
   signed: ArithPayload;

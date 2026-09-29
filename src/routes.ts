@@ -2,6 +2,7 @@ import { existsSync } from 'node:fs';
 import { index, route, type RouteConfig } from '@react-router/dev/routes';
 import { APP_CATALOG } from './lib/app-catalog';
 import { EXPRESSION_UNITS } from './lib/math-expression-units';
+import { FORMULA_UNITS } from './lib/math-formula-units';
 import { publicPaths } from './lib/seo';
 
 // A tool is a folder: src/tools/<slug>/route.tsx serves the catalog entry's
@@ -30,6 +31,7 @@ export default [
     // Units have no page of their own: /math lists every set.
     route('math/:unit', 'routes/math-redirect.ts', { id: 'math-redirect/unit' }),
     ...EXPRESSION_UNITS.map(unit => route(`math/${unit}/:setId`, 'routes/math-expression.tsx', { id: `math-expression/${unit}` })),
+    ...FORMULA_UNITS.map(unit => route(`math/${unit}/:setId`, 'routes/math-formula.tsx', { id: `math-formula/${unit}` })),
     route('math/:unit/:setId', 'routes/math-unit-set.tsx'),
     route('apps', 'routes/apps.tsx'),
     route('daily', 'routes/category-daily.tsx'),

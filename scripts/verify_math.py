@@ -14,17 +14,19 @@ import ast
 import json
 import operator
 import os
+import re
 import sys
 from pathlib import Path
 
-from sympy import Integer, Symbol, expand, simplify, sqrt
+from sympy import Eq, FiniteSet, Integer, Rational, Symbol, Tuple, expand, simplify, solve, sqrt
 
 ROOT = Path(__file__).resolve().parent.parent
 x = Symbol('x')
 
 # Expressions come from an LLM, so they are never passed to eval() or
 # sympy.parse_expr (which uses eval). Only these nodes are converted; Pow is
-# left out until a unit needs it, since 9**9**9 would hang the check.
+# left out, since 9**9**9 would hang the check (formula units have their own
+# parser below, which bounds exponents).
 OPERATORS = {ast.Add: operator.add, ast.Sub: operator.sub, ast.Mult: operator.mul, ast.Div: operator.truediv}
 SYMBOLS = {'x': x}
 FUNCTIONS = {'sqrt': sqrt}
@@ -49,6 +51,151 @@ def parse(text):
 
 def arith(problem):
     return parse(problem['expression']), [Integer(c) for c in problem['choices']]
+
+
+# Formula units: the grammar of src/lib/math-formula.ts, parsed here by the
+# same recursive descent (not Python's ast, whose precedence differs: a
+# fraction bar binds before × and ÷, so 3/5 : 2/7 is (3/5) / (2/7)). Decimals
+# are exact fractions, '^' is a power with a small integer exponent, and any
+# single letter is a variable.
+LETTERS = {letter: Symbol(letter) for letter in 'abcdefghijklmnopqrstuvwxyz'}
+FORMULA_TOKEN = re.compile(r'\s*(\d+(?:\.\d+)?|sqrt|[a-z]|[-+*/:^()])')
+
+
+def parse_formula(text):
+    tokens, at = [], 0
+    while at < len(text):
+        if text[at:].strip() == '':
+            break
+        match = FORMULA_TOKEN.match(text, at)
+        if not match:
+            raise ValueError(f'unsupported input in {text!r}')
+        tokens.append(match.group(1))
+        at = match.end()
+    position = 0
+
+    def peek():
+        return tokens[position] if position < len(tokens) else None
+
+    def take(expected=None):
+        nonlocal position
+        token = peek()
+        if token is None or (expected is not None and token != expected):
+            raise ValueError(f'expected {expected or "more input"} in {text!r}')
+        position += 1
+        return token
+
+    def expr():
+        node = term()
+        while peek() in ('+', '-'):
+            node = node + term() if take() == '+' else node - term()
+        return node
+
+    def term():
+        node = fraction()
+        while peek() in ('*', ':'):
+            node = node * fraction() if take() == '*' else node / fraction()
+        return node
+
+    def fraction():
+        node = unary()
+        while peek() == '/':
+            take()
+            node = node / unary()
+        return node
+
+    def unary():
+        if peek() == '-':
+            take()
+            return -unary()
+        return power()
+
+    def power():
+        base = atom()
+        if peek() == '^':
+            take()
+            exponent = unary()
+            if not (exponent.is_Integer and abs(exponent) <= 12):
+                raise ValueError(f'unsupported exponent in {text!r}')
+            return base ** exponent
+        return base
+
+    def atom():
+        token = take()
+        if token[0].isdigit():
+            return Rational(token)
+        if token == 'sqrt':
+            take('(')
+            value = expr()
+            take(')')
+            return sqrt(value)
+        if token in LETTERS:
+            return LETTERS[token]
+        if token == '(':
+            value = expr()
+            take(')')
+            return value
+        raise ValueError(f'unexpected {token!r} in {text!r}')
+
+    value = expr()
+    if position != len(tokens):
+        raise ValueError(f'unexpected {tokens[position]!r} in {text!r}')
+    return value
+
+
+def assignments(text):
+    pairs = [item.split('=') for item in text.split(',')]
+    if any(len(pair) != 2 or pair[0].strip() not in LETTERS for pair in pairs):
+        raise ValueError(f'expected "x = value, ..." in {text!r}')
+    return {LETTERS[name.strip()]: parse_formula(value) for name, value in pairs}
+
+
+def unknowns(equations):
+    return sorted(set().union(*(eq.free_symbols for eq in equations)), key=lambda symbol: symbol.name)
+
+
+# A solution set: the values of one unknown, or (x, y, ...) tuples in name order.
+def solution_set(question):
+    equations = []
+    for part in question.split(';'):
+        sides = part.split('=')
+        if len(sides) != 2:
+            raise ValueError(f'expected one "=" in {part!r}')
+        equations.append(Eq(parse_formula(sides[0]), parse_formula(sides[1])))
+    names = unknowns(equations)
+    if len(names) == 1 and len(equations) == 1:
+        return FiniteSet(*[value for value in solve(equations[0], names[0]) if value.is_real]), names
+    return FiniteSet(*[Tuple(*[found[name] for name in names]) for found in solve(equations, names, dict=True)]), names
+
+
+def solution_choice(text, names):
+    items = text.split(',')
+    if len(names) == 1:
+        return FiniteSet(*[parse_formula(item) for item in items])
+    found = assignments(text)
+    if set(found) != set(names):
+        raise ValueError(f'{text!r} does not give every unknown')
+    return FiniteSet(Tuple(*[found[name] for name in names]))
+
+
+def formula(problem):
+    kind, question, choices = problem['kind'], problem['question'], problem['choices']
+    if kind == 'calc':
+        value = parse_formula(question)
+        if problem.get('given'):
+            value = value.subs(assignments(problem['given']))
+        return value, [parse_formula(choice) for choice in choices]
+    if kind == 'expand':
+        parsed = [parse_formula(choice) for choice in choices]
+        answer = parsed[problem['answerIndex']]
+        # The keyed choice must itself be written out (x^2 + 5x + 6, not (x + 2)(x + 3)).
+        if expand(answer) != answer:
+            raise ValueError(f'answer {choices[problem["answerIndex"]]!r} is not expanded')
+        return expand(parse_formula(question)), parsed
+    if kind == 'solve':
+        answer, names = solution_set(question)
+        return answer, [solution_choice(choice, names) for choice in choices]
+    raise ValueError(f'unknown kind {kind!r}')
 
 
 def factorization(problem):
@@ -82,12 +229,34 @@ UNITS = {
     'addition': ('math-addition.json', arith),
     'multiplication': ('math-multiplication.json', arith),
     'division': ('math-division.json', arith),
+    'decimal': ('math-decimal.json', formula),
+    'fraction': ('math-fraction.json', formula),
+    'exponents': ('math-exponents.json', formula),
+    'expression': ('math-expression.json', formula),
+    'linear-equation': ('math-linear-equation.json', formula),
+    'simultaneous': ('math-simultaneous.json', formula),
+    'expansion': ('math-expansion.json', formula),
+    'sqrt': ('math-sqrt.json', formula),
+    'quadratic': ('math-quadratic.json', formula),
     'factorization': ('math-factorization.json', factorization),
     'pythagoras': ('math-pythagoras.json', pythagoras),
 }
 
 
 def same(a, b):
+    # Solution sets and tuples (formula units) compare element by element.
+    if isinstance(a, (FiniteSet, Tuple)) or isinstance(b, (FiniteSet, Tuple)):
+        if type(a) is not type(b) or len(a) != len(b):
+            return False
+        if isinstance(a, Tuple):
+            return all(same(p, q) for p, q in zip(a, b))
+        rest = list(b)
+        for item in a:
+            match = next((other for other in rest if same(item, other)), None)
+            if match is None:
+                return False
+            rest.remove(match)
+        return True
     return simplify(expand(a - b)) == 0
 
 
@@ -124,7 +293,7 @@ def main(units):
     failed = False
     for unit in units or UNITS:
         file, convert = UNITS[unit]
-        path = os.environ.get(f'MATH_BANK_{unit.upper()}') or ROOT / 'src' / 'data' / file
+        path = os.environ.get(f'MATH_BANK_{unit.upper().replace("-", "_")}') or ROOT / 'src' / 'data' / file
         bank = json.loads(Path(path).read_text(encoding='utf-8'))
         errors = verify_bank(bank, convert)
         for error in errors:

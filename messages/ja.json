@@ -1306,6 +1306,13 @@
         "search": "単元・セットを検索",
         "empty": "条件に合う単元がありません。",
         "best": "最高 {best}/{total}"
+      },
+      "formulaQuiz": {
+        "calc": "次の計算をしなさい。",
+        "expand": "次の式を計算しなさい。",
+        "solve": "次の方程式を解きなさい。",
+        "given": "<given></given> のとき、次の式の値を求めなさい。",
+        "answer": "答え:"
       }
     },
     "about": {

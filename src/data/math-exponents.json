@@ -1,0 +1,65 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "exponents-001",
+      "setId": "powers-a",
+      "position": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "(-4)^2",
+      "given": null,
+      "choices": ["-16", "16", "-8", "8"],
+      "answerIndex": 1
+    },
+    {
+      "id": "exponents-002",
+      "setId": "powers-a",
+      "position": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "-3^4",
+      "given": null,
+      "choices": ["-81", "81", "-12", "12"],
+      "answerIndex": 0
+    },
+    {
+      "id": "exponents-003",
+      "setId": "powers-a",
+      "position": 3,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "(-2)^3 * 5",
+      "given": null,
+      "choices": ["-30", "40", "-40", "30"],
+      "answerIndex": 2
+    },
+    {
+      "id": "exponents-004",
+      "setId": "powers-a",
+      "position": 4,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "5 - (-3)^2",
+      "given": null,
+      "choices": ["14", "-1", "11", "-4"],
+      "answerIndex": 3
+    },
+    {
+      "id": "exponents-005",
+      "setId": "powers-a",
+      "position": 5,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "-5^2 + (-4)^2",
+      "given": null,
+      "choices": ["41", "-9", "9", "-41"],
+      "answerIndex": 1
+    }
+  ]
+}

@@ -8,8 +8,9 @@ export interface MathCatalogUnit {
   stage: MathStage;
   status: 'published' | 'comingSoon';
   // Published units keep their sets in their existing math-*-sets.ts files.
-  // Expression units (math-expression-units.ts) keep theirs here: a set with
-  // a `rule` (a key in scripts/validate-math-arith.mjs) can hold problems.
+  // Expression and formula units (math-expression-units.ts,
+  // math-formula-units.ts) keep theirs here: a set with a `rule` (a key in
+  // scripts/validate-math-arith.mjs or validate-math-formula.mjs) can hold problems.
   sets: { id: string; item: string; rule?: string }[];
 }
 
@@ -44,13 +45,13 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'elapsed-a', item: 'time.elapsed' },
   ] },
   { id: 'decimal', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'add-sub-a', item: 'decimal.add-sub' },
-    { id: 'mul-div-a', item: 'decimal.mul-div' },
+    { id: 'add-sub-a', item: 'decimal.add-sub', rule: 'decimal-add-sub-a' },
+    { id: 'mul-div-a', item: 'decimal.mul-div', rule: 'decimal-mul-div-a' },
   ] },
   { id: 'fraction', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'simplify-a', item: 'fraction.simplify' },
-    { id: 'add-sub-a', item: 'fraction.add-sub' },
-    { id: 'mul-div-a', item: 'fraction.mul-div' },
+    { id: 'simplify-a', item: 'fraction.simplify', rule: 'fraction-simplify-a' },
+    { id: 'add-sub-a', item: 'fraction.add-sub', rule: 'fraction-add-sub-a' },
+    { id: 'mul-div-a', item: 'fraction.mul-div', rule: 'fraction-mul-div-a' },
   ] },
   { id: 'divisors', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
     { id: 'divisors-a', item: 'divisors.divisors' },
@@ -95,24 +96,24 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   ] },
   { id: 'signed', domain: 'number', stage: 'middle', status: 'published', sets: [] },
   { id: 'exponents', domain: 'number', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'powers-a', item: 'exponents.powers' },
+    { id: 'powers-a', item: 'exponents.powers', rule: 'powers-a' },
     { id: 'scientific-a', item: 'exponents.scientific' },
   ] },
   { id: 'expression', domain: 'algebra', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'value-a', item: 'expression.value' },
-    { id: 'like-terms-a', item: 'expression.like-terms' },
-    { id: 'distribute-a', item: 'expression.distribute' },
+    { id: 'value-a', item: 'expression.value', rule: 'expression-value-a' },
+    { id: 'like-terms-a', item: 'expression.like-terms', rule: 'like-terms-a' },
+    { id: 'distribute-a', item: 'expression.distribute', rule: 'distribute-a' },
     { id: 'rearrange-a', item: 'expression.rearrange' },
   ] },
   { id: 'linear-equation', domain: 'algebra', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'basic-a', item: 'linear-equation.basic' },
-    { id: 'parentheses-a', item: 'linear-equation.parentheses' },
-    { id: 'fraction-a', item: 'linear-equation.fraction' },
+    { id: 'basic-a', item: 'linear-equation.basic', rule: 'linear-basic-a' },
+    { id: 'parentheses-a', item: 'linear-equation.parentheses', rule: 'linear-parentheses-a' },
+    { id: 'fraction-a', item: 'linear-equation.fraction', rule: 'linear-fraction-a' },
     { id: 'word-a', item: 'linear-equation.word-problems' },
   ] },
   { id: 'simultaneous', domain: 'algebra', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'elimination-a', item: 'simultaneous.elimination' },
-    { id: 'substitution-a', item: 'simultaneous.substitution' },
+    { id: 'elimination-a', item: 'simultaneous.elimination', rule: 'simultaneous-elimination-a' },
+    { id: 'substitution-a', item: 'simultaneous.substitution', rule: 'simultaneous-substitution-a' },
     { id: 'word-a', item: 'simultaneous.word-problems' },
   ] },
   { id: 'linear-function', domain: 'functions', stage: 'middle', status: 'comingSoon', sets: [
@@ -132,15 +133,15 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'absolute-a', item: 'inequality.absolute' },
   ] },
   { id: 'expansion', domain: 'algebra', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'formulas-a', item: 'expansion.formulas' },
-    { id: 'square-a', item: 'expansion.square' },
-    { id: 'sum-difference-a', item: 'expansion.sum-difference' },
+    { id: 'formulas-a', item: 'expansion.formulas', rule: 'expansion-formulas-a' },
+    { id: 'square-a', item: 'expansion.square', rule: 'expansion-square-a' },
+    { id: 'sum-difference-a', item: 'expansion.sum-difference', rule: 'expansion-sum-difference-a' },
   ] },
   { id: 'factorization', domain: 'algebra', stage: 'middle', status: 'published', sets: [] },
   { id: 'sqrt', domain: 'number', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'simplify-a', item: 'sqrt.simplify' },
-    { id: 'add-sub-a', item: 'sqrt.add-sub' },
-    { id: 'rationalize-a', item: 'sqrt.rationalize' },
+    { id: 'simplify-a', item: 'sqrt.simplify', rule: 'sqrt-simplify-a' },
+    { id: 'add-sub-a', item: 'sqrt.add-sub', rule: 'sqrt-add-sub-a' },
+    { id: 'rationalize-a', item: 'sqrt.rationalize', rule: 'sqrt-rationalize-a' },
   ] },
   { id: 'prime', domain: 'number', stage: 'middle', status: 'comingSoon', sets: [
     { id: 'prime-a', item: 'prime.prime' },
@@ -155,8 +156,8 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'basic-a', item: 'probability.basic' },
   ] },
   { id: 'quadratic', domain: 'algebra', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'factoring-a', item: 'quadratic.factoring' },
-    { id: 'formula-a', item: 'quadratic.formula' },
+    { id: 'factoring-a', item: 'quadratic.factoring', rule: 'quadratic-factoring-a' },
+    { id: 'formula-a', item: 'quadratic.formula', rule: 'quadratic-formula-a' },
     { id: 'discriminant-a', item: 'quadratic.discriminant' },
   ] },
   { id: 'identities', domain: 'algebra', stage: 'high', status: 'comingSoon', sets: [
