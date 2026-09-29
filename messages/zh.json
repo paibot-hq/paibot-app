@@ -600,7 +600,7 @@
       "title": "数学",
       "description": "按单元练习四则运算、因式分解等数学内容。",
       "keywords": "数学 四则运算 因式分解 测验 题库",
-      "intro": "可以按领域・单元或难度查找想练习的单元。",
+      "intro": "按数学领域列出全部单元和题组。带颜色的题组现在就可以练习。",
       "arithLink": "四则运算",
       "arithSummary": "从加减法到运算顺序和应用题。从简单的题组开始逐步练习。",
       "factorizationLink": "因式分解",
@@ -1284,25 +1284,7 @@
         "explanationPrefix": "根据勾股定理，",
         "figureDescription": "直角三角形ABC。角{rightAngle}是直角。{first}为{firstLength} cm，{second}为{secondLength} cm，{unknown}为x。"
       },
-      "entrances": {
-        "units": {
-          "title": "按领域・单元",
-          "body": "自由浏览全部数学内容"
-        },
-        "level": {
-          "title": "按难度",
-          "body": "从基础到高等，按难度查找"
-        },
-        "kentei": {
-          "title": "数检备考",
-          "body": "按级别练习"
-        }
-      },
-      "unitsIntro": "按数学领域列出全部单元和题组。带颜色的题组现在就可以练习。",
-      "levelTitle": "{stage}单元",
-      "levelIntro": "按数学领域列出所选难度的单元。",
       "kentei": {
-        "intro": "按级别列出日本实用数学技能检定（数检）5级至1级的对应单元。",
         "note": "级别与单元的对应仅供参考，正式考试范围请查看日本数学检定协会官方网站。本站与该协会无关。“数検”是日本数学检定协会的注册商标。",
         "official": "官方网站",
         "grades": {
@@ -1322,14 +1304,14 @@
           "h2": "高中2年级程度",
           "h3": "高中3年级程度",
           "university": "大学程度"
-        },
-        "elementary": "6级及以下（算数检定）的内容，请在“按难度”的“基础”中查找。"
+        }
       },
       "unitList": {
         "filters": "筛选",
         "playableOnly": "只看可练习的题组",
         "search": "搜索单元和题组",
-        "empty": "没有符合条件的单元。"
+        "empty": "没有符合条件的单元。",
+        "kentei": "按数检级别筛选"
       }
     },
     "about": {

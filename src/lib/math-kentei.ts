@@ -22,4 +22,7 @@ export const KENTEI_GRADES: readonly KenteiGrade[] = [
   { id: '1', target: 'university', units: ['matrix', 'linear-system', 'vector-space', 'linear-map', 'eigen', 'inner-product', 'mapping', 'series', 'improper-integral', 'multivariable', 'ode', 'inference'] },
 ];
 
+// A Japanese exam: its filter on /math is shown in Japanese only.
+export const KENTEI_LOCALES = ['ja'] as const;
+
 export const KENTEI_OFFICIAL_URL = 'https://www.su-gaku.net/suken/';

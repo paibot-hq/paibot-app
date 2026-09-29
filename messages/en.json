@@ -600,7 +600,7 @@
       "title": "Math",
       "description": "Practice arithmetic, factoring, and other math topics, one topic at a time.",
       "keywords": "math arithmetic algebra factoring quiz problem set",
-      "intro": "Find a unit to practice by area of mathematics or by level.",
+      "intro": "Every unit and problem set, grouped by area of mathematics. Highlighted sets are ready to practice.",
       "arithLink": "Arithmetic",
       "arithSummary": "From addition and subtraction to the order of operations and word problems. Start with the easy sets and work up.",
       "factorizationLink": "Factoring",
@@ -1284,25 +1284,7 @@
         "explanationPrefix": "By the Pythagorean theorem,",
         "figureDescription": "Right triangle ABC. Angle {rightAngle} is a right angle. {first} is {firstLength} cm, {second} is {secondLength} cm, and {unknown} is x."
       },
-      "entrances": {
-        "units": {
-          "title": "By area & unit",
-          "body": "Browse everything in mathematics"
-        },
-        "level": {
-          "title": "By level",
-          "body": "Pick a level, from foundations to higher mathematics"
-        },
-        "kentei": {
-          "title": "Suken prep",
-          "body": "Practice by grade"
-        }
-      },
-      "unitsIntro": "Every unit and problem set, grouped by area of mathematics. Highlighted sets are ready to practice.",
-      "levelTitle": "{stage} units",
-      "levelIntro": "Units at this level, grouped by area of mathematics.",
       "kentei": {
-        "intro": "Units that prepare for grades 5 to 1 of Japan's Mathematics Certification (Suken).",
         "note": "The grade-to-unit mapping is a guide; check the official ranges on the Mathematics Certification Institute of Japan's site. This site is not affiliated with the institute. \"Suken\" is a registered trademark of the Mathematics Certification Institute of Japan.",
         "official": "Official site",
         "grades": {
@@ -1322,14 +1304,14 @@
           "h2": "High school year 2",
           "h3": "High school year 3",
           "university": "University"
-        },
-        "elementary": "For grades 6 and below (the arithmetic exam), browse the Foundations level."
+        }
       },
       "unitList": {
         "filters": "Filters",
         "playableOnly": "Playable sets only",
         "search": "Search units and sets",
-        "empty": "No units match these filters."
+        "empty": "No units match these filters.",
+        "kentei": "Filter by Suken grade"
       }
     },
     "about": {

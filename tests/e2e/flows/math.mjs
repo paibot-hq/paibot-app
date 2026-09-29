@@ -5,11 +5,7 @@ export default async function ({ page, main, base, go, errors }) {
   // A missing translation renders its key (e.g. "App.math.pythagorasLink").
   await go('math');
   assert.ok(!(await main.textContent()).includes('App.math.'), 'no untranslated keys on the math landing');
-  // Three ways in; Suken prep is Japanese only.
-  assert.deepEqual(await main.getByRole('heading', { level: 2 }).allTextContents(), ['By area & unit', 'By level']);
-  assert.deepEqual(await main.getByRole('listitem').getByRole('list').getByRole('link').allTextContents(), ['Foundations', 'Intermediate', 'Advanced', 'Higher']);
-  await main.getByRole('link', { name: 'By area & unit', exact: true }).click();
-  await page.waitForURL(`${base}/en/math/units`);
+  assert.equal(await main.getByRole('combobox').count(), 0, 'the Suken filter is Japanese only');
   // Unit titles by href: a unit and one of its sets can share a name.
   await main.locator('a[href="/en/math/factorization"]').click();
   await page.waitForURL(`${base}/en/math/factorization`);
@@ -22,7 +18,7 @@ export default async function ({ page, main, base, go, errors }) {
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   assert.deepEqual(errors, []);
   console.log('PASS: math landing and unit list link through to the factoring set picker and set trinomial-a');
-  await go('math/units');
+  await go('math');
   await main.locator('a[href="/en/math/arith"]').click();
   await page.waitForURL(`${base}/en/math/arith`);
   await main.getByRole('link', { name: /^Multi-step word problems/ }).click();
@@ -30,7 +26,7 @@ export default async function ({ page, main, base, go, errors }) {
   await main.getByText('Multi-step word problems', { exact: true }).waitFor();
   assert.deepEqual(errors, []);
   console.log('PASS: math landing links through to the arithmetic set picker and set word-b');
-  await go('math/units');
+  await go('math');
   await main.locator('a[href="/en/math/signed"]').click();
   await page.waitForURL(`${base}/en/math/signed`);
   await page.locator('h1', { hasText: 'Negative numbers' }).waitFor();
@@ -39,7 +35,7 @@ export default async function ({ page, main, base, go, errors }) {
   await main.getByText('Negative numbers', { exact: true }).last().waitFor();
   assert.deepEqual(errors, []);
   console.log('PASS: math landing links through to the signed-number set picker and set four-ops-a');
-  await go('math/units');
+  await go('math');
   await main.locator('a[href="/en/math/fraction"]').click();
   await page.waitForURL(`${base}/en/math/fraction`);
   for (const name of ['Simplifying & common denominators', 'Adding & subtracting fractions', 'Multiplying & dividing fractions']) {
@@ -55,7 +51,7 @@ export default async function ({ page, main, base, go, errors }) {
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   assert.deepEqual(errors, []);
   console.log('PASS: coming-soon fractions unit lists sets and shows the preparation message');
-  await go('math/units');
+  await go('math');
   assert.deepEqual(await main.getByRole('heading', { level: 2 }).allTextContents(), [
     'Number', 'Algebra', 'Functions', 'Geometry & measurement',
     'Statistics & probability', 'Sets & logic', 'Vectors & matrices', 'Calculus',
@@ -86,29 +82,17 @@ export default async function ({ page, main, base, go, errors }) {
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   assert.deepEqual(errors, []);
   console.log('PASS: math domains and coming-soon matrices unit with all three sets');
-  await go('math/level/middle');
-  assert.equal(await page.title(), 'Intermediate units - Math | PAIBOT.app');
-  assert.equal(await main.getByRole('link', { name: 'Intermediate', exact: true }).getAttribute('aria-current'), 'page');
-  await main.getByRole('link', { name: /^Factoring/ }).waitFor();
-  assert.equal(await main.getByRole('link', { name: /^Arithmetic/ }).count(), 0, 'only this level');
-  await main.getByRole('link', { name: 'Higher', exact: true }).click();
-  await page.waitForURL(`${base}/en/math/level/university`);
-  await main.getByRole('link', { name: /^Matrices/ }).waitFor();
-  assert.equal((await page.goto(`${base}/en/math/level/unknown`)).status(), 404);
-  console.log('PASS: level pages list only their units and switch levels');
-  const kentei = await page.goto(`${base}/ja/math/kentei`);
-  assert.equal(kentei.status(), 200);
+  // Former entry pages now land on /math.
+  for (const path of ['units', 'level/middle', 'kentei']) {
+    await page.goto(`${base}/ja/math/${path}`);
+    assert.equal(new URL(page.url()).pathname, '/ja/math', path);
+  }
   await page.waitForFunction(() => document.documentElement.dataset.theme);
-  assert.equal(await page.title(), '数検対策 - 数学 | PAIBOT.app');
-  assert.deepEqual(await main.getByRole('heading', { level: 2 }).allTextContents(), ['5級', '4級', '3級', '準2級', '2級', '準1級', '1級']);
-  await main.getByRole('link', { name: '小学', exact: true }).waitFor();
-  await main.locator('#grade-3').getByRole('link', { name: /^因数分解/ }).waitFor();
+  await main.getByRole('combobox', { name: '数検の級で絞り込む' }).selectOption('3');
+  assert.ok(await main.locator('a[href="/ja/math/factorization"]').isVisible());
+  assert.equal(await main.locator('a[href="/ja/math/arith"]').count(), 0, 'only units for grade 3');
   await main.getByText('日本数学検定協会とは関係ありません', { exact: false }).waitFor();
-  assert.deepEqual(await page.locator('link[rel="alternate"]').evaluateAll(links => links.map(link => link.hreflang)), ['ja', 'x-default']);
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
-  await page.goto(`${base}/ja/math`);
-  await main.getByRole('link', { name: '数検対策', exact: true }).waitFor();
-  for (const locale of ['en', 'zh']) assert.equal((await page.goto(`${base}/${locale}/math/kentei`)).status(), 404, `${locale} has no Suken page`);
   assert.deepEqual(errors, []);
-  console.log('PASS: Suken prep lists grades with their units in Japanese only');
+  console.log('PASS: former entry pages redirect to /math, and the Japanese Suken filter lists a grade\'s units');
 }
