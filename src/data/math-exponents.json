@@ -3,7 +3,8 @@
   "problems": [
     {
       "id": "exponents-001",
-      "setId": "powers-a",
+      "item": "powers",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -15,7 +16,8 @@
     },
     {
       "id": "exponents-002",
-      "setId": "powers-a",
+      "item": "powers",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -27,7 +29,8 @@
     },
     {
       "id": "exponents-003",
-      "setId": "powers-a",
+      "item": "powers",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -39,7 +42,8 @@
     },
     {
       "id": "exponents-004",
-      "setId": "powers-a",
+      "item": "powers",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -51,7 +55,8 @@
     },
     {
       "id": "exponents-005",
-      "setId": "powers-a",
+      "item": "powers",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",

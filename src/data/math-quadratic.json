@@ -3,7 +3,8 @@
   "problems": [
     {
       "id": "quadratic-001",
-      "setId": "factoring-a",
+      "item": "factoring",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -15,7 +16,8 @@
     },
     {
       "id": "quadratic-002",
-      "setId": "factoring-a",
+      "item": "factoring",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -27,7 +29,8 @@
     },
     {
       "id": "quadratic-003",
-      "setId": "factoring-a",
+      "item": "factoring",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -39,7 +42,8 @@
     },
     {
       "id": "quadratic-004",
-      "setId": "factoring-a",
+      "item": "factoring",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -51,7 +55,8 @@
     },
     {
       "id": "quadratic-005",
-      "setId": "factoring-a",
+      "item": "factoring",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -63,7 +68,8 @@
     },
     {
       "id": "quadratic-006",
-      "setId": "formula-a",
+      "item": "formula",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -75,7 +81,8 @@
     },
     {
       "id": "quadratic-007",
-      "setId": "formula-a",
+      "item": "formula",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -87,7 +94,8 @@
     },
     {
       "id": "quadratic-008",
-      "setId": "formula-a",
+      "item": "formula",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -99,7 +107,8 @@
     },
     {
       "id": "quadratic-009",
-      "setId": "formula-a",
+      "item": "formula",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -111,7 +120,8 @@
     },
     {
       "id": "quadratic-010",
-      "setId": "formula-a",
+      "item": "formula",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",

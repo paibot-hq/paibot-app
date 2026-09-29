@@ -3,7 +3,8 @@
   "problems": [
     {
       "id": "division-001",
-      "setId": "basic-a",
+      "item": "basic",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -14,7 +15,8 @@
     },
     {
       "id": "division-002",
-      "setId": "basic-a",
+      "item": "basic",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -25,7 +27,8 @@
     },
     {
       "id": "division-003",
-      "setId": "basic-a",
+      "item": "basic",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -36,7 +39,8 @@
     },
     {
       "id": "division-004",
-      "setId": "basic-a",
+      "item": "basic",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -47,7 +51,8 @@
     },
     {
       "id": "division-005",
-      "setId": "basic-a",
+      "item": "basic",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -58,7 +63,8 @@
     },
     {
       "id": "division-006",
-      "setId": "by-two-digit-a",
+      "item": "by-two-digit",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -69,7 +75,8 @@
     },
     {
       "id": "division-007",
-      "setId": "by-two-digit-a",
+      "item": "by-two-digit",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -80,7 +87,8 @@
     },
     {
       "id": "division-008",
-      "setId": "by-two-digit-a",
+      "item": "by-two-digit",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -91,7 +99,8 @@
     },
     {
       "id": "division-009",
-      "setId": "by-two-digit-a",
+      "item": "by-two-digit",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -102,7 +111,8 @@
     },
     {
       "id": "division-010",
-      "setId": "by-two-digit-a",
+      "item": "by-two-digit",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",

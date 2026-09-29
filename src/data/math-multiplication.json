@@ -3,7 +3,8 @@
   "problems": [
     {
       "id": "multiplication-001",
-      "setId": "times-table-a",
+      "item": "times-table",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -14,7 +15,8 @@
     },
     {
       "id": "multiplication-002",
-      "setId": "times-table-a",
+      "item": "times-table",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -25,7 +27,8 @@
     },
     {
       "id": "multiplication-003",
-      "setId": "times-table-a",
+      "item": "times-table",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -36,7 +39,8 @@
     },
     {
       "id": "multiplication-004",
-      "setId": "times-table-a",
+      "item": "times-table",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -47,7 +51,8 @@
     },
     {
       "id": "multiplication-005",
-      "setId": "times-table-a",
+      "item": "times-table",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -58,7 +63,8 @@
     },
     {
       "id": "multiplication-006",
-      "setId": "by-one-digit-a",
+      "item": "by-one-digit",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -69,7 +75,8 @@
     },
     {
       "id": "multiplication-007",
-      "setId": "by-one-digit-a",
+      "item": "by-one-digit",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -80,7 +87,8 @@
     },
     {
       "id": "multiplication-008",
-      "setId": "by-one-digit-a",
+      "item": "by-one-digit",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -91,7 +99,8 @@
     },
     {
       "id": "multiplication-009",
-      "setId": "by-one-digit-a",
+      "item": "by-one-digit",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -102,7 +111,8 @@
     },
     {
       "id": "multiplication-010",
-      "setId": "by-one-digit-a",
+      "item": "by-one-digit",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -113,7 +123,8 @@
     },
     {
       "id": "multiplication-011",
-      "setId": "by-two-digit-a",
+      "item": "by-two-digit",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -124,7 +135,8 @@
     },
     {
       "id": "multiplication-012",
-      "setId": "by-two-digit-a",
+      "item": "by-two-digit",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -135,7 +147,8 @@
     },
     {
       "id": "multiplication-013",
-      "setId": "by-two-digit-a",
+      "item": "by-two-digit",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -146,7 +159,8 @@
     },
     {
       "id": "multiplication-014",
-      "setId": "by-two-digit-a",
+      "item": "by-two-digit",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -157,7 +171,8 @@
     },
     {
       "id": "multiplication-015",
-      "setId": "by-two-digit-a",
+      "item": "by-two-digit",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",

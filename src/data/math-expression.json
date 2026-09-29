@@ -3,7 +3,8 @@
   "problems": [
     {
       "id": "expression-001",
-      "setId": "value-a",
+      "item": "value",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -15,7 +16,8 @@
     },
     {
       "id": "expression-002",
-      "setId": "value-a",
+      "item": "value",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -27,7 +29,8 @@
     },
     {
       "id": "expression-003",
-      "setId": "value-a",
+      "item": "value",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -39,7 +42,8 @@
     },
     {
       "id": "expression-004",
-      "setId": "value-a",
+      "item": "value",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -51,7 +55,8 @@
     },
     {
       "id": "expression-005",
-      "setId": "value-a",
+      "item": "value",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -63,7 +68,8 @@
     },
     {
       "id": "expression-006",
-      "setId": "like-terms-a",
+      "item": "like-terms",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -75,7 +81,8 @@
     },
     {
       "id": "expression-007",
-      "setId": "like-terms-a",
+      "item": "like-terms",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -87,7 +94,8 @@
     },
     {
       "id": "expression-008",
-      "setId": "like-terms-a",
+      "item": "like-terms",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -99,7 +107,8 @@
     },
     {
       "id": "expression-009",
-      "setId": "like-terms-a",
+      "item": "like-terms",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -111,7 +120,8 @@
     },
     {
       "id": "expression-010",
-      "setId": "like-terms-a",
+      "item": "like-terms",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -123,7 +133,8 @@
     },
     {
       "id": "expression-011",
-      "setId": "distribute-a",
+      "item": "distribute",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -135,7 +146,8 @@
     },
     {
       "id": "expression-012",
-      "setId": "distribute-a",
+      "item": "distribute",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -147,7 +159,8 @@
     },
     {
       "id": "expression-013",
-      "setId": "distribute-a",
+      "item": "distribute",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -159,7 +172,8 @@
     },
     {
       "id": "expression-014",
-      "setId": "distribute-a",
+      "item": "distribute",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -171,7 +185,8 @@
     },
     {
       "id": "expression-015",
-      "setId": "distribute-a",
+      "item": "distribute",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",

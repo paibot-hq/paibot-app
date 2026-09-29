@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import { parseExpression } from '../src/lib/math-formula.ts';
-import { FORMULA_UNITS, formulaUnitSets } from '../src/lib/math-formula-units.ts';
+import { unitSets, unitsOfKind } from '../src/lib/math-catalog.ts';
 
 // Set rules only, for the formula units: every question, `given` and choice
 // must parse in the grammar the page renders (src/lib/math-formula.ts), and the
@@ -83,14 +83,14 @@ export function validateBank(bank, catalog) {
   for (const set of catalog) assert.ok(set.rule === undefined || Object.hasOwn(RULES, set.rule), `Unknown rule: ${set.rule}`);
   const ids = new Set(), positions = new Set(), questions = new Set();
   for (const problem of bank.problems) {
-    const { id, setId, position, kind, question, given, choices, answerIndex } = problem;
+    const { id, item, setId, position, kind, question, given, choices, answerIndex } = problem;
     assert.match(id, /^[a-z0-9-]{1,80}$/);
     assert.ok(!ids.has(id), `Duplicate ID: ${id}`); ids.add(id);
-    const set = catalog.find(set => set.id === setId);
+    const set = catalog.find(set => set.item === item && set.id === setId);
     assert.ok(set, `${id}: unknown set`);
     assert.ok(set.rule, `${id}: set ${setId} is coming soon (no rule yet)`);
     assert.ok(Number.isInteger(position) && position >= 1, `${id}: position`);
-    assert.ok(!positions.has(`${setId}:${position}`), `${id}: duplicate position`); positions.add(`${setId}:${position}`);
+    assert.ok(!positions.has(`${item}/${setId}:${position}`), `${id}: duplicate position`); positions.add(`${item}/${setId}:${position}`);
     assert.equal(typeof problem.published, 'boolean');
     assert.match(problem.reviewedAt, /^\d{4}-\d{2}-\d{2}$/);
     assert.equal(new Date(problem.reviewedAt).toISOString().slice(0, 10), problem.reviewedAt);
@@ -100,7 +100,7 @@ export function validateBank(bank, catalog) {
     const key = `${question.replaceAll(' ', '')}|${given ?? ''}`;
     assert.ok(!questions.has(key), `${id}: duplicate question`); questions.add(key);
     assert.ok(given === null || (kind === 'calc' && typeof given === 'string'), `${id}: given`);
-    if (given) for (const item of given.split(',')) { assert.match(item, /^\s*[a-z]\s*=/, `${id}: given`); parseExpression(item.split('=')[1]); }
+    if (given) for (const pair of given.split(',')) { assert.match(pair, /^\s*[a-z]\s*=/, `${id}: given`); parseExpression(pair.split('=')[1]); }
     const s = stats(question);
     assert.ok(kind === 'solve' ? s.equations >= 1 : s.equations === 0, `${id}: equations`);
     assert.ok(fits(s, problem), `${id}: "${question}" does not fit set ${setId}`);
@@ -112,9 +112,9 @@ export function validateBank(bank, catalog) {
   return bank;
 }
 
-export const formulaBanks = Object.fromEntries(FORMULA_UNITS.map(unit => {
+export const formulaBanks = Object.fromEntries(unitsOfKind('formula').map(unit => {
   const file = process.env[`MATH_BANK_${unit.toUpperCase().replaceAll('-', '_')}`] || new URL(`../src/data/math-${unit}.json`, import.meta.url);
-  const unitBank = validateBank(JSON.parse(readFileSync(file, 'utf8')), formulaUnitSets(unit));
+  const unitBank = validateBank(JSON.parse(readFileSync(file, 'utf8')), unitSets(unit));
   console.log(`PASS: ${unitBank.problems.length} ${unit} problems (${unitBank.problems.filter(problem => problem.published).length} published): formula grammar and set rules`);
   return [unit, unitBank];
 }));

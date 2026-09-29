@@ -3,7 +3,8 @@
   "problems": [
     {
       "id": "simultaneous-001",
-      "setId": "elimination-a",
+      "item": "elimination",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -15,7 +16,8 @@
     },
     {
       "id": "simultaneous-002",
-      "setId": "elimination-a",
+      "item": "elimination",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -27,7 +29,8 @@
     },
     {
       "id": "simultaneous-003",
-      "setId": "elimination-a",
+      "item": "elimination",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -39,7 +42,8 @@
     },
     {
       "id": "simultaneous-004",
-      "setId": "elimination-a",
+      "item": "elimination",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -51,7 +55,8 @@
     },
     {
       "id": "simultaneous-005",
-      "setId": "elimination-a",
+      "item": "elimination",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -63,7 +68,8 @@
     },
     {
       "id": "simultaneous-006",
-      "setId": "substitution-a",
+      "item": "substitution",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -75,7 +81,8 @@
     },
     {
       "id": "simultaneous-007",
-      "setId": "substitution-a",
+      "item": "substitution",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -87,7 +94,8 @@
     },
     {
       "id": "simultaneous-008",
-      "setId": "substitution-a",
+      "item": "substitution",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -99,7 +107,8 @@
     },
     {
       "id": "simultaneous-009",
-      "setId": "substitution-a",
+      "item": "substitution",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -111,7 +120,8 @@
     },
     {
       "id": "simultaneous-010",
-      "setId": "substitution-a",
+      "item": "substitution",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",

@@ -71,6 +71,13 @@
       "when": 1790513748740,
       "tag": "20260927125548_use_text_math_set_ids",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1790655777560,
+      "tag": "20260929042257_add_math_item_difficulty",
+      "breakpoints": true
     }
   ]
 }

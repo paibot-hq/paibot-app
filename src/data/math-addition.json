@@ -3,7 +3,8 @@
   "problems": [
     {
       "id": "addition-001",
-      "setId": "carry-a",
+      "item": "carry",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -14,7 +15,8 @@
     },
     {
       "id": "addition-002",
-      "setId": "carry-a",
+      "item": "carry",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -25,7 +27,8 @@
     },
     {
       "id": "addition-003",
-      "setId": "carry-a",
+      "item": "carry",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -36,7 +39,8 @@
     },
     {
       "id": "addition-004",
-      "setId": "carry-a",
+      "item": "carry",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -47,7 +51,8 @@
     },
     {
       "id": "addition-005",
-      "setId": "carry-a",
+      "item": "carry",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -58,7 +63,8 @@
     },
     {
       "id": "addition-006",
-      "setId": "two-digit-a",
+      "item": "two-digit",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -69,7 +75,8 @@
     },
     {
       "id": "addition-007",
-      "setId": "two-digit-a",
+      "item": "two-digit",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -80,7 +87,8 @@
     },
     {
       "id": "addition-008",
-      "setId": "two-digit-a",
+      "item": "two-digit",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -91,7 +99,8 @@
     },
     {
       "id": "addition-009",
-      "setId": "two-digit-a",
+      "item": "two-digit",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -102,7 +111,8 @@
     },
     {
       "id": "addition-010",
-      "setId": "two-digit-a",
+      "item": "two-digit",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -113,7 +123,8 @@
     },
     {
       "id": "addition-011",
-      "setId": "column-a",
+      "item": "column",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -124,7 +135,8 @@
     },
     {
       "id": "addition-012",
-      "setId": "column-a",
+      "item": "column",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -135,7 +147,8 @@
     },
     {
       "id": "addition-013",
-      "setId": "column-a",
+      "item": "column",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -146,7 +159,8 @@
     },
     {
       "id": "addition-014",
-      "setId": "column-a",
+      "item": "column",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -157,7 +171,8 @@
     },
     {
       "id": "addition-015",
-      "setId": "column-a",
+      "item": "column",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",

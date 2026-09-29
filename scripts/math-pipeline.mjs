@@ -2,27 +2,22 @@ import assert from 'node:assert/strict';
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
-import { ARITH_SETS } from '../src/lib/math-arith-sets.ts';
-import { SIGNED_SETS } from '../src/lib/math-signed-sets.ts';
-import { PYTHAGORAS_SETS } from '../src/lib/math-pythagoras-sets.ts';
-import { FACTORIZATION_SETS } from '../src/lib/math-factorization-sets.ts';
-import { EXPRESSION_UNITS, expressionUnitSets } from '../src/lib/math-expression-units.ts';
-import { FORMULA_UNITS, formulaUnitSets, isFormulaUnit } from '../src/lib/math-formula-units.ts';
+import { findUnit, unitSets } from '../src/lib/math-catalog.ts';
 import { expressionTex, solutionTex, statementTex, unknownOf } from '../src/lib/math-formula.ts';
 
 export const root = fileURLToPath(new URL('../', import.meta.url));
-export function context(unit, setId) {
-  const catalogs = { arith: ARITH_SETS, signed: SIGNED_SETS, factorization: FACTORIZATION_SETS, pythagoras: PYTHAGORAS_SETS,
-    ...Object.fromEntries(EXPRESSION_UNITS.map(unit => [unit, expressionUnitSets(unit)])),
-    ...Object.fromEntries(FORMULA_UNITS.map(unit => [unit, formulaUnitSets(unit)])) };
-  assert.ok(Object.hasOwn(catalogs, unit), `Unknown unit: ${unit}`);
-  const catalog = catalogs[unit];
-  const set = catalog.find(set => set.id === setId);
-  if (setId !== undefined) assert.ok(set, `Unknown set: ${setId}`);
+// A unit that can hold problems, and optionally one of its sets (item + set letter).
+export function context(unit, item, setId) {
+  const entry = findUnit(unit);
+  assert.ok(entry?.kind, `Unknown unit, or one that cannot hold problems: ${unit}`);
+  const catalog = unitSets(unit);
+  const set = catalog.find(set => set.item === item && set.id === setId);
+  if (item !== undefined) assert.ok(set, `Unknown set: ${item} ${setId}`);
   const path = `${root}src/data/math-${unit}.json`;
   const original = readFileSync(path, 'utf8');
-  return { catalog, set, path, original, bank: JSON.parse(original) };
+  return { kind: entry.kind, catalog, set, path, original, bank: JSON.parse(original) };
 }
+export const isFormulaUnit = unit => findUnit(unit)?.kind === 'formula';
 export const promptFile = name => readFileSync(new URL(`./math-prompts/${name}.md`, import.meta.url), 'utf8');
 
 // Scan complete objects, respecting braces inside JSON strings and fenced output.
@@ -49,16 +44,16 @@ export function extractJSON(raw, key) {
   }
   throw new Error(`No JSON object containing ${key} found`);
 }
-export function additions(unit, setId, bank, generated, count, date = new Date().toISOString().slice(0, 10)) {
+export function additions(unit, item, setId, bank, generated, count, date = new Date().toISOString().slice(0, 10)) {
   assert.equal(generated.problems.length, count, `Expected ${count} problems`);
   const maxId = Math.max(0, ...bank.problems.map(p => {
     const match = p.id.match(new RegExp(`^${unit}-(\\d+)$`));
     assert.ok(match, `Unexpected existing ID: ${p.id}`);
     return Number(match[1]);
   }));
-  const maxPosition = Math.max(0, ...bank.problems.filter(p => p.setId === setId).map(p => p.position));
+  const maxPosition = Math.max(0, ...bank.problems.filter(p => p.item === item && p.setId === setId).map(p => p.position));
   return generated.problems.map((p, index) => ({
-    id: `${unit}-${String(maxId + index + 1).padStart(3, '0')}`, setId,
+    id: `${unit}-${String(maxId + index + 1).padStart(3, '0')}`, item, setId,
     position: maxPosition + index + 1, published: false, reviewedAt: date,
     ...(unit === 'pythagoras' ? { figure: p.figure } : unit === 'factorization' ? { p: p.p, q: p.q }
       : isFormulaUnit(unit) ? { kind: p.kind, question: p.question, given: p.given ?? null } : { expression: p.expression, word: p.word }),

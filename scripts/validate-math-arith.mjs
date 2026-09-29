@@ -1,8 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { ARITH_SETS } from '../src/lib/math-arith-sets.ts';
-import { SIGNED_SETS } from '../src/lib/math-signed-sets.ts';
-import { EXPRESSION_UNITS, expressionUnitSets } from '../src/lib/math-expression-units.ts';
+import { unitSets, unitsOfKind } from '../src/lib/math-catalog.ts';
 
 // Set rules only: the expression is parsed here for its shape (operators,
 // negatives, exact division) and value range. The answer key is checked by
@@ -109,7 +107,8 @@ export const RULES = {
     && s.operations >= 1 && s.operations <= 2 && s.value >= 0 && s.value <= 500,
 };
 
-export function validateBank(bank, catalog = ARITH_SETS) {
+// `catalog` is the unit's sets (unitSets in src/lib/math-catalog.ts).
+export function validateBank(bank, catalog = unitSets('arith')) {
   assert.equal(bank.version, 1);
   assert.ok(Array.isArray(bank.problems));
   // Sets without a rule are coming soon and may not hold problems yet.
@@ -119,21 +118,21 @@ export function validateBank(bank, catalog = ARITH_SETS) {
   const expressions = new Set();
   const negativeAnswers = new Map();
   for (const problem of bank.problems) {
-    const { id, setId, position, expression, word, choices, answerIndex } = problem;
+    const { id, item, setId, position, expression, word, choices, answerIndex } = problem;
     assert.match(id, /^[a-z0-9-]{1,80}$/);
     assert.ok(!ids.has(id), `Duplicate ID: ${id}`); ids.add(id);
-    const set = catalog.find(set => set.id === setId);
+    const set = catalog.find(set => set.item === item && set.id === setId);
     assert.ok(set, `${id}: unknown set`);
     assert.ok(set.rule, `${id}: set ${setId} is coming soon (no rule yet)`);
     assert.ok(Number.isInteger(position) && position >= 1, `${id}: position`);
-    assert.ok(!positions.has(`${setId}:${position}`), `${id}: duplicate position`); positions.add(`${setId}:${position}`);
+    assert.ok(!positions.has(`${item}/${setId}:${position}`), `${id}: duplicate position`); positions.add(`${item}/${setId}:${position}`);
     assert.equal(typeof problem.published, 'boolean');
     assert.match(problem.reviewedAt, /^\d{4}-\d{2}-\d{2}$/);
     assert.equal(new Date(problem.reviewedAt).toISOString().slice(0, 10), problem.reviewedAt);
     assert.equal(typeof expression, 'string');
     assert.ok(!expressions.has(expression.replaceAll(' ', '')), `${id}: duplicate expression`); expressions.add(expression.replaceAll(' ', ''));
     const result = evaluate(expression);
-    if (set.rule === 'four-ops-a' && result.value < 0) negativeAnswers.set(setId, (negativeAnswers.get(setId) ?? 0) + 1);
+    if (set.rule === 'four-ops-a' && result.value < 0) negativeAnswers.set(`${item}/${setId}`, (negativeAnswers.get(`${item}/${setId}`) ?? 0) + 1);
     if (word !== null) {
       for (const locale of ['ja', 'en', 'zh']) {
         const t = word[locale];
@@ -145,21 +144,14 @@ export function validateBank(bank, catalog = ARITH_SETS) {
     assert.ok(Number.isInteger(answerIndex) && answerIndex >= 0 && answerIndex < 4, `${id}: answerIndex`);
   }
   for (const set of catalog.filter(set => set.rule === 'four-ops-a')) {
-    if (bank.problems.some(problem => problem.setId === set.id)) assert.ok((negativeAnswers.get(set.id) ?? 0) >= 2, `Set ${set.id} needs at least two negative answers`);
+    if (bank.problems.some(problem => problem.item === set.item && problem.setId === set.id)) assert.ok((negativeAnswers.get(`${set.item}/${set.id}`) ?? 0) >= 2, `Set ${set.id} needs at least two negative answers`);
   }
   return bank;
 }
-export const bank = validateBank(JSON.parse(readFileSync(process.env.MATH_BANK_ARITH || new URL('../src/data/math-arith.json', import.meta.url), 'utf8')));
-const published = bank.problems.filter(problem => problem.published).length;
-console.log(`PASS: ${bank.problems.length} arithmetic problems (${published} published): set rules, exact integer division`);
-
-export const signedBank = validateBank(JSON.parse(readFileSync(process.env.MATH_BANK_SIGNED || new URL('../src/data/math-signed.json', import.meta.url), 'utf8')), SIGNED_SETS);
-console.log(`PASS: ${signedBank.problems.length} signed problems (${signedBank.problems.filter(problem => problem.published).length} published): set rules, exact integer division`);
-
-// Expression units keep one bank per unit (src/data/math-<unit>.json).
-export const expressionBanks = Object.fromEntries(EXPRESSION_UNITS.map(unit => {
-  const file = process.env[`MATH_BANK_${unit.toUpperCase()}`] || new URL(`../src/data/math-${unit}.json`, import.meta.url);
-  const unitBank = validateBank(JSON.parse(readFileSync(file, 'utf8')), expressionUnitSets(unit));
+// Every expression unit keeps one bank (src/data/math-<unit>.json).
+export const expressionBanks = Object.fromEntries(unitsOfKind('expression').map(unit => {
+  const file = process.env[`MATH_BANK_${unit.toUpperCase().replaceAll('-', '_')}`] || new URL(`../src/data/math-${unit}.json`, import.meta.url);
+  const unitBank = validateBank(JSON.parse(readFileSync(file, 'utf8')), unitSets(unit));
   console.log(`PASS: ${unitBank.problems.length} ${unit} problems (${unitBank.problems.filter(problem => problem.published).length} published): set rules, exact integer division`);
   return [unit, unitBank];
 }));

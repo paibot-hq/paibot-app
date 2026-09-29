@@ -3,7 +3,8 @@
   "problems": [
     {
       "id": "factorization-001",
-      "setId": "trinomial-a",
+      "item": "trinomial",
+      "setId": "a",
       "position": 1,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -14,7 +15,8 @@
     },
     {
       "id": "factorization-002",
-      "setId": "trinomial-a",
+      "item": "trinomial",
+      "setId": "a",
       "position": 2,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -25,7 +27,8 @@
     },
     {
       "id": "factorization-003",
-      "setId": "trinomial-a",
+      "item": "trinomial",
+      "setId": "a",
       "position": 3,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -36,7 +39,8 @@
     },
     {
       "id": "factorization-004",
-      "setId": "trinomial-a",
+      "item": "trinomial",
+      "setId": "a",
       "position": 4,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -47,7 +51,8 @@
     },
     {
       "id": "factorization-005",
-      "setId": "trinomial-a",
+      "item": "trinomial",
+      "setId": "a",
       "position": 5,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -58,7 +63,8 @@
     },
     {
       "id": "factorization-011",
-      "setId": "squares-a",
+      "item": "difference-of-squares",
+      "setId": "a",
       "position": 1,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -69,7 +75,8 @@
     },
     {
       "id": "factorization-012",
-      "setId": "squares-a",
+      "item": "difference-of-squares",
+      "setId": "a",
       "position": 2,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -80,7 +87,8 @@
     },
     {
       "id": "factorization-013",
-      "setId": "squares-a",
+      "item": "difference-of-squares",
+      "setId": "a",
       "position": 3,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -91,7 +99,8 @@
     },
     {
       "id": "factorization-014",
-      "setId": "squares-a",
+      "item": "difference-of-squares",
+      "setId": "a",
       "position": 4,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -102,7 +111,8 @@
     },
     {
       "id": "factorization-015",
-      "setId": "squares-a",
+      "item": "difference-of-squares",
+      "setId": "a",
       "position": 5,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -113,7 +123,8 @@
     },
     {
       "id": "factorization-016",
-      "setId": "perfect-square-a",
+      "item": "perfect-square",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -124,7 +135,8 @@
     },
     {
       "id": "factorization-017",
-      "setId": "perfect-square-a",
+      "item": "perfect-square",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -135,7 +147,8 @@
     },
     {
       "id": "factorization-018",
-      "setId": "perfect-square-a",
+      "item": "perfect-square",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -146,7 +159,8 @@
     },
     {
       "id": "factorization-019",
-      "setId": "perfect-square-a",
+      "item": "perfect-square",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -157,7 +171,8 @@
     },
     {
       "id": "factorization-020",
-      "setId": "perfect-square-a",
+      "item": "perfect-square",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",

@@ -3,7 +3,8 @@
   "problems": [
     {
       "id": "arith-011",
-      "setId": "order-a",
+      "item": "order-of-operations",
+      "setId": "a",
       "position": 1,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -14,7 +15,8 @@
     },
     {
       "id": "arith-012",
-      "setId": "order-a",
+      "item": "order-of-operations",
+      "setId": "a",
       "position": 2,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -25,7 +27,8 @@
     },
     {
       "id": "arith-013",
-      "setId": "order-a",
+      "item": "order-of-operations",
+      "setId": "a",
       "position": 3,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -36,7 +39,8 @@
     },
     {
       "id": "arith-014",
-      "setId": "order-a",
+      "item": "order-of-operations",
+      "setId": "a",
       "position": 4,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -47,7 +51,8 @@
     },
     {
       "id": "arith-015",
-      "setId": "order-a",
+      "item": "order-of-operations",
+      "setId": "a",
       "position": 5,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -58,7 +63,8 @@
     },
     {
       "id": "arith-016",
-      "setId": "word-a",
+      "item": "word-problems",
+      "setId": "a",
       "position": 1,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -82,7 +88,8 @@
     },
     {
       "id": "arith-017",
-      "setId": "word-a",
+      "item": "word-problems",
+      "setId": "a",
       "position": 2,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -106,7 +113,8 @@
     },
     {
       "id": "arith-018",
-      "setId": "word-a",
+      "item": "word-problems",
+      "setId": "a",
       "position": 3,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -130,7 +138,8 @@
     },
     {
       "id": "arith-019",
-      "setId": "word-a",
+      "item": "word-problems",
+      "setId": "a",
       "position": 4,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -154,7 +163,8 @@
     },
     {
       "id": "arith-020",
-      "setId": "word-a",
+      "item": "word-problems",
+      "setId": "a",
       "position": 5,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -178,7 +188,8 @@
     },
     {
       "id": "arith-021",
-      "setId": "word-b",
+      "item": "word-problems",
+      "setId": "b",
       "position": 1,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -202,7 +213,8 @@
     },
     {
       "id": "arith-022",
-      "setId": "order-b",
+      "item": "order-of-operations",
+      "setId": "b",
       "position": 1,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -213,7 +225,8 @@
     },
     {
       "id": "arith-023",
-      "setId": "word-b",
+      "item": "word-problems",
+      "setId": "b",
       "position": 2,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -237,7 +250,8 @@
     },
     {
       "id": "arith-024",
-      "setId": "order-b",
+      "item": "order-of-operations",
+      "setId": "b",
       "position": 2,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -248,7 +262,8 @@
     },
     {
       "id": "arith-025",
-      "setId": "word-b",
+      "item": "word-problems",
+      "setId": "b",
       "position": 3,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -272,7 +287,8 @@
     },
     {
       "id": "arith-026",
-      "setId": "word-b",
+      "item": "word-problems",
+      "setId": "b",
       "position": 4,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -296,7 +312,8 @@
     },
     {
       "id": "arith-027",
-      "setId": "word-b",
+      "item": "word-problems",
+      "setId": "b",
       "position": 5,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -320,7 +337,8 @@
     },
     {
       "id": "arith-028",
-      "setId": "order-b",
+      "item": "order-of-operations",
+      "setId": "b",
       "position": 3,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -331,7 +349,8 @@
     },
     {
       "id": "arith-029",
-      "setId": "order-b",
+      "item": "order-of-operations",
+      "setId": "b",
       "position": 4,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -342,7 +361,8 @@
     },
     {
       "id": "arith-030",
-      "setId": "order-b",
+      "item": "order-of-operations",
+      "setId": "b",
       "position": 5,
       "published": true,
       "reviewedAt": "2026-09-27",
@@ -353,7 +373,8 @@
     },
     {
       "id": "arith-031",
-      "setId": "rules-a",
+      "item": "rules",
+      "setId": "a",
       "position": 1,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -364,7 +385,8 @@
     },
     {
       "id": "arith-032",
-      "setId": "rules-a",
+      "item": "rules",
+      "setId": "a",
       "position": 2,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -375,7 +397,8 @@
     },
     {
       "id": "arith-033",
-      "setId": "rules-a",
+      "item": "rules",
+      "setId": "a",
       "position": 3,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -386,7 +409,8 @@
     },
     {
       "id": "arith-034",
-      "setId": "rules-a",
+      "item": "rules",
+      "setId": "a",
       "position": 4,
       "published": false,
       "reviewedAt": "2026-09-29",
@@ -397,7 +421,8 @@
     },
     {
       "id": "arith-035",
-      "setId": "rules-a",
+      "item": "rules",
+      "setId": "a",
       "position": 5,
       "published": false,
       "reviewedAt": "2026-09-29",
