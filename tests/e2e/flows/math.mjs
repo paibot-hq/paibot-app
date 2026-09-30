@@ -56,6 +56,13 @@ export default async function ({ page, main, base, go, errors }) {
     ['/en/math/arith/order-of-operations/1', '/en/math/arith/order-of-operations/2']);
   assert.equal(await page.title(), 'Order of operations & word problems - Order of operations | PAIBOT.app');
   await main.getByText('Japanese school year: Elementary 4', { exact: true }).waitFor();
+  // The previous and next learning items of the unit are linked at the bottom (the first item has no previous).
+  const neighbors = page.getByRole('navigation', { name: 'Previous and next items' });
+  assert.deepEqual(await neighbors.getByRole('link').evaluateAll(links => links.map(link => link.getAttribute('href'))), ['/en/math/arith/rules']);
+  await page.getByRole('link', { name: /Next/ }).click();
+  await page.waitForURL(`${base}/en/math/arith/rules`);
+  await page.getByRole('navigation', { name: 'Previous and next items' }).locator('a[href="/en/math/arith/order-of-operations"]').waitFor();
+  await page.goBack();
   // Each playable set shows how many problems of each tier it has.
   assert.match(await main.locator('ul a').first().innerText(), /(Basic|Standard|Advanced) \d/);
   for (const [item, set, label] of [

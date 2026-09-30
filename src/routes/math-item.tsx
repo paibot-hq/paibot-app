@@ -36,12 +36,13 @@ export async function loader(args: Route.LoaderArgs) {
   const entry = catalogEntry(params);
   const [playable, records, tiers, example] = await Promise.all([getPlayableSets(), getSetRecords(args, entry.unit.id, entry.item.id), getSetTiers(entry.unit.id, entry.item.id), entry.unit.kind ? getWorkedExample(entry.unit.id, entry.item.id) : null]);
   return {
+    neighbors: { previous: entry.unit.items[entry.unit.items.indexOf(entry.item) - 1]?.id ?? null, next: entry.unit.items[entry.unit.items.indexOf(entry.item) + 1]?.id ?? null },
     kind: entry.unit.kind, example, points: keyPoints(entry.unit.id, entry.item.id), unitId: entry.unit.id, itemId: entry.item.id, published: entry.unit.status === 'published', grade: jpGrade(entry.unit.id, entry.item.id),
     sets: entry.item.sets.map(set => ({ id: set.id, playable: playable.includes(`${entry.unit.id}/${entry.item.id}/${set.id}`), record: records[set.id], tiers: tiers[set.id] })),
   };
 }
 
-export default function MathItem({ loaderData: { unitId, itemId, published, grade, sets, kind, example, points } }: Route.ComponentProps) {
+export default function MathItem({ loaderData: { unitId, itemId, published, grade, sets, kind, example, points, neighbors } }: Route.ComponentProps) {
   const locale = useLocale();
   const t = useTranslations('App.math') as unknown as DynamicT;
   const tq = useTranslations('App.math.quiz');
@@ -88,6 +89,16 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
           </li>
         ))}
       </ul>
+      {(neighbors.previous || neighbors.next) && <nav className={styles.neighbors} aria-label={ti('neighbors')}>
+        {neighbors.previous ? <Link href={`/math/${unitId}/${neighbors.previous}`} rel="prev" className={styles.neighbor}>
+          <span className={styles.neighborLabel}>← {ti('previous')}</span>
+          <span>{t(`units.${unitId}.items.${neighbors.previous}.title`)}</span>
+        </Link> : <span />}
+        {neighbors.next ? <Link href={`/math/${unitId}/${neighbors.next}`} rel="next" className={`${styles.neighbor} ${styles.next}`}>
+          <span className={styles.neighborLabel}>{ti('next')} →</span>
+          <span>{t(`units.${unitId}.items.${neighbors.next}.title`)}</span>
+        </Link> : <span />}
+      </nav>}
     </ToolLayout>
   </>;
 }

@@ -25,3 +25,9 @@
 .exampleSolution { color: var(--muted); font-size: .9rem; text-align: center; }
 .about { text-align: center; font-size: .9rem; color: var(--muted); font-weight: 600; margin: 1rem 0 0; }
 .about + .description { margin-top: .3rem; }
+
+.neighbors { width: min(100%, 480px); margin: 1.6rem auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+.neighbor { display: grid; gap: .2rem; text-decoration: none; color: var(--text); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: .7rem 1rem; font-weight: 600; min-width: 0; }
+.neighbor:hover, .neighbor:focus-visible { border-color: var(--accent); }
+.next { text-align: right; }
+.neighborLabel { font-size: .75rem; color: var(--muted); font-weight: 400; }

@@ -605,7 +605,10 @@
         "toPractice": "練習へ進む",
         "points": "要点",
         "example": "例題",
-        "about": "学ぶこと"
+        "about": "学ぶこと",
+        "previous": "前の項目",
+        "next": "次の項目",
+        "neighbors": "前後の学習項目"
       },
       "quiz": {
         "setComingSoon": "この問題セットは準備中です。もうしばらくお待ちください。",

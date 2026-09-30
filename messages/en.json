@@ -605,7 +605,10 @@
         "toPractice": "Go to practice",
         "points": "Key points",
         "example": "Worked example",
-        "about": "What you learn"
+        "about": "What you learn",
+        "previous": "Previous",
+        "next": "Next",
+        "neighbors": "Previous and next items"
       },
       "quiz": {
         "setComingSoon": "This problem set is being prepared. Check back soon.",
