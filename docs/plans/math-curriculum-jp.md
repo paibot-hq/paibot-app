@@ -26,7 +26,7 @@
 
 | 領域 | 学習項目 | 状態 | キー |
 | --- | --- | --- | --- |
-| 数と計算 | たし算・ひき算 / 10までのたし算・ひき算 | A | `addition/within-10` |
+| 数と計算 | たし算・ひき算 / 10までのたし算・ひき算 | ✅ | `addition/within-10` |
 | 数と計算 | たし算・ひき算 / 1桁のくり上がり・くり下がり | ✅ | `addition/carry` |
 | 数と計算 | 大きな数 / 100までの数 | C | `place-value/to-100` |
 | 図形と測定 | 時刻と時間 / 時計の読み方 | D | `time/reading` |
@@ -56,9 +56,9 @@
 | 数と計算 | わり算 / 九九を使うわり算 | ✅ | `division/basic` |
 | 数と計算 | わり算 / あまりのあるわり算 | B | `division/remainder` |
 | 数と計算 | 大きな数 / 万の位の数 | C | `place-value/ten-thousands` |
-| 数と計算 | 小数 / 小数のたし算・ひき算（1/10の位） | A | `decimal/add-sub-tenths` |
+| 数と計算 | 小数 / 小数のたし算・ひき算（1/10の位） | ✅ | `decimal/add-sub-tenths` |
 | 数と計算 | 分数 / 分数の大きさ | D | `fraction/meaning` |
-| 数と計算 | 分数 / 同分母の分数のたし算・ひき算 | A | `fraction/add-sub-like` |
+| 数と計算 | 分数 / 同分母の分数のたし算・ひき算 | ✅ | `fraction/add-sub-like` |
 | 式と方程式 | □や文字を使った式 / □を使った式 | B | `unknowns/box` |
 | 図形と測定 | 時刻と時間 / 時刻と時間の計算 | C | `time/elapsed` |
 | 図形と測定 | 測定 / 重さ | C | `measurement/weight` |
@@ -79,7 +79,7 @@
 | 数と計算 | 計算の順序と文章題 / 少し長い文章題 | ✅ | `arith/word-problems` |
 | 数と計算 | 大きな数 / 万・億・兆 | C | `place-value/large-numbers` |
 | 数と計算 | 小数 / 小数のたし算・ひき算（1/100の位） | ✅ | `decimal/add-sub` |
-| 数と計算 | 小数 / 小数×整数・小数÷整数 | A | `decimal/mul-div-whole` |
+| 数と計算 | 小数 / 小数×整数・小数÷整数 | ✅ | `decimal/mul-div-whole` |
 | 数と計算 | 分数 / 帯分数と仮分数 | B | `fraction/mixed` |
 | 数と計算 | 概数と四捨五入 / 四捨五入 | B | `rounding/rounding` |
 | 数と計算 | 概数と四捨五入 / 見積もり | B | `rounding/estimate` |
@@ -103,7 +103,7 @@
 | --- | --- | --- | --- |
 | 数と計算 | 小数 / 小数×小数・小数÷小数 | ✅ | `decimal/mul-div` |
 | 数と計算 | 分数 / 約分・通分 | ✅ | `fraction/simplify` |
-| 数と計算 | 分数 / 分数と小数・整数の関係 | A | `fraction/fraction-decimal` |
+| 数と計算 | 分数 / 分数と小数・整数の関係 | ✅ | `fraction/fraction-decimal` |
 | 数と計算 | 分数 / 異分母の分数のたし算・ひき算 | ✅ | `fraction/add-sub` |
 | 数と計算 | 約数と倍数 / 約数と倍数 | B | `divisors/divisors` |
 | 数と計算 | 約数と倍数 / 最大公約数・最小公倍数 | B | `divisors/gcd-lcm` |
@@ -119,7 +119,7 @@
 | 図形と測定 | 図形の基本 / 角柱と円柱 | D | `shapes/prisms` |
 | データと確率 | 割合と比 / 百分率 | C | `ratio/percent` |
 | データと確率 | 割合と比 / 割合の文章題 | C | `ratio/word-problems` |
-| データと確率 | データの活用 / 平均 | A | `data/average` |
+| データと確率 | データの活用 / 平均 | ✅ | `data/average` |
 | データと確率 | 表とグラフ / 帯グラフと円グラフ | D | `graphs/pie-band` |
 
 ## 小6（`e6`）
@@ -127,7 +127,7 @@
 | 領域 | 学習項目 | 状態 | キー |
 | --- | --- | --- | --- |
 | 数と計算 | 分数 / 分数のかけ算・わり算 | ✅ | `fraction/mul-div` |
-| 式と方程式 | □や文字を使った式 / 文字を使った式 | A | `unknowns/letters` |
+| 式と方程式 | □や文字を使った式 / 文字を使った式 | ✅ | `unknowns/letters` |
 | 関数・変化と関係 | 変わり方と比例 / 比例と反比例 | C | `relations/proportion` |
 | 図形と測定 | 測定 / 円の面積 | D | `measurement/circle-area` |
 | 図形と測定 | 測定 / 角柱・円柱の体積 | D | `measurement/prism-volume` |
@@ -168,7 +168,7 @@
 
 | 領域 | 学習項目 | 状態 | キー |
 | --- | --- | --- | --- |
-| 式と方程式 | 文字式 / 単項式・多項式の計算 | A | `expression/polynomials` |
+| 式と方程式 | 文字式 / 単項式・多項式の計算 | ✅ | `expression/polynomials` |
 | 式と方程式 | 文字式 / 等式の変形 | B | `expression/rearrange` |
 | 式と方程式 | 連立方程式 / 加減法 | ✅ | `simultaneous/elimination` |
 | 式と方程式 | 連立方程式 / 代入法 | ✅ | `simultaneous/substitution` |
@@ -219,14 +219,14 @@
 
 | 領域 | 学習項目 | 状態 | キー |
 | --- | --- | --- | --- |
-| 数と計算 | 平方根 / 二重根号 | A | `sqrt/double-radical` |
+| 数と計算 | 平方根 / 二重根号 | ✅ | `sqrt/double-radical` |
 | 式と方程式 | 不等式 / 一次不等式 | B | `inequality/linear` |
 | 式と方程式 | 不等式 / 二次不等式 | B | `inequality/quadratic` |
 | 式と方程式 | 不等式 / 絶対値を含む式 | B | `inequality/absolute` |
-| 式と方程式 | 展開 / 3つの項の展開 | A | `expansion/three-terms` |
-| 式と方程式 | 因数分解（高校） / たすき掛け | A | `factoring/ac-method` |
-| 式と方程式 | 因数分解（高校） / 2つの文字を含む式の因数分解 | A | `factoring/two-variables` |
-| 式と方程式 | 因数分解（高校） / おきかえ・複二次式 | A | `factoring/substitution` |
+| 式と方程式 | 展開 / 3つの項の展開 | ✅ | `expansion/three-terms` |
+| 式と方程式 | 因数分解（高校） / たすき掛け | ✅ | `factoring/ac-method` |
+| 式と方程式 | 因数分解（高校） / 2つの文字を含む式の因数分解 | ✅ | `factoring/two-variables` |
+| 式と方程式 | 因数分解（高校） / おきかえ・複二次式 | ✅ | `factoring/substitution` |
 | 式と方程式 | 二次方程式 / 判別式 | B | `quadratic/discriminant` |
 | 関数・変化と関係 | 二次関数 / 頂点 | ✅ | `quadratic-function/vertex` |
 | 関数・変化と関係 | 二次関数 / グラフと式 | ✅ | `quadratic-function/graph` |

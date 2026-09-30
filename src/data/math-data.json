@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "data-001",
+      "item": "average",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(16 + 24 + 18 + 22)/4",
+      "given": null,
+      "steps": [
+        "(16 + 24 + 18 + 22)/4 = 80/4 = 20"
+      ],
+      "choices": ["19", "20", "21", "16"],
+      "answerIndex": 1
+    },
+    {
+      "id": "data-002",
+      "item": "average",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(75 + 82 + 68 + 85 + 70)/5",
+      "given": null,
+      "steps": [
+        "(75 + 82 + 68 + 85 + 70)/5 = 380/5 = 76"
+      ],
+      "choices": ["74", "78", "75", "76"],
+      "answerIndex": 3
+    },
+    {
+      "id": "data-003",
+      "item": "average",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(23 + 19 + 31 + 26 + 21)/5",
+      "given": null,
+      "steps": [
+        "(23 + 19 + 31 + 26 + 21)/5 = 120/5 = 24"
+      ],
+      "choices": ["24", "23", "26", "20"],
+      "answerIndex": 0
+    },
+    {
+      "id": "data-004",
+      "item": "average",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(14 + 18 + 11 + 15 + 20 + 12)/6",
+      "given": null,
+      "steps": [
+        "(14 + 18 + 11 + 15 + 20 + 12)/6 = 90/6 = 15"
+      ],
+      "choices": ["14", "16", "15", "18"],
+      "answerIndex": 2
+    },
+    {
+      "id": "data-005",
+      "item": "average",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(135 + 142 + 138 + 145)/4",
+      "given": null,
+      "steps": [
+        "(135 + 142 + 138 + 145)/4 = 560/4 = 140"
+      ],
+      "choices": ["138", "139", "140", "142"],
+      "answerIndex": 2
+    }
+  ]
+}

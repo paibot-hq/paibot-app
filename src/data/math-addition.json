@@ -195,6 +195,71 @@
       "word": null,
       "choices": [1554, 1544, 1644, 2544],
       "answerIndex": 1
+    },
+    {
+      "id": "addition-016",
+      "item": "within-10",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "expression": "3 + 7",
+      "word": null,
+      "choices": [10, 9, 4, 8],
+      "answerIndex": 0
+    },
+    {
+      "id": "addition-017",
+      "item": "within-10",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "expression": "10 - 7",
+      "word": null,
+      "choices": [2, 3, 4, 7],
+      "answerIndex": 1
+    },
+    {
+      "id": "addition-018",
+      "item": "within-10",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "expression": "8 - 0",
+      "word": null,
+      "choices": [0, 7, 8, 9],
+      "answerIndex": 2
+    },
+    {
+      "id": "addition-019",
+      "item": "within-10",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "expression": "4 + 5",
+      "word": null,
+      "choices": [1, 8, 10, 9],
+      "answerIndex": 3
+    },
+    {
+      "id": "addition-020",
+      "item": "within-10",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "expression": "9 - 4",
+      "word": null,
+      "choices": [13, 5, 4, 6],
+      "answerIndex": 1
     }
   ]
 }

@@ -837,6 +837,8 @@ UNITS = {
     'coordinate-geometry': ('math-coordinate-geometry.json', formula),
     'distributions': ('math-distributions.json', formula),
     'inference': ('math-inference.json', formula),
+    'data': ('math-data.json', formula),
+    'unknowns': ('math-unknowns.json', formula),
     'quadratic-function': ('math-quadratic-function.json', formula),
     'factorization': ('math-factorization.json', factorization),
     'pythagoras': ('math-pythagoras.json', pythagoras),
@@ -857,7 +859,13 @@ def same(a, b):
                 return False
             rest.remove(match)
         return True
-    return simplify(expand(a - b)) == 0
+    difference = a - b
+    if simplify(expand(difference)) == 0:
+        return True
+    # Constants such as sqrt(5 + 2*sqrt(6)) = sqrt(2) + sqrt(3) that simplify() cannot show: compare to 40 digits.
+    if not difference.free_symbols and difference.is_real is not False:
+        return abs(difference.evalf(60)) < Rational(1, 10 ** 40)
+    return False
 
 
 def verify_problem(problem, convert):

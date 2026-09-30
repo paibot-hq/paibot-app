@@ -255,6 +255,91 @@
       "steps": [
         "-3*(2*x - y) + 2*(x - 3*y) = -6*x + 3*y + 2*x - 6*y = -4*x - 3*y"
       ]
+    },
+    {
+      "id": "expression-016",
+      "item": "polynomials",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "expand",
+      "question": "(4*x - 3*y) - (x - 5*y)",
+      "given": null,
+      "steps": [
+        "(4*x - 3*y) - (x - 5*y) = 4*x - 3*y - x + 5*y = 3*x + 2*y"
+      ],
+      "choices": ["3*x - 8*y", "3*x + 2*y", "5*x + 2*y", "5*x - 8*y"],
+      "answerIndex": 1
+    },
+    {
+      "id": "expression-019",
+      "item": "polynomials",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "expand",
+      "question": "(8*x^2 - 12*x) : 4",
+      "given": null,
+      "steps": [
+        "(8*x^2 - 12*x) : 4 = 2*x^2 - 3*x"
+      ],
+      "choices": ["2*x^2 - 12*x", "2*x^2 + 3*x", "2*x^2 - 3", "2*x^2 - 3*x"],
+      "answerIndex": 3
+    },
+    {
+      "id": "expression-020",
+      "item": "polynomials",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "expand",
+      "question": "(6*a^2 - 9*a) : (-3)",
+      "given": null,
+      "steps": [
+        "(6*a^2 - 9*a) : (-3) = -2*a^2 + 3*a"
+      ],
+      "choices": ["2*a^2 - 3*a", "-2*a^2 + 3*a", "-2*a^2 - 3*a", "-2*a^2 + 3"],
+      "answerIndex": 1
+    },
+    {
+      "id": "expression-021",
+      "item": "polynomials",
+      "setId": "1",
+      "position": 6,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "expand",
+      "question": "(3*a - 5*b) + (2*a + 4*b)",
+      "given": null,
+      "steps": [
+        "(3*a - 5*b) + (2*a + 4*b) = 3*a - 5*b + 2*a + 4*b = 5*a - b"
+      ],
+      "choices": ["5*a + b", "5*a - 9*b", "5*a - b", "a - 9*b"],
+      "answerIndex": 2
+    },
+    {
+      "id": "expression-022",
+      "item": "polynomials",
+      "setId": "1",
+      "position": 7,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "expand",
+      "question": "-3*(2*x - 5*y)",
+      "given": null,
+      "steps": [
+        "-3*(2*x - 5*y) = -6*x + 15*y"
+      ],
+      "choices": ["-6*x - 15*y", "-6*x + 15*y", "-6*x - 5*y", "6*x - 15*y"],
+      "answerIndex": 1
     }
   ]
 }

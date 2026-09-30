@@ -61,7 +61,7 @@ export function useMathQuestions(kind: MathKind | undefined, problems: readonly 
           </>,
           choices: payload.choices.map(choice => <MathTex tex={formulaChoiceTex(payload, choice)} />),
           explanation: <>
-            {payload.steps && <div className={styles.steps}>{payload.steps.flatMap(line => stepRows(line)).map((row, index) => <div key={index} className={styles.row}>{row.map((piece, at) => <MathTex key={at} tex={`{{}${piece}}`} />)}</div>)}</div>}
+            {payload.steps && <div className={styles.steps}>{payload.steps.flatMap(line => stepRows(line, payload.times)).map((row, index) => <div key={index} className={styles.row}>{row.map((piece, at) => <MathTex key={at} tex={`{{}${piece}}`} />)}</div>)}</div>}
             {tq('answer')} <MathTex tex={formulaChoiceTex(payload, payload.choices[answerIndex])} />
           </>,
         }));

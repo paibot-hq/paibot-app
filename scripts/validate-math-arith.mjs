@@ -84,6 +84,8 @@ const within = (n, low, high) => Number.isInteger(n) && n >= low && n <= high;
 // Rules can be shared by multiple practice sets.
 export const RULES = {
   // Carrying (8 + 7) or borrowing (15 - 8) across ten with one-digit numbers.
+  // Within 10: sums up to 10 and the differences that undo them (3 + 5, 9 - 4).
+  'within-10-a': single('+-')((op, a, b, value) => within(a, 0, 10) && within(b, 0, 10) && value >= 0 && value <= 10),
   'carry-a': single('+-')((op, a, b, value) => op === '+'
     ? within(a, 1, 9) && within(b, 1, 9) && value >= 10
     : within(a, 11, 18) && within(b, 2, 9) && a % 10 < b),

@@ -78,6 +78,8 @@ export interface FormulaPayload {
   which?: string;
   // term/series: what kind of sequence the first terms in `question` start.
   progression?: 'arithmetic' | 'geometric';
+  // Keep the multiplication sign (4 × x, not 4x): for grade 6, before the sign is omitted.
+  times?: boolean;
   // The worked solution, one line each: a chain "a = b = c" (or, for equations,
   // "x = 2, x = -2"), shown under the answer. SymPy checks every line.
   steps?: string[];
@@ -195,6 +197,10 @@ function startsWithNumber(node: Node): boolean {
 const bare = (node: Node) => ['num', 'var', 'const'].includes(node.type) || (node.type === 'bin' && node.op === '/');
 const argTex = (node: Node) => bare(node) ? ` ${toTex(node)}` : `\\left(${toTex(unwrap(node))}\\right)`;
 
+// Set while a payload with `times` is drawn: a product always shows its × sign.
+let keepTimes = false;
+const withTimes = <T,>(times: boolean | undefined, draw: () => T): T => { const before = keepTimes; keepTimes = !!times; try { return draw(); } finally { keepTimes = before; } };
+
 export function toTex(node: Node): string {
   switch (node.type) {
     case 'num': return node.value;
@@ -230,7 +236,7 @@ export function toTex(node: Node): string {
         return toTex({ type: 'bin', op: '/', left: { type: 'bin', op: '*', left: node.left, right: node.right.left }, right: node.right.right });
       }
       if (node.op === '*' && node.right.type === 'pow' && node.right.base.type === 'num' && node.right.exp.type !== 'num') return `${left} \\cdot ${right}`;
-      if (node.op === '*' && node.right.type === 'neg') return `${left} \\times ${right}`;
+      if (node.op === '*' && (node.right.type === 'neg' || keepTimes)) return `${left} \\times ${right}`;
       if (node.op === '*') return startsWithNumber(node.right) ? `${left} \\times ${right}` : `${left}${right}`;
       return `${left} ${node.op} ${right}`;
     }
@@ -291,7 +297,10 @@ function lineTex(a: number, b: number, c: number): string {
 
 // The question as shown, by kind: an integral sign with its bounds, curves as
 // y = ..., equations as a system; the instruction line comes from the page's text.
-export function formulaQuestionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & { which?: string }): string {
+export function formulaQuestionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & { which?: string; times?: boolean }): string {
+  return withTimes(p.times, () => questionTex(p));
+}
+function questionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & { which?: string }): string {
   const x = unknownOf(p.question);
   switch (p.kind) {
     case 'solve': return statementTex(p.question);
@@ -387,7 +396,10 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
   }
 }
 
-export function formulaChoiceTex(p: Pick<FormulaPayload, 'kind' | 'question'> & { which?: string }, choice: string): string {
+export function formulaChoiceTex(p: Pick<FormulaPayload, 'kind' | 'question'> & { which?: string; times?: boolean }, choice: string): string {
+  return withTimes(p.times, () => choiceTex(p, choice));
+}
+function choiceTex(p: Pick<FormulaPayload, 'kind' | 'question'> & { which?: string }, choice: string): string {
   if (p.kind === 'solve') return solutionTex(choice, unknownOf(p.question));
   if (p.kind === 'tangent') return solutionTex(choice, 'y');
   if (p.kind === 'identity') return solutionTex(choice, 'a');
@@ -419,7 +431,10 @@ function termsTex(text: string): string[] {
 // A worked-solution line as rows of TeX pieces (the page wraps a row between
 // pieces when it is too wide): "a = b = c" is the rows [a, = b] and [= c];
 // comma-separated equations are rows of their own.
-export function stepRows(line: string): string[][] {
+export function stepRows(line: string, times?: boolean): string[][] {
+  return withTimes(times, () => stepRowsOf(line));
+}
+function stepRowsOf(line: string): string[][] {
   return splitTop(line, ',').flatMap(item => {
     const parts = item.split('=').map(termsTex);
     const prefixed = (terms: string[]) => [`= ${terms[0]}`, ...terms.slice(1)];

@@ -48,6 +48,21 @@ const gcd = (a, b) => b ? gcd(b, a % b) : a;
 const RULES = {
   'decimal-add-sub-a': ['calc', s => only(s, '+-') && s.decimals >= 1 && s.places <= 2 && !s.letters.size],
   'decimal-mul-div-a': ['calc', s => only(s, '*:') && s.ops.size >= 1 && s.decimals >= 1 && s.places <= 2 && !s.letters.size],
+  // Decimals in the tenths place (0.4 + 0.7); whole-number multipliers and divisors (0.6 * 4, 1.2 : 3).
+  'decimal-tenths-a': ['calc', s => only(s, '+-') && s.decimals >= 2 && s.places === 1 && !s.letters.size && s.numbers.every(n => n < 100)],
+  'decimal-whole-a': ['calc', s => only(s, '*:') && s.ops.size === 1 && s.decimals === 1 && s.numbers.length === 2 && s.places <= 2 && !s.letters.size],
+  // Fractions with the same denominator (3/7 + 2/7), the fraction and decimal forms of one number.
+  'fraction-like-a': ['calc', s => s.fractions.length >= 2 && (s.ops.has('+') || s.ops.has('-')) && only(s, '+-/') && s.fractions.every(f => isNumber(f.bottom) && Number(f.bottom.value) <= 12 && Number(f.bottom.value) === Number(s.fractions[0].bottom.value)) && !s.letters.size],
+  'fraction-decimal-a': ['transform', (s, p) => !s.letters.size && (/^\d+\s*\/\s*\d+$/.test(p.question) || /^\d+\.\d+$/.test(p.question))],
+  // Averages: the sum of the values divided by how many there are ((12 + 15 + 18)/3).
+  'average-a': ['calc', s => s.ops.has('/') && s.ops.has('+') && only(s, '+/') && s.numbers.length >= 4 && s.numbers.length <= 9 && !s.letters.size],
+  'letters-value-a': ['calc', (s, p) => s.letters.size >= 1 && s.letters.size <= 2 && typeof p.given === 'string' && !s.ops.has('^') && !s.ops.has('/') && !s.calls.size],
+  'polynomials-a': ['expand', s => s.letters.size >= 1 && s.groups >= 1 && s.powers.every(n => n <= 2)],
+  'double-radical-a': ['calc', s => s.sqrts >= 2 && !s.letters.size],
+  'expansion-three-a': ['expand', s => s.groups >= 1 && s.letters.size >= 1 && s.letters.size <= 3],
+  'ac-method-a': ['factor', (s, p) => s.letters.size === 1 && s.powers.includes(2) && /(^|[-+]\s*)[2-9]\d*\*[a-z]\^2/.test(p.question) && !s.groups],
+  'two-variables-a': ['factor', s => s.letters.size === 2 && !s.groups],
+  'substitution-a': ['factor', s => s.letters.size === 1 && (s.powers.includes(4) || (s.groups >= 1 && s.powers.includes(2)))],
   'fraction-simplify-a': ['calc', (s, p) => /^\d+ \/ \d+$/.test(p.question) && s.numbers[1] <= 100],
   'fraction-add-sub-a': ['calc', s => s.ops.has('/') && (s.ops.has('+') || s.ops.has('-')) && only(s, '+-/') && s.fractions.every(f => isNumber(f.bottom) && Number(f.bottom.value) <= 24) && !s.letters.size],
   'fraction-mul-div-a': ['calc', s => s.ops.has('/') && (s.ops.has('*') || s.ops.has(':')) && only(s, '*:/') && !s.letters.size],
@@ -183,6 +198,8 @@ export function validateBank(bank, catalog) {
     const sequence = ['term', 'series'].includes(kind);
     assert.ok(sequence === (problem.progression !== undefined), `${id}: progression is for term and series`);
     if (sequence) { assert.ok(splitTop(question, ',').length >= 3, `${id}: at least three first terms`); if (given) assert.match(given, /^\s*n\s*=\s*\d+\s*$/, `${id}: given "n = 10"`); }
+    assert.ok(problem.times === undefined || (problem.times === true && set.rule === 'letters-value-a'), `${id}: times is for the letters-value-a set`);
+    if (set.rule === 'letters-value-a') assert.equal(problem.times, true, `${id}: this set keeps the × sign (times: true)`);
     const which = problem.which;
     const listed = ['distribution', 'geometry', 'recurrence', 'inequality', 'induction', 'inference', 'region', 'graph'].includes(kind);
     const s = stats(kind === 'area' ? question.replace(';', '+') : sequence ? splitTop(question, ',').join(' + ') : listed ? splitTop(question, ';').slice(0, kind === 'region' || (kind === 'graph' && which === 'region') ? 2 : undefined).flatMap(part => splitTop(part, ',')).join(' + ') : question);

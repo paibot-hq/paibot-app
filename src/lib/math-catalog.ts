@@ -27,7 +27,7 @@ export const MATH_DOMAINS: readonly MathDomain[] = ['number', 'algebra', 'functi
 // /math/<unit>/<item>/<set>. Names live under App.math.units.<unit>.
 export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'addition', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'expression', items: [
-    { id: 'within-10', sets: [{ id: '1' }] },
+    { id: 'within-10', sets: [{ id: '1', rule: 'within-10-a' }] },
     { id: 'carry', sets: [{ id: '1', rule: 'carry-a' }] },
     { id: 'two-digit', sets: [{ id: '1', rule: 'two-digit-a' }] },
     { id: 'column', sets: [{ id: '1', rule: 'column-a' }] },
@@ -48,9 +48,9 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'simple-word-problems', sets: [{ id: '1', rule: 'word-a' }] },
     { id: 'word-problems', sets: [{ id: '1', rule: 'word-b' }] },
   ] },
-  { id: 'unknowns', domain: 'algebra', stage: 'elementary', status: 'comingSoon', items: [
+  { id: 'unknowns', domain: 'algebra', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
     { id: 'box', sets: [{ id: '1' }] },
-    { id: 'letters', sets: [{ id: '1' }] },
+    { id: 'letters', sets: [{ id: '1', rule: 'letters-value-a' }] },
   ] },
   { id: 'place-value', domain: 'number', stage: 'elementary', status: 'comingSoon', items: [
     { id: 'to-100', sets: [{ id: '1' }] },
@@ -63,17 +63,17 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'elapsed', sets: [{ id: '1' }] },
   ] },
   { id: 'decimal', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
-    { id: 'add-sub-tenths', sets: [{ id: '1' }] },
+    { id: 'add-sub-tenths', sets: [{ id: '1', rule: 'decimal-tenths-a' }] },
     { id: 'add-sub', sets: [{ id: '1', rule: 'decimal-add-sub-a' }] },
-    { id: 'mul-div-whole', sets: [{ id: '1' }] },
+    { id: 'mul-div-whole', sets: [{ id: '1', rule: 'decimal-whole-a' }] },
     { id: 'mul-div', sets: [{ id: '1', rule: 'decimal-mul-div-a' }] },
   ] },
   { id: 'fraction', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
     { id: 'unit-fractions', sets: [{ id: '1' }] },
     { id: 'meaning', sets: [{ id: '1' }] },
     { id: 'simplify', sets: [{ id: '1', rule: 'fraction-simplify-a' }] },
-    { id: 'fraction-decimal', sets: [{ id: '1' }] },
-    { id: 'add-sub-like', sets: [{ id: '1' }] },
+    { id: 'fraction-decimal', sets: [{ id: '1', rule: 'fraction-decimal-a' }] },
+    { id: 'add-sub-like', sets: [{ id: '1', rule: 'fraction-like-a' }] },
     { id: 'mixed', sets: [{ id: '1' }] },
     { id: 'add-sub', sets: [{ id: '1', rule: 'fraction-add-sub-a' }] },
     { id: 'mul-div', sets: [{ id: '1', rule: 'fraction-mul-div-a' }] },
@@ -124,8 +124,8 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'symmetry', sets: [{ id: '1' }] },
     { id: 'scale', sets: [{ id: '1' }] },
   ] },
-  { id: 'data', domain: 'data', stage: 'elementary', status: 'comingSoon', items: [
-    { id: 'average', sets: [{ id: '1' }] },
+  { id: 'data', domain: 'data', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'average', sets: [{ id: '1', rule: 'average-a' }] },
     { id: 'median-range', sets: [{ id: '1' }] },
   ] },
   { id: 'graphs', domain: 'data', stage: 'elementary', status: 'comingSoon', items: [
@@ -151,7 +151,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'value', sets: [{ id: '1', rule: 'expression-value-a' }] },
     { id: 'like-terms', sets: [{ id: '1', rule: 'like-terms-a' }] },
     { id: 'distribute', sets: [{ id: '1', rule: 'distribute-a' }] },
-    { id: 'polynomials', sets: [{ id: '1' }] },
+    { id: 'polynomials', sets: [{ id: '1', rule: 'polynomials-a' }] },
     { id: 'rearrange', sets: [{ id: '1' }] },
   ] },
   { id: 'linear-equation', domain: 'algebra', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
@@ -186,7 +186,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'formulas', sets: [{ id: '1', rule: 'expansion-formulas-a' }] },
     { id: 'square', sets: [{ id: '1', rule: 'expansion-square-a' }] },
     { id: 'sum-difference', sets: [{ id: '1', rule: 'expansion-sum-difference-a' }] },
-    { id: 'three-terms', sets: [{ id: '1' }] },
+    { id: 'three-terms', sets: [{ id: '1', rule: 'expansion-three-a' }] },
     { id: 'cubic', sets: [{ id: '1', rule: 'expansion-cubic-a' }] },
   ] },
   { id: 'factorization', domain: 'algebra', stage: 'middle', status: 'published', kind: 'factorization', items: [
@@ -196,9 +196,9 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'difference-of-squares', sets: [{ id: '1', rule: 'squares-a' }] },
   ] },
   { id: 'factoring', domain: 'algebra', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
-    { id: 'ac-method', sets: [{ id: '1' }] },
-    { id: 'two-variables', sets: [{ id: '1' }] },
-    { id: 'substitution', sets: [{ id: '1' }] },
+    { id: 'ac-method', sets: [{ id: '1', rule: 'ac-method-a' }] },
+    { id: 'two-variables', sets: [{ id: '1', rule: 'two-variables-a' }] },
+    { id: 'substitution', sets: [{ id: '1', rule: 'substitution-a' }] },
     { id: 'cubes', sets: [{ id: '1', rule: 'factoring-cubes-a' }] },
   ] },
   { id: 'sqrt', domain: 'number', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
@@ -206,7 +206,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'simplify', sets: [{ id: '1', rule: 'sqrt-simplify-a' }] },
     { id: 'add-sub', sets: [{ id: '1', rule: 'sqrt-add-sub-a' }] },
     { id: 'rationalize', sets: [{ id: '1', rule: 'sqrt-rationalize-a' }] },
-    { id: 'double-radical', sets: [{ id: '1' }] },
+    { id: 'double-radical', sets: [{ id: '1', rule: 'double-radical-a' }] },
   ] },
   { id: 'prime', domain: 'number', stage: 'middle', status: 'comingSoon', items: [
     { id: 'prime', sets: [{ id: '1' }] },
