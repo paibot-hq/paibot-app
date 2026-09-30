@@ -3,6 +3,7 @@ import { index, integer, primaryKey, sqliteTable, text } from "drizzle-orm/sqlit
 import type { ArithPayload } from '../lib/math-arith';
 import type { PythagorasPayload } from '../lib/math-pythagoras';
 import type { FactorizationPayload } from '../lib/math-factorization';
+import type { FormulaPayload } from '../lib/math-formula';
 import type { QuizLocale, QuizTranslation } from '../lib/quiz';
 
 export const favorites = sqliteTable("favorites", {
@@ -44,16 +45,27 @@ export const quizQuestions = sqliteTable('quiz_questions', {
   reviewedAt: text('reviewed_at').notNull(),
 }, table => [index('quiz_published_idx').on(table.published)]);
 
+// A problem belongs to unit → learning item → practice set (see
+// src/lib/math-catalog.ts). `grade` is the item's school year in Japan's
+// curriculum (src/lib/math-curriculum-jp.ts, copied on import) and `tier` its
+// difficulty within that item and grade (1 basic, 2 standard, 3 advanced), so
+// tests can be assembled by scope and tier with SQL alone.
 export const mathProblems = sqliteTable('math_problems', {
   id: text('id').primaryKey().notNull(),
   unit: text('unit').notNull(),
+  item: text('item').notNull().default(''),
   setId: text('set_id').notNull(),
   position: integer('position').notNull(),
   published: integer('published', { mode: 'boolean' }).notNull(),
   answerIndex: integer('answer_index').notNull(),
-  payload: text('payload', { mode: 'json' }).$type<ArithPayload | FactorizationPayload | PythagorasPayload>().notNull(),
+  payload: text('payload', { mode: 'json' }).$type<ArithPayload | FactorizationPayload | PythagorasPayload | FormulaPayload>().notNull(),
+  grade: text('grade').notNull().default(''),
+  tier: integer('tier').notNull().default(2),
   reviewedAt: text('reviewed_at').notNull(),
-}, table => [index('math_problems_unit_set_idx').on(table.unit, table.setId, table.published, table.position)]);
+}, table => [
+  index('math_problems_set_idx').on(table.unit, table.item, table.setId, table.published, table.position),
+  index('math_problems_grade_tier_idx').on(table.grade, table.tier, table.published),
+]);
 
 // One row per finished /math set by a signed-in user. `answers` are the chosen
 // choice indexes, in `problemIds` order; `correct` is recounted on the server.
@@ -63,6 +75,7 @@ export const mathAttempts = sqliteTable('math_attempts', {
   id: text('id').primaryKey(),
   userId: text('user_id').notNull(),
   unit: text('unit').notNull(),
+  item: text('item').notNull().default(''),
   setId: text('set_id').notNull(),
   setVersion: text('set_version').notNull(),
   problemIds: text('problem_ids', { mode: 'json' }).$type<string[]>().notNull(),
@@ -70,4 +83,4 @@ export const mathAttempts = sqliteTable('math_attempts', {
   correct: integer('correct').notNull(),
   total: integer('total').notNull(),
   completedAt: text('completed_at').notNull(),
-}, table => [index('math_attempts_user_unit_idx').on(table.userId, table.unit, table.setId, table.completedAt)]);
+}, table => [index('math_attempts_user_set_idx').on(table.userId, table.unit, table.item, table.setId, table.completedAt)]);

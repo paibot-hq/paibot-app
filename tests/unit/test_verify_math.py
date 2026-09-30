@@ -20,6 +20,10 @@ def rejects(unit, mutate, expected):
     assert errors and expected in errors[0], f'{unit}: expected "{expected}", got {errors}'
 
 
+# Every bank in src/data has a converter here.
+banks = {path.name[len('math-'):-len('.json')] for path in (ROOT / 'src' / 'data').glob('math-*.json')}
+assert banks == set(UNITS), f'units without a converter: {banks - set(UNITS)}, converters without a bank: {set(UNITS) - banks}'
+
 for unit in UNITS:
     assert verify_bank(bank(unit), UNITS[unit][1]) == [], unit
 
@@ -28,8 +32,10 @@ def shift_answer(problem):
     problem['answerIndex'] = (problem['answerIndex'] + 1) % 4
 
 
+# Units whose bank is still empty have nothing to break.
 for unit in UNITS:
-    rejects(unit, shift_answer, 'matching choices')
+    if bank(unit)['problems']:
+        rejects(unit, shift_answer, 'matching choices')
 
 
 def swapped_factors(problem):
@@ -47,6 +53,21 @@ def unsimplified_radical(problem):
 
 rejects('pythagoras', unsimplified_radical, 'are equal')
 
+# The 数学II・B kinds re-derive their answers (a wrong key or a wrong step is rejected).
+rejects('distributions', shift_answer, 'matching choices')
+rejects('coordinate-geometry', lambda problem: problem.update(steps=['y = 1000*x']), 'does not hold')
+
+rejects('inference', shift_answer, 'matching choices')
+rejects('coordinate-geometry', lambda problem: problem.update(steps=['y = 1000*x']), 'does not hold')
+
+rejects('quadratic-function', shift_answer, 'matching choices')
+rejects('quadratic-function', lambda problem: problem.update(steps=['1 = 2']), 'not a true chain')
+
+# A wrong line in the worked solution is rejected (formula units).
+rejects('fraction', lambda problem: problem.update(steps=[problem['steps'][0] + ' = 0']), 'not equal to the answer')
+rejects('linear-equation', lambda problem: problem.update(steps=['x = 1000']), 'does not hold')
+rejects('fraction', lambda problem: problem.update(steps=[]), 'steps must be 1 to 6')
+
 for expression in ["__import__('os').system('true')", '9 ** 9 ** 9', 'x.real', '1 if 1 else 2']:
     rejects('arith', lambda problem: problem.update(expression=expression), 'unsupported syntax')
 
@@ -61,3 +82,4 @@ rejects('arith', wrong_choice, 'matching choices')
 rejects('signed', wrong_choice, 'matching choices')
 
 print('PASS: verify_math rejects wrong keys, equal choices, unsafe syntax and non-integer answers')
+

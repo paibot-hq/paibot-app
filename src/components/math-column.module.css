@@ -1,0 +1,11 @@
+.figure { margin: .8rem auto 0; display: grid; justify-items: center; gap: .3rem; }
+.figure figcaption { font-size: .75rem; color: var(--muted); }
+.grid { display: grid; font-family: var(--font-mono, ui-monospace, monospace); font-size: 1.25rem; line-height: 1.5; color: var(--text); font-variant-numeric: tabular-nums; }
+.cell { text-align: center; min-width: 1.5em; }
+.operator { text-align: center; }
+.mark { font-size: .7rem; line-height: 1; color: var(--accent); align-self: end; }
+.struck { text-decoration: line-through; text-decoration-color: var(--muted); }
+.underlined { border-bottom: 2px solid var(--text); }
+.divisor { padding: 0 .35em 0 0; text-align: right; }
+.dividend { border-top: 2px solid var(--text); }
+.bracket { border-left: 2px solid var(--text); border-top-left-radius: .6em; }

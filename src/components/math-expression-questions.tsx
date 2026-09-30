@@ -1,3 +1,4 @@
+import MathColumn from './math-column';
 import { MathTex } from './math-tex';
 import { expressionTex, formatInteger, type ArithPayload } from '../lib/math-arith';
 import type { QuizLocale } from '../lib/quiz';
@@ -17,7 +18,7 @@ export function expressionQuestions(
       prompt: word ? <p>{word.prompt}</p> : <MathTex tex={tex} block />,
       choices: problem.payload.choices.map(choice => word ? t('valueWithUnit', { value: formatInteger(choice), unit: word.unit }) : formatInteger(choice)),
       answerIndex: problem.answerIndex,
-      explanation: <>{t('formula')} <MathTex tex={`${tex} = ${answer}`} /></>,
+      explanation: <>{t('formula')} <MathTex tex={`${tex} = ${answer}`} />{!word && <MathColumn expression={problem.payload.expression} />}</>,
     };
   });
 }

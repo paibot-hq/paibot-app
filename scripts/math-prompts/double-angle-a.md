@@ -1,0 +1,1 @@
+倍角・半角の公式。kind "calc"（given の x に値を代入して求める。例 question "sin(2*x)"、given "x = pi/12"）と kind "transform"（"sin(x)^2" と等しい式を選ぶ、"2*sin(x)*cos(x)" と等しい式を選ぶなど）。5問を calc 3問・transform 2問にする。値は根号をふくむ正確な値。誤答は符号・係数の誤り、倍角と半角の取り違えから作る。

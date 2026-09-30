@@ -3,6 +3,7 @@ import { useFetcher } from 'react-router';
 import { useTranslations } from 'use-intl';
 import { Link } from '../i18n/navigation';
 import { useFavoritesData } from '../routes/locale';
+import MathBreadcrumb, { type MathCrumb } from './math-breadcrumb';
 import ToolLayout from './tool-layout';
 import styles from './math-set-quiz.module.css';
 
@@ -12,6 +13,8 @@ export interface MathSetQuestion {
   choices: ReactNode[];
   answerIndex: number;
   explanation: ReactNode;
+  // 1 basic, 2 standard, 3 advanced; shown beside the progress.
+  tier?: number;
 }
 
 // The four-choice quiz shared by every /math unit: a fixed, ordered set of
@@ -20,10 +23,15 @@ export interface MathSetQuestion {
 // Render with key={setId} so moving between sets starts a fresh quiz.
 // A signed-in user's finished attempt is posted to the page's own route action
 // (see saveAttemptAction in lib/math-attempts.server.ts), which rescores it.
-export default function MathSetQuiz({ title, setLabel, questions }: {
+export default function MathSetQuiz({ title, setLabel, questions, crumbs, version }: {
   title: string; setLabel: string; questions: MathSetQuestion[];
+  // Where the set sits: unit > learning item (linked) > the set itself (current).
+  crumbs: MathCrumb[];
+  // The set's version when the page was loaded; the server refuses an attempt if it changed since.
+  version: string;
 }) {
   const t = useTranslations('App.math.quiz');
+  const tm = useTranslations('App.math');
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [revealed, setRevealed] = useState(false);
@@ -35,7 +43,7 @@ export default function MathSetQuiz({ title, setLabel, questions }: {
   const question = questions[index];
   const total = questions.length;
   const correctCount = answers.filter((answer, answerIndex) => answer === questions[answerIndex].answerIndex).length;
-  const backLink = <p className={styles.back}><Link href="/math">{`← ${t('backToSets')}`}</Link></p>;
+  const backLink = <MathBreadcrumb crumbs={crumbs} />;
 
   function submit() {
     if (selected === null) return;
@@ -45,7 +53,7 @@ export default function MathSetQuiz({ title, setLabel, questions }: {
   function next() {
     if (index + 1 >= total) {
       setFinished(true);
-      if (signedIn) saver.submit({ problemIds: JSON.stringify(questions.map(q => q.id)), answers: JSON.stringify(answers) }, { method: 'post' });
+      if (signedIn) saver.submit({ problemIds: JSON.stringify(questions.map(q => q.id)), answers: JSON.stringify(answers), version }, { method: 'post' });
       return;
     }
     setIndex(index + 1);
@@ -89,7 +97,10 @@ export default function MathSetQuiz({ title, setLabel, questions }: {
   return <ToolLayout title={title} aboveTitle={backLink}>
     <div className={styles.quiz}>
       <p className={styles.setName}>{setLabel}</p>
-      <p className={styles.progress} aria-live="polite">{t('progress', { current: index + 1, total })}</p>
+      <p className={styles.progress} aria-live="polite">
+        <span>{t('progress', { current: index + 1, total })}</span>
+        {question.tier && <span className={styles.tier} data-tier={question.tier}>{tm(`tiers.${question.tier}` as 'tiers.1')}</span>}
+      </p>
       <div className={styles.question}>{question.prompt}</div>
       <div className={styles.choices} role="group" aria-label={title}>
         {question.choices.map((choice, choiceIndex) => {
@@ -99,6 +110,7 @@ export default function MathSetQuiz({ title, setLabel, questions }: {
           return <button key={choiceIndex} type="button" className={styles.choice} data-state={state}
             aria-pressed={isSelected} disabled={revealed}
             onClick={() => setSelected(choiceIndex)}>
+            <span className={styles.number} aria-hidden="true">{choiceIndex + 1}</span>
             {choice}
           </button>;
         })}
@@ -109,7 +121,7 @@ export default function MathSetQuiz({ title, setLabel, questions }: {
           <p className={styles.verdict} data-correct={selected === question.answerIndex || undefined}>
             {selected === question.answerIndex ? t('correct') : t('incorrect')}
           </p>
-          <p className={styles.explanation}>{question.explanation}</p>
+          <div className={styles.explanation}>{question.explanation}</div>
           <button type="button" className={styles.primary} onClick={next}>{t('next')}</button>
         </div>}
     </div>

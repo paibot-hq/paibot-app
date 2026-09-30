@@ -1,0 +1,12 @@
+.meta { text-align: center; color: var(--muted); font-size: .8rem; margin: 0; }
+.description { width: min(100%, 480px); margin: .8rem auto 0; line-height: 1.7; }
+.choose { width: min(100%, 480px); margin: 1.2rem auto 0; color: var(--muted); font-size: .9rem; }
+.items { list-style: none; padding: 0; margin: .6rem auto 0; display: grid; gap: .7rem; width: min(100%, 480px); }
+.card { display: grid; gap: .3rem; text-align: left; text-decoration: none; color: var(--text); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: .9rem 1.2rem; }
+.card[data-playable] { border-color: var(--accent); }
+.card:hover { border-color: var(--accent); }
+.card:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.cardTitle { font-size: 1.05rem; font-weight: 600; display: flex; align-items: baseline; gap: .5rem; }
+.badge { padding: .1rem .4rem; border: 1px solid var(--line); border-radius: var(--radius); font-size: .7rem; font-weight: 400; color: var(--muted); background: var(--line); }
+.note { font-size: .85rem; color: var(--muted); line-height: 1.5; }
+.grade { font-size: .8rem; color: var(--muted); }

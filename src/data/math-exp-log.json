@@ -1,0 +1,270 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "exp-log-001",
+      "item": "exponent",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "16^(3/4) * 8^(-2/3)",
+      "given": null,
+      "choices": ["1/2", "2", "4", "1/4"],
+      "answerIndex": 1,
+      "steps": [
+        "16^(3/4) * 8^(-2/3) = (2^4)^(3/4) * (2^3)^(-2/3) = 2^3 * 2^(-2)",
+        "2^3 * 2^(-2) = 2^(3 - 2) = 2^1 = 2"
+      ]
+    },
+    {
+      "id": "exp-log-002",
+      "item": "exponent",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "25^(1/2) : 125^(-1/3)",
+      "given": null,
+      "choices": ["1/25", "1", "5", "25"],
+      "answerIndex": 3,
+      "steps": [
+        "25^(1/2) : 125^(-1/3) = (5^2)^(1/2) : (5^3)^(-1/3) = 5^1 : 5^(-1)",
+        "5^1 : 5^(-1) = 5^(1 - (-1)) = 5^2 = 25"
+      ]
+    },
+    {
+      "id": "exp-log-003",
+      "item": "exponent",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "9^(3/2) * 27^(-4/3)",
+      "given": null,
+      "choices": ["1/3", "3", "1/9", "9"],
+      "answerIndex": 0,
+      "steps": [
+        "9^(3/2) * 27^(-4/3) = (3^2)^(3/2) * (3^3)^(-4/3) = 3^3 * 3^(-4)",
+        "3^3 * 3^(-4) = 3^(3 - 4) = 3^(-1) = 1/3"
+      ]
+    },
+    {
+      "id": "exp-log-004",
+      "item": "exponent",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "(1/8)^(-2/3) : 16^(3/4)",
+      "given": null,
+      "choices": ["2", "1/4", "1/2", "32"],
+      "answerIndex": 2,
+      "steps": [
+        "(1/8)^(-2/3) : 16^(3/4) = (2^(-3))^(-2/3) : (2^4)^(3/4) = 2^2 : 2^3",
+        "2^2 : 2^3 = 2^(2 - 3) = 2^(-1) = 1/2"
+      ]
+    },
+    {
+      "id": "exp-log-005",
+      "item": "exponent",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "81^(3/4) * 3^(-2) : 27^(1/3)",
+      "given": null,
+      "choices": ["0", "1", "3", "1/3"],
+      "answerIndex": 1,
+      "steps": [
+        "81^(3/4) * 3^(-2) : 27^(1/3) = (3^4)^(3/4) * 3^(-2) : (3^3)^(1/3) = 3^3 * 3^(-2) : 3^1",
+        "3^3 * 3^(-2) : 3^1 = 3^(3 - 2 - 1) = 3^0 = 1"
+      ]
+    },
+    {
+      "id": "exp-log-006",
+      "item": "log",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "log(12, 2) + log(6, 2) - log(9, 2)",
+      "given": null,
+      "choices": ["4", "3", "2", "1"],
+      "answerIndex": 1,
+      "steps": [
+        "log(12, 2) + log(6, 2) - log(9, 2) = log((12*6)/9, 2) = log(72/9, 2) = log(8, 2)",
+        "log(8, 2) = log(2^3, 2) = 3"
+      ]
+    },
+    {
+      "id": "exp-log-007",
+      "item": "log",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "log(12, 8) - log(3, 8)",
+      "given": null,
+      "choices": ["3/2", "1/2", "2/3", "2"],
+      "answerIndex": 2,
+      "steps": [
+        "log(12, 8) - log(3, 8) = log(12/3, 8) = log(4, 8)",
+        "log(4, 8) = log(4, 2)/log(8, 2) = log(2^2, 2)/log(2^3, 2) = 2/3"
+      ]
+    },
+    {
+      "id": "exp-log-008",
+      "item": "log",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "2*log(6, 3) - log(4, 3)",
+      "given": null,
+      "choices": ["2", "1", "3", "4"],
+      "answerIndex": 0,
+      "steps": [
+        "2*log(6, 3) - log(4, 3) = log(6^2, 3) - log(4, 3) = log(36/4, 3) = log(9, 3)",
+        "log(9, 3) = log(3^2, 3) = 2"
+      ]
+    },
+    {
+      "id": "exp-log-009",
+      "item": "log",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "log(24, 2) - (1/2)*log(9, 2)",
+      "given": null,
+      "choices": ["4", "2", "6", "3"],
+      "answerIndex": 3,
+      "steps": [
+        "log(24, 2) - (1/2)*log(9, 2) = log(24, 2) - log(9^(1/2), 2) = log(24, 2) - log(3, 2)",
+        "log(24, 2) - log(3, 2) = log(24/3, 2) = log(8, 2) = log(2^3, 2) = 3"
+      ]
+    },
+    {
+      "id": "exp-log-010",
+      "item": "log",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "log(25, 2) * log(8, 5)",
+      "given": null,
+      "choices": ["5", "6", "1", "10"],
+      "answerIndex": 1,
+      "steps": [
+        "log(25, 2) * log(8, 5) = log(5^2, 2) * (log(8, 2)/log(5, 2)) = 2*log(5, 2) * (log(2^3, 2)/log(5, 2))",
+        "2*log(5, 2) * (log(2^3, 2)/log(5, 2)) = 2*log(5, 2) * (3/log(5, 2)) = 2 * 3 = 6"
+      ]
+    },
+    {
+      "id": "exp-log-011",
+      "item": "common-log",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "2*log(5, 10) + log(4, 10)",
+      "given": null,
+      "steps": [
+        "2*log(5, 10) + log(4, 10) = log(5^2, 10) + log(4, 10) = log(25*4, 10) = log(100, 10) = 2"
+      ],
+      "choices": ["1", "2", "4", "10"],
+      "answerIndex": 1
+    },
+    {
+      "id": "exp-log-012",
+      "item": "common-log",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "log(25, 10) + log(80, 10) - log(2, 10)",
+      "given": null,
+      "steps": [
+        "log(25, 10) + log(80, 10) - log(2, 10) = log((25*80)/2, 10) = log(1000, 10) = 3"
+      ],
+      "choices": ["2", "100", "3", "1000"],
+      "answerIndex": 2
+    },
+    {
+      "id": "exp-log-013",
+      "item": "common-log",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "(1/2)*log(25, 10) + log(2, 10)",
+      "given": null,
+      "steps": [
+        "(1/2)*log(25, 10) + log(2, 10) = log(25^(1/2), 10) + log(2, 10) = log(5*2, 10) = log(10, 10) = 1"
+      ],
+      "choices": ["1", "2", "5/2", "10"],
+      "answerIndex": 0
+    },
+    {
+      "id": "exp-log-014",
+      "item": "common-log",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "log(sqrt(50), 10) - log(sqrt(5), 10)",
+      "given": null,
+      "steps": [
+        "log(sqrt(50), 10) - log(sqrt(5), 10) = log(sqrt(50)/sqrt(5), 10) = log(sqrt(10), 10) = log(10^(1/2), 10) = 1/2"
+      ],
+      "choices": ["1", "2", "-1/2", "1/2"],
+      "answerIndex": 3
+    },
+    {
+      "id": "exp-log-015",
+      "item": "common-log",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "2*log(5, 10) - log(2500, 10)",
+      "given": null,
+      "steps": [
+        "2*log(5, 10) - log(2500, 10) = log(5^2, 10) - log(2500, 10) = log(25/2500, 10) = log(1/100, 10) = log(10^(-2), 10) = -2"
+      ],
+      "choices": ["-2", "2", "-1", "-1/2"],
+      "answerIndex": 0
+    }
+  ]
+}

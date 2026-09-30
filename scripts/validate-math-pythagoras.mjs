@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { PYTHAGORAS_SETS } from '../src/lib/math-pythagoras-sets.ts';
+import { unitSets } from '../src/lib/math-catalog.ts';
 
 const vertices = ['A', 'B', 'C'];
 const sides = ['AB', 'AC', 'BC'];
@@ -17,21 +17,24 @@ const RULES = {
       && rows.some(r => r.integer) && rows.some(r => !r.integer),
   },
 };
-export function validateBank(bank, catalog = PYTHAGORAS_SETS) {
+export function validateBank(bank, catalog = unitSets('pythagoras')) {
   assert.equal(bank.version, 1);
   assert.ok(Array.isArray(bank.problems));
-  for (const set of catalog) assert.ok(Object.hasOwn(RULES, set.rule), `Unknown rule: ${set.rule}`);
+  // Sets without a rule are coming soon and may not hold problems yet.
+  for (const set of catalog) assert.ok(set.rule === undefined || Object.hasOwn(RULES, set.rule), `Unknown rule: ${set.rule}`);
   const ids = new Set(), positions = new Set(), figures = new Set();
-  const coverage = new Map(catalog.map(s => [s.id, []]));
+  const coverage = new Map(catalog.map(s => [`${s.item}/${s.id}`, []]));
   for (const p of bank.problems) {
-    const { id, setId, position, figure: f, choices, answerIndex } = p;
+    const { id, item, setId, position, figure: f, choices, answerIndex } = p;
     assert.match(id, /^pythagoras-\d{3,}$/);
     assert.ok(!ids.has(id), `${id}: duplicate ID`); ids.add(id);
-    const set = catalog.find(s => s.id === setId);
+    const set = catalog.find(s => s.item === item && s.id === setId);
     assert.ok(set, `${id}: unknown set`);
+    assert.ok(set.rule, `${id}: set ${item} ${setId} is coming soon (no rule yet)`);
     assert.ok(positive(position), `${id}: position`);
-    assert.ok(!positions.has(`${setId}:${position}`), `${id}: duplicate position`); positions.add(`${setId}:${position}`);
+    assert.ok(!positions.has(`${item}/${setId}:${position}`), `${id}: duplicate position`); positions.add(`${item}/${setId}:${position}`);
     assert.equal(typeof p.published, 'boolean');
+    assert.ok([1, 2, 3].includes(p.tier), `${id}: tier 1-3 (basic, standard, advanced)`);
     assert.match(p.reviewedAt, /^\d{4}-\d{2}-\d{2}$/);
     assert.equal(new Date(p.reviewedAt).toISOString().slice(0, 10), p.reviewedAt);
     assert.ok(f && f.points);
@@ -65,13 +68,13 @@ export function validateBank(bank, catalog = PYTHAGORAS_SETS) {
     assert.ok(Number.isInteger(answerIndex) && answerIndex >= 0 && answerIndex < 4);
     // Congruent figures with the same unknown are duplicates, even after rotation,
     // translation, reflection, vertex renaming or reordering the given edges.
-    const signature = `${setId}:${f.given.map(s => squares[sideKey(s)]).sort((a,b) => a-b)}:${squares[sideKey(f.unknown)]}`;
+    const signature = `${item}/${setId}:${f.given.map(s => squares[sideKey(s)]).sort((a,b) => a-b)}:${squares[sideKey(f.unknown)]}`;
     assert.ok(!figures.has(signature), `${id}: duplicate figure`); figures.add(signature);
-    coverage.get(setId).push({ hypotenuse: !f.unknown.includes(f.rightAngle), integer: answer[1] === 1 });
+    coverage.get(`${item}/${setId}`).push({ hypotenuse: !f.unknown.includes(f.rightAngle), integer: answer[1] === 1 });
   }
   for (const set of catalog) {
-    const rows = coverage.get(set.id);
-    if (rows.length) assert.ok(RULES[set.rule].set(rows), `${set.id}: needs hypotenuse/leg and integer/radical answers`);
+    const rows = coverage.get(`${set.item}/${set.id}`);
+    if (set.rule && rows.length) assert.ok(RULES[set.rule].set(rows), `${set.id}: needs hypotenuse/leg and integer/radical answers`);
   }
   return bank;
 }

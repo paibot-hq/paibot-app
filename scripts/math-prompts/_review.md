@@ -4,6 +4,7 @@
 各問題について:
 1. 自分で解いて answer と、一致する choices の位置 choiceIndex（0始まり、無ければ-1）を答える。
 - expression はかっこ→かけ算・わり算→足し算・引き算、同じ優先度は左から。* はかけ算、/ はわり算。answer は整数。
+- formula は学習者に見えるとおりの LaTeX（question・given・choices）。kind が calc なら値を計算（given があれば代入）、expand なら展開・整理した式、solve なら方程式の解。answer に選んだ choices の文字列をそのまま書く。答えは分数・小数・根号をふくんでよい。
 - word は日本語 ja の問題文だけから立式して解き、その式を wordExpression に書く（整数・+ - * / ( ) と半角スペースを使い、負の数は (-3) の形）。en・zh もそれぞれ問題文だけから同じ条件を復元できるか確認する。
 - factorization は trinomial を因数分解し、answer に選んだ choices の文字列をそのまま書く。選択肢を展開して確かめる。
 - pythagoras は直角三角形ABC。figure の rightAngle が直角、given は既知の辺と長さ(cm)、unknown は求める辺。三平方の定理で解き、answer に選んだ choices の文字列をそのまま書く。√は平方根。

@@ -1,14 +1,20 @@
-import { PYTHAGORAS_SETS } from './math-pythagoras-sets';
-
 export type MathDomain = 'number' | 'algebra' | 'functions' | 'geometry' | 'data' | 'logic' | 'linear-algebra' | 'calculus';
 export type MathStage = 'elementary' | 'middle' | 'high' | 'university';
+// The shape of a unit's problems (the payload in D1 and src/data/math-<unit>.json):
+// expression (arith's integer expressions, math-arith.ts), factorization,
+// pythagoras (figures) or formula (math-formula.ts). Checked by
+// scripts/validate-math-{arith,factorization,pythagoras,formula}.mjs.
+export type MathKind = 'expression' | 'factorization' | 'pythagoras' | 'formula';
+export interface MathSet { id: string; rule?: string }
+export interface MathItem { id: string; sets: readonly MathSet[] }
 export interface MathCatalogUnit {
   id: string;
   domain: MathDomain;
   stage: MathStage;
   status: 'published' | 'comingSoon';
-  // Published units keep their sets in their existing math-*-sets.ts files.
-  sets: { id: string; item: string }[];
+  // Only units that can hold problems have a kind.
+  kind?: MathKind;
+  items: readonly MathItem[];
 }
 
 export const MATH_STAGES: readonly MathStage[] = ['elementary', 'middle', 'high', 'university'];
@@ -16,338 +22,453 @@ export const MATH_STAGES: readonly MathStage[] = ['elementary', 'middle', 'high'
 export const MATH_DOMAINS: readonly MathDomain[] = ['number', 'algebra', 'functions', 'geometry', 'data', 'logic', 'linear-algebra', 'calculus'];
 
 // Display order and stable IDs for the math roadmap; no problem data here.
+// unit → learning item → practice set (1, 2, ...). A set with a `rule` (a key in the
+// unit kind's scripts/validate-math-*.mjs) can hold problems; its URL is
+// /math/<unit>/<item>/<set>. Names live under App.math.units.<unit>.
 export const MATH_CATALOG: readonly MathCatalogUnit[] = [
-  { id: 'addition', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'carry-a', item: 'addition.carry' },
-    { id: 'two-digit-a', item: 'addition.two-digit' },
-    { id: 'column-a', item: 'addition.column' },
-  ] },
-  { id: 'multiplication', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'times-table-a', item: 'multiplication.times-table' },
-    { id: 'by-one-digit-a', item: 'multiplication.by-one-digit' },
-    { id: 'by-two-digit-a', item: 'multiplication.by-two-digit' },
-  ] },
-  { id: 'division', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'basic-a', item: 'division.basic' },
-    { id: 'remainder-a', item: 'division.remainder' },
-    { id: 'by-two-digit-a', item: 'division.by-two-digit' },
-  ] },
-  { id: 'arith', domain: 'number', stage: 'elementary', status: 'published', sets: [] },
-  { id: 'place-value', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'place-value-a', item: 'place-value.place-value' },
-    { id: 'large-numbers-a', item: 'place-value.large-numbers' },
-  ] },
-  { id: 'time', domain: 'geometry', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'reading-a', item: 'time.reading' },
-    { id: 'elapsed-a', item: 'time.elapsed' },
-  ] },
-  { id: 'decimal', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'add-sub-a', item: 'decimal.add-sub' },
-    { id: 'mul-div-a', item: 'decimal.mul-div' },
-  ] },
-  { id: 'fraction', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'simplify-a', item: 'fraction.simplify' },
-    { id: 'add-sub-a', item: 'fraction.add-sub' },
-    { id: 'mul-div-a', item: 'fraction.mul-div' },
-  ] },
-  { id: 'divisors', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'divisors-a', item: 'divisors.divisors' },
-    { id: 'gcd-lcm-a', item: 'divisors.gcd-lcm' },
-  ] },
-  { id: 'rounding', domain: 'number', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'rounding-a', item: 'rounding.rounding' },
-    { id: 'estimate-a', item: 'rounding.estimate' },
-  ] },
-  { id: 'ratio', domain: 'data', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'percent-a', item: 'ratio.percent' },
-    { id: 'ratio-a', item: 'ratio.ratio' },
-    { id: 'word-a', item: 'ratio.word-problems' },
-  ] },
-  { id: 'measurement', domain: 'geometry', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'units-a', item: 'measurement.units' },
-    { id: 'area-volume-a', item: 'measurement.area-volume' },
-    { id: 'circle-a', item: 'measurement.circle' },
-  ] },
-  { id: 'shapes', domain: 'geometry', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'triangles-quads-a', item: 'shapes.triangles-quads' },
-    { id: 'circles-a', item: 'shapes.circles' },
-    { id: 'angles-a', item: 'shapes.angles' },
-  ] },
-  { id: 'symmetry', domain: 'geometry', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'symmetry-a', item: 'symmetry.symmetry' },
-    { id: 'scale-a', item: 'symmetry.scale' },
-  ] },
-  { id: 'data', domain: 'data', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'average-a', item: 'data.average' },
-    { id: 'median-range-a', item: 'data.median-range' },
-  ] },
-  { id: 'graphs', domain: 'data', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'tables-a', item: 'graphs.tables' },
-    { id: 'line-graph-a', item: 'graphs.line-graph' },
-    { id: 'pie-band-a', item: 'graphs.pie-band' },
-    { id: 'histogram-a', item: 'graphs.histogram' },
-  ] },
-  { id: 'counting', domain: 'data', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'arrangements-a', item: 'counting.arrangements' },
-    { id: 'combinations-a', item: 'counting.combinations' },
-  ] },
-  { id: 'signed', domain: 'number', stage: 'middle', status: 'published', sets: [] },
-  { id: 'exponents', domain: 'number', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'powers-a', item: 'exponents.powers' },
-    { id: 'scientific-a', item: 'exponents.scientific' },
-  ] },
-  { id: 'expression', domain: 'algebra', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'value-a', item: 'expression.value' },
-    { id: 'like-terms-a', item: 'expression.like-terms' },
-    { id: 'distribute-a', item: 'expression.distribute' },
-    { id: 'rearrange-a', item: 'expression.rearrange' },
-  ] },
-  { id: 'linear-equation', domain: 'algebra', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'basic-a', item: 'linear-equation.basic' },
-    { id: 'parentheses-a', item: 'linear-equation.parentheses' },
-    { id: 'fraction-a', item: 'linear-equation.fraction' },
-    { id: 'word-a', item: 'linear-equation.word-problems' },
-  ] },
-  { id: 'simultaneous', domain: 'algebra', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'elimination-a', item: 'simultaneous.elimination' },
-    { id: 'substitution-a', item: 'simultaneous.substitution' },
-    { id: 'word-a', item: 'simultaneous.word-problems' },
-  ] },
-  { id: 'linear-function', domain: 'functions', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'proportion-a', item: 'linear-function.proportion' },
-    { id: 'slope-a', item: 'linear-function.slope' },
-    { id: 'two-points-a', item: 'linear-function.two-points' },
-    { id: 'equations-a', item: 'linear-function.equations' },
-  ] },
-  { id: 'square-function', domain: 'functions', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'graph-a', item: 'square-function.graph' },
-    { id: 'rate-of-change-a', item: 'square-function.rate-of-change' },
-    { id: 'intersection-a', item: 'square-function.intersection' },
-  ] },
-  { id: 'inequality', domain: 'algebra', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'linear-a', item: 'inequality.linear' },
-    { id: 'quadratic-a', item: 'inequality.quadratic' },
-    { id: 'absolute-a', item: 'inequality.absolute' },
-  ] },
-  { id: 'expansion', domain: 'algebra', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'formulas-a', item: 'expansion.formulas' },
-    { id: 'square-a', item: 'expansion.square' },
-    { id: 'sum-difference-a', item: 'expansion.sum-difference' },
-  ] },
-  { id: 'factorization', domain: 'algebra', stage: 'middle', status: 'published', sets: [] },
-  { id: 'sqrt', domain: 'number', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'simplify-a', item: 'sqrt.simplify' },
-    { id: 'add-sub-a', item: 'sqrt.add-sub' },
-    { id: 'rationalize-a', item: 'sqrt.rationalize' },
-  ] },
-  { id: 'prime', domain: 'number', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'prime-a', item: 'prime.prime' },
-  ] },
-  { id: 'integers', domain: 'number', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'euclid-a', item: 'integers.euclid' },
-    { id: 'base-n-a', item: 'integers.base-n' },
-    { id: 'congruence-a', item: 'integers.congruence' },
-  ] },
-  { id: 'pythagoras', domain: 'geometry', stage: 'middle', status: 'published', sets: [...PYTHAGORAS_SETS] },
-  { id: 'probability', domain: 'data', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'basic-a', item: 'probability.basic' },
-  ] },
-  { id: 'quadratic', domain: 'algebra', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'factoring-a', item: 'quadratic.factoring' },
-    { id: 'formula-a', item: 'quadratic.formula' },
-    { id: 'discriminant-a', item: 'quadratic.discriminant' },
-  ] },
-  { id: 'identities', domain: 'algebra', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'binomial-a', item: 'identities.binomial' },
-    { id: 'identity-a', item: 'identities.identity' },
-    { id: 'inequality-proof-a', item: 'identities.inequality-proof' },
-  ] },
-  { id: 'polynomial-equations', domain: 'algebra', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'remainder-a', item: 'polynomial-equations.remainder' },
-    { id: 'higher-degree-a', item: 'polynomial-equations.higher-degree' },
-  ] },
-  { id: 'quadratic-function', domain: 'functions', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'vertex-a', item: 'quadratic-function.vertex' },
-    { id: 'max-min-a', item: 'quadratic-function.max-min' },
-  ] },
-  { id: 'sequence', domain: 'functions', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'arithmetic-a', item: 'sequence.arithmetic' },
-    { id: 'geometric-a', item: 'sequence.geometric' },
-    { id: 'sigma-a', item: 'sequence.sigma' },
-    { id: 'recurrence-a', item: 'sequence.recurrence' },
-  ] },
-  { id: 'trig', domain: 'functions', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'values-a', item: 'trig.values' },
-    { id: 'radian-a', item: 'trig.radian' },
-    { id: 'addition-a', item: 'trig.addition' },
-    { id: 'synthesis-a', item: 'trig.synthesis' },
-  ] },
-  { id: 'exp-log', domain: 'functions', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'exponent-a', item: 'exp-log.exponent' },
-    { id: 'log-a', item: 'exp-log.log' },
-  ] },
-  { id: 'conic', domain: 'functions', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'parabola-a', item: 'conic.parabola' },
-    { id: 'ellipse-hyperbola-a', item: 'conic.ellipse-hyperbola' },
-    { id: 'polar-a', item: 'conic.polar' },
-  ] },
-  { id: 'combinatorics', domain: 'data', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'permutations-a', item: 'combinatorics.permutations' },
-    { id: 'combinations-a', item: 'combinatorics.combinations' },
-    { id: 'probability-a', item: 'combinatorics.probability' },
-    { id: 'conditional-a', item: 'combinatorics.conditional' },
-    { id: 'expectation-a', item: 'combinatorics.expectation' },
-  ] },
-  { id: 'distributions', domain: 'data', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'binomial-a', item: 'distributions.binomial' },
-    { id: 'normal-a', item: 'distributions.normal' },
-  ] },
-  { id: 'limit', domain: 'calculus', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'sequence-a', item: 'limit.sequence' },
-    { id: 'function-a', item: 'limit.function' },
-  ] },
-  { id: 'derivative', domain: 'calculus', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'polynomial-a', item: 'derivative.polynomial' },
-    { id: 'tangent-a', item: 'derivative.tangent' },
-    { id: 'extrema-a', item: 'derivative.extrema' },
-    { id: 'transcendental-a', item: 'derivative.transcendental' },
-    { id: 'chain-rule-a', item: 'derivative.chain-rule' },
-  ] },
-  { id: 'integral', domain: 'calculus', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'indefinite-a', item: 'integral.indefinite' },
-    { id: 'definite-a', item: 'integral.definite' },
-    { id: 'area-a', item: 'integral.area' },
-    { id: 'substitution-a', item: 'integral.substitution' },
-    { id: 'by-parts-a', item: 'integral.by-parts' },
-    { id: 'volume-a', item: 'integral.volume' },
-  ] },
-  { id: 'complex', domain: 'number', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'arithmetic-a', item: 'complex.arithmetic' },
-    { id: 'quadratic-roots-a', item: 'complex.quadratic-roots' },
-    { id: 'plane-a', item: 'complex.plane' },
-  ] },
-  { id: 'coordinate-geometry', domain: 'geometry', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'line-a', item: 'coordinate-geometry.line' },
-    { id: 'circle-a', item: 'coordinate-geometry.circle' },
-    { id: 'locus-a', item: 'coordinate-geometry.locus' },
-    { id: 'region-a', item: 'coordinate-geometry.region' },
-  ] },
-  { id: 'vector', domain: 'linear-algebra', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'components-a', item: 'vector.components' },
-    { id: 'dot-product-a', item: 'vector.dot-product' },
-    { id: 'angle-a', item: 'vector.angle' },
-    { id: 'space-a', item: 'vector.space' },
-  ] },
-  { id: 'matrix', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', sets: [
-    { id: 'operations-a', item: 'matrix.operations' },
-    { id: 'determinant-a', item: 'matrix.determinant' },
-    { id: 'inverse-a', item: 'matrix.inverse' },
-  ] },
-  { id: 'linear-system', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', sets: [
-    { id: 'elimination-a', item: 'linear-system.elimination' },
-    { id: 'solutions-a', item: 'linear-system.solutions' },
-  ] },
-  { id: 'vector-space', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', sets: [
-    { id: 'independence-a', item: 'vector-space.independence' },
-    { id: 'basis-a', item: 'vector-space.basis' },
-    { id: 'rank-a', item: 'vector-space.rank' },
-  ] },
-  { id: 'linear-map', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', sets: [
-    { id: 'matrix-rep-a', item: 'linear-map.matrix-rep' },
-    { id: 'kernel-image-a', item: 'linear-map.kernel-image' },
-  ] },
-  { id: 'eigen', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', sets: [
-    { id: 'eigenvalues-a', item: 'eigen.eigenvalues' },
-    { id: 'eigenvectors-a', item: 'eigen.eigenvectors' },
-    { id: 'diagonalize-a', item: 'eigen.diagonalize' },
-  ] },
-  { id: 'inner-product', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', sets: [
-    { id: 'orthogonal-a', item: 'inner-product.orthogonal' },
-    { id: 'gram-schmidt-a', item: 'inner-product.gram-schmidt' },
-  ] },
-  { id: 'rate', domain: 'functions', stage: 'elementary', status: 'comingSoon', sets: [
-    { id: 'speed-a', item: 'rate.speed' },
-    { id: 'per-unit-a', item: 'rate.per-unit' },
-  ] },
-  { id: 'angles', domain: 'geometry', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'parallel-a', item: 'angles.parallel' },
-    { id: 'polygon-a', item: 'angles.polygon' },
-  ] },
-  { id: 'congruence', domain: 'geometry', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'conditions-a', item: 'congruence.conditions' },
-    { id: 'triangles-a', item: 'congruence.triangles' },
-    { id: 'parallelogram-a', item: 'congruence.parallelogram' },
-  ] },
-  { id: 'circle-solid', domain: 'geometry', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'sector-a', item: 'circle-solid.sector' },
-    { id: 'solid-a', item: 'circle-solid.solid' },
-  ] },
-  { id: 'similarity', domain: 'geometry', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'similarity-a', item: 'similarity.similarity' },
-    { id: 'inscribed-angle-a', item: 'similarity.inscribed-angle' },
-  ] },
-  { id: 'transformations', domain: 'geometry', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'moves-a', item: 'transformations.moves' },
-  ] },
-  { id: 'triangle-trig', domain: 'geometry', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'sine-law-a', item: 'triangle-trig.sine-law' },
-    { id: 'cosine-law-a', item: 'triangle-trig.cosine-law' },
-    { id: 'area-a', item: 'triangle-trig.area' },
-  ] },
-  { id: 'triangle-properties', domain: 'geometry', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'centers-a', item: 'triangle-properties.centers' },
-    { id: 'power-a', item: 'triangle-properties.power' },
-    { id: 'ceva-menelaus-a', item: 'triangle-properties.ceva-menelaus' },
-  ] },
-  { id: 'quartiles', domain: 'data', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'quartiles-a', item: 'quartiles.quartiles' },
-    { id: 'boxplot-a', item: 'quartiles.boxplot' },
-  ] },
-  { id: 'sampling', domain: 'data', stage: 'middle', status: 'comingSoon', sets: [
-    { id: 'population-sample-a', item: 'sampling.population-sample' },
-    { id: 'estimate-a', item: 'sampling.estimate' },
-  ] },
-  { id: 'statistics', domain: 'data', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'variance-a', item: 'statistics.variance' },
-    { id: 'correlation-a', item: 'statistics.correlation' },
-  ] },
-  { id: 'inference', domain: 'data', stage: 'university', status: 'comingSoon', sets: [
-    { id: 'estimation-a', item: 'inference.estimation' },
-    { id: 'testing-a', item: 'inference.testing' },
-  ] },
-  { id: 'sets', domain: 'logic', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'operations-a', item: 'sets.operations' },
-    { id: 'venn-a', item: 'sets.venn' },
-  ] },
-  { id: 'logic', domain: 'logic', stage: 'high', status: 'comingSoon', sets: [
-    { id: 'negation-a', item: 'logic.negation' },
-    { id: 'conditions-a', item: 'logic.conditions' },
-    { id: 'truth-table-a', item: 'logic.truth-table' },
-  ] },
-  { id: 'mapping', domain: 'logic', stage: 'university', status: 'comingSoon', sets: [
-    { id: 'injective-a', item: 'mapping.injective' },
-    { id: 'equivalence-a', item: 'mapping.equivalence' },
-  ] },
-  { id: 'series', domain: 'calculus', stage: 'university', status: 'comingSoon', sets: [
-    { id: 'series-a', item: 'series.series' },
-    { id: 'taylor-a', item: 'series.taylor' },
-  ] },
-  { id: 'improper-integral', domain: 'calculus', stage: 'university', status: 'comingSoon', sets: [
-    { id: 'improper-a', item: 'improper-integral.improper' },
-  ] },
-  { id: 'multivariable', domain: 'calculus', stage: 'university', status: 'comingSoon', sets: [
-    { id: 'partial-a', item: 'multivariable.partial' },
-    { id: 'double-integral-a', item: 'multivariable.double-integral' },
-  ] },
-  { id: 'ode', domain: 'calculus', stage: 'university', status: 'comingSoon', sets: [
-    { id: 'separable-a', item: 'ode.separable' },
-    { id: 'linear-first-a', item: 'ode.linear-first' },
-    { id: 'second-order-a', item: 'ode.second-order' },
+  { id: 'addition', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'expression', items: [
+    { id: 'within-10', sets: [{ id: '1' }] },
+    { id: 'carry', sets: [{ id: '1', rule: 'carry-a' }] },
+    { id: 'two-digit', sets: [{ id: '1', rule: 'two-digit-a' }] },
+    { id: 'column', sets: [{ id: '1', rule: 'column-a' }] },
+  ] },
+  { id: 'multiplication', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'expression', items: [
+    { id: 'times-table', sets: [{ id: '1', rule: 'times-table-a' }] },
+    { id: 'by-one-digit', sets: [{ id: '1', rule: 'mul-by-one-digit-a' }] },
+    { id: 'by-two-digit', sets: [{ id: '1', rule: 'mul-by-two-digit-a' }] },
+  ] },
+  { id: 'division', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'expression', items: [
+    { id: 'basic', sets: [{ id: '1', rule: 'div-basic-a' }] },
+    { id: 'remainder', sets: [{ id: '1' }] },
+    { id: 'by-two-digit', sets: [{ id: '1', rule: 'div-by-two-digit-a' }] },
+  ] },
+  { id: 'arith', domain: 'number', stage: 'elementary', status: 'published', kind: 'expression', items: [
+    { id: 'order-of-operations', sets: [{ id: '1', rule: 'order-a' }, { id: '2', rule: 'order-a' }] },
+    { id: 'rules', sets: [{ id: '1', rule: 'rules-a' }] },
+    { id: 'simple-word-problems', sets: [{ id: '1', rule: 'word-a' }] },
+    { id: 'word-problems', sets: [{ id: '1', rule: 'word-b' }] },
+  ] },
+  { id: 'unknowns', domain: 'algebra', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'box', sets: [{ id: '1' }] },
+    { id: 'letters', sets: [{ id: '1' }] },
+  ] },
+  { id: 'place-value', domain: 'number', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'to-100', sets: [{ id: '1' }] },
+    { id: 'to-10000', sets: [{ id: '1' }] },
+    { id: 'ten-thousands', sets: [{ id: '1' }] },
+    { id: 'large-numbers', sets: [{ id: '1' }] },
+  ] },
+  { id: 'time', domain: 'geometry', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'reading', sets: [{ id: '1' }] },
+    { id: 'elapsed', sets: [{ id: '1' }] },
+  ] },
+  { id: 'decimal', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'add-sub-tenths', sets: [{ id: '1' }] },
+    { id: 'add-sub', sets: [{ id: '1', rule: 'decimal-add-sub-a' }] },
+    { id: 'mul-div-whole', sets: [{ id: '1' }] },
+    { id: 'mul-div', sets: [{ id: '1', rule: 'decimal-mul-div-a' }] },
+  ] },
+  { id: 'fraction', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'unit-fractions', sets: [{ id: '1' }] },
+    { id: 'meaning', sets: [{ id: '1' }] },
+    { id: 'simplify', sets: [{ id: '1', rule: 'fraction-simplify-a' }] },
+    { id: 'fraction-decimal', sets: [{ id: '1' }] },
+    { id: 'add-sub-like', sets: [{ id: '1' }] },
+    { id: 'mixed', sets: [{ id: '1' }] },
+    { id: 'add-sub', sets: [{ id: '1', rule: 'fraction-add-sub-a' }] },
+    { id: 'mul-div', sets: [{ id: '1', rule: 'fraction-mul-div-a' }] },
+  ] },
+  { id: 'divisors', domain: 'number', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'divisors', sets: [{ id: '1' }] },
+    { id: 'gcd-lcm', sets: [{ id: '1' }] },
+  ] },
+  { id: 'rounding', domain: 'number', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'rounding', sets: [{ id: '1' }] },
+    { id: 'estimate', sets: [{ id: '1' }] },
+  ] },
+  { id: 'ratio', domain: 'data', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'simple-ratio', sets: [{ id: '1' }] },
+    { id: 'percent', sets: [{ id: '1' }] },
+    { id: 'ratio', sets: [{ id: '1' }] },
+    { id: 'word-problems', sets: [{ id: '1' }] },
+  ] },
+  { id: 'measurement', domain: 'geometry', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'length-capacity', sets: [{ id: '1' }] },
+    { id: 'weight', sets: [{ id: '1' }] },
+    { id: 'area-units', sets: [{ id: '1' }] },
+    { id: 'rect-area', sets: [{ id: '1' }] },
+    { id: 'area', sets: [{ id: '1' }] },
+    { id: 'volume', sets: [{ id: '1' }] },
+    { id: 'circumference', sets: [{ id: '1' }] },
+    { id: 'circle-area', sets: [{ id: '1' }] },
+    { id: 'prism-volume', sets: [{ id: '1' }] },
+  ] },
+  { id: 'shapes', domain: 'geometry', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'solids-basic', sets: [{ id: '1' }] },
+    { id: 'basic-shapes', sets: [{ id: '1' }] },
+    { id: 'boxes', sets: [{ id: '1' }] },
+    { id: 'triangles', sets: [{ id: '1' }] },
+    { id: 'quadrilaterals', sets: [{ id: '1' }] },
+    { id: 'circles', sets: [{ id: '1' }] },
+    { id: 'compass-drawing', sets: [{ id: '1' }] },
+    { id: 'angles', sets: [{ id: '1' }] },
+    { id: 'perpendicular-parallel', sets: [{ id: '1' }] },
+    { id: 'parallel-drawing', sets: [{ id: '1' }] },
+    { id: 'cuboids', sets: [{ id: '1' }] },
+    { id: 'congruent', sets: [{ id: '1' }] },
+    { id: 'congruent-drawing', sets: [{ id: '1' }] },
+    { id: 'angle-sum', sets: [{ id: '1' }] },
+    { id: 'prisms', sets: [{ id: '1' }] },
+  ] },
+  { id: 'symmetry', domain: 'geometry', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'symmetry', sets: [{ id: '1' }] },
+    { id: 'scale', sets: [{ id: '1' }] },
+  ] },
+  { id: 'data', domain: 'data', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'average', sets: [{ id: '1' }] },
+    { id: 'median-range', sets: [{ id: '1' }] },
+  ] },
+  { id: 'graphs', domain: 'data', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'tables', sets: [{ id: '1' }] },
+    { id: 'bar-graph', sets: [{ id: '1' }] },
+    { id: 'line-graph', sets: [{ id: '1' }] },
+    { id: 'two-way-table', sets: [{ id: '1' }] },
+    { id: 'pie-band', sets: [{ id: '1' }] },
+    { id: 'histogram', sets: [{ id: '1' }] },
+  ] },
+  { id: 'counting', domain: 'data', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'arrangements', sets: [{ id: '1' }] },
+    { id: 'combinations', sets: [{ id: '1' }] },
+  ] },
+  { id: 'signed', domain: 'number', stage: 'middle', status: 'published', kind: 'expression', items: [
+    { id: 'four-operations', sets: [{ id: '1', rule: 'four-ops-a' }] },
+  ] },
+  { id: 'exponents', domain: 'number', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'powers', sets: [{ id: '1', rule: 'powers-a' }] },
+    { id: 'scientific', sets: [{ id: '1' }] },
+  ] },
+  { id: 'expression', domain: 'algebra', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'value', sets: [{ id: '1', rule: 'expression-value-a' }] },
+    { id: 'like-terms', sets: [{ id: '1', rule: 'like-terms-a' }] },
+    { id: 'distribute', sets: [{ id: '1', rule: 'distribute-a' }] },
+    { id: 'polynomials', sets: [{ id: '1' }] },
+    { id: 'rearrange', sets: [{ id: '1' }] },
+  ] },
+  { id: 'linear-equation', domain: 'algebra', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'basic', sets: [{ id: '1', rule: 'linear-basic-a' }] },
+    { id: 'parentheses', sets: [{ id: '1', rule: 'linear-parentheses-a' }] },
+    { id: 'fraction', sets: [{ id: '1', rule: 'linear-fraction-a' }] },
+    { id: 'proportion', sets: [{ id: '1' }] },
+    { id: 'word-problems', sets: [{ id: '1' }] },
+  ] },
+  { id: 'simultaneous', domain: 'algebra', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'elimination', sets: [{ id: '1', rule: 'simultaneous-elimination-a' }] },
+    { id: 'substitution', sets: [{ id: '1', rule: 'simultaneous-substitution-a' }] },
+    { id: 'word-problems', sets: [{ id: '1' }] },
+  ] },
+  { id: 'linear-function', domain: 'functions', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'proportion', sets: [{ id: '1' }] },
+    { id: 'slope', sets: [{ id: '1' }] },
+    { id: 'two-points', sets: [{ id: '1' }] },
+    { id: 'equations', sets: [{ id: '1' }] },
+  ] },
+  { id: 'square-function', domain: 'functions', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'graph', sets: [{ id: '1' }] },
+    { id: 'rate-of-change', sets: [{ id: '1' }] },
+    { id: 'intersection', sets: [{ id: '1' }] },
+  ] },
+  { id: 'inequality', domain: 'algebra', stage: 'high', status: 'comingSoon', items: [
+    { id: 'linear', sets: [{ id: '1' }] },
+    { id: 'quadratic', sets: [{ id: '1' }] },
+    { id: 'absolute', sets: [{ id: '1' }] },
+  ] },
+  { id: 'expansion', domain: 'algebra', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'formulas', sets: [{ id: '1', rule: 'expansion-formulas-a' }] },
+    { id: 'square', sets: [{ id: '1', rule: 'expansion-square-a' }] },
+    { id: 'sum-difference', sets: [{ id: '1', rule: 'expansion-sum-difference-a' }] },
+    { id: 'three-terms', sets: [{ id: '1' }] },
+    { id: 'cubic', sets: [{ id: '1', rule: 'expansion-cubic-a' }] },
+  ] },
+  { id: 'factorization', domain: 'algebra', stage: 'middle', status: 'published', kind: 'factorization', items: [
+    { id: 'common-factor', sets: [{ id: '1' }] },
+    { id: 'trinomial', sets: [{ id: '1', rule: 'trinomial-a' }] },
+    { id: 'perfect-square', sets: [{ id: '1', rule: 'perfect-square-a' }] },
+    { id: 'difference-of-squares', sets: [{ id: '1', rule: 'squares-a' }] },
+  ] },
+  { id: 'factoring', domain: 'algebra', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'ac-method', sets: [{ id: '1' }] },
+    { id: 'two-variables', sets: [{ id: '1' }] },
+    { id: 'substitution', sets: [{ id: '1' }] },
+    { id: 'cubes', sets: [{ id: '1', rule: 'factoring-cubes-a' }] },
+  ] },
+  { id: 'sqrt', domain: 'number', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'rational-irrational', sets: [{ id: '1' }] },
+    { id: 'simplify', sets: [{ id: '1', rule: 'sqrt-simplify-a' }] },
+    { id: 'add-sub', sets: [{ id: '1', rule: 'sqrt-add-sub-a' }] },
+    { id: 'rationalize', sets: [{ id: '1', rule: 'sqrt-rationalize-a' }] },
+    { id: 'double-radical', sets: [{ id: '1' }] },
+  ] },
+  { id: 'prime', domain: 'number', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'prime', sets: [{ id: '1' }] },
+  ] },
+  { id: 'integers', domain: 'number', stage: 'high', status: 'comingSoon', items: [
+    { id: 'euclid', sets: [{ id: '1' }] },
+    { id: 'diophantine', sets: [{ id: '1' }] },
+    { id: 'base-n', sets: [{ id: '1' }] },
+    { id: 'congruence', sets: [{ id: '1' }] },
+  ] },
+  { id: 'pythagoras', domain: 'geometry', stage: 'middle', status: 'published', kind: 'pythagoras', items: [
+    { id: 'sides', sets: [{ id: '1', rule: 'sides-a' }] },
+    { id: 'applications', sets: [{ id: '1' }] },
+  ] },
+  { id: 'probability', domain: 'data', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'relative-frequency', sets: [{ id: '1' }] },
+    { id: 'basic', sets: [{ id: '1' }] },
+  ] },
+  { id: 'quadratic', domain: 'algebra', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'factoring', sets: [{ id: '1', rule: 'quadratic-factoring-a' }] },
+    { id: 'formula', sets: [{ id: '1', rule: 'quadratic-formula-a' }] },
+    { id: 'discriminant', sets: [{ id: '1' }] },
+  ] },
+  { id: 'identities', domain: 'algebra', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'binomial', sets: [{ id: '1', rule: 'binomial-a' }] },
+    { id: 'identity', sets: [{ id: '1', rule: 'identity-a' }] },
+    { id: 'inequality-proof', sets: [{ id: '1', rule: 'amgm-a' }] },
+  ] },
+  { id: 'polynomial-equations', domain: 'algebra', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'remainder', sets: [{ id: '1', rule: 'remainder-a' }] },
+    { id: 'higher-degree', sets: [{ id: '1', rule: 'higher-degree-a' }] },
+  ] },
+  { id: 'quadratic-function', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'vertex', sets: [{ id: '1', rule: 'graph-vertex-a' }] },
+    { id: 'graph', sets: [{ id: '1', rule: 'graph-parabola-a' }] },
+    { id: 'max-min', sets: [{ id: '1' }] },
+  ] },
+  { id: 'sequence', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'arithmetic', sets: [{ id: '1', rule: 'arithmetic-a' }] },
+    { id: 'geometric', sets: [{ id: '1', rule: 'geometric-a' }] },
+    { id: 'sigma', sets: [{ id: '1', rule: 'sigma-a' }] },
+    { id: 'recurrence', sets: [{ id: '1', rule: 'recurrence-a' }] },
+    { id: 'induction', sets: [{ id: '1', rule: 'induction-a' }] },
+  ] },
+  { id: 'trig', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'values', sets: [{ id: '1', rule: 'trig-values-a' }] },
+    { id: 'radian', sets: [{ id: '1', rule: 'radian-a' }] },
+    { id: 'addition', sets: [{ id: '1', rule: 'trig-addition-a' }] },
+    { id: 'double-angle', sets: [{ id: '1', rule: 'double-angle-a' }] },
+    { id: 'synthesis', sets: [{ id: '1', rule: 'trig-synthesis-a' }] },
+    { id: 'graph', sets: [{ id: '1', rule: 'graph-trig-a' }] },
+  ] },
+  { id: 'exp-log', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'exponent', sets: [{ id: '1', rule: 'exponent-a' }] },
+    { id: 'log', sets: [{ id: '1', rule: 'log-a' }] },
+    { id: 'common-log', sets: [{ id: '1', rule: 'common-log-a' }] },
+  ] },
+  { id: 'conic', domain: 'functions', stage: 'high', status: 'comingSoon', items: [
+    { id: 'parabola', sets: [{ id: '1' }] },
+    { id: 'ellipse-hyperbola', sets: [{ id: '1' }] },
+    { id: 'polar', sets: [{ id: '1' }] },
+  ] },
+  { id: 'combinatorics', domain: 'data', stage: 'high', status: 'comingSoon', items: [
+    { id: 'permutations', sets: [{ id: '1' }] },
+    { id: 'combinations', sets: [{ id: '1' }] },
+    { id: 'probability', sets: [{ id: '1' }] },
+    { id: 'independent', sets: [{ id: '1' }] },
+    { id: 'conditional', sets: [{ id: '1' }] },
+    { id: 'expectation', sets: [{ id: '1' }] },
+  ] },
+  { id: 'distributions', domain: 'data', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'random-variables', sets: [{ id: '1', rule: 'random-variables-a' }] },
+    { id: 'binomial', sets: [{ id: '1', rule: 'binomial-dist-a' }] },
+    { id: 'normal', sets: [{ id: '1', rule: 'normal-a' }] },
+  ] },
+  { id: 'limit', domain: 'calculus', stage: 'high', status: 'comingSoon', items: [
+    { id: 'sequence', sets: [{ id: '1' }] },
+    { id: 'function', sets: [{ id: '1' }] },
+  ] },
+  { id: 'univ-calculus', domain: 'calculus', stage: 'university', status: 'comingSoon', items: [
+    { id: 'mean-value', sets: [{ id: '1' }] },
+  ] },
+  { id: 'derivative', domain: 'calculus', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'polynomial', sets: [{ id: '1', rule: 'derivative-polynomial-a' }] },
+    { id: 'tangent', sets: [{ id: '1', rule: 'tangent-a' }] },
+    { id: 'extrema', sets: [{ id: '1', rule: 'extrema-a' }] },
+    { id: 'transcendental', sets: [{ id: '1' }] },
+    { id: 'chain-rule', sets: [{ id: '1' }] },
+    { id: 'parametric', sets: [{ id: '1' }] },
+    { id: 'motion', sets: [{ id: '1' }] },
+  ] },
+  { id: 'integral', domain: 'calculus', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'indefinite', sets: [{ id: '1', rule: 'indefinite-a' }] },
+    { id: 'definite', sets: [{ id: '1', rule: 'definite-a' }] },
+    { id: 'area', sets: [{ id: '1', rule: 'area-a' }] },
+    { id: 'substitution', sets: [{ id: '1' }] },
+    { id: 'by-parts', sets: [{ id: '1' }] },
+    { id: 'volume', sets: [{ id: '1' }] },
+  ] },
+  { id: 'complex', domain: 'number', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'arithmetic', sets: [{ id: '1', rule: 'complex-arithmetic-a' }] },
+    { id: 'quadratic-roots', sets: [{ id: '1', rule: 'complex-roots-a' }] },
+    { id: 'plane', sets: [{ id: '1' }] },
+  ] },
+  { id: 'coordinate-geometry', domain: 'geometry', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'line', sets: [{ id: '1', rule: 'line-a' }, { id: '2', rule: 'graph-line-a' }] },
+    { id: 'circle', sets: [{ id: '1', rule: 'circle-a' }, { id: '2', rule: 'graph-circle-a' }] },
+    { id: 'locus', sets: [{ id: '1', rule: 'locus-a' }] },
+    { id: 'region', sets: [{ id: '1', rule: 'region-a' }, { id: '2', rule: 'graph-region-a' }] },
+  ] },
+  { id: 'vector', domain: 'linear-algebra', stage: 'high', status: 'comingSoon', items: [
+    { id: 'components', sets: [{ id: '1' }] },
+    { id: 'dot-product', sets: [{ id: '1' }] },
+    { id: 'angle', sets: [{ id: '1' }] },
+    { id: 'space', sets: [{ id: '1' }] },
+  ] },
+  { id: 'matrix', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', items: [
+    { id: 'operations', sets: [{ id: '1' }] },
+    { id: 'determinant', sets: [{ id: '1' }] },
+    { id: 'general-determinant', sets: [{ id: '1' }] },
+    { id: 'inverse', sets: [{ id: '1' }] },
+  ] },
+  { id: 'linear-system', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', items: [
+    { id: 'elimination', sets: [{ id: '1' }] },
+    { id: 'solutions', sets: [{ id: '1' }] },
+  ] },
+  { id: 'vector-space', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', items: [
+    { id: 'independence', sets: [{ id: '1' }] },
+    { id: 'basis', sets: [{ id: '1' }] },
+    { id: 'rank', sets: [{ id: '1' }] },
+  ] },
+  { id: 'linear-map', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', items: [
+    { id: 'matrix-rep', sets: [{ id: '1' }] },
+    { id: 'kernel-image', sets: [{ id: '1' }] },
+  ] },
+  { id: 'eigen', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', items: [
+    { id: 'eigenvalues', sets: [{ id: '1' }] },
+    { id: 'eigenvectors', sets: [{ id: '1' }] },
+    { id: 'diagonalize', sets: [{ id: '1' }] },
+  ] },
+  { id: 'inner-product', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', items: [
+    { id: 'orthogonal', sets: [{ id: '1' }] },
+    { id: 'gram-schmidt', sets: [{ id: '1' }] },
+  ] },
+  { id: 'rate', domain: 'functions', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'speed', sets: [{ id: '1' }] },
+    { id: 'per-unit', sets: [{ id: '1' }] },
+  ] },
+  { id: 'relations', domain: 'functions', stage: 'elementary', status: 'comingSoon', items: [
+    { id: 'change', sets: [{ id: '1' }] },
+    { id: 'simple-proportion', sets: [{ id: '1' }] },
+    { id: 'proportion', sets: [{ id: '1' }] },
+  ] },
+  { id: 'angles', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'parallel', sets: [{ id: '1' }] },
+    { id: 'polygon', sets: [{ id: '1' }] },
+  ] },
+  { id: 'congruence', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'conditions', sets: [{ id: '1' }] },
+    { id: 'triangles', sets: [{ id: '1' }] },
+    { id: 'parallelogram', sets: [{ id: '1' }] },
+  ] },
+  { id: 'circle-solid', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'solid-views', sets: [{ id: '1' }] },
+    { id: 'sector', sets: [{ id: '1' }] },
+    { id: 'solid', sets: [{ id: '1' }] },
+  ] },
+  { id: 'similarity', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'similarity', sets: [{ id: '1' }] },
+    { id: 'inscribed-angle', sets: [{ id: '1' }] },
+  ] },
+  { id: 'transformations', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'moves', sets: [{ id: '1' }] },
+  ] },
+  { id: 'geometric-reasoning', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'construction', sets: [{ id: '1' }] },
+    { id: 'congruence-proof', sets: [{ id: '1' }] },
+    { id: 'similarity-proof', sets: [{ id: '1' }] },
+    { id: 'circle-proof', sets: [{ id: '1' }] },
+  ] },
+  { id: 'triangle-trig', domain: 'geometry', stage: 'high', status: 'comingSoon', items: [
+    { id: 'ratios', sets: [{ id: '1' }] },
+    { id: 'sine-law', sets: [{ id: '1' }] },
+    { id: 'cosine-law', sets: [{ id: '1' }] },
+    { id: 'area', sets: [{ id: '1' }] },
+  ] },
+  { id: 'triangle-properties', domain: 'geometry', stage: 'high', status: 'comingSoon', items: [
+    { id: 'centers', sets: [{ id: '1' }] },
+    { id: 'power', sets: [{ id: '1' }] },
+    { id: 'ceva-menelaus', sets: [{ id: '1' }] },
+    { id: 'polyhedra', sets: [{ id: '1' }] },
+    { id: 'construction', sets: [{ id: '1' }] },
+  ] },
+  { id: 'quartiles', domain: 'data', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'quartiles', sets: [{ id: '1' }] },
+    { id: 'boxplot', sets: [{ id: '1' }] },
+  ] },
+  { id: 'frequency', domain: 'data', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'frequency', sets: [{ id: '1' }] },
+  ] },
+  { id: 'sampling', domain: 'data', stage: 'middle', status: 'comingSoon', items: [
+    { id: 'population-sample', sets: [{ id: '1' }] },
+    { id: 'estimate', sets: [{ id: '1' }] },
+  ] },
+  { id: 'statistics', domain: 'data', stage: 'high', status: 'comingSoon', items: [
+    { id: 'variance', sets: [{ id: '1' }] },
+    { id: 'correlation', sets: [{ id: '1' }] },
+    { id: 'hypothesis', sets: [{ id: '1' }] },
+  ] },
+  { id: 'inference', domain: 'data', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'random-variables', sets: [{ id: '1' }] },
+    { id: 'estimation', sets: [{ id: '1', rule: 'estimation-a' }] },
+    { id: 'testing', sets: [{ id: '1', rule: 'testing-a' }] },
+  ] },
+  { id: 'sets', domain: 'logic', stage: 'high', status: 'comingSoon', items: [
+    { id: 'operations', sets: [{ id: '1' }] },
+    { id: 'venn', sets: [{ id: '1' }] },
+  ] },
+  { id: 'logic', domain: 'logic', stage: 'high', status: 'comingSoon', items: [
+    { id: 'negation', sets: [{ id: '1' }] },
+    { id: 'conditions', sets: [{ id: '1' }] },
+    { id: 'truth-table', sets: [{ id: '1' }] },
+  ] },
+  { id: 'mapping', domain: 'logic', stage: 'university', status: 'comingSoon', items: [
+    { id: 'injective', sets: [{ id: '1' }] },
+    { id: 'equivalence', sets: [{ id: '1' }] },
+  ] },
+  { id: 'series', domain: 'calculus', stage: 'university', status: 'comingSoon', items: [
+    { id: 'series', sets: [{ id: '1' }] },
+    { id: 'taylor', sets: [{ id: '1' }] },
+  ] },
+  { id: 'improper-integral', domain: 'calculus', stage: 'university', status: 'comingSoon', items: [
+    { id: 'improper', sets: [{ id: '1' }] },
+  ] },
+  { id: 'multivariable', domain: 'calculus', stage: 'university', status: 'comingSoon', items: [
+    { id: 'partial', sets: [{ id: '1' }] },
+    { id: 'double-integral', sets: [{ id: '1' }] },
+    { id: 'polar', sets: [{ id: '1' }] },
+  ] },
+  { id: 'ode', domain: 'calculus', stage: 'university', status: 'comingSoon', items: [
+    { id: 'separable', sets: [{ id: '1' }] },
+    { id: 'linear-first', sets: [{ id: '1' }] },
+    { id: 'second-order', sets: [{ id: '1' }] },
   ] },
 ];
 
+export function findUnit(id: string) {
+  return MATH_CATALOG.find(unit => unit.id === id);
+}
+
 export function getComingSoonUnit(id: string) {
   return MATH_CATALOG.find(unit => unit.id === id && unit.status === 'comingSoon');
+}
+
+// Every unit whose problems have this shape.
+export function unitsOfKind(kind: MathKind): readonly string[] {
+  return MATH_CATALOG.filter(unit => unit.kind === kind).map(unit => unit.id);
+}
+
+// A unit's sets flattened, in display order, with the item each belongs to.
+export function unitSets(unitId: string): { item: string; id: string; rule?: string }[] {
+  return (findUnit(unitId)?.items ?? []).flatMap(item => item.sets.map(set => ({ item: item.id, ...set })));
 }
 
 // Shared by the HTML robots tag and Worker response headers, including .data requests.

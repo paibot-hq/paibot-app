@@ -601,14 +601,19 @@
       "description": "Practice arithmetic, factoring, and other math topics, one topic at a time.",
       "keywords": "math drills arithmetic algebra factoring quiz problem set",
       "intro": "Every unit and problem set, grouped by area of mathematics. Highlighted sets are ready to practice.",
-      "arithLink": "Order of operations & word problems",
-      "arithSummary": "Order of operations, calculation rules and word problems.",
-      "factorizationLink": "Factoring",
-      "factorizationSummary": "Factor x² + ax + b into the form (x + p)(x + q). Practice for factoring quadratics.",
+      "itemPage": {
+        "toPractice": "Go to practice",
+        "points": "Key points",
+        "example": "Worked example",
+        "about": "What you learn",
+        "previous": "Previous",
+        "next": "Next",
+        "neighbors": "Previous and next items"
+      },
       "quiz": {
         "setComingSoon": "This problem set is being prepared. Check back soon.",
         "backToMath": "Math Drills",
-        "backToSets": "Choose a different set",
+        "breadcrumb": "Breadcrumb",
         "progress": "{current} / {total}",
         "answer": "Answer",
         "correct": "Correct",
@@ -620,48 +625,22 @@
         "record": "Last {last} / {total} · Best {best} / {total}",
         "saved": "Your score has been saved.",
         "saveFailed": "Your score could not be saved.",
-        "signInToSave": "Sign in to keep a record of your scores."
+        "signInToSave": "Sign in to keep a record of your scores.",
+        "practice": "Practice {number}",
+        "chooseSet": "Choose a set to practice.",
+        "chooseItem": "Choose what to practice.",
+        "tierCount": "{tier} {count}",
+        "tierSeparator": ", ",
+        "columnMethod": "Column method"
       },
       "arith": {
-        "title": "Order of operations & word problems",
-        "description": "Practice the order of operations, calculation rules and word problems with four-choice quizzes.",
-        "keywords": "math arithmetic order of operations word problems quiz",
-        "setEasyWord": "Easy word problems",
-        "setEasyWordDescription": "Short word problems you can solve in one or two steps.",
-        "setOrder": "Order of operations",
-        "setOrderDescription": "Parentheses first, then × and ÷. Check the order you calculate in.",
-        "setOrderB": "Order of operations (practice B)",
-        "setWord": "Multi-step word problems",
-        "setWordDescription": "Word problems that take two or three calculations. Try these after the easy ones.",
         "formula": "Expression:",
-        "valueWithUnit": "{value} {unit}",
-        "setRules": "Calculation rules",
-        "setRulesDescription": "Use the associative and distributive laws to calculate smartly."
+        "valueWithUnit": "{value} {unit}"
       },
       "factorization": {
-        "title": "Factoring",
-        "description": "Practice factoring x² + ax + b with a multiple-choice quiz.",
-        "keywords": "math factoring quiz quadratic",
-        "setStandard": "Factoring trinomials",
-        "setStandardDescription": "Integers from 1 to 9 - get comfortable with the basic form.",
-        "setDifferenceOfSquares": "Difference of squares",
-        "setDifferenceOfSquaresDescription": "Only the x² − a² form - good for learning to spot the pattern.",
-        "explanationTemplate": "The two integers that multiply to {b} and add to {a} are {p} and {q}.",
-        "setVarious": "The ac method, substitution & more",
-        "setVariousDescription": "High-school factoring: the ac method, substitution, two variables, and sums and differences of cubes.",
-        "setCommonFactor": "Factoring out common factors",
-        "setCommonFactorDescription": "Take out the factor common to every term, sometimes followed by a formula.",
-        "setPerfectSquare": "Perfect square trinomials",
-        "setPerfectSquareDescription": "Write x² + 2ax + a² as (x + a)²."
+        "explanationTemplate": "The two integers that multiply to {b} and add to {a} are {p} and {q}."
       },
-      "signedLink": "Negative numbers",
-      "signedSummary": "Arithmetic with negative numbers - practice keeping the signs right.",
       "signed": {
-        "title": "Negative numbers",
-        "description": "Practice arithmetic with negative numbers with multiple-choice quizzes.",
-        "keywords": "math negative numbers integers arithmetic quiz",
-        "setFourOps": "Negative numbers",
-        "setFourOpsDescription": "Arithmetic with negative numbers - watch the signs.",
         "formula": "Expression:",
         "valueWithUnit": "{value} {unit}"
       },
@@ -674,610 +653,1825 @@
       "comingSoon": "Coming soon",
       "unitCount": "{count, plural, one {# unit} other {# units}}",
       "units": {
-        "decimal": {
-          "title": "Decimals",
-          "summary": "Practice adding, subtracting, multiplying, and dividing decimals.",
-          "sets": {
-            "add-sub-a": "Adding & subtracting decimals",
-            "mul-div-a": "Multiplying & dividing decimals"
-          }
-        },
-        "fraction": {
-          "title": "Fractions",
-          "summary": "Practice simplifying fractions, finding common denominators, and calculating with fractions.",
-          "sets": {
-            "simplify-a": "Simplifying & common denominators",
-            "add-sub-a": "Adding & subtracting fractions",
-            "mul-div-a": "Multiplying & dividing fractions"
-          }
-        },
-        "divisors": {
-          "title": "Factors & multiples",
-          "summary": "Use factors and multiples to find common factors and common multiples.",
-          "sets": {
-            "divisors-a": "Factors & multiples",
-            "gcd-lcm-a": "Greatest common factor & least common multiple"
-          }
-        },
-        "ratio": {
-          "title": "Percentages & ratios",
-          "summary": "Learn the basics of percentages and ratios, then try word problems.",
-          "sets": {
-            "percent-a": "Percentages",
-            "ratio-a": "Simplifying ratios",
-            "word-a": "Percentage word problems"
-          }
-        },
-        "measurement": {
-          "title": "Measurement",
-          "summary": "Practice converting units and finding areas and volumes.",
-          "sets": {
-            "units-a": "Converting units",
-            "area-volume-a": "Area & volume",
-            "circle-a": "Circumference & area of circles"
-          }
-        },
-        "data": {
-          "title": "Working with data",
-          "summary": "Explore data by finding the mean, median, and range.",
-          "sets": {
-            "average-a": "Mean",
-            "median-range-a": "Median & range"
-          }
-        },
-        "expression": {
-          "title": "Algebraic expressions",
-          "summary": "Practice substitution, combining like terms, and working with algebraic expressions.",
-          "sets": {
-            "value-a": "Evaluating expressions",
-            "like-terms-a": "Combining like terms",
-            "distribute-a": "Distributive property",
-            "rearrange-a": "Rearranging formulas"
-          }
-        },
-        "linear-equation": {
-          "title": "Linear equations",
-          "summary": "Practice solving linear equations, from moving terms to word problems.",
-          "sets": {
-            "basic-a": "Moving terms across the equals sign",
-            "parentheses-a": "Equations with parentheses",
-            "fraction-a": "Equations with fractions",
-            "word-a": "Word problems"
-          }
-        },
-        "simultaneous": {
-          "title": "Systems of equations",
-          "summary": "Solve systems of equations using elimination and substitution.",
-          "sets": {
-            "elimination-a": "Elimination",
-            "substitution-a": "Substitution",
-            "word-a": "Word problems"
-          }
-        },
-        "linear-function": {
-          "title": "Proportionality & linear functions",
-          "summary": "Explore direct and inverse proportion, slopes, and intercepts.",
-          "sets": {
-            "proportion-a": "Direct & inverse proportion",
-            "slope-a": "Slope & intercept",
-            "two-points-a": "Line through two points",
-            "equations-a": "Linear functions & equations"
-          }
-        },
-        "inequality": {
-          "title": "Inequalities",
-          "summary": "Solve linear inequalities to find the range of values that satisfy them.",
-          "sets": {
-            "linear-a": "Linear inequalities",
-            "quadratic-a": "Quadratic inequalities",
-            "absolute-a": "Absolute value"
-          }
-        },
-        "expansion": {
-          "title": "Expanding expressions",
-          "summary": "Use algebraic identities to expand expressions with parentheses.",
-          "sets": {
-            "formulas-a": "Multiplication identities",
-            "square-a": "Expanding squares",
-            "sum-difference-a": "Product of a sum and a difference"
-          }
-        },
-        "sqrt": {
-          "title": "Square roots",
-          "summary": "Practice calculating with square roots and rationalizing denominators.",
-          "sets": {
-            "simplify-a": "Simplifying radicals",
-            "add-sub-a": "Adding & subtracting square roots",
-            "rationalize-a": "Rationalizing denominators"
-          }
-        },
-        "prime": {
-          "title": "Prime factorization",
-          "summary": "Practice writing integers as products of prime numbers.",
-          "sets": {
-            "prime-a": "Prime factorization"
-          }
-        },
-        "pythagoras": {
-          "title": "Pythagorean theorem",
-          "summary": "Use the Pythagorean theorem to find side lengths in right triangles.",
-          "sets": {
-            "sides-a": "Finding side lengths"
-          }
-        },
-        "probability": {
-          "title": "Probability",
-          "summary": "Learn probability basics by counting possible outcomes.",
-          "sets": {
-            "basic-a": "Probability basics"
-          }
-        },
-        "quadratic": {
-          "title": "Quadratic equations",
-          "summary": "Solve quadratic equations by factoring and using the quadratic formula.",
-          "sets": {
-            "factoring-a": "Solving by factoring",
-            "formula-a": "Quadratic formula",
-            "discriminant-a": "Discriminant"
-          }
-        },
-        "quadratic-function": {
-          "title": "Quadratic functions",
-          "summary": "Find the vertex of a parabola and the maximum or minimum of a quadratic function.",
-          "sets": {
-            "vertex-a": "Vertex",
-            "max-min-a": "Maximum & minimum"
-          }
-        },
-        "sequence": {
-          "title": "Sequences",
-          "summary": "Explore arithmetic and geometric sequences and calculate their sums.",
-          "sets": {
-            "arithmetic-a": "Arithmetic sequences",
-            "geometric-a": "Geometric sequences",
-            "sigma-a": "Sigma notation & sums",
-            "recurrence-a": "Recurrence relations"
-          }
-        },
-        "trig": {
-          "title": "Trigonometric ratios & functions",
-          "summary": "Practice special-angle values, radians, and angle addition formulas.",
-          "sets": {
-            "values-a": "Special-angle values",
-            "radian-a": "Radians",
-            "addition-a": "Angle addition formulas",
-            "synthesis-a": "Combining sine & cosine"
-          }
-        },
-        "exp-log": {
-          "title": "Exponents & logarithms",
-          "summary": "Practice exponent rules and basic logarithm calculations.",
-          "sets": {
-            "exponent-a": "Exponent rules",
-            "log-a": "Calculating logarithms"
-          }
-        },
-        "combinatorics": {
-          "title": "Counting & probability",
-          "summary": "Use permutations and combinations to count outcomes and calculate probabilities.",
-          "sets": {
-            "permutations-a": "Permutations",
-            "combinations-a": "Combinations",
-            "probability-a": "Probability",
-            "conditional-a": "Conditional probability",
-            "expectation-a": "Expected value"
-          }
-        },
-        "derivative": {
-          "title": "Differentiation",
-          "summary": "Differentiate polynomials to find tangent lines and local extrema.",
-          "sets": {
-            "polynomial-a": "Differentiating polynomials",
-            "tangent-a": "Derivative at a point & tangent lines",
-            "extrema-a": "Local extrema",
-            "transcendental-a": "Derivatives of trig, exponential and log functions",
-            "chain-rule-a": "Chain, product and quotient rules"
-          }
-        },
-        "integral": {
-          "title": "Integration",
-          "summary": "Practice indefinite and definite integrals and use them to find areas.",
-          "sets": {
-            "indefinite-a": "Indefinite integrals",
-            "definite-a": "Definite integrals",
-            "area-a": "Area",
-            "substitution-a": "Integration by substitution",
-            "by-parts-a": "Integration by parts",
-            "volume-a": "Volumes and arc length"
-          }
-        },
-        "complex": {
-          "title": "Complex numbers",
-          "summary": "Practice complex arithmetic, non-real roots of quadratic equations, and the complex plane.",
-          "sets": {
-            "arithmetic-a": "Complex arithmetic",
-            "quadratic-roots-a": "Non-real roots of quadratic equations",
-            "plane-a": "The complex plane"
-          }
-        },
-        "coordinate-geometry": {
-          "title": "Coordinate geometry",
-          "summary": "Practice equations of lines and circles, and loci.",
-          "sets": {
-            "line-a": "Equations of lines",
-            "circle-a": "Equations of circles",
-            "locus-a": "Loci",
-            "region-a": "Regions defined by inequalities"
-          }
-        },
-        "vector": {
-          "title": "Vectors",
-          "summary": "Practice vector components and magnitude, dot products, and angles between vectors.",
-          "sets": {
-            "components-a": "Components & magnitude",
-            "dot-product-a": "Dot products",
-            "angle-a": "Angles between vectors",
-            "space-a": "Vectors in space"
-          }
-        },
-        "matrix": {
-          "title": "Matrices",
-          "summary": "Practice matrix addition and multiplication, 2×2 determinants, and inverse matrices.",
-          "sets": {
-            "operations-a": "Matrix addition & multiplication",
-            "determinant-a": "2×2 determinants",
-            "inverse-a": "Inverse matrices"
-          }
-        },
-        "linear-system": {
-          "title": "Linear systems & matrices",
-          "summary": "Solve systems of linear equations using row reduction and determine the number of solutions.",
-          "sets": {
-            "elimination-a": "Row reduction",
-            "solutions-a": "Number of solutions"
-          }
-        },
-        "eigen": {
-          "title": "Eigenvalues & eigenvectors",
-          "summary": "Practice finding eigenvalues and eigenvectors of 2×2 matrices.",
-          "sets": {
-            "eigenvalues-a": "2×2 eigenvalues",
-            "eigenvectors-a": "Eigenvectors",
-            "diagonalize-a": "Diagonalization"
-          }
-        },
-        "rounding": {
-          "title": "Rounding & estimation",
-          "summary": "Round numbers up, down and to the nearest place to estimate results.",
-          "sets": {
-            "rounding-a": "Rounding",
-            "estimate-a": "Estimation"
-          }
-        },
-        "exponents": {
-          "title": "Powers & exponents",
-          "summary": "Work with powers, the laws of exponents and scientific notation.",
-          "sets": {
-            "powers-a": "Powers and exponent laws",
-            "scientific-a": "Scientific notation and significant figures"
-          }
-        },
-        "integers": {
-          "title": "Number theory basics",
-          "summary": "The Euclidean algorithm, number bases and modular arithmetic.",
-          "sets": {
-            "euclid-a": "Euclidean algorithm",
-            "base-n-a": "Number bases",
-            "congruence-a": "Modular arithmetic"
-          }
-        },
-        "identities": {
-          "title": "Identities & the binomial theorem",
-          "summary": "Use the binomial theorem and polynomial identities.",
-          "sets": {
-            "binomial-a": "Binomial theorem",
-            "identity-a": "Identities",
-            "inequality-proof-a": "Proving inequalities"
-          }
-        },
-        "polynomial-equations": {
-          "title": "Polynomial equations",
-          "summary": "Solve higher-degree equations with the remainder and factor theorems.",
-          "sets": {
-            "remainder-a": "Remainder and factor theorems",
-            "higher-degree-a": "Higher-degree equations"
-          }
-        },
-        "rate": {
-          "title": "Speed & unit rates",
-          "summary": "Find speed, time and distance, and compare quantities per unit.",
-          "sets": {
-            "speed-a": "Speed, time and distance",
-            "per-unit-a": "Unit rates"
-          }
-        },
-        "conic": {
-          "title": "Conic sections",
-          "summary": "Parabolas, ellipses and hyperbolas, with parametric and polar forms.",
-          "sets": {
-            "parabola-a": "Parabolas",
-            "ellipse-hyperbola-a": "Ellipses and hyperbolas",
-            "polar-a": "Parametric and polar forms"
-          }
-        },
-        "angles": {
-          "title": "Angles & polygons",
-          "summary": "Find angles with parallel lines and the interior and exterior angles of polygons.",
-          "sets": {
-            "parallel-a": "Angles and parallel lines",
-            "polygon-a": "Interior and exterior angles"
-          }
-        },
-        "circle-solid": {
-          "title": "Circles & solids",
-          "summary": "Sectors, and the volume and surface area of cones, pyramids and spheres.",
-          "sets": {
-            "sector-a": "Sectors",
-            "solid-a": "Volume and surface area of solids"
-          }
-        },
-        "similarity": {
-          "title": "Similarity & circle theorems",
-          "summary": "Use similar figures and the inscribed angle theorem.",
-          "sets": {
-            "similarity-a": "Similar figures",
-            "inscribed-angle-a": "Inscribed angle theorem"
-          }
-        },
-        "transformations": {
-          "title": "Transformations",
-          "summary": "Move figures by translation, rotation and reflection.",
-          "sets": {
-            "moves-a": "Translations, rotations and reflections"
-          }
-        },
-        "triangle-trig": {
-          "title": "Solving triangles",
-          "summary": "Find sides, angles and areas of triangles with the laws of sines and cosines.",
-          "sets": {
-            "sine-law-a": "Law of sines",
-            "cosine-law-a": "Law of cosines",
-            "area-a": "Area of a triangle"
-          }
-        },
-        "triangle-properties": {
-          "title": "Properties of figures",
-          "summary": "Triangle centers, the power of a point, and Ceva's and Menelaus's theorems.",
-          "sets": {
-            "centers-a": "Triangle centers",
-            "power-a": "Power of a point",
-            "ceva-menelaus-a": "Ceva's and Menelaus's theorems"
-          }
-        },
-        "quartiles": {
-          "title": "Quartiles & box plots",
-          "summary": "Find quartiles and read the spread of data from box plots.",
-          "sets": {
-            "quartiles-a": "Quartiles",
-            "boxplot-a": "Box plots"
-          }
-        },
-        "statistics": {
-          "title": "Variance & correlation",
-          "summary": "Find the variance, standard deviation and correlation coefficient.",
-          "sets": {
-            "variance-a": "Variance and standard deviation",
-            "correlation-a": "Correlation coefficient"
-          }
-        },
-        "distributions": {
-          "title": "Probability distributions",
-          "summary": "Expected values, variances and probabilities of binomial and normal distributions.",
-          "sets": {
-            "binomial-a": "Binomial distribution",
-            "normal-a": "Normal distribution"
-          }
-        },
-        "inference": {
-          "title": "Estimation & hypothesis testing",
-          "summary": "Estimate means and proportions and carry out hypothesis tests.",
-          "sets": {
-            "estimation-a": "Estimation",
-            "testing-a": "Hypothesis testing"
-          }
-        },
-        "sets": {
-          "title": "Sets",
-          "summary": "Unions, intersections and complements, and counting with Venn diagrams.",
-          "sets": {
-            "operations-a": "Union, intersection and complement",
-            "venn-a": "Venn diagrams and counting"
-          }
-        },
-        "logic": {
-          "title": "Propositions & logic",
-          "summary": "Negation and contrapositive, necessary and sufficient conditions, and truth tables.",
-          "sets": {
-            "negation-a": "Negation and contrapositive",
-            "conditions-a": "Necessary and sufficient conditions",
-            "truth-table-a": "Truth tables"
-          }
-        },
-        "mapping": {
-          "title": "Functions & relations",
-          "summary": "Injective and surjective maps, and equivalence relations.",
-          "sets": {
-            "injective-a": "Injective and surjective maps",
-            "equivalence-a": "Equivalence relations"
-          }
-        },
-        "vector-space": {
-          "title": "Vector spaces",
-          "summary": "Linear independence, bases and dimension, and matrix rank.",
-          "sets": {
-            "independence-a": "Linear independence",
-            "basis-a": "Basis and dimension",
-            "rank-a": "Rank"
-          }
-        },
-        "linear-map": {
-          "title": "Linear maps",
-          "summary": "Find matrix representations, kernels and images.",
-          "sets": {
-            "matrix-rep-a": "Matrix representation",
-            "kernel-image-a": "Kernel and image"
-          }
-        },
-        "inner-product": {
-          "title": "Inner products & orthogonality",
-          "summary": "Orthogonal and orthonormal bases, and Gram-Schmidt orthogonalization.",
-          "sets": {
-            "orthogonal-a": "Orthogonal and orthonormal bases",
-            "gram-schmidt-a": "Gram-Schmidt process"
-          }
-        },
-        "limit": {
-          "title": "Limits",
-          "summary": "Find limits of sequences and functions.",
-          "sets": {
-            "sequence-a": "Limits of sequences",
-            "function-a": "Limits of functions"
-          }
-        },
-        "series": {
-          "title": "Series & Taylor expansions",
-          "summary": "Sums and convergence of series, and Taylor expansions.",
-          "sets": {
-            "series-a": "Sums and convergence of series",
-            "taylor-a": "Taylor expansions"
-          }
-        },
-        "improper-integral": {
-          "title": "Improper integrals",
-          "summary": "Integrals over infinite intervals or with singularities.",
-          "sets": {
-            "improper-a": "Improper integrals"
-          }
-        },
-        "multivariable": {
-          "title": "Partial derivatives & multiple integrals",
-          "summary": "Partial derivatives and multiple integrals of functions of several variables.",
-          "sets": {
-            "partial-a": "Partial derivatives",
-            "double-integral-a": "Multiple integrals"
-          }
-        },
-        "ode": {
-          "title": "Differential equations",
-          "summary": "Solve separable, first-order linear and constant-coefficient second-order equations.",
-          "sets": {
-            "separable-a": "Separable equations",
-            "linear-first-a": "First-order linear equations",
-            "second-order-a": "Second-order with constant coefficients"
-          }
-        },
-        "place-value": {
-          "title": "Place value & large numbers",
-          "summary": "Place value, from tens and hundreds up to millions and billions.",
-          "sets": {
-            "place-value-a": "Place value",
-            "large-numbers-a": "Large numbers"
-          }
-        },
-        "time": {
-          "title": "Clocks & time",
-          "summary": "Reading clocks and working out elapsed time.",
-          "sets": {
-            "reading-a": "Reading clocks",
-            "elapsed-a": "Elapsed time"
-          }
-        },
-        "shapes": {
-          "title": "Basic shapes",
-          "summary": "Triangles, quadrilaterals, circles and measuring angles.",
-          "sets": {
-            "triangles-quads-a": "Triangles & quadrilaterals",
-            "circles-a": "Circles & spheres",
-            "angles-a": "Measuring angles"
-          }
-        },
-        "symmetry": {
-          "title": "Symmetry & scale drawings",
-          "summary": "Line and point symmetry, and enlargements and reductions.",
-          "sets": {
-            "symmetry-a": "Line & point symmetry",
-            "scale-a": "Scale drawings"
-          }
-        },
-        "graphs": {
-          "title": "Tables & graphs",
-          "summary": "Reading tables, bar and line graphs, pie charts and histograms.",
-          "sets": {
-            "tables-a": "Tables & bar graphs",
-            "line-graph-a": "Line graphs",
-            "pie-band-a": "Pie & bar-percentage charts",
-            "histogram-a": "Histograms"
-          }
-        },
-        "counting": {
-          "title": "Arrangements & combinations",
-          "summary": "Counting arrangements and choices without missing or repeating any.",
-          "sets": {
-            "arrangements-a": "Arrangements",
-            "combinations-a": "Combinations"
-          }
-        },
-        "congruence": {
-          "title": "Congruence & properties of shapes",
-          "summary": "Congruence conditions for triangles, and properties of isosceles triangles and parallelograms.",
-          "sets": {
-            "conditions-a": "Congruence conditions",
-            "triangles-a": "Isosceles & right triangles",
-            "parallelogram-a": "Conditions for parallelograms"
-          }
-        },
-        "square-function": {
-          "title": "The function y = ax²",
-          "summary": "Graphs of y = ax², rates of change, and where parabolas meet lines.",
-          "sets": {
-            "graph-a": "Graphs & equations",
-            "rate-of-change-a": "Rate of change",
-            "intersection-a": "Parabolas & lines"
-          }
-        },
-        "sampling": {
-          "title": "Sampling",
-          "summary": "Census versus sampling, and estimating a population from a sample.",
-          "sets": {
-            "population-sample-a": "Populations & samples",
-            "estimate-a": "Estimating from a sample"
-          }
-        },
         "addition": {
           "title": "Addition & subtraction",
           "summary": "From carrying and borrowing to column addition and subtraction.",
-          "sets": {
-            "carry-a": "Carrying & borrowing",
-            "two-digit-a": "Two-digit numbers",
-            "column-a": "Column addition & subtraction"
+          "items": {
+            "within-10": {
+              "title": "Adding & subtracting within 10",
+              "summary": "Learn addition and subtraction within numbers up to 10.",
+              "description": "Students practice addition and subtraction within the range of numbers up to 10, based on composing and decomposing numbers. These basic skills are essential for everyday tasks and form the foundation for future arithmetic. Being able to accurately count numbers from 1 to 10 will help you learn smoothly."
+            },
+            "carry": {
+              "title": "Carrying & borrowing",
+              "summary": "Learn addition with carrying and subtraction with borrowing.",
+              "description": "Using groups of ten, learners practice addition with carrying and subtracting a single digit from teens with borrowing. This concept deepens understanding of place value and prepares students for larger calculations. A solid grasp of calculations within 10 makes this topic easier to master."
+            },
+            "two-digit": {
+              "title": "Two-digit numbers",
+              "summary": "Learn two-digit addition and subtraction.",
+              "description": "Students learn to add and subtract two-digit numbers by aligning tens and ones places. These calculation skills are widely used in daily situations, such as finding total prices or change. Being confident with single-digit addition and subtraction involving regrouping will help you master this unit quickly."
+            },
+            "column": {
+              "title": "Column addition & subtraction",
+              "summary": "Learn column addition and subtraction for 3 to 4 digits.",
+              "description": "Students learn how to use column methods to accurately add and subtract larger three- and four-digit numbers. This approach is practical when dealing with large quantities or monetary amounts. A firm foundation in two-digit addition, subtraction, and place-value principles will ensure smooth learning."
+            }
           }
         },
         "multiplication": {
           "title": "Multiplication",
           "summary": "From times tables to multiplying two- and three-digit numbers.",
-          "sets": {
-            "times-table-a": "Times tables",
-            "by-one-digit-a": "2–3 digits × 1 digit",
-            "by-two-digit-a": "2–3 digits × 2 digits"
+          "items": {
+            "times-table": {
+              "title": "Times tables",
+              "summary": "Master the multiplication tables from 1 to 9.",
+              "description": "Students learn the multiplication tables from 1 to 9 based on repeated addition. These essential math facts are used constantly in everyday life, such as finding total items or calculating costs. A confident understanding of basic single-digit addition will help deepen your comprehension of multiplication."
+            },
+            "by-one-digit": {
+              "title": "2–3 digits × 1 digit",
+              "summary": "Learn to multiply 2- or 3-digit numbers by 1 digit.",
+              "description": "Students practice column multiplication by applying multiplication tables to each place value and handling carries when multiplying multi-digit numbers by a single digit. This skill helps calculate total costs for multiple identical items. Fluency in multiplication tables and column addition makes learning this process straightforward."
+            },
+            "by-two-digit": {
+              "title": "2–3 digits × 2 digits",
+              "summary": "Learn to multiply 2- or 3-digit numbers by 2 digits.",
+              "description": "Students learn column multiplication by splitting two-digit multipliers into tens and ones, then adding the partial products together. This method is frequently used for calculating large quantities, areas, or bulk purchases. Mastering basic multiplication tables and one-digit column multiplication ensures success in learning this procedure."
+            }
           }
         },
         "division": {
           "title": "Division",
           "summary": "From division with times tables to remainders and dividing by two-digit numbers.",
-          "sets": {
-            "basic-a": "Division with times tables",
-            "remainder-a": "Division with remainders",
-            "by-two-digit-a": "Dividing by two-digit numbers"
+          "items": {
+            "basic": {
+              "title": "Division with times tables",
+              "summary": "Learn basic division using multiplication tables.",
+              "description": "Students learn fundamental division concepts, such as equal sharing and grouping, by working backwards from multiplication tables. This skill is commonly used when distributing items equally among friends or groups. Solid mastery of multiplication tables is an essential prerequisite that allows learners to solve these problems smoothly."
+            },
+            "remainder": {
+              "title": "Division with remainders",
+              "summary": "Learn division with remainders.",
+              "description": "Students learn how to calculate quotients and remainders when numbers do not divide evenly, recognizing that remainders must be smaller than divisors. This applies to everyday situations like packing items into equal bags. Prior knowledge of basic division using multiplication tables and simple subtraction is helpful."
+            },
+            "by-two-digit": {
+              "title": "Dividing by two-digit numbers",
+              "summary": "Learn long division by two-digit divisors.",
+              "description": "Students learn how to perform long division with two-digit divisors, including techniques for estimating and adjusting quotient digits. This method is valuable for distributing resources among large groups or converting units. Strong skills in one-digit long division, column multiplication, and subtraction are essential prerequisites for success."
+            }
+          }
+        },
+        "arith": {
+          "title": "Order of operations & word problems",
+          "summary": "Order of operations, calculation rules and word problems.",
+          "items": {
+            "order-of-operations": {
+              "title": "Order of operations",
+              "description": "Students learn the rules for order of operations: calculate inside parentheses first, and perform multiplication and division before addition and subtraction. Operations with the same priority are solved from left to right. This essential knowledge ensures accuracy when evaluating complex expressions with mixed operations.",
+              "summary": "Learn the proper order of operations with parentheses."
+            },
+            "rules": {
+              "title": "Calculation rules",
+              "description": "Use the associative and distributive laws to calculate smartly.",
+              "summary": "Learn calculation rules to compute efficiently."
+            },
+            "simple-word-problems": {
+              "title": "Simple word problems",
+              "description": "Short word problems you can solve in one or two steps.",
+              "summary": "Solve simple, short word problems."
+            },
+            "word-problems": {
+              "title": "Multi-step word problems",
+              "description": "Word problems that take two or three calculations. Try these after the easy ones.",
+              "summary": "Solve multi-step word problems."
+            }
+          }
+        },
+        "unknowns": {
+          "title": "Boxes & letters in expressions",
+          "summary": "Writing and finding unknown numbers with boxes and letters.",
+          "items": {
+            "box": {
+              "title": "Equations with a box",
+              "summary": "Learn to set up and solve equations using shapes.",
+              "description": "Students learn to express mathematical situations into equations using a box symbol for unknown numbers and solve them using inverse operations. This approach is helpful for finding missing quantities or differences in costs. A clear understanding of basic four arithmetic operations is essential before beginning."
+            },
+            "letters": {
+              "title": "Expressions with letters",
+              "summary": "Learn to use letters to express mathematical formulas.",
+              "description": "Students learn to represent unknown quantities and mathematical relationships generally using letters like x, and evaluate them by substituting numbers. This serves as the foundation for algebra and scientific formulas. Familiarity with equations using shapes and basic arithmetic operations will help you succeed here."
+            }
+          }
+        },
+        "place-value": {
+          "title": "Place value & large numbers",
+          "summary": "Place value, from tens and hundreds up to millions and billions.",
+          "items": {
+            "to-100": {
+              "title": "Numbers to 100",
+              "summary": "Learn counting and place value up to 100.",
+              "description": "Students learn how to read, write, and compare numbers up to 100 by focusing on groups of ten and place value. These skills are helpful for counting money, scores, or calendar dates. Being comfortable counting and recognizing numbers up to 20 provides a solid foundation for this topic."
+            },
+            "to-10000": {
+              "title": "Numbers to 10,000",
+              "summary": "Learn reading and writing numbers up to 10,000.",
+              "description": "Students learn how to read, write, compose, and compare numbers up to 10,000 based on hundreds and thousands. This knowledge is used daily when handling paper money or measuring long distances. A strong grasp of numbers up to 100 and grouping by hundreds makes this topic easy to understand."
+            },
+            "ten-thousands": {
+              "title": "Numbers in the ten thousands",
+              "summary": "Learn place value and numbers in the ten-thousands.",
+              "description": "Students learn how to read, write, and understand numbers in the ten-thousands place, using ten thousand as a new unit. These numbers are commonly used for describing city populations or prices of electronics. Familiarity with numbers up to 10,000 and the decimal place-value system provides the necessary background."
+            },
+            "large-numbers": {
+              "title": "Large numbers",
+              "summary": "Learn reading and writing large numbers up to trillions.",
+              "description": "Students learn to read, write, and comprehend very large numbers such as ten-thousands, hundred-millions, and trillions by grouping digits into units of four or three. These values appear in national budgets, astronomical distances, and economics. Solid competence in place value up to ten-thousands will help you understand these massive numbers."
+            }
+          }
+        },
+        "time": {
+          "title": "Clocks & time",
+          "summary": "Reading clocks and working out elapsed time.",
+          "items": {
+            "reading": {
+              "title": "Reading clocks",
+              "summary": "Learn how to read hours and minutes from an analog clock.",
+              "description": "In this topic, you will learn how to read hours and minutes using clock hands. This skill is helpful for managing daily routines and scheduling activities on time. Familiarity with counting numbers and recognizing basic numerals will support your learning."
+            },
+            "elapsed": {
+              "title": "Elapsed time",
+              "summary": "Learn to calculate elapsed time and future or past times.",
+              "description": "You will learn how to determine elapsed time between two events and calculate future or past times. This is essential for planning daily schedules and estimating travel duration. A solid understanding of reading clocks and the relation that sixty minutes make an hour is helpful."
+            }
+          }
+        },
+        "decimal": {
+          "title": "Decimals",
+          "summary": "Practice adding, subtracting, multiplying, and dividing decimals.",
+          "items": {
+            "add-sub-tenths": {
+              "title": "Adding & subtracting tenths",
+              "summary": "Learn addition and subtraction with tenths using decimals.",
+              "description": "You will learn how to add and subtract decimals with tenths by aligning the decimal points vertically. This technique is useful for combining and comparing fractional measurements of length or liquid volume. Prior mastery of multi-digit whole number addition and subtraction will make this easier."
+            },
+            "add-sub": {
+              "title": "Adding & subtracting hundredths",
+              "summary": "Add and subtract decimals up to hundredths.",
+              "description": "You will learn how to add and subtract decimals up to hundredths, including numbers with different numbers of decimal digits, using column addition and subtraction. This method helps when working with precise measurements of length and weight. Familiarity with decimal place values and tenths will support your learning."
+            },
+            "mul-div-whole": {
+              "title": "Decimals × and ÷ whole numbers",
+              "summary": "Learn to multiply and divide decimals by whole numbers.",
+              "description": "You will learn how to multiply and divide decimals by whole numbers using standard algorithms. This calculation is practical when finding the total weight of multiple identical items or sharing quantities equally. Being comfortable with whole number multiplication and division is essential for this topic."
+            },
+            "mul-div": {
+              "title": "Decimals × and ÷ decimals",
+              "summary": "Learn to multiply and divide decimals by decimals.",
+              "description": "You will learn how to carry out multiplication and division where both numbers are decimals. This operation is widely used in calculating areas, unit rates, and scaling values proportionally. Familiarity with multiplying and dividing decimals by whole numbers provides a strong foundation for this topic."
+            }
+          }
+        },
+        "fraction": {
+          "title": "Fractions",
+          "summary": "Practice simplifying fractions, finding common denominators, and calculating with fractions.",
+          "items": {
+            "unit-fractions": {
+              "title": "Halves & quarters",
+              "summary": "Learn basic fractions like halves and fourths of a whole.",
+              "description": "You will explore the basic meaning of fractions by dividing an entire object into equal parts such as halves and fourths. This concept helps when folding paper or sharing snacks equally among friends. Understanding how to divide quantities into equal groups is great preparation."
+            },
+            "meaning": {
+              "title": "The size of fractions",
+              "summary": "Understand fraction magnitude and representation on a line.",
+              "description": "You will learn the meaning of numerators and denominators, interpreting fractions as collections of unit fractions on a number line. This knowledge is useful for reading scale markings and comparing fractional quantities. A basic grasp of dividing whole objects equally will support this topic."
+            },
+            "simplify": {
+              "title": "Simplifying & common denominators",
+              "summary": "Learn how to simplify and find common denominators.",
+              "description": "You will learn how to simplify fractions and find common denominators by using equivalent fraction properties. These techniques are crucial for comparing fractions and preparing for addition and subtraction. Prior mastery of finding common factors and multiples will make these procedures straightforward."
+            },
+            "fraction-decimal": {
+              "title": "Fractions, decimals & whole numbers",
+              "summary": "Learn relations and conversions among fractions and decimals.",
+              "description": "You will explore how to convert fractions into decimals and whole numbers, as well as rewrite decimals as fractions. This skill is valuable for comparing quantities given in different formats and simplifying complex calculations. A solid grasp of division and decimal place values is recommended."
+            },
+            "add-sub-like": {
+              "title": "Adding & subtracting like fractions",
+              "summary": "Add and subtract fractions with same denominators.",
+              "description": "You will learn how to add and subtract fractions sharing identical denominators by operating only on their numerators. This is practical when combining or removing parts measured with the same unit fraction. Understanding that fractions represent collections of unit parts will make this concept very intuitive."
+            },
+            "mixed": {
+              "title": "Mixed numbers & improper fractions",
+              "summary": "Learn mixed numbers, improper fractions, and conversions.",
+              "description": "You will learn the concepts of improper fractions and mixed numbers representing quantities of one or more, including how to convert between them. This helps when describing quantities greater than one in cooking or measurements. A firm understanding of proper fractions and integer division will make conversions much easier."
+            },
+            "add-sub": {
+              "title": "Adding & subtracting unlike fractions",
+              "summary": "Add and subtract fractions with different denominators.",
+              "description": "You will learn how to add and subtract fractions with different denominators by finding a common denominator first. This skill is useful for combining quantities measured in the same unit but expressed with different denominators. Proficiency in finding least common multiples and simplifying fractions will ensure your success."
+            },
+            "mul-div": {
+              "title": "Multiplying & dividing fractions",
+              "summary": "Learn multiplication and division of fractions.",
+              "description": "You will learn how to multiply fractions directly and divide fractions using reciprocals. You will also learn how to calculate efficiently by simplifying during calculations. These operations are commonly used when finding quantities from proportions, so mastering simplification steps is essential."
+            }
+          }
+        },
+        "divisors": {
+          "title": "Factors & multiples",
+          "summary": "Use factors and multiples to find common factors and common multiples.",
+          "items": {
+            "divisors": {
+              "title": "Factors & multiples",
+              "summary": "Learn the properties of factors and multiples of integers.",
+              "description": "You will learn about factors as positive integers that divide an integer evenly, and multiples formed by multiplying an integer by 1, 2, 3, and so on. This helps with dividing objects equally without remainders and analyzing periodic patterns. Strong familiarity with basic multiplication and division provides a solid foundation."
+            },
+            "gcd-lcm": {
+              "title": "Greatest common factor & least common multiple",
+              "summary": "Find greatest common factors and least common multiples.",
+              "description": "You will learn methods to determine the greatest common factor and least common multiple of two or more numbers. These concepts are essential for simplifying fractions, finding common denominators, and solving scheduling problems. A solid grasp of listing individual factors and multiples is recommended."
+            }
+          }
+        },
+        "rounding": {
+          "title": "Rounding & estimation",
+          "summary": "Round numbers up, down and to the nearest place to estimate results.",
+          "items": {
+            "rounding": {
+              "title": "Rounding",
+              "summary": "Learn how to round numbers using standard rules.",
+              "description": "You will learn how to round numbers to a designated place value by rounding down or up depending on the digit. This method is practical for simplifying large numbers when reporting statistics, prices, or populations. Understanding place value systems and comparing single-digit numbers will help you master this skill."
+            },
+            "estimate": {
+              "title": "Estimation",
+              "summary": "Learn estimation techniques using rounded numbers.",
+              "description": "You will learn how to estimate calculation results by rounding numbers before performing arithmetic operations. This technique is valuable for quick budget checks while shopping and for catching major computational errors during problem solving. Prior familiarity with rounding rules and basic four operations will make estimating much easier."
+            }
+          }
+        },
+        "ratio": {
+          "title": "Percentages & ratios",
+          "summary": "Learn the basics of percentages and ratios, then try word problems.",
+          "items": {
+            "simple-ratio": {
+              "title": "Simple ratios: how many times",
+              "summary": "Understand how to compare quantities as simple multiples.",
+              "description": "You will learn how to express the relationship between two quantities by finding how many times greater one is than the base amount. This concept is useful when comparing lengths, weights, or prices in everyday situations. Prior understanding of multiplication and division concepts is essential for mastering this comparison."
+            },
+            "percent": {
+              "title": "Percentages",
+              "summary": "Understand percentages based on a base value of 100.",
+              "description": "You will learn the meaning of percentages as ratios regarding the base quantity as 100, along with the percent symbol. This concept is commonly used when calculating discounts, growth rates, and statistical data. A clear grasp of decimal operations and basic ratios provides a strong foundation."
+            },
+            "ratio": {
+              "title": "Simplifying ratios",
+              "summary": "Learn how to simplify ratios to the lowest terms.",
+              "description": "Learn how to simplify ratios into their simplest integer form using the properties of equivalent ratios. This skill is useful for comparing quantities clearly, such as in cooking recipes and scale drawings. Having prior knowledge of common factors and simplifying fractions will help solve problems smoothly."
+            },
+            "word-problems": {
+              "title": "Percentage word problems",
+              "summary": "Learn to solve word problems using proportions and ratios.",
+              "description": "Learn how to identify base and compared quantities from word problems to find ratios correctly. This method is widely used in daily situations such as calculating discounts and analyzing statistical data. Prior mastery of decimal multiplication and division will make solving these problems much smoother."
+            }
+          }
+        },
+        "measurement": {
+          "title": "Measurement",
+          "summary": "Practice converting units and finding areas and volumes.",
+          "items": {
+            "length-capacity": {
+              "title": "Length & capacity",
+              "summary": "Learn units and measurement for length and capacity.",
+              "description": "Learn standard units and measurement methods for length and capacity, such as meters and liters. These skills are helpful for measuring objects and comparing liquid amounts in daily life. Having basic knowledge of numbers along with simple addition and subtraction will make learning these units much easier."
+            },
+            "weight": {
+              "title": "Weight",
+              "summary": "Learn units of weight and how to measure weight.",
+              "description": "Learn units of weight such as grams and kilograms, and how to read scales correctly. These measurement skills are essential when weighing cooking ingredients or checking luggage in daily life. Prior understanding of basic measurement units and multi-digit addition and subtraction will make calculations easy and intuitive."
+            },
+            "area-units": {
+              "title": "Units of area",
+              "summary": "Learn various units of area and how to convert them.",
+              "description": "Learn various area units, from square centimeters and square meters to ares and hectares. These units are necessary for describing the size of rooms, gardens, and larger land areas. Prior understanding of length unit conversions and mastery of large number multiplication will provide a solid foundation."
+            },
+            "rect-area": {
+              "title": "Area of rectangles & squares",
+              "summary": "Learn formulas to calculate rectangle and square areas.",
+              "description": "Learn the formulas to calculate the areas of rectangles and squares by multiplying their side lengths. This method is practical for measuring floor space or paper sizes in daily activities. Having a solid proficiency in multiplication and understanding the properties of rectangles and squares will make calculations easy."
+            },
+            "area": {
+              "title": "Area of triangles, parallelograms & trapezoids",
+              "summary": "Learn area formulas for triangles and parallelograms.",
+              "description": "Learn the geometric formulas to calculate the areas of triangles, parallelograms, and trapezoids using base and height. These formulas are useful in carpentry, land measurement, and design projects. Prior knowledge of rectangle area calculation along with perpendicular and parallel lines will help in understanding the derivations."
+            },
+            "volume": {
+              "title": "Volume of cuboids & cubes",
+              "summary": "Learn formulas to calculate rectangular prism volumes.",
+              "description": "Learn the formulas to calculate the volume of rectangular prisms and cubes from their dimensions, along with units of volume. This knowledge is used to determine box capacities and liquid storage sizes. Prior familiarity with rectangle area and mastery of multiplying three numbers will make calculations straightforward."
+            },
+            "circumference": {
+              "title": "Circumference",
+              "summary": "Learn the concept of pi and how to find circumference.",
+              "description": "Learn the meaning of pi and the formula to calculate the circumference of a circle from its diameter. This calculation is used when determining tire distances or measuring circular columns. Prior understanding of the relationship between radius and diameter, along with mastery of decimal multiplication, will ensure smooth calculations."
+            },
+            "circle-area": {
+              "title": "Area of circles",
+              "summary": "Learn the formula and reasoning for the area of a circle.",
+              "description": "Learn how to find the area of a circle by rearranging finely divided sectors into a shape close to a rectangle. This method applies to measuring circular flower beds, table surfaces, and pizza sizes. Prior understanding of pi and the area formula of parallelograms will make learning this concept smooth and intuitive."
+            },
+            "prism-volume": {
+              "title": "Volume of prisms & cylinders",
+              "summary": "Learn to calculate volumes of prisms and cylinders.",
+              "description": "Learn how to calculate the volumes of prisms and cylinders by multiplying base area by height. This technique is applied when determining container capacities, storage tanks, and architectural columns. Prior mastery of calculating base areas, such as triangles and circles, along with rectangular prism volumes will ensure solid comprehension."
+            }
+          }
+        },
+        "shapes": {
+          "title": "Basic shapes",
+          "summary": "Triangles, quadrilaterals, circles and measuring angles.",
+          "items": {
+            "solids-basic": {
+              "title": "Solid shapes",
+              "summary": "Learn the basic shapes and features of everyday solids.",
+              "description": "Learn to identify common three-dimensional shapes like boxes, cylinders, and spheres by observing their surfaces and rolling abilities. These observational skills help with organizing objects and building structures in daily play. Experiencing hands-on exploration and comparing real-world items will provide an excellent and intuitive starting point for this learning."
+            },
+            "basic-shapes": {
+              "title": "Rectangles, squares & right triangles",
+              "summary": "Learn features of rectangles, squares, and right triangles.",
+              "description": "Learn the properties of rectangles, squares, and right triangles by focusing on side lengths and right angles. These concepts are useful for recognizing shapes in everyday objects like paper, screens, and tiles. Prior familiarity with straight lines, vertices, and measuring lengths using a ruler will support smooth and confident learning."
+            },
+            "boxes": {
+              "title": "Box shapes: faces, edges & vertices",
+              "summary": "Learn the faces, edges, and vertices of box shapes.",
+              "description": "Learn about the components of boxes by examining the shapes and numbers of their faces, edges, and vertices. This knowledge helps when assembling paper crafts, packaging boxes, and visualizing unfolded nets. Prior understanding of rectangles, squares, and right angles will make it easier to grasp these three-dimensional spatial structures."
+            },
+            "triangles": {
+              "title": "Isosceles & equilateral triangles",
+              "summary": "Learn isosceles and equilateral triangle properties.",
+              "description": "Learn the properties of isosceles and equilateral triangles regarding their side lengths, angles, and compass construction. These geometric features are widely utilized in architectural trusses and structural design. Having prior knowledge of basic triangle definitions and length measurement will help you understand and draw these figures with ease."
+            },
+            "quadrilaterals": {
+              "title": "Parallelograms, trapezoids & rhombuses",
+              "summary": "Learn features of parallelograms, trapezoids, rhombuses.",
+              "description": "Learn the geometric properties of trapezoids, parallelograms, and rhombuses by examining parallel sides, side lengths, and diagonals. These quadrilaterals are used in creating tessellation patterns and analyzing mechanical linkages. Prior understanding of parallel and perpendicular lines, as well as angle measurement, will make classifying and constructing them straightforward."
+            },
+            "circles": {
+              "title": "Circles & spheres",
+              "summary": "Learn properties of centers, radii, and diameters.",
+              "description": "Learn the geometric properties of circles and spheres by focusing on centers, radii, and diameters. These round shapes are essential in understanding wheels, clock faces, sports balls, and compass drawings. Prior familiarity with length measurement and basic solid shapes will provide the necessary foundation for understanding this topic."
+            },
+            "compass-drawing": {
+              "title": "Drawing with a compass",
+              "summary": "Learn how to draw circles and copy lengths using a compass.",
+              "description": "Learn how to use a compass to draw circles and accurately transfer line segment lengths. These techniques are useful for creating geometric patterns and constructing triangles with specified side lengths. Prior understanding of ruler usage and the meaning of a circle's radius will help you practice effectively."
+            },
+            "angles": {
+              "title": "Measuring angles",
+              "summary": "Learn units of degrees and how to measure angles.",
+              "description": "Learn the unit of degrees and how to measure and construct various angles using a protractor. Understanding angles is useful in navigation, astronomy, and observing slopes or hands on a clock. Prior familiarity with right angles, vertices, and straight lines will help you read protractor scales accurately and comfortably."
+            },
+            "perpendicular-parallel": {
+              "title": "Perpendicular & parallel lines",
+              "summary": "Learn perpendicular and parallel lines and how to draw them.",
+              "description": "Learn the properties and construction of perpendicular lines intersecting at right angles and parallel lines that never meet on the same plane. These concepts help describe positional relationships in intersections and railroad tracks. Prior knowledge of right angles and triangle rulers ensures neat, accurate line construction."
+            },
+            "parallel-drawing": {
+              "title": "Drawing parallel & perpendicular lines",
+              "summary": "Draw parallel and perpendicular lines using set squares.",
+              "description": "Learn how to accurately draw parallel and perpendicular lines using set squares and rulers. Precise drawing forms the foundation for understanding geometric properties of quadrilaterals. Being familiar with the basic concepts of right angles and parallelism will help you succeed."
+            },
+            "cuboids": {
+              "title": "Cuboids & cubes: nets & sketches",
+              "summary": "Learn properties, sketches, and nets of cuboids and cubes.",
+              "description": "Explore the properties of cuboids and cubes, focusing on their faces, edges, and vertices. Drawing sketches and nets helps develop spatial visualization skills for three-dimensional shapes. Reviewing the basic properties of rectangles, squares, and right angles beforehand will make learning more effective."
+            },
+            "congruent": {
+              "title": "Congruent figures",
+              "summary": "Learn the properties and features of congruent figures.",
+              "description": "Investigate properties of congruent figures that match exactly when overlapped, including corresponding sides, angles, and vertices. Learning to identify figures with identical shape and size provides essential groundwork for geometric reasoning and construction. Reviewing how to measure lengths and angles is recommended."
+            },
+            "congruent-drawing": {
+              "title": "Drawing congruent figures",
+              "summary": "Draw congruent triangles using a protractor and compass.",
+              "description": "Learn how to construct congruent triangles using a compass, ruler, and protractor based on specific side lengths and angle measurements. Focusing on necessary geometric conditions prepares you for technical drawing and design. Familiarity with the basic properties of congruent figures will make this topic easier to master."
+            },
+            "angle-sum": {
+              "title": "Angle sums of triangles & quadrilaterals",
+              "summary": "Find the angle sums of triangles and quadrilaterals.",
+              "description": "Learn that the interior angles of a triangle add up to 180 degrees, while those of a quadrilateral sum to 360 degrees. This fundamental property is essential for calculating unknown angles across various geometric figures. Reviewing angle measurement and the concept of straight angles will deepen your understanding."
+            },
+            "prisms": {
+              "title": "Prisms & cylinders",
+              "summary": "Explore the properties and nets of prisms and cylinders.",
+              "description": "Explore the structures and properties of prisms and cylinders, examining relationships between bases and lateral surfaces alongside their nets. Understanding these solid shapes is crucial for calculating surface area and volume in real-world contexts. Reviewing cuboids, rectangles, and circle properties beforehand will help you understand the concepts smoothly."
+            }
+          }
+        },
+        "symmetry": {
+          "title": "Symmetry & scale drawings",
+          "summary": "Line and point symmetry, and enlargements and reductions.",
+          "items": {
+            "symmetry": {
+              "title": "Line & point symmetry",
+              "summary": "Learn line symmetry and point symmetry in geometric shapes.",
+              "description": "Study line symmetry, where figures fold onto themselves, and rotational point symmetry around a center. These concepts are widely used to analyze patterns in nature, art, and architecture. Having a clear grasp of congruent shapes and basic angle measurements will make constructing symmetric figures much easier."
+            },
+            "scale": {
+              "title": "Scale drawings",
+              "summary": "Understand scale drawings and scaled figures using ratios.",
+              "description": "Learn how figures change in size while maintaining the same shape, examining corresponding side lengths and invariant angles. Scaled drawings are essential for interpreting maps, blueprints, and architectural models in everyday life. Reviewing ratios, proportions, and the properties of congruent figures will help you grasp this topic effectively."
+            }
+          }
+        },
+        "data": {
+          "title": "Working with data",
+          "summary": "Explore data by finding the mean, median, and range.",
+          "items": {
+            "average": {
+              "title": "Mean",
+              "summary": "Learn how to calculate and interpret the mean of data.",
+              "description": "Learn how to calculate the average by leveling out multiple numerical values, and understand how to interpret it. The mean is widely used to represent the central tendency of test scores or experimental observations. Confident skills in multi-digit addition and division will help you solve problems accurately."
+            },
+            "median-range": {
+              "title": "Median & range",
+              "summary": "Learn how to find the median and range of a dataset.",
+              "description": "Learn to find the median (the middle value or the mean of the two middle values for even data sizes) and the range (the difference between maximum and minimum). The median is a representative value resilient to extreme values. Prior knowledge of ordering numbers and calculating averages will aid your learning."
+            }
+          }
+        },
+        "graphs": {
+          "title": "Tables & graphs",
+          "summary": "Reading tables, bar and line graphs, pie charts and histograms.",
+          "items": {
+            "tables": {
+              "title": "Tables & picture graphs",
+              "summary": "Organize data into tables and read simple pictographs.",
+              "description": "Learn how to count and organize surveyed items into structured tables and represent them using simple visual charts. This skill makes information clear at a glance when sharing observations with others. Being able to count items accurately and perform basic addition will ensure a solid foundation."
+            },
+            "bar-graph": {
+              "title": "Bar graphs",
+              "summary": "Read, draw, and interpret bar graphs with suitable scales.",
+              "description": "Learn how to read and construct bar graphs, representing numerical quantities through the length of bars while choosing appropriate scale intervals. Bar graphs are essential for comparing quantities across different categories. Basic experience with data tables and the ability to interpret scale units will support your learning."
+            },
+            "line-graph": {
+              "title": "Line graphs",
+              "summary": "Read and draw line graphs to show changes over time.",
+              "description": "Learn how to read and draw line graphs, which represent quantities changing over time, such as temperature or weight. Analyzing the slope of the lines helps identify increases and decreases. Prior familiarity with reading graph scales and plotting points connected by straight lines will facilitate your learning."
+            },
+            "two-way-table": {
+              "title": "Two-way tables",
+              "summary": "Organize data using two-way tables across two variables.",
+              "description": "Learn how to organize data across two categories simultaneously using rows and columns in a two-way table. This format helps classify survey results, such as responses grouped by gender and preference. Familiarity with simple one-variable tables and accurate addition skills will ensure effective analysis."
+            },
+            "pie-band": {
+              "title": "Pie & bar-percentage charts",
+              "summary": "Read and draw pie charts and divided bar graphs.",
+              "description": "Learn how to read and construct divided bar graphs and pie charts, representing parts of a whole as percentages totaling 100%. These charts are widely used in news reports and market research to visualize proportions. A solid grasp of calculating ratios and percentages beforehand will ensure success."
+            },
+            "histogram": {
+              "title": "Histograms",
+              "summary": "Learn to group data into intervals and create histograms.",
+              "description": "Learn how to construct histograms by dividing continuous data into intervals and plotting frequencies as bar heights. Histograms are extensively used to evaluate data distribution, skewness, and spread. Reviewing frequency distribution tables and standard bar graphs beforehand will provide a smooth foundation."
+            }
+          }
+        },
+        "counting": {
+          "title": "Arrangements & combinations",
+          "summary": "Counting arrangements and choices without missing or repeating any.",
+          "items": {
+            "arrangements": {
+              "title": "Arrangements",
+              "summary": "Count permutations systematically using tree diagrams.",
+              "description": "Learn how to find all possible ordered arrangements (permutations) of items systematically using tree diagrams and lists. Counting outcomes without omission or duplication forms the foundation for probability theory. Cultivating organized habits in listing possibilities will help you solve these combinatorial problems with ease."
+            },
+            "combinations": {
+              "title": "Combinations",
+              "summary": "Find the number of combinations without regarding order.",
+              "description": "Learn how to determine the total number of combinations when choosing items where the order of selection does not matter. This technique is practical for organizing tournaments, team selections, and everyday choices. Reviewing how to count permutations and structure organized tables will support your learning."
+            }
+          }
+        },
+        "signed": {
+          "title": "Negative numbers",
+          "summary": "Arithmetic with negative numbers - practice keeping the signs right.",
+          "items": {
+            "four-operations": {
+              "title": "Negative numbers",
+              "description": "Arithmetic with negative numbers - watch the signs.",
+              "summary": "Master the four arithmetic operations with signed numbers."
+            }
+          }
+        },
+        "exponents": {
+          "title": "Powers & exponents",
+          "summary": "Work with powers, the laws of exponents and scientific notation.",
+          "items": {
+            "powers": {
+              "title": "Powers and exponent laws",
+              "summary": "Learn the meaning, notation, and calculation of powers.",
+              "description": "Learn the concept of powers representing repeated multiplication of the same number, their notation using exponents, and basic calculations. These skills form the foundation for working with algebraic expressions and equations. Confidence in performing multiplication with positive and negative numbers is helpful before beginning."
+            },
+            "scientific": {
+              "title": "Scientific notation and significant figures",
+              "summary": "Learn to express large numbers and use significant figures.",
+              "description": "Learn how to express large numbers using powers of ten and handle significant figures, which represent meaningful digits in measurements. This approach is useful for reporting observational data and experimental measurements accurately. Prior knowledge of decimal place value and basic powers will support your understanding."
+            }
+          }
+        },
+        "expression": {
+          "title": "Algebraic expressions",
+          "summary": "Practice substitution, combining like terms, and working with algebraic expressions.",
+          "items": {
+            "value": {
+              "title": "Evaluating expressions",
+              "summary": "Learn to evaluate expressions by substitution.",
+              "description": "You will learn how to substitute specific numbers for variables to evaluate algebraic expressions. This skill is essential for calculating results from formulas in geometry and physics. Having a solid understanding of the four basic operations with positive and negative numbers is recommended before beginning."
+            },
+            "like-terms": {
+              "title": "Combining like terms",
+              "summary": "Learn to simplify expressions by combining like terms.",
+              "description": "You will learn to identify terms with identical variable parts and combine them by adding or subtracting their coefficients. This fundamental skill is essential for simplifying complex expressions and solving algebraic equations. Prior knowledge of variables, coefficients, and operations with signed numbers will be helpful."
+            },
+            "distribute": {
+              "title": "Distributive property",
+              "summary": "Learn to expand expressions with the distributive property.",
+              "description": "You will learn how to remove parentheses by multiplying each term inside by the outer value using the distributive property. This technique is widely used to simplify algebraic expressions and solve equations. Understanding basic multiplication rules and combining like terms will make this topic much easier to master."
+            },
+            "polynomials": {
+              "title": "Monomials & polynomials",
+              "summary": "Learn operations on polynomials, monomials, and numbers.",
+              "description": "Learn how to add and subtract polynomials, multiply and divide monomials, and multiply or divide polynomials by numbers. Simplifying expressions by combining like terms forms the foundation for advanced algebraic calculations. Prior understanding of basic algebraic operations and the distributive property ensures smooth learning."
+            },
+            "rearrange": {
+              "title": "Rearranging formulas",
+              "summary": "Learn how to rearrange formulas for a specific variable.",
+              "description": "You will learn how to rearrange equations to solve for a specific variable using algebraic properties. This skill is frequently applied to transform geometric formulas and scientific equations to isolate desired quantities. Prior understanding of solving basic linear equations and transposing terms is helpful for this topic."
+            }
+          }
+        },
+        "linear-equation": {
+          "title": "Linear equations",
+          "summary": "Practice solving linear equations, from moving terms to word problems.",
+          "items": {
+            "basic": {
+              "title": "Moving terms across the equals sign",
+              "summary": "Learn to solve basic linear equations using transposition.",
+              "description": "You will understand the principle of transposing terms by reversing their signs across the equals sign to solve linear equations. This operation serves as the foundation for solving various mathematical problems involving unknowns. Prior knowledge of the basic properties of equality and signed numbers is helpful."
+            },
+            "parentheses": {
+              "title": "Equations with parentheses",
+              "summary": "Learn to solve linear equations containing parentheses.",
+              "description": "You will learn the procedure for solving linear equations with parentheses by applying the distributive property before rearranging terms. This skill is useful when working with equations derived from real-world word problems. Prior mastery of the distributive property and basic transposition is recommended for smooth learning."
+            },
+            "fraction": {
+              "title": "Equations with fractions",
+              "summary": "Learn to solve linear equations containing fractions.",
+              "description": "You will learn how to eliminate denominators by multiplying both sides by a common multiple to solve equations with integer coefficients. This approach is frequently used to handle equations arising from rates, ratios, and percentages. Familiarity with finding least common multiples and properties of equality is helpful."
+            },
+            "proportion": {
+              "title": "Proportions (a : b = c : d)",
+              "summary": "Learn to solve equations derived from proportions.",
+              "description": "You will learn how to solve for an unknown in proportions using the property that the product of extremes equals the product of means. This skill is widely applied in calculating geometric scales, map ratios, and recipe mixtures. A solid understanding of basic ratios and linear equations is recommended beforehand."
+            },
+            "word-problems": {
+              "title": "Word problems",
+              "summary": "Learn to model and solve real-world problems with equations.",
+              "description": "You will learn how to identify unknown quantities in word problems, set up linear equations, and verify the resulting solutions. This technique is applied to solve everyday problems involving costs, travel speeds, and quantities. Prior confidence in solving various linear equations is essential before tackling these problems."
+            }
+          }
+        },
+        "simultaneous": {
+          "title": "Systems of equations",
+          "summary": "Solve systems of equations using elimination and substitution.",
+          "items": {
+            "elimination": {
+              "title": "Elimination",
+              "summary": "Learn to solve simultaneous equations using elimination.",
+              "description": "You will learn the elimination method to solve simultaneous equations by adding or subtracting equations to eliminate one variable. This technique provides a systematic way to solve problems involving multiple unknown quantities. Having a firm grasp of linear equations and arithmetic operations with polynomials is beneficial."
+            },
+            "substitution": {
+              "title": "Substitution",
+              "summary": "Learn to solve simultaneous equations using substitution.",
+              "description": "You will learn how to solve simultaneous equations by isolating one variable in an equation and substituting it into the other. This method is particularly convenient when a variable is already expressed in terms of another. Prior knowledge of rearranging formulas and basic linear equations will support your learning."
+            },
+            "word-problems": {
+              "title": "Word problems",
+              "summary": "Learn to model and solve word problems with systems.",
+              "description": "You will learn how to identify two unknowns, set up a system of linear equations from a problem, and interpret the solutions. This approach is widely applied to solve scenarios involving prices, travel times, or mixture quantities. Solid proficiency in elimination and substitution methods is required before starting."
+            }
+          }
+        },
+        "linear-function": {
+          "title": "Proportionality & linear functions",
+          "summary": "Explore direct and inverse proportion, slopes, and intercepts.",
+          "items": {
+            "proportion": {
+              "title": "Direct & inverse proportion",
+              "summary": "Learn direct and inverse proportions and their graphs.",
+              "description": "Learn direct proportion where the ratio between two quantities is constant, and inverse proportion where their product is constant, along with their graphs. These describe relationships like time and distance at constant speed, or rectangle dimensions with fixed area. Prior knowledge of coordinates and signed numbers helps your progress."
+            },
+            "slope": {
+              "title": "Slope & intercept",
+              "summary": "Learn about slope and y-intercept in linear functions.",
+              "description": "You will explore how the slope and y-intercept determine the behavior and position of a straight line on a graph. This concept is widely used to visualize and model steady rates of increase or decrease in data. Prior knowledge of direct proportions and plotting coordinates will support your understanding."
+            },
+            "two-points": {
+              "title": "Line through two points",
+              "summary": "Find linear function equations from two given points.",
+              "description": "Learn how to calculate the slope from two points with different coordinates to find the linear function whose graph is the line passing through them. This technique is useful for establishing linear models from observational data. Familiarity with slopes, intercepts, and systems of equations ensures smooth progress."
+            },
+            "equations": {
+              "title": "Linear functions & equations",
+              "summary": "Learn the connection between linear equations and graphs.",
+              "description": "You will learn that two-variable linear equations represent straight lines, and the solution to a system corresponds to their intersection point. This topic bridges algebraic calculations with geometric visualizations to deepen mathematical reasoning. Prior mastery of graphing linear functions and solving simultaneous equations is recommended."
+            }
+          }
+        },
+        "square-function": {
+          "title": "The function y = ax²",
+          "summary": "Graphs of y = ax², rates of change, and where parabolas meet lines.",
+          "items": {
+            "graph": {
+              "title": "Graphs & equations",
+              "summary": "Learn quadratic functions y=ax² and parabolic graphs.",
+              "description": "You will explore quadratic functions of the form y=ax², examining how the coefficient affects the opening and width of parabolas. These curves are widely used to model accelerating motion, such as freely falling objects. Prior knowledge of squaring numbers and plotting coordinates is helpful for understanding this topic."
+            },
+            "rate-of-change": {
+              "title": "Rate of change",
+              "summary": "Learn the rate of change for quadratic functions y=ax².",
+              "description": "You will learn how to calculate the rate of change for y=ax² and understand why it varies across intervals, unlike linear functions. This concept is essential for determining average speeds in physics and serves as an introduction to calculus. Prior understanding of linear rates of change and function evaluation is recommended."
+            },
+            "intersection": {
+              "title": "Parabolas & lines",
+              "summary": "Learn to find intersection points of a parabola and a line.",
+              "description": "Learn to find the coordinates of intersection points between a parabola and a line by solving a system of equations. This technique is frequently used to analyze geometric relationships between graphs. Before starting, it is helpful to have a solid understanding of linear functions and solving quadratic equations."
+            }
+          }
+        },
+        "inequality": {
+          "title": "Inequalities",
+          "summary": "Solve linear inequalities to find the range of values that satisfy them.",
+          "items": {
+            "linear": {
+              "title": "Linear inequalities",
+              "summary": "Learn to solve linear inequalities and express solutions.",
+              "description": "Learn how to solve linear inequalities to determine the valid range of values, paying close attention to negative coefficients. This skill is widely applied when dealing with range conditions and constraints. Having a solid grasp of solving linear equations beforehand will make learning this topic much smoother."
+            },
+            "quadratic": {
+              "title": "Quadratic inequalities",
+              "summary": "Learn to solve quadratic inequalities using graphs.",
+              "description": "Learn how to solve quadratic inequalities by analyzing the relationship between a quadratic graph and the x-axis. This method is essential for determining ranges and domains in various mathematical applications. Reviewing factoring techniques and how to sketch parabolas beforehand will help you understand the concepts more deeply."
+            },
+            "absolute": {
+              "title": "Absolute value",
+              "summary": "Solve equations and inequalities containing absolute values.",
+              "description": "Learn how to solve equations and inequalities containing absolute values by considering different cases based on distance from the origin. This technique is widely used when evaluating error tolerances and intervals on a number line. Prior familiarity with linear equations, inequalities, and number lines will support your understanding."
+            }
+          }
+        },
+        "expansion": {
+          "title": "Expanding expressions",
+          "summary": "Use algebraic identities to expand expressions with parentheses.",
+          "items": {
+            "formulas": {
+              "title": "Multiplication identities",
+              "summary": "Learn to expand algebraic expressions using formulas.",
+              "description": "Learn how to expand algebraic expressions efficiently using fundamental multiplication formulas such as the product of binomials. This foundation ensures speed and accuracy in calculations and is vital for subsequent factoring. Having a good grasp of the distributive property of polynomials beforehand is highly recommended."
+            },
+            "square": {
+              "title": "Expanding squares",
+              "summary": "Learn to expand squared binomials using formulas.",
+              "description": "Learn to expand expressions in the form of squared binomials efficiently using the square of a sum and difference formulas. This skill is frequently required in completing the square and solving quadratic equations. Understanding basic polynomial expansion through the distributive property beforehand will make this topic easier."
+            },
+            "sum-difference": {
+              "title": "Product of a sum and a difference",
+              "summary": "Learn to expand the product of a sum and difference.",
+              "description": "Learn the formula for expanding the product of the sum and difference of two terms into a difference of squares. This formula simplifies algebraic manipulation and is crucial for rationalizing denominators later on. Being comfortable with operations on positive and negative numbers and basic polynomial multiplication is beneficial."
+            },
+            "three-terms": {
+              "title": "Expanding with three terms",
+              "summary": "Learn how to expand expressions containing three terms.",
+              "description": "Learn how to expand expressions containing three terms, such as the square of a trinomial, by grouping terms effectively. This technique is useful when simplifying complex symmetric algebraic expressions. Ensuring you are already familiar with two-term multiplication formulas will make this topic much easier to understand."
+            },
+            "cubic": {
+              "title": "Cubic expansions",
+              "summary": "Learn to expand cubic polynomials using formulas.",
+              "description": "Learn how to expand cubic expressions efficiently using algebraic formulas such as the cube of a binomial. This calculation is essential for handling higher-degree polynomials and equations. Having a solid understanding of quadratic expansion formulas and combining like terms will help you master this topic smoothly."
+            }
+          }
+        },
+        "factorization": {
+          "title": "Factoring",
+          "summary": "Factor x² + ax + b into the form (x + p)(x + q). Practice for factoring quadratics.",
+          "items": {
+            "common-factor": {
+              "title": "Factoring out common factors",
+              "description": "Take out the factor common to every term, sometimes followed by a formula.",
+              "summary": "Learn to factor by taking out common factors."
+            },
+            "trinomial": {
+              "title": "Factoring trinomials",
+              "description": "Learn how to factor quadratic trinomials of the form x^2+(a+b)x+ab into (x+a)(x+b) by finding pairs with matching sums and products. You will practice fundamental problems where constants a and b are integers. Prior familiarity with expanding binomial expressions will help you grasp this technique quickly.",
+              "summary": "Factor quadratic trinomials into products of two binomials."
+            },
+            "perfect-square": {
+              "title": "Perfect square trinomials",
+              "description": "Write x² + 2ax + a² as (x + a)².",
+              "summary": "Learn to factor perfect square trinomials into squares."
+            },
+            "difference-of-squares": {
+              "title": "Difference of squares",
+              "description": "Only the x² − a² form - good for learning to spot the pattern.",
+              "summary": "Learn to factor a difference of squares into binomials."
+            }
+          }
+        },
+        "factoring": {
+          "title": "Factoring (high school)",
+          "summary": "High-school factoring: the ac method, two variables, substitution, sums and differences of cubes.",
+          "items": {
+            "ac-method": {
+              "title": "The ac (cross) method",
+              "summary": "Factor quadratic trinomials using cross-multiplication.",
+              "description": "Learn how to factor quadratic trinomials where the leading coefficient is not one by using cross-multiplication or the ac-method. This skill is helpful for factoring higher-degree polynomials and solving quadratic equations or inequalities. Prior mastery of basic factoring patterns and expansion formulas ensures smooth progress."
+            },
+            "two-variables": {
+              "title": "Factoring with two variables",
+              "summary": "Learn to factor multi-variable expressions systematically.",
+              "description": "Learn how to factor expressions with two variables systematically by arranging terms in descending powers of the lower-degree variable. This strategy is essential for working with multivariable equations and symmetric expressions. Being proficient in single-variable factoring and extracting common factors beforehand is strongly recommended."
+            },
+            "substitution": {
+              "title": "Substitution & biquadratics",
+              "summary": "Learn to factor expressions using substitution methods.",
+              "description": "Learn how to factor complex higher-degree polynomials and biquadratic expressions by substituting repeated parts with a single variable or forming a difference of squares. This technique is valuable for simplifying intricate algebraic expressions. Prior mastery of standard factoring formulas and quadratic equations is essential."
+            },
+            "cubes": {
+              "title": "Sums & differences of cubes",
+              "summary": "Factor cubic expressions using sum and difference of cubes.",
+              "description": "Learn how to factor cubic expressions into linear and quadratic factors using the sum and difference of cubes formulas. This technique is widely utilized when solving higher-degree equations and simplifying algebraic fractions. Prior knowledge of cubic expansion formulas and quadratic factoring helps ensure smooth progress."
+            }
+          }
+        },
+        "sqrt": {
+          "title": "Square roots",
+          "summary": "Practice calculating with square roots and rationalizing denominators.",
+          "items": {
+            "rational-irrational": {
+              "title": "Rational & irrational numbers",
+              "summary": "Learn to distinguish rational and irrational numbers.",
+              "description": "Learn how to classify real numbers by understanding that rational numbers can be expressed as ratios of integers (with non-zero denominators), while irrational numbers cannot. This distinction helps clarify number systems and square root properties. Prior familiarity with fractions and decimals ensures smooth learning."
+            },
+            "simplify": {
+              "title": "Simplifying radicals",
+              "summary": "Learn to simplify radical expressions into standard form.",
+              "description": "Learn how to simplify radical expressions by taking square factors out of the radical into their simplest radical form. This skill is indispensable for performing arithmetic with radicals and expressing solutions cleanly. Prior understanding of prime factorization and the definition of square roots will ensure a smooth learning experience."
+            },
+            "add-sub": {
+              "title": "Adding & subtracting square roots",
+              "summary": "Learn to add and subtract radical expressions accurately.",
+              "description": "Learn how to add and subtract radical expressions by treating identical radicals like combined algebraic terms. This method is regularly used when calculating geometric lengths and simplifying solutions to quadratic equations. Reviewing how to simplify square roots and combine like terms beforehand is essential for quick mastery."
+            },
+            "rationalize": {
+              "title": "Rationalizing denominators",
+              "summary": "Learn how to remove radicals from fraction denominators.",
+              "description": "You will learn how to eliminate radicals from the denominator of a fraction to simplify expressions. This technique makes calculating numerical values and comparing expressions much easier. A good understanding of square root properties and algebraic expansion is helpful before starting this topic."
+            },
+            "double-radical": {
+              "title": "Nested radicals",
+              "summary": "Simplify nested radicals into sums or differences of roots.",
+              "description": "Learn how to transform nested radicals into the form of √a ± √b, expressing them as sums or differences of square roots. This technique simplifies expressions involving radicals and makes irrational values easier to handle. Prior mastery of algebraic expansions and basic square root arithmetic supports smooth learning."
+            }
+          }
+        },
+        "prime": {
+          "title": "Prime factorization",
+          "summary": "Practice writing integers as products of prime numbers.",
+          "items": {
+            "prime": {
+              "title": "Prime factorization",
+              "summary": "Factor integers greater than 1 into prime factors.",
+              "description": "Learn how to perform prime factorization by breaking down natural numbers greater than or equal to 2 into products of primes. This method is useful for examining properties of divisors and finding greatest common divisors. Prior knowledge of prime numbers and basic division will support your understanding."
+            }
+          }
+        },
+        "integers": {
+          "title": "Number theory basics",
+          "summary": "The Euclidean algorithm, number bases and modular arithmetic.",
+          "items": {
+            "euclid": {
+              "title": "Euclidean algorithm",
+              "summary": "Learn the algorithm to find the greatest common divisor.",
+              "description": "You will learn an efficient algorithm to find the greatest common divisor of two integers using division remainders. It is especially useful when dealing with large numbers that are hard to factor. Familiarity with the division algorithm and properties of integer remainders is helpful before learning this."
+            },
+            "diophantine": {
+              "title": "Linear Diophantine equations",
+              "summary": "Learn how to solve linear Diophantine equations.",
+              "description": "You will learn how to find all integer solutions to equations with fewer equations than variables. This approach is widely used in discrete mathematics and problems requiring integer constraints. Mastering the Euclidean algorithm beforehand will make finding particular solutions much easier."
+            },
+            "base-n": {
+              "title": "Number bases",
+              "summary": "Learn positional numeral systems and radix conversion.",
+              "description": "You will learn how to represent numbers using different bases, such as binary and hexadecimal, and how to convert between them. This is fundamental in computer science and digital data representation. Prior familiarity with place value in the base-ten system and integer division is recommended."
+            },
+            "congruence": {
+              "title": "Modular arithmetic",
+              "summary": "Learn arithmetic focusing on remainders of division.",
+              "description": "You will learn how to perform modular arithmetic by grouping integers that share the same remainder when divided by a fixed number. It is useful for finding remainders of large powers and proving periodic properties. A basic understanding of integer division and remainders is recommended beforehand."
+            }
+          }
+        },
+        "pythagoras": {
+          "title": "Pythagorean theorem",
+          "summary": "Use the Pythagorean theorem to find side lengths in right triangles.",
+          "items": {
+            "sides": {
+              "title": "Side lengths",
+              "description": "Find side lengths of right triangles using integers and square roots.",
+              "summary": "Find side lengths of right triangles using the theorem."
+            },
+            "applications": {
+              "title": "Applying the Pythagorean theorem",
+              "summary": "Apply the Pythagorean theorem to coordinates and 3D shapes.",
+              "description": "Apply the Pythagorean theorem to find distances in coordinate planes and calculate lengths in three-dimensional shapes. This skill is widely used in advanced geometry, physics, and computer graphics. Prior experience in calculating side lengths of right triangles using the theorem is recommended."
+            }
+          }
+        },
+        "probability": {
+          "title": "Probability",
+          "summary": "Learn probability basics by counting possible outcomes.",
+          "items": {
+            "relative-frequency": {
+              "title": "Probability from many trials",
+              "summary": "How relative frequency approaches probability in trials.",
+              "description": "You will learn how the relative frequency of an event stabilizes around a constant value as an experiment is repeated many times. This forms the foundation for statistical estimation and modeling random phenomena. Prior familiarity with calculating ratios and interpreting frequency tables is beneficial."
+            },
+            "basic": {
+              "title": "Probability basics",
+              "summary": "Learn how to find basic probabilities of random events.",
+              "description": "You will learn how to determine the probability of an event when all outcomes are equally likely. This concept is fundamental for analyzing uncertainty, predicting game odds, and making risk assessments. Being able to count outcomes systematically without omission or duplication beforehand is highly beneficial."
+            }
+          }
+        },
+        "quadratic": {
+          "title": "Quadratic equations",
+          "summary": "Solve quadratic equations by factoring and using the quadratic formula.",
+          "items": {
+            "factoring": {
+              "title": "Solving by factoring",
+              "summary": "Learn how to solve quadratic equations by factoring.",
+              "description": "You will learn how to solve quadratic equations by factoring expressions and setting each factor to zero. This technique is often used to solve geometric area problems and motion analysis efficiently. Mastering basic polynomial factoring formulas beforehand is essential for learning this method smoothly."
+            },
+            "formula": {
+              "title": "Quadratic formula",
+              "summary": "Learn how to solve quadratic equations using the formula.",
+              "description": "Learn how to solve quadratic equations using the quadratic formula derived from completing the square. This formula enables students to reliably find solutions even when an equation cannot be easily factored. Prior understanding of square root properties and basic algebraic operations ensures smooth learning."
+            },
+            "discriminant": {
+              "title": "Discriminant",
+              "summary": "Determine the number of real roots using the discriminant.",
+              "description": "You will learn how to determine the number of real roots without solving the equation by using the discriminant. It is widely used to analyze intersections between graphs and lines or to find parameter conditions in inequalities. Understanding the structure of the quadratic formula beforehand is helpful."
+            }
+          }
+        },
+        "identities": {
+          "title": "Identities & the binomial theorem",
+          "summary": "Use the binomial theorem and polynomial identities.",
+          "items": {
+            "binomial": {
+              "title": "Binomial theorem",
+              "summary": "Learn the expansion of binomial powers and coefficients.",
+              "description": "Learn the binomial theorem for expanding natural number powers of binomials and determining specific coefficients using combinations. This theorem is useful for extracting individual coefficients quickly and studying binomial distributions. Prior knowledge of algebraic expansion rules and combination calculations is recommended."
+            },
+            "identity": {
+              "title": "Identities",
+              "summary": "Study identities true wherever both sides are defined.",
+              "description": "Learn the properties of identities that hold true for all values where both sides are defined, along with methods to determine unknown coefficients. Identities are fundamental for partial fraction decomposition and algebraic manipulation. Understanding polynomial expansion and the difference between equations and identities beforehand is beneficial."
+            },
+            "inequality-proof": {
+              "title": "Proving inequalities",
+              "summary": "Learn methods for proving algebraic inequalities.",
+              "description": "You will learn fundamental methods to prove inequalities, such as taking differences, completing squares, and applying the AM-GM inequality. These techniques are vital for finding bounds of functions and establishing mathematical proofs. Prior proficiency in basic inequality properties and algebraic manipulation is recommended."
+            }
+          }
+        },
+        "polynomial-equations": {
+          "title": "Polynomial equations",
+          "summary": "Solve higher-degree equations with the remainder and factor theorems.",
+          "items": {
+            "remainder": {
+              "title": "Remainder and factor theorems",
+              "summary": "Learn to find polynomial remainders and linear factors.",
+              "description": "You will learn the remainder theorem for finding polynomial remainders quickly, along with the factor theorem for identifying linear factors. These theorems are powerful tools for solving higher-degree equations and factoring polynomials. Familiarity with polynomial long division and evaluating algebraic expressions is recommended beforehand."
+            },
+            "higher-degree": {
+              "title": "Higher-degree equations",
+              "summary": "Learn how to solve equations of degree three or higher.",
+              "description": "You will learn how to solve polynomial equations of degree three or higher using the factor theorem and special factoring techniques. These skills are used to find graph intersections and solve geometric volume problems. Prior mastery of the factor theorem and quadratic equations will help significantly."
+            }
+          }
+        },
+        "quadratic-function": {
+          "title": "Quadratic functions",
+          "summary": "Find the vertex of a parabola and the maximum or minimum of a quadratic function.",
+          "items": {
+            "vertex": {
+              "title": "Vertex",
+              "sets": {
+                "1": "Reading the vertex from a graph"
+              },
+              "summary": "Learn how to find the vertex of a quadratic function.",
+              "description": "You will learn how to determine the vertex and axis of symmetry of a parabola by completing the square. This is crucial for sketching graphs and finding the maximum or minimum values of quadratic functions. Prior knowledge of algebraic expansion and factoring is recommended for smooth learning."
+            },
+            "max-min": {
+              "title": "Maximum & minimum",
+              "summary": "Learn to find maximum and minimum values of quadratics.",
+              "description": "You will learn how to find maximum and minimum values of quadratic functions, considering restricted domains and their positions relative to the axis of symmetry. This is widely used in real-world optimization problems such as maximizing area or profit. Prior mastery of completing the square and sketching parabolas is essential."
+            },
+            "graph": {
+              "title": "Graphs and equations",
+              "summary": "Learn relations between quadratic graphs and equations.",
+              "description": "You will learn how to determine quadratic equations from geometric conditions and understand how parabolas shift on the coordinate plane. This knowledge is applied in trajectory analysis and modeling data. Prior familiarity with finding vertices and basic coordinate geometry is recommended."
+            }
+          }
+        },
+        "sequence": {
+          "title": "Sequences",
+          "summary": "Explore arithmetic and geometric sequences and calculate their sums.",
+          "items": {
+            "arithmetic": {
+              "title": "Arithmetic sequences",
+              "summary": "Learn general terms and sums of arithmetic sequences.",
+              "description": "Learn how to find the general term and the sum of arithmetic sequences. This concept is widely used to analyze steady patterns and compute cumulative totals. Basic knowledge of linear algebraic expressions will help you better understand and apply the formulas."
+            },
+            "geometric": {
+              "title": "Geometric sequences",
+              "summary": "Learn general terms and sums of geometric sequences.",
+              "description": "Learn how to find the general term and the sum of geometric sequences. These principles are frequently used to model compound interest, population growth, and other multiplicative processes. Familiarity with exponent rules and basic algebraic operations provides a strong foundation for this topic."
+            },
+            "sigma": {
+              "title": "Sigma notation & sums",
+              "summary": "Learn summation notation and calculation using sigma.",
+              "description": "Learn the meaning of sigma notation and how to calculate various series using summation formulas. This notation is essential for expressing complicated sums concisely and preparing for calculus and limits. Prior understanding of arithmetic and geometric series will help you grasp these techniques smoothly."
+            },
+            "recurrence": {
+              "title": "Recurrence relations",
+              "summary": "Learn to find general terms from recurrence relations.",
+              "description": "Learn methods for determining the general term of a sequence from recurrence relations connecting consecutive terms. This mathematical approach is vital for modeling discrete dynamic processes and analyzing algorithms. Familiarity with basic sequences, summation formulas, and equation-solving techniques will assist your progress."
+            },
+            "induction": {
+              "title": "Mathematical induction",
+              "summary": "Learn to prove propositions using mathematical induction.",
+              "description": "Learn how to use mathematical induction, a powerful proof technique for statements involving natural numbers. It is widely used to verify summation formulas, divisibility properties, and sequence behaviors. A solid grasp of algebraic manipulation and basic logical deduction will prepare you well for this concept."
+            }
+          }
+        },
+        "trig": {
+          "title": "Trigonometric ratios & functions",
+          "summary": "Practice special-angle values, radians, and angle addition formulas.",
+          "items": {
+            "values": {
+              "title": "Values of trigonometric functions",
+              "summary": "Evaluate trigonometric functions using the unit circle.",
+              "description": "Learn how to evaluate sine, cosine, and tangent for general angles using the unit circle. These values are fundamental for describing circular motions, periodic phenomena, and wave behaviors. Prior familiarity with right-triangle trigonometry and angle definitions provides an excellent basis for mastering this topic."
+            },
+            "radian": {
+              "title": "Radians",
+              "summary": "Learn radian measure as arc length divided by radius.",
+              "description": "Learn how angles are measured in radians by dividing arc length by the radius, and convert between radians and degrees. Radians simplify mathematical calculations and are essential for calculus and physics modeling. Prior knowledge of circumference and sector formulas will help you transition smoothly to this topic."
+            },
+            "addition": {
+              "title": "Angle addition formulas",
+              "summary": "Learn addition formulas for sums and differences of angles.",
+              "description": "Learn addition and subtraction formulas to compute trigonometric values of the sum and difference of two angles. These formulas are fundamental for simplifying trigonometric expressions and analyzing wave patterns. Prior familiarity with coordinates on the unit circle will assist in understanding their derivations and applications."
+            },
+            "double-angle": {
+              "title": "Double- & half-angle formulas",
+              "summary": "Learn double-angle and half-angle trigonometric formulas.",
+              "description": "Learn how to derive and apply double-angle and half-angle formulas from addition theorems. These formulas are vital when solving trigonometric equations and reducing powers in calculus calculations. A firm understanding of fundamental addition formulas will allow you to work through these problems with confidence."
+            },
+            "synthesis": {
+              "title": "Combining sine & cosine",
+              "summary": "Learn to combine sine and cosine into a single sine wave.",
+              "description": "Learn how to combine linear expressions of sine and cosine into a single sinusoidal function. This technique is widely used to find extreme values and analyze combined simple harmonic oscillations. Having a solid understanding of addition formulas and unit circle representations will make mastering this method straightforward."
+            },
+            "graph": {
+              "title": "Graphs of trigonometric functions",
+              "summary": "Graph trig functions with period and sine/cosine amplitude.",
+              "description": "Learn how to sketch graphs of sine, cosine, and tangent functions, focusing on period, phase shifts, and the amplitude of sine and cosine. Visualizing these graphs is essential for interpreting periodic phenomena such as sound waves and alternating currents. Prior familiarity with radian angles and standard values will facilitate your sketching skills."
+            }
+          }
+        },
+        "exp-log": {
+          "title": "Exponents & logarithms",
+          "summary": "Practice exponent rules and basic logarithm calculations.",
+          "items": {
+            "exponent": {
+              "title": "Exponent rules",
+              "summary": "Learn laws of exponents extended to rational numbers.",
+              "description": "Learn how exponent rules extend from positive integers to negative numbers, fractions, and real exponents. These computational rules are fundamental for modeling rapid expansion, exponential decay, and scientific notation in science and engineering. Prior comfort with basic integer powers and polynomial operations will help you master these fractional exponents."
+            },
+            "log": {
+              "title": "Calculating logarithms",
+              "summary": "Learn logarithmic properties and base change calculations.",
+              "description": "Learn the formal definition of logarithms as the inverse of exponentiation, along with operational rules and the change-of-base formula. Logarithms are widely used to handle wide-ranging scales such as sound intensity, acidity, and data entropy. Prior proficiency with exponent properties is essential for understanding logarithmic transformations."
+            },
+            "common-log": {
+              "title": "Common logarithms",
+              "summary": "Learn common logarithms and find digits of large numbers.",
+              "description": "Learn how to use base-10 common logarithms to determine the number of digits and orders of magnitude for large powers. This application is crucial in scientific fields for estimating extremely large or small quantities like atomic particles or astronomical distances. Solid knowledge of basic logarithmic identities will ensure an easy transition to these calculations."
+            }
+          }
+        },
+        "conic": {
+          "title": "Conic sections",
+          "summary": "Parabolas, ellipses and hyperbolas, with parametric and polar forms.",
+          "items": {
+            "parabola": {
+              "title": "Parabolas",
+              "summary": "Learn the geometric definition and equations of parabolas.",
+              "description": "Learn the geometric definition of a parabola based on a focus and directrix, along with its standard Cartesian equation. Parabolas are widely utilized in engineering for designing reflective antennas and analyzing ballistic trajectories. Prior familiarity with quadratic functions and the coordinate distance formula will provide useful background knowledge."
+            },
+            "ellipse-hyperbola": {
+              "title": "Ellipses and hyperbolas",
+              "summary": "Learn ellipses, hyperbolas, and hyperbolic asymptotes.",
+              "description": "Learn definitions and standard equations for ellipses (constant sum of focal distances) and hyperbolas (constant absolute difference of focal distances), along with hyperbolic asymptotes. These curves are essential for describing celestial orbits and navigation systems. Prior knowledge of circle equations and geometric loci will help you understand these curves."
+            },
+            "polar": {
+              "title": "Parametric and polar forms",
+              "summary": "Learn parametric curves and polar coordinate equations.",
+              "description": "Learn how to represent curves using parametric equations and describe coordinates using distances and angles in polar coordinate systems. These representations are particularly useful for analyzing complicated trajectories and rotationally symmetric physical systems. Prior proficiency with trigonometry, angle measurement, and vector operations will facilitate your understanding of these representations."
+            }
+          }
+        },
+        "combinatorics": {
+          "title": "Counting & probability",
+          "summary": "Use permutations and combinations to count outcomes and calculate probabilities.",
+          "items": {
+            "permutations": {
+              "title": "Permutations",
+              "summary": "Learn permutation formulas to count ordered arrangements.",
+              "description": "Learn how to calculate permutations to find the number of ways to arrange items in a specific order. This mathematical technique is widely used in problems involving passcode combinations, scheduling order, and ranking possibilities. Prior knowledge of the multiplication principle and tree diagrams will help you master these permutation formulas."
+            },
+            "combinations": {
+              "title": "Combinations",
+              "summary": "Learn combination formulas to count unordered selections.",
+              "description": "Learn how to use combination formulas to determine the number of ways to choose items when order does not matter. Combinations are essential for team selections, lottery odds, and binomial expansion coefficients. Familiarity with permutations and factorial calculations provides an important foundation for working with these selection techniques."
+            },
+            "probability": {
+              "title": "Probability",
+              "summary": "Learn basic probability and calculate event likelihoods.",
+              "description": "Learn the fundamental rules of probability to quantify how likely an event is to occur among all equally likely outcomes. Probability is indispensable for risk assessment, statistical decision-making, and analyzing games of chance. Mastering prior counting techniques like permutations and combinations will prepare you well for calculating probabilities accurately."
+            },
+            "independent": {
+              "title": "Independent & repeated trials",
+              "summary": "Calculate probabilities of independent and repeated trials.",
+              "description": "This topic covers calculating probabilities for independent events and repeated trials under the same conditions. These principles are widely used to analyze repetitive processes, such as games and quality control. Prior knowledge of fundamental probability concepts and combinations is essential for this topic."
+            },
+            "conditional": {
+              "title": "Conditional probability",
+              "summary": "Learn to calculate the probability of conditional events.",
+              "description": "This topic covers calculating conditional probabilities, which determine the likelihood of an event occurring given that another event has already happened. It is widely used in medical testing and predictive models to update probabilities with new evidence. A solid understanding of basic probability and set operations is recommended."
+            },
+            "expectation": {
+              "title": "Expected value",
+              "summary": "Learn to calculate the expected value of random outcomes.",
+              "description": "This topic covers calculating the expected value by summing products of numerical outcomes and their probabilities. It is extensively applied in risk assessment, lottery evaluations, and insurance pricing to support decision-making. Students should be familiar with calculating basic probabilities and adding values before studying this concept."
+            }
+          }
+        },
+        "distributions": {
+          "title": "Probability distributions",
+          "summary": "Expected values, variances and probabilities of binomial and normal distributions.",
+          "items": {
+            "random-variables": {
+              "title": "Random variables, mean & variance",
+              "summary": "Learn expected value and variance of random variables.",
+              "description": "This topic explores random variables whose values are determined by trial outcomes, calculating their expected value and variance. These measures are crucial for quantifying uncertainty and analyzing statistical risks in science and finance. Prior familiarity with foundational probability concepts and basic summation is recommended for this study."
+            },
+            "binomial": {
+              "title": "Binomial distribution",
+              "summary": "Learn binomial distributions for fixed-probability trials.",
+              "description": "This topic covers the binomial distribution, modeling the number of successes in repeated independent trials with a constant success probability. It is widely used in quality control and opinion polling to evaluate proportions. Knowledge of repeated trials and combinations is essential before learning this."
+            },
+            "normal": {
+              "title": "Normal distribution",
+              "summary": "Learn properties and uses of the normal distribution.",
+              "description": "This topic introduces the bell-shaped normal distribution, teaching standardization techniques and how to calculate probabilities using distribution tables. It is fundamental to statistical inference, standard scores, and experimental error analysis across sciences. Prior knowledge of continuous random variables, mean, and variance is essential."
+            }
+          }
+        },
+        "limit": {
+          "title": "Limits",
+          "summary": "Find limits of sequences and functions.",
+          "items": {
+            "sequence": {
+              "title": "Limits of sequences",
+              "summary": "Learn how sequence terms behave as the index nears infinity.",
+              "description": "This topic examines the behavior of sequences as terms approach infinity, distinguishing between convergence to a limit and divergence. It provides essential tools for evaluating infinite geometric series and modeling discrete dynamical systems. Prior mastery of general sequence formulas, geometric progressions, and inequality manipulation is necessary for this unit."
+            },
+            "function": {
+              "title": "Limits of functions",
+              "summary": "Learn function limits near specific points and infinity.",
+              "description": "This topic explores the limits and continuity of functions as the input variable approaches a specific value or infinity. It forms the indispensable foundation for defining derivatives and finding graph asymptotes in calculus. Prior fluency in graphing functions, factoring polynomials, and algebraic manipulation is recommended."
+            }
+          }
+        },
+        "univ-calculus": {
+          "title": "University calculus",
+          "summary": "Single-variable calculus at university: the mean value theorem, L'Hôpital's rule and more.",
+          "items": {
+            "mean-value": {
+              "title": "Mean value theorem & L'Hôpital's rule",
+              "summary": "Learn the Mean Value Theorem and L'Hôpital's Rule.",
+              "description": "This topic covers the Mean Value Theorem, ensuring a point where the tangent slope equals the average rate of change, alongside L'Hôpital's Rule for indeterminate limits. These theorems are essential for proving monotonicity and simplifying complex limits. Prior proficiency in basic derivatives and limits is required."
+            }
+          }
+        },
+        "derivative": {
+          "title": "Differentiation",
+          "summary": "Differentiate polynomials to find tangent lines and local extrema.",
+          "items": {
+            "polynomial": {
+              "title": "Differentiating polynomials",
+              "summary": "Learn how to differentiate polynomial functions using rules.",
+              "description": "This topic focuses on computing derivatives of polynomial functions using power and linearity differentiation rules. Mastered techniques serve as the fundamental groundwork for determining instantaneous rates of change and analyzing graph slopes. A solid background in monomial operations, polynomial algebra, and exponent rules is necessary before starting."
+            },
+            "tangent": {
+              "title": "Derivative at a point & tangent lines",
+              "summary": "Learn derivatives as slopes and find tangent line equations.",
+              "description": "This topic covers the geometric interpretation of the derivative as the slope of a curve, enabling students to construct tangent line equations. It is widely used in linear approximation and analyzing the local directional behavior of curves. Familiarity with polynomial differentiation and line equations from coordinate geometry is required."
+            },
+            "extrema": {
+              "title": "Local extrema",
+              "summary": "Learn to find local maxima and minima using derivatives.",
+              "description": "This topic explores finding local maxima and minima of functions by constructing sign charts of first derivatives. It is vital for graphing functions accurately and solving real-world optimization problems such as maximizing efficiency or minimizing production costs. Prerequisites include differentiating polynomials and solving algebraic inequalities to find critical points."
+            },
+            "transcendental": {
+              "title": "Derivatives of trig, exponential and log functions",
+              "summary": "Learn to differentiate trig, exponential, and log functions.",
+              "description": "This topic covers differentiation formulas for trigonometric, natural exponential, and logarithmic functions. These mathematical tools are crucial for modeling periodic wave oscillations, radioactive decay, and dynamic continuous processes in the physical sciences. Students should have a solid foundation in the fundamental properties and standard limits of these functions."
+            },
+            "chain-rule": {
+              "title": "Chain, product and quotient rules",
+              "summary": "Learn the product, quotient, and chain rules of calculus.",
+              "description": "This topic teaches differentiation rules for product, quotient, and composite functions using the chain rule. These techniques are vital for computing derivatives of intricate formulas arising in physics and economic sensitivity analysis. A firm grasp of differentiating elementary polynomial and transcendental functions is essential prior knowledge."
+            },
+            "parametric": {
+              "title": "Derivatives of parametric functions",
+              "summary": "Learn to differentiate parametric curves to find slopes.",
+              "description": "This topic covers finding the derivative dy/dx of curves defined parametrically using the chain rule. It is essential for determining slopes, tangent vectors, and trajectories of geometric curves like cycloids and ellipses in kinematics. Prerequisites include a firm understanding of parametric representations and single-variable differentiation techniques."
+            },
+            "motion": {
+              "title": "Velocity & acceleration",
+              "summary": "Learn to find velocity and acceleration using derivatives.",
+              "description": "This topic demonstrates calculating velocity and acceleration by taking the first and second derivatives of a position function with respect to time. It is an indispensable tool in classical mechanics and engineering simulations for describing motion. Students should be proficient in differentiating polynomial and trigonometric functions before taking this module."
+            }
+          }
+        },
+        "integral": {
+          "title": "Integration",
+          "summary": "Practice indefinite and definite integrals and use them to find areas.",
+          "items": {
+            "indefinite": {
+              "title": "Indefinite integrals",
+              "summary": "Learn to compute indefinite integrals as antiderivatives.",
+              "description": "This topic explores finding indefinite integrals with integration constants, serving as the reverse operation of differentiation. It forms the foundational calculation technique for reconstructing total quantities from rates of change and computing definite integrals. A solid grasp of polynomial differentiation rules and algebraic manipulation is required before beginning."
+            },
+            "definite": {
+              "title": "Definite integrals",
+              "summary": "Learn to compute definite integrals over given intervals.",
+              "description": "This topic covers evaluating definite integrals by substituting the upper and lower limits into an antiderivative and taking their difference. It is widely applied in calculating geometric areas, volumes, and physical work. Prior familiarity with finding antiderivatives and algebraic substitution is necessary."
+            },
+            "area": {
+              "title": "Area",
+              "summary": "Find areas enclosed by curves using definite integrals.",
+              "description": "Learn to calculate areas enclosed between curves and lines by integrating the difference between upper and lower functions over the corresponding interval. This method is widely applied in geometric measurements and engineering analysis. Mastery of definite integral calculations and finding intersection points of graphs is recommended."
+            },
+            "substitution": {
+              "title": "Integration by substitution",
+              "summary": "Learn techniques of integration by substitution.",
+              "description": "Learn integration by substitution, which rewrites an integral by replacing part of the expression with a new variable and using derivative relations. This technique is widely used for solving differential equations and calculating complex areas and volumes. Prior knowledge of the chain rule and basic indefinite integrals is required."
+            },
+            "by-parts": {
+              "title": "Integration by parts",
+              "summary": "Learn integration by parts for products of functions.",
+              "description": "This section covers integration by parts, a technique derived from the product rule of differentiation. It is widely used to integrate products of polynomials, exponential, and trigonometric functions. A solid understanding of the product rule and basic indefinite integration will help you master this method."
+            },
+            "volume": {
+              "title": "Volumes and arc length",
+              "summary": "Compute volumes and arc lengths using definite integrals.",
+              "description": "In this section, you will learn how to calculate solid volumes, volumes of revolution, and arc lengths using definite integrals. These techniques are essential for geometric measurements and physical modeling. A solid grasp of basic definite integration and derivatives is recommended before starting this topic."
+            }
+          }
+        },
+        "complex": {
+          "title": "Complex numbers",
+          "summary": "Practice complex arithmetic, non-real roots of quadratic equations, and the complex plane.",
+          "items": {
+            "arithmetic": {
+              "title": "Complex arithmetic",
+              "summary": "Learn the imaginary unit and complex arithmetic operations.",
+              "description": "This section introduces the imaginary unit and covers the fundamental rules for adding, subtracting, multiplying, and dividing complex numbers. These arithmetic skills are widely used in advanced algebra, physics, and engineering. Familiarity with real number arithmetic, polynomial expansion, and rationalizing denominators is helpful beforehand."
+            },
+            "quadratic-roots": {
+              "title": "Non-real roots of quadratic equations",
+              "summary": "Find complex solutions of quadratic equations.",
+              "description": "This section explores finding complex roots for quadratic equations when the discriminant is negative by extending the quadratic formula. It ensures that every quadratic equation has solutions, leading to deeper algebraic concepts. Before starting, you should be familiar with the real quadratic formula and basic complex arithmetic."
+            },
+            "plane": {
+              "title": "The complex plane",
+              "summary": "Represent complex numbers geometrically on the complex plane.",
+              "description": "In this section, you will learn to represent complex numbers as points on a plane, using polar form and De Moivre's theorem. This approach connects algebra with geometry, allowing rotations and scalings to be computed easily. Basic knowledge of complex arithmetic and trigonometry is essential prior to this topic."
+            }
+          }
+        },
+        "coordinate-geometry": {
+          "title": "Coordinate geometry",
+          "summary": "Practice equations of lines and circles, and loci.",
+          "items": {
+            "line": {
+              "title": "Equations of lines",
+              "sets": {
+                "2": "Reading a graph"
+              },
+              "summary": "Formulate and analyze equations of lines in the plane.",
+              "description": "This section covers various forms of linear equations, parallel and perpendicular conditions, and the distance formula from a point to a line. It provides the foundation for solving geometric problems using algebra on the coordinate plane. Prior knowledge of linear functions, slopes, and Cartesian coordinates is recommended."
+            },
+            "circle": {
+              "title": "Equations of circles",
+              "sets": {
+                "2": "Reading a graph"
+              },
+              "summary": "Determine equations of circles and analyze intersections.",
+              "description": "This section focuses on deriving the equation of a circle from its center and radius, as well as finding tangents and intersection points with lines. It is widely used to analyze circular curves and geometric tangency algebraically. Familiarity with the distance formula and linear equations is recommended beforehand."
+            },
+            "locus": {
+              "title": "Loci",
+              "summary": "Find equations of loci traced by points under conditions.",
+              "description": "This section covers methods for finding the algebraic equation of a locus, which is the path traced by a moving point satisfying given geometric conditions. This skill is vital for translating dynamic geometric constraints into equations. A good command of the distance formula, lines, and circle equations is helpful beforehand."
+            },
+            "region": {
+              "title": "Regions defined by inequalities",
+              "sets": {
+                "2": "Reading a graph"
+              },
+              "summary": "Graph regions defined by inequalities in the plane.",
+              "description": "This section teaches how to graph regions represented by inequalities on the coordinate plane and solve optimization problems like linear programming. These graphical methods are widely used to identify feasible regions under constraints. Prior familiarity with linear equations, circle equations, and basic inequality properties is recommended."
+            }
+          }
+        },
+        "vector": {
+          "title": "Vectors",
+          "summary": "Practice vector components and magnitude, dot products, and angles between vectors.",
+          "items": {
+            "components": {
+              "title": "Components & magnitude",
+              "summary": "Represent vectors by components and compute magnitudes.",
+              "description": "In this section, you will learn to represent geometric vectors using coordinate components and calculate their magnitudes, additions, and scalar multiplications. This algebraic representation simplifies vector operations in physics and geometry. Basic understanding of geometric vectors and the Pythagorean theorem is recommended beforehand."
+            },
+            "dot-product": {
+              "title": "Dot products",
+              "summary": "Learn the definition and properties of the dot product.",
+              "description": "This section covers the definition of the dot product using vector magnitudes and angles, as well as its algebraic computation via components. It is essential for checking orthogonality and calculating mechanical work in physics. Prior familiarity with vector components, magnitudes, and cosine values from trigonometry is required."
+            },
+            "angle": {
+              "title": "Angles between vectors",
+              "summary": "Determine the angle between vectors using dot products.",
+              "description": "Learn how to find the cosine of the angle between two vectors using their magnitudes and dot product. This method is widely used to analyze directional relationships in two- and three-dimensional spaces. Familiarity with vector magnitudes, dot product calculations, and fundamental trigonometry is required."
+            },
+            "space": {
+              "title": "Vectors in space",
+              "summary": "Extend vectors to three-dimensional space and coordinates.",
+              "description": "This section extends vector concepts into three-dimensional space, covering 3D coordinate components, dot products, and equations of geometric figures. These tools are indispensable for 3D computer graphics, physics simulations, and solid geometry. Prior proficiency in 2D vector arithmetic and dot products is strongly recommended."
+            }
+          }
+        },
+        "matrix": {
+          "title": "Matrices",
+          "summary": "Practice matrix addition and multiplication, 2×2 determinants, and inverse matrices.",
+          "items": {
+            "operations": {
+              "title": "Matrix addition & multiplication",
+              "summary": "Learn fundamental operations of matrix addition and product.",
+              "description": "This section introduces the definition of matrices along with the rules for matrix addition, scalar multiplication, and matrix multiplication. These operations are fundamental for representing linear transformations and systems of equations compactly. Familiarity with basic arithmetic and the dot product of vectors will facilitate your understanding."
+            },
+            "determinant": {
+              "title": "2×2 determinants",
+              "summary": "Compute 2x2 determinants and understand their meaning.",
+              "description": "This section covers the definition of the 2x2 determinant, its geometric interpretation as signed area, and its role in testing matrix invertibility. Determinants are crucial for determining whether inverse matrices exist and solving linear systems. Prior understanding of matrix notation and basic plane geometry is recommended."
+            },
+            "general-determinant": {
+              "title": "n×n determinants: cofactors & Cramer's rule",
+              "summary": "Learn n-th order determinants and Cramer's rule.",
+              "description": "Learn the properties of general n-th order determinants, calculation via cofactor expansion, and Cramer's rule. These tools are widely applied to solve linear systems with many unknowns and to formulate eigenvalue problems. Prior proficiency in evaluating 2x2 determinants and performing basic matrix operations is required."
+            },
+            "inverse": {
+              "title": "Inverse matrices",
+              "summary": "Understand definition and computation of inverse matrices.",
+              "description": "This section covers the definition of inverse matrices, invertibility criteria via determinants, and explicit computational formulas. Inverse matrices are essential tools for solving matrix equations and performing coordinate transformations in geometry. Familiarity with matrix multiplication, identity matrices, and determinant calculations is required beforehand."
+            }
+          }
+        },
+        "linear-system": {
+          "title": "Linear systems & matrices",
+          "summary": "Solve systems of linear equations using row reduction and determine the number of solutions.",
+          "items": {
+            "elimination": {
+              "title": "Row reduction",
+              "summary": "Solve linear systems using Gaussian elimination methods.",
+              "description": "This section covers Gaussian and Gauss-Jordan elimination, solving systems of linear equations systematically via elementary row operations on augmented matrices. It provides an efficient algorithmic approach for handling large systems and computing inverses. Prior knowledge of elementary algebra and basic matrix notation is recommended."
+            },
+            "solutions": {
+              "title": "Number of solutions",
+              "summary": "Determine the number of solutions to a linear system.",
+              "description": "Learn how to determine the number of solutions by comparing the ranks of the coefficient and augmented matrices with the number of unknowns. If the ranks are equal, the system has a unique solution when equal to the unknowns, or infinitely many when smaller. Understanding elementary row operations is required."
+            }
+          }
+        },
+        "vector-space": {
+          "title": "Vector spaces",
+          "summary": "Linear independence, bases and dimension, and matrix rank.",
+          "items": {
+            "independence": {
+              "title": "Linear independence",
+              "summary": "Learn linear independence and dependence of vectors.",
+              "description": "This section covers the precise definition and criteria for linear independence and linear dependence among a set of vectors. This concept is fundamental for defining bases and dimension in vector spaces without redundancy. Prior knowledge of vector linear combinations and techniques for solving linear systems is essential."
+            },
+            "basis": {
+              "title": "Basis and dimension",
+              "summary": "Learn the basis and dimension of vector spaces.",
+              "description": "Learn the concepts of a basis, which spans a vector space with linearly independent vectors, and dimension, representing the number of basis vectors. These are essential for understanding degrees of freedom in vector spaces. Familiarity with linear combinations and linear independence is helpful."
+            },
+            "rank": {
+              "title": "Rank",
+              "summary": "Learn the rank of a matrix and its meaning.",
+              "description": "Learn the rank of a matrix, defined as the maximum number of linearly independent row or column vectors. It is widely used to determine the solvability and degrees of freedom of linear systems. Prior knowledge of elementary row operations and linear independence is helpful."
+            }
+          }
+        },
+        "linear-map": {
+          "title": "Linear maps",
+          "summary": "Find matrix representations, kernels and images.",
+          "items": {
+            "matrix-rep": {
+              "title": "Matrix representation",
+              "summary": "Learn matrix representations of linear maps.",
+              "description": "Learn how to represent linear mappings as matrices by choosing bases for vector spaces. This technique allows abstract linear transformations to be computed concretely using matrix algebra. Prior knowledge of the definition of linear maps and vector space bases is recommended."
+            },
+            "kernel-image": {
+              "title": "Kernel and image",
+              "summary": "Learn the kernel and image of linear maps.",
+              "description": "Learn about the kernel, which consists of vectors mapped to zero, and the image, representing all possible outputs. These spaces are fundamental for analyzing linear transformations through the rank-nullity theorem. Prior understanding of linear maps and systems of linear equations is helpful."
+            }
+          }
+        },
+        "eigen": {
+          "title": "Eigenvalues & eigenvectors",
+          "summary": "Practice finding eigenvalues and eigenvectors of 2×2 matrices.",
+          "items": {
+            "eigenvalues": {
+              "title": "2×2 eigenvalues",
+              "summary": "Learn how to find eigenvalues of 2x2 matrices.",
+              "description": "Learn how to calculate the eigenvalues of a 2x2 matrix by solving its characteristic equation. An eigenvalue represents the scalar factor by which a nonzero vector is scaled under a linear transformation. Prior understanding of determinants and quadratic equation solving methods is required."
+            },
+            "eigenvectors": {
+              "title": "Eigenvectors",
+              "summary": "Learn how to find eigenvectors for given eigenvalues.",
+              "description": "Learn how to find eigenvectors, which are nonzero vectors that become their own scalar multiples scaled by the corresponding eigenvalues when multiplied by the matrix. These vectors are widely applied in principal component analysis and vibration engineering. Knowledge of solving linear systems and finding eigenvalues is required."
+            },
+            "diagonalize": {
+              "title": "Diagonalization",
+              "summary": "Learn how to diagonalize square matrices.",
+              "description": "Learn how to transform square matrices into diagonal matrices using eigenvectors and invertible matrices. Diagonalization is extremely useful for computing matrix powers and solving systems of differential equations. Prior mastery of finding eigenvalues, eigenvectors, and matrix inverses is necessary."
+            }
+          }
+        },
+        "inner-product": {
+          "title": "Inner products & orthogonality",
+          "summary": "Orthogonal and orthonormal bases, and Gram-Schmidt orthogonalization.",
+          "items": {
+            "orthogonal": {
+              "title": "Orthogonal and orthonormal bases",
+              "summary": "Learn orthogonality and orthonormal bases.",
+              "description": "Learn to define orthogonality using inner products and construct orthonormal bases consisting of mutually perpendicular unit vectors. These bases are fundamental in geometric projections and data analysis. Prior understanding of inner products, vector norms, and bases is recommended."
+            },
+            "gram-schmidt": {
+              "title": "Gram-Schmidt process",
+              "summary": "Learn the Gram-Schmidt orthogonalization algorithm.",
+              "description": "Learn the algorithm to construct an orthonormal basis for the subspace spanned by a set of linearly independent vectors. This method is fundamental for matrix QR decomposition and generating systems of orthogonal functions. Understanding inner products, vector projections, and vector space bases is required."
+            }
+          }
+        },
+        "rate": {
+          "title": "Speed & unit rates",
+          "summary": "Find speed, time and distance, and compare quantities per unit.",
+          "items": {
+            "speed": {
+              "title": "Speed, time and distance",
+              "summary": "Learn the relations of speed, time, and distance.",
+              "description": "Learn the relationships among speed, time, and distance, and how to calculate each quantity using formulas. This concept is useful in daily life for estimating travel times and distances. A solid foundation in basic multiplication and division is helpful before beginning."
+            },
+            "per-unit": {
+              "title": "Unit rates",
+              "summary": "Learn to calculate and compare quantities per unit.",
+              "description": "Learn how to compare quantities by standardizing amounts to a single unit, such as population density. This method helps compare crowdedness or efficiency across groups of different sizes. Basic understanding of division and operations with decimal numbers is required beforehand."
+            }
+          }
+        },
+        "relations": {
+          "title": "Changing quantities & proportion",
+          "summary": "How two quantities change together, up to direct and inverse proportion.",
+          "items": {
+            "change": {
+              "title": "Quantities that change together",
+              "summary": "Learn relationships between two changing quantities.",
+              "description": "Learn how to observe how one quantity changes as another changes by organizing data into tables. This foundational skill helps students discover mathematical rules and prepare for studying functions. Prior ability to read tables and perform basic arithmetic is recommended."
+            },
+            "simple-proportion": {
+              "title": "Simple proportion",
+              "summary": "Learn simple proportional relationships and tables.",
+              "description": "Learn the relationship where one quantity doubles or triples as the other quantity doubles or triples. This concept is useful in daily life, such as calculating total costs based on quantities purchased. Prior knowledge of basic changing quantities and multiplication is essential."
+            },
+            "proportion": {
+              "title": "Direct & inverse proportion",
+              "summary": "Learn properties of direct and inverse proportion.",
+              "description": "Learn the properties, formulas, and graphs of direct and inverse proportion, where ratios or products remain constant. These relationships are widely used to model quantitative phenomena in science and economics. Prior understanding of expressions with variables and fractions or decimals is helpful."
+            }
+          }
+        },
+        "angles": {
+          "title": "Angles & polygons",
+          "summary": "Find angles with parallel lines and the interior and exterior angles of polygons.",
+          "items": {
+            "parallel": {
+              "title": "Angles and parallel lines",
+              "summary": "Learn angles formed by parallel lines and a line.",
+              "description": "Learn the geometric properties of corresponding and alternate interior angles formed when a transversal intersects parallel lines. This knowledge is essential for calculating unknown angles and proving geometric properties. Familiarity with straight line angles and vertically opposite angles is helpful."
+            },
+            "polygon": {
+              "title": "Interior and exterior angles",
+              "summary": "Learn interior and exterior angles of polygons.",
+              "description": "Learn how to calculate the sum of interior angles by dividing polygons into triangles, and understand why exterior angles always sum to 360 degrees. This is useful for analyzing regular polygons and architectural shapes. Prior knowledge of triangle angle sums being 180 degrees is required."
+            }
+          }
+        },
+        "congruence": {
+          "title": "Congruence & properties of shapes",
+          "summary": "Congruence conditions for triangles, and properties of isosceles triangles and parallelograms.",
+          "items": {
+            "conditions": {
+              "title": "Congruence conditions",
+              "summary": "Learn conditions for congruence of triangles.",
+              "description": "Learn the three conditions for triangle congruence based on the equality of corresponding sides and angles. These conditions form the core foundation for proving various geometric theorems logically. Familiarity with the basic parts of triangles and geometric constructions is helpful before studying this topic."
+            },
+            "triangles": {
+              "title": "Isosceles & right triangles",
+              "summary": "Learn isosceles and right triangle properties.",
+              "description": "Learn the properties of isosceles triangles, such as equal base angles, and the special congruence conditions for right triangles involving the hypotenuse. These are frequently applied in geometric proofs and length calculations. Prior mastery of general triangle congruence conditions is required."
+            },
+            "parallelogram": {
+              "title": "Conditions for parallelograms",
+              "summary": "Learn conditions for being a parallelogram.",
+              "description": "Learn the conditions that determine whether a quadrilateral is a parallelogram based on opposite sides, opposite angles, and diagonals. This concept is essential for classifying shapes and conducting advanced geometric proofs. Prior understanding of triangle congruence proofs and parallel line properties is required."
+            }
+          }
+        },
+        "circle-solid": {
+          "title": "Circles & solids",
+          "summary": "Sectors, and the volume and surface area of cones, pyramids and spheres.",
+          "items": {
+            "solid-views": {
+              "title": "Sketches, nets & projections of solids",
+              "summary": "Learn sketches, nets, and projections of solids.",
+              "description": "Learn how to represent three-dimensional solids on two-dimensional surfaces using sketches, nets, and orthographic projections. These representations are essential for calculating surface areas and reading design drawings. Prior familiarity with basic plane figures and basic solid geometric shapes is recommended."
+            },
+            "sector": {
+              "title": "Sectors",
+              "summary": "Find the arc length and area of a circular sector.",
+              "description": "Learn how to calculate the arc length and area of a sector using its radius and central angle. This topic builds on the formulas for the circumference and area of a circle using ratios. It is widely used in geometric measurement, such as unfolding solids and finding composite areas."
+            },
+            "solid": {
+              "title": "Volume and surface area of solids",
+              "summary": "Calculate volume and surface area of pyramids and spheres.",
+              "description": "Learn the formulas to calculate the volume and surface area of pyramids, cones, and spheres. This topic builds on previous knowledge of prisms, cylinders, and circles. These skills are essential for solving real-world 3D geometry problems, such as determining capacity and designing spatial models."
+            }
+          }
+        },
+        "similarity": {
+          "title": "Similarity & circle theorems",
+          "summary": "Use similar figures and the inscribed angle theorem.",
+          "items": {
+            "similarity": {
+              "title": "Similar figures",
+              "summary": "Learn properties and ratios of similar figures.",
+              "description": "Learn the definition and conditions of geometric similarity and how shapes scale proportionally. This builds on basic ratio concepts and triangle congruence to find unknown lengths, area ratios, and volume ratios. It is widely used in practical applications like reading maps and measuring heights indirectly."
+            },
+            "inscribed-angle": {
+              "title": "Inscribed angle theorem",
+              "summary": "Learn the inscribed angle theorem and angle relations.",
+              "description": "Explore the relationship between inscribed angles and central angles subtended by the same arc. Building on basic angle properties and isosceles triangles, this concept is used to calculate unknown angles and determine concyclic points. It is an indispensable tool for geometric proofs and circle constructions."
+            }
+          }
+        },
+        "transformations": {
+          "title": "Transformations",
+          "summary": "Move figures by translation, rotation and reflection.",
+          "items": {
+            "moves": {
+              "title": "Translations, rotations and reflections",
+              "summary": "Learn translation, rotation, and reflection of shapes.",
+              "description": "Understand how shapes change position and orientation through translations, rotations, and reflections. This topic builds on basic concepts of points, line segments, and angles, emphasizing that size and shape are preserved. These transformations are widely used in tessellations, graphic design, and advanced geometric analysis."
+            }
+          }
+        },
+        "geometric-reasoning": {
+          "title": "Constructions & proofs",
+          "summary": "Basic constructions, and how proofs with congruence, similarity and inscribed angles go.",
+          "items": {
+            "construction": {
+              "title": "Basic constructions",
+              "summary": "Learn compass and straightedge geometric constructions.",
+              "description": "Learn how to construct perpendicular bisectors, angle bisectors, and perpendicular lines using only a compass and straightedge. This requires understanding the properties of circles and equidistant points. Geometric construction is widely used to locate points satisfying specific geometric conditions and to verify geometric theorems."
+            },
+            "congruence-proof": {
+              "title": "Proofs with congruent triangles",
+              "summary": "Prove geometric properties using triangle congruence.",
+              "description": "Learn how to construct deductive proofs for geometric properties and congruent segments or angles using triangle congruence conditions. Proofs are written step by step based on properties of vertical angles and alternate interior angles. This topic fosters logical reasoning skills and serves as a foundation for geometric exploration."
+            },
+            "similarity-proof": {
+              "title": "Proofs with similar triangles",
+              "summary": "Prove segment ratios and equal angles using similarity.",
+              "description": "Learn how to construct logical proofs establishing segment ratios and equal angles based on triangle similarity criteria. This method builds on parallel line properties and congruence proofs by focusing on proportional sides and corresponding angles. It is essential for solving complex geometry problems and analyzing spatial relationships."
+            },
+            "circle-proof": {
+              "title": "Proofs with inscribed angles",
+              "summary": "Prove circle properties with inscribed angle theorems.",
+              "description": "Learn how to prove geometric relationships using the inscribed angle theorem, its converse, and cyclic quadrilaterals. This builds on congruence and similarity proofs, combining angle relationships with circle geometry. These proofs are frequently used to solve intricate geometric problems involving circles and concyclic points."
+            }
+          }
+        },
+        "triangle-trig": {
+          "title": "Solving triangles",
+          "summary": "Find sides, angles and areas of triangles with the laws of sines and cosines.",
+          "items": {
+            "ratios": {
+              "title": "Trigonometric ratios",
+              "summary": "Learn definitions of sine, cosine, and tangent ratios.",
+              "description": "Understand definitions and identities of sine, cosine, and tangent based on right triangles. Building on triangle similarity and the Pythagorean theorem, learners calculate unknown side lengths from an angle and a known side. These ratios are foundational for surveying, physics, and vector decomposition."
+            },
+            "sine-law": {
+              "title": "Law of sines",
+              "summary": "Apply the Law of Sines to find sides, angles, and radii.",
+              "description": "Learn the Law of Sines, which relates the sides and opposing angles of a triangle to its circumcircle radius. Building on basic trigonometric ratios and the inscribed angle theorem, it determines unknown lengths and angles. It is widely applied in surveying, navigation, and solving oblique triangles."
+            },
+            "cosine-law": {
+              "title": "Law of cosines",
+              "summary": "Apply the Law of Cosines to solve oblique triangles.",
+              "description": "Understand the Law of Cosines, which connects the three sides of any triangle with the cosine of one angle. As a generalization of the Pythagorean theorem, this rule requires basic trigonometric concepts. It is essential for determining unknown lengths and angles in surveying, 3D modeling, and vector calculations."
+            },
+            "area": {
+              "title": "Area of a triangle",
+              "summary": "Calculate triangle area using trigonometric formulas.",
+              "description": "Learn how to calculate triangle area using two sides and the sine of the included angle, as well as the inradius. This builds upon basic area concepts and trigonometric ratios to solve oblique triangles. It is widely used in land surveying, computer graphics, and decomposing polygons into measurable parts."
+            }
+          }
+        },
+        "triangle-properties": {
+          "title": "Properties of figures",
+          "summary": "Triangle centers, the power of a point, and Ceva's and Menelaus's theorems.",
+          "items": {
+            "centers": {
+              "title": "Triangle centers",
+              "summary": "Learn definitions and properties of triangle centers.",
+              "description": "Study the definitions and geometric properties of the five triangle centers: circumcenter, incenter, centroid, orthocenter, and excenters. This topic requires foundational knowledge of angle bisectors, medians, and perpendiculars. These concepts are essential for advanced Euclidean geometry, structural balancing in mechanics, and analyzing geometric configurations."
+            },
+            "power": {
+              "title": "Power of a point",
+              "summary": "Apply the Power of a Point theorem to circles and lines.",
+              "description": "Understand the Power of a Point theorem, relating line segments formed by intersecting chords, secants, and tangents of circles. This topic relies on prior knowledge of triangle similarity and inscribed angle properties. It is a powerful tool for calculating unknown lengths in circle geometry and solving advanced proofs."
+            },
+            "ceva-menelaus": {
+              "title": "Ceva's and Menelaus's theorems",
+              "summary": "Apply Ceva's and Menelaus's theorems to segment ratios.",
+              "description": "Learn ratio relationships that hold when three lines through triangle vertices meet at one point, or when a line intersects three sides or their extensions. Using similarity and ratios, these theorems efficiently compute complex line segments. They are widely utilized in analyzing geometric figures."
+            },
+            "polyhedra": {
+              "title": "Polyhedra",
+              "summary": "Study regular polyhedra and Euler's polyhedron formula.",
+              "description": "Explore the geometric properties and symmetries of the five Platonic solids, along with Euler's polyhedron formula relating vertices, edges, and faces. This topic builds on basic spatial concepts and regular polygons. It is applied in analyzing molecular crystal structures, 3D computer graphics, and architectural design."
+            },
+            "construction": {
+              "title": "Geometric constructions",
+              "summary": "Master geometric constructions using geometric theorems.",
+              "description": "Learn construction techniques based on geometric theorems, such as dividing segments proportionally, constructing square root lengths, and drawing circle tangents. This topic combines basic straightedge and compass methods with properties of similarity and inscribed angles. It is widely utilized in architectural drafting and geometric investigation."
+            }
+          }
+        },
+        "quartiles": {
+          "title": "Quartiles & box plots",
+          "summary": "Find quartiles and read the spread of data from box plots.",
+          "items": {
+            "quartiles": {
+              "title": "Quartiles",
+              "summary": "Calculate quartiles and measure data dispersion.",
+              "description": "Learn how to calculate quartiles that divide ordered data into four equal parts, recognizing that the second quartile corresponds to the median. By using the interquartile range, you will quantify the dispersion and spread of data distributions. This concept is widely applied in statistics to objectively compare variability across different datasets."
+            },
+            "boxplot": {
+              "title": "Box plots",
+              "summary": "Use boxplots to assess data spread and compare datasets.",
+              "description": "Learn how to construct boxplots using minimum, maximum, and quartile values to analyze data spread and compare multiple groups. By visualizing summary statistics, boxplots clearly illustrate the skewness and variability of distributions. This technique is widely utilized to compare trends across experimental and survey datasets."
+            }
+          }
+        },
+        "frequency": {
+          "title": "Frequency distributions",
+          "summary": "Reading frequency tables and histograms, and finding relative frequencies.",
+          "items": {
+            "frequency": {
+              "title": "Frequency tables & relative frequency",
+              "summary": "Learn frequency distributions and relative frequencies.",
+              "description": "You will learn how to organize data into frequency distribution tables and histograms, and calculate relative frequencies. This is essential for visualizing and understanding how data is distributed. A good understanding of basic decimal arithmetic and percentages will help you master these concepts."
+            }
+          }
+        },
+        "sampling": {
+          "title": "Sampling",
+          "summary": "Census versus sampling, and estimating a population from a sample.",
+          "items": {
+            "population-sample": {
+              "title": "Populations & samples",
+              "summary": "Learn populations, samples, and random sampling basics.",
+              "description": "You will learn the difference between censuses and sample surveys, as well as the concept of random sampling. This approach is widely used in opinion polls and quality control where surveying the whole population is impractical. Prior knowledge of organizing basic statistical data will support your learning."
+            },
+            "estimate": {
+              "title": "Estimating from a sample",
+              "summary": "Estimate population values from sample statistics.",
+              "description": "You will learn how to estimate population parameters from sample statistics using proportions and proportional reasoning. This technique is widely applied to estimate wildlife populations and product defect rates. Familiarity with solving ratios and proportional equations will make these concepts much easier to understand."
+            }
+          }
+        },
+        "statistics": {
+          "title": "Variance & correlation",
+          "summary": "Find the variance, standard deviation and correlation coefficient.",
+          "items": {
+            "variance": {
+              "title": "Variance and standard deviation",
+              "summary": "Learn how to calculate variance and standard deviation.",
+              "description": "You will learn to measure data dispersion by calculating variance, the mean of squared deviations, and standard deviation. These statistics are essential for analyzing fluctuations in test scores and measurement errors. Prior knowledge of calculating the mean and basic operations with square roots will be very helpful."
+            },
+            "correlation": {
+              "title": "Correlation coefficient",
+              "summary": "Learn the correlation coefficient between two variables.",
+              "description": "You will learn how to quantify the linear relationship between two variables using scatter plots and the correlation coefficient. It is widely used to analyze whether two factors, like height and weight, are related. Prior knowledge of calculating variance and standard deviation will help you follow this topic smoothly."
+            },
+            "hypothesis": {
+              "title": "The idea of hypothesis testing",
+              "summary": "Learn the logic and principles of hypothesis testing.",
+              "description": "Learn hypothesis testing by evaluating the probability of observing results as extreme as or more extreme than the actual outcome under a null hypothesis. Unlike strict mathematical contradiction, probabilistic decisions inherently carry a risk of error. This statistical framework is widely applied in clinical trials and quality management."
+            }
+          }
+        },
+        "inference": {
+          "title": "Estimation & hypothesis testing",
+          "summary": "Estimate means and proportions and carry out hypothesis tests.",
+          "items": {
+            "random-variables": {
+              "title": "Random variables & distributions",
+              "summary": "Learn random variables, distributions, and variance.",
+              "description": "Learn about random variables whose values are determined by trial outcomes, their probability distributions, and how to compute expectation and variance. These concepts quantify central tendency and dispersion, forming the foundation for statistical inference. Prior understanding of basic probability rules and sequence summations is required."
+            },
+            "estimation": {
+              "title": "Estimation",
+              "summary": "Learn parameter estimation using confidence intervals.",
+              "description": "You will learn how to estimate population means and proportions within intervals based on a specified confidence level using sample statistics. This technique is indispensable in opinion polling and industrial quality control. A solid understanding of the normal distribution and sample means will be beneficial."
+            },
+            "testing": {
+              "title": "Hypothesis testing",
+              "summary": "Learn hypothesis testing and significance levels.",
+              "description": "You will learn how to set null and alternative hypotheses, calculate test statistics, and determine rejection using significance levels. This method is widely used in comparing product performance and determining scientific significance. Familiarity with the normal distribution and interval estimation will help you master this topic."
+            }
+          }
+        },
+        "sets": {
+          "title": "Sets",
+          "summary": "Unions, intersections and complements, and counting with Venn diagrams.",
+          "items": {
+            "operations": {
+              "title": "Union, intersection and complement",
+              "summary": "Learn unions, intersections, and complements of sets.",
+              "description": "You will learn set notation, how to find unions and intersections of sets, and how to determine the complement within a universal set. These fundamental tools are essential across mathematics for classifying objects based on given conditions. Basic knowledge of numbers and inequalities will help you grasp these concepts quickly."
+            },
+            "venn": {
+              "title": "Venn diagrams and counting",
+              "summary": "Learn to use Venn diagrams and count set elements.",
+              "description": "You will learn how to visualize overlapping sets using Venn diagrams and calculate element counts with the inclusion-exclusion principle. This technique is widely used in survey data analysis and combinatorial counting. Prior familiarity with basic set operations like unions and intersections will be very beneficial."
+            }
+          }
+        },
+        "logic": {
+          "title": "Propositions & logic",
+          "summary": "Negation and contrapositive, necessary and sufficient conditions, and truth tables.",
+          "items": {
+            "negation": {
+              "title": "Negation and contrapositive",
+              "summary": "Learn negation, contrapositives, and indirect proofs.",
+              "description": "You will learn how to formulate negations, converses, inverses, and contrapositives of propositions, exploring why a statement shares its truth value with its contrapositive. This concept is crucial for proving mathematical statements indirectly. Understanding basic set relationships and deductive reasoning will support your progress."
+            },
+            "conditions": {
+              "title": "Necessary and sufficient conditions",
+              "summary": "Learn necessary, sufficient, and equivalent conditions.",
+              "description": "You will learn how to identify necessary conditions, sufficient conditions, and equivalences by examining implications between statements. This provides precision when verifying solutions to equations and stating assumptions of mathematical theorems. Familiarity with determining truth values of propositions and set inclusions will be helpful."
+            },
+            "truth-table": {
+              "title": "Truth tables",
+              "summary": "Learn truth tables to evaluate compound propositions.",
+              "description": "You will learn to construct truth tables for logical operators such as conjunction, disjunction, negation, and implication to determine the validity of compound propositions. This skill is widely applied in logic circuit design and verifying program branching conditions. Basic knowledge of logical operations and set theory will be beneficial."
+            }
+          }
+        },
+        "mapping": {
+          "title": "Functions & relations",
+          "summary": "Injective and surjective maps, and equivalence relations.",
+          "items": {
+            "injective": {
+              "title": "Injective and surjective maps",
+              "summary": "Learn injective, surjective, and bijective mappings.",
+              "description": "You will learn the formal definitions of injective, surjective, and bijective mappings, as well as the conditions required for inverse mappings to exist. These concepts are fundamental in modern algebra and invertible data transformations in computer science. Prior familiarity with functions and basic set operations will support your progress."
+            },
+            "equivalence": {
+              "title": "Equivalence relations",
+              "summary": "Learn equivalence relations, properties, and partitions.",
+              "description": "You will learn about relations satisfying reflexivity, symmetry, and transitivity, and how equivalence classes partition a set into disjoint subsets. This forms the foundation for modern algebraic concepts such as modular arithmetic and quotient structures. A solid grasp of Cartesian products and logical deductions will be advantageous."
+            }
+          }
+        },
+        "series": {
+          "title": "Series & Taylor expansions",
+          "summary": "Sums and convergence of series, and Taylor expansions.",
+          "items": {
+            "series": {
+              "title": "Sums and convergence of series",
+              "summary": "Learn convergence tests and partial sums of infinite series.",
+              "description": "You will learn how infinite series are defined as limits of partial sums and how to determine convergence using standard tests. This forms the foundation for series representations and polynomial approximations of functions, as well as stability analysis in physics. A solid command of sequence limits and geometric series formulas is essential."
+            },
+            "taylor": {
+              "title": "Taylor expansions",
+              "summary": "Learn Taylor polynomials and series expansions.",
+              "description": "You will learn how to approximate functions locally with polynomials using higher-order derivatives, as well as power series representations through Taylor and Maclaurin expansions. This approach is widely applied in numerical computation and physical modeling. A solid grasp of higher-order differentiation and series convergence is essential."
+            }
+          }
+        },
+        "improper-integral": {
+          "title": "Improper integrals",
+          "summary": "Integrals over infinite intervals or with singularities.",
+          "items": {
+            "improper": {
+              "title": "Improper integrals",
+              "summary": "Learn to evaluate improper integrals using limits.",
+              "description": "You will learn how to evaluate improper integrals where the interval of integration extends to infinity or the integrand has singularities, using limit processes. These integrals are extensively used in computing expectations of continuous random variables and physical potentials. Proficiency in definite integrals and limits is required."
+            }
+          }
+        },
+        "multivariable": {
+          "title": "Partial derivatives & multiple integrals",
+          "summary": "Partial derivatives and multiple integrals of functions of several variables.",
+          "items": {
+            "partial": {
+              "title": "Partial derivatives",
+              "summary": "Learn partial derivatives of multivariable functions.",
+              "description": "You will learn how to compute partial derivatives of multivariable functions by differentiating with respect to one variable while treating others as constants. This method is fundamental in solving multivariable optimization problems and analyzing physical fields. Mastery of single-variable differentiation rules is an essential prerequisite."
+            },
+            "double-integral": {
+              "title": "Multiple integrals",
+              "summary": "Learn how to calculate double integrals in the plane.",
+              "description": "Learn to calculate double integrals of functions of two variables over planar regions. They are widely used to determine the volume under surfaces and the area of two-dimensional shapes. A solid foundation in single-variable definite integration and iterated integrals is recommended before starting."
+            },
+            "polar": {
+              "title": "Change to polar coordinates",
+              "summary": "Learn to compute double integrals in polar coordinates.",
+              "description": "Learn how to transform double integrals from Cartesian to polar coordinates using the Jacobian determinant. This technique is particularly useful for simplifying integrals over circular or symmetric regions. Before studying this topic, familiarity with basic double integrals and trigonometry is recommended."
+            }
+          }
+        },
+        "ode": {
+          "title": "Differential equations",
+          "summary": "Solve separable, first-order linear and constant-coefficient second-order equations.",
+          "items": {
+            "separable": {
+              "title": "Separable equations",
+              "summary": "Learn how to solve separable differential equations.",
+              "description": "Learn how to solve separable differential equations by separating the variables onto opposite sides and integrating. This method is frequently applied to model physical phenomena like population growth and radioactive decay. Before starting, you should have a solid grasp of basic derivative rules and indefinite integration."
+            },
+            "linear-first": {
+              "title": "First-order linear equations",
+              "summary": "Learn to solve first-order linear differential equations.",
+              "description": "Learn techniques for solving first-order linear differential equations, including integrating factors and variation of parameters. These equations are widely used to analyze electric circuits and mixing processes in engineering and physics. Prior mastery of the product rule for differentiation and standard integration techniques is essential."
+            },
+            "second-order": {
+              "title": "Second-order with constant coefficients",
+              "summary": "Solve second-order linear ODEs with constant coefficients.",
+              "description": "Learn how to solve second-order linear differential equations with constant coefficients using characteristic equations. They are fundamental in modeling oscillatory phenomena, such as spring vibrations and alternating current circuits. Prior knowledge of solving quadratic equations and differentiating exponential functions is recommended."
+            }
           }
         }
       },
@@ -1292,10 +2486,6 @@
         "calculus": "Calculus"
       },
       "pythagoras": {
-        "title": "Pythagorean theorem",
-        "description": "Use the Pythagorean theorem to find a side length in the diagram.",
-        "setSides": "Side lengths",
-        "setSidesDescription": "Find side lengths of right triangles using integers and square roots.",
         "prompt": "In the right triangle shown, find the length x.",
         "explanationPrefix": "By the Pythagorean theorem,",
         "figureDescription": "Right triangle ABC. Angle {rightAngle} is a right angle. {first} is {firstLength} cm, {second} is {secondLength} cm, and {unknown} is x."
@@ -1305,7 +2495,119 @@
         "playableOnly": "Playable sets only",
         "search": "Search units and sets",
         "empty": "No units match these filters.",
-        "best": "Best {best}/{total}"
+        "best": "Best {best}/{total}",
+        "grade": "Filter by Japanese school year",
+        "kentei": "Filter by Suken grade"
+      },
+      "formulaQuiz": {
+        "calc": "Calculate.",
+        "expand": "Simplify.",
+        "solve": "Solve the equation.",
+        "given": "Find the value when <given></given>.",
+        "answer": "Answer:",
+        "transform": "Choose the expression equal to this one.",
+        "factor": "Factor.",
+        "derivative": "Differentiate.",
+        "derivativeAt": "Find the derivative at <given></given>.",
+        "tangent": "Find the tangent line to the curve at <given></given>.",
+        "remainder": "Find the remainder when divided by <divisor></divisor>.",
+        "extremumMax": "Find the local maximum value.",
+        "extremumMin": "Find the local minimum value.",
+        "indefinite": "Find the indefinite integral (omit the constant).",
+        "definite": "Evaluate the definite integral.",
+        "areaAxis": "Find the area enclosed by the curve, the x-axis and the lines <a></a> and <b></b>.",
+        "areaCurves": "Find the area enclosed by the two curves and the lines <a></a> and <b></b>.",
+        "arithmeticTermAt": "Find term <n></n> of the arithmetic sequence below.",
+        "arithmeticTerm": "Find the general term <an></an> of the arithmetic sequence below.",
+        "arithmeticSumAt": "Find the sum of the first <n></n> terms of the arithmetic sequence below.",
+        "arithmeticSum": "Find the sum <sn></sn> of the first <n></n> terms of the arithmetic sequence below.",
+        "geometricTermAt": "Find term <n></n> of the geometric sequence below.",
+        "geometricTerm": "Find the general term <an></an> of the geometric sequence below.",
+        "geometricSumAt": "Find the sum of the first <n></n> terms of the geometric sequence below.",
+        "geometricSum": "Find the sum <sn></sn> of the first <n></n> terms of the geometric sequence below.",
+        "radian": "Express the angle in radians.",
+        "degree": "Express the angle in degrees.",
+        "identity": "Find the constants that make the equation an identity in x.",
+        "recurrence": "Find the general term <an></an> of the sequence defined below.",
+        "recurrenceAt": "Find term <n></n> of the sequence defined below.",
+        "meanTable": "Find the expected value E(X) of the random variable X.",
+        "varianceTable": "Find the variance V(X) of the random variable X.",
+        "binomialMean": "Find the expected value E(X) of X, which follows the binomial distribution below.",
+        "binomialVariance": "Find the variance V(X) of X, which follows the binomial distribution below.",
+        "binomialProb": "For the binomial distribution below, find the probability of exactly <k></k> successes.",
+        "zscore": "Find the standardized value Z of X, which follows the normal distribution below.",
+        "lineTwoPoints": "Find the equation of the line through the two points.",
+        "lineSlope": "Find the equation of the line through the point with slope m.",
+        "lineParallel": "Find the equation of the line through A parallel to the line ℓ.",
+        "linePerpendicular": "Find the equation of the line through A perpendicular to the line ℓ.",
+        "circleCenter": "Find the equation of the circle with the given center and radius.",
+        "circleDiameter": "Find the equation of the circle with diameter AB.",
+        "distance": "Find the distance from the point P to the line ℓ.",
+        "amgmMin": "For x > 0, find the minimum value of the expression.",
+        "amgmEqual": "For x > 0, find the value of x that minimizes the expression.",
+        "productSum": "For a > 0, b > 0 satisfying the condition, find the minimum of a + b.",
+        "inductionBase": "We prove the equation by mathematical induction. Find the left side for n = 1.",
+        "inductionAdd": "We prove the equation by induction. Assuming it holds for n = k, choose the term added to the left side when going to n = k + 1.",
+        "inductionTarget": "We prove the equation by induction. Choose the right side for n = k + 1.",
+        "inductionCombine": "We prove the equation by induction. Assuming it holds for n = k, what does the left side for n = k + 1 become?",
+        "meanInterval": "A sample of size n from a population with standard deviation σ has sample mean x̄. Using z = <z></z>, find the confidence interval for the population mean.",
+        "ratioInterval": "A sample of size n has sample proportion p̂. Using z = <z></z>, find the confidence interval for the population proportion.",
+        "testZ": "In a hypothesis test for the mean μ₀, find the test statistic Z from the sample mean x̄ (standard deviation σ, sample size n).",
+        "regionIn": "Choose the point that lies in the region given by the inequality.",
+        "regionOut": "Choose the point that does not lie in the region given by the inequality.",
+        "locusEquidistant": "Find the equation of the locus of points P equidistant from A and B.",
+        "locusRatio": "Find the equation of the locus of points P for which PA : PB has the given ratio.",
+        "graphDescription": "A graph on a coordinate plane",
+        "graphLine": "Choose the equation of the line in the graph.",
+        "graphParabola": "Choose the equation of the parabola in the graph.",
+        "graphTrig": "Choose the equation of the curve in the graph.",
+        "graphVertex": "Choose the vertex of the parabola in the graph.",
+        "graphCircle": "Choose the equation of the circle in the graph.",
+        "graphRegion": "Choose the inequality for the shaded region (a solid boundary is included, a dashed one is not)."
+      },
+      "grades": {
+        "e1": "Elementary 1",
+        "e2": "Elementary 2",
+        "e3": "Elementary 3",
+        "e4": "Elementary 4",
+        "e5": "Elementary 5",
+        "e6": "Elementary 6",
+        "m1": "Junior high 1",
+        "m2": "Junior high 2",
+        "m3": "Junior high 3",
+        "h-i": "Math I",
+        "h-a": "Math A",
+        "h-ii": "Math II",
+        "h-b": "Math B",
+        "h-iii": "Math III",
+        "h-c": "Math C",
+        "u1": "University year 1",
+        "u2": "University year 2"
+      },
+      "gradeLabel": "Japanese school year: {grade}",
+      "kentei": {
+        "levels": {
+          "1": "Grade 1",
+          "2": "Grade 2",
+          "3": "Grade 3",
+          "4": "Grade 4",
+          "5": "Grade 5",
+          "6": "Grade 6 (arithmetic)",
+          "7": "Grade 7 (arithmetic)",
+          "8": "Grade 8 (arithmetic)",
+          "9": "Grade 9 (arithmetic)",
+          "10": "Grade 10 (arithmetic)",
+          "11": "Grade 11 (arithmetic)",
+          "pre2": "Grade Pre-2",
+          "pre1": "Grade Pre-1"
+        },
+        "note": "The grade ranges follow the association's guide and are approximate. This site is not affiliated with the Mathematics Certification Institute of Japan.",
+        "official": "Official ranges"
+      },
+      "tiers": {
+        "1": "Basic",
+        "2": "Standard",
+        "3": "Advanced"
       }
     },
     "about": {

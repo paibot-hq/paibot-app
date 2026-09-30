@@ -1,0 +1,191 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "polynomial-equations-001",
+      "item": "remainder",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "remainder",
+      "question": "x^3 - 4*x^2 + 2*x + 5",
+      "given": null,
+      "divisor": "x - 3",
+      "choices": ["2", "-64", "14", "-10"],
+      "answerIndex": 0,
+      "steps": [
+        "3^3 - 4*3^2 + 2*3 + 5 = 27 - 36 + 6 + 5 = 2"
+      ]
+    },
+    {
+      "id": "polynomial-equations-002",
+      "item": "remainder",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "remainder",
+      "question": "2*x^3 + 5*x^2 - 3*x + 1",
+      "given": null,
+      "divisor": "x + 2",
+      "choices": ["31", "-1", "43", "11"],
+      "answerIndex": 3,
+      "steps": [
+        "2*(-2)^3 + 5*(-2)^2 - 3*(-2) + 1 = -16 + 20 + 6 + 1 = 11"
+      ]
+    },
+    {
+      "id": "polynomial-equations-003",
+      "item": "remainder",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "remainder",
+      "question": "x^4 - 2*x^3 + 3*x - 5",
+      "given": null,
+      "divisor": "x - 2",
+      "choices": ["21", "-11", "1", "-5"],
+      "answerIndex": 2,
+      "steps": [
+        "2^4 - 2*2^3 + 3*2 - 5 = 16 - 16 + 6 - 5 = 1"
+      ]
+    },
+    {
+      "id": "polynomial-equations-004",
+      "item": "remainder",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "remainder",
+      "question": "x^3 - 3*x^2 - 4*x + 12",
+      "given": null,
+      "divisor": "x + 3",
+      "choices": ["0", "-30", "24", "-54"],
+      "answerIndex": 1,
+      "steps": [
+        "(-3)^3 - 3*(-3)^2 - 4*(-3) + 12 = -27 - 27 + 12 + 12 = -30"
+      ]
+    },
+    {
+      "id": "polynomial-equations-005",
+      "item": "remainder",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "remainder",
+      "question": "3*x^3 - 5*x^2 - 2*x + 4",
+      "given": null,
+      "divisor": "x + 1",
+      "choices": ["-2", "0", "4", "-6"],
+      "answerIndex": 0,
+      "steps": [
+        "3*(-1)^3 - 5*(-1)^2 - 2*(-1) + 4 = -3 - 5 + 2 + 4 = -2"
+      ]
+    },
+    {
+      "id": "polynomial-equations-006",
+      "item": "higher-degree",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "solve",
+      "question": "x^3 - 4*x^2 + x + 6 = 0",
+      "given": null,
+      "choices": ["-1,   2,   3", "-3,   -2,   1", "-2,   -1,   3", "-3,   1,   2"],
+      "answerIndex": 0,
+      "steps": [
+        "(x + 1)*(x^2 - 5*x + 6) = 0",
+        "(x + 1)*(x - 2)*(x - 3) = 0",
+        "x = -1, x = 2, x = 3"
+      ]
+    },
+    {
+      "id": "polynomial-equations-007",
+      "item": "higher-degree",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "solve",
+      "question": "x^3 + 4*x^2 + x - 6 = 0",
+      "given": null,
+      "choices": ["-1,   2,   3", "-3,   -2,   1", "-3,   1,   2", "-2,   1,   3"],
+      "answerIndex": 1,
+      "steps": [
+        "(x - 1)*(x^2 + 5*x + 6) = 0",
+        "(x - 1)*(x + 2)*(x + 3) = 0",
+        "x = -3, x = -2, x = 1"
+      ]
+    },
+    {
+      "id": "polynomial-equations-008",
+      "item": "higher-degree",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "solve",
+      "question": "2*x^3 + x^2 - 5*x + 2 = 0",
+      "given": null,
+      "choices": ["-2,   -1/2,   1", "-1,   -1/2,   2", "-2,   1/2,   1", "-1,   1/2,   2"],
+      "answerIndex": 2,
+      "steps": [
+        "(x - 1)*(2*x^2 + 3*x - 2) = 0",
+        "(x - 1)*(2*x - 1)*(x + 2) = 0",
+        "x = -2, x = 1/2, x = 1"
+      ]
+    },
+    {
+      "id": "polynomial-equations-009",
+      "item": "higher-degree",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "solve",
+      "question": "x^4 - 10*x^2 + 9 = 0",
+      "given": null,
+      "choices": ["-9,   -1,   1,   9", "-4,   -1,   1,   4", "-3,   -2,   2,   3", "-3,   -1,   1,   3"],
+      "answerIndex": 3,
+      "steps": [
+        "(x^2 - 1)*(x^2 - 9) = 0",
+        "(x + 1)*(x - 1)*(x + 3)*(x - 3) = 0",
+        "x = -3, x = -1, x = 1, x = 3"
+      ]
+    },
+    {
+      "id": "polynomial-equations-010",
+      "item": "higher-degree",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "solve",
+      "question": "x^4 + x^3 - 7*x^2 - x + 6 = 0",
+      "given": null,
+      "choices": ["-2,   -1,   1,   3", "-3,   -1,   1,   2", "-3,   -2,   1,   2", "-3,   -1,   2,   3"],
+      "answerIndex": 1,
+      "steps": [
+        "(x - 1)*(x^3 + 2*x^2 - 5*x - 6) = 0",
+        "(x - 1)*(x + 1)*(x^2 + x - 6) = 0",
+        "(x - 1)*(x + 1)*(x - 2)*(x + 3) = 0",
+        "x = -3, x = -1, x = 1, x = 2"
+      ]
+    }
+  ]
+}

@@ -3,8 +3,10 @@
   "problems": [
     {
       "id": "pythagoras-001",
-      "setId": "sides-a",
+      "item": "sides",
+      "setId": "1",
       "position": 1,
+      "tier": 1,
       "published": true,
       "reviewedAt": "2026-09-27",
       "figure": {
@@ -34,8 +36,10 @@
     },
     {
       "id": "pythagoras-002",
-      "setId": "sides-a",
+      "item": "sides",
+      "setId": "1",
       "position": 2,
+      "tier": 2,
       "published": true,
       "reviewedAt": "2026-09-27",
       "figure": {
@@ -65,8 +69,10 @@
     },
     {
       "id": "pythagoras-003",
-      "setId": "sides-a",
+      "item": "sides",
+      "setId": "1",
       "position": 3,
+      "tier": 2,
       "published": true,
       "reviewedAt": "2026-09-27",
       "figure": {
@@ -96,8 +102,10 @@
     },
     {
       "id": "pythagoras-004",
-      "setId": "sides-a",
+      "item": "sides",
+      "setId": "1",
       "position": 4,
+      "tier": 2,
       "published": true,
       "reviewedAt": "2026-09-27",
       "figure": {
@@ -127,8 +135,10 @@
     },
     {
       "id": "pythagoras-005",
-      "setId": "sides-a",
+      "item": "sides",
+      "setId": "1",
       "position": 5,
+      "tier": 1,
       "published": true,
       "reviewedAt": "2026-09-27",
       "figure": {

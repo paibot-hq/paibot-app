@@ -11,7 +11,7 @@ import { APP_CATALOG, type AppData } from "./app-catalog.ts";
 // Every published, non-private app in the catalog is public, so a new tool
 // needs no edit here; add only pages outside the catalog below.
 const sitePaths = ["", "/apps", "/daily", "/game", "/utility", "/study", "/dev", "/network", "/about", "/supporter", "/legal/terms", "/legal/privacy", "/legal/commerce"];
-const mathSetPaths = ["/math/pythagoras/sides-a", "/math/factorization/trinomial-a", "/math/arith/order-a", "/math/signed/four-ops-a"];
+const mathSetPaths = ["/math/arith", "/math/signed", "/math/factorization", "/math/pythagoras", "/math/arith/order-of-operations", "/math/signed/four-operations", "/math/factorization/trinomial", "/math/pythagoras/sides"];
 export const publicPaths: readonly string[] = [
   ...sitePaths,
   ...(APP_CATALOG as readonly AppData[]).filter(app => app.status === "published" && app.href && !app.private).map(app => app.href!),

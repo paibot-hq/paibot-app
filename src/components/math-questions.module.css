@@ -1,0 +1,5 @@
+/* A worked solution: one row per line of working. A row wraps between its terms
+   when it is wider than the screen; a single term wider than that shrinks (MathTex). */
+.steps { display: grid; grid-template-columns: minmax(0, 1fr); gap: .35rem; margin: 0 0 .6rem; max-width: 100%; text-align: left; }
+.row { display: flex; flex-wrap: wrap; align-items: baseline; column-gap: .3em; row-gap: .1em; }
+.row > span { font-size: 1.1rem; }

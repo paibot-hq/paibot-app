@@ -1,0 +1,345 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "expansion-001",
+      "item": "formulas",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x + 2)*(x + 3)",
+      "given": null,
+      "choices": ["x^2 + 5*x + 6", "x^2 + 6*x + 5", "x^2 + 5*x + 5", "x^2 + 6"],
+      "answerIndex": 0,
+      "steps": [
+        "(x + 2)*(x + 3) = x^2 + (2 + 3)*x + 2*3 = x^2 + 5*x + 6"
+      ]
+    },
+    {
+      "id": "expansion-002",
+      "item": "formulas",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x + 5)*(x - 2)",
+      "given": null,
+      "choices": ["x^2 - 3*x - 10", "x^2 + 3*x - 10", "x^2 + 3*x + 10", "x^2 - 10"],
+      "answerIndex": 1,
+      "steps": [
+        "(x + 5)*(x - 2) = x^2 + (5 - 2)*x + 5*(-2) = x^2 + 3*x - 10"
+      ]
+    },
+    {
+      "id": "expansion-003",
+      "item": "formulas",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x - 3)*(x - 4)",
+      "given": null,
+      "choices": ["x^2 + 7*x + 12", "x^2 - 7*x - 12", "x^2 - 7*x + 12", "x^2 + 12"],
+      "answerIndex": 2,
+      "steps": [
+        "(x - 3)*(x - 4) = x^2 + (-3 - 4)*x + (-3)*(-4) = x^2 - 7*x + 12"
+      ]
+    },
+    {
+      "id": "expansion-004",
+      "item": "formulas",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x + 3)*(x - 7)",
+      "given": null,
+      "choices": ["x^2 + 4*x - 21", "x^2 - 10*x - 21", "x^2 - 4*x + 21", "x^2 - 4*x - 21"],
+      "answerIndex": 3,
+      "steps": [
+        "(x + 3)*(x - 7) = x^2 + (3 - 7)*x + 3*(-7) = x^2 - 4*x - 21"
+      ]
+    },
+    {
+      "id": "expansion-005",
+      "item": "formulas",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x - 5)*(x + 8)",
+      "given": null,
+      "choices": ["x^2 - 3*x - 40", "x^2 + 3*x + 40", "x^2 + 3*x - 40", "x^2 + 13*x - 40"],
+      "answerIndex": 2,
+      "steps": [
+        "(x - 5)*(x + 8) = x^2 + (-5 + 8)*x + (-5)*8 = x^2 + 3*x - 40"
+      ]
+    },
+    {
+      "id": "expansion-006",
+      "item": "square",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x + 4)^2",
+      "given": null,
+      "choices": ["x^2 + 8*x + 16", "x^2 + 16", "x^2 - 8*x + 16", "x^2 + 4*x + 16"],
+      "answerIndex": 0,
+      "steps": [
+        "(x + 4)^2 = x^2 + 2*x*4 + 4^2 = x^2 + 8*x + 16"
+      ]
+    },
+    {
+      "id": "expansion-007",
+      "item": "square",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x - 6)^2",
+      "given": null,
+      "choices": ["x^2 - 6*x + 36", "x^2 + 12*x + 36", "x^2 - 12*x + 36", "x^2 - 36"],
+      "answerIndex": 2,
+      "steps": [
+        "(x - 6)^2 = x^2 - 2*x*6 + 6^2 = x^2 - 12*x + 36"
+      ]
+    },
+    {
+      "id": "expansion-008",
+      "item": "square",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x + 7)^2",
+      "given": null,
+      "choices": ["x^2 + 49", "x^2 + 14*x + 49", "x^2 - 14*x + 49", "x^2 + 7*x + 49"],
+      "answerIndex": 1,
+      "steps": [
+        "(x + 7)^2 = x^2 + 2*x*7 + 7^2 = x^2 + 14*x + 49"
+      ]
+    },
+    {
+      "id": "expansion-009",
+      "item": "square",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(2*x + 3)^2",
+      "given": null,
+      "choices": ["4*x^2 + 6*x + 9", "2*x^2 + 12*x + 9", "4*x^2 + 9", "4*x^2 + 12*x + 9"],
+      "answerIndex": 3,
+      "steps": [
+        "(2*x + 3)^2 = (2*x)^2 + 2*(2*x)*3 + 3^2 = 4*x^2 + 12*x + 9"
+      ]
+    },
+    {
+      "id": "expansion-010",
+      "item": "square",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(3*x - 2)^2",
+      "given": null,
+      "choices": ["9*x^2 - 12*x + 4", "9*x^2 - 12*x - 4", "9*x^2 - 6*x + 4", "9*x^2 + 4"],
+      "answerIndex": 0,
+      "steps": [
+        "(3*x - 2)^2 = (3*x)^2 - 2*(3*x)*2 + 2^2 = 9*x^2 - 12*x + 4"
+      ]
+    },
+    {
+      "id": "expansion-011",
+      "item": "sum-difference",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x + 3)*(x - 3)",
+      "given": null,
+      "choices": ["x^2 - 9", "x^2 + 9", "x^2 - 6*x - 9", "x^2 - 6"],
+      "answerIndex": 0,
+      "steps": [
+        "(x + 3)*(x - 3) = x^2 - 3^2 = x^2 - 9"
+      ]
+    },
+    {
+      "id": "expansion-012",
+      "item": "sum-difference",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x - 5)*(x + 5)",
+      "given": null,
+      "choices": ["x^2 + 25", "x^2 - 25", "x^2 - 10*x - 25", "x^2 - 10*x + 25"],
+      "answerIndex": 1,
+      "steps": [
+        "(x - 5)*(x + 5) = x^2 - 5^2 = x^2 - 25"
+      ]
+    },
+    {
+      "id": "expansion-013",
+      "item": "sum-difference",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x + 8)*(x - 8)",
+      "given": null,
+      "choices": ["x^2 - 16*x - 64", "x^2 + 64", "x^2 - 64", "x^2 - 16"],
+      "answerIndex": 2,
+      "steps": [
+        "(x + 8)*(x - 8) = x^2 - 8^2 = x^2 - 64"
+      ]
+    },
+    {
+      "id": "expansion-014",
+      "item": "sum-difference",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(2*x + 3)*(2*x - 3)",
+      "given": null,
+      "choices": ["2*x^2 - 9", "4*x^2 + 9", "4*x^2 - 12*x - 9", "4*x^2 - 9"],
+      "answerIndex": 3,
+      "steps": [
+        "(2*x + 3)*(2*x - 3) = (2*x)^2 - 3^2 = 4*x^2 - 9"
+      ]
+    },
+    {
+      "id": "expansion-015",
+      "item": "sum-difference",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(3*x + 2)*(3*x - 2)",
+      "given": null,
+      "choices": ["9*x^2 + 4", "9*x^2 - 4", "3*x^2 - 4", "9*x^2 - 12*x - 4"],
+      "answerIndex": 1,
+      "steps": [
+        "(3*x + 2)*(3*x - 2) = (3*x)^2 - 2^2 = 9*x^2 - 4"
+      ]
+    },
+    {
+      "id": "expansion-016",
+      "item": "cubic",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x + 3)^3",
+      "given": null,
+      "choices": ["x^3 + 6*x^2 + 9*x + 27", "x^3 + 9*x^2 + 27*x + 27", "x^3 + 9*x^2 + 9*x + 27", "x^3 + 27*x^2 + 9*x + 27"],
+      "answerIndex": 1,
+      "steps": [
+        "(x + 3)^3 = x^3 + 3*x^2*3 + 3*x*3^2 + 3^3 = x^3 + 9*x^2 + 27*x + 27"
+      ]
+    },
+    {
+      "id": "expansion-017",
+      "item": "cubic",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x - 2)^3",
+      "given": null,
+      "choices": ["x^3 - 6*x^2 - 12*x - 8", "x^3 - 6*x^2 + 12*x + 8", "x^3 - 6*x^2 + 6*x - 8", "x^3 - 6*x^2 + 12*x - 8"],
+      "answerIndex": 3,
+      "steps": [
+        "(x - 2)^3 = x^3 - 3*x^2*2 + 3*x*2^2 - 2^3 = x^3 - 6*x^2 + 12*x - 8"
+      ]
+    },
+    {
+      "id": "expansion-018",
+      "item": "cubic",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x + 2)*(x^2 - 2*x + 4)",
+      "given": null,
+      "choices": ["x^3 + 8", "x^3 - 8", "x^3 + 6", "x^3 - 6"],
+      "answerIndex": 0,
+      "steps": [
+        "(x + 2)*(x^2 - 2*x + 4) = x^3 + 2^3 = x^3 + 8"
+      ]
+    },
+    {
+      "id": "expansion-019",
+      "item": "cubic",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x - 3)*(x^2 + 3*x + 9)",
+      "given": null,
+      "choices": ["x^3 + 27", "x^3 - 9", "x^3 - 27", "x^3 + 9"],
+      "answerIndex": 2,
+      "steps": [
+        "(x - 3)*(x^2 + 3*x + 9) = x^3 - 3^3 = x^3 - 27"
+      ]
+    },
+    {
+      "id": "expansion-020",
+      "item": "cubic",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(2*x + 1)^3",
+      "given": null,
+      "choices": ["8*x^3 + 12*x^2 + 6*x + 1", "8*x^3 + 6*x^2 + 6*x + 1", "2*x^3 + 12*x^2 + 6*x + 1", "8*x^3 + 12*x^2 + 3*x + 1"],
+      "answerIndex": 0,
+      "steps": [
+        "(2*x + 1)^3 = (2*x)^3 + 3*(2*x)^2*1 + 3*(2*x)*1^2 + 1^3 = 8*x^3 + 12*x^2 + 6*x + 1"
+      ]
+    }
+  ]
+}

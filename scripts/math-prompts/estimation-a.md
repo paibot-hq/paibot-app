@@ -1,0 +1,1 @@
+母平均・母比率の信頼区間（kind "inference"、which は mean-interval と ratio-interval）。5問を mean-interval 3問、ratio-interval 2問 にする。given は "z = 1.96"（信頼度95%）を中心に "z = 2.58"（99%）も1問。ratio-interval は p と n を sqrt(p*(1 - p)/n) がきれいになるように選ぶ（例 p = 0.4, n = 600、p = 0.2, n = 400）。誤答は sqrt(n) の忘れ、区間の片側だけ、z の取り違えから作る。

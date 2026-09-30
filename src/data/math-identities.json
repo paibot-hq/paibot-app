@@ -1,0 +1,289 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "identities-001",
+      "item": "binomial",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(2*x + 1)^4",
+      "given": null,
+      "choices": ["16*x^4 + 24*x^3 + 24*x^2 + 8*x + 1", "16*x^4 + 32*x^3 + 16*x^2 + 8*x + 1", "16*x^4 + 32*x^3 + 24*x^2 + 8*x + 1", "16*x^4 + 8*x^3 + 4*x^2 + 2*x + 1"],
+      "answerIndex": 2,
+      "steps": [
+        "(2*x + 1)^4 = (2*x)^4 + 4*(2*x)^3 + 6*(2*x)^2 + 4*(2*x) + 1 = 16*x^4 + 32*x^3 + 24*x^2 + 8*x + 1"
+      ]
+    },
+    {
+      "id": "identities-002",
+      "item": "binomial",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x - 2)^4",
+      "given": null,
+      "choices": ["x^4 - 8*x^3 + 24*x^2 - 32*x + 16", "x^4 - 8*x^3 + 24*x^2 - 32*x - 16", "x^4 - 8*x^3 - 24*x^2 + 32*x - 16", "x^4 - 4*x^3 + 24*x^2 - 16*x + 16"],
+      "answerIndex": 0,
+      "steps": [
+        "(x - 2)^4 = x^4 + 4*x^3*(-2) + 6*x^2*(-2)^2 + 4*x*(-2)^3 + (-2)^4 = x^4 - 8*x^3 + 24*x^2 - 32*x + 16"
+      ]
+    },
+    {
+      "id": "identities-003",
+      "item": "binomial",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x + 2)^5",
+      "given": null,
+      "choices": ["x^5 + 10*x^4 + 40*x^3 + 40*x^2 + 80*x + 32", "x^5 + 10*x^4 + 20*x^3 + 40*x^2 + 80*x + 32", "x^5 + 10*x^4 + 40*x^3 + 80*x^2 + 80*x + 16", "x^5 + 10*x^4 + 40*x^3 + 80*x^2 + 80*x + 32"],
+      "answerIndex": 3,
+      "steps": [
+        "(x + 2)^5 = x^5 + 5*x^4*2 + 10*x^3*2^2 + 10*x^2*2^3 + 5*x*2^4 + 2^5 = x^5 + 10*x^4 + 40*x^3 + 80*x^2 + 80*x + 32"
+      ]
+    },
+    {
+      "id": "identities-004",
+      "item": "binomial",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(2*x - 1)^5",
+      "given": null,
+      "choices": ["32*x^5 - 80*x^4 + 40*x^3 - 40*x^2 + 10*x - 1", "32*x^5 - 80*x^4 + 80*x^3 - 40*x^2 + 10*x - 1", "32*x^5 - 80*x^4 + 80*x^3 - 40*x^2 + 10*x + 1", "32*x^5 - 40*x^4 + 80*x^3 - 20*x^2 + 10*x - 1"],
+      "answerIndex": 1,
+      "steps": [
+        "(2*x - 1)^5 = (2*x)^5 + 5*(2*x)^4*(-1) + 10*(2*x)^3*(-1)^2 + 10*(2*x)^2*(-1)^3 + 5*(2*x)*(-1)^4 + (-1)^5 = 32*x^5 - 80*x^4 + 80*x^3 - 40*x^2 + 10*x - 1"
+      ]
+    },
+    {
+      "id": "identities-005",
+      "item": "binomial",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "expand",
+      "question": "(x - 1)^6",
+      "given": null,
+      "choices": ["x^6 - 6*x^5 + 15*x^4 - 20*x^3 + 15*x^2 - 6*x - 1", "x^6 - 6*x^5 + 12*x^4 - 20*x^3 + 12*x^2 - 6*x + 1", "x^6 - 6*x^5 + 15*x^4 - 20*x^3 + 15*x^2 - 6*x + 1", "x^6 - 6*x^5 + 15*x^4 - 18*x^3 + 15*x^2 - 6*x + 1"],
+      "answerIndex": 2,
+      "steps": [
+        "(x - 1)^6 = x^6 + 6*x^5*(-1) + 15*x^4*(-1)^2 + 20*x^3*(-1)^3 + 15*x^2*(-1)^4 + 6*x*(-1)^5 + (-1)^6 = x^6 - 6*x^5 + 15*x^4 - 20*x^3 + 15*x^2 - 6*x + 1"
+      ]
+    },
+    {
+      "id": "identities-006",
+      "item": "identity",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "identity",
+      "question": "a*(x + 2) + b*(x - 3) = 5*x",
+      "given": null,
+      "steps": [
+        "(a + b)*x + (2*a - 3*b) = 5*x",
+        "a + b = 5",
+        "2*a - 3*b = 0",
+        "a = 3, b = 2"
+      ],
+      "choices": ["a = 3,   b = 2", "a = 2,   b = 3", "a = 3,   b = -2", "a = -3,   b = 2"],
+      "answerIndex": 0
+    },
+    {
+      "id": "identities-007",
+      "item": "identity",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "identity",
+      "question": "a*(x - 1)^2 + b*(x - 1) + c = 2*x^2 - 3*x + 4",
+      "given": null,
+      "steps": [
+        "a*x^2 + (-2*a + b)*x + (a - b + c) = 2*x^2 - 3*x + 4",
+        "a = 2",
+        "-2*a + b = -3",
+        "a - b + c = 4",
+        "a = 2, b = 1, c = 3"
+      ],
+      "choices": ["a = 2,   b = -1,   c = 3", "a = 2,   b = 1,   c = 3", "a = 2,   b = 1,   c = 5", "a = 2,   b = -3,   c = 4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "identities-008",
+      "item": "identity",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "identity",
+      "question": "a*(x + 1)*(x - 2) + b*(x - 2) + c = 3*x^2 - 4*x + 1",
+      "given": null,
+      "steps": [
+        "a*x^2 + (-a + b)*x + (-2*a - 2*b + c) = 3*x^2 - 4*x + 1",
+        "a = 3",
+        "-a + b = -4",
+        "-2*a - 2*b + c = 1",
+        "a = 3, b = -1, c = 5"
+      ],
+      "choices": ["a = 3,   b = 1,   c = 5", "a = 3,   b = -1,   c = 1", "a = 3,   b = -1,   c = 5", "a = 3,   b = 1,   c = 3"],
+      "answerIndex": 2
+    },
+    {
+      "id": "identities-009",
+      "item": "identity",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "identity",
+      "question": "a*(x + 1) + b*(x - 4) = 2*x + 7",
+      "given": null,
+      "steps": [
+        "(a + b)*x + (a - 4*b) = 2*x + 7",
+        "a + b = 2",
+        "a - 4*b = 7",
+        "a = 3, b = -1"
+      ],
+      "choices": ["a = -1,   b = 3", "a = 3,   b = 1", "a = 1,   b = 1", "a = 3,   b = -1"],
+      "answerIndex": 3
+    },
+    {
+      "id": "identities-010",
+      "item": "identity",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "identity",
+      "question": "a*(x + 2)^2 + b*(x + 2) + c = x^2 + 6*x + 7",
+      "given": null,
+      "steps": [
+        "a*x^2 + (4*a + b)*x + (4*a + 2*b + c) = x^2 + 6*x + 7",
+        "a = 1",
+        "4*a + b = 6",
+        "4*a + 2*b + c = 7",
+        "a = 1, b = 2, c = -1"
+      ],
+      "choices": ["a = 1,   b = 2,   c = 1", "a = 1,   b = 2,   c = -1", "a = 1,   b = -2,   c = -1", "a = 1,   b = 6,   c = 7"],
+      "answerIndex": 1
+    },
+    {
+      "id": "identities-011",
+      "item": "inequality-proof",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "inequality",
+      "question": "x + 9/x",
+      "given": null,
+      "which": "amgm-min",
+      "steps": [
+        "2*sqrt(x*(9/x)) = 2*sqrt(9) = 2*3 = 6"
+      ],
+      "choices": ["3", "6", "9", "10"],
+      "answerIndex": 1
+    },
+    {
+      "id": "identities-012",
+      "item": "inequality-proof",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "inequality",
+      "question": "4*x + 25/x",
+      "given": null,
+      "which": "amgm-min",
+      "steps": [
+        "2*sqrt(4*x*(25/x)) = 2*sqrt(100) = 2*10 = 20"
+      ],
+      "choices": ["10", "29", "100", "20"],
+      "answerIndex": 3
+    },
+    {
+      "id": "identities-013",
+      "item": "inequality-proof",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "inequality",
+      "question": "9*x + 1/x",
+      "given": null,
+      "which": "amgm-equal",
+      "steps": [
+        "9*x = 1/x",
+        "9*x^2 = 1",
+        "x^2 = 1/9",
+        "x = 1/3"
+      ],
+      "choices": ["1/3", "3", "1/9", "6"],
+      "answerIndex": 0
+    },
+    {
+      "id": "identities-014",
+      "item": "inequality-proof",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "inequality",
+      "question": "3*x + 12/x",
+      "given": null,
+      "which": "amgm-equal",
+      "steps": [
+        "3*x = 12/x",
+        "3*x^2 = 12",
+        "x^2 = 4",
+        "x = 2"
+      ],
+      "choices": ["4", "12", "2", "6"],
+      "answerIndex": 2
+    },
+    {
+      "id": "identities-015",
+      "item": "inequality-proof",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "inequality",
+      "question": "36",
+      "given": null,
+      "which": "product-sum",
+      "steps": [
+        "2*sqrt(36) = 2*6 = 12"
+      ],
+      "choices": ["6", "12", "18", "72"],
+      "answerIndex": 1
+    }
+  ]
+}

@@ -29,9 +29,9 @@ reject(p => { const duplicate = structuredClone(p[0]); duplicate.id = 'pythagora
   for (const point of Object.values(duplicate.figure.points)) { point[0] += 7; point[1] -= 2; }
   p.push(duplicate);
 });
-assert.throws(() => validateBank(bank, [{ id: 'sides-a', rule: 'unknown' }]));
-assert.equal(context('pythagoras', 'sides-a').set.rule, 'sides-a');
-const added = additions('pythagoras', 'sides-a', bank, { problems: [bank.problems[0]] }, 1, '2026-09-27');
+assert.throws(() => validateBank(bank, [{ item: 'sides', id: '1', rule: 'unknown' }]));
+assert.equal(context('pythagoras', 'sides', '1').set.rule, 'sides-a');
+const added = additions('pythagoras', 'sides', '1', bank, { problems: [bank.problems[0]] }, 1, '2026-09-27');
 assert.equal(added[0].id, 'pythagoras-006');
 assert.equal(added[0].position, 6);
 assert.deepEqual(added[0].figure, bank.problems[0].figure);

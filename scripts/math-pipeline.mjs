@@ -2,22 +2,51 @@ import assert from 'node:assert/strict';
 import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
-import { ARITH_SETS } from '../src/lib/math-arith-sets.ts';
-import { SIGNED_SETS } from '../src/lib/math-signed-sets.ts';
-import { PYTHAGORAS_SETS } from '../src/lib/math-pythagoras-sets.ts';
-import { FACTORIZATION_SETS } from '../src/lib/math-factorization-sets.ts';
+import { findUnit, unitSets } from '../src/lib/math-catalog.ts';
+import { MAX_SET_PROBLEMS } from '../src/lib/math-attempts.ts';
+import { evalExpression, formulaChoiceTex, formulaInstruction, formulaQuestionTex, solutionTex, splitTop } from '../src/lib/math-formula.ts';
+
+// What a learner can read off a drawn graph (kind "graph"): the reviewer gets this
+// instead of the formula, so it checks the answer from the picture alone.
+export function graphReading(p) {
+  const round = v => Math.round(v * 100) / 100;
+  const inWindow = (x, y) => Number.isFinite(y) && Math.abs(y) <= 6.5;
+  if (p.which === 'region') {
+    const [lhs, rhs, op] = splitTop(p.question, ';').map(part => part.trim());
+    const test = { '<': v => v < 0, '>': v => v > 0, '<=': v => v <= 0, '>=': v => v >= 0 }[op];
+    const rows = [];
+    for (let j = 12; j >= -12; j--) rows.push(`${String(j / 2).padStart(4)} ${Array.from({ length: 25 }, (_, i) => test(evalExpression(lhs, { x: (i - 12) / 2, y: j / 2 }) - evalExpression(rhs, { x: (i - 12) / 2, y: j / 2 })) ? '#' : '.').join('')}`);
+    return `x=-6..6（0.5刻み）、y=6..-6（0.5刻み）の各点が色つきの領域内なら # 。境界は${op.includes('=') ? '実線（領域に含む）' : '破線（領域に含まない）'}。\n${rows.join('\n')}`;
+  }
+  if (p.which === 'circle') {
+    const [center, radius] = splitTop(p.question, ';');
+    const [cx, cy] = splitTop(center, ',').map(part => evalExpression(part)), r = evalExpression(radius);
+    const points = [];
+    for (let i = -12; i <= 12; i++) { const x = i / 2, d = r * r - (x - cx) ** 2; if (d >= 0) points.push(`(${x}, ${round(cy + Math.sqrt(d))})${d > 0 ? `(${x}, ${round(cy - Math.sqrt(d))})` : ''}`); }
+    return `円周上の点（x を0.5刻み、y は小数第2位までの近似値）: ${points.join(' ')}`;
+  }
+  const xs = p.which === 'trig' ? Array.from({ length: 17 }, (_, i) => ((i - 8) * Math.PI) / 4) : Array.from({ length: 25 }, (_, i) => (i - 12) / 2);
+  const points = xs.map(x => [x, evalExpression(p.question, { x })]).filter(([x, y]) => inWindow(x, y));
+  return `曲線上の点（${p.which === 'trig' ? 'x = kπ/4' : 'x を0.5刻み'}、y は小数第2位までの近似値）: ${points.map(([x, y]) => `(${p.which === 'trig' ? `${round(x / Math.PI)}π` : x}, ${round(y)})`).join(' ')}`;
+}
+
+const FORMULA_JA = JSON.parse(readFileSync(new URL('../messages/ja.json', import.meta.url), 'utf8')).App.math.formulaQuiz;
+// The Japanese instruction line as learners read it, with its formulas as TeX.
+const instructionJa = p => { const { key, tex } = formulaInstruction(p); return FORMULA_JA[key].replace(/<(\w+)><\/\1>/g, (_, tag) => `$${tex[tag]}$`); };
 
 export const root = fileURLToPath(new URL('../', import.meta.url));
-export function context(unit, setId) {
-  const catalogs = { arith: ARITH_SETS, signed: SIGNED_SETS, factorization: FACTORIZATION_SETS, pythagoras: PYTHAGORAS_SETS };
-  assert.ok(Object.hasOwn(catalogs, unit), `Unknown unit: ${unit}`);
-  const catalog = catalogs[unit];
-  const set = catalog.find(set => set.id === setId);
-  if (setId !== undefined) assert.ok(set, `Unknown set: ${setId}`);
+// A unit that can hold problems, and optionally one of its sets (item + set number).
+export function context(unit, item, setId) {
+  const entry = findUnit(unit);
+  assert.ok(entry?.kind, `Unknown unit, or one that cannot hold problems: ${unit}`);
+  const catalog = unitSets(unit);
+  const set = catalog.find(set => set.item === item && set.id === setId);
+  if (item !== undefined) assert.ok(set, `Unknown set: ${item} ${setId}`);
   const path = `${root}src/data/math-${unit}.json`;
   const original = readFileSync(path, 'utf8');
-  return { catalog, set, path, original, bank: JSON.parse(original) };
+  return { kind: entry.kind, catalog, set, path, original, bank: JSON.parse(original) };
 }
+export const isFormulaUnit = unit => findUnit(unit)?.kind === 'formula';
 export const promptFile = name => readFileSync(new URL(`./math-prompts/${name}.md`, import.meta.url), 'utf8');
 
 // Scan complete objects, respecting braces inside JSON strings and fenced output.
@@ -44,18 +73,22 @@ export function extractJSON(raw, key) {
   }
   throw new Error(`No JSON object containing ${key} found`);
 }
-export function additions(unit, setId, bank, generated, count, date = new Date().toISOString().slice(0, 10)) {
+export function additions(unit, item, setId, bank, generated, count, date = new Date().toISOString().slice(0, 10), tier = 2) {
   assert.equal(generated.problems.length, count, `Expected ${count} problems`);
+  const inSet = bank.problems.filter(p => p.item === item && p.setId === setId).length;
+  assert.ok(inSet + count <= MAX_SET_PROBLEMS, `${item} set ${setId} would have ${inSet + count} problems; a set holds at most ${MAX_SET_PROBLEMS} (attempts are saved per problem)`);
   const maxId = Math.max(0, ...bank.problems.map(p => {
     const match = p.id.match(new RegExp(`^${unit}-(\\d+)$`));
     assert.ok(match, `Unexpected existing ID: ${p.id}`);
     return Number(match[1]);
   }));
-  const maxPosition = Math.max(0, ...bank.problems.filter(p => p.setId === setId).map(p => p.position));
+  const maxPosition = Math.max(0, ...bank.problems.filter(p => p.item === item && p.setId === setId).map(p => p.position));
   return generated.problems.map((p, index) => ({
-    id: `${unit}-${String(maxId + index + 1).padStart(3, '0')}`, setId,
-    position: maxPosition + index + 1, published: false, reviewedAt: date,
-    ...(unit === 'pythagoras' ? { figure: p.figure } : unit === 'factorization' ? { p: p.p, q: p.q } : { expression: p.expression, word: p.word }),
+    id: `${unit}-${String(maxId + index + 1).padStart(3, '0')}`, item, setId,
+    position: maxPosition + index + 1, tier, published: false, reviewedAt: date,
+    ...(unit === 'pythagoras' ? { figure: p.figure } : unit === 'factorization' ? { p: p.p, q: p.q }
+      : isFormulaUnit(unit) ? { kind: p.kind, question: p.question, given: p.given ?? null, ...(p.divisor && { divisor: p.divisor }), ...(p.bounds && { bounds: p.bounds }), ...(p.which && { which: p.which }), ...(p.progression && { progression: p.progression }), steps: p.steps }
+      : { expression: p.expression, word: p.word }),
     choices: p.choices, answerIndex: p.answerIndex,
   }));
 }
@@ -92,6 +125,17 @@ export function blindProblem(unit, p) {
     const a = p.p + p.q, b = p.p * p.q;
     return { id: p.id, type: 'factorization', trinomial: `x^2${a ? ` ${signedTerm(a).replace(/ 1$/, ' ')}x` : ''}${b ? ` ${signedTerm(b)}` : ''}`, choices: p.choices.map(factorChoice) };
   }
+  // The reviewer sees the formulas as learners do, rendered (÷ and fraction bars, not ':' and '/').
+  if (isFormulaUnit(unit) && p.kind === 'graph') return {
+    id: p.id, type: 'formula', kind: 'graph', instruction: instructionJa(p), figure: graphReading(p),
+    choices: p.choices.map(choice => formulaChoiceTex(p, choice)),
+  };
+  if (isFormulaUnit(unit)) return {
+    id: p.id, type: 'formula', kind: p.kind, instruction: instructionJa(p),
+    question: formulaQuestionTex(p), given: p.given && solutionTex(p.given, 'x'),
+    ...(p.divisor && { divisor: p.divisor }), ...(p.bounds && { bounds: p.bounds }), ...(p.which && { which: p.which }), ...(p.progression && { progression: p.progression }),
+    choices: p.choices.map(choice => formulaChoiceTex(p, choice)),
+  };
   if (p.word !== null) return { id: p.id, type: 'word', word: Object.fromEntries(['ja', 'en', 'zh'].map(locale => [locale, { prompt: p.word[locale].prompt, unit: p.word[locale].unit }])), choices: p.choices };
   return { id: p.id, type: 'expression', expression: p.expression, choices: p.choices };
 }
@@ -108,7 +152,8 @@ export function compareReviews(unit, problems, result) {
   return problems.map(p => {
     const review = result.reviews.find(r => r.id === p.id);
     const answer = unit === 'pythagoras' ? radicalChoice(p.choices[p.answerIndex]) : unit === 'factorization' ? factorChoice(p.choices[p.answerIndex]) : p.choices[p.answerIndex];
-    const matches = review.answer === answer && review.choiceIndex === p.answerIndex;
+    // Formula answers can be written many ways; the chosen index decides.
+    const matches = review.choiceIndex === p.answerIndex && (isFormulaUnit(unit) || review.answer === answer);
     const issues = [...review.issues];
     if (p.word && !review.wordExpression?.trim()) issues.push('文章題の立式がありません');
     return { id: p.id, matches, answer: review.answer, choiceIndex: review.choiceIndex, wordExpression: review.wordExpression, issues };

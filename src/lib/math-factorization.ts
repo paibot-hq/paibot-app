@@ -10,8 +10,10 @@ export interface FactorizationPayload {
   choices: FactorPair[];
 }
 
+// A coefficient of 1 is left out before a variable: "x^2 + x - 6", not "1x".
 function signedTerm(value: number, suffix: string): string {
-  return ` ${value < 0 ? '-' : '+'} ${Math.abs(value)}${suffix}`;
+  const size = Math.abs(value) === 1 && suffix ? '' : Math.abs(value);
+  return ` ${value < 0 ? '-' : '+'} ${size}${suffix}`;
 }
 
 // "x^2 + 5x + 6" / "x^2 - 5x + 6" / "x^2 - 9" (p = -q, so a = 0).
@@ -24,8 +26,8 @@ export function trinomialTex(p: number, q: number): string {
   return tex;
 }
 
-// "(x + 2)(x + 3)" / "(x - 3)(x + 3)".
+// "(x + 2)(x + 3)" / "(x - 3)(x + 3)" / "(x + 3)^2" (a perfect square).
 export function factoredTex([p, q]: FactorPair): string {
   const factor = (n: number) => `x ${n >= 0 ? '+' : '-'} ${Math.abs(n)}`;
-  return `(${factor(p)})(${factor(q)})`;
+  return p === q ? `(${factor(p)})^2` : `(${factor(p)})(${factor(q)})`;
 }

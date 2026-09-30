@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "exponents-001",
+      "item": "powers",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "(-4)^2",
+      "given": null,
+      "choices": ["-16", "16", "-8", "8"],
+      "answerIndex": 1,
+      "steps": [
+        "(-4)^2 = (-4) * (-4) = 16"
+      ]
+    },
+    {
+      "id": "exponents-002",
+      "item": "powers",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "-3^4",
+      "given": null,
+      "choices": ["-81", "81", "-12", "12"],
+      "answerIndex": 0,
+      "steps": [
+        "-3^4 = -(3 * 3 * 3 * 3) = -81"
+      ]
+    },
+    {
+      "id": "exponents-003",
+      "item": "powers",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "(-2)^3 * 5",
+      "given": null,
+      "choices": ["-30", "40", "-40", "30"],
+      "answerIndex": 2,
+      "steps": [
+        "(-2)^3 * 5 = -8 * 5 = -40"
+      ]
+    },
+    {
+      "id": "exponents-004",
+      "item": "powers",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "5 - (-3)^2",
+      "given": null,
+      "choices": ["14", "-1", "11", "-4"],
+      "answerIndex": 3,
+      "steps": [
+        "5 - (-3)^2 = 5 - 9 = -4"
+      ]
+    },
+    {
+      "id": "exponents-005",
+      "item": "powers",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-29",
+      "kind": "calc",
+      "question": "-5^2 + (-4)^2",
+      "given": null,
+      "choices": ["41", "-9", "9", "-41"],
+      "answerIndex": 1,
+      "steps": [
+        "-5^2 + (-4)^2 = -25 + 16 = -9"
+      ]
+    }
+  ]
+}

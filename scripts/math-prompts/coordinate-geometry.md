@@ -1,0 +1,1 @@
+高校2年（数学II）の図形と方程式。座標は整数。直線は kind "geometry" で which に line-two-points / line-slope / line-parallel / line-perpendicular / distance を使う。円は kind "geometry" で which に circle-center / circle-diameter を使う。誤答は符号の誤り、傾きの取り違え、半径と半径の2乗の取り違えなどから作る。

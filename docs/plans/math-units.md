@@ -248,17 +248,18 @@ Codex には答えだけでなく、内部の式と解説も伏せ、**公開さ
 
 ## 9. 問題を追加する手順
 
-1. `npm run math:generate -- arith add-sub-a --dry-run` で追加予定を確認する。単元は `arith`・`signed`・`factorization`・`pythagoras`、問題数は `--count N`（既定5）で指定できる。
-2. `npm run math:generate -- arith add-sub-a` で生成する。Antigravity CLI (`agy`) が一時ディレクトリで生成し、同じ単元の既存問題を渡して重複を避ける。ID とセット内 position は最大値の続き、`published: false`、`reviewedAt` は生成日で追加される。`reviewedAt` だけではレビュー済みを保証しない。
+1. `npm run math:generate -- arith order-of-operations 1 --dry-run` で追加予定を確認する。単元は、カタログ(`src/lib/math-catalog.ts`)で `kind` を持つ単元(`expression`・`factorization`・`pythagoras`・`formula`)。問題数は `--count N`（既定5）、ティア（1 基本・2 標準・3 発展、`scripts/math-prompts/_tiers.md`）は `--tier N`（既定2）で指定できる。学年は学習項目で決まる（`src/lib/math-curriculum-jp.ts`）。数式の単元の生成指示には `scripts/math-prompts/_formula.md`(数式の書き方)が自動で加わる。
+2. `npm run math:generate -- arith order-of-operations 1` で生成する。Antigravity CLI (`agy`) が一時ディレクトリで生成し、同じ単元の既存問題を渡して重複を避ける。ID とセット内 position は最大値の続き、`published: false`、`reviewedAt` は生成日で追加される。`reviewedAt` だけではレビュー済みを保証しない。
 3. 検算は生成コマンドが自動実行する。失敗時は原本を復元し、生成結果を `.math-work/` に残す。dry-run は一時ファイル上で原本と追加問題を合わせて検算する。手動では `node scripts/validate-math-arith.mjs`（signed も含む）、`validate-math-factorization.mjs`、`validate-math-pythagoras.mjs`（`npm test` でもまとめて実行）、`npm run test:sympy`(全単元の答えを SymPy で再計算)。
-4. `npm run math:review -- arith add-sub-a` で Codex CLI (`codex exec`) に盲検レビューを依頼する。setId を省略すると単元の全問題が対象。文章題の内部式と正解情報は渡さない。一致/不一致・文章から立てた式・指摘事項を表で確認し、`.math-work/review-<unit>-<日時>.json` の記録を読む。不一致・指摘ありは終了コード1。修正後は検算とレビューを再実行する。
+4. 数式の問題は `steps`（途中式）を必ず持つ。`math:generate` が一緒に作り、既存の問題で足りないときは `npm run math:steps -- <単元>` で作る。SymPy が各行の正しさを検算する（正解と等しい式の連なり、方程式は解が満たす式、など。`scripts/verify_math.py` の `check_steps`）。
+4. `npm run math:review -- arith order-of-operations 1` で Codex CLI (`codex exec`) に盲検レビューを依頼する。学習項目とセットを省略すると単元の全問題が対象。文章題の内部式と正解情報は渡さない。数式の問題は画面と同じ TeX と日本語の指示文（「積分定数は省略」など）を渡す。対象学年は問題ごとに学習項目の学年（`src/lib/math-curriculum-jp.ts`）を渡す。一致/不一致・文章から立てた式・指摘事項を表で確認し、`.math-work/review-<unit>-<日時>.json` の記録を読む。不一致・指摘ありは終了コード1。修正後は検算とレビューを再実行する。
 5. 人が問題・3言語・選択肢・レビュー結果を確認して `published: true` にする。
 6. `npm run math:import:local` で取り込み、ローカル画面で確認する。
 7. 問題原本と必要な変更をコミットする。`.math-work/` は Git 管理対象外。
 
 事前に `agy` と `codex` が PATH 上で使え、認証済みであること、`uv` が PATH 上にあることが必要(Python と SymPy は `pyproject.toml`・`uv.lock` に従って uv が用意する)。両CLIは stdin を閉じ、一時ディレクトリで実行する。生成・レビューの指示文は `scripts/math-prompts/` に保存している。
 
-新しいセットを足す場合は `src/lib/math-<unit>-sets.ts` のセット一覧と3言語の翻訳を追加する。`rule` は生成条件と検算条件を指す。同条件の練習Bなら練習Aと同じ `rule` を使える。新条件なら検算スクリプトの条件表と `scripts/math-prompts/<rule>.md` も追加する。既存セットへの追加時は position の続きを使うため、文章題ミックスの奇数/偶数の条件も継続する。
+新しいセットを足す場合は `src/lib/math-catalog.ts` の学習項目にセット(`1`, `2`, …)を足す。新しい学習項目なら3言語の名前(`App.math.units.<unit>.items.<item>.title`)も追加する。`rule` は生成条件と検算条件を指す。同条件の練習Bなら練習Aと同じ `rule` を使える。新条件なら検算スクリプトの条件表と `scripts/math-prompts/<rule>.md` も追加する。既存セットへの追加時は position の続きを使うため、文章題ミックスの奇数/偶数の条件も継続する。
 
 ## 10. 図を使う問題
 

@@ -71,6 +71,20 @@
       "when": 1790513748740,
       "tag": "20260927125548_use_text_math_set_ids",
       "breakpoints": true
+    },
+    {
+      "idx": 10,
+      "version": "6",
+      "when": 1790662748148,
+      "tag": "20260929061908_add_math_item_grade_tier",
+      "breakpoints": true
+    },
+    {
+      "idx": 11,
+      "version": "6",
+      "when": 1790761056854,
+      "tag": "20260930093736_move_legacy_math_attempts",
+      "breakpoints": true
     }
   ]
 }

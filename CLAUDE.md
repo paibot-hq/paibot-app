@@ -43,38 +43,78 @@ a change to shared code runs every tool, as does every push to `main`.
 
 ## Math project
 
-`/math` ("Math Drills") is the only math index: every unit and all of its sets
-on one page (`src/components/math-unit-table.tsx`), filtered in the browser by
-level, playability and name.
-Sets with published problems in D1 are highlighted, and a signed-in user's
-scores are shown. Units have no page of their own; former unit and entry URLs
-301 to `/math`. Sets are five-problem, four-choice quizzes served from D1: `/math/arith/:setId`
-(addition/subtraction, multiplication/division, order of operations, word problems),
-`/math/signed/:setId` (negative numbers), `/math/factorization/:setId`, and
-`/math/pythagoras/:setId` (right-triangle side lengths). All use the shared
-`math_problems` table, indexed by
-unit, set, publication status and position. Unit-specific data lives in a JSON
-`payload`, typed in `src/lib/math-arith.ts`, `math-factorization.ts`, and
-`math-pythagoras.ts`.
-`src/lib/math-problems.server.ts` reads published sets for all units; routes
-convert payloads for display. All render through `src/components/math-set-quiz.tsx`,
-whose back link returns to `/math`.
+Math is organized unit → learning item → practice set, all in
+`src/lib/math-catalog.ts` (names under `App.math.units.<unit>.items.<item>` in
+`messages/*.json`). Pages:
+- `/math` ("Math Drills", `routes/math.tsx` + `components/math-unit-table.tsx`):
+  every unit with its learning items, filtered in the browser by level,
+  playability and name. Each unit's name links to its page and each item to its
+  own; items with published problems in D1 are highlighted.
+- `/math/<unit>` (`routes/math-unit.tsx`): the unit and its learning items, each with a one-line summary.
+- `/math/<unit>/<item>` (`routes/math-item.tsx`): the item and its practice sets
+  (練習1, 2, ...) with a signed-in user's latest and best score, and the crumbs
+  back to the unit. Top to bottom: what you learn (`description`), key points
+  (`src/data/item-formulas.json`: per item 2-5 entries, a well-known formula as TeX,
+  general forms preferred, and/or a note, each explained in ja/en/zh; written by an LLM
+  with no verification beyond KaTeX rendering; `npm run math:formulas`, `-- --rewrite` rewrites
+  only the explanations, in plain words for the item's school year, shown above each formula), a worked example (the item's easiest published problem, one with 1-4 steps
+  first; without steps just the problem and its answer) and the practice sets. Texts (`summary`, `description` per item in
+  `messages/*.json`) come from `npm run math:describe` (`--review` has Codex
+  check them, `--fix` rewrites what it flagged); a test requires every item to have both. Old set URLs (`/math/<unit>/<set id>`) 301 to the new ones.
+- `/math/<unit>/<item>/<set>` (`routes/math-quiz.tsx`): a five-problem,
+  four-choice quiz (`components/math-set-quiz.tsx`), which links back to the
+  item's sets and to the unit. A set without published problems shows "being prepared".
 
-`src/lib/math-catalog.ts` defines mathematical domains (`domain`), difficulty
-badges (`stage`: elementary/middle/high/university = foundations/intermediate/advanced/higher),
-unit order and publication status. `/math` groups units by domain, then difficulty,
-keeping catalog order within each difficulty. Grade mappings belong in separate
-country/region curriculum tables; stages are not school assignments.
-Coming-soon units' sets share `math-unit-set.tsx`, which shows an empty quiz;
-those pages are noindex and excluded from publicPaths/the sitemap. Published units retain their
-static routes and existing `math-*-sets.ts` catalogs, which take precedence.
-To publish a new unit, add dedicated routes, a set catalog, payload/display
-conversion, independent verification and import support like the existing units,
-then change the catalog status to `published` and register its public SEO paths.
+A unit's `kind` says what shape its problems have, and so which payload, checker
+and display it uses (`components/math-questions.tsx`):
+- `expression`: integer expressions and word problems (`src/lib/math-arith.ts`);
+  arith, signed, addition, multiplication, division. A single operation on
+  whole numbers (23 + 45, 624 - 358, 124 * 32, 756 / 28) is also drawn as its
+  written column calculation (筆算, `lib/math-column.ts` + `components/math-column.tsx`)
+  in the explanation and the worked example.
+- `factorization`: (x + p)(x + q); `pythagoras`: integer-coordinate figures
+  drawn by `math-figure.tsx`, labels and accessible descriptions calculated.
+- `formula`: `FormulaPayload` (`src/lib/math-formula.ts`), a question and four
+  choices in one small formula grammar (numbers, letters, `pi`, `i`, `sqrt`,
+  `sin`/`cos`/`tan`, `abs`, `log(x, base)`, `C`/`P`, `sum(term, k, from, to)`),
+  of kind `calc`, `expand`, `transform`, `factor`, `solve`, `remainder`,
+  `derivative`, `tangent`, `extremum`, `integral`, `area`, `term`, `series`,
+  `radian`, `degree`, `recurrence`, `distribution`, `geometry`, `identity`,
+  `inequality`, `induction`, `inference`, `region` or `graph` (the
+  grammar comment there lists each kind's extra fields and variants). The page renders the TeX and the
+  instruction line from those strings, and `scripts/verify_math.py` parses the
+  same grammar to re-derive the answer, so what is shown is what was checked.
+  Every problem carries `steps`, its worked solution as 1-6 lines of the same
+  grammar (a chain "a = b = c", or "x = 2, x = -2"), shown under the answer;
+  SymPy checks each line (`check_steps`). `npm run math:steps -- <unit>` has an
+  LLM write and verify steps for problems that lack them.
+  A `graph` problem draws its hidden `question` with `components/math-graph.tsx`
+  (a curve, circle or shaded region) and asks the learner to read it; the blind
+  review is given the same readings as text (`graphReading` in math-pipeline.mjs).
+A unit without a kind cannot hold problems yet. Only sets with a `rule` (a key in
+`scripts/validate-math-<kind>.mjs`; expression uses `validate-math-arith.mjs`)
+can hold problems; a new set of an existing kind needs its rule and prompt
+(`scripts/math-prompts/<rule>.md`), a new unit also `src/data/math-<unit>.json`.
 
-Pythagoras figures use integer coordinates and `math-figure.tsx` SVG rendering; labels
-and localized accessible descriptions are calculated, never stored.
-`scripts/validate-math-pythagoras.mjs` independently verifies geometry, radicals and set coverage.
+Problems live in D1's `math_problems` (unit, item, set_id, position, published,
+answer_index, JSON `payload`, grade, tier, reviewed_at); attempts in
+`math_attempts` (unit, item, set_id, answers). Scope and difficulty are kept
+apart, so tests can be assembled as "these grades or items, so many of each tier":
+- grade: the item's school year in Japan's curriculum
+  (`src/lib/math-curriculum-jp.ts`: e1-e6, m1-m3, h-i/h-a/h-ii/h-b/h-iii/h-c,
+  u1-u2), copied onto each problem on import. The catalog itself stays
+  curriculum-neutral; an item that spans years is split. Shown on the item page.
+  `docs/plans/math-curriculum-jp.md` lists every item by grade as a checklist
+  against the Course of Study, with what each still needs before problems can be
+  made (A-D). It is generated by `scripts/math-curriculum-doc.mjs`; `npm test`
+  fails when it is stale.
+- tier: difficulty within the item and grade, 1 basic, 2 standard, 3 advanced; shown on each quiz problem and, as counts per set, on the item page
+  (`scripts/math-prompts/_tiers.md`), stored per problem in the bank. New problems
+  get it from `math:generate -- ... --tier N` and the review checks it;
+  `scripts/math-tier.mjs <unit>` has Codex judge problems made before tiers.
+  Correct rates from `math_attempts` can recalibrate tiers once there are enough.
+Coming-soon units' pages are noindex and excluded from publicPaths/the sitemap;
+`src/lib/seo.ts` lists the public item pages of published units.
 
 Problems are LLM-generated into `src/data/math-*.json` and never trusted as-is:
 `npm run test:sympy` (`scripts/verify_math.py`) re-derives every unit's
@@ -94,10 +134,10 @@ refines (its vinext-specific sections are historical).
 | 階層 | ID形式 | 例 |
 | --- | --- | --- |
 | 単元 | 英小文字 | `arith`, `signed`, `factorization` |
-| 学習項目 | `単元.項目` | `arith.add-sub` |
-| 問題セット | 単元内で一意の文字列(項目の短縮名+練習A/B) | `add-sub-a` |
+| 学習項目 | 単元内で一意の英小文字 | `order-of-operations` |
+| 問題セット | 学習項目内の練習の番号 | `1`, `2` |
 | 問題 | 単元+3桁の通し番号 | `arith-001` |
 
-表示順はセット一覧(`src/lib/math-*-sets.ts`)の並びで決め、IDは変えない。問題IDはセットに依存しない。
+表示順はカタログ(`src/lib/math-catalog.ts`)の並びで決め、IDは変えない。問題IDはセットに依存しない。
 
 問題の生成・検算・盲検レビューから公開までの操作は [問題を追加する手順](docs/plans/math-units.md#9-問題を追加する手順) を参照。
