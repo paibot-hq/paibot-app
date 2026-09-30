@@ -50,10 +50,15 @@ Math is organized unit → learning item → practice set, all in
   every unit with its learning items, filtered in the browser by level,
   playability and name. Each unit's name links to its page and each item to its
   own; items with published problems in D1 are highlighted.
-- `/math/<unit>` (`routes/math-unit.tsx`): the unit and its learning items.
+- `/math/<unit>` (`routes/math-unit.tsx`): the unit and its learning items, each with a one-line summary.
 - `/math/<unit>/<item>` (`routes/math-item.tsx`): the item and its practice sets
-  (練習1, 2, ...) with a signed-in user's latest and best score, and a way back
-  to the unit. Old set URLs (`/math/<unit>/<set id>`) 301 to the new ones.
+  (練習1, 2, ...) with a signed-in user's latest and best score, and the crumbs
+  back to the unit. Top to bottom: what you learn (`description`), key points
+  (`src/data/item-key-points.json`, equations SymPy proves; `npm run
+  math:key-points`), a worked example (the item's easiest published problem with
+  1-4 steps) and the practice sets. Texts (`summary`, `description` per item in
+  `messages/*.json`) come from `npm run math:describe` (`--review` has Codex
+  check them, `--fix` rewrites what it flagged); a test requires every item to have both. Old set URLs (`/math/<unit>/<set id>`) 301 to the new ones.
 - `/math/<unit>/<item>/<set>` (`routes/math-quiz.tsx`): a five-problem,
   four-choice quiz (`components/math-set-quiz.tsx`), which links back to the
   item's sets and to the unit. A set without published problems shows "being prepared".
