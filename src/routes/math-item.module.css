@@ -14,3 +14,14 @@
 .note { font-size: .85rem; color: var(--muted); line-height: 1.5; }
 .record { font-size: .8rem; color: var(--accent); font-variant-numeric: tabular-nums; }
 .tiers { font-size: .8rem; color: var(--muted); }
+
+.jump { text-align: center; margin: .6rem 0 0; font-size: .85rem; }
+.jump a { color: var(--accent); }
+.section { width: min(100%, 480px); margin: 1.2rem auto 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: .2rem 1rem .8rem; }
+.section > summary { cursor: pointer; font-weight: 600; padding: .6rem 0; }
+.points { display: grid; grid-template-columns: minmax(0, 1fr); gap: .3rem; text-align: center; }
+.example { display: grid; grid-template-columns: minmax(0, 1fr); gap: .8rem; }
+.exampleQuestion { text-align: center; min-width: 0; }
+.exampleSolution { color: var(--muted); font-size: .9rem; text-align: center; }
+.about { text-align: center; font-size: .9rem; color: var(--muted); font-weight: 600; margin: 1rem 0 0; }
+.about + .description { margin-top: .3rem; }

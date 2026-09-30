@@ -1,14 +1,18 @@
 import { redirect } from 'react-router';
 import { useLocale, useTranslations } from 'use-intl';
+import { useMathQuestions } from '../components/math-questions';
+import { MathTex } from '../components/math-tex';
 import PublicHead from '../components/public-head';
 import MathBreadcrumb from '../components/math-breadcrumb';
 import ToolLayout from '../components/tool-layout';
 import { Link } from '../i18n/navigation';
 import type { DynamicT } from '../lib/apps';
+import { statementTex } from '../lib/math-formula';
 import { getSetRecords } from '../lib/math-attempts.server';
 import { findUnit } from '../lib/math-catalog';
 import { jpGrade } from '../lib/math-curriculum-jp';
-import { getPlayableSets, getSetTiers } from '../lib/math-problems.server';
+import { getPlayableSets, getSetTiers, getWorkedExample } from '../lib/math-problems.server';
+import { keyPoints } from '../lib/math-key-points';
 import { catalogEntry } from '../lib/math-routes.server';
 import styles from './math-item.module.css';
 import type { Route } from './+types/math-item';
@@ -30,17 +34,19 @@ export async function loader(args: Route.LoaderArgs) {
     throw redirect(`/${params.locale}/math/${params.unit}/${legacy[0]}/${legacy[1]}`, 301);
   }
   const entry = catalogEntry(params);
-  const [playable, records, tiers] = await Promise.all([getPlayableSets(), getSetRecords(args, entry.unit.id, entry.item.id), getSetTiers(entry.unit.id, entry.item.id)]);
+  const [playable, records, tiers, example] = await Promise.all([getPlayableSets(), getSetRecords(args, entry.unit.id, entry.item.id), getSetTiers(entry.unit.id, entry.item.id), entry.unit.kind ? getWorkedExample(entry.unit.id, entry.item.id) : null]);
   return {
-    unitId: entry.unit.id, itemId: entry.item.id, published: entry.unit.status === 'published', grade: jpGrade(entry.unit.id, entry.item.id),
+    kind: entry.unit.kind, example, points: keyPoints(entry.unit.id, entry.item.id), unitId: entry.unit.id, itemId: entry.item.id, published: entry.unit.status === 'published', grade: jpGrade(entry.unit.id, entry.item.id),
     sets: entry.item.sets.map(set => ({ id: set.id, playable: playable.includes(`${entry.unit.id}/${entry.item.id}/${set.id}`), record: records[set.id], tiers: tiers[set.id] })),
   };
 }
 
-export default function MathItem({ loaderData: { unitId, itemId, published, grade, sets } }: Route.ComponentProps) {
+export default function MathItem({ loaderData: { unitId, itemId, published, grade, sets, kind, example, points } }: Route.ComponentProps) {
   const locale = useLocale();
   const t = useTranslations('App.math') as unknown as DynamicT;
   const tq = useTranslations('App.math.quiz');
+  const ti = useTranslations('App.math.itemPage');
+  const exampleQuestion = useMathQuestions(kind, example ? [example] : [])[0];
   const has = (key: string) => (t as unknown as { has: (key: string) => boolean }).has(key);
   const unitTitle = t(`units.${unitId}.title`);
   const itemKey = `units.${unitId}.items.${itemId}`;
@@ -52,8 +58,21 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
     <ToolLayout title={title} centerTitle aboveTitle={<MathBreadcrumb crumbs={[{ label: unitTitle, href: `/math/${unitId}` }, { label: title }]} />}>
       <p className={styles.unit}><Link href={`/math/${unitId}`}>{unitTitle}</Link></p>
       {grade && <p className={styles.grade}>{t('gradeLabel', { grade: t(`grades.${grade}`) })}</p>}
+      <h2 className={styles.about}>{ti('about')}</h2>
       <p className={styles.description}>{description}</p>
-      <p className={styles.choose}>{tq('chooseSet')}</p>
+      <p className={styles.jump}><a href="#practice">{ti('toPractice')}</a></p>
+      {points.length > 0 && <details className={styles.section} open>
+        <summary>{ti('points')}</summary>
+        <div className={styles.points}>{points.map(text => <MathTex key={text} tex={statementTex(text)} block />)}</div>
+      </details>}
+      {exampleQuestion && <details className={styles.section} open>
+        <summary>{ti('example')}</summary>
+        <div className={styles.example}>
+          <div className={styles.exampleQuestion}>{exampleQuestion.prompt}</div>
+          <div className={styles.exampleSolution}>{exampleQuestion.explanation}</div>
+        </div>
+      </details>}
+      <p id="practice" className={styles.choose}>{tq('chooseSet')}</p>
       <ul className={styles.sets}>
         {sets.map(({ id, playable, record, tiers }) => (
           <li key={id}>

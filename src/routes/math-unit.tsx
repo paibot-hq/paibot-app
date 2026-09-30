@@ -47,7 +47,7 @@ export default function MathUnit({ loaderData: { unitId, published, stage, domai
                 {t(`units.${unitId}.items.${id}.title`)}
                 {!playable && <span className={styles.badge}>{t('comingSoon')}</span>}
               </span>
-              {has(`units.${unitId}.items.${id}.description`) && <span className={styles.note}>{t(`units.${unitId}.items.${id}.description`)}</span>}
+              {has(`units.${unitId}.items.${id}.summary`) && <span className={styles.note}>{t(`units.${unitId}.items.${id}.summary`)}</span>}
               {grade && <span className={styles.grade}>{t('gradeLabel', { grade: t(`grades.${grade}`) })}</span>}
             </Link>
           </li>

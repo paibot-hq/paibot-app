@@ -1,4 +1,4 @@
-import { and, asc, count, eq } from 'drizzle-orm';
+import { and, asc, count, desc, eq } from 'drizzle-orm';
 import { getDb } from '../db/client.server';
 import { mathProblems } from '../db/schema';
 
@@ -28,4 +28,14 @@ export async function getSetTiers(unit: string, item: string): Promise<Record<st
   const tiers: Record<string, Record<number, number>> = {};
   for (const row of rows) (tiers[row.setId] ??= {})[row.tier] = row.n;
   return tiers;
+}
+
+// The item's worked example: a published problem with a short worked solution
+// (payload.steps, 1 to 4 lines), the easiest tier first and, within it, the
+// latest in the set so it is rarely the first question of the practice.
+export async function getWorkedExample(unit: string, item: string): Promise<{ id: string; answerIndex: number; tier: number; payload: unknown } | null> {
+  const t = mathProblems;
+  const rows = await getDb().select({ id: t.id, answerIndex: t.answerIndex, tier: t.tier, payload: t.payload }).from(t)
+    .where(and(eq(t.unit, unit), eq(t.item, item), eq(t.published, true))).orderBy(asc(t.tier), desc(t.position));
+  return rows.find(row => { const steps = (row.payload as { steps?: unknown }).steps; return Array.isArray(steps) && steps.length >= 1 && steps.length <= 4; }) ?? null;
 }

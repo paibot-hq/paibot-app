@@ -82,3 +82,14 @@ rejects('arith', wrong_choice, 'matching choices')
 rejects('signed', wrong_choice, 'matching choices')
 
 print('PASS: verify_math rejects wrong keys, equal choices, unsafe syntax and non-integer answers')
+
+
+# Every key point shown on an item page is an identity SymPy proves.
+from verify_math import parse_formula, same  # noqa: E402
+
+key_points = json.loads((ROOT / 'src' / 'data' / 'item-key-points.json').read_text(encoding='utf-8'))
+for key, formulas in key_points.items():
+    for formula in formulas:
+        left, right = formula.split('=')
+        assert same(parse_formula(left), parse_formula(right)), f'{key}: {formula} is not an identity'
+assert not same(parse_formula('(a + b)^2'), parse_formula('a^2 + b^2')), 'a wrong formula must not pass'

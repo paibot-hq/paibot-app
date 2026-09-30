@@ -1,0 +1,172 @@
+{
+  "arith/rules": [
+    "a + b = b + a",
+    "a * b = b * a",
+    "(a + b) * c = a * c + b * c",
+    "(a - b) * c = a * c - b * c"
+  ],
+  "fraction/simplify": [
+    "a / b = (a * c) / (b * c)",
+    "(a * c) / (b * c) = a / b"
+  ],
+  "fraction/add-sub-like": [
+    "a / c + b / c = (a + b) / c",
+    "a / c - b / c = (a - b) / c"
+  ],
+  "fraction/mixed": [
+    "a + b / c = (a * c + b) / c",
+    "(a * c + b) / c = a + b / c"
+  ],
+  "fraction/add-sub": [
+    "a / b + c / d = (a * d + b * c) / (b * d)",
+    "a / b - c / d = (a * d - b * c) / (b * d)"
+  ],
+  "fraction/mul-div": [
+    "(a / b) * (c / d) = (a * c) / (b * d)",
+    "(a / b) / (c / d) = (a * d) / (b * c)",
+    "(a / b) * c = (a * c) / b",
+    "(a / b) / c = a / (b * c)"
+  ],
+  "signed/four-operations": [
+    "a + (-b) = a - b",
+    "a - (-b) = a + b",
+    "(-a) * (-b) = a * b",
+    "(-a) * b = -(a * b)"
+  ],
+  "exponents/powers": [
+    "a^m * a^n = a^(m + n)",
+    "a^m / a^n = a^(m - n)"
+  ],
+  "expression/like-terms": [
+    "a * x + b * x = (a + b) * x",
+    "a * x - b * x = (a - b) * x"
+  ],
+  "expression/distribute": [
+    "a * (b + c) = a * b + a * c",
+    "a * (b - c) = a * b - a * c",
+    "(a + b) * c = a * c + b * c",
+    "(a - b) * c = a * c - b * c"
+  ],
+  "expression/polynomials": [
+    "(x + a) * (x + b) = x^2 + (a + b) * x + a * b",
+    "(a + b)^2 = a^2 + 2*a*b + b^2",
+    "(a - b)^2 = a^2 - 2*a*b + b^2",
+    "(a + b) * (a - b) = a^2 - b^2"
+  ],
+  "inequality/absolute": [
+    "abs(a * b) = abs(a) * abs(b)",
+    "abs(-a) = abs(a)"
+  ],
+  "expansion/formulas": [
+    "(x + a)*(x + b) = x^2 + (a + b)*x + a*b",
+    "(a*x + b)*(c*x + d) = a*c*x^2 + (a*d + b*c)*x + b*d"
+  ],
+  "expansion/square": [
+    "(a + b)^2 = a^2 + 2*a*b + b^2",
+    "(a - b)^2 = a^2 - 2*a*b + b^2"
+  ],
+  "expansion/sum-difference": [
+    "(a + b)*(a - b) = a^2 - b^2"
+  ],
+  "expansion/three-terms": [
+    "(a + b + c)^2 = a^2 + b^2 + c^2 + 2*a*b + 2*b*c + 2*c*a",
+    "(a + b + c)*(a^2 + b^2 + c^2 - a*b - b*c - c*a) = a^3 + b^3 + c^3 - 3*a*b*c"
+  ],
+  "expansion/cubic": [
+    "(a + b)^3 = a^3 + 3*a^2*b + 3*a*b^2 + b^3",
+    "(a - b)^3 = a^3 - 3*a^2*b + 3*a*b^2 - b^3",
+    "(a + b)*(a^2 - a*b + b^2) = a^3 + b^3",
+    "(a - b)*(a^2 + a*b + b^2) = a^3 - b^3"
+  ],
+  "factorization/common-factor": [
+    "m*a + m*b = m*(a + b)",
+    "m*a - m*b = m*(a - b)",
+    "m*a + m*b + m*c = m*(a + b + c)"
+  ],
+  "factorization/trinomial": [
+    "x^2 + (a + b)*x + a*b = (x + a)*(x + b)"
+  ],
+  "factorization/perfect-square": [
+    "a^2 + 2*a*b + b^2 = (a + b)^2",
+    "a^2 - 2*a*b + b^2 = (a - b)^2"
+  ],
+  "factorization/difference-of-squares": [
+    "a^2 - b^2 = (a + b)*(a - b)"
+  ],
+  "factoring/ac-method": [
+    "a*c*x^2 + (a*d + b*c)*x + b*d = (a*x + b)*(c*x + d)"
+  ],
+  "factoring/substitution": [
+    "a^4 + a^2*b^2 + b^4 = (a^2 + a*b + b^2)*(a^2 - a*b + b^2)",
+    "x^4 + x^2 + 1 = (x^2 + x + 1)*(x^2 - x + 1)"
+  ],
+  "factoring/cubes": [
+    "a^3 + b^3 = (a + b)*(a^2 - a*b + b^2)",
+    "a^3 - b^3 = (a - b)*(a^2 + a*b + b^2)",
+    "a^3 + b^3 + c^3 - 3*a*b*c = (a + b + c)*(a^2 + b^2 + c^2 - a*b - b*c - c*a)"
+  ],
+  "sqrt/add-sub": [
+    "m*sqrt(a) + n*sqrt(a) = (m + n)*sqrt(a)",
+    "m*sqrt(a) - n*sqrt(a) = (m - n)*sqrt(a)"
+  ],
+  "sqrt/rationalize": [
+    "1 / sqrt(a) = sqrt(a) / a",
+    "1 / (sqrt(a) + sqrt(b)) = (sqrt(a) - sqrt(b)) / (a - b)",
+    "1 / (sqrt(a) - sqrt(b)) = (sqrt(a) + sqrt(b)) / (a - b)"
+  ],
+  "quadratic/factoring": [
+    "(a + b)^2 = a^2 + 2*a*b + b^2",
+    "(a - b)^2 = a^2 - 2*a*b + b^2",
+    "(a + b)*(a - b) = a^2 - b^2",
+    "(x + a)*(x + b) = x^2 + (a + b)*x + a*b"
+  ],
+  "identities/binomial": [
+    "(a + b)^3 = a^3 + 3*a^2*b + 3*a*b^2 + b^3",
+    "(a - b)^3 = a^3 - 3*a^2*b + 3*a*b^2 - b^3"
+  ],
+  "identities/identity": [
+    "a^3 + b^3 = (a + b)*(a^2 - a*b + b^2)",
+    "a^3 - b^3 = (a - b)*(a^2 + a*b + b^2)",
+    "(a + b + c)^2 = a^2 + b^2 + c^2 + 2*a*b + 2*b*c + 2*c*a",
+    "a^3 + b^3 + c^3 - 3*a*b*c = (a + b + c)*(a^2 + b^2 + c^2 - a*b - b*c - c*a)"
+  ],
+  "sequence/geometric": [
+    "a^m * a^n = a^(m + n)",
+    "a^m / a^n = a^(m - n)"
+  ],
+  "trig/values": [
+    "sin(x)^2 + cos(x)^2 = 1",
+    "tan(x) = sin(x) / cos(x)",
+    "1 + tan(x)^2 = 1 / cos(x)^2"
+  ],
+  "trig/addition": [
+    "sin(a + b) = sin(a)*cos(b) + cos(a)*sin(b)",
+    "sin(a - b) = sin(a)*cos(b) - cos(a)*sin(b)",
+    "cos(a + b) = cos(a)*cos(b) - sin(a)*sin(b)",
+    "cos(a - b) = cos(a)*cos(b) + sin(a)*sin(b)"
+  ],
+  "trig/double-angle": [
+    "sin(2*x) = 2*sin(x)*cos(x)",
+    "cos(2*x) = cos(x)^2 - sin(x)^2",
+    "sin(x / 2)^2 = (1 - cos(x)) / 2",
+    "cos(x / 2)^2 = (1 + cos(x)) / 2"
+  ],
+  "trig/graph": [
+    "sin(x + 2*pi) = sin(x)",
+    "cos(x + 2*pi) = cos(x)",
+    "tan(x + pi) = tan(x)",
+    "sin(-x) = -sin(x)"
+  ],
+  "exp-log/exponent": [
+    "a^m * a^n = a^(m + n)",
+    "a^m / a^n = a^(m - n)"
+  ],
+  "exp-log/log": [
+    "log(b, a) = log(b, c) / log(a, c)"
+  ],
+  "triangle-trig/ratios": [
+    "sin(x)^2 + cos(x)^2 = 1",
+    "tan(x) = sin(x) / cos(x)",
+    "1 + tan(x)^2 = 1 / cos(x)^2"
+  ]
+}
