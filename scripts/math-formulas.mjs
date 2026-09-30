@@ -19,12 +19,12 @@ const typeset = process.argv.includes('--typeset');
 const wanted = process.argv.slice(2).filter(arg => !arg.startsWith('--'));
 const grades = JSON.parse(readFileSync(new URL('../messages/ja.json', import.meta.url), 'utf8')).App.math.grades;
 // How explanations are written, for new points and --rewrite alike.
-const STYLE = `説明の書き方（やさしく）:
-- 読み手はその学年（「学年」）の生徒。初めて習う人にもわかる、やさしい言葉で書く。ja は「です・ます」。
-- 1〜2文。まず「何がわかる式か・いつ使うか」を言い、式の文字（a, b, θ など）が何を表すかを添える。
-- 難しい言い回し（「〜を満たす」「非負」「同周期」「頻出」など）や、その学年で習わない用語を避け、ふつうの言葉に言いかえる。
+const STYLE = `説明の書き方（一般の大人が読める文章）:
+- 読み手は学年を問わない一般の大人。子ども向けの言い回し（「〜しましょう」「〜だよ」）にせず、ふつうの丁寧な文章（「です・ます」）で書く。
+- 1〜3文。まず「何がわかる式・決まりか」「いつ使うか」を言い、式の文字（a, b, θ など）が何を表すかを添える。分かりやすい数の例を1つ添えてよい。
+- 専門用語は、必要なら残して短く言いかえを添える。「〜を満たす」「非負」「同周期」「頻出」のような堅い言い回しは、ふつうの言葉にする。
 - 説明文の中の数式・文字式・指数（x^2、10a、f(x) など）は、TeX にして $...$ で囲む（例: $x^2$、$10a + b$）。ふつうの言葉と、数だけの言い回し（2桁）はそのまま。
-- en・zh も同じ内容を同じやさしさで（en は短い平易な英語、zh は简体中文）。各言語 100字/45語程度まで。`;
+- en・zh も同じ内容を同じ読みやすさで（en は平易な英語、zh は简体中文）。各言語 150字/60語程度まで。`;
 const path = new URL('../src/data/item-formulas.json', import.meta.url);
 const ja = JSON.parse(readFileSync(new URL('../messages/ja.json', import.meta.url), 'utf8')).App.math.units;
 const store = JSON.parse(readFileSync(path, 'utf8'));
@@ -64,7 +64,7 @@ ${JSON.stringify(group.map(({ point }, id) => ({ id, ja: point.ja, en: point.en,
   }
   for (let start = 0; start < rows.length; start += 15) {
     const group = rows.slice(start, start + 15);
-    const prompt = rewrite ? `数学ドリルの学習項目の「要点」の説明文（ja/en/zh）を、やさしく書き直す。
+    const prompt = rewrite ? `数学ドリルの学習項目の「要点」の説明文（ja/en/zh）を、一般の大人が読める文章に書き直す。
 - 要点の数・順番・tex は変えない（tex はそのまま写す）。説明だけを書き直す。内容の誤りがあれば正しく直す。
 ${STYLE}
 - コマンドやツールは使わず JSON だけを出力する: {"points":[{"unit":"","item":"","points":[{"tex":"...","ja":"","en":"","zh":""}]}]}
