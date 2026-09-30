@@ -69,6 +69,7 @@ export default async function ({ page, main, base, go, errors }) {
   await page.waitForURL(`${base}/en/math/arith/rules`);
   await page.getByRole('navigation', { name: 'Previous and next items' }).locator('a[href="/en/math/arith/order-of-operations"]').waitFor();
   await page.goBack();
+  await page.waitForURL(`${base}/en/math/arith/order-of-operations`);
   // Each playable set shows how many problems of each tier it has.
   assert.match(await main.locator('ul a').first().innerText(), /(Basic|Standard|Advanced) \d/);
   for (const [item, set, label] of [
