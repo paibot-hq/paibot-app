@@ -5,6 +5,7 @@ import { bank as factorizationBank } from './validate-math-factorization.mjs';
 import { formulaBanks } from './validate-math-formula.mjs';
 import { bank as pythagorasBank } from './validate-math-pythagoras.mjs';
 import { jpGrade } from '../src/lib/math-curriculum-jp.ts';
+import { MAX_SET_PROBLEMS } from '../src/lib/math-attempts.ts';
 
 // Explicit target only; importing never creates or resets any tables.
 const targets = { local: ['--local'], dev: ['--remote'], prod: ['--remote', '--env', 'production'] };
@@ -18,6 +19,12 @@ const units = [
   { unit: 'factorization', bank: factorizationBank, payload: ({ p, q, choices }) => ({ p, q, choices }) },
   { unit: 'pythagoras', bank: pythagorasBank, payload: ({ figure, choices }) => ({ figure, choices }) },
 ];
+// A set holds at most MAX_SET_PROBLEMS problems: an attempt is saved with one answer per problem.
+for (const { unit, bank } of units) {
+  const sizes = {};
+  for (const problem of bank.problems) sizes[`${problem.item}/${problem.setId}`] = (sizes[`${problem.item}/${problem.setId}`] ?? 0) + 1;
+  for (const [key, size] of Object.entries(sizes)) if (size > MAX_SET_PROBLEMS) throw new Error(`${unit}: set ${key} has ${size} problems (at most ${MAX_SET_PROBLEMS})`);
+}
 const statements = units.flatMap(({ unit, bank, payload }) => bank.problems.map(problem => {
   const grade = jpGrade(unit, problem.item);
   if (!grade) throw new Error(`${problem.id}: no grade for ${unit}/${problem.item} in src/lib/math-curriculum-jp.ts`);

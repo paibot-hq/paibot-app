@@ -1,6 +1,7 @@
 import { redirect } from 'react-router';
 import { useLocale, useTranslations } from 'use-intl';
 import { useMathQuestions } from '../components/math-questions';
+import MathText from '../components/math-text';
 import { MathTex } from '../components/math-tex';
 import PublicHead from '../components/public-head';
 import MathBreadcrumb from '../components/math-breadcrumb';
@@ -64,7 +65,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
       {points.length > 0 && <details className={styles.section} open>
         <summary>{ti('points')}</summary>
         <div className={styles.points}>{points.map((point, index) => <div key={index} className={styles.point}>
-          <p className={styles.pointNote}>{point[locale as 'ja' | 'en' | 'zh'] ?? point.en}</p>
+          <p className={styles.pointNote}><MathText text={point[locale as 'ja' | 'en' | 'zh'] ?? point.en} /></p>
           {point.tex && <MathTex tex={point.tex} block />}
         </div>)}</div>
       </details>}

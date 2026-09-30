@@ -3,6 +3,7 @@ import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { findUnit, unitSets } from '../src/lib/math-catalog.ts';
+import { MAX_SET_PROBLEMS } from '../src/lib/math-attempts.ts';
 import { evalExpression, formulaChoiceTex, formulaInstruction, formulaQuestionTex, solutionTex, splitTop } from '../src/lib/math-formula.ts';
 
 // What a learner can read off a drawn graph (kind "graph"): the reviewer gets this
@@ -74,6 +75,8 @@ export function extractJSON(raw, key) {
 }
 export function additions(unit, item, setId, bank, generated, count, date = new Date().toISOString().slice(0, 10), tier = 2) {
   assert.equal(generated.problems.length, count, `Expected ${count} problems`);
+  const inSet = bank.problems.filter(p => p.item === item && p.setId === setId).length;
+  assert.ok(inSet + count <= MAX_SET_PROBLEMS, `${item} set ${setId} would have ${inSet + count} problems; a set holds at most ${MAX_SET_PROBLEMS} (attempts are saved per problem)`);
   const maxId = Math.max(0, ...bank.problems.map(p => {
     const match = p.id.match(new RegExp(`^${unit}-(\\d+)$`));
     assert.ok(match, `Unexpected existing ID: ${p.id}`);

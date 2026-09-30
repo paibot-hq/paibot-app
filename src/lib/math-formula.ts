@@ -220,7 +220,9 @@ export function toTex(node: Node): string {
       }
     }
     case 'bin': {
-      const left = node.op === '*' ? coefficientTex(node.left) : toTex(node.left), right = toTex(node.right);
+      const left = node.op === '*' ? coefficientTex(node.left) : toTex(node.left);
+      // A negative right operand needs parentheses (2 * -x is 2 \times (-x), not 2-x; x - -y is x - (-y)).
+      const right = node.right.type === 'neg' && ['*', '+', '-'].includes(node.op) ? `\\left(${toTex(node.right)}\\right)` : toTex(node.right);
       if (node.op === '/') return `\\frac{${toTex(unwrap(node.left))}}{${toTex(unwrap(node.right))}}`;
       if (node.op === ':') return `${left} \\div ${right}`;
       // 3*pi/4 is 3 × (π/4) in the grammar but written \frac{3\pi}{4}, not a mixed-number-like 3\frac{\pi}{4}.
@@ -228,6 +230,7 @@ export function toTex(node: Node): string {
         return toTex({ type: 'bin', op: '/', left: { type: 'bin', op: '*', left: node.left, right: node.right.left }, right: node.right.right });
       }
       if (node.op === '*' && node.right.type === 'pow' && node.right.base.type === 'num' && node.right.exp.type !== 'num') return `${left} \\cdot ${right}`;
+      if (node.op === '*' && node.right.type === 'neg') return `${left} \\times ${right}`;
       if (node.op === '*') return startsWithNumber(node.right) ? `${left} \\times ${right}` : `${left}${right}`;
       return `${left} ${node.op} ${right}`;
     }

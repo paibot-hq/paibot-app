@@ -3,7 +3,7 @@ import { getAuth } from '@clerk/react-router/server';
 import { and, eq, sql } from 'drizzle-orm';
 import { getDb } from '../db/client.server';
 import { mathAttempts } from '../db/schema';
-import type { MathSetRecord } from './math-attempts';
+import { MAX_SET_PROBLEMS, type MathSetRecord } from './math-attempts';
 
 // A fingerprint of the problems as served (ids, answers, payloads): a change in any of them is a new version.
 export async function mathSetVersion(problems: readonly object[]): Promise<string> {
@@ -42,7 +42,7 @@ export async function saveAttemptAction(
     version = String(form.get('version') ?? '');
   } catch { return fail('invalid', 400); }
   if (!Array.isArray(problemIds) || !Array.isArray(answers) || problemIds.length !== answers.length
-    || problemIds.length === 0 || problemIds.length > 50
+    || problemIds.length === 0 || problemIds.length > MAX_SET_PROBLEMS
     || !answers.every(answer => Number.isInteger(answer) && answer >= 0 && answer < 4)) return fail('invalid', 400);
   try {
     const problems = await loadSet();

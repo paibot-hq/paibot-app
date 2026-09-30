@@ -27,6 +27,11 @@ const cases = {
   'sin(x - 3*pi/4)': '\\sin\\left(x - \\frac{3\\pi }{4}\\right)',
   '2*x/3': '\\frac{2x}{3}',
   '1/2 * 3/4': '\\frac{1}{2} \\times \\frac{3}{4}',
+  // A negative operand keeps its sign visible: 2 * -x is not "2-x".
+  '2 * -x + 3*x': '2 \\times \\left(-x\\right) + 3x',
+  'x - -y': 'x - \\left(-y\\right)',
+  'a + -b': 'a + \\left(-b\\right)',
+  '-x * 3': '-x \\times 3',
   'abs(x - 1)': '\\left|x - 1\\right|',
 };
 for (const [text, tex] of Object.entries(cases)) {
