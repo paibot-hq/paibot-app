@@ -1,0 +1,1 @@
+判別式（kind "quadratic"）。5問を discriminant 3問（"x^2 - 6*x + 5" など、判別式 D の値）、krange 2問（"x^2 - 6*x + k"、"x^2 + 4*x + k" など、k は定数項）。root-count は使わない（選択肢が3通りしかないため）。choices は discriminant は整数、krange は "k < 9" の形。誤答は b^2 - 4ac の符号・係数の取り違え、等号の有無から作る。

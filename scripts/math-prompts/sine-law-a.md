@@ -1,0 +1,1 @@
+正弦定理（kind "triangle"、which は sine-law）。question は "a, A, B" を度数で（例 "4, 30, 45"、"6, 45, 60"、"3, 60, 45"）。辺 b の長さ = a sin B / sin A を答える。A, B は 30, 45, 60, 90, 120 から選び、A + B < 180。答えは根号をふくむ正確な値。steps には sin(60) のような関数を書かず、値を直接書く（"6 * (sqrt(3)/2) / (sqrt(2)/2) = 3*sqrt(6)"、sin 30° = 1/2、sin 45° = sqrt(2)/2、sin 60° = sqrt(3)/2）。誤答は sin の取り違え（sin A と sin B）、分子分母の逆から作る。

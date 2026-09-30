@@ -255,6 +255,271 @@
       "steps": [
         "7/10 : 14/15 = 7/10 * 15/14 = (7*15)/(10*14) = 105/140 = 3/4"
       ]
+    },
+    {
+      "id": "fraction-021",
+      "item": "fraction-decimal",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "transform",
+      "question": "3/4",
+      "given": null,
+      "steps": [
+        "3/4 = 75/100 = 0.75"
+      ],
+      "choices": ["0.75", "0.34", "0.075", "7.5"],
+      "answerIndex": 0
+    },
+    {
+      "id": "fraction-022",
+      "item": "fraction-decimal",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "transform",
+      "question": "7/20",
+      "given": null,
+      "steps": [
+        "7/20 = 35/100 = 0.35"
+      ],
+      "choices": ["0.035", "0.35", "3.5", "0.72"],
+      "answerIndex": 1
+    },
+    {
+      "id": "fraction-023",
+      "item": "fraction-decimal",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "transform",
+      "question": "0.45",
+      "given": null,
+      "steps": [
+        "0.45 = 45/100 = 9/20"
+      ],
+      "choices": ["9/200", "9/2", "9/20", "4/5"],
+      "answerIndex": 2
+    },
+    {
+      "id": "fraction-024",
+      "item": "fraction-decimal",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "transform",
+      "question": "5/8",
+      "given": null,
+      "steps": [
+        "5/8 = 625/1000 = 0.625"
+      ],
+      "choices": ["0.0625", "6.25", "0.58", "0.625"],
+      "answerIndex": 3
+    },
+    {
+      "id": "fraction-025",
+      "item": "fraction-decimal",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "transform",
+      "question": "0.28",
+      "given": null,
+      "steps": [
+        "0.28 = 28/100 = 7/25"
+      ],
+      "choices": ["7/250", "7/25", "14/25", "2/7"],
+      "answerIndex": 1
+    },
+    {
+      "id": "fraction-026",
+      "item": "add-sub-like",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "2/7 + 3/7",
+      "given": null,
+      "steps": [
+        "2/7 + 3/7 = (2 + 3)/7 = 5/7"
+      ],
+      "choices": ["5/7", "5/14", "1/7", "1/14"],
+      "answerIndex": 0
+    },
+    {
+      "id": "fraction-027",
+      "item": "add-sub-like",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "7/9 - 2/9",
+      "given": null,
+      "steps": [
+        "7/9 - 2/9 = (7 - 2)/9 = 5/9"
+      ],
+      "choices": ["5/18", "5/9", "2/9", "1/9"],
+      "answerIndex": 1
+    },
+    {
+      "id": "fraction-028",
+      "item": "add-sub-like",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "2/11 + 5/11",
+      "given": null,
+      "steps": [
+        "2/11 + 5/11 = (2 + 5)/11 = 7/11"
+      ],
+      "choices": ["7/22", "3/11", "7/11", "3/22"],
+      "answerIndex": 2
+    },
+    {
+      "id": "fraction-029",
+      "item": "add-sub-like",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "5/11 - 2/11",
+      "given": null,
+      "steps": [
+        "5/11 - 2/11 = (5 - 2)/11 = 3/11"
+      ],
+      "choices": ["3/22", "7/11", "7/22", "3/11"],
+      "answerIndex": 3
+    },
+    {
+      "id": "fraction-030",
+      "item": "add-sub-like",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "4/7 - 1/7",
+      "given": null,
+      "steps": [
+        "4/7 - 1/7 = (4 - 1)/7 = 3/7"
+      ],
+      "choices": ["3/14", "3/7", "5/7", "5/14"],
+      "answerIndex": 1
+    },
+    {
+      "id": "fraction-031",
+      "item": "mixed",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "2 + 3/4",
+      "given": null,
+      "which": "to-improper",
+      "style": "mixed",
+      "steps": [
+        "2 + 3/4 = 8/4 + 3/4 = 11/4"
+      ],
+      "choices": ["11/4", "5/4", "9/4", "7/4"],
+      "answerIndex": 0
+    },
+    {
+      "id": "fraction-032",
+      "item": "mixed",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "3 + 2/5",
+      "given": null,
+      "which": "to-improper",
+      "style": "mixed",
+      "steps": [
+        "3 + 2/5 = 15/5 + 2/5 = 17/5"
+      ],
+      "choices": ["13/5", "17/5", "7/5", "11/5"],
+      "answerIndex": 1
+    },
+    {
+      "id": "fraction-033",
+      "item": "mixed",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "4 + 5/7",
+      "given": null,
+      "which": "to-improper",
+      "style": "mixed",
+      "steps": [
+        "4 + 5/7 = 28/7 + 5/7 = 33/7"
+      ],
+      "choices": ["23/7", "29/7", "33/7", "9/7"],
+      "answerIndex": 2
+    },
+    {
+      "id": "fraction-034",
+      "item": "mixed",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "19/4",
+      "given": null,
+      "which": "to-mixed",
+      "style": "mixed",
+      "steps": [
+        "19/4 = 16/4 + 3/4 = 4 + 3/4"
+      ],
+      "choices": ["3 + 3/4", "4 + 1/4", "3 + 1/4", "4 + 3/4"],
+      "answerIndex": 3
+    },
+    {
+      "id": "fraction-035",
+      "item": "mixed",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "23/6",
+      "given": null,
+      "which": "to-mixed",
+      "style": "mixed",
+      "steps": [
+        "23/6 = 18/6 + 5/6 = 3 + 5/6"
+      ],
+      "choices": ["3 + 5/6", "3 + 1/6", "4 + 1/6", "2 + 5/6"],
+      "answerIndex": 0
     }
   ]
 }

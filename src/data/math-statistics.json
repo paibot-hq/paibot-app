@@ -1,0 +1,197 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "statistics-001",
+      "item": "variance",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "stat",
+      "question": "2, 6, 8, 9, 10",
+      "given": null,
+      "which": "variance",
+      "steps": [
+        "(2 + 6 + 8 + 9 + 10)/5 = 35/5 = 7",
+        "((2 - 7)^2 + (6 - 7)^2 + (8 - 7)^2 + (9 - 7)^2 + (10 - 7)^2)/5 = (25 + 1 + 1 + 4 + 9)/5 = 40/5 = 8"
+      ],
+      "choices": ["10", "8", "2*sqrt(2)", "57"],
+      "answerIndex": 1
+    },
+    {
+      "id": "statistics-002",
+      "item": "variance",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "stat",
+      "question": "3, 5, 6, 7, 9",
+      "given": null,
+      "which": "std",
+      "steps": [
+        "(3 + 5 + 6 + 7 + 9)/5 = 30/5 = 6",
+        "((3 - 6)^2 + (5 - 6)^2 + (6 - 6)^2 + (7 - 6)^2 + (9 - 6)^2)/5 = (9 + 1 + 0 + 1 + 9)/5 = 20/5 = 4",
+        "sqrt(4) = 2"
+      ],
+      "choices": ["4", "sqrt(5)", "2", "2*sqrt(10)"],
+      "answerIndex": 2
+    },
+    {
+      "id": "statistics-003",
+      "item": "variance",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "stat",
+      "question": "-3, -1, 2, 3, 5, 6",
+      "given": null,
+      "which": "variance",
+      "steps": [
+        "(-3 + (-1) + 2 + 3 + 5 + 6)/6 = 12/6 = 2",
+        "((-3 - 2)^2 + (-1 - 2)^2 + (2 - 2)^2 + (3 - 2)^2 + (5 - 2)^2 + (6 - 2)^2)/6 = (25 + 9 + 0 + 1 + 9 + 16)/6 = 60/6 = 10"
+      ],
+      "choices": ["12", "sqrt(10)", "14", "10"],
+      "answerIndex": 3
+    },
+    {
+      "id": "statistics-004",
+      "item": "variance",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "stat",
+      "question": "5, 7, 11, 13, 14",
+      "given": null,
+      "which": "std",
+      "steps": [
+        "(5 + 7 + 11 + 13 + 14)/5 = 50/5 = 10",
+        "((5 - 10)^2 + (7 - 10)^2 + (11 - 10)^2 + (13 - 10)^2 + (14 - 10)^2)/5 = (25 + 9 + 1 + 9 + 16)/5 = 60/5 = 12",
+        "sqrt(12) = 2*sqrt(3)"
+      ],
+      "choices": ["2*sqrt(3)", "12", "sqrt(15)", "4*sqrt(7)"],
+      "answerIndex": 0
+    },
+    {
+      "id": "statistics-005",
+      "item": "variance",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "stat",
+      "question": "8, 14, 18, 20",
+      "given": null,
+      "which": "variance",
+      "steps": [
+        "(8 + 14 + 18 + 20)/4 = 60/4 = 15",
+        "((8 - 15)^2 + (14 - 15)^2 + (18 - 15)^2 + (20 - 15)^2)/4 = (49 + 1 + 9 + 25)/4 = 84/4 = 21"
+      ],
+      "choices": ["sqrt(21)", "21", "28", "246"],
+      "answerIndex": 1
+    },
+    {
+      "id": "statistics-006",
+      "item": "correlation",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "stat",
+      "question": "1, 2, 3, 4, 5; 2, 4, 3, 6, 5",
+      "given": null,
+      "which": "correlation",
+      "steps": [
+        "(-2)*(-2) + (-1)*0 + 0*(-1) + 1*2 + 2*1 = 4 + 0 + 0 + 2 + 2 = 8",
+        "8 / sqrt(10 * 10) = 8/10 = 4/5"
+      ],
+      "choices": ["4/5", "3/5", "-4/5", "2/5"],
+      "answerIndex": 0
+    },
+    {
+      "id": "statistics-007",
+      "item": "correlation",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "stat",
+      "question": "2, 3, 4, 5, 6; 6, 3, 7, 3, 6",
+      "given": null,
+      "which": "correlation",
+      "steps": [
+        "(-2)*1 + (-1)*(-2) + 0*2 + 1*(-2) + 2*1 = -2 + 2 + 0 - 2 + 2 = 0",
+        "0 / sqrt(10 * 14) = 0"
+      ],
+      "choices": ["1/2", "0", "-1/2", "1"],
+      "answerIndex": 1
+    },
+    {
+      "id": "statistics-008",
+      "item": "correlation",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "stat",
+      "question": "1, 2, 4, 5; 7, 4, 6, 3",
+      "given": null,
+      "which": "correlation",
+      "steps": [
+        "(-2)*2 + (-1)*(-1) + 1*1 + 2*(-2) = -4 + 1 + 1 - 4 = -6",
+        "-6 / sqrt(10 * 10) = -6/10 = -3/5"
+      ],
+      "choices": ["-4/5", "3/5", "-3/5", "-1/5"],
+      "answerIndex": 2
+    },
+    {
+      "id": "statistics-009",
+      "item": "correlation",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "stat",
+      "question": "3, 4, 5, 6, 7; 1, 5, 4, 3, 7",
+      "given": null,
+      "which": "correlation",
+      "steps": [
+        "(-2)*(-3) + (-1)*1 + 0*0 + 1*(-1) + 2*3 = 6 - 1 + 0 - 1 + 6 = 10",
+        "10 / sqrt(10 * 20) = 10 / (10*sqrt(2)) = sqrt(2)/2"
+      ],
+      "choices": ["-sqrt(2)/2", "1/2", "sqrt(3)/2", "sqrt(2)/2"],
+      "answerIndex": 3
+    },
+    {
+      "id": "statistics-010",
+      "item": "correlation",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "stat",
+      "question": "2, 3, 5, 6; 10, 8, 4, 2",
+      "given": null,
+      "which": "correlation",
+      "steps": [
+        "(-2)*4 + (-1)*2 + 1*(-2) + 2*(-4) = -8 - 2 - 2 - 8 = -20",
+        "-20 / sqrt(10 * 40) = -20/20 = -1"
+      ],
+      "choices": ["-1", "1", "-1/2", "0"],
+      "answerIndex": 0
+    }
+  ]
+}

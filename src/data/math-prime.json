@@ -1,0 +1,95 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "prime-001",
+      "item": "prime",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "72",
+      "given": null,
+      "which": "prime-factorization",
+      "steps": [
+        "72 = 2 * 36 = 2 * 2 * 18 = 2 * 2 * 2 * 3 * 3 = 2^3 * 3^2"
+      ],
+      "choices": ["2^2 * 3^2", "2^3 * 3^2", "2^2 * 3^3", "2^3 * 3"],
+      "answerIndex": 1
+    },
+    {
+      "id": "prime-002",
+      "item": "prime",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "84",
+      "given": null,
+      "which": "prime-factorization",
+      "steps": [
+        "84 = 2 * 42 = 2 * 2 * 21 = 2 * 2 * 3 * 7 = 2^2 * 3 * 7"
+      ],
+      "choices": ["2^2 * 3 * 5", "2 * 3^2 * 7", "2^2 * 3 * 7", "2^3 * 3 * 7"],
+      "answerIndex": 2
+    },
+    {
+      "id": "prime-003",
+      "item": "prime",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "90",
+      "given": null,
+      "which": "prime-factorization",
+      "steps": [
+        "90 = 2 * 45 = 2 * 3 * 15 = 2 * 3 * 3 * 5 = 2 * 3^2 * 5"
+      ],
+      "choices": ["2 * 3^2 * 5", "2^2 * 3 * 5", "2 * 3 * 5^2", "2 * 3^2 * 7"],
+      "answerIndex": 0
+    },
+    {
+      "id": "prime-004",
+      "item": "prime",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "108",
+      "given": null,
+      "which": "prime-factorization",
+      "steps": [
+        "108 = 2 * 54 = 2 * 2 * 27 = 2 * 2 * 3 * 3 * 3 = 2^2 * 3^3"
+      ],
+      "choices": ["2^3 * 3^2", "2^2 * 3^2", "2 * 3^3", "2^2 * 3^3"],
+      "answerIndex": 3
+    },
+    {
+      "id": "prime-005",
+      "item": "prime",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "140",
+      "given": null,
+      "which": "prime-factorization",
+      "steps": [
+        "140 = 2 * 70 = 2 * 2 * 35 = 2 * 2 * 5 * 7 = 2^2 * 5 * 7"
+      ],
+      "choices": ["2^2 * 3 * 7", "2^2 * 5 * 7", "2 * 5^2 * 7", "2^2 * 5^2"],
+      "answerIndex": 1
+    }
+  ]
+}

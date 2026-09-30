@@ -1,0 +1,265 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "combinatorics-001",
+      "item": "permutations",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "P(7, 3)",
+      "given": null,
+      "steps": [
+        "P(7, 3) = 7 * 6 * 5 = 210"
+      ],
+      "choices": ["35", "210", "42", "21"],
+      "answerIndex": 1
+    },
+    {
+      "id": "combinatorics-002",
+      "item": "permutations",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "P(5, 2) + P(6, 2)",
+      "given": null,
+      "steps": [
+        "P(5, 2) + P(6, 2) = 5 * 4 + 6 * 5 = 20 + 30 = 50"
+      ],
+      "choices": ["50", "25", "22", "35"],
+      "answerIndex": 0
+    },
+    {
+      "id": "combinatorics-003",
+      "item": "permutations",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "P(6, 3) : P(5, 2)",
+      "given": null,
+      "steps": [
+        "P(6, 3) : P(5, 2) = (6 * 5 * 4) : (5 * 4) = 120 : 20 = 6"
+      ],
+      "choices": ["2", "12", "1", "6"],
+      "answerIndex": 3
+    },
+    {
+      "id": "combinatorics-004",
+      "item": "permutations",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "P(4, 2) * P(3, 2)",
+      "given": null,
+      "steps": [
+        "P(4, 2) * P(3, 2) = (4 * 3) * (3 * 2) = 12 * 6 = 72"
+      ],
+      "choices": ["18", "36", "72", "48"],
+      "answerIndex": 2
+    },
+    {
+      "id": "combinatorics-005",
+      "item": "permutations",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "P(7, 2) + P(5, 3)",
+      "given": null,
+      "steps": [
+        "P(7, 2) + P(5, 3) = 7 * 6 + 5 * 4 * 3 = 42 + 60 = 102"
+      ],
+      "choices": ["102", "52", "31", "81"],
+      "answerIndex": 0
+    },
+    {
+      "id": "combinatorics-006",
+      "item": "combinations",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "C(8, 3)",
+      "given": null,
+      "steps": [
+        "C(8, 3) = (8 * 7 * 6)/(3 * 2 * 1) = 336/6 = 56"
+      ],
+      "choices": ["56", "112", "336", "28"],
+      "answerIndex": 0
+    },
+    {
+      "id": "combinatorics-007",
+      "item": "combinations",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "C(6, 2) + C(5, 3)",
+      "given": null,
+      "steps": [
+        "C(6, 2) + C(5, 3) = (6 * 5)/(2 * 1) + (5 * 4)/(2 * 1) = 15 + 10 = 25"
+      ],
+      "choices": ["40", "25", "75", "90"],
+      "answerIndex": 1
+    },
+    {
+      "id": "combinatorics-008",
+      "item": "combinations",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "C(7, 2) * C(4, 2)",
+      "given": null,
+      "steps": [
+        "C(7, 2) * C(4, 2) = (7 * 6)/(2 * 1) * (4 * 3)/(2 * 1) = 21 * 6 = 126"
+      ],
+      "choices": ["27", "252", "126", "504"],
+      "answerIndex": 2
+    },
+    {
+      "id": "combinatorics-009",
+      "item": "combinations",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "C(7, 3) - C(7, 4) + 8",
+      "given": null,
+      "steps": [
+        "C(7, 3) - C(7, 4) + 8 = 35 - 35 + 8 = 8"
+      ],
+      "choices": ["43", "78", "70", "8"],
+      "answerIndex": 3
+    },
+    {
+      "id": "combinatorics-010",
+      "item": "combinations",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "C(10, 2) - C(5, 2)",
+      "given": null,
+      "steps": [
+        "C(10, 2) - C(5, 2) = (10 * 9)/(2 * 1) - (5 * 4)/(2 * 1) = 45 - 10 = 35"
+      ],
+      "choices": ["25", "35", "70", "80"],
+      "answerIndex": 1
+    },
+    {
+      "id": "combinatorics-011",
+      "item": "expectation",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "distribution",
+      "question": "0, 120, 300; 1/2, 1/3, 1/6",
+      "given": null,
+      "which": "mean",
+      "steps": [
+        "0*(1/2) + 120*(1/3) + 300*(1/6) = 0 + 40 + 50 = 90"
+      ],
+      "choices": ["70", "140", "90", "420"],
+      "answerIndex": 2
+    },
+    {
+      "id": "combinatorics-012",
+      "item": "expectation",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "distribution",
+      "question": "10, 20, 50; 1/10, 3/5, 3/10",
+      "given": null,
+      "which": "mean",
+      "steps": [
+        "10*(1/10) + 20*(3/5) + 50*(3/10) = 1 + 12 + 15 = 28"
+      ],
+      "choices": ["20", "28", "80/3", "80"],
+      "answerIndex": 1
+    },
+    {
+      "id": "combinatorics-013",
+      "item": "expectation",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "distribution",
+      "question": "0, 100, 300, 1000; 7/10, 1/5, 7/100, 3/100",
+      "given": null,
+      "which": "mean",
+      "steps": [
+        "0*(7/10) + 100*(1/5) + 300*(7/100) + 1000*(3/100) = 0 + 20 + 21 + 30 = 71"
+      ],
+      "choices": ["71", "14", "350", "1400"],
+      "answerIndex": 0
+    },
+    {
+      "id": "combinatorics-014",
+      "item": "expectation",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "distribution",
+      "question": "-10, 10, 30; 1/2, 1/3, 1/6",
+      "given": null,
+      "which": "mean",
+      "steps": [
+        "-10*(1/2) + 10*(1/3) + 30*(1/6) = -5 + 10/3 + 5 = 10/3"
+      ],
+      "choices": ["10", "40/3", "30", "10/3"],
+      "answerIndex": 3
+    },
+    {
+      "id": "combinatorics-015",
+      "item": "expectation",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "distribution",
+      "question": "1, 2, 4, 8; 1/2, 1/4, 1/8, 1/8",
+      "given": null,
+      "which": "mean",
+      "steps": [
+        "1*(1/2) + 2*(1/4) + 4*(1/8) + 8*(1/8) = 1/2 + 1/2 + 1/2 + 1 = 5/2"
+      ],
+      "choices": ["15/8", "15/4", "5/2", "15"],
+      "answerIndex": 2
+    }
+  ]
+}

@@ -255,6 +255,91 @@
       "steps": [
         "sqrt(3)/sqrt(8) = sqrt(3)/(2*sqrt(2)) = (sqrt(3)*sqrt(2))/(2*sqrt(2)*sqrt(2)) = sqrt(6)/4"
       ]
+    },
+    {
+      "id": "sqrt-016",
+      "item": "double-radical",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "sqrt(5 + 2*sqrt(6))",
+      "given": null,
+      "steps": [
+        "sqrt(5 + 2*sqrt(6)) = sqrt((3 + 2) + 2*sqrt(3*2)) = sqrt((sqrt(3) + sqrt(2))^2) = sqrt(3) + sqrt(2)"
+      ],
+      "choices": ["sqrt(3) - sqrt(2)", "sqrt(5) + sqrt(6)", "sqrt(3) + sqrt(2)", "sqrt(6) + 1"],
+      "answerIndex": 2
+    },
+    {
+      "id": "sqrt-017",
+      "item": "double-radical",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "sqrt(7 - 2*sqrt(10))",
+      "given": null,
+      "steps": [
+        "sqrt(7 - 2*sqrt(10)) = sqrt((5 + 2) - 2*sqrt(5*2)) = sqrt((sqrt(5) - sqrt(2))^2) = sqrt(5) - sqrt(2)"
+      ],
+      "choices": ["sqrt(5) - sqrt(2)", "sqrt(5) + sqrt(2)", "sqrt(2) - sqrt(5)", "sqrt(7) - sqrt(10)"],
+      "answerIndex": 0
+    },
+    {
+      "id": "sqrt-018",
+      "item": "double-radical",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "sqrt(9 + 2*sqrt(14))",
+      "given": null,
+      "steps": [
+        "sqrt(9 + 2*sqrt(14)) = sqrt((7 + 2) + 2*sqrt(7*2)) = sqrt((sqrt(7) + sqrt(2))^2) = sqrt(7) + sqrt(2)"
+      ],
+      "choices": ["sqrt(7) - sqrt(2)", "sqrt(7) + sqrt(3)", "sqrt(14) + 1", "sqrt(7) + sqrt(2)"],
+      "answerIndex": 3
+    },
+    {
+      "id": "sqrt-019",
+      "item": "double-radical",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "sqrt(10 - 2*sqrt(21))",
+      "given": null,
+      "steps": [
+        "sqrt(10 - 2*sqrt(21)) = sqrt((7 + 3) - 2*sqrt(7*3)) = sqrt((sqrt(7) - sqrt(3))^2) = sqrt(7) - sqrt(3)"
+      ],
+      "choices": ["sqrt(7) + sqrt(3)", "sqrt(7) - sqrt(3)", "sqrt(3) - sqrt(7)", "sqrt(10) - sqrt(21)"],
+      "answerIndex": 1
+    },
+    {
+      "id": "sqrt-020",
+      "item": "double-radical",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "sqrt(8 + 2*sqrt(15))",
+      "given": null,
+      "steps": [
+        "sqrt(8 + 2*sqrt(15)) = sqrt((5 + 3) + 2*sqrt(5*3)) = sqrt((sqrt(5) + sqrt(3))^2) = sqrt(5) + sqrt(3)"
+      ],
+      "choices": ["sqrt(5) - sqrt(3)", "sqrt(6) + sqrt(2)", "sqrt(5) + sqrt(3)", "sqrt(8) + sqrt(15)"],
+      "answerIndex": 2
     }
   ]
 }

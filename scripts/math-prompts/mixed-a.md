@@ -1,0 +1,1 @@
+帯分数と仮分数（kind "number"、which は to-improper と to-mixed、style は "mixed"）。5問を to-improper 3問（"2 + 3/5" は 2⅗）、to-mixed 2問（"17/5"）にする。分母は2〜9。誤答は分子の計算ミス（整数×分母を忘れる）、あまりの取り違えから作る。to-improper の choices は仮分数 "13/5"、to-mixed の choices は "3 + 2/5"。

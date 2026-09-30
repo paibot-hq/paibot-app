@@ -1,0 +1,190 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "unknowns-001",
+      "item": "letters",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "15 + 6*x",
+      "given": "x = 8",
+      "steps": [
+        "15 + 6*8 = 15 + 48 = 63"
+      ],
+      "choices": ["63", "168", "53", "57"],
+      "answerIndex": 0,
+      "style": "times"
+    },
+    {
+      "id": "unknowns-002",
+      "item": "letters",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "4*x + 7*y",
+      "given": "x = 5, y = 3",
+      "steps": [
+        "4*5 + 7*3 = 20 + 21 = 41"
+      ],
+      "choices": ["47", "41", "19", "51"],
+      "answerIndex": 1,
+      "style": "times"
+    },
+    {
+      "id": "unknowns-003",
+      "item": "letters",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "50 - 4*a",
+      "given": "a = 7",
+      "steps": [
+        "50 - 4*7 = 50 - 28 = 22"
+      ],
+      "choices": ["322", "32", "22", "78"],
+      "answerIndex": 2,
+      "style": "times"
+    },
+    {
+      "id": "unknowns-004",
+      "item": "letters",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "7*x - 16",
+      "given": "x = 8",
+      "steps": [
+        "7*8 - 16 = 56 - 16 = 40"
+      ],
+      "choices": ["38", "72", "30", "40"],
+      "answerIndex": 3,
+      "style": "times"
+    },
+    {
+      "id": "unknowns-005",
+      "item": "letters",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "8*a - 5*b",
+      "given": "a = 6, b = 4",
+      "steps": [
+        "8*6 - 5*4 = 48 - 20 = 28"
+      ],
+      "choices": ["2", "28", "68", "26"],
+      "answerIndex": 1,
+      "style": "times"
+    },
+    {
+      "id": "unknowns-006",
+      "item": "box",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "solve",
+      "question": "x + 6 = 24",
+      "given": null,
+      "style": "box",
+      "steps": [
+        "x = 24 - 6",
+        "x = 18"
+      ],
+      "choices": ["18", "30", "4", "144"],
+      "answerIndex": 0
+    },
+    {
+      "id": "unknowns-007",
+      "item": "box",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "solve",
+      "question": "40 - x = 8",
+      "given": null,
+      "style": "box",
+      "steps": [
+        "x = 40 - 8",
+        "x = 32"
+      ],
+      "choices": ["48", "32", "5", "320"],
+      "answerIndex": 1
+    },
+    {
+      "id": "unknowns-008",
+      "item": "box",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "solve",
+      "question": "x * 4 = 48",
+      "given": null,
+      "style": "box",
+      "steps": [
+        "x = 48 : 4",
+        "x = 12"
+      ],
+      "choices": ["44", "192", "12", "52"],
+      "answerIndex": 2
+    },
+    {
+      "id": "unknowns-009",
+      "item": "box",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "solve",
+      "question": "x - 9 = 27",
+      "given": null,
+      "style": "box",
+      "steps": [
+        "x = 27 + 9",
+        "x = 36"
+      ],
+      "choices": ["18", "3", "243", "36"],
+      "answerIndex": 3
+    },
+    {
+      "id": "unknowns-010",
+      "item": "box",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "solve",
+      "question": "54 : x = 6",
+      "given": null,
+      "style": "box",
+      "steps": [
+        "x = 54 : 6",
+        "x = 9"
+      ],
+      "choices": ["48", "9", "60", "324"],
+      "answerIndex": 1
+    }
+  ]
+}

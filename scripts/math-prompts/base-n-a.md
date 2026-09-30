@@ -1,0 +1,1 @@
+n進法（kind "number"、which は to-base と from-base）。5問を to-base 3問（"45, 2"、"100, 3"、"29, 5"）、from-base 2問（"1011, 2"、"2103, 4"）。to-base の choices は数字の並び（"101101"、n 進数の数字だけ）、from-base の choices は10進数の整数。誤答は位のずれ、あまりの並べ順の逆、桁の書き間違いから作る。

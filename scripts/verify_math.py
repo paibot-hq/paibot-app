@@ -18,8 +18,11 @@ import re
 import sys
 from pathlib import Path
 
-from sympy import (Abs, Eq, FiniteSet, Function, I, Integer, Poly, Rational, Sum, Symbol, Tuple, binomial, cos, diff, expand,
-                   ff, integrate, log, pi, rem, rsolve, simplify, sin, solve, sqrt, tan)
+from sympy import (Abs, And, Eq, FiniteSet, Function, Ge, Gt, I, Integer, Interval, Le, Lt, Or, Poly, Rational, S, Sum, Symbol, Tuple,
+                   binomial, cos, diff, divisor_count, expand, ff, gcd, integrate, isprime, lcm, log, oo, pi, rem, rsolve, simplify, sin,
+                   solve, sqrt, tan)
+from sympy.calculus.util import maximum, minimum
+from sympy.solvers.inequalities import solve_univariate_inequality
 
 ROOT = Path(__file__).resolve().parent.parent
 x = Symbol('x')
@@ -144,7 +147,7 @@ def parse_formula(text):
             exponent = unary()
             # Integers up to 12 and fractions like 2/3 or -1/2 (9^9^9 would hang the
             # check), or an expression in a letter such as 2^(k - 1) inside sum(...).
-            if not (exponent.free_symbols or (exponent.is_Rational and abs(exponent.p) <= 12 and exponent.q <= 12)):
+            if not (exponent.free_symbols or (exponent.is_Rational and abs(exponent.p) <= 200 and exponent.q <= 12)):
                 raise ValueError(f'unsupported exponent in {text!r}')
             return base ** exponent
         return base
@@ -561,8 +564,335 @@ def graph(problem):
     return f, [line_choice(choice) for choice in choices]
 
 
+PLACES = {'ones': Integer(1), 'ten': Integer(10), 'hundred': Integer(100), 'thousand': Integer(1000),
+          'tenth': Rational(1, 10), 'hundredth': Rational(1, 100)}
+
+
+def round_half_up(value, place):
+    return (value / place + Rational(1, 2)).floor() * place
+
+
+def top_digit(value):
+    """A whole number rounded to its leading digit (398 -> 400, 52 -> 50)."""
+    if value < 10:
+        return value
+    place = Integer(10) ** (len(str(int(value))) - 1)
+    return round_half_up(value, place)
+
+
+PRIME_PRODUCT = re.compile(r'^\s*\d+(\s*\^\s*\d+)?(\s*\*\s*\d+(\s*\^\s*\d+)?)*\s*$')
+SCIENTIFIC = re.compile(r'^\s*(\d+(?:\.\d+)?)\s*\*\s*10\s*\^\s*\(?(-?\d+)\)?\s*$')
+MIXED = re.compile(r'^\s*(\d+)\s*\+\s*(\d+)\s*/\s*(\d+)\s*$')
+
+
+RELATIONS = {'<': Lt, '>': Gt, '<=': Le, '>=': Ge}
+
+
+def set_key(interval_set):
+    """A set of numbers as a comparable tuple of (start, end, left_open, right_open); infinities are symbols."""
+    inf, minf = Symbol('inf'), Symbol('mininf')
+    end = lambda value: inf if value == oo else minf if value == -oo else value
+    parts = [interval_set] if isinstance(interval_set, Interval) else list(getattr(interval_set, 'args', [interval_set]))
+    keys = []
+    for part in parts:
+        if isinstance(part, FiniteSet):
+            keys.extend((v, v, Integer(0), Integer(0)) for v in part)
+        elif isinstance(part, Interval):
+            keys.append((end(part.start), end(part.end), Integer(1 if part.left_open else 0), Integer(1 if part.right_open else 0)))
+        else:
+            raise ValueError(f'unexpected set {part}')
+    keys.sort(key=lambda k: (str(k[0]), str(k[1])))
+    return Tuple(*[Tuple(*k) for k in keys])
+
+
+def relation_set(text, variable):
+    """The set an inequality choice such as "-1 < x < 4, x >= 7" describes."""
+    result = S.EmptySet
+    for chain in split_top(text, ','):
+        parts = [part.strip() for part in re.split(r'(<=|>=|<|>)', chain)]
+        if len(parts) < 3 or len(parts) % 2 == 0:
+            raise ValueError(f'{chain!r} is not a relation chain')
+        relations = [RELATIONS[parts[i + 1]](parse_formula(parts[i]), parse_formula(parts[i + 2])) for i in range(0, len(parts) - 2, 2)]
+        result = result.union(And(*relations).as_set())
+    return result
+
+
+def inequality_solution(problem):
+    lhs, rhs, op = [part.strip() for part in problem['question'].split(';')]
+    f, g = parse_formula(lhs), parse_formula(rhs)
+    x = variable_of(f - g) if (f - g).free_symbols else LETTERS['x']
+    # Abs and friends need a real variable to be solved; the answer is compared as a set of reals.
+    real = Symbol(x.name, real=True)
+    return solve_univariate_inequality(RELATIONS[op](f.subs(x, real), g.subs(x, real)), real, relational=False), x
+
+
+def diophantine(problem, choices):
+    a, b, c = pair(problem['question'])
+    pairs = [Tuple(*pair(choice)) for choice in choices]
+    good = [p for p in pairs if a * p[0] + b * p[1] == c]
+    if len(good) != 1 or not all(v.is_Integer for p in pairs for v in p):
+        raise ValueError('exactly one choice must be an integer solution of ax + by = c')
+    return good[0], pairs
+
+
+def number(problem):
+    """Whole-number facts: the answer and the choices as comparable values."""
+    which, question, choices = problem['which'], problem['question'], problem['choices']
+    values = pair(question)
+    if which == 'diophantine':
+        return diophantine(problem, choices)
+    if which == 'to-base':
+        n, base = int(values[0]), int(values[1])
+        picked = []
+        for choice in choices:
+            digits = choice.strip()
+            if not digits.isdigit() or any(int(d) >= base for d in digits):
+                raise ValueError(f'{choice!r} is not a base {base} numeral')
+            picked.append(Integer(int(digits, base)))
+        return Integer(n), picked
+    if which == 'from-base':
+        digits, base = str(int(values[0])), int(values[1])
+        if any(int(d) >= base for d in digits):
+            raise ValueError('digits must be below the base')
+        return Integer(int(digits, base)), [parse_formula(c) for c in choices]
+    if which == 'remainder':
+        a, m = int(values[0]), int(values[1])
+        return Integer(a % m), [parse_formula(c) for c in choices]
+    if which == 'power-mod':
+        a, e, m = (int(v) for v in values)
+        return Integer(pow(a, e, m)), [parse_formula(c) for c in choices]
+    if which in ('gcd', 'lcm', 'euclid'):
+        which = 'lcm' if which == 'lcm' else 'gcd'
+        if not (len(values) >= 2 and all(v.is_Integer and v > 0 for v in values)):
+            raise ValueError('expected two or more positive integers')
+        answer = values[0]
+        for v in values[1:]:
+            answer = gcd(answer, v) if which == 'gcd' else lcm(answer, v)
+        return answer, [parse_formula(c) for c in choices]
+    if which == 'divisor-count':
+        return Integer(divisor_count(int(values[0]))), [parse_formula(c) for c in choices]
+    if which == 'nth-multiple':
+        a, n = values
+        return a * n, [parse_formula(c) for c in choices]
+    if which == 'prime-factorization':
+        n = int(values[0])
+        picked = []
+        for choice in choices:
+            if not PRIME_PRODUCT.match(choice):
+                raise ValueError(f'{choice!r} is not a product of numbers and powers')
+            for base in re.findall(r'(\d+)(?:\s*\^\s*\d+)?', choice):
+                if not isprime(int(base)):
+                    raise ValueError(f'{choice!r}: {base} is not prime')
+            picked.append(parse_formula(choice))
+        return Integer(n), picked
+    if which.startswith('round-'):
+        return round_half_up(values[0], PLACES[which[6:]]), [parse_formula(c) for c in choices]
+    if which == 'estimate':
+        m = re.match(r'^\s*(\d+)\s*([-+*])\s*(\d+)\s*$', question)
+        if not m:
+            raise ValueError('estimate needs "a op b" with whole numbers')
+        a, b = top_digit(Integer(m.group(1))), top_digit(Integer(m.group(3)))
+        return {'+': a + b, '-': a - b, '*': a * b}[m.group(2)], [parse_formula(c) for c in choices]
+    if which == 'scientific':
+        n = values[0]
+        picked = []
+        for choice in choices:
+            m = SCIENTIFIC.match(choice)
+            if not m or not (1 <= Rational(m.group(1)) < 10):
+                raise ValueError(f'{choice!r} is not a x 10^n with 1 <= a < 10')
+            picked.append(parse_formula(choice))
+        return n, picked
+    if which == 'to-improper':
+        m = MIXED.match(question)
+        if not m or int(m.group(2)) >= int(m.group(3)):
+            raise ValueError('a mixed number "a + b/c" with b < c')
+        for index, choice in enumerate(choices):
+            c = re.match(r'^\s*(\d+)\s*/\s*(\d+)\s*$', choice)
+            if not c or (index == problem['answerIndex'] and int(c.group(1)) <= int(c.group(2))):
+                raise ValueError(f'{choice!r}: the choices are fractions "a/b" and the answer is improper')
+        return parse_formula(question), [parse_formula(c) for c in choices]
+    if which == 'to-mixed':
+        m = re.match(r'^\s*(\d+)\s*/\s*(\d+)\s*$', question)
+        if not m or int(m.group(1)) <= int(m.group(2)) or int(m.group(1)) % int(m.group(2)) == 0:
+            raise ValueError('an improper fraction that is not a whole number')
+        picked = []
+        for choice in choices:
+            c = MIXED.match(choice)
+            if not c or int(c.group(3)) == 0:
+                raise ValueError(f'{choice!r} is not a mixed number "a + b/c"')
+            picked.append(parse_formula(choice))
+        return parse_formula(question), picked
+    raise ValueError(f'unknown number variant {which!r}')
+
+
+def stat(problem):
+    which = problem['which']
+    if which == 'correlation':
+        return stat_spread(problem, which)
+    data = sorted(pair(problem['question']))
+    if len(data) < 3:
+        raise ValueError('at least three values')
+    if which == 'median':
+        middle = len(data) // 2
+        answer = data[middle] if len(data) % 2 else (data[middle - 1] + data[middle]) / 2
+    elif which == 'range':
+        answer = data[-1] - data[0]
+    elif which in ('variance', 'std', 'correlation'):
+        return stat_spread(problem, which)
+    elif which == 'mode':
+        counts = {v: data.count(v) for v in set(data)}
+        best = max(counts.values())
+        modes = [v for v, c in counts.items() if c == best]
+        if len(modes) != 1 or best < 2:
+            raise ValueError('the data must have exactly one most frequent value')
+        answer = modes[0]
+    else:
+        raise ValueError(f'unknown stat variant {which!r}')
+    return answer, [parse_formula(c) for c in problem['choices']]
+
+
+def stat_spread(problem, which):
+    if which == 'correlation':
+        xs, ys = [pair(part) for part in problem['question'].split(';')]
+        if len(xs) != len(ys) or len(xs) < 3:
+            raise ValueError('two lists of the same length, at least 3')
+        n = len(xs)
+        mx, my = sum(xs) / n, sum(ys) / n
+        cov = sum((a - mx) * (b - my) for a, b in zip(xs, ys))
+        vx, vy = sum((a - mx) ** 2 for a in xs), sum((b - my) ** 2 for b in ys)
+        if vx == 0 or vy == 0:
+            raise ValueError('the values must vary')
+        return simplify(cov / sqrt(vx * vy)), [parse_formula(c) for c in problem['choices']]
+    data = pair(problem['question'])
+    n = len(data)
+    mean = sum(data) / n
+    variance = sum((v - mean) ** 2 for v in data) / n
+    return (variance if which == 'variance' else simplify(sqrt(variance))), [parse_formula(c) for c in problem['choices']]
+
+
+def quadratic(problem):
+    which, question = problem['which'], problem['question']
+    x = LETTERS['x']
+    parts = question.split(';')
+    f = parse_formula(parts[0])
+    if which in ('discriminant', 'root-count', 'krange'):
+        poly = Poly(f, x)
+        if poly.degree() != 2:
+            raise ValueError('a quadratic in x')
+        a, b, c = poly.all_coeffs()
+        d = expand(b ** 2 - 4 * a * c)
+        if which == 'discriminant':
+            return d, [parse_formula(c) for c in problem['choices']]
+        if which == 'root-count':
+            return Integer(2 if d > 0 else 1 if d == 0 else 0), [parse_formula(c) for c in problem['choices']]
+        k = next(iter(d.free_symbols))
+        return set_key(solve_univariate_inequality(d > 0, k, relational=False)), [set_key(relation_set(c, k)) for c in problem['choices']]
+    if which in ('max', 'min'):
+        low, high = pair(parts[1])
+        domain = Interval(low, high)
+        return simplify((maximum if which == 'max' else minimum)(f, x, domain)), [parse_formula(c) for c in problem['choices']]
+    if which in ('max-all', 'min-all'):
+        a = Poly(f, x).all_coeffs()[0]
+        if (which == 'max-all') != (a < 0):
+            raise ValueError('the parabola must open downward for a maximum and upward for a minimum')
+        return simplify((maximum if which == 'max-all' else minimum)(f, x, S.Reals)), [parse_formula(c) for c in problem['choices']]
+    raise ValueError(f'unknown quadratic variant {which!r}')
+
+
+def triangle(problem):
+    which, values = problem['which'], pair(problem['question'])
+    deg = lambda v: v * pi / 180
+    choices = [parse_formula(c) for c in problem['choices']]
+    if which in ('sin', 'cos', 'tan'):
+        opp, adj = values
+        hyp = sqrt(opp ** 2 + adj ** 2)
+        if not hyp.is_Integer:
+            raise ValueError('the hypotenuse must be a whole number')
+        return {'sin': opp / hyp, 'cos': adj / hyp, 'tan': opp / adj}[which], choices
+    if which == 'sine-law':
+        a, big_a, big_b = values
+        if big_a + big_b >= 180:
+            raise ValueError('the two angles must sum to less than 180')
+        return simplify(a * sin(deg(big_b)) / sin(deg(big_a))), choices
+    if which == 'cosine-side':
+        a, b, big_c = values
+        return simplify(sqrt(simplify(a ** 2 + b ** 2 - 2 * a * b * cos(deg(big_c))))), choices
+    if which == 'cosine-cos':
+        a, b, c = values
+        if not (a + b > c and a + c > b and b + c > a):
+            raise ValueError('not a triangle')
+        return (a ** 2 + b ** 2 - c ** 2) / (2 * a * b), choices
+    if which == 'triangle-area':
+        a, b, big_c = values
+        return simplify(a * b * sin(deg(big_c)) / 2), choices
+    raise ValueError(f'unknown triangle variant {which!r}')
+
+
+def function(problem):
+    which, question = problem['which'], problem['question']
+    x, y = LETTERS['x'], LETTERS['y']
+    parts = question.split(';')
+    if which in ('proportion', 'inverse'):
+        x0, y0 = pair(question)
+        if x0 == 0 or y0 == 0:
+            raise ValueError('a nonzero point is needed')
+        return (y0 / x0 * x if which == 'proportion' else x0 * y0 / x), [line_choice(c) for c in problem['choices']]
+    if which in ('slope', 'intercept', 'xintercept'):
+        f = parse_formula(question)
+        if Poly(f, x).degree() != 1:
+            raise ValueError('a linear function is needed')
+        m, c = diff(f, x), f.subs(x, 0)
+        answer = m if which == 'slope' else c if which == 'intercept' else -c / m
+        return answer, [parse_formula(c) for c in problem['choices']]
+    if which == 'rate':
+        f, (a, b) = parse_formula(parts[0]), pair(parts[1])
+        if a == b:
+            raise ValueError('a and b must differ')
+        return (f.subs(x, b) - f.subs(x, a)) / (b - a), [parse_formula(c) for c in problem['choices']]
+    if which == 'intersect-lines':
+        f, g = parse_formula(parts[0]), parse_formula(parts[1])
+        found = solve(Eq(f, g), x)
+        if len(found) != 1:
+            raise ValueError('the lines must meet in exactly one point')
+        return Tuple(found[0], f.subs(x, found[0])), [Tuple(*pair(c)) for c in problem['choices']]
+    if which == 'intersect-parabola':
+        f, g = parse_formula(parts[0]), parse_formula(parts[1])
+        roots = [r for r in solve(Eq(f, g), x) if r.is_real]
+        if len(roots) < 2:
+            raise ValueError('the parabola and the line must cross at two points')
+        return FiniteSet(*roots), [solution_choice(c, [x]) for c in problem['choices']]
+    if which == 'rewrite':
+        left, right = question.split('=')
+        return solve(Eq(parse_formula(left), parse_formula(right)), y)[0], [line_choice(c) for c in problem['choices']]
+    raise ValueError(f'unknown function variant {which!r}')
+
+
+def rearrange(problem):
+    left, right = problem['question'].split('=')
+    target = LETTERS[problem['which']]
+    found = solve(Eq(parse_formula(left), parse_formula(right)), target)
+    if len(found) != 1:
+        raise ValueError('the equation must be linear in the letter')
+    return found[0], [parse_formula(c) for c in problem['choices']]
+
+
 def _formula(problem):
     kind, question, choices = problem['kind'], problem['question'], problem['choices']
+    if kind == 'inequality' and problem['which'] == 'solve':
+        solution, variable = inequality_solution(problem)
+        return set_key(solution), [set_key(relation_set(c, variable)) for c in problem['choices']]
+    if kind == 'quadratic':
+        return quadratic(problem)
+    if kind == 'triangle':
+        return triangle(problem)
+    if kind == 'number':
+        return number(problem)
+    if kind == 'stat':
+        return stat(problem)
+    if kind == 'function':
+        return function(problem)
+    if kind == 'rearrange':
+        return rearrange(problem)
     keyed = problem['answerIndex']
     if kind == 'graph':
         return graph(problem)
@@ -693,10 +1023,13 @@ def check_steps(problem, answer):
     if kind == 'recurrence':
         return check_recurrence_steps(problem, answer, steps)
     for line in steps:
-        if kind in ('region', 'inference') or (kind == 'graph' and problem['which'] in ('vertex', 'region')):
+        if (kind == 'inequality' and problem['which'] == 'solve') or (kind == 'quadratic' and problem['which'] == 'krange'):
+            check_boundary_line(problem, line)
+            continue
+        if kind in ('region', 'inference', 'number', 'stat', 'triangle', 'quadratic') or (kind == 'graph' and problem['which'] in ('vertex', 'region')) or (kind == 'function' and problem['which'] in ('slope', 'intercept', 'xintercept', 'rate')):
             check_numeric_chain(line)
             continue
-        if kind in ('solve', 'tangent', 'extremum', 'identity') or (kind == 'inequality' and problem['which'] == 'amgm-equal') or kind == 'graph' or (kind == 'geometry' and problem['which'].startswith(('line-', 'circle-', 'locus-'))):
+        if kind in ('solve', 'tangent', 'extremum', 'identity') or (kind == 'inequality' and problem['which'] == 'amgm-equal') or kind == 'graph' or kind in ('function', 'rearrange') or (kind == 'geometry' and problem['which'].startswith(('line-', 'circle-', 'locus-'))):
             check_equation_line(problem, answer, line)
             continue
         parts = line.split('=')
@@ -720,6 +1053,28 @@ def check_numeric_chain(line):
             raise ValueError(f'step {line!r} must be numbers only')
         if any(not same(values[0], value) for value in values[1:]):
             raise ValueError(f'step {line!r} is not a true chain of equal numbers')
+
+
+def check_boundary_line(problem, line):
+    """A worked line of an inequality: an equation that holds at a boundary point of the solution."""
+    if problem['kind'] == 'quadratic':
+        f = parse_formula(problem['question'])
+        a, b, c = Poly(f, LETTERS['x']).all_coeffs()
+        d = expand(b ** 2 - 4 * a * c)
+        variable = next(iter(d.free_symbols))
+        boundary = solve(Eq(d, 0), variable)
+    else:
+        lhs, rhs, _ = [part.strip() for part in problem['question'].split(';')]
+        f, g = parse_formula(lhs), parse_formula(rhs)
+        variable = variable_of(f - g) if (f - g).free_symbols else LETTERS['x']
+        real = Symbol(variable.name, real=True)   # Abs needs a real variable
+        boundary = solve(Eq(f.subs(variable, real), g.subs(variable, real)), real)
+    if not boundary:
+        raise ValueError('no boundary point')
+    for item in split_top(line, ','):
+        sides = item.split('=')
+        if len(sides) < 2 or not any(holds(sides, {variable: point}) for point in boundary):
+            raise ValueError(f'step {line!r} does not hold at a boundary point')
 
 
 def check_recurrence_steps(problem, answer, steps):
@@ -763,7 +1118,15 @@ def check_equation_line(problem, answer, line):
     elif kind == 'inequality':
         candidates = [{variable_of(parse_formula(problem['question'])): answer}]
         every = True
-    elif kind in ('tangent', 'geometry', 'graph'):
+    elif kind == 'rearrange':
+        candidates = [{LETTERS[problem['which']]: answer}]
+        every = True
+    elif kind == 'function' and problem['which'] in ('intersect-lines', 'intersect-parabola'):
+        # Each line holds at some intersection (an x value that solves f = g).
+        xs = [answer[0]] if isinstance(answer, Tuple) else list(answer)
+        candidates = [{LETTERS['x']: value} for value in xs]
+        every = False
+    elif kind in ('tangent', 'geometry', 'graph', 'function'):
         candidates = [{LETTERS['y']: answer}]
         every = True
     else:
@@ -779,7 +1142,7 @@ def check_equation_line(problem, answer, line):
         ok = all(any(holds(item.split('='), values, kind == 'graph') for values in candidates) for item in items)
         if every:
             ok = ok and all(any(holds(item.split('='), values) for item in items) for values in candidates)
-    if kind in ('tangent', 'geometry', 'graph'):
+    if kind in ('tangent', 'geometry', 'graph', 'function'):
         ok = ok and all(len(item.split('=')) > 1 for item in items)
     if not ok:
         raise ValueError(f'step {line!r} does not hold for the {kind} problem')
@@ -837,6 +1200,18 @@ UNITS = {
     'coordinate-geometry': ('math-coordinate-geometry.json', formula),
     'distributions': ('math-distributions.json', formula),
     'inference': ('math-inference.json', formula),
+    'inequality': ('math-inequality.json', formula),
+    'triangle-trig': ('math-triangle-trig.json', formula),
+    'statistics': ('math-statistics.json', formula),
+    'integers': ('math-integers.json', formula),
+    'combinatorics': ('math-combinatorics.json', formula),
+    'data': ('math-data.json', formula),
+    'unknowns': ('math-unknowns.json', formula),
+    'rounding': ('math-rounding.json', formula),
+    'divisors': ('math-divisors.json', formula),
+    'prime': ('math-prime.json', formula),
+    'linear-function': ('math-linear-function.json', formula),
+    'square-function': ('math-square-function.json', formula),
     'quadratic-function': ('math-quadratic-function.json', formula),
     'factorization': ('math-factorization.json', factorization),
     'pythagoras': ('math-pythagoras.json', pythagoras),
@@ -857,7 +1232,13 @@ def same(a, b):
                 return False
             rest.remove(match)
         return True
-    return simplify(expand(a - b)) == 0
+    difference = a - b
+    if simplify(expand(difference)) == 0:
+        return True
+    # Constants such as sqrt(5 + 2*sqrt(6)) = sqrt(2) + sqrt(3) that simplify() cannot show: compare to 40 digits.
+    if not difference.free_symbols and difference.is_real is not False:
+        return abs(difference.evalf(60)) < Rational(1, 10 ** 40)
+    return False
 
 
 def verify_problem(problem, convert):

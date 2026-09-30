@@ -292,6 +292,106 @@
         "-3*x = -7",
         "x = 7/3"
       ]
+    },
+    {
+      "id": "linear-equation-016",
+      "item": "proportion",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "solve",
+      "question": "x : 6 = 10 : 15",
+      "given": null,
+      "style": "ratio",
+      "steps": [
+        "15*x = 6*10",
+        "15*x = 60",
+        "x = 4"
+      ],
+      "choices": ["9", "4", "25", "1"],
+      "answerIndex": 1
+    },
+    {
+      "id": "linear-equation-017",
+      "item": "proportion",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "solve",
+      "question": "10 : x = 30 : 15",
+      "given": null,
+      "style": "ratio",
+      "steps": [
+        "30*x = 10*15",
+        "30*x = 150",
+        "x = 5"
+      ],
+      "choices": ["5", "20", "45", "2"],
+      "answerIndex": 0
+    },
+    {
+      "id": "linear-equation-018",
+      "item": "proportion",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "solve",
+      "question": "5 : 4 = x : 6",
+      "given": null,
+      "style": "ratio",
+      "steps": [
+        "4*x = 5*6",
+        "4*x = 30",
+        "x = 15/2"
+      ],
+      "choices": ["24/5", "10/3", "11/4", "15/2"],
+      "answerIndex": 3
+    },
+    {
+      "id": "linear-equation-019",
+      "item": "proportion",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "solve",
+      "question": "6 : 8 = 12 : x",
+      "given": null,
+      "style": "ratio",
+      "steps": [
+        "6*x = 8*12",
+        "6*x = 96",
+        "x = 16"
+      ],
+      "choices": ["9", "16", "4", "2"],
+      "answerIndex": 1
+    },
+    {
+      "id": "linear-equation-020",
+      "item": "proportion",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "solve",
+      "question": "4 : x = 6 : 7",
+      "given": null,
+      "style": "ratio",
+      "steps": [
+        "6*x = 4*7",
+        "6*x = 28",
+        "x = 14/3"
+      ],
+      "choices": ["21/2", "24/7", "14/3", "11/6"],
+      "answerIndex": 2
     }
   ]
 }

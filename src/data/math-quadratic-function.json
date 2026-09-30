@@ -17,7 +17,7 @@
         "-(-4)/(2*1) = 4/2 = 2",
         "2^2 - 4*2 + 1 = 4 - 8 + 1 = -3"
       ],
-      "choices": ["-2,   -3", "2,   -3", "2,   3", "-3,   2"],
+      "choices": ["-2,    -3", "2,    -3", "2,    3", "-3,    2"],
       "answerIndex": 1
     },
     {
@@ -36,7 +36,7 @@
         "-(-2)/(2*(-1)) = 2/(-2) = -1",
         "-(-1)^2 - 2*(-1) + 3 = -1 + 2 + 3 = 4"
       ],
-      "choices": ["1,   4", "-1,   -4", "-1,   4", "4,   -1"],
+      "choices": ["1,    4", "-1,    -4", "-1,    4", "4,    -1"],
       "answerIndex": 2
     },
     {
@@ -55,7 +55,7 @@
         "-(-4)/(2*2) = 4/4 = 1",
         "2*1^2 - 4*1 - 2 = 2 - 4 - 2 = -4"
       ],
-      "choices": ["1,   -4", "-1,   -4", "1,   4", "-4,   1"],
+      "choices": ["1,    -4", "-1,    -4", "1,    4", "-4,    1"],
       "answerIndex": 0
     },
     {
@@ -74,7 +74,7 @@
         "-(-8)/(2*(-2)) = 8/(-4) = -2",
         "-2*(-2)^2 - 8*(-2) - 5 = -8 + 16 - 5 = 3"
       ],
-      "choices": ["2,   3", "-2,   -3", "3,   -2", "-2,   3"],
+      "choices": ["2,    3", "-2,    -3", "3,    -2", "-2,    3"],
       "answerIndex": 3
     },
     {
@@ -93,7 +93,7 @@
         "-(-6)/(2*1) = 6/2 = 3",
         "3^2 - 6*3 + 11 = 9 - 18 + 11 = 2"
       ],
-      "choices": ["-3,   2", "3,   2", "3,   -2", "2,   3"],
+      "choices": ["-3,    2", "3,    2", "3,    -2", "2,    3"],
       "answerIndex": 1
     },
     {
@@ -185,6 +185,96 @@
       ],
       "choices": ["y = x^2 + 4*x + 1", "y = x^2 - 4*x + 1", "y = -x^2 - 4*x - 7", "y = x^2 + 4*x + 7"],
       "answerIndex": 0
+    },
+    {
+      "id": "quadratic-function-011",
+      "item": "max-min",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "quadratic",
+      "question": "-x^2 + 6*x - 5",
+      "given": null,
+      "which": "max-all",
+      "steps": [
+        "-(3^2) + 6*3 - 5 = -9 + 18 - 5 = 4"
+      ],
+      "choices": ["-5", "4", "3", "-14"],
+      "answerIndex": 1
+    },
+    {
+      "id": "quadratic-function-012",
+      "item": "max-min",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "quadratic",
+      "question": "2*x^2 - 8*x + 5",
+      "given": null,
+      "which": "min-all",
+      "steps": [
+        "2*2^2 - 8*2 + 5 = 8 - 16 + 5 = -3"
+      ],
+      "choices": ["-3", "2", "1", "5"],
+      "answerIndex": 0
+    },
+    {
+      "id": "quadratic-function-013",
+      "item": "max-min",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "quadratic",
+      "question": "x^2 - 2*x - 2; 0, 4",
+      "given": null,
+      "which": "max",
+      "steps": [
+        "4^2 - 2*4 - 2 = 16 - 8 - 2 = 6"
+      ],
+      "choices": ["-3", "-2", "6", "2"],
+      "answerIndex": 2
+    },
+    {
+      "id": "quadratic-function-014",
+      "item": "max-min",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "quadratic",
+      "question": "x^2 - 6*x + 4; 1, 5",
+      "given": null,
+      "which": "min",
+      "steps": [
+        "3^2 - 6*3 + 4 = 9 - 18 + 4 = -5"
+      ],
+      "choices": ["-1", "3", "5", "-5"],
+      "answerIndex": 3
+    },
+    {
+      "id": "quadratic-function-015",
+      "item": "max-min",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "quadratic",
+      "question": "-x^2 + 4*x + 3; 0, 5",
+      "given": null,
+      "which": "min",
+      "steps": [
+        "-(5^2) + 4*5 + 3 = -25 + 20 + 3 = -2"
+      ],
+      "choices": ["3", "-2", "7", "-7"],
+      "answerIndex": 1
     }
   ]
 }

@@ -1,0 +1,383 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "linear-function-001",
+      "item": "proportion",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "3, -12",
+      "given": null,
+      "which": "proportion",
+      "steps": [
+        "y = -4*x"
+      ],
+      "choices": ["y = 4*x", "y = -36/x", "y = -4*x", "y = 36/x"],
+      "answerIndex": 2
+    },
+    {
+      "id": "linear-function-002",
+      "item": "proportion",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "-3, 6",
+      "given": null,
+      "which": "inverse",
+      "steps": [
+        "y = -18/x"
+      ],
+      "choices": ["y = -2*x", "y = -18/x", "y = 18/x", "y = 2*x"],
+      "answerIndex": 1
+    },
+    {
+      "id": "linear-function-003",
+      "item": "proportion",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "-4, -20",
+      "given": null,
+      "which": "proportion",
+      "steps": [
+        "y = 5*x"
+      ],
+      "choices": ["y = -5*x", "y = 80/x", "y = -80/x", "y = 5*x"],
+      "answerIndex": 3
+    },
+    {
+      "id": "linear-function-004",
+      "item": "proportion",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "-2, -8",
+      "given": null,
+      "which": "inverse",
+      "steps": [
+        "y = 16/x"
+      ],
+      "choices": ["y = 16/x", "y = -16/x", "y = 4*x", "y = -4*x"],
+      "answerIndex": 0
+    },
+    {
+      "id": "linear-function-005",
+      "item": "proportion",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "-5, 15",
+      "given": null,
+      "which": "proportion",
+      "steps": [
+        "y = -3*x"
+      ],
+      "choices": ["y = 3*x", "y = -75/x", "y = -3*x", "y = 75/x"],
+      "answerIndex": 2
+    },
+    {
+      "id": "linear-function-006",
+      "item": "slope",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "-3*x + 2",
+      "given": null,
+      "which": "slope",
+      "steps": [
+        "-3 = -3"
+      ],
+      "choices": ["2", "-3", "-2", "3"],
+      "answerIndex": 1
+    },
+    {
+      "id": "linear-function-007",
+      "item": "slope",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "1/2*x - 4",
+      "given": null,
+      "which": "slope",
+      "steps": [
+        "1/2 = 1/2"
+      ],
+      "choices": ["-4", "4", "1/2", "-1/2"],
+      "answerIndex": 2
+    },
+    {
+      "id": "linear-function-008",
+      "item": "slope",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "4*x - 5",
+      "given": null,
+      "which": "intercept",
+      "steps": [
+        "4*0 - 5 = 0 - 5 = -5"
+      ],
+      "choices": ["4", "-4", "5", "-5"],
+      "answerIndex": 3
+    },
+    {
+      "id": "linear-function-009",
+      "item": "slope",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "-5*x + 3",
+      "given": null,
+      "which": "intercept",
+      "steps": [
+        "-5*0 + 3 = 0 + 3 = 3"
+      ],
+      "choices": ["3", "-3", "-5", "5"],
+      "answerIndex": 0
+    },
+    {
+      "id": "linear-function-010",
+      "item": "slope",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "3*x - 6",
+      "given": null,
+      "which": "xintercept",
+      "steps": [
+        "-(-6)/3 = 6/3 = 2"
+      ],
+      "choices": ["-2", "2", "-6", "6"],
+      "answerIndex": 1
+    },
+    {
+      "id": "linear-function-011",
+      "item": "two-points",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "geometry",
+      "question": "-1, 1; 2, 7",
+      "given": null,
+      "which": "line-two-points",
+      "steps": [
+        "(7 - 1)/(2 - (-1)) = 6/3 = 2",
+        "y - 7 = 2*(x - 2)",
+        "y = 2*x + 3"
+      ],
+      "choices": ["y = 2*x + 3", "y = 2*x + 1", "y = -2*x - 1", "y = 2*x - 3"],
+      "answerIndex": 0
+    },
+    {
+      "id": "linear-function-012",
+      "item": "two-points",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "geometry",
+      "question": "1, 5; 4, -1",
+      "given": null,
+      "which": "line-two-points",
+      "steps": [
+        "(-1 - 5)/(4 - 1) = -6/3 = -2",
+        "y - 5 = -2*(x - 1)",
+        "y = -2*x + 7"
+      ],
+      "choices": ["y = 2*x + 3", "y = -2*x + 7", "y = -2*x + 3", "y = 2*x - 7"],
+      "answerIndex": 1
+    },
+    {
+      "id": "linear-function-013",
+      "item": "two-points",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "geometry",
+      "question": "-2, -3; 4, 0",
+      "given": null,
+      "which": "line-two-points",
+      "steps": [
+        "(0 - (-3))/(4 - (-2)) = 3/6 = 1/2",
+        "y - 0 = 1/2*(x - 4)",
+        "y = 1/2*x - 2"
+      ],
+      "choices": ["y = 1/2*x + 2", "y = -1/2*x + 2", "y = 2*x - 8", "y = 1/2*x - 2"],
+      "answerIndex": 3
+    },
+    {
+      "id": "linear-function-014",
+      "item": "two-points",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "geometry",
+      "question": "-1, 8; 2, -1",
+      "given": null,
+      "which": "line-two-points",
+      "steps": [
+        "(-1 - 8)/(2 - (-1)) = -9/3 = -3",
+        "y - 8 = -3*(x + 1)",
+        "y = -3*x + 5"
+      ],
+      "choices": ["y = 3*x + 11", "y = -3*x + 7", "y = -3*x + 5", "y = -3*x - 5"],
+      "answerIndex": 2
+    },
+    {
+      "id": "linear-function-015",
+      "item": "two-points",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "geometry",
+      "question": "-2, 4; 2, 2",
+      "given": null,
+      "which": "line-two-points",
+      "steps": [
+        "(2 - 4)/(2 - (-2)) = -2/4 = -1/2",
+        "y - 2 = -1/2*(x - 2)",
+        "y = -1/2*x + 3"
+      ],
+      "choices": ["y = 1/2*x + 3", "y = -1/2*x + 3", "y = -1/2*x - 3", "y = -2*x + 6"],
+      "answerIndex": 1
+    },
+    {
+      "id": "linear-function-016",
+      "item": "equations",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "2*x - 1; -x + 5",
+      "given": null,
+      "which": "intersect-lines",
+      "steps": [
+        "2*x - 1 = -x + 5",
+        "3*x = 6",
+        "x = 2"
+      ],
+      "choices": ["2,  3", "3,  2", "-2,  3", "2,  -3"],
+      "answerIndex": 0
+    },
+    {
+      "id": "linear-function-017",
+      "item": "equations",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "5*x + y = 4",
+      "given": null,
+      "which": "rewrite",
+      "steps": [
+        "y = 4 - 5*x",
+        "y = -5*x + 4"
+      ],
+      "choices": ["y = 5*x + 4", "y = 5*x - 4", "y = -5*x + 4", "y = -5*x - 4"],
+      "answerIndex": 2
+    },
+    {
+      "id": "linear-function-018",
+      "item": "equations",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "3*x + 1; x - 3",
+      "given": null,
+      "which": "intersect-lines",
+      "steps": [
+        "3*x + 1 = x - 3",
+        "2*x = -4",
+        "x = -2"
+      ],
+      "choices": ["-5,  -2", "-2,  -5", "2,  -5", "-2,  5"],
+      "answerIndex": 1
+    },
+    {
+      "id": "linear-function-019",
+      "item": "equations",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "-3*x + y = -5",
+      "given": null,
+      "which": "rewrite",
+      "steps": [
+        "y = -5 + 3*x",
+        "y = 3*x - 5"
+      ],
+      "choices": ["y = -3*x - 5", "y = 3*x + 5", "y = -3*x + 5", "y = 3*x - 5"],
+      "answerIndex": 3
+    },
+    {
+      "id": "linear-function-020",
+      "item": "equations",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "-3*x + 4; x - 4",
+      "given": null,
+      "which": "intersect-lines",
+      "steps": [
+        "-3*x + 4 = x - 4",
+        "-4*x = -8",
+        "x = 2"
+      ],
+      "choices": ["-2,  2", "2,  -2", "2,  2", "-2,  -2"],
+      "answerIndex": 1
+    }
+  ]
+}

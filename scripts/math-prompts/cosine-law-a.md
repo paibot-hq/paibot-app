@@ -1,0 +1,1 @@
+余弦定理（kind "triangle"、which は cosine-side と cosine-cos）。5問を cosine-side 3問（"3, 5, 60" 2辺とはさむ角、角は 60, 90, 120, 45, 135）、cosine-cos 2問（"3, 5, 7" 3辺、cos C の値）。答えは根号または分数。steps には cos(60) のような関数を書かず、値を直接書く（cos 60° = 1/2、cos 120° = -1/2）。誤答は cos の符号、2ab の係数の誤りから作る。
