@@ -1,0 +1,175 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "quartiles-001",
+      "item": "boxplot",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 19, 29, 41, 60",
+      "given": null,
+      "which": "box-iqr",
+      "steps": [
+        "41 - 19 = 22"
+      ],
+      "choices": ["10", "22", "54", "12"],
+      "answerIndex": 1
+    },
+    {
+      "id": "quartiles-002",
+      "item": "boxplot",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "11, 21, 29, 38, 46",
+      "given": null,
+      "which": "box-range",
+      "steps": [
+        "46 - 11 = 35"
+      ],
+      "choices": ["17", "27", "25", "35"],
+      "answerIndex": 3
+    },
+    {
+      "id": "quartiles-003",
+      "item": "boxplot",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "14, 29, 40, 45, 57",
+      "given": null,
+      "which": "box-iqr",
+      "steps": [
+        "45 - 29 = 16"
+      ],
+      "choices": ["16", "5", "43", "11"],
+      "answerIndex": 0
+    },
+    {
+      "id": "quartiles-004",
+      "item": "boxplot",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "18, 24, 32, 36, 47",
+      "given": null,
+      "which": "box-range",
+      "steps": [
+        "47 - 18 = 29"
+      ],
+      "choices": ["29", "23", "12", "18"],
+      "answerIndex": 0
+    },
+    {
+      "id": "quartiles-005",
+      "item": "boxplot",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "16, 25, 33, 40, 59",
+      "given": null,
+      "which": "box-iqr",
+      "steps": [
+        "40 - 25 = 15"
+      ],
+      "choices": ["43", "8", "7", "15"],
+      "answerIndex": 3
+    },
+    {
+      "id": "quartiles-006",
+      "item": "quartiles",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "10, 14, 19, 20, 24, 25, 33, 34, 39",
+      "given": null,
+      "which": "quartile-q1",
+      "steps": [],
+      "choices": ["33.5", "16.5", "24", "24.5"],
+      "answerIndex": 1
+    },
+    {
+      "id": "quartiles-007",
+      "item": "quartiles",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5, 6, 8, 9, 10, 16, 23, 24, 26, 31, 40",
+      "given": null,
+      "which": "quartile-q3",
+      "steps": [],
+      "choices": ["22.5", "26", "8", "16"],
+      "answerIndex": 1
+    },
+    {
+      "id": "quartiles-008",
+      "item": "quartiles",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5, 7, 9, 14, 16, 19, 29, 33, 34, 37",
+      "given": null,
+      "which": "quartile-q1",
+      "steps": [],
+      "choices": ["33", "9", "21", "17.5"],
+      "answerIndex": 1
+    },
+    {
+      "id": "quartiles-009",
+      "item": "quartiles",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 8, 9, 13, 15, 16, 31, 33, 39",
+      "given": null,
+      "which": "quartile-q3",
+      "steps": [],
+      "choices": ["21.5", "32", "8.5", "15"],
+      "answerIndex": 1
+    },
+    {
+      "id": "quartiles-010",
+      "item": "quartiles",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 8, 11, 22, 26, 30, 33, 34, 36, 37, 40",
+      "given": null,
+      "which": "quartile-q1",
+      "steps": [],
+      "choices": ["11", "30", "21.5", "36"],
+      "answerIndex": 0
+    }
+  ]
+}

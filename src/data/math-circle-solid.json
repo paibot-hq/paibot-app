@@ -180,6 +180,96 @@
       ],
       "choices": ["256*pi", "2048/3*pi", "2048*pi", "512/3*pi"],
       "answerIndex": 1
+    },
+    {
+      "id": "circle-solid-011",
+      "item": "solid-views",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2, 6, 3",
+      "given": null,
+      "which": "net-cuboid",
+      "steps": [
+        "2*(2*6 + 6*3 + 3*2) = 72"
+      ],
+      "choices": ["76", "72", "22", "36"],
+      "answerIndex": 1
+    },
+    {
+      "id": "circle-solid-012",
+      "item": "solid-views",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "9, 8",
+      "given": null,
+      "which": "net-cylinder",
+      "steps": [
+        "2*9*pi = 18*pi"
+      ],
+      "choices": ["18*pi", "36*pi", "9*pi", "81*pi"],
+      "answerIndex": 0
+    },
+    {
+      "id": "circle-solid-013",
+      "item": "solid-views",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2, 6, 5",
+      "given": null,
+      "which": "net-cuboid",
+      "steps": [
+        "2*(2*6 + 6*5 + 5*2) = 104"
+      ],
+      "choices": ["52", "60", "26", "104"],
+      "answerIndex": 3
+    },
+    {
+      "id": "circle-solid-014",
+      "item": "solid-views",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 6",
+      "given": null,
+      "which": "net-cylinder",
+      "steps": [
+        "2*3*pi = 6*pi"
+      ],
+      "choices": ["12*pi", "9*pi", "6*pi", "3*pi"],
+      "answerIndex": 2
+    },
+    {
+      "id": "circle-solid-015",
+      "item": "solid-views",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2, 3, 7",
+      "given": null,
+      "which": "net-cuboid",
+      "steps": [
+        "2*(2*3 + 3*7 + 7*2) = 82"
+      ],
+      "choices": ["82", "41", "24", "42"],
+      "answerIndex": 0
     }
   ]
 }

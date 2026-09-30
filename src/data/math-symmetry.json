@@ -1,0 +1,175 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "symmetry-001",
+      "item": "scale",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2500, 5",
+      "given": null,
+      "which": "scale-actual",
+      "steps": [
+        "5*2500/100 = 125"
+      ],
+      "choices": ["12500", "1250", "125", "12"],
+      "answerIndex": 2
+    },
+    {
+      "id": "symmetry-002",
+      "item": "scale",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2, 2",
+      "given": null,
+      "which": "scale-enlarge",
+      "steps": [
+        "2*2 = 4"
+      ],
+      "choices": ["2", "8", "6", "4"],
+      "answerIndex": 3
+    },
+    {
+      "id": "symmetry-003",
+      "item": "scale",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "1000, 5",
+      "given": null,
+      "which": "scale-actual",
+      "steps": [
+        "5*1000/100 = 50"
+      ],
+      "choices": ["50", "5000", "5", "500"],
+      "answerIndex": 0
+    },
+    {
+      "id": "symmetry-004",
+      "item": "scale",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2, 6",
+      "given": null,
+      "which": "scale-enlarge",
+      "steps": [
+        "2*6 = 12"
+      ],
+      "choices": ["14", "8", "6", "12"],
+      "answerIndex": 3
+    },
+    {
+      "id": "symmetry-005",
+      "item": "scale",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5000, 4",
+      "given": null,
+      "which": "scale-actual",
+      "steps": [
+        "4*5000/100 = 200"
+      ],
+      "choices": ["20", "200", "2000", "20000"],
+      "answerIndex": 1
+    },
+    {
+      "id": "symmetry-006",
+      "item": "symmetry",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3",
+      "given": null,
+      "which": "lines-of-symmetry",
+      "steps": [],
+      "choices": ["2", "4", "6", "3"],
+      "answerIndex": 3
+    },
+    {
+      "id": "symmetry-007",
+      "item": "symmetry",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4",
+      "given": null,
+      "which": "lines-of-symmetry",
+      "steps": [],
+      "choices": ["5", "3", "4", "8"],
+      "answerIndex": 2
+    },
+    {
+      "id": "symmetry-008",
+      "item": "symmetry",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5",
+      "given": null,
+      "which": "lines-of-symmetry",
+      "steps": [],
+      "choices": ["4", "10", "5", "6"],
+      "answerIndex": 2
+    },
+    {
+      "id": "symmetry-009",
+      "item": "symmetry",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6",
+      "given": null,
+      "which": "lines-of-symmetry",
+      "steps": [],
+      "choices": ["7", "6", "5", "12"],
+      "answerIndex": 1
+    },
+    {
+      "id": "symmetry-010",
+      "item": "symmetry",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8",
+      "given": null,
+      "which": "lines-of-symmetry",
+      "steps": [],
+      "choices": ["16", "9", "7", "8"],
+      "answerIndex": 3
+    }
+  ]
+}

@@ -2,43 +2,12 @@ import type { ReactNode } from 'react';
 import { useTranslations } from 'use-intl';
 import { evalExpression, splitTop } from '../lib/math-formula';
 import styles from './math-shape.module.css';
+import { W, H, add, arc, cm, d, frame, Label, mid, polar, rad, rightMark, type Pt } from './math-shape-kit';
+import { buildMore } from './math-shape-more';
 
 // A figure drawn from a "figure" problem's hidden numbers (src/lib/math-formula.ts):
 // the question is a list of numbers, `which` says what they are. Lengths are in cm
 // and angles in degrees. The description names nothing the problem asks for.
-const W = 320, H = 220;
-type Pt = [number, number];
-const rad = (deg: number) => (deg * Math.PI) / 180;
-const polar = (r: number, deg: number): Pt => [r * Math.cos(rad(deg)), r * Math.sin(rad(deg))];
-const add = (a: Pt, b: Pt): Pt => [a[0] + b[0], a[1] + b[1]];
-const mid = (a: Pt, b: Pt): Pt => [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2];
-
-// Maps model coordinates (y up) into the drawing, centred, keeping the proportions.
-function frame(points: Pt[], pad = { l: 44, r: 44, t: 30, b: 36 }) {
-  const xs = points.map(p => p[0]), ys = points.map(p => p[1]);
-  const minX = Math.min(...xs), maxX = Math.max(...xs), minY = Math.min(...ys), maxY = Math.max(...ys);
-  const s = Math.min((W - pad.l - pad.r) / (maxX - minX || 1), (H - pad.t - pad.b) / (maxY - minY || 1));
-  const ox = pad.l + (W - pad.l - pad.r - s * (maxX - minX)) / 2, oy = pad.t + (H - pad.t - pad.b - s * (maxY - minY)) / 2;
-  const at = ([x, y]: Pt): Pt => [ox + s * (x - minX), oy + s * (maxY - y)];
-  return { at, s };
-}
-const d = (points: Pt[], close = false) => `${points.map((p, i) => `${i ? 'L' : 'M'}${p[0].toFixed(1)} ${p[1].toFixed(1)}`).join('')}${close ? 'Z' : ''}`;
-const Label = ({ at, children, anchor = 'middle', unknown }: { at: Pt; children: ReactNode; anchor?: 'start' | 'middle' | 'end'; unknown?: boolean }) =>
-  <text className={unknown ? styles.unknown : styles.text} x={at[0]} y={at[1]} textAnchor={anchor} dominantBaseline="central">{children}</text>;
-// A small square at a right angle whose corner is `corner`, between the directions u and v.
-const rightMark = (corner: Pt, u: Pt, v: Pt, size = 9) => {
-  const unit = (p: Pt): Pt => { const n = Math.hypot(p[0], p[1]) || 1; return [(p[0] / n) * size, (p[1] / n) * size]; };
-  const a = unit(u), b = unit(v);
-  return <path className={styles.mark} d={d([add(corner, a), add(add(corner, a), b), add(corner, b)])} />;
-};
-// An arc of radius r around `center` from angle a to b (degrees, screen angles measured like the model: y up).
-const arc = (center: Pt, r: number, from: number, to: number) => {
-  const p = (deg: number): Pt => [center[0] + r * Math.cos(rad(deg)), center[1] - r * Math.sin(rad(deg))];
-  const [a, b] = [p(from), p(to)];
-  return <path className={styles.mark} d={`M${a[0].toFixed(1)} ${a[1].toFixed(1)}A${r} ${r} 0 ${Math.abs(to - from) > 180 ? 1 : 0} ${to > from ? 0 : 1} ${b[0].toFixed(1)} ${b[1].toFixed(1)}`} />;
-};
-const cm = (v: number) => `${v} cm`;
-
 function build(which: string, nums: number[]): ReactNode {
   switch (which) {
     case 'rect-area': {
@@ -85,8 +54,8 @@ function build(which: string, nums: number[]): ReactNode {
         <Label at={[foot[0] + 6, (s[1] + foot[1]) / 2]} anchor="start">{cm(h)}</Label>
       </>;
     }
-    case 'cuboid-volume': {
-      const [w, dep, h] = nums, ox = dep * 0.5, oy = dep * 0.36;
+    case 'cuboid-volume': case 'box-faces': case 'box-edges': case 'box-vertices': case 'box-edge-total': case 'cube-edge-total': {
+      const [w, dep, h] = which === 'cube-edge-total' ? [nums[0], nums[0], nums[0]] : nums, ox = dep * 0.5, oy = dep * 0.36;
       const { at } = frame([[0, 0], [w + ox, h + oy]]);
       const P = (x: number, y: number) => at([x, y]);
       const [a, b, c, e] = [P(0, 0), P(w, 0), P(w, h), P(0, h)];
@@ -335,12 +304,13 @@ function build(which: string, nums: number[]): ReactNode {
       </>;
     }
     default:
-      return null;
+      return buildMore(which, nums);
   }
 }
 
 export default function MathShape({ which, question }: { which: string; question: string }) {
   const t = useTranslations('App.math.formulaQuiz');
   const nums = splitTop(question, ',').map(part => evalExpression(part));
-  return <svg className={styles.shape} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={t('shapeDescription')}>{build(which, nums)}</svg>;
+  const content = build(which, nums);
+  return content === null ? null : <svg className={styles.shape} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={t('shapeDescription')}>{content}</svg>;
 }

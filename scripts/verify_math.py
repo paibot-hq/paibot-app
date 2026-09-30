@@ -1305,14 +1305,26 @@ def mapping_answer(problem):
     return Symbol(label), [Symbol(c) for c in choices]
 
 
+FIGURE_LABELS = {'equilateral', 'isosceles', 'right', 'scalene', 'square', 'rectangle', 'rhombus', 'parallelogram', 'sss', 'sas', 'asa', 'insufficient', 'cube', 'cuboid', 'cylinder', 'sphere'}
+
+
+def labelled(label, choices, allowed):
+    """A figure problem answered by a word (a shape's name, a congruence condition)."""
+    if not (set(choices) <= FIGURE_LABELS and len(set(choices)) == len(choices)):
+        raise ValueError(f'choices must be different labels out of {sorted(FIGURE_LABELS)}')
+    return Symbol(label), [Symbol(c) for c in choices]
+
+
 def figure(problem):
     """The answer to a problem about a drawn figure, from the numbers behind the figure (see components/math-shape.tsx)."""
     which, v = problem['which'], pair(problem['question'])
     positive = lambda *values: all(x.is_number and x > 0 for x in values)
-    if not positive(*v) and which not in ('distance', 'centroid'):
+    if not positive(*v) and which not in ('distance', 'centroid', 'protractor', 'parallel-pairs', 'perpendicular-pairs', 'congruence-condition', 'congruent-side', 'solid-name') and not which.startswith('move-'):
         raise ValueError('the numbers of a figure must be positive')
-    if which in ('clock-read', 'centroid'):
+    if which in ('clock-read', 'centroid') or which.startswith('move-'):
         choices = [Tuple(*pair(c)) for c in problem['choices']]
+    elif which in ('triangle-type', 'quad-type', 'congruence-condition', 'solid-name'):
+        choices = None
     else:
         choices = [parse_formula(c) for c in problem['choices']]
     if which == 'rect-area':
@@ -1385,6 +1397,158 @@ def figure(problem):
         if not (v[0].is_Integer and 1 <= v[0] <= 12 and v[1].is_Integer and 0 <= v[1] < 60):
             raise ValueError('a clock time is h (1-12) and m (0-59)')
         answer = Tuple(v[0], v[1])
+    elif which in ('prism-faces', 'prism-edges', 'prism-vertices', 'pyramid-faces', 'pyramid-edges', 'pyramid-vertices'):
+        n = v[0]
+        if not (n.is_Integer and 3 <= n <= 12):
+            raise ValueError('the base has 3 to 12 sides')
+        answer = {'prism-faces': n + 2, 'prism-edges': 3 * n, 'prism-vertices': 2 * n,
+                  'pyramid-faces': n + 1, 'pyramid-edges': 2 * n, 'pyramid-vertices': n + 1}[which]
+    elif which == 'euler-faces':
+        answer = v[1] - v[0] + 2
+    elif which == 'euler-vertices':
+        answer = v[0] - v[1] + 2
+    elif which == 'triangle-type':
+        a, b, c = sorted(v)
+        if not a + b > c:
+            raise ValueError('not a triangle')
+        if a == b == c:
+            label = 'equilateral'
+        elif a == b or b == c:
+            label = 'isosceles'
+        elif a ** 2 + b ** 2 == c ** 2:
+            label = 'right'
+        else:
+            label = 'scalene'
+        if a == b and a ** 2 + b ** 2 == c ** 2:
+            raise ValueError('a right isosceles triangle is ambiguous')
+        return labelled(label, problem['choices'], {'equilateral', 'isosceles', 'right', 'scalene'})
+    elif which == 'quad-type':
+        a, b, angle = v
+        if not 0 < angle < 180:
+            raise ValueError('the angle is between 0 and 180')
+        label = ('square' if a == b else 'rectangle') if angle == 90 else ('rhombus' if a == b else 'parallelogram')
+        return labelled(label, problem['choices'], {'square', 'rectangle', 'rhombus', 'parallelogram'})
+    elif which == 'isosceles-base':
+        answer = (180 - v[0]) / 2
+    elif which == 'isosceles-apex':
+        answer = 180 - 2 * v[0]
+        if answer <= 0:
+            raise ValueError('the base angle must be under 90')
+    elif which == 'circle-diameter':
+        answer = 2 * v[0]
+    elif which == 'circle-radius':
+        answer = v[0] / 2
+    elif which == 'protractor':
+        answer = v[1] - v[0]
+        if not (0 <= v[0] < v[1] <= 180):
+            raise ValueError('the rays are at 0 to 180 degrees, start below end')
+    elif which == 'parallel-pairs':
+        answer = sum(1 for i in range(len(v)) for j in range(i + 1, len(v)) if (v[i] - v[j]) % 180 == 0)
+    elif which == 'perpendicular-pairs':
+        answer = sum(1 for i in range(len(v)) for j in range(i + 1, len(v)) if (v[i] - v[j]) % 180 == 90)
+    elif which == 'congruent-side':
+        answer = v[int(v[3])]
+        if not (v[3] in (0, 1, 2) and v[0] + v[1] > v[2] and v[1] + v[2] > v[0] and v[0] + v[2] > v[1]):
+            raise ValueError('sides must form a triangle and the correspondence is 0, 1 or 2')
+    elif which == 'congruence-condition':
+        ab, bc, ca, angle_a, angle_b, angle_c = v
+        if sorted(set(v)) not in ([0, 1], [0], [1]) or sum(v) != 3:
+            raise ValueError('mark exactly three of the six parts (1 = marked, 0 = not)')
+        if ab + bc + ca == 3:
+            label = 'sss'
+        elif (ab and bc and angle_b) or (ab and ca and angle_a) or (bc and ca and angle_c):
+            label = 'sas'
+        elif (angle_a and angle_b and ab) or (angle_b and angle_c and bc) or (angle_a and angle_c and ca):
+            label = 'asa'
+        else:
+            label = 'insufficient'
+        return labelled(label, problem['choices'], {'sss', 'sas', 'asa', 'insufficient'})
+    elif which == 'solid-name':
+        code = int(v[0])
+        if code not in (0, 1, 2, 3):
+            raise ValueError('solid code 0 cube, 1 cuboid, 2 cylinder, 3 sphere')
+        if code == 0 and not v[1] == v[2] == v[3]:
+            raise ValueError('a cube has equal edges')
+        if code == 1 and len({v[1], v[2], v[3]}) == 1:
+            raise ValueError('a cuboid has unequal edges')
+        return labelled(['cube', 'cuboid', 'cylinder', 'sphere'][code], problem['choices'], {'cube', 'cuboid', 'cylinder', 'sphere'})
+    elif which in ('box-faces', 'box-edges', 'box-vertices'):
+        answer = {'box-faces': 6, 'box-edges': 12, 'box-vertices': 8}[which]
+    elif which == 'cube-edge-total':
+        answer = 12 * v[0]
+    elif which == 'box-edge-total':
+        answer = 4 * (v[0] + v[1] + v[2])
+    elif which == 'parallelogram-angle':
+        answer = 180 - v[0]
+    elif which == 'parallelogram-half':
+        answer = v[0] / 2
+    elif which == 'parallelogram-perimeter':
+        answer = 2 * (v[0] + v[1])
+    elif which == 'lines-of-symmetry':
+        answer = v[0]
+    elif which == 'scale-actual':
+        answer = v[0] * v[1] / 100
+    elif which == 'scale-enlarge':
+        answer = v[0] * v[1]
+    elif which in ('move-translate', 'move-reflect-x', 'move-reflect-y', 'move-rotate90', 'move-rotate180'):
+        x, y = v[0], v[1]
+        answer = {'move-translate': lambda: Tuple(x + v[2], y + v[3]), 'move-reflect-x': lambda: Tuple(x, -y), 'move-reflect-y': lambda: Tuple(-x, y),
+                  'move-rotate90': lambda: Tuple(-y, x), 'move-rotate180': lambda: Tuple(-x, -y)}[which]()
+    elif which == 'bar-diff':
+        i, j = int(v[4]), int(v[5])
+        if i == j or not (1 <= i <= 4 and 1 <= j <= 4):
+            raise ValueError('two different bars among 1 to 4')
+        answer = abs(v[i - 1] - v[j - 1])
+    elif which == 'bar-total':
+        answer = sum(v)
+    elif which == 'line-change':
+        changes = [abs(b - a) for a, b in zip(v, v[1:])]
+        if changes.count(max(changes)) != 1:
+            raise ValueError('the largest change must be unique')
+        answer = max(changes)
+    elif which == 'pie-count':
+        total, shares, i = v[0], v[1:5], int(v[5])
+        if sum(shares) != 100 or not 1 <= i <= 4:
+            raise ValueError('four shares sum to 100; pick one of 1 to 4')
+        answer = total * shares[i - 1] / 100
+    elif which == 'hist-above':
+        k = int(v[5])
+        if not 1 <= k <= 5:
+            raise ValueError('class 1 to 5')
+        answer = sum(v[k - 1:5])
+    elif which == 'table-total':
+        answer = sum(v)
+    elif which == 'twoway-missing':
+        answer = v[3] - v[2]
+    elif which == 'relative-frequency':
+        i = int(v[5])
+        if not 1 <= i <= 5:
+            raise ValueError('class 1 to 5')
+        answer = v[i - 1] / sum(v[:5])
+    elif which in ('box-iqr', 'box-range'):
+        low, q1, med, q3, high = v
+        if not low <= q1 <= med <= q3 <= high:
+            raise ValueError('min <= q1 <= median <= q3 <= max')
+        answer = q3 - q1 if which == 'box-iqr' else high - low
+    elif which in ('quartile-q1', 'quartile-q3'):
+        data = sorted(v)
+        n = len(data)
+        half = n // 2
+        lower, upper = data[:half], data[n - half:]
+        def median(xs):
+            m = len(xs) // 2
+            return xs[m] if len(xs) % 2 else (xs[m - 1] + xs[m]) / 2
+        answer = median(lower) if which == 'quartile-q1' else median(upper)
+    elif which == 'proportion-table':
+        answer = v[0] * v[4]
+    elif which == 'net-cylinder':
+        answer = 2 * v[0] * pi
+    elif which == 'net-cuboid':
+        answer = 2 * (v[0] * v[1] + v[1] * v[2] + v[2] * v[0])
+    elif which == 'space-diagonal':
+        answer = sqrt(v[0] ** 2 + v[1] ** 2 + v[2] ** 2)
+    elif which in ('ceva-ratio', 'menelaus-ratio'):
+        answer = v[1] * v[3] / (v[0] * v[2])
     elif which == 'fraction-shaded':
         if not (v[0].is_Integer and v[1].is_Integer and 1 <= v[1] <= v[0]):
             raise ValueError('parts and shaded must be whole numbers, shaded <= parts')
@@ -1810,6 +1974,12 @@ UNITS = {
     'logic': ('math-logic.json', formula),
     'mapping': ('math-mapping.json', formula),
     'shapes': ('math-shapes.json', formula),
+    'symmetry': ('math-symmetry.json', formula),
+    'graphs': ('math-graphs.json', formula),
+    'transformations': ('math-transformations.json', formula),
+    'frequency': ('math-frequency.json', formula),
+    'congruence': ('math-congruence.json', formula),
+    'quartiles': ('math-quartiles.json', formula),
     'angles': ('math-angles.json', formula),
     'circle-solid': ('math-circle-solid.json', formula),
     'similarity': ('math-similarity.json', formula),

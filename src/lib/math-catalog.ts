@@ -106,37 +106,37 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'prism-volume', sets: [{ id: '1', rule: 'fig-prism-volume' }] },
   ] },
   { id: 'shapes', domain: 'geometry', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
-    { id: 'solids-basic', sets: [{ id: '1' }] },
-    { id: 'basic-shapes', sets: [{ id: '1' }] },
-    { id: 'boxes', sets: [{ id: '1' }] },
-    { id: 'triangles', sets: [{ id: '1' }] },
-    { id: 'quadrilaterals', sets: [{ id: '1' }] },
-    { id: 'circles', sets: [{ id: '1' }] },
+    { id: 'solids-basic', sets: [{ id: '1', rule: 'fig-solid-name' }] },
+    { id: 'basic-shapes', sets: [{ id: '1', rule: 'fig-shape-basic' }] },
+    { id: 'boxes', sets: [{ id: '1', rule: 'fig-box-shape' }] },
+    { id: 'triangles', sets: [{ id: '1', rule: 'fig-triangle-type' }] },
+    { id: 'quadrilaterals', sets: [{ id: '1', rule: 'fig-quad-type' }] },
+    { id: 'circles', sets: [{ id: '1', rule: 'fig-circle-parts' }] },
     { id: 'compass-drawing', sets: [{ id: '1' }] },
-    { id: 'angles', sets: [{ id: '1' }] },
-    { id: 'perpendicular-parallel', sets: [{ id: '1' }] },
+    { id: 'angles', sets: [{ id: '1', rule: 'fig-protractor' }] },
+    { id: 'perpendicular-parallel', sets: [{ id: '1', rule: 'fig-line-pairs' }] },
     { id: 'parallel-drawing', sets: [{ id: '1' }] },
-    { id: 'cuboids', sets: [{ id: '1' }] },
-    { id: 'congruent', sets: [{ id: '1' }] },
+    { id: 'cuboids', sets: [{ id: '1', rule: 'fig-box-edge' }] },
+    { id: 'congruent', sets: [{ id: '1', rule: 'fig-congruent' }] },
     { id: 'congruent-drawing', sets: [{ id: '1' }] },
     { id: 'angle-sum', sets: [{ id: '1', rule: 'fig-angle-sum' }] },
-    { id: 'prisms', sets: [{ id: '1' }] },
+    { id: 'prisms', sets: [{ id: '1', rule: 'fig-prism-count' }] },
   ] },
-  { id: 'symmetry', domain: 'geometry', stage: 'elementary', status: 'comingSoon', items: [
-    { id: 'symmetry', sets: [{ id: '1' }] },
-    { id: 'scale', sets: [{ id: '1' }] },
+  { id: 'symmetry', domain: 'geometry', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'symmetry', sets: [{ id: '1', rule: 'fig-symmetry' }] },
+    { id: 'scale', sets: [{ id: '1', rule: 'fig-scale' }] },
   ] },
   { id: 'data', domain: 'data', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
     { id: 'average', sets: [{ id: '1', rule: 'average-a' }] },
     { id: 'median-range', sets: [{ id: '1', rule: 'median-range-a' }] },
   ] },
-  { id: 'graphs', domain: 'data', stage: 'elementary', status: 'comingSoon', items: [
-    { id: 'tables', sets: [{ id: '1' }] },
-    { id: 'bar-graph', sets: [{ id: '1' }] },
-    { id: 'line-graph', sets: [{ id: '1' }] },
-    { id: 'two-way-table', sets: [{ id: '1' }] },
-    { id: 'pie-band', sets: [{ id: '1' }] },
-    { id: 'histogram', sets: [{ id: '1' }] },
+  { id: 'graphs', domain: 'data', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'tables', sets: [{ id: '1', rule: 'fig-table' }] },
+    { id: 'bar-graph', sets: [{ id: '1', rule: 'fig-bar' }] },
+    { id: 'line-graph', sets: [{ id: '1', rule: 'fig-line-graph' }] },
+    { id: 'two-way-table', sets: [{ id: '1', rule: 'fig-two-way' }] },
+    { id: 'pie-band', sets: [{ id: '1', rule: 'fig-pie' }] },
+    { id: 'histogram', sets: [{ id: '1', rule: 'fig-histogram' }] },
   ] },
   { id: 'counting', domain: 'data', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
     { id: 'arrangements', sets: [{ id: '1', rule: 'arrangements-a' }] },
@@ -175,7 +175,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'equations', sets: [{ id: '1', rule: 'lines-a' }] },
   ] },
   { id: 'square-function', domain: 'functions', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
-    { id: 'graph', sets: [{ id: '1' }] },
+    { id: 'graph', sets: [{ id: '1', rule: 'graph-square-a' }] },
     { id: 'rate-of-change', sets: [{ id: '1', rule: 'rate-a' }] },
     { id: 'intersection', sets: [{ id: '1', rule: 'parabola-line-a' }] },
   ] },
@@ -358,7 +358,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'per-unit', sets: [{ id: '1', rule: 'per-unit-a' }] },
   ] },
   { id: 'relations', domain: 'functions', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
-    { id: 'change', sets: [{ id: '1' }] },
+    { id: 'change', sets: [{ id: '1', rule: 'fig-proportion-table' }] },
     { id: 'simple-proportion', sets: [{ id: '1', rule: 'simple-proportion-a' }] },
     { id: 'proportion', sets: [{ id: '1', rule: 'proportion-a' }] },
   ] },
@@ -366,13 +366,13 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'parallel', sets: [{ id: '1', rule: 'fig-parallel' }] },
     { id: 'polygon', sets: [{ id: '1', rule: 'fig-polygon' }] },
   ] },
-  { id: 'congruence', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
-    { id: 'conditions', sets: [{ id: '1' }] },
-    { id: 'triangles', sets: [{ id: '1' }] },
-    { id: 'parallelogram', sets: [{ id: '1' }] },
+  { id: 'congruence', domain: 'geometry', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'conditions', sets: [{ id: '1', rule: 'fig-congruence-condition' }] },
+    { id: 'triangles', sets: [{ id: '1', rule: 'fig-isosceles' }] },
+    { id: 'parallelogram', sets: [{ id: '1', rule: 'fig-parallelogram' }] },
   ] },
   { id: 'circle-solid', domain: 'geometry', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
-    { id: 'solid-views', sets: [{ id: '1' }] },
+    { id: 'solid-views', sets: [{ id: '1', rule: 'fig-net' }] },
     { id: 'sector', sets: [{ id: '1', rule: 'fig-sector' }] },
     { id: 'solid', sets: [{ id: '1', rule: 'fig-solid' }] },
   ] },
@@ -380,8 +380,8 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'similarity', sets: [{ id: '1', rule: 'fig-similar' }] },
     { id: 'inscribed-angle', sets: [{ id: '1', rule: 'fig-inscribed' }] },
   ] },
-  { id: 'transformations', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
-    { id: 'moves', sets: [{ id: '1' }] },
+  { id: 'transformations', domain: 'geometry', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'moves', sets: [{ id: '1', rule: 'fig-moves' }] },
   ] },
   { id: 'geometric-reasoning', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
     { id: 'construction', sets: [{ id: '1' }] },
@@ -398,16 +398,16 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'triangle-properties', domain: 'geometry', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'centers', sets: [{ id: '1', rule: 'fig-centroid' }] },
     { id: 'power', sets: [{ id: '1', rule: 'fig-power' }] },
-    { id: 'ceva-menelaus', sets: [{ id: '1' }] },
-    { id: 'polyhedra', sets: [{ id: '1' }] },
+    { id: 'ceva-menelaus', sets: [{ id: '1', rule: 'fig-ceva' }] },
+    { id: 'polyhedra', sets: [{ id: '1', rule: 'fig-euler' }] },
     { id: 'construction', sets: [{ id: '1' }] },
   ] },
-  { id: 'quartiles', domain: 'data', stage: 'middle', status: 'comingSoon', items: [
-    { id: 'quartiles', sets: [{ id: '1' }] },
-    { id: 'boxplot', sets: [{ id: '1' }] },
+  { id: 'quartiles', domain: 'data', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'quartiles', sets: [{ id: '1', rule: 'fig-quartile' }] },
+    { id: 'boxplot', sets: [{ id: '1', rule: 'fig-box' }] },
   ] },
-  { id: 'frequency', domain: 'data', stage: 'middle', status: 'comingSoon', items: [
-    { id: 'frequency', sets: [{ id: '1' }] },
+  { id: 'frequency', domain: 'data', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'frequency', sets: [{ id: '1', rule: 'fig-frequency' }] },
   ] },
   { id: 'sampling', domain: 'data', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'population-sample', sets: [{ id: '1', rule: 'population-a' }] },

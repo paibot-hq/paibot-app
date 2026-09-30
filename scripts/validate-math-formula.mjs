@@ -122,6 +122,7 @@ const RULES = {
   'testing-a': ['inference', (s, p) => p.which === 'test-z'],
   'locus-a': ['geometry', (s, p) => /^locus-/.test(p.which)],
   'region-a': ['region', (s, p) => ['in', 'out'].includes(p.which) && s.letters.has('x') && s.letters.has('y')],
+  'graph-square-a': ['graph', (s, p) => p.which === 'parabola' && /^-?(\d+\*|\d+\/\d+\*)?x\^2$/.test(p.question.replaceAll(' ', ''))],
   'graph-line-a': ['graph', (s, p) => p.which === 'line' && s.letters.size === 1],
   'graph-parabola-a': ['graph', (s, p) => p.which === 'parabola' && s.letters.size === 1],
   'graph-vertex-a': ['graph', (s, p) => p.which === 'vertex' && s.letters.size === 1],
@@ -248,6 +249,37 @@ const RULES = {
   'logic-conditions-a': ['logic', (s, p) => p.which === 'necessary'],
   'logic-truth-a': ['logic', (s, p) => p.which === 'truth'],
   'mapping-a': ['mapping', (s, p) => p.which === 'type'],
+  'fig-solid-name': ['figure', (s, p) => p.which === 'solid-name'],
+  'fig-box-shape': ['figure', (s, p) => ['box-faces', 'box-edges', 'box-vertices'].includes(p.which)],
+  'fig-box-edge': ['figure', (s, p) => p.which === 'box-edge-total'],
+  'fig-prism-count': ['figure', (s, p) => ['prism-faces', 'prism-edges', 'prism-vertices'].includes(p.which)],
+  'fig-euler': ['figure', (s, p) => ['euler-faces', 'euler-vertices'].includes(p.which)],
+  'fig-triangle-type': ['figure', (s, p) => ['triangle-type', 'isosceles-base', 'isosceles-apex'].includes(p.which)],
+  'fig-quad-type': ['figure', (s, p) => ['quad-type'].includes(p.which)],
+  'fig-shape-basic': ['figure', (s, p) => ['quad-type', 'triangle-type'].includes(p.which)],
+  'fig-circle-parts': ['figure', (s, p) => ['circle-diameter', 'circle-radius'].includes(p.which)],
+  'fig-protractor': ['figure', (s, p) => ['protractor'].includes(p.which)],
+  'fig-line-pairs': ['figure', (s, p) => ['parallel-pairs', 'perpendicular-pairs'].includes(p.which)],
+  'fig-congruent': ['figure', (s, p) => ['congruent-side'].includes(p.which)],
+  'fig-congruence-condition': ['figure', (s, p) => ['congruence-condition'].includes(p.which)],
+  'fig-isosceles': ['figure', (s, p) => ['isosceles-base', 'isosceles-apex'].includes(p.which)],
+  'fig-parallelogram': ['figure', (s, p) => ['parallelogram-angle', 'parallelogram-half', 'parallelogram-perimeter'].includes(p.which)],
+  'fig-symmetry': ['figure', (s, p) => ['lines-of-symmetry', 'move-reflect-x', 'move-reflect-y'].includes(p.which)],
+  'fig-scale': ['figure', (s, p) => ['scale-actual', 'scale-enlarge'].includes(p.which)],
+  'fig-moves': ['figure', (s, p) => ['move-translate', 'move-reflect-x', 'move-reflect-y', 'move-rotate90', 'move-rotate180'].includes(p.which)],
+  'fig-bar': ['figure', (s, p) => ['bar-diff', 'bar-total'].includes(p.which)],
+  'fig-line-graph': ['figure', (s, p) => ['line-change'].includes(p.which)],
+  'fig-pie': ['figure', (s, p) => ['pie-count'].includes(p.which)],
+  'fig-histogram': ['figure', (s, p) => ['hist-above'].includes(p.which)],
+  'fig-table': ['figure', (s, p) => ['table-total'].includes(p.which)],
+  'fig-two-way': ['figure', (s, p) => ['twoway-missing'].includes(p.which)],
+  'fig-frequency': ['figure', (s, p) => ['relative-frequency'].includes(p.which)],
+  'fig-box': ['figure', (s, p) => ['box-iqr', 'box-range'].includes(p.which)],
+  'fig-quartile': ['figure', (s, p) => ['quartile-q1', 'quartile-q3'].includes(p.which)],
+  'fig-proportion-table': ['figure', (s, p) => ['proportion-table'].includes(p.which)],
+  'fig-net': ['figure', (s, p) => ['net-cylinder', 'net-cuboid'].includes(p.which)],
+  'fig-space': ['figure', (s, p) => ['space-diagonal', 'distance'].includes(p.which)],
+  'fig-ceva': ['figure', (s, p) => ['ceva-ratio', 'menelaus-ratio'].includes(p.which)],
   'fig-clock': ['figure', (s, p) => ['clock-read'].includes(p.which)],
   'fig-fraction-unit': ['figure', (s, p) => ['fraction-shaded'].includes(p.which)],
   'fig-fraction': ['figure', (s, p) => ['fraction-shaded'].includes(p.which)],
@@ -285,7 +317,8 @@ function checkChoice(kind, choice, id, which) {
   if (kind === 'logic' && which === 'necessary') { assert.ok(['sufficient', 'necessary', 'both', 'neither'].includes(choice), `${id}: a label`); return; }
   if (kind === 'logic' && which === 'truth') { assert.match(choice, /^[TF]\s*,\s*[TF]\s*,\s*[TF]\s*,\s*[TF]$/, `${id}: four T/F values`); return; }
   if (kind === 'mapping') { assert.ok(['injective', 'surjective', 'bijective', 'neither', 'reflexive', 'symmetric', 'transitive', 'equivalence'].includes(choice), `${id}: a label`); return; }
-  if (kind === 'figure') { if (which === 'clock-read' || which === 'centroid') { const parts = splitTop(choice, ','); assert.equal(parts.length, 2, `${id}: choices are "a, b"`); parts.forEach(part => parseExpression(part)); return; } parseExpression(choice); return; }
+  if (kind === 'figure' && ['triangle-type', 'quad-type', 'congruence-condition', 'solid-name'].includes(which)) { assert.ok(['cube', 'cuboid', 'cylinder', 'sphere', 'equilateral', 'isosceles', 'right', 'scalene', 'square', 'rectangle', 'rhombus', 'parallelogram', 'sss', 'sas', 'asa', 'insufficient'].includes(choice), `${id}: a label`); return; }
+  if (kind === 'figure') { if (which === 'clock-read' || which === 'centroid' || which.startsWith('move-')) { const parts = splitTop(choice, ','); assert.equal(parts.length, 2, `${id}: choices are "a, b"`); parts.forEach(part => parseExpression(part)); return; } parseExpression(choice); return; }
   if (kind === 'divmod') { const parts = splitTop(choice, ','); assert.equal(parts.length, 2, `${id}: divmod choices are "q, r"`); parts.forEach(part => assert.match(part.trim(), /^\d+$/, `${id}: whole numbers`)); return; }
   if (kind === 'conic') {
     if (['parabola-focus', 'polar-to-xy', 'xy-to-polar'].includes(which)) { const parts = splitTop(choice, ','); assert.equal(parts.length, 2, `${id}: choices are points "a, b"`); parts.forEach(part => parseExpression(part)); return; }
@@ -345,7 +378,7 @@ export function validateBank(bank, catalog) {
     if (problem.bounds !== undefined) { const parts = splitTop(problem.bounds, ','); assert.equal(parts.length, 2, `${id}: bounds "a, b"`); parts.forEach(part => parseExpression(part)); }
     const variants = { extremum: ['max', 'min'], distribution: ['mean', 'variance', 'binomialMean', 'binomialVariance', 'binomialProb', 'zscore'], geometry: ['line-two-points', 'line-slope', 'line-parallel', 'line-perpendicular', 'circle-center', 'circle-diameter', 'distance', 'locus-equidistant', 'locus-ratio'], inequality: ['amgm-min', 'amgm-equal', 'product-sum', 'solve'], induction: ['base', 'add', 'target', 'combine'], inference: ['mean-interval', 'ratio-interval', 'test-z'], region: ['in', 'out'], classify: ['irrational', 'rational'], sets: ['union', 'intersection', 'difference', 'complement', 'complement-union', 'complement-intersection'], logic: ['contrapositive', 'negation', 'necessary', 'truth'], mapping: ['type', 'relation'], ode: ['separable', 'linear', 'second'], conic: ['parabola-focus', 'parabola-directrix', 'parabola-equation', 'ellipse-c', 'ellipse-major', 'hyperbola-c', 'hyperbola-asymptote', 'polar-to-xy', 'xy-to-polar'], graph: ['line', 'parabola', 'vertex', 'circle', 'region', 'trig'],
       number: ['gcd', 'lcm', 'euclid', 'diophantine', 'to-base', 'from-base', 'remainder', 'power-mod', 'divisor-count', 'nth-multiple', 'prime-factorization', 'round-ones', 'round-ten', 'round-hundred', 'round-thousand', 'round-tenth', 'round-hundredth', 'estimate', 'scientific', 'to-improper', 'to-mixed'],
-      figure: ['angle-quad', 'angle-triangle', 'centroid', 'circle-area', 'circle-circumference', 'clock-read', 'cone-volume', 'cuboid-volume', 'cylinder-volume', 'distance', 'fraction-shaded', 'inscribed-angle', 'inscribed-diameter', 'inscribed-same-arc', 'para-area', 'parallel-alternate', 'parallel-cointerior', 'parallel-corresponding', 'parallel-vertical', 'polygon-each-interior', 'polygon-exterior', 'polygon-interior-sum', 'power-chord', 'prism-volume', 'rect-area', 'sector-arc', 'sector-area', 'similar-area', 'similar-side', 'sphere-surface', 'sphere-volume', 'trap-area', 'tri-area'],
+      figure: ['angle-quad', 'angle-triangle', 'centroid', 'circle-area', 'circle-circumference', 'clock-read', 'cone-volume', 'cuboid-volume', 'cylinder-volume', 'distance', 'fraction-shaded', 'inscribed-angle', 'inscribed-diameter', 'inscribed-same-arc', 'para-area', 'parallel-alternate', 'parallel-cointerior', 'parallel-corresponding', 'parallel-vertical', 'polygon-each-interior', 'polygon-exterior', 'polygon-interior-sum', 'power-chord', 'prism-volume', 'rect-area', 'sector-arc', 'sector-area', 'similar-area', 'similar-side', 'sphere-surface', 'sphere-volume', 'trap-area', 'tri-area', 'prism-faces', 'prism-edges', 'prism-vertices', 'pyramid-faces', 'pyramid-edges', 'pyramid-vertices', 'euler-faces', 'euler-vertices', 'triangle-type', 'quad-type', 'isosceles-base', 'isosceles-apex', 'circle-diameter', 'circle-radius', 'protractor', 'parallel-pairs', 'perpendicular-pairs', 'congruent-side', 'congruence-condition', 'parallelogram-angle', 'parallelogram-half', 'parallelogram-perimeter', 'lines-of-symmetry', 'scale-actual', 'scale-enlarge', 'move-translate', 'move-reflect-x', 'move-reflect-y', 'move-rotate90', 'move-rotate180', 'bar-diff', 'bar-total', 'line-change', 'pie-count', 'hist-above', 'table-total', 'twoway-missing', 'relative-frequency', 'box-iqr', 'box-range', 'quartile-q1', 'quartile-q3', 'proportion-table', 'net-cylinder', 'net-cuboid', 'space-diagonal', 'ceva-ratio', 'menelaus-ratio', 'solid-name', 'box-faces', 'box-edges', 'box-vertices', 'cube-edge-total', 'box-edge-total'],
       stat: ['median', 'range', 'mode', 'variance', 'std', 'correlation'],
       function: ['proportion', 'inverse', 'slope', 'intercept', 'xintercept', 'rate', 'intersect-lines', 'intersect-parabola', 'rewrite'],
       quadratic: ['discriminant', 'root-count', 'krange', 'max', 'min', 'max-all', 'min-all'],
@@ -366,7 +399,7 @@ export function validateBank(bank, catalog) {
     const which = problem.which;
     const listed = ['distribution', 'geometry', 'recurrence', 'inequality', 'induction', 'inference', 'region', 'graph', 'number', 'stat', 'function', 'quadratic', 'triangle', 'eigenvector', 'ode', 'conic', 'divmod', 'classify', 'mvt', 'sets'].includes(kind);
     const own = ['logic', 'mapping', 'figure'].includes(kind);
-    if (kind === 'figure') { const numbers = splitTop(question, ','); assert.ok(numbers.length >= 1 && numbers.length <= 6, `${id}: a few numbers`); numbers.forEach(part => parseExpression(part)); }
+    if (kind === 'figure') { const numbers = splitTop(question, ','); assert.ok(numbers.length >= 1 && numbers.length <= 12, `${id}: a few numbers`); numbers.forEach(part => parseExpression(part)); }
     if (kind === 'logic') { for (const part of (problem.which === 'necessary' ? splitTop(question, ';') : [question])) conditionTex(part); }
     if (kind === 'sets') { const parts = splitTop(question, ';'); assert.equal(parts.length, 2, `${id}: sets are "A; B"`); assert.equal(given !== null, /complement/.test(problem.which), `${id}: given is the universe, for complements only`); }
     const s = stats(own ? '0' : kind === 'area' ? question.replace(';', '+') : sequence ? splitTop(question, ',').join(' + ') : listed ? splitTop(question, ';').slice(0, kind === 'region' || (kind === 'graph' && which === 'region') || (kind === 'inequality' && which === 'solve') ? 2 : undefined).flatMap(part => splitTop(part, ',')).join(' + ') : question);

@@ -1,0 +1,265 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "congruence-001",
+      "item": "conditions",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "1, 1, 1, 0, 0, 0",
+      "given": null,
+      "which": "congruence-condition",
+      "steps": [],
+      "choices": ["sas", "sss", "asa", "insufficient"],
+      "answerIndex": 1
+    },
+    {
+      "id": "congruence-002",
+      "item": "conditions",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "1, 0, 1, 1, 0, 0",
+      "given": null,
+      "which": "congruence-condition",
+      "steps": [],
+      "choices": ["insufficient", "sss", "sas", "asa"],
+      "answerIndex": 2
+    },
+    {
+      "id": "congruence-003",
+      "item": "conditions",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "0, 1, 0, 0, 1, 1",
+      "given": null,
+      "which": "congruence-condition",
+      "steps": [],
+      "choices": ["insufficient", "asa", "sss", "sas"],
+      "answerIndex": 1
+    },
+    {
+      "id": "congruence-004",
+      "item": "conditions",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "1, 1, 0, 0, 0, 1",
+      "given": null,
+      "which": "congruence-condition",
+      "steps": [],
+      "choices": ["insufficient", "asa", "sas", "sss"],
+      "answerIndex": 0
+    },
+    {
+      "id": "congruence-005",
+      "item": "conditions",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "1, 1, 0, 0, 1, 0",
+      "given": null,
+      "which": "congruence-condition",
+      "steps": [],
+      "choices": ["asa", "sss", "insufficient", "sas"],
+      "answerIndex": 3
+    },
+    {
+      "id": "congruence-006",
+      "item": "triangles",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "40",
+      "given": null,
+      "which": "isosceles-base",
+      "steps": [
+        "(180 - 40)/2 = 70"
+      ],
+      "choices": ["140", "40", "70", "80"],
+      "answerIndex": 2
+    },
+    {
+      "id": "congruence-007",
+      "item": "triangles",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "35",
+      "given": null,
+      "which": "isosceles-apex",
+      "steps": [
+        "180 - 2*35 = 110"
+      ],
+      "choices": ["55", "35", "110", "145"],
+      "answerIndex": 2
+    },
+    {
+      "id": "congruence-008",
+      "item": "triangles",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "120",
+      "given": null,
+      "which": "isosceles-base",
+      "steps": [
+        "(180 - 120)/2 = 30"
+      ],
+      "choices": ["120", "60", "40", "30"],
+      "answerIndex": 3
+    },
+    {
+      "id": "congruence-009",
+      "item": "triangles",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "50",
+      "given": null,
+      "which": "isosceles-apex",
+      "steps": [
+        "180 - 2*50 = 80"
+      ],
+      "choices": ["80", "40", "130", "50"],
+      "answerIndex": 0
+    },
+    {
+      "id": "congruence-010",
+      "item": "triangles",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "20",
+      "given": null,
+      "which": "isosceles-base",
+      "steps": [
+        "(180 - 20)/2 = 80"
+      ],
+      "choices": ["20", "80", "160", "90"],
+      "answerIndex": 1
+    },
+    {
+      "id": "congruence-011",
+      "item": "parallelogram",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "75",
+      "given": null,
+      "which": "parallelogram-angle",
+      "steps": [
+        "180 - 75 = 105"
+      ],
+      "choices": ["15", "75", "105", "90"],
+      "answerIndex": 2
+    },
+    {
+      "id": "congruence-012",
+      "item": "parallelogram",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "12",
+      "given": null,
+      "which": "parallelogram-half",
+      "steps": [
+        "12/2 = 6"
+      ],
+      "choices": ["6", "12", "24", "8"],
+      "answerIndex": 0
+    },
+    {
+      "id": "congruence-013",
+      "item": "parallelogram",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5, 12",
+      "given": null,
+      "which": "parallelogram-perimeter",
+      "steps": [
+        "2*(5 + 12) = 34"
+      ],
+      "choices": ["60", "17", "34", "29"],
+      "answerIndex": 2
+    },
+    {
+      "id": "congruence-014",
+      "item": "parallelogram",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "70",
+      "given": null,
+      "which": "parallelogram-angle",
+      "steps": [
+        "180 - 70 = 110"
+      ],
+      "choices": ["110", "20", "70", "90"],
+      "answerIndex": 0
+    },
+    {
+      "id": "congruence-015",
+      "item": "parallelogram",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "18",
+      "given": null,
+      "which": "parallelogram-half",
+      "steps": [
+        "18/2 = 9"
+      ],
+      "choices": ["11", "9", "36", "18"],
+      "answerIndex": 1
+    }
+  ]
+}

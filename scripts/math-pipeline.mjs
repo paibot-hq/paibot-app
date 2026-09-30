@@ -63,6 +63,49 @@ export function figureReading(p) {
     case 'distance': return `座標平面上の2点 A(${v[0]}, ${v[1]})、B(${v[2]}, ${v[3]})。`;
     case 'centroid': return `座標平面上の三角形 ABC。A(${v[0]}, ${v[1]})、B(${v[2]}, ${v[3]})、C(${v[4]}, ${v[5]})。`;
     case 'clock-read': return `アナログ時計。短針は ${v[0]} と ${v[0] % 12 + 1} の間（${v[0]}時${v[1]}分の位置）、長針は ${v[1] / 5} を指している（${v[1]}分）。`;
+    case 'prism-faces': case 'prism-edges': case 'prism-vertices': return `${v[0]} 角柱（底面が ${v[0]} 角形の角柱）。`;
+    case 'pyramid-faces': case 'pyramid-edges': case 'pyramid-vertices': return `${v[0]} 角錐（底面が ${v[0]} 角形の角錐）。`;
+    case 'euler-faces': return `凸多面体。頂点の数 v = ${v[0]}、辺の数 e = ${v[1]}。面の数 f を求める（オイラーの多面体定理 v − e + f = 2）。`;
+    case 'euler-vertices': return `凸多面体。辺の数 e = ${v[0]}、面の数 f = ${v[1]}。頂点の数 v を求める（v − e + f = 2）。`;
+    case 'triangle-type': { const [x, y, z] = [...v].sort((a, b) => a - b); return `三角形。3辺の長さは ${v[0]} cm、${v[1]} cm、${v[2]} cm。${x * x + y * y === z * z ? '直角の印（□）がついている。' : ''}`; }
+    case 'quad-type': return `四角形。隣り合う2辺の長さが ${v[0]} cm と ${v[1]} cm で、その間の角が ${v[2]}°。向かい合う辺は平行で、向かい合う辺の長さは等しい。`;
+    case 'isosceles-base': return `AB = AC の二等辺三角形。頂角 A が ${v[0]}°。底角 x を求める。`;
+    case 'isosceles-apex': return `AB = AC の二等辺三角形。底角が ${v[0]}°。頂角 x を求める。`;
+    case 'circle-diameter': return `円。半径 ${v[0]} cm。直径を求める。`;
+    case 'circle-radius': return `円。直径 ${v[0]} cm。半径を求める。`;
+    case 'protractor': return `分度器。左の 0° の目盛りから数えて、1本目の直線が ${v[0]}°、2本目の直線が ${v[1]}° を指している。2本の直線がつくる角を求める。`;
+    case 'parallel-pairs': return `平面上の4本の直線①〜④。水平から測った向きが ${v.map((d, i) => `${'①②③④'[i]}=${d}°`).join('、')}。平行な組（向きが等しい組）の数を求める。`;
+    case 'perpendicular-pairs': return `平面上の4本の直線①〜④。水平から測った向きが ${v.map((d, i) => `${'①②③④'[i]}=${d}°`).join('、')}。垂直な組（向きが90°ちがう組）の数を求める。`;
+    case 'congruent-side': return `三角形 ABC と三角形 DEF は合同で、A と D、B と E、C と F が対応する。△ABC は AB = ${v[0]}、BC = ${v[1]}、CA = ${v[2]}。△DEF の辺 ${['DE', 'EF', 'FD'][v[3]]} の長さ x を求める。`;
+    case 'solid-name': return `立体（${['立方体（6つの面がすべて同じ大きさの正方形）', '直方体（向かい合う面が同じ大きさの長方形）', '円柱', '球'][v[0]]}）の見取図。`;
+    case 'box-faces': case 'box-edges': case 'box-vertices': return `直方体（縦・横・高さ ${v[0]}、${v[1]}、${v[2]} cm）。`;
+    case 'cube-edge-total': return `立方体。1つの辺の長さ ${v[0]} cm。`;
+    case 'box-edge-total': return `直方体。縦 ${v[0]} cm、横 ${v[1]} cm、高さ ${v[2]} cm。`;
+    case 'congruence-condition': { const parts = ['辺AB', '辺BC', '辺CA', '角A', '角B', '角C']; return `2つの三角形 ABC と DEF。等しいと印がついている部分: ${v.map((f, i) => f ? parts[i] : null).filter(Boolean).join('、')}（対応する部分）。`; }
+    case 'parallelogram-angle': return `平行四辺形 ABCD。∠A = ${v[0]}°。∠B = x を求める。`;
+    case 'parallelogram-half': return `平行四辺形 ABCD。対角線 AC = ${v[0]} cm で、対角線 AC と BD は点 O で交わる。AO = x を求める。`;
+    case 'parallelogram-perimeter': return `平行四辺形。となり合う2辺が ${v[0]} cm と ${v[1]} cm。`;
+    case 'lines-of-symmetry': return `正 ${v[0]} 角形。`;
+    case 'scale-actual': return `縮尺 1 : ${v[0]} の地図。地図上の長さは ${v[1]} cm。`;
+    case 'scale-enlarge': return `${v[0]} 倍に拡大する。もとの図形の辺の長さは ${v[1]} cm。`;
+    case 'move-translate': return `座標平面上の点 P(${v[0]}, ${v[1]})。右へ ${v[2]}、上へ ${v[3]} だけ平行移動する（負の値は逆向き）。`;
+    case 'move-reflect-x': case 'move-reflect-y': case 'move-rotate90': case 'move-rotate180': return `座標平面上の点 P(${v[0]}, ${v[1]})。`;
+    case 'bar-diff': return `棒グラフ。4本の棒の値は左から ${v.slice(0, 4).join('、')}。棒A は左から ${v[4]} 番目、棒B は左から ${v[5]} 番目。`;
+    case 'bar-total': return `棒グラフ。5本の棒の値は左から ${v.join('、')}。`;
+    case 'line-change': return `折れ線グラフ。左から順に、点の値は ${v.join('、')}。`;
+    case 'pie-count': return `円グラフ。全体（100%）は ${v[0]}。項目の割合は ${v.slice(1, 5).map((x, i) => `${'ABCD'[i]}=${x}%`).join('、')}。`;
+    case 'hist-above': return `ヒストグラム。5つの階級の度数は左から ${v.slice(0, 5).join('、')}。階級A は左から ${v[5]} 番目。`;
+    case 'table-total': return `2行3列の表。1行目は ${v.slice(0, 3).join('、')}、2行目は ${v.slice(3).join('、')}。`;
+    case 'twoway-missing': return `2×2の表。1行目は ${v[0]} と ${v[1]}（合計 ${v[0] + v[1]}）、2行目は ${v[2]} と □（合計 ${v[3]}）。`;
+    case 'relative-frequency': return `度数分布表。5つの階級の度数は ${v.slice(0, 5).join('、')}。階級A は ${v[5]} 番目の階級。`;
+    case 'box-iqr': case 'box-range': return `箱ひげ図。最小値 ${v[0]}、第1四分位数 ${v[1]}、中央値 ${v[2]}、第3四分位数 ${v[3]}、最大値 ${v[4]}。`;
+    case 'quartile-q1': case 'quartile-q3': return `データ（${v.length}個）: ${v.join('、')}。`;
+    case 'proportion-table': return `y は x に比例。表: x = ${v.slice(1).join('、')} のとき、y は ${v.slice(1, 4).map(x => v[0] * x).join('、')}、□。`;
+    case 'net-cylinder': return `円柱の展開図。底面の半径 ${v[0]} cm、高さ ${v[1]} cm。`;
+    case 'net-cuboid': return `直方体の展開図。直方体の縦 ${v[0]} cm、横 ${v[1]} cm、高さ ${v[2]} cm。`;
+    case 'space-diagonal': return `直方体。縦 ${v[0]} cm、横 ${v[1]} cm、高さ ${v[2]} cm。頂点 A から最も遠い頂点 G までの対角線。`;
+    case 'ceva-ratio': return `△ABC の辺 AB、BC、CA 上の点 F、D、E。AD、BE、CF は1点で交わる。AF : FB = ${v[0]} : ${v[1]}、BD : DC = ${v[2]} : ${v[3]}。`;
+    case 'menelaus-ratio': return `△ABC。直線が辺 AB 上の点 F、辺 CA 上の点 E、辺 BC の延長上の点 D を通る。AF : FB = ${v[0]} : ${v[1]}、BD : DC = ${v[2]} : ${v[3]}。`;
     case 'fraction-shaded': return `長方形を横に ${v[0]} 等分し、そのうち ${v[1]} こを色でぬっている。`;
     default: throw new Error(`No reading for figure ${p.which}`);
   }
@@ -173,7 +216,7 @@ export function blindProblem(unit, p) {
     id: p.id, type: 'formula', kind: 'graph', instruction: instructionJa(p), figure: graphReading(p),
     choices: p.choices.map(choice => formulaChoiceTex(p, choice)),
   };
-  if (p.kind === 'figure') return { id: p.id, type: 'formula', kind: 'figure', instruction: instructionJa(p), figure: figureReading(p), choices: p.choices.map(choice => formulaChoiceTex(p, choice)) };
+  if (p.kind === 'figure') return { id: p.id, type: 'formula', kind: 'figure', instruction: instructionJa(p), figure: figureReading(p), choices: p.choices.map(choice => formulaChoiceLabel(p, choice) ? FORMULA_JA[formulaChoiceLabel(p, choice)] : formulaChoiceTex(p, choice)) };
   if (isFormulaUnit(unit)) return {
     id: p.id, type: 'formula', kind: p.kind, instruction: instructionJa(p),
     question: formulaQuestionTex(p), given: p.given && p.kind !== 'sets' ? solutionTex(p.given, 'x') : undefined,

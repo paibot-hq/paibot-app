@@ -310,6 +310,96 @@
       ],
       "choices": ["160", "170", "180", "190"],
       "answerIndex": 2
+    },
+    {
+      "id": "relations-011",
+      "item": "change",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 1, 2, 3, 5",
+      "given": null,
+      "which": "proportion-table",
+      "steps": [
+        "4*5 = 20"
+      ],
+      "choices": ["12", "9", "5", "20"],
+      "answerIndex": 3
+    },
+    {
+      "id": "relations-012",
+      "item": "change",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "9, 2, 4, 7, 8",
+      "given": null,
+      "which": "proportion-table",
+      "steps": [
+        "9*8 = 72"
+      ],
+      "choices": ["63", "72", "17", "8"],
+      "answerIndex": 1
+    },
+    {
+      "id": "relations-013",
+      "item": "change",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 1, 2, 3, 4",
+      "given": null,
+      "which": "proportion-table",
+      "steps": [
+        "6*4 = 24"
+      ],
+      "choices": ["4", "18", "10", "24"],
+      "answerIndex": 3
+    },
+    {
+      "id": "relations-014",
+      "item": "change",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8, 2, 5, 6, 10",
+      "given": null,
+      "which": "proportion-table",
+      "steps": [
+        "8*10 = 80"
+      ],
+      "choices": ["48", "80", "18", "10"],
+      "answerIndex": 1
+    },
+    {
+      "id": "relations-015",
+      "item": "change",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 1, 2, 3, 8",
+      "given": null,
+      "which": "proportion-table",
+      "steps": [
+        "4*8 = 32"
+      ],
+      "choices": ["12", "8", "36", "32"],
+      "answerIndex": 3
     }
   ]
 }

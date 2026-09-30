@@ -597,7 +597,7 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
     case 'divmod': return { key: 'divmod', tex: {} };
     case 'classify': return { key: `classify${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
     case 'mvt': return { key: 'mvt', tex: {} };
-    case 'figure': return { key: `figure${p.which!.replace(/(^|-)(\w)/g, (_, _d, c: string) => c.toUpperCase())}`, tex: /^polygon-/.test(p.which!) ? { n: p.question } : {} };
+    case 'figure': return { key: `figure${p.which!.replace(/(^|-)(\w)/g, (_, _d, c: string) => c.toUpperCase())}`, tex: /^polygon-/.test(p.which!) ? { n: p.question } : p.which === 'pie-count' ? { n: 'ABCD'[Number(splitTop(p.question, ',')[5]) - 1] } : {} };
     case 'sets': return { key: `set${p.which!.replace(/(^|-)(\w)/g, (_, _d, c: string) => c.toUpperCase())}`, tex: {} };
     case 'logic': return { key: `logic${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
     case 'mapping': return { key: `mapping${p.which![0].toUpperCase()}${p.which!.slice(1).replace(/-(\w)/g, (_, c: string) => c.toUpperCase())}`, tex: {} };
@@ -651,7 +651,10 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
 
 // Choices that are words (a kind of condition, a property of a map or relation) are keys of the page's
 // messages: the key of a choice's label under App.math.formulaQuiz, or null for a choice drawn as math.
+// A figure problem answered by a word (the shape's name, a congruence condition).
+const FIGURE_LABELS = ['triangle-type', 'quad-type', 'congruence-condition', 'solid-name'];
 export function formulaChoiceLabel(p: { kind: string; which?: string }, choice: string): string | null {
+  if (p.kind === 'figure' && FIGURE_LABELS.includes(p.which ?? '')) return choice === 'right' ? 'labelRightTriangle' : `label${choice[0].toUpperCase()}${choice.slice(1)}`;
   if (!((p.kind === 'logic' && p.which === 'necessary') || p.kind === 'mapping')) return null;
   return p.kind === 'mapping' && choice === 'neither' ? 'labelNeitherMap' : `label${choice[0].toUpperCase()}${choice.slice(1)}`;
 }
@@ -675,8 +678,8 @@ function choiceTex(p: Pick<FormulaPayload, 'kind' | 'question'> & { which?: stri
   }
   if (p.kind === 'figure') {
     if (p.which === 'clock-read') { const [h, m] = list(choice); return `\\mathrm{${h}:${m.padStart(2, '0')}}`; }
-    if (p.which === 'centroid') return `\\left(${list(choice).join(', ')}\\right)`;
-    if (/^(angle|parallel|polygon|inscribed|sector-angle)-/.test(p.which ?? '')) return `${expressionTex(choice)}^{\\circ}`;
+    if (p.which === 'centroid' || p.which?.startsWith('move-')) return `\\left(${list(choice).join(', ')}\\right)`;
+    if (/^(angle-|parallel-(vertical|corresponding|alternate|cointerior)$|polygon-|inscribed-|isosceles-|protractor$|parallelogram-angle$)/.test(p.which ?? '')) return `${expressionTex(choice)}^{\\circ}`;
   }
   if (p.kind === 'degree') return `${expressionTex(choice)}^{\\circ}`;
   if (p.kind === 'geometry') return p.which?.startsWith('line-') ? solutionTex(choice, 'y') : /^(circle|locus)-/.test(p.which ?? '') ? statementTex(choice) : expressionTex(choice);
