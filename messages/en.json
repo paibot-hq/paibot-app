@@ -2616,7 +2616,7 @@
         "diophantine": "Choose an integer solution (x, y) of the equation.",
         "toBase": "Write the decimal number in base <n></n>.",
         "fromBase": "Write the number in decimal.",
-        "remainder": "Find the remainder when <a></a> is divided by <m></m>.",
+        "numberRemainder": "Find the remainder when <a></a> is divided by <m></m>.",
         "powerMod": "Find the remainder when <a></a> to the power <e></e> is divided by <m></m>."
       },
       "grades": {

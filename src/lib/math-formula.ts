@@ -460,7 +460,7 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
       if (p.which === 'nth-multiple') { const [a, n] = list(p.question); return { key, tex: { a, n } }; }
       if (p.which === 'to-base') { const [, base] = list(p.question); return { key, tex: { n: base } }; }
       if (p.which === 'from-base') return { key, tex: {} };
-      if (p.which === 'remainder') { const [a, m] = list(p.question); return { key, tex: { a, m } }; }
+      if (p.which === 'remainder') { const [a, m] = list(p.question); return { key: 'numberRemainder', tex: { a, m } }; }
       if (p.which === 'power-mod') { const [a, e, m] = list(p.question); return { key, tex: { a, e, m } }; }
       return { key, tex: {} };
     }

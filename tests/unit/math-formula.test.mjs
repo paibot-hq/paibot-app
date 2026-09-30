@@ -55,6 +55,7 @@ const tangent = { kind: 'tangent', question: 'x^2', given: 'x = 1', choices: ['y
 assert.equal(formulaQuestionTex(tangent), 'y = x^{2}');
 assert.equal(formulaChoiceTex(tangent, tangent.choices[0]), 'y = 2x - 1');
 assert.deepEqual(formulaInstruction(tangent), { key: 'tangent', tex: { given: 'x = 1' } });
+assert.deepEqual(formulaInstruction({ kind: 'number', which: 'remainder', question: '17, 5', given: null }), { key: 'numberRemainder', tex: { a: '17', m: '5' } });
 assert.deepEqual(formulaInstruction({ kind: 'remainder', question: 'x^3 + 1', given: null, divisor: 'x - 2', choices: [] }), { key: 'remainder', tex: { divisor: 'x - 2' } });
 assert.deepEqual(formulaInstruction({ kind: 'extremum', question: 'x^3 - 3*x', given: null, which: 'max', choices: [] }), { key: 'extremumMax', tex: {} });
 for (const tex of [formulaQuestionTex(integral), formulaQuestionTex(area)]) katex.renderToString(tex, { throwOnError: true });

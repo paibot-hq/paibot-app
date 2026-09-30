@@ -2616,7 +2616,7 @@
         "diophantine": "选出下列方程的一组整数解 (x, y)。",
         "toBase": "把下列十进制数写成 <n></n> 进制数。",
         "fromBase": "把下列数写成十进制数。",
-        "remainder": "求 <a></a> 除以 <m></m> 的余数。",
+        "numberRemainder": "求 <a></a> 除以 <m></m> 的余数。",
         "powerMod": "求 <a></a> 的 <e></e> 次方除以 <m></m> 的余数。"
       },
       "grades": {
