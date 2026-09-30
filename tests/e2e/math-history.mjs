@@ -82,11 +82,13 @@ try {
   const post = (form, headers = { Origin: origin }) => page.request.post(url, { form, headers, maxRedirects: 0 });
   const ids = JSON.stringify(problems.map(problem => problem.id));
   assert.equal((await post({ problemIds: JSON.stringify(['arith-s1-q1', ...problems.slice(1).map(p => p.id)]), answers: '[0,0,0,0,0]' })).status(), 409);
+  // The same ids with a version other than the one the page was loaded with (an edited answer or choice) are refused.
+  assert.equal((await post({ problemIds: ids, answers: '[0,0,0,0,0]', version: '0'.repeat(64) })).status(), 409);
   assert.equal((await post({ problemIds: ids, answers: '[0,0,0,0,9]' })).status(), 400);
   // React Router aborts cross-origin actions (400) before saveAttemptAction's own 403 check runs.
   assert.equal((await post({ problemIds: ids, answers: '[0,0,0,0,0]' }, { Origin: 'https://example.com' })).status(), 400);
   assert.equal(await cardRecord(page), 'Last 1 / 5 · Best 5 / 5', 'refused posts change nothing');
-  console.log('PASS: stale problem ids, out-of-range answers and cross-origin posts are refused');
+  console.log('PASS: stale problem ids and versions, out-of-range answers and cross-origin posts are refused');
 
   const response = await page.request.get(`${base}/en/math/arith/${ITEM}`);
   assert.equal(response.headers()['cache-control'], 'private, no-store');

@@ -3,7 +3,7 @@ import { useLocale, useTranslations } from 'use-intl';
 import { Link } from '../i18n/navigation';
 import type { DynamicT } from '../lib/apps';
 import { MATH_CATALOG, MATH_DOMAINS, MATH_STAGES, type MathStage } from '../lib/math-catalog';
-import { JP_GRADES, jpGrade, type JpGrade } from '../lib/math-curriculum-jp';
+import { JP_GRADES, jpGrade, stageOfGrade, type JpGrade } from '../lib/math-curriculum-jp';
 import { KENTEI_LEVELS, KENTEI_LOCALES, KENTEI_OFFICIAL_URL } from '../lib/math-kentei';
 import styles from './math-unit-table.module.css';
 
@@ -27,6 +27,11 @@ export default function MathUnitTable({ playable }: { playable: readonly string[
     const inLevel = !level || (!!itemGrade && level.grades.includes(itemGrade)) || !!level.extra?.includes(`${unitId}/${itemId}`);
     return (!grade || itemGrade === grade) && inLevel;
   };
+  // A unit's stage is a default; the level filter follows each item's own school year (数学II's 3次の展開 sits in a middle-school unit).
+  const stageFits = (unit: { id: string; stage: MathStage }, itemId: string) => {
+    const itemGrade = jpGrade(unit.id, itemId);
+    return !stage || (itemGrade ? stageOfGrade(itemGrade) : unit.stage) === stage;
+  };
   const [playableOnly, setPlayableOnly] = useState(false);
   const [query, setQuery] = useState('');
   const q = query.trim().toLowerCase();
@@ -34,13 +39,12 @@ export default function MathUnitTable({ playable }: { playable: readonly string[
 
   const sections = MATH_DOMAINS.map(domain => {
     const rows = MATH_STAGES.flatMap(s => MATH_CATALOG.filter(unit => unit.domain === domain && unit.stage === s))
-      .filter(unit => !stage || unit.stage === stage)
       .map(unit => {
         const title = td(`units.${unit.id}.title`);
         const items = unit.items.map(item => ({
           id: item.id, label: td(`units.${unit.id}.items.${item.id}.title`),
           playable: item.sets.some(set => playable.includes(`${unit.id}/${item.id}/${set.id}`)),
-        })).filter(item => (!playableOnly || item.playable) && gradeFits(unit.id, item.id) && (matches(title) || matches(item.label)));
+        })).filter(item => (!playableOnly || item.playable) && stageFits(unit, item.id) && gradeFits(unit.id, item.id) && (matches(title) || matches(item.label)));
         return { unit, title, items };
       })
       .filter(row => row.items.length);

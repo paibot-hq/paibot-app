@@ -93,3 +93,7 @@ export const JP_GRADE_OF: Record<string, Record<string, JpGrade>> = {
 export function jpGrade(unit: string, item: string): JpGrade | undefined {
   return JP_GRADE_OF[unit]?.[item];
 }
+
+// The stage (elementary, middle, high, university) a school year belongs to.
+export const stageOfGrade = (grade: JpGrade): 'elementary' | 'middle' | 'high' | 'university' =>
+  grade.startsWith('e') ? 'elementary' : grade.startsWith('m') ? 'middle' : grade.startsWith('h') ? 'high' : 'university';

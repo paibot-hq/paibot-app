@@ -33,6 +33,12 @@ export default async function ({ page, main, base, go, errors }) {
   assert.equal(await link('/en/math/factoring/ac-method').count(), 0, 'Math I items are not Junior high 3');
   assert.equal(await link('/en/math/arith/order-of-operations').count(), 0);
   await main.getByRole('combobox', { name: 'Filter by Japanese school year' }).selectOption('');
+  // The level filter follows each item's own school year: 数学II's cubic expansion sits in a
+  // middle-school unit (展開) but is a high-school item, and a 中3 item is not.
+  await main.getByRole('button', { name: 'Advanced', exact: true }).click();
+  assert.ok(await link('/en/math/expansion/cubic').isVisible(), 'a high-school item in a middle-school unit shows under the high-school level');
+  assert.equal(await link('/en/math/expansion/square').count(), 0, 'a middle-school item does not');
+  await main.getByRole('button', { name: 'Advanced', exact: true }).click();
   await page.setViewportSize({ width: 390, height: 844 });
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   await page.setViewportSize({ width: 1100, height: 900 });

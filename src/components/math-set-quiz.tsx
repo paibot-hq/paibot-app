@@ -23,10 +23,12 @@ export interface MathSetQuestion {
 // Render with key={setId} so moving between sets starts a fresh quiz.
 // A signed-in user's finished attempt is posted to the page's own route action
 // (see saveAttemptAction in lib/math-attempts.server.ts), which rescores it.
-export default function MathSetQuiz({ title, setLabel, questions, crumbs }: {
+export default function MathSetQuiz({ title, setLabel, questions, crumbs, version }: {
   title: string; setLabel: string; questions: MathSetQuestion[];
   // Where the set sits: unit > learning item (linked) > the set itself (current).
   crumbs: MathCrumb[];
+  // The set's version when the page was loaded; the server refuses an attempt if it changed since.
+  version: string;
 }) {
   const t = useTranslations('App.math.quiz');
   const tm = useTranslations('App.math');
@@ -51,7 +53,7 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs }: {
   function next() {
     if (index + 1 >= total) {
       setFinished(true);
-      if (signedIn) saver.submit({ problemIds: JSON.stringify(questions.map(q => q.id)), answers: JSON.stringify(answers) }, { method: 'post' });
+      if (signedIn) saver.submit({ problemIds: JSON.stringify(questions.map(q => q.id)), answers: JSON.stringify(answers), version }, { method: 'post' });
       return;
     }
     setIndex(index + 1);
@@ -119,7 +121,7 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs }: {
           <p className={styles.verdict} data-correct={selected === question.answerIndex || undefined}>
             {selected === question.answerIndex ? t('correct') : t('incorrect')}
           </p>
-          <p className={styles.explanation}>{question.explanation}</p>
+          <div className={styles.explanation}>{question.explanation}</div>
           <button type="button" className={styles.primary} onClick={next}>{t('next')}</button>
         </div>}
     </div>
