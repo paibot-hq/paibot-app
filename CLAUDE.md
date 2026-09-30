@@ -55,8 +55,8 @@ Math is organized unit → learning item → practice set, all in
   (練習1, 2, ...) with a signed-in user's latest and best score, and the crumbs
   back to the unit. Top to bottom: what you learn (`description`), key points
   (`src/data/item-key-points.json`, equations SymPy proves; `npm run
-  math:key-points`), a worked example (the item's easiest published problem with
-  1-4 steps) and the practice sets. Texts (`summary`, `description` per item in
+  math:key-points`), a worked example (the item's easiest published problem, one with 1-4 steps
+  first; without steps just the problem and its answer) and the practice sets. Texts (`summary`, `description` per item in
   `messages/*.json`) come from `npm run math:describe` (`--review` has Codex
   check them, `--fix` rewrites what it flagged); a test requires every item to have both. Old set URLs (`/math/<unit>/<set id>`) 301 to the new ones.
 - `/math/<unit>/<item>/<set>` (`routes/math-quiz.tsx`): a five-problem,

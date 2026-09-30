@@ -19,7 +19,7 @@
 .jump a { color: var(--accent); }
 .section { width: min(100%, 480px); margin: 1.2rem auto 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: .2rem 1rem .8rem; }
 .section > summary { cursor: pointer; font-weight: 600; padding: .6rem 0; }
-.points { display: grid; grid-template-columns: minmax(0, 1fr); gap: .3rem; text-align: center; }
+.points { display: grid; grid-template-columns: minmax(0, 1fr); gap: .3rem; text-align: center; overflow-x: auto; }
 .example { display: grid; grid-template-columns: minmax(0, 1fr); gap: .8rem; }
 .exampleQuestion { text-align: center; min-width: 0; }
 .exampleSolution { color: var(--muted); font-size: .9rem; text-align: center; }
@@ -31,3 +31,5 @@
 .neighbor:hover, .neighbor:focus-visible { border-color: var(--accent); }
 .next { text-align: right; }
 .neighborLabel { font-size: .75rem; color: var(--muted); font-weight: 400; }
+.pointRow { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; column-gap: .3em; row-gap: .1em; }
+.pointRow > span { font-size: 1.15rem; }

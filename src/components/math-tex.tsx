@@ -36,7 +36,11 @@ export function MathTex({ tex, block }: { tex: string; block?: boolean }) {
     fit();
     const observer = new ResizeObserver(fit);
     observer.observe(box);
-    return () => observer.disconnect();
+    // KaTeX's fonts change the widths when they finish loading: fit again then.
+    const fonts = document.fonts;
+    fonts?.addEventListener?.("loadingdone", fit);
+    void fonts?.ready.then(fit);
+    return () => { observer.disconnect(); fonts?.removeEventListener?.("loadingdone", fit); };
   }, [html]);
   return <span ref={ref} className={styles["math-tex"]} dangerouslySetInnerHTML={{ __html: html }} />;
 }

@@ -30,12 +30,18 @@ export async function getSetTiers(unit: string, item: string): Promise<Record<st
   return tiers;
 }
 
-// The item's worked example: a published problem with a short worked solution
-// (payload.steps, 1 to 4 lines), the easiest tier first and, within it, the
-// latest in the set so it is rarely the first question of the practice.
+// The item's worked example: a published problem shown with its answer. The easiest
+// tier first and, within it, the latest in the set so it is rarely the first
+// question of the practice. A problem with a short worked solution (payload.steps,
+// 1 to 4 lines) is preferred; without one, the answer alone is shown, and a long
+// solution is the last resort.
 export async function getWorkedExample(unit: string, item: string): Promise<{ id: string; answerIndex: number; tier: number; payload: unknown } | null> {
   const t = mathProblems;
   const rows = await getDb().select({ id: t.id, answerIndex: t.answerIndex, tier: t.tier, payload: t.payload }).from(t)
     .where(and(eq(t.unit, unit), eq(t.item, item), eq(t.published, true))).orderBy(asc(t.tier), desc(t.position));
-  return rows.find(row => { const steps = (row.payload as { steps?: unknown }).steps; return Array.isArray(steps) && steps.length >= 1 && steps.length <= 4; }) ?? null;
+  const stepCount = (row: { payload: unknown }) => { const steps = (row.payload as { steps?: unknown }).steps; return Array.isArray(steps) ? steps.length : 0; };
+  return rows.find(row => stepCount(row) >= 1 && stepCount(row) <= 4)
+    ?? rows.find(row => stepCount(row) === 0)
+    ?? [...rows].sort((a, b) => stepCount(a) - stepCount(b))[0]
+    ?? null;
 }
