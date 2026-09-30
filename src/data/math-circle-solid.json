@@ -1,0 +1,185 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "circle-solid-001",
+      "item": "sector",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 120",
+      "given": null,
+      "which": "sector-arc",
+      "steps": [
+        "2*4*pi*120/360 = 8/3*pi"
+      ],
+      "choices": ["4/3*pi", "16/3*pi", "8*pi", "8/3*pi"],
+      "answerIndex": 3
+    },
+    {
+      "id": "circle-solid-002",
+      "item": "sector",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "12, 135",
+      "given": null,
+      "which": "sector-area",
+      "steps": [
+        "12^2*pi*135/360 = 54*pi"
+      ],
+      "choices": ["108*pi", "144*pi", "54*pi", "9*pi"],
+      "answerIndex": 2
+    },
+    {
+      "id": "circle-solid-003",
+      "item": "sector",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8, 45",
+      "given": null,
+      "which": "sector-arc",
+      "steps": [
+        "2*8*pi*45/360 = 2*pi"
+      ],
+      "choices": ["8*pi", "16*pi", "pi", "2*pi"],
+      "answerIndex": 3
+    },
+    {
+      "id": "circle-solid-004",
+      "item": "sector",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5, 180",
+      "given": null,
+      "which": "sector-area",
+      "steps": [
+        "5^2*pi*180/360 = 25/2*pi"
+      ],
+      "choices": ["25/4*pi", "25/2*pi", "5*pi", "25*pi"],
+      "answerIndex": 1
+    },
+    {
+      "id": "circle-solid-005",
+      "item": "sector",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 240",
+      "given": null,
+      "which": "sector-arc",
+      "steps": [
+        "2*4*pi*240/360 = 16/3*pi"
+      ],
+      "choices": ["8/3*pi", "32/3*pi", "8*pi", "16/3*pi"],
+      "answerIndex": 3
+    },
+    {
+      "id": "circle-solid-006",
+      "item": "solid",
+      "setId": "1",
+      "position": 1,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7, 12",
+      "given": null,
+      "which": "cone-volume",
+      "steps": [
+        "7^2*12*pi/3 = 196*pi"
+      ],
+      "choices": ["588*pi", "196*pi", "28*pi", "56*pi"],
+      "answerIndex": 1
+    },
+    {
+      "id": "circle-solid-007",
+      "item": "solid",
+      "setId": "1",
+      "position": 2,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2",
+      "given": null,
+      "which": "sphere-volume",
+      "steps": [
+        "4/3*pi*2^3 = 32/3*pi"
+      ],
+      "choices": ["32/3*pi", "32*pi", "16*pi", "8/3*pi"],
+      "answerIndex": 0
+    },
+    {
+      "id": "circle-solid-008",
+      "item": "solid",
+      "setId": "1",
+      "position": 3,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5",
+      "given": null,
+      "which": "sphere-surface",
+      "steps": [
+        "4*pi*5^2 = 100*pi"
+      ],
+      "choices": ["500/3*pi", "25*pi", "100*pi", "50*pi"],
+      "answerIndex": 2
+    },
+    {
+      "id": "circle-solid-009",
+      "item": "solid",
+      "setId": "1",
+      "position": 4,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 6",
+      "given": null,
+      "which": "cone-volume",
+      "steps": [
+        "6^2*6*pi/3 = 72*pi"
+      ],
+      "choices": ["24*pi", "72*pi", "12*pi", "216*pi"],
+      "answerIndex": 1
+    },
+    {
+      "id": "circle-solid-010",
+      "item": "solid",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8",
+      "given": null,
+      "which": "sphere-volume",
+      "steps": [
+        "4/3*pi*8^3 = 2048/3*pi"
+      ],
+      "choices": ["256*pi", "2048/3*pi", "2048*pi", "512/3*pi"],
+      "answerIndex": 1
+    }
+  ]
+}

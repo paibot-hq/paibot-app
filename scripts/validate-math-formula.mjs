@@ -248,6 +248,24 @@ const RULES = {
   'logic-conditions-a': ['logic', (s, p) => p.which === 'necessary'],
   'logic-truth-a': ['logic', (s, p) => p.which === 'truth'],
   'mapping-a': ['mapping', (s, p) => p.which === 'type'],
+  'fig-clock': ['figure', (s, p) => ['clock-read'].includes(p.which)],
+  'fig-fraction-unit': ['figure', (s, p) => ['fraction-shaded'].includes(p.which)],
+  'fig-fraction': ['figure', (s, p) => ['fraction-shaded'].includes(p.which)],
+  'fig-rect-area': ['figure', (s, p) => ['rect-area'].includes(p.which)],
+  'fig-area': ['figure', (s, p) => ['tri-area', 'para-area', 'trap-area'].includes(p.which)],
+  'fig-volume': ['figure', (s, p) => ['cuboid-volume'].includes(p.which)],
+  'fig-circumference': ['figure', (s, p) => ['circle-circumference'].includes(p.which)],
+  'fig-circle-area': ['figure', (s, p) => ['circle-area'].includes(p.which)],
+  'fig-prism-volume': ['figure', (s, p) => ['prism-volume', 'cylinder-volume'].includes(p.which)],
+  'fig-angle-sum': ['figure', (s, p) => ['angle-triangle', 'angle-quad'].includes(p.which)],
+  'fig-parallel': ['figure', (s, p) => ['parallel-vertical', 'parallel-corresponding', 'parallel-alternate', 'parallel-cointerior'].includes(p.which)],
+  'fig-polygon': ['figure', (s, p) => ['polygon-interior-sum', 'polygon-exterior', 'polygon-each-interior'].includes(p.which)],
+  'fig-sector': ['figure', (s, p) => ['sector-arc', 'sector-area'].includes(p.which)],
+  'fig-solid': ['figure', (s, p) => ['cone-volume', 'sphere-volume', 'sphere-surface'].includes(p.which)],
+  'fig-similar': ['figure', (s, p) => ['similar-side', 'similar-area'].includes(p.which)],
+  'fig-inscribed': ['figure', (s, p) => ['inscribed-angle', 'inscribed-same-arc', 'inscribed-diameter'].includes(p.which)],
+  'fig-power': ['figure', (s, p) => ['power-chord'].includes(p.which)],
+  'fig-centroid': ['figure', (s, p) => ['centroid'].includes(p.which)],
   'equivalence-a': ['mapping', (s, p) => p.which === 'relation'],
   'geometric-a': [['term', 'series'], (s, p) => p.progression === 'geometric' && !s.letters.size && !s.calls.size],
 };
@@ -267,6 +285,7 @@ function checkChoice(kind, choice, id, which) {
   if (kind === 'logic' && which === 'necessary') { assert.ok(['sufficient', 'necessary', 'both', 'neither'].includes(choice), `${id}: a label`); return; }
   if (kind === 'logic' && which === 'truth') { assert.match(choice, /^[TF]\s*,\s*[TF]\s*,\s*[TF]\s*,\s*[TF]$/, `${id}: four T/F values`); return; }
   if (kind === 'mapping') { assert.ok(['injective', 'surjective', 'bijective', 'neither', 'reflexive', 'symmetric', 'transitive', 'equivalence'].includes(choice), `${id}: a label`); return; }
+  if (kind === 'figure') { if (which === 'clock-read' || which === 'centroid') { const parts = splitTop(choice, ','); assert.equal(parts.length, 2, `${id}: choices are "a, b"`); parts.forEach(part => parseExpression(part)); return; } parseExpression(choice); return; }
   if (kind === 'divmod') { const parts = splitTop(choice, ','); assert.equal(parts.length, 2, `${id}: divmod choices are "q, r"`); parts.forEach(part => assert.match(part.trim(), /^\d+$/, `${id}: whole numbers`)); return; }
   if (kind === 'conic') {
     if (['parabola-focus', 'polar-to-xy', 'xy-to-polar'].includes(which)) { const parts = splitTop(choice, ','); assert.equal(parts.length, 2, `${id}: choices are points "a, b"`); parts.forEach(part => parseExpression(part)); return; }
@@ -314,7 +333,7 @@ export function validateBank(bank, catalog) {
     const [ruleKind, fits] = RULES[set.rule];
     assert.ok([ruleKind].flat().includes(kind), `${id}: kind`);
     assert.ok(typeof question === 'string' && question.length <= 200, `${id}: question`);
-    const key = `${question.replaceAll(' ', '')}|${given ?? ''}`;
+    const key = `${kind === 'figure' ? `${problem.which}:` : ''}${question.replaceAll(' ', '')}|${given ?? ''}`;
     assert.ok(!questions.has(key), `${id}: duplicate question`); questions.add(key);
     assert.ok(given === null || (['calc', 'derivative', 'tangent', 'term', 'series', 'recurrence', 'distribution', 'inference', 'sets'].includes(kind) && typeof given === 'string'), `${id}: given`);
     if (given && kind !== 'sets') for (const pair of splitTop(given, ',')) { assert.match(pair, /^\s*[a-z]\s*=/, `${id}: given`); parseExpression(pair.split('=')[1]); }
@@ -326,6 +345,7 @@ export function validateBank(bank, catalog) {
     if (problem.bounds !== undefined) { const parts = splitTop(problem.bounds, ','); assert.equal(parts.length, 2, `${id}: bounds "a, b"`); parts.forEach(part => parseExpression(part)); }
     const variants = { extremum: ['max', 'min'], distribution: ['mean', 'variance', 'binomialMean', 'binomialVariance', 'binomialProb', 'zscore'], geometry: ['line-two-points', 'line-slope', 'line-parallel', 'line-perpendicular', 'circle-center', 'circle-diameter', 'distance', 'locus-equidistant', 'locus-ratio'], inequality: ['amgm-min', 'amgm-equal', 'product-sum', 'solve'], induction: ['base', 'add', 'target', 'combine'], inference: ['mean-interval', 'ratio-interval', 'test-z'], region: ['in', 'out'], classify: ['irrational', 'rational'], sets: ['union', 'intersection', 'difference', 'complement', 'complement-union', 'complement-intersection'], logic: ['contrapositive', 'negation', 'necessary', 'truth'], mapping: ['type', 'relation'], ode: ['separable', 'linear', 'second'], conic: ['parabola-focus', 'parabola-directrix', 'parabola-equation', 'ellipse-c', 'ellipse-major', 'hyperbola-c', 'hyperbola-asymptote', 'polar-to-xy', 'xy-to-polar'], graph: ['line', 'parabola', 'vertex', 'circle', 'region', 'trig'],
       number: ['gcd', 'lcm', 'euclid', 'diophantine', 'to-base', 'from-base', 'remainder', 'power-mod', 'divisor-count', 'nth-multiple', 'prime-factorization', 'round-ones', 'round-ten', 'round-hundred', 'round-thousand', 'round-tenth', 'round-hundredth', 'estimate', 'scientific', 'to-improper', 'to-mixed'],
+      figure: ['angle-quad', 'angle-triangle', 'centroid', 'circle-area', 'circle-circumference', 'clock-read', 'cone-volume', 'cuboid-volume', 'cylinder-volume', 'distance', 'fraction-shaded', 'inscribed-angle', 'inscribed-diameter', 'inscribed-same-arc', 'para-area', 'parallel-alternate', 'parallel-cointerior', 'parallel-corresponding', 'parallel-vertical', 'polygon-each-interior', 'polygon-exterior', 'polygon-interior-sum', 'power-chord', 'prism-volume', 'rect-area', 'sector-arc', 'sector-area', 'similar-area', 'similar-side', 'sphere-surface', 'sphere-volume', 'trap-area', 'tri-area'],
       stat: ['median', 'range', 'mode', 'variance', 'std', 'correlation'],
       function: ['proportion', 'inverse', 'slope', 'intercept', 'xintercept', 'rate', 'intersect-lines', 'intersect-parabola', 'rewrite'],
       quadratic: ['discriminant', 'root-count', 'krange', 'max', 'min', 'max-all', 'min-all'],
@@ -345,7 +365,8 @@ export function validateBank(bank, catalog) {
     if (set.rule === 'letters-value-a') assert.equal(problem.style, 'times', `${id}: this set keeps the × sign (style "times")`);
     const which = problem.which;
     const listed = ['distribution', 'geometry', 'recurrence', 'inequality', 'induction', 'inference', 'region', 'graph', 'number', 'stat', 'function', 'quadratic', 'triangle', 'eigenvector', 'ode', 'conic', 'divmod', 'classify', 'mvt', 'sets'].includes(kind);
-    const own = ['logic', 'mapping'].includes(kind);
+    const own = ['logic', 'mapping', 'figure'].includes(kind);
+    if (kind === 'figure') { const numbers = splitTop(question, ','); assert.ok(numbers.length >= 1 && numbers.length <= 6, `${id}: a few numbers`); numbers.forEach(part => parseExpression(part)); }
     if (kind === 'logic') { for (const part of (problem.which === 'necessary' ? splitTop(question, ';') : [question])) conditionTex(part); }
     if (kind === 'sets') { const parts = splitTop(question, ';'); assert.equal(parts.length, 2, `${id}: sets are "A; B"`); assert.equal(given !== null, /complement/.test(problem.which), `${id}: given is the universe, for complements only`); }
     const s = stats(own ? '0' : kind === 'area' ? question.replace(';', '+') : sequence ? splitTop(question, ',').join(' + ') : listed ? splitTop(question, ';').slice(0, kind === 'region' || (kind === 'graph' && which === 'region') || (kind === 'inequality' && which === 'solve') ? 2 : undefined).flatMap(part => splitTop(part, ',')).join(' + ') : question);
@@ -363,7 +384,7 @@ export function validateBank(bank, catalog) {
     }
     // The worked solution, required (SymPy checks its mathematics, verify_math.py).
     {
-      assert.ok(Array.isArray(problem.steps) && problem.steps.length >= (['ode', 'sets', 'logic', 'mapping'].includes(kind) ? 0 : 1) && problem.steps.length <= 6, `${id}: 1 to 6 steps`);
+      assert.ok(Array.isArray(problem.steps) && problem.steps.length >= (['ode', 'sets', 'logic', 'mapping', 'figure'].includes(kind) ? 0 : 1) && problem.steps.length <= 6, `${id}: 1 to 6 steps`);
       for (const line of problem.steps) { assert.equal(typeof line, 'string', `${id}: step`); for (const item of splitTop(line, ',')) item.split('=').forEach(side => parseExpression(side)); }
     }
     for (const choice of choices) checkChoice(kind, choice, id, problem.which);

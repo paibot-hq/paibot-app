@@ -1305,6 +1305,95 @@ def mapping_answer(problem):
     return Symbol(label), [Symbol(c) for c in choices]
 
 
+def figure(problem):
+    """The answer to a problem about a drawn figure, from the numbers behind the figure (see components/math-shape.tsx)."""
+    which, v = problem['which'], pair(problem['question'])
+    positive = lambda *values: all(x.is_number and x > 0 for x in values)
+    if not positive(*v) and which not in ('distance', 'centroid'):
+        raise ValueError('the numbers of a figure must be positive')
+    if which in ('clock-read', 'centroid'):
+        choices = [Tuple(*pair(c)) for c in problem['choices']]
+    else:
+        choices = [parse_formula(c) for c in problem['choices']]
+    if which == 'rect-area':
+        answer = v[0] * v[1]
+    elif which == 'tri-area':
+        answer = v[0] * v[1] / 2
+    elif which == 'para-area':
+        answer = v[0] * v[1]
+    elif which == 'trap-area':
+        if not v[0] < v[1]:
+            raise ValueError('the top of a trapezoid must be shorter than its bottom')
+        answer = (v[0] + v[1]) * v[2] / 2
+    elif which == 'cuboid-volume':
+        answer = v[0] * v[1] * v[2]
+    elif which == 'circle-circumference':
+        answer = 2 * v[0] * (v[1] if len(v) > 1 else pi)
+    elif which == 'circle-area':
+        answer = v[0] ** 2 * (v[1] if len(v) > 1 else pi)
+    elif which == 'prism-volume':
+        answer = v[0] * v[1] / 2 * v[2]
+    elif which == 'cylinder-volume':
+        answer = v[0] ** 2 * v[1] * (v[2] if len(v) > 2 else pi)
+    elif which == 'cone-volume':
+        answer = v[0] ** 2 * v[1] * pi / 3
+    elif which == 'sphere-volume':
+        answer = Rational(4, 3) * pi * v[0] ** 3
+    elif which == 'sphere-surface':
+        answer = 4 * pi * v[0] ** 2
+    elif which == 'angle-triangle':
+        answer = 180 - v[0] - v[1]
+        if answer <= 0:
+            raise ValueError('the angles of a triangle sum to 180')
+    elif which == 'angle-quad':
+        answer = 360 - v[0] - v[1] - v[2]
+        if answer <= 0 or v[0] >= 180 or v[1] >= 180 or v[2] >= 180:
+            raise ValueError('the angles of a quadrilateral sum to 360')
+    elif which in ('parallel-vertical', 'parallel-corresponding', 'parallel-alternate', 'inscribed-same-arc'):
+        answer = v[0]
+    elif which == 'parallel-cointerior':
+        answer = 180 - v[0]
+    elif which == 'polygon-interior-sum':
+        answer = 180 * (v[0] - 2)
+    elif which == 'polygon-exterior':
+        answer = 360 / v[0]
+    elif which == 'polygon-each-interior':
+        answer = 180 * (v[0] - 2) / v[0]
+    elif which == 'sector-arc':
+        answer = 2 * pi * v[0] * v[1] / 360
+    elif which == 'sector-area':
+        answer = pi * v[0] ** 2 * v[1] / 360
+    elif which == 'inscribed-angle':
+        answer = v[0] / 2
+    elif which == 'inscribed-diameter':
+        answer = 90 - v[0]
+        if answer <= 0:
+            raise ValueError('the angle must be under 90')
+    elif which == 'similar-side':
+        answer = v[1] * v[2] / v[0]
+    elif which == 'similar-area':
+        answer = v[2] * (v[1] / v[0]) ** 2
+    elif which == 'power-chord':
+        answer = v[0] * v[1] / v[2]
+    elif which == 'distance':
+        answer = sqrt((v[2] - v[0]) ** 2 + (v[3] - v[1]) ** 2)
+        if answer == 0:
+            raise ValueError('the points must differ')
+    elif which == 'centroid':
+        answer = Tuple((v[0] + v[2] + v[4]) / 3, (v[1] + v[3] + v[5]) / 3)
+    elif which == 'clock-read':
+        if not (v[0].is_Integer and 1 <= v[0] <= 12 and v[1].is_Integer and 0 <= v[1] < 60):
+            raise ValueError('a clock time is h (1-12) and m (0-59)')
+        answer = Tuple(v[0], v[1])
+    elif which == 'fraction-shaded':
+        if not (v[0].is_Integer and v[1].is_Integer and 1 <= v[1] <= v[0]):
+            raise ValueError('parts and shaded must be whole numbers, shaded <= parts')
+        answer = v[1] / v[0]
+    else:
+        raise ValueError(f'unknown figure variant {which!r}')
+    return answer, choices
+
+
 def divmod_answer(problem):
     """The quotient and the remainder of a ÷ b (whole numbers, b > 0)."""
     a, b = pair(problem['question'])
@@ -1335,6 +1424,8 @@ def _formula(problem):
         return graph(problem)
     if kind == 'divmod':
         return divmod_answer(problem)
+    if kind == 'figure':
+        return figure(problem)
     if kind == 'classify':
         return classify(problem)
     if kind == 'mvt':
@@ -1473,7 +1564,7 @@ def check_steps(problem, answer):
     every solution ("x = 2, x = -2" for each root in turn); tangent, every line
     holds on the tangent line; extremum, every line holds at some critical point."""
     kind, steps = problem['kind'], problem['steps']
-    if kind in ('ode', 'sets', 'logic', 'mapping') and steps == []:
+    if kind in ('ode', 'sets', 'logic', 'mapping', 'figure') and steps == []:
         return    # an initial value problem's working is not a chain of equal expressions
     if not (isinstance(steps, list) and 1 <= len(steps) <= 6 and all(isinstance(line, str) and line.strip() for line in steps)):
         raise ValueError('steps must be 1 to 6 non-empty lines')
@@ -1718,6 +1809,11 @@ UNITS = {
     'sets': ('math-sets.json', formula),
     'logic': ('math-logic.json', formula),
     'mapping': ('math-mapping.json', formula),
+    'shapes': ('math-shapes.json', formula),
+    'angles': ('math-angles.json', formula),
+    'circle-solid': ('math-circle-solid.json', formula),
+    'similarity': ('math-similarity.json', formula),
+    'triangle-properties': ('math-triangle-properties.json', formula),
     'univ-calculus': ('math-univ-calculus.json', formula),
     'factorization': ('math-factorization.json', factorization),
     'pythagoras': ('math-pythagoras.json', pythagoras),

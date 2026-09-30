@@ -4,6 +4,7 @@ import { expressionQuestions } from './math-expression-questions';
 import MathFigure from './math-figure';
 import MathColumn from './math-column';
 import MathGraph from './math-graph';
+import MathShape from './math-shape';
 import type { MathSetQuestion } from './math-set-quiz';
 import { MathTex } from './math-tex';
 import styles from './math-questions.module.css';
@@ -58,7 +59,7 @@ export function useMathQuestions(kind: MathKind | undefined, problems: readonly 
           id, answerIndex,
           prompt: payload.word ? <p>{payload.word[locale].prompt}</p> : <>
             <p>{formulaInstructionLine(payload, tq)}</p>
-            {payload.kind === 'graph' ? <MathGraph which={payload.which!} question={payload.question} /> : formulaQuestionTex(payload) ? <MathTex tex={formulaQuestionTex(payload)} block /> : null}
+            {payload.kind === 'graph' ? <MathGraph which={payload.which!} question={payload.question} /> : payload.kind === 'figure' ? <MathShape which={payload.which!} question={payload.question} /> : formulaQuestionTex(payload) ? <MathTex tex={formulaQuestionTex(payload)} block /> : null}
           </>,
           choices: payload.choices.map(choice => payload.word ? <><MathTex tex={formulaChoiceTex(payload, choice)} />{payload.word[locale].unit}</> : formulaChoiceLabel(payload, choice) ? tq(formulaChoiceLabel(payload, choice) as Parameters<FormulaT>[0]) : <MathTex tex={formulaChoiceTex(payload, choice)} />),
           explanation: <>

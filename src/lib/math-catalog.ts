@@ -61,7 +61,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'large-numbers', sets: [{ id: '1', rule: 'pv-large-a' }] },
   ] },
   { id: 'time', domain: 'geometry', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
-    { id: 'reading', sets: [{ id: '1' }] },
+    { id: 'reading', sets: [{ id: '1', rule: 'fig-clock' }] },
     { id: 'elapsed', sets: [{ id: '1', rule: 'elapsed-a' }] },
   ] },
   { id: 'decimal', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
@@ -71,8 +71,8 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'mul-div', sets: [{ id: '1', rule: 'decimal-mul-div-a' }] },
   ] },
   { id: 'fraction', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
-    { id: 'unit-fractions', sets: [{ id: '1' }] },
-    { id: 'meaning', sets: [{ id: '1' }] },
+    { id: 'unit-fractions', sets: [{ id: '1', rule: 'fig-fraction-unit' }] },
+    { id: 'meaning', sets: [{ id: '1', rule: 'fig-fraction' }] },
     { id: 'simplify', sets: [{ id: '1', rule: 'fraction-simplify-a' }] },
     { id: 'fraction-decimal', sets: [{ id: '1', rule: 'fraction-decimal-a' }] },
     { id: 'add-sub-like', sets: [{ id: '1', rule: 'fraction-like-a' }] },
@@ -98,14 +98,14 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'length-capacity', sets: [{ id: '1', rule: 'measure-length-a' }] },
     { id: 'weight', sets: [{ id: '1', rule: 'measure-weight-a' }] },
     { id: 'area-units', sets: [{ id: '1', rule: 'measure-area-a' }] },
-    { id: 'rect-area', sets: [{ id: '1' }] },
-    { id: 'area', sets: [{ id: '1' }] },
-    { id: 'volume', sets: [{ id: '1' }] },
-    { id: 'circumference', sets: [{ id: '1' }] },
-    { id: 'circle-area', sets: [{ id: '1' }] },
-    { id: 'prism-volume', sets: [{ id: '1' }] },
+    { id: 'rect-area', sets: [{ id: '1', rule: 'fig-rect-area' }] },
+    { id: 'area', sets: [{ id: '1', rule: 'fig-area' }] },
+    { id: 'volume', sets: [{ id: '1', rule: 'fig-volume' }] },
+    { id: 'circumference', sets: [{ id: '1', rule: 'fig-circumference' }] },
+    { id: 'circle-area', sets: [{ id: '1', rule: 'fig-circle-area' }] },
+    { id: 'prism-volume', sets: [{ id: '1', rule: 'fig-prism-volume' }] },
   ] },
-  { id: 'shapes', domain: 'geometry', stage: 'elementary', status: 'comingSoon', items: [
+  { id: 'shapes', domain: 'geometry', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
     { id: 'solids-basic', sets: [{ id: '1' }] },
     { id: 'basic-shapes', sets: [{ id: '1' }] },
     { id: 'boxes', sets: [{ id: '1' }] },
@@ -119,7 +119,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'cuboids', sets: [{ id: '1' }] },
     { id: 'congruent', sets: [{ id: '1' }] },
     { id: 'congruent-drawing', sets: [{ id: '1' }] },
-    { id: 'angle-sum', sets: [{ id: '1' }] },
+    { id: 'angle-sum', sets: [{ id: '1', rule: 'fig-angle-sum' }] },
     { id: 'prisms', sets: [{ id: '1' }] },
   ] },
   { id: 'symmetry', domain: 'geometry', stage: 'elementary', status: 'comingSoon', items: [
@@ -362,23 +362,23 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'simple-proportion', sets: [{ id: '1', rule: 'simple-proportion-a' }] },
     { id: 'proportion', sets: [{ id: '1', rule: 'proportion-a' }] },
   ] },
-  { id: 'angles', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
-    { id: 'parallel', sets: [{ id: '1' }] },
-    { id: 'polygon', sets: [{ id: '1' }] },
+  { id: 'angles', domain: 'geometry', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'parallel', sets: [{ id: '1', rule: 'fig-parallel' }] },
+    { id: 'polygon', sets: [{ id: '1', rule: 'fig-polygon' }] },
   ] },
   { id: 'congruence', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
     { id: 'conditions', sets: [{ id: '1' }] },
     { id: 'triangles', sets: [{ id: '1' }] },
     { id: 'parallelogram', sets: [{ id: '1' }] },
   ] },
-  { id: 'circle-solid', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
+  { id: 'circle-solid', domain: 'geometry', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'solid-views', sets: [{ id: '1' }] },
-    { id: 'sector', sets: [{ id: '1' }] },
-    { id: 'solid', sets: [{ id: '1' }] },
+    { id: 'sector', sets: [{ id: '1', rule: 'fig-sector' }] },
+    { id: 'solid', sets: [{ id: '1', rule: 'fig-solid' }] },
   ] },
-  { id: 'similarity', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
-    { id: 'similarity', sets: [{ id: '1' }] },
-    { id: 'inscribed-angle', sets: [{ id: '1' }] },
+  { id: 'similarity', domain: 'geometry', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'similarity', sets: [{ id: '1', rule: 'fig-similar' }] },
+    { id: 'inscribed-angle', sets: [{ id: '1', rule: 'fig-inscribed' }] },
   ] },
   { id: 'transformations', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
     { id: 'moves', sets: [{ id: '1' }] },
@@ -395,9 +395,9 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'cosine-law', sets: [{ id: '1', rule: 'cosine-law-a' }] },
     { id: 'area', sets: [{ id: '1', rule: 'triangle-area-a' }] },
   ] },
-  { id: 'triangle-properties', domain: 'geometry', stage: 'high', status: 'comingSoon', items: [
-    { id: 'centers', sets: [{ id: '1' }] },
-    { id: 'power', sets: [{ id: '1' }] },
+  { id: 'triangle-properties', domain: 'geometry', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'centers', sets: [{ id: '1', rule: 'fig-centroid' }] },
+    { id: 'power', sets: [{ id: '1', rule: 'fig-power' }] },
     { id: 'ceva-menelaus', sets: [{ id: '1' }] },
     { id: 'polyhedra', sets: [{ id: '1' }] },
     { id: 'construction', sets: [{ id: '1' }] },

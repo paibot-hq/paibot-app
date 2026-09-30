@@ -30,6 +30,44 @@ export function graphReading(p) {
   return `曲線上の点（${p.which === 'trig' ? 'x = kπ/4' : 'x を0.5刻み'}、y は小数第2位までの近似値）: ${points.map(([x, y]) => `(${p.which === 'trig' ? `${round(x / Math.PI)}π` : x}, ${round(y)})`).join(' ')}`;
 }
 
+// What a figure problem's drawing shows, in words, for the blind review (single-quoted parts are the marked values).
+export function figureReading(p) {
+  const v = p.question.split(',').map(part => evalExpression(part));
+  switch (p.which) {
+    case 'rect-area': return `長方形。横 ${v[0]} cm、縦 ${v[1]} cm。`;
+    case 'tri-area': return `三角形。底辺 ${v[0]} cm、底辺に対する高さ ${v[1]} cm。`;
+    case 'para-area': return `平行四辺形。底辺 ${v[0]} cm、高さ ${v[1]} cm。`;
+    case 'trap-area': return `台形。上底 ${v[0]} cm、下底 ${v[1]} cm、高さ ${v[2]} cm。`;
+    case 'cuboid-volume': return `直方体。横 ${v[0]} cm、奥行き ${v[1]} cm、高さ ${v[2]} cm。`;
+    case 'circle-circumference': case 'circle-area': return `円。半径 ${v[0]} cm。${v[1] ? `円周率は ${v[1]}。` : ''}`;
+    case 'prism-volume': return `三角柱。底面は底辺 ${v[0]} cm、高さ ${v[1]} cm の三角形で、柱の高さ（長さ）は ${v[2]} cm。`;
+    case 'cylinder-volume': return `円柱。底面の半径 ${v[0]} cm、高さ ${v[1]} cm。${v[2] ? `円周率は ${v[2]}。` : ''}`;
+    case 'cone-volume': return `円錐。底面の半径 ${v[0]} cm、高さ ${v[1]} cm。`;
+    case 'sphere-volume': case 'sphere-surface': return `球。半径 ${v[0]} cm。`;
+    case 'angle-triangle': return `三角形。2つの角が ${v[0]}°、${v[1]}°。残りの角が x。`;
+    case 'angle-quad': return `四角形。3つの角が ${v[0]}°、${v[1]}°、${v[2]}°。残りの角が x。`;
+    case 'parallel-vertical': return `平行な2直線 ℓ、m に1本の直線が交わっている。上の交点で、右上の角が ${v[0]}°。同じ交点の対頂角（左下の角）が x。`;
+    case 'parallel-corresponding': return `平行な2直線 ℓ、m に1本の直線が交わっている。上の交点の右上の角が ${v[0]}°。下の交点の右上の角（同位角）が x。`;
+    case 'parallel-alternate': return `平行な2直線 ℓ、m に1本の直線が交わっている。上の交点の、直線 ℓ の下側で交わる直線の右側の角が ${v[0]}°。下の交点の、直線 m の上側で交わる直線の左側の角（錯角）が x。`;
+    case 'parallel-cointerior': return `平行な2直線 ℓ、m に1本の直線が交わっている。上の交点の、ℓ の下側で交わる直線の右側の角が ${v[0]}°。下の交点の、m の上側で交わる直線の右側の角（同側内角）が x。`;
+    case 'polygon-interior-sum': return `${v[0]} 角形。内角の和を S とする。`;
+    case 'polygon-exterior': return `正 ${v[0]} 角形。1つの頂点での外角が x。`;
+    case 'polygon-each-interior': return `正 ${v[0]} 角形。1つの内角が x。`;
+    case 'sector-arc': case 'sector-area': return `おうぎ形。半径 ${v[0]} cm、中心角 ${v[1]}°。`;
+    case 'inscribed-angle': return `円 O の円周上に点 A、B、C。弧 AB（C を含まない側）に対する中心角 ∠AOB が ${v[0]}°。円周角 ∠ACB が x。`;
+    case 'inscribed-same-arc': return `円周上の4点 A、B、C、D。C、D は弧 AB に対して同じ側にある。∠ACB = ${v[0]}°、∠ADB = x。`;
+    case 'inscribed-diameter': return `AB は円の直径、C は円周上の点。∠CAB = ${v[0]}°、∠ABC = x。`;
+    case 'similar-side': return `相似な△ABC と△DEF。AB = ${v[0]}、DE = ${v[1]}（対応する辺）、BC = ${v[2]}、EF = x（対応する辺）。`;
+    case 'similar-area': return `相似な2つの三角形。対応する辺が ${v[0]} と ${v[1]}、小さいほうの面積 ${v[2]}。大きいほうの面積を求める。`;
+    case 'power-chord': return `円の2つの弦 AB、CD が内部の点 P で交わる。PA = ${v[0]}、PB = ${v[1]}、PC = ${v[2]}、PD = x。`;
+    case 'distance': return `座標平面上の2点 A(${v[0]}, ${v[1]})、B(${v[2]}, ${v[3]})。`;
+    case 'centroid': return `座標平面上の三角形 ABC。A(${v[0]}, ${v[1]})、B(${v[2]}, ${v[3]})、C(${v[4]}, ${v[5]})。`;
+    case 'clock-read': return `アナログ時計。短針は ${v[0]} と ${v[0] % 12 + 1} の間（${v[0]}時${v[1]}分の位置）、長針は ${v[1] / 5} を指している（${v[1]}分）。`;
+    case 'fraction-shaded': return `長方形を横に ${v[0]} 等分し、そのうち ${v[1]} こを色でぬっている。`;
+    default: throw new Error(`No reading for figure ${p.which}`);
+  }
+}
+
 const FORMULA_JA = JSON.parse(readFileSync(new URL('../messages/ja.json', import.meta.url), 'utf8')).App.math.formulaQuiz;
 // The Japanese instruction line as learners read it, with its formulas as TeX.
 const instructionJa = p => { const { key, tex } = formulaInstruction(p); return FORMULA_JA[key].replace(/<(\w+)><\/\1>/g, (_, tag) => `$${tex[tag]}$`); };
@@ -135,6 +173,7 @@ export function blindProblem(unit, p) {
     id: p.id, type: 'formula', kind: 'graph', instruction: instructionJa(p), figure: graphReading(p),
     choices: p.choices.map(choice => formulaChoiceTex(p, choice)),
   };
+  if (p.kind === 'figure') return { id: p.id, type: 'formula', kind: 'figure', instruction: instructionJa(p), figure: figureReading(p), choices: p.choices.map(choice => formulaChoiceTex(p, choice)) };
   if (isFormulaUnit(unit)) return {
     id: p.id, type: 'formula', kind: p.kind, instruction: instructionJa(p),
     question: formulaQuestionTex(p), given: p.given && p.kind !== 'sets' ? solutionTex(p.given, 'x') : undefined,

@@ -106,9 +106,19 @@
 //   mapping    by `which`: type ("A; B; 1>2, 2>1": f(1) = 2, ...; choices injective, surjective, bijective,
 //              neither), relation ("A; 1~1, 1~2": choices reflexive, symmetric, transitive, equivalence = which
 //              property fails, or that it is an equivalence relation)
+//   figure     a figure drawn (components/math-shape.tsx) from the hidden numbers in `question`, by `which` (lengths in cm,
+//              angles in degrees): rect-area "w, h", tri-area "b, h", para-area "b, h", trap-area "a, b, h", cuboid-volume
+//              "w, d, h", circle-circumference and circle-area "r", prism-volume "b, h, length" (triangular prism),
+//              cylinder-volume "r, h", cone-volume "r, h", sphere-volume and sphere-surface "r", angle-triangle "a, b" (the
+//              third angle), angle-quad "a, b, c", parallel-vertical / -corresponding / -alternate / -cointerior "a" (the
+//              angle x), polygon-interior-sum, -exterior, -each-interior "n" (a regular n-gon), sector-arc and sector-area
+//              "r, angle", inscribed-angle "central angle", inscribed-same-arc "a", inscribed-diameter "a" (the other base
+//              angle), similar-side "a, b, c" (x = b c / a), similar-area "m, n, S", power-chord "a, b, c" (PD), distance
+//              "x1, y1, x2, y2", centroid "x1, y1, x2, y2, x3, y3" (choices points), clock-read "h, m" (choices "h, m"),
+//              fraction-shaded "parts, shaded" (the shaded fraction)
 //   identity   an equation in x with unknown constants; choices "a = 1, b = 2" make it an identity in x
 export type FormulaStyle = 'times' | 'box' | 'ratio' | 'mixed';
-export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity' | 'inequality' | 'induction' | 'inference' | 'region' | 'graph' | 'number' | 'stat' | 'function' | 'rearrange' | 'quadratic' | 'triangle' | 'eigenvector' | 'ode' | 'conic' | 'divmod' | 'classify' | 'mvt' | 'sets' | 'logic' | 'mapping';
+export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity' | 'inequality' | 'induction' | 'inference' | 'region' | 'graph' | 'number' | 'stat' | 'function' | 'rearrange' | 'quadratic' | 'triangle' | 'eigenvector' | 'ode' | 'conic' | 'divmod' | 'classify' | 'mvt' | 'sets' | 'logic' | 'mapping' | 'figure';
 
 export interface FormulaPayload {
   kind: FormulaKind;
@@ -559,7 +569,7 @@ function questionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & {
       return `\\sum_{k=1}^{n} ${body} = ${expressionTex(f)}`;
     }
     case 'region': return inequalityTex(p.question);
-    case 'graph': return '';
+    case 'graph': case 'figure': return '';
     case 'inference': {
       const v = list(splitTop(p.question, ';')[0]);
       if (p.which === 'mean-interval') return `\\bar{x} = ${v[0]},\\ \\sigma = ${v[1]},\\ n = ${v[2]}`;
@@ -587,6 +597,7 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
     case 'divmod': return { key: 'divmod', tex: {} };
     case 'classify': return { key: `classify${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
     case 'mvt': return { key: 'mvt', tex: {} };
+    case 'figure': return { key: `figure${p.which!.replace(/(^|-)(\w)/g, (_, _d, c: string) => c.toUpperCase())}`, tex: /^polygon-/.test(p.which!) ? { n: p.question } : {} };
     case 'sets': return { key: `set${p.which!.replace(/(^|-)(\w)/g, (_, _d, c: string) => c.toUpperCase())}`, tex: {} };
     case 'logic': return { key: `logic${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
     case 'mapping': return { key: `mapping${p.which![0].toUpperCase()}${p.which!.slice(1).replace(/-(\w)/g, (_, c: string) => c.toUpperCase())}`, tex: {} };
@@ -661,6 +672,11 @@ function choiceTex(p: Pick<FormulaPayload, 'kind' | 'question'> & { which?: stri
   if (p.kind === 'conic') {
     if (['parabola-focus', 'polar-to-xy', 'xy-to-polar'].includes(p.which ?? '')) return `\\left(${list(choice).join(', ')}\\right)`;
     if (['parabola-directrix', 'parabola-equation'].includes(p.which ?? '')) return statementTex(choice);
+  }
+  if (p.kind === 'figure') {
+    if (p.which === 'clock-read') { const [h, m] = list(choice); return `\\mathrm{${h}:${m.padStart(2, '0')}}`; }
+    if (p.which === 'centroid') return `\\left(${list(choice).join(', ')}\\right)`;
+    if (/^(angle|parallel|polygon|inscribed|sector-angle)-/.test(p.which ?? '')) return `${expressionTex(choice)}^{\\circ}`;
   }
   if (p.kind === 'degree') return `${expressionTex(choice)}^{\\circ}`;
   if (p.kind === 'geometry') return p.which?.startsWith('line-') ? solutionTex(choice, 'y') : /^(circle|locus)-/.test(p.which ?? '') ? statementTex(choice) : expressionTex(choice);

@@ -465,6 +465,546 @@
       ],
       "choices": ["450", "550", "45", "270"],
       "answerIndex": 0
+    },
+    {
+      "id": "measurement-016",
+      "item": "rect-area",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "10, 2",
+      "given": null,
+      "which": "rect-area",
+      "steps": [
+        "10*2 = 20"
+      ],
+      "choices": ["30", "24", "12", "20"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-017",
+      "item": "rect-area",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 8",
+      "given": null,
+      "which": "rect-area",
+      "steps": [
+        "4*8 = 32"
+      ],
+      "choices": ["12", "36", "24", "32"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-018",
+      "item": "rect-area",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 9",
+      "given": null,
+      "which": "rect-area",
+      "steps": [
+        "6*9 = 54"
+      ],
+      "choices": ["60", "15", "54", "30"],
+      "answerIndex": 2
+    },
+    {
+      "id": "measurement-019",
+      "item": "rect-area",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5, 6",
+      "given": null,
+      "which": "rect-area",
+      "steps": [
+        "5*6 = 30"
+      ],
+      "choices": ["22", "11", "30", "35"],
+      "answerIndex": 2
+    },
+    {
+      "id": "measurement-020",
+      "item": "rect-area",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7, 6",
+      "given": null,
+      "which": "rect-area",
+      "steps": [
+        "7*6 = 42"
+      ],
+      "choices": ["42", "13", "49", "26"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-021",
+      "item": "area",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "10, 7",
+      "given": null,
+      "which": "tri-area",
+      "steps": [
+        "10*7/2 = 35"
+      ],
+      "choices": ["45", "35", "70", "17"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-022",
+      "item": "area",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "10, 5",
+      "given": null,
+      "which": "para-area",
+      "steps": [
+        "10*5 = 50"
+      ],
+      "choices": ["50", "60", "25", "15"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-023",
+      "item": "area",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7, 10, 6",
+      "given": null,
+      "which": "trap-area",
+      "steps": [
+        "(7 + 10)*6/2 = 51"
+      ],
+      "choices": ["70", "30", "102", "51"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-024",
+      "item": "area",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "12, 8",
+      "given": null,
+      "which": "tri-area",
+      "steps": [
+        "12*8/2 = 48"
+      ],
+      "choices": ["60", "96", "20", "48"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-025",
+      "item": "area",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7, 12, 6",
+      "given": null,
+      "which": "trap-area",
+      "steps": [
+        "(7 + 12)*6/2 = 57"
+      ],
+      "choices": ["57", "36", "114", "84"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-026",
+      "item": "volume",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 9, 8",
+      "given": null,
+      "which": "cuboid-volume",
+      "steps": [
+        "3*9*8 = 216"
+      ],
+      "choices": ["216", "27", "246", "20"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-027",
+      "item": "volume",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7, 6, 2",
+      "given": null,
+      "which": "cuboid-volume",
+      "steps": [
+        "7*6*2 = 84"
+      ],
+      "choices": ["136", "15", "84", "42"],
+      "answerIndex": 2
+    },
+    {
+      "id": "measurement-028",
+      "item": "volume",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 4, 5",
+      "given": null,
+      "which": "cuboid-volume",
+      "steps": [
+        "6*4*5 = 120"
+      ],
+      "choices": ["15", "24", "148", "120"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-029",
+      "item": "volume",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 2, 2",
+      "given": null,
+      "which": "cuboid-volume",
+      "steps": [
+        "6*2*2 = 24"
+      ],
+      "choices": ["56", "24", "10", "12"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-030",
+      "item": "volume",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5, 2, 4",
+      "given": null,
+      "which": "cuboid-volume",
+      "steps": [
+        "5*2*4 = 40"
+      ],
+      "choices": ["10", "40", "76", "11"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-031",
+      "item": "circumference",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "10, 3.14",
+      "given": null,
+      "which": "circle-circumference",
+      "steps": [
+        "2*10*3.14 = 62.8"
+      ],
+      "choices": ["314", "62.8", "31.4", "125.6"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-032",
+      "item": "circumference",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7, 3.14",
+      "given": null,
+      "which": "circle-circumference",
+      "steps": [
+        "2*7*3.14 = 43.96"
+      ],
+      "choices": ["153.86", "43.96", "87.92", "21.98"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-033",
+      "item": "circumference",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "11, 3.14",
+      "given": null,
+      "which": "circle-circumference",
+      "steps": [
+        "2*11*3.14 = 69.08"
+      ],
+      "choices": ["138.16", "69.08", "34.54", "379.94"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-034",
+      "item": "circumference",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "9, 3.14",
+      "given": null,
+      "which": "circle-circumference",
+      "steps": [
+        "2*9*3.14 = 56.52"
+      ],
+      "choices": ["113.04", "254.34", "28.26", "56.52"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-035",
+      "item": "circumference",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 3.14",
+      "given": null,
+      "which": "circle-circumference",
+      "steps": [
+        "2*3*3.14 = 18.84"
+      ],
+      "choices": ["9.42", "18.84", "28.26", "37.68"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-036",
+      "item": "circle-area",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "12, 3.14",
+      "given": null,
+      "which": "circle-area",
+      "steps": [
+        "12*12*3.14 = 452.16"
+      ],
+      "choices": ["75.36", "452.16", "904.32", "37.68"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-037",
+      "item": "circle-area",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 3.14",
+      "given": null,
+      "which": "circle-area",
+      "steps": [
+        "3*3*3.14 = 28.26"
+      ],
+      "choices": ["56.52", "18.84", "28.26", "9.42"],
+      "answerIndex": 2
+    },
+    {
+      "id": "measurement-038",
+      "item": "circle-area",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 3.14",
+      "given": null,
+      "which": "circle-area",
+      "steps": [
+        "6*6*3.14 = 113.04"
+      ],
+      "choices": ["226.08", "113.04", "18.84", "37.68"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-039",
+      "item": "circle-area",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 3.14",
+      "given": null,
+      "which": "circle-area",
+      "steps": [
+        "4*4*3.14 = 50.24"
+      ],
+      "choices": ["12.56", "50.24", "100.48", "25.12"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-040",
+      "item": "circle-area",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "11, 3.14",
+      "given": null,
+      "which": "circle-area",
+      "steps": [
+        "11*11*3.14 = 379.94"
+      ],
+      "choices": ["379.94", "69.08", "759.88", "34.54"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-041",
+      "item": "prism-volume",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8, 7, 4",
+      "given": null,
+      "which": "prism-volume",
+      "steps": [
+        "8*7/2*4 = 112"
+      ],
+      "choices": ["112", "224", "28", "30"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-042",
+      "item": "prism-volume",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 5, 8",
+      "given": null,
+      "which": "prism-volume",
+      "steps": [
+        "6*5/2*8 = 120"
+      ],
+      "choices": ["120", "44", "15", "240"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-043",
+      "item": "prism-volume",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8, 8, 6",
+      "given": null,
+      "which": "prism-volume",
+      "steps": [
+        "8*8/2*6 = 192"
+      ],
+      "choices": ["192", "384", "32", "48"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-044",
+      "item": "prism-volume",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 8, 3.14",
+      "given": null,
+      "which": "cylinder-volume",
+      "steps": [
+        "4*4*8*3.14 = 401.92"
+      ],
+      "choices": ["100.48", "133.97", "200.96", "401.92"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-045",
+      "item": "prism-volume",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2, 7, 3.14",
+      "given": null,
+      "which": "cylinder-volume",
+      "steps": [
+        "2*2*7*3.14 = 87.92"
+      ],
+      "choices": ["43.96", "87.92", "29.3", "175.84"],
+      "answerIndex": 1
     }
   ]
 }

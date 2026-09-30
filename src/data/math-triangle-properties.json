@@ -1,0 +1,175 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "triangle-properties-001",
+      "item": "centers",
+      "setId": "1",
+      "position": 1,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "-3, -2, -2, 6, 2, -1",
+      "given": null,
+      "which": "centroid",
+      "steps": [],
+      "choices": ["0,   1", "-1,   0", "-1,   1", "1,   -1"],
+      "answerIndex": 2
+    },
+    {
+      "id": "triangle-properties-002",
+      "item": "centers",
+      "setId": "1",
+      "position": 2,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 6, -3, -4, 3, 4",
+      "given": null,
+      "which": "centroid",
+      "steps": [],
+      "choices": ["6,   6", "2,   2", "2,   1", "3,   2"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-properties-003",
+      "item": "centers",
+      "setId": "1",
+      "position": 3,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5, 8, 8, 7, 2, 3",
+      "given": null,
+      "which": "centroid",
+      "steps": [],
+      "choices": ["5,   5", "5,   6", "6,   5", "6,   6"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-properties-004",
+      "item": "centers",
+      "setId": "1",
+      "position": 4,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8, 6, -3, 2, -2, 1",
+      "given": null,
+      "which": "centroid",
+      "steps": [],
+      "choices": ["1,   2", "1,   3", "3,   1", "2,   3"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-properties-005",
+      "item": "centers",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "0, -3, -4, 7, -2, 8",
+      "given": null,
+      "which": "centroid",
+      "steps": [],
+      "choices": ["-2,   4", "-1,   4", "4,   -2", "-2,   2"],
+      "answerIndex": 0
+    },
+    {
+      "id": "triangle-properties-006",
+      "item": "power",
+      "setId": "1",
+      "position": 1,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 9, 3",
+      "given": null,
+      "which": "power-chord",
+      "steps": [
+        "4*9/3 = 12"
+      ],
+      "choices": ["10", "1", "12", "108"],
+      "answerIndex": 2
+    },
+    {
+      "id": "triangle-properties-007",
+      "item": "power",
+      "setId": "1",
+      "position": 2,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 9, 3",
+      "given": null,
+      "which": "power-chord",
+      "steps": [
+        "6*9/3 = 18"
+      ],
+      "choices": ["18", "162", "12", "2"],
+      "answerIndex": 0
+    },
+    {
+      "id": "triangle-properties-008",
+      "item": "power",
+      "setId": "1",
+      "position": 3,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 7, 2",
+      "given": null,
+      "which": "power-chord",
+      "steps": [
+        "4*7/2 = 14"
+      ],
+      "choices": ["1", "14", "9", "56"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-properties-009",
+      "item": "power",
+      "setId": "1",
+      "position": 4,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8, 7, 4",
+      "given": null,
+      "which": "power-chord",
+      "steps": [
+        "8*7/4 = 14"
+      ],
+      "choices": ["224", "4", "14", "11"],
+      "answerIndex": 2
+    },
+    {
+      "id": "triangle-properties-010",
+      "item": "power",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 6, 2",
+      "given": null,
+      "which": "power-chord",
+      "steps": [
+        "6*6/2 = 18"
+      ],
+      "choices": ["2", "10", "72", "18"],
+      "answerIndex": 3
+    }
+  ]
+}

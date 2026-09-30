@@ -1,0 +1,185 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "similarity-001",
+      "item": "similarity",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2, 6, 5",
+      "given": null,
+      "which": "similar-side",
+      "steps": [
+        "6*5/2 = 15"
+      ],
+      "choices": ["12", "1", "15", "9"],
+      "answerIndex": 2
+    },
+    {
+      "id": "similarity-002",
+      "item": "similarity",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5, 11, 5",
+      "given": null,
+      "which": "similar-side",
+      "steps": [
+        "11*5/5 = 11"
+      ],
+      "choices": ["55", "16", "11", "2"],
+      "answerIndex": 2
+    },
+    {
+      "id": "similarity-003",
+      "item": "similarity",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2, 6, 9",
+      "given": null,
+      "which": "similar-side",
+      "steps": [
+        "6*9/2 = 27"
+      ],
+      "choices": ["27", "3", "12", "13"],
+      "answerIndex": 0
+    },
+    {
+      "id": "similarity-004",
+      "item": "similarity",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "1, 2, 12",
+      "given": null,
+      "which": "similar-area",
+      "steps": [
+        "12*(2/1)^2 = 48"
+      ],
+      "choices": ["12", "48", "16", "24"],
+      "answerIndex": 1
+    },
+    {
+      "id": "similarity-005",
+      "item": "similarity",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "1, 5, 14",
+      "given": null,
+      "which": "similar-area",
+      "steps": [
+        "14*(5/1)^2 = 350"
+      ],
+      "choices": ["56", "350", "39", "70"],
+      "answerIndex": 1
+    },
+    {
+      "id": "similarity-006",
+      "item": "inscribed-angle",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "140",
+      "given": null,
+      "which": "inscribed-angle",
+      "steps": [
+        "140/2 = 70"
+      ],
+      "choices": ["280", "110", "140", "70"],
+      "answerIndex": 3
+    },
+    {
+      "id": "similarity-007",
+      "item": "inscribed-angle",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "35",
+      "given": null,
+      "which": "inscribed-same-arc",
+      "steps": [
+        "35 = 35"
+      ],
+      "choices": ["70", "17", "35", "145"],
+      "answerIndex": 2
+    },
+    {
+      "id": "similarity-008",
+      "item": "inscribed-angle",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "50",
+      "given": null,
+      "which": "inscribed-diameter",
+      "steps": [
+        "90 - 50 = 40"
+      ],
+      "choices": ["40", "50", "80", "130"],
+      "answerIndex": 0
+    },
+    {
+      "id": "similarity-009",
+      "item": "inscribed-angle",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "100",
+      "given": null,
+      "which": "inscribed-angle",
+      "steps": [
+        "100/2 = 50"
+      ],
+      "choices": ["130", "100", "50", "200"],
+      "answerIndex": 2
+    },
+    {
+      "id": "similarity-010",
+      "item": "inscribed-angle",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "60",
+      "given": null,
+      "which": "inscribed-diameter",
+      "steps": [
+        "90 - 60 = 30"
+      ],
+      "choices": ["30", "150", "60", "120"],
+      "answerIndex": 0
+    }
+  ]
+}
