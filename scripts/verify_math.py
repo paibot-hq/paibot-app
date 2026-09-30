@@ -1558,6 +1558,23 @@ def figure(problem):
     return answer, choices
 
 
+def statement(problem):
+    """A problem in words (a construction, a missing step of a proof): only its shape is checked here;
+    the blind review decides whether the marked option is the right one."""
+    shown = problem.get('statement')
+    if not isinstance(shown, dict) or set(shown) != {'ja', 'en', 'zh'}:
+        raise ValueError('statement needs ja, en and zh')
+    for locale, text in shown.items():
+        options = text.get('options')
+        if not (isinstance(text.get('prompt'), str) and text['prompt'].strip() and isinstance(text.get('explanation'), str) and text['explanation'].strip()):
+            raise ValueError(f'{locale}: a prompt and an explanation')
+        if not (isinstance(options, list) and len(options) == 4 and all(isinstance(o, str) and o.strip() for o in options) and len(set(options)) == 4):
+            raise ValueError(f'{locale}: four different options')
+    if problem['choices'] != ['1', '2', '3', '4']:
+        raise ValueError('statement choices are "1" to "4"')
+    return Integer(problem['answerIndex'] + 1), [Integer(i) for i in range(1, 5)]
+
+
 def divmod_answer(problem):
     """The quotient and the remainder of a ÷ b (whole numbers, b > 0)."""
     a, b = pair(problem['question'])
@@ -1590,6 +1607,8 @@ def _formula(problem):
         return divmod_answer(problem)
     if kind == 'figure':
         return figure(problem)
+    if kind == 'statement':
+        return statement(problem)
     if kind == 'classify':
         return classify(problem)
     if kind == 'mvt':
@@ -1728,7 +1747,7 @@ def check_steps(problem, answer):
     every solution ("x = 2, x = -2" for each root in turn); tangent, every line
     holds on the tangent line; extremum, every line holds at some critical point."""
     kind, steps = problem['kind'], problem['steps']
-    if kind in ('ode', 'sets', 'logic', 'mapping', 'figure') and steps == []:
+    if kind in ('ode', 'sets', 'logic', 'mapping', 'figure', 'statement') and steps == []:
         return    # an initial value problem's working is not a chain of equal expressions
     if not (isinstance(steps, list) and 1 <= len(steps) <= 6 and all(isinstance(line, str) and line.strip() for line in steps)):
         raise ValueError('steps must be 1 to 6 non-empty lines')
@@ -1974,6 +1993,8 @@ UNITS = {
     'logic': ('math-logic.json', formula),
     'mapping': ('math-mapping.json', formula),
     'shapes': ('math-shapes.json', formula),
+    'geometric-reasoning': ('math-geometric-reasoning.json', formula),
+    'pythagoras-applications': ('math-pythagoras-applications.json', formula),
     'symmetry': ('math-symmetry.json', formula),
     'graphs': ('math-graphs.json', formula),
     'transformations': ('math-transformations.json', formula),

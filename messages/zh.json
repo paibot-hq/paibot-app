@@ -1483,7 +1483,13 @@
               "title": "求边长",
               "description": "用整数和根式表示直角三角形的边长。",
               "summary": "利用勾股定理求直角三角形的边长。"
-            },
+            }
+          }
+        },
+        "pythagoras-applications": {
+          "title": "勾股定理的应用",
+          "summary": "将勾股定理应用于坐标平面与空间立体图形。",
+          "items": {
             "applications": {
               "title": "勾股定理的应用",
               "summary": "将勾股定理应用于坐标平面与空间立体图形。",

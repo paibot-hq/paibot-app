@@ -64,7 +64,7 @@
 | 図形と測定 | 測定 / 重さ | ✅ | `measurement/weight` |
 | 図形と測定 | 図形の基本 / 二等辺三角形と正三角形 | ✅ | `shapes/triangles` |
 | 図形と測定 | 図形の基本 / 円と球 | ✅ | `shapes/circles` |
-| 図形と測定 | 図形の基本 / コンパスを使った図のかき方 | D | `shapes/compass-drawing` |
+| 図形と測定 | 図形の基本 / コンパスを使った図のかき方 | ✅ | `shapes/compass-drawing` |
 | データと確率 | 表とグラフ / 棒グラフ | ✅ | `graphs/bar-graph` |
 
 扱わないもの: そろばん（計算の道具の扱いで、4択の計算問題とは別）
@@ -89,7 +89,7 @@
 | 図形と測定 | 図形の基本 / 平行四辺形・台形・ひし形 | ✅ | `shapes/quadrilaterals` |
 | 図形と測定 | 図形の基本 / 角の大きさ | ✅ | `shapes/angles` |
 | 図形と測定 | 図形の基本 / 垂直と平行 | ✅ | `shapes/perpendicular-parallel` |
-| 図形と測定 | 図形の基本 / 平行線・垂線のかき方 | D | `shapes/parallel-drawing` |
+| 図形と測定 | 図形の基本 / 平行線・垂線のかき方 | ✅ | `shapes/parallel-drawing` |
 | 図形と測定 | 図形の基本 / 直方体と立方体（展開図・見取図） | ✅ | `shapes/cuboids` |
 | データと確率 | 割合と比 / 簡単な割合（何倍か） | ✅ | `ratio/simple-ratio` |
 | データと確率 | 表とグラフ / 折れ線グラフ | ✅ | `graphs/line-graph` |
@@ -114,7 +114,7 @@
 | 図形と測定 | 測定 / 直方体と立方体の体積 | ✅ | `measurement/volume` |
 | 図形と測定 | 測定 / 円周 | ✅ | `measurement/circumference` |
 | 図形と測定 | 図形の基本 / 図形の合同 | ✅ | `shapes/congruent` |
-| 図形と測定 | 図形の基本 / 合同な図形のかき方 | D | `shapes/congruent-drawing` |
+| 図形と測定 | 図形の基本 / 合同な図形のかき方 | ✅ | `shapes/congruent-drawing` |
 | 図形と測定 | 図形の基本 / 三角形・四角形の角の和 | ✅ | `shapes/angle-sum` |
 | 図形と測定 | 図形の基本 / 角柱と円柱 | ✅ | `shapes/prisms` |
 | データと確率 | 割合と比 / 百分率 | ✅ | `ratio/percent` |
@@ -160,7 +160,7 @@
 | 図形と測定 | 円と立体の計量 / おうぎ形 | ✅ | `circle-solid/sector` |
 | 図形と測定 | 円と立体の計量 / 錐体・球の体積と表面積 | ✅ | `circle-solid/solid` |
 | 図形と測定 | 図形の移動 / 平行移動・回転・対称移動 | ✅ | `transformations/moves` |
-| 図形と測定 | 作図と証明 / 基本の作図 | C | `geometric-reasoning/construction` |
+| 図形と測定 | 作図と証明 / 基本の作図 | ✅ | `geometric-reasoning/construction` |
 | データと確率 | 確率 / 多数回の試行と確率 | ✅ | `probability/relative-frequency` |
 | データと確率 | 度数分布 / 度数分布と相対度数 | ✅ | `frequency/frequency` |
 
@@ -181,7 +181,7 @@
 | 図形と測定 | 合同と図形の性質 / 三角形の合同条件 | ✅ | `congruence/conditions` |
 | 図形と測定 | 合同と図形の性質 / 二等辺三角形と直角三角形 | ✅ | `congruence/triangles` |
 | 図形と測定 | 合同と図形の性質 / 平行四辺形になる条件 | ✅ | `congruence/parallelogram` |
-| 図形と測定 | 作図と証明 / 合同の証明 | C | `geometric-reasoning/congruence-proof` |
+| 図形と測定 | 作図と証明 / 合同の証明 | ✅ | `geometric-reasoning/congruence-proof` |
 | データと確率 | 確率 / 確率の基本 | ✅ | `probability/basic` |
 | データと確率 | 四分位数と箱ひげ図 / 四分位数 | ✅ | `quartiles/quartiles` |
 | データと確率 | 四分位数と箱ひげ図 / 箱ひげ図 | ✅ | `quartiles/boxplot` |
@@ -207,11 +207,11 @@
 | 関数・変化と関係 | 関数 y=ax² / 変化の割合 | ✅ | `square-function/rate-of-change` |
 | 関数・変化と関係 | 関数 y=ax² / 放物線と直線 | ✅ | `square-function/intersection` |
 | 図形と測定 | 三平方の定理 / 辺の長さ | ✅ | `pythagoras/sides` |
-| 図形と測定 | 三平方の定理 / 三平方の定理の応用（座標・空間図形） | D | `pythagoras/applications` |
+| 図形と測定 | 三平方の定理の応用 / 三平方の定理の応用（座標・空間図形） | ✅ | `pythagoras-applications/applications` |
 | 図形と測定 | 相似と円 / 相似 | ✅ | `similarity/similarity` |
 | 図形と測定 | 相似と円 / 円周角の定理 | ✅ | `similarity/inscribed-angle` |
-| 図形と測定 | 作図と証明 / 相似の証明 | C | `geometric-reasoning/similarity-proof` |
-| 図形と測定 | 作図と証明 / 円周角を使った証明 | C | `geometric-reasoning/circle-proof` |
+| 図形と測定 | 作図と証明 / 相似の証明 | ✅ | `geometric-reasoning/similarity-proof` |
+| 図形と測定 | 作図と証明 / 円周角を使った証明 | ✅ | `geometric-reasoning/circle-proof` |
 | データと確率 | 標本調査 / 母集団と標本 | ✅ | `sampling/population-sample` |
 | データと確率 | 標本調査 / 標本からの推定 | ✅ | `sampling/estimate` |
 
@@ -255,7 +255,7 @@
 | 図形と測定 | 図形の性質 / 方べきの定理 | ✅ | `triangle-properties/power` |
 | 図形と測定 | 図形の性質 / チェバ・メネラウスの定理 | ✅ | `triangle-properties/ceva-menelaus` |
 | 図形と測定 | 図形の性質 / 多面体 | ✅ | `triangle-properties/polyhedra` |
-| 図形と測定 | 図形の性質 / 作図 | D | `triangle-properties/construction` |
+| 図形と測定 | 図形の性質 / 作図 | ✅ | `triangle-properties/construction` |
 | データと確率 | 場合の数と確率 / 順列 | ✅ | `combinatorics/permutations` |
 | データと確率 | 場合の数と確率 / 組合せ | ✅ | `combinatorics/combinations` |
 | データと確率 | 場合の数と確率 / 確率 | ✅ | `combinatorics/probability` |

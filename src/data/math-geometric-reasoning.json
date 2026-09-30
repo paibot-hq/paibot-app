@@ -1,0 +1,945 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "geometric-reasoning-002",
+      "item": "construction",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "線分ABの垂直二等分線を作図するために、点Aを中心とする円と、点Bを中心として同じ半径をもつ円をかきます。2つの円が異なる2点で交わるようにするために、コンパスでとる半径 r の長さについて成り立つ条件として正しいものはどれか。",
+          "options": [
+            "r は線分ABの長さと等しくなければならない",
+            "r は線分ABの長さの半分より小さくなければならない",
+            "r は線分ABの長さの半分より大きくなければならない",
+            "r は線分ABの長さの2倍より大きくなければならない"
+          ],
+          "explanation": "2つの円の中心間の距離はABです。半径 r の2つの円が2つの交点をもつためには、2つの円の半径の和が中心間の距離より大きくなければならない（r + r > AB）ため、2r > AB、すなわち r > AB/2（線分ABの半分より大きい）である必要があります。"
+        },
+        "en": {
+          "prompt": "To construct the perpendicular bisector of segment AB, we draw a circle centered at point A and another circle with the same radius centered at point B. For these two circles to intersect at two distinct points, which of the following is the correct condition for the radius r set on the compass?",
+          "options": [
+            "r must be equal to the length of segment AB",
+            "r must be less than half the length of segment AB",
+            "r must be greater than half the length of segment AB",
+            "r must be greater than twice the length of segment AB"
+          ],
+          "explanation": "The distance between the centers of the two circles is AB. For two circles of radius r to intersect at two distinct points, the sum of their radii must be greater than the distance between their centers (r + r > AB). Therefore, 2r > AB, which means r must be greater than half the length of segment AB."
+        },
+        "zh": {
+          "prompt": "为了作线段AB的垂直平分线，分别以点A和点B为圆心、以相同的半径画圆。为了使这两个圆相交于两个不同的点，用圆规所取的半径 r 必须满足下列哪项条件？",
+          "options": [
+            "r 必须等于线段AB的长度",
+            "r 必须小于线段AB长度的一半",
+            "r 必须大于线段AB长度的一半",
+            "r 必须大于线段AB长度的2倍"
+          ],
+          "explanation": "两圆圆心之间的距离为AB。要使半径同为 r 的两个圆有两个交点，两圆半径之和必须大于圆心距（r + r > AB），即 2r > AB，因此 r 必须大于线段AB长度的一半。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 2
+    },
+    {
+      "id": "geometric-reasoning-003",
+      "item": "construction",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "直線 l 上にない点Pから直線 l に垂線をひく作図の手順と理由について考えます。\n【手順】\n1. 点Pを中心として適当な半径の円をかき、直線 l との交点をA, Bとする。\n2. 点A, Bを中心として【 ア 】半径の円をかき、その交点の1つをQとする（Pと異なる点）。\n3. 直線PQをひく。\n【理由】\nPA = PB であり、またQA = QB であることから、点Pと点Qはともに【 イ 】にある。したがって直線PQは線分ABの垂直二等分線となり、直線 l に垂直である。\n空欄【 ア 】【 イ 】にあてはまる語句の組み合わせとして正しいものはどれか。",
+          "options": [
+            "ア：等しい / イ：線分ABの両端から等しい距離にある点の集まり",
+            "ア：線分ABと等しい / イ：直線 l から等しい距離にある点の集まり",
+            "ア：等しい / イ：点Pから等しい距離にある点の集まり",
+            "ア：線分ABの半分より小さい / イ：線分ABの両端から等しい距離にある点の集まり"
+          ],
+          "explanation": "手順2では点A, Bを中心として「等しい」半径の円をかきます。また、「線分の両端から等しい距離にある点は、その線分の垂直二等分線上にある」という性質から、PA = PBかつQA = QBである点P, Qを通る直線PQは線分ABの垂直二等分線になります。"
+        },
+        "en": {
+          "prompt": "Consider the steps and reasoning for constructing a perpendicular line to line l from a point P not on line l.\n[Steps]\n1. Draw a circle centered at point P with an appropriate radius, intersecting line l at points A and B.\n2. With points A and B as centers, draw circles of [ A ] radii that intersect at point Q (a point distinct from P).\n3. Draw line PQ.\n[Reasoning]\nSince PA = PB and QA = QB, both points P and Q lie on [ B ]. Therefore, line PQ is the perpendicular bisector of segment AB, and thus is perpendicular to line l.\nWhich combination correctly fills in blanks [ A ] and [ B ]?",
+          "options": [
+            "A: equal / B: the set of points equidistant from the endpoints of segment AB",
+            "A: equal to segment AB / B: the set of points equidistant from line l",
+            "A: equal / B: the set of points equidistant from point P",
+            "A: less than half of segment AB / B: the set of points equidistant from the endpoints of segment AB"
+          ],
+          "explanation": "In step 2, circles of \"equal\" radii are drawn from centers A and B. Furthermore, using the property that \"points equidistant from the endpoints of a segment lie on its perpendicular bisector\", since PA = PB and QA = QB, line PQ is the perpendicular bisector of segment AB."
+        },
+        "zh": {
+          "prompt": "考虑过直线 l 外一点P作直线 l 的垂线的作图步骤与原理。\n【步骤】\n1. 以点P为圆心、以适当长为半径画弧，交直线 l 于A、B两点。\n2. 分别以点A、B为圆心，以【 甲 】半径画弧，两弧交于点Q（与点P不同）。\n3. 作直线PQ。\n【原理】\n因为 PA = PB 且 QA = QB，所以点P与点Q都在【 乙 】上。因此直线PQ是线段AB的垂直平分线，从而垂直于直线 l。\n下列填入【 甲 】【 乙 】中的词句组合正确的是哪一项？",
+          "options": [
+            "甲：相等的 / 乙：到线段AB两端点距离相等的点的集合",
+            "甲：等于线段AB长 / 乙：到直线 l 距离相等的点的集合",
+            "甲：相等的 / 乙：到点P距离相等的点的集合",
+            "甲：小于线段AB一半 / 乙：到线段AB两端点距离相等的点的集合"
+          ],
+          "explanation": "在步骤2中，分别以A、B为圆心作“相等的”半径画弧。根据“到线段两端点距离相等的点在线段的垂直平分线上”这一性质，由PA = PB且QA = QB可知，直线PQ即为线段AB的垂直平分线，因此与直线 l 垂直。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 0
+    },
+    {
+      "id": "geometric-reasoning-005",
+      "item": "construction",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "円Oの円周上に点Pがあります。点Pを通る円Oの接線を作図したいとき、「円の接線は、接点を通る半径に垂直である」という性質を利用します。このとき、最初に行う作図の操作として最も適切なものはどれか。",
+          "options": [
+            "線分OPの垂直二等分線を作図する。",
+            "半直線OPをひき、点Pを通る半直線OPの垂線を作図する準備をする。",
+            "点Oを中心とし、半径OPの2倍の円をかく。",
+            "点Pを中心とする円をかき、円Oとの別の交点を求める。"
+          ],
+          "explanation": "円の接線は接点を通る半径に垂直であるため、点Pにおける接線は半径OP（または直線OP）の点Pを通る垂線になります。そのため、まず半直線OPをひいて直線を延長し、直線上の点Pを通る垂線の作図手順に進むのが最も適切です。"
+        },
+        "en": {
+          "prompt": "Point P lies on the circumference of circle O. To construct the tangent line to circle O passing through point P, we use the property that \"a tangent to a circle is perpendicular to the radius drawn to the point of tangency.\" Which of the following is the most appropriate first step in this construction?",
+          "options": [
+            "Construct the perpendicular bisector of segment OP.",
+            "Draw ray OP to prepare for constructing a perpendicular line to ray OP passing through point P.",
+            "Draw a circle centered at point O with twice the radius of OP.",
+            "Draw a circle centered at point P to find another intersection point with circle O."
+          ],
+          "explanation": "Since a tangent line to a circle is perpendicular to the radius at the point of tangency, the tangent at point P is the line perpendicular to OP passing through P. Therefore, the most appropriate first step is to extend ray OP and then construct the perpendicular to that line through point P."
+        },
+        "zh": {
+          "prompt": "点P在圆O的圆周上。若要过点P作圆O的切线，利用“圆的切线垂直于经过切点的半径”这一性质，首先应该进行的最恰当的作图操作是哪一项？",
+          "options": [
+            "作线段OP的垂直平分线。",
+            "作射线OP，为作过点P且垂直于射线OP的垂线做准备。",
+            "以点O为圆心，作半径为OP的2倍的圆。",
+            "以点P为圆心画圆，求与圆O的另一个交点。"
+          ],
+          "explanation": "因为圆的切线垂直于经过切点的半径，所以过点P的切线就是过点P且垂直于直线OP（或射线OP）的垂线。因此，首先应当作出射线OP将线段延长，进而利用“过直线上一点作垂线”的方法进行作图。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "geometric-reasoning-006",
+      "item": "congruence-proof",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "線分ABと線分CDが点Oで交わっており、AD // CB, OA = OB です。このとき、△OAD ≡ △OBC であることを次のように証明しました。\n\n【証明】\n△OAD と △OBC において、\n仮定より、OA = OB … ①\n対頂角は等しいから、∠AOD = ∠BOC … ②\nまた、AD // CB より平行線の錯角は等しいので、∠OAD = ∠OBC … ③\n①, ②, ③より、（　　　　）ので、\n△OAD ≡ △OBC である。\n\n証明の空欄にあてはまる合同条件として、最も適切なものはどれか。",
+          "options": [
+            "2組の辺とその間の角がそれぞれ等しい",
+            "1組の辺とその両端の角がそれぞれ等しい",
+            "3組の辺がそれぞれ等しい",
+            "斜辺と1つの鋭角がそれぞれ等しい"
+          ],
+          "explanation": "①で辺OA = OB、②で∠AOD = ∠BOC、③で∠OAD = ∠OBCが示されています。等しい辺OA, OBの両端の角がそれぞれ等しいことが示されているため、「1組の辺とその両端の角がそれぞれ等しい」が適切な合同条件です。"
+        },
+        "en": {
+          "prompt": "Line segments AB and CD intersect at point O, with AD // CB and OA = OB. The proof that △OAD ≡ △OBC is written as follows:\n\n[Proof]\nIn △OAD and △OBC,\nFrom the given condition, OA = OB ... (1)\nVertical angles are equal, so ∠AOD = ∠BOC ... (2)\nAlso, alternate interior angles of parallel lines AD // CB are equal, so ∠OAD = ∠OBC ... (3)\nFrom (1), (2), and (3), since (        ), \n△OAD ≡ △OBC.\n\nWhich of the following is the most appropriate congruence condition to fill in the blank?",
+          "options": [
+            "Two pairs of corresponding sides and the included angle are equal",
+            "One pair of corresponding sides and the angles at both ends are equal",
+            "Three pairs of corresponding sides are equal",
+            "The hypotenuse and one acute angle are equal"
+          ],
+          "explanation": "Equation (1) shows OA = OB, (2) shows ∠AOD = ∠BOC, and (3) shows ∠OAD = ∠OBC. Since the angles at both ends of the equal sides OA and OB are shown to be equal, the appropriate congruence condition is \"One pair of corresponding sides and the angles at both ends are equal.\""
+        },
+        "zh": {
+          "prompt": "线段AB与线段CD相交于点O，且AD // CB，OA = OB。证明△OAD ≡ △OBC的过程如下：\n\n【证明】\n在△OAD与△OBC中，\n由已知得，OA = OB … ①\n对顶角相等，故∠AOD = ∠BOC … ②\n又由AD // CB，平行线的内错角相等，故∠OAD = ∠OBC … ③\n由①、②、③可知，因为（　　　　），\n所以△OAD ≡ △OBC。\n\n下列哪项是最适合填入证明空格中的全等条件？",
+          "options": [
+            "两组对应边及其夹角分别相等",
+            "一组对应边及其两端角分别相等",
+            "三组对应边分别相等",
+            "斜边和一条锐角分别相等"
+          ],
+          "explanation": "条件①给出了OA = OB，②给出了∠AOD = ∠BOC，③给出了∠OAD = ∠OBC。因为相等的边OA与OB两端的角分别对应相等，所以适用的全等判定条件是“一组对应边及其两端角分别相等”。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "geometric-reasoning-007",
+      "item": "congruence-proof",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "AB = AC の二等辺三角形ABCにおいて、頂角∠Aの二等分線と底辺BCとの交点をDとします。このとき、底角が等しいこと（∠B = ∠C）を次のように証明しました。\n\n【証明】\n△ABD と △ACD において、\n仮定より、AB = AC … ①\nADは∠Aの二等分線だから、∠BAD = ∠CAD … ②\nまた、（　　　　）… ③\n①, ②, ③より、2組の辺とその間の角がそれぞれ等しいので、\n△ABD ≡ △ACD\n合同な図形の対応する角は等しいから、∠B = ∠C である。\n\n証明の空欄にあてはまるものとして最も適切なものはどれか。",
+          "options": [
+            "BD = CD",
+            "∠ADB = ∠ADC",
+            "AD = AD（共通）",
+            "∠B = ∠C（仮定）"
+          ],
+          "explanation": "①でAB = AC、②で∠BAD = ∠CADがわかっており、合同条件「2組の辺とその間の角」を満たすには、もう1つの挟む辺であるADが共通（AD = AD）であることを用います。BD = CD や ∠ADB = ∠ADC は合同を証明した後に導かれる結論であり、この段階の根拠としては使えません。"
+        },
+        "en": {
+          "prompt": "In isosceles triangle ABC where AB = AC, let D be the intersection of the angle bisector of vertex angle ∠A and the base BC. The proof that the base angles are equal (∠B = ∠C) is written as follows:\n\n[Proof]\nIn △ABD and △ACD,\nFrom the given condition, AB = AC ... (1)\nSince AD is the angle bisector of ∠A, ∠BAD = ∠CAD ... (2)\nAlso, (        ) ... (3)\nFrom (1), (2), and (3), two pairs of corresponding sides and the included angle are equal, so\n△ABD ≡ △ACD.\nSince corresponding angles of congruent figures are equal, ∠B = ∠C.\n\nWhich of the following is the most appropriate to fill in the blank?",
+          "options": [
+            "BD = CD",
+            "∠ADB = ∠ADC",
+            "AD = AD (common side)",
+            "∠B = ∠C (given)"
+          ],
+          "explanation": "We have AB = AC from (1) and ∠BAD = ∠CAD from (2). To satisfy the congruence condition \"two pairs of corresponding sides and the included angle,\" we use the fact that the other adjacent side AD is shared (AD = AD). Properties such as BD = CD or ∠ADB = ∠ADC are consequences deduced after proving congruence and cannot be used at this step."
+        },
+        "zh": {
+          "prompt": "在AB = AC的等腰三角形ABC中，顶角∠A的平分线与底边BC相交于点D。证明底角相等（∠B = ∠C）的过程如下：\n\n【证明】\n在△ABD与△ACD中，\n由已知得，AB = AC … ①\n因为AD平分∠A，所以∠BAD = ∠CAD … ②\n又因为（　　　　）… ③\n由①、②、③可知，两组对应边及其夹角分别相等，\n所以△ABD ≡ △ACD。\n全等图形的对应角相等，故∠B = ∠C。\n\n下列哪项最适合填入证明的空格中？",
+          "options": [
+            "BD = CD",
+            "∠ADB = ∠ADC",
+            "AD = AD（公共边）",
+            "∠B = ∠C（已知）"
+          ],
+          "explanation": "由①已知AB = AC，由②已知∠BAD = ∠CAD。要满足“两组对应边及其夹角分别相等”的全等条件，需要用到夹角的另一边AD是公共边（AD = AD）。而BD = CD和∠ADB = ∠ADC是在证明全等之后得出的结论，不能在此步骤中作为依据。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 2
+    },
+    {
+      "id": "geometric-reasoning-008",
+      "item": "congruence-proof",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "四角形ABCDにおいて、AB // DC, AD // BC であるとき、AB = CD であることを次のように証明しました。\n\n【証明】\n対角線ACをひく。\n△ABC と △CDA において、\n平行線の錯角は等しいから、\nAB // DC より、（　　　　）… ①\nAD // BC より、∠BCA = ∠DAC … ②\nまた、AC = CA（共通）… ③\n①, ②, ③より、1組の辺とその両端の角がそれぞれ等しいので、\n△ABC ≡ △CDA\n合同な図形の対応する辺は等しいから、AB = CD である。\n\n証明の空欄にあてはまる角の等式として正しいものはどれか。",
+          "options": [
+            "∠BAC = ∠DCA",
+            "∠ABC = ∠CDA",
+            "∠BAC = ∠CAD",
+            "∠BCA = ∠ACD"
+          ],
+          "explanation": "AB // DC に対する直線ACの錯角は、線分AB, DCと線分ACがなす内側の角なので、∠BAC = ∠DCA です。∠BCA = ∠DAC は AD // BC に対する錯角であり、②ですでに使われています。"
+        },
+        "en": {
+          "prompt": "In quadrilateral ABCD where AB // DC and AD // BC, the proof that AB = CD is written as follows:\n\n[Proof]\nDraw diagonal AC.\nIn △ABC and △CDA,\nSince alternate interior angles of parallel lines are equal,\nFrom AB // DC, (        ) ... (1)\nFrom AD // BC, ∠BCA = ∠DAC ... (2)\nAlso, AC = CA (common side) ... (3)\nFrom (1), (2), and (3), one pair of corresponding sides and the angles at both ends are equal, so\n△ABC ≡ △CDA.\nSince corresponding sides of congruent figures are equal, AB = CD.\n\nWhich of the following angle equations correctly fills in the blank?",
+          "options": [
+            "∠BAC = ∠DCA",
+            "∠ABC = ∠CDA",
+            "∠BAC = ∠CAD",
+            "∠BCA = ∠ACD"
+          ],
+          "explanation": "The alternate interior angles formed by AB // DC and transversal line AC are the angles between segments AB, DC and segment AC, which gives ∠BAC = ∠DCA. Notice that ∠BCA = ∠DAC are alternate interior angles for AD // BC, which is already used in (2)."
+        },
+        "zh": {
+          "prompt": "在四边形ABCD中，AB // DC且AD // BC。证明AB = CD的过程如下：\n\n【证明】\n连接对角线AC。\n在△ABC与△CDA中，\n因为平行线的内错角相等，\n由AB // DC得，（　　　　）… ①\n由AD // BC得，∠BCA = ∠DAC … ②\n又因为AC = CA（公共边）… ③\n由①、②、③可知，一组对应边及其两端角分别相等，\n所以△ABC ≡ △CDA。\n全等图形的对应边相等，故AB = CD。\n\n下列哪项角相等的等式正确填入空格中？",
+          "options": [
+            "∠BAC = ∠DCA",
+            "∠ABC = ∠CDA",
+            "∠BAC = ∠CAD",
+            "∠BCA = ∠ACD"
+          ],
+          "explanation": "对于AB // DC，截线AC所形成的内错角是由线段AB、DC分别与AC所夹的角，因此是∠BAC = ∠DCA。而∠BCA = ∠DAC是AD // BC所对应的内错角，已经在步骤②中给出。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 0
+    },
+    {
+      "id": "geometric-reasoning-009",
+      "item": "congruence-proof",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "正方形ABCDの辺BC上に点E、辺CD上に点Fを、BE = CF となるようにとります。このとき、△ABE ≡ △BCF であることを次のように証明しました。\n\n【証明】\n△ABE と △BCF において、\n正方形のすべての辺は等しいから、AB = BC … ①\n仮定より、BE = CF … ②\n正方形のすべての角は直角（90°）だから、∠ABE = ∠BCF = 90° … ③\n①, ②, ③より、（　　　　）ので、\n△ABE ≡ △BCF である。\n\n証明の空欄にあてはまる合同条件として、最も適切なものはどれか。",
+          "options": [
+            "3組の辺がそれぞれ等しい",
+            "1組の辺とその両端の角がそれぞれ等しい",
+            "斜辺と他の1辺がそれぞれ等しい",
+            "2組の辺とその間の角がそれぞれ等しい"
+          ],
+          "explanation": "①でAB = BC（1組の辺）、②でBE = CF（もう1組の辺）、③でその2辺に挟まれた角である∠ABE = ∠BCF = 90°が示されています。したがって、あてはまる合同条件は「2組の辺とその間の角がそれぞれ等しい」です。直角三角形ですが、斜辺（AEやBF）についての条件は使っていません。"
+        },
+        "en": {
+          "prompt": "In square ABCD, point E is taken on side BC and point F is taken on side CD such that BE = CF. The proof that △ABE ≡ △BCF is written as follows:\n\n[Proof]\nIn △ABE and △BCF,\nSince all sides of a square are equal, AB = BC ... (1)\nFrom the given condition, BE = CF ... (2)\nSince all interior angles of a square are right angles (90°), ∠ABE = ∠BCF = 90° ... (3)\nFrom (1), (2), and (3), since (        ), \n△ABE ≡ △BCF.\n\nWhich of the following is the most appropriate congruence condition to fill in the blank?",
+          "options": [
+            "Three pairs of corresponding sides are equal",
+            "One pair of corresponding sides and the angles at both ends are equal",
+            "The hypotenuse and another side are equal",
+            "Two pairs of corresponding sides and the included angle are equal"
+          ],
+          "explanation": "Equation (1) shows AB = BC, (2) shows BE = CF, and (3) shows ∠ABE = ∠BCF = 90°, which is the included angle between those two sides. Therefore, the appropriate condition is \"Two pairs of corresponding sides and the included angle are equal.\" Although these are right triangles, the hypotenuses (AE and BF) are not involved in the conditions."
+        },
+        "zh": {
+          "prompt": "在正方形ABCD的边BC上取点E，边CD上取点F，使得BE = CF。证明△ABE ≡ △BCF的过程如下：\n\n【证明】\n在△ABE与△BCF中，\n因为正方形的各边相等，所以AB = BC … ①\n由已知得，BE = CF … ②\n因为正方形的每个内角都是直角（90°），所以∠ABE = ∠BCF = 90° … ③\n由①、②、③可知，因为（　　　　），\n所以△ABE ≡ △BCF。\n\n下列哪项是最适合填入证明空格中的全等条件？",
+          "options": [
+            "三组对应边分别相等",
+            "一组对应边及其两端角分别相等",
+            "斜边和一条直角边分别相等",
+            "两组对应边及其夹角分别相等"
+          ],
+          "explanation": "条件①证明了AB = BC（一组边），②给出了BE = CF（另一组边），③说明两边的夹角∠ABE = ∠BCF = 90°。因此，适用的全等条件是“两组对应边及其夹角分别相等”。虽然这是直角三角形，但条件中并未涉及斜边（AE与BF）。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 3
+    },
+    {
+      "id": "geometric-reasoning-010",
+      "item": "congruence-proof",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "∠XOYの二等分線上に点Pをとり、点Pから辺OX, OYにそれぞれ垂線PA, PBをひきます。このとき、PA = PB であることを次のように証明しました。\n\n【証明】\n△OPA と △OPB において、\nPA ⊥ OX, PB ⊥ OY だから、∠PAO = ∠PBO = 90° … ①\nOPは∠XOYの二等分線だから、∠POA = ∠POB … ②\nまた、OP = OP（共通）… ③\n①, ②, ③より、（　　　　）ので、\n△OPA ≡ △OPB\n合同な図形の対応する辺は等しいから、PA = PB である。\n\n証明の空欄にあてはまる合同条件として、最も適切なものはどれか。",
+          "options": [
+            "直角三角形の斜辺と他の1辺がそれぞれ等しい",
+            "直角三角形の斜辺と1つの鋭角がそれぞれ等しい",
+            "2組の辺とその間の角がそれぞれ等しい",
+            "3組の辺がそれぞれ等しい"
+          ],
+          "explanation": "①より△OPAと△OPBは直角三角形であり、③で直角の対辺である斜辺OPが共通（OP = OP）、②で1つの鋭角（∠POA = ∠POB）が等しいことが示されています。したがって、あてはまる合同条件は「直角三角形の斜辺と1つの鋭角がそれぞれ等しい」です。"
+        },
+        "en": {
+          "prompt": "Point P is taken on the angle bisector of ∠XOY, and perpendiculars PA and PB are drawn from point P to sides OX and OY, respectively. The proof that PA = PB is written as follows:\n\n[Proof]\nIn △OPA and △OPB,\nSince PA ⊥ OX and PB ⊥ OY, ∠PAO = ∠PBO = 90° ... (1)\nSince OP is the angle bisector of ∠XOY, ∠POA = ∠POB ... (2)\nAlso, OP = OP (common side) ... (3)\nFrom (1), (2), and (3), since (        ), \n△OPA ≡ △OPB.\nSince corresponding sides of congruent figures are equal, PA = PB.\n\nWhich of the following is the most appropriate congruence condition to fill in the blank?",
+          "options": [
+            "In right triangles, the hypotenuse and another side are equal",
+            "In right triangles, the hypotenuse and one acute angle are equal",
+            "Two pairs of corresponding sides and the included angle are equal",
+            "Three pairs of corresponding sides are equal"
+          ],
+          "explanation": "From (1), △OPA and △OPB are right triangles. Equation (3) shows that the hypotenuse OP opposite to the right angle is common (OP = OP), and (2) shows that one acute angle is equal (∠POA = ∠POB). Therefore, the appropriate congruence condition is \"In right triangles, the hypotenuse and one acute angle are equal.\""
+        },
+        "zh": {
+          "prompt": "在∠XOY的平分线上取一点P，过点P分别向边OX、OY作垂线PA、PB。证明PA = PB的过程如下：\n\n【证明】\n在△OPA与△OPB中，\n因为PA ⊥ OX，PB ⊥ OY，所以∠PAO = ∠PBO = 90° … ①\n因为OP平分∠XOY，所以∠POA = ∠POB … ②\n又因为OP = OP（公共边）… ③\n由①、②、③可知，因为（　　　　），\n所以△OPA ≡ △OPB。\n全等图形的对应边相等，故PA = PB。\n\n下列哪项是最适合填入证明空格中的全等条件？",
+          "options": [
+            "直角三角形的斜边和一条直角边分别相等",
+            "直角三角形的斜边和一个锐角分别相等",
+            "两组对应边及其夹角分别相等",
+            "三组对应边分别相等"
+          ],
+          "explanation": "由①可知△OPA与△OPB为直角三角形，由③可知直角所对的斜边OP为公共边（OP = OP），由②可知一个锐角相等（∠POA = ∠POB）。因此，适用的全等条件是“直角三角形的斜边和一个锐角分别相等”。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "geometric-reasoning-011",
+      "item": "similarity-proof",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "△ABCの辺AB上に点D、辺AC上に点Eがあり、DE // BC です。このとき、△ADE ∽ △ABC であることを次のように証明しました。\n\n【証明】\n△ADE と △ABC において、\nDE // BC より、平行線の同位角は等しいから、\n∠ADE = ∠ABC … ①\n∠AED = ∠ACB … ②\n①, ②より、（　　　　）ので、\n△ADE ∽ △ABC である。\n\n証明の空欄にあてはまる相似条件として、最も適切なものはどれか。",
+          "options": [
+            "2組の角がそれぞれ等しい",
+            "2組の辺の比とその間の角がそれぞれ等しい",
+            "3組の辺の比がすべて等しい",
+            "2組の角とその間の辺がそれぞれ等しい"
+          ],
+          "explanation": "証明では、平行線の同位角が等しいことから ① ∠ADE = ∠ABC、② ∠AED = ∠ACB という2組の角がそれぞれ等しいことを導いています。したがって、あてはまる相似条件は「2組の角がそれぞれ等しい」です。"
+        },
+        "en": {
+          "prompt": "In △ABC, point D is on side AB and point E is on side AC such that DE // BC. The proof that △ADE ∽ △ABC is written as follows:\n\n[Proof]\nIn △ADE and △ABC,\nSince DE // BC, corresponding angles of parallel lines are equal, so\n∠ADE = ∠ABC ... (1)\n∠AED = ∠ACB ... (2)\nFrom (1) and (2), since (        ),\n△ADE ∽ △ABC.\n\nWhich of the following is the most appropriate similarity condition to fill in the blank?",
+          "options": [
+            "two pairs of corresponding angles are equal (AA similarity)",
+            "two pairs of corresponding sides are in proportion and their included angles are equal (SAS similarity)",
+            "three pairs of corresponding sides are in proportion (SSS similarity)",
+            "two pairs of angles and the included side are respectively equal"
+          ],
+          "explanation": "The proof establishes that two pairs of angles are equal: (1) ∠ADE = ∠ABC and (2) ∠AED = ∠ACB, because corresponding angles of parallel lines are equal. Therefore, the applicable similarity condition is \"two pairs of corresponding angles are equal\"."
+        },
+        "zh": {
+          "prompt": "在△ABC中，点D在边AB上，点E在边AC上，且 DE // BC。证明 △ADE ∽ △ABC 的过程如下：\n\n【证明】\n在 △ADE 和 △ABC 中，\n因为 DE // BC，两直线平行同位角相等，所以\n∠ADE = ∠ABC … ①\n∠AED = ∠ACB … ②\n由 ①、②，因为（　　　　），所以\n△ADE ∽ △ABC。\n\n最适合填入证明空格中的相似判定条件是哪一个？",
+          "options": [
+            "两角分别相等的两个三角形相似",
+            "两边成比例且夹角相等的两个三角形相似",
+            "三边成比例的两个三角形相似",
+            "两角及其夹边分别相等的两个三角形全等"
+          ],
+          "explanation": "证明中利用两直线平行同位角相等，得出了两组角相等：① ∠ADE = ∠ABC 和 ② ∠AED = ∠ACB。因此，所用的相似判定条件是“两角分别相等的两个三角形相似”。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 0
+    },
+    {
+      "id": "geometric-reasoning-013",
+      "item": "similarity-proof",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "線分ABと線分CDが点Oで交わっており、OA = 4 cm, OB = 6 cm, OC = 8 cm, OD = 12 cm です。このとき、△OAC ∽ △OBD であることを次のように証明しました。\n\n【証明】\n△OAC と △OBD において、\nOA : OB = 4 : 6 = 2 : 3 … ①\nOC : OD = 8 : 12 = 2 : 3 … ②\n対頂角は等しいから、∠AOC = ∠BOD … ③\n①, ②, ③より、（　　　　）ので、\n△OAC ∽ △OBD である。\n\n証明の空欄にあてはまる相似条件として、最も適切なものはどれか。",
+          "options": [
+            "3組の辺の比がすべて等しい",
+            "2組の辺の比とその間の角がそれぞれ等しい",
+            "2組の角がそれぞれ等しい",
+            "2組の辺とその間の角がそれぞれ等しい"
+          ],
+          "explanation": "証明では、① OA : OB = 2 : 3、② OC : OD = 2 : 3 より2組の対応する辺の比が等しく、③ その間の角である対頂角 ∠AOC = ∠BOD が等しいことを示しています。したがって、あてはまる相似条件は「2組の辺の比とその間の角がそれぞれ等しい」です。"
+        },
+        "en": {
+          "prompt": "Line segments AB and CD intersect at point O, with OA = 4 cm, OB = 6 cm, OC = 8 cm, and OD = 12 cm. The proof that △OAC ∽ △OBD is written as follows:\n\n[Proof]\nIn △OAC and △OBD,\nOA : OB = 4 : 6 = 2 : 3 ... (1)\nOC : OD = 8 : 12 = 2 : 3 ... (2)\nSince vertical angles are equal, ∠AOC = ∠BOD ... (3)\nFrom (1), (2), and (3), since (        ),\n△OAC ∽ △OBD.\n\nWhich of the following is the most appropriate similarity condition to fill in the blank?",
+          "options": [
+            "three pairs of corresponding sides are in proportion (SSS similarity)",
+            "two pairs of corresponding sides are in proportion and their included angles are equal (SAS similarity)",
+            "two pairs of corresponding angles are equal (AA similarity)",
+            "two pairs of sides and their included angle are respectively equal"
+          ],
+          "explanation": "The proof establishes that two pairs of corresponding sides are in the same ratio (OA : OB = OC : OD = 2 : 3) and their included vertical angles are equal (∠AOC = ∠BOD). Therefore, the correct similarity condition is \"two pairs of corresponding sides are in proportion and their included angles are equal\"."
+        },
+        "zh": {
+          "prompt": "线段AB与线段CD相交于点O，且 OA = 4 cm，OB = 6 cm，OC = 8 cm，OD = 12 cm。证明 △OAC ∽ △OBD 的过程如下：\n\n【证明】\n在 △OAC 和 △OBD 中，\nOA : OB = 4 : 6 = 2 : 3 … ①\nOC : OD = 8 : 12 = 2 : 3 … ②\n对顶角相等，所以 ∠AOC = ∠BOD … ③\n由 ①、②、③，因为（　　　　），所以\n△OAC ∽ △OBD。\n\n最适合填入证明空格中的相似判定条件是哪一个？",
+          "options": [
+            "三边成比例的两个三角形相似",
+            "两边成比例且夹角相等的两个三角形相似",
+            "两角分别相等的两个三角形相似",
+            "两边及其夹角分别相等的两个三角形全等"
+          ],
+          "explanation": "证明中指出了两组对应边的比相等（OA : OB = OC : OD = 2 : 3），且它们所夹的对顶角相等（∠AOC = ∠BOD）。因此，适用的相似判定条件是“两边成比例且夹角相等的两个三角形相似”。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "geometric-reasoning-014",
+      "item": "similarity-proof",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "△ABCの辺BC上に点Dをとります。AB = 6 cm, BC = 9 cm, CA = 7.5 cm, BD = 4 cm, DA = 5 cm です。このとき、△ABC ∽ △DBA であることを次のように証明しました。\n\n【証明】\n△ABC と △DBA において、\nBC : BA = 9 : 6 = 3 : 2 … ①\nCA : AD = 7.5 : 5 = 3 : 2 … ②\nAB : BD = 6 : 4 = 3 : 2 … ③\n①, ②, ③より、（　　　　）ので、\n△ABC ∽ △DBA である。\n\n証明の空欄にあてはまる相似条件として、最も適切なものはどれか。",
+          "options": [
+            "3組の辺がそれぞれ等しい",
+            "2組の角がそれぞれ等しい",
+            "2組の辺の比とその間の角がそれぞれ等しい",
+            "3組の辺の比がすべて等しい"
+          ],
+          "explanation": "証明では、① BC : BA = 3 : 2、② CA : AD = 3 : 2、③ AB : BD = 3 : 2 と、3組の対応する辺の比がすべて等しいことを示しています。したがって、あてはまる相似条件は「3組の辺の比がすべて等しい」です（「3組の辺がそれぞれ等しい」は合同条件です）。"
+        },
+        "en": {
+          "prompt": "Point D is taken on side BC of △ABC. The side lengths are AB = 6 cm, BC = 9 cm, CA = 7.5 cm, BD = 4 cm, and DA = 5 cm. The proof that △ABC ∽ △DBA is written as follows:\n\n[Proof]\nIn △ABC and △DBA,\nBC : BA = 9 : 6 = 3 : 2 ... (1)\nCA : AD = 7.5 : 5 = 3 : 2 ... (2)\nAB : BD = 6 : 4 = 3 : 2 ... (3)\nFrom (1), (2), and (3), since (        ),\n△ABC ∽ △DBA.\n\nWhich of the following is the most appropriate similarity condition to fill in the blank?",
+          "options": [
+            "three pairs of sides are respectively equal",
+            "two pairs of corresponding angles are equal (AA similarity)",
+            "two pairs of corresponding sides are in proportion and their included angles are equal (SAS similarity)",
+            "three pairs of corresponding sides are in proportion (SSS similarity)"
+          ],
+          "explanation": "The proof shows that all three pairs of corresponding side ratios are equal to 3 : 2 in (1), (2), and (3). Therefore, the correct condition is \"three pairs of corresponding sides are in proportion\" (note that \"three pairs of sides are respectively equal\" is a congruence condition)."
+        },
+        "zh": {
+          "prompt": "在△ABC的边BC上取一点D。已知各边长为 AB = 6 cm，BC = 9 cm，CA = 7.5 cm，BD = 4 cm，DA = 5 cm。证明 △ABC ∽ △DBA 的过程如下：\n\n【证明】\n在 △ABC 和 △DBA 中，\nBC : BA = 9 : 6 = 3 : 2 … ①\nCA : AD = 7.5 : 5 = 3 : 2 … ②\nAB : BD = 6 : 4 = 3 : 2 … ③\n由 ①、②、③，因为（　　　　），所以\n△ABC ∽ △DBA。\n\n最适合填入证明空格中的相似判定条件是哪一个？",
+          "options": [
+            "三边分别相等的两个三角形全等",
+            "两角分别相等的两个三角形相似",
+            "两边成比例且夹角相等的两个三角形相似",
+            "三边成比例的两个三角形相似"
+          ],
+          "explanation": "证明中通过 ①、②、③ 表明三组对应边的比均等于 3 : 2。因此，所用的相似判定条件是“三边成比例的两个三角形相似”（“三边分别相等”是全等条件）。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 3
+    },
+    {
+      "id": "geometric-reasoning-015",
+      "item": "similarity-proof",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "相似な2つの三角形 △ABC と △DEF があり、相似比は 2 : 3 です。△ABC の面積が 24 cm² であるとき、△DEF の面積を求める手順について説明した次の文章の、【 ア 】【 イ 】にあてはまる組み合わせとして正しいものはどれか。\n\n『相似比が 2 : 3 である相似な図形において、面積比は相似比の2乗の比になるので、【 ア 】となる。したがって、△DEF の面積を S cm² とすると、24 : S = 【 ア 】 という比例式が成り立ち、これを解くと S = 【 イ 】 と求められる。』",
+          "options": [
+            "【ア】4 : 9　【イ】54",
+            "【ア】2 : 3　【イ】36",
+            "【ア】4 : 9　【イ】36",
+            "【ア】2 : 3　【イ】54"
+          ],
+          "explanation": "相似比が m : n のとき面積比は m² : n² となるため、面積比は 2² : 3² = 4 : 9 となります（【ア】は 4 : 9）。比例式 24 : S = 4 : 9 より 4S = 24 × 9 = 216 となり、S = 54 と求められます（【イ】は 54）。"
+        },
+        "en": {
+          "prompt": "There are two similar triangles, △ABC and △DEF, with a similarity ratio of 2 : 3. When the area of △ABC is 24 cm², which of the following is the correct combination of phrases/values for [A] and [B] in the explanation below for finding the area of △DEF?\n\n\"For similar figures with a similarity ratio of 2 : 3, the ratio of their areas is equal to the ratio of the squares of the similarity ratio, which is [A]. Therefore, letting the area of △DEF be S cm², the proportion 24 : S = [A] holds, and solving this yields S = [B].\"",
+          "options": [
+            "[A] 4 : 9, [B] 54",
+            "[A] 2 : 3, [B] 36",
+            "[A] 4 : 9, [B] 36",
+            "[A] 2 : 3, [B] 54"
+          ],
+          "explanation": "When the similarity ratio is m : n, the ratio of areas is m² : n² = 2² : 3² = 4 : 9 (so [A] is 4 : 9). From the proportion 24 : S = 4 : 9, we have 4S = 24 × 9 = 216, giving S = 54 (so [B] is 54)."
+        },
+        "zh": {
+          "prompt": "有两个相似三角形 △ABC 和 △DEF，相似比为 2 : 3。已知 △ABC 的面积为 24 cm²，在下面求 △DEF 面积的说明中，适合填入【 甲 】【 乙 】的内容组合是哪一个？\n\n『相似比为 2 : 3 的相似图形中，面积比等于相似比的平方比，即为【 甲 】。因此，设 △DEF 的面积为 S cm²，可列出比例式 24 : S = 【 甲 】，解得 S = 【 乙 】。』",
+          "options": [
+            "【甲】4 : 9，【乙】54",
+            "【甲】2 : 3，【乙】36",
+            "【甲】4 : 9，【乙】36",
+            "【甲】2 : 3，【乙】54"
+          ],
+          "explanation": "当相似比为 m : n 时，面积比为 m² : n² = 2² : 3² = 4 : 9（即【甲】为 4 : 9）。由比例式 24 : S = 4 : 9 可得 4S = 24 × 9 = 216，解得 S = 54（即【乙】为 54）。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 0
+    },
+    {
+      "id": "geometric-reasoning-016",
+      "item": "circle-proof",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "四角形ABCDにおいて、対角線AC, BDの交点をPとします。∠DAC = ∠DBC であるとき、4点A, B, C, Dが1つの円周上にあることを証明し、それを利用して ∠ABD = ∠ACD であることを次のように証明しました。\n\n【証明】\n線分CDに対して同じ側に2点A, Bがあり、仮定より ∠DAC = ∠DBC である。\n2点A, Bが直線CDに関して同じ側にあり、∠DAC = ∠DBC であることから、【 ア 】により、4点A, B, C, Dは同一円周上にある。\nしたがって、弧ADに対する【 イ 】は等しいので、\n∠ABD = ∠ACD である。\n\n証明の空欄【 ア 】【 イ 】にあてはまる語句の組み合わせとして最も適切なものはどれか。",
+          "options": [
+            "【 ア 】円周角の定理の逆　【 イ 】円周角",
+            "【 ア 】円周角の定理　【 イ 】中心角",
+            "【 ア 】接線と弦のつくる角の定理　【 イ 】円周角",
+            "【 ア 】円に内接する四角形の性質　【 イ 】対角"
+          ],
+          "explanation": "直線CDに対して同じ側に2点A, Bがあって ∠DAC = ∠DBC が成り立つとき、「円周角の定理の逆」より4点A, B, C, Dは同一円周上にあります。また、同じ円において1つの弧に対する「円周角」は等しいので、弧ADに対する円周角として ∠ABD = ∠ACD が成り立ちます。"
+        },
+        "en": {
+          "prompt": "In quadrilateral ABCD, let P be the intersection of diagonals AC and BD. Given that ∠DAC = ∠DBC, the following proof shows that the four points A, B, C, and D lie on the same circle, and uses this fact to prove that ∠ABD = ∠ACD.\n\n[Proof]\nPoints A and B lie on the same side of line CD, and by assumption, ∠DAC = ∠DBC.\nSince points A and B lie on the same side of line CD and ∠DAC = ∠DBC, by [ A ], the four points A, B, C, and D lie on the same circle.\nTherefore, the [ B ] subtended by arc AD are equal, so\n∠ABD = ∠ACD.\n\nWhich of the following is the most appropriate combination of terms to fill in blanks [ A ] and [ B ]?",
+          "options": [
+            "[ A ] converse of the inscribed angle theorem, [ B ] inscribed angles",
+            "[ A ] inscribed angle theorem, [ B ] central angles",
+            "[ A ] alternate segment theorem, [ B ] inscribed angles",
+            "[ A ] properties of cyclic quadrilaterals, [ B ] opposite angles"
+          ],
+          "explanation": "When two points A and B lie on the same side of line CD such that ∠DAC = ∠DBC, the four points A, B, C, and D lie on the same circle by the converse of the inscribed angle theorem. Furthermore, since inscribed angles subtended by the same arc are equal, the inscribed angles subtended by arc AD give ∠ABD = ∠ACD."
+        },
+        "zh": {
+          "prompt": "在四边形ABCD中，对角线AC与BD相交于点P。已知∠DAC = ∠DBC，为了证明A、B、C、D四点共圆，并由此证明∠ABD = ∠ACD，进行了如下证明。\n\n【证明】\n点A和点B在直线CD的同侧，由已知条件得∠DAC = ∠DBC。\n因为点A和点B在直线CD的同侧且∠DAC = ∠DBC，根据【 甲 】，A、B、C、D四点在同一个圆上。\n因此，弧AD所对的【 乙 】相等，所以\n∠ABD = ∠ACD。\n\n下列哪一组词语最适合填入证明中的空栏【 甲 】和【 乙 】？",
+          "options": [
+            "【 甲 】圆周角定理的逆定理　【 乙 】圆周角",
+            "【 甲 】圆周角定理　【 乙 】圆心角",
+            "【 甲 】弦切角定理　【 乙 】圆周角",
+            "【 甲 】圆内接四边形的性质　【 乙 】对角"
+          ],
+          "explanation": "当点A、B在直线CD同侧且满足∠DAC = ∠DBC时，由圆周角定理的逆定理可知，A、B、C、D四点共圆。又因为同弧所对的圆周角相等，所以弧AD所对的圆周角满足∠ABD = ∠ACD。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 0
+    },
+    {
+      "id": "geometric-reasoning-020",
+      "item": "circle-proof",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "円Oに外接する四角形ABCDがあり、辺AB, BC, CD, DAと円Oとの接点をそれぞれP, Q, R, Sとします。このとき、AB + CD = AD + BC であることを次のように証明しました。\n\n【証明】\n（　　　　）から、\nAP = AS … ①\nBP = BQ … ②\nCR = CQ … ③\nDR = DS … ④\nが成り立つ。\n①, ②, ③, ④より、\nAB + CD = (AP + BP) + (CR + DR)\n= (AS + BQ) + (CQ + DS)\n= (AS + DS) + (BQ + CQ)\n= AD + BC\nしたがって、AB + CD = AD + BC である。\n\n証明の空欄にあてはまる根拠として、最も適切なものはどれか。",
+          "options": [
+            "円の接線は接点を通る半径に垂直である",
+            "円の外部の1点からその円にひいた2本の接線の長さは等しい",
+            "円に外接する多角形の面積は周の長さに比例する",
+            "1つの円において等しい長さの弦に対する中心角は等しい"
+          ],
+          "explanation": "点A, B, C, Dはそれぞれ円Oの外部の点であり、そこから円Oにひいた2本の接線の接点までの長さは等しくなります（AP = AS, BP = BQ, CR = CQ, DR = DS）。したがって、空欄には「円の外部の1点からその円にひいた2本の接線の長さは等しい」があてはまります。"
+        },
+        "en": {
+          "prompt": "Quadrilateral ABCD circumscribes circle O, and the points of tangency of sides AB, BC, CD, and DA with circle O are P, Q, R, and S, respectively. The following proof shows that AB + CD = AD + BC.\n\n[Proof]\nFrom (        ),\nthe following hold:\nAP = AS ... (1)\nBP = BQ ... (2)\nCR = CQ ... (3)\nDR = DS ... (4)\nFrom (1), (2), (3), and (4),\nAB + CD = (AP + BP) + (CR + DR)\n= (AS + BQ) + (CQ + DS)\n= (AS + DS) + (BQ + CQ)\n= AD + BC\nTherefore, AB + CD = AD + BC.\n\nWhich of the following is the most appropriate reason to fill in the blank in the proof?",
+          "options": [
+            "a tangent to a circle is perpendicular to the radius through the point of contact",
+            "the two tangent segments drawn from an external point to a circle are equal in length",
+            "the area of a polygon circumscribing a circle is proportional to its perimeter",
+            "in a circle, chords of equal length subtend equal central angles"
+          ],
+          "explanation": "Points A, B, C, and D are points outside circle O, and the lengths of the two tangents drawn from each external point to the points of tangency are equal (AP = AS, BP = BQ, CR = CQ, DR = DS). Therefore, the blank should be filled with \"the two tangent segments drawn from an external point to a circle are equal in length.\""
+        },
+        "zh": {
+          "prompt": "四边形ABCD外切于圆O，边AB、BC、CD、DA与圆O的切点分别为P、Q、R、S。为了证明AB + CD = AD + BC，进行了如下证明。\n\n【证明】\n根据（　　　　），\n有以下等式成立：\nAP = AS … ①\nBP = BQ … ②\nCR = CQ … ③\nDR = DS … ④\n由①、②、③、④可得，\nAB + CD = (AP + BP) + (CR + DR)\n= (AS + BQ) + (CQ + DS)\n= (AS + DS) + (BQ + CQ)\n= AD + BC\n因此，AB + CD = AD + BC。\n\n下列哪一项是填入证明中空栏的最恰当的依据？",
+          "options": [
+            "圆的切线垂直于过切点的半径",
+            "从圆外一点引圆的两条切线，它们的切线长相等",
+            "外切于圆的多边形面积与周长成正比",
+            "在同圆中，等长的弦所对的圆心角相等"
+          ],
+          "explanation": "点A、B、C、D分别是圆O外的点，从圆外一点向圆所引的两条切线长相等（AP = AS, BP = BQ, CR = CQ, DR = DS）。因此，空栏处应填入“从圆外一点引圆的两条切线，它们的切线长相等”。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "geometric-reasoning-021",
+      "item": "construction",
+      "setId": "1",
+      "position": 6,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "∠XOYの二等分線を作図する手順と、その性質について考えます。\n\n【手順】\n1. 頂点Oを中心として適当な半径の円をかき、辺OX, OYとの交点をそれぞれA, Bとする。\n2. 2点A, Bを中心として【 ア 】半径の円をそれぞれかき、その交点の1つをPとする。\n3. 半直線OPをひく。\n\nこの作図について説明した次の文章の【 ア 】【 イ 】にあてはまる組み合わせとして、最も適切なものはどれか。\n\n『手順2では、点A, Bを中心としてそれぞれ【 ア 】半径の円をかく必要がある。また、完成した半直線OP上の任意の点は、【 イ 】という性質をもつ。』",
+          "options": [
+            "【 ア 】互いに異なる　【 イ 】2辺OX, OYからの距離が等しい",
+            "【 ア 】互いに等しい　【 イ 】2辺OX, OYからの距離が等しい",
+            "【 ア 】互いに等しい　【 イ 】2点A, Bからの距離が等しい",
+            "【 ア 】互いに異なる　【 イ 】2点A, Bからの距離が等しい"
+          ],
+          "explanation": "角の二等分線を作図するときは、点A, Bを中心として互いに等しい半径の円をかいて交点Pをとります。また、角の二等分線上の任意の点は、その角をつくる2つの辺OX, OYから等しい距離にあります。「2点A, Bからの距離が等しい」のは線分ABの垂直二等分線の性質であり、角の二等分線とは異なります。"
+        },
+        "en": {
+          "prompt": "Consider the procedure for constructing the angle bisector of ∠XOY and its properties.\n\n[Procedure]\n1. Draw an arc centered at vertex O with an appropriate radius, intersecting sides OX and OY at points A and B, respectively.\n2. Draw arcs centered at points A and B, respectively, with [ A ] radii, and let one of their intersection points be P.\n3. Draw the ray OP.\n\nWhich of the following is the most appropriate combination to fill in blanks [ A ] and [ B ] in the statement below?\n\n\"In step 2, arcs with [ A ] radii must be drawn centered at points A and B. Furthermore, any point on the completed ray OP has the property of being [ B ].\"",
+          "options": [
+            "[ A ] different, [ B ] equidistant from the two sides OX and OY",
+            "[ A ] equal, [ B ] equidistant from the two sides OX and OY",
+            "[ A ] equal, [ B ] equidistant from the two points A and B",
+            "[ A ] different, [ B ] equidistant from the two points A and B"
+          ],
+          "explanation": "When constructing an angle bisector, arcs of equal radii must be drawn centered at points A and B to locate the intersection point P. In addition, any point on the angle bisector is equidistant from the two sides of the angle (OX and OY). Being equidistant from the two points A and B is a property of the perpendicular bisector of segment AB, not the angle bisector."
+        },
+        "zh": {
+          "prompt": "思考作∠XOY的角平分线的步骤及其性质。\n\n【步骤】\n1. 以顶点O为圆心画适当半径的弧，与边OX、OY的交点分别记为A、B。\n2. 分别以点A、B为圆心，以【 A 】的半径画弧，将其中一个交点记为P。\n3. 画射线OP。\n\n下列填入下文空栏【 A 】【 B 】中最合适的一组是哪一个？\n\n“在步骤2中，需要分别以点A、B为圆心画【 A 】半径的圆弧。此外，完成后的射线OP上的任意一点都具有【 B 】的性质。”",
+          "options": [
+            "【 A 】互不相等　【 B 】到两条边OX、OY的距离相等",
+            "【 A 】互相相等　【 B 】到两条边OX、OY的距离相等",
+            "【 A 】互相相等　【 B 】到两点A、B的距离相等",
+            "【 A 】互不相等　【 B 】到两点A、B的距离相等"
+          ],
+          "explanation": "作角平分线时，必须以点A、B为圆心画半径相等的圆弧来确定交点P。此外，角平分线上的任意一点到角两边（OX与OY）的距离都相等。“到两点A、B的距离相等”是线段AB的垂直平分线的性质，注意不要与角平分线的性质混淆。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "geometric-reasoning-022",
+      "item": "construction",
+      "setId": "1",
+      "position": 7,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "△ABCにおいて、次の2つの条件(i), (ii)をともにみたす点Pを作図したいと考えます。\n\n条件(i)：2つの頂点B, Cから等しい距離にある。\n条件(ii)：2つの辺AB, ACから等しい距離にある。\n\nこのとき、点Pを求める作図の方法として最も適切なものはどれか。",
+          "options": [
+            "線分BCの中点と頂点Aを結ぶ直線をひき、その中点を求める。",
+            "辺ABの垂直二等分線と、辺ACの垂直二等分線との交点を求める。",
+            "∠Bの二等分線と、∠Cの二等分線との交点を求める。",
+            "線分BCの垂直二等分線と、∠Aの二等分線との交点を求める。"
+          ],
+          "explanation": "2点B, Cから等しい距離にある点の集まりは「線分BCの垂直二等分線」であり、2辺AB, ACから等しい距離にある点の集まりは「∠Aの二等分線」です。したがって、これら2つの直線の交点を求めることで、両方の条件をみたす点Pを作図できます。"
+        },
+        "en": {
+          "prompt": "In △ABC, we want to construct a point P that satisfies both of the following conditions (i) and (ii):\n\nCondition (i): Point P is equidistant from the two vertices B and C.\nCondition (ii): Point P is equidistant from the two sides AB and AC.\n\nWhich of the following is the most appropriate method to construct point P?",
+          "options": [
+            "Draw a line connecting the midpoint of segment BC and vertex A, and find its midpoint.",
+            "Find the intersection of the perpendicular bisector of side AB and the perpendicular bisector of side AC.",
+            "Find the intersection of the angle bisector of ∠B and the angle bisector of ∠C.",
+            "Find the intersection of the perpendicular bisector of segment BC and the angle bisector of ∠A."
+          ],
+          "explanation": "The set of points equidistant from the two points B and C is the perpendicular bisector of segment BC, and the set of points equidistant from the two sides AB and AC is the angle bisector of ∠A. Therefore, finding the intersection of these two lines constructs the point P that satisfies both conditions."
+        },
+        "zh": {
+          "prompt": "在△ABC中，想要作一个同时满足下列条件(i)和(ii)的点P：\n\n条件(i)：到两个顶点B、C的距离相等。\n条件(ii)：到两条边AB、AC的距离相等。\n\n此时，作出点P最合适的方法是哪一个？",
+          "options": [
+            "画连接线段BC的中点与顶点A的直线，并求该线段的中点。",
+            "求边AB的垂直平分线与边AC的垂直平分线的交点。",
+            "求∠B的角平分线与∠C的角平分线的交点。",
+            "求线段BC的垂直平分线与∠A的角平分线的交点。"
+          ],
+          "explanation": "到两点B、C距离相等的点的集合是“线段BC的垂直平分线”，到两边AB、AC距离相等的点的集合是“∠A的角平分线”。因此，求这两条直线的交点，即可作出同时满足两个条件的点P。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 3
+    },
+    {
+      "id": "geometric-reasoning-023",
+      "item": "similarity-proof",
+      "setId": "1",
+      "position": 6,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "△ABCの辺AB上に点D、辺AC上に点Eがあり、DE // BC です。AD = 3 cm, DB = 6 cm, DE = 4 cm であるとき、線分BCの長さを求める手順について説明した次の文章の、【 ア 】【 イ 】にあてはまる組み合わせとして正しいものはどれか。\n\n『△ADE と △ABC において、DE // BC より同位角が等しいので △ADE ∽ △ABC である。相似な図形の対応する辺の比は等しいから、AD : AB = DE : BC が成り立つ。ここで、AB = AD + DB = 3 + 6 = 9 cm であるから、△ADE と △ABC の相似比は AD : AB = 【 ア 】 である。したがって、線分BCの長さを x cm とすると、比例式から BC = 【 イ 】 cm と求められる。』",
+          "options": [
+            "【 ア 】 1 : 2　【 イ 】 8",
+            "【 ア 】 1 : 3　【 イ 】 12",
+            "【 ア 】 1 : 2　【 イ 】 12",
+            "【 ア 】 1 : 3　【 イ 】 8"
+          ],
+          "explanation": "△ADE と △ABC の相似比は対応する辺の比 AD : AB であり、AB = AD + DB = 3 + 6 = 9 cm より AD : AB = 3 : 9 = 1 : 3 となります（AD : DB ではない点に注意）。これより 1 : 3 = 4 : BC が成り立つため、BC = 12 cm と求められます。"
+        },
+        "en": {
+          "prompt": "In △ABC, point D is on side AB and point E is on side AC, with DE // BC. Given that AD = 3 cm, DB = 6 cm, and DE = 4 cm, which of the following is the correct combination for [ A ] and [ B ] in the passage explaining the steps to find the length of segment BC?\n\n\"In △ADE and △ABC, since DE // BC, the corresponding angles are equal, so △ADE ∽ △ABC. Since the ratios of corresponding sides of similar figures are equal, AD : AB = DE : BC holds. Here, AB = AD + DB = 3 + 6 = 9 cm, so the similarity ratio of △ADE to △ABC is AD : AB = [ A ]. Therefore, letting the length of segment BC be x cm, from the proportion we find BC = [ B ] cm.\"",
+          "options": [
+            "[ A ] 1 : 2,  [ B ] 8",
+            "[ A ] 1 : 3,  [ B ] 12",
+            "[ A ] 1 : 2,  [ B ] 12",
+            "[ A ] 1 : 3,  [ B ] 8"
+          ],
+          "explanation": "The similarity ratio of △ADE to △ABC is the ratio of corresponding sides AD : AB. Since AB = AD + DB = 3 + 6 = 9 cm, AD : AB = 3 : 9 = 1 : 3 (note that it is not AD : DB). Using the proportion 1 : 3 = 4 : BC, we find BC = 12 cm."
+        },
+        "zh": {
+          "prompt": "在△ABC中，点D在边AB上，点E在边AC上，且 DE // BC。已知 AD = 3 cm，DB = 6 cm，DE = 4 cm。在下列说明求线段BC长度步骤的文段中，填入【 A 】【 B 】的最恰当的组合是哪一个？\n\n『在△ADE和△ABC中，因为 DE // BC，同位角相等，所以 △ADE ∽ △ABC。由于相似图形对应边的比相等，因此 AD : AB = DE : BC 成立。这里，AB = AD + DB = 3 + 6 = 9 cm，所以 △ADE 与 △ABC 的相似比为 AD : AB = 【 A 】。因此，设线段BC的长度为 x cm，由比例式可求得 BC = 【 B 】 cm。』",
+          "options": [
+            "【 A 】 1 : 2　【 B 】 8",
+            "【 A 】 1 : 3　【 B 】 12",
+            "【 A 】 1 : 2　【 B 】 12",
+            "【 A 】 1 : 3　【 B 】 8"
+          ],
+          "explanation": "△ADE与△ABC的相似比是对应边的比 AD : AB。由 AB = AD + DB = 3 + 6 = 9 cm，可得 AD : AB = 3 : 9 = 1 : 3（注意不是 AD : DB）。由此可得比例式 1 : 3 = 4 : BC，解得 BC = 12 cm。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "geometric-reasoning-024",
+      "item": "circle-proof",
+      "setId": "1",
+      "position": 6,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "1つの円の円周上に4点A, B, C, Dがあり、線分ACと線分BDの交点をPとします。このとき、△PAD ∽ △PCB であることを次のように証明しました。\n\n【証明】\n△PAD と △PCB において、\n対頂角は等しいから、\n∠APD = ∠BPC … ①\nまた、【 ア 】に対する円周角は等しいから、\n∠PDA = ∠PCB … ②\n①, ②より、【 イ 】ので、\n△PAD ∽ △PCB である。\n\n証明の空欄【 ア 】【 イ 】にあてはまる組み合わせとして最も適切なものはどれか。",
+          "options": [
+            "【 ア 】弧CD　【 イ 】2組の角がそれぞれ等しい",
+            "【 ア 】弧AB　【 イ 】2組の角がそれぞれ等しい",
+            "【 ア 】弧AB　【 イ 】2組の辺の比とその間の角がそれぞれ等しい",
+            "【 ア 】弧CD　【 イ 】3組の辺の比がすべて等しい"
+          ],
+          "explanation": "∠PDAと∠PCBはともに弧ABに対する円周角であるため、同じ弧に対する円周角は等しいことから ∠PDA = ∠PCB となります。また、対頂角と合わせて2組の角がそれぞれ等しいことが示されているため、三角形の相似条件「2組の角がそれぞれ等しい」が成り立ちます。"
+        },
+        "en": {
+          "prompt": "Four points A, B, C, and D lie on a circle, and the line segments AC and BD intersect at point P. The following is a proof that △PAD ∽ △PCB.\n\n[Proof]\nIn △PAD and △PCB,\nsince vertical angles are equal,\n∠APD = ∠BPC ... (1)\nAlso, since inscribed angles subtended by [ A ] are equal,\n∠PDA = ∠PCB ... (2)\nFrom (1) and (2), since [ B ],\n△PAD ∽ △PCB.\n\nWhich of the following is the most appropriate combination for blanks [ A ] and [ B ]?",
+          "options": [
+            "[ A ] arc CD, [ B ] two pairs of angles are respectively equal",
+            "[ A ] arc AB, [ B ] two pairs of angles are respectively equal",
+            "[ A ] arc AB, [ B ] two pairs of sides are in proportion and the included angles are equal",
+            "[ A ] arc CD, [ B ] three pairs of sides are in proportion"
+          ],
+          "explanation": "Both ∠PDA and ∠PCB are inscribed angles subtended by arc AB, so ∠PDA = ∠PCB because inscribed angles subtended by the same arc are equal. Along with vertical angles, two pairs of corresponding angles are equal, so the similarity criterion \"two pairs of angles are respectively equal\" applies."
+        },
+        "zh": {
+          "prompt": "在同一个圆上有四点A、B、C、D，线段AC与线段BD相交于点P。以下是证明△PAD ∽ △PCB的过程。\n\n【证明】\n在△PAD和△PCB中，\n因为对顶角相等，\n∠APD = ∠BPC … ①\n又因为所对弧【 A 】的圆周角相等，\n∠PDA = ∠PCB … ②\n由①、②可知，因为【 B 】，\n所以 △PAD ∽ △PCB。\n\n下列选项中，填入空栏【 A 】【 B 】的最恰当的组合是哪一个？",
+          "options": [
+            "[ A ] 弧CD，[ B ] 两组角分别相等",
+            "[ A ] 弧AB，[ B ] 两组角分别相等",
+            "[ A ] 弧AB，[ B ] 两组对应边的比相等且夹角相等",
+            "[ A ] 弧CD，[ B ] 三组对应边的比相等"
+          ],
+          "explanation": "∠PDA与∠PCB都是弧AB所对的圆周角，根据同弧所对的圆周角相等，可知∠PDA = ∠PCB。再结合对顶角相等，两个三角形有两组对应角分别相等，因此适用的相似条件是“两组角分别相等”。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "geometric-reasoning-025",
+      "item": "circle-proof",
+      "setId": "1",
+      "position": 7,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "線分ABを直径とする円の円周上に、点A, Bとは異なる点Cをとります。点Cから線分ABに垂線CDをひきます。このとき、△ABC ∽ △ACD であることを次のように証明しました。\n\n【証明】\n△ABC と △ACD において、\n共通な角だから、\n∠BAC = ∠CAD … ①\n線分ABはこの円の直径だから、【 ア 】により、\n∠ACB = 90° … ②\nまた、仮定より CD ⊥ AB だから、\n∠ADC = 90° … ③\n②, ③より、\n∠ACB = ∠ADC … ④\n①, ④より、【 イ 】ので、\n△ABC ∽ △ACD である。\n\n証明の空欄【 ア 】【 イ 】にあてはまる組み合わせとして最も適切なものはどれか。",
+          "options": [
+            "【 ア 】同じ弧に対する円周角は等しい　【 イ 】2組の角がそれぞれ等しい",
+            "【 ア 】円周角の定理の逆　【 イ 】2組の辺の比とその間の角がそれぞれ等しい",
+            "【 ア 】半円の弧に対する円周角は90°である　【 イ 】斜辺と1つの鋭角がそれぞれ等しい",
+            "【 ア 】半円の弧に対する円周角は90°である　【 イ 】2組の角がそれぞれ等しい"
+          ],
+          "explanation": "線分ABは円の直径であるため、「半円の弧に対する円周角は90°である」という定理から ∠ACB = 90° となります。また、①の共通な角と④の直角により2組の角がそれぞれ等しいことが示されているため、相似条件「2組の角がそれぞれ等しい」が成り立ちます。"
+        },
+        "en": {
+          "prompt": "On a circle with diameter AB, point C is taken distinct from points A and B. A perpendicular line segment CD is drawn from point C to segment AB. The following is a proof that △ABC ∽ △ACD.\n\n[Proof]\nIn △ABC and △ACD,\nsince it is a common angle,\n∠BAC = ∠CAD ... (1)\nSince segment AB is the diameter of this circle, by [ A ],\n∠ACB = 90° ... (2)\nAlso, from the hypothesis, CD ⊥ AB, so\n∠ADC = 90° ... (3)\nFrom (2) and (3),\n∠ACB = ∠ADC ... (4)\nFrom (1) and (4), since [ B ],\n△ABC ∽ △ACD.\n\nWhich of the following is the most appropriate combination for blanks [ A ] and [ B ]?",
+          "options": [
+            "[ A ] inscribed angles subtended by the same arc are equal, [ B ] two pairs of angles are respectively equal",
+            "[ A ] the converse of the inscribed angle theorem, [ B ] two pairs of sides are in proportion and the included angles are equal",
+            "[ A ] the inscribed angle subtended by a semicircle is 90°, [ B ] the hypotenuse and one acute angle are respectively equal",
+            "[ A ] the inscribed angle subtended by a semicircle is 90°, [ B ] two pairs of angles are respectively equal"
+          ],
+          "explanation": "Since segment AB is the diameter of the circle, the theorem \"the inscribed angle subtended by a semicircle is 90°\" gives ∠ACB = 90°. In addition, from the common angle in (1) and the right angles in (4), two pairs of corresponding angles are equal, so the similarity criterion \"two pairs of angles are respectively equal\" proves that △ABC ∽ △ACD."
+        },
+        "zh": {
+          "prompt": "在以线段AB为直径的圆周上，取与点A、B不同的点C。从点C向线段AB作垂线段CD。以下是证明△ABC ∽ △ACD的过程。\n\n【证明】\n在△ABC与△ACD中，\n因为是公共角，\n∠BAC = ∠CAD … ①\n又因为线段AB是该圆的直径，根据【 A 】，\n∠ACB = 90° … ②\n由已知条件可知 CD ⊥ AB，所以\n∠ADC = 90° … ③\n由②、③可知，\n∠ACB = ∠ADC … ④\n由①、④可知，因为【 B 】，\n所以 △ABC ∽ △ACD。\n\n下列选项中，填入空栏【 A 】【 B 】的最恰当的组合是哪一个？",
+          "options": [
+            "[ A ] 同弧所对的圆周角相等，[ B ] 两组角分别相等",
+            "[ A ] 圆周角定理的逆定理，[ B ] 两组对应边的比相等且夹角相等",
+            "[ A ] 半圆所对的圆周角是90°，[ B ] 斜边和一条锐角分别相等",
+            "[ A ] 半圆所对的圆周角是90°，[ B ] 两组角分别相等"
+          ],
+          "explanation": "由于线段AB是圆的直径，根据“半圆所对的圆周角是90°”定理，可知∠ACB = 90°。再由①中的公共角和④中的直角可知两组角分别相等，因此适用的相似条件是“两组角分别相等”。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 3
+    },
+    {
+      "id": "geometric-reasoning-026",
+      "item": "circle-proof",
+      "setId": "1",
+      "position": 8,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "円Oの外部にある点Pから、円Oに接線をひく作図の手順と理由について考えます。\n\n【手順】\n1. 線分OPをひき、その中点Mを作図する。\n2. 点Mを中心として、線分【 ア 】を半径とする円をかき、円Oとの交点をA, Bとする。\n3. 直線PA, PBをひく。\n\n【理由】\n線分OPは点Mを中心とする円の直径であるから、【 イ 】により、\n∠OAP = ∠OBP = 90°\nとなる。円の接線は接点を通る半径に垂直であるから、直線PA, PBは円Oの接線である。\n\n空欄【 ア 】【 イ 】にあてはまる語句や記号の組み合わせとして最も適切なものはどれか。",
+          "options": [
+            "【 ア 】MO　【 イ 】半円の弧に対する円周角は90°である",
+            "【 ア 】OA　【 イ 】半円の弧に対する円周角は90°である",
+            "【 ア 】MO　【 イ 】同じ弧に対する円周角は等しい",
+            "【 ア 】OA　【 イ 】中心角の大きさは円周角の2倍である"
+          ],
+          "explanation": "線分OPの中点Mを中心として点Oを通る円をかくため、半径としてとる線分はMO（またはMP）です。また、線分OPはこの新しくかいた円の直径となるため、「半円の弧に対する円周角は90°である」ことから接点での角が90°となり、直線PA, PBが接線であることが示されます。"
+        },
+        "en": {
+          "prompt": "Consider the procedure and reasoning for constructing tangent lines to circle O from a point P outside circle O.\n\n[Procedure]\n1. Draw segment OP and construct its midpoint M.\n2. With point M as the center, draw a circle with radius segment [ A ], and let its intersection points with circle O be A and B.\n3. Draw lines PA and PB.\n\n[Reasoning]\nSince segment OP is the diameter of the circle centered at point M, by [ B ],\n∠OAP = ∠OBP = 90°.\nSince a tangent to a circle is perpendicular to the radius through the point of contact, lines PA and PB are tangent lines to circle O.\n\nWhich of the following is the most appropriate combination for blanks [ A ] and [ B ]?",
+          "options": [
+            "[ A ] MO, [ B ] the inscribed angle subtended by a semicircle is 90°",
+            "[ A ] OA, [ B ] the inscribed angle subtended by a semicircle is 90°",
+            "[ A ] MO, [ B ] inscribed angles subtended by the same arc are equal",
+            "[ A ] OA, [ B ] the central angle is twice the inscribed angle"
+          ],
+          "explanation": "To draw a circle centered at midpoint M passing through point O (and point P), the segment used as the radius is MO (or MP). Furthermore, since segment OP is the diameter of this newly drawn circle, the theorem \"the inscribed angle subtended by a semicircle is 90°\" guarantees that the angles at the points of tangency are 90°, proving that lines PA and PB are tangent lines."
+        },
+        "zh": {
+          "prompt": "思考从圆O外部的点P向圆O作切线的作图步骤与理由。\n\n【步骤】\n1. 连接线段OP，并作其中点M。\n2. 以点M为圆心，以线段【 A 】为半径作圆，将其与圆O的交点分别记为A、B。\n3. 作直线PA和PB。\n\n【理由】\n因为线段OP是以点M为圆心的圆的直径，根据【 B 】，可知\n∠OAP = ∠OBP = 90°。\n又因为圆的切线垂直于过切点的半径，所以直线PA、PB是圆O的切线。\n\n下列选项中，填入空栏【 A 】【 B 】的最恰当的组合是哪一个？",
+          "options": [
+            "[ A ] MO，[ B ] 半圆所对的圆周角是90°",
+            "[ A ] OA，[ B ] 半圆所对的圆周角是90°",
+            "[ A ] MO，[ B ] 同弧所对的圆周角相等",
+            "[ A ] OA，[ B ] 圆心角的度数是圆周角的2倍"
+          ],
+          "explanation": "以线段OP的中点M为圆心作经过点O的圆，半径所取的线段为MO（或MP）。并且线段OP是该新画圆的直径，由“半圆所对的圆周角是90°”可知切点处的角为90°，从而说明直线PA、PB是切线。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 0
+    }
+  ]
+}

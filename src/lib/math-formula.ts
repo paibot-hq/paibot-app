@@ -116,9 +116,11 @@
 //              angle), similar-side "a, b, c" (x = b c / a), similar-area "m, n, S", power-chord "a, b, c" (PD), distance
 //              "x1, y1, x2, y2", centroid "x1, y1, x2, y2, x3, y3" (choices points), clock-read "h, m" (choices "h, m"),
 //              fraction-shaded "parts, shaded" (the shaded fraction)
+//   statement  a prompt with four options in words (a construction, a proof's missing step), per language in `statement`;
+//              question "0", choices "1" to "4"; nothing for SymPy to re-derive, so the blind review decides
 //   identity   an equation in x with unknown constants; choices "a = 1, b = 2" make it an identity in x
 export type FormulaStyle = 'times' | 'box' | 'ratio' | 'mixed';
-export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity' | 'inequality' | 'induction' | 'inference' | 'region' | 'graph' | 'number' | 'stat' | 'function' | 'rearrange' | 'quadratic' | 'triangle' | 'eigenvector' | 'ode' | 'conic' | 'divmod' | 'classify' | 'mvt' | 'sets' | 'logic' | 'mapping' | 'figure';
+export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity' | 'inequality' | 'induction' | 'inference' | 'region' | 'graph' | 'number' | 'stat' | 'function' | 'rearrange' | 'quadratic' | 'triangle' | 'eigenvector' | 'ode' | 'conic' | 'divmod' | 'classify' | 'mvt' | 'sets' | 'logic' | 'mapping' | 'figure' | 'statement';
 
 export interface FormulaPayload {
   kind: FormulaKind;
@@ -140,6 +142,9 @@ export interface FormulaPayload {
   // A word problem: the prose per language and the unit of the answer; `question` is then the hidden
   // expression that solves it (a calc), and the choices are numbers shown with the unit.
   word?: Record<'ja' | 'en' | 'zh', { prompt: string; unit: string }>;
+  // A statement problem (kind statement): a prompt, four options and the explanation per language (constructions, proofs);
+  // `question` is "0" and `choices` are "1" to "4". Only the blind review checks these.
+  statement?: Record<'ja' | 'en' | 'zh', { prompt: string; options: string[]; explanation: string }>;
   // The worked solution, one line each: a chain "a = b = c" (or, for equations,
   // "x = 2, x = -2"), shown under the answer. SymPy checks every line.
   steps?: string[];
@@ -569,7 +574,7 @@ function questionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & {
       return `\\sum_{k=1}^{n} ${body} = ${expressionTex(f)}`;
     }
     case 'region': return inequalityTex(p.question);
-    case 'graph': case 'figure': return '';
+    case 'graph': case 'figure': case 'statement': return '';
     case 'inference': {
       const v = list(splitTop(p.question, ';')[0]);
       if (p.which === 'mean-interval') return `\\bar{x} = ${v[0]},\\ \\sigma = ${v[1]},\\ n = ${v[2]}`;
@@ -597,6 +602,7 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
     case 'divmod': return { key: 'divmod', tex: {} };
     case 'classify': return { key: `classify${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
     case 'mvt': return { key: 'mvt', tex: {} };
+    case 'statement': return { key: 'statement', tex: {} };
     case 'figure': return { key: `figure${p.which!.replace(/(^|-)(\w)/g, (_, _d, c: string) => c.toUpperCase())}`, tex: /^polygon-/.test(p.which!) ? { n: p.question } : p.which === 'pie-count' ? { n: 'ABCD'[Number(splitTop(p.question, ',')[5]) - 1] } : {} };
     case 'sets': return { key: `set${p.which!.replace(/(^|-)(\w)/g, (_, _d, c: string) => c.toUpperCase())}`, tex: {} };
     case 'logic': return { key: `logic${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };

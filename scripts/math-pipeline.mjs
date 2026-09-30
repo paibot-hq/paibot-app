@@ -131,7 +131,18 @@ export const isFormulaUnit = unit => findUnit(unit)?.kind === 'formula';
 export const promptFile = name => readFileSync(new URL(`./math-prompts/${name}.md`, import.meta.url), 'utf8');
 
 // Scan complete objects, respecting braces inside JSON strings and fenced output.
+// The JSON object holding `key` (an array) in a model's reply. The model sometimes leaves a stray word
+// where a closing brace should be ("...\"缸}}]}"), so the reply is tried as it is, then with that run of
+// characters dropped, then replaced by a brace.
 export function extractJSON(raw, key) {
+  const junk = /(["\}])[\u3000-\u9fff\uff00-\uffef]+(?=\s*[\]\}])/g;
+  for (const text of [raw, raw.replace(junk, '$1'), raw.replace(junk, '$1}')]) {
+    const found = extractFrom(text, key);
+    if (found) return found;
+  }
+  throw new Error(`No JSON object containing ${key} found`);
+}
+function extractFrom(raw, key) {
   for (let start = 0; start < raw.length; start++) {
     if (raw[start] !== '{') continue;
     let depth = 0, quoted = false, escaped = false;
@@ -152,7 +163,7 @@ export function extractJSON(raw, key) {
       }
     }
   }
-  throw new Error(`No JSON object containing ${key} found`);
+  return null;
 }
 export function additions(unit, item, setId, bank, generated, count, date = new Date().toISOString().slice(0, 10), tier = 2) {
   assert.equal(generated.problems.length, count, `Expected ${count} problems`);
@@ -168,7 +179,7 @@ export function additions(unit, item, setId, bank, generated, count, date = new 
     id: `${unit}-${String(maxId + index + 1).padStart(3, '0')}`, item, setId,
     position: maxPosition + index + 1, tier, published: false, reviewedAt: date,
     ...(unit === 'pythagoras' ? { figure: p.figure } : unit === 'factorization' ? { p: p.p, q: p.q }
-      : isFormulaUnit(unit) ? { kind: p.kind, question: p.question, given: p.given ?? null, ...(p.divisor && { divisor: p.divisor }), ...(p.bounds && { bounds: p.bounds }), ...(p.which && { which: p.which }), ...(p.progression && { progression: p.progression }), ...(p.style && { style: p.style }), ...(p.word && { word: p.word }), steps: p.steps }
+      : isFormulaUnit(unit) ? { kind: p.kind, question: p.question, given: p.given ?? null, ...(p.divisor && { divisor: p.divisor }), ...(p.bounds && { bounds: p.bounds }), ...(p.which && { which: p.which }), ...(p.progression && { progression: p.progression }), ...(p.style && { style: p.style }), ...(p.word && { word: p.word }), ...(p.statement && { statement: p.statement }), steps: p.steps }
       : { expression: p.expression, word: p.word }),
     choices: p.choices, answerIndex: p.answerIndex,
   }));
@@ -216,6 +227,7 @@ export function blindProblem(unit, p) {
     id: p.id, type: 'formula', kind: 'graph', instruction: instructionJa(p), figure: graphReading(p),
     choices: p.choices.map(choice => formulaChoiceTex(p, choice)),
   };
+  if (p.kind === 'statement') return { id: p.id, type: 'statement', statement: { ja: { prompt: p.statement.ja.prompt, options: p.statement.ja.options }, en: { prompt: p.statement.en.prompt, options: p.statement.en.options }, zh: { prompt: p.statement.zh.prompt, options: p.statement.zh.options } }, choices: ['1', '2', '3', '4'] };
   if (p.kind === 'figure') return { id: p.id, type: 'formula', kind: 'figure', instruction: instructionJa(p), figure: figureReading(p), choices: p.choices.map(choice => formulaChoiceLabel(p, choice) ? FORMULA_JA[formulaChoiceLabel(p, choice)] : formulaChoiceTex(p, choice)) };
   if (isFormulaUnit(unit)) return {
     id: p.id, type: 'formula', kind: p.kind, instruction: instructionJa(p),

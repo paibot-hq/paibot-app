@@ -1483,7 +1483,13 @@
               "title": "Side lengths",
               "description": "Find side lengths of right triangles using integers and square roots.",
               "summary": "Find side lengths of right triangles using the theorem."
-            },
+            }
+          }
+        },
+        "pythagoras-applications": {
+          "title": "Applications of the Pythagorean theorem",
+          "summary": "Apply the Pythagorean theorem to coordinates and 3D shapes.",
+          "items": {
             "applications": {
               "title": "Applying the Pythagorean theorem",
               "summary": "Apply the Pythagorean theorem to coordinates and 3D shapes.",

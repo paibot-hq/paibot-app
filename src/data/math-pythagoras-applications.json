@@ -1,0 +1,89 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "pythagoras-applications-001",
+      "item": "applications",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2, 3, 6",
+      "given": null,
+      "which": "space-diagonal",
+      "steps": [
+        "sqrt(2^2 + 3^2 + 6^2) = 7"
+      ],
+      "choices": ["7", "11", "8", "6"],
+      "answerIndex": 0
+    },
+    {
+      "id": "pythagoras-applications-002",
+      "item": "applications",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "1, 2, 2",
+      "given": null,
+      "which": "space-diagonal",
+      "steps": [
+        "sqrt(1^2 + 2^2 + 2^2) = 3"
+      ],
+      "choices": ["2", "3", "5", "4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "pythagoras-applications-003",
+      "item": "applications",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 3, 6, -3",
+      "given": null,
+      "which": "distance",
+      "steps": [],
+      "choices": ["9", "sqrt(45)", "sqrt(9)", "sqrt(47)"],
+      "answerIndex": 1
+    },
+    {
+      "id": "pythagoras-applications-004",
+      "item": "applications",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "-2, 1, 6, -3",
+      "given": null,
+      "which": "distance",
+      "steps": [],
+      "choices": ["sqrt(82)", "sqrt(80)", "sqrt(12)", "12"],
+      "answerIndex": 1
+    },
+    {
+      "id": "pythagoras-applications-005",
+      "item": "applications",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2, 1, 1, 5",
+      "given": null,
+      "which": "distance",
+      "steps": [],
+      "choices": ["sqrt(17)", "5", "sqrt(19)", "sqrt(5)"],
+      "answerIndex": 0
+    }
+  ]
+}

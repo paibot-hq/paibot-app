@@ -84,7 +84,7 @@ and display it uses (`components/math-questions.tsx`):
   `radian`, `degree`, `recurrence`, `distribution`, `geometry`, `identity`,
   `inequality`, `induction`, `inference`, `region`, `graph`, `number`, `stat`,
   `function`, `rearrange`, `quadratic`, `triangle`, `eigenvector`, `ode`, `conic`,
-  `divmod`, `classify`, `mvt`, `sets`, `logic`, `mapping` or `figure` (the
+  `divmod`, `classify`, `mvt`, `sets`, `logic`, `mapping`, `figure` or `statement` (the
   grammar comment there lists each kind's extra fields and variants). The page renders the TeX and the
   instruction line from those strings, and `scripts/verify_math.py` parses the
   same grammar to re-derive the answer, so what is shown is what was checked.
@@ -100,6 +100,10 @@ and display it uses (`components/math-questions.tsx`):
   point; `scripts/math-figure-generate.mjs <unit> <item> <set>` makes these deterministically (no LLM), with
   the usual mistakes as wrong choices, and SymPy re-derives each answer. Elementary circle items use 3.14
   (a second number in `question`), middle school uses π.
+  A `statement` problem (constructions, a missing step of a proof) is words only: `statement` holds the
+  prompt, four options and the explanation in ja/en/zh, `question` is "0" and `choices` "1" to "4"; SymPy has
+  nothing to re-derive, so its key is checked only by the blind review (`npm run math:generate` with a
+  `text-*` rule, `math-prompts/_statement.md`).
   A `graph` problem draws its hidden `question` with `components/math-graph.tsx`
   (a curve, circle or shaded region) and asks the learner to read it; the blind
   review is given the same readings as text (`graphReading` in math-pipeline.mjs).

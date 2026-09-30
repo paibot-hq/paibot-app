@@ -112,13 +112,13 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'triangles', sets: [{ id: '1', rule: 'fig-triangle-type' }] },
     { id: 'quadrilaterals', sets: [{ id: '1', rule: 'fig-quad-type' }] },
     { id: 'circles', sets: [{ id: '1', rule: 'fig-circle-parts' }] },
-    { id: 'compass-drawing', sets: [{ id: '1' }] },
+    { id: 'compass-drawing', sets: [{ id: '1', rule: 'text-compass' }] },
     { id: 'angles', sets: [{ id: '1', rule: 'fig-protractor' }] },
     { id: 'perpendicular-parallel', sets: [{ id: '1', rule: 'fig-line-pairs' }] },
-    { id: 'parallel-drawing', sets: [{ id: '1' }] },
+    { id: 'parallel-drawing', sets: [{ id: '1', rule: 'text-parallel-draw' }] },
     { id: 'cuboids', sets: [{ id: '1', rule: 'fig-box-edge' }] },
     { id: 'congruent', sets: [{ id: '1', rule: 'fig-congruent' }] },
-    { id: 'congruent-drawing', sets: [{ id: '1' }] },
+    { id: 'congruent-drawing', sets: [{ id: '1', rule: 'text-congruent-draw' }] },
     { id: 'angle-sum', sets: [{ id: '1', rule: 'fig-angle-sum' }] },
     { id: 'prisms', sets: [{ id: '1', rule: 'fig-prism-count' }] },
   ] },
@@ -221,7 +221,9 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   ] },
   { id: 'pythagoras', domain: 'geometry', stage: 'middle', status: 'published', kind: 'pythagoras', items: [
     { id: 'sides', sets: [{ id: '1', rule: 'sides-a' }] },
-    { id: 'applications', sets: [{ id: '1' }] },
+  ] },
+  { id: 'pythagoras-applications', domain: 'geometry', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'applications', sets: [{ id: '1', rule: 'fig-space' }] },
   ] },
   { id: 'probability', domain: 'data', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'relative-frequency', sets: [{ id: '1', rule: 'relfreq-a' }] },
@@ -383,11 +385,11 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'transformations', domain: 'geometry', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'moves', sets: [{ id: '1', rule: 'fig-moves' }] },
   ] },
-  { id: 'geometric-reasoning', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
-    { id: 'construction', sets: [{ id: '1' }] },
-    { id: 'congruence-proof', sets: [{ id: '1' }] },
-    { id: 'similarity-proof', sets: [{ id: '1' }] },
-    { id: 'circle-proof', sets: [{ id: '1' }] },
+  { id: 'geometric-reasoning', domain: 'geometry', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'construction', sets: [{ id: '1', rule: 'text-construction' }] },
+    { id: 'congruence-proof', sets: [{ id: '1', rule: 'text-congruence-proof' }] },
+    { id: 'similarity-proof', sets: [{ id: '1', rule: 'text-similarity-proof' }] },
+    { id: 'circle-proof', sets: [{ id: '1', rule: 'text-circle-proof' }] },
   ] },
   { id: 'triangle-trig', domain: 'geometry', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'ratios', sets: [{ id: '1', rule: 'triangle-ratio-a' }] },
@@ -400,7 +402,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'power', sets: [{ id: '1', rule: 'fig-power' }] },
     { id: 'ceva-menelaus', sets: [{ id: '1', rule: 'fig-ceva' }] },
     { id: 'polyhedra', sets: [{ id: '1', rule: 'fig-euler' }] },
-    { id: 'construction', sets: [{ id: '1' }] },
+    { id: 'construction', sets: [{ id: '1', rule: 'text-construction-hs' }] },
   ] },
   { id: 'quartiles', domain: 'data', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'quartiles', sets: [{ id: '1', rule: 'fig-quartile' }] },

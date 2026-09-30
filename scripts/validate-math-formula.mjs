@@ -280,6 +280,14 @@ const RULES = {
   'fig-net': ['figure', (s, p) => ['net-cylinder', 'net-cuboid'].includes(p.which)],
   'fig-space': ['figure', (s, p) => ['space-diagonal', 'distance'].includes(p.which)],
   'fig-ceva': ['figure', (s, p) => ['ceva-ratio', 'menelaus-ratio'].includes(p.which)],
+  'text-compass': ['statement', () => true],
+  'text-parallel-draw': ['statement', () => true],
+  'text-congruent-draw': ['statement', () => true],
+  'text-construction-hs': ['statement', () => true],
+  'text-construction': ['statement', () => true],
+  'text-congruence-proof': ['statement', () => true],
+  'text-similarity-proof': ['statement', () => true],
+  'text-circle-proof': ['statement', () => true],
   'fig-clock': ['figure', (s, p) => ['clock-read'].includes(p.which)],
   'fig-fraction-unit': ['figure', (s, p) => ['fraction-shaded'].includes(p.which)],
   'fig-fraction': ['figure', (s, p) => ['fraction-shaded'].includes(p.which)],
@@ -366,7 +374,7 @@ export function validateBank(bank, catalog) {
     const [ruleKind, fits] = RULES[set.rule];
     assert.ok([ruleKind].flat().includes(kind), `${id}: kind`);
     assert.ok(typeof question === 'string' && question.length <= 200, `${id}: question`);
-    const key = `${kind === 'figure' ? `${problem.which}:` : ''}${question.replaceAll(' ', '')}|${given ?? ''}`;
+    const key = kind === 'statement' ? `statement:${problem.statement?.ja?.prompt}` : `${kind === 'figure' ? `${problem.which}:` : ''}${question.replaceAll(' ', '')}|${given ?? ''}`;
     assert.ok(!questions.has(key), `${id}: duplicate question`); questions.add(key);
     assert.ok(given === null || (['calc', 'derivative', 'tangent', 'term', 'series', 'recurrence', 'distribution', 'inference', 'sets'].includes(kind) && typeof given === 'string'), `${id}: given`);
     if (given && kind !== 'sets') for (const pair of splitTop(given, ',')) { assert.match(pair, /^\s*[a-z]\s*=/, `${id}: given`); parseExpression(pair.split('=')[1]); }
@@ -398,7 +406,17 @@ export function validateBank(bank, catalog) {
     if (set.rule === 'letters-value-a') assert.equal(problem.style, 'times', `${id}: this set keeps the × sign (style "times")`);
     const which = problem.which;
     const listed = ['distribution', 'geometry', 'recurrence', 'inequality', 'induction', 'inference', 'region', 'graph', 'number', 'stat', 'function', 'quadratic', 'triangle', 'eigenvector', 'ode', 'conic', 'divmod', 'classify', 'mvt', 'sets'].includes(kind);
-    const own = ['logic', 'mapping', 'figure'].includes(kind);
+    const own = ['logic', 'mapping', 'figure', 'statement'].includes(kind);
+    if (kind === 'statement') {
+      assert.equal(question, '0', `${id}: question "0"`);
+      assert.deepEqual(choices, ['1', '2', '3', '4'], `${id}: choices "1" to "4"`);
+      for (const locale of ['ja', 'en', 'zh']) {
+        const text = problem.statement?.[locale];
+        assert.ok(text && typeof text.prompt === 'string' && text.prompt.length >= 8 && text.prompt.length <= 900, `${id}: a ${locale} prompt`);
+        assert.ok(Array.isArray(text.options) && text.options.length === 4 && text.options.every(option => typeof option === 'string' && option.length >= 1 && option.length <= 160) && new Set(text.options).size === 4, `${id}: four different ${locale} options`);
+        assert.ok(typeof text.explanation === 'string' && text.explanation.length >= 8 && text.explanation.length <= 500, `${id}: a ${locale} explanation`);
+      }
+    } else assert.ok(problem.statement === undefined, `${id}: statement is for statement problems`);
     if (kind === 'figure') { const numbers = splitTop(question, ','); assert.ok(numbers.length >= 1 && numbers.length <= 12, `${id}: a few numbers`); numbers.forEach(part => parseExpression(part)); }
     if (kind === 'logic') { for (const part of (problem.which === 'necessary' ? splitTop(question, ';') : [question])) conditionTex(part); }
     if (kind === 'sets') { const parts = splitTop(question, ';'); assert.equal(parts.length, 2, `${id}: sets are "A; B"`); assert.equal(given !== null, /complement/.test(problem.which), `${id}: given is the universe, for complements only`); }
@@ -417,7 +435,7 @@ export function validateBank(bank, catalog) {
     }
     // The worked solution, required (SymPy checks its mathematics, verify_math.py).
     {
-      assert.ok(Array.isArray(problem.steps) && problem.steps.length >= (['ode', 'sets', 'logic', 'mapping', 'figure'].includes(kind) ? 0 : 1) && problem.steps.length <= 6, `${id}: 1 to 6 steps`);
+      assert.ok(Array.isArray(problem.steps) && problem.steps.length >= (['ode', 'sets', 'logic', 'mapping', 'figure', 'statement'].includes(kind) ? 0 : 1) && problem.steps.length <= 6, `${id}: 1 to 6 steps`);
       for (const line of problem.steps) { assert.equal(typeof line, 'string', `${id}: step`); for (const item of splitTop(line, ',')) item.split('=').forEach(side => parseExpression(side)); }
     }
     for (const choice of choices) checkChoice(kind, choice, id, problem.which);

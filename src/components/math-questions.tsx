@@ -57,12 +57,12 @@ export function useMathQuestions(kind: MathKind | undefined, problems: readonly 
       case 'formula':
         return (problems as { id: string; answerIndex: number; payload: FormulaPayload }[]).map(({ id, answerIndex, payload }) => ({
           id, answerIndex,
-          prompt: payload.word ? <p>{payload.word[locale].prompt}</p> : <>
+          prompt: payload.statement ? <>{payload.statement[locale].prompt.split('\n').map((line, index) => <p key={index}>{line}</p>)}</> : payload.word ? <p>{payload.word[locale].prompt}</p> : <>
             <p>{formulaInstructionLine(payload, tq)}</p>
             {payload.kind === 'graph' ? <MathGraph which={payload.which!} question={payload.question} /> : payload.kind === 'figure' ? <MathShape which={payload.which!} question={payload.question} /> : formulaQuestionTex(payload) ? <MathTex tex={formulaQuestionTex(payload)} block /> : null}
           </>,
-          choices: payload.choices.map(choice => payload.word ? <><MathTex tex={formulaChoiceTex(payload, choice)} />{payload.word[locale].unit}</> : formulaChoiceLabel(payload, choice) ? tq(formulaChoiceLabel(payload, choice) as Parameters<FormulaT>[0]) : <MathTex tex={formulaChoiceTex(payload, choice)} />),
-          explanation: <>
+          choices: payload.choices.map((choice, index) => payload.statement ? payload.statement[locale].options[index] : payload.word ? <><MathTex tex={formulaChoiceTex(payload, choice)} />{payload.word[locale].unit}</> : formulaChoiceLabel(payload, choice) ? tq(formulaChoiceLabel(payload, choice) as Parameters<FormulaT>[0]) : <MathTex tex={formulaChoiceTex(payload, choice)} />),
+          explanation: payload.statement ? <p>{payload.statement[locale].explanation}</p> : <>
             {payload.steps && <div className={styles.steps}>{payload.steps.flatMap(line => stepRows(line, payload.style)).map((row, index) => <div key={index} className={styles.row}>{row.map((piece, at) => <MathTex key={at} tex={`{{}${piece}}`} />)}</div>)}</div>}
             {tq('answer')} {formulaChoiceLabel(payload, payload.choices[answerIndex]) ? tq(formulaChoiceLabel(payload, payload.choices[answerIndex]) as Parameters<FormulaT>[0]) : <MathTex tex={formulaChoiceTex(payload, payload.choices[answerIndex])} />}{payload.word?.[locale].unit}
             {payload.kind === 'divmod' && <MathColumn expression={payload.question.replace(/\s*,\s*/, ' / ')} />}
