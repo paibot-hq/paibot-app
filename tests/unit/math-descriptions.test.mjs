@@ -17,9 +17,13 @@ for (const unit of MATH_CATALOG) for (const item of unit.items) {
     assert.ok(entry.description.length >= 10 && entry.description.length <= 600, `${locale}: ${unit.id}/${item.id} description length`);
   }
   for (const formula of keyPoints(unit.id, item.id)) {
-    const sides = formula.split('=');
-    assert.equal(sides.length, 2, `${unit.id}/${item.id}: "${formula}" is one equation`);
-    sides.forEach(side => parseExpression(side));
+    const parts = formula.split('=>');
+    assert.ok(parts.length <= 2, `${unit.id}/${item.id}: "${formula}" has one =>`);
+    for (const part of parts) {
+      const sides = part.split('=');
+      assert.equal(sides.length, 2, `${unit.id}/${item.id}: "${part}" is one equation`);
+      sides.forEach(side => parseExpression(side));
+    }
   }
 }
 console.log(`PASS: all ${MATH_CATALOG.flatMap(unit => unit.items).length} learning items have a summary and a description in ja, en and zh`);

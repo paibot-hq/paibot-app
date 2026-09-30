@@ -7,7 +7,7 @@ import MathBreadcrumb from '../components/math-breadcrumb';
 import ToolLayout from '../components/tool-layout';
 import { Link } from '../i18n/navigation';
 import type { DynamicT } from '../lib/apps';
-import { statementTex } from '../lib/math-formula';
+import { keyPointTex } from '../lib/math-formula';
 import { getSetRecords } from '../lib/math-attempts.server';
 import { findUnit } from '../lib/math-catalog';
 import { jpGrade } from '../lib/math-curriculum-jp';
@@ -63,7 +63,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
       <p className={styles.jump}><a href="#practice">{ti('toPractice')}</a></p>
       {points.length > 0 && <details className={styles.section} open>
         <summary>{ti('points')}</summary>
-        <div className={styles.points}>{points.map(text => <MathTex key={text} tex={statementTex(text)} block />)}</div>
+        <div className={styles.points}>{points.map(text => <MathTex key={text} tex={keyPointTex(text)} block />)}</div>
       </details>}
       {exampleQuestion && <details className={styles.section} open>
         <summary>{ti('example')}</summary>

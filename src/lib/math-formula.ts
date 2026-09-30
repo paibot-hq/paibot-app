@@ -456,6 +456,13 @@ export function evalExpression(text: string, vars: Record<string, number> = {}):
   return run(parseExpression(text));
 }
 
+// A key point: an identity "lhs = rhs", or "equation => v = expr" (v = expr solves
+// the equation, e.g. the quadratic formula), as TeX.
+export function keyPointTex(text: string): string {
+  const [premise, conclusion] = text.split('=>');
+  return conclusion === undefined ? statementTex(text) : `${statementTex(premise)} \\;\\Rightarrow\\; ${statementTex(conclusion)}`;
+}
+
 // "lhs; rhs; op" (op is <, >, <= or >=) as TeX.
 export function inequalityTex(text: string): string {
   const [lhs, rhs, op] = splitTop(text, ';');
