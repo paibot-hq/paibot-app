@@ -210,6 +210,36 @@ const RULES = {
   'conic-polar-a': ['conic', (s, p) => /-to-/.test(p.which)],
   'divmod-a': ['divmod', (s, p) => { const [a, b] = p.question.split(',').map(Number); return a >= 10 && b >= 2 && b <= 9 && a <= 99; }],
   'common-factor-a': ['factor', s => s.letters.size >= 1 && s.powers.every(n => n <= 3) && !s.calls.size],
+  // Word problems: prose in ja/en/zh and a hidden solving expression (kind calc).
+  'pv-100-a': ['calc', (s, p) => !!p.word],
+  'pv-10000-a': ['calc', (s, p) => !!p.word],
+  'pv-man-a': ['calc', (s, p) => !!p.word],
+  'pv-large-a': ['calc', (s, p) => !!p.word],
+  'measure-length-a': ['calc', (s, p) => !!p.word],
+  'measure-weight-a': ['calc', (s, p) => !!p.word],
+  'measure-area-a': ['calc', (s, p) => !!p.word],
+  'elapsed-a': ['calc', (s, p) => !!p.word],
+  'speed-a': ['calc', (s, p) => !!p.word],
+  'per-unit-a': ['calc', (s, p) => !!p.word],
+  'simple-proportion-a': ['calc', (s, p) => !!p.word],
+  'proportion-a': ['calc', (s, p) => !!p.word],
+  'simple-ratio-a': ['calc', (s, p) => !!p.word],
+  'percent-a': ['calc', (s, p) => !!p.word],
+  'ratio-word-a': ['calc', (s, p) => !!p.word],
+  'ratio-simplify-a': ['calc', (s, p) => !!p.word],
+  'arrangements-a': ['calc', (s, p) => !!p.word],
+  'combinations-a': ['calc', (s, p) => !!p.word],
+  'linear-word-a': ['calc', (s, p) => !!p.word],
+  'simul-word-a': ['calc', (s, p) => !!p.word],
+  'relfreq-a': ['calc', (s, p) => !!p.word],
+  'prob-basic-a': ['calc', (s, p) => !!p.word],
+  'comb-prob-a': ['calc', (s, p) => !!p.word],
+  'independent-a': ['calc', (s, p) => !!p.word],
+  'conditional-a': ['calc', (s, p) => !!p.word],
+  'population-a': ['calc', (s, p) => !!p.word],
+  'sample-estimate-a': ['calc', (s, p) => !!p.word],
+  'hypothesis-a': ['calc', (s, p) => !!p.word],
+  'venn-a': ['calc', (s, p) => !!p.word],
   'geometric-a': [['term', 'series'], (s, p) => p.progression === 'geometric' && !s.letters.size && !s.calls.size],
 };
 
@@ -306,6 +336,14 @@ export function validateBank(bank, catalog) {
     assert.ok(expectedEquations, `${id}: equations`);
     assert.ok(fits(s, problem), `${id}: "${question}" does not fit set ${setId}`);
     assert.ok(Array.isArray(choices) && choices.length === 4, `${id}: four choices`);
+    // A word problem: prose in every language and the unit of the answer; its `question` is the hidden solving expression.
+    if (problem.word !== undefined) {
+      assert.equal(kind, 'calc', `${id}: only calc problems can be word problems`);
+      for (const locale of ['ja', 'en', 'zh']) {
+        const word = problem.word[locale];
+        assert.ok(word && typeof word.prompt === 'string' && word.prompt.length >= 8 && word.prompt.length <= 400 && typeof word.unit === 'string' && word.unit.length <= 16, `${id}: a ${locale} prompt and unit`);
+      }
+    }
     // The worked solution, required (SymPy checks its mathematics, verify_math.py).
     {
       assert.ok(Array.isArray(problem.steps) && problem.steps.length >= (kind === 'ode' ? 0 : 1) && problem.steps.length <= 6, `${id}: 1 to 6 steps`);

@@ -87,7 +87,7 @@ export function additions(unit, item, setId, bank, generated, count, date = new 
     id: `${unit}-${String(maxId + index + 1).padStart(3, '0')}`, item, setId,
     position: maxPosition + index + 1, tier, published: false, reviewedAt: date,
     ...(unit === 'pythagoras' ? { figure: p.figure } : unit === 'factorization' ? { p: p.p, q: p.q }
-      : isFormulaUnit(unit) ? { kind: p.kind, question: p.question, given: p.given ?? null, ...(p.divisor && { divisor: p.divisor }), ...(p.bounds && { bounds: p.bounds }), ...(p.which && { which: p.which }), ...(p.progression && { progression: p.progression }), ...(p.style && { style: p.style }), steps: p.steps }
+      : isFormulaUnit(unit) ? { kind: p.kind, question: p.question, given: p.given ?? null, ...(p.divisor && { divisor: p.divisor }), ...(p.bounds && { bounds: p.bounds }), ...(p.which && { which: p.which }), ...(p.progression && { progression: p.progression }), ...(p.style && { style: p.style }), ...(p.word && { word: p.word }), steps: p.steps }
       : { expression: p.expression, word: p.word }),
     choices: p.choices, answerIndex: p.answerIndex,
   }));
@@ -126,6 +126,11 @@ export function blindProblem(unit, p) {
     return { id: p.id, type: 'factorization', trinomial: `x^2${a ? ` ${signedTerm(a).replace(/ 1$/, ' ')}x` : ''}${b ? ` ${signedTerm(b)}` : ''}`, choices: p.choices.map(factorChoice) };
   }
   // The reviewer sees the formulas as learners do, rendered (÷ and fraction bars, not ':' and '/').
+  // A formula word problem: the reviewer reads the prose (not the hidden expression) and picks the answer.
+  if (isFormulaUnit(unit) && p.word) return {
+    id: p.id, type: 'formula', kind: 'word', word: Object.fromEntries(['ja', 'en', 'zh'].map(locale => [locale, { prompt: p.word[locale].prompt, unit: p.word[locale].unit }])),
+    choices: p.choices.map(choice => formulaChoiceTex(p, choice)),
+  };
   if (isFormulaUnit(unit) && p.kind === 'graph') return {
     id: p.id, type: 'formula', kind: 'graph', instruction: instructionJa(p), figure: graphReading(p),
     choices: p.choices.map(choice => formulaChoiceTex(p, choice)),

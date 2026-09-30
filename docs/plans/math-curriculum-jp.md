@@ -28,7 +28,7 @@
 | --- | --- | --- | --- |
 | 数と計算 | たし算・ひき算 / 10までのたし算・ひき算 | ✅ | `addition/within-10` |
 | 数と計算 | たし算・ひき算 / 1桁のくり上がり・くり下がり | ✅ | `addition/carry` |
-| 数と計算 | 大きな数 / 100までの数 | C | `place-value/to-100` |
+| 数と計算 | 大きな数 / 100までの数 | ✅ | `place-value/to-100` |
 | 図形と測定 | 時刻と時間 / 時計の読み方 | D | `time/reading` |
 | 図形と測定 | 図形の基本 / 立体のかたち | D | `shapes/solids-basic` |
 
@@ -39,9 +39,9 @@
 | 数と計算 | たし算・ひき算 / 2桁のたし算・ひき算 | ✅ | `addition/two-digit` |
 | 数と計算 | かけ算 / 九九 | ✅ | `multiplication/times-table` |
 | 数と計算 | 計算の順序と文章題 / かんたん文章題 | ✅ | `arith/simple-word-problems` |
-| 数と計算 | 大きな数 / 10000までの数 | C | `place-value/to-10000` |
+| 数と計算 | 大きな数 / 10000までの数 | ✅ | `place-value/to-10000` |
 | 数と計算 | 分数 / 分数の意味（1/2・1/4） | D | `fraction/unit-fractions` |
-| 図形と測定 | 測定 / 長さとかさ | C | `measurement/length-capacity` |
+| 図形と測定 | 測定 / 長さとかさ | ✅ | `measurement/length-capacity` |
 | 図形と測定 | 図形の基本 / 長方形・正方形・直角三角形 | D | `shapes/basic-shapes` |
 | 図形と測定 | 図形の基本 / 箱の形 | D | `shapes/boxes` |
 | データと確率 | 表とグラフ / 表とグラフ | D | `graphs/tables` |
@@ -55,13 +55,13 @@
 | 数と計算 | かけ算 / 2〜3桁×2桁 | ✅ | `multiplication/by-two-digit` |
 | 数と計算 | わり算 / 九九を使うわり算 | ✅ | `division/basic` |
 | 数と計算 | あまりのあるわり算 / あまりのあるわり算 | ✅ | `division-remainder/remainder` |
-| 数と計算 | 大きな数 / 万の位の数 | C | `place-value/ten-thousands` |
+| 数と計算 | 大きな数 / 万の位の数 | ✅ | `place-value/ten-thousands` |
 | 数と計算 | 小数 / 小数のたし算・ひき算（1/10の位） | ✅ | `decimal/add-sub-tenths` |
 | 数と計算 | 分数 / 分数の大きさ | D | `fraction/meaning` |
 | 数と計算 | 分数 / 同分母の分数のたし算・ひき算 | ✅ | `fraction/add-sub-like` |
 | 式と方程式 | □や文字を使った式 / □を使った式 | ✅ | `unknowns/box` |
-| 図形と測定 | 時刻と時間 / 時刻と時間の計算 | C | `time/elapsed` |
-| 図形と測定 | 測定 / 重さ | C | `measurement/weight` |
+| 図形と測定 | 時刻と時間 / 時刻と時間の計算 | ✅ | `time/elapsed` |
+| 図形と測定 | 測定 / 重さ | ✅ | `measurement/weight` |
 | 図形と測定 | 図形の基本 / 二等辺三角形と正三角形 | D | `shapes/triangles` |
 | 図形と測定 | 図形の基本 / 円と球 | D | `shapes/circles` |
 | 図形と測定 | 図形の基本 / コンパスを使った図のかき方 | D | `shapes/compass-drawing` |
@@ -77,21 +77,21 @@
 | 数と計算 | 計算の順序と文章題 / 計算の順序 | ✅ | `arith/order-of-operations` |
 | 数と計算 | 計算の順序と文章題 / 計算のきまり | ✅ | `arith/rules` |
 | 数と計算 | 計算の順序と文章題 / 少し長い文章題 | ✅ | `arith/word-problems` |
-| 数と計算 | 大きな数 / 万・億・兆 | C | `place-value/large-numbers` |
+| 数と計算 | 大きな数 / 万・億・兆 | ✅ | `place-value/large-numbers` |
 | 数と計算 | 小数 / 小数のたし算・ひき算（1/100の位） | ✅ | `decimal/add-sub` |
 | 数と計算 | 小数 / 小数×整数・小数÷整数 | ✅ | `decimal/mul-div-whole` |
 | 数と計算 | 分数 / 帯分数と仮分数 | ✅ | `fraction/mixed` |
 | 数と計算 | 概数と四捨五入 / 四捨五入 | ✅ | `rounding/rounding` |
 | 数と計算 | 概数と四捨五入 / 見積もり | ✅ | `rounding/estimate` |
 | 関数・変化と関係 | 変わり方と比例 / 伴って変わる2つの量 | D | `relations/change` |
-| 図形と測定 | 測定 / 面積の単位 | C | `measurement/area-units` |
+| 図形と測定 | 測定 / 面積の単位 | ✅ | `measurement/area-units` |
 | 図形と測定 | 測定 / 長方形と正方形の面積 | D | `measurement/rect-area` |
 | 図形と測定 | 図形の基本 / 平行四辺形・台形・ひし形 | D | `shapes/quadrilaterals` |
 | 図形と測定 | 図形の基本 / 角の大きさ | D | `shapes/angles` |
 | 図形と測定 | 図形の基本 / 垂直と平行 | D | `shapes/perpendicular-parallel` |
 | 図形と測定 | 図形の基本 / 平行線・垂線のかき方 | D | `shapes/parallel-drawing` |
 | 図形と測定 | 図形の基本 / 直方体と立方体（展開図・見取図） | D | `shapes/cuboids` |
-| データと確率 | 割合と比 / 簡単な割合（何倍か） | C | `ratio/simple-ratio` |
+| データと確率 | 割合と比 / 簡単な割合（何倍か） | ✅ | `ratio/simple-ratio` |
 | データと確率 | 表とグラフ / 折れ線グラフ | D | `graphs/line-graph` |
 | データと確率 | 表とグラフ / 二次元の表 | D | `graphs/two-way-table` |
 
@@ -107,9 +107,9 @@
 | 数と計算 | 分数 / 異分母の分数のたし算・ひき算 | ✅ | `fraction/add-sub` |
 | 数と計算 | 約数と倍数 / 約数と倍数 | ✅ | `divisors/divisors` |
 | 数と計算 | 約数と倍数 / 最大公約数・最小公倍数 | ✅ | `divisors/gcd-lcm` |
-| 関数・変化と関係 | 速さと単位量あたり / 速さ・時間・道のり | C | `rate/speed` |
-| 関数・変化と関係 | 速さと単位量あたり / 単位量あたりの大きさ | C | `rate/per-unit` |
-| 関数・変化と関係 | 変わり方と比例 / 簡単な比例 | C | `relations/simple-proportion` |
+| 関数・変化と関係 | 速さと単位量あたり / 速さ・時間・道のり | ✅ | `rate/speed` |
+| 関数・変化と関係 | 速さと単位量あたり / 単位量あたりの大きさ | ✅ | `rate/per-unit` |
+| 関数・変化と関係 | 変わり方と比例 / 簡単な比例 | ✅ | `relations/simple-proportion` |
 | 図形と測定 | 測定 / 三角形・平行四辺形・台形の面積 | D | `measurement/area` |
 | 図形と測定 | 測定 / 直方体と立方体の体積 | D | `measurement/volume` |
 | 図形と測定 | 測定 / 円周 | D | `measurement/circumference` |
@@ -117,8 +117,8 @@
 | 図形と測定 | 図形の基本 / 合同な図形のかき方 | D | `shapes/congruent-drawing` |
 | 図形と測定 | 図形の基本 / 三角形・四角形の角の和 | D | `shapes/angle-sum` |
 | 図形と測定 | 図形の基本 / 角柱と円柱 | D | `shapes/prisms` |
-| データと確率 | 割合と比 / 百分率 | C | `ratio/percent` |
-| データと確率 | 割合と比 / 割合の文章題 | C | `ratio/word-problems` |
+| データと確率 | 割合と比 / 百分率 | ✅ | `ratio/percent` |
+| データと確率 | 割合と比 / 割合の文章題 | ✅ | `ratio/word-problems` |
 | データと確率 | データの活用 / 平均 | ✅ | `data/average` |
 | データと確率 | 表とグラフ / 帯グラフと円グラフ | D | `graphs/pie-band` |
 
@@ -128,16 +128,16 @@
 | --- | --- | --- | --- |
 | 数と計算 | 分数 / 分数のかけ算・わり算 | ✅ | `fraction/mul-div` |
 | 式と方程式 | □や文字を使った式 / 文字を使った式 | ✅ | `unknowns/letters` |
-| 関数・変化と関係 | 変わり方と比例 / 比例と反比例 | C | `relations/proportion` |
+| 関数・変化と関係 | 変わり方と比例 / 比例と反比例 | ✅ | `relations/proportion` |
 | 図形と測定 | 測定 / 円の面積 | D | `measurement/circle-area` |
 | 図形と測定 | 測定 / 角柱・円柱の体積 | D | `measurement/prism-volume` |
 | 図形と測定 | 対称と拡大・縮小 / 線対称と点対称 | D | `symmetry/symmetry` |
 | 図形と測定 | 対称と拡大・縮小 / 拡大図と縮図 | D | `symmetry/scale` |
-| データと確率 | 割合と比 / 比を簡単にする | C | `ratio/ratio` |
+| データと確率 | 割合と比 / 比を簡単にする | ✅ | `ratio/ratio` |
 | データと確率 | データの活用 / 中央値・範囲 | ✅ | `data/median-range` |
 | データと確率 | 表とグラフ / 柱状グラフ | D | `graphs/histogram` |
-| データと確率 | 並べ方と組み合わせ / 並べ方 | C | `counting/arrangements` |
-| データと確率 | 並べ方と組み合わせ / 組み合わせ | C | `counting/combinations` |
+| データと確率 | 並べ方と組み合わせ / 並べ方 | ✅ | `counting/arrangements` |
+| データと確率 | 並べ方と組み合わせ / 組み合わせ | ✅ | `counting/combinations` |
 
 ## 中1（`m1`）
 
@@ -154,14 +154,14 @@
 | 式と方程式 | 一次方程式 / かっこを含む | ✅ | `linear-equation/parentheses` |
 | 式と方程式 | 一次方程式 / 分数を含む | ✅ | `linear-equation/fraction` |
 | 式と方程式 | 一次方程式 / 比例式 | ✅ | `linear-equation/proportion` |
-| 式と方程式 | 一次方程式 / 文章題 | C | `linear-equation/word-problems` |
+| 式と方程式 | 一次方程式 / 文章題 | ✅ | `linear-equation/word-problems` |
 | 関数・変化と関係 | 比例・一次関数 / 比例・反比例 | ✅ | `linear-function/proportion` |
 | 図形と測定 | 円と立体の計量 / 見取図・展開図・投影図 | D | `circle-solid/solid-views` |
 | 図形と測定 | 円と立体の計量 / おうぎ形 | D | `circle-solid/sector` |
 | 図形と測定 | 円と立体の計量 / 錐体・球の体積と表面積 | D | `circle-solid/solid` |
 | 図形と測定 | 図形の移動 / 平行移動・回転・対称移動 | D | `transformations/moves` |
 | 図形と測定 | 作図と証明 / 基本の作図 | C | `geometric-reasoning/construction` |
-| データと確率 | 確率 / 多数回の試行と確率 | C | `probability/relative-frequency` |
+| データと確率 | 確率 / 多数回の試行と確率 | ✅ | `probability/relative-frequency` |
 | データと確率 | 度数分布 / 度数分布と相対度数 | D | `frequency/frequency` |
 
 ## 中2（`m2`）
@@ -172,7 +172,7 @@
 | 式と方程式 | 文字式 / 等式の変形 | ✅ | `expression/rearrange` |
 | 式と方程式 | 連立方程式 / 加減法 | ✅ | `simultaneous/elimination` |
 | 式と方程式 | 連立方程式 / 代入法 | ✅ | `simultaneous/substitution` |
-| 式と方程式 | 連立方程式 / 文章題 | C | `simultaneous/word-problems` |
+| 式と方程式 | 連立方程式 / 文章題 | ✅ | `simultaneous/word-problems` |
 | 関数・変化と関係 | 比例・一次関数 / 傾きと切片 | ✅ | `linear-function/slope` |
 | 関数・変化と関係 | 比例・一次関数 / 2点を通る直線 | ✅ | `linear-function/two-points` |
 | 関数・変化と関係 | 比例・一次関数 / 一次関数と方程式 | ✅ | `linear-function/equations` |
@@ -182,7 +182,7 @@
 | 図形と測定 | 合同と図形の性質 / 二等辺三角形と直角三角形 | D | `congruence/triangles` |
 | 図形と測定 | 合同と図形の性質 / 平行四辺形になる条件 | D | `congruence/parallelogram` |
 | 図形と測定 | 作図と証明 / 合同の証明 | C | `geometric-reasoning/congruence-proof` |
-| データと確率 | 確率 / 確率の基本 | C | `probability/basic` |
+| データと確率 | 確率 / 確率の基本 | ✅ | `probability/basic` |
 | データと確率 | 四分位数と箱ひげ図 / 四分位数 | D | `quartiles/quartiles` |
 | データと確率 | 四分位数と箱ひげ図 / 箱ひげ図 | D | `quartiles/boxplot` |
 
@@ -212,8 +212,8 @@
 | 図形と測定 | 相似と円 / 円周角の定理 | D | `similarity/inscribed-angle` |
 | 図形と測定 | 作図と証明 / 相似の証明 | C | `geometric-reasoning/similarity-proof` |
 | 図形と測定 | 作図と証明 / 円周角を使った証明 | C | `geometric-reasoning/circle-proof` |
-| データと確率 | 標本調査 / 母集団と標本 | C | `sampling/population-sample` |
-| データと確率 | 標本調査 / 標本からの推定 | C | `sampling/estimate` |
+| データと確率 | 標本調査 / 母集団と標本 | ✅ | `sampling/population-sample` |
+| データと確率 | 標本調査 / 標本からの推定 | ✅ | `sampling/estimate` |
 
 ## 数学I（`h-i`）
 
@@ -237,9 +237,9 @@
 | 図形と測定 | 三角形の計量 / 三角形の面積 | ✅ | `triangle-trig/area` |
 | データと確率 | 分散と相関 / 分散・標準偏差 | ✅ | `statistics/variance` |
 | データと確率 | 分散と相関 / 相関係数 | ✅ | `statistics/correlation` |
-| データと確率 | 分散と相関 / 仮説検定の考え方 | C | `statistics/hypothesis` |
+| データと確率 | 分散と相関 / 仮説検定の考え方 | ✅ | `statistics/hypothesis` |
 | 集合と論理 | 集合 / 和集合・共通部分・補集合 | C | `sets/operations` |
-| 集合と論理 | 集合 / ベン図と要素の個数 | C | `sets/venn` |
+| 集合と論理 | 集合 / ベン図と要素の個数 | ✅ | `sets/venn` |
 | 集合と論理 | 命題と論理 / 否定と対偶 | C | `logic/negation` |
 | 集合と論理 | 命題と論理 / 必要条件・十分条件 | C | `logic/conditions` |
 
@@ -258,9 +258,9 @@
 | 図形と測定 | 図形の性質 / 作図 | D | `triangle-properties/construction` |
 | データと確率 | 場合の数と確率 / 順列 | ✅ | `combinatorics/permutations` |
 | データと確率 | 場合の数と確率 / 組合せ | ✅ | `combinatorics/combinations` |
-| データと確率 | 場合の数と確率 / 確率 | C | `combinatorics/probability` |
-| データと確率 | 場合の数と確率 / 独立な試行・反復試行 | C | `combinatorics/independent` |
-| データと確率 | 場合の数と確率 / 条件付き確率 | C | `combinatorics/conditional` |
+| データと確率 | 場合の数と確率 / 確率 | ✅ | `combinatorics/probability` |
+| データと確率 | 場合の数と確率 / 独立な試行・反復試行 | ✅ | `combinatorics/independent` |
+| データと確率 | 場合の数と確率 / 条件付き確率 | ✅ | `combinatorics/conditional` |
 | データと確率 | 場合の数と確率 / 期待値 | ✅ | `combinatorics/expectation` |
 
 ## 数学II（`h-ii`）

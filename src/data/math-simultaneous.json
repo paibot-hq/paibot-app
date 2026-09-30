@@ -12,7 +12,7 @@
       "kind": "solve",
       "question": "x + y = 5; 2*x - y = 4",
       "given": null,
-      "choices": ["x = 2,     y = 3", "x = 3,     y = 2", "x = 3,     y = -2", "x = 1,     y = 4"],
+      "choices": ["x = 2,      y = 3", "x = 3,      y = 2", "x = 3,      y = -2", "x = 1,      y = 4"],
       "answerIndex": 1,
       "steps": [
         "3*x = 9",
@@ -32,7 +32,7 @@
       "kind": "solve",
       "question": "2*x + 3*y = 11; 2*x + y = 5",
       "given": null,
-      "choices": ["x = 3,     y = 1", "x = 2,     y = 1", "x = -1,     y = 3", "x = 1,     y = 3"],
+      "choices": ["x = 3,      y = 1", "x = 2,      y = 1", "x = -1,      y = 3", "x = 1,      y = 3"],
       "answerIndex": 3,
       "steps": [
         "2*y = 6",
@@ -53,7 +53,7 @@
       "kind": "solve",
       "question": "3*x + y = -3; x - 2*y = -8",
       "given": null,
-      "choices": ["x = -2,     y = 3", "x = 2,     y = 3", "x = 3,     y = -2", "x = 0,     y = 4"],
+      "choices": ["x = -2,      y = 3", "x = 2,      y = 3", "x = 3,      y = -2", "x = 0,      y = 4"],
       "answerIndex": 0,
       "steps": [
         "7*x = -14",
@@ -73,7 +73,7 @@
       "kind": "solve",
       "question": "x + 3*y = 7; 3*x - 2*y = -1",
       "given": null,
-      "choices": ["x = 2,     y = 1", "x = 4,     y = 1", "x = 1,     y = 2", "x = 1,     y = -2"],
+      "choices": ["x = 2,      y = 1", "x = 4,      y = 1", "x = 1,      y = 2", "x = 1,      y = -2"],
       "answerIndex": 2,
       "steps": [
         "11*y = 22",
@@ -93,7 +93,7 @@
       "kind": "solve",
       "question": "3*x + 4*y = 5; 2*x + 3*y = 3",
       "given": null,
-      "choices": ["x = 3,     y = 1", "x = 3,     y = -1", "x = -1,     y = 3", "x = -1,     y = 2"],
+      "choices": ["x = 3,      y = 1", "x = 3,      y = -1", "x = -1,      y = 3", "x = -1,      y = 2"],
       "answerIndex": 1,
       "steps": [
         "-y = 1",
@@ -114,7 +114,7 @@
       "kind": "solve",
       "question": "y = 2*x - 1; 3*x + 2*y = 12",
       "given": null,
-      "choices": ["x = 2,    y = 3", "x = 3,    y = 2", "x = 2,    y = -3", "x = 4,    y = 0"],
+      "choices": ["x = 2,     y = 3", "x = 3,     y = 2", "x = 2,     y = -3", "x = 4,     y = 0"],
       "answerIndex": 0,
       "steps": [
         "3*x + 2*(2*x - 1) = 12",
@@ -135,7 +135,7 @@
       "kind": "solve",
       "question": "x = 3*y + 1; 2*x + y = 9",
       "given": null,
-      "choices": ["x = 1,    y = 4", "x = 4,    y = 1", "x = 4,    y = -1", "x = 3,    y = 3"],
+      "choices": ["x = 1,     y = 4", "x = 4,     y = 1", "x = 4,     y = -1", "x = 3,     y = 3"],
       "answerIndex": 1,
       "steps": [
         "2*(3*y + 1) + y = 9",
@@ -156,7 +156,7 @@
       "kind": "solve",
       "question": "y = -3*x + 5; 4*x + 3*y = 5",
       "given": null,
-      "choices": ["x = 2,    y = 1", "x = -1,    y = 2", "x = 2,    y = -1", "x = -2,    y = 11"],
+      "choices": ["x = 2,     y = 1", "x = -1,     y = 2", "x = 2,     y = -1", "x = -2,     y = 11"],
       "answerIndex": 2,
       "steps": [
         "4*x + 3*(-3*x + 5) = 5",
@@ -177,7 +177,7 @@
       "kind": "solve",
       "question": "x = y - 5; 2*x + 3*y = 5",
       "given": null,
-      "choices": ["x = 2,    y = 3", "x = 3,    y = -2", "x = -2,    y = -3", "x = -2,    y = 3"],
+      "choices": ["x = 2,     y = 3", "x = 3,     y = -2", "x = -2,     y = -3", "x = -2,     y = 3"],
       "answerIndex": 3,
       "steps": [
         "2*(y - 5) + 3*y = 5",
@@ -198,7 +198,7 @@
       "kind": "solve",
       "question": "y = 2*x - 2; 3*x + y = 13",
       "given": null,
-      "choices": ["x = 4,    y = 3", "x = 3,    y = -4", "x = 3,    y = 4", "x = 5,    y = -2"],
+      "choices": ["x = 4,     y = 3", "x = 3,     y = -4", "x = 3,     y = 4", "x = 5,     y = -2"],
       "answerIndex": 2,
       "steps": [
         "3*x + (2*x - 2) = 13",
@@ -207,6 +207,161 @@
         "y = 2*3 - 2 = 4",
         "x = 3,   y = 4"
       ]
+    },
+    {
+      "id": "simultaneous-011",
+      "item": "word-problems",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(600 * 5 - 440 * 3) / (4 * 5 - 2 * 3)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "ノート2冊と鉛筆5本を買うと代金の合計は440円で、ノート4冊と鉛筆3本を買うと代金の合計は600円でした。ノート1冊の値段は何円ですか。",
+          "unit": "円"
+        },
+        "en": {
+          "prompt": "The total cost of 2 notebooks and 5 pencils is 440 yen, and the total cost of 4 notebooks and 3 pencils is 600 yen. What is the price of one notebook?",
+          "unit": "yen"
+        },
+        "zh": {
+          "prompt": "购买2本笔记本和5支铅笔的总价是440日元，购买4本笔记本和3支铅笔的总价是600日元。一本笔记本的价格是多少日元？",
+          "unit": "日元"
+        }
+      },
+      "steps": [
+        "(600 * 5 - 440 * 3) / (4 * 5 - 2 * 3) = (3000 - 1320) / (20 - 6) = 1680 / 14 = 120"
+      ],
+      "choices": ["120", "40", "100", "140"],
+      "answerIndex": 0
+    },
+    {
+      "id": "simultaneous-012",
+      "item": "word-problems",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(52 - 18 * 2) / (4 - 2)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "ツルとカメが合わせて18匹います。足の数の合計は52本です。カメは何匹いますか。",
+          "unit": "匹"
+        },
+        "en": {
+          "prompt": "There are 18 cranes and turtles in total. The total number of legs is 52. How many turtles are there?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "鹤和乌龟一共有18只，腿的总数是52条。乌龟有多少只？",
+          "unit": "只"
+        }
+      },
+      "steps": [
+        "(52 - 18 * 2) / (4 - 2) = (52 - 36) / 2 = 16 / 2 = 8"
+      ],
+      "choices": ["10", "8", "6", "12"],
+      "answerIndex": 1
+    },
+    {
+      "id": "simultaneous-013",
+      "item": "word-problems",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(90 * 26 - 1800) / (90 - 60)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "家から1800m離れた駅へ行くのに、はじめは分速60mで歩き、途中から分速90mで走ったところ、全体で26分かかりました。歩いた時間は何分間ですか。",
+          "unit": "分"
+        },
+        "en": {
+          "prompt": "To go to a station 1800 m away from home, a person walked at 60 m/min at first, and then ran at 90 m/min, taking 26 minutes in total. How many minutes did the person walk?",
+          "unit": "min"
+        },
+        "zh": {
+          "prompt": "从家去相距1800m的车站，起初以每分钟60m的速度步行，途中改为以每分钟90m的速度跑步，一共花了26分钟。步行的时间是多少分钟？",
+          "unit": "分钟"
+        }
+      },
+      "steps": [
+        "(90 * 26 - 1800) / (90 - 60) = (2340 - 1800) / 30 = 540 / 30 = 18"
+      ],
+      "choices": ["8", "12", "18", "15"],
+      "answerIndex": 2
+    },
+    {
+      "id": "simultaneous-014",
+      "item": "word-problems",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(300 * 10 - 6 * 100) / (10 + 5)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "ある中学校の昨年度の生徒数は男女合わせて300人でした。今年度は昨年度に比べて、男子が5%増え、女子が10%減ったため、全体で6人減りました。昨年度の男子の生徒数は何人ですか。",
+          "unit": "人"
+        },
+        "en": {
+          "prompt": "Last year, the total number of male and female students at a school was 300. This year, the number of boys increased by 5% and the number of girls decreased by 10%, resulting in an overall decrease of 6 students. How many boys were there last year?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "某中学去年男女学生共有300人。今年与去年相比，男生增加了5%，女生减少了10%，总人数减少了6人。去年男生有多少人？",
+          "unit": "人"
+        }
+      },
+      "steps": [
+        "(300 * 10 - 6 * 100) / (10 + 5) = (3000 - 600) / 15 = 2400 / 15 = 160"
+      ],
+      "choices": ["140", "150", "170", "160"],
+      "answerIndex": 3
+    },
+    {
+      "id": "simultaneous-015",
+      "item": "word-problems",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(300 * 8 - 300 * 6) / (8 - 5)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "5%の食塩水と8%の食塩水を混ぜて、6%の食塩水を300g作ります。5%の食塩水は何g必要ですか。",
+          "unit": "g"
+        },
+        "en": {
+          "prompt": "By mixing a 5% salt solution and an 8% salt solution, you want to make 300 g of a 6% salt solution. How many grams of the 5% salt solution are needed?",
+          "unit": "g"
+        },
+        "zh": {
+          "prompt": "将5%的盐水和8%的盐水混合，配制成6%的盐水300g。需要5%的盐水多少克？",
+          "unit": "g"
+        }
+      },
+      "steps": [
+        "(300 * 8 - 300 * 6) / (8 - 5) = (2400 - 1800) / 3 = 600 / 3 = 200"
+      ],
+      "choices": ["100", "200", "150", "250"],
+      "answerIndex": 1
     }
   ]
 }

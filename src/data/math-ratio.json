@@ -1,0 +1,625 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "ratio-001",
+      "item": "simple-ratio",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "72 / 18",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "赤いテープの長さは 72 cm、青いテープの長さは 18 cm です。赤いテープの長さは青いテープの長さの何倍ですか。",
+          "unit": "倍"
+        },
+        "en": {
+          "prompt": "A red tape is 72 cm long, and a blue tape is 18 cm long. How many times as long as the blue tape is the red tape?",
+          "unit": "times"
+        },
+        "zh": {
+          "prompt": "红胶带长 72 cm，蓝胶带长 18 cm。红胶带的长度是蓝胶带的多少倍？",
+          "unit": "倍"
+        }
+      },
+      "steps": [
+        "72 / 18 = 4"
+      ],
+      "choices": ["3", "4", "5", "6"],
+      "answerIndex": 1
+    },
+    {
+      "id": "ratio-002",
+      "item": "simple-ratio",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "24 * 4",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "図書館に絵本が 24 冊あります。読み物の本は絵本の冊数の 4 倍あります。読み物の本は何冊ありますか。",
+          "unit": "冊"
+        },
+        "en": {
+          "prompt": "There are 24 picture books in the library. The number of storybooks is 4 times the number of picture books. How many storybooks are there?",
+          "unit": "books"
+        },
+        "zh": {
+          "prompt": "图书馆里有 24 本图画书。故事书的数量是图画书的 4 倍。故事书有多少本？",
+          "unit": "本"
+        }
+      },
+      "steps": [
+        "24 * 4 = 96"
+      ],
+      "choices": ["72", "86", "96", "104"],
+      "answerIndex": 2
+    },
+    {
+      "id": "ratio-003",
+      "item": "simple-ratio",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "84 / 7",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "水そうに大きい魚が 84 匹、小さい魚が 7 匹います。大きい魚の数は小さい魚の数の何倍ですか。",
+          "unit": "倍"
+        },
+        "en": {
+          "prompt": "There are 84 large fish and 7 small fish in a fish tank. How many times the number of small fish is the number of large fish?",
+          "unit": "times"
+        },
+        "zh": {
+          "prompt": "鱼缸里有 84 条大鱼和 7 条小鱼。大鱼的数量是小鱼的多少倍？",
+          "unit": "倍"
+        }
+      },
+      "steps": [
+        "84 / 7 = 12"
+      ],
+      "choices": ["12", "14", "16", "18"],
+      "answerIndex": 0
+    },
+    {
+      "id": "ratio-004",
+      "item": "simple-ratio",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "65 / 13",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "公園に子どもが 65 人、大人が 13 人います。子どもの人数は大人の人数の何倍ですか。",
+          "unit": "倍"
+        },
+        "en": {
+          "prompt": "There are 65 children and 13 adults in a park. How many times the number of adults is the number of children?",
+          "unit": "times"
+        },
+        "zh": {
+          "prompt": "公园里有 65 名儿童和 13 名成人。儿童的人数是成人人数的多少倍？",
+          "unit": "倍"
+        }
+      },
+      "steps": [
+        "65 / 13 = 5"
+      ],
+      "choices": ["3", "4", "6", "5"],
+      "answerIndex": 3
+    },
+    {
+      "id": "ratio-005",
+      "item": "simple-ratio",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "15 * 6",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "バケツに水が 15 L 入ります。水そうには、バケツに入る水の量の 6 倍の水が入ります。水そうには何 L の水が入りますか。",
+          "unit": "L"
+        },
+        "en": {
+          "prompt": "A bucket holds 15 L of water. A water tank holds 6 times as much water as the bucket. How many liters of water does the tank hold?",
+          "unit": "L"
+        },
+        "zh": {
+          "prompt": "一个水桶能装 15 L 水。一个水箱装的水量是水桶的 6 倍。水箱能装多少升水？",
+          "unit": "L"
+        }
+      },
+      "steps": [
+        "15 * 6 = 90"
+      ],
+      "choices": ["85", "90", "95", "105"],
+      "answerIndex": 1
+    },
+    {
+      "id": "ratio-006",
+      "item": "percent",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "17 / 25 * 100",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "バスケットボールのシュートを25回うったところ、17回入りました。シュートが入った割合は何%ですか。",
+          "unit": "%"
+        },
+        "en": {
+          "prompt": "A player took 25 basketball shots and made 17 of them. What percentage of the shots went in?",
+          "unit": "%"
+        },
+        "zh": {
+          "prompt": "投篮25次，投进了17次。投中的次数占总次数的百分之几？",
+          "unit": "%"
+        }
+      },
+      "steps": [
+        "17 / 25 * 100 = 17 * 4 = 68"
+      ],
+      "choices": ["64", "72", "68", "34"],
+      "answerIndex": 2
+    },
+    {
+      "id": "ratio-007",
+      "item": "percent",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "42 / 50 * 100",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "定員が50人のバスに、42人の乗客が乗っています。乗客の数は定員の何%ですか。",
+          "unit": "%"
+        },
+        "en": {
+          "prompt": "A bus with a capacity of 50 passengers is carrying 42 passengers. What percentage of the capacity is being used?",
+          "unit": "%"
+        },
+        "zh": {
+          "prompt": "一辆核载50人的公共汽车上坐了42名乘客。乘客人数占核载人数的百分之几？",
+          "unit": "%"
+        }
+      },
+      "steps": [
+        "42 / 50 * 100 = 42 * 2 = 84"
+      ],
+      "choices": ["84", "76", "82", "88"],
+      "answerIndex": 0
+    },
+    {
+      "id": "ratio-008",
+      "item": "percent",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "11 / (14 + 11) * 100",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "あるクラスには男子が14人、女子が11人います。女子の人数はクラス全体の何%ですか。",
+          "unit": "%"
+        },
+        "en": {
+          "prompt": "In a class, there are 14 boys and 11 girls. What percentage of the entire class are girls?",
+          "unit": "%"
+        },
+        "zh": {
+          "prompt": "一个班级有14名男生和11名女生。女生人数占全班总人数的百分之几？",
+          "unit": "%"
+        }
+      },
+      "steps": [
+        "11 / (14 + 11) * 100 = 11 / 25 * 100 = 44"
+      ],
+      "choices": ["56", "44", "36", "48"],
+      "answerIndex": 1
+    },
+    {
+      "id": "ratio-009",
+      "item": "percent",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "104 / 80 * 100",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "ある農園でのみかんの収穫量は、昨年が80kgで、今年が104kgでした。今年の収穫量は昨年の収穫量の何%ですか。",
+          "unit": "%"
+        },
+        "en": {
+          "prompt": "A farm harvested 80 kg of mandarin oranges last year and 104 kg this year. What percentage of last year's harvest is this year's harvest?",
+          "unit": "%"
+        },
+        "zh": {
+          "prompt": "某个果园去年收获了80公斤蜜柑，今年收获了104公斤。今年的收获量是去年的百分之几？",
+          "unit": "%"
+        }
+      },
+      "steps": [
+        "104 / 80 * 100 = 13 / 10 * 100 = 130"
+      ],
+      "choices": ["120", "124", "128", "130"],
+      "answerIndex": 3
+    },
+    {
+      "id": "ratio-010",
+      "item": "percent",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "76 / 200 * 100",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "200ページある本のうち、76ページを読みました。読んだページ数は、本全体のページ数の何%ですか。",
+          "unit": "%"
+        },
+        "en": {
+          "prompt": "Out of a 200-page book, 76 pages have been read. What percentage of the total pages in the book has been read?",
+          "unit": "%"
+        },
+        "zh": {
+          "prompt": "一本200页的书，已经读了76页。读了的页数占全书总页数的百分之几？",
+          "unit": "%"
+        }
+      },
+      "steps": [
+        "76 / 200 * 100 = 76 / 2 = 38"
+      ],
+      "choices": ["38", "42", "62", "76"],
+      "answerIndex": 0
+    },
+    {
+      "id": "ratio-011",
+      "item": "word-problems",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "1500 * (1 - 2/10)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "定価1500円のTシャツを2割引で買いました。代金は何円ですか。",
+          "unit": "円"
+        },
+        "en": {
+          "prompt": "A T-shirt with a list price of 1500 yen was bought at a 20% discount. How much was the price paid?",
+          "unit": "yen"
+        },
+        "zh": {
+          "prompt": "一件标价1500日元的T恤打八折出售。售价是多少日元？",
+          "unit": "日元"
+        }
+      },
+      "steps": [
+        "1500 * (1 - 2/10) = 1500 * 8/10 = 1200"
+      ],
+      "choices": ["1200", "1300", "300", "1100"],
+      "answerIndex": 0
+    },
+    {
+      "id": "ratio-012",
+      "item": "word-problems",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "450 * 24 / 100",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "全校児童が450人の小学校で、めがねをかけている児童は全体の24%です。めがねをかけている児童は何人ですか。",
+          "unit": "人"
+        },
+        "en": {
+          "prompt": "In an elementary school with 450 students, 24% of the students wear glasses. How many students wear glasses?",
+          "unit": "students"
+        },
+        "zh": {
+          "prompt": "一所共有450名学生的小学中，戴眼镜的学生占全校的24%。戴眼镜的学生有多少人？",
+          "unit": "人"
+        }
+      },
+      "steps": [
+        "450 * 24 / 100 = 10800 / 100 = 108"
+      ],
+      "choices": ["96", "120", "108", "118"],
+      "answerIndex": 2
+    },
+    {
+      "id": "ratio-013",
+      "item": "word-problems",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "800 * (1 + 3/10)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "仕入れ値が800円の品物に、仕入れ値の3割の利益を見込んで定価をつけました。定価は何円ですか。",
+          "unit": "円"
+        },
+        "en": {
+          "prompt": "An item purchased for 800 yen was priced with a 30% profit added to the cost. What is the list price?",
+          "unit": "yen"
+        },
+        "zh": {
+          "prompt": "进价为800日元的商品，按进价加三成利润定价。定价是多少日元？",
+          "unit": "日元"
+        }
+      },
+      "steps": [
+        "800 * (1 + 3/10) = 800 * 13/10 = 1040"
+      ],
+      "choices": ["1140", "1040", "240", "940"],
+      "answerIndex": 1
+    },
+    {
+      "id": "ratio-014",
+      "item": "word-problems",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "70 / (35/100)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "ある本を全体の35%にあたる70ページ読みました。この本は全部で何ページありますか。",
+          "unit": "ページ"
+        },
+        "en": {
+          "prompt": "After reading 70 pages of a book, you have read 35% of the entire book. How many pages does the book have in total?",
+          "unit": "pages"
+        },
+        "zh": {
+          "prompt": "一本书读了70页，正好是全书的35%。这本书一共有多少页？",
+          "unit": "页"
+        }
+      },
+      "steps": [
+        "70 / (35/100) = 70 * 100 / 35 = 200"
+      ],
+      "choices": ["245", "180", "210", "200"],
+      "answerIndex": 3
+    },
+    {
+      "id": "ratio-015",
+      "item": "word-problems",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "3400 / (1 - 15/100)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "定価の15%引きでセーターを買ったところ、代金は3400円でした。このセーターの定価は何円ですか。",
+          "unit": "円"
+        },
+        "en": {
+          "prompt": "A sweater was purchased at a 15% discount for 3400 yen. What was the list price of this sweater?",
+          "unit": "yen"
+        },
+        "zh": {
+          "prompt": "一件毛衣按标价降价15%后购买，售价为3400日元。这件毛衣的标价是多少日元？",
+          "unit": "日元"
+        }
+      },
+      "steps": [
+        "3400 / (1 - 15/100) = 3400 * 100 / 85 = 4000"
+      ],
+      "choices": ["3910", "4200", "4000", "3800"],
+      "answerIndex": 2
+    },
+    {
+      "id": "ratio-016",
+      "item": "ratio",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "24 / 6",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "18cmと24cmの比を最も簡単な整数の比にしたとき、あとの数はいくつですか。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "When the ratio of 18 cm to 24 cm is expressed as the simplest ratio of whole numbers, what is the second number?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "将 18 cm 和 24 cm 的比化为最简单的整数比时，后项是多少？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "24 / 6 = 4"
+      ],
+      "choices": ["4", "3", "6", "8"],
+      "answerIndex": 0
+    },
+    {
+      "id": "ratio-017",
+      "item": "ratio",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "8 / 2 * 5",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "たてと横の長さの比が 2:5 の長方形があります。たての長さが 8cm のとき、横の長さは何cmですか。",
+          "unit": "cm"
+        },
+        "en": {
+          "prompt": "There is a rectangle with a length-to-width ratio of 2:5. If the length is 8 cm, what is the width in centimeters?",
+          "unit": "cm"
+        },
+        "zh": {
+          "prompt": "有一个长和宽的比为 2:5 的长方形。如果长是 8 cm，宽是多少厘米？",
+          "unit": "cm"
+        }
+      },
+      "steps": [
+        "8 / 2 * 5 = 4 * 5 = 20"
+      ],
+      "choices": ["16", "20", "25", "10"],
+      "answerIndex": 1
+    },
+    {
+      "id": "ratio-018",
+      "item": "ratio",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "45 / 15",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "45枚と30枚の画用紙の枚数の比を最も簡単な整数の比にしたとき、前の数はいくつですか。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "When the ratio of 45 sheets to 30 sheets of drawing paper is expressed as the simplest ratio of whole numbers, what is the first number?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "将 45 张和 30 张画纸数量的比化为最简单的整数比时，前项是多少？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "45 / 15 = 3"
+      ],
+      "choices": ["5", "2", "3", "9"],
+      "answerIndex": 2
+    },
+    {
+      "id": "ratio-019",
+      "item": "ratio",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "16 / 2 * 3",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "青と黄の絵の具を 3:2 の比で混ぜて緑色を作ります。黄の絵の具が 16mL のとき、青の絵の具は何mL必要ですか。",
+          "unit": "mL"
+        },
+        "en": {
+          "prompt": "Blue and yellow paints are mixed in a ratio of 3:2 to make green paint. If 16 mL of yellow paint is used, how many milliliters of blue paint are needed?",
+          "unit": "mL"
+        },
+        "zh": {
+          "prompt": "将蓝色和黄色颜料按 3:2 的比混合调出绿色。如果黄色颜料用量为 16 mL，需要多少毫升蓝色颜料？",
+          "unit": "mL"
+        }
+      },
+      "steps": [
+        "16 / 2 * 3 = 8 * 3 = 24"
+      ],
+      "choices": ["18", "32", "20", "24"],
+      "answerIndex": 3
+    },
+    {
+      "id": "ratio-020",
+      "item": "ratio",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "21 / 3 * 4",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "砂糖と小麦粉を 3:4 の重さの比で混ぜてお菓子を作ります。砂糖が 21g のとき、小麦粉は何g必要ですか。",
+          "unit": "g"
+        },
+        "en": {
+          "prompt": "Sugar and flour are mixed in a weight ratio of 3:4 to make sweets. If 21 g of sugar is used, how many grams of flour are needed?",
+          "unit": "g"
+        },
+        "zh": {
+          "prompt": "将白糖和面粉按 3:4 的重量比混合制作点心。如果白糖用量为 21 g，需要多少克面粉？",
+          "unit": "g"
+        }
+      },
+      "steps": [
+        "21 / 3 * 4 = 7 * 4 = 28"
+      ],
+      "choices": ["28", "24", "32", "35"],
+      "answerIndex": 0
+    }
+  ]
+}

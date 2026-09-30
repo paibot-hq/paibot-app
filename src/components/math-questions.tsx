@@ -56,14 +56,14 @@ export function useMathQuestions(kind: MathKind | undefined, problems: readonly 
       case 'formula':
         return (problems as { id: string; answerIndex: number; payload: FormulaPayload }[]).map(({ id, answerIndex, payload }) => ({
           id, answerIndex,
-          prompt: <>
+          prompt: payload.word ? <p>{payload.word[locale].prompt}</p> : <>
             <p>{formulaInstructionLine(payload, tq)}</p>
             {payload.kind === 'graph' ? <MathGraph which={payload.which!} question={payload.question} /> : <MathTex tex={formulaQuestionTex(payload)} block />}
           </>,
-          choices: payload.choices.map(choice => <MathTex tex={formulaChoiceTex(payload, choice)} />),
+          choices: payload.choices.map(choice => payload.word ? <><MathTex tex={formulaChoiceTex(payload, choice)} />{payload.word[locale].unit}</> : <MathTex tex={formulaChoiceTex(payload, choice)} />),
           explanation: <>
             {payload.steps && <div className={styles.steps}>{payload.steps.flatMap(line => stepRows(line, payload.style)).map((row, index) => <div key={index} className={styles.row}>{row.map((piece, at) => <MathTex key={at} tex={`{{}${piece}}`} />)}</div>)}</div>}
-            {tq('answer')} <MathTex tex={formulaChoiceTex(payload, payload.choices[answerIndex])} />
+            {tq('answer')} <MathTex tex={formulaChoiceTex(payload, payload.choices[answerIndex])} />{payload.word?.[locale].unit}
             {payload.kind === 'divmod' && <MathColumn expression={payload.question.replace(/\s*,\s*/, ' / ')} />}
           </>,
         }));

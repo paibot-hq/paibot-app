@@ -116,6 +116,9 @@ export interface FormulaPayload {
   // multiplication sign (4 × x, not 4x); 'box' draws the letter x as □; 'ratio' draws : as
   // a ratio (x : 4 = 6 : 8) instead of ÷; 'mixed' draws 2 + 3/5 as the mixed number 2⅗.
   style?: FormulaStyle;
+  // A word problem: the prose per language and the unit of the answer; `question` is then the hidden
+  // expression that solves it (a calc), and the choices are numbers shown with the unit.
+  word?: Record<'ja' | 'en' | 'zh', { prompt: string; unit: string }>;
   // The worked solution, one line each: a chain "a = b = c" (or, for equations,
   // "x = 2, x = -2"), shown under the answer. SymPy checks every line.
   steps?: string[];

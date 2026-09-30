@@ -1266,6 +1266,14 @@ def check_steps(problem, answer):
     if kind == 'recurrence':
         return check_recurrence_steps(problem, answer, steps)
     for line in steps:
+        if kind == 'calc' and problem.get('word') and any(letter in line for letter in 'xyzabcnmpqt'):
+            # A word problem may write its equation ("150*x + 90*(15 - x) = 1710"): it must hold at the answer.
+            unknowns = set().union(*(parse_formula(part).free_symbols for part in line.split('=')))
+            if len(unknowns) == 1:
+                symbol = next(iter(unknowns))
+                if not holds(line.split('='), {symbol: answer}):
+                    raise ValueError(f'step {line!r} does not hold when {symbol} = {answer}')
+                continue
         if (kind == 'inequality' and problem['which'] == 'solve') or (kind == 'quadratic' and problem['which'] == 'krange'):
             check_boundary_line(problem, line)
             continue
@@ -1484,6 +1492,16 @@ UNITS = {
     'inner-product': ('math-inner-product.json', formula),
     'ode': ('math-ode.json', formula),
     'division-remainder': ('math-division-remainder.json', formula),
+    'place-value': ('math-place-value.json', formula),
+    'measurement': ('math-measurement.json', formula),
+    'time': ('math-time.json', formula),
+    'rate': ('math-rate.json', formula),
+    'ratio': ('math-ratio.json', formula),
+    'relations': ('math-relations.json', formula),
+    'counting': ('math-counting.json', formula),
+    'sampling': ('math-sampling.json', formula),
+    'probability': ('math-probability.json', formula),
+    'sets': ('math-sets.json', formula),
     'factorization': ('math-factorization.json', factorization),
     'pythagoras': ('math-pythagoras.json', pythagoras),
 }

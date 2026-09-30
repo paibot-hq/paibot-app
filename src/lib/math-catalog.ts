@@ -54,15 +54,15 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'box', sets: [{ id: '1', rule: 'box-a' }] },
     { id: 'letters', sets: [{ id: '1', rule: 'letters-value-a' }] },
   ] },
-  { id: 'place-value', domain: 'number', stage: 'elementary', status: 'comingSoon', items: [
-    { id: 'to-100', sets: [{ id: '1' }] },
-    { id: 'to-10000', sets: [{ id: '1' }] },
-    { id: 'ten-thousands', sets: [{ id: '1' }] },
-    { id: 'large-numbers', sets: [{ id: '1' }] },
+  { id: 'place-value', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'to-100', sets: [{ id: '1', rule: 'pv-100-a' }] },
+    { id: 'to-10000', sets: [{ id: '1', rule: 'pv-10000-a' }] },
+    { id: 'ten-thousands', sets: [{ id: '1', rule: 'pv-man-a' }] },
+    { id: 'large-numbers', sets: [{ id: '1', rule: 'pv-large-a' }] },
   ] },
-  { id: 'time', domain: 'geometry', stage: 'elementary', status: 'comingSoon', items: [
+  { id: 'time', domain: 'geometry', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
     { id: 'reading', sets: [{ id: '1' }] },
-    { id: 'elapsed', sets: [{ id: '1' }] },
+    { id: 'elapsed', sets: [{ id: '1', rule: 'elapsed-a' }] },
   ] },
   { id: 'decimal', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
     { id: 'add-sub-tenths', sets: [{ id: '1', rule: 'decimal-tenths-a' }] },
@@ -88,16 +88,16 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'rounding', sets: [{ id: '1', rule: 'round-a' }] },
     { id: 'estimate', sets: [{ id: '1', rule: 'estimate-a' }] },
   ] },
-  { id: 'ratio', domain: 'data', stage: 'elementary', status: 'comingSoon', items: [
-    { id: 'simple-ratio', sets: [{ id: '1' }] },
-    { id: 'percent', sets: [{ id: '1' }] },
-    { id: 'ratio', sets: [{ id: '1' }] },
-    { id: 'word-problems', sets: [{ id: '1' }] },
+  { id: 'ratio', domain: 'data', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'simple-ratio', sets: [{ id: '1', rule: 'simple-ratio-a' }] },
+    { id: 'percent', sets: [{ id: '1', rule: 'percent-a' }] },
+    { id: 'ratio', sets: [{ id: '1', rule: 'ratio-simplify-a' }] },
+    { id: 'word-problems', sets: [{ id: '1', rule: 'ratio-word-a' }] },
   ] },
-  { id: 'measurement', domain: 'geometry', stage: 'elementary', status: 'comingSoon', items: [
-    { id: 'length-capacity', sets: [{ id: '1' }] },
-    { id: 'weight', sets: [{ id: '1' }] },
-    { id: 'area-units', sets: [{ id: '1' }] },
+  { id: 'measurement', domain: 'geometry', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'length-capacity', sets: [{ id: '1', rule: 'measure-length-a' }] },
+    { id: 'weight', sets: [{ id: '1', rule: 'measure-weight-a' }] },
+    { id: 'area-units', sets: [{ id: '1', rule: 'measure-area-a' }] },
     { id: 'rect-area', sets: [{ id: '1' }] },
     { id: 'area', sets: [{ id: '1' }] },
     { id: 'volume', sets: [{ id: '1' }] },
@@ -138,9 +138,9 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'pie-band', sets: [{ id: '1' }] },
     { id: 'histogram', sets: [{ id: '1' }] },
   ] },
-  { id: 'counting', domain: 'data', stage: 'elementary', status: 'comingSoon', items: [
-    { id: 'arrangements', sets: [{ id: '1' }] },
-    { id: 'combinations', sets: [{ id: '1' }] },
+  { id: 'counting', domain: 'data', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'arrangements', sets: [{ id: '1', rule: 'arrangements-a' }] },
+    { id: 'combinations', sets: [{ id: '1', rule: 'combinations-a' }] },
   ] },
   { id: 'signed', domain: 'number', stage: 'middle', status: 'published', kind: 'expression', items: [
     { id: 'four-operations', sets: [{ id: '1', rule: 'four-ops-a' }] },
@@ -161,12 +161,12 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'parentheses', sets: [{ id: '1', rule: 'linear-parentheses-a' }] },
     { id: 'fraction', sets: [{ id: '1', rule: 'linear-fraction-a' }] },
     { id: 'proportion', sets: [{ id: '1', rule: 'proportion-ratio-a' }] },
-    { id: 'word-problems', sets: [{ id: '1' }] },
+    { id: 'word-problems', sets: [{ id: '1', rule: 'linear-word-a' }] },
   ] },
   { id: 'simultaneous', domain: 'algebra', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'elimination', sets: [{ id: '1', rule: 'simultaneous-elimination-a' }] },
     { id: 'substitution', sets: [{ id: '1', rule: 'simultaneous-substitution-a' }] },
-    { id: 'word-problems', sets: [{ id: '1' }] },
+    { id: 'word-problems', sets: [{ id: '1', rule: 'simul-word-a' }] },
   ] },
   { id: 'linear-function', domain: 'functions', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'proportion', sets: [{ id: '1', rule: 'proportional-a' }] },
@@ -223,9 +223,9 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'sides', sets: [{ id: '1', rule: 'sides-a' }] },
     { id: 'applications', sets: [{ id: '1' }] },
   ] },
-  { id: 'probability', domain: 'data', stage: 'middle', status: 'comingSoon', items: [
-    { id: 'relative-frequency', sets: [{ id: '1' }] },
-    { id: 'basic', sets: [{ id: '1' }] },
+  { id: 'probability', domain: 'data', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'relative-frequency', sets: [{ id: '1', rule: 'relfreq-a' }] },
+    { id: 'basic', sets: [{ id: '1', rule: 'prob-basic-a' }] },
   ] },
   { id: 'quadratic', domain: 'algebra', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'factoring', sets: [{ id: '1', rule: 'quadratic-factoring-a' }] },
@@ -274,9 +274,9 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'combinatorics', domain: 'data', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'permutations', sets: [{ id: '1', rule: 'permutation-a' }] },
     { id: 'combinations', sets: [{ id: '1', rule: 'combination-a' }] },
-    { id: 'probability', sets: [{ id: '1' }] },
-    { id: 'independent', sets: [{ id: '1' }] },
-    { id: 'conditional', sets: [{ id: '1' }] },
+    { id: 'probability', sets: [{ id: '1', rule: 'comb-prob-a' }] },
+    { id: 'independent', sets: [{ id: '1', rule: 'independent-a' }] },
+    { id: 'conditional', sets: [{ id: '1', rule: 'conditional-a' }] },
     { id: 'expectation', sets: [{ id: '1', rule: 'expectation-a' }] },
   ] },
   { id: 'distributions', domain: 'data', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
@@ -353,14 +353,14 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'orthogonal', sets: [{ id: '1', rule: 'orthogonal-a' }] },
     { id: 'gram-schmidt', sets: [{ id: '1', rule: 'gram-schmidt-a' }] },
   ] },
-  { id: 'rate', domain: 'functions', stage: 'elementary', status: 'comingSoon', items: [
-    { id: 'speed', sets: [{ id: '1' }] },
-    { id: 'per-unit', sets: [{ id: '1' }] },
+  { id: 'rate', domain: 'functions', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'speed', sets: [{ id: '1', rule: 'speed-a' }] },
+    { id: 'per-unit', sets: [{ id: '1', rule: 'per-unit-a' }] },
   ] },
-  { id: 'relations', domain: 'functions', stage: 'elementary', status: 'comingSoon', items: [
+  { id: 'relations', domain: 'functions', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
     { id: 'change', sets: [{ id: '1' }] },
-    { id: 'simple-proportion', sets: [{ id: '1' }] },
-    { id: 'proportion', sets: [{ id: '1' }] },
+    { id: 'simple-proportion', sets: [{ id: '1', rule: 'simple-proportion-a' }] },
+    { id: 'proportion', sets: [{ id: '1', rule: 'proportion-a' }] },
   ] },
   { id: 'angles', domain: 'geometry', stage: 'middle', status: 'comingSoon', items: [
     { id: 'parallel', sets: [{ id: '1' }] },
@@ -409,23 +409,23 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'frequency', domain: 'data', stage: 'middle', status: 'comingSoon', items: [
     { id: 'frequency', sets: [{ id: '1' }] },
   ] },
-  { id: 'sampling', domain: 'data', stage: 'middle', status: 'comingSoon', items: [
-    { id: 'population-sample', sets: [{ id: '1' }] },
-    { id: 'estimate', sets: [{ id: '1' }] },
+  { id: 'sampling', domain: 'data', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'population-sample', sets: [{ id: '1', rule: 'population-a' }] },
+    { id: 'estimate', sets: [{ id: '1', rule: 'sample-estimate-a' }] },
   ] },
   { id: 'statistics', domain: 'data', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'variance', sets: [{ id: '1', rule: 'variance-a' }] },
     { id: 'correlation', sets: [{ id: '1', rule: 'correlation-a' }] },
-    { id: 'hypothesis', sets: [{ id: '1' }] },
+    { id: 'hypothesis', sets: [{ id: '1', rule: 'hypothesis-a' }] },
   ] },
   { id: 'inference', domain: 'data', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
     { id: 'random-variables', sets: [{ id: '1' }] },
     { id: 'estimation', sets: [{ id: '1', rule: 'estimation-a' }] },
     { id: 'testing', sets: [{ id: '1', rule: 'testing-a' }] },
   ] },
-  { id: 'sets', domain: 'logic', stage: 'high', status: 'comingSoon', items: [
+  { id: 'sets', domain: 'logic', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'operations', sets: [{ id: '1' }] },
-    { id: 'venn', sets: [{ id: '1' }] },
+    { id: 'venn', sets: [{ id: '1', rule: 'venn-a' }] },
   ] },
   { id: 'logic', domain: 'logic', stage: 'high', status: 'comingSoon', items: [
     { id: 'negation', sets: [{ id: '1' }] },

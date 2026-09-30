@@ -1,0 +1,315 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "counting-001",
+      "item": "arrangements",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "P(5, 3)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "5人の中から、第1走者、第2走者、第3走者の3人を決めて走る順に並べます。走者の並べ方は全部で何通りありますか。",
+          "unit": "通り"
+        },
+        "en": {
+          "prompt": "Three runners are chosen from 5 people to be the first, second, and third runners in a relay. How many different running orders are possible?",
+          "unit": "ways"
+        },
+        "zh": {
+          "prompt": "从5个人中选出3人，分别担任接力赛的第一棒、第二棒和第三棒。跑步顺序一共有多少种不同的排法？",
+          "unit": "种"
+        }
+      },
+      "steps": [
+        "P(5, 3) = 5 * 4 * 3 = 60"
+      ],
+      "choices": ["20", "60", "10", "15"],
+      "answerIndex": 1
+    },
+    {
+      "id": "counting-002",
+      "item": "arrangements",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "P(4, 3)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1, 2, 3, 4 の数字が書かれた4枚のカードから3枚を選んで並べ、3けたの整数をつくります。整数は全部で何個できますか。",
+          "unit": "個"
+        },
+        "en": {
+          "prompt": "Three cards are chosen from 4 cards numbered 1, 2, 3, and 4 to form a 3-digit integer. How many different integers can be formed?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "从写有数字1、2、3、4的4张卡片中选出3张排成三位数。一共可以组成多少个不同的整数？",
+          "unit": "个"
+        }
+      },
+      "steps": [
+        "P(4, 3) = 4 * 3 * 2 = 24"
+      ],
+      "choices": ["12", "18", "24", "16"],
+      "answerIndex": 2
+    },
+    {
+      "id": "counting-003",
+      "item": "arrangements",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "3 * P(3, 2)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "0, 1, 2, 3 の数字が書かれた4枚のカードから3枚を選んで並べ、3けたの整数をつくります。ただし、百の位に0は使えません。整数は全部で何個できますか。",
+          "unit": "個"
+        },
+        "en": {
+          "prompt": "Three cards are chosen from 4 cards numbered 0, 1, 2, and 3 to form a 3-digit integer. The hundreds digit cannot be 0. How many different integers can be formed?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "从写有数字0、1、2、3的4张卡片中选出3张排成三位数，其中百位不能是0。一共可以组成多少个不同的整数？",
+          "unit": "个"
+        }
+      },
+      "steps": [
+        "3 * P(3, 2) = 3 * 3 * 2 = 18"
+      ],
+      "choices": ["18", "24", "12", "9"],
+      "answerIndex": 0
+    },
+    {
+      "id": "counting-004",
+      "item": "arrangements",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "P(6, 2)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "6人の立候補者の中から、会長と副会長を1人ずつ選んで役職を決めます。選び方は全部で何通りありますか。",
+          "unit": "通り"
+        },
+        "en": {
+          "prompt": "A president and a vice president are chosen from 6 candidates. How many different ways are there to choose them?",
+          "unit": "ways"
+        },
+        "zh": {
+          "prompt": "从6名候选人中选出会长和副会长各1人。一共有多少种不同的选法？",
+          "unit": "种"
+        }
+      },
+      "steps": [
+        "P(6, 2) = 6 * 5 = 30"
+      ],
+      "choices": ["15", "36", "12", "30"],
+      "answerIndex": 3
+    },
+    {
+      "id": "counting-005",
+      "item": "arrangements",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "2 * P(3, 2)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1, 2, 3, 4 の数字が書かれた4枚のカードから3枚を選んで並べ、3けたの偶数をつくります。偶数は全部で何個できますか。",
+          "unit": "個"
+        },
+        "en": {
+          "prompt": "Three cards are chosen from 4 cards numbered 1, 2, 3, and 4 to form a 3-digit even integer. How many different even integers can be formed?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "从写有数字1、2、3、4的4张卡片中选出3张排成三位偶数。一共可以组成多少个不同的偶数？",
+          "unit": "个"
+        }
+      },
+      "steps": [
+        "2 * P(3, 2) = 2 * 3 * 2 = 12"
+      ],
+      "choices": ["6", "12", "24", "18"],
+      "answerIndex": 1
+    },
+    {
+      "id": "counting-006",
+      "item": "combinations",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "C(4, 2)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "4つのサッカーチームが、どのチームとも1回ずつ対戦する総当たり戦を行います。試合は全部で何試合ありますか。",
+          "unit": "試合"
+        },
+        "en": {
+          "prompt": "Four soccer teams play a round-robin tournament where every team plays every other team once. How many matches are played in total?",
+          "unit": "matches"
+        },
+        "zh": {
+          "prompt": "4支足球队进行单循环赛，每两队之间都要比赛一场。一共要进行多少场比赛？",
+          "unit": "场"
+        }
+      },
+      "steps": [
+        "C(4, 2) = (4 * 3)/(2 * 1) = 12/2 = 6"
+      ],
+      "choices": ["4", "6", "8", "12"],
+      "answerIndex": 1
+    },
+    {
+      "id": "counting-007",
+      "item": "combinations",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "C(5, 3)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "5人のグループの中から、代表を3人選びます。選び方は全部で何通りありますか。",
+          "unit": "通り"
+        },
+        "en": {
+          "prompt": "Three representatives are chosen from a group of 5 people. How many different ways are there to choose them?",
+          "unit": "ways"
+        },
+        "zh": {
+          "prompt": "从5人的小组中选出3名代表，一共有多少种不同的选法？",
+          "unit": "种"
+        }
+      },
+      "steps": [
+        "C(5, 3) = (5 * 4 * 3)/(3 * 2 * 1) = 60/6 = 10"
+      ],
+      "choices": ["15", "20", "10", "60"],
+      "answerIndex": 2
+    },
+    {
+      "id": "counting-008",
+      "item": "combinations",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "C(6, 2)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "6種類の異なるお菓子の中から、2種類を選んで買います。お菓子の組み合わせは全部で何通りありますか。",
+          "unit": "通り"
+        },
+        "en": {
+          "prompt": "You choose 2 different types of snacks from 6 different types. How many combinations are possible?",
+          "unit": "ways"
+        },
+        "zh": {
+          "prompt": "从6种不同的点心中选出2种购买，一共有多少种不同的搭配？",
+          "unit": "种"
+        }
+      },
+      "steps": [
+        "C(6, 2) = (6 * 5)/(2 * 1) = 30/2 = 15"
+      ],
+      "choices": ["12", "18", "30", "15"],
+      "answerIndex": 3
+    },
+    {
+      "id": "counting-009",
+      "item": "combinations",
+      "setId": "1",
+      "position": 4,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "C(6, 3)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "6人のクラスメイトの中から、教室の掃除当番を3人選びます。選び方は全部で何通りありますか。",
+          "unit": "通り"
+        },
+        "en": {
+          "prompt": "Three students are chosen from a group of 6 classmates for classroom cleaning duty. How many different ways are there to choose them?",
+          "unit": "ways"
+        },
+        "zh": {
+          "prompt": "从6名同班同学中选出3人负责打扫教室，一共有多少种不同的选法？",
+          "unit": "种"
+        }
+      },
+      "steps": [
+        "C(6, 3) = (6 * 5 * 4)/(3 * 2 * 1) = 120/6 = 20"
+      ],
+      "choices": ["20", "15", "24", "120"],
+      "answerIndex": 0
+    },
+    {
+      "id": "counting-010",
+      "item": "combinations",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "C(7, 2)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "赤、青、黄、緑、白、黒、紫の7色の絵の具の中から、2色を選びます。色の組み合わせは全部で何通りありますか。",
+          "unit": "通り"
+        },
+        "en": {
+          "prompt": "You choose 2 colors from 7 paints: red, blue, yellow, green, white, black, and purple. How many combinations of colors are possible?",
+          "unit": "ways"
+        },
+        "zh": {
+          "prompt": "从红、蓝、黄、绿、白、黑、紫7种颜色的颜料中选择2种，一共有多少种不同的颜色组合？",
+          "unit": "种"
+        }
+      },
+      "steps": [
+        "C(7, 2) = (7 * 6)/(2 * 1) = 42/2 = 21"
+      ],
+      "choices": ["14", "21", "28", "42"],
+      "answerIndex": 1
+    }
+  ]
+}

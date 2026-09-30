@@ -1,0 +1,315 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "rate-001",
+      "item": "speed",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "45 * 4",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "時速45kmで走る自動車が4時間進むと、何km進みますか。",
+          "unit": "km"
+        },
+        "en": {
+          "prompt": "A car travels at a speed of 45 km per hour. How many kilometers will it travel in 4 hours?",
+          "unit": "km"
+        },
+        "zh": {
+          "prompt": "一辆汽车以每小时45千米的速度行驶，行驶4小时能走多少千米？",
+          "unit": "km"
+        }
+      },
+      "steps": [
+        "45 * 4 = 180"
+      ],
+      "choices": ["160", "180", "190", "135"],
+      "answerIndex": 1
+    },
+    {
+      "id": "rate-002",
+      "item": "speed",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "280 / 4",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "280kmの道のりを4時間で走った電車の時速は何kmですか。",
+          "unit": "km"
+        },
+        "en": {
+          "prompt": "A train traveled a distance of 280 km in 4 hours. What was its speed in kilometers per hour?",
+          "unit": "km"
+        },
+        "zh": {
+          "prompt": "一列火车用4小时行驶了280千米的路程。它的时速是多少千米？",
+          "unit": "km"
+        }
+      },
+      "steps": [
+        "280 / 4 = 70"
+      ],
+      "choices": ["70", "65", "75", "80"],
+      "answerIndex": 0
+    },
+    {
+      "id": "rate-003",
+      "item": "speed",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "2100 / 70",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "分速70mで歩く人が、2100mの道のりを進むのに何分かかりますか。",
+          "unit": "分"
+        },
+        "en": {
+          "prompt": "A person walks at a speed of 70 meters per minute. How many minutes will it take to walk a distance of 2100 meters?",
+          "unit": "min"
+        },
+        "zh": {
+          "prompt": "一个人以每分钟70米的速度步行，走完2100米的路程需要多少分钟？",
+          "unit": "分钟"
+        }
+      },
+      "steps": [
+        "2100 / 70 = 30"
+      ],
+      "choices": ["25", "35", "40", "30"],
+      "answerIndex": 3
+    },
+    {
+      "id": "rate-004",
+      "item": "speed",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "85 * 20",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "分速85mで歩く人が、20分間歩くと何m進みますか。",
+          "unit": "m"
+        },
+        "en": {
+          "prompt": "A person walks at a speed of 85 meters per minute. How many meters will they walk in 20 minutes?",
+          "unit": "m"
+        },
+        "zh": {
+          "prompt": "一个人以每分钟85米的速度步行，走20分钟能走多少米？",
+          "unit": "m"
+        }
+      },
+      "steps": [
+        "85 * 20 = 1700"
+      ],
+      "choices": ["1600", "1750", "1700", "1800"],
+      "answerIndex": 2
+    },
+    {
+      "id": "rate-005",
+      "item": "speed",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "1500 / 12",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1500mの道のりを12分で走った人の分速は何mですか。",
+          "unit": "m"
+        },
+        "en": {
+          "prompt": "A person ran a distance of 1500 meters in 12 minutes. What was their speed in meters per minute?",
+          "unit": "m"
+        },
+        "zh": {
+          "prompt": "一个人用12分钟跑了1500米的路程。他的分速是多少米？",
+          "unit": "m"
+        }
+      },
+      "steps": [
+        "1500 / 12 = 125"
+      ],
+      "choices": ["115", "125", "135", "120"],
+      "answerIndex": 1
+    },
+    {
+      "id": "rate-006",
+      "item": "per-unit",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "5600 / 16",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "面積が 16 km^2 の町に 5600 人が住んでいます。この町の人口密度は、1 km^2 あたり何人ですか。",
+          "unit": "人"
+        },
+        "en": {
+          "prompt": "A town with an area of 16 km^2 has a population of 5600 people. What is the population density in people per 1 km^2?",
+          "unit": "people"
+        },
+        "zh": {
+          "prompt": "一个面积为 16 km^2 的城镇居住着 5600 人。这个城镇的人口密度是每 1 km^2 多少人？",
+          "unit": "人"
+        }
+      },
+      "steps": [
+        "5600 / 16 = 350"
+      ],
+      "choices": ["320", "340", "350", "360"],
+      "answerIndex": 2
+    },
+    {
+      "id": "rate-007",
+      "item": "per-unit",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "420 / 35",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "ある自動車は、ガソリン 35 L で 420 km 走りました。ガソリン 1 L あたり何 km 走りましたか。",
+          "unit": "km"
+        },
+        "en": {
+          "prompt": "A car traveled 420 km using 35 L of gasoline. How many kilometers did it travel per 1 L of gasoline?",
+          "unit": "km"
+        },
+        "zh": {
+          "prompt": "一辆汽车用 35 L 汽油行驶了 420 km。平均每 1 L 汽油行驶多少 km？",
+          "unit": "km"
+        }
+      },
+      "steps": [
+        "420 / 35 = 12"
+      ],
+      "choices": ["10", "12", "14", "15"],
+      "answerIndex": 1
+    },
+    {
+      "id": "rate-008",
+      "item": "per-unit",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "36 / 15",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "面積が 15 m^2 の畑から 36 kg のトマトがとれました。1 m^2 あたり何 kg のトマトがとれましたか。",
+          "unit": "kg"
+        },
+        "en": {
+          "prompt": "A 15 m^2 field yielded 36 kg of tomatoes. How many kilograms of tomatoes were harvested per 1 m^2?",
+          "unit": "kg"
+        },
+        "zh": {
+          "prompt": "一块面积为 15 m^2 的菜地收获了 36 kg 番茄。平均每 1 m^2 收获多少 kg 番茄？",
+          "unit": "kg"
+        }
+      },
+      "steps": [
+        "36 / 15 = 2.4"
+      ],
+      "choices": ["2.4", "2.5", "2.6", "2.8"],
+      "answerIndex": 0
+    },
+    {
+      "id": "rate-009",
+      "item": "per-unit",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "15 / 20",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "面積が 20 m^2 の部屋に 15 人の子どもがいます。1 m^2 あたり何人ですか。",
+          "unit": "人"
+        },
+        "en": {
+          "prompt": "There are 15 children in a room with an area of 20 m^2. How many children are there per 1 m^2?",
+          "unit": "people"
+        },
+        "zh": {
+          "prompt": "一间面积为 20 m^2 的房间里有 15 名儿童。平均每 1 m^2 有多少人？",
+          "unit": "人"
+        }
+      },
+      "steps": [
+        "15 / 20 = 0.75"
+      ],
+      "choices": ["0.65", "0.7", "0.8", "0.75"],
+      "answerIndex": 3
+    },
+    {
+      "id": "rate-010",
+      "item": "per-unit",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "260 / 8",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "長さが 8 m で重さが 260 g の針金があります。この針金 1 m あたりの重さは何 g ですか。",
+          "unit": "g"
+        },
+        "en": {
+          "prompt": "A wire has a length of 8 m and a weight of 260 g. What is the weight in grams per 1 m of this wire?",
+          "unit": "g"
+        },
+        "zh": {
+          "prompt": "有一根长 8 m、重 260 g 的铁丝。这种铁丝每 1 m 重多少 g？",
+          "unit": "g"
+        }
+      },
+      "steps": [
+        "260 / 8 = 32.5"
+      ],
+      "choices": ["31.5", "32.5", "33.5", "34.5"],
+      "answerIndex": 1
+    }
+  ]
+}

@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "time-001",
+      "item": "elapsed",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "45 + 60 + 25",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "45分と1時間25分を合わせると、何分になりますか。",
+          "unit": "分"
+        },
+        "en": {
+          "prompt": "How many minutes is 45 minutes and 1 hour 25 minutes combined?",
+          "unit": "minutes"
+        },
+        "zh": {
+          "prompt": "45分钟和1小时25分钟合起来是多少分钟？",
+          "unit": "分钟"
+        }
+      },
+      "steps": [
+        "45 + 60 + 25 = 105 + 25 = 130"
+      ],
+      "choices": ["130", "120", "140", "110"],
+      "answerIndex": 0
+    },
+    {
+      "id": "time-002",
+      "item": "elapsed",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "2 * 60 + 40",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "午前8時50分から午前11時30分までの時間は何分ですか。",
+          "unit": "分"
+        },
+        "en": {
+          "prompt": "How many minutes are there from 8:50 AM to 11:30 AM?",
+          "unit": "minutes"
+        },
+        "zh": {
+          "prompt": "从上午8点50分到上午11点30分经过了多少分钟？",
+          "unit": "分钟"
+        }
+      },
+      "steps": [
+        "2 * 60 + 40 = 120 + 40 = 160"
+      ],
+      "choices": ["140", "160", "150", "170"],
+      "answerIndex": 1
+    },
+    {
+      "id": "time-003",
+      "item": "elapsed",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "2 * 60 + 15 - 50",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "2時間15分の映画のうち、すでに50分見ました。残りは何分ですか。",
+          "unit": "分"
+        },
+        "en": {
+          "prompt": "You have watched 50 minutes of a 2-hour-and-15-minute movie. How many minutes are left?",
+          "unit": "minutes"
+        },
+        "zh": {
+          "prompt": "一部时长2小时15分钟的电影，已经看了50分钟。还剩多少分钟？",
+          "unit": "分钟"
+        }
+      },
+      "steps": [
+        "2 * 60 + 15 - 50 = 120 + 15 - 50 = 135 - 50 = 85"
+      ],
+      "choices": ["75", "95", "85", "65"],
+      "answerIndex": 2
+    },
+    {
+      "id": "time-004",
+      "item": "elapsed",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(90 + 90) / 60",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "午前中に90分、午後に90分勉強しました。合わせて何時間勉強しましたか。",
+          "unit": "時間"
+        },
+        "en": {
+          "prompt": "You studied for 90 minutes in the morning and 90 minutes in the afternoon. In total, how many hours did you study?",
+          "unit": "hours"
+        },
+        "zh": {
+          "prompt": "上午学习了90分钟，下午学习了90分钟。一共学习了多少小时？",
+          "unit": "小时"
+        }
+      },
+      "steps": [
+        "(90 + 90) / 60 = 180 / 60 = 3"
+      ],
+      "choices": ["2", "4", "5", "3"],
+      "answerIndex": 3
+    },
+    {
+      "id": "time-005",
+      "item": "elapsed",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "25 + 60 + 15 + 20",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "家から公園まで歩いて25分、公園で1時間15分遊び、歩いて20分かけて家に帰りました。全部で何分かかりましたか。",
+          "unit": "分"
+        },
+        "en": {
+          "prompt": "It took 25 minutes to walk to the park, you played at the park for 1 hour 15 minutes, and took 20 minutes to walk back home. How many minutes did it take in total?",
+          "unit": "minutes"
+        },
+        "zh": {
+          "prompt": "从家走到公园用了25分钟，在公园玩了1小时15分钟，走回家用了20分钟。一共用了多少分钟？",
+          "unit": "分钟"
+        }
+      },
+      "steps": [
+        "25 + 60 + 15 + 20 = 100 + 20 = 120"
+      ],
+      "choices": ["120", "110", "130", "100"],
+      "answerIndex": 0
+    }
+  ]
+}

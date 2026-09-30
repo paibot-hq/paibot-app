@@ -1,0 +1,160 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "sets-001",
+      "item": "venn",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "34 + 28 - 17",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "50人のグループで趣味の調査をしたところ、映画鑑賞が趣味の人は34人、音楽鑑賞が趣味の人は28人、両方が趣味の人は17人でした。映画鑑賞または音楽鑑賞の少なくとも一方が趣味である人は何人ですか。",
+          "unit": "人"
+        },
+        "en": {
+          "prompt": "In a group of 50 people, a survey on hobbies found that 34 people enjoy watching movies, 28 people enjoy listening to music, and 17 people enjoy both. How many people enjoy at least one of watching movies or listening to music?",
+          "unit": "people"
+        },
+        "zh": {
+          "prompt": "在50人的群体中进行爱好调查，喜欢看电影的有34人，喜欢听音乐的有28人，两样都喜欢的有17人。喜欢看电影或听音乐至少一样的人有多少人？",
+          "unit": "人"
+        }
+      },
+      "steps": [
+        "34 + 28 - 17 = 62 - 17 = 45"
+      ],
+      "choices": ["45", "42", "48", "39"],
+      "answerIndex": 0
+    },
+    {
+      "id": "sets-002",
+      "item": "venn",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "45 - (26 + 18 - 7)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "45人の生徒を対象に部活動の調査をしたところ、運動部に所属している生徒は26人、文化部に所属している生徒は18人、両方に所属している生徒は7人でした。どちらの部活動にも所属していない生徒は何人ですか。",
+          "unit": "人"
+        },
+        "en": {
+          "prompt": "In a survey of 45 students about club activities, 26 belonged to sports clubs, 18 belonged to cultural clubs, and 7 belonged to both. How many students do not belong to either club?",
+          "unit": "students"
+        },
+        "zh": {
+          "prompt": "对45名学生进行社团活动调查，参加体育社团的有26人，参加文化社团的有18人，两者都参加的有7人。两类社团都没有参加的学生有多少人？",
+          "unit": "人"
+        }
+      },
+      "steps": [
+        "45 - (26 + 18 - 7) = 45 - 37 = 8"
+      ],
+      "choices": ["10", "8", "6", "12"],
+      "answerIndex": 1
+    },
+    {
+      "id": "sets-003",
+      "item": "venn",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "27 + 18 - (40 - 5)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "40人のクラスで所持している機器の調査をしたところ、スマートフォンを持っている生徒は27人、タブレットを持っている生徒は18人、どちらも持っていない生徒は5人でした。スマートフォンとタブレットの両方を持っている生徒は何人ですか。",
+          "unit": "人"
+        },
+        "en": {
+          "prompt": "In a class of 40 students, a survey on electronic devices showed that 27 students own a smartphone, 18 students own a tablet, and 5 students own neither. How many students own both a smartphone and a tablet?",
+          "unit": "students"
+        },
+        "zh": {
+          "prompt": "在40人的班级中调查拥有电子设备的情况，有智能手机的学生有27人，有平板电脑的学生有18人，两者都没有的学生有5人。同时拥有智能手机和平板电脑的学生有多少人？",
+          "unit": "人"
+        }
+      },
+      "steps": [
+        "27 + 18 - (40 - 5) = 45 - 35 = 10"
+      ],
+      "choices": ["8", "12", "10", "15"],
+      "answerIndex": 2
+    },
+    {
+      "id": "sets-004",
+      "item": "venn",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(21 - 8) + (19 - 8)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "36人の生徒に朝食についての調査をしたところ、パンを食べる生徒は21人、ご飯を食べる生徒は19人、両方食べる生徒は8人でした。パンまたはご飯のどちらか一方だけを食べる生徒は何人ですか。",
+          "unit": "人"
+        },
+        "en": {
+          "prompt": "In a survey of 36 students about breakfast, 21 students eat bread, 19 students eat rice, and 8 students eat both. How many students eat only one of bread or rice for breakfast?",
+          "unit": "students"
+        },
+        "zh": {
+          "prompt": "对36名学生进行早餐调查，吃面包的学生有21人，吃米饭的学生有19人，两者都吃的有8人。早餐只吃面包或只吃米饭其中一种的学生有多少人？",
+          "unit": "人"
+        }
+      },
+      "steps": [
+        "(21 - 8) + (19 - 8) = 13 + 11 = 24"
+      ],
+      "choices": ["26", "22", "20", "24"],
+      "answerIndex": 3
+    },
+    {
+      "id": "sets-005",
+      "item": "venn",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(42 - 7) - 20",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "42人のグループで動物の好みについて調査をしたところ、犬が好きな人は25人、猫が好きな人は20人、どちらも好きではない人は7人でした。犬は好きだが猫は好きではない人は何人ですか。",
+          "unit": "人"
+        },
+        "en": {
+          "prompt": "In a group of 42 people, a survey about animal preferences showed that 25 people like dogs, 20 people like cats, and 7 people like neither. How many people like dogs but do not like cats?",
+          "unit": "people"
+        },
+        "zh": {
+          "prompt": "在42人的群体中调查对动物的喜好，喜欢狗的有25人，喜欢猫的有20人，两者都不喜欢的有7人。喜欢狗但不喜欢猫的人有多少人？",
+          "unit": "人"
+        }
+      },
+      "steps": [
+        "(42 - 7) - 20 = 35 - 20 = 15"
+      ],
+      "choices": ["13", "15", "17", "10"],
+      "answerIndex": 1
+    }
+  ]
+}
