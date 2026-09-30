@@ -1,0 +1,93 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "univ-calculus-001",
+      "item": "mean-value",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "mvt",
+      "question": "x^2 - 2*x; 1, 5",
+      "given": null,
+      "steps": [
+        "(15 - (-1))/(5 - 1) = 16/4 = 4",
+        "(4 + 2)/2 = 3"
+      ],
+      "choices": ["3", "2", "4", "5/2"],
+      "answerIndex": 0
+    },
+    {
+      "id": "univ-calculus-002",
+      "item": "mean-value",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "mvt",
+      "question": "x^3; 0, 3",
+      "given": null,
+      "steps": [
+        "(27 - 0)/(3 - 0) = 27/3 = 9",
+        "sqrt(9/3) = sqrt(3)"
+      ],
+      "choices": ["3/2", "sqrt(3)", "2", "sqrt(6)"],
+      "answerIndex": 1
+    },
+    {
+      "id": "univ-calculus-003",
+      "item": "mean-value",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "mvt",
+      "question": "2*x^2 - 4*x; 0, 3",
+      "given": null,
+      "steps": [
+        "(6 - 0)/(3 - 0) = 6/3 = 2",
+        "(2 + 4)/4 = 6/4 = 3/2"
+      ],
+      "choices": ["1", "5/4", "3/2", "2"],
+      "answerIndex": 2
+    },
+    {
+      "id": "univ-calculus-004",
+      "item": "mean-value",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "lim((1 - cos(x))/x^2, x, 0)",
+      "given": null,
+      "steps": [
+        "lim((1 - cos(x))/x^2, x, 0) = lim(sin(x)/(2*x), x, 0) = lim(cos(x)/2, x, 0) = 1/2"
+      ],
+      "choices": ["0", "1", "2", "1/2"],
+      "answerIndex": 3
+    },
+    {
+      "id": "univ-calculus-005",
+      "item": "mean-value",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "lim((x - sin(x))/x^3, x, 0)",
+      "given": null,
+      "steps": [
+        "lim((x - sin(x))/x^3, x, 0) = lim((1 - cos(x))/(3*x^2), x, 0) = lim(sin(x)/(6*x), x, 0) = 1/6"
+      ],
+      "choices": ["1/6", "1/3", "1/2", "1"],
+      "answerIndex": 0
+    }
+  ]
+}

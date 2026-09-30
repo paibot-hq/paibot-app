@@ -4,7 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { findUnit, unitSets } from '../src/lib/math-catalog.ts';
 import { MAX_SET_PROBLEMS } from '../src/lib/math-attempts.ts';
-import { evalExpression, formulaChoiceTex, formulaInstruction, formulaQuestionTex, solutionTex, splitTop } from '../src/lib/math-formula.ts';
+import { evalExpression, formulaChoiceLabel, formulaChoiceTex, formulaInstruction, formulaQuestionTex, solutionTex, splitTop } from '../src/lib/math-formula.ts';
 
 // What a learner can read off a drawn graph (kind "graph"): the reviewer gets this
 // instead of the formula, so it checks the answer from the picture alone.
@@ -137,9 +137,9 @@ export function blindProblem(unit, p) {
   };
   if (isFormulaUnit(unit)) return {
     id: p.id, type: 'formula', kind: p.kind, instruction: instructionJa(p),
-    question: formulaQuestionTex(p), given: p.given && solutionTex(p.given, 'x'),
+    question: formulaQuestionTex(p), given: p.given && p.kind !== 'sets' ? solutionTex(p.given, 'x') : undefined,
     ...(p.divisor && { divisor: p.divisor }), ...(p.bounds && { bounds: p.bounds }), ...(p.which && { which: p.which }), ...(p.progression && { progression: p.progression }),
-    choices: p.choices.map(choice => formulaChoiceTex(p, choice)),
+    choices: p.choices.map(choice => formulaChoiceLabel(p, choice) ? FORMULA_JA[formulaChoiceLabel(p, choice)] : formulaChoiceTex(p, choice)),
   };
   if (p.word !== null) return { id: p.id, type: 'word', word: Object.fromEntries(['ja', 'en', 'zh'].map(locale => [locale, { prompt: p.word[locale].prompt, unit: p.word[locale].unit }])), choices: p.choices };
   return { id: p.id, type: 'expression', expression: p.expression, choices: p.choices };

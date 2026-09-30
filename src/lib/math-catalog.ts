@@ -204,7 +204,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'cubes', sets: [{ id: '1', rule: 'factoring-cubes-a' }] },
   ] },
   { id: 'sqrt', domain: 'number', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
-    { id: 'rational-irrational', sets: [{ id: '1' }] },
+    { id: 'rational-irrational', sets: [{ id: '1', rule: 'classify-irrational-a' }] },
     { id: 'simplify', sets: [{ id: '1', rule: 'sqrt-simplify-a' }] },
     { id: 'add-sub', sets: [{ id: '1', rule: 'sqrt-add-sub-a' }] },
     { id: 'rationalize', sets: [{ id: '1', rule: 'sqrt-rationalize-a' }] },
@@ -288,8 +288,8 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'sequence', sets: [{ id: '1', rule: 'lim-seq-a' }] },
     { id: 'function', sets: [{ id: '1', rule: 'lim-fn-a' }] },
   ] },
-  { id: 'univ-calculus', domain: 'calculus', stage: 'university', status: 'comingSoon', items: [
-    { id: 'mean-value', sets: [{ id: '1' }] },
+  { id: 'univ-calculus', domain: 'calculus', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'mean-value', sets: [{ id: '1', rule: 'mvt-a' }] },
   ] },
   { id: 'derivative', domain: 'calculus', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'polynomial', sets: [{ id: '1', rule: 'derivative-polynomial-a' }] },
@@ -419,22 +419,22 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'hypothesis', sets: [{ id: '1', rule: 'hypothesis-a' }] },
   ] },
   { id: 'inference', domain: 'data', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
-    { id: 'random-variables', sets: [{ id: '1' }] },
+    { id: 'random-variables', sets: [{ id: '1', rule: 'random-variables-a' }] },
     { id: 'estimation', sets: [{ id: '1', rule: 'estimation-a' }] },
     { id: 'testing', sets: [{ id: '1', rule: 'testing-a' }] },
   ] },
   { id: 'sets', domain: 'logic', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
-    { id: 'operations', sets: [{ id: '1' }] },
+    { id: 'operations', sets: [{ id: '1', rule: 'sets-a' }] },
     { id: 'venn', sets: [{ id: '1', rule: 'venn-a' }] },
   ] },
-  { id: 'logic', domain: 'logic', stage: 'high', status: 'comingSoon', items: [
-    { id: 'negation', sets: [{ id: '1' }] },
-    { id: 'conditions', sets: [{ id: '1' }] },
-    { id: 'truth-table', sets: [{ id: '1' }] },
+  { id: 'logic', domain: 'logic', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'negation', sets: [{ id: '1', rule: 'logic-negation-a' }] },
+    { id: 'conditions', sets: [{ id: '1', rule: 'logic-conditions-a' }] },
+    { id: 'truth-table', sets: [{ id: '1', rule: 'logic-truth-a' }] },
   ] },
-  { id: 'mapping', domain: 'logic', stage: 'university', status: 'comingSoon', items: [
-    { id: 'injective', sets: [{ id: '1' }] },
-    { id: 'equivalence', sets: [{ id: '1' }] },
+  { id: 'mapping', domain: 'logic', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'injective', sets: [{ id: '1', rule: 'mapping-a' }] },
+    { id: 'equivalence', sets: [{ id: '1', rule: 'equivalence-a' }] },
   ] },
   { id: 'series', domain: 'calculus', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
     { id: 'series', sets: [{ id: '1', rule: 'series-sum-a' }] },

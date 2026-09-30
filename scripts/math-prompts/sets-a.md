@@ -1,0 +1,2 @@
+集合の演算（数学I、kind "sets"）。5問、which は union・intersection・difference・complement・complement-union・complement-intersection から。question は "A; B"（要素を整数のコンマ区切り "1, 2, 3; 2, 3, 4"）、complement 系は given に全体集合（"1, 2, 3, 4, 5, 6, 7, 8"）を書く（それ以外は given を null）。choices は要素のコンマ区切り（"2, 3"、昇順）。答えが空集合にならない。steps は [] でよい。
+given は complement・complement-union・complement-intersection のときだけ全体集合を書き、union・intersection・difference では必ず null にする。

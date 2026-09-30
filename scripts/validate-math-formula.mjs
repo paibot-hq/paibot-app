@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { parseExpression, splitTop } from '../src/lib/math-formula.ts';
+import { conditionTex, parseExpression, splitTop } from '../src/lib/math-formula.ts';
 import { unitSets, unitsOfKind } from '../src/lib/math-catalog.ts';
 
 // Set rules only, for the formula units: every question, `given` and choice
@@ -240,6 +240,15 @@ const RULES = {
   'sample-estimate-a': ['calc', (s, p) => !!p.word],
   'hypothesis-a': ['calc', (s, p) => !!p.word],
   'venn-a': ['calc', (s, p) => !!p.word],
+  'classify-irrational-a': ['classify', (s, p) => ['irrational', 'rational'].includes(p.which)],
+  'classify-rational-a': ['classify', (s, p) => p.which === 'rational'],
+  'mvt-a': [['mvt', 'calc'], (s, p) => p.kind === 'mvt' || s.calls.has('lim')],
+  'sets-a': ['sets', () => true],
+  'logic-negation-a': ['logic', (s, p) => ['contrapositive', 'negation'].includes(p.which)],
+  'logic-conditions-a': ['logic', (s, p) => p.which === 'necessary'],
+  'logic-truth-a': ['logic', (s, p) => p.which === 'truth'],
+  'mapping-a': ['mapping', (s, p) => p.which === 'type'],
+  'equivalence-a': ['mapping', (s, p) => p.which === 'relation'],
   'geometric-a': [['term', 'series'], (s, p) => p.progression === 'geometric' && !s.letters.size && !s.calls.size],
 };
 
@@ -253,6 +262,11 @@ function checkChoice(kind, choice, id, which) {
   if (kind === 'number' && which === 'to-base') { assert.match(choice.trim(), /^\d+$/, `${id}: a numeral in the new base`); return; }
   if (kind === 'function' && ['proportion', 'inverse', 'rewrite'].includes(which)) { assert.match(choice, /^\s*y\s*=/, `${id}: function choices are "y = ..."`); parseExpression(choice.split('=')[1]); return; }
   if (kind === 'function' && ['intersect-lines', 'intersect-parabola'].includes(which)) { const parts = splitTop(choice, ','); assert.ok(parts.length === 2, `${id}: choices are two numbers "a, b"`); parts.forEach(part => parseExpression(part)); return; }
+  if (kind === 'sets') { const parts = splitTop(choice, ','); parts.forEach(part => assert.match(part.trim(), /^-?\d+$/, `${id}: a set holds whole numbers`)); return; }
+  if (kind === 'logic' && (which === 'contrapositive' || which === 'negation')) { conditionTex(choice); return; }
+  if (kind === 'logic' && which === 'necessary') { assert.ok(['sufficient', 'necessary', 'both', 'neither'].includes(choice), `${id}: a label`); return; }
+  if (kind === 'logic' && which === 'truth') { assert.match(choice, /^[TF]\s*,\s*[TF]\s*,\s*[TF]\s*,\s*[TF]$/, `${id}: four T/F values`); return; }
+  if (kind === 'mapping') { assert.ok(['injective', 'surjective', 'bijective', 'neither', 'reflexive', 'symmetric', 'transitive', 'equivalence'].includes(choice), `${id}: a label`); return; }
   if (kind === 'divmod') { const parts = splitTop(choice, ','); assert.equal(parts.length, 2, `${id}: divmod choices are "q, r"`); parts.forEach(part => assert.match(part.trim(), /^\d+$/, `${id}: whole numbers`)); return; }
   if (kind === 'conic') {
     if (['parabola-focus', 'polar-to-xy', 'xy-to-polar'].includes(which)) { const parts = splitTop(choice, ','); assert.equal(parts.length, 2, `${id}: choices are points "a, b"`); parts.forEach(part => parseExpression(part)); return; }
@@ -302,15 +316,15 @@ export function validateBank(bank, catalog) {
     assert.ok(typeof question === 'string' && question.length <= 200, `${id}: question`);
     const key = `${question.replaceAll(' ', '')}|${given ?? ''}`;
     assert.ok(!questions.has(key), `${id}: duplicate question`); questions.add(key);
-    assert.ok(given === null || (['calc', 'derivative', 'tangent', 'term', 'series', 'recurrence', 'distribution', 'inference'].includes(kind) && typeof given === 'string'), `${id}: given`);
-    if (given) for (const pair of splitTop(given, ',')) { assert.match(pair, /^\s*[a-z]\s*=/, `${id}: given`); parseExpression(pair.split('=')[1]); }
+    assert.ok(given === null || (['calc', 'derivative', 'tangent', 'term', 'series', 'recurrence', 'distribution', 'inference', 'sets'].includes(kind) && typeof given === 'string'), `${id}: given`);
+    if (given && kind !== 'sets') for (const pair of splitTop(given, ',')) { assert.match(pair, /^\s*[a-z]\s*=/, `${id}: given`); parseExpression(pair.split('=')[1]); }
     // Fields only some kinds have.
     assert.ok((kind === 'remainder') === (problem.divisor !== undefined), `${id}: divisor is for remainder`);
     if (problem.divisor !== undefined) parseExpression(problem.divisor);
     assert.ok(problem.bounds === undefined || ['integral', 'area'].includes(kind), `${id}: bounds are for integral and area`);
     if (kind === 'area') assert.ok(problem.bounds, `${id}: area needs bounds`);
     if (problem.bounds !== undefined) { const parts = splitTop(problem.bounds, ','); assert.equal(parts.length, 2, `${id}: bounds "a, b"`); parts.forEach(part => parseExpression(part)); }
-    const variants = { extremum: ['max', 'min'], distribution: ['mean', 'variance', 'binomialMean', 'binomialVariance', 'binomialProb', 'zscore'], geometry: ['line-two-points', 'line-slope', 'line-parallel', 'line-perpendicular', 'circle-center', 'circle-diameter', 'distance', 'locus-equidistant', 'locus-ratio'], inequality: ['amgm-min', 'amgm-equal', 'product-sum', 'solve'], induction: ['base', 'add', 'target', 'combine'], inference: ['mean-interval', 'ratio-interval', 'test-z'], region: ['in', 'out'], ode: ['separable', 'linear', 'second'], conic: ['parabola-focus', 'parabola-directrix', 'parabola-equation', 'ellipse-c', 'ellipse-major', 'hyperbola-c', 'hyperbola-asymptote', 'polar-to-xy', 'xy-to-polar'], graph: ['line', 'parabola', 'vertex', 'circle', 'region', 'trig'],
+    const variants = { extremum: ['max', 'min'], distribution: ['mean', 'variance', 'binomialMean', 'binomialVariance', 'binomialProb', 'zscore'], geometry: ['line-two-points', 'line-slope', 'line-parallel', 'line-perpendicular', 'circle-center', 'circle-diameter', 'distance', 'locus-equidistant', 'locus-ratio'], inequality: ['amgm-min', 'amgm-equal', 'product-sum', 'solve'], induction: ['base', 'add', 'target', 'combine'], inference: ['mean-interval', 'ratio-interval', 'test-z'], region: ['in', 'out'], classify: ['irrational', 'rational'], sets: ['union', 'intersection', 'difference', 'complement', 'complement-union', 'complement-intersection'], logic: ['contrapositive', 'negation', 'necessary', 'truth'], mapping: ['type', 'relation'], ode: ['separable', 'linear', 'second'], conic: ['parabola-focus', 'parabola-directrix', 'parabola-equation', 'ellipse-c', 'ellipse-major', 'hyperbola-c', 'hyperbola-asymptote', 'polar-to-xy', 'xy-to-polar'], graph: ['line', 'parabola', 'vertex', 'circle', 'region', 'trig'],
       number: ['gcd', 'lcm', 'euclid', 'diophantine', 'to-base', 'from-base', 'remainder', 'power-mod', 'divisor-count', 'nth-multiple', 'prime-factorization', 'round-ones', 'round-ten', 'round-hundred', 'round-thousand', 'round-tenth', 'round-hundredth', 'estimate', 'scientific', 'to-improper', 'to-mixed'],
       stat: ['median', 'range', 'mode', 'variance', 'std', 'correlation'],
       function: ['proportion', 'inverse', 'slope', 'intercept', 'xintercept', 'rate', 'intersect-lines', 'intersect-parabola', 'rewrite'],
@@ -330,8 +344,11 @@ export function validateBank(bank, catalog) {
     assert.ok(problem.style === undefined || ['times', 'box', 'ratio', 'mixed'].includes(problem.style), `${id}: style`);
     if (set.rule === 'letters-value-a') assert.equal(problem.style, 'times', `${id}: this set keeps the × sign (style "times")`);
     const which = problem.which;
-    const listed = ['distribution', 'geometry', 'recurrence', 'inequality', 'induction', 'inference', 'region', 'graph', 'number', 'stat', 'function', 'quadratic', 'triangle', 'eigenvector', 'ode', 'conic', 'divmod'].includes(kind);
-    const s = stats(kind === 'area' ? question.replace(';', '+') : sequence ? splitTop(question, ',').join(' + ') : listed ? splitTop(question, ';').slice(0, kind === 'region' || (kind === 'graph' && which === 'region') || (kind === 'inequality' && which === 'solve') ? 2 : undefined).flatMap(part => splitTop(part, ',')).join(' + ') : question);
+    const listed = ['distribution', 'geometry', 'recurrence', 'inequality', 'induction', 'inference', 'region', 'graph', 'number', 'stat', 'function', 'quadratic', 'triangle', 'eigenvector', 'ode', 'conic', 'divmod', 'classify', 'mvt', 'sets'].includes(kind);
+    const own = ['logic', 'mapping'].includes(kind);
+    if (kind === 'logic') { for (const part of (problem.which === 'necessary' ? splitTop(question, ';') : [question])) conditionTex(part); }
+    if (kind === 'sets') { const parts = splitTop(question, ';'); assert.equal(parts.length, 2, `${id}: sets are "A; B"`); assert.equal(given !== null, /complement/.test(problem.which), `${id}: given is the universe, for complements only`); }
+    const s = stats(own ? '0' : kind === 'area' ? question.replace(';', '+') : sequence ? splitTop(question, ',').join(' + ') : listed ? splitTop(question, ';').slice(0, kind === 'region' || (kind === 'graph' && which === 'region') || (kind === 'inequality' && which === 'solve') ? 2 : undefined).flatMap(part => splitTop(part, ',')).join(' + ') : question);
     const expectedEquations = kind === 'solve' ? s.equations >= 1 : kind === 'identity' || kind === 'rearrange' || (kind === 'function' && problem.which === 'rewrite') ? s.equations === 1 : kind === 'conic' && ['parabola-focus', 'parabola-directrix', 'ellipse-c', 'ellipse-major', 'hyperbola-c', 'hyperbola-asymptote'].includes(problem.which) ? s.equations === 1 : s.equations === 0;
     assert.ok(expectedEquations, `${id}: equations`);
     assert.ok(fits(s, problem), `${id}: "${question}" does not fit set ${setId}`);
@@ -346,7 +363,7 @@ export function validateBank(bank, catalog) {
     }
     // The worked solution, required (SymPy checks its mathematics, verify_math.py).
     {
-      assert.ok(Array.isArray(problem.steps) && problem.steps.length >= (kind === 'ode' ? 0 : 1) && problem.steps.length <= 6, `${id}: 1 to 6 steps`);
+      assert.ok(Array.isArray(problem.steps) && problem.steps.length >= (['ode', 'sets', 'logic', 'mapping'].includes(kind) ? 0 : 1) && problem.steps.length <= 6, `${id}: 1 to 6 steps`);
       for (const line of problem.steps) { assert.equal(typeof line, 'string', `${id}: step`); for (const item of splitTop(line, ',')) item.split('=').forEach(side => parseExpression(side)); }
     }
     for (const choice of choices) checkChoice(kind, choice, id, problem.which);

@@ -340,6 +340,96 @@
       ],
       "choices": ["sqrt(5) - sqrt(3)", "sqrt(6) + sqrt(2)", "sqrt(5) + sqrt(3)", "sqrt(8) + sqrt(15)"],
       "answerIndex": 2
+    },
+    {
+      "id": "sqrt-021",
+      "item": "rational-irrational",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "classify",
+      "question": "sqrt(25), sqrt(7), -3/5, 0.4",
+      "given": null,
+      "which": "irrational",
+      "steps": [
+        "sqrt(7)^2 = 7"
+      ],
+      "choices": ["sqrt(25)", "sqrt(7)", "-3/5", "0.4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "sqrt-022",
+      "item": "rational-irrational",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "classify",
+      "question": "22/7, sqrt(4), sqrt(3), 0.75",
+      "given": null,
+      "which": "irrational",
+      "steps": [
+        "sqrt(3)^2 = 3"
+      ],
+      "choices": ["22/7", "sqrt(4)", "sqrt(3)", "0.75"],
+      "answerIndex": 2
+    },
+    {
+      "id": "sqrt-023",
+      "item": "rational-irrational",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "classify",
+      "question": "sqrt(10), sqrt(0.04), -4/9, sqrt(81)",
+      "given": null,
+      "which": "irrational",
+      "steps": [
+        "sqrt(10)^2 = 10"
+      ],
+      "choices": ["sqrt(10)", "sqrt(0.04)", "-4/9", "sqrt(81)"],
+      "answerIndex": 0
+    },
+    {
+      "id": "sqrt-024",
+      "item": "rational-irrational",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "classify",
+      "question": "sqrt(2), pi, sqrt(5), sqrt(9)",
+      "given": null,
+      "which": "rational",
+      "steps": [
+        "sqrt(9) = 3"
+      ],
+      "choices": ["sqrt(2)", "pi", "sqrt(5)", "sqrt(9)"],
+      "answerIndex": 3
+    },
+    {
+      "id": "sqrt-025",
+      "item": "rational-irrational",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "classify",
+      "question": "sqrt(6), sqrt(16), sqrt(8), pi",
+      "given": null,
+      "which": "rational",
+      "steps": [
+        "sqrt(16) = 4"
+      ],
+      "choices": ["sqrt(6)", "sqrt(16)", "sqrt(8)", "pi"],
+      "answerIndex": 1
     }
   ]
 }

@@ -83,11 +83,14 @@ and display it uses (`components/math-questions.tsx`):
   `derivative`, `tangent`, `extremum`, `integral`, `area`, `term`, `series`,
   `radian`, `degree`, `recurrence`, `distribution`, `geometry`, `identity`,
   `inequality`, `induction`, `inference`, `region`, `graph`, `number`, `stat`,
-  `function`, `rearrange`, `quadratic`, `triangle`, `eigenvector`, `ode`, `conic` or
-  `divmod` (the
+  `function`, `rearrange`, `quadratic`, `triangle`, `eigenvector`, `ode`, `conic`,
+  `divmod`, `classify`, `mvt`, `sets`, `logic` or `mapping` (the
   grammar comment there lists each kind's extra fields and variants). The page renders the TeX and the
   instruction line from those strings, and `scripts/verify_math.py` parses the
   same grammar to re-derive the answer, so what is shown is what was checked.
+  A `calc` problem can be a word problem (`word`: prose and unit in ja/en/zh; `question` is the
+  hidden expression that solves it). Logic problems use a small condition notation
+  (`parseCondition` in `math-formula.ts`, `condition` in `verify_math.py`).
   Every problem carries `steps`, its worked solution as 1-6 lines of the same
   grammar (a chain "a = b = c", or "x = 2, x = -2"), shown under the answer;
   SymPy checks each line (`check_steps`). `npm run math:steps -- <unit>` has an

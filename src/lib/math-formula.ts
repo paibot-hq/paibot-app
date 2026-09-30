@@ -95,9 +95,20 @@
 //              the focus (p, 0), answer the equation), ellipse-c, ellipse-major, hyperbola-c, hyperbola-asymptote
 //              (question "x^2/25 + y^2/9 = 1"), polar-to-xy ("r, theta"), xy-to-polar ("x, y")
 //   divmod     "a, b": the quotient and the remainder of a ÷ b; choices "q, r" are drawn q⋯r
+//   classify   choose the irrational (which "irrational") or the rational (which "rational") number among the
+//              four choices (question is unused: "0")
+//   mvt        "f; a, b": the c in (a, b) of the mean value theorem; choices numbers
+//   sets       "A; B" (lists of whole numbers), given the universe "1, 2, ...": by `which` union, intersection,
+//              difference (A - B), complement (of A), complement-union, complement-intersection; choices lists
+//   logic      by `which`: contrapositive, negation (question a condition "x > 2 => x^2 > 4"; choices conditions; see
+//              parseCondition), necessary ("P; Q", choices: sufficient, necessary, both, neither),
+//              truth (a condition in p, q; choices "T, F, T, T" for (p, q) = TT, TF, FT, FF)
+//   mapping    by `which`: type ("A; B; 1>2, 2>1": f(1) = 2, ...; choices injective, surjective, bijective,
+//              neither), relation ("A; 1~1, 1~2": choices reflexive, symmetric, transitive, equivalence = which
+//              property fails, or that it is an equivalence relation)
 //   identity   an equation in x with unknown constants; choices "a = 1, b = 2" make it an identity in x
 export type FormulaStyle = 'times' | 'box' | 'ratio' | 'mixed';
-export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity' | 'inequality' | 'induction' | 'inference' | 'region' | 'graph' | 'number' | 'stat' | 'function' | 'rearrange' | 'quadratic' | 'triangle' | 'eigenvector' | 'ode' | 'conic' | 'divmod';
+export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity' | 'inequality' | 'induction' | 'inference' | 'region' | 'graph' | 'number' | 'stat' | 'function' | 'rearrange' | 'quadratic' | 'triangle' | 'eigenvector' | 'ode' | 'conic' | 'divmod' | 'classify' | 'mvt' | 'sets' | 'logic' | 'mapping';
 
 export interface FormulaPayload {
   kind: FormulaKind;
@@ -411,10 +422,10 @@ function lineTex(a: number, b: number, c: number): string {
 
 // The question as shown, by kind: an integral sign with its bounds, curves as
 // y = ..., equations as a system; the instruction line comes from the page's text.
-export function formulaQuestionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & { which?: string; style?: FormulaStyle }): string {
+export function formulaQuestionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & { given?: string | null; which?: string; style?: FormulaStyle }): string {
   return withStyle(p.style, () => questionTex(p));
 }
-function questionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & { which?: string }): string {
+function questionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & { given?: string | null; which?: string }): string {
   const x = unknownOf(p.question);
   switch (p.kind) {
     case 'solve': return statementTex(p.question);
@@ -469,6 +480,30 @@ function questionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & {
         case 'xy-to-polar': return `(x, y) = \\left(${list(p.question).join(', ')}\\right)`;
         default: return statementTex(p.question);
       }
+    }
+    case 'classify': return '';
+    case 'mvt': { const [f, interval] = splitTop(p.question, ';'); const [a, b] = list(interval); return `f(x) = ${expressionTex(f)},\\ \\left[${a}, ${b}\\right]`; }
+    case 'sets': {
+      const [a, b] = splitTop(p.question, ';');
+      const set = (text: string) => `\\left\\{${list(text).join(', ')}\\right\\}`;
+      return `A = ${set(a)},\\ B = ${set(b)}${p.given ? `,\\ U = ${set(p.given)}` : ''}`;
+    }
+    case 'logic': {
+      if (p.which === 'necessary') { const [a, b] = splitTop(p.question, ';'); return `P: ${conditionTex(a)},\\ Q: ${conditionTex(b)}`; }
+      return conditionTex(p.question);
+    }
+    case 'mapping': {
+      const parts = splitTop(p.question, ';');
+      const set = (text: string) => `\\left\\{${list(text).join(', ')}\\right\\}`;
+      if (p.which === 'relation') {
+        const pairs = splitTop(parts[1], ',').map(pair => `\\left(${pair.split('~').map(expressionTex).join(', ')}\\right)`);
+        // The pairs, four to a row, so a long relation does not run off the screen.
+        const rows = Array.from({ length: Math.ceil(pairs.length / 4) }, (_, i) => pairs.slice(i * 4, i * 4 + 4).join(',\\ '));
+        return `\\begin{array}{l} A = ${set(parts[0])} \\\\ R = \\{\\ ${rows.join(', \\\\ \\quad ')}\\ \\} \\end{array}`;
+      }
+      const values = splitTop(parts[2], ',').map(pair => pair.split('>').map(expressionTex));
+      // The map as a table: x over f(x).
+      return `\\begin{array}{l} f: ${set(parts[0])} \\to ${set(parts[1])} \\\\ \\begin{array}{c|${'c'.repeat(values.length)}} x & ${values.map(([from]) => from).join(' & ')} \\\\ \\hline f(x) & ${values.map(([, to]) => to).join(' & ')} \\end{array} \\end{array}`;
     }
     case 'divmod': { const [a, b] = list(p.question); return `${a} \\div ${b}`; }
     case 'identity': return statementTex(p.question);
@@ -550,6 +585,11 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
     }
     case 'eigenvector': return { key: 'eigenvector', tex: {} };
     case 'divmod': return { key: 'divmod', tex: {} };
+    case 'classify': return { key: `classify${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
+    case 'mvt': return { key: 'mvt', tex: {} };
+    case 'sets': return { key: `set${p.which!.replace(/(^|-)(\w)/g, (_, _d, c: string) => c.toUpperCase())}`, tex: {} };
+    case 'logic': return { key: `logic${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
+    case 'mapping': return { key: `mapping${p.which![0].toUpperCase()}${p.which!.slice(1).replace(/-(\w)/g, (_, c: string) => c.toUpperCase())}`, tex: {} };
     case 'ode': return { key: `ode${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
     case 'conic': return { key: p.which!.replace(/-(\w)/g, (_, c: string) => c.toUpperCase()).replace(/^/, 'conic').replace(/^conic(.)/, (_, c: string) => `conic${c.toUpperCase()}`), tex: {} };
     case 'derivative': return p.given ? { key: 'derivativeAt', tex: at } : { key: 'derivative', tex: {} };
@@ -598,6 +638,13 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
   }
 }
 
+// Choices that are words (a kind of condition, a property of a map or relation) are keys of the page's
+// messages: the key of a choice's label under App.math.formulaQuiz, or null for a choice drawn as math.
+export function formulaChoiceLabel(p: { kind: string; which?: string }, choice: string): string | null {
+  if (!((p.kind === 'logic' && p.which === 'necessary') || p.kind === 'mapping')) return null;
+  return p.kind === 'mapping' && choice === 'neither' ? 'labelNeitherMap' : `label${choice[0].toUpperCase()}${choice.slice(1)}`;
+}
+
 export function formulaChoiceTex(p: Pick<FormulaPayload, 'kind' | 'question'> & { which?: string; style?: FormulaStyle }, choice: string): string {
   return withStyle(p.style, () => choiceTex(p, choice));
 }
@@ -607,6 +654,9 @@ function choiceTex(p: Pick<FormulaPayload, 'kind' | 'question'> & { which?: stri
   if (p.kind === 'solve') return solutionTex(choice, unknownOf(p.question));
   if (p.kind === 'tangent') return solutionTex(choice, 'y');
   if (p.kind === 'identity') return solutionTex(choice, 'a');
+  if (p.kind === 'sets') return `\\left\\{${list(choice).join(', ')}\\right\\}`;
+  if (p.kind === 'logic' && (p.which === 'contrapositive' || p.which === 'negation')) return conditionTex(choice);
+  if (p.kind === 'logic' && p.which === 'truth') return choice.split(',').map(value => `\\mathrm{${value.trim()}}`).join(',\\ ');
   if (p.kind === 'divmod') { const [q, r] = list(choice); return `${q} \\cdots ${r}`; }
   if (p.kind === 'conic') {
     if (['parabola-focus', 'polar-to-xy', 'xy-to-polar'].includes(p.which ?? '')) return `\\left(${list(choice).join(', ')}\\right)`;
@@ -707,3 +757,94 @@ export function intervalTex(text: string): string {
     return parts.map((part, index) => index % 2 === 1 ? ({ '<': '<', '>': '>', '<=': '\\le', '>=': '\\ge' } as Record<string, string>)[part] : expressionTex(part)).join(' ');
   }).join(',\\ ');
 }
+
+
+// Conditions and propositions of the logic problems, in one small notation shared with
+// scripts/verify_math.py (which evaluates them over a range of integers or truth values):
+//
+//   cond  = imp
+//   imp   = or ('=>' or)*                      right-associative
+//   or    = and ('or' and)*
+//   and   = not ('and' not)*
+//   not   = 'not' not | '(' cond ')' | atom
+//   atom  = expr relation expr                 relation: < > <= >= = !=   (expr in the formula grammar)
+//         | p | q | r                          a truth value
+//
+// Parentheses group conditions only: an atom has none (write "x*x + x > 2", not "(x + 1) > 2").
+type Cond =
+  | { type: 'atom'; left: string; op: string; right: string }
+  | { type: 'var'; name: string }
+  | { type: 'not'; arg: Cond }
+  | { type: 'bin'; op: 'and' | 'or' | 'imp'; left: Cond; right: Cond };
+
+const RELATION = /^(.*?)(<=|>=|!=|<|>|=)(.*)$/;
+
+function tokenizeCondition(text: string): string[] {
+  const tokens: string[] = [];
+  let buffer = '';
+  const flush = () => { if (buffer.trim()) tokens.push(buffer.trim()); buffer = ''; };
+  for (let i = 0; i < text.length; i++) {
+    if (text[i] === '(' || text[i] === ')') { flush(); tokens.push(text[i]); continue; }
+    if (text.startsWith('=>', i)) { flush(); tokens.push('=>'); i++; continue; }
+    const word = /^(and|or|not)(?![a-z0-9])/.exec(text.slice(i));
+    if (word && (i === 0 || /[\s()]/.test(text[i - 1]))) { flush(); tokens.push(word[1]); i += word[1].length - 1; continue; }
+    buffer += text[i];
+  }
+  flush();
+  return tokens;
+}
+
+export function parseCondition(text: string): Cond {
+  const tokens = tokenizeCondition(text);
+  let at = 0;
+  const peek = () => tokens[at];
+  const take = () => tokens[at++];
+  function imp(): Cond {
+    const left = or();
+    if (peek() === '=>') { take(); return { type: 'bin', op: 'imp', left, right: imp() }; }
+    return left;
+  }
+  function or(): Cond {
+    let node = and();
+    while (peek() === 'or') { take(); node = { type: 'bin', op: 'or', left: node, right: and() }; }
+    return node;
+  }
+  function and(): Cond {
+    let node = not();
+    while (peek() === 'and') { take(); node = { type: 'bin', op: 'and', left: node, right: not() }; }
+    return node;
+  }
+  function not(): Cond {
+    if (peek() === 'not') { take(); return { type: 'not', arg: not() }; }
+    if (peek() === '(') { take(); const inner = imp(); if (take() !== ')') throw new Error(`Missing ) in "${text}"`); return inner; }
+    const token = take();
+    if (token === undefined) throw new Error(`Unexpected end of "${text}"`);
+    if (/^[pqr]$/.test(token)) return { type: 'var', name: token };
+    const match = RELATION.exec(token);
+    if (!match) throw new Error(`Not a condition: "${token}"`);
+    return { type: 'atom', left: match[1].trim(), op: match[2], right: match[3].trim() };
+  }
+  const node = imp();
+  if (at !== tokens.length) throw new Error(`Unexpected "${tokens[at]}" in "${text}"`);
+  return node;
+}
+
+const RELATION_TEX: Record<string, string> = { '<': '<', '>': '>', '<=': '\\le', '>=': '\\ge', '=': '=', '!=': '\\ne' };
+const PRECEDENCE = { imp: 0, or: 1, and: 2 } as const;
+
+function tex(node: Cond, parent: number): string {
+  switch (node.type) {
+    case 'atom': return `${expressionTex(node.left)} ${RELATION_TEX[node.op]} ${expressionTex(node.right)}`;
+    case 'var': return node.name;
+    case 'not': return `\\lnot ${node.arg.type === 'bin' ? `\\left(${tex(node.arg, 0)}\\right)` : tex(node.arg, 3)}`;
+    case 'bin': {
+      const own = PRECEDENCE[node.op];
+      const symbol = node.op === 'and' ? '\\land' : node.op === 'or' ? '\\lor' : '\\Rightarrow';
+      const body = `${tex(node.left, own + 1)} ${symbol} ${tex(node.right, node.op === 'imp' ? own : own + 1)}`;
+      return own < parent ? `\\left(${body}\\right)` : body;
+    }
+  }
+}
+
+// A condition as TeX: x > 2 \Rightarrow x^{2} > 4.
+export const conditionTex = (text: string) => tex(parseCondition(text), 0);

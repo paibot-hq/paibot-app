@@ -1101,6 +1101,210 @@ def conic(problem):
     raise ValueError(f'unknown conic variant {which!r}')
 
 
+def classify(problem):
+    """The one choice that is irrational (or rational, by `which`)."""
+    values = [parse_formula(choice) for choice in problem['choices']]
+    if any(value.free_symbols for value in values):
+        raise ValueError('classify choices must be numbers')
+    wanted = problem['which'] == 'irrational'
+    hits = [v for v in values if (v.is_irrational if wanted else v.is_rational)]
+    if len(hits) != 1:
+        raise ValueError(f'exactly one choice must be {problem["which"]}, found {len(hits)}')
+    return hits[0], values
+
+
+def mvt(problem):
+    """The c in (a, b) with f'(c) = (f(b) - f(a))/(b - a)."""
+    function_text, interval = problem['question'].split(';')
+    f = parse_formula(function_text)
+    a, b = pair(interval)
+    x = LETTERS['x']
+    if not (a.is_real and b.is_real and a < b):
+        raise ValueError('the interval must increase')
+    slope = (f.subs(x, b) - f.subs(x, a)) / (b - a)
+    roots = [r for r in solve(diff(f, x) - slope, x) if r.is_real and a < r < b]
+    if len(roots) != 1:
+        raise ValueError(f'expected exactly one c in ({a}, {b}), found {roots}')
+    return roots[0], [parse_formula(choice) for choice in problem['choices']]
+
+
+def whole_set(text):
+    values = pair(text)
+    if any(not value.is_Integer for value in values):
+        raise ValueError('sets hold whole numbers')
+    return set(int(value) for value in values)
+
+
+def sets_answer(problem):
+    which, parts = problem['which'], problem['question'].split(';')
+    a, b = whole_set(parts[0]), whole_set(parts[1])
+    universe = whole_set(problem['given']) if problem.get('given') else None
+    if which in ('complement', 'complement-union', 'complement-intersection'):
+        if universe is None or not (a | b) <= universe:
+            raise ValueError('a complement needs the universe (given) to contain both sets')
+    result = {
+        'union': lambda: a | b, 'intersection': lambda: a & b, 'difference': lambda: a - b,
+        'complement': lambda: universe - a, 'complement-union': lambda: universe - (a | b), 'complement-intersection': lambda: universe - (a & b),
+    }[which]()
+    if not result:
+        raise ValueError('the answer must not be empty')
+    return FiniteSet(*result), [FiniteSet(*whole_set(choice)) for choice in problem['choices']]
+
+
+def condition(text):
+    """Parses the condition notation of math-formula.ts (parseCondition) into a function of an environment."""
+    tokens, buffer, at = [], '', 0
+    def flush():
+        nonlocal buffer
+        if buffer.strip():
+            tokens.append(buffer.strip())
+        buffer = ''
+    while at < len(text):
+        if text[at] in '()':
+            flush(); tokens.append(text[at]); at += 1; continue
+        if text.startswith('=>', at):
+            flush(); tokens.append('=>'); at += 2; continue
+        word = re.match(r'(and|or|not)(?![a-z0-9])', text[at:])
+        if word and (at == 0 or text[at - 1] in ' ()'):
+            flush(); tokens.append(word.group(1)); at += len(word.group(1)); continue
+        buffer += text[at]; at += 1
+    flush()
+    position = 0
+
+    def peek():
+        return tokens[position] if position < len(tokens) else None
+
+    def take():
+        nonlocal position
+        position += 1
+        return tokens[position - 1]
+
+    def imp():
+        left = or_()
+        if peek() == '=>':
+            take(); right = imp()
+            return lambda env: (not left(env)) or right(env)
+        return left
+
+    def or_():
+        node = and_()
+        while peek() == 'or':
+            take(); node = (lambda l, r: lambda env: l(env) or r(env))(node, and_())
+        return node
+
+    def and_():
+        node = not_()
+        while peek() == 'and':
+            take(); node = (lambda l, r: lambda env: l(env) and r(env))(node, not_())
+        return node
+
+    def not_():
+        if peek() == 'not':
+            take(); inner = not_()
+            return lambda env: not inner(env)
+        if peek() == '(':
+            take(); inner = imp()
+            if take() != ')':
+                raise ValueError(f'missing ) in {text!r}')
+            return inner
+        token = take()
+        if token in ('p', 'q', 'r'):
+            return lambda env: env[token]
+        match = re.match(r'^(.*?)(<=|>=|!=|<|>|=)(.*)$', token)
+        if not match:
+            raise ValueError(f'not a condition: {token!r}')
+        left, op, right = parse_formula(match.group(1)), match.group(2), parse_formula(match.group(3))
+        compare = {'<': lambda u, v: u < v, '>': lambda u, v: u > v, '<=': lambda u, v: u <= v, '>=': lambda u, v: u >= v,
+                   '=': lambda u, v: u == v, '!=': lambda u, v: u != v}[op]
+        return lambda env: bool(compare(left.subs({LETTERS['x']: env['x']}), right.subs({LETTERS['x']: env['x']})))
+
+    node = imp()
+    if position != len(tokens):
+        raise ValueError(f'unexpected {tokens[position]!r} in {text!r}')
+    return node
+
+
+DOMAIN = [Integer(v) for v in range(-12, 13)]
+LABELS_NECESSARY = {'sufficient', 'necessary', 'both', 'neither'}
+LABELS_MAP = {'injective', 'surjective', 'bijective', 'neither'}
+LABELS_RELATION = {'reflexive', 'symmetric', 'transitive', 'equivalence'}
+
+
+def truth_table(node):
+    return tuple(bool(node({'x': v})) for v in DOMAIN)
+
+
+def logic_answer(problem):
+    which, question = problem['which'], problem['question']
+    choices = problem['choices']
+    if which in ('contrapositive', 'negation'):
+        base = truth_table(condition(question))
+        target = base if which == 'contrapositive' else tuple(not v for v in base)
+        tables = [truth_table(condition(choice)) for choice in choices]
+        hits = [index for index, table in enumerate(tables) if table == target]
+        if len(hits) != 1 or len(set(tables)) != 4:
+            raise ValueError(f'exactly one choice must be the {which} and the choices must differ, found {len(hits)}')
+        return Symbol(f'c{hits[0]}'), [Symbol(f'c{index}') for index in range(4)]
+    if which == 'necessary':
+        a, b = question.split(';')
+        p, q = condition(a), condition(b)
+        sufficient = all((not p({'x': v})) or q({'x': v}) for v in DOMAIN)
+        necessary = all((not q({'x': v})) or p({'x': v}) for v in DOMAIN)
+        label = 'both' if sufficient and necessary else 'sufficient' if sufficient else 'necessary' if necessary else 'neither'
+        if set(choices) != LABELS_NECESSARY:
+            raise ValueError('choices must be sufficient, necessary, both and neither')
+        return Symbol(label), [Symbol(c) for c in choices]
+    if which == 'truth':
+        node = condition(question)
+        answer = tuple(Integer(1 if node({'p': pv, 'q': qv, 'r': False}) else 0) for pv in (True, False) for qv in (True, False))
+        parsed = []
+        for choice in choices:
+            values = [part.strip() for part in choice.split(',')]
+            if len(values) != 4 or any(v not in ('T', 'F') for v in values):
+                raise ValueError(f'a truth table is four T or F values, got {choice!r}')
+            parsed.append(Tuple(*[Integer(1 if v == 'T' else 0) for v in values]))
+        return Tuple(*answer), parsed
+    raise ValueError(f'unknown logic variant {which!r}')
+
+
+def mapping_answer(problem):
+    which, parts = problem['which'], problem['question'].split(';')
+    choices = problem['choices']
+    if which == 'type':
+        domain, codomain = whole_set(parts[0]), whole_set(parts[1])
+        table = {}
+        for item in parts[2].split(','):
+            left, right = item.split('>')
+            table[int(parse_formula(left))] = int(parse_formula(right))
+        if set(table) != domain or not set(table.values()) <= codomain:
+            raise ValueError('f must be defined on every element of A with values in B')
+        injective = len(set(table.values())) == len(domain)
+        surjective = set(table.values()) == codomain
+        label = 'bijective' if injective and surjective else 'injective' if injective else 'surjective' if surjective else 'neither'
+        allowed = LABELS_MAP
+    elif which == 'relation':
+        domain = whole_set(parts[0])
+        relation = set()
+        for item in parts[1].split(','):
+            left, right = item.split('~')
+            relation.add((int(parse_formula(left)), int(parse_formula(right))))
+        if any(u not in domain or v not in domain for u, v in relation):
+            raise ValueError('R must be a relation on A')
+        reflexive = all((u, u) in relation for u in domain)
+        symmetric = all((v, u) in relation for u, v in relation)
+        transitive = all((u, w) in relation for u, v in relation for v2, w in relation if v == v2)
+        failing = [name for name, ok in (('reflexive', reflexive), ('symmetric', symmetric), ('transitive', transitive)) if not ok]
+        if len(failing) > 1:
+            raise ValueError(f'exactly one property may fail, found {failing}')
+        label = failing[0] if failing else 'equivalence'
+        allowed = LABELS_RELATION
+    else:
+        raise ValueError(f'unknown mapping variant {which!r}')
+    if set(choices) != allowed:
+        raise ValueError(f'choices must be {sorted(allowed)}')
+    return Symbol(label), [Symbol(c) for c in choices]
+
+
 def divmod_answer(problem):
     """The quotient and the remainder of a ÷ b (whole numbers, b > 0)."""
     a, b = pair(problem['question'])
@@ -1131,6 +1335,16 @@ def _formula(problem):
         return graph(problem)
     if kind == 'divmod':
         return divmod_answer(problem)
+    if kind == 'classify':
+        return classify(problem)
+    if kind == 'mvt':
+        return mvt(problem)
+    if kind == 'sets':
+        return sets_answer(problem)
+    if kind == 'logic':
+        return logic_answer(problem)
+    if kind == 'mapping':
+        return mapping_answer(problem)
     if kind == 'region':
         return region(problem)
     if kind == 'eigenvector':
@@ -1259,14 +1473,14 @@ def check_steps(problem, answer):
     every solution ("x = 2, x = -2" for each root in turn); tangent, every line
     holds on the tangent line; extremum, every line holds at some critical point."""
     kind, steps = problem['kind'], problem['steps']
-    if kind == 'ode' and steps == []:
+    if kind in ('ode', 'sets', 'logic', 'mapping') and steps == []:
         return    # an initial value problem's working is not a chain of equal expressions
     if not (isinstance(steps, list) and 1 <= len(steps) <= 6 and all(isinstance(line, str) and line.strip() for line in steps)):
         raise ValueError('steps must be 1 to 6 non-empty lines')
     if kind == 'recurrence':
         return check_recurrence_steps(problem, answer, steps)
     for line in steps:
-        if kind == 'calc' and problem.get('word') and any(letter in line for letter in 'xyzabcnmpqt'):
+        if ((kind == 'calc' and problem.get('word')) or kind == 'mvt') and any(letter in line for letter in 'xyzabcnmpqt'):
             # A word problem may write its equation ("150*x + 90*(15 - x) = 1710"): it must hold at the answer.
             unknowns = set().union(*(parse_formula(part).free_symbols for part in line.split('=')))
             if len(unknowns) == 1:
@@ -1280,10 +1494,10 @@ def check_steps(problem, answer):
         if kind == 'conic' and problem['which'] in ('parabola-directrix', 'parabola-equation'):
             check_equation_line(problem, answer, line)    # lines hold on the curve (y = -3 for the directrix y + 3 = 0)
             continue
-        if kind in ('eigenvector', 'ode', 'conic'):
+        if kind in ('eigenvector', 'ode', 'conic', 'classify', 'sets', 'logic', 'mapping'):
             check_consistent_chain(line)
             continue
-        if kind in ('region', 'inference', 'number', 'stat', 'triangle', 'quadratic', 'divmod') or (kind == 'graph' and problem['which'] in ('vertex', 'region')) or (kind == 'function' and problem['which'] in ('slope', 'intercept', 'xintercept', 'rate')):
+        if kind in ('region', 'inference', 'number', 'stat', 'triangle', 'quadratic', 'divmod', 'mvt') or (kind == 'graph' and problem['which'] in ('vertex', 'region')) or (kind == 'function' and problem['which'] in ('slope', 'intercept', 'xintercept', 'rate')):
             check_numeric_chain(line)
             continue
         if kind in ('solve', 'tangent', 'extremum', 'identity') or (kind == 'inequality' and problem['which'] == 'amgm-equal') or kind == 'graph' or kind in ('function', 'rearrange') or (kind == 'geometry' and problem['which'].startswith(('line-', 'circle-', 'locus-'))):
@@ -1502,6 +1716,9 @@ UNITS = {
     'sampling': ('math-sampling.json', formula),
     'probability': ('math-probability.json', formula),
     'sets': ('math-sets.json', formula),
+    'logic': ('math-logic.json', formula),
+    'mapping': ('math-mapping.json', formula),
+    'univ-calculus': ('math-univ-calculus.json', formula),
     'factorization': ('math-factorization.json', factorization),
     'pythagoras': ('math-pythagoras.json', pythagoras),
 }

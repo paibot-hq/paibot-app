@@ -190,7 +190,7 @@
 
 | 領域 | 学習項目 | 状態 | キー |
 | --- | --- | --- | --- |
-| 数と計算 | 平方根 / 有理数と無理数 | C | `sqrt/rational-irrational` |
+| 数と計算 | 平方根 / 有理数と無理数 | ✅ | `sqrt/rational-irrational` |
 | 数と計算 | 平方根 / 根号を簡単にする | ✅ | `sqrt/simplify` |
 | 数と計算 | 平方根 / 平方根のたし算・ひき算 | ✅ | `sqrt/add-sub` |
 | 数と計算 | 平方根 / 分母の有理化 | ✅ | `sqrt/rationalize` |
@@ -238,10 +238,10 @@
 | データと確率 | 分散と相関 / 分散・標準偏差 | ✅ | `statistics/variance` |
 | データと確率 | 分散と相関 / 相関係数 | ✅ | `statistics/correlation` |
 | データと確率 | 分散と相関 / 仮説検定の考え方 | ✅ | `statistics/hypothesis` |
-| 集合と論理 | 集合 / 和集合・共通部分・補集合 | C | `sets/operations` |
+| 集合と論理 | 集合 / 和集合・共通部分・補集合 | ✅ | `sets/operations` |
 | 集合と論理 | 集合 / ベン図と要素の個数 | ✅ | `sets/venn` |
-| 集合と論理 | 命題と論理 / 否定と対偶 | C | `logic/negation` |
-| 集合と論理 | 命題と論理 / 必要条件・十分条件 | C | `logic/conditions` |
+| 集合と論理 | 命題と論理 / 否定と対偶 | ✅ | `logic/negation` |
+| 集合と論理 | 命題と論理 / 必要条件・十分条件 | ✅ | `logic/conditions` |
 
 ## 数学A（`h-a`）
 
@@ -344,10 +344,10 @@
 
 | 領域 | 学習項目 | 状態 | キー |
 | --- | --- | --- | --- |
-| データと確率 | 統計的推定と検定 / 確率変数と確率分布 | C | `inference/random-variables` |
-| 集合と論理 | 命題と論理 / 真理値表 | C | `logic/truth-table` |
-| 集合と論理 | 写像と関係 / 単射・全射 | C | `mapping/injective` |
-| 集合と論理 | 写像と関係 / 同値関係 | C | `mapping/equivalence` |
+| データと確率 | 統計的推定と検定 / 確率変数と確率分布 | ✅ | `inference/random-variables` |
+| 集合と論理 | 命題と論理 / 真理値表 | ✅ | `logic/truth-table` |
+| 集合と論理 | 写像と関係 / 単射・全射 | ✅ | `mapping/injective` |
+| 集合と論理 | 写像と関係 / 同値関係 | ✅ | `mapping/equivalence` |
 | 線形代数 | 行列 / 行列の和と積 | ✅ | `matrix/operations` |
 | 線形代数 | 行列 / 2×2 の行列式 | ✅ | `matrix/determinant` |
 | 線形代数 | 行列 / n次の行列式（余因子展開・クラメルの公式） | ✅ | `matrix/general-determinant` |
@@ -360,7 +360,7 @@
 | 線形代数 | 固有値と固有ベクトル / 2×2 の固有値 | ✅ | `eigen/eigenvalues` |
 | 線形代数 | 固有値と固有ベクトル / 固有ベクトル | ✅ | `eigen/eigenvectors` |
 | 線形代数 | 固有値と固有ベクトル / 対角化 | ✅ | `eigen/diagonalize` |
-| 微分積分 | 大学の微分積分 / 平均値の定理・ロピタルの定理 | C | `univ-calculus/mean-value` |
+| 微分積分 | 大学の微分積分 / 平均値の定理・ロピタルの定理 | ✅ | `univ-calculus/mean-value` |
 | 微分積分 | 級数とテイラー展開 / 級数の和と収束 | ✅ | `series/series` |
 | 微分積分 | 級数とテイラー展開 / テイラー展開 | ✅ | `series/taylor` |
 | 微分積分 | 広義積分 / 広義積分 | ✅ | `improper-integral/improper` |
