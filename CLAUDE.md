@@ -66,7 +66,10 @@ Math is organized unit → learning item → practice set, all in
 A unit's `kind` says what shape its problems have, and so which payload, checker
 and display it uses (`components/math-questions.tsx`):
 - `expression`: integer expressions and word problems (`src/lib/math-arith.ts`);
-  arith, signed, addition, multiplication, division.
+  arith, signed, addition, multiplication, division. A single operation on
+  whole numbers (23 + 45, 624 - 358, 124 * 32, 756 / 28) is also drawn as its
+  written column calculation (筆算, `lib/math-column.ts` + `components/math-column.tsx`)
+  in the explanation and the worked example.
 - `factorization`: (x + p)(x + q); `pythagoras`: integer-coordinate figures
   drawn by `math-figure.tsx`, labels and accessible descriptions calculated.
 - `formula`: `FormulaPayload` (`src/lib/math-formula.ts`), a question and four

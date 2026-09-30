@@ -630,7 +630,8 @@
         "chooseSet": "请选择要练习的题组。",
         "chooseItem": "请选择要练习的项目。",
         "tierCount": "{tier} {count}题",
-        "tierSeparator": "・"
+        "tierSeparator": "・",
+        "columnMethod": "竖式"
       },
       "arith": {
         "formula": "算式：",

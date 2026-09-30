@@ -630,7 +630,8 @@
         "chooseSet": "Choose a set to practice.",
         "chooseItem": "Choose what to practice.",
         "tierCount": "{tier} {count}",
-        "tierSeparator": ", "
+        "tierSeparator": ", ",
+        "columnMethod": "Column method"
       },
       "arith": {
         "formula": "Expression:",

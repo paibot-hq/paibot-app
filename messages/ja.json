@@ -630,7 +630,8 @@
         "chooseSet": "練習する問題セットを選んでください。",
         "chooseItem": "学習する項目を選んでください。",
         "tierCount": "{tier} {count}問",
-        "tierSeparator": "・"
+        "tierSeparator": "・",
+        "columnMethod": "筆算"
       },
       "arith": {
         "formula": "式：",
