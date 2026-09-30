@@ -83,27 +83,3 @@ rejects('signed', wrong_choice, 'matching choices')
 
 print('PASS: verify_math rejects wrong keys, equal choices, unsafe syntax and non-integer answers')
 
-
-# Every key point shown on an item page is an identity SymPy proves.
-from verify_math import parse_formula, same  # noqa: E402
-
-key_points = json.loads((ROOT / 'src' / 'data' / 'item-key-points.json').read_text(encoding='utf-8'))
-assert not same(parse_formula('(a + b)^2'), parse_formula('a^2 + b^2')), 'a wrong formula must not pass'
-
-# The quadratic formula ("equation => x = ...") passes and a wrong sign does not.
-from verify_key_points import check  # noqa: E402
-
-for key, formulas in key_points.items():
-    for formula in formulas:
-        try:
-            check(formula)
-        except ValueError as error:
-            raise AssertionError(f'{key}: {formula}: {error}') from error
-
-check('a*x^2 + b*x + c = 0 => x = (-b + sqrt(b^2 - 4*a*c))/(2*a)')
-check('a*x^2 + b*x + c = 0 => x = (-b ± sqrt(b^2 - 4*a*c))/(2*a)')
-try:
-    check('a*x^2 + b*x + c = 0 => x = (b + sqrt(b^2 - 4*a*c))/(2*a)')
-    raise AssertionError('a wrong quadratic formula must not pass')
-except ValueError:
-    pass

@@ -54,9 +54,9 @@ Math is organized unit → learning item → practice set, all in
 - `/math/<unit>/<item>` (`routes/math-item.tsx`): the item and its practice sets
   (練習1, 2, ...) with a signed-in user's latest and best score, and the crumbs
   back to the unit. Top to bottom: what you learn (`description`), key points
-  (`src/data/item-key-points.json`, equations SymPy proves; `npm run
-  math:key-points`, then `src/data/item-formulas.json`, definitions and formulas
-  as TeX that only KaTeX and a Codex review check; `npm run math:formulas`), a worked example (the item's easiest published problem, one with 1-4 steps
+  (`src/data/item-formulas.json`: well-known formulas and rules as TeX, general
+  forms preferred, written by an LLM with no verification beyond KaTeX rendering;
+  `npm run math:formulas`), a worked example (the item's easiest published problem, one with 1-4 steps
   first; without steps just the problem and its answer) and the practice sets. Texts (`summary`, `description` per item in
   `messages/*.json`) come from `npm run math:describe` (`--review` has Codex
   check them, `--fix` rewrites what it flagged); a test requires every item to have both. Old set URLs (`/math/<unit>/<set id>`) 301 to the new ones.
