@@ -158,26 +158,6 @@
       "zh": "0 除以任何不是 0 的数 a 结果都是 0。注意：任何数都不能除以 0。"
     }
   ],
-  "division/remainder": [
-    {
-      "tex": "a = b \\times q + r",
-      "ja": "わられる数 a は「わる数 b × 答え q ＋ あまり r」で計算できます。わり算が合っているか確かめるときに使います。",
-      "en": "The dividend a equals divisor b × quotient q + remainder r. Use this formula to check your answer.",
-      "zh": "被除数 a 等于除数 b × 商 q ＋ 余数 r。用来验算除法算得对不对。"
-    },
-    {
-      "tex": "0 \\le r < b",
-      "ja": "あまり r は 0 以上で、必ずわる数 b より小さくなります。あまりが大きすぎないか見直すときに使います。",
-      "en": "The remainder r is 0 or more, and must be smaller than divisor b. Use this to check your remainder.",
-      "zh": "余数 r 大于或等于 0，而且必须比除数 b 小。用来检查余数有没有算错。"
-    },
-    {
-      "tex": "r = 0 \\iff a = b \\times q",
-      "ja": "あまり r が 0 のときを「わり切れた」といい、わられる数 a は「わる数 b × 答え q」にぴったり合います。",
-      "en": "When remainder r is 0, the number divides evenly, and dividend a matches divisor b × quotient q.",
-      "zh": "当余数 r 是 0 时叫做“正好除尽”，被除数 a 刚好等于除数 b × 商 q。"
-    }
-  ],
   "division/by-two-digit": [
     {
       "ja": "わる数とわられる数を上の位のおよその数とみて、答えがいくつになりそうか見当をつけます。",
@@ -2350,31 +2330,6 @@
       "ja": "展開して $a$ と $b$ の「3乗の差」を作りたいときに使います。2つ目のかっこの真ん中がたし算（$+ab$）になっている点に注意しましょう。",
       "en": "Use this to expand into the difference of cubes, $a^3 - b^3$. Notice that the middle term in the second factor is added ($+ab$).",
       "zh": "用于展开得出 $a$ 和 $b$ 的“立方差”。注意第二个括号中间的项必须是加上两数之积（$+ab$）。"
-    }
-  ],
-  "factorization/common-factor": [
-    {
-      "tex": "ma + mb = m(a + b)",
-      "ja": "すべての項に同じ数や文字 m がかけられているときに使います。共通する m をかっこの外に出す操作で、因数分解の基本となる第一歩です。",
-      "en": "Use this when every term contains the same factor m. Factoring out m in front of parentheses is the very first step in factoring.",
-      "zh": "当每一项都含有相同的数或字母 m 时使用。把公共的 m 提到括号外面，这是因式分解最基本的第一步。"
-    },
-    {
-      "tex": "ma + mb + mc = m(a + b + c)",
-      "ja": "項が3つ以上ある式を因数分解するときに使います。すべての項に共通して入っている m を、まとめてかっこの外に1つだけくくり出します。",
-      "en": "Use this when an expression has three or more terms sharing a common factor m. Factor out m once in front of the parentheses.",
-      "zh": "用于有三项或更多项的多项式。只要每一项都有共同的 m，就可以把它一次性提到括号外面。"
-    },
-    {
-      "tex": "m(a + b) + n(a + b) = (m + n)(a + b)",
-      "ja": "かっこでくくられた同じ式 (a + b) があるときに使います。(a + b) を1つの文字のように考えて、かっこの外にまとめてくくり出せます。",
-      "en": "Use this when the grouped expression (a + b) appears in each term. Treat (a + b) as a single block and factor it out.",
-      "zh": "当式子中每一项都含有相同的括号 (a + b) 时使用。可以把 (a + b) 当成一个整体公因式提出来。"
-    },
-    {
-      "ja": "共通なものをくくり出したあとは、かっこの中身が公式などを使ってさらに因数分解できないか、必ず確かめましょう。",
-      "en": "After factoring out common factors, always check whether the expression inside the parentheses can be factored even further.",
-      "zh": "提取公因式之后，一定要检查括号里面的式子是否还能继续用公式分解。"
     }
   ],
   "factorization/trinomial": [
@@ -5690,6 +5645,51 @@
       "ja": "特性方程式の解に虚数（$\\alpha \\pm i\\beta$）が出たときの解の公式です。波や振動を表す $\\cos$ と $\\sin$ の式になり、実部 $\\alpha$ は全体の大きさを表します。",
       "en": "When roots contain imaginary numbers $\\alpha \\pm i\\beta$, the solution turns into oscillating sine and cosine waves, with $e^{\\alpha x}$ scaling the amplitude.",
       "zh": "当特征方程的根包含虚数 $\\alpha \\pm i\\beta$ 时的通解公式。解表现为代表波动的三角函数 $\\sin$ 和 $\\cos$，实部 $\\alpha$ 决定振幅大小。"
+    }
+  ],
+  "factoring/common-factor": [
+    {
+      "tex": "ma + mb = m(a + b)",
+      "ja": "すべての項に同じ数や文字 m がかけられているときに使います。共通する m をかっこの外に出す操作で、因数分解の基本となる第一歩です。",
+      "en": "Use this when every term contains the same factor m. Factoring out m in front of parentheses is the very first step in factoring.",
+      "zh": "当每一项都含有相同的数或字母 m 时使用。把公共的 m 提到括号外面，这是因式分解最基本的第一步。"
+    },
+    {
+      "tex": "ma + mb + mc = m(a + b + c)",
+      "ja": "項が3つ以上ある式を因数分解するときに使います。すべての項に共通して入っている m を、まとめてかっこの外に1つだけくくり出します。",
+      "en": "Use this when an expression has three or more terms sharing a common factor m. Factor out m once in front of the parentheses.",
+      "zh": "用于有三项或更多项的多项式。只要每一项都有共同的 m，就可以把它一次性提到括号外面。"
+    },
+    {
+      "tex": "m(a + b) + n(a + b) = (m + n)(a + b)",
+      "ja": "かっこでくくられた同じ式 (a + b) があるときに使います。(a + b) を1つの文字のように考えて、かっこの外にまとめてくくり出せます。",
+      "en": "Use this when the grouped expression (a + b) appears in each term. Treat (a + b) as a single block and factor it out.",
+      "zh": "当式子中每一项都含有相同的括号 (a + b) 时使用。可以把 (a + b) 当成一个整体公因式提出来。"
+    },
+    {
+      "ja": "共通なものをくくり出したあとは、かっこの中身が公式などを使ってさらに因数分解できないか、必ず確かめましょう。",
+      "en": "After factoring out common factors, always check whether the expression inside the parentheses can be factored even further.",
+      "zh": "提取公因式之后，一定要检查括号里面的式子是否还能继续用公式分解。"
+    }
+  ],
+  "division-remainder/remainder": [
+    {
+      "tex": "a = b \\times q + r",
+      "ja": "わられる数 a は「わる数 b × 答え q ＋ あまり r」で計算できます。わり算が合っているか確かめるときに使います。",
+      "en": "The dividend a equals divisor b × quotient q + remainder r. Use this formula to check your answer.",
+      "zh": "被除数 a 等于除数 b × 商 q ＋ 余数 r。用来验算除法算得对不对。"
+    },
+    {
+      "tex": "0 \\le r < b",
+      "ja": "あまり r は 0 以上で、必ずわる数 b より小さくなります。あまりが大きすぎないか見直すときに使います。",
+      "en": "The remainder r is 0 or more, and must be smaller than divisor b. Use this to check your remainder.",
+      "zh": "余数 r 大于或等于 0，而且必须比除数 b 小。用来检查余数有没有算错。"
+    },
+    {
+      "tex": "r = 0 \\iff a = b \\times q",
+      "ja": "あまり r が 0 のときを「わり切れた」といい、わられる数 a は「わる数 b × 答え q」にぴったり合います。",
+      "en": "When remainder r is 0, the number divides evenly, and dividend a matches divisor b × quotient q.",
+      "zh": "当余数 r 是 0 时叫做“正好除尽”，被除数 a 刚好等于除数 b × 商 q。"
     }
   ]
 }

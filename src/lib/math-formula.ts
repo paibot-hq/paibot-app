@@ -94,9 +94,10 @@
 //   conic      by `which`: parabola-focus, parabola-directrix (question "y^2 = 8*x"), parabola-equation (question "p":
 //              the focus (p, 0), answer the equation), ellipse-c, ellipse-major, hyperbola-c, hyperbola-asymptote
 //              (question "x^2/25 + y^2/9 = 1"), polar-to-xy ("r, theta"), xy-to-polar ("x, y")
+//   divmod     "a, b": the quotient and the remainder of a ÷ b; choices "q, r" are drawn q⋯r
 //   identity   an equation in x with unknown constants; choices "a = 1, b = 2" make it an identity in x
 export type FormulaStyle = 'times' | 'box' | 'ratio' | 'mixed';
-export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity' | 'inequality' | 'induction' | 'inference' | 'region' | 'graph' | 'number' | 'stat' | 'function' | 'rearrange' | 'quadratic' | 'triangle' | 'eigenvector' | 'ode' | 'conic';
+export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity' | 'inequality' | 'induction' | 'inference' | 'region' | 'graph' | 'number' | 'stat' | 'function' | 'rearrange' | 'quadratic' | 'triangle' | 'eigenvector' | 'ode' | 'conic' | 'divmod';
 
 export interface FormulaPayload {
   kind: FormulaKind;
@@ -466,6 +467,7 @@ function questionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & {
         default: return statementTex(p.question);
       }
     }
+    case 'divmod': { const [a, b] = list(p.question); return `${a} \\div ${b}`; }
     case 'identity': return statementTex(p.question);
     case 'quadratic': {
       const parts = splitTop(p.question, ';');
@@ -544,6 +546,7 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
       return { key: top.type === 'call' && /^(det|inv|rank|nullity|rref|eigvals|dot|cross|norm|orth|jac|lim|d|taylor|vol|arc|int2|arg|conj|re|im|T)$/.test(top.name) ? `fn${top.name[0].toUpperCase()}${top.name.slice(1)}` : 'calc', tex: {} };
     }
     case 'eigenvector': return { key: 'eigenvector', tex: {} };
+    case 'divmod': return { key: 'divmod', tex: {} };
     case 'ode': return { key: `ode${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
     case 'conic': return { key: p.which!.replace(/-(\w)/g, (_, c: string) => c.toUpperCase()).replace(/^/, 'conic').replace(/^conic(.)/, (_, c: string) => `conic${c.toUpperCase()}`), tex: {} };
     case 'derivative': return p.given ? { key: 'derivativeAt', tex: at } : { key: 'derivative', tex: {} };
@@ -601,6 +604,7 @@ function choiceTex(p: Pick<FormulaPayload, 'kind' | 'question'> & { which?: stri
   if (p.kind === 'solve') return solutionTex(choice, unknownOf(p.question));
   if (p.kind === 'tangent') return solutionTex(choice, 'y');
   if (p.kind === 'identity') return solutionTex(choice, 'a');
+  if (p.kind === 'divmod') { const [q, r] = list(choice); return `${q} \\cdots ${r}`; }
   if (p.kind === 'conic') {
     if (['parabola-focus', 'polar-to-xy', 'xy-to-polar'].includes(p.which ?? '')) return `\\left(${list(choice).join(', ')}\\right)`;
     if (['parabola-directrix', 'parabola-equation'].includes(p.which ?? '')) return statementTex(choice);

@@ -208,6 +208,8 @@ const RULES = {
   'conic-parabola-a': ['conic', (s, p) => p.which.startsWith('parabola')],
   'conic-ellipse-a': ['conic', (s, p) => /^(ellipse|hyperbola)/.test(p.which)],
   'conic-polar-a': ['conic', (s, p) => /-to-/.test(p.which)],
+  'divmod-a': ['divmod', (s, p) => { const [a, b] = p.question.split(',').map(Number); return a >= 10 && b >= 2 && b <= 9 && a <= 99; }],
+  'common-factor-a': ['factor', s => s.letters.size >= 1 && s.powers.every(n => n <= 3) && !s.calls.size],
   'geometric-a': [['term', 'series'], (s, p) => p.progression === 'geometric' && !s.letters.size && !s.calls.size],
 };
 
@@ -221,6 +223,7 @@ function checkChoice(kind, choice, id, which) {
   if (kind === 'number' && which === 'to-base') { assert.match(choice.trim(), /^\d+$/, `${id}: a numeral in the new base`); return; }
   if (kind === 'function' && ['proportion', 'inverse', 'rewrite'].includes(which)) { assert.match(choice, /^\s*y\s*=/, `${id}: function choices are "y = ..."`); parseExpression(choice.split('=')[1]); return; }
   if (kind === 'function' && ['intersect-lines', 'intersect-parabola'].includes(which)) { const parts = splitTop(choice, ','); assert.ok(parts.length === 2, `${id}: choices are two numbers "a, b"`); parts.forEach(part => parseExpression(part)); return; }
+  if (kind === 'divmod') { const parts = splitTop(choice, ','); assert.equal(parts.length, 2, `${id}: divmod choices are "q, r"`); parts.forEach(part => assert.match(part.trim(), /^\d+$/, `${id}: whole numbers`)); return; }
   if (kind === 'conic') {
     if (['parabola-focus', 'polar-to-xy', 'xy-to-polar'].includes(which)) { const parts = splitTop(choice, ','); assert.equal(parts.length, 2, `${id}: choices are points "a, b"`); parts.forEach(part => parseExpression(part)); return; }
     if (['parabola-directrix', 'parabola-equation'].includes(which)) { const sides = choice.split('='); assert.equal(sides.length, 2, `${id}: choices are equations`); sides.forEach(side => parseExpression(side)); return; }
@@ -297,7 +300,7 @@ export function validateBank(bank, catalog) {
     assert.ok(problem.style === undefined || ['times', 'box', 'ratio', 'mixed'].includes(problem.style), `${id}: style`);
     if (set.rule === 'letters-value-a') assert.equal(problem.style, 'times', `${id}: this set keeps the × sign (style "times")`);
     const which = problem.which;
-    const listed = ['distribution', 'geometry', 'recurrence', 'inequality', 'induction', 'inference', 'region', 'graph', 'number', 'stat', 'function', 'quadratic', 'triangle', 'eigenvector', 'ode', 'conic'].includes(kind);
+    const listed = ['distribution', 'geometry', 'recurrence', 'inequality', 'induction', 'inference', 'region', 'graph', 'number', 'stat', 'function', 'quadratic', 'triangle', 'eigenvector', 'ode', 'conic', 'divmod'].includes(kind);
     const s = stats(kind === 'area' ? question.replace(';', '+') : sequence ? splitTop(question, ',').join(' + ') : listed ? splitTop(question, ';').slice(0, kind === 'region' || (kind === 'graph' && which === 'region') || (kind === 'inequality' && which === 'solve') ? 2 : undefined).flatMap(part => splitTop(part, ',')).join(' + ') : question);
     const expectedEquations = kind === 'solve' ? s.equations >= 1 : kind === 'identity' || kind === 'rearrange' || (kind === 'function' && problem.which === 'rewrite') ? s.equations === 1 : kind === 'conic' && ['parabola-focus', 'parabola-directrix', 'ellipse-c', 'ellipse-major', 'hyperbola-c', 'hyperbola-asymptote'].includes(problem.which) ? s.equations === 1 : s.equations === 0;
     assert.ok(expectedEquations, `${id}: equations`);

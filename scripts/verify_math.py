@@ -1101,6 +1101,14 @@ def conic(problem):
     raise ValueError(f'unknown conic variant {which!r}')
 
 
+def divmod_answer(problem):
+    """The quotient and the remainder of a ÷ b (whole numbers, b > 0)."""
+    a, b = pair(problem['question'])
+    if not (a.is_Integer and b.is_Integer and a >= 0 and b > 0):
+        raise ValueError('divmod needs whole numbers a >= 0 and b > 0')
+    return Tuple(a // b, a % b), [Tuple(*pair(choice)) for choice in problem['choices']]
+
+
 def _formula(problem):
     kind, question, choices = problem['kind'], problem['question'], problem['choices']
     if kind == 'inequality' and problem['which'] == 'solve':
@@ -1121,6 +1129,8 @@ def _formula(problem):
     keyed = problem['answerIndex']
     if kind == 'graph':
         return graph(problem)
+    if kind == 'divmod':
+        return divmod_answer(problem)
     if kind == 'region':
         return region(problem)
     if kind == 'eigenvector':
@@ -1265,7 +1275,7 @@ def check_steps(problem, answer):
         if kind in ('eigenvector', 'ode', 'conic'):
             check_consistent_chain(line)
             continue
-        if kind in ('region', 'inference', 'number', 'stat', 'triangle', 'quadratic') or (kind == 'graph' and problem['which'] in ('vertex', 'region')) or (kind == 'function' and problem['which'] in ('slope', 'intercept', 'xintercept', 'rate')):
+        if kind in ('region', 'inference', 'number', 'stat', 'triangle', 'quadratic', 'divmod') or (kind == 'graph' and problem['which'] in ('vertex', 'region')) or (kind == 'function' and problem['which'] in ('slope', 'intercept', 'xintercept', 'rate')):
             check_numeric_chain(line)
             continue
         if kind in ('solve', 'tangent', 'extremum', 'identity') or (kind == 'inequality' and problem['which'] == 'amgm-equal') or kind == 'graph' or kind in ('function', 'rearrange') or (kind == 'geometry' and problem['which'].startswith(('line-', 'circle-', 'locus-'))):
@@ -1473,6 +1483,7 @@ UNITS = {
     'linear-map': ('math-linear-map.json', formula),
     'inner-product': ('math-inner-product.json', formula),
     'ode': ('math-ode.json', formula),
+    'division-remainder': ('math-division-remainder.json', formula),
     'factorization': ('math-factorization.json', factorization),
     'pythagoras': ('math-pythagoras.json', pythagoras),
 }

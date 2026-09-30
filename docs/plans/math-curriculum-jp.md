@@ -54,7 +54,7 @@
 | 数と計算 | かけ算 / 2〜3桁×1桁 | ✅ | `multiplication/by-one-digit` |
 | 数と計算 | かけ算 / 2〜3桁×2桁 | ✅ | `multiplication/by-two-digit` |
 | 数と計算 | わり算 / 九九を使うわり算 | ✅ | `division/basic` |
-| 数と計算 | わり算 / あまりのあるわり算 | B | `division/remainder` |
+| 数と計算 | あまりのあるわり算 / あまりのあるわり算 | ✅ | `division-remainder/remainder` |
 | 数と計算 | 大きな数 / 万の位の数 | C | `place-value/ten-thousands` |
 | 数と計算 | 小数 / 小数のたし算・ひき算（1/10の位） | ✅ | `decimal/add-sub-tenths` |
 | 数と計算 | 分数 / 分数の大きさ | D | `fraction/meaning` |
@@ -197,10 +197,10 @@
 | 式と方程式 | 展開 / 乗法公式 | ✅ | `expansion/formulas` |
 | 式と方程式 | 展開 / 平方の展開 | ✅ | `expansion/square` |
 | 式と方程式 | 展開 / 和と差の積 | ✅ | `expansion/sum-difference` |
-| 式と方程式 | 因数分解 / 共通因数のくくり出し | B | `factorization/common-factor` |
 | 式と方程式 | 因数分解 / 二次三項式の因数分解 | ✅ | `factorization/trinomial` |
 | 式と方程式 | 因数分解 / 完全平方式の因数分解 | ✅ | `factorization/perfect-square` |
 | 式と方程式 | 因数分解 / 平方の差の因数分解 | ✅ | `factorization/difference-of-squares` |
+| 式と方程式 | 因数分解（高校） / 共通因数のくくり出し | ✅ | `factoring/common-factor` |
 | 式と方程式 | 二次方程式 / 因数分解で解く | ✅ | `quadratic/factoring` |
 | 式と方程式 | 二次方程式 / 解の公式 | ✅ | `quadratic/formula` |
 | 関数・変化と関係 | 関数 y=ax² / グラフと式 | D | `square-function/graph` |

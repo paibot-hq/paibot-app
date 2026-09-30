@@ -709,11 +709,6 @@
               "summary": "Learn basic division using multiplication tables.",
               "description": "Students learn fundamental division concepts, such as equal sharing and grouping, by working backwards from multiplication tables. This skill is commonly used when distributing items equally among friends or groups. Solid mastery of multiplication tables is an essential prerequisite that allows learners to solve these problems smoothly."
             },
-            "remainder": {
-              "title": "Division with remainders",
-              "summary": "Learn division with remainders.",
-              "description": "Students learn how to calculate quotients and remainders when numbers do not divide evenly, recognizing that remainders must be smaller than divisors. This applies to everyday situations like packing items into equal bags. Prior knowledge of basic division using multiplication tables and simple subtraction is helpful."
-            },
             "by-two-digit": {
               "title": "Dividing by two-digit numbers",
               "summary": "Learn long division by two-digit divisors.",
@@ -1364,11 +1359,6 @@
           "title": "Factoring",
           "summary": "Factor x² + ax + b into the form (x + p)(x + q). Practice for factoring quadratics.",
           "items": {
-            "common-factor": {
-              "title": "Factoring out common factors",
-              "description": "Take out the factor common to every term, sometimes followed by a formula.",
-              "summary": "Learn to factor by taking out common factors."
-            },
             "trinomial": {
               "title": "Factoring trinomials",
               "description": "Learn how to factor quadratic trinomials of the form x^2+(a+b)x+ab into (x+a)(x+b) by finding pairs with matching sums and products. You will practice fundamental problems where constants a and b are integers. Prior familiarity with expanding binomial expressions will help you grasp this technique quickly.",
@@ -1390,6 +1380,11 @@
           "title": "Factoring (high school)",
           "summary": "High-school factoring: the ac method, two variables, substitution, sums and differences of cubes.",
           "items": {
+            "common-factor": {
+              "title": "Factoring out common factors",
+              "description": "Take out the factor common to every term, sometimes followed by a formula.",
+              "summary": "Learn to factor by taking out common factors."
+            },
             "ac-method": {
               "title": "The ac (cross) method",
               "summary": "Factor quadratic trinomials using cross-multiplication.",
@@ -2473,6 +2468,17 @@
               "description": "Learn how to solve second-order linear differential equations with constant coefficients using characteristic equations. They are fundamental in modeling oscillatory phenomena, such as spring vibrations and alternating current circuits. Prior knowledge of solving quadratic equations and differentiating exponential functions is recommended."
             }
           }
+        },
+        "division-remainder": {
+          "title": "Division with remainders",
+          "summary": "Practice finding the quotient and the remainder when a division is not exact.",
+          "items": {
+            "remainder": {
+              "title": "Division with remainders",
+              "summary": "Learn division with remainders.",
+              "description": "Students learn how to calculate quotients and remainders when numbers do not divide evenly, recognizing that remainders must be smaller than divisors. This applies to everyday situations like packing items into equal bags. Prior knowledge of basic division using multiplication tables and simple subtraction is helpful."
+            }
+          }
         }
       },
       "domains": {
@@ -2652,7 +2658,8 @@
         "conicHyperbolaC": "Find the positive x-coordinate of the foci of the hyperbola.",
         "conicHyperbolaAsymptote": "Find the slope k of the asymptote y = kx of the hyperbola with k > 0.",
         "conicPolarToXy": "Find the rectangular coordinates (x, y) of the point given in polar coordinates.",
-        "conicXyToPolar": "Write the point in polar coordinates (r, θ) with r > 0 and 0 ≤ θ < 2π."
+        "conicXyToPolar": "Write the point in polar coordinates (r, θ) with r > 0 and 0 ≤ θ < 2π.",
+        "divmod": "Find the quotient and the remainder (quotient ⋯ remainder)."
       },
       "grades": {
         "e1": "Elementary 1",

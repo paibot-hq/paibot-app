@@ -39,8 +39,10 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   ] },
   { id: 'division', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'expression', items: [
     { id: 'basic', sets: [{ id: '1', rule: 'div-basic-a' }] },
-    { id: 'remainder', sets: [{ id: '1' }] },
     { id: 'by-two-digit', sets: [{ id: '1', rule: 'div-by-two-digit-a' }] },
+  ] },
+  { id: 'division-remainder', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'remainder', sets: [{ id: '1', rule: 'divmod-a' }] },
   ] },
   { id: 'arith', domain: 'number', stage: 'elementary', status: 'published', kind: 'expression', items: [
     { id: 'order-of-operations', sets: [{ id: '1', rule: 'order-a' }, { id: '2', rule: 'order-a' }] },
@@ -190,12 +192,12 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'cubic', sets: [{ id: '1', rule: 'expansion-cubic-a' }] },
   ] },
   { id: 'factorization', domain: 'algebra', stage: 'middle', status: 'published', kind: 'factorization', items: [
-    { id: 'common-factor', sets: [{ id: '1' }] },
     { id: 'trinomial', sets: [{ id: '1', rule: 'trinomial-a' }] },
     { id: 'perfect-square', sets: [{ id: '1', rule: 'perfect-square-a' }] },
     { id: 'difference-of-squares', sets: [{ id: '1', rule: 'squares-a' }] },
   ] },
   { id: 'factoring', domain: 'algebra', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'common-factor', sets: [{ id: '1', rule: 'common-factor-a' }] },
     { id: 'ac-method', sets: [{ id: '1', rule: 'ac-method-a' }] },
     { id: 'two-variables', sets: [{ id: '1', rule: 'two-variables-a' }] },
     { id: 'substitution', sets: [{ id: '1', rule: 'substitution-a' }] },

@@ -2,6 +2,7 @@ import { useMemo } from 'react';
 import { useLocale, useTranslations } from 'use-intl';
 import { expressionQuestions } from './math-expression-questions';
 import MathFigure from './math-figure';
+import MathColumn from './math-column';
 import MathGraph from './math-graph';
 import type { MathSetQuestion } from './math-set-quiz';
 import { MathTex } from './math-tex';
@@ -63,6 +64,7 @@ export function useMathQuestions(kind: MathKind | undefined, problems: readonly 
           explanation: <>
             {payload.steps && <div className={styles.steps}>{payload.steps.flatMap(line => stepRows(line, payload.style)).map((row, index) => <div key={index} className={styles.row}>{row.map((piece, at) => <MathTex key={at} tex={`{{}${piece}}`} />)}</div>)}</div>}
             {tq('answer')} <MathTex tex={formulaChoiceTex(payload, payload.choices[answerIndex])} />
+            {payload.kind === 'divmod' && <MathColumn expression={payload.question.replace(/\s*,\s*/, ' / ')} />}
           </>,
         }));
       default:
