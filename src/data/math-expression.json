@@ -340,6 +340,103 @@
       ],
       "choices": ["-6*x - 15*y", "-6*x + 15*y", "-6*x - 5*y", "6*x - 15*y"],
       "answerIndex": 1
+    },
+    {
+      "id": "expression-023",
+      "item": "rearrange",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "rearrange",
+      "question": "3*x + 2*y = 10",
+      "given": null,
+      "which": "y",
+      "steps": [
+        "2*y = 10 - 3*x",
+        "y = (10 - 3*x)/2"
+      ],
+      "choices": ["(10 + 3*x)/2", "(10 - 3*x)/2", "10 - 3*x", "(10 - 2*x)/3"],
+      "answerIndex": 1
+    },
+    {
+      "id": "expression-024",
+      "item": "rearrange",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "rearrange",
+      "question": "2*x - 3*y = 6",
+      "given": null,
+      "which": "y",
+      "steps": [
+        "-3*y = 6 - 2*x",
+        "3*y = 2*x - 6",
+        "y = (2*x - 6)/3"
+      ],
+      "choices": ["(6 - 2*x)/3", "(2*x + 6)/3", "2*x - 6", "(2*x - 6)/3"],
+      "answerIndex": 3
+    },
+    {
+      "id": "expression-025",
+      "item": "rearrange",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "rearrange",
+      "question": "s = a*h/2",
+      "given": null,
+      "which": "h",
+      "steps": [
+        "a*h = 2*s",
+        "h = 2*s/a"
+      ],
+      "choices": ["2*s/a", "s/(2*a)", "2*a/s", "2*s - a"],
+      "answerIndex": 0
+    },
+    {
+      "id": "expression-026",
+      "item": "rearrange",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "rearrange",
+      "question": "l = 2*(a + b)",
+      "given": null,
+      "which": "a",
+      "steps": [
+        "2*a + 2*b = l",
+        "2*a = l - 2*b",
+        "a = (l - 2*b)/2"
+      ],
+      "choices": ["(l + 2*b)/2", "l - 2*b", "(l - 2*b)/2", "(l - b)/2"],
+      "answerIndex": 2
+    },
+    {
+      "id": "expression-027",
+      "item": "rearrange",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "rearrange",
+      "question": "y = a*x + b",
+      "given": null,
+      "which": "a",
+      "steps": [
+        "a*x = y - b",
+        "a = (y - b)/x"
+      ],
+      "choices": ["(y + b)/x", "(y - b)/x", "y - b", "(x - b)/y"],
+      "answerIndex": 1
     }
   ]
 }

@@ -116,10 +116,15 @@ assert.ok(Math.abs(evalExpression('2*sin(x)', { x: Math.PI / 2 }) - 2) < 1e-12);
 assert.ok(Number.isNaN(evalExpression('sqrt(x)', { x: -1 })) && Number.isNaN(evalExpression('x + z', { x: 1 })));
 
 
-// Grade 6 keeps the × sign (times: true): 4 × x + 7, not 4x + 7.
-assert.equal(formulaQuestionTex({ kind: 'calc', question: '4*x + 7', given: 'x = 3', times: true }), '4 \\times x + 7');
+// Grade 6 keeps the × sign (style times): 4 × x + 7, not 4x + 7.
+assert.equal(formulaQuestionTex({ kind: 'calc', question: '4*x + 7', given: 'x = 3', style: 'times' }), '4 \\times x + 7');
 assert.equal(formulaQuestionTex({ kind: 'calc', question: '4*x + 7', given: 'x = 3' }), '4x + 7');
-assert.deepEqual(stepRows('4*3 + 7 = 19', true).flat(), ['4 \\times 3', '+ 7', '= 19']);
+assert.deepEqual(stepRows('4*3 + 7 = 19', 'times').flat(), ['4 \\times 3', '+ 7', '= 19']);
+// □ for x, ratios, and mixed numbers.
+assert.equal(formulaQuestionTex({ kind: 'solve', question: 'x + 5 = 12', given: null, style: 'box' }), '\\square + 5 = 12');
+assert.equal(formulaQuestionTex({ kind: 'solve', question: 'x : 4 = 6 : 8', given: null, style: 'ratio' }), 'x : 4 = 6 : 8');
+assert.equal(formulaQuestionTex({ kind: 'transform', question: '2 + 3/5', given: null, style: 'mixed' }), '2\\frac{3}{5}');
+assert.equal(formulaQuestionTex({ kind: 'transform', question: '2 + 3/5', given: null }), '2 + \\frac{3}{5}');
 
 // Worked-solution lines: rows of pieces, a chain "a = b = c" continuing on its own row.
 assert.deepEqual(stepRows('2/3 + 1/4 = 8/12 + 3/12 = 11/12'), [['\\frac{2}{3}', '+ \\frac{1}{4}', '= \\frac{8}{12}', '+ \\frac{3}{12}'], ['= \\frac{11}{12}']]);

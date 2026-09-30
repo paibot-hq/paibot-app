@@ -87,7 +87,7 @@ export function additions(unit, item, setId, bank, generated, count, date = new 
     id: `${unit}-${String(maxId + index + 1).padStart(3, '0')}`, item, setId,
     position: maxPosition + index + 1, tier, published: false, reviewedAt: date,
     ...(unit === 'pythagoras' ? { figure: p.figure } : unit === 'factorization' ? { p: p.p, q: p.q }
-      : isFormulaUnit(unit) ? { kind: p.kind, question: p.question, given: p.given ?? null, ...(p.divisor && { divisor: p.divisor }), ...(p.bounds && { bounds: p.bounds }), ...(p.which && { which: p.which }), ...(p.progression && { progression: p.progression }), ...(p.times && { times: true }), steps: p.steps }
+      : isFormulaUnit(unit) ? { kind: p.kind, question: p.question, given: p.given ?? null, ...(p.divisor && { divisor: p.divisor }), ...(p.bounds && { bounds: p.bounds }), ...(p.which && { which: p.which }), ...(p.progression && { progression: p.progression }), ...(p.style && { style: p.style }), steps: p.steps }
       : { expression: p.expression, word: p.word }),
     choices: p.choices, answerIndex: p.answerIndex,
   }));

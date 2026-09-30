@@ -1,0 +1,1 @@
+一次関数の傾き・切片（kind "function"、which は slope, intercept, xintercept）。question は "3*x + 2" のような一次式で、傾きは -5〜5 の整数か 1/2、切片は -6〜6。xintercept は答えが整数か簡単な分数になるもの。5問は slope 2問、intercept 2問、xintercept 1問。誤答は傾きと切片の取り違え、符号の誤りから作る。

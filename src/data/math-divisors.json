@@ -1,0 +1,188 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "divisors-001",
+      "item": "divisors",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "28",
+      "given": null,
+      "which": "divisor-count",
+      "steps": [
+        "28 = 1 * 28 = 2 * 14 = 4 * 7",
+        "2 * 3 = 6"
+      ],
+      "choices": ["4", "5", "6", "8"],
+      "answerIndex": 2
+    },
+    {
+      "id": "divisors-002",
+      "item": "divisors",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "8, 6",
+      "given": null,
+      "which": "nth-multiple",
+      "steps": [
+        "8 * 6 = 48"
+      ],
+      "choices": ["40", "48", "56", "32"],
+      "answerIndex": 1
+    },
+    {
+      "id": "divisors-003",
+      "item": "divisors",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "36",
+      "given": null,
+      "which": "divisor-count",
+      "steps": [
+        "36 = 1 * 36 = 2 * 18 = 3 * 12 = 4 * 9 = 6 * 6",
+        "2 * 4 + 1 = 9"
+      ],
+      "choices": ["7", "8", "10", "9"],
+      "answerIndex": 3
+    },
+    {
+      "id": "divisors-004",
+      "item": "divisors",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "7, 7",
+      "given": null,
+      "which": "nth-multiple",
+      "steps": [
+        "7 * 7 = 49"
+      ],
+      "choices": ["49", "42", "56", "35"],
+      "answerIndex": 0
+    },
+    {
+      "id": "divisors-005",
+      "item": "divisors",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "48",
+      "given": null,
+      "which": "divisor-count",
+      "steps": [
+        "48 = 1 * 48 = 2 * 24 = 3 * 16 = 4 * 12 = 6 * 8",
+        "2 * 5 = 10"
+      ],
+      "choices": ["8", "12", "10", "9"],
+      "answerIndex": 2
+    },
+    {
+      "id": "divisors-006",
+      "item": "gcd-lcm",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "18, 24",
+      "given": null,
+      "which": "gcd",
+      "steps": [
+        "2 * 3 = 6"
+      ],
+      "choices": ["6", "72", "432", "3"],
+      "answerIndex": 0
+    },
+    {
+      "id": "divisors-007",
+      "item": "gcd-lcm",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "15, 20",
+      "given": null,
+      "which": "lcm",
+      "steps": [
+        "5 * 3 * 4 = 60"
+      ],
+      "choices": ["5", "300", "60", "120"],
+      "answerIndex": 2
+    },
+    {
+      "id": "divisors-008",
+      "item": "gcd-lcm",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "28, 42",
+      "given": null,
+      "which": "gcd",
+      "steps": [
+        "2 * 7 = 14"
+      ],
+      "choices": ["84", "14", "1176", "7"],
+      "answerIndex": 1
+    },
+    {
+      "id": "divisors-009",
+      "item": "gcd-lcm",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "14, 21",
+      "given": null,
+      "which": "lcm",
+      "steps": [
+        "7 * 2 * 3 = 42"
+      ],
+      "choices": ["7", "294", "84", "42"],
+      "answerIndex": 3
+    },
+    {
+      "id": "divisors-010",
+      "item": "gcd-lcm",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "8, 12, 20",
+      "given": null,
+      "which": "gcd",
+      "steps": [
+        "2 * 2 = 4"
+      ],
+      "choices": ["4", "120", "1920", "2"],
+      "answerIndex": 0
+    }
+  ]
+}

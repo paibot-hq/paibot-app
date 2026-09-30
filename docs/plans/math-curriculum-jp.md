@@ -59,7 +59,7 @@
 | 数と計算 | 小数 / 小数のたし算・ひき算（1/10の位） | ✅ | `decimal/add-sub-tenths` |
 | 数と計算 | 分数 / 分数の大きさ | D | `fraction/meaning` |
 | 数と計算 | 分数 / 同分母の分数のたし算・ひき算 | ✅ | `fraction/add-sub-like` |
-| 式と方程式 | □や文字を使った式 / □を使った式 | B | `unknowns/box` |
+| 式と方程式 | □や文字を使った式 / □を使った式 | ✅ | `unknowns/box` |
 | 図形と測定 | 時刻と時間 / 時刻と時間の計算 | C | `time/elapsed` |
 | 図形と測定 | 測定 / 重さ | C | `measurement/weight` |
 | 図形と測定 | 図形の基本 / 二等辺三角形と正三角形 | D | `shapes/triangles` |
@@ -80,9 +80,9 @@
 | 数と計算 | 大きな数 / 万・億・兆 | C | `place-value/large-numbers` |
 | 数と計算 | 小数 / 小数のたし算・ひき算（1/100の位） | ✅ | `decimal/add-sub` |
 | 数と計算 | 小数 / 小数×整数・小数÷整数 | ✅ | `decimal/mul-div-whole` |
-| 数と計算 | 分数 / 帯分数と仮分数 | B | `fraction/mixed` |
-| 数と計算 | 概数と四捨五入 / 四捨五入 | B | `rounding/rounding` |
-| 数と計算 | 概数と四捨五入 / 見積もり | B | `rounding/estimate` |
+| 数と計算 | 分数 / 帯分数と仮分数 | ✅ | `fraction/mixed` |
+| 数と計算 | 概数と四捨五入 / 四捨五入 | ✅ | `rounding/rounding` |
+| 数と計算 | 概数と四捨五入 / 見積もり | ✅ | `rounding/estimate` |
 | 関数・変化と関係 | 変わり方と比例 / 伴って変わる2つの量 | D | `relations/change` |
 | 図形と測定 | 測定 / 面積の単位 | C | `measurement/area-units` |
 | 図形と測定 | 測定 / 長方形と正方形の面積 | D | `measurement/rect-area` |
@@ -105,8 +105,8 @@
 | 数と計算 | 分数 / 約分・通分 | ✅ | `fraction/simplify` |
 | 数と計算 | 分数 / 分数と小数・整数の関係 | ✅ | `fraction/fraction-decimal` |
 | 数と計算 | 分数 / 異分母の分数のたし算・ひき算 | ✅ | `fraction/add-sub` |
-| 数と計算 | 約数と倍数 / 約数と倍数 | B | `divisors/divisors` |
-| 数と計算 | 約数と倍数 / 最大公約数・最小公倍数 | B | `divisors/gcd-lcm` |
+| 数と計算 | 約数と倍数 / 約数と倍数 | ✅ | `divisors/divisors` |
+| 数と計算 | 約数と倍数 / 最大公約数・最小公倍数 | ✅ | `divisors/gcd-lcm` |
 | 関数・変化と関係 | 速さと単位量あたり / 速さ・時間・道のり | C | `rate/speed` |
 | 関数・変化と関係 | 速さと単位量あたり / 単位量あたりの大きさ | C | `rate/per-unit` |
 | 関数・変化と関係 | 変わり方と比例 / 簡単な比例 | C | `relations/simple-proportion` |
@@ -134,7 +134,7 @@
 | 図形と測定 | 対称と拡大・縮小 / 線対称と点対称 | D | `symmetry/symmetry` |
 | 図形と測定 | 対称と拡大・縮小 / 拡大図と縮図 | D | `symmetry/scale` |
 | データと確率 | 割合と比 / 比を簡単にする | C | `ratio/ratio` |
-| データと確率 | データの活用 / 中央値・範囲 | B | `data/median-range` |
+| データと確率 | データの活用 / 中央値・範囲 | ✅ | `data/median-range` |
 | データと確率 | 表とグラフ / 柱状グラフ | D | `graphs/histogram` |
 | データと確率 | 並べ方と組み合わせ / 並べ方 | C | `counting/arrangements` |
 | データと確率 | 並べ方と組み合わせ / 組み合わせ | C | `counting/combinations` |
@@ -145,17 +145,17 @@
 | --- | --- | --- | --- |
 | 数と計算 | 正負の数 / 正負の数 | ✅ | `signed/four-operations` |
 | 数と計算 | 累乗と指数法則 / 累乗と指数法則 | ✅ | `exponents/powers` |
-| 数と計算 | 累乗と指数法則 / 科学的表記と有効数字 | B | `exponents/scientific` |
-| 数と計算 | 素因数分解 / 素因数分解 | B | `prime/prime` |
+| 数と計算 | 累乗と指数法則 / 科学的表記と有効数字 | ✅ | `exponents/scientific` |
+| 数と計算 | 素因数分解 / 素因数分解 | ✅ | `prime/prime` |
 | 式と方程式 | 文字式 / 式の値 | ✅ | `expression/value` |
 | 式と方程式 | 文字式 / 同類項をまとめる | ✅ | `expression/like-terms` |
 | 式と方程式 | 文字式 / 分配法則 | ✅ | `expression/distribute` |
 | 式と方程式 | 一次方程式 / 移項の基本 | ✅ | `linear-equation/basic` |
 | 式と方程式 | 一次方程式 / かっこを含む | ✅ | `linear-equation/parentheses` |
 | 式と方程式 | 一次方程式 / 分数を含む | ✅ | `linear-equation/fraction` |
-| 式と方程式 | 一次方程式 / 比例式 | B | `linear-equation/proportion` |
+| 式と方程式 | 一次方程式 / 比例式 | ✅ | `linear-equation/proportion` |
 | 式と方程式 | 一次方程式 / 文章題 | C | `linear-equation/word-problems` |
-| 関数・変化と関係 | 比例・一次関数 / 比例・反比例 | B | `linear-function/proportion` |
+| 関数・変化と関係 | 比例・一次関数 / 比例・反比例 | ✅ | `linear-function/proportion` |
 | 図形と測定 | 円と立体の計量 / 見取図・展開図・投影図 | D | `circle-solid/solid-views` |
 | 図形と測定 | 円と立体の計量 / おうぎ形 | D | `circle-solid/sector` |
 | 図形と測定 | 円と立体の計量 / 錐体・球の体積と表面積 | D | `circle-solid/solid` |
@@ -169,13 +169,13 @@
 | 領域 | 学習項目 | 状態 | キー |
 | --- | --- | --- | --- |
 | 式と方程式 | 文字式 / 単項式・多項式の計算 | ✅ | `expression/polynomials` |
-| 式と方程式 | 文字式 / 等式の変形 | B | `expression/rearrange` |
+| 式と方程式 | 文字式 / 等式の変形 | ✅ | `expression/rearrange` |
 | 式と方程式 | 連立方程式 / 加減法 | ✅ | `simultaneous/elimination` |
 | 式と方程式 | 連立方程式 / 代入法 | ✅ | `simultaneous/substitution` |
 | 式と方程式 | 連立方程式 / 文章題 | C | `simultaneous/word-problems` |
-| 関数・変化と関係 | 比例・一次関数 / 傾きと切片 | B | `linear-function/slope` |
-| 関数・変化と関係 | 比例・一次関数 / 2点を通る直線 | B | `linear-function/two-points` |
-| 関数・変化と関係 | 比例・一次関数 / 一次関数と方程式 | B | `linear-function/equations` |
+| 関数・変化と関係 | 比例・一次関数 / 傾きと切片 | ✅ | `linear-function/slope` |
+| 関数・変化と関係 | 比例・一次関数 / 2点を通る直線 | ✅ | `linear-function/two-points` |
+| 関数・変化と関係 | 比例・一次関数 / 一次関数と方程式 | ✅ | `linear-function/equations` |
 | 図形と測定 | 平面図形と角 / 平行線と角 | D | `angles/parallel` |
 | 図形と測定 | 平面図形と角 / 多角形の内角・外角 | D | `angles/polygon` |
 | 図形と測定 | 合同と図形の性質 / 三角形の合同条件 | D | `congruence/conditions` |
@@ -204,8 +204,8 @@
 | 式と方程式 | 二次方程式 / 因数分解で解く | ✅ | `quadratic/factoring` |
 | 式と方程式 | 二次方程式 / 解の公式 | ✅ | `quadratic/formula` |
 | 関数・変化と関係 | 関数 y=ax² / グラフと式 | D | `square-function/graph` |
-| 関数・変化と関係 | 関数 y=ax² / 変化の割合 | B | `square-function/rate-of-change` |
-| 関数・変化と関係 | 関数 y=ax² / 放物線と直線 | B | `square-function/intersection` |
+| 関数・変化と関係 | 関数 y=ax² / 変化の割合 | ✅ | `square-function/rate-of-change` |
+| 関数・変化と関係 | 関数 y=ax² / 放物線と直線 | ✅ | `square-function/intersection` |
 | 図形と測定 | 三平方の定理 / 辺の長さ | ✅ | `pythagoras/sides` |
 | 図形と測定 | 三平方の定理 / 三平方の定理の応用（座標・空間図形） | D | `pythagoras/applications` |
 | 図形と測定 | 相似と円 / 相似 | D | `similarity/similarity` |

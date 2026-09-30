@@ -49,7 +49,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'word-problems', sets: [{ id: '1', rule: 'word-b' }] },
   ] },
   { id: 'unknowns', domain: 'algebra', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
-    { id: 'box', sets: [{ id: '1' }] },
+    { id: 'box', sets: [{ id: '1', rule: 'box-a' }] },
     { id: 'letters', sets: [{ id: '1', rule: 'letters-value-a' }] },
   ] },
   { id: 'place-value', domain: 'number', stage: 'elementary', status: 'comingSoon', items: [
@@ -74,17 +74,17 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'simplify', sets: [{ id: '1', rule: 'fraction-simplify-a' }] },
     { id: 'fraction-decimal', sets: [{ id: '1', rule: 'fraction-decimal-a' }] },
     { id: 'add-sub-like', sets: [{ id: '1', rule: 'fraction-like-a' }] },
-    { id: 'mixed', sets: [{ id: '1' }] },
+    { id: 'mixed', sets: [{ id: '1', rule: 'mixed-a' }] },
     { id: 'add-sub', sets: [{ id: '1', rule: 'fraction-add-sub-a' }] },
     { id: 'mul-div', sets: [{ id: '1', rule: 'fraction-mul-div-a' }] },
   ] },
-  { id: 'divisors', domain: 'number', stage: 'elementary', status: 'comingSoon', items: [
-    { id: 'divisors', sets: [{ id: '1' }] },
-    { id: 'gcd-lcm', sets: [{ id: '1' }] },
+  { id: 'divisors', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'divisors', sets: [{ id: '1', rule: 'divisor-a' }] },
+    { id: 'gcd-lcm', sets: [{ id: '1', rule: 'gcd-lcm-a' }] },
   ] },
-  { id: 'rounding', domain: 'number', stage: 'elementary', status: 'comingSoon', items: [
-    { id: 'rounding', sets: [{ id: '1' }] },
-    { id: 'estimate', sets: [{ id: '1' }] },
+  { id: 'rounding', domain: 'number', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'rounding', sets: [{ id: '1', rule: 'round-a' }] },
+    { id: 'estimate', sets: [{ id: '1', rule: 'estimate-a' }] },
   ] },
   { id: 'ratio', domain: 'data', stage: 'elementary', status: 'comingSoon', items: [
     { id: 'simple-ratio', sets: [{ id: '1' }] },
@@ -126,7 +126,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   ] },
   { id: 'data', domain: 'data', stage: 'elementary', status: 'comingSoon', kind: 'formula', items: [
     { id: 'average', sets: [{ id: '1', rule: 'average-a' }] },
-    { id: 'median-range', sets: [{ id: '1' }] },
+    { id: 'median-range', sets: [{ id: '1', rule: 'median-range-a' }] },
   ] },
   { id: 'graphs', domain: 'data', stage: 'elementary', status: 'comingSoon', items: [
     { id: 'tables', sets: [{ id: '1' }] },
@@ -145,20 +145,20 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   ] },
   { id: 'exponents', domain: 'number', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'powers', sets: [{ id: '1', rule: 'powers-a' }] },
-    { id: 'scientific', sets: [{ id: '1' }] },
+    { id: 'scientific', sets: [{ id: '1', rule: 'scientific-a' }] },
   ] },
   { id: 'expression', domain: 'algebra', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'value', sets: [{ id: '1', rule: 'expression-value-a' }] },
     { id: 'like-terms', sets: [{ id: '1', rule: 'like-terms-a' }] },
     { id: 'distribute', sets: [{ id: '1', rule: 'distribute-a' }] },
     { id: 'polynomials', sets: [{ id: '1', rule: 'polynomials-a' }] },
-    { id: 'rearrange', sets: [{ id: '1' }] },
+    { id: 'rearrange', sets: [{ id: '1', rule: 'rearrange-a' }] },
   ] },
   { id: 'linear-equation', domain: 'algebra', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'basic', sets: [{ id: '1', rule: 'linear-basic-a' }] },
     { id: 'parentheses', sets: [{ id: '1', rule: 'linear-parentheses-a' }] },
     { id: 'fraction', sets: [{ id: '1', rule: 'linear-fraction-a' }] },
-    { id: 'proportion', sets: [{ id: '1' }] },
+    { id: 'proportion', sets: [{ id: '1', rule: 'proportion-ratio-a' }] },
     { id: 'word-problems', sets: [{ id: '1' }] },
   ] },
   { id: 'simultaneous', domain: 'algebra', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
@@ -166,16 +166,16 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'substitution', sets: [{ id: '1', rule: 'simultaneous-substitution-a' }] },
     { id: 'word-problems', sets: [{ id: '1' }] },
   ] },
-  { id: 'linear-function', domain: 'functions', stage: 'middle', status: 'comingSoon', items: [
-    { id: 'proportion', sets: [{ id: '1' }] },
-    { id: 'slope', sets: [{ id: '1' }] },
-    { id: 'two-points', sets: [{ id: '1' }] },
-    { id: 'equations', sets: [{ id: '1' }] },
+  { id: 'linear-function', domain: 'functions', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'proportion', sets: [{ id: '1', rule: 'proportional-a' }] },
+    { id: 'slope', sets: [{ id: '1', rule: 'slope-a' }] },
+    { id: 'two-points', sets: [{ id: '1', rule: 'two-points-a' }] },
+    { id: 'equations', sets: [{ id: '1', rule: 'lines-a' }] },
   ] },
-  { id: 'square-function', domain: 'functions', stage: 'middle', status: 'comingSoon', items: [
+  { id: 'square-function', domain: 'functions', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'graph', sets: [{ id: '1' }] },
-    { id: 'rate-of-change', sets: [{ id: '1' }] },
-    { id: 'intersection', sets: [{ id: '1' }] },
+    { id: 'rate-of-change', sets: [{ id: '1', rule: 'rate-a' }] },
+    { id: 'intersection', sets: [{ id: '1', rule: 'parabola-line-a' }] },
   ] },
   { id: 'inequality', domain: 'algebra', stage: 'high', status: 'comingSoon', items: [
     { id: 'linear', sets: [{ id: '1' }] },
@@ -208,8 +208,8 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'rationalize', sets: [{ id: '1', rule: 'sqrt-rationalize-a' }] },
     { id: 'double-radical', sets: [{ id: '1', rule: 'double-radical-a' }] },
   ] },
-  { id: 'prime', domain: 'number', stage: 'middle', status: 'comingSoon', items: [
-    { id: 'prime', sets: [{ id: '1' }] },
+  { id: 'prime', domain: 'number', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'prime', sets: [{ id: '1', rule: 'prime-factor-a' }] },
   ] },
   { id: 'integers', domain: 'number', stage: 'high', status: 'comingSoon', items: [
     { id: 'euclid', sets: [{ id: '1' }] },

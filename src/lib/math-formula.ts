@@ -62,8 +62,22 @@
 //              choices the point "h, k"), circle (question "cx, cy; r": choices equations),
 //              region (question "lhs; rhs; op" in the region form of `region`, shaded: choices
 //              inequalities "lhs; rhs; op")
+//   number     whole-number facts, by `which`: gcd, lcm (question "12, 18"), divisor-count ("24"),
+//              nth-multiple ("7, 5": the 5th multiple of 7), prime-factorization ("120": choices
+//              like "2^3 * 3 * 5"), round-ones/-ten/-hundred/-thousand/-tenth/-hundredth ("3456"),
+//              estimate ("398 * 52": each number to its top digit first), scientific ("35000":
+//              choices "3.5 * 10^4"), to-improper ("2 + 3/5", style mixed), to-mixed ("17/5",
+//              choices "3 + 2/5" drawn as mixed numbers)
+//   stat       a list of data ("3, 8, 5, 8, 2"), by `which`: median, range, mode
+//   function   by `which`: proportion / inverse ("x0, y0": choices "y = 3*x" / "y = 12/x"), slope,
+//              intercept, xintercept (question "3*x + 2"), rate ("f; a, b": the average rate of
+//              change from x = a to x = b), intersect-lines ("f; g": the point "x, y"),
+//              intersect-parabola ("f; g": the x values "a, b"), rewrite (question "2*x + y = 5":
+//              solved for y, choices "y = ...")
+//   rearrange  an equation solved for the letter in `which` ("3*a + 2*b = 12", which "a")
 //   identity   an equation in x with unknown constants; choices "a = 1, b = 2" make it an identity in x
-export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity' | 'inequality' | 'induction' | 'inference' | 'region' | 'graph';
+export type FormulaStyle = 'times' | 'box' | 'ratio' | 'mixed';
+export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity' | 'inequality' | 'induction' | 'inference' | 'region' | 'graph' | 'number' | 'stat' | 'function' | 'rearrange';
 
 export interface FormulaPayload {
   kind: FormulaKind;
@@ -78,8 +92,10 @@ export interface FormulaPayload {
   which?: string;
   // term/series: what kind of sequence the first terms in `question` start.
   progression?: 'arithmetic' | 'geometric';
-  // Keep the multiplication sign (4 × x, not 4x): for grade 6, before the sign is omitted.
-  times?: boolean;
+  // How the formula is drawn, for the grades that write it differently: 'times' keeps the
+  // multiplication sign (4 × x, not 4x); 'box' draws the letter x as □; 'ratio' draws : as
+  // a ratio (x : 4 = 6 : 8) instead of ÷; 'mixed' draws 2 + 3/5 as the mixed number 2⅗.
+  style?: FormulaStyle;
   // The worked solution, one line each: a chain "a = b = c" (or, for equations,
   // "x = 2, x = -2"), shown under the answer. SymPy checks every line.
   steps?: string[];
@@ -197,14 +213,14 @@ function startsWithNumber(node: Node): boolean {
 const bare = (node: Node) => ['num', 'var', 'const'].includes(node.type) || (node.type === 'bin' && node.op === '/');
 const argTex = (node: Node) => bare(node) ? ` ${toTex(node)}` : `\\left(${toTex(unwrap(node))}\\right)`;
 
-// Set while a payload with `times` is drawn: a product always shows its × sign.
-let keepTimes = false;
-const withTimes = <T,>(times: boolean | undefined, draw: () => T): T => { const before = keepTimes; keepTimes = !!times; try { return draw(); } finally { keepTimes = before; } };
+// Set while a payload with a `style` is drawn.
+let drawStyle: FormulaStyle | undefined;
+const withStyle = <T,>(style: FormulaStyle | undefined, draw: () => T): T => { const before = drawStyle; drawStyle = style; try { return draw(); } finally { drawStyle = before; } };
 
 export function toTex(node: Node): string {
   switch (node.type) {
     case 'num': return node.value;
-    case 'var': return node.name;
+    case 'var': return drawStyle === 'box' && node.name === 'x' ? '\\square' : node.name;
     case 'const': return node.name === 'pi' ? '\\pi ' : 'i';
     case 'neg': return `-${toTex(node.arg)}`;
     case 'group': return `\\left(${toTex(node.arg)}\\right)`;
@@ -230,13 +246,15 @@ export function toTex(node: Node): string {
       // A negative right operand needs parentheses (2 * -x is 2 \times (-x), not 2-x; x - -y is x - (-y)).
       const right = node.right.type === 'neg' && ['*', '+', '-'].includes(node.op) ? `\\left(${toTex(node.right)}\\right)` : toTex(node.right);
       if (node.op === '/') return `\\frac{${toTex(unwrap(node.left))}}{${toTex(unwrap(node.right))}}`;
-      if (node.op === ':') return `${left} \\div ${right}`;
+      if (node.op === ':') return `${left} ${drawStyle === 'ratio' ? ':' : '\\div'} ${right}`;
+      // A mixed number: 2 + 3/5 is drawn 2\frac{3}{5}.
+      if (drawStyle === 'mixed' && node.op === '+' && node.left.type === 'num' && node.right.type === 'bin' && node.right.op === '/' && node.right.left.type === 'num' && node.right.right.type === 'num') return `${left}${right}`;
       // 3*pi/4 is 3 × (π/4) in the grammar but written \frac{3\pi}{4}, not a mixed-number-like 3\frac{\pi}{4}.
       if (node.op === '*' && node.right.type === 'bin' && node.right.op === '/' && !hasFraction(node.left)) {
         return toTex({ type: 'bin', op: '/', left: { type: 'bin', op: '*', left: node.left, right: node.right.left }, right: node.right.right });
       }
       if (node.op === '*' && node.right.type === 'pow' && node.right.base.type === 'num' && node.right.exp.type !== 'num') return `${left} \\cdot ${right}`;
-      if (node.op === '*' && (node.right.type === 'neg' || keepTimes)) return `${left} \\times ${right}`;
+      if (node.op === '*' && (node.right.type === 'neg' || drawStyle === 'times')) return `${left} \\times ${right}`;
       if (node.op === '*') return startsWithNumber(node.right) ? `${left} \\times ${right}` : `${left}${right}`;
       return `${left} ${node.op} ${right}`;
     }
@@ -297,8 +315,8 @@ function lineTex(a: number, b: number, c: number): string {
 
 // The question as shown, by kind: an integral sign with its bounds, curves as
 // y = ..., equations as a system; the instruction line comes from the page's text.
-export function formulaQuestionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & { which?: string; times?: boolean }): string {
-  return withTimes(p.times, () => questionTex(p));
+export function formulaQuestionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & { which?: string; style?: FormulaStyle }): string {
+  return withStyle(p.style, () => questionTex(p));
 }
 function questionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & { which?: string }): string {
   const x = unknownOf(p.question);
@@ -342,6 +360,18 @@ function questionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & {
       }
     }
     case 'identity': return statementTex(p.question);
+    case 'number': return p.which === 'nth-multiple' ? '' : ['gcd', 'lcm'].includes(p.which ?? '') ? list(p.question).join(',\\ ') : expressionTex(p.question);
+    case 'stat': return list(p.question).join(',\\ ');
+    case 'rearrange': return statementTex(p.question);
+    case 'function': {
+      const parts = splitTop(p.question, ';');
+      switch (p.which) {
+        case 'proportion': case 'inverse': { const [x0, y0] = list(p.question); return `x = ${x0},\\ y = ${y0}`; }
+        case 'rewrite': return statementTex(p.question);
+        case 'intersect-lines': case 'intersect-parabola': return parts.map(part => `y = ${expressionTex(part)}`).join(',\\ ');
+        default: return `y = ${expressionTex(parts[0])}`;
+      }
+    }
     case 'inequality': return p.which === 'product-sum' ? `a b = ${expressionTex(p.question)}` : expressionTex(p.question);
     case 'induction': {
       const [g, f] = splitTop(p.question, ';');
@@ -365,6 +395,7 @@ function questionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & {
 // The instruction line: a key under App.math.formulaQuiz and the TeX for its
 // rich tags. Shared by the page and the blind review, which reads the Japanese.
 export function formulaInstruction(p: FormulaPayload): { key: string; tex: Record<string, string> } {
+  if (p.kind === 'solve' && (p.style === 'box' || p.style === 'ratio')) return { key: p.style === 'box' ? 'solveBox' : 'solveRatio', tex: {} };
   const at = { given: p.given ? solutionTex(p.given, 'x') : '' };
   switch (p.kind) {
     case 'calc': return p.given ? { key: 'given', tex: at } : { key: 'calc', tex: {} };
@@ -378,6 +409,18 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
       return { key: p.question.includes(';') ? 'areaCurves' : 'areaAxis', tex: { a: `x = ${a}`, b: `x = ${b}` } };
     }
     case 'radian': case 'degree': case 'identity': return { key: p.kind, tex: {} };
+    case 'number': {
+      const key = p.which!.replace(/-(\w)/g, (_, c: string) => c.toUpperCase());
+      if (p.which === 'nth-multiple') { const [a, n] = list(p.question); return { key, tex: { a, n } }; }
+      return { key, tex: {} };
+    }
+    case 'stat': return { key: `stat${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
+    case 'rearrange': return { key: 'rearrange', tex: { v: p.which! } };
+    case 'function': {
+      const key = p.which!.replace(/-(\w)/g, (_, c: string) => c.toUpperCase());
+      if (p.which === 'rate') { const [a, b] = list(splitTop(p.question, ';')[1]); return { key: 'rate', tex: { a, b } }; }
+      return { key: p.which === 'rewrite' ? 'rewriteY' : key, tex: {} };
+    }
     case 'recurrence': return p.given ? { key: 'recurrenceAt', tex: { n: expressionTex(p.given.split('=')[1]) } } : { key: 'recurrence', tex: { an: 'a_n' } };
     case 'distribution': return { key: p.which === 'mean' || p.which === 'variance' ? `${p.which}Table` : p.which!, tex: p.given ? { k: expressionTex(p.given.split('=')[1]) } : {} };
     case 'inequality': return { key: p.which!.replace(/-(\w)/g, (_, c: string) => c.toUpperCase()), tex: {} };
@@ -396,16 +439,24 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
   }
 }
 
-export function formulaChoiceTex(p: Pick<FormulaPayload, 'kind' | 'question'> & { which?: string; times?: boolean }, choice: string): string {
-  return withTimes(p.times, () => choiceTex(p, choice));
+export function formulaChoiceTex(p: Pick<FormulaPayload, 'kind' | 'question'> & { which?: string; style?: FormulaStyle }, choice: string): string {
+  return withStyle(p.style, () => choiceTex(p, choice));
 }
-function choiceTex(p: Pick<FormulaPayload, 'kind' | 'question'> & { which?: string }, choice: string): string {
+function choiceTex(p: Pick<FormulaPayload, 'kind' | 'question'> & { which?: string; style?: FormulaStyle }, choice: string): string {
+  // A □ problem answers with the number alone.
+  if (p.kind === 'solve' && p.style === 'box') return list(choice).join(',\\ ');
   if (p.kind === 'solve') return solutionTex(choice, unknownOf(p.question));
   if (p.kind === 'tangent') return solutionTex(choice, 'y');
   if (p.kind === 'identity') return solutionTex(choice, 'a');
   if (p.kind === 'degree') return `${expressionTex(choice)}^{\\circ}`;
   if (p.kind === 'geometry') return p.which?.startsWith('line-') ? solutionTex(choice, 'y') : /^(circle|locus)-/.test(p.which ?? '') ? statementTex(choice) : expressionTex(choice);
   if (p.kind === 'region') return `\\left(${list(choice).join(', ')}\\right)`;
+  if (p.kind === 'function') {
+    if (['proportion', 'inverse', 'rewrite'].includes(p.which ?? '')) return solutionTex(choice, 'y');
+    if (p.which === 'intersect-lines') return `\\left(${list(choice).join(', ')}\\right)`;
+    if (p.which === 'intersect-parabola') return solutionTex(choice, 'x');
+    return expressionTex(choice);
+  }
   if (p.kind === 'graph') {
     if (p.which === 'vertex') return `\\left(${list(choice).join(', ')}\\right)`;
     if (p.which === 'circle') return statementTex(choice);
@@ -431,8 +482,8 @@ function termsTex(text: string): string[] {
 // A worked-solution line as rows of TeX pieces (the page wraps a row between
 // pieces when it is too wide): "a = b = c" is the rows [a, = b] and [= c];
 // comma-separated equations are rows of their own.
-export function stepRows(line: string, times?: boolean): string[][] {
-  return withTimes(times, () => stepRowsOf(line));
+export function stepRows(line: string, style?: FormulaStyle): string[][] {
+  return withStyle(style, () => stepRowsOf(line));
 }
 function stepRowsOf(line: string): string[][] {
   return splitTop(line, ',').flatMap(item => {

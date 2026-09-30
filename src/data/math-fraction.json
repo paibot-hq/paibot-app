@@ -425,6 +425,101 @@
       ],
       "choices": ["3/14", "3/7", "5/7", "5/14"],
       "answerIndex": 1
+    },
+    {
+      "id": "fraction-031",
+      "item": "mixed",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "2 + 3/4",
+      "given": null,
+      "which": "to-improper",
+      "style": "mixed",
+      "steps": [
+        "2 + 3/4 = 8/4 + 3/4 = 11/4"
+      ],
+      "choices": ["11/4", "5/4", "9/4", "7/4"],
+      "answerIndex": 0
+    },
+    {
+      "id": "fraction-032",
+      "item": "mixed",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "3 + 2/5",
+      "given": null,
+      "which": "to-improper",
+      "style": "mixed",
+      "steps": [
+        "3 + 2/5 = 15/5 + 2/5 = 17/5"
+      ],
+      "choices": ["13/5", "17/5", "7/5", "11/5"],
+      "answerIndex": 1
+    },
+    {
+      "id": "fraction-033",
+      "item": "mixed",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "4 + 5/7",
+      "given": null,
+      "which": "to-improper",
+      "style": "mixed",
+      "steps": [
+        "4 + 5/7 = 28/7 + 5/7 = 33/7"
+      ],
+      "choices": ["23/7", "29/7", "33/7", "9/7"],
+      "answerIndex": 2
+    },
+    {
+      "id": "fraction-034",
+      "item": "mixed",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "19/4",
+      "given": null,
+      "which": "to-mixed",
+      "style": "mixed",
+      "steps": [
+        "19/4 = 16/4 + 3/4 = 4 + 3/4"
+      ],
+      "choices": ["3 + 3/4", "4 + 1/4", "3 + 1/4", "4 + 3/4"],
+      "answerIndex": 3
+    },
+    {
+      "id": "fraction-035",
+      "item": "mixed",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "23/6",
+      "given": null,
+      "which": "to-mixed",
+      "style": "mixed",
+      "steps": [
+        "23/6 = 18/6 + 5/6 = 3 + 5/6"
+      ],
+      "choices": ["3 + 5/6", "3 + 1/6", "4 + 1/6", "2 + 5/6"],
+      "answerIndex": 0
     }
   ]
 }

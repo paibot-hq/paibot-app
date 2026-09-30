@@ -18,8 +18,8 @@ import re
 import sys
 from pathlib import Path
 
-from sympy import (Abs, Eq, FiniteSet, Function, I, Integer, Poly, Rational, Sum, Symbol, Tuple, binomial, cos, diff, expand,
-                   ff, integrate, log, pi, rem, rsolve, simplify, sin, solve, sqrt, tan)
+from sympy import (Abs, Eq, FiniteSet, Function, I, Integer, Poly, Rational, Sum, Symbol, Tuple, binomial, cos, diff, divisor_count, expand,
+                   ff, gcd, integrate, isprime, lcm, log, pi, rem, rsolve, simplify, sin, solve, sqrt, tan)
 
 ROOT = Path(__file__).resolve().parent.parent
 x = Symbol('x')
@@ -561,8 +561,174 @@ def graph(problem):
     return f, [line_choice(choice) for choice in choices]
 
 
+PLACES = {'ones': Integer(1), 'ten': Integer(10), 'hundred': Integer(100), 'thousand': Integer(1000),
+          'tenth': Rational(1, 10), 'hundredth': Rational(1, 100)}
+
+
+def round_half_up(value, place):
+    return (value / place + Rational(1, 2)).floor() * place
+
+
+def top_digit(value):
+    """A whole number rounded to its leading digit (398 -> 400, 52 -> 50)."""
+    if value < 10:
+        return value
+    place = Integer(10) ** (len(str(int(value))) - 1)
+    return round_half_up(value, place)
+
+
+PRIME_PRODUCT = re.compile(r'^\s*\d+(\s*\^\s*\d+)?(\s*\*\s*\d+(\s*\^\s*\d+)?)*\s*$')
+SCIENTIFIC = re.compile(r'^\s*(\d+(?:\.\d+)?)\s*\*\s*10\s*\^\s*\(?(-?\d+)\)?\s*$')
+MIXED = re.compile(r'^\s*(\d+)\s*\+\s*(\d+)\s*/\s*(\d+)\s*$')
+
+
+def number(problem):
+    """Whole-number facts: the answer and the choices as comparable values."""
+    which, question, choices = problem['which'], problem['question'], problem['choices']
+    values = pair(question)
+    if which in ('gcd', 'lcm'):
+        if not (len(values) >= 2 and all(v.is_Integer and v > 0 for v in values)):
+            raise ValueError('expected two or more positive integers')
+        answer = values[0]
+        for v in values[1:]:
+            answer = gcd(answer, v) if which == 'gcd' else lcm(answer, v)
+        return answer, [parse_formula(c) for c in choices]
+    if which == 'divisor-count':
+        return Integer(divisor_count(int(values[0]))), [parse_formula(c) for c in choices]
+    if which == 'nth-multiple':
+        a, n = values
+        return a * n, [parse_formula(c) for c in choices]
+    if which == 'prime-factorization':
+        n = int(values[0])
+        picked = []
+        for choice in choices:
+            if not PRIME_PRODUCT.match(choice):
+                raise ValueError(f'{choice!r} is not a product of numbers and powers')
+            for base in re.findall(r'(\d+)(?:\s*\^\s*\d+)?', choice):
+                if not isprime(int(base)):
+                    raise ValueError(f'{choice!r}: {base} is not prime')
+            picked.append(parse_formula(choice))
+        return Integer(n), picked
+    if which.startswith('round-'):
+        return round_half_up(values[0], PLACES[which[6:]]), [parse_formula(c) for c in choices]
+    if which == 'estimate':
+        m = re.match(r'^\s*(\d+)\s*([-+*])\s*(\d+)\s*$', question)
+        if not m:
+            raise ValueError('estimate needs "a op b" with whole numbers')
+        a, b = top_digit(Integer(m.group(1))), top_digit(Integer(m.group(3)))
+        return {'+': a + b, '-': a - b, '*': a * b}[m.group(2)], [parse_formula(c) for c in choices]
+    if which == 'scientific':
+        n = values[0]
+        picked = []
+        for choice in choices:
+            m = SCIENTIFIC.match(choice)
+            if not m or not (1 <= Rational(m.group(1)) < 10):
+                raise ValueError(f'{choice!r} is not a x 10^n with 1 <= a < 10')
+            picked.append(parse_formula(choice))
+        return n, picked
+    if which == 'to-improper':
+        m = MIXED.match(question)
+        if not m or int(m.group(2)) >= int(m.group(3)):
+            raise ValueError('a mixed number "a + b/c" with b < c')
+        for index, choice in enumerate(choices):
+            c = re.match(r'^\s*(\d+)\s*/\s*(\d+)\s*$', choice)
+            if not c or (index == problem['answerIndex'] and int(c.group(1)) <= int(c.group(2))):
+                raise ValueError(f'{choice!r}: the choices are fractions "a/b" and the answer is improper')
+        return parse_formula(question), [parse_formula(c) for c in choices]
+    if which == 'to-mixed':
+        m = re.match(r'^\s*(\d+)\s*/\s*(\d+)\s*$', question)
+        if not m or int(m.group(1)) <= int(m.group(2)) or int(m.group(1)) % int(m.group(2)) == 0:
+            raise ValueError('an improper fraction that is not a whole number')
+        picked = []
+        for choice in choices:
+            c = MIXED.match(choice)
+            if not c or int(c.group(3)) == 0:
+                raise ValueError(f'{choice!r} is not a mixed number "a + b/c"')
+            picked.append(parse_formula(choice))
+        return parse_formula(question), picked
+    raise ValueError(f'unknown number variant {which!r}')
+
+
+def stat(problem):
+    which = problem['which']
+    data = sorted(pair(problem['question']))
+    if len(data) < 3:
+        raise ValueError('at least three values')
+    if which == 'median':
+        middle = len(data) // 2
+        answer = data[middle] if len(data) % 2 else (data[middle - 1] + data[middle]) / 2
+    elif which == 'range':
+        answer = data[-1] - data[0]
+    elif which == 'mode':
+        counts = {v: data.count(v) for v in set(data)}
+        best = max(counts.values())
+        modes = [v for v, c in counts.items() if c == best]
+        if len(modes) != 1 or best < 2:
+            raise ValueError('the data must have exactly one most frequent value')
+        answer = modes[0]
+    else:
+        raise ValueError(f'unknown stat variant {which!r}')
+    return answer, [parse_formula(c) for c in problem['choices']]
+
+
+def function(problem):
+    which, question = problem['which'], problem['question']
+    x, y = LETTERS['x'], LETTERS['y']
+    parts = question.split(';')
+    if which in ('proportion', 'inverse'):
+        x0, y0 = pair(question)
+        if x0 == 0 or y0 == 0:
+            raise ValueError('a nonzero point is needed')
+        return (y0 / x0 * x if which == 'proportion' else x0 * y0 / x), [line_choice(c) for c in problem['choices']]
+    if which in ('slope', 'intercept', 'xintercept'):
+        f = parse_formula(question)
+        if Poly(f, x).degree() != 1:
+            raise ValueError('a linear function is needed')
+        m, c = diff(f, x), f.subs(x, 0)
+        answer = m if which == 'slope' else c if which == 'intercept' else -c / m
+        return answer, [parse_formula(c) for c in problem['choices']]
+    if which == 'rate':
+        f, (a, b) = parse_formula(parts[0]), pair(parts[1])
+        if a == b:
+            raise ValueError('a and b must differ')
+        return (f.subs(x, b) - f.subs(x, a)) / (b - a), [parse_formula(c) for c in problem['choices']]
+    if which == 'intersect-lines':
+        f, g = parse_formula(parts[0]), parse_formula(parts[1])
+        found = solve(Eq(f, g), x)
+        if len(found) != 1:
+            raise ValueError('the lines must meet in exactly one point')
+        return Tuple(found[0], f.subs(x, found[0])), [Tuple(*pair(c)) for c in problem['choices']]
+    if which == 'intersect-parabola':
+        f, g = parse_formula(parts[0]), parse_formula(parts[1])
+        roots = [r for r in solve(Eq(f, g), x) if r.is_real]
+        if len(roots) < 2:
+            raise ValueError('the parabola and the line must cross at two points')
+        return FiniteSet(*roots), [solution_choice(c, [x]) for c in problem['choices']]
+    if which == 'rewrite':
+        left, right = question.split('=')
+        return solve(Eq(parse_formula(left), parse_formula(right)), y)[0], [line_choice(c) for c in problem['choices']]
+    raise ValueError(f'unknown function variant {which!r}')
+
+
+def rearrange(problem):
+    left, right = problem['question'].split('=')
+    target = LETTERS[problem['which']]
+    found = solve(Eq(parse_formula(left), parse_formula(right)), target)
+    if len(found) != 1:
+        raise ValueError('the equation must be linear in the letter')
+    return found[0], [parse_formula(c) for c in problem['choices']]
+
+
 def _formula(problem):
     kind, question, choices = problem['kind'], problem['question'], problem['choices']
+    if kind == 'number':
+        return number(problem)
+    if kind == 'stat':
+        return stat(problem)
+    if kind == 'function':
+        return function(problem)
+    if kind == 'rearrange':
+        return rearrange(problem)
     keyed = problem['answerIndex']
     if kind == 'graph':
         return graph(problem)
@@ -693,10 +859,10 @@ def check_steps(problem, answer):
     if kind == 'recurrence':
         return check_recurrence_steps(problem, answer, steps)
     for line in steps:
-        if kind in ('region', 'inference') or (kind == 'graph' and problem['which'] in ('vertex', 'region')):
+        if kind in ('region', 'inference', 'number', 'stat') or (kind == 'graph' and problem['which'] in ('vertex', 'region')) or (kind == 'function' and problem['which'] in ('slope', 'intercept', 'xintercept', 'rate')):
             check_numeric_chain(line)
             continue
-        if kind in ('solve', 'tangent', 'extremum', 'identity') or (kind == 'inequality' and problem['which'] == 'amgm-equal') or kind == 'graph' or (kind == 'geometry' and problem['which'].startswith(('line-', 'circle-', 'locus-'))):
+        if kind in ('solve', 'tangent', 'extremum', 'identity') or (kind == 'inequality' and problem['which'] == 'amgm-equal') or kind == 'graph' or kind in ('function', 'rearrange') or (kind == 'geometry' and problem['which'].startswith(('line-', 'circle-', 'locus-'))):
             check_equation_line(problem, answer, line)
             continue
         parts = line.split('=')
@@ -763,7 +929,15 @@ def check_equation_line(problem, answer, line):
     elif kind == 'inequality':
         candidates = [{variable_of(parse_formula(problem['question'])): answer}]
         every = True
-    elif kind in ('tangent', 'geometry', 'graph'):
+    elif kind == 'rearrange':
+        candidates = [{LETTERS[problem['which']]: answer}]
+        every = True
+    elif kind == 'function' and problem['which'] in ('intersect-lines', 'intersect-parabola'):
+        # Each line holds at some intersection (an x value that solves f = g).
+        xs = [answer[0]] if isinstance(answer, Tuple) else list(answer)
+        candidates = [{LETTERS['x']: value} for value in xs]
+        every = False
+    elif kind in ('tangent', 'geometry', 'graph', 'function'):
         candidates = [{LETTERS['y']: answer}]
         every = True
     else:
@@ -779,7 +953,7 @@ def check_equation_line(problem, answer, line):
         ok = all(any(holds(item.split('='), values, kind == 'graph') for values in candidates) for item in items)
         if every:
             ok = ok and all(any(holds(item.split('='), values) for item in items) for values in candidates)
-    if kind in ('tangent', 'geometry', 'graph'):
+    if kind in ('tangent', 'geometry', 'graph', 'function'):
         ok = ok and all(len(item.split('=')) > 1 for item in items)
     if not ok:
         raise ValueError(f'step {line!r} does not hold for the {kind} problem')
@@ -839,6 +1013,11 @@ UNITS = {
     'inference': ('math-inference.json', formula),
     'data': ('math-data.json', formula),
     'unknowns': ('math-unknowns.json', formula),
+    'rounding': ('math-rounding.json', formula),
+    'divisors': ('math-divisors.json', formula),
+    'prime': ('math-prime.json', formula),
+    'linear-function': ('math-linear-function.json', formula),
+    'square-function': ('math-square-function.json', formula),
     'quadratic-function': ('math-quadratic-function.json', formula),
     'factorization': ('math-factorization.json', factorization),
     'pythagoras': ('math-pythagoras.json', pythagoras),

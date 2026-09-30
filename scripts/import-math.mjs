@@ -15,7 +15,7 @@ const quote = value => `'${String(value).replaceAll("'", "''")}'`;
 const expression = ({ expression, word, choices }) => ({ expression, word, choices });
 const units = [
   ...Object.entries(expressionBanks).map(([unit, bank]) => ({ unit, bank, payload: expression })),
-  ...Object.entries(formulaBanks).map(([unit, bank]) => ({ unit, bank, payload: ({ kind, question, given, divisor, bounds, which, progression, times, steps, choices }) => ({ kind, question, given, divisor, bounds, which, progression, times, steps, choices }) })),
+  ...Object.entries(formulaBanks).map(([unit, bank]) => ({ unit, bank, payload: ({ kind, question, given, divisor, bounds, which, progression, style, steps, choices }) => ({ kind, question, given, divisor, bounds, which, progression, style, steps, choices }) })),
   { unit: 'factorization', bank: factorizationBank, payload: ({ p, q, choices }) => ({ p, q, choices }) },
   { unit: 'pythagoras', bank: pythagorasBank, payload: ({ figure, choices }) => ({ figure, choices }) },
 ];

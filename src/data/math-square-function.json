@@ -1,0 +1,203 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "square-function-001",
+      "item": "rate-of-change",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "2*x^2; 1, 4",
+      "given": null,
+      "which": "rate",
+      "steps": [
+        "(2*4^2 - 2*1^2)/(4 - 1) = (32 - 2)/3 = 30/3 = 10"
+      ],
+      "choices": ["10", "30", "-10", "5"],
+      "answerIndex": 0
+    },
+    {
+      "id": "square-function-002",
+      "item": "rate-of-change",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "-x^2; 1, 3",
+      "given": null,
+      "which": "rate",
+      "steps": [
+        "(-3^2 - (-1^2))/(3 - 1) = (-9 - (-1))/2 = -8/2 = -4"
+      ],
+      "choices": ["4", "-4", "-8", "8"],
+      "answerIndex": 1
+    },
+    {
+      "id": "square-function-003",
+      "item": "rate-of-change",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "3*x^2; -1, 3",
+      "given": null,
+      "which": "rate",
+      "steps": [
+        "(3*3^2 - 3*(-1)^2)/(3 - (-1)) = (27 - 3)/(3 + 1) = 24/4 = 6"
+      ],
+      "choices": ["12", "-6", "6", "24"],
+      "answerIndex": 2
+    },
+    {
+      "id": "square-function-004",
+      "item": "rate-of-change",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "-2*x^2; -4, -1",
+      "given": null,
+      "which": "rate",
+      "steps": [
+        "(-2*(-1)^2 - (-2*(-4)^2))/(-1 - (-4)) = (-2 - (-32))/(-1 + 4) = 30/3 = 10"
+      ],
+      "choices": ["-10", "30", "-30", "10"],
+      "answerIndex": 3
+    },
+    {
+      "id": "square-function-005",
+      "item": "rate-of-change",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "-3*x^2; -2, 1",
+      "given": null,
+      "which": "rate",
+      "steps": [
+        "(-3*1^2 - (-3*(-2)^2))/(1 - (-2)) = (-3 - (-12))/(1 + 2) = 9/3 = 3"
+      ],
+      "choices": ["-3", "3", "9", "-9"],
+      "answerIndex": 1
+    },
+    {
+      "id": "square-function-006",
+      "item": "intersection",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "x^2; x + 6",
+      "given": null,
+      "which": "intersect-parabola",
+      "steps": [
+        "x^2 = x + 6",
+        "x^2 - x - 6 = 0",
+        "(x + 2)*(x - 3) = 0",
+        "x = -2, x = 3"
+      ],
+      "choices": ["-2,  3", "-3,  2", "-3,  -2", "2,  3"],
+      "answerIndex": 0
+    },
+    {
+      "id": "square-function-007",
+      "item": "intersection",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "x^2; -2*x + 8",
+      "given": null,
+      "which": "intersect-parabola",
+      "steps": [
+        "x^2 = -2*x + 8",
+        "x^2 + 2*x - 8 = 0",
+        "(x + 4)*(x - 2) = 0",
+        "x = -4, x = 2"
+      ],
+      "choices": ["-2,  4", "-4,  -2", "-4,  2", "2,  4"],
+      "answerIndex": 2
+    },
+    {
+      "id": "square-function-008",
+      "item": "intersection",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "-x^2; 2*x - 3",
+      "given": null,
+      "which": "intersect-parabola",
+      "steps": [
+        "-x^2 = 2*x - 3",
+        "-x^2 - 2*x + 3 = 0",
+        "x^2 + 2*x - 3 = 0",
+        "(x + 3)*(x - 1) = 0",
+        "x = -3, x = 1"
+      ],
+      "choices": ["-1,  3", "-3,  1", "-3,  -1", "1,  3"],
+      "answerIndex": 1
+    },
+    {
+      "id": "square-function-009",
+      "item": "intersection",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "2*x^2; 4*x + 6",
+      "given": null,
+      "which": "intersect-parabola",
+      "steps": [
+        "2*x^2 = 4*x + 6",
+        "2*x^2 - 4*x - 6 = 0",
+        "x^2 - 2*x - 3 = 0",
+        "(x + 1)*(x - 3) = 0",
+        "x = -1, x = 3"
+      ],
+      "choices": ["-3,  1", "-3,  -1", "1,  3", "-1,  3"],
+      "answerIndex": 3
+    },
+    {
+      "id": "square-function-010",
+      "item": "intersection",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "function",
+      "question": "-x^2; 3*x - 4",
+      "given": null,
+      "which": "intersect-parabola",
+      "steps": [
+        "-x^2 = 3*x - 4",
+        "-x^2 - 3*x + 4 = 0",
+        "x^2 + 3*x - 4 = 0",
+        "(x + 4)*(x - 1) = 0",
+        "x = -4, x = 1"
+      ],
+      "choices": ["-4,  1", "-1,  4", "-4,  -1", "1,  4"],
+      "answerIndex": 0
+    }
+  ]
+}

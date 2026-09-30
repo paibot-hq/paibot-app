@@ -1,0 +1,1 @@
+一次関数と方程式（kind "function"、which は intersect-lines と rewrite）。5問を intersect-lines 3問（"2*x + 1; -x + 4" の交点が整数座標）、rewrite 2問（"2*x + y = 5" を y について解く）。choices は交点は "1, 3"、rewrite は "y = -2*x + 5"。誤答は符号の誤り、x と y の取り違えから作る。

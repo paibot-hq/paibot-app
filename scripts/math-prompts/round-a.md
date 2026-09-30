@@ -1,0 +1,1 @@
+四捨五入（kind "number"、which は round-ones, round-ten, round-hundred, round-thousand, round-tenth, round-hundredth）。5問は位をばらけさせる。数は 3〜5桁の整数か、小数第2〜3位までの小数。ちょうど5のとき（例 2.45 → 2.5）を1問ふくめる。誤答は切り捨て、位の取り違え、繰り上げ忘れから作る。

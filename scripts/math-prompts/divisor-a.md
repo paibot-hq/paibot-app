@@ -1,0 +1,1 @@
+約数と倍数（kind "number"、which は divisor-count と nth-multiple）。5問を divisor-count 3問（12〜60の数）、nth-multiple 2問（"6, 4" など）にする。誤答は約数の数え落とし（1と自分自身）、倍数の番号のずれから作る。steps は約数を小さい順に書き出す式 "24 = 1 * 24 = 2 * 12 = 3 * 8 = 4 * 6"（値が等しい鎖）などにする。

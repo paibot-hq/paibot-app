@@ -1,0 +1,185 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "rounding-001",
+      "item": "rounding",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "47682",
+      "given": null,
+      "which": "round-thousand",
+      "steps": [
+        "47000 + 1000 = 48000"
+      ],
+      "choices": ["48000", "47000", "47700", "50000"],
+      "answerIndex": 0
+    },
+    {
+      "id": "rounding-002",
+      "item": "rounding",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "4963",
+      "given": null,
+      "which": "round-hundred",
+      "steps": [
+        "4900 + 100 = 5000"
+      ],
+      "choices": ["4900", "5000", "4960", "4000"],
+      "answerIndex": 1
+    },
+    {
+      "id": "rounding-003",
+      "item": "rounding",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "786",
+      "given": null,
+      "which": "round-ten",
+      "steps": [
+        "780 + 10 = 790"
+      ],
+      "choices": ["780", "800", "790", "700"],
+      "answerIndex": 2
+    },
+    {
+      "id": "rounding-004",
+      "item": "rounding",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "3.65",
+      "given": null,
+      "which": "round-tenth",
+      "steps": [
+        "3.6 + 0.1 = 3.7"
+      ],
+      "choices": ["3.6", "4", "3", "3.7"],
+      "answerIndex": 3
+    },
+    {
+      "id": "rounding-005",
+      "item": "rounding",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "1.378",
+      "given": null,
+      "which": "round-hundredth",
+      "steps": [
+        "1.37 + 0.01 = 1.38"
+      ],
+      "choices": ["1.37", "1.38", "1.4", "1"],
+      "answerIndex": 1
+    },
+    {
+      "id": "rounding-006",
+      "item": "estimate",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "516 + 287",
+      "given": null,
+      "which": "estimate",
+      "steps": [
+        "500 + 300 = 800"
+      ],
+      "choices": ["803", "810", "800", "8000"],
+      "answerIndex": 2
+    },
+    {
+      "id": "rounding-007",
+      "item": "estimate",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "842 - 279",
+      "given": null,
+      "which": "estimate",
+      "steps": [
+        "800 - 300 = 500"
+      ],
+      "choices": ["500", "560", "563", "5000"],
+      "answerIndex": 0
+    },
+    {
+      "id": "rounding-008",
+      "item": "estimate",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "486 * 23",
+      "given": null,
+      "which": "estimate",
+      "steps": [
+        "500 * 20 = 10000"
+      ],
+      "choices": ["11178", "1000", "9800", "10000"],
+      "answerIndex": 3
+    },
+    {
+      "id": "rounding-009",
+      "item": "estimate",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "6180 - 2890",
+      "given": null,
+      "which": "estimate",
+      "steps": [
+        "6000 - 3000 = 3000"
+      ],
+      "choices": ["3290", "3000", "3300", "30000"],
+      "answerIndex": 1
+    },
+    {
+      "id": "rounding-010",
+      "item": "estimate",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "394 * 188",
+      "given": null,
+      "which": "estimate",
+      "steps": [
+        "400 * 200 = 80000"
+      ],
+      "choices": ["74072", "8000", "80000", "74100"],
+      "answerIndex": 2
+    }
+  ]
+}
