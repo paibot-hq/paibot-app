@@ -5,7 +5,7 @@
 //
 //   statement = equation (';' equation)* | expr
 //   equation  = expr '=' expr
-//   expr      = term (('+' | '-') term)*
+//   expr      = term (('+' | '-' | '±') term)*        '±' is only for key points (shown as ±)
 //   term      = fraction (('*' | ':') fraction)*     ':' is shown as ÷
 //   fraction  = unary ('/' unary)*                   shown as a fraction bar, so it binds
 //                                                    first: 3/5 : 2/7 is (3/5) ÷ (2/7)
@@ -94,12 +94,12 @@ type Node =
   | { type: 'group'; arg: Node }
   | { type: 'call'; name: string; args: Node[] }
   | { type: 'pow'; base: Node; exp: Node }
-  | { type: 'bin'; op: '+' | '-' | '*' | '/' | ':'; left: Node; right: Node };
+  | { type: 'bin'; op: '+' | '-' | '±' | '*' | '/' | ':'; left: Node; right: Node };
 
 // Functions and how many arguments each takes.
 const FUNCTIONS: Record<string, number> = { sqrt: 1, sin: 1, cos: 1, tan: 1, abs: 1, log: 2, C: 2, P: 2, sum: 4 };
 
-const TOKEN = /\s*(\d+(?:\.\d+)?|sqrt|sin|cos|tan|abs|log|sum|pi|[CP](?=\s*\()|[a-z]|[-+*/:^()=;,])/y;
+const TOKEN = /\s*(\d+(?:\.\d+)?|sqrt|sin|cos|tan|abs|log|sum|pi|[CP](?=\s*\()|[a-z]|[-+±*/:^()=;,])/y;
 
 function tokenize(text: string): string[] {
   const tokens: string[] = [];
@@ -138,7 +138,7 @@ export function parseExpression(text: string): Node {
   };
   function expr(): Node {
     let node = term();
-    while (peek() === '+' || peek() === '-') { const op = take() as '+' | '-'; node = { type: 'bin', op, left: node, right: term() }; }
+    while (peek() === '+' || peek() === '-' || peek() === '±') { const op = take() as '+' | '-' | '±'; node = { type: 'bin', op, left: node, right: term() }; }
     return node;
   }
   function term(): Node {
@@ -229,7 +229,7 @@ export function toTex(node: Node): string {
       }
       if (node.op === '*' && node.right.type === 'pow' && node.right.base.type === 'num' && node.right.exp.type !== 'num') return `${left} \\cdot ${right}`;
       if (node.op === '*') return startsWithNumber(node.right) ? `${left} \\times ${right}` : `${left}${right}`;
-      return `${left} ${node.op} ${right}`;
+      return `${left} ${node.op === '±' ? '\\pm' : node.op} ${right}`;
     }
   }
 }
@@ -449,7 +449,7 @@ export function evalExpression(text: string, vars: Record<string, number> = {}):
       }
       case 'bin': {
         const l = run(node.left), r = run(node.right);
-        return node.op === '+' ? l + r : node.op === '-' ? l - r : node.op === '*' ? l * r : l / r;
+        return node.op === '±' ? NaN : node.op === '+' ? l + r : node.op === '-' ? l - r : node.op === '*' ? l * r : l / r;
       }
     }
   };

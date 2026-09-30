@@ -101,6 +101,7 @@ for key, formulas in key_points.items():
             raise AssertionError(f'{key}: {formula}: {error}') from error
 
 check('a*x^2 + b*x + c = 0 => x = (-b + sqrt(b^2 - 4*a*c))/(2*a)')
+check('a*x^2 + b*x + c = 0 => x = (-b ± sqrt(b^2 - 4*a*c))/(2*a)')
 try:
     check('a*x^2 + b*x + c = 0 => x = (b + sqrt(b^2 - 4*a*c))/(2*a)')
     raise AssertionError('a wrong quadratic formula must not pass')

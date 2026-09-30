@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import katex from 'katex';
-import { evalExpression, expressionTex, inequalityTex, formulaChoiceTex, formulaInstruction, formulaQuestionTex, parseExpression, stepRows, solutionTex, statementTex, unknownOf } from '../../src/lib/math-formula.ts';
+import { evalExpression, expressionTex, inequalityTex, keyPointTex, formulaChoiceTex, formulaInstruction, formulaQuestionTex, parseExpression, stepRows, solutionTex, statementTex, unknownOf } from '../../src/lib/math-formula.ts';
 
 // Formulas render the way school math writes them, and every rendering is valid TeX.
 const cases = {
@@ -109,6 +109,8 @@ assert.equal(inequalityTex('x^2 + y^2; 9; <'), 'x^{2} + y^{2} < 9');
 assert.equal(evalExpression('x^2 - 2*x - 3', { x: 4 }), 5);
 assert.ok(Math.abs(evalExpression('2*sin(x)', { x: Math.PI / 2 }) - 2) < 1e-12);
 assert.ok(Number.isNaN(evalExpression('sqrt(x)', { x: -1 })) && Number.isNaN(evalExpression('x + z', { x: 1 })));
+
+assert.equal(keyPointTex('a*x^2 + b*x + c = 0 => x = (-b ± sqrt(b^2 - 4*a*c))/(2*a)'), 'ax^{2} + bx + c = 0 \\;\\Rightarrow\\; x = \\frac{-b \\pm \\sqrt{b^{2} - 4ac}}{2a}');
 
 // Worked-solution lines: rows of pieces, a chain "a = b = c" continuing on its own row.
 assert.deepEqual(stepRows('2/3 + 1/4 = 8/12 + 3/12 = 11/12'), [['\\frac{2}{3}', '+ \\frac{1}{4}', '= \\frac{8}{12}', '+ \\frac{3}{12}'], ['= \\frac{11}{12}']]);

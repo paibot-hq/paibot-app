@@ -196,11 +196,9 @@
     "(a * q^2 - a * p^2) / (q - p) = a * (p + q)"
   ],
   "quadratic/formula": [
-    "a*x^2 + b*x + c = 0 => x = (-b + sqrt(b^2 - 4*a*c))/(2*a)",
-    "a*x^2 + b*x + c = 0 => x = (-b - sqrt(b^2 - 4*a*c))/(2*a)"
+    "a*x^2 + b*x + c = 0 => x = (-b ± sqrt(b^2 - 4*a*c))/(2*a)"
   ],
   "complex/quadratic-roots": [
-    "a*x^2 + b*x + c = 0 => x = (-b + sqrt(b^2 - 4*a*c))/(2*a)",
-    "a*x^2 + b*x + c = 0 => x = (-b - sqrt(b^2 - 4*a*c))/(2*a)"
+    "a*x^2 + b*x + c = 0 => x = (-b ± sqrt(b^2 - 4*a*c))/(2*a)"
   ]
 }

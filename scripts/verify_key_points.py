@@ -21,7 +21,15 @@ def equation(text):
 
 
 def check(formula):
-    """An identity "lhs = rhs", or "equation => v = expr": expr solves the equation for v."""
+    """An identity "lhs = rhs", or "equation => v = expr": expr solves the equation for v.
+
+    A single ± stands for both signs: the formula must hold with + and with -."""
+    if '±' in formula:
+        if formula.count('±') != 1:
+            raise ValueError('at most one ± per formula')
+        check(formula.replace('±', '+'))
+        check(formula.replace('±', '-'))
+        return
     parts = formula.split('=>')
     if len(parts) == 1:
         left, right = equation(formula)
