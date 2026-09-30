@@ -145,6 +145,25 @@ const RULES = {
   'lines-a': ['function', (s, p) => ['intersect-lines', 'rewrite'].includes(p.which)],
   'rate-a': ['function', (s, p) => p.which === 'rate'],
   'parabola-line-a': ['function', (s, p) => p.which === 'intersect-parabola'],
+  // 数学I・A の続き
+  'ineq-linear-a': ['inequality', (s, p) => p.which === 'solve' && !s.powers.length && !s.calls.has('abs') && s.letters.size === 1],
+  'ineq-quadratic-a': ['inequality', (s, p) => p.which === 'solve' && s.powers.includes(2) && s.letters.size === 1],
+  'ineq-absolute-a': ['inequality', (s, p) => p.which === 'solve' && s.calls.has('abs')],
+  'discriminant-a': ['quadratic', (s, p) => ['discriminant', 'root-count', 'krange'].includes(p.which)],
+  'quad-max-min-a': ['quadratic', (s, p) => ['max', 'min', 'max-all', 'min-all'].includes(p.which)],
+  'triangle-ratio-a': ['triangle', (s, p) => ['sin', 'cos', 'tan'].includes(p.which)],
+  'sine-law-a': ['triangle', (s, p) => p.which === 'sine-law'],
+  'cosine-law-a': ['triangle', (s, p) => ['cosine-side', 'cosine-cos'].includes(p.which)],
+  'triangle-area-a': ['triangle', (s, p) => p.which === 'triangle-area'],
+  'variance-a': ['stat', (s, p) => ['variance', 'std'].includes(p.which)],
+  'correlation-a': ['stat', (s, p) => p.which === 'correlation'],
+  'euclid-a': ['number', (s, p) => p.which === 'euclid' && Math.min(...s.numbers) >= 100],
+  'diophantine-a': ['number', (s, p) => p.which === 'diophantine'],
+  'base-n-a': ['number', (s, p) => ['to-base', 'from-base'].includes(p.which)],
+  'congruence-a': ['number', (s, p) => ['remainder', 'power-mod'].includes(p.which)],
+  'permutation-a': ['calc', s => s.calls.has('P') && !s.letters.size],
+  'combination-a': ['calc', s => s.calls.has('C') && !s.letters.size],
+  'expectation-a': ['distribution', (s, p) => ['mean', 'variance'].includes(p.which)],
   'geometric-a': [['term', 'series'], (s, p) => p.progression === 'geometric' && !s.letters.size && !s.calls.size],
 };
 
@@ -153,6 +172,9 @@ const RULES = {
 function checkChoice(kind, choice, id, which) {
   assert.ok(typeof choice === 'string' && choice.trim() && choice.length <= 200, `${id}: choice`);
   if (kind === 'geometry' && /^line-/.test(which)) { assert.match(choice, /^\s*y\s*=/, `${id}: line choices are "y = ..."`); parseExpression(choice.split('=')[1]); return; }
+  if ((kind === 'inequality' && which === 'solve') || (kind === 'quadratic' && which === 'krange')) { for (const chain of splitTop(choice, ',')) { const parts = chain.split(/(<=|>=|<|>)/).map(part => part.trim()); assert.ok(parts.length >= 3 && parts.length % 2 === 1, `${id}: "${chain}" is a chain of relations`); parts.filter((part, index) => index % 2 === 0).forEach(part => parseExpression(part)); } return; }
+  if (kind === 'number' && which === 'diophantine') { const parts = splitTop(choice, ','); assert.equal(parts.length, 2, `${id}: diophantine choices are "x, y"`); parts.forEach(part => parseExpression(part)); return; }
+  if (kind === 'number' && which === 'to-base') { assert.match(choice.trim(), /^\d+$/, `${id}: a numeral in the new base`); return; }
   if (kind === 'function' && ['proportion', 'inverse', 'rewrite'].includes(which)) { assert.match(choice, /^\s*y\s*=/, `${id}: function choices are "y = ..."`); parseExpression(choice.split('=')[1]); return; }
   if (kind === 'function' && ['intersect-lines', 'intersect-parabola'].includes(which)) { const parts = splitTop(choice, ','); assert.ok(parts.length === 2, `${id}: choices are two numbers "a, b"`); parts.forEach(part => parseExpression(part)); return; }
   if (kind === 'graph') {
@@ -207,17 +229,19 @@ export function validateBank(bank, catalog) {
     assert.ok(problem.bounds === undefined || ['integral', 'area'].includes(kind), `${id}: bounds are for integral and area`);
     if (kind === 'area') assert.ok(problem.bounds, `${id}: area needs bounds`);
     if (problem.bounds !== undefined) { const parts = splitTop(problem.bounds, ','); assert.equal(parts.length, 2, `${id}: bounds "a, b"`); parts.forEach(part => parseExpression(part)); }
-    const variants = { extremum: ['max', 'min'], distribution: ['mean', 'variance', 'binomialMean', 'binomialVariance', 'binomialProb', 'zscore'], geometry: ['line-two-points', 'line-slope', 'line-parallel', 'line-perpendicular', 'circle-center', 'circle-diameter', 'distance', 'locus-equidistant', 'locus-ratio'], inequality: ['amgm-min', 'amgm-equal', 'product-sum'], induction: ['base', 'add', 'target', 'combine'], inference: ['mean-interval', 'ratio-interval', 'test-z'], region: ['in', 'out'], graph: ['line', 'parabola', 'vertex', 'circle', 'region', 'trig'],
-      number: ['gcd', 'lcm', 'divisor-count', 'nth-multiple', 'prime-factorization', 'round-ones', 'round-ten', 'round-hundred', 'round-thousand', 'round-tenth', 'round-hundredth', 'estimate', 'scientific', 'to-improper', 'to-mixed'],
-      stat: ['median', 'range', 'mode'],
-      function: ['proportion', 'inverse', 'slope', 'intercept', 'xintercept', 'rate', 'intersect-lines', 'intersect-parabola', 'rewrite'] };
+    const variants = { extremum: ['max', 'min'], distribution: ['mean', 'variance', 'binomialMean', 'binomialVariance', 'binomialProb', 'zscore'], geometry: ['line-two-points', 'line-slope', 'line-parallel', 'line-perpendicular', 'circle-center', 'circle-diameter', 'distance', 'locus-equidistant', 'locus-ratio'], inequality: ['amgm-min', 'amgm-equal', 'product-sum', 'solve'], induction: ['base', 'add', 'target', 'combine'], inference: ['mean-interval', 'ratio-interval', 'test-z'], region: ['in', 'out'], graph: ['line', 'parabola', 'vertex', 'circle', 'region', 'trig'],
+      number: ['gcd', 'lcm', 'euclid', 'diophantine', 'to-base', 'from-base', 'remainder', 'power-mod', 'divisor-count', 'nth-multiple', 'prime-factorization', 'round-ones', 'round-ten', 'round-hundred', 'round-thousand', 'round-tenth', 'round-hundredth', 'estimate', 'scientific', 'to-improper', 'to-mixed'],
+      stat: ['median', 'range', 'mode', 'variance', 'std', 'correlation'],
+      function: ['proportion', 'inverse', 'slope', 'intercept', 'xintercept', 'rate', 'intersect-lines', 'intersect-parabola', 'rewrite'],
+      quadratic: ['discriminant', 'root-count', 'krange', 'max', 'min', 'max-all', 'min-all'],
+      triangle: ['sin', 'cos', 'tan', 'sine-law', 'cosine-side', 'cosine-cos', 'triangle-area'] };
     if (kind === 'rearrange') assert.match(problem.which ?? '', /^[a-hj-z]$/, `${id}: which is the letter to solve for`);
     else assert.ok((problem.which !== undefined) === Object.hasOwn(variants, kind), `${id}: which is for the kinds with variants`);
     if (problem.which !== undefined && kind !== 'rearrange') assert.ok(variants[kind].includes(problem.which), `${id}: which`);
     if (kind === 'distribution') assert.ok((problem.which === 'binomialProb') === (given !== null), `${id}: given k is for binomialProb only`);
     if (kind === 'inference') assert.ok((problem.which !== 'test-z') === (given !== null), `${id}: given z is for intervals only`);
     if (kind === 'inference' && given) assert.match(given, /^\s*z\s*=\s*\d+(\.\d+)?\s*$/, `${id}: given "z = 1.96"`);
-    if (kind === 'region' || (kind === 'graph' && problem.which === 'region')) assert.ok(['<', '>', '<=', '>='].includes(splitTop(question, ';')[2]?.trim()), `${id}: region ends with < > <= >=`);
+    if (kind === 'region' || (kind === 'graph' && problem.which === 'region') || (kind === 'inequality' && problem.which === 'solve')) assert.ok(['<', '>', '<=', '>='].includes(splitTop(question, ';')[2]?.trim()), `${id}: region ends with < > <= >=`);
     if (kind === 'recurrence' && given) assert.match(given, /^\s*n\s*=\s*\d+\s*$/, `${id}: given "n = 5"`);
     const sequence = ['term', 'series'].includes(kind);
     assert.ok(sequence === (problem.progression !== undefined), `${id}: progression is for term and series`);
@@ -225,8 +249,8 @@ export function validateBank(bank, catalog) {
     assert.ok(problem.style === undefined || ['times', 'box', 'ratio', 'mixed'].includes(problem.style), `${id}: style`);
     if (set.rule === 'letters-value-a') assert.equal(problem.style, 'times', `${id}: this set keeps the × sign (style "times")`);
     const which = problem.which;
-    const listed = ['distribution', 'geometry', 'recurrence', 'inequality', 'induction', 'inference', 'region', 'graph', 'number', 'stat', 'function'].includes(kind);
-    const s = stats(kind === 'area' ? question.replace(';', '+') : sequence ? splitTop(question, ',').join(' + ') : listed ? splitTop(question, ';').slice(0, kind === 'region' || (kind === 'graph' && which === 'region') ? 2 : undefined).flatMap(part => splitTop(part, ',')).join(' + ') : question);
+    const listed = ['distribution', 'geometry', 'recurrence', 'inequality', 'induction', 'inference', 'region', 'graph', 'number', 'stat', 'function', 'quadratic', 'triangle'].includes(kind);
+    const s = stats(kind === 'area' ? question.replace(';', '+') : sequence ? splitTop(question, ',').join(' + ') : listed ? splitTop(question, ';').slice(0, kind === 'region' || (kind === 'graph' && which === 'region') || (kind === 'inequality' && which === 'solve') ? 2 : undefined).flatMap(part => splitTop(part, ',')).join(' + ') : question);
     const expectedEquations = kind === 'solve' ? s.equations >= 1 : kind === 'identity' || kind === 'rearrange' || (kind === 'function' && problem.which === 'rewrite') ? s.equations === 1 : s.equations === 0;
     assert.ok(expectedEquations, `${id}: equations`);
     assert.ok(fits(s, problem), `${id}: "${question}" does not fit set ${setId}`);

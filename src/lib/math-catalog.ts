@@ -177,10 +177,10 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'rate-of-change', sets: [{ id: '1', rule: 'rate-a' }] },
     { id: 'intersection', sets: [{ id: '1', rule: 'parabola-line-a' }] },
   ] },
-  { id: 'inequality', domain: 'algebra', stage: 'high', status: 'comingSoon', items: [
-    { id: 'linear', sets: [{ id: '1' }] },
-    { id: 'quadratic', sets: [{ id: '1' }] },
-    { id: 'absolute', sets: [{ id: '1' }] },
+  { id: 'inequality', domain: 'algebra', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'linear', sets: [{ id: '1', rule: 'ineq-linear-a' }] },
+    { id: 'quadratic', sets: [{ id: '1', rule: 'ineq-quadratic-a' }] },
+    { id: 'absolute', sets: [{ id: '1', rule: 'ineq-absolute-a' }] },
   ] },
   { id: 'expansion', domain: 'algebra', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'formulas', sets: [{ id: '1', rule: 'expansion-formulas-a' }] },
@@ -211,11 +211,11 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'prime', domain: 'number', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'prime', sets: [{ id: '1', rule: 'prime-factor-a' }] },
   ] },
-  { id: 'integers', domain: 'number', stage: 'high', status: 'comingSoon', items: [
-    { id: 'euclid', sets: [{ id: '1' }] },
-    { id: 'diophantine', sets: [{ id: '1' }] },
-    { id: 'base-n', sets: [{ id: '1' }] },
-    { id: 'congruence', sets: [{ id: '1' }] },
+  { id: 'integers', domain: 'number', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'euclid', sets: [{ id: '1', rule: 'euclid-a' }] },
+    { id: 'diophantine', sets: [{ id: '1', rule: 'diophantine-a' }] },
+    { id: 'base-n', sets: [{ id: '1', rule: 'base-n-a' }] },
+    { id: 'congruence', sets: [{ id: '1', rule: 'congruence-a' }] },
   ] },
   { id: 'pythagoras', domain: 'geometry', stage: 'middle', status: 'published', kind: 'pythagoras', items: [
     { id: 'sides', sets: [{ id: '1', rule: 'sides-a' }] },
@@ -228,7 +228,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'quadratic', domain: 'algebra', stage: 'middle', status: 'comingSoon', kind: 'formula', items: [
     { id: 'factoring', sets: [{ id: '1', rule: 'quadratic-factoring-a' }] },
     { id: 'formula', sets: [{ id: '1', rule: 'quadratic-formula-a' }] },
-    { id: 'discriminant', sets: [{ id: '1' }] },
+    { id: 'discriminant', sets: [{ id: '1', rule: 'discriminant-a' }] },
   ] },
   { id: 'identities', domain: 'algebra', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'binomial', sets: [{ id: '1', rule: 'binomial-a' }] },
@@ -242,7 +242,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
   { id: 'quadratic-function', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'vertex', sets: [{ id: '1', rule: 'graph-vertex-a' }] },
     { id: 'graph', sets: [{ id: '1', rule: 'graph-parabola-a' }] },
-    { id: 'max-min', sets: [{ id: '1' }] },
+    { id: 'max-min', sets: [{ id: '1', rule: 'quad-max-min-a' }] },
   ] },
   { id: 'sequence', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'arithmetic', sets: [{ id: '1', rule: 'arithmetic-a' }] },
@@ -269,13 +269,13 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'ellipse-hyperbola', sets: [{ id: '1' }] },
     { id: 'polar', sets: [{ id: '1' }] },
   ] },
-  { id: 'combinatorics', domain: 'data', stage: 'high', status: 'comingSoon', items: [
-    { id: 'permutations', sets: [{ id: '1' }] },
-    { id: 'combinations', sets: [{ id: '1' }] },
+  { id: 'combinatorics', domain: 'data', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'permutations', sets: [{ id: '1', rule: 'permutation-a' }] },
+    { id: 'combinations', sets: [{ id: '1', rule: 'combination-a' }] },
     { id: 'probability', sets: [{ id: '1' }] },
     { id: 'independent', sets: [{ id: '1' }] },
     { id: 'conditional', sets: [{ id: '1' }] },
-    { id: 'expectation', sets: [{ id: '1' }] },
+    { id: 'expectation', sets: [{ id: '1', rule: 'expectation-a' }] },
   ] },
   { id: 'distributions', domain: 'data', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'random-variables', sets: [{ id: '1', rule: 'random-variables-a' }] },
@@ -387,11 +387,11 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'similarity-proof', sets: [{ id: '1' }] },
     { id: 'circle-proof', sets: [{ id: '1' }] },
   ] },
-  { id: 'triangle-trig', domain: 'geometry', stage: 'high', status: 'comingSoon', items: [
-    { id: 'ratios', sets: [{ id: '1' }] },
-    { id: 'sine-law', sets: [{ id: '1' }] },
-    { id: 'cosine-law', sets: [{ id: '1' }] },
-    { id: 'area', sets: [{ id: '1' }] },
+  { id: 'triangle-trig', domain: 'geometry', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'ratios', sets: [{ id: '1', rule: 'triangle-ratio-a' }] },
+    { id: 'sine-law', sets: [{ id: '1', rule: 'sine-law-a' }] },
+    { id: 'cosine-law', sets: [{ id: '1', rule: 'cosine-law-a' }] },
+    { id: 'area', sets: [{ id: '1', rule: 'triangle-area-a' }] },
   ] },
   { id: 'triangle-properties', domain: 'geometry', stage: 'high', status: 'comingSoon', items: [
     { id: 'centers', sets: [{ id: '1' }] },
@@ -411,9 +411,9 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'population-sample', sets: [{ id: '1' }] },
     { id: 'estimate', sets: [{ id: '1' }] },
   ] },
-  { id: 'statistics', domain: 'data', stage: 'high', status: 'comingSoon', items: [
-    { id: 'variance', sets: [{ id: '1' }] },
-    { id: 'correlation', sets: [{ id: '1' }] },
+  { id: 'statistics', domain: 'data', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'variance', sets: [{ id: '1', rule: 'variance-a' }] },
+    { id: 'correlation', sets: [{ id: '1', rule: 'correlation-a' }] },
     { id: 'hypothesis', sets: [{ id: '1' }] },
   ] },
   { id: 'inference', domain: 'data', stage: 'university', status: 'comingSoon', kind: 'formula', items: [

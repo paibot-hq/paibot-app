@@ -1,0 +1,405 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "integers-001",
+      "item": "euclid",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "585, 247",
+      "given": null,
+      "which": "euclid",
+      "steps": [
+        "585 = 247*2 + 91",
+        "247 = 91*2 + 65",
+        "91 = 65*1 + 26",
+        "65 = 26*2 + 13",
+        "26 = 13*2"
+      ],
+      "choices": ["13", "26", "65", "91"],
+      "answerIndex": 0
+    },
+    {
+      "id": "integers-002",
+      "item": "euclid",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "663, 238",
+      "given": null,
+      "which": "euclid",
+      "steps": [
+        "663 = 238*2 + 187",
+        "238 = 187*1 + 51",
+        "187 = 51*3 + 34",
+        "51 = 34*1 + 17",
+        "34 = 17*2"
+      ],
+      "choices": ["51", "17", "34", "187"],
+      "answerIndex": 1
+    },
+    {
+      "id": "integers-003",
+      "item": "euclid",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "725, 319",
+      "given": null,
+      "which": "euclid",
+      "steps": [
+        "725 = 319*2 + 87",
+        "319 = 87*3 + 58",
+        "87 = 58*1 + 29",
+        "58 = 29*2"
+      ],
+      "choices": ["58", "87", "29", "116"],
+      "answerIndex": 2
+    },
+    {
+      "id": "integers-004",
+      "item": "euclid",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "713, 299",
+      "given": null,
+      "which": "euclid",
+      "steps": [
+        "713 = 299*2 + 115",
+        "299 = 115*2 + 69",
+        "115 = 69*1 + 46",
+        "69 = 46*1 + 23",
+        "46 = 23*2"
+      ],
+      "choices": ["46", "69", "115", "23"],
+      "answerIndex": 3
+    },
+    {
+      "id": "integers-005",
+      "item": "euclid",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "837, 496",
+      "given": null,
+      "which": "euclid",
+      "steps": [
+        "837 = 496*1 + 341",
+        "496 = 341*1 + 155",
+        "341 = 155*2 + 31",
+        "155 = 31*5"
+      ],
+      "choices": ["155", "31", "62", "341"],
+      "answerIndex": 1
+    },
+    {
+      "id": "integers-006",
+      "item": "diophantine",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "24, 19, 1",
+      "given": null,
+      "which": "diophantine",
+      "steps": [
+        "24*4 + 19*(-5) = 96 - 95 = 1"
+      ],
+      "choices": ["4,    -5", "-4,    5", "5,    -6", "-5,    6"],
+      "answerIndex": 0
+    },
+    {
+      "id": "integers-007",
+      "item": "diophantine",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "31, 22, 1",
+      "given": null,
+      "which": "diophantine",
+      "steps": [
+        "31*5 + 22*(-7) = 155 - 154 = 1"
+      ],
+      "choices": ["-5,    7", "5,    -7", "7,    -10", "-7,    10"],
+      "answerIndex": 1
+    },
+    {
+      "id": "integers-008",
+      "item": "diophantine",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "37, 16, 1",
+      "given": null,
+      "which": "diophantine",
+      "steps": [
+        "37*(-3) + 16*7 = -111 + 112 = 1"
+      ],
+      "choices": ["3,    -7", "-4,    9", "-3,    7", "4,    -9"],
+      "answerIndex": 2
+    },
+    {
+      "id": "integers-009",
+      "item": "diophantine",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "43, 18, 1",
+      "given": null,
+      "which": "diophantine",
+      "steps": [
+        "43*(-5) + 18*12 = -215 + 216 = 1"
+      ],
+      "choices": ["5,    -12", "-7,    17", "7,    -17", "-5,    12"],
+      "answerIndex": 3
+    },
+    {
+      "id": "integers-010",
+      "item": "diophantine",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "29, 13, 2",
+      "given": null,
+      "which": "diophantine",
+      "steps": [
+        "29*5 + 13*(-11) = 145 - 143 = 2"
+      ],
+      "choices": ["-4,    9", "5,    -11", "-5,    11", "4,    -9"],
+      "answerIndex": 1
+    },
+    {
+      "id": "integers-011",
+      "item": "base-n",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "45, 2",
+      "given": null,
+      "which": "to-base",
+      "steps": [
+        "45 = 22*2 + 1",
+        "22 = 11*2 + 0",
+        "11 = 5*2 + 1",
+        "5 = 2*2 + 1",
+        "2 = 1*2 + 0",
+        "1 = 0*2 + 1"
+      ],
+      "choices": ["101101", "110101", "101011", "11101"],
+      "answerIndex": 0
+    },
+    {
+      "id": "integers-012",
+      "item": "base-n",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "100, 3",
+      "given": null,
+      "which": "to-base",
+      "steps": [
+        "100 = 33*3 + 1",
+        "33 = 11*3 + 0",
+        "11 = 3*3 + 2",
+        "3 = 1*3 + 0",
+        "1 = 0*3 + 1"
+      ],
+      "choices": ["12001", "10101", "10201", "1021"],
+      "answerIndex": 2
+    },
+    {
+      "id": "integers-013",
+      "item": "base-n",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "29, 5",
+      "given": null,
+      "which": "to-base",
+      "steps": [
+        "29 = 5*5 + 4",
+        "5 = 1*5 + 0",
+        "1 = 0*5 + 1"
+      ],
+      "choices": ["401", "104", "140", "14"],
+      "answerIndex": 1
+    },
+    {
+      "id": "integers-014",
+      "item": "base-n",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "1011, 2",
+      "given": null,
+      "which": "from-base",
+      "steps": [
+        "1*2^3 + 0*2^2 + 1*2^1 + 1*2^0 = 8 + 0 + 2 + 1 = 11"
+      ],
+      "choices": ["13", "9", "7", "11"],
+      "answerIndex": 3
+    },
+    {
+      "id": "integers-015",
+      "item": "base-n",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "2103, 4",
+      "given": null,
+      "which": "from-base",
+      "steps": [
+        "2*4^3 + 1*4^2 + 0*4^1 + 3*4^0 = 128 + 16 + 0 + 3 = 147"
+      ],
+      "choices": ["147", "198", "139", "151"],
+      "answerIndex": 0
+    },
+    {
+      "id": "integers-016",
+      "item": "congruence",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "358, 6",
+      "given": null,
+      "which": "remainder",
+      "steps": [
+        "358 = 6*50 + 58",
+        "58 = 6*9 + 4",
+        "358 = 6*59 + 4"
+      ],
+      "choices": ["2", "3", "4", "5"],
+      "answerIndex": 2
+    },
+    {
+      "id": "integers-017",
+      "item": "congruence",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "500, 17",
+      "given": null,
+      "which": "remainder",
+      "steps": [
+        "500 = 17*20 + 160",
+        "160 = 17*9 + 7",
+        "500 = 17*29 + 7"
+      ],
+      "choices": ["6", "7", "8", "9"],
+      "answerIndex": 1
+    },
+    {
+      "id": "integers-018",
+      "item": "congruence",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "7, 100, 5",
+      "given": null,
+      "which": "power-mod",
+      "steps": [
+        "7 = 5*1 + 2",
+        "2^4 = 16 = 5*3 + 1",
+        "100 = 4*25",
+        "1^25 = 1"
+      ],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 0
+    },
+    {
+      "id": "integers-019",
+      "item": "congruence",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "3, 50, 7",
+      "given": null,
+      "which": "power-mod",
+      "steps": [
+        "3^6 = 729 = 7*104 + 1",
+        "50 = 6*8 + 2",
+        "3^2 = 9 = 7*1 + 2"
+      ],
+      "choices": ["1", "4", "3", "2"],
+      "answerIndex": 3
+    },
+    {
+      "id": "integers-020",
+      "item": "congruence",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "number",
+      "question": "2, 2023, 5",
+      "given": null,
+      "which": "power-mod",
+      "steps": [
+        "2^4 = 16 = 5*3 + 1",
+        "2023 = 4*505 + 3",
+        "2^3 = 8 = 5*1 + 3"
+      ],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 2
+    }
+  ]
+}

@@ -1,0 +1,1 @@
+三角形の面積（kind "triangle"、which は triangle-area）。question は "a, b, C" で2辺とはさむ角（"4, 6, 30"、"5, 8, 60"、"6, 7, 45"、"3, 8, 120"）。面積 = 1/2 ab sin C。答えは根号をふくむ正確な値。steps には sin(30) のような関数を書かず、値を直接書く（sin 30° = 1/2、sin 45° = sqrt(2)/2、sin 60° = sqrt(3)/2）。誤答は 1/2 の忘れ、sin と cos の取り違えから作る。

@@ -81,7 +81,7 @@ and display it uses (`components/math-questions.tsx`):
   `derivative`, `tangent`, `extremum`, `integral`, `area`, `term`, `series`,
   `radian`, `degree`, `recurrence`, `distribution`, `geometry`, `identity`,
   `inequality`, `induction`, `inference`, `region`, `graph`, `number`, `stat`,
-  `function` or `rearrange` (the
+  `function`, `rearrange`, `quadratic` or `triangle` (the
   grammar comment there lists each kind's extra fields and variants). The page renders the TeX and the
   instruction line from those strings, and `scripts/verify_math.py` parses the
   same grammar to re-derive the answer, so what is shown is what was checked.

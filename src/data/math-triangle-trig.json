@@ -1,0 +1,365 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "triangle-trig-001",
+      "item": "ratios",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "3, 4",
+      "given": null,
+      "which": "sin",
+      "steps": [
+        "3/sqrt(3^2 + 4^2) = 3/sqrt(9 + 16) = 3/sqrt(25) = 3/5"
+      ],
+      "choices": ["4/5", "3/4", "3/5", "5/3"],
+      "answerIndex": 2
+    },
+    {
+      "id": "triangle-trig-002",
+      "item": "ratios",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "5, 12",
+      "given": null,
+      "which": "sin",
+      "steps": [
+        "5/sqrt(5^2 + 12^2) = 5/sqrt(25 + 144) = 5/sqrt(169) = 5/13"
+      ],
+      "choices": ["5/13", "12/13", "5/12", "13/5"],
+      "answerIndex": 0
+    },
+    {
+      "id": "triangle-trig-003",
+      "item": "ratios",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "8, 15",
+      "given": null,
+      "which": "cos",
+      "steps": [
+        "15/sqrt(8^2 + 15^2) = 15/sqrt(64 + 225) = 15/sqrt(289) = 15/17"
+      ],
+      "choices": ["8/17", "15/17", "15/8", "17/15"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-trig-004",
+      "item": "ratios",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "7, 24",
+      "given": null,
+      "which": "cos",
+      "steps": [
+        "24/sqrt(7^2 + 24^2) = 24/sqrt(49 + 576) = 24/sqrt(625) = 24/25"
+      ],
+      "choices": ["7/25", "25/24", "24/7", "24/25"],
+      "answerIndex": 3
+    },
+    {
+      "id": "triangle-trig-005",
+      "item": "ratios",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "6, 8",
+      "given": null,
+      "which": "tan",
+      "steps": [
+        "6/8 = 3/4"
+      ],
+      "choices": ["3/4", "3/5", "4/3", "4/5"],
+      "answerIndex": 0
+    },
+    {
+      "id": "triangle-trig-006",
+      "item": "cosine-law",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "5, 8, 60",
+      "given": null,
+      "which": "cosine-side",
+      "steps": [
+        "sqrt(5^2 + 8^2 - 2*5*8*(1/2)) = sqrt(25 + 64 - 40) = sqrt(49) = 7"
+      ],
+      "choices": ["sqrt(129)", "7", "sqrt(69)", "sqrt(109)"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-trig-007",
+      "item": "cosine-law",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "3, 5, 7",
+      "given": null,
+      "which": "cosine-cos",
+      "steps": [
+        "(3^2 + 5^2 - 7^2)/(2*3*5) = (9 + 25 - 49)/30 = -15/30 = -1/2"
+      ],
+      "choices": ["1/2", "-1", "1", "-1/2"],
+      "answerIndex": 3
+    },
+    {
+      "id": "triangle-trig-008",
+      "item": "cosine-law",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "2, 3, 120",
+      "given": null,
+      "which": "cosine-side",
+      "steps": [
+        "sqrt(2^2 + 3^2 - 2*2*3*(-1/2)) = sqrt(4 + 9 + 6) = sqrt(19)"
+      ],
+      "choices": ["sqrt(7)", "4", "sqrt(19)", "sqrt(10)"],
+      "answerIndex": 2
+    },
+    {
+      "id": "triangle-trig-009",
+      "item": "cosine-law",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "5, 6, 4",
+      "given": null,
+      "which": "cosine-cos",
+      "steps": [
+        "(5^2 + 6^2 - 4^2)/(2*5*6) = (25 + 36 - 16)/60 = 45/60 = 3/4"
+      ],
+      "choices": ["-3/4", "3/4", "3/2", "-3/2"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-trig-010",
+      "item": "cosine-law",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "4, 5, 120",
+      "given": null,
+      "which": "cosine-side",
+      "steps": [
+        "sqrt(4^2 + 5^2 - 2*4*5*(-1/2)) = sqrt(16 + 25 + 20) = sqrt(61)"
+      ],
+      "choices": ["sqrt(61)", "sqrt(21)", "sqrt(51)", "sqrt(31)"],
+      "answerIndex": 0
+    },
+    {
+      "id": "triangle-trig-011",
+      "item": "area",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "4, 7, 30",
+      "given": null,
+      "which": "triangle-area",
+      "steps": [
+        "1/2 * 4 * 7 * 1/2 = 14 * 1/2 = 7"
+      ],
+      "choices": ["7", "14", "7*sqrt(3)", "14*sqrt(3)"],
+      "answerIndex": 0
+    },
+    {
+      "id": "triangle-trig-012",
+      "item": "area",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "3, 8, 60",
+      "given": null,
+      "which": "triangle-area",
+      "steps": [
+        "1/2 * 3 * 8 * (sqrt(3)/2) = 12 * (sqrt(3)/2) = 6*sqrt(3)"
+      ],
+      "choices": ["12*sqrt(3)", "6", "6*sqrt(3)", "12"],
+      "answerIndex": 2
+    },
+    {
+      "id": "triangle-trig-013",
+      "item": "area",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "6, 7, 120",
+      "given": null,
+      "which": "triangle-area",
+      "steps": [
+        "1/2 * 6 * 7 * (sqrt(3)/2) = 21 * (sqrt(3)/2) = 21*sqrt(3)/2"
+      ],
+      "choices": ["21*sqrt(3)", "21*sqrt(3)/2", "21", "21/2"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-trig-014",
+      "item": "area",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "4, 9, 150",
+      "given": null,
+      "which": "triangle-area",
+      "steps": [
+        "1/2 * 4 * 9 * 1/2 = 18 * 1/2 = 9"
+      ],
+      "choices": ["18", "9*sqrt(3)", "18*sqrt(3)", "9"],
+      "answerIndex": 3
+    },
+    {
+      "id": "triangle-trig-015",
+      "item": "area",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "2, 9, 60",
+      "given": null,
+      "which": "triangle-area",
+      "steps": [
+        "1/2 * 2 * 9 * (sqrt(3)/2) = 9 * (sqrt(3)/2) = 9*sqrt(3)/2"
+      ],
+      "choices": ["9*sqrt(3)/2", "9*sqrt(3)", "9/2", "9"],
+      "answerIndex": 0
+    },
+    {
+      "id": "triangle-trig-016",
+      "item": "sine-law",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "4, 30, 45",
+      "given": null,
+      "which": "sine-law",
+      "steps": [
+        "4 * (sqrt(2)/2) / (1/2) = 4*sqrt(2)"
+      ],
+      "choices": ["2*sqrt(2)", "sqrt(2)", "4*sqrt(3)", "4*sqrt(2)"],
+      "answerIndex": 3
+    },
+    {
+      "id": "triangle-trig-017",
+      "item": "sine-law",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "6, 60, 45",
+      "given": null,
+      "which": "sine-law",
+      "steps": [
+        "6 * (sqrt(2)/2) / (sqrt(3)/2) = 6*sqrt(2)/sqrt(3) = 2*sqrt(6)"
+      ],
+      "choices": ["3*sqrt(6)", "2*sqrt(6)", "3*sqrt(2)", "2*sqrt(3)"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-trig-018",
+      "item": "sine-law",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "3, 30, 120",
+      "given": null,
+      "which": "sine-law",
+      "steps": [
+        "3 * (sqrt(3)/2) / (1/2) = 3*sqrt(3)"
+      ],
+      "choices": ["3*sqrt(3)", "sqrt(3)", "3", "6*sqrt(3)"],
+      "answerIndex": 0
+    },
+    {
+      "id": "triangle-trig-019",
+      "item": "sine-law",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "3, 120, 45",
+      "given": null,
+      "which": "sine-law",
+      "steps": [
+        "3 * (sqrt(2)/2) / (sqrt(3)/2) = 3*sqrt(2)/sqrt(3) = sqrt(6)"
+      ],
+      "choices": ["3*sqrt(6)/2", "3*sqrt(2)", "sqrt(6)", "3*sqrt(3)/2"],
+      "answerIndex": 2
+    },
+    {
+      "id": "triangle-trig-020",
+      "item": "sine-law",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "triangle",
+      "question": "6, 45, 30",
+      "given": null,
+      "which": "sine-law",
+      "steps": [
+        "6 * (1/2) / (sqrt(2)/2) = 6/sqrt(2) = 3*sqrt(2)"
+      ],
+      "choices": ["3*sqrt(2)", "6*sqrt(2)", "3", "3*sqrt(6)"],
+      "answerIndex": 0
+    }
+  ]
+}
