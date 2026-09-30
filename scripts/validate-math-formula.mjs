@@ -10,7 +10,7 @@ import { unitSets, unitsOfKind } from '../src/lib/math-catalog.ts';
 
 // What a question is made of, collected from its parse trees.
 export function stats(question) {
-  const s = { ops: new Set(), letters: new Set(), numbers: [], decimals: 0, places: 0, groups: 0, sqrts: 0, powers: [], fractions: [], equations: 0, calls: new Set(), consts: new Set(), fractionalPowers: 0 };
+  const s = { ops: new Set(), letters: new Set(), numbers: [], decimals: 0, places: 0, groups: 0, sqrts: 0, powers: [], fractions: [], equations: 0, calls: new Set(), consts: new Set(), fractionalPowers: 0, lists: 0 };
   const walk = node => {
     switch (node.type) {
       case 'num': s.numbers.push(Number(node.value)); if (node.value.includes('.')) { s.decimals++; s.places = Math.max(s.places, node.value.split('.')[1].length); } break;
@@ -18,6 +18,7 @@ export function stats(question) {
       case 'neg': walk(node.arg); break;
       case 'group': s.groups++; walk(node.arg); break;
       case 'const': s.consts.add(node.name); break;
+      case 'list': s.lists++; node.items.forEach(walk); break;
       case 'call': s.calls.add(node.name); if (node.name === 'sqrt') s.sqrts++; node.args.forEach(walk); break;
       case 'pow': {
         s.ops.add('^');
@@ -164,6 +165,49 @@ const RULES = {
   'permutation-a': ['calc', s => s.calls.has('P') && !s.letters.size],
   'combination-a': ['calc', s => s.calls.has('C') && !s.letters.size],
   'expectation-a': ['distribution', (s, p) => ['mean', 'variance'].includes(p.which)],
+  // Matrices, vectors, complex numbers, limits and calculus beyond the school functions (grammar: lists, det, inv, ...).
+  'complex-plane-a': ['calc', s => ['arg', 'abs', 'conj'].some(name => s.calls.has(name)) || (s.consts.has('i') && s.ops.has('^'))],
+  'matrix-ops-a': ['calc', s => s.lists >= 2 && !s.calls.size],
+  'det2-a': ['calc', (s, p) => s.calls.has('det') && /^det\(\[\[[^\[\]]*\],\s*\[[^\[\]]*\]\]\)$/.test(p.question)],
+  'det3-a': ['calc', (s, p) => s.calls.has('det') && [3, 4].includes((p.question.match(/\]\s*,\s*\[/g) ?? []).length + 1)],
+  'inverse-a': ['calc', s => s.calls.has('inv')],
+  'rref-a': ['calc', s => s.calls.has('rref')],
+  'nullity-a': ['calc', s => s.calls.has('nullity')],
+  'independence-a': ['calc', s => s.calls.has('rank')],
+  'basis-a': ['calc', s => s.calls.has('rank')],
+  'rank-a': ['calc', s => s.calls.has('rank') || s.calls.has('nullity')],
+  'eigvals-a': ['calc', s => s.calls.has('eigvals')],
+  'eigenvector-a': ['eigenvector', s => s.lists >= 1],
+  'diagonalize-a': ['calc', s => s.lists >= 2 && s.calls.has('inv')],
+  'matrix-rep-a': ['calc', s => s.calls.has('jac')],
+  'kernel-image-a': ['calc', s => s.calls.has('nullity') || s.calls.has('rank')],
+  'orthogonal-a': ['calc', s => s.calls.has('dot') || s.calls.has('norm')],
+  'gram-schmidt-a': ['calc', s => s.calls.has('orth')],
+  'vec-components-a': ['calc', s => s.lists >= 1 && !s.calls.has('dot') && !s.calls.has('cross')],
+  'vec-dot-a': ['calc', s => s.calls.has('dot') && !s.calls.has('norm')],
+  'vec-angle-a': ['calc', s => s.calls.has('dot') && s.calls.has('norm')],
+  'vec-space-a': ['calc', (s, p) => s.lists >= 1 && /\[[^\[\]]*,[^\[\]]*,[^\[\]]*\]/.test(p.question)],
+  'lim-seq-a': ['calc', (s, p) => s.calls.has('lim') && /,\s*n\s*,\s*oo\)$/.test(p.question)],
+  'lim-fn-a': ['calc', (s, p) => s.calls.has('lim') && !/,\s*n\s*,\s*oo\)$/.test(p.question)],
+  'transcendental-a': ['derivative', s => ['exp', 'ln', 'sin', 'cos', 'tan'].some(name => s.calls.has(name)) && s.letters.size === 1],
+  'chain-rule-a': ['derivative', s => s.letters.size === 1 && (s.groups >= 1 || s.calls.size >= 1)],
+  'parametric-a': ['calc', s => s.calls.has('d') && s.ops.has('/')],
+  'motion-a': ['calc', (s, p) => s.calls.has('d') && typeof p.given === 'string'],
+  'substitution-int-a': ['integral', s => s.letters.size === 1],
+  'parts-a': ['integral', s => s.letters.size === 1],
+  'improper-a': ['integral', (s, p) => typeof p.bounds === 'string' && /oo/.test(p.bounds)],
+  'volume-a': ['calc', s => s.calls.has('vol') || s.calls.has('arc')],
+  'series-sum-a': ['calc', (s, p) => s.calls.has('sum') && s.consts.has('oo')],
+  'taylor-a': ['calc', s => s.calls.has('taylor')],
+  'partial-a': ['calc', (s, p) => s.calls.has('d') && s.letters.size >= 2 && typeof p.given === 'string'],
+  'double-a': ['calc', s => s.calls.has('int2')],
+  'polar-double-a': ['calc', s => s.calls.has('int2') && s.letters.has('r')],
+  'ode-separable-a': ['ode', (s, p) => p.which === 'separable'],
+  'ode-linear-a': ['ode', (s, p) => p.which === 'linear'],
+  'ode-second-a': ['ode', (s, p) => p.which === 'second'],
+  'conic-parabola-a': ['conic', (s, p) => p.which.startsWith('parabola')],
+  'conic-ellipse-a': ['conic', (s, p) => /^(ellipse|hyperbola)/.test(p.which)],
+  'conic-polar-a': ['conic', (s, p) => /-to-/.test(p.which)],
   'geometric-a': [['term', 'series'], (s, p) => p.progression === 'geometric' && !s.letters.size && !s.calls.size],
 };
 
@@ -177,6 +221,10 @@ function checkChoice(kind, choice, id, which) {
   if (kind === 'number' && which === 'to-base') { assert.match(choice.trim(), /^\d+$/, `${id}: a numeral in the new base`); return; }
   if (kind === 'function' && ['proportion', 'inverse', 'rewrite'].includes(which)) { assert.match(choice, /^\s*y\s*=/, `${id}: function choices are "y = ..."`); parseExpression(choice.split('=')[1]); return; }
   if (kind === 'function' && ['intersect-lines', 'intersect-parabola'].includes(which)) { const parts = splitTop(choice, ','); assert.ok(parts.length === 2, `${id}: choices are two numbers "a, b"`); parts.forEach(part => parseExpression(part)); return; }
+  if (kind === 'conic') {
+    if (['parabola-focus', 'polar-to-xy', 'xy-to-polar'].includes(which)) { const parts = splitTop(choice, ','); assert.equal(parts.length, 2, `${id}: choices are points "a, b"`); parts.forEach(part => parseExpression(part)); return; }
+    if (['parabola-directrix', 'parabola-equation'].includes(which)) { const sides = choice.split('='); assert.equal(sides.length, 2, `${id}: choices are equations`); sides.forEach(side => parseExpression(side)); return; }
+  }
   if (kind === 'graph') {
     if (which === 'vertex') { const parts = splitTop(choice, ','); assert.equal(parts.length, 2, `${id}: vertex choices are points "h, k"`); parts.forEach(part => parseExpression(part)); return; }
     if (which === 'circle') { const sides = choice.split('='); assert.equal(sides.length, 2, `${id}: circle choices are equations`); sides.forEach(side => parseExpression(side)); return; }
@@ -229,7 +277,7 @@ export function validateBank(bank, catalog) {
     assert.ok(problem.bounds === undefined || ['integral', 'area'].includes(kind), `${id}: bounds are for integral and area`);
     if (kind === 'area') assert.ok(problem.bounds, `${id}: area needs bounds`);
     if (problem.bounds !== undefined) { const parts = splitTop(problem.bounds, ','); assert.equal(parts.length, 2, `${id}: bounds "a, b"`); parts.forEach(part => parseExpression(part)); }
-    const variants = { extremum: ['max', 'min'], distribution: ['mean', 'variance', 'binomialMean', 'binomialVariance', 'binomialProb', 'zscore'], geometry: ['line-two-points', 'line-slope', 'line-parallel', 'line-perpendicular', 'circle-center', 'circle-diameter', 'distance', 'locus-equidistant', 'locus-ratio'], inequality: ['amgm-min', 'amgm-equal', 'product-sum', 'solve'], induction: ['base', 'add', 'target', 'combine'], inference: ['mean-interval', 'ratio-interval', 'test-z'], region: ['in', 'out'], graph: ['line', 'parabola', 'vertex', 'circle', 'region', 'trig'],
+    const variants = { extremum: ['max', 'min'], distribution: ['mean', 'variance', 'binomialMean', 'binomialVariance', 'binomialProb', 'zscore'], geometry: ['line-two-points', 'line-slope', 'line-parallel', 'line-perpendicular', 'circle-center', 'circle-diameter', 'distance', 'locus-equidistant', 'locus-ratio'], inequality: ['amgm-min', 'amgm-equal', 'product-sum', 'solve'], induction: ['base', 'add', 'target', 'combine'], inference: ['mean-interval', 'ratio-interval', 'test-z'], region: ['in', 'out'], ode: ['separable', 'linear', 'second'], conic: ['parabola-focus', 'parabola-directrix', 'parabola-equation', 'ellipse-c', 'ellipse-major', 'hyperbola-c', 'hyperbola-asymptote', 'polar-to-xy', 'xy-to-polar'], graph: ['line', 'parabola', 'vertex', 'circle', 'region', 'trig'],
       number: ['gcd', 'lcm', 'euclid', 'diophantine', 'to-base', 'from-base', 'remainder', 'power-mod', 'divisor-count', 'nth-multiple', 'prime-factorization', 'round-ones', 'round-ten', 'round-hundred', 'round-thousand', 'round-tenth', 'round-hundredth', 'estimate', 'scientific', 'to-improper', 'to-mixed'],
       stat: ['median', 'range', 'mode', 'variance', 'std', 'correlation'],
       function: ['proportion', 'inverse', 'slope', 'intercept', 'xintercept', 'rate', 'intersect-lines', 'intersect-parabola', 'rewrite'],
@@ -249,15 +297,15 @@ export function validateBank(bank, catalog) {
     assert.ok(problem.style === undefined || ['times', 'box', 'ratio', 'mixed'].includes(problem.style), `${id}: style`);
     if (set.rule === 'letters-value-a') assert.equal(problem.style, 'times', `${id}: this set keeps the × sign (style "times")`);
     const which = problem.which;
-    const listed = ['distribution', 'geometry', 'recurrence', 'inequality', 'induction', 'inference', 'region', 'graph', 'number', 'stat', 'function', 'quadratic', 'triangle'].includes(kind);
+    const listed = ['distribution', 'geometry', 'recurrence', 'inequality', 'induction', 'inference', 'region', 'graph', 'number', 'stat', 'function', 'quadratic', 'triangle', 'eigenvector', 'ode', 'conic'].includes(kind);
     const s = stats(kind === 'area' ? question.replace(';', '+') : sequence ? splitTop(question, ',').join(' + ') : listed ? splitTop(question, ';').slice(0, kind === 'region' || (kind === 'graph' && which === 'region') || (kind === 'inequality' && which === 'solve') ? 2 : undefined).flatMap(part => splitTop(part, ',')).join(' + ') : question);
-    const expectedEquations = kind === 'solve' ? s.equations >= 1 : kind === 'identity' || kind === 'rearrange' || (kind === 'function' && problem.which === 'rewrite') ? s.equations === 1 : s.equations === 0;
+    const expectedEquations = kind === 'solve' ? s.equations >= 1 : kind === 'identity' || kind === 'rearrange' || (kind === 'function' && problem.which === 'rewrite') ? s.equations === 1 : kind === 'conic' && ['parabola-focus', 'parabola-directrix', 'ellipse-c', 'ellipse-major', 'hyperbola-c', 'hyperbola-asymptote'].includes(problem.which) ? s.equations === 1 : s.equations === 0;
     assert.ok(expectedEquations, `${id}: equations`);
     assert.ok(fits(s, problem), `${id}: "${question}" does not fit set ${setId}`);
     assert.ok(Array.isArray(choices) && choices.length === 4, `${id}: four choices`);
     // The worked solution, required (SymPy checks its mathematics, verify_math.py).
     {
-      assert.ok(Array.isArray(problem.steps) && problem.steps.length >= 1 && problem.steps.length <= 6, `${id}: 1 to 6 steps`);
+      assert.ok(Array.isArray(problem.steps) && problem.steps.length >= (kind === 'ode' ? 0 : 1) && problem.steps.length <= 6, `${id}: 1 to 6 steps`);
       for (const line of problem.steps) { assert.equal(typeof line, 'string', `${id}: step`); for (const item of splitTop(line, ',')) item.split('=').forEach(side => parseExpression(side)); }
     }
     for (const choice of choices) checkChoice(kind, choice, id, problem.which);

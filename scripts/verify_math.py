@@ -18,9 +18,12 @@ import re
 import sys
 from pathlib import Path
 
-from sympy import (Abs, And, Eq, FiniteSet, Function, Ge, Gt, I, Integer, Interval, Le, Lt, Or, Poly, Rational, S, Sum, Symbol, Tuple,
+from sympy import (Abs, And, Eq, FiniteSet, Function, Ge, Gt, I, Integer, Interval, Le, Lt, Matrix, Or, Poly, Rational, S, Sum, Symbol, Tuple,
                    binomial, cos, diff, divisor_count, expand, ff, gcd, integrate, isprime, lcm, log, oo, pi, rem, rsolve, simplify, sin,
                    solve, sqrt, tan)
+from sympy import atan2
+from sympy import arg as sympy_arg, conjugate, dsolve, exp, im as sympy_im, limit, re as sympy_re, series
+from sympy.matrices.matrices import MatrixBase
 from sympy.calculus.util import maximum, minimum
 from sympy.solvers.inequalities import solve_univariate_inequality
 
@@ -62,14 +65,108 @@ def arith(problem):
 # fraction bar binds before × and ÷, so 3/5 : 2/7 is (3/5) / (2/7)). Decimals
 # are exact fractions; '^' takes a small integer or fraction exponent; letters
 # other than i are variables, i is the imaginary unit and pi is π; functions are
-# sqrt, sin, cos, tan, abs, log(x, base), C(n, k), P(n, k) and sum(term, k, from, to).
+# sqrt, sin, cos, tan, abs, log(x, base), C(n, k), P(n, k) and sum(term, k, from, to), and the
+# ones listed in FUNCTIONS (exp, ln, matrices, limits, ...). [1, 2] is a vector (a column) and
+# [[1, 2], [3, 4]] a matrix; oo is infinity.
 LETTERS = {letter: Symbol(letter) for letter in 'abcdefghjklmnopqrstuvwxyz'}
-FUNCTIONS = {'sqrt': 1, 'sin': 1, 'cos': 1, 'tan': 1, 'abs': 1, 'log': 2, 'C': 2, 'P': 2, 'sum': 4}
-FORMULA_TOKEN = re.compile(r'\s*(\d+(?:\.\d+)?|sqrt|sin|cos|tan|abs|log|sum|pi|[CP](?=\s*\()|[a-z]|[-+*/:^(),])')
+FUNCTIONS = {
+    'sqrt': (1, 1), 'sin': (1, 1), 'cos': (1, 1), 'tan': (1, 1), 'abs': (1, 1), 'log': (2, 2), 'C': (2, 2), 'P': (2, 2), 'sum': (4, 4),
+    'exp': (1, 1), 'ln': (1, 1), 'det': (1, 1), 'inv': (1, 1), 'tr': (1, 1), 'rank': (1, 1), 'nullity': (1, 1), 'rref': (1, 1),
+    'T': (1, 1), 'dot': (2, 2), 'cross': (2, 2), 'norm': (1, 1), 'orth': (2, 2), 'jac': (1, 1), 'eigvals': (1, 1),
+    'arg': (1, 1), 'conj': (1, 1), 're': (1, 1), 'im': (1, 1), 'lim': (3, 3), 'd': (2, 3), 'taylor': (3, 3), 'vol': (3, 3),
+    'arc': (3, 3), 'int2': (7, 7),
+}
+FORMULA_TOKEN = re.compile(r'\s*(\d+(?:\.\d+)?|sqrt|sin|cos|tan|abs|log|sum|exp|ln|det|inv|tr|rank|nullity|rref|dot|cross|norm|orth|jac|eigvals|arg|conj|re|im|lim|taylor|vol|arc|int2|oo|pi|[CPTd](?=\s*\()|[a-z]|[-+*/:^(),\[\]])')
 
 
 def small(value, limit):
     return value.is_Integer and abs(value) <= limit
+
+
+MATRIX_FUNCTIONS = {'det', 'inv', 'tr', 'rank', 'nullity', 'rref', 'T', 'dot', 'cross', 'norm', 'orth', 'jac', 'eigvals'}
+CALCULUS_FUNCTIONS = {'lim', 'd', 'taylor', 'vol', 'arc', 'int2'}
+
+
+def matrix_call(name, args, text):
+    if name == 'jac':
+        f = args[0]
+        if not isinstance(f, MatrixBase) or f.cols != 1:
+            raise ValueError(f'jac needs a list of expressions in {text!r}')
+        letters = sorted(f.free_symbols, key=lambda symbol: symbol.name)
+        return f.jacobian(letters)
+    if not all(isinstance(arg, MatrixBase) for arg in args):
+        raise ValueError(f'{name} needs a vector or matrix in {text!r}')
+    a = args[0]
+    if name in ('det', 'inv', 'tr', 'eigvals') and a.rows != a.cols:
+        raise ValueError(f'{name} needs a square matrix in {text!r}')
+    if name == 'det':
+        return simplify(a.det())
+    if name == 'inv':
+        if a.det() == 0:
+            raise ValueError(f'the matrix in {text!r} has no inverse')
+        return a.inv()
+    if name == 'T':
+        return a.T
+    if name == 'tr':
+        return a.trace()
+    if name == 'rank':
+        return Integer(a.rank())
+    if name == 'nullity':
+        return Integer(a.cols - a.rank())
+    if name == 'rref':
+        return a.rref()[0]
+    if name == 'norm':
+        return simplify(sqrt(sum(component ** 2 for component in a)))
+    if name == 'eigvals':
+        values = []
+        for value, multiplicity in a.eigenvals().items():
+            if not value.is_real:
+                raise ValueError(f'eigenvalues must be real in {text!r}')
+            values += [value] * multiplicity
+        return Matrix(sorted(values, key=lambda value: float(value)))
+    b = args[1]
+    if a.shape != b.shape or a.cols != 1:
+        raise ValueError(f'{name} needs two vectors of the same size in {text!r}')
+    if name == 'dot':
+        return a.dot(b)
+    if name == 'cross':
+        if a.rows != 3:
+            raise ValueError(f'cross needs 3-component vectors in {text!r}')
+        return a.cross(b)
+    if b.dot(b) == 0:
+        raise ValueError(f'orth needs a nonzero second vector in {text!r}')
+    return a - (a.dot(b) / b.dot(b)) * b    # orth(v, u): the part of v perpendicular to u
+
+
+def calculus_call(name, args, text):
+    x = LETTERS['x']
+    if name == 'lim':
+        f, variable, target = args
+        if not variable.is_Symbol:
+            raise ValueError(f'lim needs a letter in {text!r}')
+        return limit(f, variable, target)
+    if name == 'd':
+        f, variable = args[0], args[1]
+        order = args[2] if len(args) == 3 else Integer(1)
+        if not (variable.is_Symbol and order.is_Integer and 1 <= order <= 4):
+            raise ValueError(f'd(f, x, n) needs a letter and an order from 1 to 4 in {text!r}')
+        return diff(f, variable, int(order))
+    if name == 'taylor':
+        f, variable, degree = args
+        if not (variable.is_Symbol and degree.is_Integer and 0 <= degree <= 8):
+            raise ValueError(f'taylor needs a letter and a degree from 0 to 8 in {text!r}')
+        return series(f, variable, 0, int(degree) + 1).removeO()
+    if name in ('vol', 'arc'):
+        f, low, high = args
+        if not (low.is_real and high.is_real and low < high):
+            raise ValueError(f'the interval in {text!r} must be increasing')
+        if name == 'vol':
+            return simplify(pi * integrate(f ** 2, (x, low, high)))
+        return simplify(integrate(sqrt(1 + diff(f, x) ** 2), (x, low, high)))
+    f, inner, c, d, outer, a, b = args
+    if not (inner.is_Symbol and outer.is_Symbol):
+        raise ValueError(f'int2 needs two letters in {text!r}')
+    return simplify(integrate(integrate(f, (inner, c, d)), (outer, a, b)))
 
 
 def call(name, args, text):
@@ -79,6 +176,12 @@ def call(name, args, text):
         return {'sin': sin, 'cos': cos, 'tan': tan}[name](args[0])
     if name == 'abs':
         return Abs(args[0])
+    if name == 'exp':
+        return exp(args[0])
+    if name == 'ln':
+        return log(args[0])
+    if name in ('arg', 'conj', 're', 'im'):
+        return {'arg': sympy_arg, 'conj': conjugate, 're': sympy_re, 'im': sympy_im}[name](args[0])
     if name == 'log':
         return log(args[0], args[1])
     if name in ('C', 'P'):
@@ -86,7 +189,13 @@ def call(name, args, text):
         if not (small(n, 60) and small(k, 60) and 0 <= k <= n):
             raise ValueError(f'{name}(n, k) needs 0 <= k <= n <= 60 in {text!r}')
         return binomial(n, k) if name == 'C' else ff(n, k)
+    if name in MATRIX_FUNCTIONS:
+        return matrix_call(name, args, text)
+    if name in CALCULUS_FUNCTIONS:
+        return calculus_call(name, args, text)
     term, index, low, high = args
+    if index.is_Symbol and small(low, 1000) and high == oo:
+        return Sum(term, (index, low, oo)).doit()
     if not (index.is_Symbol and small(low, 1000) and small(high, 1000) and high - low <= 1000):
         raise ValueError(f'sum needs a letter and integer bounds at most 1000 apart in {text!r}')
     return Sum(term, (index, low, high)).doit()
@@ -160,6 +269,22 @@ def parse_formula(text):
             return pi
         if token == 'i':
             return I
+        if token == 'oo':
+            return oo
+        if token == '[':
+            items = [expr()]
+            while peek() == ',':
+                take()
+                items.append(expr())
+            take(']')
+            if all(isinstance(item, MatrixBase) for item in items):
+                # a list of columns written as rows: [[1, 2], [3, 4]]
+                if len({item.rows for item in items}) != 1 or any(item.cols != 1 for item in items):
+                    raise ValueError(f'the rows of a matrix must have the same length in {text!r}')
+                return Matrix([list(item) for item in items])
+            if any(isinstance(item, MatrixBase) for item in items):
+                raise ValueError(f'a list holds numbers or lists, not both in {text!r}')
+            return Matrix(items)
         if token in FUNCTIONS:
             take('(')
             args = [expr()]
@@ -167,8 +292,9 @@ def parse_formula(text):
                 take()
                 args.append(expr())
             take(')')
-            if len(args) != FUNCTIONS[token]:
-                raise ValueError(f'{token} takes {FUNCTIONS[token]} argument(s) in {text!r}')
+            fewest, most = FUNCTIONS[token]
+            if not fewest <= len(args) <= most:
+                raise ValueError(f'{token} takes {fewest if fewest == most else f"{fewest} or {most}"} argument(s) in {text!r}')
             return call(token, args, text)
         if token in LETTERS:
             return LETTERS[token]
@@ -188,7 +314,7 @@ def split_top(text, separator):
     """Splits at separator outside parentheses (like splitTop in math-formula.ts)."""
     parts, depth, start = [], 0, 0
     for index, char in enumerate(text):
-        depth += (char == '(') - (char == ')')
+        depth += (char in '([') - (char in ')]')
         if char == separator and depth == 0:
             parts.append(text[start:index])
             start = index + 1
@@ -249,7 +375,7 @@ def point(problem):
 
 def bounds(problem):
     low, high = (parse_formula(part) for part in split_top(problem['bounds'], ','))
-    if not (low.is_real and high.is_real and low < high):
+    if not (low.is_extended_real and high.is_extended_real and low < high):
         raise ValueError(f'bounds must be increasing real numbers: {problem["bounds"]!r}')
     return low, high
 
@@ -876,6 +1002,105 @@ def rearrange(problem):
     return found[0], [parse_formula(c) for c in problem['choices']]
 
 
+def eigenvector(problem):
+    """The one choice that is an eigenvector of the matrix for the eigenvalue (v != 0, Av = lambda v)."""
+    matrix_text, lambda_text = problem['question'].split(';')
+    matrix, eigenvalue = parse_formula(matrix_text), parse_formula(lambda_text)
+    if not (isinstance(matrix, MatrixBase) and matrix.rows == matrix.cols):
+        raise ValueError('the question needs a square matrix')
+    vectors = [parse_formula(choice) for choice in problem['choices']]
+    if any(not isinstance(v, MatrixBase) or v.shape != (matrix.rows, 1) for v in vectors):
+        raise ValueError('every choice must be a vector of the matrix size')
+    good = [v for v in vectors if any(entry != 0 for entry in v) and same(matrix * v, eigenvalue * v)]
+    if len(good) != 1:
+        raise ValueError(f'exactly one choice must be an eigenvector, found {len(good)}')
+    return good[0], vectors
+
+
+def ode(problem):
+    """The solution y(x) of the initial value problem, as an expression in x."""
+    which, parts = problem['which'], problem['question'].split(';')
+    x, y = LETTERS['x'], Function('y')
+    if which in ('separable', 'linear'):
+        right = parse_formula(parts[0])
+        x0, y0 = pair(parts[1])
+        solution = dsolve(Eq(y(x).diff(x), right.subs(LETTERS['y'], y(x))), y(x), ics={y(x0): y0})
+    elif which == 'second':
+        (a, b, c), (y0, v0) = pair(parts[0]), pair(parts[1])
+        if a == 0:
+            raise ValueError('a second-order equation needs a nonzero leading coefficient')
+        solution = dsolve(Eq(a * y(x).diff(x, 2) + b * y(x).diff(x) + c * y(x), 0), y(x), ics={y(0): y0, y(x).diff(x).subs(x, 0): v0})
+    else:
+        raise ValueError(f'unknown ode variant {which!r}')
+    if isinstance(solution, list):
+        raise ValueError('the initial value problem must have one solution')
+    return simplify(solution.rhs), [parse_formula(choice) for choice in problem['choices']]
+
+
+def conic(problem):
+    which, question = problem['which'], problem['question']
+    x, y = LETTERS['x'], LETTERS['y']
+    choices = problem['choices']
+
+    def equation(text):
+        sides = text.split('=')
+        if len(sides) != 2:
+            raise ValueError(f'expected an equation in {text!r}')
+        return expand(parse_formula(sides[0]) - parse_formula(sides[1]))
+
+    if which in ('parabola-focus', 'parabola-directrix'):
+        # y^2 = 4px (focus (p, 0), directrix x = -p) or x^2 = 4py (focus (0, p), directrix y = -p)
+        poly = Poly(equation(question), x, y)
+        terms = dict(poly.terms())
+        if set(terms) == {(0, 2), (1, 0)} and terms[(0, 2)] == 1:
+            p, axis = -terms[(1, 0)] / 4, 'x'
+        elif set(terms) == {(2, 0), (0, 1)} and terms[(2, 0)] == 1:
+            p, axis = -terms[(0, 1)] / 4, 'y'
+        else:
+            raise ValueError('a parabola is y^2 = 4*p*x or x^2 = 4*p*y')
+        if p == 0:
+            raise ValueError('p must not be 0')
+        if which == 'parabola-focus':
+            return (Tuple(p, 0) if axis == 'x' else Tuple(0, p)), [Tuple(*pair(choice)) for choice in choices]
+        return circle_form((x if axis == 'x' else y) + p), [circle_form(choice) for choice in choices]
+    if which == 'parabola-equation':
+        p = parse_formula(question)
+        if p == 0:
+            raise ValueError('p must not be 0')
+        return circle_form(y ** 2 - 4 * p * x), [circle_form(choice) for choice in choices]
+    if which in ('ellipse-c', 'ellipse-major', 'hyperbola-c', 'hyperbola-asymptote'):
+        poly = Poly(equation(question), x, y)
+        terms = dict(poly.terms())
+        cx, cy, constant = terms.get((2, 0), 0), terms.get((0, 2), 0), terms.get((0, 0), 0)
+        if set(terms) - {(2, 0), (0, 2), (0, 0)} or cx == 0 or cy == 0 or constant >= 0:
+            raise ValueError('expected x^2/A + y^2/B = 1 or x^2/A - y^2/B = 1')
+        A, B = -constant / cx, -constant / cy    # cx x^2 + cy y^2 = -constant
+        if which.startswith('ellipse'):
+            if not (A > 0 and B > 0 and A != B):
+                raise ValueError('an ellipse needs A, B > 0 and A != B')
+            answer = sqrt(abs(A - B)) if which == 'ellipse-c' else 2 * sqrt(max(A, B))
+        else:
+            if not (A > 0 and B < 0):
+                raise ValueError('a hyperbola is x^2/A - y^2/B = 1 with A, B > 0')
+            answer = sqrt(A - B) if which == 'hyperbola-c' else sqrt(-B / A)
+        return simplify(answer), [parse_formula(choice) for choice in choices]
+    if which == 'polar-to-xy':
+        r, theta = pair(question)
+        if not r > 0:
+            raise ValueError('r must be positive')
+        return Tuple(simplify(r * cos(theta)), simplify(r * sin(theta))), [Tuple(*pair(choice)) for choice in choices]
+    if which == 'xy-to-polar':
+        px, py = pair(question)
+        r = simplify(sqrt(px ** 2 + py ** 2))
+        if r == 0:
+            raise ValueError('the origin has no polar angle')
+        theta = simplify(atan2(py, px))
+        if theta < 0:
+            theta += 2 * pi
+        return Tuple(r, simplify(theta)), [Tuple(*pair(choice)) for choice in choices]
+    raise ValueError(f'unknown conic variant {which!r}')
+
+
 def _formula(problem):
     kind, question, choices = problem['kind'], problem['question'], problem['choices']
     if kind == 'inequality' and problem['which'] == 'solve':
@@ -898,6 +1123,12 @@ def _formula(problem):
         return graph(problem)
     if kind == 'region':
         return region(problem)
+    if kind == 'eigenvector':
+        return eigenvector(problem)
+    if kind == 'ode':
+        return ode(problem)
+    if kind == 'conic':
+        return conic(problem)
     if kind == 'inference':
         answer = inference(problem)
         return answer, [Tuple(*pair(choice)) if isinstance(answer, Tuple) else parse_formula(choice) for choice in choices]
@@ -1018,6 +1249,8 @@ def check_steps(problem, answer):
     every solution ("x = 2, x = -2" for each root in turn); tangent, every line
     holds on the tangent line; extremum, every line holds at some critical point."""
     kind, steps = problem['kind'], problem['steps']
+    if kind == 'ode' and steps == []:
+        return    # an initial value problem's working is not a chain of equal expressions
     if not (isinstance(steps, list) and 1 <= len(steps) <= 6 and all(isinstance(line, str) and line.strip() for line in steps)):
         raise ValueError('steps must be 1 to 6 non-empty lines')
     if kind == 'recurrence':
@@ -1025,6 +1258,12 @@ def check_steps(problem, answer):
     for line in steps:
         if (kind == 'inequality' and problem['which'] == 'solve') or (kind == 'quadratic' and problem['which'] == 'krange'):
             check_boundary_line(problem, line)
+            continue
+        if kind == 'conic' and problem['which'] in ('parabola-directrix', 'parabola-equation'):
+            check_equation_line(problem, answer, line)    # lines hold on the curve (y = -3 for the directrix y + 3 = 0)
+            continue
+        if kind in ('eigenvector', 'ode', 'conic'):
+            check_consistent_chain(line)
             continue
         if kind in ('region', 'inference', 'number', 'stat', 'triangle', 'quadratic') or (kind == 'graph' and problem['which'] in ('vertex', 'region')) or (kind == 'function' and problem['which'] in ('slope', 'intercept', 'xintercept', 'rate')):
             check_numeric_chain(line)
@@ -1043,6 +1282,14 @@ def check_steps(problem, answer):
                 ok = same(value, answer)
             if not ok:
                 raise ValueError(f'step {line!r}: {part.strip()!r} is not equal to the answer {answer}')
+
+
+def check_consistent_chain(line):
+    """A line a = b = c whose parts are all equal to each other (numbers, vectors, matrices or expressions)."""
+    for item in split_top(line, ','):
+        values = [parse_formula(part) for part in item.split('=')]
+        if any(not same(values[0], value) for value in values[1:]):
+            raise ValueError(f'step {line!r} is not a true chain of equal values')
 
 
 def check_numeric_chain(line):
@@ -1102,7 +1349,7 @@ def on_circle(sides, circle):
 
 def check_equation_line(problem, answer, line):
     kind = problem['kind']
-    if (kind == 'geometry' and problem['which'].startswith(('circle-', 'locus-'))) or (kind == 'graph' and problem['which'] == 'circle'):
+    if (kind == 'geometry' and problem['which'].startswith(('circle-', 'locus-'))) or (kind == 'graph' and problem['which'] == 'circle') or kind == 'conic':
         items = split_top(line, ',')
         if not all(on_circle(item.split('='), answer) for item in items):
             raise ValueError(f'step {line!r} does not hold for the circle')
@@ -1213,12 +1460,28 @@ UNITS = {
     'linear-function': ('math-linear-function.json', formula),
     'square-function': ('math-square-function.json', formula),
     'quadratic-function': ('math-quadratic-function.json', formula),
+    'conic': ('math-conic.json', formula),
+    'vector': ('math-vector.json', formula),
+    'matrix': ('math-matrix.json', formula),
+    'linear-system': ('math-linear-system.json', formula),
+    'vector-space': ('math-vector-space.json', formula),
+    'eigen': ('math-eigen.json', formula),
+    'series': ('math-series.json', formula),
+    'improper-integral': ('math-improper-integral.json', formula),
+    'multivariable': ('math-multivariable.json', formula),
+    'limit': ('math-limit.json', formula),
+    'linear-map': ('math-linear-map.json', formula),
+    'inner-product': ('math-inner-product.json', formula),
+    'ode': ('math-ode.json', formula),
     'factorization': ('math-factorization.json', factorization),
     'pythagoras': ('math-pythagoras.json', pythagoras),
 }
 
 
 def same(a, b):
+    # Vectors and matrices compare entry by entry.
+    if isinstance(a, MatrixBase) or isinstance(b, MatrixBase):
+        return isinstance(a, MatrixBase) and isinstance(b, MatrixBase) and a.shape == b.shape and all(same(p, q) for p, q in zip(a, b))
     # Solution sets and tuples (formula units) compare element by element.
     if isinstance(a, (FiniteSet, Tuple)) or isinstance(b, (FiniteSet, Tuple)):
         if type(a) is not type(b) or len(a) != len(b):

@@ -317,28 +317,28 @@
 
 | 領域 | 学習項目 | 状態 | キー |
 | --- | --- | --- | --- |
-| 微分積分 | 極限 / 数列の極限 | B | `limit/sequence` |
-| 微分積分 | 極限 / 関数の極限 | B | `limit/function` |
-| 微分積分 | 微分 / 三角・指数・対数関数の微分 | B | `derivative/transcendental` |
-| 微分積分 | 微分 / 合成関数・積・商の微分 | B | `derivative/chain-rule` |
-| 微分積分 | 微分 / 媒介変数表示の関数の微分 | B | `derivative/parametric` |
-| 微分積分 | 微分 / 速度と加速度 | B | `derivative/motion` |
-| 微分積分 | 積分 / 置換積分 | B | `integral/substitution` |
-| 微分積分 | 積分 / 部分積分 | B | `integral/by-parts` |
-| 微分積分 | 積分 / 体積と曲線の長さ | B | `integral/volume` |
+| 微分積分 | 極限 / 数列の極限 | ✅ | `limit/sequence` |
+| 微分積分 | 極限 / 関数の極限 | ✅ | `limit/function` |
+| 微分積分 | 微分 / 三角・指数・対数関数の微分 | ✅ | `derivative/transcendental` |
+| 微分積分 | 微分 / 合成関数・積・商の微分 | ✅ | `derivative/chain-rule` |
+| 微分積分 | 微分 / 媒介変数表示の関数の微分 | ✅ | `derivative/parametric` |
+| 微分積分 | 微分 / 速度と加速度 | ✅ | `derivative/motion` |
+| 微分積分 | 積分 / 置換積分 | ✅ | `integral/substitution` |
+| 微分積分 | 積分 / 部分積分 | ✅ | `integral/by-parts` |
+| 微分積分 | 積分 / 体積と曲線の長さ | ✅ | `integral/volume` |
 
 ## 数学C（`h-c`）
 
 | 領域 | 学習項目 | 状態 | キー |
 | --- | --- | --- | --- |
-| 数と計算 | 複素数 / 複素数平面 | B | `complex/plane` |
-| 関数・変化と関係 | 二次曲線 / 放物線 | B | `conic/parabola` |
-| 関数・変化と関係 | 二次曲線 / 楕円と双曲線 | B | `conic/ellipse-hyperbola` |
-| 関数・変化と関係 | 二次曲線 / 媒介変数と極座標 | B | `conic/polar` |
-| 線形代数 | ベクトル / 成分と大きさ | B | `vector/components` |
-| 線形代数 | ベクトル / 内積 | B | `vector/dot-product` |
-| 線形代数 | ベクトル / なす角 | B | `vector/angle` |
-| 線形代数 | ベクトル / 空間ベクトル | B | `vector/space` |
+| 数と計算 | 複素数 / 複素数平面 | ✅ | `complex/plane` |
+| 関数・変化と関係 | 二次曲線 / 放物線 | ✅ | `conic/parabola` |
+| 関数・変化と関係 | 二次曲線 / 楕円と双曲線 | ✅ | `conic/ellipse-hyperbola` |
+| 関数・変化と関係 | 二次曲線 / 媒介変数と極座標 | ✅ | `conic/polar` |
+| 線形代数 | ベクトル / 成分と大きさ | ✅ | `vector/components` |
+| 線形代数 | ベクトル / 内積 | ✅ | `vector/dot-product` |
+| 線形代数 | ベクトル / なす角 | ✅ | `vector/angle` |
+| 線形代数 | ベクトル / 空間ベクトル | ✅ | `vector/space` |
 
 ## 大学1年（`u1`）
 
@@ -348,34 +348,34 @@
 | 集合と論理 | 命題と論理 / 真理値表 | C | `logic/truth-table` |
 | 集合と論理 | 写像と関係 / 単射・全射 | C | `mapping/injective` |
 | 集合と論理 | 写像と関係 / 同値関係 | C | `mapping/equivalence` |
-| 線形代数 | 行列 / 行列の和と積 | B | `matrix/operations` |
-| 線形代数 | 行列 / 2×2 の行列式 | B | `matrix/determinant` |
-| 線形代数 | 行列 / n次の行列式（余因子展開・クラメルの公式） | B | `matrix/general-determinant` |
-| 線形代数 | 行列 / 逆行列 | B | `matrix/inverse` |
-| 線形代数 | 連立一次方程式と行列 / 掃き出し法 | B | `linear-system/elimination` |
-| 線形代数 | 連立一次方程式と行列 / 解の個数 | B | `linear-system/solutions` |
-| 線形代数 | ベクトル空間 / 1次独立 | B | `vector-space/independence` |
-| 線形代数 | ベクトル空間 / 基底と次元 | B | `vector-space/basis` |
-| 線形代数 | ベクトル空間 / 階数 | B | `vector-space/rank` |
-| 線形代数 | 固有値と固有ベクトル / 2×2 の固有値 | B | `eigen/eigenvalues` |
-| 線形代数 | 固有値と固有ベクトル / 固有ベクトル | B | `eigen/eigenvectors` |
-| 線形代数 | 固有値と固有ベクトル / 対角化 | B | `eigen/diagonalize` |
+| 線形代数 | 行列 / 行列の和と積 | ✅ | `matrix/operations` |
+| 線形代数 | 行列 / 2×2 の行列式 | ✅ | `matrix/determinant` |
+| 線形代数 | 行列 / n次の行列式（余因子展開・クラメルの公式） | ✅ | `matrix/general-determinant` |
+| 線形代数 | 行列 / 逆行列 | ✅ | `matrix/inverse` |
+| 線形代数 | 連立一次方程式と行列 / 掃き出し法 | ✅ | `linear-system/elimination` |
+| 線形代数 | 連立一次方程式と行列 / 解の個数 | ✅ | `linear-system/solutions` |
+| 線形代数 | ベクトル空間 / 1次独立 | ✅ | `vector-space/independence` |
+| 線形代数 | ベクトル空間 / 基底と次元 | ✅ | `vector-space/basis` |
+| 線形代数 | ベクトル空間 / 階数 | ✅ | `vector-space/rank` |
+| 線形代数 | 固有値と固有ベクトル / 2×2 の固有値 | ✅ | `eigen/eigenvalues` |
+| 線形代数 | 固有値と固有ベクトル / 固有ベクトル | ✅ | `eigen/eigenvectors` |
+| 線形代数 | 固有値と固有ベクトル / 対角化 | ✅ | `eigen/diagonalize` |
 | 微分積分 | 大学の微分積分 / 平均値の定理・ロピタルの定理 | C | `univ-calculus/mean-value` |
-| 微分積分 | 級数とテイラー展開 / 級数の和と収束 | B | `series/series` |
-| 微分積分 | 級数とテイラー展開 / テイラー展開 | B | `series/taylor` |
-| 微分積分 | 広義積分 / 広義積分 | B | `improper-integral/improper` |
-| 微分積分 | 偏微分と重積分 / 偏微分 | B | `multivariable/partial` |
-| 微分積分 | 偏微分と重積分 / 重積分 | B | `multivariable/double-integral` |
-| 微分積分 | 偏微分と重積分 / 極座標変換 | B | `multivariable/polar` |
+| 微分積分 | 級数とテイラー展開 / 級数の和と収束 | ✅ | `series/series` |
+| 微分積分 | 級数とテイラー展開 / テイラー展開 | ✅ | `series/taylor` |
+| 微分積分 | 広義積分 / 広義積分 | ✅ | `improper-integral/improper` |
+| 微分積分 | 偏微分と重積分 / 偏微分 | ✅ | `multivariable/partial` |
+| 微分積分 | 偏微分と重積分 / 重積分 | ✅ | `multivariable/double-integral` |
+| 微分積分 | 偏微分と重積分 / 極座標変換 | ✅ | `multivariable/polar` |
 
 ## 大学2年（`u2`）
 
 | 領域 | 学習項目 | 状態 | キー |
 | --- | --- | --- | --- |
-| 線形代数 | 線形写像 / 表現行列 | B | `linear-map/matrix-rep` |
-| 線形代数 | 線形写像 / 核と像 | B | `linear-map/kernel-image` |
-| 線形代数 | 内積と直交化 / 直交と正規直交基底 | B | `inner-product/orthogonal` |
-| 線形代数 | 内積と直交化 / グラム・シュミットの直交化 | B | `inner-product/gram-schmidt` |
-| 微分積分 | 微分方程式 / 変数分離形 | B | `ode/separable` |
-| 微分積分 | 微分方程式 / 一階線形 | B | `ode/linear-first` |
-| 微分積分 | 微分方程式 / 定数係数の二階線形 | B | `ode/second-order` |
+| 線形代数 | 線形写像 / 表現行列 | ✅ | `linear-map/matrix-rep` |
+| 線形代数 | 線形写像 / 核と像 | ✅ | `linear-map/kernel-image` |
+| 線形代数 | 内積と直交化 / 直交と正規直交基底 | ✅ | `inner-product/orthogonal` |
+| 線形代数 | 内積と直交化 / グラム・シュミットの直交化 | ✅ | `inner-product/gram-schmidt` |
+| 微分積分 | 微分方程式 / 変数分離形 | ✅ | `ode/separable` |
+| 微分積分 | 微分方程式 / 一階線形 | ✅ | `ode/linear-first` |
+| 微分積分 | 微分方程式 / 定数係数の二階線形 | ✅ | `ode/second-order` |

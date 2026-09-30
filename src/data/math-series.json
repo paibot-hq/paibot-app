@@ -1,0 +1,175 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "series-001",
+      "item": "series",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "sum(1/2^k, k, 1, oo)",
+      "given": null,
+      "steps": [
+        "(1/2)/(1 - 1/2) = (1/2)/(1/2) = 1"
+      ],
+      "choices": ["1", "2", "1/3", "2/3"],
+      "answerIndex": 0
+    },
+    {
+      "id": "series-002",
+      "item": "series",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "sum((-1/2)^k, k, 0, oo)",
+      "given": null,
+      "steps": [
+        "1/(1 - (-1/2)) = 1/(3/2) = 2/3"
+      ],
+      "choices": ["-1/3", "2/3", "2", "-1"],
+      "answerIndex": 1
+    },
+    {
+      "id": "series-003",
+      "item": "series",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "sum(3*(1/3)^k, k, 1, oo)",
+      "given": null,
+      "steps": [
+        "1/(1 - 1/3) = 1/(2/3) = 3/2"
+      ],
+      "choices": ["9/2", "3/4", "3/2", "1/2"],
+      "answerIndex": 2
+    },
+    {
+      "id": "series-004",
+      "item": "series",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "sum(1/(k*(k + 1)), k, 1, oo)",
+      "given": null,
+      "steps": [
+        "1 - 0 = 1"
+      ],
+      "choices": ["1/2", "2", "3/2", "1"],
+      "answerIndex": 3
+    },
+    {
+      "id": "series-005",
+      "item": "series",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "sum(1/(k*(k + 2)), k, 1, oo)",
+      "given": null,
+      "steps": [
+        "(1/2)*(1 + 1/2) = (1/2)*(3/2) = 3/4"
+      ],
+      "choices": ["3/4", "3/2", "1/2", "1"],
+      "answerIndex": 0
+    },
+    {
+      "id": "series-006",
+      "item": "taylor",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "taylor(exp(x), x, 3)",
+      "given": null,
+      "steps": [
+        "taylor(exp(x), x, 3) = 1 + x + x^2/2 + x^3/6"
+      ],
+      "choices": ["1 + x + x^2/2 + x^3/6", "1 + x + x^2/2 + x^3/3", "1 - x + x^2/2 - x^3/6", "1 + x + x^2 + x^3"],
+      "answerIndex": 0
+    },
+    {
+      "id": "series-007",
+      "item": "taylor",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "taylor(sin(x), x, 5)",
+      "given": null,
+      "steps": [
+        "taylor(sin(x), x, 5) = x - x^3/6 + x^5/120"
+      ],
+      "choices": ["x + x^3/6 + x^5/120", "x - x^3/3 + x^5/5", "x - x^3/6 + x^5/120", "x - x^3/6 - x^5/120"],
+      "answerIndex": 2
+    },
+    {
+      "id": "series-008",
+      "item": "taylor",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "taylor(cos(x), x, 4)",
+      "given": null,
+      "steps": [
+        "taylor(cos(x), x, 4) = 1 - x^2/2 + x^4/24"
+      ],
+      "choices": ["1 + x^2/2 + x^4/24", "1 - x^2/2 + x^4/24", "1 - x^2/2 - x^4/24", "1 - x^2/2 + x^4/4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "series-009",
+      "item": "taylor",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "taylor(1/(1 - x), x, 4)",
+      "given": null,
+      "steps": [
+        "taylor(1/(1 - x), x, 4) = 1 + x + x^2 + x^3 + x^4"
+      ],
+      "choices": ["1 - x + x^2 - x^3 + x^4", "1 + x + x^2/2 + x^3/6 + x^4/24", "1 - x - x^2 - x^3 - x^4", "1 + x + x^2 + x^3 + x^4"],
+      "answerIndex": 3
+    },
+    {
+      "id": "series-010",
+      "item": "taylor",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "taylor(ln(1 + x), x, 4)",
+      "given": null,
+      "steps": [
+        "taylor(ln(1 + x), x, 4) = x - x^2/2 + x^3/3 - x^4/4"
+      ],
+      "choices": ["x - x^2/2 + x^3/3 - x^4/4", "x + x^2/2 + x^3/3 + x^4/4", "x - x^2/2 + x^3/6 - x^4/24", "-x + x^2/2 - x^3/3 + x^4/4"],
+      "answerIndex": 0
+    }
+  ]
+}

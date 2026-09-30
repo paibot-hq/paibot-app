@@ -1,0 +1,1 @@
+楕円と双曲線（kind "conic"）。5問を ellipse-c 1問、ellipse-major 1問、hyperbola-c 1問、hyperbola-asymptote 2問 にする。楕円 x^2/A + y^2/B = 1（A, B は平方数でなくてもよいが、c が整数や簡単な根号になるもの。A ≠ B）、双曲線 x^2/A - y^2/B = 1。誤答は a と a^2 の取り違え、c^2 = a^2 + b^2 と c^2 = a^2 - b^2 の取り違えから作る。

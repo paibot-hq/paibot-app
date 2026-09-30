@@ -1,0 +1,175 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "linear-system-001",
+      "item": "elimination",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "rref([[2, 3, 7], [3, -1, 5]])",
+      "given": null,
+      "steps": [
+        "rref([[2, 3, 7], [3, -1, 5]]) = [[1, 0, 2], [0, 1, 1]]"
+      ],
+      "choices": ["[[1,   0,   1],   [0,   1,   2]]", "[[1,   0,   2],   [0,   1,   1]]", "[[1,   0,   2],   [0,   1,   -1]]", "[[1,   0,   -2],   [0,   1,   1]]"],
+      "answerIndex": 1
+    },
+    {
+      "id": "linear-system-002",
+      "item": "elimination",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "rref([[1, -2, -5], [2, 1, 5]])",
+      "given": null,
+      "steps": [
+        "rref([[1, -2, -5], [2, 1, 5]]) = [[1, 0, 1], [0, 1, 3]]"
+      ],
+      "choices": ["[[1,   0,   -1],   [0,   1,   3]]", "[[1,   0,   3],   [0,   1,   1]]", "[[1,   0,   1],   [0,   1,   -3]]", "[[1,   0,   1],   [0,   1,   3]]"],
+      "answerIndex": 3
+    },
+    {
+      "id": "linear-system-003",
+      "item": "elimination",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "rref([[2, -4, 6], [-1, 2, -3]])",
+      "given": null,
+      "steps": [
+        "rref([[2, -4, 6], [-1, 2, -3]]) = [[1, -2, 3], [0, 0, 0]]"
+      ],
+      "choices": ["[[1,   -2,   3],   [0,   0,   0]]", "[[1,   -2,   3],   [0,   1,   0]]", "[[1,   2,   -3],   [0,   0,   0]]", "[[1,   -2,   0],   [0,   0,   1]]"],
+      "answerIndex": 0
+    },
+    {
+      "id": "linear-system-004",
+      "item": "elimination",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "rref([[1, 1, 1, 6], [1, 2, 3, 14], [1, 4, 9, 36]])",
+      "given": null,
+      "steps": [
+        "rref([[1, 1, 1, 6], [1, 2, 3, 14], [1, 4, 9, 36]]) = [[1, 0, 0, 1], [0, 1, 0, 2], [0, 0, 1, 3]]"
+      ],
+      "choices": ["[[1,   0,   0,   1],   [0,   1,   0,   3],   [0,   0,   1,   2]]", "[[1,   0,   0,   3],   [0,   1,   0,   2],   [0,   0,   1,   1]]", "[[1,   0,   0,   1],   [0,   1,   0,   2],   [0,   0,   1,   3]]", "[[1,   0,   0,   2],   [0,   1,   0,   1],   [0,   0,   1,   3]]"],
+      "answerIndex": 2
+    },
+    {
+      "id": "linear-system-005",
+      "item": "elimination",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "rref([[1, 2, -1, 2], [2, 5, 1, 9], [-1, -1, 3, 1]])",
+      "given": null,
+      "steps": [
+        "rref([[1, 2, -1, 2], [2, 5, 1, 9], [-1, -1, 3, 1]]) = [[1, 0, 0, 6], [0, 1, 0, -1], [0, 0, 1, 2]]"
+      ],
+      "choices": ["[[1,   0,   0,   6],   [0,   1,   0,   1],   [0,   0,   1,   2]]", "[[1,   0,   0,   6],   [0,   1,   0,   -1],   [0,   0,   1,   2]]", "[[1,   0,   0,   2],   [0,   1,   0,   -1],   [0,   0,   1,   6]]", "[[1,   0,   0,   4],   [0,   1,   0,   -1],   [0,   0,   1,   2]]"],
+      "answerIndex": 1
+    },
+    {
+      "id": "linear-system-006",
+      "item": "solutions",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "nullity([[1, 1, 2], [2, 3, 5]])",
+      "given": null,
+      "steps": [
+        "3 - 2 = 1"
+      ],
+      "choices": ["1", "2", "3", "0"],
+      "answerIndex": 0
+    },
+    {
+      "id": "linear-system-007",
+      "item": "solutions",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "nullity([[1, -1, 2], [-2, 2, -4]])",
+      "given": null,
+      "steps": [
+        "3 - 1 = 2"
+      ],
+      "choices": ["1", "2", "3", "0"],
+      "answerIndex": 1
+    },
+    {
+      "id": "linear-system-008",
+      "item": "solutions",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "nullity([[1, 0, 1], [0, 1, 1], [1, 1, 0]])",
+      "given": null,
+      "steps": [
+        "3 - 3 = 0"
+      ],
+      "choices": ["1", "3", "2", "0"],
+      "answerIndex": 3
+    },
+    {
+      "id": "linear-system-009",
+      "item": "solutions",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "nullity([[1, 2, 0, 1], [0, 1, 1, 2], [1, 3, 1, 3]])",
+      "given": null,
+      "steps": [
+        "4 - 2 = 2"
+      ],
+      "choices": ["4", "1", "2", "3"],
+      "answerIndex": 2
+    },
+    {
+      "id": "linear-system-010",
+      "item": "solutions",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "nullity([[1, -1, 2, 0], [2, -2, 4, 0], [-1, 1, -2, 0]])",
+      "given": null,
+      "steps": [
+        "4 - 1 = 3"
+      ],
+      "choices": ["3", "1", "4", "2"],
+      "answerIndex": 0
+    }
+  ]
+}

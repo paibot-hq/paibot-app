@@ -11,10 +11,11 @@
 //                                                    first: 3/5 : 2/7 is (3/5) ÷ (2/7)
 //   unary     = '-' unary | power
 //   power     = atom ('^' unary)?                    exponents may be fractions: 8^(2/3)
-//   atom      = number | letter | constant | call | '(' expr ')'
+//   atom      = number | letter | constant | call | '(' expr ')' | list
+//   list      = '[' expr (',' expr)* ']'                a vector; a list of lists is a matrix
 //   number    = digits with an optional decimal part (0.25)
 //   letter    = one of a-z except i, a variable
-//   constant  = pi | i (the imaginary unit)
+//   constant  = pi | i (the imaginary unit) | oo (infinity, in limits, bounds and sums)
 //   call      = sqrt(x) | sin(x) | cos(x) | tan(x) | abs(x) | log(x, base)
 //             | C(n, k) | P(n, k) | sum(term, letter, from, to)
 //
@@ -87,9 +88,15 @@
 //   number also has euclid (as gcd), diophantine ("a, b, c": the choice "x, y" with ax + by = c),
 //              to-base ("45, 2": choices digit strings), from-base ("1011, 2"), remainder ("17, 5"),
 //              power-mod ("7, 100, 5": the remainder of 7^100 divided by 5)
+//   eigenvector "matrix; lambda": the eigenvector of the matrix for that eigenvalue (the choices are vectors)
+//   ode        solve the initial value problem, by `which`: separable and linear ("f(x, y); x0, y0": y' = f with
+//              y(x0) = y0), second ("a, b, c; y0, v0": ay'' + by' + cy = 0, y(0) = y0, y'(0) = v0); answer y in x
+//   conic      by `which`: parabola-focus, parabola-directrix (question "y^2 = 8*x"), parabola-equation (question "p":
+//              the focus (p, 0), answer the equation), ellipse-c, ellipse-major, hyperbola-c, hyperbola-asymptote
+//              (question "x^2/25 + y^2/9 = 1"), polar-to-xy ("r, theta"), xy-to-polar ("x, y")
 //   identity   an equation in x with unknown constants; choices "a = 1, b = 2" make it an identity in x
 export type FormulaStyle = 'times' | 'box' | 'ratio' | 'mixed';
-export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity' | 'inequality' | 'induction' | 'inference' | 'region' | 'graph' | 'number' | 'stat' | 'function' | 'rearrange' | 'quadratic' | 'triangle';
+export type FormulaKind = 'calc' | 'expand' | 'transform' | 'factor' | 'solve' | 'remainder' | 'derivative' | 'tangent' | 'extremum' | 'integral' | 'area' | 'term' | 'series' | 'radian' | 'degree' | 'recurrence' | 'distribution' | 'geometry' | 'identity' | 'inequality' | 'induction' | 'inference' | 'region' | 'graph' | 'number' | 'stat' | 'function' | 'rearrange' | 'quadratic' | 'triangle' | 'eigenvector' | 'ode' | 'conic';
 
 export interface FormulaPayload {
   kind: FormulaKind;
@@ -119,7 +126,8 @@ export interface FormulaPayload {
 type Node =
   | { type: 'num'; value: string }
   | { type: 'var'; name: string }
-  | { type: 'const'; name: 'pi' | 'i' }
+  | { type: 'const'; name: 'pi' | 'i' | 'oo' }
+  | { type: 'list'; items: Node[] }
   | { type: 'neg'; arg: Node }
   | { type: 'group'; arg: Node }
   | { type: 'call'; name: string; args: Node[] }
@@ -127,9 +135,16 @@ type Node =
   | { type: 'bin'; op: '+' | '-' | '*' | '/' | ':'; left: Node; right: Node };
 
 // Functions and how many arguments each takes.
-const FUNCTIONS: Record<string, number> = { sqrt: 1, sin: 1, cos: 1, tan: 1, abs: 1, log: 2, C: 2, P: 2, sum: 4 };
+// Beyond the school functions: exp, ln; matrices and vectors (det, inv, tr, rank, nullity, rref, T,
+// dot, cross, norm, orth, jac, eigvals); complex numbers (arg, conj, re, im); calculus (lim, d,
+// taylor, vol, arc, int2). What each computes is in scripts/verify_math.py.
+const FUNCTIONS: Record<string, number | [number, number]> = {
+  sqrt: 1, sin: 1, cos: 1, tan: 1, abs: 1, log: 2, C: 2, P: 2, sum: 4,
+  exp: 1, ln: 1, det: 1, inv: 1, tr: 1, rank: 1, nullity: 1, rref: 1, T: 1, dot: 2, cross: 2, norm: 1, orth: 2, jac: 1, eigvals: 1,
+  arg: 1, conj: 1, re: 1, im: 1, lim: 3, d: [2, 3], taylor: 3, vol: 3, arc: 3, int2: 7,
+};
 
-const TOKEN = /\s*(\d+(?:\.\d+)?|sqrt|sin|cos|tan|abs|log|sum|pi|[CP](?=\s*\()|[a-z]|[-+*/:^()=;,])/y;
+const TOKEN = /\s*(\d+(?:\.\d+)?|sqrt|sin|cos|tan|abs|log|sum|exp|ln|det|inv|tr|rank|nullity|rref|dot|cross|norm|orth|jac|eigvals|arg|conj|re|im|lim|taylor|vol|arc|int2|oo|pi|[CPTd](?=\s*\()|[a-z]|[-+*/:^()=;,\[\]])/y;
 
 function tokenize(text: string): string[] {
   const tokens: string[] = [];
@@ -148,8 +163,8 @@ export function splitTop(text: string, separator: string): string[] {
   const parts: string[] = [];
   let depth = 0, start = 0;
   for (let i = 0; i < text.length; i++) {
-    if (text[i] === '(') depth++;
-    else if (text[i] === ')') depth--;
+    if (text[i] === '(' || text[i] === '[') depth++;
+    else if (text[i] === ')' || text[i] === ']') depth--;
     else if (text[i] === separator && depth === 0) { parts.push(text.slice(start, i)); start = i + 1; }
   }
   parts.push(text.slice(start));
@@ -193,13 +208,20 @@ export function parseExpression(text: string): Node {
   function atom(): Node {
     const token = take();
     if (/^\d/.test(token)) return { type: 'num', value: token };
-    if (token === 'pi' || token === 'i') return { type: 'const', name: token };
+    if (token === 'pi' || token === 'i' || token === 'oo') return { type: 'const', name: token };
+    if (token === '[') {
+      const items = [expr()];
+      while (peek() === ',') { take(); items.push(expr()); }
+      take(']');
+      return { type: 'list', items };
+    }
     if (Object.hasOwn(FUNCTIONS, token)) {
       take('(');
       const args = [expr()];
       while (peek() === ',') { take(); args.push(expr()); }
       take(')');
-      if (args.length !== FUNCTIONS[token]) throw new Error(`${token} takes ${FUNCTIONS[token]} argument(s) in "${text}"`);
+      const arity = FUNCTIONS[token], [fewest, most] = Array.isArray(arity) ? arity : [arity, arity];
+      if (args.length < fewest || args.length > most) throw new Error(`${token} takes ${fewest === most ? fewest : `${fewest} or ${most}`} argument(s) in "${text}"`);
       if (token === 'sum' && args[1].type !== 'var') throw new Error(`sum's second argument must be a letter in "${text}"`);
       return { type: 'call', name: token, args };
     }
@@ -222,7 +244,7 @@ function startsWithNumber(node: Node): boolean {
 }
 
 // A function's argument needs no parentheses when it is a single symbol or a fraction.
-const bare = (node: Node) => ['num', 'var', 'const'].includes(node.type) || (node.type === 'bin' && node.op === '/');
+const bare = (node: Node) => ['num', 'var', 'const', 'list'].includes(node.type) || (node.type === 'bin' && node.op === '/');
 const argTex = (node: Node) => bare(node) ? ` ${toTex(node)}` : `\\left(${toTex(unwrap(node))}\\right)`;
 
 // Set while a payload with a `style` is drawn.
@@ -233,7 +255,8 @@ export function toTex(node: Node): string {
   switch (node.type) {
     case 'num': return node.value;
     case 'var': return drawStyle === 'box' && node.name === 'x' ? '\\square' : node.name;
-    case 'const': return node.name === 'pi' ? '\\pi ' : 'i';
+    case 'const': return node.name === 'pi' ? '\\pi ' : node.name === 'oo' ? '\\infty ' : 'i';
+    case 'list': return listTex(node);
     case 'neg': return `-${toTex(node.arg)}`;
     case 'group': return `\\left(${toTex(node.arg)}\\right)`;
     case 'pow': {
@@ -250,6 +273,34 @@ export function toTex(node: Node): string {
         case 'log': return `\\log_{${toTex(unwrap(b))}}${argTex(a)}`;
         case 'C': case 'P': return `{}_{${toTex(unwrap(a))}}\\mathrm{${node.name}}_{${toTex(unwrap(b))}}`;
         case 'sum': return `\\sum_{${toTex(b)}=${toTex(unwrap(c))}}^{${toTex(unwrap(d))}}${a.type === 'bin' && (a.op === '+' || a.op === '-') ? `\\left(${toTex(a)}\\right)` : ` ${toTex(a)}`}`;
+        case 'exp': return a.type === 'num' && a.value === '1' ? 'e' : `e^{${toTex(unwrap(a))}}`;
+        case 'ln': return `\\ln${argTex(a)}`;
+        case 'det': return a.type === 'list' && a.items.every(item => item.type === 'list') ? listTex(a, 'vmatrix') : `\\det${argTex(a)}`;
+        case 'inv': return `${a.type === 'list' ? toTex(a) : `\\left(${toTex(unwrap(a))}\\right)`}^{-1}`;
+        case 'T': return `${a.type === 'list' ? toTex(a) : `\\left(${toTex(unwrap(a))}\\right)`}^{T}`;
+        case 'tr': return `\\operatorname{tr}${argTex(a)}`;
+        case 'rank': return `\\operatorname{rank}${argTex(a)}`;
+        case 'nullity': return `\\dim\\ker${argTex(a)}`;
+        case 'rref': return `\\operatorname{rref}${argTex(a)}`;
+        case 'dot': return `${toTex(a)} \\cdot ${toTex(b)}`;
+        case 'cross': return `${toTex(a)} \\times ${toTex(b)}`;
+        case 'norm': return `\\left\\|${toTex(unwrap(a))}\\right\\|`;
+        case 'orth': return `\\operatorname{orth}_{${toTex(b)}}\\left(${toTex(a)}\\right)`;
+        case 'jac': return `f\\begin{pmatrix} ${variablesOf(a).join(' \\\\ ')} \\end{pmatrix} = ${toTex(a)}`;
+        case 'eigvals': return toTex(a);
+        case 'arg': return `\\arg${argTex(a)}`;
+        case 'conj': return `\\overline{${toTex(unwrap(a))}}`;
+        case 're': return `\\operatorname{Re}${argTex(a)}`;
+        case 'im': return `\\operatorname{Im}${argTex(a)}`;
+        case 'lim': return `\\lim_{${toTex(b)} \\to ${toTex(unwrap(c))}}${bodyTex(a)}`;
+        case 'd': {
+          const order = node.args[2] ? toTex(unwrap(node.args[2])) : '1', partial = variablesOf(a).length > 1;
+          const up = order === '1' ? '' : `^{${order}}`, letter = toTex(b);
+          return `${partial ? `\\frac{\\partial${up}}{\\partial ${letter}${up}}` : `\\frac{d${up}}{d${letter}${up}}`}${bodyTex(a)}`;
+        }
+        case 'taylor': return `\\operatorname{T}_{${toTex(unwrap(c))}}\\left[${toTex(unwrap(a))}\\right]`;
+        case 'vol': case 'arc': return `y = ${toTex(unwrap(a))},\\ ${toTex(unwrap(b))} \\le x \\le ${toTex(unwrap(c))}`;
+        case 'int2': { const [f, y, y0, y1, xv, x0, x1] = node.args; return `\\int_{${toTex(unwrap(x0))}}^{${toTex(unwrap(x1))}}\\int_{${toTex(unwrap(y0))}}^{${toTex(unwrap(y1))}}${bodyTex(f)}\\,d${toTex(y)}\\,d${toTex(xv)}`; }
         default: return `\\${node.name}${argTex(a)}`;
       }
     }
@@ -257,7 +308,13 @@ export function toTex(node: Node): string {
       const left = node.op === '*' ? coefficientTex(node.left) : toTex(node.left);
       // A negative right operand needs parentheses (2 * -x is 2 \times (-x), not 2-x; x - -y is x - (-y)).
       const right = node.right.type === 'neg' && ['*', '+', '-'].includes(node.op) ? `\\left(${toTex(node.right)}\\right)` : toTex(node.right);
-      if (node.op === '/') return `\\frac{${toTex(unwrap(node.left))}}{${toTex(unwrap(node.right))}}`;
+      if (node.op === '/') {
+        // A negative numerator or denominator puts its sign in front of the fraction bar.
+        const numerator = unwrap(node.left), denominator = unwrap(node.right);
+        if (numerator.type === 'neg') return `-\\frac{${toTex(unwrap(numerator.arg))}}{${toTex(denominator)}}`;
+        if (denominator.type === 'neg') return `-\\frac{${toTex(numerator)}}{${toTex(unwrap(denominator.arg))}}`;
+        return `\\frac{${toTex(numerator)}}{${toTex(denominator)}}`;
+      }
       if (node.op === ':') return `${left} ${drawStyle === 'ratio' ? ':' : '\\div'} ${right}`;
       // A mixed number: 2 + 3/5 is drawn 2\frac{3}{5}.
       if (drawStyle === 'mixed' && node.op === '+' && node.left.type === 'num' && node.right.type === 'bin' && node.right.op === '/' && node.right.left.type === 'num' && node.right.right.type === 'num') return `${left}${right}`;
@@ -266,12 +323,34 @@ export function toTex(node: Node): string {
         return toTex({ type: 'bin', op: '/', left: { type: 'bin', op: '*', left: node.left, right: node.right.left }, right: node.right.right });
       }
       if (node.op === '*' && node.right.type === 'pow' && node.right.base.type === 'num' && node.right.exp.type !== 'num') return `${left} \\cdot ${right}`;
+      if (node.op === '*' && node.left.type === 'num' && node.left.value === '1' && drawStyle !== 'times') return toTex(node.right);
       if (node.op === '*' && (node.right.type === 'neg' || drawStyle === 'times')) return `${left} \\times ${right}`;
       if (node.op === '*') return startsWithNumber(node.right) ? `${left} \\times ${right}` : `${left}${right}`;
       return `${left} ${node.op} ${right}`;
     }
   }
 }
+// A list is a column vector; a list of lists is a matrix (rows), drawn with round brackets or, for a determinant, bars.
+function listTex(node: Extract<Node, { type: 'list' }>, environment: 'pmatrix' | 'vmatrix' = 'pmatrix'): string {
+  const rows = node.items.every(item => item.type === 'list') ? (node.items as Extract<Node, { type: 'list' }>[]).map(row => row.items.map(toTex).join(' & ')) : node.items.map(toTex);
+  return `\\begin{${environment}} ${rows.join(' \\\\ ')} \\end{${environment}}`;
+}
+// The letters a formula is in, in alphabetical order.
+function variablesOf(node: Node): string[] {
+  const names = new Set<string>();
+  const walk = (n: Node): void => {
+    if (n.type === 'var') names.add(n.name);
+    else if (n.type === 'neg' || n.type === 'group') walk(n.arg);
+    else if (n.type === 'list') n.items.forEach(walk);
+    else if (n.type === 'call') n.args.forEach(walk);
+    else if (n.type === 'pow') { walk(n.base); walk(n.exp); }
+    else if (n.type === 'bin') { walk(n.left); walk(n.right); }
+  };
+  walk(node);
+  return [...names].sort();
+}
+// What follows \lim or d/dx: a sum or difference in parentheses, anything else as it is.
+const bodyTex = (node: Node) => node.type === 'bin' && (node.op === '+' || node.op === '-') ? `\\left(${toTex(node)}\\right)` : ` ${toTex(unwrap(node))}`;
 const hasFraction = (node: Node): boolean => node.type === 'bin' ? node.op === '/' || node.op === ':' || hasFraction(node.left) || hasFraction(node.right) : node.type === 'neg' && hasFraction(node.arg);
 // A fraction coefficient needs no parentheses: (1/3)*x^3 is shown as \frac{1}{3}x^{3}.
 function coefficientTex(node: Node): string {
@@ -310,6 +389,7 @@ function renameVar(node: Node, from: string, to: string): Node {
   switch (node.type) {
     case 'var': return node.name === from ? { type: 'var', name: to } : node;
     case 'neg': case 'group': return { ...node, arg: renameVar(node.arg, from, to) };
+    case 'list': return { ...node, items: node.items.map(item => renameVar(item, from, to)) };
     case 'call': return { ...node, args: node.args.map(arg => renameVar(arg, from, to)) };
     case 'pow': return { ...node, base: renameVar(node.base, from, to), exp: renameVar(node.exp, from, to) };
     case 'bin': return { ...node, left: renameVar(node.left, from, to), right: renameVar(node.right, from, to) };
@@ -369,6 +449,21 @@ function questionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & {
         case 'locus-equidistant': return `${point(parts[0], 'A')},\\ ${point(parts[1], 'B')}`;
         case 'locus-ratio': { const [m, n] = list(parts[2]); return `${point(parts[0], 'A')},\\ ${point(parts[1], 'B')},\\ \\mathrm{PA} : \\mathrm{PB} = ${m} : ${n}`; }
         default: { const [a, b, c] = splitTop(parts[0], ',').map(Number); return `\\ell: ${lineTex(a, b, c)} = 0,\\ ${point(parts[1], 'P')}`; }
+      }
+    }
+    case 'eigenvector': { const [matrix, lambda] = splitTop(p.question, ';'); return `A = ${expressionTex(matrix)},\\ \\lambda = ${expressionTex(lambda)}`; }
+    case 'ode': {
+      const parts = splitTop(p.question, ';');
+      if (p.which === 'second') { const [a, b, c] = list(parts[0]), [y0, v0] = list(parts[1]); const coefficient = (n: string, mark: string) => n === '0' ? '' : `${n === '1' ? '' : n === '-1' ? '-' : n}${mark}`; return `${[coefficient(a, "y''"), coefficient(b, "y'"), coefficient(c, 'y')].filter(Boolean).join(' + ').replace(/\+ -/g, '- ')} = 0,\\ y(0) = ${y0},\\ y'(0) = ${v0}`; }
+      const [x0, y0] = list(parts[1]);
+      return `y' = ${toTex(renameVar(parseExpression(parts[0]), 'y', 'y'))},\\ y(${x0}) = ${y0}`;
+    }
+    case 'conic': {
+      switch (p.which) {
+        case 'parabola-equation': return `F\\left(${expressionTex(p.question)}, 0\\right)`;
+        case 'polar-to-xy': { const [r, theta] = list(p.question); return `(r, \\theta) = \\left(${r}, ${theta}\\right)`; }
+        case 'xy-to-polar': return `(x, y) = \\left(${list(p.question).join(', ')}\\right)`;
+        default: return statementTex(p.question);
       }
     }
     case 'identity': return statementTex(p.question);
@@ -442,7 +537,15 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
   if (p.kind === 'solve' && (p.style === 'box' || p.style === 'ratio')) return { key: p.style === 'box' ? 'solveBox' : 'solveRatio', tex: {} };
   const at = { given: p.given ? solutionTex(p.given, 'x') : '' };
   switch (p.kind) {
-    case 'calc': return p.given ? { key: 'given', tex: at } : { key: 'calc', tex: {} };
+    case 'calc': {
+      if (p.given) return { key: 'given', tex: at };
+      // A question that is one function call (det, lim, dot, ...) says what to do with it.
+      const top = parseExpression(p.question);
+      return { key: top.type === 'call' && /^(det|inv|rank|nullity|rref|eigvals|dot|cross|norm|orth|jac|lim|d|taylor|vol|arc|int2|arg|conj|re|im|T)$/.test(top.name) ? `fn${top.name[0].toUpperCase()}${top.name.slice(1)}` : 'calc', tex: {} };
+    }
+    case 'eigenvector': return { key: 'eigenvector', tex: {} };
+    case 'ode': return { key: `ode${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
+    case 'conic': return { key: p.which!.replace(/-(\w)/g, (_, c: string) => c.toUpperCase()).replace(/^/, 'conic').replace(/^conic(.)/, (_, c: string) => `conic${c.toUpperCase()}`), tex: {} };
     case 'derivative': return p.given ? { key: 'derivativeAt', tex: at } : { key: 'derivative', tex: {} };
     case 'tangent': return { key: 'tangent', tex: at };
     case 'remainder': return { key: 'remainder', tex: { divisor: expressionTex(p.divisor ?? '') } };
@@ -498,6 +601,10 @@ function choiceTex(p: Pick<FormulaPayload, 'kind' | 'question'> & { which?: stri
   if (p.kind === 'solve') return solutionTex(choice, unknownOf(p.question));
   if (p.kind === 'tangent') return solutionTex(choice, 'y');
   if (p.kind === 'identity') return solutionTex(choice, 'a');
+  if (p.kind === 'conic') {
+    if (['parabola-focus', 'polar-to-xy', 'xy-to-polar'].includes(p.which ?? '')) return `\\left(${list(choice).join(', ')}\\right)`;
+    if (['parabola-directrix', 'parabola-equation'].includes(p.which ?? '')) return statementTex(choice);
+  }
   if (p.kind === 'degree') return `${expressionTex(choice)}^{\\circ}`;
   if (p.kind === 'geometry') return p.which?.startsWith('line-') ? solutionTex(choice, 'y') : /^(circle|locus)-/.test(p.which ?? '') ? statementTex(choice) : expressionTex(choice);
   if (p.kind === 'region') return `\\left(${list(choice).join(', ')}\\right)`;
@@ -554,6 +661,7 @@ export function evalExpression(text: string, vars: Record<string, number> = {}):
       case 'num': return Number(node.value);
       case 'var': return vars[node.name] ?? NaN;
       case 'const': return node.name === 'pi' ? Math.PI : NaN;
+      case 'list': return NaN;
       case 'neg': return -run(node.arg);
       case 'group': return run(node.arg);
       case 'pow': return Math.pow(run(node.base), run(node.exp));

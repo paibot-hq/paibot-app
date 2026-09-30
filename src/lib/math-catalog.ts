@@ -264,10 +264,10 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'log', sets: [{ id: '1', rule: 'log-a' }] },
     { id: 'common-log', sets: [{ id: '1', rule: 'common-log-a' }] },
   ] },
-  { id: 'conic', domain: 'functions', stage: 'high', status: 'comingSoon', items: [
-    { id: 'parabola', sets: [{ id: '1' }] },
-    { id: 'ellipse-hyperbola', sets: [{ id: '1' }] },
-    { id: 'polar', sets: [{ id: '1' }] },
+  { id: 'conic', domain: 'functions', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'parabola', sets: [{ id: '1', rule: 'conic-parabola-a' }] },
+    { id: 'ellipse-hyperbola', sets: [{ id: '1', rule: 'conic-ellipse-a' }] },
+    { id: 'polar', sets: [{ id: '1', rule: 'conic-polar-a' }] },
   ] },
   { id: 'combinatorics', domain: 'data', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'permutations', sets: [{ id: '1', rule: 'permutation-a' }] },
@@ -282,9 +282,9 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'binomial', sets: [{ id: '1', rule: 'binomial-dist-a' }] },
     { id: 'normal', sets: [{ id: '1', rule: 'normal-a' }] },
   ] },
-  { id: 'limit', domain: 'calculus', stage: 'high', status: 'comingSoon', items: [
-    { id: 'sequence', sets: [{ id: '1' }] },
-    { id: 'function', sets: [{ id: '1' }] },
+  { id: 'limit', domain: 'calculus', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'sequence', sets: [{ id: '1', rule: 'lim-seq-a' }] },
+    { id: 'function', sets: [{ id: '1', rule: 'lim-fn-a' }] },
   ] },
   { id: 'univ-calculus', domain: 'calculus', stage: 'university', status: 'comingSoon', items: [
     { id: 'mean-value', sets: [{ id: '1' }] },
@@ -293,23 +293,23 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'polynomial', sets: [{ id: '1', rule: 'derivative-polynomial-a' }] },
     { id: 'tangent', sets: [{ id: '1', rule: 'tangent-a' }] },
     { id: 'extrema', sets: [{ id: '1', rule: 'extrema-a' }] },
-    { id: 'transcendental', sets: [{ id: '1' }] },
-    { id: 'chain-rule', sets: [{ id: '1' }] },
-    { id: 'parametric', sets: [{ id: '1' }] },
-    { id: 'motion', sets: [{ id: '1' }] },
+    { id: 'transcendental', sets: [{ id: '1', rule: 'transcendental-a' }] },
+    { id: 'chain-rule', sets: [{ id: '1', rule: 'chain-rule-a' }] },
+    { id: 'parametric', sets: [{ id: '1', rule: 'parametric-a' }] },
+    { id: 'motion', sets: [{ id: '1', rule: 'motion-a' }] },
   ] },
   { id: 'integral', domain: 'calculus', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'indefinite', sets: [{ id: '1', rule: 'indefinite-a' }] },
     { id: 'definite', sets: [{ id: '1', rule: 'definite-a' }] },
     { id: 'area', sets: [{ id: '1', rule: 'area-a' }] },
-    { id: 'substitution', sets: [{ id: '1' }] },
-    { id: 'by-parts', sets: [{ id: '1' }] },
-    { id: 'volume', sets: [{ id: '1' }] },
+    { id: 'substitution', sets: [{ id: '1', rule: 'substitution-int-a' }] },
+    { id: 'by-parts', sets: [{ id: '1', rule: 'parts-a' }] },
+    { id: 'volume', sets: [{ id: '1', rule: 'volume-a' }] },
   ] },
   { id: 'complex', domain: 'number', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'arithmetic', sets: [{ id: '1', rule: 'complex-arithmetic-a' }] },
     { id: 'quadratic-roots', sets: [{ id: '1', rule: 'complex-roots-a' }] },
-    { id: 'plane', sets: [{ id: '1' }] },
+    { id: 'plane', sets: [{ id: '1', rule: 'complex-plane-a' }] },
   ] },
   { id: 'coordinate-geometry', domain: 'geometry', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'line', sets: [{ id: '1', rule: 'line-a' }, { id: '2', rule: 'graph-line-a' }] },
@@ -317,39 +317,39 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'locus', sets: [{ id: '1', rule: 'locus-a' }] },
     { id: 'region', sets: [{ id: '1', rule: 'region-a' }, { id: '2', rule: 'graph-region-a' }] },
   ] },
-  { id: 'vector', domain: 'linear-algebra', stage: 'high', status: 'comingSoon', items: [
-    { id: 'components', sets: [{ id: '1' }] },
-    { id: 'dot-product', sets: [{ id: '1' }] },
-    { id: 'angle', sets: [{ id: '1' }] },
-    { id: 'space', sets: [{ id: '1' }] },
+  { id: 'vector', domain: 'linear-algebra', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'components', sets: [{ id: '1', rule: 'vec-components-a' }] },
+    { id: 'dot-product', sets: [{ id: '1', rule: 'vec-dot-a' }] },
+    { id: 'angle', sets: [{ id: '1', rule: 'vec-angle-a' }] },
+    { id: 'space', sets: [{ id: '1', rule: 'vec-space-a' }] },
   ] },
-  { id: 'matrix', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', items: [
-    { id: 'operations', sets: [{ id: '1' }] },
-    { id: 'determinant', sets: [{ id: '1' }] },
-    { id: 'general-determinant', sets: [{ id: '1' }] },
-    { id: 'inverse', sets: [{ id: '1' }] },
+  { id: 'matrix', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'operations', sets: [{ id: '1', rule: 'matrix-ops-a' }] },
+    { id: 'determinant', sets: [{ id: '1', rule: 'det2-a' }] },
+    { id: 'general-determinant', sets: [{ id: '1', rule: 'det3-a' }] },
+    { id: 'inverse', sets: [{ id: '1', rule: 'inverse-a' }] },
   ] },
-  { id: 'linear-system', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', items: [
-    { id: 'elimination', sets: [{ id: '1' }] },
-    { id: 'solutions', sets: [{ id: '1' }] },
+  { id: 'linear-system', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'elimination', sets: [{ id: '1', rule: 'rref-a' }] },
+    { id: 'solutions', sets: [{ id: '1', rule: 'nullity-a' }] },
   ] },
-  { id: 'vector-space', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', items: [
-    { id: 'independence', sets: [{ id: '1' }] },
-    { id: 'basis', sets: [{ id: '1' }] },
-    { id: 'rank', sets: [{ id: '1' }] },
+  { id: 'vector-space', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'independence', sets: [{ id: '1', rule: 'independence-a' }] },
+    { id: 'basis', sets: [{ id: '1', rule: 'basis-a' }] },
+    { id: 'rank', sets: [{ id: '1', rule: 'rank-a' }] },
   ] },
-  { id: 'linear-map', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', items: [
-    { id: 'matrix-rep', sets: [{ id: '1' }] },
-    { id: 'kernel-image', sets: [{ id: '1' }] },
+  { id: 'linear-map', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'matrix-rep', sets: [{ id: '1', rule: 'matrix-rep-a' }] },
+    { id: 'kernel-image', sets: [{ id: '1', rule: 'kernel-image-a' }] },
   ] },
-  { id: 'eigen', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', items: [
-    { id: 'eigenvalues', sets: [{ id: '1' }] },
-    { id: 'eigenvectors', sets: [{ id: '1' }] },
-    { id: 'diagonalize', sets: [{ id: '1' }] },
+  { id: 'eigen', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'eigenvalues', sets: [{ id: '1', rule: 'eigvals-a' }] },
+    { id: 'eigenvectors', sets: [{ id: '1', rule: 'eigenvector-a' }] },
+    { id: 'diagonalize', sets: [{ id: '1', rule: 'diagonalize-a' }] },
   ] },
-  { id: 'inner-product', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', items: [
-    { id: 'orthogonal', sets: [{ id: '1' }] },
-    { id: 'gram-schmidt', sets: [{ id: '1' }] },
+  { id: 'inner-product', domain: 'linear-algebra', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'orthogonal', sets: [{ id: '1', rule: 'orthogonal-a' }] },
+    { id: 'gram-schmidt', sets: [{ id: '1', rule: 'gram-schmidt-a' }] },
   ] },
   { id: 'rate', domain: 'functions', stage: 'elementary', status: 'comingSoon', items: [
     { id: 'speed', sets: [{ id: '1' }] },
@@ -434,22 +434,22 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'injective', sets: [{ id: '1' }] },
     { id: 'equivalence', sets: [{ id: '1' }] },
   ] },
-  { id: 'series', domain: 'calculus', stage: 'university', status: 'comingSoon', items: [
-    { id: 'series', sets: [{ id: '1' }] },
-    { id: 'taylor', sets: [{ id: '1' }] },
+  { id: 'series', domain: 'calculus', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'series', sets: [{ id: '1', rule: 'series-sum-a' }] },
+    { id: 'taylor', sets: [{ id: '1', rule: 'taylor-a' }] },
   ] },
-  { id: 'improper-integral', domain: 'calculus', stage: 'university', status: 'comingSoon', items: [
-    { id: 'improper', sets: [{ id: '1' }] },
+  { id: 'improper-integral', domain: 'calculus', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'improper', sets: [{ id: '1', rule: 'improper-a' }] },
   ] },
-  { id: 'multivariable', domain: 'calculus', stage: 'university', status: 'comingSoon', items: [
-    { id: 'partial', sets: [{ id: '1' }] },
-    { id: 'double-integral', sets: [{ id: '1' }] },
-    { id: 'polar', sets: [{ id: '1' }] },
+  { id: 'multivariable', domain: 'calculus', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'partial', sets: [{ id: '1', rule: 'partial-a' }] },
+    { id: 'double-integral', sets: [{ id: '1', rule: 'double-a' }] },
+    { id: 'polar', sets: [{ id: '1', rule: 'polar-double-a' }] },
   ] },
-  { id: 'ode', domain: 'calculus', stage: 'university', status: 'comingSoon', items: [
-    { id: 'separable', sets: [{ id: '1' }] },
-    { id: 'linear-first', sets: [{ id: '1' }] },
-    { id: 'second-order', sets: [{ id: '1' }] },
+  { id: 'ode', domain: 'calculus', stage: 'university', status: 'comingSoon', kind: 'formula', items: [
+    { id: 'separable', sets: [{ id: '1', rule: 'ode-separable-a' }] },
+    { id: 'linear-first', sets: [{ id: '1', rule: 'ode-linear-a' }] },
+    { id: 'second-order', sets: [{ id: '1', rule: 'ode-second-a' }] },
   ] },
 ];
 

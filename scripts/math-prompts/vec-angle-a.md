@@ -1,0 +1,1 @@
+ベクトルのなす角（kind "calc"）。cos θ を求める形 dot(u, v)/(norm(u)*norm(v)) を question にする（例 "dot([1, 0], [1, 1])/(norm([1, 0])*norm([1, 1]))"）。答えは 1/2、sqrt(2)/2、sqrt(3)/2、0、-1/2 など。5問。誤答は norm の積の計算ミス、dot の符号の誤りから作る。
