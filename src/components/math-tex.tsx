@@ -29,8 +29,9 @@ export function MathTex({ tex, block }: { tex: string; block?: boolean }) {
       // (the wrapper itself may be as wide as the box, whatever runs past it).
       const pieces = Array.from(content.children, child => child.getBoundingClientRect());
       const needed = Math.max(content.getBoundingClientRect().width * 0, ...pieces.map(rect => rect.right)) - Math.min(...pieces.map(rect => rect.left));
-      if (available > 0 && needed > available) {
-        element.style.fontSize = `${parseFloat(getComputedStyle(element).fontSize) * Math.max(SMALLEST, available / needed)}px`;
+      // A little under the box width: a radical or a fraction bar can overshoot the measured edge.
+      if (available > 0 && needed > available * 0.985) {
+        element.style.fontSize = `${parseFloat(getComputedStyle(element).fontSize) * Math.max(SMALLEST, (available * 0.97) / needed)}px`;
       }
     };
     fit();

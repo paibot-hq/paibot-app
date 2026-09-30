@@ -200,5 +200,9 @@
   ],
   "complex/quadratic-roots": [
     "a*x^2 + b*x + c = 0 => x = (-b ± sqrt(b^2 - 4*a*c))/(2*a)"
+  ],
+  "pythagoras/sides": [
+    "a^2 + b^2 = c^2 => c = sqrt(a^2 + b^2)",
+    "a^2 + b^2 = c^2 => a = sqrt(c^2 - b^2)"
   ]
 }
