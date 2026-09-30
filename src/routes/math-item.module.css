@@ -33,3 +33,6 @@
 .neighborLabel { font-size: .75rem; color: var(--muted); font-weight: 400; }
 .pointRow { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; column-gap: .3em; row-gap: .1em; }
 .pointRow > span { font-size: 1.15rem; }
+.point { display: grid; grid-template-columns: minmax(0, 1fr); gap: .1rem; padding: .5rem 0; border-top: 1px solid var(--line); }
+.point:first-child { border-top: 0; }
+.pointNote { margin: 0; text-align: left; color: var(--muted); font-size: .88rem; line-height: 1.6; }

@@ -11,7 +11,7 @@ import { getSetRecords } from '../lib/math-attempts.server';
 import { findUnit } from '../lib/math-catalog';
 import { jpGrade } from '../lib/math-curriculum-jp';
 import { getPlayableSets, getSetTiers, getWorkedExample } from '../lib/math-problems.server';
-import { keyFormulas } from '../lib/math-key-points';
+import { keyPoints } from '../lib/math-key-points';
 import { catalogEntry } from '../lib/math-routes.server';
 import styles from './math-item.module.css';
 import type { Route } from './+types/math-item';
@@ -36,12 +36,12 @@ export async function loader(args: Route.LoaderArgs) {
   const [playable, records, tiers, example] = await Promise.all([getPlayableSets(), getSetRecords(args, entry.unit.id, entry.item.id), getSetTiers(entry.unit.id, entry.item.id), entry.unit.kind ? getWorkedExample(entry.unit.id, entry.item.id) : null]);
   return {
     neighbors: { previous: entry.unit.items[entry.unit.items.indexOf(entry.item) - 1]?.id ?? null, next: entry.unit.items[entry.unit.items.indexOf(entry.item) + 1]?.id ?? null },
-    kind: entry.unit.kind, example, formulas: keyFormulas(entry.unit.id, entry.item.id), unitId: entry.unit.id, itemId: entry.item.id, published: entry.unit.status === 'published', grade: jpGrade(entry.unit.id, entry.item.id),
+    kind: entry.unit.kind, example, points: keyPoints(entry.unit.id, entry.item.id), unitId: entry.unit.id, itemId: entry.item.id, published: entry.unit.status === 'published', grade: jpGrade(entry.unit.id, entry.item.id),
     sets: entry.item.sets.map(set => ({ id: set.id, playable: playable.includes(`${entry.unit.id}/${entry.item.id}/${set.id}`), record: records[set.id], tiers: tiers[set.id] })),
   };
 }
 
-export default function MathItem({ loaderData: { unitId, itemId, published, grade, sets, kind, example, formulas, neighbors } }: Route.ComponentProps) {
+export default function MathItem({ loaderData: { unitId, itemId, published, grade, sets, kind, example, points, neighbors } }: Route.ComponentProps) {
   const locale = useLocale();
   const t = useTranslations('App.math') as unknown as DynamicT;
   const tq = useTranslations('App.math.quiz');
@@ -61,9 +61,12 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
       <h2 className={styles.about}>{ti('about')}</h2>
       <p className={styles.description}>{description}</p>
       <p className={styles.jump}><a href="#practice">{ti('toPractice')}</a></p>
-      {formulas.length > 0 && <details className={styles.section} open>
+      {points.length > 0 && <details className={styles.section} open>
         <summary>{ti('points')}</summary>
-        <div className={styles.points}>{formulas.map(tex => <MathTex key={tex} tex={tex} block />)}</div>
+        <div className={styles.points}>{points.map((point, index) => <div key={index} className={styles.point}>
+          {point.tex && <MathTex tex={point.tex} block />}
+          <p className={styles.pointNote}>{point[locale as 'ja' | 'en' | 'zh'] ?? point.en}</p>
+        </div>)}</div>
       </details>}
       {exampleQuestion && <details className={styles.section} open>
         <summary>{ti('example')}</summary>

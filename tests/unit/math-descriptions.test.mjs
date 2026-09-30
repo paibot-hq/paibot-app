@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
 import katex from 'katex';
 import { MATH_CATALOG } from '../../src/lib/math-catalog.ts';
-import { keyFormulas } from '../../src/lib/math-key-points.ts';
+import { keyPoints } from '../../src/lib/math-key-points.ts';
 
 // Every learning item explains itself in all three languages: a one-line summary
 // (unit page) and a description (item page); its formulas (TeX) must render.
@@ -15,9 +15,12 @@ for (const unit of MATH_CATALOG) for (const item of unit.items) {
     assert.ok(entry.summary.length <= 90, `${locale}: ${unit.id}/${item.id} summary is a single line (${entry.summary.length} characters)`);
     assert.ok(entry.description.length >= 10 && entry.description.length <= 600, `${locale}: ${unit.id}/${item.id} description length`);
   }
-  // Well-known formulas (TeX, written by an LLM, not machine-verified) must at least render.
-  const formulas = keyFormulas(unit.id, item.id);
-  assert.ok(formulas.length <= 4, `${unit.id}/${item.id}: at most 4 formulas`);
-  for (const tex of formulas) { assert.ok(tex.length <= 160, `${unit.id}/${item.id}: formula length`); katex.renderToString(tex, { throwOnError: true }); }
+  // Key points: a formula (TeX, must render) and/or a note, each explained in all three languages.
+  const points = keyPoints(unit.id, item.id);
+  assert.ok(points.length <= 5, `${unit.id}/${item.id}: at most 5 key points`);
+  for (const point of points) {
+    if (point.tex !== undefined) { assert.ok(point.tex.length <= 160, `${unit.id}/${item.id}: formula length`); katex.renderToString(point.tex, { throwOnError: true }); }
+    for (const locale of ['ja', 'en', 'zh']) assert.ok(point[locale]?.trim() && point[locale].length <= 220, `${unit.id}/${item.id}: a ${locale} note (up to 220 characters) for each key point`);
+  }
 }
 console.log(`PASS: all ${MATH_CATALOG.flatMap(unit => unit.items).length} learning items have a summary and a description in ja, en and zh`);
