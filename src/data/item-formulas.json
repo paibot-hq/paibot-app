@@ -99,9 +99,9 @@
   "multiplication/by-one-digit": [
     {
       "tex": "(10a + b) \\times c = 10ac + bc",
-      "ja": "2けたの数を十の位 10a と一の位 b に分け、それぞれに c をかけてから合わせると答えが求まります。",
-      "en": "Split a number into tens 10a and ones b, multiply each by c, and add them up to get the answer.",
-      "zh": "把多位数拆成十位 10a 和个位 b，分别乘以 c 再相加，就能算出答案。"
+      "ja": "2けたの数を十の位 $10a$ と一の位 $b$ に分け、それぞれに $c$ をかけてから合わせると答えが求まります。",
+      "en": "Split a number into tens $10a$ and ones $b$, multiply each by $c$, and add them up to get the answer.",
+      "zh": "把多位数拆成十位 $10a$ 和个位 $b$，分别乘以 $c$ 再相加，就能算出答案。"
     },
     {
       "ja": "筆算では一の位から順にかけ算をし、くり上がった数は次の位のかけ算の答えに足します。",
@@ -117,9 +117,9 @@
   "multiplication/by-two-digit": [
     {
       "tex": "a \\times (10b + c) = 10(a \\times b) + a \\times c",
-      "ja": "かける数を十の位 10b と一の位 c に分けてそれぞれ a をかけ、あとから2つの答えを合わせます。",
-      "en": "Split the two-digit multiplier into tens 10b and ones c, multiply each by a, and add the two answers.",
-      "zh": "把两位乘数拆成十位 10b 和个位 c，分别与 a 相乘，最后把两次的结果加在一起。"
+      "ja": "かける数を十の位 $10b$ と一の位 $c$ に分けてそれぞれ $a$ をかけ、あとから2つの答えを合わせます。",
+      "en": "Split the two-digit multiplier into tens $10b$ and ones $c$, multiply each by $a$, and add the two answers.",
+      "zh": "把两位乘数拆成十位 $10b$ 和个位 $c$，分别与 $a$ 相乘，最后把两次的结果加在一起。"
     },
     {
       "ja": "十の位の数をかけた答えは、10のまとまりを表すので、右端を十の位にそろえて（1マス左にずらして）書きます。",
@@ -319,9 +319,9 @@
     },
     {
       "tex": "a \\times a = a^2",
-      "ja": "同じ文字のかけ算を短く表すときの書き方です。同じ文字 a を2回かけるときは、右上に小さく2を添えて a² と書きます。",
-      "en": "This rule shows how to write repeating letters. When multiplying letter a by itself, write a small 2 at the top right as a^2.",
-      "zh": "这是相同字母连乘时的简写规则。同一个字母 a 乘两次时，在右上角写一个小小的2，简写成 a^2。"
+      "ja": "同じ文字のかけ算を短く表すときの書き方です。同じ文字 $a$ を2回かけるときは、右上に小さく2を添えて $a^2$ と書きます。",
+      "en": "This rule shows how to write repeating letters. When multiplying letter $a$ by itself, write a small 2 at the top right as $a^2$.",
+      "zh": "这是相同字母连乘时的简写规则。同一个字母 $a$ 乘两次时，在右上角写一个小小的2，简写成 $a^2$。"
     }
   ],
   "place-value/to-100": [
@@ -391,7 +391,7 @@
     {
       "tex": "10^4 \\times 10^4 = 10^8, \\quad 10^8 \\times 10^4 = 10^{12}",
       "ja": "とても大きな数の単位を表す式です。万の1万倍が億、億の1万倍が兆と、4けた（1万倍）ごとに新しい単位になります。",
-      "en": "This formula shows units for very large numbers. Multiplying by 10,000 turns ten-thousands into oku (10^8), and oku into cho (10^{12}).",
+      "en": "This formula shows units for very large numbers. Multiplying by 10,000 turns ten-thousands into oku ($10^8$), and oku into cho ($10^{12}$).",
       "zh": "这是表示极大数单位的式子。万的1万倍是亿，亿的1万倍是兆，每隔四位（1万倍）递进一个大单位。"
     },
     {
@@ -445,9 +445,9 @@
     },
     {
       "tex": "t_2 - t_1 = \\Delta t",
-      "ja": "かかった時間（時間の長さ Δt）を求める式です。終わりの時刻 t₂ から始めの時刻 t₁ をひいて計算します。",
-      "en": "This formula calculates elapsed time (Δt). You find it by subtracting the start time t1 from the end time t2.",
-      "zh": "这是求经过时间（Δt）的公式。用结束时刻 t₂ 减去开始时刻 t₁ 就能算出。"
+      "ja": "かかった時間（時間の長さ $\\Delta t$）を求める式です。終わりの時刻 $t_2$ から始めの時刻 $t_1$ をひいて計算します。",
+      "en": "This formula calculates elapsed time ($\\Delta t$). You find it by subtracting the start time $t_1$ from the end time $t_2$.",
+      "zh": "这是求经过时间（$\\Delta t$）的公式。用结束时刻 $t_2$ 减去开始时刻 $t_1$ 就能算出。"
     }
   ],
   "decimal/add-sub-tenths": [
@@ -482,8 +482,8 @@
     },
     {
       "ja": "整数と小数を計算するときに使います。整数のすぐ右後ろに小数点があると考え（5なら5.00）、位をそろえて計算します。",
-      "en": "Use this when calculating whole numbers and decimals. Think of the decimal point as right after the whole number (like 5 = 5.00) to line them up.",
-      "zh": "整数与小数相加减时使用。可以把整数看作末尾带着小数点（如 5 = 5.00），对齐数位后再计算。"
+      "en": "Use this when calculating whole numbers and decimals. Think of the decimal point as right after the whole number (like $5 = 5.00$) to line them up.",
+      "zh": "整数与小数相加减时使用。可以把整数看作末尾带着小数点（如 $5 = 5.00$），对齐数位后再计算。"
     }
   ],
   "decimal/mul-div-whole": [
@@ -499,9 +499,9 @@
     },
     {
       "tex": "a = b \\times q + r",
-      "ja": "わり算のたしかめや、あまりを出す式です。わられる数 a を b でわった商が q、あまりが r のとき、あまりの小数点は a のもとの位置からまっすぐ下ろします。",
-      "en": "This formula checks division (a = b × q + r). When dividing a by b to get quotient q and remainder r, align the remainder's decimal point straight down from a.",
-      "zh": "这是除法的验算与求余数公式。被除数 a 除以 b 得商 q 余 r 时，余数 r 的小数点要对齐 a 原来的小数点落下来。"
+      "ja": "わり算のたしかめや、あまりを出す式です。わられる数 $a$ を $b$ でわった商が $q$、あまりが $r$ のとき、あまりの小数点は $a$ のもとの位置からまっすぐ下ろします。",
+      "en": "This formula checks division ($a = b \\times q + r$). When dividing $a$ by $b$ to get quotient $q$ and remainder $r$, align the remainder's decimal point straight down from $a$.",
+      "zh": "这是除法的验算与求余数公式。被除数 $a$ 除以 $b$ 得商 $q$ 余 $r$ 时，余数 $r$ 的小数点要对齐 $a$ 原来的小数点落下来。"
     }
   ],
   "decimal/mul-div": [
@@ -933,9 +933,9 @@
   "measurement/area-units": [
     {
       "tex": "1\\,\\mathrm{m}^2 = 10000\\,\\mathrm{cm}^2",
-      "ja": "広さ（面積）の単位を変えるときに使う式です。1辺が 1m（100cm）の正方形の広さなので、100×100 で 10000cm² になります。",
-      "en": "Use this formula to convert area units. Since 1 m² is a square with 100 cm on each side, it equals 100 × 100 = 10,000 cm².",
-      "zh": "这是换算面积单位时用的式子。因为边长1米（100厘米）的正方形面积是100×100，所以1平方米等于10000平方厘米。"
+      "ja": "広さ（面積）の単位を変えるときに使う式です。1辺が 1m（100cm）の正方形の広さなので、$100 \\times 100$ で 10000cm² になります。",
+      "en": "Use this formula to convert area units. Since 1 m² is a square with 100 cm on each side, it equals $100 \\times 100 = 10,000$ cm².",
+      "zh": "这是换算面积单位时用的式子。因为边长1米（100厘米）的正方形面积是 $100 \\times 100$，所以1平方米等于10000平方厘米。"
     },
     {
       "tex": "1\\,\\mathrm{a} = 100\\,\\mathrm{m}^2",
@@ -1043,9 +1043,9 @@
     },
     {
       "tex": "\\ell = 2\\pi r",
-      "ja": "円周（円のまわりの長さ）ℓ を求める式です。直径 2r に円周率 π（約3.14）をかけます。",
-      "en": "This formula finds the circumference ℓ of a circle. Multiply the diameter 2r by pi π.",
-      "zh": "这是求圆周长 ℓ 的公式。用直径 2r 乘圆周率 π（约 3.14）。"
+      "ja": "円周（円のまわりの長さ）$\\ell$ を求める式です。直径 $2r$ に円周率 $\\pi$（約3.14）をかけます。",
+      "en": "This formula finds the circumference $\\ell$ of a circle. Multiply the diameter $2r$ by pi $\\pi$.",
+      "zh": "这是求圆周长 $\\ell$ 的公式。用直径 $2r$ 乘圆周率 $\\pi$（约 3.14）。"
     },
     {
       "tex": "\\pi = \\frac{\\ell}{d}",
@@ -1095,9 +1095,9 @@
     },
     {
       "tex": "S_{\\mathrm{side}} = 2\\pi rh",
-      "ja": "円柱の側面（まわりの面）の面積 S_side を求める式です。底面の円周 2πr に高さ h をかけます。",
-      "en": "This formula finds the side surface area S_side of a cylinder. Multiply the base circumference 2πr by height h.",
-      "zh": "这是求圆柱侧面积 S_side 的公式。用底面圆周长 2πr 乘高 h。"
+      "ja": "円柱の側面（まわりの面）の面積 $S_{\\text{side}}$ を求める式です。底面の円周 $2\\pi r$ に高さ $h$ をかけます。",
+      "en": "This formula finds the side surface area $S_{\\text{side}}$ of a cylinder. Multiply the base circumference $2\\pi r$ by height $h$.",
+      "zh": "这是求圆柱侧面积 $S_{\\text{side}}$ 的公式。用底面圆周长 $2\\pi r$ 乘高 $h$。"
     },
     {
       "tex": "S = 2\\pi r^2 + 2\\pi rh",
@@ -1490,9 +1490,9 @@
   "data/median-range": [
     {
       "tex": "R = x_{\\max} - x_{\\min}",
-      "ja": "データの散らばりの広さ（範囲 R）を調べる式です。一番大きい値（x_max）から一番小さい値（x_min）を引いて求めます。",
-      "en": "This formula finds the range R to show how spread out data is. Subtract the smallest value (x_min) from the largest value (x_max).",
-      "zh": "这是计算数据分布有多广（范围/极差 R）的公式。用里面最大的数（x_max）减去最小的数（x_min）即可算出。"
+      "ja": "データの散らばりの広さ（範囲 $R$）を調べる式です。一番大きい値（$x_{\\max}$）から一番小さい値（$x_{\\min}$）を引いて求めます。",
+      "en": "This formula finds the range $R$ to show how spread out data is. Subtract the smallest value ($x_{\\min}$) from the largest value ($x_{\\max}$).",
+      "zh": "这是计算数据分布有多广（范围/极差 $R$）的公式。用里面最大的数（$x_{\\max}$）减去最小的数（$x_{\\min}$）即可算出。"
     },
     {
       "tex": "\\mathrm{Me} = x_{\\frac{n+1}{2}}",
@@ -1609,9 +1609,9 @@
     },
     {
       "tex": "f_r = \\frac{f}{N}",
-      "ja": "全体のデータ数 N のうち、その区切りのデータ数 f がどれくらいの割合（相対度数 f_r）かを求めるときに使います。すべての割合を足すと 1 になります。",
-      "en": "This finds the share f_r of a class. Divide that class's count f by the total count N. All shares add up to 1.",
-      "zh": "这个公式用来求某一组占总体的比例（相对频数 f_r）。用该组的个数 f 除以总个数 N，全部加起来等于 1。"
+      "ja": "全体のデータ数 $N$ のうち、その区切りのデータ数 $f$ がどれくらいの割合（相対度数 $f_r$）かを求めるときに使います。すべての割合を足すと 1 になります。",
+      "en": "This finds the share $f_r$ of a class. Divide that class's count $f$ by the total count $N$. All shares add up to 1.",
+      "zh": "这个公式用来求某一组占总体的比例（相对频数 $f_r$）。用该组的个数 $f$ 除以总个数 $N$，全部加起来等于 1。"
     },
     {
       "ja": "横に区切り（階級）、たてに個数（度数）をとって柱で表したグラフです。柱が高いところほどデータがたくさん集まっています。",
@@ -1725,15 +1725,15 @@
   "exponents/scientific": [
     {
       "tex": "a \\times 10^n \\quad (1 \\le a < 10,\\; n \\in \\mathbb{Z})",
-      "ja": "とても大きい数や小さい数をわかりやすく表す書き方です。1 以上 10 未満の数 a に、10 を何回掛けたか（10^n）を掛けて表します。",
-      "en": "This writes very large or tiny numbers clearly. Multiply a number a (from 1 to less than 10) by a power of 10.",
-      "zh": "这个写法用来清楚地表示极大或极小的数。用 1 到 10 之间的数 a，乘上 10 的整数次幂（10^n）。"
+      "ja": "とても大きい数や小さい数をわかりやすく表す書き方です。1 以上 10 未満の数 $a$ に、10 を何回掛けたか（$10^n$）を掛けて表します。",
+      "en": "This writes very large or tiny numbers clearly. Multiply a number $a$ (from 1 to less than 10) by a power of 10.",
+      "zh": "这个写法用来清楚地表示极大或极小的数。用 1 到 10 之间的数 $a$，乘上 10 的整数次幂（$10^n$）。"
     },
     {
       "tex": "10^{-n} = \\frac{1}{10^n}",
-      "ja": "10 の右上にマイナスの数があるときは、1 を 10^n で割った分数を表します。0.1 や 0.01 などの小さな小数を表すときに使います。",
-      "en": "A negative power of 10 means 1 divided by 10^n. Use it to write small decimals like 0.1 or 0.01 easily.",
-      "zh": "10 右上角带有负号的指数，表示 1 除以 10^n 的分数。常用来表示 0.1 或 0.01 等很小的纯小数。"
+      "ja": "10 の右上にマイナスの数があるときは、1 を $10^n$ で割った分数を表します。0.1 や 0.01 などの小さな小数を表すときに使います。",
+      "en": "A negative power of 10 means 1 divided by $10^n$. Use it to write small decimals like 0.1 or 0.01 easily.",
+      "zh": "10 右上角带有负号的指数，表示 1 除以 $10^n$ 的分数。常用来表示 0.1 或 0.01 等很小的纯小数。"
     },
     {
       "tex": "10^0 = 1",
@@ -1760,9 +1760,9 @@
     },
     {
       "tex": "(-a)^2 \\neq -a^2 \\quad (a \\neq 0)",
-      "ja": "かっこがあるかないかで答えが変わることに気をつける式です。(-a)^2 はマイナスも含めて 2 回掛けるのでプラスになり、-a^2 はマイナスのままになります。",
-      "en": "Watch out for parentheses: (-a)^2 squares the minus sign to become positive, but -a^2 stays negative.",
-      "zh": "这个式子提醒我们有无括号结果完全不同。(-a)^2 连同负号一起平方得正数，而 -a^2 结果则是负数。"
+      "ja": "かっこがあるかないかで答えが変わることに気をつける式です。$(-a)^2$ はマイナスも含めて 2 回掛けるのでプラスになり、$-a^2$ はマイナスのままになります。",
+      "en": "Watch out for parentheses: $(-a)^2$ squares the minus sign to become positive, but $-a^2$ stays negative.",
+      "zh": "这个式子提醒我们有无括号结果完全不同。$(-a)^2$ 连同负号一起平方得正数，而 $-a^2$ 结果则是负数。"
     },
     {
       "tex": "ab = a \\times b",
@@ -1791,9 +1791,9 @@
     },
     {
       "tex": "x^2 + x \\neq x^3",
-      "ja": "同じ x でも、2 乗と 1 乗のように右上の数がちがう項は足して 1 つにまとめることはできません。",
-      "en": "Even with the same letter x, terms with different powers like x^2 and x cannot be added together into one term.",
-      "zh": "即使都是字母 x，只要右上角次数不同（如 x^2 和 x），就不能相加合并在一起。"
+      "ja": "同じ $x$ でも、2 乗と 1 乗のように右上の数がちがう項は足して 1 つにまとめることはできません。",
+      "en": "Even with the same letter $x$, terms with different powers like $x^2$ and $x$ cannot be added together into one term.",
+      "zh": "即使都是字母 $x$，只要右上角次数不同（如 $x^2$ 和 $x$），就不能相加合并在一起。"
     }
   ],
   "expression/distribute": [
@@ -1856,9 +1856,9 @@
     },
     {
       "tex": "ax = b \\iff x = \\frac{b}{a} \\quad (a \\neq 0)",
-      "ja": "求めたい文字 x だけの形にする式です。両辺を x の前にある数 a で割ることで、x = の形を作ります。",
-      "en": "Use this to get x by itself. Divide both sides by the number a in front of x.",
-      "zh": "这个公式用来把 x 单独留在等号左边。方程两边同时除以 x 前面的数字 a 即可。"
+      "ja": "求めたい文字 $x$ だけの形にする式です。両辺を $x$ の前にある数 $a$ で割ることで、$x =$ の形を作ります。",
+      "en": "Use this to get $x$ by itself. Divide both sides by the number $a$ in front of $x$.",
+      "zh": "这个公式用来把 $x$ 单独留在等号左边。方程两边同时除以 $x$ 前面的数字 $a$ 即可。"
     },
     {
       "ja": "分数がある等式は、まず両辺に分母の公倍数を掛けて分母をなくし、かっこを外してから整理します。",
@@ -1867,9 +1867,9 @@
     },
     {
       "tex": "S = \\frac{1}{2}ah \\iff h = \\frac{2S}{a} \\quad (a \\neq 0)",
-      "ja": "三角形の面積 S と底辺 a から、高さ h を求めたいときに使います。面積の公式を変形して h = の形にしたものです。",
-      "en": "Use this to find the height h when you know the triangle's area S and base a.",
-      "zh": "这个公式用来在已知三角形面积 S 和底 a 时计算高 h。它是由三角形面积公式变形得来的。"
+      "ja": "三角形の面積 $S$ と底辺 $a$ から、高さ $h$ を求めたいときに使います。面積の公式を変形して $h =$ の形にしたものです。",
+      "en": "Use this to find the height $h$ when you know the triangle's area $S$ and base $a$.",
+      "zh": "这个公式用来在已知三角形面积 $S$ 和底 $a$ 时计算高 $h$。它是由三角形面积公式变形得来的。"
     }
   ],
   "linear-equation/basic": [
@@ -1892,9 +1892,9 @@
       "zh": "这个公式用来求方程的解 x。两边同时除以 x 前面的数字 a 就能算出 x。"
     },
     {
-      "ja": "x がついた項を左側に、数字だけの項を右側に移してまとめ、ax = b の形を作ってから解きます。",
-      "en": "Move terms with x to the left and plain numbers to the right to make the shape ax = b, then solve.",
-      "zh": "把带有 x 的项移到左边，纯数字的项移到右边，整理成 ax = b 的形式后再求解。"
+      "ja": "$x$ がついた項を左側に、数字だけの項を右側に移してまとめ、$ax = b$ の形を作ってから解きます。",
+      "en": "Move terms with $x$ to the left and plain numbers to the right to make the shape $ax = b$, then solve.",
+      "zh": "把带有 $x$ 的项移到左边，纯数字的项移到右边，整理成 $ax = b$ 的形式后再求解。"
     }
   ],
   "linear-equation/parentheses": [
@@ -1944,9 +1944,9 @@
     },
     {
       "tex": "a : b = c : d \\iff \\frac{a}{b} = \\frac{c}{d} \\quad (b \\neq 0,\\; d \\neq 0)",
-      "ja": "比例式を分数の式に書き直す式です。比の値（a/b と c/d）が等しいことを表していて、ななめに掛け算すると ad = bc になります。",
-      "en": "Proportions mean two fractions are equal (a/b = c/d). Multiplying across diagonally gives the same result ad = bc.",
-      "zh": "这个式子把比例式改写成分数形式。它表示两边的比值相等，交叉相乘也能得到 ad = bc。"
+      "ja": "比例式を分数の式に書き直す式です。比の値（$a/b$ と $c/d$）が等しいことを表していて、ななめに掛け算すると $ad = bc$ になります。",
+      "en": "Proportions mean two fractions are equal ($a/b = c/d$). Multiplying across diagonally gives the same result $ad = bc$.",
+      "zh": "这个式子把比例式改写成分数形式。它表示两边的比值相等，交叉相乘也能得到 $ad = bc$。"
     },
     {
       "tex": "a : b = \\frac{a}{b} \\quad (b \\neq 0)",
@@ -1997,9 +1997,9 @@
   "simultaneous/substitution": [
     {
       "tex": "y = ax + b",
-      "ja": "式の1つを「y＝...」や「x＝...」の形に変形するときに使います。文字の前についている数が 1 や -1 のものを選ぶと、簡単に変形できます。",
-      "en": "Use this form to rewrite one equation as y = ... or x = ... . Choosing a variable with 1 or -1 in front makes it easiest to rearrange.",
-      "zh": "用于把其中一个方程改写成“y = ...”或“x = ...”的形式。选择未知数前面是 1 或 -1 的项更容易变形。"
+      "ja": "式の1つを「$y = \\dots$」や「$x = \\dots$」の形に変形するときに使います。文字の前についている数が 1 や -1 のものを選ぶと、簡単に変形できます。",
+      "en": "Use this form to rewrite one equation as $y = \\dots$ or $x = \\dots$ . Choosing a variable with 1 or -1 in front makes it easiest to rearrange.",
+      "zh": "用于把其中一个方程改写成“$y = \\dots$”或“$x = \\dots$”的形式。选择未知数前面是 1 或 -1 的项更容易变形。"
     },
     {
       "ja": "変形した式をもう一方の式の同じ文字のところへ、かっこをつけて入れ換えます。文字が1種類だけになるので、ふつうの方程式として解けます。",
@@ -2007,9 +2007,9 @@
       "zh": "把变形得到的式子加上括号，代入另一个方程的同一个未知数中。这样方程就只剩一种未知数，可以直接求解。"
     },
     {
-      "ja": "解いてわかった数を、最初に作った「y＝...」の式にあてはめると、もう1つの文字の値がすぐに計算できます。",
-      "en": "Put the number you just found back into your \"y = ...\" expression to quickly calculate the other variable.",
-      "zh": "把算出的数值代入最开始变形好的“y = ...”式子中，就能很快算出另一个未知数的值。"
+      "ja": "解いてわかった数を、最初に作った「$y = \\dots$」の式にあてはめると、もう1つの文字の値がすぐに計算できます。",
+      "en": "Put the number you just found back into your \"$y = \\dots$\" expression to quickly calculate the other variable.",
+      "zh": "把算出的数值代入最开始变形好的“$y = \\dots$”式子中，就能很快算出另一个未知数的值。"
     }
   ],
   "simultaneous/word-problems": [
@@ -2070,37 +2070,37 @@
     },
     {
       "tex": "x = 0 \\implies y = b",
-      "ja": "直線が y 軸とどこで交わるかを調べる式です。x に 0 を入れると y が b になるので、y 軸との交点は点 (0, b) だとわかります。",
-      "en": "This shows where the line crosses the y-axis. Setting x to 0 gives y = b, meaning the line crosses the y-axis at the point (0, b).",
-      "zh": "这个式子用来找直线与 y 轴的交点。把 x 代入 0 就得到 y = b，说明直线与 y 轴相交于点 (0, b)。"
+      "ja": "直線が $y$ 軸とどこで交わるかを調べる式です。$x$ に 0 を入れると $y$ が $b$ になるので、$y$ 軸との交点は点 $(0, b)$ だとわかります。",
+      "en": "This shows where the line crosses the $y$-axis. Setting $x$ to 0 gives $y = b$, meaning the line crosses the $y$-axis at the point $(0, b)$.",
+      "zh": "这个式子用来找直线与 $y$ 轴的交点。把 $x$ 代入 0 就得到 $y = b$，说明直线与 $y$ 轴相交于点 $(0, b)$。"
     }
   ],
   "linear-function/two-points": [
     {
       "tex": "y - y_1 = a(x - x_1)",
-      "ja": "傾き a と、通る1つの点 (x1, y1) がわかっているときに直線の式を求める公式です。",
-      "en": "Use this formula to find the equation of a line when you know its slope a and one point (x1, y1) it passes through.",
-      "zh": "当已知直线的斜率 a 和它经过的一个点 (x1, y1) 时，用这个公式来求直线的式子。"
+      "ja": "傾き $a$ と、通る1つの点 $(x_1, y_1)$ がわかっているときに直線の式を求める公式です。",
+      "en": "Use this formula to find the equation of a line when you know its slope $a$ and one point $(x_1, y_1)$ it passes through.",
+      "zh": "当已知直线的斜率 $a$ 和它经过的一个点 $(x_1, y_1)$ 时，用这个公式来求直线的式子。"
     },
     {
       "tex": "y - y_1 = \\frac{y_2 - y_1}{x_2 - x_1}(x - x_1) \\quad (x_1 \\neq x_2)",
-      "ja": "通る2つの点 (x1, y1) と (x2, y2) がわかっているときに、直線の式を直接求める公式です。分数の部分で2点から傾きを計算しています。",
-      "en": "Use this formula to find the equation of a line directly when you know two points (x1, y1) and (x2, y2). The fraction calculates the slope between the points.",
-      "zh": "当已知直线经过两个点 (x1, y1) 和 (x2, y2) 时，用这个公式可以直接求出直线的式子。分数部分是用这两个点计算斜率。"
+      "ja": "通る2つの点 $(x_1, y_1)$ と $(x_2, y_2)$ がわかっているときに、直線の式を直接求める公式です。分数の部分で2点から傾きを計算しています。",
+      "en": "Use this formula to find the equation of a line directly when you know two points $(x_1, y_1)$ and $(x_2, y_2)$. The fraction calculates the slope between the points.",
+      "zh": "当已知直线经过两个点 $(x_1, y_1)$ 和 $(x_2, y_2)$ 时，用这个公式可以直接求出直线的式子。分数部分是用这两个点计算斜率。"
     },
     {
       "tex": "\\begin{cases} ax_1 + b = y_1 \\\\ ax_2 + b = y_2 \\end{cases}",
-      "ja": "通る2つの点の座標を y＝ax＋b にあてはめて連立方程式を作り、傾き a と切片 b を求める方法です。",
-      "en": "This method finds the slope a and y-intercept b by plugging two known points into y = ax + b and solving the system of equations.",
-      "zh": "这是把已知的两个点代入 y = ax + b 组成方程组，从而求出斜率 a 和截距 b 的方法。"
+      "ja": "通る2つの点の座標を $y = ax + b$ にあてはめて連立方程式を作り、傾き $a$ と切片 $b$ を求める方法です。",
+      "en": "This method finds the slope $a$ and $y$-intercept $b$ by plugging two known points into $y = ax + b$ and solving the system of equations.",
+      "zh": "这是把已知的两个点代入 $y = ax + b$ 组成方程组，从而求出斜率 $a$ 和截距 $b$ 的方法。"
     }
   ],
   "linear-function/equations": [
     {
       "tex": "ax + by = c \\quad (b \\neq 0) \\iff y = -\\frac{a}{b}x + \\frac{c}{b}",
-      "ja": "方程式 ax＋by＝c を「y＝...」の形に変形すると、傾きと切片がわかり、一次関数の直線としてグラフを描くことができます。",
-      "en": "Rewriting the equation ax + by = c into \"y = ...\" reveals its slope and y-intercept, allowing you to draw it as a straight line.",
-      "zh": "把方程 ax + by = c 改写成“y = ...”的形式，就能看出斜率和截距，从而画出一次函数的直线图像。"
+      "ja": "方程式 $ax + by = c$ を「$y = \\dots$」の形に変形すると、傾きと切片がわかり、一次関数の直線としてグラフを描くことができます。",
+      "en": "Rewriting the equation $ax + by = c$ into \"$y = \\dots$\" reveals its slope and $y$-intercept, allowing you to draw it as a straight line.",
+      "zh": "把方程 $ax + by = c$ 改写成“$y = \\dots$”的形式，就能看出斜率和截距，从而画出一次函数的直线图像。"
     },
     {
       "tex": "\\begin{cases} a_1 x + b_1 y = c_1 \\\\ a_2 x + b_2 y = c_2 \\end{cases}",
@@ -2110,9 +2110,9 @@
     },
     {
       "tex": "x = k, \\quad y = l",
-      "ja": "軸に平行な直線を表す式です。x＝k は y 軸に平行な「たての直線」、y＝l は x 軸に平行な「横の直線」になります。",
-      "en": "These equations represent lines parallel to the axes. The equation x = k is a vertical line parallel to the y-axis, and y = l is a horizontal line parallel to the x-axis.",
-      "zh": "这些式子表示与坐标轴平行的直线。x = k 是与 y 轴平行的竖线，y = l 是与 x 轴平行的横线。"
+      "ja": "軸に平行な直線を表す式です。$x = k$ は $y$ 軸に平行な「たての直線」、$y = l$ は $x$ 軸に平行な「横の直線」になります。",
+      "en": "These equations represent lines parallel to the axes. The equation $x = k$ is a vertical line parallel to the $y$-axis, and $y = l$ is a horizontal line parallel to the $x$-axis.",
+      "zh": "这些式子表示与坐标轴平行的直线。$x = k$ 是与 $y$ 轴平行的竖线，$y = l$ 是与 $x$ 轴平行的横线。"
     }
   ],
   "square-function/graph": [
@@ -2150,29 +2150,29 @@
     },
     {
       "tex": "\\frac{aq^2 - ap^2}{q - p} = a(p + q) \\quad (p \\neq q)",
-      "ja": "y＝ax² で、x の値が p から q まで増えるときの変化の割合を素早く計算できる公式です。比例定数 a に (p＋q) を掛けるだけで求まります。",
-      "en": "A shortcut formula to quickly find the rate of change for y = ax^2 as x increases from p to q. You simply multiply a by (p + q).",
-      "zh": "这是计算 y = ax^2 中 x 从 p 变到 q 时的变化率的简便公式。只需用比例常数 a 乘以 (p + q) 就能快速算出来。"
+      "ja": "$y = ax^2$ で、$x$ の値が $p$ から $q$ まで増えるときの変化の割合を素早く計算できる公式です。比例定数 $a$ に $(p + q)$ を掛けるだけで求まります。",
+      "en": "A shortcut formula to quickly find the rate of change for $y = ax^2$ as $x$ increases from $p$ to $q$. You simply multiply $a$ by $(p + q)$.",
+      "zh": "这是计算 $y = ax^2$ 中 $x$ 从 $p$ 变到 $q$ 时的变化率的简便公式。只需用比例常数 $a$ 乘以 $(p + q)$ 就能快速算出来。"
     }
   ],
   "square-function/intersection": [
     {
       "tex": "ax^2 = mx + n",
-      "ja": "放物線 y＝ax² と直線 y＝mx＋n が交わる点の x 座標を求めるときに使う式です。2つの式をイコールで結んで二次方程式として解きます。",
-      "en": "Use this equation to find the x-coordinates where the parabola y = ax^2 and line y = mx + n cross. Setting them equal creates a quadratic equation to solve.",
-      "zh": "这个式子用来求抛物线 y = ax^2 与直线 y = mx + n 交点的 x 坐标。把两式用等号连起来，解这个二次方程即可。"
+      "ja": "放物線 $y = ax^2$ と直線 $y = mx + n$ が交わる点の $x$ 座標を求めるときに使う式です。2つの式をイコールで結んで二次方程式として解きます。",
+      "en": "Use this equation to find the $x$-coordinates where the parabola $y = ax^2$ and line $y = mx + n$ cross. Setting them equal creates a quadratic equation to solve.",
+      "zh": "这个式子用来求抛物线 $y = ax^2$ 与直线 $y = mx + n$ 交点的 $x$ 坐标。把两式用等号连起来，解这个二次方程即可。"
     },
     {
       "tex": "m = a(\\alpha + \\beta)",
-      "ja": "放物線と交わる直線の傾き m を求める公式です。放物線 y＝ax² の2つの交点の x 座標が α と β のとき、m は a(α＋β) で簡単に計算できます。",
-      "en": "This formula quickly finds the slope m of a line crossing the parabola y = ax^2 at x-coordinates alpha and beta. It equals a times (alpha + beta).",
-      "zh": "这个公式用来快速计算直线与抛物线相交时的斜率 m。当交点的 x 坐标为 α 和 β 时，斜率 m 就等于 a(α + β)。"
+      "ja": "放物線と交わる直線の傾き $m$ を求める公式です。放物線 $y = ax^2$ の2つの交点の $x$ 座標が $\\alpha$ と $\\beta$ のとき、$m$ は $a(\\alpha + \\beta)$ で簡単に計算できます。",
+      "en": "This formula quickly finds the slope $m$ of a line crossing the parabola $y = ax^2$ at $x$-coordinates $\\alpha$ and $\\beta$. It equals $a$ times $(\\alpha + \\beta)$.",
+      "zh": "这个公式用来快速计算直线与抛物线相交时的斜率 $m$。当交点的 $x$ 坐标为 $\\alpha$ 和 $\\beta$ 时，斜率 $m$ 就等于 $a(\\alpha + \\beta)$。"
     },
     {
       "tex": "n = -a\\alpha\\beta",
-      "ja": "放物線と交わる直線の切片 n（y 軸との交点）を求める公式です。2つの交点の x 座標が α と β のとき、n は -aαβ で簡単に計算できます。",
-      "en": "This formula quickly finds the y-intercept n of the line crossing the parabola y = ax^2 at alpha and beta. Calculate it as -a times alpha times beta.",
-      "zh": "这个公式用来快速计算直线与抛物线相交时的 y 轴截距 n。当交点的 x 坐标为 α 和 β 时，截距 n 就等于 -aαβ。"
+      "ja": "放物線と交わる直線の切片 $n$（$y$ 軸との交点）を求める公式です。2つの交点の $x$ 座標が $\\alpha$ と $\\beta$ のとき、$n$ は $-a\\alpha\\beta$ で簡単に計算できます。",
+      "en": "This formula quickly finds the $y$-intercept $n$ of the line crossing the parabola $y = ax^2$ at $\\alpha$ and $\\beta$. Calculate it as $-a$ times $\\alpha$ times $\\beta$.",
+      "zh": "这个公式用来快速计算直线与抛物线相交时的 $y$ 轴截距 $n$。当交点的 $x$ 坐标为 $\\alpha$ 和 $\\beta$ 时，截距 $n$ 就等于 $-a\\alpha\\beta$。"
     }
   ],
   "inequality/linear": [
@@ -2210,15 +2210,15 @@
     },
     {
       "tex": "(x - \\alpha)^2 \\le 0 \\iff x = \\alpha",
-      "ja": "2乗した数はマイナスにならず 0 以上にしかならないため、0 以下になるのはちょうど 0 になる x＝α のときだけです。",
-      "en": "A squared number is never negative, so the only way it can be less than or equal to 0 is when it equals 0, which happens only at x = alpha.",
-      "zh": "任何数的平方都不会是负数，所以它小于或等于 0 的情况只有正好等于 0 的这一点，即 x = α。"
+      "ja": "2乗した数はマイナスにならず 0 以上にしかならないため、0 以下になるのはちょうど 0 になる $x = \\alpha$ のときだけです。",
+      "en": "A squared number is never negative, so the only way it can be less than or equal to 0 is when it equals 0, which happens only at $x = \\alpha$.",
+      "zh": "任何数的平方都不会是负数，所以它小于或等于 0 的情况只有正好等于 0 的这一点，即 $x = \\alpha$。"
     },
     {
       "tex": "(x - \\alpha)^2 > 0 \\iff x \\neq \\alpha",
-      "ja": "2乗した数は 0 以外のとき必ずプラスになるため、2乗が 0 より大きくなる範囲は x＝α 以外のすべての数になります。",
-      "en": "Since squaring any number other than zero always gives a positive result, this holds true for all numbers except x = alpha.",
-      "zh": "任何非零数平方后都一定是正数，所以只要 x 不等于 α，这个平方就始终大于 0。"
+      "ja": "2乗した数は 0 以外のとき必ずプラスになるため、2乗が 0 より大きくなる範囲は $x = \\alpha$ 以外のすべての数になります。",
+      "en": "Since squaring any number other than zero always gives a positive result, this holds true for all numbers except $x = \\alpha$.",
+      "zh": "任何非零数平方后都一定是正数，所以只要 $x$ 不等于 $\\alpha$，这个平方就始终大于 0。"
     }
   ],
   "inequality/absolute": [
@@ -2242,9 +2242,9 @@
     },
     {
       "tex": "|x| = c \\iff x = \\pm c \\quad (c \\ge 0)",
-      "ja": "数直線上で 0 からの距離がちょうど c になる数を探す式です。答えはプラス側の x＝c とマイナス側の x＝-c の2つになります。",
-      "en": "This equation finds numbers whose distance from 0 is exactly c on a number line. There are two solutions: x = c and x = -c.",
-      "zh": "用来表示数轴上到 0 的距离正好等于 c 的数。答案有两个，分别是 x = c 和 x = -c。"
+      "ja": "数直線上で 0 からの距離がちょうど $c$ になる数を探す式です。答えはプラス側の $x = c$ とマイナス側の $x = -c$ の2つになります。",
+      "en": "This equation finds numbers whose distance from 0 is exactly $c$ on a number line. There are two solutions: $x = c$ and $x = -c$.",
+      "zh": "用来表示数轴上到 0 的距离正好等于 $c$ 的数。答案有两个，分别是 $x = c$ 和 $x = -c$。"
     }
   ],
   "expansion/formulas": [
@@ -2262,9 +2262,9 @@
     },
     {
       "tex": "(a + b)^2 = a^2 + 2ab + b^2, \\quad (a - b)^2 = a^2 - 2ab + b^2",
-      "ja": "かっこの2乗を展開する公式です。両はしの2乗（a² と b²）のあいだに、2つを掛けて2倍した「真ん中の項（±2ab）」を忘れずに入れます。",
-      "en": "Formulas for expanding a squared expression in parentheses. Between a^2 and b^2, always remember the middle term (±2ab), which is twice the product of both terms.",
-      "zh": "括号平方时的展开乘法公式。展开时两头是 a^2 和 b^2，千万不要漏掉中间两项相乘再乘 2 的项（±2ab）。"
+      "ja": "かっこの2乗を展開する公式です。両はしの2乗（$a^2$ と $b^2$）のあいだに、2つを掛けて2倍した「真ん中の項（$\\pm 2ab$）」を忘れずに入れます。",
+      "en": "Formulas for expanding a squared expression in parentheses. Between $a^2$ and $b^2$, always remember the middle term ($\\pm 2ab$), which is twice the product of both terms.",
+      "zh": "括号平方时的展开乘法公式。展开时两头是 $a^2$ 和 $b^2$，千万不要漏掉中间两项相乘再乘 2 的项（$\\pm 2ab$）。"
     },
     {
       "tex": "(a + b)(a - b) = a^2 - b^2",
@@ -2276,9 +2276,9 @@
   "expansion/square": [
     {
       "tex": "(a + b)^2 = a^2 + 2ab + b^2",
-      "ja": "2つの数 a と b を足したものを2乗するときに使います。それぞれの2乗（a^2 と b^2）のほかに、2数をかけて2倍した 2ab が真ん中に出てきます。",
-      "en": "Use this when squaring the sum of two numbers, a and b. Along with a^2 and b^2, twice their product (2ab) appears in the middle.",
-      "zh": "计算两数 a 和 b 相加后的平方时使用。展开后除了两数的平方（a^2 和 b^2），中间还会出现两数乘积的2倍（2ab）。"
+      "ja": "2つの数 $a$ と $b$ を足したものを2乗するときに使います。それぞれの2乗（$a^2$ と $b^2$）のほかに、2数をかけて2倍した $2ab$ が真ん中に出てきます。",
+      "en": "Use this when squaring the sum of two numbers, $a$ and $b$. Along with $a^2$ and $b^2$, twice their product ($2ab$) appears in the middle.",
+      "zh": "计算两数 $a$ 和 $b$ 相加后的平方时使用。展开后除了两数的平方（$a^2$ 和 $b^2$），中间还会出现两数乘积的2倍（$2ab$）。"
     },
     {
       "tex": "(a - b)^2 = a^2 - 2ab + b^2",
@@ -2287,17 +2287,17 @@
       "zh": "计算两数 a 和 b 相减后的平方时使用。除了中间项变成减去 2ab 以外，其余部分与加法完全相同。"
     },
     {
-      "ja": "(a + b)^2 を展開するときは、真ん中の 2ab を忘れずに書きましょう。a^2 + b^2 だけにしてしまう間違いが多いので注意が必要です。",
-      "en": "When expanding (a + b)^2, always remember to include the middle term 2ab. Writing only a^2 + b^2 is a very common mistake.",
-      "zh": "展开 (a + b)^2 时，一定要加上中间的 2ab 项。很多初学者容易误写成 a^2 + b^2，请特别注意。"
+      "ja": "$(a + b)^2$ を展開するときは、真ん中の $2ab$ を忘れずに書きましょう。$a^2 + b^2$ だけにしてしまう間違いが多いので注意が必要です。",
+      "en": "When expanding $(a + b)^2$, always remember to include the middle term $2ab$. Writing only $a^2 + b^2$ is a very common mistake.",
+      "zh": "展开 $(a + b)^2$ 时，一定要加上中间的 $2ab$ 项。很多初学者容易误写成 $a^2 + b^2$，请特别注意。"
     }
   ],
   "expansion/sum-difference": [
     {
       "tex": "(a + b)(a - b) = a^2 - b^2",
-      "ja": "同じ2つの数 a と b の「足し算」と「引き算」をかけ合わせるときに使います。真ん中の項が打ち消し合って消えるため、2乗引く2乗のすっきりした形になります。",
-      "en": "Use this when multiplying the sum and difference of the same two numbers, a and b. The middle terms cancel out, leaving just a^2 minus b^2.",
-      "zh": "用于计算相同两数 a 和 b 的“和”与“差”相乘。中间项会互相抵消，最后只剩下两数的平方差（a^2 - b^2）。"
+      "ja": "同じ2つの数 $a$ と $b$ の「足し算」と「引き算」をかけ合わせるときに使います。真ん中の項が打ち消し合って消えるため、2乗引く2乗のすっきりした形になります。",
+      "en": "Use this when multiplying the sum and difference of the same two numbers, $a$ and $b$. The middle terms cancel out, leaving just $a^2$ minus $b^2$.",
+      "zh": "用于计算相同两数 $a$ 和 $b$ 的“和”与“差”相乘。中间项会互相抵消，最后只剩下两数的平方差（$a^2 - b^2$）。"
     },
     {
       "tex": "(\\sqrt{a} + \\sqrt{b})(\\sqrt{a} - \\sqrt{b}) = a - b \\quad (a > 0, \\; b > 0)",
@@ -2315,9 +2315,9 @@
     },
     {
       "tex": "(x + a)(x + b)(x + c) = x^3 + (a + b + c)x^2 + (ab + bc + ca)x + abc",
-      "ja": "x と定数 a, b, c が入った3つの式をかけ合わせるときに使います。x^2 の前は3数の和、x の前は2数ずつの積の和、最後は3数の積 abc になります。",
-      "en": "Use this when multiplying three linear factors with variable x and constants a, b, and c. The coefficients are the sum, the pairwise product sum, and the total product abc.",
-      "zh": "用于计算含有字母 x 和常数 a、b、c 的三个式子相乘。各系数依次是三数之和、两两乘积之和以及三数总乘积 abc。"
+      "ja": "$x$ と定数 $a$, $b$, $c$ が入った3つの式をかけ合わせるときに使います。$x^2$ の前は3数の和、$x$ の前は2数ずつの積の和、最後は3数の積 $abc$ になります。",
+      "en": "Use this when multiplying three linear factors with variable $x$ and constants $a$, $b$, and $c$. The coefficients are the sum, the pairwise product sum, and the total product $abc$.",
+      "zh": "用于计算含有字母 $x$ 和常数 $a$、$b$、$c$ 的三个式子相乘。各系数依次是三数之和、两两乘积之和以及三数总乘积 $abc$。"
     },
     {
       "tex": "(a + b + c)(a^2 + b^2 + c^2 - ab - bc - ca) = a^3 + b^3 + c^3 - 3abc",
@@ -2341,15 +2341,15 @@
     },
     {
       "tex": "(a + b)(a^2 - ab + b^2) = a^3 + b^3",
-      "ja": "展開して a と b の「3乗の和」を作りたいときに使います。2つ目のかっこの真ん中がひき算（-ab）になっている点に注意しましょう。",
-      "en": "Use this to expand into the sum of cubes, a^3 + b^3. Notice that the middle term in the second factor is subtracted (-ab).",
-      "zh": "用于展开得出 a 和 b 的“立方和”。注意第二个括号中间的项必须是减去两数之积（-ab）。"
+      "ja": "展開して $a$ と $b$ の「3乗の和」を作りたいときに使います。2つ目のかっこの真ん中がひき算（$-ab$）になっている点に注意しましょう。",
+      "en": "Use this to expand into the sum of cubes, $a^3 + b^3$. Notice that the middle term in the second factor is subtracted ($-ab$).",
+      "zh": "用于展开得出 $a$ 和 $b$ 的“立方和”。注意第二个括号中间的项必须是减去两数之积（$-ab$）。"
     },
     {
       "tex": "(a - b)(a^2 + ab + b^2) = a^3 - b^3",
-      "ja": "展開して a と b の「3乗の差」を作りたいときに使います。2つ目のかっこの真ん中がたし算（+ab）になっている点に注意しましょう。",
-      "en": "Use this to expand into the difference of cubes, a^3 - b^3. Notice that the middle term in the second factor is added (+ab).",
-      "zh": "用于展开得出 a 和 b 的“立方差”。注意第二个括号中间的项必须是加上两数之积（+ab）。"
+      "ja": "展開して $a$ と $b$ の「3乗の差」を作りたいときに使います。2つ目のかっこの真ん中がたし算（$+ab$）になっている点に注意しましょう。",
+      "en": "Use this to expand into the difference of cubes, $a^3 - b^3$. Notice that the middle term in the second factor is added ($+ab$).",
+      "zh": "用于展开得出 $a$ 和 $b$ 的“立方差”。注意第二个括号中间的项必须是加上两数之积（$+ab$）。"
     }
   ],
   "factorization/common-factor": [
@@ -2400,15 +2400,15 @@
   "factorization/perfect-square": [
     {
       "tex": "a^2 + 2ab + b^2 = (a + b)^2",
-      "ja": "式全体をかっこの2乗の形にまとめるときに使います。両端が a と b の2乗になっていて、真ん中がその積の2倍（2ab）のときに使えます。",
-      "en": "Use this to factor an expression into the square of a sum, (a + b)^2. It works when the ends are squares of a and b, and the middle is 2ab.",
-      "zh": "用于把多项式整理成和的平方 (a + b)^2。当首尾是 a 和 b 的平方，且中间项是它们乘积的2倍（2ab）时使用。"
+      "ja": "式全体をかっこの2乗の形にまとめるときに使います。両端が $a$ と $b$ の2乗になっていて、真ん中がその積の2倍（$2ab$）のときに使えます。",
+      "en": "Use this to factor an expression into the square of a sum, $(a + b)^2$. It works when the ends are squares of $a$ and $b$, and the middle is $2ab$.",
+      "zh": "用于把多项式整理成和的平方 $(a + b)^2$。当首尾是 $a$ 和 $b$ 的平方，且中间项是它们乘积的2倍（$2ab$）时使用。"
     },
     {
       "tex": "a^2 - 2ab + b^2 = (a - b)^2",
-      "ja": "真ん中の項がマイナス（-2ab）になっている式を、かっこの2乗にまとめるときに使います。(a - b)^2 の形に因数分解できます。",
-      "en": "Use this to factor an expression into the square of a difference, (a - b)^2. It works when the middle term is subtracted (-2ab).",
-      "zh": "用于把多项式整理成差的平方 (a - b)^2。当中间项带负号（-2ab）时使用。"
+      "ja": "真ん中の項がマイナス（$-2ab$）になっている式を、かっこの2乗にまとめるときに使います。$(a - b)^2$ の形に因数分解できます。",
+      "en": "Use this to factor an expression into the square of a difference, $(a - b)^2$. It works when the middle term is subtracted ($-2ab$).",
+      "zh": "用于把多项式整理成差的平方 $(a - b)^2$。当中间项带负号（$-2ab$）时使用。"
     },
     {
       "ja": "3つの項がある2次式を見たら、まず両端が何の2乗かを確かめ、真ん中がその積の2倍になっているか確認しましょう。",
@@ -2425,22 +2425,22 @@
     },
     {
       "tex": "a^4 - b^4 = (a^2 + b^2)(a + b)(a - b)",
-      "ja": "4乗の引き算を最後まで因数分解するときに使います。一度2乗の差に分けたあと、後ろの a^2 - b^2 をもう一度公式で分解するのがポイントです。",
-      "en": "Use this to completely factor the difference of fourth powers. After factoring once into squares, factor the a^2 - b^2 part a second time.",
-      "zh": "用于把四次方相减分解彻底。先用平方差公式拆开后，后半部分的 a^2 - b^2 必须再分解一次。"
+      "ja": "4乗の引き算を最後まで因数分解するときに使います。一度2乗の差に分けたあと、後ろの $a^2 - b^2$ をもう一度公式で分解するのがポイントです。",
+      "en": "Use this to completely factor the difference of fourth powers. After factoring once into squares, factor the $a^2 - b^2$ part a second time.",
+      "zh": "用于把四次方相减分解彻底。先用平方差公式拆开后，后半部分的 $a^2 - b^2$ 必须再分解一次。"
     },
     {
-      "ja": "2乗の足し算である a^2 + b^2 は、これ以上かけ算の形に分解できないため、そのままにしておきます。",
-      "en": "The sum of squares, a^2 + b^2, cannot be factored any further using ordinary real numbers, so leave it as it is.",
-      "zh": "平方相加的形式（a^2 + b^2）在实数范围内无法继续因式分解，直接保留原样即可。"
+      "ja": "2乗の足し算である $a^2 + b^2$ は、これ以上かけ算の形に分解できないため、そのままにしておきます。",
+      "en": "The sum of squares, $a^2 + b^2$, cannot be factored any further using ordinary real numbers, so leave it as it is.",
+      "zh": "平方相加的形式（$a^2 + b^2$）在实数范围内无法继续因式分解，直接保留原样即可。"
     }
   ],
   "factoring/ac-method": [
     {
       "tex": "acx^2 + (ad + bc)x + bd = (ax + b)(cx + d)",
-      "ja": "x^2 の前に数字がついている式を因数分解するときに使います。かけて ac になる数と bd になる数を斜めにかけ合わせて、たして真ん中の数になる組み合わせを探します。",
-      "en": "Use this when the coefficient of x^2 is not 1. Find factors of ac and bd that cross-multiply and add up to the middle coefficient.",
-      "zh": "用于因式分解 x^2 前面带有数字系数的式子。把首尾系数拆成两组数交叉相乘再相加，凑出中间项的系数。"
+      "ja": "$x^2$ の前に数字がついている式を因数分解するときに使います。かけて $ac$ になる数と $bd$ になる数を斜めにかけ合わせて、たして真ん中の数になる組み合わせを探します。",
+      "en": "Use this when the coefficient of $x^2$ is not 1. Find factors of $ac$ and $bd$ that cross-multiply and add up to the middle coefficient.",
+      "zh": "用于因式分解 $x^2$ 前面带有数字系数的式子。把首尾系数拆成两组数交叉相乘再相加，凑出中间项的系数。"
     },
     {
       "tex": "acx^2 + (ad + bc)xy + bdy^2 = (ax + by)(cx + dy)",
@@ -2479,15 +2479,15 @@
     },
     {
       "tex": "ax^4 + bx^2 + c = aX^2 + bX + c \\quad (X = x^2)",
-      "ja": "4乗や2乗のように偶数の指数だけがある式を因数分解するときに使います。x^2 を X とおくことで、見慣れた2次式として解くことができます。",
-      "en": "Use this to factor expressions with only even powers, like x^4 and x^2. Letting X = x^2 turns it into a familiar quadratic expression.",
-      "zh": "用于分解只含有 x^4 和 x^2 等偶数次方的多项式。只要设 X = x^2，就能把它当成熟悉的二次三项式来分解。"
+      "ja": "4乗や2乗のように偶数の指数だけがある式を因数分解するときに使います。$x^2$ を $X$ とおくことで、見慣れた2次式として解くことができます。",
+      "en": "Use this to factor expressions with only even powers, like $x^4$ and $x^2$. Letting $X = x^2$ turns it into a familiar quadratic expression.",
+      "zh": "用于分解只含有 $x^4$ 和 $x^2$ 等偶数次方的多项式。只要设 $X = x^2$，就能把它当成熟悉的二次三项式来分解。"
     },
     {
       "tex": "x^4 + ax^2 + b = (x^2 + k)^2 - (mx)^2",
       "ja": "単純な置き換えでは解けない4次の式で使います。真ん中の項をうまく補って「2乗 引く 2乗」の形を作ることで、平方の差の公式を使って因数分解できます。",
-      "en": "Use this when simple substitution fails on a fourth-degree expression. Form a difference of squares, A^2 - B^2, by completing terms, then apply the formula.",
-      "zh": "用于无法直接换元分解的四次式。通过适当凑项构造出“平方减平方”（A^2 - B^2）的形式，再用公式分解。"
+      "en": "Use this when simple substitution fails on a fourth-degree expression. Form a difference of squares, $A^2 - B^2$, by completing terms, then apply the formula.",
+      "zh": "用于无法直接换元分解的四次式。通过适当凑项构造出“平方减平方”（$A^2 - B^2$）的形式，再用公式分解。"
     },
     {
       "ja": "置き換えた文字 X を元の式に戻したあとの注意点です。かっこの中が公式でさらに因数分解できないか、最後まで忘れずに確かめましょう。",
@@ -2498,15 +2498,15 @@
   "factoring/cubes": [
     {
       "tex": "a^3 + b^3 = (a + b)(a^2 - ab + b^2)",
-      "ja": "2つの数 a と b の「3乗の足し算」を因数分解するときに使います。2つ目のかっこの真ん中が引き算（-ab）になる点に気をつけましょう。",
-      "en": "Use this to factor the sum of two cubes, a^3 + b^3. Notice that the middle term in the second factor has a minus sign (-ab).",
-      "zh": "用于把两数立方的加法 a^3 + b^3 分解成乘积。注意第二个括号中间的项带有负号（-ab）。"
+      "ja": "2つの数 $a$ と $b$ の「3乗の足し算」を因数分解するときに使います。2つ目のかっこの真ん中が引き算（$-ab$）になる点に気をつけましょう。",
+      "en": "Use this to factor the sum of two cubes, $a^3 + b^3$. Notice that the middle term in the second factor has a minus sign ($-ab$).",
+      "zh": "用于把两数立方的加法 $a^3 + b^3$ 分解成乘积。注意第二个括号中间的项带有负号（$-ab$）。"
     },
     {
       "tex": "a^3 - b^3 = (a - b)(a^2 + ab + b^2)",
-      "ja": "2つの数 a と b の「3乗の引き算」を因数分解するときに使います。最初のかっこが (a - b) で、2つ目のかっこの真ん中は足し算（+ab）になります。",
-      "en": "Use this to factor the difference of two cubes, a^3 - b^3. The first factor is (a - b), and the middle term of the second factor is positive (+ab).",
-      "zh": "用于把两数立方的减法 a^3 - b^3 分解成乘积。第一个括号是 (a - b)，第二个括号中间项是正号（+ab）。"
+      "ja": "2つの数 $a$ と $b$ の「3乗の引き算」を因数分解するときに使います。最初のかっこが $(a - b)$ で、2つ目のかっこの真ん中は足し算（$+ab$）になります。",
+      "en": "Use this to factor the difference of two cubes, $a^3 - b^3$. The first factor is $(a - b)$, and the middle term of the second factor is positive ($+ab$).",
+      "zh": "用于把两数立方的减法 $a^3 - b^3$ 分解成乘积。第一个括号是 $(a - b)$，第二个括号中间项是正号（$+ab$）。"
     },
     {
       "ja": "2つ目のかっこの真ん中は 2ab ではなく ab です。また、このかっこの中はこれ以上因数分解できないので、ここで計算を終えて大丈夫です。",
@@ -2542,15 +2542,15 @@
   "sqrt/simplify": [
     {
       "tex": "\\sqrt{a^2b} = a\\sqrt{b} \\quad (a > 0, \\; b > 0)",
-      "ja": "ルートの中の数をできるだけ小さく簡単にしたいときに使います。ルートの中に 2乗になった数 a^2 があれば、a としてルートの外に出すことができます。",
-      "en": "Use this to make the number inside a root as small as possible. If there is a squared factor a^2 inside, take a outside the root.",
-      "zh": "用于把根号里面的数化为最简。如果根号内部有某个数 a 的平方（a^2），就可以把 a 提到根号外。"
+      "ja": "ルートの中の数をできるだけ小さく簡単にしたいときに使います。ルートの中に 2乗になった数 $a^2$ があれば、$a$ としてルートの外に出すことができます。",
+      "en": "Use this to make the number inside a root as small as possible. If there is a squared factor $a^2$ inside, take $a$ outside the root.",
+      "zh": "用于把根号里面的数化为最简。如果根号内部有某个数 $a$ 的平方（$a^2$），就可以把 $a$ 提到根号外。"
     },
     {
       "tex": "\\sqrt{\\frac{a}{b^2}} = \\frac{\\sqrt{a}}{b} \\quad (a > 0, \\; b > 0)",
-      "ja": "ルートの中に分母の2乗があるときに使います。分母にある b^2 はルートを外して分母の b にできるため、ルートを分子だけに残せます。",
-      "en": "Use this when the denominator inside a root is a square, b^2. Take b out of the root into the denominator, leaving the root only on the top.",
-      "zh": "当根号内的分母是一个平方数 b^2 时使用。分母开方后变成 b 移到根号外，只把根号留给分子。"
+      "ja": "ルートの中に分母の2乗があるときに使います。分母にある $b^2$ はルートを外して分母の $b$ にできるため、ルートを分子だけに残せます。",
+      "en": "Use this when the denominator inside a root is a square, $b^2$. Take $b$ out of the root into the denominator, leaving the root only on the top.",
+      "zh": "当根号内的分母是一个平方数 $b^2$ 时使用。分母开方后变成 $b$ 移到根号外，只把根号留给分子。"
     },
     {
       "tex": "\\sqrt{a^2} = |a|",
@@ -2562,9 +2562,9 @@
   "sqrt/add-sub": [
     {
       "tex": "m\\sqrt{a} + n\\sqrt{a} = (m + n)\\sqrt{a} \\quad (a > 0)",
-      "ja": "ルートの中の数字 a が同じ項同士を足し算するときに使います。文字式の計算（3x + 2x = 5x）と同じように、ルートの前にある数 m と n を足し合わせます。",
-      "en": "Use this to add square roots that have the same number a inside. Combine them just like terms in algebra (such as 3x + 2x) by adding the numbers m and n in front.",
-      "zh": "用于相加根号内数字 a 相同的二次根式。就像字母式计算（如 3x + 2x = 5x）一样，把根号前面的数字 m 和 n 相加即可。"
+      "ja": "ルートの中の数字 $a$ が同じ項同士を足し算するときに使います。文字式の計算（$3x + 2x = 5x$）と同じように、ルートの前にある数 $m$ と $n$ を足し合わせます。",
+      "en": "Use this to add square roots that have the same number $a$ inside. Combine them just like terms in algebra (such as $3x + 2x$) by adding the numbers $m$ and $n$ in front.",
+      "zh": "用于相加根号内数字 $a$ 相同的二次根式。就像字母式计算（如 $3x + 2x = 5x$）一样，把根号前面的数字 $m$ 和 $n$ 相加即可。"
     },
     {
       "tex": "m\\sqrt{a} - n\\sqrt{a} = (m - n)\\sqrt{a} \\quad (a > 0)",
@@ -2586,21 +2586,21 @@
   "sqrt/rationalize": [
     {
       "tex": "\\frac{c}{\\sqrt{a}} = \\frac{c\\sqrt{a}}{a}",
-      "ja": "分母にあるルートをなくしたいときに使う式です。分母と分子の両方に同じ \\sqrt{a} を掛けます。",
-      "en": "Use this formula to remove the square root from the denominator. Multiply both top and bottom by \\sqrt{a}.",
-      "zh": "这是用来去掉分母中根号的公式。在分母和分子上同时乘同一个 \\sqrt{a} 即可。"
+      "ja": "分母にあるルートをなくしたいときに使う式です。分母と分子の両方に同じ $\\sqrt{a}$ を掛けます。",
+      "en": "Use this formula to remove the square root from the denominator. Multiply both top and bottom by $\\sqrt{a}$.",
+      "zh": "这是用来去掉分母中根号的公式。在分母和分子上同时乘同一个 $\\sqrt{a}$ 即可。"
     },
     {
       "tex": "\\frac{c}{\\sqrt{a} + \\sqrt{b}} = \\frac{c(\\sqrt{a} - \\sqrt{b})}{a - b}",
-      "ja": "分母がルートの足し算になっているときに使います。符号を変えた (\\sqrt{a} - \\sqrt{b}) を分母と分子に掛けて、ルートをなくします。",
-      "en": "Use this when the denominator is an addition of square roots. Multiply top and bottom by (\\sqrt{a} - \\sqrt{b}) to clear the roots.",
-      "zh": "当分母是两个根号相加时使用。把变号后的 (\\sqrt{a} - \\sqrt{b}) 同时乘到分子分母上，就能消去根号。"
+      "ja": "分母がルートの足し算になっているときに使います。符号を変えた $(\\sqrt{a} - \\sqrt{b})$ を分母と分子に掛けて、ルートをなくします。",
+      "en": "Use this when the denominator is an addition of square roots. Multiply top and bottom by $(\\sqrt{a} - \\sqrt{b})$ to clear the roots.",
+      "zh": "当分母是两个根号相加时使用。把变号后的 $(\\sqrt{a} - \\sqrt{b})$ 同时乘到分子分母上，就能消去根号。"
     },
     {
       "tex": "\\frac{c}{a + \\sqrt{b}} = \\frac{c(a - \\sqrt{b})}{a^2 - b}",
-      "ja": "分母の片方だけにルートがあるときに使います。符号を変えた (a - \\sqrt{b}) を分母と分子の両方に掛けて、分母のルートをなくします。",
-      "en": "Use this when only one term in the denominator has a square root. Multiply top and bottom by (a - \\sqrt{b}) to remove the root.",
-      "zh": "当分母中只有一项带根号时使用。分子和分母同时乘变号后的 (a - \\sqrt{b})，即可去掉根号。"
+      "ja": "分母の片方だけにルートがあるときに使います。符号を変えた $(a - \\sqrt{b})$ を分母と分子の両方に掛けて、分母のルートをなくします。",
+      "en": "Use this when only one term in the denominator has a square root. Multiply top and bottom by $(a - \\sqrt{b})$ to remove the root.",
+      "zh": "当分母中只有一项带根号时使用。分子和分母同时乘变号后的 $(a - \\sqrt{b})$，即可去掉根号。"
     }
   ],
   "sqrt/double-radical": [
@@ -2612,9 +2612,9 @@
     },
     {
       "tex": "\\sqrt{(a + b) - 2\\sqrt{ab}} = \\sqrt{a} - \\sqrt{b} \\quad (a > b > 0)",
-      "ja": "引き算の二重ルートを外す式です。答えがマイナスにならないよう、必ず大きい \\sqrt{a} から小さい \\sqrt{b} を引きます。",
-      "en": "Use this to simplify a nested root with subtraction. Always subtract the smaller \\sqrt{b} from the larger \\sqrt{a} so the result is positive.",
-      "zh": "用于化简相减形式的双重根号。为了保证结果为正数，必须用较大的 \\sqrt{a} 减去较小的 \\sqrt{b}。"
+      "ja": "引き算の二重ルートを外す式です。答えがマイナスにならないよう、必ず大きい $\\sqrt{a}$ から小さい $\\sqrt{b}$ を引きます。",
+      "en": "Use this to simplify a nested root with subtraction. Always subtract the smaller $\\sqrt{b}$ from the larger $\\sqrt{a}$ so the result is positive.",
+      "zh": "用于化简相减形式的双重根号。为了保证结果为正数，必须用较大的 $\\sqrt{a}$ 减去较小的 $\\sqrt{b}$。"
     },
     {
       "ja": "内側のルートの前が 2 ではないときに使います。数字をルートの中に入れたり出したりして、無理やり 2 を作ってから外します。",
@@ -2671,21 +2671,21 @@
   "integers/diophantine": [
     {
       "tex": "a(x - x_0) + b(y - y_0) = 0",
-      "ja": "方程式のすべての整数解を求めるときに使います。見つけた1組の解 (x_0, y_0) を代入した式を引き算して、右辺を 0 にします。",
-      "en": "Use this step to find all integer solutions. Subtract the equation with one known solution (x_0, y_0) to make the right side 0.",
-      "zh": "用于求方程的所有整数解。把已找到的一组解 (x_0, y_0) 代入原式并相减，使等式右边变成 0。"
+      "ja": "方程式のすべての整数解を求めるときに使います。見つけた1組の解 $(x_0, y_0)$ を代入した式を引き算して、右辺を 0 にします。",
+      "en": "Use this step to find all integer solutions. Subtract the equation with one known solution $(x_0, y_0)$ to make the right side 0.",
+      "zh": "用于求方程的所有整数解。把已找到的一组解 $(x_0, y_0)$ 代入原式并相减，使等式右边变成 0。"
     },
     {
       "tex": "x = x_0 + bk, \\quad y = y_0 - ak \\quad (k \\in \\mathbb{Z})",
-      "ja": "不定方程式のすべての整数解を表す式です。1組の解 (x_0, y_0) をもとに、好きな整数 k を使ってすべての解をまとめられます。",
-      "en": "This formula expresses all integer solutions. Starting from one solution (x_0, y_0), any integer k gives another valid pair (x, y).",
-      "zh": "这是表示不定方程所有整数解的式子。以一组已知解 (x_0, y_0) 为基础，使用任意整数 k 即可表示全部解。"
+      "ja": "不定方程式のすべての整数解を表す式です。1組の解 $(x_0, y_0)$ をもとに、好きな整数 $k$ を使ってすべての解をまとめられます。",
+      "en": "This formula expresses all integer solutions. Starting from one solution $(x_0, y_0)$, any integer $k$ gives another valid pair $(x, y)$.",
+      "zh": "这是表示不定方程所有整数解的式子。以一组已知解 $(x_0, y_0)$ 为基础，使用任意整数 $k$ 即可表示全部解。"
     },
     {
       "tex": "\\gcd(a, b) \\mid c",
-      "ja": "方程式 ax + by = c に整数の解があるかを調べる式です。右辺の数 c が、a と b の最大公約数で割り切れるときに解が存在します。",
-      "en": "Use this to check if the equation ax + by = c has integer solutions. Solutions exist when c is divisible by the GCD of a and b.",
-      "zh": "用于判断方程 ax + by = c 是否有整数解。当常数 c 能被 a 和 b 的最大公约数整除时，方程才有解。"
+      "ja": "方程式 $ax + by = c$ に整数の解があるかを調べる式です。右辺の数 $c$ が、$a$ と $b$ の最大公約数で割り切れるときに解が存在します。",
+      "en": "Use this to check if the equation $ax + by = c$ has integer solutions. Solutions exist when $c$ is divisible by the GCD of $a$ and $b$.",
+      "zh": "用于判断方程 $ax + by = c$ 是否有整数解。当常数 $c$ 能被 $a$ 和 $b$ 的最大公约数整除时，方程才有解。"
     }
   ],
   "integers/base-n": [
@@ -2697,15 +2697,15 @@
     },
     {
       "tex": "0 \\le a_i < n",
-      "ja": "n進法のそれぞれの桁に使える数字のルールを表す式です。各桁の数字 a_i には、0 から n より 1 小さい数までの整数を使います。",
-      "en": "This shows the rule for digits used in base n. Each digit a_i must be an integer from 0 up to n - 1.",
-      "zh": "这个式子表示 n 进制中各位数字的取值范围。每一位上的数字 a_i 只能使用 0 到 n-1 之间的整数。"
+      "ja": "$n$進法のそれぞれの桁に使える数字のルールを表す式です。各桁の数字 $a_i$ には、0 から $n$ より 1 小さい数までの整数を使います。",
+      "en": "This shows the rule for digits used in base $n$. Each digit $a_i$ must be an integer from 0 up to $n - 1$.",
+      "zh": "这个式子表示 $n$ 进制中各位数字的取值范围。每一位上的数字 $a_i$ 只能使用 0 到 $n - 1$ 之间的整数。"
     },
     {
       "tex": "(0.a_1 a_2 \\dots a_m)_{(n)} = \\frac{a_1}{n} + \\frac{a_2}{n^2} + \\dots + \\frac{a_m}{n^m}",
-      "ja": "n進法の小数を10進法に直す式です。小数第1位なら n、第2位なら n^2 で各桁の数字 a を割って足し算します。",
-      "en": "This formula converts a base-n fraction into base 10. Divide each digit a by powers of n (like n or n^2) and add them up.",
-      "zh": "这是把 n 进制小数转换为十进制的公式。把每一位小数 a 分别除以 n、n^2 等并相加。"
+      "ja": "$n$進法の小数を10進法に直す式です。小数第1位なら $n$、第2位なら $n^2$ で各桁の数字 $a$ を割って足し算します。",
+      "en": "This formula converts a base-$n$ fraction into base 10. Divide each digit $a$ by powers of $n$ (like $n$ or $n^2$) and add them up.",
+      "zh": "这是把 $n$ 进制小数转换为十进制的公式。把每一位小数 $a$ 分别除以 $n$、$n^2$ 等并相加。"
     },
     {
       "ja": "10進法の整数を n進法に直す方法です。商が 0 になるまで n で割り続け、出た余りを下から上に逆順に並べます。",
@@ -2748,15 +2748,15 @@
     },
     {
       "tex": "1 : 1 : \\sqrt{2}",
-      "ja": "45°、45°、90° の直角二等辺三角形の辺の長さを求めるときに使います。等しい2辺の長さを 1 としたとき、斜辺の長さは \\sqrt{2} になります。",
-      "en": "Use this ratio to find side lengths in a 45°-45°-90° right triangle. When the two equal sides are 1, the hypotenuse is \\sqrt{2}.",
-      "zh": "用于计算 45°、45°、90° 等腰直角三角形的边长。当两条直角边为 1 时，斜边长度就是 \\sqrt{2}。"
+      "ja": "45°、45°、90° の直角二等辺三角形の辺の長さを求めるときに使います。等しい2辺の長さを 1 としたとき、斜辺の長さは $\\sqrt{2}$ になります。",
+      "en": "Use this ratio to find side lengths in a 45°-45°-90° right triangle. When the two equal sides are 1, the hypotenuse is $\\sqrt{2}$.",
+      "zh": "用于计算 45°、45°、90° 等腰直角三角形的边长。当两条直角边为 1 时，斜边长度就是 $\\sqrt{2}$。"
     },
     {
       "tex": "1 : \\sqrt{3} : 2",
-      "ja": "30°、60°、90° の直角三角形の辺の長さを求めるときに使います。一番短い辺が 1、次に長い辺が \\sqrt{3}、斜辺が 2 になります。",
-      "en": "Use this ratio to find side lengths in a 30°-60°-90° right triangle. The shortest side is 1, the middle is \\sqrt{3}, and the hypotenuse is 2.",
-      "zh": "用于计算 30°、60°、90° 直角三角形的边长。最短直角边为 1，另一条直角边为 \\sqrt{3}，最长斜边为 2。"
+      "ja": "30°、60°、90° の直角三角形の辺の長さを求めるときに使います。一番短い辺が 1、次に長い辺が $\\sqrt{3}$、斜辺が 2 になります。",
+      "en": "Use this ratio to find side lengths in a 30°-60°-90° right triangle. The shortest side is 1, the middle is $\\sqrt{3}$, and the hypotenuse is 2.",
+      "zh": "用于计算 30°、60°、90° 直角三角形的边长。最短直角边为 1，另一条直角边为 $\\sqrt{3}$，最长斜边为 2。"
     }
   ],
   "pythagoras/applications": [
@@ -2800,21 +2800,21 @@
   "probability/basic": [
     {
       "tex": "P(A) = \\frac{n(A)}{n(U)}",
-      "ja": "ある出来事 A が起こる確率 P(A) を計算する基本の式です。すべての場合の数 n(U) のうち、A が起こる場合の数 n(A) の割合を求めます。",
-      "en": "This is the basic formula to find the probability P(A) of an event A. Divide the favorable cases n(A) by the total possible cases n(U).",
-      "zh": "这是计算事件 A 发生概率 P(A) 的基本公式。用 A 发生的情况数 n(A) 除以所有可能的情况总数 n(U)。"
+      "ja": "ある出来事 $A$ が起こる確率 $P(A)$ を計算する基本の式です。すべての場合の数 $n(U)$ のうち、$A$ が起こる場合の数 $n(A)$ の割合を求めます。",
+      "en": "This is the basic formula to find the probability $P(A)$ of an event $A$. Divide the favorable cases $n(A)$ by the total possible cases $n(U)$.",
+      "zh": "这是计算事件 $A$ 发生概率 $P(A)$ 的基本公式。用 $A$ 发生的情况数 $n(A)$ 除以所有可能的情况总数 $n(U)$。"
     },
     {
       "tex": "0 \\le P(A) \\le 1",
-      "ja": "確率 P(A) がとる値の範囲を表す式です。確率は必ず 0 から 1 の間になり、絶対に起きないときは 0、絶対に起きるときは 1 になります。",
-      "en": "This shows the range of values for probability P(A). It is always between 0 and 1, being 0 for impossible events and 1 for certain events.",
-      "zh": "这个式子表示概率 P(A) 的取值范围。概率必定在 0 到 1 之间，绝不可能发生时为 0，必然发生时为 1。"
+      "ja": "確率 $P(A)$ がとる値の範囲を表す式です。確率は必ず 0 から 1 の間になり、絶対に起きないときは 0、絶対に起きるときは 1 になります。",
+      "en": "This shows the range of values for probability $P(A)$. It is always between 0 and 1, being 0 for impossible events and 1 for certain events.",
+      "zh": "这个式子表示概率 $P(A)$ 的取值范围。概率必定在 0 到 1 之间，绝不可能发生时为 0，必然发生时为 1。"
     },
     {
       "tex": "P(\\bar{A}) = 1 - P(A)",
-      "ja": "「A が起きない確率」を求めたいときに使う式です。全体の確率である 1 から、A が起きる確率 P(A) を引き算します。",
-      "en": "Use this formula to find the probability that event A does not occur. Simply subtract the probability of A occurring, P(A), from 1.",
-      "zh": "用于计算“事件 A 不发生”的概率。只需用总概率 1 减去 A 发生的概率 P(A) 即可。"
+      "ja": "「$A$ が起きない確率」を求めたいときに使う式です。全体の確率である 1 から、$A$ が起きる確率 $P(A)$ を引き算します。",
+      "en": "Use this formula to find the probability that event $A$ does not occur. Simply subtract the probability of $A$ occurring, $P(A)$, from 1.",
+      "zh": "用于计算“事件 $A$ 不发生”的概率。只需用总概率 1 减去 $A$ 发生的概率 $P(A)$ 即可。"
     },
     {
       "tex": "P(A \\cup B) = P(A) + P(B) \\quad (A \\cap B = \\emptyset)",
@@ -2832,14 +2832,14 @@
     },
     {
       "tex": "(x - \\alpha)(x - \\beta) = 0 \\implies x = \\alpha, \\beta",
-      "ja": "因数分解した式から二次方程式の解を見つける式です。掛け算の中身を 0 にする値を探すことで、解が x = \\alpha と \\beta だと分かります。",
-      "en": "Use this to read the solutions from a factored equation. Making each bracket zero gives the solutions x = \\alpha and \\beta.",
-      "zh": "用于从因式分解后的式子中得出解。只要让各个括号内的式子为 0，就能得出解为 x = \\alpha 和 \\beta。"
+      "ja": "因数分解した式から二次方程式の解を見つける式です。掛け算の中身を 0 にする値を探すことで、解が $x = \\alpha$ と $\\beta$ だと分かります。",
+      "en": "Use this to read the solutions from a factored equation. Making each bracket zero gives the solutions $x = \\alpha$ and $\\beta$.",
+      "zh": "用于从因式分解后的式子中得出解。只要让各个括号内的式子为 0，就能得出解为 $x = \\alpha$ 和 $\\beta$。"
     },
     {
-      "ja": "二次方程式を解くときの大切な注意点です。すべての項を左辺に集めて「= 0」にしてから解き、答えが消えてしまわないよう両辺を x で割らないようにします。",
-      "en": "This is an important rule when solving quadratic equations. Move all terms to the left to get \"= 0\", and never divide both sides by x to avoid losing solutions.",
-      "zh": "这是解一元二次方程时的重要注意点。把所有项移到左边化为“= 0”再解，切勿在两边除以未知数 x 以免漏解。"
+      "ja": "二次方程式を解くときの大切な注意点です。すべての項を左辺に集めて「$= 0$」にしてから解き、答えが消えてしまわないよう両辺を $x$ で割らないようにします。",
+      "en": "This is an important rule when solving quadratic equations. Move all terms to the left to get \"$= 0$\", and never divide both sides by $x$ to avoid losing solutions.",
+      "zh": "这是解一元二次方程时的重要注意点。把所有项移到左边化为“$= 0$”再解，切勿在两边除以未知数 $x$ 以免漏解。"
     }
   ],
   "quadratic/formula": [
@@ -2876,14 +2876,14 @@
     },
     {
       "tex": "D = 0 \\implies x = -\\frac{b}{2a}",
-      "ja": "解が1つだけ（重解）になるときに、その解 x を直接求める式です。D = 0 のときはルートが消えるため、係数 a, b だけで計算できます。",
-      "en": "This formula directly finds the solution x when there is only one real root (a double root). When D is 0, the square root part disappears.",
-      "zh": "当方程只有一个实数解（重根）时，直接求出该解 x 的公式。当 D = 0 时根号消失，仅用系数 a 和 b 就能算出。"
+      "ja": "解が1つだけ（重解）になるときに、その解 $x$ を直接求める式です。$D = 0$ のときはルートが消えるため、係数 $a, b$ だけで計算できます。",
+      "en": "This formula directly finds the solution $x$ when there is only one real root (a double root). When $D$ is 0, the square root part disappears.",
+      "zh": "当方程只有一个实数解（重根）时，直接求出该解 $x$ 的公式。当 $D = 0$ 时根号消失，仅用系数 $a$ 和 $b$ 就能算出。"
     },
     {
-      "ja": "計算した D の値から、解の個数を判断するルールです。D が正なら解は2個、0 なら1個（重解）、負なら実数解はありません。",
-      "en": "This rule tells you how many real solutions exist based on D. There are two solutions if D > 0, one (a double root) if D = 0, and none if D < 0.",
-      "zh": "这是根据算出的 D 判断解的个数的规则。D 为正数时有两个解，为 0 时有1个解（重根），为负数时没有实数解。"
+      "ja": "計算した $D$ の値から、解の個数を判断するルールです。$D$ が正なら解は2個、0 なら1個（重解）、負なら実数解はありません。",
+      "en": "This rule tells you how many real solutions exist based on $D$. There are two solutions if $D > 0$, one (a double root) if $D = 0$, and none if $D < 0$.",
+      "zh": "这是根据算出的 $D$ 判断解的个数的规则。$D$ 为正数时有两个解，为 0 时有1个解（重根），为负数时没有实数解。"
     }
   ],
   "identities/binomial": [
@@ -2901,23 +2901,23 @@
     },
     {
       "tex": "(1 + x)^n = \\sum_{r=0}^n {}_n\\mathrm{C}_r x^r",
-      "ja": "二項定理で a を 1、b を x にした特別な式です。1 は何乗しても 1 なので、x^r の前の係数が組合せの数 {}_n\\mathrm{C}_r そのものになります。",
-      "en": "This is a special form of the binomial theorem where a is 1 and b is x. Since powers of 1 are always 1, each coefficient of x^r is simply {}_n\\mathrm{C}_r.",
-      "zh": "这是在二项定理中把 a 换成 1、b 换成 x 的特殊公式。因为 1 的任意次方都是 1，所以 x^r 前面的系数就是组合数 {}_n\\mathrm{C}_r 本身。"
+      "ja": "二項定理で $a$ を 1、$b$ を $x$ にした特別な式です。1 は何乗しても 1 なので、$x^r$ の前の係数が組合せの数 ${}_n\\mathrm{C}_r$ そのものになります。",
+      "en": "This is a special form of the binomial theorem where $a$ is 1 and $b$ is $x$. Since powers of 1 are always 1, each coefficient of $x^r$ is simply ${}_n\\mathrm{C}_r$.",
+      "zh": "这是在二项定理中把 $a$ 换成 1、$b$ 换成 $x$ 的特殊公式。因为 1 的任意次方都是 1，所以 $x^r$ 前面的系数就是组合数 ${}_n\\mathrm{C}_r$ 本身。"
     }
   ],
   "identities/identity": [
     {
       "tex": "ax + b = 0 \\iff a = 0, \\; b = 0",
-      "ja": "xにどんな数を代入しても ax+b=0 が成り立つとき、文字 a と b の両方が 0 だとわかります。",
-      "en": "If ax + b = 0 is always true for any x, both coefficients a and b must be 0.",
-      "zh": "如果无论 x 是什么数 ax + b = 0 都成立，那么系数 a 和常数 b 都必须是 0。"
+      "ja": "$x$にどんな数を代入しても $ax+b=0$ が成り立つとき、文字 $a$ と $b$ の両方が 0 だとわかります。",
+      "en": "If $ax + b = 0$ is always true for any $x$, both coefficients $a$ and $b$ must be 0.",
+      "zh": "如果无论 $x$ 是什么数 $ax + b = 0$ 都成立，那么系数 $a$ 和常数 $b$ 都必须是 0。"
     },
     {
       "tex": "ax^2 + bx + c = 0 \\iff a = 0, \\; b = 0, \\; c = 0",
-      "ja": "xにどんな数を代入しても ax^2+bx+c=0 が成り立つなら、係数 a, b, c はすべて 0 になります。",
-      "en": "If ax^2 + bx + c = 0 is always true for any x, all coefficients a, b, and c must be 0.",
-      "zh": "如果无论 x 是什么数 ax^2 + bx + c = 0 都成立，那么各项系数 a、b、c 全都必须是 0。"
+      "ja": "$x$にどんな数を代入しても $ax^2+bx+c=0$ が成り立つなら、係数 $a$, $b$, $c$ はすべて 0 になります。",
+      "en": "If $ax^2 + bx + c = 0$ is always true for any $x$, all coefficients $a$, $b$, and $c$ must be 0.",
+      "zh": "如果无论 $x$ 是什么数 $ax^2 + bx + c = 0$ 都成立，那么各项系数 $a$、$b$、$c$ 全都必须是 0。"
     },
     {
       "tex": "ax^2 + bx + c = a'x^2 + b'x + c' \\iff a = a', \\; b = b', \\; c = c'",
@@ -2952,37 +2952,37 @@
     },
     {
       "tex": "(a^2 + b^2)(x^2 + y^2) \\ge (ax + by)^2",
-      "ja": "2組の数 a, b と x, y についていつでも成り立つ不等式です。両辺が等しくなるのは ay=bx のときです。",
-      "en": "This inequality holds for any numbers a, b, x, and y. Both sides are equal when ay = bx.",
-      "zh": "对于任意两组数 a, b 和 x, y 都成立的不等式。两边相等的条件是 ay = bx。"
+      "ja": "2組の数 $a$, $b$ と $x$, $y$ についていつでも成り立つ不等式です。両辺が等しくなるのは $ay=bx$ のときです。",
+      "en": "This inequality holds for any numbers $a$, $b$, $x$, and $y$. Both sides are equal when $ay = bx$.",
+      "zh": "对于任意两组数 $a$, $b$ 和 $x$, $y$ 都成立的不等式。两边相等的条件是 $ay = bx$。"
     }
   ],
   "polynomial-equations/remainder": [
     {
       "tex": "P(x) = (x - \\alpha)Q(x) + P(\\alpha)",
-      "ja": "式 P(x) を x-α で割った余りを知りたいときは、P(x) の x に α を代入した値 P(α) を計算します。",
-      "en": "To find the remainder when dividing polynomial P(x) by x-α, simply calculate P(α) by plugging in α.",
-      "zh": "想知道多项式 P(x) 除以 x-α 的余数时，直接计算把 α 代入所得的 P(α) 即可。"
+      "ja": "式 $P(x)$ を $x-\\alpha$ で割った余りを知りたいときは、$P(x)$ の $x$ に $\\alpha$ を代入した値 $P(\\alpha)$ を計算します。",
+      "en": "To find the remainder when dividing polynomial $P(x)$ by $x-\\alpha$, simply calculate $P(\\alpha)$ by plugging in $\\alpha$.",
+      "zh": "想知道多项式 $P(x)$ 除以 $x-\\alpha$ 的余数时，直接计算把 $\\alpha$ 代入所得的 $P(\\alpha)$ 即可。"
     },
     {
       "tex": "P(x) = (ax + b)Q(x) + P\\left(-\\frac{b}{a}\\right)",
-      "ja": "式 P(x) を ax+b で割った余りを知りたいときは、x に -b/a を代入した値 P(-b/a) を計算します。",
-      "en": "To find the remainder when dividing polynomial P(x) by ax+b, plug -b/a into P(x).",
-      "zh": "想知道多项式 P(x) 除以 ax+b 的余数时，把 -b/a 代入 P(x) 计算即可。"
+      "ja": "式 $P(x)$ を $ax+b$ で割った余りを知りたいときは、$x$ に $-b/a$ を代入した値 $P(-b/a)$ を計算します。",
+      "en": "To find the remainder when dividing polynomial $P(x)$ by $ax+b$, plug $-b/a$ into $P(x)$.",
+      "zh": "想知道多项式 $P(x)$ 除以 $ax+b$ 的余数时，把 $-b/a$ 代入 $P(x)$ 计算即可。"
     },
     {
       "tex": "P(\\alpha) = 0 \\iff P(x) = (x - \\alpha)Q(x)",
-      "ja": "P(α)=0 となるとき、式 P(x) は割り切れて因数 (x-α) を持つので、因数分解に役立ちます。",
-      "en": "If P(α) = 0, the polynomial P(x) divides evenly by (x - α), which helps factor it.",
-      "zh": "如果 P(α) = 0，说明多项式 P(x) 可以被 (x - α) 整除，能用来进行因式分解。"
+      "ja": "$P(\\alpha)=0$ となるとき、式 $P(x)$ は割り切れて因数 $(x-\\alpha)$ を持つので、因数分解に役立ちます。",
+      "en": "If $P(\\alpha) = 0$, the polynomial $P(x)$ divides evenly by $(x - \\alpha)$, which helps factor it.",
+      "zh": "如果 $P(\\alpha) = 0$，说明多项式 $P(x)$ 可以被 $(x - \\alpha)$ 整除，能用来进行因式分解。"
     }
   ],
   "polynomial-equations/higher-degree": [
     {
       "tex": "P(\\alpha) = 0 \\implies P(x) = (x - \\alpha)Q(x) = 0",
-      "ja": "高次方程式を解くときは、まず代入して 0 になる数 α を見つけて (x-α) で因数分解し、次数を下げます。",
-      "en": "To solve a polynomial equation, find a number α that makes P(α) = 0 to factor out (x - α) and reduce its degree.",
-      "zh": "解高次方程时，先找一个让 P(α) = 0 的数 α，分解出因式 (x - α) 降低次数来求解。"
+      "ja": "高次方程式を解くときは、まず代入して 0 になる数 $\\alpha$ を見つけて $(x-\\alpha)$ で因数分解し、次数を下げます。",
+      "en": "To solve a polynomial equation, find a number $\\alpha$ that makes $P(\\alpha) = 0$ to factor out $(x - \\alpha)$ and reduce its degree.",
+      "zh": "解高次方程时，先找一个让 $P(\\alpha) = 0$ 的数 $\\alpha$，分解出因式 $(x - \\alpha)$ 降低次数来求解。"
     },
     {
       "tex": "x = \\pm \\frac{p}{q} \\quad (p \\mid a_0, \\; q \\mid a_n)",
@@ -2992,9 +2992,9 @@
     },
     {
       "tex": "x^4 + ax^2 + b = (x^2 + k)^2 - (mx)^2 = 0",
-      "ja": "x^2 と x^4 しかない式は、X=x^2 と置き換えるか、(2乗)-(2乗) の形に変形して因数分解します。",
-      "en": "For equations with only x^2 and x^4, substitute X = x^2 or rewrite into a difference of squares to factor.",
-      "zh": "对于只有 x^2 和 x^4 的方程，可以设 X = x^2 或变形为平方差的形式来进行因式分解。"
+      "ja": "$x^2$ と $x^4$ しかない式は、$X=x^2$ と置き換えるか、(2乗)-(2乗) の形に変形して因数分解します。",
+      "en": "For equations with only $x^2$ and $x^4$, substitute $X = x^2$ or rewrite into a difference of squares to factor.",
+      "zh": "对于只有 $x^2$ 和 $x^4$ 的方程，可以设 $X = x^2$ 或变形为平方差的形式来进行因式分解。"
     },
     {
       "ja": "複素数の範囲まで広げて考えると、重なった解も別々に数えて、n次方程式にはちょうど n 個の解があります。",
@@ -3011,15 +3011,15 @@
     },
     {
       "tex": "y = ax^2 + bx + c = a\\left(x + \\frac{b}{2a}\\right)^2 - \\frac{b^2 - 4ac}{4a}",
-      "ja": "平方完成をして ( )^2 の形を作ることで、頂点の座標が読み取れる式に変形できます。",
-      "en": "Completing the square into a ( )^2 form rewrites the quadratic formula so you can easily read the vertex.",
-      "zh": "通过配方化为带有 ( )^2 的形式，就可以将式子变成容易看出顶点的样子。"
+      "ja": "平方完成をして $( )^2$ の形を作ることで、頂点の座標が読み取れる式に変形できます。",
+      "en": "Completing the square into a $( )^2$ form rewrites the quadratic formula so you can easily read the vertex.",
+      "zh": "通过配方化为带有 $( )^2$ 的形式，就可以将式子变成容易看出顶点的样子。"
     },
     {
       "tex": "\\left(-\\frac{b}{2a}, \\; -\\frac{b^2 - 4ac}{4a}\\right)",
-      "ja": "二次関数 y=ax^2+bx+c の頂点の座標を、文字 a, b, c の値から直接計算できる公式です。",
-      "en": "Formula to calculate the coordinates of the vertex directly from the numbers a, b, and c.",
-      "zh": "利用式子中的数字 a、b、c 直接计算二次函数顶点坐标的公式。"
+      "ja": "二次関数 $y=ax^2+bx+c$ の頂点の座標を、文字 $a$, $b$, $c$ の値から直接計算できる公式です。",
+      "en": "Formula to calculate the coordinates of the vertex directly from the numbers $a$, $b$, and $c$.",
+      "zh": "利用式子中的数字 $a$、$b$、$c$ 直接计算二次函数顶点坐标的公式。"
     },
     {
       "tex": "x = -\\frac{b}{2a}",
@@ -3031,9 +3031,9 @@
   "quadratic-function/graph": [
     {
       "tex": "y = a(x - p)^2 + q",
-      "ja": "問題文で頂点の座標 (p, q) や真ん中の軸 x=p がわかっているときに、この形を使って式を求めます。",
-      "en": "Use this form to find the quadratic equation when the vertex (p, q) or axis x = p is known.",
-      "zh": "当已知抛物线的顶点坐标 (p, q) 或对称轴 x = p 时，设出这个形式来求方程。"
+      "ja": "問題文で頂点の座標 $(p, q)$ や真ん中の軸 $x=p$ がわかっているときに、この形を使って式を求めます。",
+      "en": "Use this form to find the quadratic equation when the vertex $(p, q)$ or axis $x = p$ is known.",
+      "zh": "当已知抛物线的顶点坐标 $(p, q)$ 或对称轴 $x = p$ 时，设出这个形式来求方程。"
     },
     {
       "tex": "y = ax^2 + bx + c",
@@ -3049,9 +3049,9 @@
     },
     {
       "tex": "y - q = a(x - p)^2",
-      "ja": "放物線 y=ax^2 を、右や左に p、上や下に q だけそのままスライド移動させたグラフの式です。",
-      "en": "Equation formed by shifting the parabola y = ax^2 by p horizontally and q vertically.",
-      "zh": "把抛物线 y = ax^2 沿着 x 轴平移 p、沿 y 轴平移 q 后的函数表达式。"
+      "ja": "放物線 $y=ax^2$ を、右や左に $p$、上や下に $q$ だけそのままスライド移動させたグラフの式です。",
+      "en": "Equation formed by shifting the parabola $y = ax^2$ by $p$ horizontally and $q$ vertically.",
+      "zh": "把抛物线 $y = ax^2$ 沿着 $x$ 轴平移 $p$、沿 $y$ 轴平移 $q$ 后的函数表达式。"
     }
   ],
   "quadratic-function/max-min": [
@@ -3076,15 +3076,15 @@
   "sequence/arithmetic": [
     {
       "tex": "a_n = a_1 + (n - 1)d",
-      "ja": "一定の数 d ずつ増える数列で、初めの数 a_1 から数えて n 番目の数 a_n を求める公式です。",
-      "en": "Formula to find the n-th number a_n in a sequence that starts at a_1 and increases by d each step.",
-      "zh": "每次增加固定数值 d 的数列中，从首项 a_1 算起求第 n 项数字 a_n 的公式。"
+      "ja": "一定の数 $d$ ずつ増える数列で、初めの数 $a_1$ から数えて $n$ 番目の数 $a_n$ を求める公式です。",
+      "en": "Formula to find the $n$-th number $a_n$ in a sequence that starts at $a_1$ and increases by $d$ each step.",
+      "zh": "每次增加固定数值 $d$ 的数列中，从首项 $a_1$ 算起求第 $n$ 项数字 $a_n$ 的公式。"
     },
     {
       "tex": "S_n = \\frac{1}{2}n(a_1 + a_n) = \\frac{1}{2}n\\{2a_1 + (n - 1)d\\}",
-      "ja": "等差数列の1番目から n 番目までの数をすべて足し合わせた合計 S_n を求める公式です。",
-      "en": "Formula to find the total sum S_n of the numbers from the 1st term to the n-th term in an arithmetic sequence.",
-      "zh": "计算等差数列从第 1 项一直加到第 n 项的总和 S_n 的公式。"
+      "ja": "等差数列の1番目から $n$ 番目までの数をすべて足し合わせた合計 $S_n$ を求める公式です。",
+      "en": "Formula to find the total sum $S_n$ of the numbers from the 1st term to the $n$-th term in an arithmetic sequence.",
+      "zh": "计算等差数列从第 1 项一直加到第 $n$ 项的总和 $S_n$ 的公式。"
     },
     {
       "tex": "2b = a + c",
@@ -3096,15 +3096,15 @@
   "sequence/geometric": [
     {
       "tex": "a_n = a_1 r^{n-1}",
-      "ja": "一定の数 r をかけ算していく数列で、初めの数 a_1 から数えて n 番目の数 a_n を求める公式です。",
-      "en": "Formula to find the n-th number a_n in a sequence that starts at a_1 and multiplies by r each step.",
-      "zh": "每次乘以固定倍数 r 的数列中，从首项 a_1 算起求第 n 项数字 a_n 的公式。"
+      "ja": "一定の数 $r$ をかけ算していく数列で、初めの数 $a_1$ から数えて $n$ 番目の数 $a_n$ を求める公式です。",
+      "en": "Formula to find the $n$-th number $a_n$ in a sequence that starts at $a_1$ and multiplies by $r$ each step.",
+      "zh": "每次乘以固定倍数 $r$ 的数列中，从首项 $a_1$ 算起求第 $n$ 项数字 $a_n$ 的公式。"
     },
     {
       "tex": "S_n = \\frac{a_1(1 - r^n)}{1 - r} \\quad (r \\neq 1)",
-      "ja": "かける数 r が 1 ではないとき、1番目から n 番目までの合計 S_n を求める公式です。r=1 のときは初めの数を n 回足します。",
-      "en": "Formula for the sum S_n of the first n terms when multiplier r is not 1. If r=1, simply add a_1 for n times.",
-      "zh": "当公比 r 不为 1 时计算前 n 项总和 S_n 的公式。如果 r=1，直接用首项 a_1 乘以 n。"
+      "ja": "かける数 $r$ が 1 ではないとき、1番目から $n$ 番目までの合計 $S_n$ を求める公式です。$r=1$ のときは初めの数を $n$ 回足します。",
+      "en": "Formula for the sum $S_n$ of the first $n$ terms when multiplier $r$ is not 1. If $r=1$, simply add $a_1$ for $n$ times.",
+      "zh": "当公比 $r$ 不为 1 时计算前 $n$ 项总和 $S_n$ 的公式。如果 $r=1$，直接用首项 $a_1$ 乘以 $n$。"
     },
     {
       "tex": "b^2 = ac",
@@ -3128,9 +3128,9 @@
     },
     {
       "tex": "\\sum_{k=1}^n k^2 = \\frac{1}{6}n(n + 1)(2n + 1)",
-      "ja": "1 から n までのそれぞれの数を2乗して、1^2+2^2+...+n^2 とすべて足した合計を求める公式です。",
-      "en": "Formula to find the sum of squares from 1 up to n: 1^2 + 2^2 + ... + n^2.",
-      "zh": "计算从 1 到 n 各个数字的平方和（1^2 + 2^2 + ... + n^2）的公式。"
+      "ja": "1 から $n$ までのそれぞれの数を2乗して、$1^2+2^2+\\dots+n^2$ とすべて足した合計を求める公式です。",
+      "en": "Formula to find the sum of squares from 1 up to $n$: $1^2 + 2^2 + \\dots + n^2$.",
+      "zh": "计算从 1 到 $n$ 各个数字的平方和（$1^2 + 2^2 + \\dots + n^2$）的公式。"
     },
     {
       "tex": "\\sum_{k=1}^n k^3 = \\left\\{\\frac{1}{2}n(n + 1)\\right\\}^2",
@@ -3142,33 +3142,33 @@
   "sequence/recurrence": [
     {
       "tex": "a_n = a_1 + \\sum_{k=1}^{n-1} b_k \\quad (n \\ge 2)",
-      "ja": "隣の数との差 b_k を使って、2番目以降の数 a_n を初めの数 a_1 から求める公式です。",
-      "en": "Formula to find the n-th number a_n (for n >= 2) by adding differences b_k to starting number a_1.",
-      "zh": "利用相邻两项的差 b_k，从首项 a_1 开始累加求出第 n 项 a_n（n >= 2）的公式。"
+      "ja": "隣の数との差 $b_k$ を使って、2番目以降の数 $a_n$ を初めの数 $a_1$ から求める公式です。",
+      "en": "Formula to find the $n$-th number $a_n$ (for $n \\ge 2$) by adding differences $b_k$ to starting number $a_1$.",
+      "zh": "利用相邻两项的差 $b_k$，从首项 $a_1$ 开始累加求出第 $n$ 项 $a_n$（$n \\ge 2$）的公式。"
     },
     {
       "tex": "a_{n+1} - \\alpha = p(a_n - \\alpha) \\quad (\\alpha = p\\alpha + q)",
-      "ja": "式 a_{n+1}=pa_n+q の両辺から決まった数 α を引くことで、解きやすい等比数列の形に変形します。",
-      "en": "Subtracting a fixed number α from both sides turns a_{n+1} = pa_n + q into a geometric sequence.",
-      "zh": "两边同时减去同一个数 α，把递推式 a_{n+1} = pa_n + q 变形为容易求解的等比数列形式。"
+      "ja": "式 $a_{n+1}=pa_n+q$ の両辺から決まった数 $\\alpha$ を引くことで、解きやすい等比数列の形に変形します。",
+      "en": "Subtracting a fixed number $\\alpha$ from both sides turns $a_{n+1} = pa_n + q$ into a geometric sequence.",
+      "zh": "两边同时减去同一个数 $\\alpha$，把递推式 $a_{n+1} = pa_n + q$ 变形为容易求解的等比数列形式。"
     },
     {
-      "ja": "階差数列の公式は 2番目以降（n≧2）で使う式なので、求めた式が 1番目（n=1）でも成り立つかを必ず確かめます。",
-      "en": "Because the difference formula is only for n >= 2, always verify that your result also works for n = 1.",
-      "zh": "因为阶差公式只适用于第 2 项及以后（n >= 2），算完后一定要代入 n = 1 检查是否同样成立。"
+      "ja": "階差数列の公式は 2番目以降（$n \\geqq 2$）で使う式なので、求めた式が 1番目（$n=1$）でも成り立つかを必ず確かめます。",
+      "en": "Because the difference formula is only for $n \\ge 2$, always verify that your result also works for $n = 1$.",
+      "zh": "因为阶差公式只适用于第 2 项及以后（$n \\ge 2$），算完后一定要代入 $n = 1$ 检查是否同样成立。"
     }
   ],
   "sequence/induction": [
     {
-      "ja": "まず「一番初めの n=1 で成り立つこと」を確かめ、次に「k 番目で成り立つと仮定したら次の k+1 番目でも成り立つこと」を示します。",
-      "en": "First verify the formula works for n = 1, then show that if it works for k, it must also work for k+1.",
-      "zh": "首先验证最初的 n=1 成立，然后证明如果假设第 k 项成立，下一步 k+1 也必然成立。"
+      "ja": "まず「一番初めの $n=1$ で成り立つこと」を確かめ、次に「$k$ 番目で成り立つと仮定したら次の $k+1$ 番目でも成り立つこと」を示します。",
+      "en": "First verify the formula works for $n = 1$, then show that if it works for $k$, it must also work for $k+1$.",
+      "zh": "首先验证最初的 $n=1$ 成立，然后证明如果假设第 $k$ 项成立，下一步 $k+1$ 也必然成立。"
     },
     {
       "tex": "[P(1) \\land \\forall k (P(k) \\implies P(k+1))] \\implies \\forall n P(n)",
-      "ja": "最初の n=1 が成り立ち、次へと正しさがドミノ倒しのように伝わることで、すべての自然数 n で正しいと証明できます。",
-      "en": "If the first domino falls and each one knocks down the next, all dominoes (all natural numbers n) will fall.",
-      "zh": "只要最初的 n=1 成立，并且像多米诺骨牌一样每一步都能推导到下一步，就能证明对所有自然数 n 都成立。"
+      "ja": "最初の $n=1$ が成り立ち、次へと正しさがドミノ倒しのように伝わることで、すべての自然数 $n$ で正しいと証明できます。",
+      "en": "If the first domino falls and each one knocks down the next, all dominoes (all natural numbers $n$) will fall.",
+      "zh": "只要最初的 $n=1$ 成立，并且像多米诺骨牌一样每一步都能推导到下一步，就能证明对所有自然数 $n$ 都成立。"
     },
     {
       "ja": "k+1 番目の正しさを確かめるときは、式の中に「k 番目で成り立つとした式」を当てはめられるように変形するのがコツです。",
@@ -3310,21 +3310,21 @@
   "exp-log/exponent": [
     {
       "tex": "a^m a^n = a^{m+n}",
-      "ja": "同じ数 a をかけたものどうしのかけ算では、右上の指数 m と n を足し算します。",
-      "en": "When multiplying powers with the same base a, simply add their exponents m and n together.",
-      "zh": "底数相同的两项 a^m 与 a^n 相乘时，只要把右上角的指数 m 和 n 相加即可。"
+      "ja": "同じ数 $a$ をかけたものどうしのかけ算では、右上の指数 $m$ と $n$ を足し算します。",
+      "en": "When multiplying powers with the same base $a$, simply add their exponents $m$ and $n$ together.",
+      "zh": "底数相同的两项 $a^m$ 与 $a^n$ 相乘时，只要把右上角的指数 $m$ 和 $n$ 相加即可。"
     },
     {
       "tex": "(a^m)^n = a^{mn}",
-      "ja": "a を m 回かけたものをさらに n 乗するときは、指数どうしをかけ算して mn 乗にします。",
-      "en": "When raising a power a^m to another power n, multiply the exponents together to get a^(mn).",
-      "zh": "把 a^m 整体再进行 n 次方运算时，把两个指数相乘得到 a^(mn)。"
+      "ja": "$a$ を $m$ 回かけたものをさらに $n$ 乗するときは、指数どうしをかけ算して $mn$ 乗にします。",
+      "en": "When raising a power $a^m$ to another power $n$, multiply the exponents together to get $a^{mn}$.",
+      "zh": "把 $a^m$ 整体再进行 $n$ 次方运算时，把两个指数相乘得到 $a^{mn}$。"
     },
     {
       "tex": "a^{-n} = \\frac{1}{a^n}",
-      "ja": "指数にマイナスがついているときは、分母にその累乗がくる分数（逆数）を表します（a は 0 以外の数）。",
-      "en": "A negative exponent means taking the reciprocal, putting a^n in the denominator (for a != 0).",
-      "zh": "指数带有负号时表示取倒数，把 a^n 放到分母的位置（其中 a 不为 0）。"
+      "ja": "指数にマイナスがついているときは、分母にその累乗がくる分数（逆数）を表します（$a$ は 0 以外の数）。",
+      "en": "A negative exponent means taking the reciprocal, putting $a^n$ in the denominator (for $a \\neq 0$).",
+      "zh": "指数带有负号时表示取倒数，把 $a^n$ 放到分母的位置（其中 $a$ 不为 0）。"
     },
     {
       "tex": "a^{\\frac{m}{n}} = \\sqrt[n]{a^m} \\quad (a > 0)",
@@ -3382,35 +3382,35 @@
   "conic/parabola": [
     {
       "tex": "y^2 = 4px \\quad (p \\neq 0)",
-      "ja": "横に開いた放物線の形を表す基本の式です。p は頂点（原点）から焦点 (p, 0) や準線 x = -p までの距離を表します。",
-      "en": "This is the standard formula for a horizontal parabola. The value p is the distance from the origin (vertex) to the focus (p, 0) and the directrix x = -p.",
-      "zh": "这是左右开口抛物线的基础方程。字母 p 表示从原点（顶点）到焦点 (p, 0) 以及到准线 x = -p 的距离。"
+      "ja": "横に開いた放物線の形を表す基本の式です。$p$ は頂点（原点）から焦点 $(p, 0)$ や準線 $x = -p$ までの距離を表します。",
+      "en": "This is the standard formula for a horizontal parabola. The value $p$ is the distance from the origin (vertex) to the focus $(p, 0)$ and the directrix $x = -p$.",
+      "zh": "这是左右开口抛物线的基础方程。字母 $p$ 表示从原点（顶点）到焦点 $(p, 0)$ 以及到准线 $x = -p$ 的距离。"
     },
     {
       "tex": "x^2 = 4py \\quad (p \\neq 0)",
-      "ja": "縦に開いた放物線の形を表す基本の式です。p は頂点（原点）から焦点 (0, p) や準線 y = -p までの距離を表します。",
-      "en": "This is the standard formula for a vertical parabola. The value p is the distance from the origin (vertex) to the focus (0, p) and the directrix y = -p.",
-      "zh": "这是上下开口抛物线的基础方程。字母 p 表示从原点（顶点）到焦点 (0, p) 以及到准线 y = -p 的距离。"
+      "ja": "縦に開いた放物線の形を表す基本の式です。$p$ は頂点（原点）から焦点 $(0, p)$ や準線 $y = -p$ までの距離を表します。",
+      "en": "This is the standard formula for a vertical parabola. The value $p$ is the distance from the origin (vertex) to the focus $(0, p)$ and the directrix $y = -p$.",
+      "zh": "这是上下开口抛物线的基础方程。字母 $p$ 表示从原点（顶点）到焦点 $(0, p)$ 以及到准线 $y = -p$ 的距离。"
     },
     {
       "tex": "y_1 y = 2p(x + x_1)",
-      "ja": "放物線 y² = 4px 上の点 (x₁, y₁) に引いた接線の式を求めるときに使います。p は放物線の式にある値です。",
-      "en": "Use this formula to find the tangent line at a point (x₁, y₁) on the parabola y² = 4px. The value p comes from the parabola equation.",
-      "zh": "用于求抛物线 y² = 4px 上已知点 (x₁, y₁) 处的切线方程。式中的 p 来自原抛物线方程。"
+      "ja": "放物線 $y^2 = 4px$ 上の点 $(x_1, y_1)$ に引いた接線の式を求めるときに使います。$p$ は放物線の式にある値です。",
+      "en": "Use this formula to find the tangent line at a point $(x_1, y_1)$ on the parabola $y^2 = 4px$. The value $p$ comes from the parabola equation.",
+      "zh": "用于求抛物线 $y^2 = 4px$ 上已知点 $(x_1, y_1)$ 处的切线方程。式中的 $p$ 来自原抛物线方程。"
     }
   ],
   "conic/ellipse-hyperbola": [
     {
       "tex": "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1 \\quad (a > b > 0)",
-      "ja": "横に長い楕円を表す基本の式です。a と b は横と縦の長さを決め、2つの焦点からの距離の合計はいつも 2a になります。",
-      "en": "This is the standard formula for a horizontal ellipse. Values a and b set its width and height, and the sum of distances to both foci is always 2a.",
-      "zh": "这是横向椭圆的基础方程。字母 a 和 b 决定了横向与纵向的大小，曲线上任意点到两焦点的距离之和恒为 2a。"
+      "ja": "横に長い楕円を表す基本の式です。$a$ と $b$ は横と縦の長さを決め、2つの焦点からの距離の合計はいつも $2a$ になります。",
+      "en": "This is the standard formula for a horizontal ellipse. Values $a$ and $b$ set its width and height, and the sum of distances to both foci is always $2a$.",
+      "zh": "这是横向椭圆的基础方程。字母 $a$ 和 $b$ 决定了横向与纵向的大小，曲线上任意点到两焦点的距离之和恒为 $2a$。"
     },
     {
       "tex": "\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1 \\quad (a > 0, b > 0)",
-      "ja": "左右に開く双曲線の形を表す基本の式です。曲線上のどの点でも、2つの焦点からの距離の差がいつも 2a になります。",
-      "en": "This is the standard formula for a hyperbola opening left and right. The difference in distance from any point on the curve to the two foci is always 2a.",
-      "zh": "这是左右开口双曲线的基础方程。曲线上任意一点到两个焦点的距离之差始终等于 2a。"
+      "ja": "左右に開く双曲線の形を表す基本の式です。曲線上のどの点でも、2つの焦点からの距離の差がいつも $2a$ になります。",
+      "en": "This is the standard formula for a hyperbola opening left and right. The difference in distance from any point on the curve to the two foci is always $2a$.",
+      "zh": "这是左右开口双曲线的基础方程。曲线上任意一点到两个焦点的距离之差始终等于 $2a$。"
     },
     {
       "tex": "y = \\pm \\frac{b}{a}x",
@@ -3482,9 +3482,9 @@
   "combinatorics/probability": [
     {
       "tex": "P(A) = \\frac{n(A)}{n(U)}",
-      "ja": "どの場合が起きる確率も同じときに、あることがら A が起こる確率を計算する式です。全体の通り数 n(U) で、A が起きる通り数 n(A) を割ります。",
-      "en": "Use this formula to find the probability of event A when all outcomes are equally likely. Divide favorable outcomes n(A) by total outcomes n(U).",
-      "zh": "当所有情况出现的机会均等时，用此式计算事件 A 发生的概率。用 A 发生的情况数 n(A) 除以所有可能的情况总数 n(U)。"
+      "ja": "どの場合が起きる確率も同じときに、あることがら $A$ が起こる確率を計算する式です。全体の通り数 $n(U)$ で、$A$ が起きる通り数 $n(A)$ を割ります。",
+      "en": "Use this formula to find the probability of event $A$ when all outcomes are equally likely. Divide favorable outcomes $n(A)$ by total outcomes $n(U)$.",
+      "zh": "当所有情况出现的机会均等时，用此式计算事件 $A$ 发生的概率。用 $A$ 发生的情况数 $n(A)$ 除以所有可能的情况总数 $n(U)$。"
     },
     {
       "tex": "P(A \\cup B) = P(A) + P(B) - P(A \\cap B)",
@@ -3533,17 +3533,17 @@
     },
     {
       "tex": "P_A(B) = \\frac{n(A \\cap B)}{n(A)}",
-      "ja": "条件付き確率を場合の数（通り数）から直接求める式です。A が起きる場合の数 n(A) のうち、B も満たしているものが何通りあるかを数えて割ります。",
-      "en": "Use this to find conditional probability by counting outcomes directly. Divide the number of outcomes where both A and B occur by the total outcomes in A.",
-      "zh": "这是直接用情况总数来算条件概率的公式。在满足 A 的所有情况 n(A) 中，看同时满足 B 的情况占了多大比例。"
+      "ja": "条件付き確率を場合の数（通り数）から直接求める式です。$A$ が起きる場合の数 $n(A)$ のうち、$B$ も満たしているものが何通りあるかを数えて割ります。",
+      "en": "Use this to find conditional probability by counting outcomes directly. Divide the number of outcomes where both $A$ and $B$ occur by the total outcomes in $A$.",
+      "zh": "这是直接用情况总数来算条件概率的公式。在满足 $A$ 的所有情况 $n(A)$ 中，看同时满足 $B$ 的情况占了多大比例。"
     }
   ],
   "combinatorics/expectation": [
     {
       "tex": "E = \\sum_{k=1}^n x_k p_k",
-      "ja": "くじ引きの賞金のように、1回あたり平均していくら得られるか（期待値）を計算する式です。もらえる値 x_k とその確率 p_k を掛け算し、すべて足します。",
-      "en": "This formula calculates the expected value (average result). Multiply each possible value x_k by its probability p_k, and add them all together.",
-      "zh": "这是计算期望值（平均结果）的公式。把每种可能的结果数值 x_k 与其发生的概率 p_k 相乘，再全部加起来。"
+      "ja": "くじ引きの賞金のように、1回あたり平均していくら得られるか（期待値）を計算する式です。もらえる値 $x_k$ とその確率 $p_k$ を掛け算し、すべて足します。",
+      "en": "This formula calculates the expected value (average result). Multiply each possible value $x_k$ by its probability $p_k$, and add them all together.",
+      "zh": "这是计算期望值（平均结果）的公式。把每种可能的结果数值 $x_k$ 与其发生的概率 $p_k$ 相乘，再全部加起来。"
     },
     {
       "tex": "\\sum_{k=1}^n p_k = 1",
@@ -3553,29 +3553,29 @@
     },
     {
       "tex": "E(aX + b) = aE(X) + b",
-      "ja": "元の値 X を a 倍して b を足したときの、新しい平均（期待値）を求める式です。元の平均 E(X) をそのまま a 倍して b を足せば求まります。",
-      "en": "Use this formula to find the new expected value when data X is multiplied by a and shifted by b. Simply multiply the old average E(X) by a and add b.",
-      "zh": "当把数值 X 扩大 a 倍并加上 b 时，用此式求新的平均值。只需把原来的期望值 E(X) 乘以 a 再加上 b 即可。"
+      "ja": "元の値 $X$ を $a$ 倍して $b$ を足したときの、新しい平均（期待値）を求める式です。元の平均 $E(X)$ をそのまま $a$ 倍して $b$ を足せば求まります。",
+      "en": "Use this formula to find the new expected value when data $X$ is multiplied by $a$ and shifted by $b$. Simply multiply the old average $E(X)$ by $a$ and add $b$.",
+      "zh": "当把数值 $X$ 扩大 $a$ 倍并加上 $b$ 时，用此式求新的平均值。只需把原来的期望值 $E(X)$ 乘以 $a$ 再加上 $b$ 即可。"
     }
   ],
   "distributions/random-variables": [
     {
       "tex": "E(X) = \\sum_{i=1}^n x_i p_i",
-      "ja": "確率変数 X がとる値の平均（期待値）を計算する式です。それぞれの値 x_i とその確率 p_i を掛け算して、すべて足し合わせます。",
-      "en": "This formula calculates the expected value (mean) of random variable X. Multiply each value x_i by its probability p_i and add them all up.",
-      "zh": "这是计算随机变量 X 的平均水平（期望值）的公式。把每个可能取的值 x_i 与其对应的概率 p_i 相乘后全部相加。"
+      "ja": "確率変数 $X$ がとる値の平均（期待値）を計算する式です。それぞれの値 $x_i$ とその確率 $p_i$ を掛け算して、すべて足し合わせます。",
+      "en": "This formula calculates the expected value (mean) of random variable $X$. Multiply each value $x_i$ by its probability $p_i$ and add them all up.",
+      "zh": "这是计算随机变量 $X$ 的平均水平（期望值）的公式。把每个可能取的值 $x_i$ 与其对应的概率 $p_i$ 相乘后全部相加。"
     },
     {
       "tex": "V(X) = E(X^2) - (E(X))^2",
       "ja": "データの散らばり具合（分散）を簡単に計算する公式です。「値の2乗の平均」から「平均の2乗」を引き算して求めます。",
-      "en": "Use this convenient formula to calculate variance V(X), which measures spread. Subtract the square of the mean from the mean of squared values.",
+      "en": "Use this convenient formula to calculate variance $V(X)$, which measures spread. Subtract the square of the mean from the mean of squared values.",
       "zh": "这是计算方差（衡量数据分散程度）最常用的简便公式。用“数值平方的平均值”减去“平均值的平方”即可得出。"
     },
     {
       "tex": "\\sigma(X) = \\sqrt{V(X)}",
-      "ja": "散らばりの大きさを表す標準偏差 σ(X) を求める式です。分散 V(X) の正の平方根（ルート）をとることで、元のデータと同じ単位で比べられます。",
-      "en": "This formula gives the standard deviation σ(X) by taking the square root of variance V(X), measuring data spread in the original unit.",
-      "zh": "这是求标准差 σ(X) 的公式。通过对方差 V(X) 开平方根，可以用和原始数据相同的单位来衡量分散程度。"
+      "ja": "散らばりの大きさを表す標準偏差 $\\sigma(X)$ を求める式です。分散 $V(X)$ の正の平方根（ルート）をとることで、元のデータと同じ単位で比べられます。",
+      "en": "This formula gives the standard deviation $\\sigma(X)$ by taking the square root of variance $V(X)$, measuring data spread in the original unit.",
+      "zh": "这是求标准差 $\\sigma(X)$ 的公式。通过对方差 $V(X)$ 开平方根，可以用和原始数据相同的单位来衡量分散程度。"
     },
     {
       "tex": "V(aX+b) = a^2 V(X)",
@@ -3633,9 +3633,9 @@
   "limit/sequence": [
     {
       "tex": "\\lim_{n \\to \\infty} r^n = 0 \\quad (|r| < 1)",
-      "ja": "掛ける数 r が -1 と 1 の間にあるとき、何回も掛け算していくと値が限りなく 0 に近づくことを表す式です。",
-      "en": "When the ratio r is between -1 and 1, multiplying it repeatedly makes r^n get closer and closer to 0 as n becomes very large.",
-      "zh": "当公比 r 在 -1 到 1 之间时，随着相乘的次数 n 越来越大，数值 r^n 会无限趋近于 0。"
+      "ja": "掛ける数 $r$ が -1 と 1 の間にあるとき、何回も掛け算していくと値が限りなく 0 に近づくことを表す式です。",
+      "en": "When the ratio $r$ is between -1 and 1, multiplying it repeatedly makes $r^n$ get closer and closer to 0 as $n$ becomes very large.",
+      "zh": "当公比 $r$ 在 -1 到 1 之间时，随着相乘的次数 $n$ 越来越大，数值 $r^n$ 会无限趋近于 0。"
     },
     {
       "tex": "\\sum_{n=1}^\\infty a r^{n-1} = \\frac{a}{1-r} \\quad (|r| < 1)",
@@ -3645,9 +3645,9 @@
     },
     {
       "tex": "\\lim_{n \\to \\infty} \\frac{1}{n^p} = 0 \\quad (p > 0)",
-      "ja": "分母の n が限りなく大きくなると、分数 1/n^p の値が 0 に近づくことを表す式です。p は 0 より大きい正の数を表します。",
-      "en": "This formula shows that as n grows without bound, the fraction 1/n^p approaches 0 for any positive power p.",
-      "zh": "这表示当分母 n 无限增大时，分数 1/n^p 的值会无限接近于 0。式中的 p 是大于 0 的正数。"
+      "ja": "分母の $n$ が限りなく大きくなると、分数 $1/n^p$ の値が 0 に近づくことを表す式です。$p$ は 0 より大きい正の数を表します。",
+      "en": "This formula shows that as $n$ grows without bound, the fraction $1/n^p$ approaches 0 for any positive power $p$.",
+      "zh": "这表示当分母 $n$ 无限增大时，分数 $1/n^p$ 的值会无限接近于 0。式中的 $p$ 是大于 0 的正数。"
     }
   ],
   "limit/function": [
@@ -3665,9 +3665,9 @@
     },
     {
       "tex": "\\lim_{x \\to a} f(x) = f(a)",
-      "ja": "グラフが点 x = a で途切れずにつながっている（連続である）ことを表す式です。x を a に近づけたときの極限値が、その場所の実際の値 f(a) と一致することを意味します。",
-      "en": "This condition means the graph is continuous (connected without breaks) at x = a, because the value f(x) approaches equals the actual point value f(a).",
-      "zh": "这表示函数图象在 x = a 处连贯没有断开（连续）。它说明当 x 靠近 a 时的极限值，正好与该点处的实际函数值 f(a) 完全相等。"
+      "ja": "グラフが点 $x = a$ で途切れずにつながっている（連続である）ことを表す式です。$x$ を $a$ に近づけたときの極限値が、その場所の実際の値 $f(a)$ と一致することを意味します。",
+      "en": "This condition means the graph is continuous (connected without breaks) at $x = a$, because the value $f(x)$ approaches equals the actual point value $f(a)$.",
+      "zh": "这表示函数图象在 $x = a$ 处连贯没有断开（连续）。它说明当 $x$ 靠近 $a$ 时的极限值，正好与该点处的实际函数值 $f(a)$ 完全相等。"
     }
   ],
   "univ-calculus/mean-value": [
@@ -3685,9 +3685,9 @@
     },
     {
       "tex": "\\lim_{x \\to a} \\frac{f(x)}{g(x)} = \\lim_{x \\to a} \\frac{f'(x)}{g'(x)}",
-      "ja": "0/0 や ∞/∞ のようにそのままでは答えがわからない極限を計算するときに使う定理（ロピタルの定理）です。分子と分母をそれぞれ微分してから極限を調べることができます。",
-      "en": "L'Hopital's rule helps calculate tricky limits of form 0/0 or ∞/∞. You can differentiate the numerator f(x) and denominator g(x) separately, then take the limit.",
-      "zh": "这是洛必达法则，用于计算形如 0/0 或 ∞/∞ 等无法直接求出的极限。你可以把分子和分母分别求导之后，再去计算极限。"
+      "ja": "$0/0$ や $\\infty/\\infty$ のようにそのままでは答えがわからない極限を計算するときに使う定理（ロピタルの定理）です。分子と分母をそれぞれ微分してから極限を調べることができます。",
+      "en": "L'Hopital's rule helps calculate tricky limits of form $0/0$ or $\\infty/\\infty$. You can differentiate the numerator $f(x)$ and denominator $g(x)$ separately, then take the limit.",
+      "zh": "这是洛必达法则，用于计算形如 $0/0$ 或 $\\infty/\\infty$ 等无法直接求出的极限。你可以把分子和分母分别求导之后，再去计算极限。"
     }
   ],
   "derivative/polynomial": [
@@ -3705,43 +3705,43 @@
     },
     {
       "tex": "\\{k f(x)\\}' = k f'(x)",
-      "ja": "式に数字 k が掛けられているときに使う公式です。数字 k はそのまま残して、式の部分 f(x) だけを微分します。",
-      "en": "Use this formula when a function is multiplied by a number k. Keep the number k as it is and differentiate only f(x).",
-      "zh": "当式子乘上一个数字 k 时使用的求导公式。常数 k 保持不变，只需要对式子 f(x) 部分求导。"
+      "ja": "式に数字 $k$ が掛けられているときに使う公式です。数字 $k$ はそのまま残して、式の部分 $f(x)$ だけを微分します。",
+      "en": "Use this formula when a function is multiplied by a number $k$. Keep the number $k$ as it is and differentiate only $f(x)$.",
+      "zh": "当式子乘上一个数字 $k$ 时使用的求导公式。常数 $k$ 保持不变，只需要对式子 $f(x)$ 部分求导。"
     },
     {
       "tex": "\\{f(x) + g(x)\\}' = f'(x) + g'(x)",
-      "ja": "足し算の式を微分するときに使う公式です。式 f(x) と g(x) をそれぞれ別々に微分して、そのまま足し合わせます。",
-      "en": "Use this formula to differentiate the sum of two functions. Differentiate f(x) and g(x) separately, then add the results together.",
-      "zh": "用来对相加的式子求导的公式。把式子 f(x) 和 g(x) 分别求导，然后直接加在一起。"
+      "ja": "足し算の式を微分するときに使う公式です。式 $f(x)$ と $g(x)$ をそれぞれ別々に微分して、そのまま足し合わせます。",
+      "en": "Use this formula to differentiate the sum of two functions. Differentiate $f(x)$ and $g(x)$ separately, then add the results together.",
+      "zh": "用来对相加的式子求导的公式。把式子 $f(x)$ 和 $g(x)$ 分别求导，然后直接加在一起。"
     }
   ],
   "derivative/tangent": [
     {
       "tex": "f'(a) = \\lim_{h \\to 0} \\frac{f(a+h) - f(a)}{h}",
-      "ja": "x=a における変化の勢い（微分係数）を求める式です。グラフの点 (a, f(a)) で引いた接線の傾きを表します。",
-      "en": "This formula finds the instantaneous rate of change at x=a. It gives the slope of the tangent line at the point (a, f(a)).",
-      "zh": "用来计算在 x=a 处变化快慢（导数）的式子。它表示图像在点 (a, f(a)) 处切线的斜率。"
+      "ja": "$x = a$ における変化の勢い（微分係数）を求める式です。グラフの点 $(a, f(a))$ で引いた接線の傾きを表します。",
+      "en": "This formula finds the instantaneous rate of change at $x = a$. It gives the slope of the tangent line at the point $(a, f(a))$.",
+      "zh": "用来计算在 $x = a$ 处变化快慢（导数）的式子。它表示图像在点 $(a, f(a))$ 处切线的斜率。"
     },
     {
       "tex": "y - f(a) = f'(a)(x - a)",
-      "ja": "グラフの点 (a, f(a)) にぴったり触れる直線（接線）を求める式です。f'(a) がその直線の傾きになります。",
-      "en": "Use this formula to find the tangent line touching the curve at point (a, f(a)). Here, f'(a) is the slope of the line.",
-      "zh": "用来求曲线在点 (a, f(a)) 处的切线方程的公式。这里的 f'(a) 就是这条切线的斜率。"
+      "ja": "グラフの点 $(a, f(a))$ にぴったり触れる直線（接線）を求める式です。$f'(a)$ がその直線の傾きになります。",
+      "en": "Use this formula to find the tangent line touching the curve at point $(a, f(a))$. Here, $f'(a)$ is the slope of the line.",
+      "zh": "用来求曲线在点 $(a, f(a))$ 处的切线方程的公式。这里的 $f'(a)$ 就是这条切线的斜率。"
     },
     {
       "tex": "y - f(a) = -\\frac{1}{f'(a)}(x - a) \\quad (f'(a) \\neq 0)",
-      "ja": "点 (a, f(a)) で接線と直角に交わる直線（法線）を求める式です。直角に交わる 2 直線の傾きを掛けると -1 になることを使っています。",
-      "en": "Use this formula to find the line perpendicular to the tangent at (a, f(a)). It uses the rule that perpendicular slopes multiply to -1.",
-      "zh": "用来求在点 (a, f(a)) 处与切线垂直的直线（法线）方程的公式。利用了两条垂直直线的斜率乘积等于 -1 的性质。"
+      "ja": "点 $(a, f(a))$ で接線と直角に交わる直線（法線）を求める式です。直角に交わる 2 直線の傾きを掛けると -1 になることを使っています。",
+      "en": "Use this formula to find the line perpendicular to the tangent at $(a, f(a))$. It uses the rule that perpendicular slopes multiply to -1.",
+      "zh": "用来求在点 $(a, f(a))$ 处与切线垂直的直线（法线）方程的公式。利用了两条垂直直线的斜率乘积等于 -1 的性质。"
     }
   ],
   "derivative/extrema": [
     {
       "tex": "f'(a) = 0",
-      "ja": "グラフの山の頂上や谷の底（極値）を探すときに使う式です。x=a で山や谷になるときは、その場所の傾き f'(a) が必ず 0（水平）になります。",
-      "en": "Use this equation to find peaks and valleys (extrema) on a graph. At an extremum x=a, the slope f'(a) is always 0 (flat).",
-      "zh": "用来寻找图像波峰或波谷（极值）位置的式子。如果在 x=a 处取得极值，该点处的切线斜率 f'(a) 一定为 0。"
+      "ja": "グラフの山の頂上や谷の底（極値）を探すときに使う式です。$x = a$ で山や谷になるときは、その場所の傾き $f'(a)$ が必ず 0（水平）になります。",
+      "en": "Use this equation to find peaks and valleys (extrema) on a graph. At an extremum $x = a$, the slope $f'(a)$ is always 0 (flat).",
+      "zh": "用来寻找图像波峰或波谷（极值）位置的式子。如果在 $x = a$ 处取得极值，该点处的切线斜率 $f'(a)$ 一定为 0。"
     },
     {
       "ja": "傾きが 0 になっても山や谷とは限らないので注意しましょう。前後の傾き f'(x) がプラスからマイナス、またはマイナスからプラスに変わるかを確かめます。",
@@ -3757,47 +3757,47 @@
   "derivative/transcendental": [
     {
       "tex": "(\\sin x)' = \\cos x",
-      "ja": "sin x を微分すると cos x になることを表す公式です。角度 x は度数法（°）ではなくラジアンで表します。",
-      "en": "This formula shows that differentiating sin(x) gives cos(x). The angle x must be measured in radians.",
-      "zh": "表示对 sin(x) 求导得到 cos(x) 的公式。自变量 x 必须使用弧度制表示角度。"
+      "ja": "$\\sin x$ を微分すると $\\cos x$ になることを表す公式です。角度 $x$ は度数法（°）ではなくラジアンで表します。",
+      "en": "This formula shows that differentiating $\\sin(x)$ gives $\\cos(x)$. The angle $x$ must be measured in radians.",
+      "zh": "表示对 $\\sin(x)$ 求导得到 $\\cos(x)$ 的公式。自变量 $x$ 必须使用弧度制表示角度。"
     },
     {
       "tex": "(\\cos x)' = -\\sin x",
-      "ja": "cos x を微分すると -sin x になることを表す公式です。微分のあとにマイナス記号が付く点に気をつけましょう。",
-      "en": "This formula shows that differentiating cos(x) gives -sin(x). Be careful not to forget the minus sign.",
-      "zh": "表示对 cos(x) 求导得到 -sin(x) 的公式。求导后前面会带上负号，请注意不要遗漏。"
+      "ja": "$\\cos x$ を微分すると $-\\sin x$ になることを表す公式です。微分のあとにマイナス記号が付く点に気をつけましょう。",
+      "en": "This formula shows that differentiating $\\cos(x)$ gives $-\\sin(x)$. Be careful not to forget the minus sign.",
+      "zh": "表示对 $\\cos(x)$ 求导得到 $-\\sin(x)$ 的公式。求导后前面会带上负号，请注意不要遗漏。"
     },
     {
       "tex": "(e^x)' = e^x",
-      "ja": "e の x 乗を微分しても形が変わらないことを表す式です。e は特別な決まった数（約2.718）で、微分してもそのまま e の x 乗になります。",
-      "en": "This formula shows that e^x stays the same when differentiated. Here, e is a special base (about 2.718) that does not change under differentiation.",
-      "zh": "表示 e 的 x 次方求导后依然保持原样的公式。常数 e 是一个特殊的底数（约2.718），求导前后表达式不变。"
+      "ja": "$e$ の $x$ 乗を微分しても形が変わらないことを表す式です。$e$ は特別な決まった数（約2.718）で、微分してもそのまま $e$ の $x$ 乗になります。",
+      "en": "This formula shows that $e^x$ stays the same when differentiated. Here, $e$ is a special base (about 2.718) that does not change under differentiation.",
+      "zh": "表示 $e$ 的 $x$ 次方求导后依然保持原样的公式。常数 $e$ 是一个特殊的底数（约2.718），求导前后表达式不变。"
     },
     {
       "tex": "(\\log x)' = \\frac{1}{x}",
-      "ja": "log x（底が e の対数）を微分すると 1/x になる公式です。対数の中身 x が 0 より大きいとき（x > 0）に使えます。",
-      "en": "This formula shows that the derivative of log(x) (base e) is 1/x. It is valid when x is greater than 0 (x > 0).",
-      "zh": "表示对以 e 为底的自然对数 log(x) 求导得到 1/x 的公式。只在 x 大于 0（x > 0）时适用。"
+      "ja": "$\\log x$（底が $e$ の対数）を微分すると $\\frac{1}{x}$ になる公式です。対数の中身 $x$ が 0 より大きいとき（$x > 0$）に使えます。",
+      "en": "This formula shows that the derivative of $\\log(x)$ (base $e$) is $\\frac{1}{x}$. It is valid when $x$ is greater than 0 ($x > 0$).",
+      "zh": "表示对以 $e$ 为底的自然对数 $\\log(x)$ 求导得到 $\\frac{1}{x}$ 的公式。只在 $x$ 大于 0（$x > 0$）时适用。"
     }
   ],
   "derivative/chain-rule": [
     {
       "tex": "\\{f(x)g(x)\\}' = f'(x)g(x) + f(x)g'(x)",
-      "ja": "2つの式 f(x) と g(x) の掛け算を微分するときに使う公式です。「前を微分×後はそのまま」と「前はそのまま×後を微分」を足し合わせます。",
-      "en": "Use this formula to differentiate the product of f(x) and g(x). Add 'derivative of the first times second' and 'first times derivative of second'.",
-      "zh": "用来对相乘的两个式子 f(x) 和 g(x) 求导的公式。按照“前导后不导”加上“前不导后导”来计算。"
+      "ja": "2つの式 $f(x)$ と $g(x)$ の掛け算を微分するときに使う公式です。「前を微分×後はそのまま」と「前はそのまま×後を微分」を足し合わせます。",
+      "en": "Use this formula to differentiate the product of $f(x)$ and $g(x)$. Add 'derivative of the first times second' and 'first times derivative of second'.",
+      "zh": "用来对相乘的两个式子 $f(x)$ 和 $g(x)$ 求导的公式。按照“前导后不导”加上“前不导后导”来计算。"
     },
     {
       "tex": "\\left\\{\\frac{f(x)}{g(x)}\\right\\}' = \\frac{f'(x)g(x) - f(x)g'(x)}{\\{g(x)\\}^2}",
-      "ja": "分数の形をした式を微分するときに使う公式です。分母 g(x) は 2 乗し、分子は（上の微分×下）引く（上×下の微分）の順に計算します。",
-      "en": "Use this formula to differentiate a fraction f(x)/g(x). Square the bottom g(x), and subtract (top's derivative × bottom) minus (top × bottom's derivative) on top.",
-      "zh": "用来对分式 f(x)/g(x) 求导的公式。分母 g(x) 要平方，分子则是“分子导数乘分母”减去“分子乘分母导数”。"
+      "ja": "分数の形をした式を微分するときに使う公式です。分母 $g(x)$ は 2 乗し、分子は（上の微分×下）引く（上×下の微分）の順に計算します。",
+      "en": "Use this formula to differentiate a fraction $\\frac{f(x)}{g(x)}$. Square the bottom $g(x)$, and subtract (top's derivative × bottom) minus (top × bottom's derivative) on top.",
+      "zh": "用来对分式 $\\frac{f(x)}{g(x)}$ 求导的公式。分母 $g(x)$ 要平方，分子则是“分子导数乘分母”减去“分子乘分母导数”。"
     },
     {
       "tex": "\\{f(g(x))\\}' = f'(g(x))g'(x)",
-      "ja": "式の中に別の式が入っている形を微分するときに使う公式です。まず外側の関数 f を微分し、そこに内側の式 g(x) を微分した g'(x) を掛け算します。",
-      "en": "Use this formula to differentiate a nested function. Differentiate the outer function f, then multiply by the derivative of the inside function g'(x).",
-      "zh": "用来对嵌套在一起的复合函数求导的公式。先对最外层的函数 f 求导，再乘上内层式子 g(x) 的导数 g'(x)。"
+      "ja": "式の中に別の式が入っている形を微分するときに使う公式です。まず外側の関数 $f$ を微分し、そこに内側の式 $g(x)$ を微分した $g'(x)$ を掛け算します。",
+      "en": "Use this formula to differentiate a nested function. Differentiate the outer function $f$, then multiply by the derivative of the inside function $g'(x)$.",
+      "zh": "用来对嵌套在一起的复合函数求导的公式。先对最外层的函数 $f$ 求导，再乘上内层式子 $g(x)$ 的导数 $g'(x)$。"
     }
   ],
   "derivative/parametric": [
@@ -3843,23 +3843,23 @@
     },
     {
       "tex": "\\frac{d}{dx} \\int f(x) \\, dx = f(x)",
-      "ja": "積分した式を微分すると、もとの関数 f(x) に戻ることを表す式です。積分と微分が「逆の計算」であることを示しています。",
-      "en": "This equation shows that differentiating an integral brings you back to the original function f(x). It proves that differentiation and integration are reverse operations.",
-      "zh": "这个式子说明对积分后的结果求导，就会回到原来的函数 f(x)。它表明积分与求导是互为相反的过程。"
+      "ja": "積分した式を微分すると、もとの関数 $f(x)$ に戻ることを表す式です。積分と微分が「逆の計算」であることを示しています。",
+      "en": "This equation shows that differentiating an integral brings you back to the original function $f(x)$. It proves that differentiation and integration are reverse operations.",
+      "zh": "这个式子说明对积分后的结果求导，就会回到原来的函数 $f(x)$。它表明积分与求导是互为相反的过程。"
     },
     {
       "tex": "\\int \\{f(x) + g(x)\\} \\, dx = \\int f(x) \\, dx + \\int g(x) \\, dx",
-      "ja": "足し算になっている式を積分するときは、f(x) と g(x) をそれぞれ別々に積分して足し合わせてよいことを表しています。",
-      "en": "This shows that when integrating a sum, you can integrate f(x) and g(x) separately and then add them together.",
-      "zh": "这表示对相加的式子进行积分时，可以把 f(x) 和 g(x) 分别积分后再相加。"
+      "ja": "足し算になっている式を積分するときは、$f(x)$ と $g(x)$ をそれぞれ別々に積分して足し合わせてよいことを表しています。",
+      "en": "This shows that when integrating a sum, you can integrate $f(x)$ and $g(x)$ separately and then add them together.",
+      "zh": "这表示对相加的式子进行积分时，可以把 $f(x)$ 和 $g(x)$ 分别积分后再相加。"
     }
   ],
   "integral/definite": [
     {
       "tex": "\\int_a^b f(x) \\, dx = [F(x)]_a^b = F(b) - F(a)",
-      "ja": "定積分の値を計算するための公式です。f(x) を積分した式 F(x) に上の数 b を代入した値から、下の数 a を代入した値を引いて求めます。",
-      "en": "This formula is used to calculate a definite integral. Integrate f(x) to get F(x), then plug in the upper value b and subtract the result of plugging in the lower value a.",
-      "zh": "用来计算定积分具体数值的公式。先求出 f(x) 的积分 F(x)，再用代入上端 b 的值减去代入下端 a 的值即可。"
+      "ja": "定積分の値を計算するための公式です。$f(x)$ を積分した式 $F(x)$ に上の数 $b$ を代入した値から、下の数 $a$ を代入した値を引いて求めます。",
+      "en": "This formula is used to calculate a definite integral. Integrate $f(x)$ to get $F(x)$, then plug in the upper value $b$ and subtract the result of plugging in the lower value $a$.",
+      "zh": "用来计算定积分具体数值的公式。先求出 $f(x)$ 的积分 $F(x)$，再用代入上端 $b$ 的值减去代入下端 $a$ 的值即可。"
     },
     {
       "tex": "\\int_a^b f(x) \\, dx + \\int_b^c f(x) \\, dx = \\int_a^c f(x) \\, dx",
@@ -3869,23 +3869,23 @@
     },
     {
       "tex": "\\frac{d}{dx} \\int_a^x f(t) \\, dt = f(x)",
-      "ja": "定数 a から文字 x までの積分を x で微分すると、中身の文字が x に変わって f(x) になる式です。x の関数として表された式を微分するときに使います。",
-      "en": "When you differentiate an integral from a constant a to variable x with respect to x, it simply becomes f(x). Use this when dealing with functions defined by integrals.",
-      "zh": "把从常数 a 到变量 x 的积分对 x 求导时，里面的式子就会直接变成 f(x)。在求解含有积分的函数式时经常使用。"
+      "ja": "定数 $a$ から文字 $x$ までの積分を $x$ で微分すると、中身の文字が $x$ に変わって $f(x)$ になる式です。$x$ の関数として表された式を微分するときに使います。",
+      "en": "When you differentiate an integral from a constant $a$ to variable $x$ with respect to $x$, it simply becomes $f(x)$. Use this when dealing with functions defined by integrals.",
+      "zh": "把从常数 $a$ 到变量 $x$ 的积分对 $x$ 求导时，里面的式子就会直接变成 $f(x)$。在求解含有积分的函数式时经常使用。"
     }
   ],
   "integral/area": [
     {
       "tex": "S = \\int_{a}^{b} |f(x)| \\, dx",
-      "ja": "曲線 y=f(x) と x 軸、および x=a, x=b で囲まれた面積 S を求める式です。面積がマイナスにならないように絶対値をつけて計算します。",
-      "en": "Use this formula to find the area S between the curve y=f(x) and the x-axis from a to b. The absolute value keeps the area positive.",
-      "zh": "用来计算曲线 y=f(x) 与 x 轴在 a 到 b 之间围成的面积 S 的公式。绝对值是为了保证算出的面积不会是负数。"
+      "ja": "曲線 $y=f(x)$ と $x$ 軸、および $x=a$, $x=b$ で囲まれた面積 $S$ を求める式です。面積がマイナスにならないように絶対値をつけて計算します。",
+      "en": "Use this formula to find the area $S$ between the curve $y=f(x)$ and the $x$-axis from $a$ to $b$. The absolute value keeps the area positive.",
+      "zh": "用来计算曲线 $y=f(x)$ 与 $x$ 轴在 $a$ 到 $b$ 之间围成的面积 $S$ 的公式。绝对值是为了保证算出的面积不会是负数。"
     },
     {
       "tex": "S = \\int_{a}^{b} \\{f(x) - g(x)\\} \\, dx \\quad (f(x) \\ge g(x))",
-      "ja": "2つのグラフで挟まれた部分の面積 S を求める式です。x が a から b の範囲で、上側にある式 f(x) から下側にある式 g(x) を引いて積分します。",
-      "en": "Use this formula to find the area S enclosed between two curves. Over the interval from a to b, subtract the lower curve g(x) from the upper curve f(x) and integrate.",
-      "zh": "用来计算两条曲线围成部分的面积 S。在 a 到 b 的范围内，用上方曲线 f(x) 减去下方曲线 g(x) 进行积分即可。"
+      "ja": "2つのグラフで挟まれた部分の面積 $S$ を求める式です。$x$ が $a$ から $b$ の範囲で、上側にある式 $f(x)$ から下側にある式 $g(x)$ を引いて積分します。",
+      "en": "Use this formula to find the area $S$ enclosed between two curves. Over the interval from $a$ to $b$, subtract the lower curve $g(x)$ from the upper curve $f(x)$ and integrate.",
+      "zh": "用来计算两条曲线围成部分的面积 $S$。在 $a$ 到 $b$ 的范围内，用上方曲线 $f(x)$ 减去下方曲线 $g(x)$ 进行积分即可。"
     },
     {
       "tex": "\\int_{\\alpha}^{\\beta} (x - \\alpha)(x - \\beta) \\, dx = -\\frac{1}{6}(\\beta - \\alpha)^3",
@@ -3897,74 +3897,74 @@
   "integral/substitution": [
     {
       "tex": "\\int f(g(t))g'(t) \\, dt = \\int f(x) \\, dx \\quad (x = g(t))",
-      "ja": "複雑な式を積分するときに使う置換積分の公式です。式の一部を x = g(t) と別の文字に置き換えることで、計算しやすい形に変形できます。",
-      "en": "Use this substitution formula to integrate complicated expressions. Replacing part of the formula with x = g(t) turns it into an easier integral.",
-      "zh": "在计算复杂的式子时使用的换元积分公式。把式子的一部分设为 x = g(t) 替换成新变量，就能化为容易计算的形式。"
+      "ja": "複雑な式を積分するときに使う置換積分の公式です。式の一部を $x = g(t)$ と別の文字に置き換えることで、計算しやすい形に変形できます。",
+      "en": "Use this substitution formula to integrate complicated expressions. Replacing part of the formula with $x = g(t)$ turns it into an easier integral.",
+      "zh": "在计算复杂的式子时使用的换元积分公式。把式子的一部分设为 $x = g(t)$ 替换成新变量，就能化为容易计算的形式。"
     },
     {
       "tex": "\\int_{a}^{b} f(g(t))g'(t) \\, dt = \\int_{g(a)}^{g(b)} f(x) \\, dx \\quad (x = g(t))",
-      "ja": "定積分で置き換えを使うときの公式です。文字を t から x に置き換えるときは、積分の範囲も g(a) から g(b) へ忘れずに変える必要があります。",
-      "en": "Use this formula for definite integrals with substitution. When switching variables from t to x, remember to also update the integration limits to g(a) and g(b).",
-      "zh": "在定积分中使用换元法时的公式。将变量从 t 换成 x 时，积分上下限也必须随之转换为 g(a) 到 g(b)。"
+      "ja": "定積分で置き換えを使うときの公式です。文字を $t$ から $x$ に置き換えるときは、積分の範囲も $g(a)$ から $g(b)$ へ忘れずに変える必要があります。",
+      "en": "Use this formula for definite integrals with substitution. When switching variables from $t$ to $x$, remember to also update the integration limits to $g(a)$ and $g(b)$.",
+      "zh": "在定积分中使用换元法时的公式。将变量从 $t$ 换成 $x$ 时，积分上下限也必须随之转换为 $g(a)$ 到 $g(b)$。"
     },
     {
       "tex": "\\int \\frac{f'(x)}{f(x)} \\, dx = \\log |f(x)| + C",
-      "ja": "分数の式で、分母 f(x) を微分したものが分子 f'(x) にあるときに使う公式です。置換積分を素早く計算でき、答えは自然対数 log になります。",
-      "en": "Use this formula when the numerator f'(x) is the derivative of the denominator f(x). It simplifies substitution, and the answer becomes a natural log.",
-      "zh": "当分式的分子 f'(x) 恰好是分母 f(x) 的导数时使用的公式。它可以快速完成换元积分，计算结果为对数 log。"
+      "ja": "分数の式で、分母 $f(x)$ を微分したものが分子 $f'(x)$ にあるときに使う公式です。置換積分を素早く計算でき、答えは自然対数 $\\log$ になります。",
+      "en": "Use this formula when the numerator $f'(x)$ is the derivative of the denominator $f(x)$. It simplifies substitution, and the answer becomes a natural log.",
+      "zh": "当分式的分子 $f'(x)$ 恰好是分母 $f(x)$ 的导数时使用的公式。它可以快速完成换元积分，计算结果为对数 $\\log$。"
     }
   ],
   "integral/by-parts": [
     {
       "tex": "\\int f(x)g'(x) \\, dx = f(x)g(x) - \\int f'(x)g(x) \\, dx",
-      "ja": "2つの関数のかけ算を積分するときに使う公式です。片方 f(x) を微分し、もう片方 g'(x) を積分することで、より簡単な積分の形に変えて計算します。",
-      "en": "Use this formula to integrate the product of two functions. By differentiating f(x) and integrating g'(x), you turn the expression into an easier integral.",
-      "zh": "用来计算两个函数乘积的不定积分公式。通过求导 f(x) 并对 g'(x) 进行积分，将原式转化为更容易计算的新积分。"
+      "ja": "2つの関数のかけ算を積分するときに使う公式です。片方 $f(x)$ を微分し、もう片方 $g'(x)$ を積分することで、より簡単な積分の形に変えて計算します。",
+      "en": "Use this formula to integrate the product of two functions. By differentiating $f(x)$ and integrating $g'(x)$, you turn the expression into an easier integral.",
+      "zh": "用来计算两个函数乘积的不定积分公式。通过求导 $f(x)$ 并对 $g'(x)$ 进行积分，将原式转化为更容易计算的新积分。"
     },
     {
       "tex": "\\int_{a}^{b} f(x)g'(x) \\, dx = \\left[ f(x)g(x) \\right]_{a}^{b} - \\int_{a}^{b} f'(x)g(x) \\, dx",
-      "ja": "定積分で部分積分を使うときの公式です。前半の f(x)g(x) に端点 a, b を代入して引き算し、後半に残った定積分を計算します。",
-      "en": "Use this formula for definite integration by parts. Evaluate f(x)g(x) at endpoints a and b, then calculate the remaining definite integral.",
-      "zh": "在定积分中使用分部积分法的公式。先将端点 a 和 b 代入前半部分的 f(x)g(x) 计算差值，再求后半部分剩下的定积分。"
+      "ja": "定積分で部分積分を使うときの公式です。前半の $f(x)g(x)$ に端点 $a$, $b$ を代入して引き算し、後半に残った定積分を計算します。",
+      "en": "Use this formula for definite integration by parts. Evaluate $f(x)g(x)$ at endpoints $a$ and $b$, then calculate the remaining definite integral.",
+      "zh": "在定积分中使用分部积分法的公式。先将端点 $a$ 和 $b$ 代入前半部分的 $f(x)g(x)$ 计算差值，再求后半部分剩下的定积分。"
     },
     {
-      "ja": "部分積分をうまく計算するコツです。微分したときに形が簡単になるほうを f(x)、積分しやすいほうを g'(x) と置くのがポイントです。",
-      "en": "This is a key tip for integration by parts. Pick the part that gets simpler when differentiated as f(x), and the part that is easy to integrate as g'(x).",
-      "zh": "这是顺利使用分部积分法的小技巧。通常把求导后能变简单的函数设为 f(x)，把容易积分的设为 g'(x)。"
+      "ja": "部分積分をうまく計算するコツです。微分したときに形が簡単になるほうを $f(x)$、積分しやすいほうを $g'(x)$ と置くのがポイントです。",
+      "en": "This is a key tip for integration by parts. Pick the part that gets simpler when differentiated as $f(x)$, and the part that is easy to integrate as $g'(x)$.",
+      "zh": "这是顺利使用分部积分法的小技巧。通常把求导后能变简单的函数设为 $f(x)$，把容易积分的设为 $g'(x)$。"
     }
   ],
   "integral/volume": [
     {
       "tex": "V = \\int_{a}^{b} S(x) \\, dx",
-      "ja": "立体の体積 V を求めるときに使う基本の式です。x 軸に対して垂直に切ったときの切り口の面積 S(x) を、a から b まで集めるように積分します。",
-      "en": "Use this basic formula to find the volume V of a solid. It integrates the cross-sectional area S(x), cut perpendicular to the x-axis, from a to b.",
-      "zh": "用来计算立体体积 V 的基本公式。把垂直于 x 轴切开时的截面面积 S(x)，在 a 到 b 之间累加积分即可求得。"
+      "ja": "立体の体積 $V$ を求めるときに使う基本の式です。$x$ 軸に対して垂直に切ったときの切り口の面積 $S(x)$ を、$a$ から $b$ まで集めるように積分します。",
+      "en": "Use this basic formula to find the volume $V$ of a solid. It integrates the cross-sectional area $S(x)$, cut perpendicular to the $x$-axis, from $a$ to $b$.",
+      "zh": "用来计算立体体积 $V$ 的基本公式。把垂直于 $x$ 轴切开时的截面面积 $S(x)$，在 $a$ 到 $b$ 之间累加积分即可求得。"
     },
     {
       "tex": "V = \\pi \\int_{a}^{b} \\{f(x)\\}^2 \\, dx",
-      "ja": "曲線 y=f(x) を x 軸のまわりにぐるっと1回転させた立体の体積 V を求める式です。切り口が半径 f(x) の円になるため、円の面積を a から b まで積分します。",
-      "en": "Use this formula to find the volume V when rotating curve y=f(x) around the x-axis. The cross section is a circle with radius f(x), so you integrate its area from a to b.",
-      "zh": "用来计算曲线 y=f(x) 绕 x 轴旋转一周形成的立体体积 V。截面是半径为 f(x) 的圆，将其面积从 a 到 b 进行积分即可。"
+      "ja": "曲線 $y=f(x)$ を $x$ 軸のまわりにぐるっと1回転させた立体の体積 $V$ を求める式です。切り口が半径 $f(x)$ の円になるため、円の面積を $a$ から $b$ まで積分します。",
+      "en": "Use this formula to find the volume $V$ when rotating curve $y=f(x)$ around the $x$-axis. The cross section is a circle with radius $f(x)$, so you integrate its area from $a$ to $b$.",
+      "zh": "用来计算曲线 $y=f(x)$ 绕 $x$ 轴旋转一周形成的立体体积 $V$。截面是半径为 $f(x)$ 的圆，将其面积从 $a$ 到 $b$ 进行积分即可。"
     },
     {
       "tex": "L = \\int_{a}^{b} \\sqrt{1 + \\{f'(x)\\}^2} \\, dx",
-      "ja": "グラフの曲線 y=f(x) の、a から b までの長さ L を求めるときに使う式です。f'(x) は曲線を微分した導関数（傾き）を表します。",
-      "en": "Use this formula to find the length L of the curve y=f(x) between a and b. Here, f'(x) is the derivative (slope) of the curve.",
-      "zh": "用来计算曲线 y=f(x) 在 a 到 b 之间实际长度 L 的公式。其中 f'(x) 是曲线的导数（切线斜率）。"
+      "ja": "グラフの曲線 $y=f(x)$ の、$a$ から $b$ までの長さ $L$ を求めるときに使う式です。$f'(x)$ は曲線を微分した導関数（傾き）を表します。",
+      "en": "Use this formula to find the length $L$ of the curve $y=f(x)$ between $a$ and $b$. Here, $f'(x)$ is the derivative (slope) of the curve.",
+      "zh": "用来计算曲线 $y=f(x)$ 在 $a$ 到 $b$ 之间实际长度 $L$ 的公式。其中 $f'(x)$ 是曲线的导数（切线斜率）。"
     }
   ],
   "complex/arithmetic": [
     {
       "tex": "i^2 = -1",
-      "ja": "2乗すると -1 になる特別な数 i（虚数単位）のルールです。計算の途中で i の 2 乗が出てきたら、-1 に置き換えます。",
-      "en": "This is the rule for the imaginary unit i, which becomes -1 when squared. Whenever i^2 appears in calculations, replace it with -1.",
-      "zh": "表示虚数单位 i 的基本规则：它的平方等于 -1。在计算中只要出现 i 的平方，就把它换成 -1。"
+      "ja": "2乗すると $-1$ になる特別な数 $i$（虚数単位）のルールです。計算の途中で $i$ の 2 乗が出てきたら、$-1$ に置き換えます。",
+      "en": "This is the rule for the imaginary unit $i$, which becomes $-1$ when squared. Whenever $i^2$ appears in calculations, replace it with $-1$.",
+      "zh": "表示虚数单位 $i$ 的基本规则：它的平方等于 $-1$。在计算中只要出现 $i$ 的平方，就把它换成 $-1$。"
     },
     {
       "tex": "(a+bi)(c+di) = (ac-bd) + (ad+bc)i",
-      "ja": "i を含む数同士を掛け算するときに使う公式です。普通の式と同じように展開して、i^2 を -1 に置き換えてまとめます。",
-      "en": "Use this formula to multiply two complex numbers. Expand the parentheses normally, then replace i^2 with -1 and group the terms.",
-      "zh": "用来计算两个复数相乘的公式。像普通多项式一样展开括号，把 i^2 替换为 -1 后合并整理。"
+      "ja": "$i$ を含む数同士を掛け算するときに使う公式です。普通の式と同じように展開して、$i^2$ を $-1$ に置き換えてまとめます。",
+      "en": "Use this formula to multiply two complex numbers. Expand the parentheses normally, then replace $i^2$ with $-1$ and group the terms.",
+      "zh": "用来计算两个复数相乘的公式。像普通多项式一样展开括号，把 $i^2$ 替换为 $-1$ 后合并整理。"
     },
     {
       "tex": "\\frac{a+bi}{c+di} = \\frac{(ac+bd) + (bc-ad)i}{c^2+d^2} \\quad (c^2+d^2 \\neq 0)",
@@ -3974,9 +3974,9 @@
     },
     {
       "tex": "z\\overline{z} = a^2 + b^2 \\quad (z = a+bi)",
-      "ja": "複素数 z=a+bi と、i の前の符号を変えた数 \\overline{z} を掛け算する式です。計算すると i が消えて、ただの実数 a^2+b^2 になります。",
-      "en": "This formula shows what happens when you multiply z=a+bi by its conjugate \\overline{z}. The i disappears, leaving the real number a^2+b^2.",
-      "zh": "表示把复数 z=a+bi 与把虚部符号反转的数 \\overline{z} 相乘的式子。相乘后虚数 i 会消失，得到实数 a^2+b^2。"
+      "ja": "複素数 $z=a+bi$ と、$i$ の前の符号を変えた数 $\\overline{z}$ を掛け算する式です。計算すると $i$ が消えて、ただの実数 $a^2+b^2$ になります。",
+      "en": "This formula shows what happens when you multiply $z=a+bi$ by its conjugate $\\overline{z}$. The $i$ disappears, leaving the real number $a^2+b^2$.",
+      "zh": "表示把复数 $z=a+bi$ 与把虚部符号反转的数 $\\overline{z}$ 相乘的式子。相乘后虚数 $i$ 会消失，得到实数 $a^2+b^2$。"
     }
   ],
   "complex/quadratic-roots": [
@@ -3994,9 +3994,9 @@
     },
     {
       "tex": "x = \\frac{-b \\pm i\\sqrt{4ac-b^2}}{2a} \\quad (b^2-4ac < 0)",
-      "ja": "判別式がマイナスのときに、2次方程式の解を求める公式です。ルートの中を正の数 4ac-b^2 にひっくり返して、外に i を付けます。",
-      "en": "Use this formula to solve a quadratic equation when D is negative. Flip the inside to positive 4ac-b^2 and place i outside the square root.",
-      "zh": "在判别式小于 0 时求解一元二次方程的公式。将根号内反过来写成正数 4ac-b^2，并在根号外写上 i。"
+      "ja": "判別式がマイナスのときに、2次方程式の解を求める公式です。ルートの中を正の数 $4ac-b^2$ にひっくり返して、外に $i$ を付けます。",
+      "en": "Use this formula to solve a quadratic equation when $D$ is negative. Flip the inside to positive $4ac-b^2$ and place $i$ outside the square root.",
+      "zh": "在判别式小于 0 时求解一元二次方程的公式。将根号内反过来写成正数 $4ac-b^2$，并在根号外写上 $i$。"
     }
   ],
   "complex/plane": [
@@ -4022,27 +4022,27 @@
   "coordinate-geometry/line": [
     {
       "tex": "y - y_1 = m(x - x_1)",
-      "ja": "通る点と傾きがわかっているときに、直線の式を作る公式です。(x_1, y_1) は通る点の座標、m は直線の傾きを表します。",
-      "en": "Use this formula to write the equation of a line when you know a point and slope. (x_1, y_1) is the point, and m is the slope.",
-      "zh": "当已知直线经过的点和斜率时，用来求直线方程的公式。(x_1, y_1) 是直线经过的点的坐标，m 是直线的斜率。"
+      "ja": "通る点と傾きがわかっているときに、直線の式を作る公式です。$(x_1, y_1)$ は通る点の座標、$m$ は直線の傾きを表します。",
+      "en": "Use this formula to write the equation of a line when you know a point and slope. $(x_1, y_1)$ is the point, and $m$ is the slope.",
+      "zh": "当已知直线经过的点和斜率时，用来求直线方程的公式。$(x_1, y_1)$ 是直线经过的点的坐标，$m$ 是直线的斜率。"
     },
     {
       "tex": "d = \\frac{|ax_0 + by_0 + c|}{\\sqrt{a^2 + b^2}}",
-      "ja": "点と直線のあいだの最短の長さ（距離 d）を計算する公式です。(x_0, y_0) は点の座標で、a, b, c は直線の式 ax+by+c=0 の数字です。",
-      "en": "Use this formula to find the shortest distance d from a point to a line. (x_0, y_0) is the point, and a, b, c come from ax+by+c=0.",
-      "zh": "用来计算点到直线的最短距离 d 的公式。(x_0, y_0) 是点的坐标，a、b、c 是直线方程 ax+by+c=0 中的各项系数。"
+      "ja": "点と直線のあいだの最短の長さ（距離 $d$）を計算する公式です。$(x_0, y_0)$ は点の座標で、$a, b, c$ は直線の式 $ax+by+c=0$ の数字です。",
+      "en": "Use this formula to find the shortest distance $d$ from a point to a line. $(x_0, y_0)$ is the point, and $a, b, c$ come from $ax+by+c=0$.",
+      "zh": "用来计算点到直线的最短距离 $d$ 的公式。$(x_0, y_0)$ 是点的坐标，$a$、$b$、$c$ 是直线方程 $ax+by+c=0$ 中的各项系数。"
     },
     {
       "tex": "m_1 m_2 = -1",
-      "ja": "2本の直線が直角に交わっているかを調べるときに使う式です。2本の直線の傾き m_1 と m_2 を掛け算して -1 になれば直角です。",
-      "en": "Use this condition to check if two lines are perpendicular. Two lines meet at a right angle if their slopes m_1 and m_2 multiply to -1.",
-      "zh": "用来判断两条直线是否互相垂直的式子。两条直线的斜率 m_1 与 m_2 相乘如果等于 -1，就说明它们垂直相交。"
+      "ja": "2本の直線が直角に交わっているかを調べるときに使う式です。2本の直線の傾き $m_1$ と $m_2$ を掛け算して $-1$ になれば直角です。",
+      "en": "Use this condition to check if two lines are perpendicular. Two lines meet at a right angle if their slopes $m_1$ and $m_2$ multiply to $-1$.",
+      "zh": "用来判断两条直线是否互相垂直的式子。两条直线的斜率 $m_1$ 与 $m_2$ 相乘如果等于 $-1$，就说明它们垂直相交。"
     },
     {
       "tex": "m_1 = m_2",
-      "ja": "2本の直線が平行かどうかを調べるときに使う式です。2本の直線の傾き m_1 と m_2 が同じであれば平行になります。",
-      "en": "Use this condition to check if two lines are parallel. If the two slopes m_1 and m_2 are equal, the lines are parallel.",
-      "zh": "用来判断两条直线是否互相平行的式子。如果两条直线的斜率 m_1 和 m_2 相等，这两条直线就互相平行。"
+      "ja": "2本の直線が平行かどうかを調べるときに使う式です。2本の直線の傾き $m_1$ と $m_2$ が同じであれば平行になります。",
+      "en": "Use this condition to check if two lines are parallel. If the two slopes $m_1$ and $m_2$ are equal, the lines are parallel.",
+      "zh": "用来判断两条直线是否互相平行的式子。如果两条直线的斜率 $m_1$ 和 $m_2$ 相等，这两条直线就互相平行。"
     }
   ],
   "coordinate-geometry/circle": [
@@ -4060,9 +4060,9 @@
     },
     {
       "tex": "x_1 x + y_1 y = r^2 \\quad (x_1^2 + y_1^2 = r^2)",
-      "ja": "原点を中心とする円の上の点 (x_1, y_1) で接する直線を求める公式です。r は円の半径を表します。",
-      "en": "Use this formula to find the tangent line at point (x_1, y_1) on a circle centered at the origin. Here, r is the radius.",
-      "zh": "用来求以原点为中心的圆在圆上一点 (x_1, y_1) 处的切线方程。r 是该圆的半径。"
+      "ja": "原点を中心とする円の上の点 $(x_1, y_1)$ で接する直線を求める公式です。$r$ は円の半径を表します。",
+      "en": "Use this formula to find the tangent line at point $(x_1, y_1)$ on a circle centered at the origin. Here, $r$ is the radius.",
+      "zh": "用来求以原点为中心的圆在圆上一点 $(x_1, y_1)$ 处的切线方程。$r$ 是该圆的半径。"
     }
   ],
   "coordinate-geometry/locus": [
@@ -4085,9 +4085,9 @@
   "coordinate-geometry/region": [
     {
       "tex": "y > f(x)",
-      "ja": "グラフ y=f(x) より上側の範囲を表す不等式です。不等号が反対向き（y < f(x)）のときは、グラフの下側を表します。",
-      "en": "This inequality represents the region above the curve y=f(x). If the sign is reversed to y < f(x), it represents the region below.",
-      "zh": "表示曲线 y=f(x) 上方区域的不等式。如果不等号反过来（y < f(x)），则表示曲线下方的区域。"
+      "ja": "グラフ $y=f(x)$ より上側の範囲を表す不等式です。不等号が反対向き（$y < f(x)$）のときは、グラフの下側を表します。",
+      "en": "This inequality represents the region above the curve $y=f(x)$. If the sign is reversed to $y < f(x)$, it represents the region below.",
+      "zh": "表示曲线 $y=f(x)$ 上方区域的不等式。如果不等号反过来（$y < f(x)$），则表示曲线下方的区域。"
     },
     {
       "tex": "(x - a)^2 + (y - b)^2 < r^2",
@@ -4104,67 +4104,67 @@
   "vector/components": [
     {
       "tex": "|\\vec{a}| = \\sqrt{a_1^2 + a_2^2}",
-      "ja": "ベクトル（矢印）\\vec{a} の長さ（大きさ）を計算する公式です。横の成分 a_1 と縦の成分 a_2 をそれぞれ 2 乗して足し、ルートをつけます。",
-      "en": "Use this formula to find the length (magnitude) of a vector \\vec{a}. Square the components a_1 and a_2, add them, and take the square root.",
-      "zh": "用来计算向量（箭头）\\vec{a} 长度（模长）的公式。把横向分量 a_1 和纵向分量 a_2 分别平方后相加，再开平方根即可。"
+      "ja": "ベクトル（矢印）$\\vec{a}$ の長さ（大きさ）を計算する公式です。横の成分 $a_1$ と縦の成分 $a_2$ をそれぞれ 2 乗して足し、ルートをつけます。",
+      "en": "Use this formula to find the length (magnitude) of a vector $\\vec{a}$. Square the components $a_1$ and $a_2$, add them, and take the square root.",
+      "zh": "用来计算向量（箭头）$\\vec{a}$ 长度（模长）的公式。把横向分量 $a_1$ 和纵向分量 $a_2$ 分别平方后相加，再开平方根即可。"
     },
     {
       "tex": "\\vec{AB} = (x_2 - x_1, \\, y_2 - y_1)",
-      "ja": "点 A から点 B へ向かうベクトルを求める式です。ゴールの座標 B(x_2, y_2) からスタートの座標 A(x_1, y_1) を引き算して求めます。",
-      "en": "Use this formula to find the vector from point A to point B. Subtract the starting coordinates of A from the ending coordinates of B.",
-      "zh": "用来求从点 A 指向点 B 的向量坐标的公式。用终点 B 的坐标减去起点 A 的坐标即可算出。"
+      "ja": "点 $A$ から点 $B$ へ向かうベクトルを求める式です。ゴールの座標 $B(x_2, y_2)$ からスタートの座標 $A(x_1, y_1)$ を引き算して求めます。",
+      "en": "Use this formula to find the vector from point $A$ to point $B$. Subtract the starting coordinates of $A$ from the ending coordinates of $B$.",
+      "zh": "用来求从点 $A$ 指向点 $B$ 的向量坐标的公式。用终点 $B$ 的坐标减去起点 $A$ 的坐标即可算出。"
     },
     {
       "tex": "\\vec{a} + \\vec{b} = (a_1 + b_1, \\, a_2 + b_2)",
-      "ja": "2つのベクトルを足し算するときの計算方法です。横の成分同士（a_1 と b_1）と、縦の成分同士（a_2 と b_2）をそれぞれ足し合わせます。",
+      "ja": "2つのベクトルを足し算するときの計算方法です。横の成分同士（$a_1$ と $b_1$）と、縦の成分同士（$a_2$ と $b_2$）をそれぞれ足し合わせます。",
       "en": "This formula shows how to add two vectors. Simply add the horizontal components together and the vertical components together.",
-      "zh": "计算两个向量相加时的公式。把对应的横向分量（a_1 与 b_1）和纵向分量（a_2 与 b_2）分别相加即可。"
+      "zh": "计算两个向量相加时的公式。把对应的横向分量（$a_1$ 与 $b_1$）和纵向分量（$a_2$ 与 $b_2$）分别相加即可。"
     },
     {
       "tex": "k\\vec{a} = (ka_1, \\, ka_2)",
-      "ja": "ベクトルを数字 k 倍に伸ばしたり縮めたりするときの計算方法です。横の成分 a_1 と縦の成分 a_2 の両方に数字 k を掛け算します。",
-      "en": "Use this formula to stretch or shrink a vector by a number k. Multiply both components a_1 and a_2 by k.",
-      "zh": "把向量放大或缩小 k 倍时的计算公式。把横向分量 a_1 和纵向分量 a_2 都乘上数字 k 即可。"
+      "ja": "ベクトルを数字 $k$ 倍に伸ばしたり縮めたりするときの計算方法です。横の成分 $a_1$ と縦の成分 $a_2$ の両方に数字 $k$ を掛け算します。",
+      "en": "Use this formula to stretch or shrink a vector by a number $k$. Multiply both components $a_1$ and $a_2$ by $k$.",
+      "zh": "把向量放大或缩小 $k$ 倍时的计算公式。把横向分量 $a_1$ 和纵向分量 $a_2$ 都乘上数字 $k$ 即可。"
     }
   ],
   "vector/dot-product": [
     {
       "tex": "\\vec{a} \\cdot \\vec{b} = |\\vec{a}||\\vec{b}|\\cos\\theta",
-      "ja": "2つのベクトルの内積を求める基本の式です。それぞれの長さ（大きさ）|a| と |b| に、2つの矢印がなす角 θ の cosθ を掛け算します。",
-      "en": "This formula defines the dot product of two vectors. Multiply their lengths (magnitudes) |a| and |b| by cos(theta), where theta is the angle between them.",
-      "zh": "这是计算两个向量点积的基本公式。用两个向量的长度（模长）|a| 和 |b|，乘以它们夹角 θ 的余弦值 cosθ 即可求得。"
+      "ja": "2つのベクトルの内積を求める基本の式です。それぞれの長さ（大きさ）$|a|$ と $|b|$ に、2つの矢印がなす角 $\\theta$ の $\\cos\\theta$ を掛け算します。",
+      "en": "This formula defines the dot product of two vectors. Multiply their lengths (magnitudes) $|a|$ and $|b|$ by $\\cos(\\theta)$, where $\\theta$ is the angle between them.",
+      "zh": "这是计算两个向量点积的基本公式。用两个向量的长度（模长）$|a|$ 和 $|b|$，乘以它们夹角 $\\theta$ 的余弦值 $\\cos\\theta$ 即可求得。"
     },
     {
       "tex": "\\vec{a} \\cdot \\vec{b} = a_1 b_1 + a_2 b_2",
-      "ja": "座標（成分）から内積を計算するときに使う式です。横同士の成分 a1, b1 と縦同士の成分 a2, b2 をそれぞれ掛け合わせて足します。",
-      "en": "Use this formula to calculate the dot product from coordinates. Multiply the matching components (a1*b1 and a2*b2) and add them together.",
-      "zh": "当已知向量的坐标（分量）时，用这个公式计算点积。把对应的分量分别相乘（a1*b1 与 a2*b2），再把结果相加即可。"
+      "ja": "座標（成分）から内積を計算するときに使う式です。横同士の成分 $a_1, b_1$ と縦同士の成分 $a_2, b_2$ をそれぞれ掛け合わせて足します。",
+      "en": "Use this formula to calculate the dot product from coordinates. Multiply the matching components ($a_1 b_1$ and $a_2 b_2$) and add them together.",
+      "zh": "当已知向量的坐标（分量）时，用这个公式计算点积。把对应的分量分别相乘（$a_1 b_1$ 与 $a_2 b_2$），再把结果相加即可。"
     },
     {
       "tex": "\\vec{a} \\cdot \\vec{a} = |\\vec{a}|^2",
-      "ja": "同じベクトル同士の内積を計算すると、そのベクトルの長さ（大きさ |a|）の2乗になります。ベクトルの長さを求めるときによく使います。",
-      "en": "The dot product of a vector with itself equals the square of its length (|a|^2). This is often used to calculate a vector's length.",
-      "zh": "一个向量与自身做点积，等于这个向量长度（模长 |a|）的平方。在求解向量长度时非常有用。"
+      "ja": "同じベクトル同士の内積を計算すると、そのベクトルの長さ（大きさ $|a|$）の2乗になります。ベクトルの長さを求めるときによく使います。",
+      "en": "The dot product of a vector with itself equals the square of its length ($|a|^2$). This is often used to calculate a vector's length.",
+      "zh": "一个向量与自身做点积，等于这个向量长度（模长 $|a|$）的平方。在求解向量长度时非常有用。"
     },
     {
       "tex": "\\vec{a} \\perp \\vec{b} \\iff \\vec{a} \\cdot \\vec{b} = 0 \\quad (\\vec{a} \\neq \\vec{0}, \\, \\vec{b} \\neq \\vec{0})",
-      "ja": "0でない2つのベクトルが直角に交わるかを調べるときに使います。なす角が 90° のときは cos90° = 0 になるため、内積が必ず0になります。",
-      "en": "Use this to check if two non-zero vectors are perpendicular (at a right angle). Because cos(90°) = 0, their dot product is 0 when perpendicular.",
-      "zh": "用来判断两个非零向量是否互相垂直（成90度角）。因为 cos90° = 0，所以当它们互相垂直时，点积必然等于 0。"
+      "ja": "0でない2つのベクトルが直角に交わるかを調べるときに使います。なす角が $90^\\circ$ のときは $\\cos 90^\\circ = 0$ になるため、内積が必ず0になります。",
+      "en": "Use this to check if two non-zero vectors are perpendicular (at a right angle). Because $\\cos(90^\\circ) = 0$, their dot product is 0 when perpendicular.",
+      "zh": "用来判断两个非零向量是否互相垂直（成90度角）。因为 $\\cos 90^\\circ = 0$，所以当它们互相垂直时，点积必然等于 0。"
     }
   ],
   "vector/angle": [
     {
       "tex": "\\cos\\theta = \\frac{\\vec{a} \\cdot \\vec{b}}{|\\vec{a}||\\vec{b}|}",
-      "ja": "2つのベクトルがなす角 θ を求めるときに使う式です。内積 a·b をそれぞれの大きさ |a| と |b| の掛け算で割ると cosθ が分かります。",
-      "en": "Use this formula to find the angle theta between two vectors. Divide their dot product by the product of their lengths |a| and |b| to get cos(theta).",
-      "zh": "用来求解两个向量夹角 θ 的公式。用两向量的点积除以各自长度（模长 |a| 与 |b|）的乘积，就能算出 cosθ。"
+      "ja": "2つのベクトルがなす角 $\\theta$ を求めるときに使う式です。内積 $a \\cdot b$ をそれぞれの大きさ $|a|$ と $|b|$ の掛け算で割ると $\\cos\\theta$ が分かります。",
+      "en": "Use this formula to find the angle $\\theta$ between two vectors. Divide their dot product by the product of their lengths $|a|$ and $|b|$ to get $\\cos(\\theta)$.",
+      "zh": "用来求解两个向量夹角 $\\theta$ 的公式。用两向量的点积除以各自长度（模长 $|a|$ 与 $|b|$）的乘积，就能算出 $\\cos\\theta$。"
     },
     {
       "tex": "\\cos\\theta = \\frac{a_1 b_1 + a_2 b_2}{\\sqrt{a_1^2 + a_2^2}\\sqrt{b_1^2 + b_2^2}}",
-      "ja": "2つのベクトルの成分 (a1, a2) と (b1, b2) から直接 cosθ を計算する式です。分子は内積、分母はそれぞれの長さを表しています。",
-      "en": "This formula lets you calculate cos(theta) directly from vector components. The top is the dot product, and the bottom is the product of their lengths.",
-      "zh": "当已知两个向量的坐标 (a1, a2) 和 (b1, b2) 时，用这个公式直接算出夹角余弦 cosθ。分子是点积，分母是各自长度的乘积。"
+      "ja": "2つのベクトルの成分 $(a_1, a_2)$ と $(b_1, b_2)$ から直接 $\\cos\\theta$ を計算する式です。分子は内積、分母はそれぞれの長さを表しています。",
+      "en": "This formula lets you calculate $\\cos(\\theta)$ directly from vector components. The top is the dot product, and the bottom is the product of their lengths.",
+      "zh": "当已知两个向量的坐标 $(a_1, a_2)$ 和 $(b_1, b_2)$ 时，用这个公式直接算出夹角余弦 $\\cos\\theta$。分子是点积，分母是各自长度的乘积。"
     },
     {
       "tex": "0 \\le \\theta \\le \\pi",
@@ -4176,15 +4176,15 @@
   "vector/space": [
     {
       "tex": "|\\vec{a}| = \\sqrt{a_1^2 + a_2^2 + a_3^2}",
-      "ja": "3次元空間におけるベクトルの長さ（大きさ）を求める式です。3つの成分 a1, a2, a3 をそれぞれ2乗して足し、ルートをとって計算します。",
-      "en": "This formula calculates the length (magnitude) of a 3D vector. Square each of the three components a1, a2, a3, add them together, and take the square root.",
-      "zh": "用来计算三维空间中向量长度（模长）的公式。将三个分量 a1, a2, a3 分别平方后相加，再开平方根即可求得。"
+      "ja": "3次元空間におけるベクトルの長さ（大きさ）を求める式です。3つの成分 $a_1, a_2, a_3$ をそれぞれ2乗して足し、ルートをとって計算します。",
+      "en": "This formula calculates the length (magnitude) of a 3D vector. Square each of the three components $a_1, a_2, a_3$, add them together, and take the square root.",
+      "zh": "用来计算三维空间中向量长度（模长）的公式。将三个分量 $a_1, a_2, a_3$ 分别平方后相加，再开平方根即可求得。"
     },
     {
       "tex": "\\vec{a} \\cdot \\vec{b} = a_1 b_1 + a_2 b_2 + a_3 b_3",
-      "ja": "空間ベクトルの内積を成分から計算する式です。対応する3つの成分同士（a1とb1など）を掛け算し、それらをすべて足し合わせます。",
+      "ja": "空間ベクトルの内積を成分から計算する式です。対応する3つの成分同士（$a_1$ と $b_1$ など）を掛け算し、それらをすべて足し合わせます。",
       "en": "Use this formula to calculate the dot product of two 3D vectors from their coordinates. Multiply the corresponding components together and add the three products.",
-      "zh": "这是利用坐标计算空间向量点积的公式。把两个向量对应的三个分量分别相乘（如 a1 乘 b1），再把这三个乘积加起来。"
+      "zh": "这是利用坐标计算空间向量点积的公式。把两个向量对应的三个分量分别相乘（如 $a_1$ 乘 $b_1$），再把这三个乘积加起来。"
     },
     {
       "tex": "(x - a)^2 + (y - b)^2 + (z - c)^2 = r^2",
@@ -4222,9 +4222,9 @@
   "matrix/determinant": [
     {
       "tex": "\\begin{vmatrix} a & b \\\\ c & d \\end{vmatrix} = ad - bc",
-      "ja": "2×2 行列の「行列式」を求める基本の式です。ななめに掛けた ad から bc を引き算した値で、この値が 0 でないときに逆行列が存在します。",
-      "en": "This formula calculates the determinant of a 2x2 matrix. Subtract bc from ad; if this result is not zero, the matrix has an inverse.",
-      "zh": "这是计算 2×2 矩阵行列式的基本公式。用对角线乘积 ad 减去 bc，只要结果不等于 0，该矩阵就存在逆矩阵。"
+      "ja": "$2 \\times 2$ 行列の「行列式」を求める基本の式です。ななめに掛けた $ad$ から $bc$ を引き算した値で、この値が 0 でないときに逆行列が存在します。",
+      "en": "This formula calculates the determinant of a $2 \\times 2$ matrix. Subtract $bc$ from $ad$; if this result is not zero, the matrix has an inverse.",
+      "zh": "这是计算 $2 \\times 2$ 矩阵行列式的基本公式。用对角线乘积 $ad$ 减去 $bc$，只要结果不等于 0，该矩阵就存在逆矩阵。"
     },
     {
       "tex": "S = |ad - bc|",
@@ -4254,29 +4254,29 @@
     },
     {
       "tex": "\\det(A^T) = \\det A",
-      "ja": "行と列を入れ替えた転置行列 A^T の行列式は、元の行列 A の行列式とまったく同じになります。行に関して成り立つ計算の性質が、列にもそのまま使えることを示しています。",
-      "en": "The determinant of the transpose A^T (swapping rows and columns) is equal to that of A. This means any rule that applies to rows also works for columns.",
-      "zh": "转置矩阵 A^T（行与列互换）的行列式与原矩阵 A 完全相同。这说明对行成立的各种性质和运算法则，对列也同样适用。"
+      "ja": "行と列を入れ替えた転置行列 $A^T$ の行列式は、元の行列 $A$ の行列式とまったく同じになります。行に関して成り立つ計算の性質が、列にもそのまま使えることを示しています。",
+      "en": "The determinant of the transpose $A^T$ (swapping rows and columns) is equal to that of $A$. This means any rule that applies to rows also works for columns.",
+      "zh": "转置矩阵 $A^T$（行与列互换）的行列式与原矩阵 $A$ 完全相同。这说明对行成立的各种性质和运算法则，对列也同样适用。"
     }
   ],
   "matrix/inverse": [
     {
       "tex": "AA^{-1} = A^{-1}A = I",
-      "ja": "逆行列 A^{-1} の意味を表す式です。普通の数の逆数（掛けると1になる数）と同じように、左右どちらから掛けても単位行列 I（1にあたる行列）になる特別な行列を表します。",
-      "en": "This defines the inverse matrix A^{-1}, similar to a reciprocal for numbers. Multiplying A by A^{-1} from either side gives identity matrix I (which acts like the number 1).",
-      "zh": "这是逆矩阵 A^{-1} 的定义式，类似于普通数字的倒数。无论是从左边还是右边与原矩阵 A 相乘，得到的结果都是单位矩阵 I（相当于数字中的 1）。"
+      "ja": "逆行列 $A^{-1}$ の意味を表す式です。普通の数の逆数（掛けると1になる数）と同じように、左右どちらから掛けても単位行列 $I$（1にあたる行列）になる特別な行列を表します。",
+      "en": "This defines the inverse matrix $A^{-1}$, similar to a reciprocal for numbers. Multiplying $A$ by $A^{-1}$ from either side gives identity matrix $I$ (which acts like the number 1).",
+      "zh": "这是逆矩阵 $A^{-1}$ 的定义式，类似于普通数字的倒数。无论是从左边还是右边与原矩阵 $A$ 相乘，得到的结果都是单位矩阵 $I$（相当于数字中的 1）。"
     },
     {
       "tex": "A^{-1} = \\frac{1}{ad-bc}\\begin{pmatrix} d & -b \\\\ -c & a \\end{pmatrix} \\quad (ad-bc \\neq 0)",
-      "ja": "2×2 行列の逆行列を求める公式です。対角線の a と d を入れ替え、b と c の符号をマイナスに変えてから、行列式 ad - bc で全体を割ります。",
-      "en": "Use this formula to find the inverse of a 2x2 matrix. Swap a and d, change the signs of b and c, and divide every entry by the determinant ad - bc.",
-      "zh": "这是计算 2×2 矩阵逆矩阵的公式。交换对角线上的 a 和 d，把 b 和 c 变号，再除以行列式 ad - bc 即可。"
+      "ja": "$2 \\times 2$ 行列の逆行列を求める公式です。対角線の $a$ と $d$ を入れ替え、$b$ と $c$ の符号をマイナスに変えてから、行列式 $ad - bc$ で全体を割ります。",
+      "en": "Use this formula to find the inverse of a $2 \\times 2$ matrix. Swap $a$ and $d$, change the signs of $b$ and $c$, and divide every entry by the determinant $ad - bc$.",
+      "zh": "这是计算 $2 \\times 2$ 矩阵逆矩阵的公式。交换对角线上的 $a$ 和 $d$，把 $b$ 和 $c$ 变号，再除以行列式 $ad - bc$ 即可。"
     },
     {
       "tex": "(AB)^{-1} = B^{-1}A^{-1}",
-      "ja": "2つの行列を掛けた AB の逆行列を求める式です。それぞれの逆行列を掛ければ求まりますが、左右の順番がひっくり返って B^{-1} が先になる点に注意が必要です。",
-      "en": "This formula gives the inverse of a matrix product AB. You multiply their individual inverses, but the order reverses: B^{-1} must come first, followed by A^{-1}.",
-      "zh": "这是求两个矩阵乘积 AB 的逆矩阵的公式。等于分别求逆后再相乘，但注意顺序会调换，必须是 B^{-1} 在前、A^{-1} 在后。"
+      "ja": "2つの行列を掛けた $AB$ の逆行列を求める式です。それぞれの逆行列を掛ければ求まりますが、左右の順番がひっくり返って $B^{-1}$ が先になる点に注意が必要です。",
+      "en": "This formula gives the inverse of a matrix product $AB$. You multiply their individual inverses, but the order reverses: $B^{-1}$ must come first, followed by $A^{-1}$.",
+      "zh": "这是求两个矩阵乘积 $AB$ 的逆矩阵的公式。等于分别求逆后再相乘，但注意顺序会调换，必须是 $B^{-1}$ 在前、$A^{-1}$ 在后。"
     }
   ],
   "linear-system/elimination": [
@@ -4292,9 +4292,9 @@
     },
     {
       "tex": "[A \\mid I] \\to [I \\mid A^{-1}]",
-      "ja": "掃き出し法で逆行列 A^{-1} を求める方法です。行列 A の右隣に単位行列 I を並べて変形を行い、左側が単位行列 I になったとき、右側に逆行列 A^{-1} が完成します。",
-      "en": "Use this procedure to find the inverse matrix A^{-1}. Place identity matrix I next to A; when row operations turn the left side into I, the right side becomes A^{-1}.",
-      "zh": "用消元法求逆矩阵 A^{-1} 的方法。在矩阵 A 右侧并排写上单位矩阵 I，通过行变换把左侧化为 I 时，右侧就变成了逆矩阵 A^{-1}。"
+      "ja": "掃き出し法で逆行列 $A^{-1}$ を求める方法です。行列 $A$ の右隣に単位行列 $I$ を並べて変形を行い、左側が単位行列 $I$ になったとき、右側に逆行列 $A^{-1}$ が完成します。",
+      "en": "Use this procedure to find the inverse matrix $A^{-1}$. Place identity matrix $I$ next to $A$; when row operations turn the left side into $I$, the right side becomes $A^{-1}$.",
+      "zh": "用消元法求逆矩阵 $A^{-1}$ 的方法。在矩阵 $A$ 右侧并排写上单位矩阵 $I$，通过行变换把左侧化为 $I$ 时，右侧就变成了逆矩阵 $A^{-1}$。"
     }
   ],
   "linear-system/solutions": [
@@ -4320,9 +4320,9 @@
   "vector-space/independence": [
     {
       "tex": "c_1 \\boldsymbol{v}_1 + \\dots + c_k \\boldsymbol{v}_k = \\boldsymbol{0} \\implies c_1 = \\dots = c_k = 0",
-      "ja": "ベクトルが「1次独立」であることの定義式です。ベクトル v1, ..., vk を何倍かして足して 0 になるのが、すべての係数 ci が 0 のときしかない状態を表します。",
-      "en": "This defines linear independence. It means the only way to combine vectors v1, ..., vk to get the zero vector 0 is for all scalar coefficients c1, ..., ck to be zero.",
-      "zh": "这是向量组“线性无关”的定义式。表示要让向量 v1, ..., vk 的数乘组合结果为零向量 0，唯一的可能是所有系数 c1, ..., ck 全部为 0。"
+      "ja": "ベクトルが「1次独立」であることの定義式です。ベクトル $v_1, \\dots, v_k$ を何倍かして足して 0 になるのが、すべての係数 $c_i$ が 0 のときしかない状態を表します。",
+      "en": "This defines linear independence. It means the only way to combine vectors $v_1, \\dots, v_k$ to get the zero vector 0 is for all scalar coefficients $c_1, \\dots, c_k$ to be zero.",
+      "zh": "这是向量组“线性无关”的定义式。表示要让向量 $v_1, \\dots, v_k$ 的数乘组合结果为零向量 0，唯一的可能是所有系数 $c_1, \\dots, c_k$ 全部为 0。"
     },
     {
       "tex": "\\det([\\boldsymbol{v}_1 \\ \\dots \\ \\boldsymbol{v}_n]) \\neq 0",
@@ -4340,15 +4340,15 @@
   "vector-space/basis": [
     {
       "tex": "V = \\operatorname{span}(\\boldsymbol{v}_1, \\dots, \\boldsymbol{v}_n)",
-      "ja": "ベクトルの組が空間 V の全体を作り出せる（生成する）ことを表す式です。空間 V にあるどんなベクトルも、v1, ..., vn を何倍かして足し合わせるだけで作れることを意味します。",
-      "en": "This means vectors v1, ..., vn span the entire vector space V. Any vector in V can be formed by multiplying these vectors by numbers and adding them up.",
-      "zh": "这表示向量组 v1, ..., vn 能够张成（生成）整个向量空间 V。空间 V 中的任意向量，都可以用这几个向量数乘相加组合出来。"
+      "ja": "ベクトルの組が空間 $V$ の全体を作り出せる（生成する）ことを表す式です。空間 $V$ にあるどんなベクトルも、$v_1, \\dots, v_n$ を何倍かして足し合わせるだけで作れることを意味します。",
+      "en": "This means vectors $v_1, \\dots, v_n$ span the entire vector space $V$. Any vector in $V$ can be formed by multiplying these vectors by numbers and adding them up.",
+      "zh": "这表示向量组 $v_1, \\dots, v_n$ 能够张成（生成）整个向量空间 $V$。空间 $V$ 中的任意向量，都可以用这几个向量数乘相加组合出来。"
     },
     {
       "tex": "\\dim(W_1 + W_2) = \\dim(W_1) + \\dim(W_2) - \\dim(W_1 \\cap W_2)",
-      "ja": "2つの部分空間 W1 と W2 を合わせた空間の次元（広がり）を求める公式です。それぞれの次元を足し算し、重なっている共通部分 W1 ∩ W2 の次元を引いて計算します。",
-      "en": "This formula calculates the dimension of the combined subspace W1 + W2. Add the dimensions of W1 and W2, then subtract the dimension of their overlap (W1 ∩ W2).",
-      "zh": "这是计算两个子空间合并后（和空间 W1 + W2）维数的公式。将两个子空间的维数相加，再减去它们重合部分（交空间 W1 ∩ W2）的维数即可。"
+      "ja": "2つの部分空間 $W_1$ と $W_2$ を合わせた空間の次元（広がり）を求める公式です。それぞれの次元を足し算し、重なっている共通部分 $W_1 \\cap W_2$ の次元を引いて計算します。",
+      "en": "This formula calculates the dimension of the combined subspace $W_1 + W_2$. Add the dimensions of $W_1$ and $W_2$, then subtract the dimension of their overlap ($W_1 \\cap W_2$).",
+      "zh": "这是计算两个子空间合并后（和空间 $W_1 + W_2$）维数的公式。将两个子空间的维数相加，再减去它们重合部分（交空间 $W_1 \\cap W_2$）的维数即可。"
     },
     {
       "tex": "\\dim(W) \\le \\dim(V) \\quad (W \\subseteq V)",
@@ -4360,15 +4360,15 @@
   "vector-space/rank": [
     {
       "tex": "\\operatorname{rank}(A) = \\dim(\\operatorname{Im}(A))",
-      "ja": "行列 A の階数（rank）が何を表すかを説明する式です。行列を行き先として見たときの出力空間（像 Im(A)）の次元のことで、本質的に独立した列ベクトルの本数を表します。",
-      "en": "This explains what the rank of matrix A means. It equals the dimension of the output space (image Im(A)), which is the number of linearly independent columns.",
-      "zh": "说明矩阵 A 的秩（rank）实际含义的公式。它等于矩阵变换后输出空间（像空间 Im(A)）的维数，代表真正独立的列向量的个数。"
+      "ja": "行列 $A$ の階数（rank）が何を表すかを説明する式です。行列を行き先として見たときの出力空間（像 $\\mathrm{Im}(A)$）の次元のことで、本質的に独立した列ベクトルの本数を表します。",
+      "en": "This explains what the rank of matrix $A$ means. It equals the dimension of the output space (image $\\mathrm{Im}(A)$), which is the number of linearly independent columns.",
+      "zh": "说明矩阵 $A$ 的秩（rank）实际含义的公式。它等于矩阵变换后输出空间（像空间 $\\mathrm{Im}(A)$）的维数，代表真正独立的列向量的个数。"
     },
     {
       "tex": "\\operatorname{rank}(A^T) = \\operatorname{rank}(A)",
-      "ja": "行と列を入れ替えた転置行列 A^T の階数は、元の行列 A の階数と同じになることを表す式です。どんな行列でも、独立な「行の数」と「列の数」が必ず一致することを意味します。",
-      "en": "This shows that transposing matrix A^T (swapping rows and columns) does not change its rank. In any matrix, the number of independent rows always equals that of columns.",
-      "zh": "表示把矩阵行和列互换（转置矩阵 A^T）后，秩依然保持不变。这说明任意矩阵中，互相独立的“行数”与“列数”永远相等。"
+      "ja": "行と列を入れ替えた転置行列 $A^T$ の階数は、元の行列 $A$ の階数と同じになることを表す式です。どんな行列でも、独立な「行の数」と「列の数」が必ず一致することを意味します。",
+      "en": "This shows that transposing matrix $A^T$ (swapping rows and columns) does not change its rank. In any matrix, the number of independent rows always equals that of columns.",
+      "zh": "表示把矩阵行和列互换（转置矩阵 $A^T$）后，秩依然保持不变。这说明任意矩阵中，互相独立的“行数”与“列数”永远相等。"
     },
     {
       "tex": "\\operatorname{rank}(A) \\le \\min(m, n)",
@@ -4392,15 +4392,15 @@
     },
     {
       "tex": "f(\\boldsymbol{v}_j) = \\sum_{i=1}^m a_{ij} \\boldsymbol{w}_i",
-      "ja": "表現行列 A の作り方を表す式です。入力側の基準ベクトル vj を写像 f で送った先を、出力側の基準 wi で表したときの係数 aij が、行列の第 j 列になります。",
-      "en": "This explains how to build the representation matrix A. The coordinates aij of the transformed input basis vector f(vj) along output basis wi form the j-th column.",
-      "zh": "这是构造表现矩阵 A 的方法。把输入的基底向量 vj 经过映射 f 变换后，用输出基底 wi 展开所得的坐标系数 aij，就是矩阵的第 j 列。"
+      "ja": "表現行列 $A$ の作り方を表す式です。入力側の基準ベクトル $v_j$ を写像 $f$ で送った先を、出力側の基準 $w_i$ で表したときの係数 $a_{ij}$ が、行列の第 $j$ 列になります。",
+      "en": "This explains how to build the representation matrix $A$. The coordinates $a_{ij}$ of the transformed input basis vector $f(v_j)$ along output basis $w_i$ form the $j$-th column.",
+      "zh": "这是构造表现矩阵 $A$ 的方法。把输入的基底向量 $v_j$ 经过映射 $f$ 变换后，用输出基底 $w_i$ 展开所得的坐标系数 $a_{ij}$，就是矩阵的第 $j$ 列。"
     },
     {
       "tex": "B = P^{-1} A P",
-      "ja": "基準となる基底を取り替えたときに、表現行列がどう変わるかを表す式です。新しい表現行列 B は、もとの行列 A を基底の変換行列 P とその逆行列 P^{-1} で挟んで掛け算して求めます。",
-      "en": "Use this change-of-basis formula when switching coordinate systems. The new representation matrix B is found by multiplying A by transition matrix P and its inverse P^{-1}.",
-      "zh": "这是更换基底时表现矩阵的变换公式。新的表现矩阵 B，可以通过在原矩阵 A 两侧分别乘上基变换矩阵 P 及其逆矩阵 P^{-1} 来计算。"
+      "ja": "基準となる基底を取り替えたときに、表現行列がどう変わるかを表す式です。新しい表現行列 $B$ は、もとの行列 $A$ を基底の変換行列 $P$ とその逆行列 $P^{-1}$ で挟んで掛け算して求めます。",
+      "en": "Use this change-of-basis formula when switching coordinate systems. The new representation matrix $B$ is found by multiplying $A$ by transition matrix $P$ and its inverse $P^{-1}$.",
+      "zh": "这是更换基底时表现矩阵的变换公式。新的表现矩阵 $B$，可以通过在原矩阵 $A$ 两侧分别乘上基变换矩阵 $P$ 及其逆矩阵 $P^{-1}$ 来计算。"
     }
   ],
   "linear-map/kernel-image": [
@@ -4438,9 +4438,9 @@
     },
     {
       "tex": "\\lambda_1 + \\lambda_2 = \\operatorname{tr}(A), \\quad \\lambda_1 \\lambda_2 = \\det(A)",
-      "ja": "求めた2つの固有値 λ1, λ2 が正しいか確かめる式です。固有値の足し算は対角線の和 tr(A) に、掛け算は行列式 det(A) に必ず一致します。",
-      "en": "Use these relations to check if your calculated eigenvalues lambda_1 and lambda_2 are correct. Their sum equals the diagonal sum tr(A), and their product equals det(A).",
-      "zh": "这是用来检验求得的两个特征值 λ1, λ2 是否正确的验算公式。两个特征值相加等于对角线之和 tr(A)，相乘等于行列式 det(A)。"
+      "ja": "求めた2つの固有値 $\\lambda_1, \\lambda_2$ が正しいか確かめる式です。固有値の足し算は対角線の和 $\\mathrm{tr}(A)$ に、掛け算は行列式 $\\det(A)$ に必ず一致します。",
+      "en": "Use these relations to check if your calculated eigenvalues $\\lambda_1$ and $\\lambda_2$ are correct. Their sum equals the diagonal sum $\\mathrm{tr}(A)$, and their product equals $\\det(A)$.",
+      "zh": "这是用来检验求得的两个特征值 $\\lambda_1, \\lambda_2$ 是否正确的验算公式。两个特征值相加等于对角线之和 $\\mathrm{tr}(A)$，相乘等于行列式 $\\det(A)$。"
     }
   ],
   "eigen/eigenvectors": [
@@ -4458,29 +4458,29 @@
     },
     {
       "tex": "E_\\lambda = \\operatorname{Ker}(A - \\lambda I)",
-      "ja": "ある固有値 λ に対応するすべての固有ベクトルとゼロベクトルをまとめた空間（固有空間 E_λ）を表す式です。Ker は (A - λI) を掛けるとゼロになるベクトルの集まりを意味します。",
-      "en": "This formula defines the eigenspace E_lambda, which collects all eigenvectors for lambda plus the zero vector. Ker represents all vectors that become zero when multiplied by (A - lambda I).",
-      "zh": "该式定义了对应特征值 lambda 的特征子空间 E_lambda，它汇集了该特征值的所有特征向量与零向量。Ker 表示乘以 (A - lambda I) 后结果为零的向量集合。"
+      "ja": "ある固有値 $\\lambda$ に対応するすべての固有ベクトルとゼロベクトルをまとめた空間（固有空間 $E_\\lambda$）を表す式です。$\\mathrm{Ker}$ は $(A - \\lambda I)$ を掛けるとゼロになるベクトルの集まりを意味します。",
+      "en": "This formula defines the eigenspace $E_\\lambda$, which collects all eigenvectors for $\\lambda$ plus the zero vector. $\\mathrm{Ker}$ represents all vectors that become zero when multiplied by $(A - \\lambda I)$.",
+      "zh": "该式定义了对应特征值 $\\lambda$ 的特征子空间 $E_\\lambda$，它汇集了该特征值的所有特征向量与零向量。$\\mathrm{Ker}$ 表示乘以 $(A - \\lambda I)$ 后结果为零的向量集合。"
     }
   ],
   "eigen/diagonalize": [
     {
       "tex": "P^{-1} A P = \\operatorname{diag}(\\lambda_1, \\dots, \\lambda_n)",
-      "ja": "正方行列 A を、対角線上に固有値 λ_1 から λ_n だけが並ぶ計算しやすい形（対角行列）に変形するときに使う式です。P は固有ベクトルを並べて作る特別な正方行列です。",
-      "en": "Use this formula to simplify matrix A into a diagonal matrix with eigenvalues lambda_1 to lambda_n on its main diagonal. Matrix P is formed by arranging eigenvectors.",
-      "zh": "该式用于将方阵 A 变形为对角线上只排列特征值 lambda_1 到 lambda_n 的简便对角矩阵。矩阵 P 是由特征向量排列组成的可逆方阵。"
+      "ja": "正方行列 $A$ を、対角線上に固有値 $\\lambda_1$ から $\\lambda_n$ だけが並ぶ計算しやすい形（対角行列）に変形するときに使う式です。$P$ は固有ベクトルを並べて作る特別な正方行列です。",
+      "en": "Use this formula to simplify matrix $A$ into a diagonal matrix with eigenvalues $\\lambda_1$ to $\\lambda_n$ on its main diagonal. Matrix $P$ is formed by arranging eigenvectors.",
+      "zh": "该式用于将方阵 $A$ 变形为对角线上只排列特征值 $\\lambda_1$ 到 $\\lambda_n$ 的简便对角矩阵。矩阵 $P$ 是由特征向量排列组成的可逆方阵。"
     },
     {
       "tex": "A^k = P D^k P^{-1}",
-      "ja": "行列 A を何回も掛ける計算（累乗 A^k）を簡単に求めるときに使う式です。対角行列 D の k 乗は、対角線上の数をそれぞれ k 乗するだけで楽に計算できます。",
-      "en": "Use this formula to easily calculate powers of matrix A (A^k). Raising the diagonal matrix D to the power k is simple, as you only raise each diagonal entry to the power k.",
-      "zh": "用于快速计算矩阵 A 的高次幂（A^k）。对角矩阵 D 的 k 次幂非常容易求，只需把对角线上的各个数字分别求 k 次方即可。"
+      "ja": "行列 $A$ を何回も掛ける計算（累乗 $A^k$）を簡単に求めるときに使う式です。対角行列 $D$ の $k$ 乗は、対角線上の数をそれぞれ $k$ 乗するだけで楽に計算できます。",
+      "en": "Use this formula to easily calculate powers of matrix $A$ ($A^k$). Raising the diagonal matrix $D$ to the power $k$ is simple, as you only raise each diagonal entry to the power $k$.",
+      "zh": "用于快速计算矩阵 $A$ 的高次幂（$A^k$）。对角矩阵 $D$ 的 $k$ 次幂非常容易求，只需把对角线上的各个数字分别求 $k$ 次方即可。"
     },
     {
       "tex": "P = [\\boldsymbol{v}_1 \\ \\dots \\ \\boldsymbol{v}_n]",
-      "ja": "行列の対角化に使う行列 P の作り方を表す式です。行列 A の固有ベクトル v_1 から v_n を、対角化後の固有値と同じ順番で縦に並べて作ります。",
-      "en": "This formula shows how to construct matrix P for diagonalization. Arrange the eigenvectors v_1 to v_n as columns in the same order as the eigenvalues in the diagonal matrix.",
-      "zh": "该式展示了如何构造用于对角化的矩阵 P。将矩阵 A 的特征向量 v_1 到 v_n 按照对角矩阵中特征值的顺序并排排成各列。"
+      "ja": "行列の対角化に使う行列 $P$ の作り方を表す式です。行列 $A$ の固有ベクトル $v_1$ から $v_n$ を、対角化後の固有値と同じ順番で縦に並べて作ります。",
+      "en": "This formula shows how to construct matrix $P$ for diagonalization. Arrange the eigenvectors $v_1$ to $v_n$ as columns in the same order as the eigenvalues in the diagonal matrix.",
+      "zh": "该式展示了如何构造用于对角化的矩阵 $P$。将矩阵 $A$ 的特征向量 $v_1$ 到 $v_n$ 按照对角矩阵中特征值的顺序并排排成各列。"
     }
   ],
   "inner-product/orthogonal": [
@@ -4498,29 +4498,29 @@
     },
     {
       "tex": "\\langle \\boldsymbol{e}_i, \\boldsymbol{e}_j \\rangle = \\delta_{ij}",
-      "ja": "ベクトルの集まり e_i が互いに直交し、長さがすべて 1 である組（正規直交系）を表す式です。δ_ij は番号 i と j が同じとき 1、違うとき 0 になる記号です。",
-      "en": "This formula defines an orthonormal system, where all vectors e_i have length 1 and are mutually perpendicular. The symbol delta_ij is 1 when i equals j, and 0 when i and j differ.",
-      "zh": "该式表示一组向量 e_i 两两互相垂直且长度都为 1（标准正交系）。delta_ij 是克罗内克符号，当编号 i 与 j 相同时为 1，不同时为 0。"
+      "ja": "ベクトルの集まり $e_i$ が互いに直交し、長さがすべて 1 である組（正規直交系）を表す式です。$\\delta_{ij}$ は番号 $i$ と $j$ が同じとき 1、違うとき 0 になる記号です。",
+      "en": "This formula defines an orthonormal system, where all vectors $e_i$ have length 1 and are mutually perpendicular. The symbol $\\delta_{ij}$ is 1 when $i$ equals $j$, and 0 when $i$ and $j$ differ.",
+      "zh": "该式表示一组向量 $e_i$ 两两互相垂直且长度都为 1（标准正交系）。$\\delta_{ij}$ 是克罗内克符号，当编号 $i$ 与 $j$ 相同时为 1，不同时为 0。"
     },
     {
       "tex": "\\boldsymbol{x} = \\sum_{i=1}^n \\langle \\boldsymbol{x}, \\boldsymbol{e}_i \\rangle \\boldsymbol{e}_i",
-      "ja": "どんなベクトル x でも、基準となる直交ベクトル e_1 から e_n の足し算に分解するときに使う式です。基底との内積 ⟨x, e_i⟩ を計算するだけで各成分の大きさがすぐに分かります。",
-      "en": "Use this formula to decompose any vector x into components along orthonormal basis vectors e_1 to e_n. Taking the inner product directly gives the coordinate along each basis vector.",
-      "zh": "用于将任意向量 x 分解为标准正交基 e_1 到 e_n 的组合。只需计算 x 与各个基向量的内积，即可直接得出对应的坐标分量。"
+      "ja": "どんなベクトル $x$ でも、基準となる直交ベクトル $e_1$ から $e_n$ の足し算に分解するときに使う式です。基底との内積 $\\langle x, e_i \\rangle$ を計算するだけで各成分の大きさがすぐに分かります。",
+      "en": "Use this formula to decompose any vector $x$ into components along orthonormal basis vectors $e_1$ to $e_n$. Taking the inner product directly gives the coordinate along each basis vector.",
+      "zh": "用于将任意向量 $x$ 分解为标准正交基 $e_1$ 到 $e_n$ 的组合。只需计算 $x$ 与各个基向量的内积，即可直接得出对应的坐标分量。"
     }
   ],
   "inner-product/gram-schmidt": [
     {
       "tex": "\\boldsymbol{u}_k = \\boldsymbol{v}_k - \\sum_{j=1}^{k-1} \\frac{\\langle \\boldsymbol{v}_k, \\boldsymbol{u}_j \\rangle}{\\|\\boldsymbol{u}_j\\|^2} \\boldsymbol{u}_j",
-      "ja": "元のベクトル v_k から、すでに見つかっている直交ベクトル u_1 から u_(k-1) と同じ向きの成分をすべて引き算して、新しい直交ベクトル u_k を作るときに使う式です。",
-      "en": "Use this formula to build a new orthogonal vector u_k from vector v_k. It subtracts the projection components of v_k along all previously found orthogonal vectors u_j.",
-      "zh": "用于从向量 v_k 构造新的正交向量 u_k。它通过从 v_k 中减去在已有各正交向量 u_j 方向上的所有投影分量来实现。"
+      "ja": "元のベクトル $v_k$ から、すでに見つかっている直交ベクトル $u_1$ から $u_{k-1}$ と同じ向きの成分をすべて引き算して、新しい直交ベクトル $u_k$ を作るときに使う式です。",
+      "en": "Use this formula to build a new orthogonal vector $u_k$ from vector $v_k$. It subtracts the projection components of $v_k$ along all previously found orthogonal vectors $u_j$.",
+      "zh": "用于从向量 $v_k$ 构造新的正交向量 $u_k$。它通过从 $v_k$ 中减去在已有各正交向量 $u_j$ 方向上的所有投影分量来实现。"
     },
     {
       "tex": "\\boldsymbol{e}_k = \\frac{\\boldsymbol{u}_k}{\\|\\boldsymbol{u}_k\\|}",
-      "ja": "直交させたベクトル u_k をその長さ ||u_k|| で割ることで、向きはそのままで長さがちょうど 1 の単位ベクトル e_k を作るときに使う式です。",
-      "en": "Use this formula to scale an orthogonal vector u_k to a unit vector e_k of length 1. Divide u_k by its length (norm ||u_k||) to normalize it.",
-      "zh": "用于将正交向量 u_k 化为长度为 1 的单位向量 e_k。通过把 u_k 除以它自身的长度（范数 ||u_k||）来完成单位化。"
+      "ja": "直交させたベクトル $u_k$ をその長さ $\\|u_k\\|$ で割ることで、向きはそのままで長さがちょうど 1 の単位ベクトル $e_k$ を作るときに使う式です。",
+      "en": "Use this formula to scale an orthogonal vector $u_k$ to a unit vector $e_k$ of length 1. Divide $u_k$ by its length (norm $\\|u_k\\|$) to normalize it.",
+      "zh": "用于将正交向量 $u_k$ 化为长度为 1 的单位向量 $e_k$。通过把 $u_k$ 除以它自身的长度（范数 $\\|u_k\\|$）来完成单位化。"
     },
     {
       "tex": "\\operatorname{proj}_{\\boldsymbol{u}}(\\boldsymbol{v}) = \\frac{\\langle \\boldsymbol{v}, \\boldsymbol{u} \\rangle}{\\|\\boldsymbol{u}\\|^2} \\boldsymbol{u}",
@@ -4557,9 +4557,9 @@
   "rate/per-unit": [
     {
       "tex": "u = \\frac{A}{B}",
-      "ja": "1平方メートルあたりや 1個あたりなど、「1あたりの大きさ」u を比べたり求めたりするときに使う式です。全体の量 A をもとにする量（広さや個数など）B で割って計算します。",
-      "en": "Use this formula to find the amount per single unit u (such as per 1 m^2 or per item). Divide the total quantity A by the base quantity (like area or count) B.",
-      "zh": "用于求出“每 1 个单位的大小”u（如每平方米或每件）。用总量 A 除以基准量（如面积或数量）B 来计算。"
+      "ja": "1平方メートルあたりや 1個あたりなど、「1あたりの大きさ」$u$ を比べたり求めたりするときに使う式です。全体の量 $A$ をもとにする量（広さや個数など）$B$ で割って計算します。",
+      "en": "Use this formula to find the amount per single unit $u$ (such as per $1\\text{ m}^2$ or per item). Divide the total quantity $A$ by the base quantity (like area or count) $B$.",
+      "zh": "用于求出“每 1 个单位的大小”$u$（如每平方米或每件）。用总量 $A$ 除以基准量（如面积或数量）$B$ 来计算。"
     },
     {
       "tex": "A = u \\times B",
@@ -4569,9 +4569,9 @@
     },
     {
       "tex": "D = \\frac{P}{S}",
-      "ja": "その場所がどれくらい混み合っているか（人口密度 D）を調べるときに使う式です。住んでいる人の数 P を広さ（面積）S で割って、1平方キロメートルあたり何人いるかを求めます。",
-      "en": "Use this formula to measure how crowded an area is (population density D). Divide the population P by the land area S to find the number of people per 1 km^2.",
-      "zh": "用于了解某地的拥挤程度（人口密度 D）。用人口数量 P 除以面积 S，即可算出每 1 平方公里有多少人。"
+      "ja": "その場所がどれくらい混み合っているか（人口密度 $D$）を調べるときに使う式です。住んでいる人の数 $P$ を広さ（面積）$S$ で割って、1平方キロメートルあたり何人いるかを求めます。",
+      "en": "Use this formula to measure how crowded an area is (population density $D$). Divide the population $P$ by the land area $S$ to find the number of people per $1\\text{ km}^2$.",
+      "zh": "用于了解某地的拥挤程度（人口密度 $D$）。用人口数量 $P$ 除以面积 $S$，即可算出每 1 平方公里有多少人。"
     }
   ],
   "relations/change": [
@@ -4668,9 +4668,9 @@
     },
     {
       "tex": "\\sum \\theta_{\\text{ext}} = 360^\\circ",
-      "ja": "多角形の外側の角（外角 θ_ext）をすべて足した合計を表す式です。三角形でも五角形でも、どんな多角形であっても外角の合計は必ず 360° になります。",
-      "en": "This formula shows the sum of all exterior angles theta_ext of a polygon. No matter how many sides the polygon has, its exterior angles always add up to 360 degrees.",
-      "zh": "该式表示多边形所有外角 theta_ext 的总和。无论多边形有多少条边，所有外角的度数相加始终恒等于 360 度。"
+      "ja": "多角形の外側の角（外角 $\\theta_{\\mathrm{ext}}$）をすべて足した合計を表す式です。三角形でも五角形でも、どんな多角形であっても外角の合計は必ず 360° になります。",
+      "en": "This formula shows the sum of all exterior angles $\\theta_{\\mathrm{ext}}$ of a polygon. No matter how many sides the polygon has, its exterior angles always add up to 360 degrees.",
+      "zh": "该式表示多边形所有外角 $\\theta_{\\mathrm{ext}}$ 的总和。无论多边形有多少条边，所有外角的度数相加始终恒等于 360 度。"
     },
     {
       "tex": "\\theta = \\frac{180^\\circ \\times (n - 2)}{n}",
@@ -4783,9 +4783,9 @@
     },
     {
       "tex": "S = \\pi r^2 \\times \\frac{x}{360}",
-      "ja": "おうぎ形の面積Sを求める式です。円全体の面積（πr^2）に、中心角xが360度のうちどれだけあるかをかけて計算します。",
-      "en": "This formula finds the area S of a sector. Multiply the whole circle's area (pi*r^2) by the angle ratio (x/360).",
-      "zh": "这是用来计算扇形面积S的公式。用整个圆的面积（πr²）乘上圆心角x占360度的比例即可算出。"
+      "ja": "おうぎ形の面積 $S$ を求める式です。円全体の面積（$\\pi r^2$）に、中心角 $x$ が360度のうちどれだけあるかをかけて計算します。",
+      "en": "This formula finds the area $S$ of a sector. Multiply the whole circle's area ($\\pi r^2$) by the angle ratio ($x/360$).",
+      "zh": "这是用来计算扇形面积 $S$ 的公式。用整个圆的面积（$\\pi r^2$）乘上圆心角 $x$ 占360度的比例即可算出。"
     },
     {
       "tex": "S = \\frac{1}{2}lr",
@@ -4803,9 +4803,9 @@
     },
     {
       "tex": "S = 4\\pi r^2",
-      "ja": "球の表面積Sを求める式です。半径rの円の面積（πr^2）を4倍すると、球全体の表面積になります。",
-      "en": "This formula finds the surface area S of a sphere. It equals four times the area of a circle (pi*r^2) with radius r.",
-      "zh": "这是用来计算球体表面积S的公式。半径为r的圆面积（πr²）乘以4，就是球体的表面积。"
+      "ja": "球の表面積 $S$ を求める式です。半径 $r$ の円の面積（$\\pi r^2$）を4倍すると、球全体の表面積になります。",
+      "en": "This formula finds the surface area $S$ of a sphere. It equals four times the area of a circle ($\\pi r^2$) with radius $r$.",
+      "zh": "这是用来计算球体表面积 $S$ 的公式。半径为 $r$ 的圆面积（$\\pi r^2$）乘以4，就是球体的表面积。"
     },
     {
       "tex": "V = \\frac{4}{3}\\pi r^3",
@@ -4823,15 +4823,15 @@
     },
     {
       "tex": "S_1 : S_2 = m^2 : n^2",
-      "ja": "相似な図形で、面積の比を求めるときに使います。長さの比（相似比）がm:nのとき、面積の比S1:S2はそれぞれを2乗したm^2:n^2になります。",
-      "en": "Use this to find the area ratio between two similar shapes. If their side ratio is m:n, their area ratio S1:S2 is m^2:n^2.",
-      "zh": "用于计算两个相似图形的面积之比。如果它们的长度比（相似比）是m:n，那么面积比S1:S2就是各自平方的比m²:n²。"
+      "ja": "相似な図形で、面積の比を求めるときに使います。長さの比（相似比）が $m:n$ のとき、面積の比 $S_1:S_2$ はそれぞれを2乗した $m^2:n^2$ になります。",
+      "en": "Use this to find the area ratio between two similar shapes. If their side ratio is $m:n$, their area ratio $S_1:S_2$ is $m^2:n^2$.",
+      "zh": "用于计算两个相似图形的面积之比。如果它们的长度比（相似比）是 $m:n$，那么面积比 $S_1:S_2$ 就是各自平方的比 $m^2:n^2$。"
     },
     {
       "tex": "V_1 : V_2 = m^3 : n^3",
-      "ja": "相似な立体で、体積の比を求めるときに使います。長さの比（相似比）がm:nのとき、体積の比V1:V2はそれぞれを3乗したm^3:n^3になります。",
-      "en": "Use this to find the volume ratio between two similar solids. If their side ratio is m:n, their volume ratio V1:V2 is m^3:n^3.",
-      "zh": "用于计算两个相似立体图形的体积之比。如果它们的长度比（相似比）是m:n，那么体积比V1:V2就是各自立方的比m³:n³。"
+      "ja": "相似な立体で、体積の比を求めるときに使います。長さの比（相似比）が $m:n$ のとき、体積の比 $V_1:V_2$ はそれぞれを3乗した $m^3:n^3$ になります。",
+      "en": "Use this to find the volume ratio between two similar solids. If their side ratio is $m:n$, their volume ratio $V_1:V_2$ is $m^3:n^3$.",
+      "zh": "用于计算两个相似立体图形的体积之比。如果它们的长度比（相似比）是 $m:n$，那么体积比 $V_1:V_2$ 就是各自立方的比 $m^3:n^3$。"
     }
   ],
   "similarity/inscribed-angle": [
@@ -4854,9 +4854,9 @@
       "zh": "用于寻找90度的直角。当线段AB是圆的直径时，它所对的圆周角∠APB必定是90度。"
     },
     {
-      "ja": "4つの点が同じ円の上にあるかを確かめるときに使います。直線ABの同じ側に点P, Qがあり∠APB=∠AQBならば、4点A, B, P, Qは1つの円の上にあります。",
-      "en": "Use this to check if four points lie on one circle. If P and Q are on the same side of line AB and angle APB equals angle AQB, then points A, B, P, Q lie on the same circle.",
-      "zh": "用于判断四个点是否在同一个圆上。如果点P和Q在直线AB的同侧且∠APB=∠AQB，那么A、B、P、Q四点就在同一个圆上。"
+      "ja": "4つの点が同じ円の上にあるかを確かめるときに使います。直線 $AB$ の同じ側に点 $P, Q$ があり $\\angle APB = \\angle AQB$ ならば、4点 $A, B, P, Q$ は1つの円の上にあります。",
+      "en": "Use this to check if four points lie on one circle. If $P$ and $Q$ are on the same side of line $AB$ and angle $APB$ equals angle $AQB$, then points $A, B, P, Q$ lie on the same circle.",
+      "zh": "用于判断四个点是否在同一个圆上。如果点 $P$ 和 $Q$ 在直线 $AB$ 的同侧且 $\\angle APB = \\angle AQB$，那么 $A$、$B$、$P$、$Q$ 四点就在同一个圆上。"
     }
   ],
   "transformations/moves": [
@@ -4946,9 +4946,9 @@
       "zh": "用于在含有圆切线的图形中计算角度（弦切角定理）。切线AT与弦AB所夹的角，等于弦所对的圆周角∠BCA。"
     },
     {
-      "ja": "4つの点が同じ円の上にあることを証明するときに使います。線分ABの同じ側に点P, Qがあり∠APB=∠AQBならば、4点A, B, P, Qは同じ円の上にあります。",
-      "en": "Use this to prove four points lie on one circle. If points P and Q are on the same side of segment AB and angle APB equals angle AQB, then points A, B, P, Q lie on the same circle.",
-      "zh": "用于证明四个点在同一个圆上。如果点P和Q在线段AB的同一侧且∠APB=∠AQB，那么A、B、P、Q四点就在同一个圆周上。"
+      "ja": "4つの点が同じ円の上にあることを証明するときに使います。線分 $AB$ の同じ側に点 $P, Q$ があり $\\angle APB = \\angle AQB$ ならば、4点 $A, B, P, Q$ は同じ円の上にあります。",
+      "en": "Use this to prove four points lie on one circle. If points $P$ and $Q$ are on the same side of segment $AB$ and angle $APB$ equals angle $AQB$, then points $A, B, P, Q$ lie on the same circle.",
+      "zh": "用于证明四个点在同一个圆上。如果点 $P$ 和 $Q$ 在线段 $AB$ 的同一侧且 $\\angle APB = \\angle AQB$，那么 $A$、$B$、$P$、$Q$ 四点就在同一个圆周上。"
     }
   ],
   "triangle-trig/ratios": [
@@ -4966,9 +4966,9 @@
     },
     {
       "tex": "1 + \\tan^2\\theta = \\frac{1}{\\cos^2\\theta}",
-      "ja": "tanθの値からcosθを求めたいときに使います。tanθを2乗して1をたすと、cosθの2乗で1を割った値になります。",
-      "en": "Use this formula to find cos theta when tan theta is known. Adding 1 to tan^2 theta gives 1 divided by cos^2 theta.",
-      "zh": "当已知tanθ的值、想求出cosθ时使用。将tanθ的平方加上1，就等于1除以cosθ的平方。"
+      "ja": "$\\tan\\theta$ の値から $\\cos\\theta$ を求めたいときに使います。$\\tan\\theta$ を2乗して1をたすと、$\\cos\\theta$ の2乗で1を割った値になります。",
+      "en": "Use this formula to find $\\cos\\theta$ when $\\tan\\theta$ is known. Adding 1 to $\\tan^2\\theta$ gives 1 divided by $\\cos^2\\theta$.",
+      "zh": "当已知 $\\tan\\theta$ 的值、想求出 $\\cos\\theta$ 时使用。将 $\\tan\\theta$ 的平方加上1，就等于1除以 $\\cos\\theta$ 的平方。"
     }
   ],
   "triangle-trig/sine-law": [
@@ -5064,9 +5064,9 @@
       "zh": "当从圆外点P引出一条割线和切线PT时，用它求长度。交点线段的乘积PA·PB等于切线长PT的平方。"
     },
     {
-      "ja": "4つの点が同じ円の上にあるかを確かめるときに使います。2本の線が点Pで交わりPA・PB = PC・PDとなるとき、4点A, B, C, Dは同じ円周上に並びます。",
-      "en": "Use this to test if four points lie on the same circle. When two lines cross at P and PA·PB equals PC·PD, the four points A, B, C, and D are on one circle.",
-      "zh": "用来判断四个点是否在同一个圆上。如果两条线相交于点P且满足PA·PB = PC·PD，那么A、B、C、D四点就在同一个圆上。"
+      "ja": "4つの点が同じ円の上にあるかを確かめるときに使います。2本の線が点 $P$ で交わり $PA \\cdot PB = PC \\cdot PD$ となるとき、4点 $A$, $B$, $C$, $D$ は同じ円周上に並びます。",
+      "en": "Use this to test if four points lie on the same circle. When two lines cross at $P$ and $PA \\cdot PB$ equals $PC \\cdot PD$, the four points $A$, $B$, $C$, and $D$ are on one circle.",
+      "zh": "用来判断四个点是否在同一个圆上。如果两条线相交于点 $P$ 且满足 $PA \\cdot PB = PC \\cdot PD$，那么 $A$、$B$、$C$、$D$ 四点就在同一个圆上。"
     }
   ],
   "triangle-properties/ceva-menelaus": [
@@ -5091,9 +5091,9 @@
   "triangle-properties/polyhedra": [
     {
       "tex": "v - e + f = 2",
-      "ja": "へこみのない立体（凸多面体）で、頂点・辺・面の数を調べるときに使う式です（オイラーの公式）。頂点の数v、辺の数e、面の数fの間にいつでも成り立ちます。",
-      "en": "Use this (Euler's formula) to relate parts of a convex polyhedron. The count of vertices v, edges e, and faces f always satisfies v - e + f = 2.",
-      "zh": "用来计算凸多面体中顶点、棱和面的数量（欧拉公式）。顶点数v、棱数e与面数f之间，永远满足 v - e + f = 2。"
+      "ja": "へこみのない立体（凸多面体）で、頂点・辺・面の数を調べるときに使う式です（オイラーの公式）。頂点の数 $v$、辺の数 $e$、面の数 $f$ の間にいつでも成り立ちます。",
+      "en": "Use this (Euler's formula) to relate parts of a convex polyhedron. The count of vertices $v$, edges $e$, and faces $f$ always satisfies $v - e + f = 2$.",
+      "zh": "用来计算凸多面体中顶点、棱和面的数量（欧拉公式）。顶点数 $v$、棱数 $e$ 与面数 $f$ 之间，永远满足 $v - e + f = 2$。"
     },
     {
       "tex": "2e = nf = kv",
@@ -5115,9 +5115,9 @@
     },
     {
       "tex": "x = \\sqrt{ab}",
-      "ja": "長さaとbから、かけ算のルートの長さ√abを作図する式です。2つの線分を並べて直径a+bの半円を描き、つなぎ目からまっすぐ上に立てた垂線の長さxが√abになります。",
-      "en": "Use this to construct a segment of length sqrt(ab) from lengths a and b. Draw a semicircle of diameter a+b; the perpendicular line x from their junction equals sqrt(ab).",
-      "zh": "用来通过作图做出长度为√ab的线段。把长为a和b的线段连成直径画半圆，从连接点垂直立起的线段长x就是√ab。"
+      "ja": "長さ $a$ と $b$ から、かけ算のルートの長さ $\\sqrt{ab}$ を作図する式です。2つの線分を並べて直径 $a+b$ の半円を描き、つなぎ目からまっすぐ上に立てた垂線の長さ $x$ が $\\sqrt{ab}$ になります。",
+      "en": "Use this to construct a segment of length $\\sqrt{ab}$ from lengths $a$ and $b$. Draw a semicircle of diameter $a+b$; the perpendicular line $x$ from their junction equals $\\sqrt{ab}$.",
+      "zh": "用来通过作图做出长度为 $\\sqrt{ab}$ 的线段。把长为 $a$ 和 $b$ 的线段连成直径画半圆，从连接点垂直立起的线段长 $x$ 就是 $\\sqrt{ab}$。"
     },
     {
       "ja": "円の外の点Pから円に触れる接線を作図する方法です。中心Oと点Pを結ぶ線を直径とする別の円を描き、2つの円が重なる交点とPを結ぶと直角ができて接線になります。",
@@ -5128,34 +5128,34 @@
   "quartiles/quartiles": [
     {
       "tex": "Q_1 \\le Q_2 \\le Q_3",
-      "ja": "データを小さい順に並べて4等分したときの区切りの値を表す式です。下から25%の位置を第1四分位数Q1、真ん中を第2四分位数Q2、75%の位置を第3四分位数Q3とよびます。",
-      "en": "This formula shows the split points when data is sorted and divided into four equal parts. Q1 is the 25% point, Q2 is the median (middle), and Q3 is the 75% point.",
-      "zh": "这个式子表示将数据按升序分成四等份时的分界值。25%位置是第一四分位数Q1，中间是第二四分位数Q2，75%位置是第三四分位数Q3。"
+      "ja": "データを小さい順に並べて4等分したときの区切りの値を表す式です。下から25%の位置を第1四分位数 $Q_1$、真ん中を第2四分位数 $Q_2$、75%の位置を第3四分位数 $Q_3$ とよびます。",
+      "en": "This formula shows the split points when data is sorted and divided into four equal parts. $Q_1$ is the 25% point, $Q_2$ is the median (middle), and $Q_3$ is the 75% point.",
+      "zh": "这个式子表示将数据按升序分成四等份时的分界值。25%位置是第一四分位数 $Q_1$，中间是第二四分位数 $Q_2$，75%位置是第三四分位数 $Q_3$。"
     },
     {
       "tex": "\\mathrm{IQR} = Q_3 - Q_1",
-      "ja": "真ん中50%のデータがどのくらい散らばっているかを調べる式です（四分位範囲）。第3四分位数Q3から第1四分位数Q1を引いて計算します。",
-      "en": "Use this (interquartile range, or IQR) to see the spread of the middle 50% of your data. You find it by subtracting quartile Q1 from quartile Q3.",
-      "zh": "这个公式用来表示中间50%数据的散布范围（四分位距 IQR）。用第三四分位数Q3减去第一四分位数Q1即可求得。"
+      "ja": "真ん中50%のデータがどのくらい散らばっているかを調べる式です（四分位範囲）。第3四分位数 $Q_3$ から第1四分位数 $Q_1$ を引いて計算します。",
+      "en": "Use this (interquartile range, or IQR) to see the spread of the middle 50% of your data. You find it by subtracting quartile $Q_1$ from quartile $Q_3$.",
+      "zh": "这个公式用来表示中间50%数据的散布范围（四分位距 IQR）。用第三四分位数 $Q_3$ 减去第一四分位数 $Q_1$ 即可求得。"
     },
     {
       "tex": "\\frac{Q_3 - Q_1}{2}",
-      "ja": "極端な値にふりまわされずにデータの散らばりを比べる式です（四分位偏差）。四分位範囲（Q3 - Q1）を2で割って、ばらつきの大きさを半分にして表します。",
-      "en": "Use this (semi-interquartile range) to measure data spread without being misled by extreme values. You simply divide the interquartile range (Q3 - Q1) by 2.",
-      "zh": "这个公式用来衡量数据的分散程度，且不易受极端值干扰（四分位差）。只需把四分位距（Q3 - Q1）除以2即可。"
+      "ja": "極端な値にふりまわされずにデータの散らばりを比べる式です（四分位偏差）。四分位範囲（$Q_3 - Q_1$）を2で割って、ばらつきの大きさを半分にして表します。",
+      "en": "Use this (semi-interquartile range) to measure data spread without being misled by extreme values. You simply divide the interquartile range ($Q_3 - Q_1$) by 2.",
+      "zh": "这个公式用来衡量数据的分散程度，且不易受极端值干扰（四分位差）。只需把四分位距（$Q_3 - Q_1$）除以2即可。"
     }
   ],
   "quartiles/boxplot": [
     {
-      "ja": "データの散らばり方を箱とひげでひと目で表す図です（箱ひげ図）。一番小さい値（最小値）、Q1、真ん中の値（中央値）、Q3、一番大きい値（最大値）の5つを使って描きます。",
-      "en": "A boxplot visually shows how data is spread out. It uses five numbers to draw the box and whiskers: minimum, Q1, median (middle), Q3, and maximum.",
-      "zh": "箱线图用箱子和胡须直观展示数据的分布情况。它由五个数值画成：最小值、Q1、中位数、Q3和最大值。"
+      "ja": "データの散らばり方を箱とひげでひと目で表す図です（箱ひげ図）。一番小さい値（最小値）、$Q_1$、真ん中の値（中央値）、$Q_3$、一番大きい値（最大値）の5つを使って描きます。",
+      "en": "A boxplot visually shows how data is spread out. It uses five numbers to draw the box and whiskers: minimum, $Q_1$, median (middle), $Q_3$, and maximum.",
+      "zh": "箱线图用箱子和胡须直观展示数据的分布情况。它由五个数值画成：最小值、$Q_1$、中位数、$Q_3$ 和最大值。"
     },
     {
       "tex": "\\mathrm{IQR} = Q_3 - Q_1",
-      "ja": "箱ひげ図の箱の横幅が何を表すかを示す式です。第3四分位数Q3と第1四分位数Q1の差が箱の長さになり、真ん中50%のデータの広がりを表しています。",
-      "en": "This formula shows what the box width means in a boxplot. The difference between Q3 and Q1 forms the box length, showing the spread of the middle 50% of data.",
-      "zh": "这个公式表示箱线图中箱体宽度的含义。Q3与Q1的差等于箱子的长度，反映了正中间50%数据的分散跨度。"
+      "ja": "箱ひげ図の箱の横幅が何を表すかを示す式です。第3四分位数 $Q_3$ と第1四分位数 $Q_1$ の差が箱の長さになり、真ん中50%のデータの広がりを表しています。",
+      "en": "This formula shows what the box width means in a boxplot. The difference between $Q_3$ and $Q_1$ forms the box length, showing the spread of the middle 50% of data.",
+      "zh": "这个公式表示箱线图中箱体宽度的含义。$Q_3$ 与 $Q_1$ 的差等于箱子的长度，反映了正中间50%数据的分散跨度。"
     },
     {
       "ja": "箱ひげ図からデータの集まり方を読み取るポイントです。全体の約半分のデータが箱の中に入り、左右のひげにはそれぞれ約4分の1ずつのデータが入っています。",
@@ -5223,15 +5223,15 @@
   "statistics/variance": [
     {
       "tex": "s^2 = \\frac{1}{n} \\sum_{i=1}^{n} (x_i - \\bar{x})^2",
-      "ja": "データの散らばり具合を数値で表す式です（分散 s^2）。各データ xi と平均値 x̄ との差を2乗し、データの個数 n で割って平均をとることで計算します。",
-      "en": "Use this formula to measure how spread out data is (variance s^2). It averages the squared differences between each data point xi and the mean x̄ over n points.",
-      "zh": "这个公式用来计算数据的离散程度（方差 s^2）。把每个数据 xi 与平均值 x̄ 的差平方后相加，再除以数据个数 n 取平均。"
+      "ja": "データの散らばり具合を数値で表す式です（分散 $s^2$）。各データ $x_i$ と平均値 $\\bar{x}$ との差を2乗し、データの個数 $n$ で割って平均をとることで計算します。",
+      "en": "Use this formula to measure how spread out data is (variance $s^2$). It averages the squared differences between each data point $x_i$ and the mean $\\bar{x}$ over $n$ points.",
+      "zh": "这个公式用来计算数据的离散程度（方差 $s^2$）。把每个数据 $x_i$ 与平均值 $\\bar{x}$ 的差平方后相加，再除以数据个数 $n$ 取平均。"
     },
     {
       "tex": "s^2 = \\frac{1}{n} \\sum_{i=1}^{n} x_i^2 - (\\bar{x})^2",
-      "ja": "分散 s^2 を素早くかんたんに計算する式です。「それぞれのデータ xi を2乗した値の平均」から「平均値 x̄ の2乗」を引くことで求められます。",
-      "en": "Use this quick shortcut to compute variance s^2. Simply subtract the square of the mean (x̄)^2 from the average of all squared data points xi^2.",
-      "zh": "这是快速计算方差 s^2 的简便公式。只需用“每个数据 xi 平方的平均数”减去“平均数 x̄ 的平方”即可算出。"
+      "ja": "分散 $s^2$ を素早くかんたんに計算する式です。「それぞれのデータ $x_i$ を2乗した値の平均」から「平均値 $\\bar{x}$ の2乗」を引くことで求められます。",
+      "en": "Use this quick shortcut to compute variance $s^2$. Simply subtract the square of the mean $(\\bar{x})^2$ from the average of all squared data points $x_i^2$.",
+      "zh": "这是快速计算方差 $s^2$ 的简便公式。只需用“每个数据 $x_i$ 平方的平均数”减去“平均数 $\\bar{x}$ 的平方”即可算出。"
     },
     {
       "tex": "s = \\sqrt{\\frac{1}{n} \\sum_{i=1}^{n} (x_i - \\bar{x})^2}",
@@ -5243,15 +5243,15 @@
   "statistics/correlation": [
     {
       "tex": "s_{xy} = \\frac{1}{n} \\sum_{i=1}^{n} (x_i - \\bar{x})(y_i - \\bar{y})",
-      "ja": "2つのデータ x と y が同じ向きに連動して増減するかを調べる式です（共分散 s_xy）。それぞれの平均値（x̄, ȳ）からのずれをかけ合わせて、その平均をとることで計算します。",
-      "en": "Use this (covariance s_xy) to see if two variables x and y change together. It averages the product of deviations from their respective means x̄ and ȳ over n points.",
-      "zh": "这个公式用来观察两个变量 x 和 y 是否有同向增减的趋势（协方差 s_xy）。把每个数据与各自平均值（x̄、ȳ）的偏差相乘并取平均。"
+      "ja": "2つのデータ $x$ と $y$ が同じ向きに連動して増減するかを調べる式です（共分散 $s_{xy}$）。それぞれの平均値（$\\bar{x}, \\bar{y}$）からのずれをかけ合わせて、その平均をとることで計算します。",
+      "en": "Use this (covariance $s_{xy}$) to see if two variables $x$ and $y$ change together. It averages the product of deviations from their respective means $\\bar{x}$ and $\\bar{y}$ over $n$ points.",
+      "zh": "这个公式用来观察两个变量 $x$ 和 $y$ 是否有同向增减的趋势（协方差 $s_{xy}$）。把每个数据与各自平均值（$\\bar{x}$、$\\bar{y}$）的偏差相乘并取平均。"
     },
     {
       "tex": "r = \\frac{s_{xy}}{s_x s_y}",
-      "ja": "2つのデータの直線的な関係の強さを表す式です（相関係数 r）。共分散 s_xy をそれぞれの標準偏差 sx と sy の積で割ることで、単位に関係なく関係の強さを比べられます。",
-      "en": "Use this to measure how strongly two variables are linearly related (correlation coefficient r). Dividing covariance s_xy by standard deviations sx and sy removes units for fair comparison.",
-      "zh": "这个公式用来衡量两个变量之间线性关系的强弱（相关系数 r）。将协方差 s_xy 除以各自的标准差 sx 和 sy，可以不受单位影响地比较关联程度。"
+      "ja": "2つのデータの直線的な関係の強さを表す式です（相関係数 $r$）。共分散 $s_{xy}$ をそれぞれの標準偏差 $s_x$ と $s_y$ の積で割ることで、単位に関係なく関係の強さを比べられます。",
+      "en": "Use this to measure how strongly two variables are linearly related (correlation coefficient $r$). Dividing covariance $s_{xy}$ by standard deviations $s_x$ and $s_y$ removes units for fair comparison.",
+      "zh": "这个公式用来衡量两个变量之间线性关系的强弱（相关系数 $r$）。将协方差 $s_{xy}$ 除以各自的标准差 $s_x$ 和 $s_y$，可以不受单位影响地比较关联程度。"
     },
     {
       "tex": "-1 \\le r \\le 1",
@@ -5285,35 +5285,35 @@
   "inference/random-variables": [
     {
       "tex": "E(X) = \\sum_{i=1}^{n} x_i p_i",
-      "ja": "とびとびの値をとる確率変数 X の平均値（期待値 E(X)）を求める式です。出る値 xi にその確率 pi をそれぞれかけて、すべて足し合わせることで計算します。",
-      "en": "Use this formula to find the expected value (mean) E(X) of a discrete random variable X. Multiply each possible value xi by its probability pi and sum them up.",
-      "zh": "这个公式用来计算离散型随机变量 X 的平均值（期望值 E(X)）。把每个可能的值 xi 乘以对应的概率 pi 并全部相加。"
+      "ja": "とびとびの値をとる確率変数 $X$ の平均値（期待値 $E(X)$）を求める式です。出る値 $x_i$ にその確率 $p_i$ をそれぞれかけて、すべて足し合わせることで計算します。",
+      "en": "Use this formula to find the expected value (mean) $E(X)$ of a discrete random variable $X$. Multiply each possible value $x_i$ by its probability $p_i$ and sum them up.",
+      "zh": "这个公式用来计算离散型随机变量 $X$ 的平均值（期望值 $E(X)$）。把每个可能的值 $x_i$ 乘以对应的概率 $p_i$ 并全部相加。"
     },
     {
       "tex": "V(X) = E(X^2) - (E(X))^2",
-      "ja": "確率変数 X の散らばり具合（分散 V(X)）を素早く求める式です。「X を2乗した値の平均 E(X^2)」から「平均 E(X) の2乗」を引くことで計算できます。",
-      "en": "Use this formula to find the spread (variance V(X)) of a random variable X. Simply subtract the square of the mean (E(X))^2 from the mean of the squared values E(X^2).",
-      "zh": "这个公式用来快速计算随机变量 X 的分散程度（方差 V(X)）。只需用“X平方的平均值 E(X^2)”减去“平均值 E(X) 的平方”即可算出。"
+      "ja": "確率変数 $X$ の散らばり具合（分散 $V(X)$）を素早く求める式です。「$X$ を2乗した値の平均 $E(X^2)$」から「平均 $E(X)$ の2乗」を引くことで計算できます。",
+      "en": "Use this formula to find the spread (variance $V(X)$) of a random variable $X$. Simply subtract the square of the mean $(E(X))^2$ from the mean of the squared values $E(X^2)$.",
+      "zh": "这个公式用来快速计算随机变量 $X$ 的分散程度（方差 $V(X)$）。只需用“$X$ 平方的平均值 $E(X^2)$”减去“平均值 $E(X)$ 的平方”即可算出。"
     },
     {
       "tex": "E(aX + b) = aE(X) + b",
-      "ja": "確率変数 X を何倍かしたり足したりしたときの新しい平均を求める式です。X を a 倍して b を足した期待値は、元の平均 E(X) を a 倍して b を足すだけで求められます。",
-      "en": "Use this to find the new expected value when random variable X is scaled by a and shifted by b. The new mean is simply a times the old mean E(X), plus b.",
-      "zh": "这个公式用来求随机变量 X 乘以 a 并加上 b 后的新平均值。新期望值直接等于原平均值 E(X) 乘以 a 再加上 b。"
+      "ja": "確率変数 $X$ を何倍かしたり足したりしたときの新しい平均を求める式です。$X$ を $a$ 倍して $b$ を足した期待値は、元の平均 $E(X)$ を $a$ 倍して $b$ を足すだけで求められます。",
+      "en": "Use this to find the new expected value when random variable $X$ is scaled by $a$ and shifted by $b$. The new mean is simply $a$ times the old mean $E(X)$, plus $b$.",
+      "zh": "这个公式用来求随机变量 $X$ 乘以 $a$ 并加上 $b$ 后的新平均值。新期望值直接等于原平均值 $E(X)$ 乘以 $a$ 再加上 $b$。"
     },
     {
       "tex": "V(aX + b) = a^2 V(X)",
-      "ja": "確率変数 X を何倍かしたり足したりしたときの新しい分散を求める式です。a 倍すると分散は a^2 倍になり、定数 b を足しても散らばり具合は変わりません。",
-      "en": "This formula shows how scaling and shifting affect variance. Multiplying X by a scales variance by a^2, while adding a constant b does not change the spread at all.",
-      "zh": "这个公式用来计算随机变量 X 变换后的新方差。乘以 a 会让方差变为 a^2 倍，而加上常数 b 则完全不影响分散程度。"
+      "ja": "確率変数 $X$ を何倍かしたり足したりしたときの新しい分散を求める式です。$a$ 倍すると分散は $a^2$ 倍になり、定数 $b$ を足しても散らばり具合は変わりません。",
+      "en": "This formula shows how scaling and shifting affect variance. Multiplying $X$ by $a$ scales variance by $a^2$, while adding a constant $b$ does not change the spread at all.",
+      "zh": "这个公式用来计算随机变量 $X$ 变换后的新方差。乘以 $a$ 会让方差变为 $a^2$ 倍，而加上常数 $b$ 则完全不影响分散程度。"
     }
   ],
   "inference/estimation": [
     {
       "tex": "V(\\bar{X}) = \\frac{\\sigma^2}{n}",
-      "ja": "サンプル全体の平均（標本平均 X̄）のばらつきがどれくらい小さくなるかを表す式です。元の全体の分散 σ^2 をサンプル数 n で割るため、サンプル数が多いほど平均のブレが小さくなります。",
-      "en": "This shows how the variance of sample mean X̄ shrinks as sample size n grows. Dividing the population variance sigma^2 by n shows larger samples yield more reliable averages.",
-      "zh": "这个公式表示样本均值 X̄ 的波动会缩小到多少。用总体方差 σ^2 除以样本容量 n，说明样本量越大，平均值的波动就越小。"
+      "ja": "サンプル全体の平均（標本平均 $\\bar{X}$）のばらつきがどれくらい小さくなるかを表す式です。元の全体の分散 $\\sigma^2$ をサンプル数 $n$ で割るため、サンプル数が多いほど平均のブレが小さくなります。",
+      "en": "This shows how the variance of sample mean $\\bar{X}$ shrinks as sample size $n$ grows. Dividing the population variance $\\sigma^2$ by $n$ shows larger samples yield more reliable averages.",
+      "zh": "这个公式表示样本均值 $\\bar{X}$ 的波动会缩小到多少。用总体方差 $\\sigma^2$ 除以样本容量 $n$，说明样本量越大，平均值的波动就越小。"
     },
     {
       "tex": "\\bar{X} - 1.96 \\frac{\\sigma}{\\sqrt{n}} \\le m \\le \\bar{X} + 1.96 \\frac{\\sigma}{\\sqrt{n}}",
@@ -5331,15 +5331,15 @@
   "inference/testing": [
     {
       "tex": "Z = \\frac{\\bar{X} - m_0}{\\frac{\\sigma}{\\sqrt{n}}}",
-      "ja": "取り出したデータの平均 X̄ が、基準の平均 m0 とどれくらいズレているかを調べるときに使います。σ は全体の標準偏差、n はデータの個数です。",
-      "en": "Use this to check how far the sample mean X̄ is from the baseline mean m0. Here, σ is the population standard deviation and n is the sample size.",
-      "zh": "用来检验样本平均值 X̄ 与基准平均值 m0 相差多远。其中 σ 是总体标准差，n 是抽取的样本数量。"
+      "ja": "取り出したデータの平均 $\\bar{X}$ が、基準の平均 $m_0$ とどれくらいズレているかを調べるときに使います。$\\sigma$ は全体の標準偏差、$n$ はデータの個数です。",
+      "en": "Use this to check how far the sample mean $\\bar{X}$ is from the baseline mean $m_0$. Here, $\\sigma$ is the population standard deviation and $n$ is the sample size.",
+      "zh": "用来检验样本平均值 $\\bar{X}$ 与基准平均值 $m_0$ 相差多远。其中 $\\sigma$ 是总体标准差，$n$ 是抽取的样本数量。"
     },
     {
       "tex": "Z = \\frac{R - p_0}{\\sqrt{\\frac{p_0(1-p_0)}{n}}}",
-      "ja": "集めたデータの割合 R が、基準の割合 p0 とどれくらいズレているかを調べるときに使います。n は集めたデータの個数です。",
-      "en": "Use this to check how far the sample proportion R is from the baseline proportion p0. Here, n is the number of surveyed data points.",
-      "zh": "用来检验样本比例 R 与基准比例 p0 相差多远。其中 n 是调查的样本数量。"
+      "ja": "集めたデータの割合 $R$ が、基準の割合 $p_0$ とどれくらいズレているかを調べるときに使います。$n$ は集めたデータの個数です。",
+      "en": "Use this to check how far the sample proportion $R$ is from the baseline proportion $p_0$. Here, $n$ is the number of surveyed data points.",
+      "zh": "用来检验样本比例 $R$ 与基准比例 $p_0$ 相差多远。其中 $n$ 是调查的样本数量。"
     },
     {
       "tex": "|Z| \\ge 1.96",
@@ -5371,15 +5371,15 @@
   "sets/venn": [
     {
       "tex": "n(A \\cup B) = n(A) + n(B) - n(A \\cap B)",
-      "ja": "AまたはBに入るものの個数を求めるときに使います。Aの個数 n(A) とBの個数 n(B) を足して、重複して数えた重なり n(A ∩ B) を引きます。",
-      "en": "Use this to find the total count of items in A or B. Add the counts n(A) and n(B), then subtract the overlap n(A ∩ B) once.",
-      "zh": "用来计算属于 A 或 B 的元素总个数。将 n(A) 和 n(B) 相加，再减去多算了一次的重叠部分 n(A ∩ B)。"
+      "ja": "$A$ または $B$ に入るものの個数を求めるときに使います。$A$ の個数 $n(A)$ と $B$ の個数 $n(B)$ を足して、重複して数えた重なり $n(A \\cap B)$ を引きます。",
+      "en": "Use this to find the total count of items in $A$ or $B$. Add the counts $n(A)$ and $n(B)$, then subtract the overlap $n(A \\cap B)$ once.",
+      "zh": "用来计算属于 $A$ 或 $B$ 的元素总个数。将 $n(A)$ 和 $n(B)$ 相加，再减去多算了一次的重叠部分 $n(A \\cap B)$。"
     },
     {
       "tex": "n(\\bar{A}) = n(U) - n(A)",
-      "ja": "Aに入っていないものの個数を求めるときに使います。全体の個数 n(U) から、Aの個数 n(A) を引き算します。",
-      "en": "Use this to find the number of items outside set A. Subtract the count in A, n(A), from the total count n(U).",
-      "zh": "用来计算不在集合 A 中的元素个数。只需从总体总数 n(U) 中减去 A 的个数 n(A) 即可。"
+      "ja": "$A$ に入っていないものの個数を求めるときに使います。全体の個数 $n(U)$ から、$A$ の個数 $n(A)$ を引き算します。",
+      "en": "Use this to find the number of items outside set $A$. Subtract the count in $A$, $n(A)$, from the total count $n(U)$.",
+      "zh": "用来计算不在集合 $A$ 中的元素个数。只需从总体总数 $n(U)$ 中减去 $A$ 的个数 $n(A)$ 即可。"
     },
     {
       "tex": "n(A \\cup B \\cup C) = n(A) + n(B) + n(C) - n(A \\cap B) - n(B \\cap C) - n(C \\cap A) + n(A \\cap B \\cap C)",
@@ -5403,9 +5403,9 @@
     },
     {
       "tex": "\\neg (\\forall x, P(x)) \\iff \\exists x, \\neg P(x)",
-      "ja": "「すべての場合で成り立つ」を否定すると、「成り立たない例（反例 x）が1つでもある」という意味になります。",
-      "en": "Negating \"true for every x\" means \"there is at least one x where P(x) is false\". Use this to disprove a rule by finding one counterexample.",
-      "zh": "“对所有 x 都成立”的反面是“至少存在一个反例 x 使得 P(x) 不成立”。只要找到一个反例就能推翻结论。"
+      "ja": "「すべての場合で成り立つ」を否定すると、「成り立たない例（反例 $x$）が1つでもある」という意味になります。",
+      "en": "Negating \"true for every $x$\" means \"there is at least one $x$ where $P(x)$ is false\". Use this to disprove a rule by finding one counterexample.",
+      "zh": "“对所有 $x$ 都成立”的反面是“至少存在一个反例 $x$ 使得 $P(x)$ 不成立”。只要找到一个反例就能推翻结论。"
     }
   ],
   "logic/conditions": [
@@ -5450,16 +5450,16 @@
     {
       "tex": "N = 2^n",
       "ja": "命題が $n$ 個あるとき、真偽の組み合わせの総数 $N$ を求める式です。1個ごとに真と偽の2通りあるため、$2^n$ 行の表になります。",
-      "en": "This formula gives the total number of truth combinations N for n propositions. Since each variable has 2 states (true or false), there are 2^n rows.",
-      "zh": "该公式计算 n 个命题的全部真假组合数 N。因为每个命题只有真或假 2 种状态，所以真值表共有 2^n 行。"
+      "en": "This formula gives the total number of truth combinations $N$ for $n$ propositions. Since each variable has 2 states (true or false), there are $2^n$ rows.",
+      "zh": "该公式计算 $n$ 个命题的全部真假组合数 $N$。因为每个命题只有真或假 2 种状态，所以真值表共有 $2^n$ 行。"
     }
   ],
   "mapping/injective": [
     {
       "tex": "f(x_1) = f(x_2) \\implies x_1 = x_2",
       "ja": "写像 $f$ が単射であることの定義です。行き先が同じなら元の値 $x_1, x_2$ も必ず同じであり、異なる行き先に1対1で送られることを表します。",
-      "en": "This defines an injective (one-to-one) map f. It means if outputs are equal, the inputs x1 and x2 must be equal, so no two inputs share an output.",
-      "zh": "这是单射的定义。它说明如果输出结果相同，输入 x1 与 x2 也必定相同，即不同输入不会映射到同一个值。"
+      "en": "This defines an injective (one-to-one) map $f$. It means if outputs are equal, the inputs $x_1$ and $x_2$ must be equal, so no two inputs share an output.",
+      "zh": "这是单射的定义。它说明如果输出结果相同，输入 $x_1$ 与 $x_2$ 也必定相同，即不同输入不会映射到同一个值。"
     },
     {
       "tex": "\\forall y \\in Y, \\; \\exists x \\in X \\; (f(x) = y)",
@@ -5470,8 +5470,8 @@
     {
       "tex": "f^{-1} \\circ f = \\mathrm{id}_X, \\quad f \\circ f^{-1} = \\mathrm{id}_Y",
       "ja": "単射かつ全射のとき、元に戻す逆写像 $f^{-1}$ が作れます。行って戻ってくると元の自分に戻る（恒等写像 $\\mathrm{id}$ になる）ことを表します。",
-      "en": "When a map is bijective, it has an inverse f^-1. Doing one after the other returns every element to itself (the identity map id).",
-      "zh": "当映射既是单射又是满射时，存在逆映射 f^-1。把它们先后复合会把元素送回自身（恒等映射 id）。"
+      "en": "When a map is bijective, it has an inverse $f^{-1}$. Doing one after the other returns every element to itself (the identity map $\\mathrm{id}$).",
+      "zh": "当映射既是单射又是满射时，存在逆映射 $f^{-1}$。把它们先后复合会把元素送回自身（恒等映射 $\\mathrm{id}$）。"
     }
   ],
   "mapping/equivalence": [
@@ -5516,42 +5516,42 @@
     {
       "tex": "\\lim_{n \\to \\infty} \\left| \\frac{a_{n+1}}{a_n} \\right| < 1",
       "ja": "無限の足し算が決まった値に落ち着くか調べる方法です。次の項 $a_{n+1}$ と前の項 $a_n$ の比の大きさが1より小さくなれば、合計は有限の値に収束します。",
-      "en": "This ratio test checks if an infinite sum converges. If the ratio of the next term a_(n+1) to term a_n becomes less than 1, the series converges.",
-      "zh": "这个比值审敛法用来判断级数是否收敛。如果后一项 a_(n+1) 与前一项 a_n 之比的绝对值小于 1，级数就会收敛。"
+      "en": "This ratio test checks if an infinite sum converges. If the ratio of the next term $a_{n+1}$ to term $a_n$ becomes less than 1, the series converges.",
+      "zh": "这个比值审敛法用来判断级数是否收敛。如果后一项 $a_{n+1}$ 与前一项 $a_n$ 之比的绝对值小于 1，级数就会收敛。"
     }
   ],
   "series/taylor": [
     {
       "tex": "f(x) = \\sum_{n=0}^{\\infty} \\frac{f^{(n)}(a)}{n!} (x - a)^n",
       "ja": "複雑な曲線 $f(x)$ を、基準となる点 $a$ のまわりで多項式として表す式です。$f^{(n)}(a)$ は点 $a$ で $n$ 回微分した値を表します。",
-      "en": "This Taylor series expresses a function f(x) as an infinite polynomial near x = a, where f^(n)(a) is the n-th derivative at point a.",
-      "zh": "这个泰勒公式用多项式在基准点 a 附近表示复杂的函数 f(x)。式中的 f^(n)(a) 表示在点 a 处的第 n 阶导数。"
+      "en": "This Taylor series expresses a function $f(x)$ as an infinite polynomial near $x = a$, where $f^{(n)}(a)$ is the $n$-th derivative at point $a$.",
+      "zh": "这个泰勒公式用多项式在基准点 $a$ 附近表示复杂的函数 $f(x)$。式中的 $f^{(n)}(a)$ 表示在点 $a$ 处的第 $n$ 阶导数。"
     },
     {
       "tex": "f(x) = \\sum_{n=0}^{\\infty} \\frac{f^{(n)}(0)}{n!} x^n",
       "ja": "原点 $x=0$ を基準にして関数 $f(x)$ を多項式で表すマクローリン展開の式です。0の近くで関数を扱いやすく近似したいときに使います。",
-      "en": "This Maclaurin series writes f(x) as a polynomial around x = 0. Use it to easily approximate functions near zero using powers of x.",
-      "zh": "这是以原点 x = 0 为中心的麦克劳林展开式。常用来在 0 附近把复杂函数近似表示为好算的多项式。"
+      "en": "This Maclaurin series writes $f(x)$ as a polynomial around $x = 0$. Use it to easily approximate functions near zero using powers of $x$.",
+      "zh": "这是以原点 $x = 0$ 为中心的麦克劳林展开式。常用来在 0 附近把复杂函数近似表示为好算的多项式。"
     },
     {
       "tex": "e^x = \\sum_{n=0}^{\\infty} \\frac{x^n}{n!}",
       "ja": "指数関数 $e^x$ をべき乗の足し算で表す公式です。どんな実数 $x$ を入れても成り立ち、$n!$ は1から $n$ までの掛け算（階乗）を表します。",
-      "en": "This formula expresses the exponential function e^x as an infinite sum of powers of x. It works for every real number x, where n! is n factorial.",
-      "zh": "该公式将指数函数 e^x 展开为 x 的各次幂之和。对所有实数 x 都成立，式中的 n! 表示 1 到 n 的阶乘。"
+      "en": "This formula expresses the exponential function $e^x$ as an infinite sum of powers of $x$. It works for every real number $x$, where $n!$ is $n$ factorial.",
+      "zh": "该公式将指数函数 $e^x$ 展开为 $x$ 的各次幂之和。对所有实数 $x$ 都成立，式中的 $n!$ 表示 1 到 $n$ 的阶乘。"
     },
     {
       "tex": "\\sin x = \\sum_{n=0}^{\\infty} \\frac{(-1)^n}{(2n+1)!} x^{2n+1}",
       "ja": "三角関数 $\\sin x$ を多項式で表す公式です。$x, x^3, x^5$ のように奇数のべき乗だけがプラス・マイナス交互に現れ、どんな $x$ でも成り立ちます。",
-      "en": "This expresses sin(x) as a polynomial using only odd powers (like x, x^3). The signs alternate between + and -, and it works for all real x.",
-      "zh": "该公式用多项式表示正弦函数 sin(x)。展开式中只含奇数次幂（如 x, x^3），正负号交替，对所有实数 x 都成立。"
+      "en": "This expresses $\\sin(x)$ as a polynomial using only odd powers (like $x, x^3$). The signs alternate between $+$ and $-$, and it works for all real $x$.",
+      "zh": "该公式用多项式表示正弦函数 $\\sin(x)$。展开式中只含奇数次幂（如 $x, x^3$），正负号交替，对所有实数 $x$ 都成立。"
     }
   ],
   "improper-integral/improper": [
     {
       "tex": "\\int_a^\\infty f(x)\\,dx = \\lim_{b \\to \\infty} \\int_a^b f(x)\\,dx",
       "ja": "右側が無限に続く範囲で、グラフ $f(x)$ の下の面積を求めるときに使います。まず有限の $b$ まで積分を計算してから、$b$ を無限に大きくします。",
-      "en": "Use this to find the area under curve f(x) on an interval extending to infinity. First integrate up to a finite b, then take the limit as b approaches infinity.",
-      "zh": "用来计算曲线 f(x) 下方向右延伸到无穷处的面积。先计算到有限端点 b 的积分，再让 b 趋近于无穷大。"
+      "en": "Use this to find the area under curve $f(x)$ on an interval extending to infinity. First integrate up to a finite $b$, then take the limit as $b$ approaches infinity.",
+      "zh": "用来计算曲线 $f(x)$ 下方向右延伸到无穷处的面积。先计算到有限端点 $b$ 的积分，再让 $b$ 趋近于无穷大。"
     },
     {
       "tex": "\\int_a^b f(x)\\,dx = \\lim_{\\varepsilon \\to +0} \\int_{a+\\varepsilon}^b f(x)\\,dx",
@@ -5562,8 +5562,8 @@
     {
       "tex": "\\int_1^\\infty \\frac{1}{x^p}\\,dx = \\frac{1}{p-1} \\quad (p > 1)",
       "ja": "関数 $1/x^p$ を 1 から無限大まで足し合わせた面積を求める公式です。べき数 $p$ が 1 より大きいときだけ有限の面積になり、この簡単な値で計算できます。",
-      "en": "This formula calculates the area under 1/x^p from 1 to infinity. The area is finite only when the power p is greater than 1, equaling 1/(p - 1).",
-      "zh": "这个公式计算 1/x^p 从 1 到无穷大的积分面积。只要幂次 p 大于 1，面积就是有限的，结果为 1/(p - 1)。"
+      "en": "This formula calculates the area under $1/x^p$ from 1 to infinity. The area is finite only when the power $p$ is greater than 1, equaling $1/(p - 1)$.",
+      "zh": "这个公式计算 $1/x^p$ 从 1 到无穷大的积分面积。只要幂次 $p$ 大于 1，面积就是有限的，结果为 $1/(p - 1)$。"
     }
   ],
   "multivariable/partial": [
@@ -5596,8 +5596,8 @@
     {
       "tex": "\\iint_{[a,b]\\times[c,d]} f(x)g(y)\\,dxdy = \\int_a^b f(x)\\,dx \\int_c^d g(y)\\,dy",
       "ja": "四角い範囲で、関数が「$x$ だけの式」と「$y$ だけの式」の掛け算になっているときに使えます。別々に積分して掛け算するだけで簡単に求まります。",
-      "en": "When integrating over a rectangle and the formula splits into f(x) times g(y), you can simply compute the two single integrals separately and multiply them.",
-      "zh": "在矩形区域上，如果函数可以拆成“只含 x 的式子”乘以“只含 y 的式子”，就可以分别算两个单变量积分再相乘。"
+      "en": "When integrating over a rectangle and the formula splits into $f(x)$ times $g(y)$, you can simply compute the two single integrals separately and multiply them.",
+      "zh": "在矩形区域上，如果函数可以拆成“只含 $x$ 的式子”乘以“只含 $y$ 的式子”，就可以分别算两个单变量积分再相乘。"
     },
     {
       "tex": "\\iint_D dxdy = S",
@@ -5642,16 +5642,16 @@
     {
       "tex": "g(y_0) = 0 \\implies y = y_0",
       "ja": "式全体を $g(y)$ で割り算する前に、$g(y_0)=0$ となる一定の値 $y_0$ が解になっていないか確かめるルールです。0で割ることはできないため別で確認します。",
-      "en": "Before dividing by g(y), check whether any constant y0 that makes g(y0) = 0 is already a solution, since dividing by zero is undefined.",
-      "zh": "在两边同除以 g(y) 之前，必须先检查让 g(y0) = 0 的常数 y0 是否本身就是解，因为不能除以零。"
+      "en": "Before dividing by $g(y)$, check whether any constant $y_0$ that makes $g(y_0) = 0$ is already a solution, since dividing by zero is undefined.",
+      "zh": "在两边同除以 $g(y)$ 之前，必须先检查让 $g(y_0) = 0$ 的常数 $y_0$ 是否本身就是解，因为不能除以零。"
     }
   ],
   "ode/linear-first": [
     {
       "tex": "y' + P(x)y = Q(x)",
       "ja": "求めたい関数 $y$ とその導関数 $y'$ がどちらも1乗の形で並んでいる微分方程式の形です。$P(x)$ や $Q(x)$ は $x$ だけの式を表します。",
-      "en": "This is a first-order linear differential equation, where unknown function y and its derivative y' only appear to the first power.",
-      "zh": "这是标准的一阶线性微分方程，未知函数 y 和导数 y' 都只以一次方的形式出现，P(x) 和 Q(x) 是只含 x 的已知式子。"
+      "en": "This is a first-order linear differential equation, where unknown function $y$ and its derivative $y'$ only appear to the first power.",
+      "zh": "这是标准的一阶线性微分方程，未知函数 $y$ 和导数 $y'$ 都只以一次方的形式出现，$P(x)$ 和 $Q(x)$ 是只含 $x$ 的已知式子。"
     },
     {
       "tex": "y = e^{-\\int P(x)\\,dx}\\left(\\int Q(x)e^{\\int P(x)\\,dx}\\,dx + C\\right)",
@@ -5670,26 +5670,26 @@
     {
       "tex": "ay'' + by' + cy = 0 \\implies a\\lambda^2 + b\\lambda + c = 0",
       "ja": "2回微分 $y''$ や1回微分 $y'$ を含む方程式を解く第一歩です。解を $e^{\\lambda x}$ と置くことで、2次方程式（特性方程式）に変えて $\\lambda$ を求めます。",
-      "en": "This turns a 2nd-order differential equation into a simple quadratic equation by assuming solution y = e^(lambda x) to find lambda.",
-      "zh": "这是求解二阶常系数齐次微分方程的第一步。设解为 y = e^(lambda x)，就能化为简单的二次方程（特征方程）来求 lambda。"
+      "en": "This turns a 2nd-order differential equation into a simple quadratic equation by assuming solution $y = e^{\\lambda x}$ to find $\\lambda$.",
+      "zh": "这是求解二阶常系数齐次微分方程的第一步。设解为 $y = e^{\\lambda x}$，就能化为简单的二次方程（特征方程）来求 $\\lambda$。"
     },
     {
       "tex": "y = C_1 e^{\\lambda_1 x} + C_2 e^{\\lambda_2 x} \\quad (\\lambda_1 \\neq \\lambda_2)",
       "ja": "特性方程式を解いて異なる2つの実数解 $\\lambda_1, \\lambda_2$ が出たときの解の公式です。それぞれを指数にのせて定数倍を足し合わせます（$C_1, C_2$ は定数です）。",
-      "en": "When the characteristic equation gives two different real roots lambda_1 and lambda_2, combine their exponential terms with constants C1 and C2.",
-      "zh": "当特征方程解出两个不同的实数根 lambda_1 与 lambda_2 时的通解公式。将两者化为指数并乘上任意常数 C1, C2 相加即可。"
+      "en": "When the characteristic equation gives two different real roots $\\lambda_1$ and $\\lambda_2$, combine their exponential terms with constants $C_1$ and $C_2$.",
+      "zh": "当特征方程解出两个不同的实数根 $\\lambda_1$ 与 $\\lambda_2$ 时的通解公式。将两者化为指数并乘上任意常数 $C_1, C_2$ 相加即可。"
     },
     {
       "tex": "y = (C_1 + C_2 x)e^{\\lambda x}",
       "ja": "特性方程式の解が重解 $\\lambda$（1つだけ）になったときの解の公式です。2つ目の解を作るために $x$ を掛けた項 $(C_1 + C_2 x)$ を $e^{\\lambda x}$ に掛けます。",
-      "en": "When the characteristic equation has a repeated root lambda, multiply the second term by x to keep the two solutions independent (C1, C2 are constants).",
-      "zh": "当特征方程只有一个重根 lambda 时的通解公式。为了构造两个相互独立的解，第二项必须乘以自变量 x（C1, C2 为常数）。"
+      "en": "When the characteristic equation has a repeated root $\\lambda$, multiply the second term by $x$ to keep the two solutions independent ($C_1, C_2$ are constants).",
+      "zh": "当特征方程只有一个重根 $\\lambda$ 时的通解公式。为了构造两个相互独立的解，第二项必须乘以自变量 $x$（$C_1, C_2$ 为常数）。"
     },
     {
       "tex": "y = e^{\\alpha x}(C_1 \\cos\\beta x + C_2 \\sin\\beta x) \\quad (\\lambda = \\alpha \\pm i\\beta)",
       "ja": "特性方程式の解に虚数（$\\alpha \\pm i\\beta$）が出たときの解の公式です。波や振動を表す $\\cos$ と $\\sin$ の式になり、実部 $\\alpha$ は全体の大きさを表します。",
-      "en": "When roots contain imaginary numbers alpha +/- i*beta, the solution turns into oscillating sine and cosine waves, with e^(alpha x) scaling the amplitude.",
-      "zh": "当特征方程的根包含虚数 alpha +/- i*beta 时的通解公式。解表现为代表波动的三角函数 sin 和 cos，实部 alpha 决定振幅大小。"
+      "en": "When roots contain imaginary numbers $\\alpha \\pm i\\beta$, the solution turns into oscillating sine and cosine waves, with $e^{\\alpha x}$ scaling the amplitude.",
+      "zh": "当特征方程的根包含虚数 $\\alpha \\pm i\\beta$ 时的通解公式。解表现为代表波动的三角函数 $\\sin$ 和 $\\cos$，实部 $\\alpha$ 决定振幅大小。"
     }
   ]
 }
