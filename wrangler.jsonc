@@ -8,14 +8,14 @@
   "preview_urls": false,
   "observability": { "enabled": true },
   "version_metadata": { "binding": "CF_VERSION_METADATA" },
-  "routes": [{ "pattern": "dev.paibot.app", "custom_domain": true }],
+  "routes": [{ "pattern": "dev.paibot.io", "custom_domain": true }],
   // WHOIS_ROOT_SERVER and RDAP_BOOTSTRAP_URL are also test seams:
   // tests/e2e/whois.mjs points them at local fake servers. See src/tools/domain/whois.server.ts.
   // SITE_CHECK_ALLOW_PRIVATE is the same kind of seam for tests/e2e/site-check.mjs;
   // it must stay "false" in every deployed environment (src/tools/site-check/site-check.server.ts).
   // APP_VERSION is overridden at deploy (--var APP_VERSION:<commit>) and sent as
   // X-App-Version, so CI can wait until the new version is serving before checks.
-  "vars": { "SITE_URL": "https://dev.paibot.app", "SITE_INDEXABLE": "false", "WHOIS_ROOT_SERVER": "whois.iana.org:43", "RDAP_BOOTSTRAP_URL": "https://data.iana.org/rdap/dns.json", "SITE_CHECK_ALLOW_PRIVATE": "false", "APP_VERSION": "local" },
+  "vars": { "SITE_URL": "https://dev.paibot.io", "SITE_INDEXABLE": "false", "WHOIS_ROOT_SERVER": "whois.iana.org:43", "RDAP_BOOTSTRAP_URL": "https://data.iana.org/rdap/dns.json", "SITE_CHECK_ALLOW_PRIVATE": "false", "APP_VERSION": "local" },
   // Per-IP limit for the tools that make outbound requests (website status check,
   // domain lookup), so they cannot be scripted into a relay against other sites.
   // Bindings are not inherited: production has its own, in a separate namespace.
@@ -32,8 +32,9 @@
     "production": {
       "name": "paibot-app",
       "version_metadata": { "binding": "CF_VERSION_METADATA" },
-      "routes": [{ "pattern": "paibot.app", "custom_domain": true }],
-      "vars": { "SITE_URL": "https://paibot.app", "SITE_INDEXABLE": "true", "WHOIS_ROOT_SERVER": "whois.iana.org:43", "RDAP_BOOTSTRAP_URL": "https://data.iana.org/rdap/dns.json", "SITE_CHECK_ALLOW_PRIVATE": "false", "APP_VERSION": "local" },
+      // paibot.io is the site; paibot.app stays routed only to answer with a redirect (src/lib/legacy-host.ts).
+      "routes": [{ "pattern": "paibot.io", "custom_domain": true }, { "pattern": "paibot.app", "custom_domain": true }],
+      "vars": { "SITE_URL": "https://paibot.io", "SITE_INDEXABLE": "true", "WHOIS_ROOT_SERVER": "whois.iana.org:43", "RDAP_BOOTSTRAP_URL": "https://data.iana.org/rdap/dns.json", "SITE_CHECK_ALLOW_PRIVATE": "false", "APP_VERSION": "local" },
       "ratelimits": [{ "name": "TOOL_RATE_LIMIT", "namespace_id": "1002", "simple": { "limit": 10, "period": 60 } }],
       // Not inherited from the top level - production has its own database
       // (infra/d1.tf's app_prod_apac), never the dev one.

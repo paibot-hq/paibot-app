@@ -7,7 +7,7 @@ import { pathLocales, publicPaths as paths } from '../../src/lib/seo.ts';
 import { APP_CATALOG, APP_CATEGORIES } from '../../src/lib/app-catalog.ts';
 
 const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002').origin;
-const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app').origin;
+const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.io').origin;
 const indexable = process.env.CHECK_SITE_INDEXABLE === 'true';
 const authPaths = ['sign-in', 'sign-up', 'diary', 'profile'];
 const browser = await chromium.launch();

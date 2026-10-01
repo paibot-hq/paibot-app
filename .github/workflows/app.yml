@@ -106,15 +106,15 @@ jobs:
       # version, so wait until dev reports this commit rather than sleeping.
       - name: Wait for the deploy to reach the edge
         env:
-          CHECK_BROWSER_BASE_URL: https://dev.paibot.app
+          CHECK_BROWSER_BASE_URL: https://dev.paibot.io
           EXPECTED_APP_VERSION: ${{ github.sha }}
           CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
         run: node scripts/wait-for-deploy.mjs
       - name: Smoke test deployed dev through Access
         env:
-          CHECK_BROWSER_BASE_URL: https://dev.paibot.app
-          CHECK_SITE_URL: https://dev.paibot.app
+          CHECK_BROWSER_BASE_URL: https://dev.paibot.io
+          CHECK_SITE_URL: https://dev.paibot.io
           CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
         run: npm run e2e -- smoke quiz-browser

@@ -7,7 +7,13 @@ variable "cloudflare_account_id" {
 }
 
 variable "root_domain" {
-  description = "The zone (domain) this project's DNS records live under."
+  description = "The zone (domain) this project's DNS records live under. paibot.io is the site."
+  type        = string
+  default     = "paibot.io"
+}
+
+variable "legacy_domain" {
+  description = "The previous domain. It only redirects to root_domain (the Worker answers with a 301, and www.<legacy_domain> has a Redirect Rule in redirects.tf) until the domain is released."
   type        = string
   default     = "paibot.app"
 }

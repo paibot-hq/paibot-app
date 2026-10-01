@@ -4,6 +4,7 @@ import { isComingSoonMathPath } from '../src/lib/math-catalog';
 import { locales } from '../src/i18n/routing';
 import { siteOrigin, isIndexable } from '../src/lib/seo.server';
 import { buildContentSecurityPolicy } from '../src/lib/security-headers.server';
+import { legacyRedirect } from '../src/lib/legacy-host';
 
 const handle = createRequestHandler(() => import('virtual:react-router/server-build'), import.meta.env.MODE);
 const AUTH_PATH = new RegExp(`^/(${locales.join('|')})/(sign-in|sign-up|diary|profile)(/|\\.data$|$)`);
@@ -12,6 +13,8 @@ const csp = buildContentSecurityPolicy();
 export default {
   async fetch(request: Request) {
     const url = new URL(request.url);
+    const moved = legacyRedirect(url, siteOrigin);
+    if (moved) return Response.redirect(moved, 301);
     let response: Response;
     if (url.pathname === '/robots.txt') {
       const body = isIndexable
