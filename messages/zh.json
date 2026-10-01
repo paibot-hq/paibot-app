@@ -217,6 +217,12 @@
       "daily": "日常"
     },
     "home": {
+      "stats": {
+        "tools": "工具",
+        "units": "数学单元",
+        "items": "数学知识点",
+        "languages": "支持语言"
+      },
       "tryIt": "先试试看吧。",
       "study": {
         "description": "通过算术练习和数学题集，练习计算和各个知识单元。",

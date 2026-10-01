@@ -217,6 +217,12 @@
       "daily": "日常"
     },
     "home": {
+      "stats": {
+        "tools": "ツール",
+        "units": "数学の単元",
+        "items": "学習項目",
+        "languages": "対応言語"
+      },
       "tryIt": "まずは、使ってみましょう。",
       "study": {
         "description": "計算練習や単元ごとの数学で、基礎から学べます。",

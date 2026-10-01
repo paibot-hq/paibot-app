@@ -217,6 +217,12 @@
       "daily": "Everyday"
     },
     "home": {
+      "stats": {
+        "tools": "Tools",
+        "units": "Math units",
+        "items": "Math topics",
+        "languages": "Languages"
+      },
       "tryIt": "Give one a try.",
       "study": {
         "description": "Practice calculations and individual topics with arithmetic drills and math problem sets.",
