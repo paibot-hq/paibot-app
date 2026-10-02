@@ -509,3 +509,5 @@ footer {
 
 /* The list on the app cover lines up with the cards above it. */
 main > .app-list { width: min(100%, 840px); margin: 0 auto 1.5rem; box-sizing: border-box; }
+
+.category-showcase-intro + .app-list { margin-top: .9rem; }

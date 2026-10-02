@@ -5,6 +5,7 @@ import { useSiteMeta } from "../root";
 import { Link } from "../i18n/navigation";
 import { type DynamicT } from "../lib/apps";
 import AppList from "./app-list";
+import { CoverHero } from "./site-cover";
 import { useFavoritesData } from "../routes/locale";
 import SiteFooter from "./site-footer";
 
@@ -18,23 +19,7 @@ export default function Cover({ year }: { year: number }) {
   return (
     <>
     <main>
-      <section className="hero" aria-labelledby="hero-title">
-        <div className="cloud-field" aria-hidden="true">
-          <span className="cloud cloud-a"></span>
-          <span className="cloud cloud-b"></span>
-          <span className="cloud cloud-c"></span>
-        </div>
-        <div className="hero-copy">
-          <p className="eyebrow">PAIBOT</p>
-          <h1 id="hero-title"><span className="wordmark">App</span></h1>
-          <p className="lead">{t("lead")}</p>
-          <a className="auth-link" href="#apps">{t("heroCta")}</a>
-        </div>
-        <div className="hero-mascot" aria-hidden="true">
-          <span className="hero-mascot-eye"></span>
-          <span className="hero-mascot-eye"></span>
-        </div>
-      </section>
+      <CoverHero eyebrow="PAIBOT" heading="App" lead={t("lead")} cta={t("heroCta")} ctaHref="#apps" />
 
       <p className="category-showcase-intro" id="try">{t("home.tryIt")}</p>
       <AppList signedIn={signedIn} favoriteSlugs={favoriteSlugs} />
