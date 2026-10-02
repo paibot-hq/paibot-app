@@ -7,8 +7,10 @@ import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { configureAccess } from '../../scripts/lib/access.mjs';
 import { selectedTools } from './lib/selected-tools.mjs';
+import { siteOrigins } from '../../src/lib/sites.ts';
 
-const base = process.env.CHECK_BROWSER_BASE_URL ?? 'http://app.localhost:3002';
+// Every script starts on the app site (src/lib/sites.ts), whatever host the preview was given.
+const base = siteOrigins(new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://app.localhost:3002').origin).app;
 const locales = ['ja', 'en', 'zh'];
 const tools = selectedTools();
 const browser = await chromium.launch();
