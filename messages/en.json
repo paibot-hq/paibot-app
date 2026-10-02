@@ -255,7 +255,60 @@
         "university": "University"
       }
     },
+    "hub": {
+      "title": "PAIBOT | Apps, Learn and Docs",
+      "description": "PAIBOT LLC's small tools, four-choice drills, and technical write-ups.",
+      "lead": "Small tools, learning, and things to read.",
+      "sites": "Three sites",
+      "open": "Open",
+      "soon": "Coming soon",
+      "stats": {
+        "tools": "Tools",
+        "items": "Learning items",
+        "languages": "Languages"
+      },
+      "app": {
+        "title": "App",
+        "text": "Small tools for every day: IP lookup, character count, password generator, diary, calendar and more.",
+        "meta": "{tools} tools"
+      },
+      "learn": {
+        "title": "Learn",
+        "text": "Math drills in four choices, built up from the basics, from elementary school to university. English and IT are coming.",
+        "meta": "{items} learning items"
+      },
+      "doc": {
+        "title": "Doc",
+        "text": "Technical notes and explainers on how PAIBOT is made and why."
+      }
+    },
+    "doc": {
+      "title": "PAIBOT Doc | Technical notes and explainers",
+      "description": "Technical notes and explainers on how PAIBOT is made and why.",
+      "heading": "Doc",
+      "lead": "How it is made, and why.",
+      "topicsHeading": "Planned",
+      "planned": "Planned",
+      "topics": {
+        "generation": {
+          "title": "Generating and checking math problems automatically",
+          "text": "From an LLM writing the problems, to SymPy re-deriving each answer, to a second model reviewing blind.",
+          "tag": "Problem generation"
+        },
+        "column": {
+          "title": "Drawing long calculations from an expression",
+          "text": "How written column arithmetic is computed and drawn from the expression string.",
+          "tag": "Display"
+        },
+        "edge": {
+          "title": "A small app on Cloudflare Workers",
+          "text": "React Router, D1 and Clerk in one Worker: the setup, and where it bit.",
+          "tag": "Architecture"
+        }
+      }
+    },
     "home": {
+      "learnBanner": {"title": "Looking to learn? Go to Learn →", "text": "Four-choice math drills, from elementary school to university, live on the learning site, Learn."},
       "stats": {
         "tools": "Tools",
         "units": "Math units",

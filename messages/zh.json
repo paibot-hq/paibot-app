@@ -255,7 +255,60 @@
         "university": "大学"
       }
     },
+    "hub": {
+      "title": "PAIBOT | 应用、学习与文档",
+      "description": "PAIBOT LLC 的小工具、四选一练习，以及技术解说文章。",
+      "lead": "小工具、学习，和值得一读的文章。",
+      "sites": "三个站点",
+      "open": "已开放",
+      "soon": "即将推出",
+      "stats": {
+        "tools": "工具",
+        "items": "学习项目",
+        "languages": "支持语言"
+      },
+      "app": {
+        "title": "App",
+        "text": "IP 查询、字数统计、密码生成、日记、日历等每天都能用的小工具。",
+        "meta": "{tools} 个工具"
+      },
+      "learn": {
+        "title": "Learn",
+        "text": "从小学到大学，用四选一从基础一步步学的数学练习。英语和 IT 即将推出。",
+        "meta": "{items} 个学习项目"
+      },
+      "doc": {
+        "title": "Doc",
+        "text": "技术笔记与解说文章，讲 PAIBOT 是怎么做的、为什么这样做。"
+      }
+    },
+    "doc": {
+      "title": "PAIBOT Doc | 技术笔记与解说文章",
+      "description": "讲 PAIBOT 是怎么做的、为什么这样做的技术笔记与解说文章。",
+      "heading": "Doc",
+      "lead": "怎么做，为什么这样做。",
+      "topicsHeading": "计划中的内容",
+      "planned": "计划中",
+      "topics": {
+        "generation": {
+          "title": "自动生成并校验数学题",
+          "text": "从 LLM 出题，到 SymPy 重新推导答案，再到另一个模型盲审的流程。",
+          "tag": "题目生成"
+        },
+        "column": {
+          "title": "根据算式画出竖式",
+          "text": "如何从算式字符串计算并画出加减乘除的竖式。",
+          "tag": "显示"
+        },
+        "edge": {
+          "title": "用 Cloudflare Workers 做小应用",
+          "text": "把 React Router、D1 和 Clerk 放进一个 Worker 的结构，以及踩过的坑。",
+          "tag": "架构"
+        }
+      }
+    },
     "home": {
+      "learnBanner": {"title": "想学习？前往 Learn →", "text": "从小学到大学的四选一数学练习，在学习站点 Learn。"},
       "stats": {
         "tools": "工具",
         "units": "数学单元",

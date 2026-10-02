@@ -255,7 +255,60 @@
         "university": "大学"
       }
     },
+    "hub": {
+      "title": "PAIBOT | アプリ・学習・ドキュメント",
+      "description": "PAIBOT LLC の小さなツールと、4択で学ぶドリルと、技術の解説記事。",
+      "lead": "小さな道具と、学びと、読みもの。",
+      "sites": "3つのサイト",
+      "open": "公開中",
+      "soon": "準備中",
+      "stats": {
+        "tools": "ツール",
+        "items": "学習項目",
+        "languages": "対応言語"
+      },
+      "app": {
+        "title": "App",
+        "text": "IPアドレス確認、文字数カウント、パスワード生成、日記、カレンダーなど、毎日使える小さなツール。",
+        "meta": "{tools}のツール"
+      },
+      "learn": {
+        "title": "Learn",
+        "text": "小学校から大学まで、4択で基礎から積み上げる数学ドリル。英語・ITも準備中です。",
+        "meta": "{items}の学習項目"
+      },
+      "doc": {
+        "title": "Doc",
+        "text": "技術メモと解説記事。作りかたや考えかたを書いていきます。"
+      }
+    },
+    "doc": {
+      "title": "PAIBOT Doc | 技術メモと解説記事",
+      "description": "PAIBOT の作りかたや考えかたを書く、技術メモと解説記事。",
+      "heading": "Doc",
+      "lead": "作りかたと、考えかたを書いていく。",
+      "topicsHeading": "書く予定のこと",
+      "planned": "予定",
+      "topics": {
+        "generation": {
+          "title": "数学問題を自動で作り、検算する",
+          "text": "LLMで問題を作り、SymPyで答えを再計算し、別のモデルで盲検レビューするまでの流れ。",
+          "tag": "問題生成"
+        },
+        "column": {
+          "title": "筆算を式から描く",
+          "text": "足し算・引き算・かけ算・わり算の筆算を、式の文字列から計算して描く仕組み。",
+          "tag": "表示"
+        },
+        "edge": {
+          "title": "Cloudflare Workers で作る小さなアプリ",
+          "text": "React Router、D1、Clerk を1つのWorkerにまとめた構成と、そのつまずき。",
+          "tag": "構成"
+        }
+      }
+    },
     "home": {
+      "learnBanner": {"title": "学習は Learn へ →", "text": "小学校から大学まで、4択で基礎から積み上げる数学ドリルは、学習サイト Learn にあります。"},
       "stats": {
         "tools": "ツール",
         "units": "数学の単元",
