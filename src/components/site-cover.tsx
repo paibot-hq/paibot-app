@@ -1,8 +1,9 @@
+import type { ComponentType, SVGProps } from 'react';
 import { Link } from '../i18n/navigation';
 import SiteFooter from './site-footer';
 import styles from './site-cover.module.css';
 
-export type CoverCard = { key: string; title: string; text: string; badge: string; href?: string; meta?: string; tags?: readonly string[] };
+export type CoverCard = { key: string; title: string; text: string; badge: string; href?: string; meta?: string; tags?: readonly string[]; icon?: ComponentType<SVGProps<SVGSVGElement>> };
 
 // The hero card at the top of every site's cover. A CTA starting with "#" is a link inside the page.
 export function CoverHero({ eyebrow, heading, lead, cta, ctaHref }: { eyebrow: string; heading: string; lead: string; cta?: string; ctaHref?: string }) {
@@ -42,7 +43,7 @@ export default function SiteCover({ eyebrow, heading, lead, cta, ctaHref, stats,
 
 function CardBody({ card }: { card: CoverCard }) {
   return <>
-    <span className={styles.cardTitle}>{card.title}<span className={styles.badge}>{card.badge}</span></span>
+    <span className={styles.cardTitle}><span className={styles.titleText}>{card.icon && <span className={styles.cardIcon} aria-hidden="true"><card.icon /></span>}{card.title}</span><span className={styles.badge}>{card.badge}</span></span>
     <span className={styles.cardText}>{card.text}</span>
     {card.meta && <span className={styles.cardMeta}>{card.meta}</span>}
     {card.tags && <span className={styles.tags}>{card.tags.map(tag => <span key={tag}>{tag}</span>)}</span>}

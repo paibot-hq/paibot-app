@@ -2,6 +2,7 @@ import { useLocale, useTranslations } from 'use-intl';
 import PublicHead from './public-head';
 import SiteCover, { type CoverCard } from './site-cover';
 import { APP_CATALOG } from '../lib/app-catalog';
+import { apps } from '../lib/apps';
 
 // The cover of the tools site: the developer tools, network ones first, and the monitoring they lead to (not built yet).
 export default function ToolsCover() {
@@ -11,7 +12,7 @@ export default function ToolsCover() {
   const order = ['network', 'dev'];
   const tools = APP_CATALOG.filter(app => order.includes(app.category) && app.status === 'published' && app.href).sort((a, b) => order.indexOf(a.category) - order.indexOf(b.category));
   const cards: CoverCard[] = [
-    ...tools.map(app => ({ key: app.slug, title: t(`${app.messageKey}.title`), text: t(`${app.messageKey}.description`), badge: tn('free'), href: app.href! })),
+    ...tools.map(app => ({ key: app.slug, title: t(`${app.messageKey}.title`), text: t(`${app.messageKey}.description`), badge: tn('free'), href: app.href!, icon: apps.find(entry => entry.slug === app.slug)?.icon })),
     { key: 'monitor', title: tn('monitor.title'), text: tn('monitor.text'), badge: tn('soon') },
   ];
   return <>

@@ -57,7 +57,7 @@ export default function AppList({ signedIn, favoriteSlugs }: { signedIn: boolean
         groupedApps.map(({ category, items }) => (
           <section key={category} id={category} className="app-category">
             <h2 className={styles.heading}>{td(`categories.${category}`)}</h2>
-            <ul className={styles.cards} data-columns="2">
+            <ul className={styles.cards}>
               {items.map(app => (
                 <AppCard
                   key={app.slug}
@@ -89,9 +89,10 @@ function AppCard({ app, t, comingSoonLabel, signedIn, favorited, favoriteLabel, 
 }) {
   const locale = useLocale();
   const soon = app.status === "comingSoon";
+  const Icon = app.icon;
   const content = (
     <>
-      <span className={styles.cardTitle}>{t(`${app.messageKey}.title`)}{soon && <span className={styles.badge}>{comingSoonLabel}</span>}</span>
+      <span className={styles.cardTitle}><span className={styles.titleText}><span className={styles.cardIcon} aria-hidden="true"><Icon /></span>{t(`${app.messageKey}.title`)}</span>{soon && <span className={styles.badge}>{comingSoonLabel}</span>}</span>
       <span className={styles.cardText}>{t(`${app.messageKey}.description`)}</span>
     </>
   );
