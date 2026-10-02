@@ -21,6 +21,6 @@ export default function HubCover() {
   ];
   return <>
     <PublicHead locale={locale} path="" title={t('title')} description={t('description')} />
-    <SiteCover eyebrow="PAIBOT LLC" heading="PAIBOT" lead={t('lead')} cardsHeading={t('sites')} cards={cards} />
+    <SiteCover mascot eyebrow="PAIBOT LLC" heading="PAIBOT" lead={t('lead')} cardsHeading={t('sites')} cards={cards} />
   </>;
 }
