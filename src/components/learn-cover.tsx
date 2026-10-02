@@ -1,6 +1,7 @@
 import { useLocale, useTranslations } from 'use-intl';
 import PublicHead from './public-head';
 import SiteCover, { type CoverCard } from './site-cover';
+import { EnglishIcon, ItIcon, MathIcon } from './site-icons';
 import { MATH_CATALOG, MATH_STAGES } from '../lib/math-catalog';
 
 const ITEMS = MATH_CATALOG.reduce((sum, unit) => sum + unit.items.length, 0);
@@ -10,9 +11,9 @@ export default function LearnCover() {
   const locale = useLocale();
   const t = useTranslations('App.learn');
   const cards: CoverCard[] = [
-    { key: 'math', title: t('subject.math.title'), text: t('subject.math.text'), badge: t('open'), href: '/math', meta: t('mathMeta', { units: MATH_CATALOG.length, items: ITEMS }), tags: MATH_STAGES.map(stage => t(`stage.${stage}`)) },
-    { key: 'english', title: t('subject.english.title'), text: t('subject.english.text'), badge: t('soon') },
-    { key: 'it', title: t('subject.it.title'), text: t('subject.it.text'), badge: t('soon') },
+    { key: 'math', icon: MathIcon, title: t('subject.math.title'), text: t('subject.math.text'), badge: t('open'), href: '/math', meta: t('mathMeta', { units: MATH_CATALOG.length, items: ITEMS }), tags: MATH_STAGES.map(stage => t(`stage.${stage}`)) },
+    { key: 'english', icon: EnglishIcon, title: t('subject.english.title'), text: t('subject.english.text'), badge: t('soon') },
+    { key: 'it', icon: ItIcon, title: t('subject.it.title'), text: t('subject.it.text'), badge: t('soon') },
   ];
   const stats = [
     { key: 'units', value: MATH_CATALOG.length, label: t('stats.units') },
