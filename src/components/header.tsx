@@ -57,10 +57,17 @@ export default function Header() {
 
   return (
     <header className="topbar">
-      <Link className="brand" href="/">
-        <img className="brand-logo" src="/icon.svg" alt="" width="24" height="24" />
-        <span className="wordmark">PAIBOT</span>
-      </Link>
+      {/* PAIBOT goes to the hub, the site's name after it to the cover of the site being read. */}
+      <div className="brand-trail">
+        <a className="brand" href={`${origins.hub}/${language}`}>
+          <img className="brand-logo" src="/icon.svg" alt="" width="24" height="24" />
+          <span className="wordmark">PAIBOT</span>
+        </a>
+        {site !== "hub" && site !== "doc" && <>
+          <span className="brand-slash" aria-hidden="true">/</span>
+          <Link className="brand-site" href="/">{t(`site.${site}`)}</Link>
+        </>}
+      </div>
       <nav aria-label={t("navSites")}>
         {SWITCH.map(key => <a key={key} href={`${origins[key]}/${language}`} aria-current={site === key ? "page" : undefined}>{t(`site.${key}`)}</a>)}
       </nav>

@@ -66,6 +66,12 @@ a {
   text-decoration: none;
 }
 
+.brand-trail { display: inline-flex; align-items: center; gap: .5rem; justify-self: start; }
+.brand-slash { color: var(--muted); }
+.brand-site { color: var(--accent); font-size: .95rem; font-weight: 600; text-decoration: none; }
+.brand-site:hover, .brand-site:focus-visible { text-decoration: underline; }
+.topbar > .brand-trail > .brand { justify-self: auto; }
+
 .brand-logo {
   display: block;
   width: 1.5rem;
