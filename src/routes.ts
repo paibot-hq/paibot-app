@@ -19,6 +19,7 @@ export default [
     index('routes/home.tsx'),
     route('diary', 'routes/diary.tsx'),
     route('profile', 'routes/profile.tsx'),
+    route('learn', 'routes/learn.tsx'),
     route('math', 'routes/math.tsx'),
     route('math/units', 'routes/math-redirect.ts', { id: 'math-redirect/units' }),
     route('math/level/:stage', 'routes/math-redirect.ts', { id: 'math-redirect/level' }),

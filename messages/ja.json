@@ -216,6 +216,43 @@
       "game": "ゲーム",
       "daily": "日常"
     },
+    "learn": {
+      "title": "PAIBOT Learn | 4択で学ぶ数学ドリル",
+      "description": "小学校から大学まで、4択で基礎から積み上げて学べる学習サイト。数学ドリルが公開中で、英語・ITは準備中です。",
+      "heading": "Learn",
+      "lead": "4択で、基礎から積み上げる。",
+      "start": "数学ドリルをはじめる",
+      "subjects": "教科",
+      "open": "公開中",
+      "soon": "準備中",
+      "mathMeta": "{units}単元・{items}学習項目",
+      "stats": {
+        "subjects": "公開中の教科",
+        "units": "数学の単元",
+        "items": "学習項目",
+        "languages": "対応言語"
+      },
+      "subject": {
+        "math": {
+          "title": "数学",
+          "text": "計算、図形、関数、確率、微分積分まで。要点と例題つきで、小学校から大学の内容を練習できます。"
+        },
+        "english": {
+          "title": "英語",
+          "text": "語彙と文法を4択で。準備中です。"
+        },
+        "it": {
+          "title": "IT",
+          "text": "コマンドやプログラミングの基礎を4択で。準備中です。"
+        }
+      },
+      "stage": {
+        "elementary": "小学校",
+        "middle": "中学校",
+        "high": "高校",
+        "university": "大学"
+      }
+    },
     "home": {
       "stats": {
         "tools": "ツール",

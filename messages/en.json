@@ -216,6 +216,43 @@
       "game": "Games",
       "daily": "Everyday"
     },
+    "learn": {
+      "title": "PAIBOT Learn | Math drills by multiple choice",
+      "description": "Build up from the basics with four-choice drills, from elementary school to university. Math is open; English and IT are coming.",
+      "heading": "Learn",
+      "lead": "Four choices, built up from the basics.",
+      "start": "Start the math drills",
+      "subjects": "Subjects",
+      "open": "Open",
+      "soon": "Coming soon",
+      "mathMeta": "{units} units · {items} learning items",
+      "stats": {
+        "subjects": "Open subjects",
+        "units": "Math units",
+        "items": "Learning items",
+        "languages": "Languages"
+      },
+      "subject": {
+        "math": {
+          "title": "Math",
+          "text": "Arithmetic, geometry, functions, probability and calculus. Practice with key points and worked examples, from elementary school to university."
+        },
+        "english": {
+          "title": "English",
+          "text": "Vocabulary and grammar in four choices. Coming soon."
+        },
+        "it": {
+          "title": "IT",
+          "text": "Commands and programming basics in four choices. Coming soon."
+        }
+      },
+      "stage": {
+        "elementary": "Elementary",
+        "middle": "Middle school",
+        "high": "High school",
+        "university": "University"
+      }
+    },
     "home": {
       "stats": {
         "tools": "Tools",
