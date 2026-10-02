@@ -220,9 +220,8 @@ try {
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'category page fits mobile width');
   await page.setViewportSize({ width: 1280, height: 720 });
   console.log('PASS: six categories in three locales, home links, scoped search, all-app navigation and mobile width');
-  // The character counter is a tool of the tools site (src/lib/sites.ts).
   for (const locale of locales) {
-    await page.goto(`${siteOrigins(base).tools}/${locale}/wc`);
+    await go(`/${locale}/wc`);
     // fill auto-waits for the textarea to become enabled after hydration.
     await page.locator('textarea').fill('Aあ😀');
     await page.waitForFunction(() => document.querySelector('[aria-live="polite"]')?.textContent === '3');

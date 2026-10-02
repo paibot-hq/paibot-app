@@ -2,7 +2,7 @@
 //   hub    paibot.dev        the cover of the three sites (also localhost)
 //   app    app.paibot.dev    the tools (app-dev.paibot.dev in development)
 //   learn  learn.paibot.dev  the drills (learn-dev.paibot.dev)
-//   tools  tools.paibot.dev  the tools you open and use (network, developer and everyday ones) and, later, monitoring
+//   tools  tools.paibot.dev  developer tools (network and developer categories) and, later, monitoring
 //   doc    doc.paibot.dev    articles - a separate static site, listed here only so the header can link to it
 // Locally, localhost is the hub and app.localhost / learn.localhost the others (browsers resolve *.localhost).
 import { APP_CATALOG } from "./app-catalog.ts";
@@ -27,7 +27,7 @@ export function siteOrigins(origin: string): Record<SiteKey, string> {
   return { hub: at(root), app: at(`app${suffix}.${root}`), learn: at(`learn${suffix}.${root}`), tools: at(`tools${suffix}.${root}`), doc: at(`doc${suffix}.${root}`) };
 }
 
-const TOOL_CATEGORIES = ["network", "dev", "utility"];
+const TOOL_CATEGORIES = ["network", "dev"];
 const TOOL_PATH = new RegExp(`^/(${APP_CATALOG.filter(app => app.href && TOOL_CATEGORIES.includes(app.category)).map(app => app.href!.slice(1)).join("|")})(/|\\.data$|$)`);
 
 // Which site owns a path (without the locale prefix), so the others can send a visitor there; null when any site
@@ -37,7 +37,7 @@ export function ownerOfPath(path: string): SiteKey | null {
   // `.data` is a page's data request (the same page, fetched by the client router), so it follows its page.
   if (/^\/(about|supporter|legal|sign-in|sign-up|profile)(\/|\.data$|$)/.test(path)) return null;
   if (/^\/math(\/|\.data$|$)/.test(path)) return "learn";
-  // The tools of the catalog in the categories below: stateless ones you open and use. Their paths come from the
+  // The developer tools of the catalog (the categories below). Their paths come from the
   // catalog, so a new tool needs no edit here.
   return TOOL_PATH.test(path) ? "tools" : "app";
 }

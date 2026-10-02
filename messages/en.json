@@ -279,7 +279,7 @@
       },
       "tools": {
         "title": "Tools",
-        "text": "Network checks, JSON formatter, character count and more: tools you open and use. Monitoring later.",
+        "text": "Network checks, JSON formatter, Base64 and more, for developers. Monitoring later.",
         "meta": "{tools} tools"
       },
       "doc": {
@@ -313,10 +313,10 @@
       }
     },
       "toolsSite": {
-      "title": "PAIBOT Tools | Tools you can open and use",
-      "description": "Free tools you can use right away: JSON formatter, Base64, character count, password generator, IP lookup, domain lookup and site check.",
+      "title": "PAIBOT Tools | Tools for developers",
+      "description": "Free tools for developers: JSON formatter, Base64, URL encoding, IP lookup, domain lookup, CIDR calculator and site check.",
       "heading": "Tools",
-      "lead": "Open it and use it.",
+      "lead": "Tools for developers.",
       "tools": "Tools",
       "free": "Free",
       "soon": "Coming soon",

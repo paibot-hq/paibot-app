@@ -279,7 +279,7 @@
       },
       "tools": {
         "title": "Tools",
-        "text": "ネットワーク診断、JSON整形、文字数カウントなど、開いてすぐ使える道具。のちに監視も。",
+        "text": "ネットワーク診断、JSON整形、Base64など、開発者向けの道具。のちに監視も。",
         "meta": "{tools}のツール"
       },
       "doc": {
@@ -313,10 +313,10 @@
       }
     },
       "toolsSite": {
-      "title": "PAIBOT Tools | 開いてすぐ使えるツール",
-      "description": "JSON整形、Base64、文字数カウント、パスワード生成、IP確認、ドメイン調査、サイト稼働チェックなど、無料ですぐ使えるツール集です。",
+      "title": "PAIBOT Tools | 開発者のためのツール",
+      "description": "JSON整形、Base64、URLエンコード、IP確認、ドメイン調査、CIDR計算、サイト稼働チェックなど、開発者向けの無料ツール集です。",
       "heading": "Tools",
-      "lead": "開いて、すぐ使える。",
+      "lead": "開発者のための、道具。",
       "tools": "ツール",
       "free": "無料",
       "soon": "準備中",

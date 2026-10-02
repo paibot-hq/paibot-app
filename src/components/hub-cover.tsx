@@ -11,7 +11,7 @@ export default function HubCover() {
   const { origins } = useSiteMeta();
   const t = useTranslations('App.hub');
   const tools = APP_CATALOG.filter(app => app.status === 'published').length;
-  const openTools = APP_CATALOG.filter(app => ['network', 'dev', 'utility'].includes(app.category) && app.status === 'published').length;
+  const openTools = APP_CATALOG.filter(app => ['network', 'dev'].includes(app.category) && app.status === 'published').length;
   const items = MATH_CATALOG.reduce((sum, unit) => sum + unit.items.length, 0);
   const cards: CoverCard[] = [
     { key: 'app', title: t('app.title'), text: t('app.text'), badge: t('open'), href: `${origins.app}/${locale}`, meta: t('app.meta', { tools }) },

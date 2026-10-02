@@ -25,7 +25,7 @@ test('math belongs to learn, the tools to app, and the shared pages to nobody', 
     assert.equal(ownerOfPath('/apps'), 'app');
   assert.equal(ownerOfPath('/site-check'), 'tools');
   assert.equal(ownerOfPath('/json'), 'tools');
-  assert.equal(ownerOfPath('/password'), 'tools');
+  assert.equal(ownerOfPath('/password'), 'app');
   assert.equal(ownerOfPath('/diary'), 'app');
   assert.equal(ownerOfPath('/quiz'), 'app');
   assert.equal(ownerOfPath('/domain.data'), 'tools');
@@ -36,6 +36,6 @@ test('math belongs to learn, the tools to app, and the shared pages to nobody', 
   assert.equal(ownerOfPath(''), null);
 });
 
-test('the stateless tools of the catalog belong to the tools site, the rest to the app', () => {
-  for (const app of APP_CATALOG) if (app.href && !['study'].includes(app.category)) assert.equal(ownerOfPath(app.href), ['network', 'dev', 'utility'].includes(app.category) ? 'tools' : 'app', app.slug);
+test('the developer tools of the catalog belong to the tools site, the rest to the app', () => {
+  for (const app of APP_CATALOG) if (app.href && !['study'].includes(app.category)) assert.equal(ownerOfPath(app.href), ['network', 'dev'].includes(app.category) ? 'tools' : 'app', app.slug);
 });

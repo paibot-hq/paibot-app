@@ -279,7 +279,7 @@
       },
       "tools": {
         "title": "Tools",
-        "text": "网络诊断、JSON 格式化、字数统计等，打开即用的工具。之后还有监控。",
+        "text": "网络诊断、JSON 格式化、Base64 等开发者工具。之后还有监控。",
         "meta": "{tools} 个工具"
       },
       "doc": {
@@ -313,10 +313,10 @@
       }
     },
       "toolsSite": {
-      "title": "PAIBOT Tools | 打开即用的工具",
-      "description": "打开就能用的免费工具：JSON 格式化、Base64、字数统计、密码生成、IP 查询、域名查询、网站检测等。",
+      "title": "PAIBOT Tools | 面向开发者的工具",
+      "description": "面向开发者的免费工具：JSON 格式化、Base64、URL 编码、IP 查询、域名查询、CIDR 计算、网站检测等。",
       "heading": "Tools",
-      "lead": "打开就能用。",
+      "lead": "面向开发者的工具。",
       "tools": "工具",
       "free": "免费",
       "soon": "即将推出",
