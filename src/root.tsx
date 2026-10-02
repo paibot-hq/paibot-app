@@ -8,6 +8,7 @@ import Providers from './components/providers';
 import Header from './components/header';
 import { isLocale } from './i18n/routing';
 import { siteOrigin, isIndexable } from './lib/seo.server';
+import { siteOfHost, siteOrigins } from './lib/sites';
 import { isComingSoonMathPath } from './lib/math-catalog';
 import ja from '../messages/ja.json';
 import en from '../messages/en.json';
@@ -26,17 +27,23 @@ import './styles/responsive.css';
 // keys unprotected).
 const isProductionClerk = env.CLERK_PUBLISHABLE_KEY?.startsWith('pk_live_') ?? false;
 export const middleware: Route.MiddlewareFunction[] = [
-  clerkMiddleware(isProductionClerk ? { authorizedParties: [siteOrigin] } : {}),
+  clerkMiddleware(isProductionClerk ? { authorizedParties: Object.values(siteOrigins(siteOrigin)) } : {}),
 ];
 // siteOrigin/isIndexable (from lib/seo.server, server-only: reads Workers
 // runtime env) ride along in loaderData for descendant components to read
 // via useSiteMeta() below — never import lib/seo.server.ts from component
 // code, or "cloudflare:workers" fails to resolve in the client build.
-export const loader = (args: Route.LoaderArgs) =>
-  rootAuthLoader(args, () => ({ siteOrigin, isIndexable }));
+// The site (src/lib/sites.ts) comes from the request's host. The canonical origin is built from the configured
+// SITE_URL, never from the request; `origins` (from the request) are for links between the sites, so they work on
+// localhost too.
+export const loader = (args: Route.LoaderArgs) => {
+  const url = new URL(args.request.url);
+  const site = siteOfHost(url.hostname);
+  return rootAuthLoader(args, () => ({ siteOrigin: siteOrigins(siteOrigin)[site], isIndexable, site, origins: siteOrigins(url.origin) }));
+};
 export function useSiteMeta() {
   const data = useRouteLoaderData<typeof loader>('root');
-  return { siteOrigin: data?.siteOrigin ?? 'https://paibot.app', isIndexable: data?.isIndexable ?? false };
+  return { siteOrigin: data?.siteOrigin ?? 'https://paibot.dev', isIndexable: data?.isIndexable ?? false, site: data?.site ?? 'app', origins: data?.origins ?? siteOrigins('https://app.paibot.dev') };
 }
 // Not a secret - GA4 measurement IDs are public (visible in every page's
 // source on any site that uses them). Only loaded when isIndexable (i.e.
@@ -48,7 +55,7 @@ export function Layout({ children }: { children: ReactNode }) {
   const { locale } = useParams();
   const { isIndexable } = useSiteMeta();
   const { pathname } = useLocation();
-  const indexPage = isIndexable && !isComingSoonMathPath(pathname) && !/^\/(ja|en|zh)\/(sign-in|sign-up|diary|profile|hub|doc)(\/|$)/.test(pathname);
+  const indexPage = isIndexable && !isComingSoonMathPath(pathname) && !/^\/(ja|en|zh)\/(sign-in|sign-up|diary|profile|doc)(\/|$)/.test(pathname);
   return <html lang={isLocale(locale) ? locale : 'ja'}><head>
     {isIndexable && <>
       <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />

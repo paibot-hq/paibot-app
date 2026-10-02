@@ -204,6 +204,7 @@ html[data-theme="light"] .cloud-c {
   text-align: center;
 }
 
+.home-stats[data-count="3"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .home-stats > div { display: flex; flex-direction: column-reverse; gap: .2rem; min-width: 0; }
 .home-stats dd { margin: 0; color: var(--accent); font-size: clamp(2rem, 7vw, 3rem); font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
 .home-stats dt { color: var(--muted); font-size: .8rem; }

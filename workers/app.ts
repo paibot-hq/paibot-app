@@ -1,21 +1,29 @@
 import { env } from 'cloudflare:workers';
 import { createRequestHandler } from 'react-router';
 import { isComingSoonMathPath } from '../src/lib/math-catalog';
-import { locales } from '../src/i18n/routing';
+import { isLocale, locales } from '../src/i18n/routing';
 import { siteOrigin, isIndexable } from '../src/lib/seo.server';
 import { buildContentSecurityPolicy } from '../src/lib/security-headers.server';
+import { pathWithoutLocale } from '../src/lib/seo';
+import { ownerOfPath, siteOfHost, siteOrigins } from '../src/lib/sites';
 
 const handle = createRequestHandler(() => import('virtual:react-router/server-build'), import.meta.env.MODE);
-const AUTH_PATH = new RegExp(`^/(${locales.join('|')})/(sign-in|sign-up|diary|profile|hub|doc)(/|\\.data$|$)`);
+const AUTH_PATH = new RegExp(`^/(${locales.join('|')})/(sign-in|sign-up|diary|profile|doc)(/|\\.data$|$)`);
 const csp = buildContentSecurityPolicy();
 
 export default {
   async fetch(request: Request) {
     const url = new URL(request.url);
+    const site = siteOfHost(url.hostname), origins = siteOrigins(siteOrigin);
+    // Each page has one home: the drills on the learning site, the tools on the app. A request for the other
+    // site's page is sent there (one URL per page, for search engines and for people).
+    // Only pages (under a locale): assets, the sitemap, robots.txt and the API are served by every host.
+    const owner = isLocale(url.pathname.split('/')[1]) ? ownerOfPath(pathWithoutLocale(url.pathname)) : null;
+    if (owner && owner !== site && owner !== 'doc') return Response.redirect(`${siteOrigins(url.origin)[owner]}${url.pathname}${url.search}`, 301);
     let response: Response;
     if (url.pathname === '/robots.txt') {
       const body = isIndexable
-        ? `User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${siteOrigin}/sitemap.xml\n`
+        ? `User-agent: *\nAllow: /\nDisallow: /api/\nSitemap: ${origins[site]}/sitemap.xml\n`
         : 'User-agent: *\nDisallow: /\n';
       response = new Response(body, { headers: { 'Content-Type': 'text/plain' } });
     } else {

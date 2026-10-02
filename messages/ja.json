@@ -263,6 +263,7 @@
       "open": "公開中",
       "soon": "準備中",
       "stats": {
+        "categories": "カテゴリ",
         "tools": "ツール",
         "items": "学習項目",
         "languages": "対応言語"

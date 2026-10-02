@@ -9,7 +9,7 @@ import { chromium } from 'playwright';
 import { configureAccess } from '../../scripts/lib/access.mjs';
 import { selectedTools } from './lib/selected-tools.mjs';
 
-const base = process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002';
+const base = process.env.CHECK_BROWSER_BASE_URL ?? 'http://app.localhost:3002';
 const flowFile = slug => [new URL(`../../src/tools/${slug}/e2e.mjs`, import.meta.url), new URL(`./flows/${slug}.mjs`, import.meta.url)].find(existsSync);
 const tools = selectedTools();
 const browser = await chromium.launch();

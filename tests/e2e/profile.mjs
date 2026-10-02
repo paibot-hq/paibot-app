@@ -5,7 +5,7 @@ import { chromium } from 'playwright';
 import { clerkSetup, setupClerkTestingToken, clerk } from '@clerk/testing/playwright';
 import { createClerkClient } from '@clerk/backend';
 
-const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002').origin;
+const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://app.localhost:3002').origin;
 assert.ok(['localhost', '127.0.0.1'].includes(new URL(base).hostname), 'Local targets only');
 assert.ok(process.env.CLERK_PUBLISHABLE_KEY?.startsWith('pk_test_'));
 assert.ok(process.env.CLERK_SECRET_KEY?.startsWith('sk_test_'));

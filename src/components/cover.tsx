@@ -5,13 +5,11 @@ import { Link } from "../i18n/navigation";
 import { HOME_CATEGORY_TILES, type DynamicT } from "../lib/apps";
 import SiteFooter from "./site-footer";
 import { APP_CATALOG } from "../lib/app-catalog";
-import { MATH_CATALOG } from "../lib/math-catalog";
 
-// Counts shown big under the hero: published tools, the math drills' units and learning items, languages.
+// Counts shown big under the hero: published tools, their categories, languages. (The drills are counted on the learning site.)
 const STATS = [
   { key: "tools", value: APP_CATALOG.filter(app => app.status === "published").length },
-  { key: "units", value: MATH_CATALOG.length },
-  { key: "items", value: MATH_CATALOG.reduce((sum, unit) => sum + unit.items.length, 0) },
+  { key: "categories", value: HOME_CATEGORY_TILES.length },
   { key: "languages", value: 3 },
 ] as const;
 
@@ -39,7 +37,7 @@ export default function Cover({ year }: { year: number }) {
         </div>
       </section>
 
-      <dl className="home-stats">
+      <dl className="home-stats" data-count={STATS.length}>
         {STATS.map(({ key, value }) => <div key={key}><dd>{value}</dd><dt>{td(`home.stats.${key}`)}</dt></div>)}
       </dl>
 

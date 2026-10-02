@@ -1,12 +1,12 @@
 import { useLocale, useTranslations } from 'use-intl';
-import PublicHead from '../components/public-head';
-import SiteCover, { type CoverCard } from '../components/site-cover';
+import PublicHead from './public-head';
+import SiteCover, { type CoverCard } from './site-cover';
 import { MATH_CATALOG, MATH_STAGES } from '../lib/math-catalog';
 
 const ITEMS = MATH_CATALOG.reduce((sum, unit) => sum + unit.items.length, 0);
 
 // The cover of the learning site: its subjects, and how much there is to learn in each. Only math is open so far.
-export default function Learn() {
+export default function LearnCover() {
   const locale = useLocale();
   const t = useTranslations('App.learn');
   const cards: CoverCard[] = [
@@ -21,7 +21,7 @@ export default function Learn() {
     { key: 'languages', value: 3, label: t('stats.languages') },
   ];
   return <>
-    <PublicHead locale={locale} path="/learn" title={t('title')} description={t('description')} />
+    <PublicHead locale={locale} path="" title={t('title')} description={t('description')} />
     <SiteCover eyebrow="PAIBOT" heading={t('heading')} lead={t('lead')} cta={t('start')} ctaHref="/math" stats={stats} cardsHeading={t('subjects')} cards={cards} />
   </>;
 }

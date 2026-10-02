@@ -4,7 +4,7 @@ import { chromium } from 'playwright';
 import { bank } from '../../scripts/validate-quiz.mjs';
 import { appFetch, configureAccess } from '../../scripts/lib/access.mjs';
 
-const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002').origin;
+const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://app.localhost:3002').origin;
 for (const locale of ['ja', 'en', 'zh']) {
   const response = await appFetch(base, `/api/quiz?locale=${locale}`);
   assert.equal(response.status, 200);

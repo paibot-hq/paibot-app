@@ -263,6 +263,7 @@
       "open": "Open",
       "soon": "Coming soon",
       "stats": {
+        "categories": "Categories",
         "tools": "Tools",
         "items": "Learning items",
         "languages": "Languages"

@@ -10,7 +10,10 @@ import { LOCALE_COOKIE } from "../i18n/negotiate";
 import { useTranslations, useLocale } from "use-intl";
 import { usePathname } from "../i18n/navigation";
 import { usePreferences } from "./providers";
-import { SITES, currentSite } from "../lib/sites";
+import { useSiteMeta } from "../root";
+
+// The sites the switcher links to; the doc site joins once it exists.
+const SWITCH = ["app", "learn"] as const;
 
 const languageNames: Record<Locale, string> = { ja: "日本語", en: "English", zh: "简体中文" };
 
@@ -20,6 +23,7 @@ export default function Header() {
   const t = useTranslations("App");
   const { resolvedTheme, toggleTheme } = usePreferences();
   const { signedIn } = useProfileData();
+  const { site, origins } = useSiteMeta();
   const saveLanguage = useFetcher();
   // The switch itself is the setting, so remember it: a cookie for the
   // locale-less redirect (routes/redirect.ts), and the profile when signed
@@ -58,12 +62,7 @@ export default function Header() {
         <span className="wordmark">PAIBOT</span>
       </Link>
       <nav aria-label={t("navSites")}>
-        {SITES.filter(site => site.live).map(site => {
-          const current = currentSite(pathname) === site.key;
-          return site.external
-            ? <a key={site.key} href={site.external} aria-current={current ? "page" : undefined}>{t(`site.${site.key}`)}</a>
-            : <Link key={site.key} href={site.href} aria-current={current ? "page" : undefined}>{t(`site.${site.key}`)}</Link>;
-        })}
+        {SWITCH.map(key => <a key={key} href={`${origins[key]}/${language}`} aria-current={site === key ? "page" : undefined}>{t(`site.${key}`)}</a>)}
       </nav>
       <div className="toolbar">
         <Show when="signed-out">

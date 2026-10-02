@@ -3,11 +3,15 @@ import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { appFetch, configureAccess } from '../../scripts/lib/access.mjs';
 import { locales } from '../../src/i18n/routing.ts';
-import { pathLocales, publicPaths as paths } from '../../src/lib/seo.ts';
+import { pathLocales, publicPaths } from '../../src/lib/seo.ts';
+import { siteOrigins } from '../../src/lib/sites.ts';
 import { APP_CATALOG, APP_CATEGORIES } from '../../src/lib/app-catalog.ts';
 
-const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002').origin;
-const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app').origin;
+// The app site (src/lib/sites.ts): its pages and sitemap are the ones checked here; the drills live on the learning
+// site and are covered by the math flow.
+const base = siteOrigins(new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://app.localhost:3002').origin).app;
+const siteOrigin = siteOrigins(new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app').origin).app;
+const paths = publicPaths.filter(path => !path.startsWith('/math'));
 const indexable = process.env.CHECK_SITE_INDEXABLE === 'true';
 const authPaths = ['sign-in', 'sign-up', 'diary', 'profile'];
 const browser = await chromium.launch();

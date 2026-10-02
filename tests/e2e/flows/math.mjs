@@ -1,15 +1,20 @@
 // Browser flow for this tool, run by tests/e2e/tools.mjs against a preview.
 import assert from 'node:assert/strict';
+import { siteOrigins } from '../../../src/lib/sites.ts';
 
 // /math lists units and their learning items; an item's page lists its
 // practice sets; a set is the quiz. Works whether or not the newer sets are
 // published in the local D1 (CI imports them unpublished).
-export default async function ({ page, main, base, go, errors }) {
+export default async function ({ page, main, base: appBase, go, errors }) {
+  // The drills are on the learning site (src/lib/sites.ts); `go` starts at the app site and is sent there.
+  const base = siteOrigins(appBase).learn;
   const link = href => main.locator(`a[href="${href}"]`);
-  // The learning site's cover lists its subjects; math is open and links to the drills.
-  await go('learn');
+  // The learning site's cover lists its subjects; math is open and links to the drills. The app site sends the
+  // drills' pages there.
+  await page.goto(`${base}/en`);
   assert.ok(!(await main.textContent()).includes('App.learn'), 'no untranslated keys on the learn page');
   assert.equal(await main.locator('a[href="/en/math"]').count(), 2, 'the start button and the math card');
+  assert.equal((await page.goto(`${appBase}/en/math`)).url(), `${base}/en/math`, 'the app site redirects the drills to the learning site');
   // A missing translation renders its key (e.g. "App.math.units.arith.title").
   await go('math');
   assert.ok(!(await main.textContent()).includes('App.math.'), 'no untranslated keys on the math page');
