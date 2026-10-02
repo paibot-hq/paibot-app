@@ -1,5 +1,5 @@
-# Read-only reference to the paibot.io zone (and, below, the legacy paibot.app one). Add paibot.io to
-# Cloudflare first (docs/plans/paibot-io-migration.md): a data source cannot create it.
+# Read-only reference to the paibot.dev zone (and, below, the legacy paibot.app one). Add paibot.dev to
+# Cloudflare first (docs/plans/paibot-dev-migration.md): a data source cannot create it.
 #
 # Read-only reference to the zone. This is a data source,
 # not a managed resource: the zone already exists (created outside Terraform,

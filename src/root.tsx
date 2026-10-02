@@ -36,7 +36,7 @@ export const loader = (args: Route.LoaderArgs) =>
   rootAuthLoader(args, () => ({ siteOrigin, isIndexable }));
 export function useSiteMeta() {
   const data = useRouteLoaderData<typeof loader>('root');
-  return { siteOrigin: data?.siteOrigin ?? 'https://paibot.io', isIndexable: data?.isIndexable ?? false };
+  return { siteOrigin: data?.siteOrigin ?? 'https://app.paibot.dev', isIndexable: data?.isIndexable ?? false };
 }
 // Not a secret - GA4 measurement IDs are public (visible in every page's
 // source on any site that uses them). Only loaded when isIndexable (i.e.

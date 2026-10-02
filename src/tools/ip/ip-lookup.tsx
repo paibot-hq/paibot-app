@@ -12,7 +12,7 @@ type Result = { status: "loading" | "ok" | "error"; ip: string | null };
 
 // ipv4.icanhazip.com/ipv6.icanhazip.com only have an A/AAAA record
 // respectively, so whichever one the browser can actually reach reveals that
-// specific protocol's client IP. Cloudflare (which also runs paibot.io)
+// specific protocol's client IP. Cloudflare (which also runs app.paibot.dev)
 // operates icanhazip.com itself; see docs/plans/production-deploy.md for why
 // this couldn't be self-hosted (the same settings.ipv4_only/ipv6_only DNS
 // feature icanhazip.com presumably relies on isn't available on this zone's

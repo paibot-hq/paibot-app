@@ -9,7 +9,7 @@
 # hosts directly, and proxying through Cloudflare would break that.
 #
 # These are the paibot.app (legacy) zone's records for the old Clerk instance, kept until that domain is
-# released. The paibot.io instance's records are in clerk_dns_records_io below.
+# released. The paibot.dev instance's records are in clerk_dns_records_dev below.
 locals {
   clerk_dns_records = {
     "clerk.paibot.app"           = "frontend-api.clerk.services"
@@ -46,17 +46,17 @@ resource "cloudflare_dns_record" "www" {
   comment = "Managed by Terraform (infra/dns.tf) - www redirects to the apex via infra/redirects.tf"
 }
 
-# The new production Clerk instance for paibot.io. `clerk deploy` (interactive) prints the BIND zone file:
-# copy its five CNAMEs here ("clerk", "accounts", "clkmail", "clk._domainkey", "clk2._domainkey" under
-# paibot.io, with that instance's own targets) and apply. Empty until then.
+# The new production Clerk instance for app.paibot.dev. `clerk deploy` (interactive) prints the BIND zone
+# file: copy its five CNAMEs here ("clerk.app", "accounts.app", "clkmail.app", "clk._domainkey.app",
+# "clk2._domainkey.app" under paibot.dev, with that instance's own targets) and apply. Empty until then.
 locals {
-  clerk_dns_records_io = {
-    # "clerk.paibot.io" = "frontend-api.clerk.services"
+  clerk_dns_records_dev = {
+    # "clerk.app.paibot.dev" = "frontend-api.clerk.services"
   }
 }
 
-resource "cloudflare_dns_record" "clerk_io" {
-  for_each = local.clerk_dns_records_io
+resource "cloudflare_dns_record" "clerk_dev" {
+  for_each = local.clerk_dns_records_dev
 
   zone_id = local.zone_id
   name    = each.key
@@ -64,16 +64,29 @@ resource "cloudflare_dns_record" "clerk_io" {
   content = each.value
   ttl     = 300
   proxied = false
-  comment = "Managed by Terraform (infra/dns.tf) - Clerk production instance for paibot.io"
+  comment = "Managed by Terraform (infra/dns.tf) - Clerk production instance for app.paibot.dev"
 }
 
-# www.paibot.io -> paibot.io (infra/redirects.tf), proxied for the same reason as the legacy www record.
-resource "cloudflare_dns_record" "www_io" {
+# paibot.dev and www.paibot.dev have no site of their own yet: they redirect to app.paibot.dev
+# (infra/redirects.tf). Redirect Rules only run on proxied traffic, so both get a proxied record; the
+# apex one points at a documentation-range address that is never contacted. The app itself is the Worker's
+# custom domain app.paibot.dev (wrangler.jsonc), and doc.paibot.dev is reserved for the documentation.
+resource "cloudflare_dns_record" "apex" {
+  zone_id = local.zone_id
+  name    = "paibot.dev"
+  type    = "A"
+  content = "192.0.2.1"
+  ttl     = 1
+  proxied = true
+  comment = "Managed by Terraform (infra/dns.tf) - redirect only, see infra/redirects.tf"
+}
+
+resource "cloudflare_dns_record" "www_dev" {
   zone_id = local.zone_id
   name    = "www"
   type    = "CNAME"
-  content = "paibot.io"
+  content = "paibot.dev"
   ttl     = 1
   proxied = true
-  comment = "Managed by Terraform (infra/dns.tf) - www redirects to the apex via infra/redirects.tf"
+  comment = "Managed by Terraform (infra/dns.tf) - redirect only, see infra/redirects.tf"
 }

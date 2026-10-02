@@ -6,5 +6,5 @@ import { env } from "cloudflare:workers";
 // build (it doesn't exist in the browser).
 
 // Never derive canonical URLs from request headers or localhost.
-export const siteOrigin = new URL(env.SITE_URL || "https://paibot.io").origin;
+export const siteOrigin = new URL(env.SITE_URL || "https://app.paibot.dev").origin;
 export const isIndexable: boolean = (env.SITE_INDEXABLE as string) === "true";

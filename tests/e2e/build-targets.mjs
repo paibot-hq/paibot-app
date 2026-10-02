@@ -8,8 +8,8 @@ import { spawnSync } from 'node:child_process';
 // pointing at the dev one (or vice versa) would mix real users' data with tests.
 // routes: the site's domain first; production also routes the old paibot.app, which only redirects (src/lib/legacy-host.ts).
 for (const [environment, name, host, indexable, database, routes] of [
-  ['production', 'paibot-app', 'paibot.io', 'true', 'paibot-app-apac', ['paibot.io', 'paibot.app']],
-  ['', 'paibot-app-dev', 'dev.paibot.io', 'false', 'paibot-app-dev-apac', ['dev.paibot.io']],
+  ['production', 'paibot-app', 'app.paibot.dev', 'true', 'paibot-app-apac', ['app.paibot.dev', 'paibot.app']],
+  ['', 'paibot-app-dev', 'app-dev.paibot.dev', 'false', 'paibot-app-dev-apac', ['app-dev.paibot.dev']],
 ]) {
   const env = { ...process.env };
   if (environment) env.CLOUDFLARE_ENV = environment;

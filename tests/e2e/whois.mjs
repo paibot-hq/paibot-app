@@ -9,10 +9,10 @@ import { chromium } from 'playwright';
 
 // `wrangler dev`'s local routing simulates the Worker's configured custom
 // domain (wrangler.jsonc's `routes`), which makes Clerk's server-side dev
-// handshake redirect back to the real "dev.paibot.io" instead of this local
+// handshake redirect back to the real "app-dev.paibot.dev" instead of this local
 // origin - fine for tests/e2e/environments.mjs (SSR-only, no browser), but a
 // real browser navigation there gets stuck on the real, Access-protected
-// dev.paibot.io. `vite preview` (what tests/e2e/tools.mjs/tests/e2e/smoke.mjs
+// app-dev.paibot.dev. `vite preview` (what tests/e2e/tools.mjs/tests/e2e/smoke.mjs
 // already use) doesn't have this problem, so this script uses that instead
 // - but vite preview reads `vars` from the generated build/server/wrangler.json
 // once at startup with no per-invocation override, so WHOIS_ROOT_SERVER is

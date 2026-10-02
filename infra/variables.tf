@@ -7,9 +7,9 @@ variable "cloudflare_account_id" {
 }
 
 variable "root_domain" {
-  description = "The zone (domain) this project's DNS records live under. paibot.io is the site."
+  description = "The zone (domain) this project's DNS records live under. paibot.dev is the site."
   type        = string
-  default     = "paibot.io"
+  default     = "paibot.dev"
 }
 
 variable "legacy_domain" {
