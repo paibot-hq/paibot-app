@@ -263,7 +263,6 @@
       "open": "公開中",
       "soon": "準備中",
       "stats": {
-        "categories": "カテゴリ",
         "tools": "ツール",
         "items": "学習項目",
         "languages": "対応言語"
@@ -311,6 +310,7 @@
     "home": {
       "learnBanner": {"title": "学習は Learn へ →", "text": "小学校から大学まで、4択で基礎から積み上げる数学ドリルは、学習サイト Learn にあります。"},
       "stats": {
+        "categories": "カテゴリ",
         "tools": "ツール",
         "units": "数学の単元",
         "items": "学習項目",

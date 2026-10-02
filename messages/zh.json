@@ -263,7 +263,6 @@
       "open": "已开放",
       "soon": "即将推出",
       "stats": {
-        "categories": "分类",
         "tools": "工具",
         "items": "学习项目",
         "languages": "支持语言"
@@ -311,6 +310,7 @@
     "home": {
       "learnBanner": {"title": "想学习？前往 Learn →", "text": "从小学到大学的四选一数学练习，在学习站点 Learn。"},
       "stats": {
+        "categories": "分类",
         "tools": "工具",
         "units": "数学单元",
         "items": "数学知识点",

@@ -263,7 +263,6 @@
       "open": "Open",
       "soon": "Coming soon",
       "stats": {
-        "categories": "Categories",
         "tools": "Tools",
         "items": "Learning items",
         "languages": "Languages"
@@ -311,6 +310,7 @@
     "home": {
       "learnBanner": {"title": "Looking to learn? Go to Learn →", "text": "Four-choice math drills, from elementary school to university, live on the learning site, Learn."},
       "stats": {
+        "categories": "Categories",
         "tools": "Tools",
         "units": "Math units",
         "items": "Math topics",
