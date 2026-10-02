@@ -62,13 +62,13 @@ try {
   // and hide the stale redirect target this guards against.
   await page.goto(`${base}/en`);
   await clerk.loaded({ page });
-  await page.getByRole('link', { name: 'Apps', exact: true }).click();
-  await page.waitForURL(`${base}/en/apps`);
+  await page.getByRole('link', { name: 'About', exact: true }).click();
+  await page.waitForURL(`${base}/en/about`);
   await page.locator('.cl-userButtonTrigger').click();
   await page.getByText('Sign out', { exact: true }).click();
   await page.waitForSelector('a[href^="/en/sign-in"]');
   await page.waitForTimeout(500);
-  assert.equal(new URL(page.url()).pathname, '/en/apps', 'sign-out stays on the current page');
+  assert.equal(new URL(page.url()).pathname, '/en/about', 'sign-out stays on the current page');
   assert.deepEqual(errors, []);
   assert.deepEqual(violations, [], "auth flow CSP violations");
   console.log('PASS: sign-out returns to the current page; no uncaught browser errors');

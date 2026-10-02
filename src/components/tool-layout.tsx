@@ -41,7 +41,7 @@ export default function ToolLayout({
           favorited={favoriteSlugs.includes(app.slug)}
           addLabel={t("apps.favorite")}
           removeLabel={t("apps.unfavorite")}
-          actionPath={`/${locale}/apps`}
+          actionPath={`/${locale}/favorites`}
         />
       )}
       <div className={styles.content} data-layout={layout} data-width={contentWidth}>

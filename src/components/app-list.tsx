@@ -4,12 +4,12 @@ import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "use-intl";
 import { Link } from "../i18n/navigation";
 import FavoriteButton from "./favorite-button";
-import { apps as registeredApps, APP_SITE_CATEGORIES as APP_CATEGORIES, type AppCategory, type AppEntry, type DynamicT } from "../lib/apps";
-import SiteFooter from "./site-footer";
+import { apps as registeredApps, APP_SITE_CATEGORIES as APP_CATEGORIES, type AppEntry, type DynamicT } from "../lib/apps";
 
 const apps = registeredApps;
 
-export default function Apps({ year, signedIn, favoriteSlugs, category: selectedCategory }: { year: number; signedIn: boolean; favoriteSlugs: string[]; category?: AppCategory }) {
+// The app's tools by category, with a search box and a favorite star on each: the list on the app's cover.
+export default function AppList({ signedIn, favoriteSlugs }: { signedIn: boolean; favoriteSlugs: string[] }) {
   const t = useTranslations("App");
   const td = t as unknown as DynamicT;
   const [query, setQuery] = useState("");
@@ -17,9 +17,8 @@ export default function Apps({ year, signedIn, favoriteSlugs, category: selected
   const favoriteSet = useMemo(() => new Set(favoriteSlugs), [favoriteSlugs]);
 
   const visibleApps = useMemo(() => {
-    const categoryApps = selectedCategory ? apps.filter(app => app.category === selectedCategory) : apps;
-    if (!normalizedQuery) return categoryApps;
-    return categoryApps.filter(app => {
+    if (!normalizedQuery) return apps;
+    return apps.filter(app => {
       const haystack = [
         td(`${app.messageKey}.title`),
         td(`${app.messageKey}.description`),
@@ -28,7 +27,7 @@ export default function Apps({ year, signedIn, favoriteSlugs, category: selected
       ].join(" ").toLowerCase();
       return haystack.includes(normalizedQuery);
     });
-  }, [normalizedQuery, td, selectedCategory]);
+  }, [normalizedQuery, td]);
 
   const groupedApps = useMemo(
     () =>
@@ -40,18 +39,7 @@ export default function Apps({ year, signedIn, favoriteSlugs, category: selected
   );
 
   return (
-    <>
-    <main className="section app-list">
-      {selectedCategory ? <header className="category-intro">
-        <h1 className="eyebrow">{td(`categories.${selectedCategory}`)}</h1>
-        <p>{td(`home.${selectedCategory}.description`)}</p>
-      </header> : <h1 className="eyebrow">{t("apps.eyebrow")}</h1>}
-
-      <nav className="category-nav" aria-label={t("apps.categoryNavigation")}>
-        <Link href="/apps" aria-current={!selectedCategory ? "page" : undefined}>{t("apps.allApps")}</Link>
-        {APP_CATEGORIES.map(category => <Link key={category} href={`/${category}`} aria-current={selectedCategory === category ? "page" : undefined}>{td(`categories.${category}`)}</Link>)}
-      </nav>
-
+    <section className="app-list" id="apps" aria-label={t("apps.eyebrow")}>
       <div className="app-search">
         <input
           type="search"
@@ -67,13 +55,12 @@ export default function Apps({ year, signedIn, favoriteSlugs, category: selected
       ) : (
         groupedApps.map(({ category, items }) => (
           <section key={category} id={category} className="app-category">
-            {!selectedCategory && <h2 className="app-category-title"><Link href={`/${category}`}>{td(`categories.${category}`)}</Link></h2>}
+            <h2 className="app-category-title">{td(`categories.${category}`)}</h2>
             <div className="app-grid">
               {items.map(app => (
                 <AppCard
                   key={app.slug}
                   app={app}
-                  headingLevel={selectedCategory ? 2 : 3}
                   t={td}
                   comingSoonLabel={t("apps.comingSoon")}
                   signedIn={signedIn}
@@ -86,16 +73,12 @@ export default function Apps({ year, signedIn, favoriteSlugs, category: selected
           </section>
         ))
       )}
-    </main>
-
-    <SiteFooter year={year} />
-    </>
+    </section>
   );
 }
 
-function AppCard({ app, headingLevel, t, comingSoonLabel, signedIn, favorited, favoriteLabel, unfavoriteLabel }: {
+function AppCard({ app, t, comingSoonLabel, signedIn, favorited, favoriteLabel, unfavoriteLabel }: {
   app: AppEntry;
-  headingLevel: 2 | 3;
   t: DynamicT;
   comingSoonLabel: string;
   signedIn: boolean;
@@ -104,7 +87,6 @@ function AppCard({ app, headingLevel, t, comingSoonLabel, signedIn, favorited, f
   unfavoriteLabel: string;
 }) {
   const locale = useLocale();
-  const Heading = headingLevel === 2 ? "h2" : "h3";
   const Icon = app.icon;
   const className = `app-card${app.status === "comingSoon" ? " muted" : ""}`;
   const content = (
@@ -112,7 +94,7 @@ function AppCard({ app, headingLevel, t, comingSoonLabel, signedIn, favorited, f
       <span className="app-icon" aria-hidden="true"><Icon /></span>
       <div>
         {app.status === "comingSoon" && <p className="app-kicker">{comingSoonLabel}</p>}
-        <Heading>{t(`${app.messageKey}.title`)}</Heading>
+        <h3>{t(`${app.messageKey}.title`)}</h3>
         <p>{t(`${app.messageKey}.description`)}</p>
       </div>
     </>
@@ -127,7 +109,7 @@ function AppCard({ app, headingLevel, t, comingSoonLabel, signedIn, favorited, f
   return (
     <div className="app-card-wrap">
       {card}
-      <FavoriteButton actionPath={`/${locale}/apps`} slug={app.slug} signedIn={signedIn} favorited={favorited} addLabel={favoriteLabel} removeLabel={unfavoriteLabel} />
+      <FavoriteButton actionPath={`/${locale}/favorites`} slug={app.slug} signedIn={signedIn} favorited={favorited} addLabel={favoriteLabel} removeLabel={unfavoriteLabel} />
     </div>
   );
 }

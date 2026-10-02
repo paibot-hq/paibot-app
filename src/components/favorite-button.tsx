@@ -11,10 +11,9 @@ function StarIcon({ filled }: { filled: boolean }) {
   );
 }
 
-// Shared by the /apps grid (src/components/apps.tsx) and every tool page
-// (via ToolLayout) - the write side always lives on routes/apps.tsx's
-// action, so a submission from a tool page passes an explicit actionPath
-// (`/${locale}/apps`), including category lists.
+// Shared by the app's list (src/components/app-list.tsx) and every tool page
+// (via ToolLayout) - the write side always lives on routes/favorites.ts's
+// action, so a submission passes an explicit actionPath (`/${locale}/favorites`).
 export default function FavoriteButton({ slug, signedIn, favorited, addLabel, removeLabel, actionPath }: {
   slug: string;
   signedIn: boolean;
@@ -32,7 +31,7 @@ export default function FavoriteButton({ slug, signedIn, favorited, addLabel, re
 
   // Signed out: clicking the (always-unfavorited) star opens Clerk's sign-in
   // modal instead of submitting to the action - the server action also
-  // rejects unauthenticated writes on its own (see routes/apps.tsx), this is
+  // rejects unauthenticated writes on its own (see routes/favorites.ts), this is
   // just the better UX for the common case of clicking a star while signed out.
   if (!signedIn) {
     return (

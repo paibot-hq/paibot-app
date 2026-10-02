@@ -3,14 +3,16 @@
 import { useLocale, useTranslations } from "use-intl";
 import { useSiteMeta } from "../root";
 import { Link } from "../i18n/navigation";
-import { HOME_CATEGORY_TILES, type DynamicT } from "../lib/apps";
+import { type DynamicT } from "../lib/apps";
+import AppList from "./app-list";
+import { useFavoritesData } from "../routes/locale";
 import SiteFooter from "./site-footer";
 import { APP_CATALOG, APP_SITE_CATEGORIES } from "../lib/app-catalog";
 
 // Counts shown big under the hero: the app's published tools, their categories, languages. (The drills are counted on the learning site.)
 const STATS = [
   { key: "tools", value: APP_CATALOG.filter(app => app.status === "published" && APP_SITE_CATEGORIES.includes(app.category)).length },
-  { key: "categories", value: HOME_CATEGORY_TILES.length },
+  { key: "categories", value: APP_SITE_CATEGORIES.length },
   { key: "languages", value: 3 },
 ] as const;
 
@@ -18,6 +20,7 @@ export default function Cover({ year }: { year: number }) {
   const t = useTranslations("App");
   const locale = useLocale();
   const { origins } = useSiteMeta();
+  const { signedIn, favoriteSlugs } = useFavoritesData();
   const td = t as unknown as DynamicT;
   return (
     <>
@@ -32,7 +35,7 @@ export default function Cover({ year }: { year: number }) {
           <p className="eyebrow">PAIBOT</p>
           <h1 id="hero-title"><span className="wordmark">App</span></h1>
           <p className="lead">{t("lead")}</p>
-          <Link className="auth-link" href="/apps">{t("heroCta")}</Link>
+          <a className="auth-link" href="#apps">{t("heroCta")}</a>
         </div>
         <div className="hero-mascot" aria-hidden="true">
           <span className="hero-mascot-eye"></span>
@@ -44,16 +47,8 @@ export default function Cover({ year }: { year: number }) {
         {STATS.map(({ key, value }) => <div key={key}><dd>{value}</dd><dt>{td(`home.stats.${key}`)}</dt></div>)}
       </dl>
 
-      <p className="category-showcase-intro">{t("home.tryIt")}</p>
-      <div className="category-showcase">
-        {HOME_CATEGORY_TILES.map(({ category, messageKey, icon: Icon }) => (
-          <Link key={category} className="category-item" href={`/${category}`}>
-            <span className="category-item-icon" aria-hidden="true"><Icon /></span>
-            <h3>{td(`categories.${category}`)}</h3>
-            <p>{td(`home.${messageKey}.summary`)}</p>
-          </Link>
-        ))}
-      </div>
+      <p className="category-showcase-intro" id="try">{t("home.tryIt")}</p>
+      <AppList signedIn={signedIn} favoriteSlugs={favoriteSlugs} />
 
       {/* The drills and the developer tools are on their own sites (src/lib/sites.ts). */}
       <a className="learn-banner" href={`${origins.learn}/${locale}`}>
