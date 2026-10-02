@@ -4,6 +4,7 @@ import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "use-intl";
 import { Link } from "../i18n/navigation";
 import FavoriteButton from "./favorite-button";
+import styles from "./site-cover.module.css";
 import { apps as registeredApps, APP_SITE_CATEGORIES as APP_CATEGORIES, type AppEntry, type DynamicT } from "../lib/apps";
 
 const apps = registeredApps;
@@ -55,8 +56,8 @@ export default function AppList({ signedIn, favoriteSlugs }: { signedIn: boolean
       ) : (
         groupedApps.map(({ category, items }) => (
           <section key={category} id={category} className="app-category">
-            <h2 className="app-category-title">{td(`categories.${category}`)}</h2>
-            <div className="app-grid">
+            <h2 className={styles.heading}>{td(`categories.${category}`)}</h2>
+            <ul className={styles.cards} data-columns="2">
               {items.map(app => (
                 <AppCard
                   key={app.slug}
@@ -69,7 +70,7 @@ export default function AppList({ signedIn, favoriteSlugs }: { signedIn: boolean
                   unfavoriteLabel={t("apps.unfavorite")}
                 />
               ))}
-            </div>
+            </ul>
           </section>
         ))
       )}
@@ -87,29 +88,25 @@ function AppCard({ app, t, comingSoonLabel, signedIn, favorited, favoriteLabel, 
   unfavoriteLabel: string;
 }) {
   const locale = useLocale();
-  const Icon = app.icon;
-  const className = `app-card${app.status === "comingSoon" ? " muted" : ""}`;
+  const soon = app.status === "comingSoon";
   const content = (
     <>
-      <span className="app-icon" aria-hidden="true"><Icon /></span>
-      <div>
-        {app.status === "comingSoon" && <p className="app-kicker">{comingSoonLabel}</p>}
-        <h3>{t(`${app.messageKey}.title`)}</h3>
-        <p>{t(`${app.messageKey}.description`)}</p>
-      </div>
+      <span className={styles.cardTitle}>{t(`${app.messageKey}.title`)}{soon && <span className={styles.badge}>{comingSoonLabel}</span>}</span>
+      <span className={styles.cardText}>{t(`${app.messageKey}.description`)}</span>
     </>
   );
-  const card = app.href ? <Link className={className} href={app.href}>{content}</Link> : <div className={className}>{content}</div>;
+  // Same cards as the other sites' covers (src/components/site-cover.tsx); a card without a page is faded.
+  const card = app.href
+    ? <Link className={`${styles.card} app-card`} data-ready href={app.href}>{content}</Link>
+    : <div className={`${styles.card} app-card`}>{content}</div>;
 
-  // Only published apps have anything real to favorite - comingSoon apps
-  // (including /math) get no star. The star itself renders the same
-  // regardless of signedIn (no hydration flash); only its click behavior
-  // differs (see FavoriteButton).
-  if (app.status !== "published") return card;
+  // Only published apps have anything real to favorite - comingSoon apps get no star. The star itself renders the
+  // same regardless of signedIn (no hydration flash); only its click behavior differs (see FavoriteButton).
+  if (app.status !== "published") return <li>{card}</li>;
   return (
-    <div className="app-card-wrap">
+    <li className="app-card-wrap">
       {card}
       <FavoriteButton actionPath={`/${locale}/favorites`} slug={app.slug} signedIn={signedIn} favorited={favorited} addLabel={favoriteLabel} removeLabel={unfavoriteLabel} />
-    </div>
+    </li>
   );
 }
