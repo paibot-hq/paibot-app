@@ -5,11 +5,11 @@ import { useSiteMeta } from "../root";
 import { Link } from "../i18n/navigation";
 import { HOME_CATEGORY_TILES, type DynamicT } from "../lib/apps";
 import SiteFooter from "./site-footer";
-import { APP_CATALOG } from "../lib/app-catalog";
+import { APP_CATALOG, APP_SITE_CATEGORIES } from "../lib/app-catalog";
 
-// Counts shown big under the hero: published tools, their categories, languages. (The drills are counted on the learning site.)
+// Counts shown big under the hero: the app's published tools, their categories, languages. (The drills are counted on the learning site.)
 const STATS = [
-  { key: "tools", value: APP_CATALOG.filter(app => app.status === "published").length },
+  { key: "tools", value: APP_CATALOG.filter(app => app.status === "published" && APP_SITE_CATEGORIES.includes(app.category)).length },
   { key: "categories", value: HOME_CATEGORY_TILES.length },
   { key: "languages", value: 3 },
 ] as const;
