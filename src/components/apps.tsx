@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { useLocale, useTranslations } from "use-intl";
 import { Link } from "../i18n/navigation";
 import FavoriteButton from "./favorite-button";
-import { apps as registeredApps, APP_CATEGORIES, type AppCategory, type AppEntry, type DynamicT } from "../lib/apps";
+import { apps as registeredApps, APP_SITE_CATEGORIES as APP_CATEGORIES, type AppCategory, type AppEntry, type DynamicT } from "../lib/apps";
 import SiteFooter from "./site-footer";
 
 const apps = registeredApps;

@@ -7,6 +7,10 @@ export type AppCategory = "study" | "dev" | "utility" | "network" | "game" | "da
 // Display order for category sections on /apps.
 export const APP_CATEGORIES: AppCategory[] = ["daily", "game", "utility", "study", "dev", "network"];
 
+// The categories whose tools are on the app site; study is the learning site's, dev and network the tools site's
+// (src/lib/sites.ts), and /apps lists only the app's own.
+export const APP_SITE_CATEGORIES: AppCategory[] = ["daily", "game", "utility"];
+
 export type AppData = {
   // Unique, stable id. Matches the route slug for published apps; for a
   // not-yet-built app (no `href`) it's just an id used as the messages key.

@@ -1,6 +1,7 @@
 "use client";
 
-import { useTranslations } from "use-intl";
+import { useLocale, useTranslations } from "use-intl";
+import { useSiteMeta } from "../root";
 import { Link } from "../i18n/navigation";
 import { HOME_CATEGORY_TILES, type DynamicT } from "../lib/apps";
 import SiteFooter from "./site-footer";
@@ -15,6 +16,8 @@ const STATS = [
 
 export default function Cover({ year }: { year: number }) {
   const t = useTranslations("App");
+  const locale = useLocale();
+  const { origins } = useSiteMeta();
   const td = t as unknown as DynamicT;
   return (
     <>
@@ -52,10 +55,15 @@ export default function Cover({ year }: { year: number }) {
         ))}
       </div>
 
-      <Link className="learn-banner" href="/learn">
+      {/* The drills and the developer tools are on their own sites (src/lib/sites.ts). */}
+      <a className="learn-banner" href={`${origins.learn}/${locale}`}>
         <span className="learn-banner-title">{t("home.learnBanner.title")}</span>
         <span className="learn-banner-text">{t("home.learnBanner.text")}</span>
-      </Link>
+      </a>
+      <a className="learn-banner" href={`${origins.tools}/${locale}`}>
+        <span className="learn-banner-title">{t("home.toolsBanner.title")}</span>
+        <span className="learn-banner-text">{t("home.toolsBanner.text")}</span>
+      </a>
     </main>
 
     <SiteFooter year={year} />

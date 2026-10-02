@@ -27,15 +27,18 @@ test('math belongs to learn, the tools to app, and the shared pages to nobody', 
   assert.equal(ownerOfPath('/json'), 'tools');
   assert.equal(ownerOfPath('/password'), 'app');
   assert.equal(ownerOfPath('/diary'), 'app');
+  assert.equal(ownerOfPath('/arith'), 'learn');
+  assert.equal(ownerOfPath('/study'), null);
+  assert.equal(ownerOfPath('/dev'), null);
   assert.equal(ownerOfPath('/quiz'), 'app');
   assert.equal(ownerOfPath('/domain.data'), 'tools');
   assert.equal(ownerOfPath('/math/arith.data'), 'learn');
-  assert.equal(ownerOfPath('/network'), 'app');
   assert.equal(ownerOfPath('/legal/terms'), null);
   assert.equal(ownerOfPath('/about'), null);
   assert.equal(ownerOfPath(''), null);
 });
 
-test('the developer tools of the catalog belong to the tools site, the rest to the app', () => {
-  for (const app of APP_CATALOG) if (app.href && !['study'].includes(app.category)) assert.equal(ownerOfPath(app.href), ['network', 'dev'].includes(app.category) ? 'tools' : 'app', app.slug);
+test('each catalog tool belongs to the site of its category', () => {
+  const site = { network: 'tools', dev: 'tools', study: 'learn' };
+  for (const app of APP_CATALOG) if (app.href) assert.equal(ownerOfPath(app.href), site[app.category] ?? 'app', app.slug);
 });

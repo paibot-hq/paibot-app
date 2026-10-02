@@ -19,7 +19,8 @@ export default {
     // site's page is sent there (one URL per page, for search engines and for people).
     // Only pages (under a locale): assets, the sitemap, robots.txt and the API are served by every host.
     const owner = isLocale(url.pathname.split('/')[1]) ? ownerOfPath(pathWithoutLocale(url.pathname)) : null;
-    if (owner && owner !== site && owner !== 'doc') return Response.redirect(`${siteOrigins(url.origin)[owner]}${url.pathname}${url.search}`, 301);
+    // Pages only: a write (the favorite star posts to /apps from any site) is served where it is sent.
+    if (owner && owner !== site && owner !== 'doc' && ['GET', 'HEAD'].includes(request.method)) return Response.redirect(`${siteOrigins(url.origin)[owner]}${url.pathname}${url.search}`, 301);
     let response: Response;
     if (url.pathname === '/robots.txt') {
       const body = isIndexable

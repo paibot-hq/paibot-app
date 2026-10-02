@@ -5,7 +5,7 @@ import { appFetch, configureAccess } from '../../scripts/lib/access.mjs';
 import { locales } from '../../src/i18n/routing.ts';
 import { pathLocales, publicPaths } from '../../src/lib/seo.ts';
 import { ownerOfPath, siteOrigins } from '../../src/lib/sites.ts';
-import { APP_CATALOG, APP_CATEGORIES } from '../../src/lib/app-catalog.ts';
+import { APP_CATALOG, APP_SITE_CATEGORIES as APP_CATEGORIES } from '../../src/lib/app-catalog.ts';
 
 // The app site (src/lib/sites.ts): its pages and sitemap are the ones checked here; the drills (learning site) and
 // the network tools (network site) are covered by their own flows and the catalog check.
@@ -211,15 +211,15 @@ try {
       await page.locator(`.category-nav a[aria-current="page"][href="/${locale}/apps"]`).waitFor();
       assert.equal(await page.getByRole('searchbox').inputValue(), '', 'all-app navigation resets the category search');
       await page.locator('.app-card').first().waitFor();
-      assert.equal(await page.locator('.app-card').count(), APP_CATALOG.length);
+      assert.equal(await page.locator('.app-card').count(), APP_CATALOG.filter(app => APP_CATEGORIES.includes(app.category)).length);
       await go(`/${locale}`);
     }
   }
   await page.setViewportSize({ width: 375, height: 812 });
-  await go('/ja/network');
+  await go('/ja/daily');
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'category page fits mobile width');
   await page.setViewportSize({ width: 1280, height: 720 });
-  console.log('PASS: six categories in three locales, home links, scoped search, all-app navigation and mobile width');
+  console.log('PASS: the three app categories in three locales, home links, scoped search, all-app navigation and mobile width');
   for (const locale of locales) {
     await go(`/${locale}/wc`);
     // fill auto-waits for the textarea to become enabled after hydration.

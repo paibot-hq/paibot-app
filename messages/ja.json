@@ -326,7 +326,8 @@
       }
     },
     "home": {
-      "learnBanner": {"title": "学習は Learn へ →", "text": "小学校から大学まで、4択で基礎から積み上げる数学ドリルは、学習サイト Learn にあります。"},
+      "toolsBanner": {"title": "開発者向けは Tools へ →", "text": "JSON整形、IP確認、ドメイン調査などの開発者向けツールは、Tools にあります。"},
+      "learnBanner": {"title": "学習は Learn へ →", "text": "小学校から大学まで、4択で基礎から積み上げる数学ドリルや計算練習は、学習サイト Learn にあります。"},
       "stats": {
         "categories": "カテゴリ",
         "tools": "ツール",

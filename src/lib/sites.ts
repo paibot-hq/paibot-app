@@ -35,8 +35,8 @@ const TOOL_PATH = new RegExp(`^/(${APP_CATALOG.filter(app => app.href && TOOL_CA
 export function ownerOfPath(path: string): SiteKey | null {
   if (path === "" || path === "/") return null;
   // `.data` is a page's data request (the same page, fetched by the client router), so it follows its page.
-  if (/^\/(about|supporter|legal|sign-in|sign-up|profile)(\/|\.data$|$)/.test(path)) return null;
-  if (/^\/math(\/|\.data$|$)/.test(path)) return "learn";
+  if (/^\/(about|supporter|legal|sign-in|sign-up|profile|study|dev|network)(\/|\.data$|$)/.test(path)) return null;
+  if (/^\/(math|arith)(\/|\.data$|$)/.test(path)) return "learn";
   // The developer tools of the catalog (the categories below). Their paths come from the
   // catalog, so a new tool needs no edit here.
   return TOOL_PATH.test(path) ? "tools" : "app";

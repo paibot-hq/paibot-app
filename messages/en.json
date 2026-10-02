@@ -326,7 +326,8 @@
       }
     },
     "home": {
-      "learnBanner": {"title": "Looking to learn? Go to Learn →", "text": "Four-choice math drills, from elementary school to university, live on the learning site, Learn."},
+      "toolsBanner": {"title": "Developer tools are on Tools →", "text": "JSON formatter, IP lookup, domain lookup and other developer tools live on Tools."},
+      "learnBanner": {"title": "Looking to learn? Go to Learn →", "text": "Four-choice math drills and arithmetic practice, from elementary school to university, live on the learning site, Learn."},
       "stats": {
         "categories": "Categories",
         "tools": "Tools",
