@@ -7,14 +7,7 @@ import { type DynamicT } from "../lib/apps";
 import AppList from "./app-list";
 import { useFavoritesData } from "../routes/locale";
 import SiteFooter from "./site-footer";
-import { APP_CATALOG, APP_SITE_CATEGORIES } from "../lib/app-catalog";
 
-// Counts shown big under the hero: the app's published tools, their categories, languages. (The drills are counted on the learning site.)
-const STATS = [
-  { key: "tools", value: APP_CATALOG.filter(app => app.status === "published" && APP_SITE_CATEGORIES.includes(app.category)).length },
-  { key: "categories", value: APP_SITE_CATEGORIES.length },
-  { key: "languages", value: 3 },
-] as const;
 
 export default function Cover({ year }: { year: number }) {
   const t = useTranslations("App");
@@ -42,10 +35,6 @@ export default function Cover({ year }: { year: number }) {
           <span className="hero-mascot-eye"></span>
         </div>
       </section>
-
-      <dl className="home-stats" data-count={STATS.length}>
-        {STATS.map(({ key, value }) => <div key={key}><dd>{value}</dd><dt>{td(`home.stats.${key}`)}</dt></div>)}
-      </dl>
 
       <p className="category-showcase-intro" id="try">{t("home.tryIt")}</p>
       <AppList signedIn={signedIn} favoriteSlugs={favoriteSlugs} />

@@ -15,7 +15,6 @@ export default function LearnCover() {
     { key: 'it', title: t('subject.it.title'), text: t('subject.it.text'), badge: t('soon') },
   ];
   const stats = [
-    { key: 'subjects', value: 1, label: t('stats.subjects') },
     { key: 'units', value: MATH_CATALOG.length, label: t('stats.units') },
     { key: 'items', value: ITEMS, label: t('stats.items') },
     { key: 'languages', value: 3, label: t('stats.languages') },
