@@ -60,6 +60,7 @@ jobs:
           # PRs run the per-tool checks only for the tools they can affect
           # (scripts/affected-tools.mjs); main runs every tool.
           if [ "${{ github.event_name }}" = pull_request ]; then
+            git fetch --no-tags origin "${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}" || true
             export CHECK_TOOLS="$(node scripts/affected-tools.mjs "origin/${{ github.base_ref }}")"
             echo "Affected tools: ${CHECK_TOOLS:-none}"
           fi
