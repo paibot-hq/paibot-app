@@ -193,7 +193,7 @@
     "title": "PAIBOT.app",
     "description": "PAIBOTのアプリとクラウドユーティリティをご紹介。運用、情報整理、自動化のためのツールを開発しています。",
     "navSites": "サイト",
-    "site": { "app": "アプリ", "learn": "学習", "doc": "ドキュメント" },
+    "site": { "network": "ネットワーク", "app": "アプリ", "learn": "学習", "doc": "ドキュメント" },
     "navApps": "アプリ",
     "navAbout": "概要",
     "lead": "それだけでいい。",
@@ -259,7 +259,7 @@
       "title": "PAIBOT | アプリ・学習・ドキュメント",
       "description": "PAIBOT LLC の小さなツールと、4択で学ぶドリルと、技術の解説記事。",
       "lead": "小さな道具と、学びと、読みもの。",
-      "sites": "3つのサイト",
+      "sites": "サイト",
       "open": "公開中",
       "soon": "準備中",
       "stats": {
@@ -276,6 +276,10 @@
         "title": "Learn",
         "text": "小学校から大学まで、4択で基礎から積み上げる数学ドリル。英語・ITも準備中です。",
         "meta": "{items}の学習項目"
+      },
+      "network": {
+        "title": "Network",
+        "text": "IPの確認、ドメイン調査、CIDR計算、サイト稼働チェック。のちに監視も。"
       },
       "doc": {
         "title": "Doc",
@@ -305,6 +309,19 @@
           "text": "React Router、D1、Clerk を1つのWorkerにまとめた構成と、そのつまずき。",
           "tag": "構成"
         }
+      }
+    },
+    "networkSite": {
+      "title": "PAIBOT Network | ネットワーク診断ツール",
+      "description": "IPアドレスの確認、ドメイン調査、CIDR計算、サイト稼働チェック。無料で使えるネットワークの診断ツールです。",
+      "heading": "Network",
+      "lead": "調べて、見張る。ネットワークの道具。",
+      "tools": "ツール",
+      "free": "無料",
+      "soon": "準備中",
+      "monitor": {
+        "title": "監視",
+        "text": "サイトの稼働、ドメインや証明書の期限を見張って、変化があれば通知します。準備中です。"
       }
     },
     "home": {

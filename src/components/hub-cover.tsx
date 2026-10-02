@@ -15,6 +15,7 @@ export default function HubCover() {
   const cards: CoverCard[] = [
     { key: 'app', title: t('app.title'), text: t('app.text'), badge: t('open'), href: `${origins.app}/${locale}`, meta: t('app.meta', { tools }) },
     { key: 'learn', title: t('learn.title'), text: t('learn.text'), badge: t('open'), href: `${origins.learn}/${locale}`, meta: t('learn.meta', { items }) },
+    { key: 'network', title: t('network.title'), text: t('network.text'), badge: t('open'), href: `${origins.network}/${locale}` },
     { key: 'doc', title: t('doc.title'), text: t('doc.text'), badge: t('soon'), href: `${origins.doc}/${locale}` },
   ];
   return <>

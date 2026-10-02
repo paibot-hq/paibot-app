@@ -23,7 +23,7 @@ export default function SiteCover({ eyebrow, heading, lead, cta, ctaHref, stats,
         {stats.map(({ key, value, label }) => <div key={key}><dd>{value}</dd><dt>{label}</dt></div>)}
       </dl>}
       <h2 className={styles.heading}>{cardsHeading}</h2>
-      <ul className={styles.cards}>
+      <ul className={styles.cards} data-count={cards.length}>
         {cards.map(card => <li key={card.key}>
           {card.href
             ? <Link className={styles.card} data-ready href={card.href}><CardBody card={card} /></Link>

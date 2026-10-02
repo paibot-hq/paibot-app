@@ -193,7 +193,7 @@
     "title": "PAIBOT.app",
     "description": "介绍 PAIBOT 开发的应用与云端工具。我们正在打造用于运维、信息整理和自动化的工具。",
     "navSites": "站点",
-    "site": { "app": "应用", "learn": "学习", "doc": "文档" },
+    "site": { "network": "网络", "app": "应用", "learn": "学习", "doc": "文档" },
     "navApps": "应用",
     "navAbout": "关于",
     "lead": "有这个，就够了。",
@@ -259,7 +259,7 @@
       "title": "PAIBOT | 应用、学习与文档",
       "description": "PAIBOT LLC 的小工具、四选一练习，以及技术解说文章。",
       "lead": "小工具、学习，和值得一读的文章。",
-      "sites": "三个站点",
+      "sites": "站点",
       "open": "已开放",
       "soon": "即将推出",
       "stats": {
@@ -276,6 +276,10 @@
         "title": "Learn",
         "text": "从小学到大学，用四选一从基础一步步学的数学练习。英语和 IT 即将推出。",
         "meta": "{items} 个学习项目"
+      },
+      "network": {
+        "title": "Network",
+        "text": "IP 查询、域名查询、CIDR 计算、网站检测，之后还有监控。"
       },
       "doc": {
         "title": "Doc",
@@ -305,6 +309,19 @@
           "text": "把 React Router、D1 和 Clerk 放进一个 Worker 的结构，以及踩过的坑。",
           "tag": "架构"
         }
+      }
+    },
+    "networkSite": {
+      "title": "PAIBOT Network | 网络诊断工具",
+      "description": "查看 IP 地址、查询域名、计算 CIDR、检测网站是否在线。免费的网络诊断工具。",
+      "heading": "Network",
+      "lead": "查一查，再持续盯着。",
+      "tools": "工具",
+      "free": "免费",
+      "soon": "即将推出",
+      "monitor": {
+        "title": "监控",
+        "text": "监控网站是否在线，以及域名、证书的到期，并在有变化时通知。即将推出。"
       }
     },
     "home": {

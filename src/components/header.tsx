@@ -13,7 +13,7 @@ import { usePreferences } from "./providers";
 import { useSiteMeta } from "../root";
 
 // The sites the switcher links to; the doc site joins once it exists.
-const SWITCH = ["app", "learn"] as const;
+const SWITCH = ["app", "learn", "network"] as const;
 
 const languageNames: Record<Locale, string> = { ja: "日本語", en: "English", zh: "简体中文" };
 

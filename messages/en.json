@@ -193,7 +193,7 @@
     "title": "PAIBOT.app",
     "description": "Explore PAIBOT apps and cloud utilities. We are building tools for operations, organizing information, and automation.",
     "navSites": "Sites",
-    "site": { "app": "Apps", "learn": "Learn", "doc": "Docs" },
+    "site": { "network": "Network", "app": "Apps", "learn": "Learn", "doc": "Docs" },
     "navApps": "Apps",
     "navAbout": "About",
     "lead": "That's all you need.",
@@ -259,7 +259,7 @@
       "title": "PAIBOT | Apps, Learn and Docs",
       "description": "PAIBOT LLC's small tools, four-choice drills, and technical write-ups.",
       "lead": "Small tools, learning, and things to read.",
-      "sites": "Three sites",
+      "sites": "Sites",
       "open": "Open",
       "soon": "Coming soon",
       "stats": {
@@ -276,6 +276,10 @@
         "title": "Learn",
         "text": "Math drills in four choices, built up from the basics, from elementary school to university. English and IT are coming.",
         "meta": "{items} learning items"
+      },
+      "network": {
+        "title": "Network",
+        "text": "IP lookup, domain lookup, CIDR calculator, site check. Monitoring later."
       },
       "doc": {
         "title": "Doc",
@@ -305,6 +309,19 @@
           "text": "React Router, D1 and Clerk in one Worker: the setup, and where it bit.",
           "tag": "Architecture"
         }
+      }
+    },
+    "networkSite": {
+      "title": "PAIBOT Network | Network diagnostic tools",
+      "description": "Check your IP address, look up a domain, calculate CIDR ranges and test whether a site is up. Free network diagnostic tools.",
+      "heading": "Network",
+      "lead": "Look it up, then keep watch.",
+      "tools": "Tools",
+      "free": "Free",
+      "soon": "Coming soon",
+      "monitor": {
+        "title": "Monitoring",
+        "text": "Watch a site's uptime and the expiry of a domain or certificate, and get notified of changes. Coming soon."
       }
     },
     "home": {
