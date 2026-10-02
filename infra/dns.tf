@@ -67,20 +67,10 @@ resource "cloudflare_dns_record" "clerk_dev" {
   comment = "Managed by Terraform (infra/dns.tf) - Clerk production instance for app.paibot.dev"
 }
 
-# paibot.dev and www.paibot.dev have no site of their own yet: they redirect to app.paibot.dev
-# (infra/redirects.tf). Redirect Rules only run on proxied traffic, so both get a proxied record; the
-# apex one points at a documentation-range address that is never contacted. The app itself is the Worker's
-# custom domain app.paibot.dev (wrangler.jsonc), and doc.paibot.dev is reserved for the documentation.
-resource "cloudflare_dns_record" "apex" {
-  zone_id = local.zone_id
-  name    = "paibot.dev"
-  type    = "A"
-  content = "192.0.2.1"
-  ttl     = 1
-  proxied = true
-  comment = "Managed by Terraform (infra/dns.tf) - redirect only, see infra/redirects.tf"
-}
-
+# paibot.dev is the hub (the cover of the three sites) and app/learn/doc are its subdomains. The apex gets its DNS
+# record from the Worker's custom domain (wrangler.jsonc, added together with the host split), so none is managed
+# here. www.paibot.dev redirects to the apex (infra/redirects.tf); Redirect Rules only run on proxied traffic, so
+# it is a proxied CNAME. doc.paibot.dev is reserved for the documentation site.
 resource "cloudflare_dns_record" "www_dev" {
   zone_id = local.zone_id
   name    = "www"

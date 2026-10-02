@@ -10,7 +10,8 @@
 | --- | --- |
 | `app.paibot.dev` | 本番のアプリ(正規URL) |
 | `app-dev.paibot.dev` | 開発環境(Cloudflare Access付き)。`dev.app.paibot.dev`のように2階層にしないのは、無料のUniversal SSLが`*.paibot.dev`の1階層だけを覆うため |
-| `paibot.dev`, `www.paibot.dev` | いまは`app.paibot.dev`へ301(Terraformの Redirect Rule)。ハブのページを作るときに差し替える |
+| `paibot.dev`(直下) | hub(3つのサイトの入口の表紙)。ホスト分けの実装(`app`/`learn`/hub を同じWorkerで出し分ける)と一緒に、Workerのカスタムドメインに足す。それまでは何も向けない |
+| `www.paibot.dev` | `paibot.dev`へ301(Terraformの Redirect Rule) |
 | `doc.paibot.dev` | ドキュメント用に予約。まだ作らない |
 | `paibot.app`, `www.paibot.app` | `app.paibot.dev`へ301。廃止まで |
 
@@ -21,7 +22,7 @@
 | `wrangler.jsonc` | dev: `app-dev.paibot.dev`。本番: `app.paibot.dev`(正)と`paibot.app`(転送だけ)のカスタムドメイン、`SITE_URL=https://app.paibot.dev` |
 | `workers/app.ts`, `src/lib/legacy-host.ts` | `paibot.app`・`www.paibot.app`への要求を、`SITE_URL`の同じパスへ301。単体テストあり |
 | `src/lib/seo*.ts`, `src/root.tsx` | 正規URLの既定値を`https://app.paibot.dev`に |
-| `infra/` | 既定ゾーンを`paibot.dev`に。旧ゾーン(`legacy_domain`)のClerk用DNSと`www`転送は旧ゾーンのまま、転送先だけ`app.paibot.dev`へ。`paibot.dev`のゾーンに、裸ドメインと`www`の転送・Clerk用DNS(空)を追加 |
+| `infra/` | 既定ゾーンを`paibot.dev`に。旧ゾーン(`legacy_domain`)のClerk用DNSと`www`転送は旧ゾーンのまま、転送先だけ`app.paibot.dev`へ。`paibot.dev`のゾーンに、`www`の転送・Clerk用DNS(空)を追加。裸ドメイン(hub)のDNSは、Workerのカスタムドメインを足すときにできる |
 | `.github/workflows/`, `tests/e2e/` | スモークテスト・環境チェックのURLを`app-dev.paibot.dev`/`app.paibot.dev`に |
 
 ## 手作業(この順で)

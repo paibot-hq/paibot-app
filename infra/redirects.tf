@@ -1,4 +1,4 @@
-# Old and bare hosts -> https://app.paibot.dev, preserving path and query string. These are zone-level Redirect Rules
+# Old hosts -> https://app.paibot.dev, and www.paibot.dev -> the hub at https://paibot.dev, preserving path and query string. These are zone-level Redirect Rules
 # (Cloudflare's newer replacement for Page Rules), custom rulesets in the http_request_dynamic_redirect
 # phase. They need the `www` DNS records in infra/dns.tf to be proxied: Redirect Rules only evaluate
 # traffic that actually passes through Cloudflare's edge.
@@ -29,24 +29,24 @@ resource "cloudflare_ruleset" "www_redirect" {
   ]
 }
 
-resource "cloudflare_ruleset" "bare_redirect_dev" {
+resource "cloudflare_ruleset" "www_redirect_dev" {
   zone_id     = local.zone_id
-  name        = "bare and www to app redirect"
-  description = "Redirects paibot.dev and www.paibot.dev to https://app.paibot.dev, preserving path and query string"
+  name        = "www to hub redirect"
+  description = "Redirects www.paibot.dev to https://paibot.dev, preserving path and query string"
   kind        = "zone"
   phase       = "http_request_dynamic_redirect"
 
   rules = [
     {
-      description = "Redirect the bare domain and www to the app"
-      expression  = "(http.host eq \"paibot.dev\" or http.host eq \"www.paibot.dev\")"
+      description = "Redirect www to the hub"
+      expression  = "(http.host eq \"www.paibot.dev\")"
       action      = "redirect"
       action_parameters = {
         from_value = {
           status_code           = 301
           preserve_query_string = true
           target_url = {
-            expression = "concat(\"https://app.paibot.dev\", http.request.uri.path)"
+            expression = "concat(\"https://paibot.dev\", http.request.uri.path)"
           }
         }
       }
