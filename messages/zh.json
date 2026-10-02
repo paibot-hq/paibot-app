@@ -193,7 +193,7 @@
     "title": "PAIBOT.app",
     "description": "介绍 PAIBOT 开发的应用与云端工具。我们正在打造用于运维、信息整理和自动化的工具。",
     "navSites": "站点",
-    "site": { "app": "App", "learn": "Learn", "network": "Network", "doc": "Doc" },
+    "site": { "app": "App", "learn": "Learn", "tools": "Tools", "doc": "Doc" },
     "navApps": "应用",
     "navAbout": "关于",
     "lead": "有这个，就够了。",
@@ -277,9 +277,10 @@
         "text": "从小学到大学，用四选一从基础一步步学的数学练习。英语和 IT 即将推出。",
         "meta": "{items} 个学习项目"
       },
-      "network": {
-        "title": "Network",
-        "text": "IP 查询、域名查询、CIDR 计算、网站检测，之后还有监控。"
+      "tools": {
+        "title": "Tools",
+        "text": "网络诊断、JSON 格式化、字数统计等，打开即用的工具。之后还有监控。",
+        "meta": "{tools} 个工具"
       },
       "doc": {
         "title": "Doc",
@@ -311,11 +312,11 @@
         }
       }
     },
-    "networkSite": {
-      "title": "PAIBOT Network | 网络诊断工具",
-      "description": "查看 IP 地址、查询域名、计算 CIDR、检测网站是否在线。免费的网络诊断工具。",
-      "heading": "Network",
-      "lead": "查一查，再持续盯着。",
+      "toolsSite": {
+      "title": "PAIBOT Tools | 打开即用的工具",
+      "description": "打开就能用的免费工具：JSON 格式化、Base64、字数统计、密码生成、IP 查询、域名查询、网站检测等。",
+      "heading": "Tools",
+      "lead": "打开就能用。",
       "tools": "工具",
       "free": "免费",
       "soon": "即将推出",

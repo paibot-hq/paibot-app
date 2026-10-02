@@ -193,7 +193,7 @@
     "title": "PAIBOT.app",
     "description": "PAIBOTのアプリとクラウドユーティリティをご紹介。運用、情報整理、自動化のためのツールを開発しています。",
     "navSites": "サイト",
-    "site": { "app": "App", "learn": "Learn", "network": "Network", "doc": "Doc" },
+    "site": { "app": "App", "learn": "Learn", "tools": "Tools", "doc": "Doc" },
     "navApps": "アプリ",
     "navAbout": "概要",
     "lead": "それだけでいい。",
@@ -277,9 +277,10 @@
         "text": "小学校から大学まで、4択で基礎から積み上げる数学ドリル。英語・ITも準備中です。",
         "meta": "{items}の学習項目"
       },
-      "network": {
-        "title": "Network",
-        "text": "IPの確認、ドメイン調査、CIDR計算、サイト稼働チェック。のちに監視も。"
+      "tools": {
+        "title": "Tools",
+        "text": "ネットワーク診断、JSON整形、文字数カウントなど、開いてすぐ使える道具。のちに監視も。",
+        "meta": "{tools}のツール"
       },
       "doc": {
         "title": "Doc",
@@ -311,11 +312,11 @@
         }
       }
     },
-    "networkSite": {
-      "title": "PAIBOT Network | ネットワーク診断ツール",
-      "description": "IPアドレスの確認、ドメイン調査、CIDR計算、サイト稼働チェック。無料で使えるネットワークの診断ツールです。",
-      "heading": "Network",
-      "lead": "調べて、見張る。ネットワークの道具。",
+      "toolsSite": {
+      "title": "PAIBOT Tools | 開いてすぐ使えるツール",
+      "description": "JSON整形、Base64、文字数カウント、パスワード生成、IP確認、ドメイン調査、サイト稼働チェックなど、無料ですぐ使えるツール集です。",
+      "heading": "Tools",
+      "lead": "開いて、すぐ使える。",
       "tools": "ツール",
       "free": "無料",
       "soon": "準備中",

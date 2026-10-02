@@ -116,13 +116,13 @@ try {
     [{ 'Accept-Language': 'fr-FR,fr;q=0.9' }, 'ja'],
     [{ 'Accept-Language': 'en-US', Cookie: 'locale=zh' }, 'zh'],
   ]) {
-    const res = await request('/json?x=1', { redirect: 'manual', headers });
+    const res = await request('/apps?x=1', { redirect: 'manual', headers });
     assert.equal(res.status, 307);
-    assert.equal(res.headers.get('location'), `/${expected}/json?x=1`, JSON.stringify(headers));
+    assert.equal(res.headers.get('location'), `/${expected}/apps?x=1`, JSON.stringify(headers));
     assert.match(res.headers.get('vary') ?? '', /Accept-Language/);
   }
   // Locale URLs never redirect by language, so crawlers can reach every one.
-  const pinned = await request('/ja/json', { redirect: 'manual', headers: { 'Accept-Language': 'en' } });
+  const pinned = await request('/ja/apps', { redirect: 'manual', headers: { 'Accept-Language': 'en' } });
   assert.equal(pinned.status, 200);
   await pinned.body?.cancel();
   for (const path of ['/invalid/wc', '/ja/missing', '/api/missing', '/missing']) {
@@ -220,22 +220,23 @@ try {
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'category page fits mobile width');
   await page.setViewportSize({ width: 1280, height: 720 });
   console.log('PASS: six categories in three locales, home links, scoped search, all-app navigation and mobile width');
+  // The character counter is a tool of the tools site (src/lib/sites.ts).
   for (const locale of locales) {
-    await go(`/${locale}/wc`);
+    await page.goto(`${siteOrigins(base).tools}/${locale}/wc`);
     // fill auto-waits for the textarea to become enabled after hydration.
     await page.locator('textarea').fill('Aあ😀');
     await page.waitForFunction(() => document.querySelector('[aria-live="polite"]')?.textContent === '3');
   }
   console.log('PASS: character counting including emoji in three locales');
-  await go('/ja/wc');
+  await go('/ja/age');
   await page.locator('.language-toggle').click();
   await page.getByRole('menuitem', { name: 'English', exact: true }).click();
-  await page.waitForURL(`${base}/en/wc`);
+  await page.waitForURL(`${base}/en/age`);
   await page.waitForFunction(() => document.documentElement.lang === 'en');
   // Remembered for locale-less URLs (see the redirect checks above).
   assert.equal((await page.context().cookies()).find(cookie => cookie.name === 'locale')?.value, 'en');
   assert.equal(await page.locator('title').count(), 1);
-  assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), `${siteOrigin}/en/wc`);
+  assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), `${siteOrigin}/en/age`);
   const beforeTheme = await page.locator('html').getAttribute('data-theme');
   const theme = beforeTheme === 'dark' ? 'light' : 'dark';
   await page.locator('.theme-toggle').click();

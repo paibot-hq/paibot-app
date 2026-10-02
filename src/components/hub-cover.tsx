@@ -11,11 +11,12 @@ export default function HubCover() {
   const { origins } = useSiteMeta();
   const t = useTranslations('App.hub');
   const tools = APP_CATALOG.filter(app => app.status === 'published').length;
+  const openTools = APP_CATALOG.filter(app => ['network', 'dev', 'utility'].includes(app.category) && app.status === 'published').length;
   const items = MATH_CATALOG.reduce((sum, unit) => sum + unit.items.length, 0);
   const cards: CoverCard[] = [
     { key: 'app', title: t('app.title'), text: t('app.text'), badge: t('open'), href: `${origins.app}/${locale}`, meta: t('app.meta', { tools }) },
     { key: 'learn', title: t('learn.title'), text: t('learn.text'), badge: t('open'), href: `${origins.learn}/${locale}`, meta: t('learn.meta', { items }) },
-    { key: 'network', title: t('network.title'), text: t('network.text'), badge: t('open'), href: `${origins.network}/${locale}` },
+    { key: 'tools', title: t('tools.title'), text: t('tools.text'), badge: t('open'), href: `${origins.tools}/${locale}`, meta: t('tools.meta', { tools: openTools }) },
     { key: 'doc', title: t('doc.title'), text: t('doc.text'), badge: t('soon'), href: `${origins.doc}/${locale}` },
   ];
   return <>

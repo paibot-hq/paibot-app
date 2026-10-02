@@ -1,7 +1,7 @@
 import Cover from '../components/cover';
 import HubCover from '../components/hub-cover';
 import LearnCover from '../components/learn-cover';
-import NetworkCover from '../components/network-cover';
+import ToolsCover from '../components/tools-cover';
 import PublicHead from '../components/public-head';
 import { useLocale, useTranslations } from 'use-intl';
 import { useSiteMeta } from '../root';
@@ -13,6 +13,6 @@ export default function Home() {
   const { site } = useSiteMeta();
   if (site === 'hub') return <HubCover />;
   if (site === 'learn') return <LearnCover />;
-  if (site === 'network') return <NetworkCover />;
+  if (site === 'tools') return <ToolsCover />;
   return <><PublicHead locale={locale} path="" title={t('title')} description={t('description')} /><Cover year={new Date().getFullYear()} /></>;
 }
