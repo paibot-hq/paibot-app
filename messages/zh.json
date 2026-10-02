@@ -192,6 +192,8 @@
     "backHome": "返回首页",
     "title": "PAIBOT.app",
     "description": "介绍 PAIBOT 开发的应用与云端工具。我们正在打造用于运维、信息整理和自动化的工具。",
+    "navSites": "站点",
+    "site": { "app": "应用", "learn": "学习", "doc": "文档" },
     "navApps": "应用",
     "navAbout": "关于",
     "lead": "有这个，就够了。",
@@ -359,6 +361,7 @@
       }
     },
     "footer": {
+      "about": "关于",
       "label": "运营信息",
       "supporter": "支持者",
       "terms": "使用条款",

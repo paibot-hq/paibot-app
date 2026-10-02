@@ -192,6 +192,8 @@
     "backHome": "Back to home",
     "title": "PAIBOT.app",
     "description": "Explore PAIBOT apps and cloud utilities. We are building tools for operations, organizing information, and automation.",
+    "navSites": "Sites",
+    "site": { "app": "Apps", "learn": "Learn", "doc": "Docs" },
     "navApps": "Apps",
     "navAbout": "About",
     "lead": "That's all you need.",
@@ -359,6 +361,7 @@
       }
     },
     "footer": {
+      "about": "About",
       "label": "Company information",
       "supporter": "Supporter",
       "terms": "Terms of Service",
