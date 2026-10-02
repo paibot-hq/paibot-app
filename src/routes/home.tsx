@@ -1,4 +1,5 @@
 import Cover from '../components/cover';
+import DocCover from '../components/doc-cover';
 import HubCover from '../components/hub-cover';
 import LearnCover from '../components/learn-cover';
 import ToolsCover from '../components/tools-cover';
@@ -14,5 +15,6 @@ export default function Home() {
   if (site === 'hub') return <HubCover />;
   if (site === 'learn') return <LearnCover />;
   if (site === 'tools') return <ToolsCover />;
+  if (site === 'doc') return <DocCover />;
   return <><PublicHead locale={locale} path="" title={t('title')} description={t('description')} /><Cover year={new Date().getFullYear()} /></>;
 }

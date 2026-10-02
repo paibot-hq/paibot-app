@@ -53,9 +53,9 @@ const GA_MEASUREMENT_ID = "G-5WNRMDB15J";
 
 export function Layout({ children }: { children: ReactNode }) {
   const { locale } = useParams();
-  const { isIndexable } = useSiteMeta();
+  const { isIndexable, site } = useSiteMeta();
   const { pathname } = useLocation();
-  const indexPage = isIndexable && !isComingSoonMathPath(pathname) && !/^\/(ja|en|zh)\/(sign-in|sign-up|diary|profile|doc)(\/|$)/.test(pathname);
+  const indexPage = isIndexable && site !== 'doc' && !isComingSoonMathPath(pathname) && !/^\/(ja|en|zh)\/(sign-in|sign-up|diary|profile)(\/|$)/.test(pathname);
   return <html lang={isLocale(locale) ? locale : 'ja'}><head>
     {isIndexable && <>
       <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />

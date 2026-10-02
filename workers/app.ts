@@ -8,7 +8,7 @@ import { pathWithoutLocale } from '../src/lib/seo';
 import { ownerOfPath, siteOfHost, siteOrigins } from '../src/lib/sites';
 
 const handle = createRequestHandler(() => import('virtual:react-router/server-build'), import.meta.env.MODE);
-const AUTH_PATH = new RegExp(`^/(${locales.join('|')})/(sign-in|sign-up|diary|profile|doc)(/|\\.data$|$)`);
+const AUTH_PATH = new RegExp(`^/(${locales.join('|')})/(sign-in|sign-up|diary|profile)(/|\\.data$|$)`);
 const csp = buildContentSecurityPolicy();
 
 export default {
