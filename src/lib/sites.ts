@@ -35,3 +35,11 @@ export function ownerOfPath(path: string): SiteKey | null {
   // The network tools (src/lib/app-catalog.ts, category "network"); a test keeps this list in step with the catalog.
   return /^\/(ip|domain|cidr|site-check)(\/|\.data$|$)/.test(path) ? "network" : "app";
 }
+
+// The sites the header's switcher lists, in order. A site joins once it is served (doc.paibot.dev is not yet).
+export const SWITCHER: readonly { key: Exclude<SiteKey, "hub">; live: boolean }[] = [
+  { key: "app", live: true },
+  { key: "learn", live: true },
+  { key: "network", live: true },
+  { key: "doc", live: false },
+];

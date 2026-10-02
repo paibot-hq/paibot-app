@@ -11,9 +11,7 @@ import { useTranslations, useLocale } from "use-intl";
 import { usePathname } from "../i18n/navigation";
 import { usePreferences } from "./providers";
 import { useSiteMeta } from "../root";
-
-// The sites the switcher links to; the doc site joins once it exists.
-const SWITCH = ["app", "learn", "network"] as const;
+import { SWITCHER } from "../lib/sites";
 
 const languageNames: Record<Locale, string> = { ja: "日本語", en: "English", zh: "简体中文" };
 
@@ -68,8 +66,8 @@ export default function Header() {
           <Link className="brand-site" href="/">{t(`site.${site}`)}</Link>
         </>}
       </div>
-      <nav aria-label={t("navSites")}>
-        {SWITCH.map(key => <a key={key} href={`${origins[key]}/${language}`} aria-current={site === key ? "page" : undefined}>{t(`site.${key}`)}</a>)}
+      <nav className="site-switcher" aria-label={t("navSites")}>
+        {SWITCHER.filter(entry => entry.live).map(({ key }) => <a key={key} href={`${origins[key]}/${language}`} aria-current={site === key ? "page" : undefined}>{t(`site.${key}`)}</a>)}
       </nav>
       <div className="toolbar">
         <Show when="signed-out">
