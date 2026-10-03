@@ -42,6 +42,10 @@ export function ownerOfPath(path: string): SiteKey | null {
   return TOOL_PATH.test(path) ? "tools" : "app";
 }
 
+// Whether the header shows the switcher at all. Off: each site stands alone and the way to the others is the
+// PAIBOT in the logo (the hub). The switcher stays built so it can come back with this flag.
+export const SHOW_SWITCHER = false;
+
 // The sites the header's switcher lists, in order. A site joins once it is served (doc.paibot.dev is not yet).
 export const SWITCHER: readonly { key: Exclude<SiteKey, "hub">; live: boolean }[] = [
   { key: "app", live: true },

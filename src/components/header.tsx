@@ -11,7 +11,7 @@ import { useTranslations, useLocale } from "use-intl";
 import { usePathname } from "../i18n/navigation";
 import { usePreferences } from "./providers";
 import { useSiteMeta } from "../root";
-import { SWITCHER } from "../lib/sites";
+import { SHOW_SWITCHER, SWITCHER } from "../lib/sites";
 
 const languageNames: Record<Locale, string> = { ja: "日本語", en: "English", zh: "简体中文" };
 
@@ -54,7 +54,7 @@ export default function Header() {
 
 
   return (
-    <header className="topbar">
+    <header className="topbar" data-switcher={SHOW_SWITCHER || undefined}>
       {/* PAIBOT goes to the hub, the site's name after it to the cover of the site being read. */}
       <div className="brand-trail">
         <a className="brand" href={`${origins.hub}/${language}`}>
@@ -66,9 +66,9 @@ export default function Header() {
           <Link className="brand-site" href="/">{t(`site.${site}`)}</Link>
         </>}
       </div>
-      <nav className="site-switcher" aria-label={t("navSites")}>
-        {SWITCHER.filter(entry => entry.live).map(({ key }) => <a key={key} href={`${origins[key]}/${language}`} aria-current={site === key ? "page" : undefined}>{t(`site.${key}`)}</a>)}
-      </nav>
+      {SHOW_SWITCHER && <nav className="site-switcher" aria-label={t("navSites")}>
+                {SWITCHER.filter(entry => entry.live).map(({ key }) => <a key={key} href={`${origins[key]}/${language}`} aria-current={site === key ? "page" : undefined}>{t(`site.${key}`)}</a>)}
+              </nav>}
       <div className="toolbar">
         <Show when="signed-out">
           <Link className="auth-link" href={`/sign-in?redirect_url=${encodeURIComponent(`/${language}${pathname === "/" ? "" : pathname}`)}`}>{t("signIn")}</Link>
