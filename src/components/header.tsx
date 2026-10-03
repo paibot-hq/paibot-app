@@ -11,7 +11,7 @@ import { useTranslations, useLocale } from "use-intl";
 import { usePathname } from "../i18n/navigation";
 import { usePreferences } from "./providers";
 import { useSiteMeta } from "../root";
-import { SHOW_SWITCHER, SWITCHER } from "../lib/sites";
+import { SHOW_SWITCHER, SWITCHER, sharedCookieDomain } from "../lib/sites";
 
 const languageNames: Record<Locale, string> = { ja: "日本語", en: "English", zh: "简体中文" };
 
@@ -27,7 +27,8 @@ export default function Header() {
   // locale-less redirect (routes/redirect.ts), and the profile when signed
   // in. The page navigates immediately either way; this just rides along.
   const chooseLanguage = (value: Locale) => {
-    document.cookie = `${LOCALE_COOKIE}=${value}; Path=/; Max-Age=31536000; SameSite=Lax; Secure`;
+    const domain = sharedCookieDomain(location.hostname);
+    document.cookie = `${LOCALE_COOKIE}=${value}; Path=/; Max-Age=31536000; SameSite=Lax; Secure${domain ? `; Domain=${domain}` : ""}`;
     if (signedIn && value !== language) saveLanguage.submit({ intent: "locale", value }, { method: "post", action: `/${language}/profile` });
   };
   const [menuOpen, setMenuOpen] = useState(false);

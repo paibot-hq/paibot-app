@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { APP_CATALOG } from '../../src/lib/app-catalog.ts';
-import { ownerOfPath, siteOfHost, siteOrigins } from '../../src/lib/sites.ts';
+import { ownerOfPath, sharedCookieDomain, siteOfHost, siteOrigins } from '../../src/lib/sites.ts';
 
 test('the host decides the site; the apex, localhost and unknown hosts are the hub', () => {
   assert.equal(siteOfHost('app.paibot.dev'), 'app');
@@ -41,4 +41,9 @@ test('math belongs to learn, the tools to app, and the shared pages to nobody', 
 test('each catalog tool belongs to the site of its category', () => {
   const site = { network: 'tools', dev: 'tools', study: 'learn' };
   for (const app of APP_CATALOG) if (app.href) assert.equal(ownerOfPath(app.href), site[app.category] ?? 'app', app.slug);
+});
+
+test('a cookie shared by the sites is set on the parent domain, and not where browsers refuse it', () => {
+  for (const host of ['paibot.dev', 'app.paibot.dev', 'learn-dev.paibot.dev', 'tools.paibot.dev']) assert.equal(sharedCookieDomain(host), '.paibot.dev', host);
+  for (const host of ['localhost', 'app.localhost', 'learn.localhost', '127.0.0.1']) assert.equal(sharedCookieDomain(host), null, host);
 });

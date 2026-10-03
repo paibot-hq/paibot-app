@@ -30,6 +30,13 @@ export function siteOrigins(origin: string): Record<SiteKey, string> {
 const TOOL_CATEGORIES = ["network", "dev"];
 const TOOL_PATH = new RegExp(`^/(${APP_CATALOG.filter(app => app.href && TOOL_CATEGORIES.includes(app.category)).map(app => app.href!.slice(1)).join("|")})(/|\\.data$|$)`);
 
+// The Domain of a cookie the sites share (the theme, the language): the parent of the host, so app, learn, tools and
+// the hub all see it. null where a browser would not take one (localhost and IP addresses): there each host keeps its own.
+export function sharedCookieDomain(hostname: string): string | null {
+  const root = SUBDOMAIN.exec(hostname)?.[3] ?? hostname;
+  return /^\d+(\.\d+){3}$/.test(root) || !root.includes(".") || root.endsWith(".localhost") ? null : `.${root}`;
+}
+
 // Which site owns a path (without the locale prefix), so the others can send a visitor there; null when any site
 // may serve it (each cover, and the pages every site shares).
 export function ownerOfPath(path: string): SiteKey | null {
