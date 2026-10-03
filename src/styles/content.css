@@ -411,24 +411,6 @@ footer {
 .category-nav a:focus-visible, .app-category-title a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .app-category-title a { color: inherit; text-decoration: none; }
 
-/* From the app's cover to the learning site. */
-.learn-banner {
-  display: grid;
-  gap: .3rem;
-  width: min(100%, 840px);
-  box-sizing: border-box;
-  margin: 0 auto 1rem;
-  padding: 1.1rem 1.4rem;
-  border: 1px solid var(--accent);
-  border-radius: var(--radius);
-  background: var(--surface);
-  color: var(--text);
-  text-decoration: none;
-}
-.learn-banner:hover, .learn-banner:focus-visible { box-shadow: 0 0 0 2px var(--accent); outline: none; }
-.learn-banner-title { color: var(--accent); font-weight: 700; font-size: 1.1rem; }
-.learn-banner-text { color: var(--muted); font-size: .95rem; line-height: 1.6; }
-.learn-banner:last-of-type { margin-bottom: 2.5rem; }
 
 
 .category-showcase-intro + .app-list { margin-top: .9rem; }

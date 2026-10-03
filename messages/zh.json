@@ -326,8 +326,6 @@
       }
     },
     "home": {
-      "toolsBanner": {"title": "开发者工具在 Tools →", "text": "JSON 格式化、IP 查询、域名查询等开发者工具在 Tools。"},
-      "learnBanner": {"title": "想学习？前往 Learn →", "text": "从小学到大学的四选一数学练习和计算练习，在学习站点 Learn。"},
       "stats": {
         "categories": "分类",
         "tools": "工具",
