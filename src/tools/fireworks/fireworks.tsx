@@ -5,117 +5,70 @@ import { useTranslations } from "use-intl";
 import ToolLayout from "../../components/tool-layout";
 import controls from "../../components/tool-controls.module.css";
 import styles from "./fireworks.module.css";
-import { BURSTS, SHOW_LENGTH, createScene, launch, showSchedule, step, type Burst, type BurstEvent, type Scene, type ShowShot } from "./engine";
+import { playBurst, playLaunch } from "./audio";
+import {
+  DIAMETER_M, KINDS, PALETTES, SHOW_LENGTH, SIZES, createScene, finale, fountain, launch, showSchedule, soundDelay, starmine, step,
+  type Kind, type Palette, type Scene, type ShowItem, type Size,
+} from "./engine";
+import { drawFrame } from "./render";
 
-type Kind = "random" | Burst;
 const ASPECT = 0.62;
-// After the finale, the sparks fall for a while and the sky rests before the show starts again.
-const SHOW_PAUSE = 6;
+// After the finale the sparks fall and the smoke thins before the festival starts again.
+const SHOW_PAUSE = 8;
+const SWATCH: Record<Palette, string> = {
+  auto: "conic-gradient(#e0483f, #f08a30, #f0c040, #3fb36b, #3f7fe0, #9a5fd0, #e0483f)",
+  red: "hsl(2 90% 58%)", orange: "hsl(24 95% 56%)", gold: "hsl(44 95% 56%)", green: "hsl(130 65% 48%)", blue: "hsl(212 90% 60%)", purple: "hsl(285 70% 62%)", white: "hsl(210 20% 94%)",
+};
 
-// A short, dull thud for the launch and a pop that is louder for a bigger burst: noise with a falling low-pass filter.
-function playBurst(audio: AudioContext, event: BurstEvent) {
-  const length = Math.floor(audio.sampleRate * 0.6);
-  const buffer = audio.createBuffer(1, length, audio.sampleRate);
-  const data = buffer.getChannelData(0);
-  for (let i = 0; i < length; i++) data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, 2.5);
-  const source = audio.createBufferSource();
-  source.buffer = buffer;
-  const filter = audio.createBiquadFilter();
-  filter.type = "lowpass";
-  filter.frequency.setValueAtTime(1800, audio.currentTime);
-  filter.frequency.exponentialRampToValueAtTime(160, audio.currentTime + 0.5);
-  const gain = audio.createGain();
-  gain.gain.value = Math.min(0.5, 0.15 + event.count / 400);
-  source.connect(filter).connect(gain).connect(audio.destination);
-  source.start();
-}
-
-function playLaunch(audio: AudioContext) {
-  const oscillator = audio.createOscillator();
-  const gain = audio.createGain();
-  oscillator.type = "sawtooth";
-  oscillator.frequency.setValueAtTime(220, audio.currentTime);
-  oscillator.frequency.exponentialRampToValueAtTime(900, audio.currentTime + 0.5);
-  gain.gain.setValueAtTime(0.025, audio.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, audio.currentTime + 0.55);
-  oscillator.connect(gain).connect(audio.destination);
-  oscillator.start();
-  oscillator.stop(audio.currentTime + 0.6);
-}
-
-// The night sky is always dark, whatever the page's theme; the town below it is a silhouette.
-function drawTown(context: CanvasRenderingContext2D, width: number, height: number) {
-  context.fillStyle = "#03050d";
-  context.beginPath();
-  context.moveTo(0, height);
-  const blocks = 14;
-  for (let i = 0; i <= blocks; i++) {
-    const x = (i / blocks) * width;
-    const roof = height - 12 - ((i * 37) % 5) * 7 - (i % 3) * 4;
-    context.lineTo(x, roof);
-    context.lineTo(x + width / blocks, roof);
-  }
-  context.lineTo(width, height);
-  context.closePath();
-  context.fill();
-}
-
-function draw(context: CanvasRenderingContext2D, scene: Scene) {
-  const { width, height } = scene;
-  // Fading rather than clearing leaves each spark a short tail.
-  context.globalCompositeOperation = "destination-out";
-  context.fillStyle = "rgba(0, 0, 0, 0.24)";
-  context.fillRect(0, 0, width, height);
-  context.globalCompositeOperation = "lighter";
-  for (const rocket of scene.rockets) {
-    context.strokeStyle = `hsla(${rocket.hue}, 100%, 85%, 0.9)`;
-    context.lineWidth = 2;
-    context.beginPath();
-    context.moveTo(rocket.x - rocket.vx * 0.05, rocket.y - rocket.vy * 0.05);
-    context.lineTo(rocket.x, rocket.y);
-    context.stroke();
-  }
-  for (const spark of scene.sparks) {
-    const fade = Math.min(1, spark.life / (spark.maxLife * 0.5));
-    const alpha = spark.twinkle && Math.random() < 0.18 ? fade * 0.3 : fade;
-    context.fillStyle = `hsla(${spark.hue}, 100%, ${62 + 18 * fade}%, ${alpha})`;
-    context.beginPath();
-    context.arc(spark.x, spark.y, spark.size, 0, Math.PI * 2);
-    context.fill();
-  }
-  context.globalCompositeOperation = "source-over";
-  drawTown(context, width, height);
-}
+type Timeline = { items: ShowItem[]; at: number; next: number };
+type Settings = { kind: Kind | "random"; size: Size; palette: Palette; wind: number; distance: number; speed: number; reflect: boolean; sound: boolean };
+const DEFAULTS: Settings = { kind: "random", size: 5, palette: "auto", wind: 0, distance: 600, speed: 1, reflect: true, sound: false };
 
 export default function Fireworks() {
   const t = useTranslations("App.fireworks");
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const sceneRef = useRef<Scene>(createScene(800, 800 * ASPECT));
   const audioRef = useRef<AudioContext | null>(null);
-  const showRef = useRef<{ shots: ShowShot[]; at: number; next: number }>({ shots: [], at: 0, next: 0 });
-  const kindRef = useRef<Kind>("random");
-  const autoRef = useRef(false);
-  const soundRef = useRef(false);
+  const festivalRef = useRef<Timeline | null>(null);
+  const extrasRef = useRef<Timeline[]>([]);
+  const settingsRef = useRef<Settings>(DEFAULTS);
+  const festivalOnRef = useRef(false);
+  const [settings, setSettings] = useState<Settings>(DEFAULTS);
+  const [festival, setFestival] = useState(false);
   const [launched, setLaunched] = useState(0);
-  const [kind, setKind] = useState<Kind>("random");
-  const [auto, setAuto] = useState(false);
-  const [sound, setSound] = useState(false);
   const [calm, setCalm] = useState(false);
 
-  kindRef.current = kind;
-  autoRef.current = auto;
-  soundRef.current = sound;
+  settingsRef.current = settings;
+  festivalOnRef.current = festival;
+  const change = (patch: Partial<Settings>) => setSettings(current => ({ ...current, ...patch }));
 
-  function fire(x: number, y: number) {
+  function shoot(x: number, y: number, kind?: Kind, size?: Size) {
     const scene = sceneRef.current;
-    launch(scene, Math.random, x, y, kindRef.current === "random" ? undefined : kindRef.current);
-    setLaunched(scene.launched);
-    if (soundRef.current && audioRef.current) playLaunch(audioRef.current);
+    const now = settingsRef.current;
+    launch(scene, Math.random, x, y, { kind: kind ?? now.kind, size: size ?? now.size, palette: now.palette });
+    if (now.sound && audioRef.current) playLaunch(audioRef.current);
   }
 
-  function fireAnywhere() {
+  function shootAnywhere() {
     const { width, height } = sceneRef.current;
-    fire(width * (0.15 + 0.7 * Math.random()), height * (0.16 + 0.34 * Math.random()));
+    shoot(width * (0.15 + 0.7 * Math.random()), height * (0.2 + 0.28 * Math.random()));
+  }
+
+  function run(items: ShowItem[]) {
+    extrasRef.current.push({ items, at: 0, next: 0 });
+  }
+
+  function startStarmine() {
+    const { width, height } = sceneRef.current;
+    run(starmine(Math.random, width, height, 0, 9));
+  }
+  function startNiagara() {
+    const { width, height } = sceneRef.current;
+    run([{ type: "fountain", at: 0, x0: width * 0.2, x1: width * 0.8, y: height * 0.5, seconds: 12 }]);
+  }
+  function startFinale() {
+    const { width, height } = sceneRef.current;
+    run(finale(Math.random, width, height, 0));
   }
 
   useEffect(() => {
@@ -143,27 +96,42 @@ export default function Fireworks() {
     fit();
     const observer = new ResizeObserver(fit);
     observer.observe(canvas);
+    // Plays a timeline's items that are due; returns whether it has more.
+    const play = (line: Timeline, dt: number): boolean => {
+      const scene = sceneRef.current;
+      const now = settingsRef.current;
+      line.at += dt;
+      while (line.next < line.items.length && line.items[line.next].at <= line.at) {
+        const item = line.items[line.next++];
+        if (item.type === "shell") {
+          launch(scene, Math.random, item.x, item.y, { kind: item.kind, size: item.size, palette: now.palette });
+          if (now.sound && audioRef.current) playLaunch(audioRef.current);
+        } else {
+          fountain(scene, item.x0, item.x1, item.y, item.seconds);
+        }
+      }
+      return line.next < line.items.length;
+    };
     let frame = 0;
     let last = performance.now();
+    let shown = -1;
     const loop = (now: number) => {
-      const dt = (now - last) / 1000;
+      const real = (now - last) / 1000;
       last = now;
       const scene = sceneRef.current;
-      if (autoRef.current) {
-        const show = showRef.current;
-        if (!show.shots.length) showRef.current = { shots: showSchedule(Math.random, scene.width, scene.height), at: 0, next: 0 };
-        show.at += Math.min(dt, 0.1);
-        while (show.next < show.shots.length && show.shots[show.next].at <= show.at) {
-          const shot = show.shots[show.next++];
-          launch(scene, Math.random, shot.x, shot.y, shot.burst);
-          if (soundRef.current && audioRef.current) playLaunch(audioRef.current);
-        }
-        if (show.at > SHOW_LENGTH + SHOW_PAUSE) showRef.current = { shots: [], at: 0, next: 0 };
-        setLaunched(scene.launched);
+      const live = settingsRef.current;
+      const dt = Math.min(real, 0.1) * live.speed;
+      scene.wind = live.wind;
+      if (festivalOnRef.current) {
+        if (!festivalRef.current) festivalRef.current = { items: showSchedule(Math.random, scene.width, scene.height), at: 0, next: 0 };
+        play(festivalRef.current, dt);
+        if (festivalRef.current.at > SHOW_LENGTH + SHOW_PAUSE) festivalRef.current = null;
       }
+      extrasRef.current = extrasRef.current.filter(line => play(line, dt));
       const events = step(scene, dt, Math.random);
-      if (soundRef.current && audioRef.current) for (const event of events) playBurst(audioRef.current, event);
-      draw(context, scene);
+      if (live.sound && audioRef.current) for (const event of events) playBurst(audioRef.current, event, live.distance);
+      drawFrame(context, scene, { reflect: live.reflect });
+      if (scene.launched !== shown) { shown = scene.launched; setLaunched(shown); }
       frame = requestAnimationFrame(loop);
     };
     frame = requestAnimationFrame(loop);
@@ -174,53 +142,103 @@ export default function Fireworks() {
 
   function toggleSound() {
     // The audio context is made on this tap: browsers only allow sound after a gesture.
-    if (!sound && !audioRef.current) audioRef.current = new AudioContext();
-    if (!sound) void audioRef.current?.resume();
-    setSound(on => !on);
+    if (!settings.sound && !audioRef.current) audioRef.current = new AudioContext();
+    if (!settings.sound) void audioRef.current?.resume();
+    change({ sound: !settings.sound });
   }
 
-  function toggleAuto() {
-    showRef.current = { shots: [], at: 0, next: 0 };
-    setAuto(on => !on);
+  function toggleFestival() {
+    festivalRef.current = null;
+    setFestival(on => !on);
   }
 
   function aim(event: ReactPointerEvent<HTMLCanvasElement>) {
     const rect = event.currentTarget.getBoundingClientRect();
-    fire(event.clientX - rect.left, event.clientY - rect.top);
+    shoot(event.clientX - rect.left, event.clientY - rect.top);
   }
 
   function key(event: ReactKeyboardEvent<HTMLCanvasElement>) {
-    if (event.key === " " || event.key === "Enter") { event.preventDefault(); fireAnywhere(); }
+    if (event.key === " " || event.key === "Enter") { event.preventDefault(); shootAnywhere(); }
   }
 
+  function save() {
+    canvasRef.current?.toBlob(blob => {
+      if (!blob) return;
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = "fireworks.png";
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    });
+  }
+
+  const delay = soundDelay(settings.distance);
+  const windSteps = Math.round(settings.wind * 10);
+  const windText = windSteps === 0 ? t("windNone") : windSteps < 0 ? t("windLeft", { n: -windSteps }) : t("windRight", { n: windSteps });
   return (
     <ToolLayout title={t("title")}>
       <p className={controls.label}>{t("intro")}</p>
       <div className={styles.sky}>
-        <canvas
-          ref={canvasRef}
-          className={styles.canvas}
-          role="img"
-          tabIndex={0}
-          aria-label={t("canvasLabel")}
-          onPointerDown={aim}
-          onKeyDown={key}
-        />
+        <canvas ref={canvasRef} className={styles.canvas} role="img" tabIndex={0} aria-label={t("canvasLabel")} onPointerDown={aim} onKeyDown={key} />
       </div>
       <dl className={styles.count}>
         <div><dt>{t("launched")}</dt><dd data-fireworks="launched">{launched.toLocaleString()}</dd></div>
       </dl>
+
       <div className={styles.controls}>
-        <button className="auth-link" type="button" onClick={fireAnywhere}>{t("launch")}</button>
-        <button className={styles.toggle} type="button" aria-pressed={auto} onClick={toggleAuto}>{auto ? t("showOn") : t("showOff")}</button>
-        <button className={styles.toggle} type="button" aria-pressed={sound} onClick={toggleSound}>{sound ? t("soundOn") : t("soundOff")}</button>
-        <label className={styles.kind}>
-          <span>{t("kindLabel")}</span>
-          <select value={kind} onChange={event => setKind(event.target.value as Kind)}>
+        <button className="auth-link" type="button" onClick={shootAnywhere}>{t("launch")}</button>
+        <button className={styles.toggle} type="button" aria-pressed={festival} onClick={toggleFestival}>{festival ? t("festivalOn") : t("festivalOff")}</button>
+        <button className={styles.toggle} type="button" onClick={startStarmine}>{t("starmine")}</button>
+        <button className={styles.toggle} type="button" onClick={startNiagara}>{t("niagara")}</button>
+        <button className={styles.toggle} type="button" onClick={startFinale}>{t("finale")}</button>
+      </div>
+
+      <div className={styles.panel}>
+        <div className={styles.row}>
+          <span className={styles.name}>{t("kindLabel")}</span>
+          <select aria-label={t("kindLabel")} value={settings.kind} onChange={event => change({ kind: event.target.value as Kind | "random" })}>
             <option value="random">{t("kinds.random")}</option>
-            {BURSTS.map(burst => <option key={burst} value={burst}>{t(`kinds.${burst}`)}</option>)}
+            {KINDS.map(kind => <option key={kind} value={kind}>{t(`kinds.${kind}`)}</option>)}
           </select>
+        </div>
+        <div className={styles.row} role="radiogroup" aria-label={t("sizeLabel")}>
+          <span className={styles.name}>{t("sizeLabel")}</span>
+          <span className={styles.group}>
+            {SIZES.map(size => (
+              <button key={size} type="button" role="radio" aria-checked={settings.size === size} className={styles.choice} onClick={() => change({ size })}>{t("size", { n: size })}</button>
+            ))}
+          </span>
+          <span className={styles.note}>{t("sizeNote", { meters: DIAMETER_M[settings.size] })}</span>
+        </div>
+        <div className={styles.row} role="radiogroup" aria-label={t("paletteLabel")}>
+          <span className={styles.name}>{t("paletteLabel")}</span>
+          <span className={styles.group}>
+            {PALETTES.map(palette => (
+              <button key={palette} type="button" role="radio" aria-checked={settings.palette === palette} aria-label={t(`palettes.${palette}`)} title={t(`palettes.${palette}`)} className={styles.swatch} style={{ background: SWATCH[palette] }} onClick={() => change({ palette })} />
+            ))}
+          </span>
+        </div>
+        <label className={styles.row}>
+          <span className={styles.name}>{t("windLabel")}</span>
+          <input type="range" min={-10} max={10} step={1} value={Math.round(settings.wind * 10)} aria-valuetext={windText} onChange={event => change({ wind: Number(event.target.value) / 10 })} />
+          <span className={styles.note}>{windText}</span>
         </label>
+        <label className={styles.row}>
+          <span className={styles.name}>{t("distanceLabel")}</span>
+          <input type="range" min={200} max={1500} step={100} value={settings.distance} aria-valuetext={t("distanceValue", { m: settings.distance })} onChange={event => change({ distance: Number(event.target.value) })} />
+          <span className={styles.note}>{t("distanceValue", { m: settings.distance })} · {t("delay", { seconds: delay.toFixed(1) })}</span>
+        </label>
+        <div className={styles.row}>
+          <span className={styles.name}>{t("speedLabel")}</span>
+          <select aria-label={t("speedLabel")} value={settings.speed} onChange={event => change({ speed: Number(event.target.value) })}>
+            <option value={1}>1×</option>
+            <option value={0.5}>0.5×</option>
+            <option value={0.25}>0.25×</option>
+          </select>
+          <button className={styles.toggle} type="button" aria-pressed={settings.reflect} onClick={() => change({ reflect: !settings.reflect })}>{settings.reflect ? t("waterOn") : t("waterOff")}</button>
+          <button className={styles.toggle} type="button" aria-pressed={settings.sound} onClick={toggleSound}>{settings.sound ? t("soundOn") : t("soundOff")}</button>
+          <button className={styles.toggle} type="button" onClick={save}>{t("save")}</button>
+        </div>
       </div>
       {calm && <p className={controls.label}>{t("calm")}</p>}
       <p className={controls.label}>{t("keys")}</p>
