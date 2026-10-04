@@ -12,7 +12,7 @@ export default function Supporter() {
   const locale = useLocale();
   const t = useTranslations('App.supporter');
   const price = t('price', { price: SUPPORTER_PLAN.priceYen.toLocaleString(locale) });
-  return <><PublicHead locale={locale} path="/supporter" title={`${t('title')} | PAIBOT.app`} description={t('description')} />
+  return <><PublicHead locale={locale} path="/supporter" title={`${t('title')} | PAIBOT`} description={t('description')} />
     <ToolLayout title={t('title')} centerTitle>
       <div className={styles.plan}>
         <p className={styles.lead}>{t('lead')}</p>

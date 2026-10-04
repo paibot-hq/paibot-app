@@ -32,7 +32,7 @@ export default function MathUnit({ loaderData: { unitId, published, stage, domai
   const has = (key: string) => (t as unknown as { has: (key: string) => boolean }).has(key);
   const title = t(`units.${unitId}.title`);
   const description = t(`units.${unitId}.summary`);
-  const head = `${title} | PAIBOT.app`;
+  const head = `${title} | PAIBOT`;
   return <>
     {published ? <PublicHead locale={locale} path={`/math/${unitId}`} title={head} description={description} /> : <title>{head}</title>}
     <ToolLayout title={title} centerTitle aboveTitle={<MathBreadcrumb crumbs={[{ label: title }]} />}>

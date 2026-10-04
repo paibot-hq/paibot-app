@@ -68,7 +68,7 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
   const theme = pending === 'theme' ? String(fetcher.formData?.get('value')) : profile?.theme ?? '';
   const save = (intent: string, value: string) => fetcher.submit({ intent, value }, { method: 'post', action: `/${locale}/profile` });
 
-  return <><title>{`${t('title')} | PAIBOT.app`}</title><ToolLayout title={t('title')}>
+  return <><title>{`${t('title')} | PAIBOT`}</title><ToolLayout title={t('title')}>
     <div className={styles.profile}>
       <p className={styles.muted}>{t('intro')}</p>
       {!signedIn ? <div className={styles.empty}>

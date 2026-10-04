@@ -61,7 +61,7 @@ export default async function ({ page, main, base: appBase, go, errors }) {
   await page.waitForURL(`${base}/en/math/arith`);
   await main.getByRole('heading', { level: 1, name: 'Order of operations & word problems' }).waitFor();
   assert.ok((await main.locator('ul a').evaluateAll(cards => cards.map(card => card.getAttribute('href')))).includes('/en/math/arith/order-of-operations'));
-  assert.equal(await page.title(), 'Order of operations & word problems | PAIBOT.app');
+  assert.equal(await page.title(), 'Order of operations & word problems | PAIBOT');
   assert.equal((await page.goto(`${base}/en/math/nothing`)).status(), 404);
   await go('math');
   await link('/en/math/arith/order-of-operations').click();
@@ -69,7 +69,7 @@ export default async function ({ page, main, base: appBase, go, errors }) {
   await main.getByRole('heading', { level: 1, name: 'Order of operations' }).waitFor();
   assert.deepEqual(await main.locator('ul a').evaluateAll(cards => cards.map(card => card.getAttribute('href'))),
     ['/en/math/arith/order-of-operations/1', '/en/math/arith/order-of-operations/2']);
-  assert.equal(await page.title(), 'Order of operations & word problems - Order of operations | PAIBOT.app');
+  assert.equal(await page.title(), 'Order of operations & word problems - Order of operations | PAIBOT');
   await main.getByText('Japanese school year: Elementary 4', { exact: true }).waitFor();
   // The previous and next learning items of the unit are linked at the bottom (the first item has no previous).
   const neighbors = page.getByRole('navigation', { name: 'Previous and next items' });
@@ -108,7 +108,7 @@ export default async function ({ page, main, base: appBase, go, errors }) {
   // A unit without problems yet: its sets show the preparation message and are noindex.
   await go('math/shapes/solids-basic/1');
   await main.getByRole('status').filter({ hasText: 'being prepared' }).waitFor();
-  assert.equal(await page.title(), 'Basic shapes - Solid shapes | PAIBOT.app');
+  assert.equal(await page.title(), 'Basic shapes - Solid shapes | PAIBOT');
   assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'noindex, nofollow');
   assert.equal((await page.goto(`${base}/en/math/arith/nothing`)).status(), 404);
   assert.equal((await page.goto(`${base}/en/math/arith/order-of-operations/9`)).status(), 404);

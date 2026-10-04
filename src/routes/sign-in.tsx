@@ -7,7 +7,7 @@ export default function Page() {
   const locale = useLocale();
   const [searchParams] = useSearchParams();
   const redirectTarget = safeRedirectTarget(searchParams.get('redirect_url'), locale);
-  return <><title>{`${t('signIn')} | PAIBOT.app`}</title>
+  return <><title>{`${t('signIn')} | PAIBOT`}</title>
     <main className="auth-page"><SignIn routing="path" path={`/${locale}/sign-in`} forceRedirectUrl={redirectTarget} /></main>
   </>;
 }
