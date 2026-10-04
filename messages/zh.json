@@ -619,7 +619,7 @@
       "retry": "再试一次"
     },
     "search": {
-      "label": "搜索",
+      "all": "全部应用和数学", "label": "搜索",
       "placeholder": "搜索应用和数学单元",
       "hint": "试试：",
       "examples": "计算|因式分解|JSON|密码|测验",

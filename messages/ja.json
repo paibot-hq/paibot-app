@@ -619,7 +619,7 @@
       "retry": "もう一度"
     },
     "search": {
-      "label": "検索",
+      "all": "すべてのアプリと数学", "label": "検索",
       "placeholder": "アプリや数学の単元を検索",
       "hint": "例:",
       "examples": "文字数|素因数分解|JSON|パスワード|クイズ",

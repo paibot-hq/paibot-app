@@ -619,7 +619,7 @@
       "retry": "Try again"
     },
     "search": {
-      "label": "Search",
+      "all": "All apps and math", "label": "Search",
       "placeholder": "Search apps and math topics",
       "hint": "Try:",
       "examples": "character|factoring|JSON|password|quiz",
