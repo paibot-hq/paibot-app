@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react"
 import { useLocale, useTranslations } from "use-intl";
 import { Link } from "../i18n/navigation";
 import { apps, APP_CATEGORIES, type DynamicT } from "../lib/apps";
-import { MATH_CATALOG, MATH_DOMAINS } from "../lib/math-catalog";
+import { MATH_CATALOG } from "../lib/math-catalog";
 import { prepare, search, type Entry } from "../lib/search";
 import SiteFooter from "./site-footer";
 import styles from "./search-home.module.css";
@@ -111,19 +111,6 @@ export default function SearchHome({ year }: { year: number }) {
                 </section>
               );
             })}
-            <section>
-              <h2>{td("math.title")}</h2>
-              {MATH_DOMAINS.map(domain => {
-                const units = MATH_CATALOG.filter(unit => unit.domain === domain && unit.status === "published");
-                if (!units.length) return null;
-                return (
-                  <div key={domain}>
-                    <h3>{td(`math.domains.${domain}`)}</h3>
-                    <ul>{units.map(unit => <li key={unit.id}><Link href={`/math/${unit.id}`}>{td(`math.units.${unit.id}.title`)}</Link></li>)}</ul>
-                  </div>
-                );
-              })}
-            </section>
           </nav>
         )}
       </main>

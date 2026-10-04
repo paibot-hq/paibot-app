@@ -104,11 +104,6 @@
   font-weight: 600;
   letter-spacing: .08em;
 }
-.all h3 {
-  margin: 1rem 0 .4rem;
-  font-size: .85rem;
-  font-weight: 600;
-}
 .all ul {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(11.5rem, 1fr));
