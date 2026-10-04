@@ -1,3 +1,4 @@
+import { redirect } from 'react-router';
 import { useLocale, useTranslations } from 'use-intl';
 import { useMathQuestions } from '../components/math-questions';
 import MathSetQuiz from '../components/math-set-quiz';
@@ -11,7 +12,12 @@ import type { Route } from './+types/math-quiz';
 // Every practice set: /math/<unit>/<item>/<set>. Problems are LLM-generated and
 // verified (scripts/validate-math-*.mjs, SymPy) before import; a set with
 // nothing published yet, or a unit that cannot hold problems, shows "being prepared".
+// Sets that were taken down (new items start with practice 1 only): their old URLs go to the item's first set.
+const REMOVED_SETS: Record<string, string> = { 'arith/order-of-operations/2': 'order-of-operations/1' };
+
 export async function loader({ params }: Route.LoaderArgs) {
+  const moved = REMOVED_SETS[`${params.unit}/${params.item}/${params.set}`];
+  if (moved) throw redirect(`/${params.locale}/math/${params.unit}/${moved}`, 301);
   const { unit, item, set } = catalogEntry(params);
   const problems = unit.kind ? await getMathSet(unit.id, item.id, set!.id) : [];
   return {

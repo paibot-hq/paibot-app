@@ -1,5 +1,6 @@
 import { locales, defaultLocale, isLocale, type Locale } from "../i18n/routing.ts";
 import { APP_CATALOG, type AppData } from "./app-catalog.ts";
+import { MATH_CATALOG } from "./math-catalog.ts";
 
 // Pure helpers only — no env access here. This module is reachable from
 // client-rendered components (via PublicHead), so it must bundle safely for
@@ -11,7 +12,9 @@ import { APP_CATALOG, type AppData } from "./app-catalog.ts";
 // Every published, non-private app in the catalog is public, so a new tool
 // needs no edit here; add only pages outside the catalog below.
 const sitePaths = ["", "/about", "/supporter", "/legal/terms", "/legal/privacy", "/legal/commerce"];
-const mathSetPaths = ["/math/arith", "/math/signed", "/math/factorization", "/math/pythagoras", "/math/arith/order-of-operations", "/math/signed/four-operations", "/math/factorization/trinomial", "/math/pythagoras/sides"];
+// The math drills' public pages: each published unit and each of its learning items (a coming-soon unit stays out;
+// practice sets are not listed, they are reached from the item).
+const mathSetPaths = MATH_CATALOG.filter(unit => unit.status === "published").flatMap(unit => [`/math/${unit.id}`, ...unit.items.map(item => `/math/${unit.id}/${item.id}`)]);
 export const publicPaths: readonly string[] = [
   ...sitePaths,
   ...(APP_CATALOG as readonly AppData[]).filter(app => app.status === "published" && app.href && !app.private).map(app => app.href!),

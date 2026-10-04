@@ -24,7 +24,7 @@ export default async function ({ page, main, base: appBase, go, errors }) {
   ]);
   // Items link to their page; those with problems are highlighted.
   assert.equal(await link('/en/math/factorization/trinomial').getAttribute('data-playable'), 'true');
-  assert.equal(await link('/en/math/shapes/solids-basic').getAttribute('data-playable'), null);
+  assert.equal(await link('/en/math/shapes/solids-basic').getAttribute('data-playable'), 'true');
   await main.getByRole('button', { name: 'Higher', exact: true }).click();
   assert.deepEqual(await main.getByRole('heading', { level: 2 }).allTextContents(), ['Statistics & probability', 'Sets & logic', 'Vectors & matrices', 'Calculus']);
   await main.getByRole('button', { name: 'Higher', exact: true }).click();
@@ -33,7 +33,7 @@ export default async function ({ page, main, base: appBase, go, errors }) {
   assert.equal(await main.locator('a[data-playable]').count(), await main.locator('ul ul a').count(), 'only playable items');
   await main.getByLabel('Playable sets only').uncheck();
   await main.getByRole('searchbox').fill('solid shapes');
-  assert.deepEqual(await main.locator('ul ul a').allTextContents(), ['Solid shapes (Coming soon)']);
+  assert.deepEqual(await main.locator('ul ul a').allTextContents(), ['Solid shapes']);
   await main.getByRole('searchbox').fill('');
   // Japanese school year: only that year's items; the Suken filter is Japanese only.
   assert.equal(await main.getByRole('combobox').count(), 1);
@@ -68,7 +68,7 @@ export default async function ({ page, main, base: appBase, go, errors }) {
   await page.waitForURL(`${base}/en/math/arith/order-of-operations`);
   await main.getByRole('heading', { level: 1, name: 'Order of operations' }).waitFor();
   assert.deepEqual(await main.locator('ul a').evaluateAll(cards => cards.map(card => card.getAttribute('href'))),
-    ['/en/math/arith/order-of-operations/1', '/en/math/arith/order-of-operations/2']);
+    ['/en/math/arith/order-of-operations/1']);
   assert.equal(await page.title(), 'Order of operations & word problems - Order of operations | PAIBOT');
   await main.getByText('Japanese school year: Elementary 4', { exact: true }).waitFor();
   // The previous and next learning items of the unit are linked at the bottom (the first item has no previous).
@@ -83,7 +83,7 @@ export default async function ({ page, main, base: appBase, go, errors }) {
   // Each playable set shows how many problems of each tier it has.
   assert.match(await main.locator('ul a').first().innerText(), /(Basic|Standard|Advanced) \d/);
   for (const [item, set, label] of [
-    ['arith/order-of-operations', '2', 'Order of operations Practice 2'],
+    ['arith/order-of-operations', '1', 'Order of operations'],
     ['factorization/trinomial', '1', 'Factoring trinomials'],
     ['signed/four-operations', '1', 'Negative numbers'],
     ['pythagoras/sides', '1', 'Side lengths'],
@@ -105,14 +105,14 @@ export default async function ({ page, main, base: appBase, go, errors }) {
   assert.deepEqual(errors, []);
   console.log('PASS: item pages list their sets with tier counts; sets open their quiz (with each problem\'s tier) and link back to the item');
 
-  // A unit without problems yet: its sets show the preparation message and are noindex.
+  // Every set has problems now: a set of a formerly coming-soon unit opens as any other.
   await go('math/shapes/solids-basic/1');
-  await main.getByRole('status').filter({ hasText: 'being prepared' }).waitFor();
+  await main.getByText('1 / 5', { exact: true }).waitFor();
+  assert.equal(await main.getByRole('status').filter({ hasText: 'being prepared' }).count(), 0);
   assert.equal(await page.title(), 'Basic shapes - Solid shapes | PAIBOT');
-  assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'noindex, nofollow');
   assert.equal((await page.goto(`${base}/en/math/arith/nothing`)).status(), 404);
   assert.equal((await page.goto(`${base}/en/math/arith/order-of-operations/9`)).status(), 404);
-  console.log('PASS: coming-soon sets show the preparation message; unknown items and sets are 404');
+  console.log('PASS: every set opens its quiz; unknown items and sets are 404');
 
   // Former URLs land on the new pages.
   for (const [from, to] of [['units', '/ja/math'], ['level/middle', '/ja/math'],
