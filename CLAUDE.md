@@ -19,6 +19,20 @@ Existing AWS/GCP and Cloudflare account notes are in `docs/infra/`.
 Do not print secret keys. Runtime Clerk keys must be synced to Workers Secrets;
 `.dev.vars` only configures local execution and does not provision remote secrets.
 
+## Sites
+
+One Worker serves every site and picks the site from the host name (`src/lib/sites.ts`; hosts and setup in
+`docs/plans/paibot-dev-migration.md`). The sites are split by who they are for, not by kind of page:
+- `paibot.dev` (hub): the entrance to the sites below.
+- `app.`: everyday tools, games and quizzes, for the general public.
+- `learn.`: the math drills (later English, IT), for people studying.
+- `tools.`: the network and developer tools, for developers and operators; the monitoring product, later.
+- `doc.`: articles for developers, a separate static site; reserved, not built, and its cover card is not a link.
+
+A tool's site follows its catalog category (`network` and `dev` are `tools`, the rest `app`; `ownerOfPath`).
+When unsure, ask whether someone who is not a developer would search for and use it: then it is `app`.
+A page has one home; the other sites 301 to it. Do not add a subdomain per tool.
+
 ## Adding a tool
 
 A tool is a folder, `src/tools/<slug>/`, holding everything that is only its own:
