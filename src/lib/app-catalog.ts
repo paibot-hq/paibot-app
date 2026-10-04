@@ -56,11 +56,11 @@ export const APP_CATALOG = [
   { slug: "reaction", href: "/reaction", category: "game", status: "published", messageKey: "reaction" },
   { slug: "timing", href: "/timing", category: "game", status: "published", messageKey: "timing" },
   { slug: "pinball", href: "/pinball", category: "game", status: "published", messageKey: "pinball" },
-  { slug: "fireworks", href: "/fireworks", category: "game", status: "published", messageKey: "fireworks" },
 
   // 日常 / Daily
   { slug: "calendar", href: "/calendar", category: "daily", status: "published", messageKey: "calendar" },
   { slug: "life-calendar", href: "/life-calendar", category: "daily", status: "published", messageKey: "lifeCalendar" },
+  { slug: "fireworks", href: "/fireworks", category: "daily", status: "published", messageKey: "fireworks" },
   { slug: "clock", href: "/clock", category: "daily", status: "published", messageKey: "clock" },
   { slug: "diary", href: "/diary", category: "daily", status: "published", messageKey: "diary", private: true },
   { slug: "age", href: "/age", category: "daily", status: "published", messageKey: "age" },
