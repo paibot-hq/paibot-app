@@ -18,7 +18,7 @@ export default function HubCover() {
     { key: 'app', icon: AppSiteIcon, title: t('app.title'), text: t('app.text'), badge: t('open'), href: `${origins.app}/${locale}`, meta: t('app.meta', { tools: appTools }) },
     { key: 'learn', icon: LearnSiteIcon, title: t('learn.title'), text: t('learn.text'), badge: t('open'), href: `${origins.learn}/${locale}`, meta: t('learn.meta', { items }) },
     { key: 'tools', icon: ToolsSiteIcon, title: t('tools.title'), text: t('tools.text'), badge: t('open'), href: `${origins.tools}/${locale}`, meta: t('tools.meta', { tools: openTools }) },
-    { key: 'doc', icon: DocSiteIcon, title: t('doc.title'), text: t('doc.text'), badge: t('soon'), href: `${origins.doc}/${locale}` },
+    { key: 'doc', icon: DocSiteIcon, title: t('doc.title'), text: t('doc.text'), badge: t('soon') },
   ];
   return <>
     <PublicHead locale={locale} path="" title={t('title')} description={t('description')} />
