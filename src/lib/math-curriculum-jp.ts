@@ -46,6 +46,7 @@ export const JP_GRADE_OF: Record<string, Record<string, JpGrade>> = {
   'probability': { 'basic': 'm2', 'relative-frequency': 'm1' },
   'quadratic': { 'factoring': 'm3', 'formula': 'm3', 'discriminant': 'h-i' },
   'identities': { 'binomial': 'h-ii', 'identity': 'h-ii', 'inequality-proof': 'h-ii' },
+  'rational-expression': { 'simplify': 'h-ii', 'add-sub': 'h-ii' },
   'polynomial-equations': { 'remainder': 'h-ii', 'higher-degree': 'h-ii' },
   'quadratic-function': { 'vertex': 'h-i', 'graph': 'h-i', 'max-min': 'h-i' },
   'sequence': { 'arithmetic': 'h-b', 'geometric': 'h-b', 'sigma': 'h-b', 'recurrence': 'h-b', 'induction': 'h-b' },

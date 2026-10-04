@@ -274,6 +274,8 @@
 | 式と方程式 | 式と証明 / 二項定理 | ✅ | `identities/binomial` |
 | 式と方程式 | 式と証明 / 恒等式 | ✅ | `identities/identity` |
 | 式と方程式 | 式と証明 / 不等式の証明 | ✅ | `identities/inequality-proof` |
+| 式と方程式 | 分数式 / 約分と乗除 | ✅ | `rational-expression/simplify` |
+| 式と方程式 | 分数式 / 通分と加減 | ✅ | `rational-expression/add-sub` |
 | 式と方程式 | 高次方程式 / 剰余の定理・因数定理 | ✅ | `polynomial-equations/remainder` |
 | 式と方程式 | 高次方程式 / 高次方程式 | ✅ | `polynomial-equations/higher-degree` |
 | 関数・変化と関係 | 三角比・三角関数 / 三角関数の値 | ✅ | `trig/values` |

@@ -1672,6 +1672,22 @@
             }
           }
         },
+        "rational-expression": {
+          "title": "Rational expressions",
+          "summary": "Simplify, multiply, divide, add and subtract fractions of polynomials.",
+          "items": {
+            "simplify": {
+              "title": "Simplifying, multiplying and dividing",
+              "summary": "Factor to cancel, then multiply and divide rational expressions.",
+              "description": "Learn to factor the numerator and denominator of a rational expression, cancel common factors, and multiply and divide such expressions. It is the basis for tidying expressions in equations and calculus. It helps to know factoring and how to multiply and divide fractions first."
+            },
+            "add-sub": {
+              "title": "Adding and subtracting",
+              "summary": "Put the expressions over a common denominator, then add or subtract.",
+              "description": "Learn to add and subtract rational expressions with different denominators by finding a common denominator, and to leave the result in a form that can be simplified. It underlies partial fractions and rearranging equations. It helps to know factoring and how to find common denominators of fractions first."
+            }
+          }
+        },
         "polynomial-equations": {
           "title": "Polynomial equations",
           "summary": "Solve higher-degree equations with the remainder and factor theorems.",

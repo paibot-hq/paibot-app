@@ -2912,6 +2912,46 @@
       "zh": "这是对任意实数 $a, b, x, y$ 都成立的柯西-施瓦茨不等式。用于联系平方和与一次式的最值，两边相等的条件是 $ay = bx$。"
     }
   ],
+  "rational-expression/simplify": [
+    {
+      "tex": "\\frac{AC}{BC} = \\frac{A}{B}",
+      "ja": "分子と分母に共通する因数は、約分して消せます。消せるのは、かけ算でつながった因数だけです。たし算でつながった項は、消せません。",
+      "en": "A factor common to the numerator and the denominator can be cancelled. Only factors (things multiplied) can be cancelled, never terms that are added.",
+      "zh": "分子和分母的公因式可以约去。只能约去相乘的因式，不能约去相加的项。"
+    },
+    {
+      "tex": "x^2 - a^2 = (x + a)(x - a)",
+      "ja": "約分の前に、分子と分母を因数分解します。平方の差や、二次式の因数分解が、よく使われます。",
+      "en": "Before cancelling, factor the numerator and the denominator. Differences of squares and quadratics are the usual cases.",
+      "zh": "约分之前，先把分子和分母因式分解。常用平方差公式和二次三项式的分解。"
+    },
+    {
+      "tex": "\\frac{A}{B} \\times \\frac{C}{D} = \\frac{AC}{BD}, \\quad \\frac{A}{B} \\div \\frac{C}{D} = \\frac{A}{B} \\times \\frac{D}{C}",
+      "ja": "かけ算は、分子どうし、分母どうしをかけます。わり算は、わる式の分子と分母を入れかえて、かけ算にします。",
+      "en": "To multiply, multiply the numerators and the denominators. To divide, flip the fraction you divide by and multiply.",
+      "zh": "乘法是分子乘分子、分母乘分母。除法是把除式的分子分母颠倒后再相乘。"
+    }
+  ],
+  "rational-expression/add-sub": [
+    {
+      "tex": "\\frac{A}{C} \\pm \\frac{B}{C} = \\frac{A \\pm B}{C}",
+      "ja": "分母が同じときは、分子どうしをたし算・ひき算して、分母はそのままにします。ひき算では、引く式の分子に、かっこをつけて符号を変えます。",
+      "en": "With the same denominator, add or subtract the numerators and keep the denominator. When subtracting, put brackets around the numerator being subtracted and change its signs.",
+      "zh": "分母相同时，分子相加或相减，分母不变。做减法时，要给被减的分子加括号并变号。"
+    },
+    {
+      "tex": "\\frac{A}{B} + \\frac{C}{D} = \\frac{AD + BC}{BD}",
+      "ja": "分母が違うときは、まず、分母の最小公倍数にそろえます（通分）。そろえるためにかけた式を、分子にもかけるのを忘れないようにします。",
+      "en": "With different denominators, first bring them to a common denominator. Multiply each numerator by the same expression you multiplied its denominator by.",
+      "zh": "分母不同时，先通分，化成相同的分母。分母乘了什么，分子也要乘同样的式子。"
+    },
+    {
+      "tex": "\\frac{1}{x - 1} - \\frac{1}{x + 1} = \\frac{(x + 1) - (x - 1)}{(x - 1)(x + 1)} = \\frac{2}{(x - 1)(x + 1)}",
+      "ja": "分母が因数分解された形のまま通分すると、約分できるかどうかを、すぐに確かめられます。",
+      "en": "Keeping the denominators factored while bringing them together lets you see at once whether anything cancels.",
+      "zh": "通分时保留分母的因式分解形式，可以马上看出还能不能约分。"
+    }
+  ],
   "polynomial-equations/remainder": [
     {
       "tex": "P(x) = (x - \\alpha)Q(x) + P(\\alpha)",

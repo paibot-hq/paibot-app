@@ -1,0 +1,175 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "rational-expression-001",
+      "item": "simplify",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-10-05",
+      "kind": "transform",
+      "question": "(x^2 - 4)/(x^2 + 4*x + 4)",
+      "given": null,
+      "choices": ["-1/(x + 1)", "(x - 2)/(x + 2)", "(x + 2)/(x - 2)", "(x - 2)/2"],
+      "answerIndex": 1,
+      "steps": [
+        "(x^2 - 4)/(x^2 + 4*x + 4) = ((x + 2)*(x - 2))/((x + 2)^2) = (x - 2)/(x + 2)"
+      ]
+    },
+    {
+      "id": "rational-expression-002",
+      "item": "simplify",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-10-05",
+      "kind": "transform",
+      "question": "(x^2 + 5*x + 6)/(x^2 + 3*x + 2)",
+      "given": null,
+      "choices": ["(5*x + 6)/(3*x + 2)", "(x + 3)/(x + 2)", "(x + 2)/(x + 1)", "(x + 3)/(x + 1)"],
+      "answerIndex": 3,
+      "steps": [
+        "(x^2 + 5*x + 6)/(x^2 + 3*x + 2) = ((x + 2)*(x + 3))/((x + 1)*(x + 2)) = (x + 3)/(x + 1)"
+      ]
+    },
+    {
+      "id": "rational-expression-003",
+      "item": "simplify",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-10-05",
+      "kind": "transform",
+      "question": "(x^2 - 9)/(x^2 - x - 6)",
+      "given": null,
+      "choices": ["(x + 3)/(x + 2)", "(x - 3)/(x + 2)", "(x + 3)/(x - 2)", "9/(x + 6)"],
+      "answerIndex": 0,
+      "steps": [
+        "(x^2 - 9)/(x^2 - x - 6) = ((x + 3)*(x - 3))/((x - 3)*(x + 2)) = (x + 3)/(x + 2)"
+      ]
+    },
+    {
+      "id": "rational-expression-004",
+      "item": "simplify",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-10-05",
+      "kind": "transform",
+      "question": "(x^2 - 1)/(x + 3) * (x + 3)/(x^2 + 2*x + 1)",
+      "given": null,
+      "choices": ["(x - 1)/(x + 3)", "(x + 1)/(x - 1)", "(x - 1)/(x + 1)", "(x - 1)/(x + 1)^2"],
+      "answerIndex": 2,
+      "steps": [
+        "(x^2 - 1)/(x + 3) * (x + 3)/(x^2 + 2*x + 1) = ((x + 1)*(x - 1))/(x + 3) * (x + 3)/((x + 1)^2) = (x - 1)/(x + 1)"
+      ]
+    },
+    {
+      "id": "rational-expression-005",
+      "item": "simplify",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": true,
+      "reviewedAt": "2026-10-05",
+      "kind": "transform",
+      "question": "(x^2 - 4)/(x^2 - 1) : (x + 2)/(x + 1)",
+      "given": null,
+      "choices": ["(x - 2)*(x + 2)^2/((x - 1)*(x + 1)^2)", "(x - 2)/(x + 1)", "(x + 1)/(x - 1)", "(x - 2)/(x - 1)"],
+      "answerIndex": 3,
+      "steps": [
+        "(x^2 - 4)/(x^2 - 1) : (x + 2)/(x + 1) = ((x + 2)*(x - 2))/((x + 1)*(x - 1)) * (x + 1)/(x + 2) = (x - 2)/(x - 1)"
+      ]
+    },
+    {
+      "id": "rational-expression-006",
+      "item": "add-sub",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-10-05",
+      "kind": "transform",
+      "question": "1/(x + 1) + 1/(x - 1)",
+      "given": null,
+      "choices": ["2/((x + 1)*(x - 1))", "2*x/((x + 1)*(x - 1))", "2/(2*x)", "2*x/(x + 1)"],
+      "answerIndex": 1,
+      "steps": [
+        "1/(x + 1) + 1/(x - 1) = (x - 1)/((x + 1)*(x - 1)) + (x + 1)/((x + 1)*(x - 1)) = 2*x/((x + 1)*(x - 1))"
+      ]
+    },
+    {
+      "id": "rational-expression-007",
+      "item": "add-sub",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-10-05",
+      "kind": "transform",
+      "question": "1/x + 1/(x + 2)",
+      "given": null,
+      "choices": ["1/(2*x + 2)", "(2*x + 2)/(x + 2)", "2/(x*(x + 2))", "(2*x + 2)/(x*(x + 2))"],
+      "answerIndex": 3,
+      "steps": [
+        "1/x + 1/(x + 2) = (x + 2)/(x*(x + 2)) + x/(x*(x + 2)) = (2*x + 2)/(x*(x + 2))"
+      ]
+    },
+    {
+      "id": "rational-expression-008",
+      "item": "add-sub",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-10-05",
+      "kind": "transform",
+      "question": "1/(x - 2) - 1/(x + 3)",
+      "given": null,
+      "choices": ["1/((x - 2)*(x + 3))", "-5/((x - 2)*(x + 3))", "5/((x - 2)*(x + 3))", "(2*x + 1)/((x - 2)*(x + 3))"],
+      "answerIndex": 2,
+      "steps": [
+        "1/(x - 2) - 1/(x + 3) = (x + 3)/((x - 2)*(x + 3)) - (x - 2)/((x - 2)*(x + 3)) = 5/((x - 2)*(x + 3))"
+      ]
+    },
+    {
+      "id": "rational-expression-009",
+      "item": "add-sub",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-10-05",
+      "kind": "transform",
+      "question": "x/(x + 2) - 4/(x^2 - 4)",
+      "given": null,
+      "choices": ["(x - 4)/(x^2 - 4)", "(x^2 - 2*x - 4)/((x + 2)*(x - 2))", "(x^2 + 2*x - 4)/((x + 2)*(x - 2))", "(x^2 - 2*x + 4)/((x + 2)*(x - 2))"],
+      "answerIndex": 1,
+      "steps": [
+        "x/(x + 2) - 4/(x^2 - 4) = x*(x - 2)/((x + 2)*(x - 2)) - 4/((x + 2)*(x - 2)) = (x^2 - 2*x - 4)/((x + 2)*(x - 2))"
+      ]
+    },
+    {
+      "id": "rational-expression-010",
+      "item": "add-sub",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": true,
+      "reviewedAt": "2026-10-05",
+      "kind": "transform",
+      "question": "1/(x^2 - 1) + 1/(x^2 + 2*x + 1)",
+      "given": null,
+      "choices": ["2*x/((x - 1)*(x + 1))", "2/((x - 1)*(x + 1)^2)", "2/(2*x^2 + 2*x)", "2*x/((x - 1)*(x + 1)^2)"],
+      "answerIndex": 3,
+      "steps": [
+        "1/(x^2 - 1) + 1/(x^2 + 2*x + 1) = (x + 1)/((x - 1)*(x + 1)^2) + (x - 1)/((x - 1)*(x + 1)^2) = 2*x/((x - 1)*(x + 1)^2)"
+      ]
+    }
+  ]
+}

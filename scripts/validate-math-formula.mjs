@@ -85,6 +85,9 @@ const RULES = {
   'quadratic-factoring-a': ['solve', s => s.equations === 1 && s.letters.size === 1 && s.powers.includes(2)],
   'quadratic-formula-a': ['solve', s => s.equations === 1 && s.letters.size === 1 && s.powers.includes(2)],
   // 数学II・B
+  // 分数式: one letter, a fraction with the letter in it; the add/subtract set has two or more fractions.
+  'rational-simplify-a': ['transform', s => s.letters.size === 1 && s.fractions.length >= 1 && !s.calls.size],
+  'rational-add-sub-a': ['transform', s => s.letters.size === 1 && s.fractions.length >= 2 && !s.calls.size && (s.ops.has('+') || s.ops.has('-'))],
   'binomial-a': ['expand', s => s.groups >= 1 && s.powers.some(n => n >= 4 && n <= 7)],
   'remainder-a': ['remainder', (s, p) => s.letters.size === 1 && Math.max(...s.powers) >= 3 && /^[a-z] [-+] \d+$/.test(p.divisor ?? '')],
   'higher-degree-a': ['solve', s => s.equations === 1 && s.letters.size === 1 && s.powers.some(n => n >= 3 && n <= 4)],
