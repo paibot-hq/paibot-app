@@ -15,7 +15,7 @@ const csp = buildContentSecurityPolicy();
 export default {
   async fetch(request: Request) {
     const url = new URL(request.url);
-    const moved = legacyRedirect(url, siteOrigin);
+    const moved = legacyRedirect(url, siteOrigins(siteOrigin).hub);
     if (moved) return Response.redirect(moved, 301);
     const site = siteOfHost(url.hostname), origins = siteOrigins(siteOrigin);
     // Each page has one home: the drills on the learning site, the tools on the app. A request for the other

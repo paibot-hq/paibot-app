@@ -1,6 +1,6 @@
 # paibot.dev への集約と paibot.app の廃止
 
-サイトのドメインを`paibot.dev`に集約する。アプリは`app.paibot.dev`、ドキュメントは将来`doc.paibot.dev`のように、用途ごとのサブドメインに分ける。`paibot.app`は動作確認後に廃止し、それまでは`app.paibot.dev`へ301転送する(Workerが同じパス・クエリで返す。`www.paibot.app`はTerraformのRedirect Rule)。既存のユーザー・URLは引き継ぎを考えない(ログインは新しいClerk本番インスタンスで作り直す)。
+サイトのドメインを`paibot.dev`に集約する。アプリは`app.paibot.dev`、ドキュメントは将来`doc.paibot.dev`のように、用途ごとのサブドメインに分ける。`paibot.app`は動作確認後に廃止し、それまでは`paibot.dev`(hub)へ301転送する(Workerが同じパス・クエリで返す。`www.paibot.app`はTerraformのRedirect Rule)。既存のユーザー・URLは引き継ぎを考えない(ログインは新しいClerk本番インスタンスで作り直す)。
 
 このブランチ(`app/domain-on-split`)は、ホスト分けのPR(#106)の上に、ドメインの変更(旧`app/paibot-io`)を載せたもの。**コードと設定の準備だけ**。マージ・デプロイの前に、下の「手作業」を済ませること(済む前にマージすると、devのデプロイが失敗する)。
 
@@ -16,7 +16,7 @@
 | `tools.paibot.dev` | `tools-dev.paibot.dev` | 開発者向けツール(ネットワーク・開発)。のちに監視 |
 | `doc.paibot.dev` | - | 技術・解説記事。別の静的サイト。まだ作らない |
 | `www.paibot.dev` | - | `paibot.dev`へ301(TerraformのRedirect Rule) |
-| `paibot.app`, `www.paibot.app` | - | `app.paibot.dev`へ301。廃止まで |
+| `paibot.app`, `www.paibot.app` | - | `paibot.dev`(hub)へ301。hubがページの持ち主のサイトへ、さらに301で送る。廃止まで |
 
 開発の`app-dev`のように`-dev`を付けるのは、`dev.app.paibot.dev`のような2階層が無料のUniversal SSLの対象外のため。ローカルでは`localhost`がhub、`app.localhost`・`learn.localhost`・`tools.localhost`が各サイト(`*.localhost`はブラウザが自動で解決する)。
 
@@ -32,8 +32,8 @@
 5. **キーを入れ替える**: `clerk env pull --instance prod`で取り、GitHubの`PROD_CLERK_PUBLISHABLE_KEY`/`PROD_CLERK_SECRET_KEY`を更新。`config/clerk/production.json`は`clerk config pull --instance prod`で取り直す。devのClerkは共有の開発用なのでそのまま。
 6. **Terraformを適用する**(`infra/`)。`paibot.dev`の転送ルールとDNS、Clerk用DNSができる。
 7. **このPRをマージする**。mainのdevデプロイが`app-dev.paibot.dev`を作る。Cloudflare Accessは`paibot-app-dev`のWorker単位なのでそのまま効く。`app-dev.paibot.dev`のスモークテストが通ることを確認する。
-8. **本番をデプロイする**(`App (production)`をmanual dispatch)。`https://app.paibot.dev`が200、ログイン(Google)が通る、`https://paibot.app/ja`が`https://app.paibot.dev/ja`へ301になることを確認する。
-9. **Search Console**に`app.paibot.dev`を登録してサイトマップを送り、`paibot.app`から「アドレス変更」を出す。
+8. **本番をデプロイする**(`App (production)`をmanual dispatch)。`https://app.paibot.dev`が200、ログイン(Google)が通る、`https://paibot.app/ja/math`が`https://paibot.dev/ja/math`を経て`https://learn.paibot.dev/ja/math`へ301で着くことを確認する。
+9. **Search Console**に`app.paibot.dev`を登録してサイトマップを送り、`paibot.app`から「アドレス変更」を出す(移転先はhubの`paibot.dev`)。
 
 ## 廃止(`app.paibot.dev`での動作確認が済んでから)
 
