@@ -36,7 +36,6 @@ export default function SearchHome({ year }: { year: number }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locale]);
   const results = useMemo(() => search(prepared, query), [prepared, query]);
-  const examples = ts("examples").split("|");
 
   // "/" jumps to the box from anywhere on the page, as on most sites.
   useEffect(() => {
@@ -79,12 +78,6 @@ export default function SearchHome({ year }: { year: number }) {
             data-search="input"
           />
         </div>
-        {!query.trim() && (
-          <p className={styles.hint}>
-            {ts("hint")}
-            {examples.map(example => <button key={example} type="button" className={styles.example} onClick={() => { setQuery(example); setActive(0); input.current?.focus(); }}>{example}</button>)}
-          </p>
-        )}
         {query.trim() && (
           <ul id="search-results" className={styles.results} role="listbox" aria-label={ts("results")} data-search="results">
             {results.length === 0 && <li className={styles.none} role="presentation">{ts("none", { query: query.trim() })}</li>}

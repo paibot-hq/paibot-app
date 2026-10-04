@@ -621,8 +621,6 @@
     "search": {
       "all": "全部应用", "label": "搜索",
       "placeholder": "搜索应用和数学单元",
-      "hint": "试试：",
-      "examples": "计算|因式分解|JSON|密码|测验",
       "results": "搜索结果",
       "none": "没有找到与“{query}”相关的内容",
       "kind": {

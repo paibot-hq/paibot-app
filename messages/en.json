@@ -621,8 +621,6 @@
     "search": {
       "all": "All apps", "label": "Search",
       "placeholder": "Search apps and math topics",
-      "hint": "Try:",
-      "examples": "character|factoring|JSON|password|quiz",
       "results": "Search results",
       "none": "Nothing found for \"{query}\"",
       "kind": {
