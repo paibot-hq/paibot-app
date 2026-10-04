@@ -19,6 +19,10 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .tool-versions
+          cache: npm
       - uses: ./.github/actions/verify-setup
         with:
           clerk-publishable-key: ${{ secrets.CLERK_PUBLISHABLE_KEY }}
@@ -33,14 +37,32 @@ jobs:
     timeout-minutes: 10
     steps:
       - uses: actions/checkout@v7
-      - uses: ./.github/actions/verify-setup
+        with:
+          fetch-depth: ${{ github.event_name == 'pull_request' && '0' || '1' }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .tool-versions
+          cache: npm
+      # A PR skips this job when nothing it checks can have changed (scripts/ci-changes.mjs);
+      # main always runs it.
+      - name: Is this job needed?
+        id: needed
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          git fetch --no-tags origin "$BASE_REF:refs/remotes/origin/$BASE_REF" 2>/dev/null || true
+          node scripts/ci-changes.mjs e2e >> "$GITHUB_OUTPUT"
+      - if: steps.needed.outputs.run == 'true'
+        uses: ./.github/actions/verify-setup
         with:
           clerk-publishable-key: ${{ secrets.CLERK_PUBLISHABLE_KEY }}
           clerk-secret-key: ${{ secrets.CLERK_SECRET_KEY }}
           database: 'true'
           browser: 'true'
-      - run: npm run build
-      - run: npm run e2e -- access environments whois site-check
+      - if: steps.needed.outputs.run == 'true'
+        run: npm run build
+      - if: steps.needed.outputs.run == 'true'
+        run: npm run e2e -- access environments whois site-check
   browser:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
@@ -50,14 +72,30 @@ jobs:
           # PRs compare against the base branch to pick the affected tools. (A string:
           # `cond && 0 || 1` is always 1, because 0 is falsy.)
           fetch-depth: ${{ github.event_name == 'pull_request' && '0' || '1' }}
-      - uses: ./.github/actions/verify-setup
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .tool-versions
+          cache: npm
+      # A PR skips this job when nothing it checks can have changed (scripts/ci-changes.mjs);
+      # main always runs it.
+      - name: Is this job needed?
+        id: needed
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          git fetch --no-tags origin "$BASE_REF:refs/remotes/origin/$BASE_REF" 2>/dev/null || true
+          node scripts/ci-changes.mjs browser >> "$GITHUB_OUTPUT"
+      - if: steps.needed.outputs.run == 'true'
+        uses: ./.github/actions/verify-setup
         with:
           clerk-publishable-key: ${{ secrets.CLERK_PUBLISHABLE_KEY }}
           clerk-secret-key: ${{ secrets.CLERK_SECRET_KEY }}
           database: 'true'
           browser: 'true'
-      - run: npm run build
-      - name: Browser checks against built Worker
+      - if: steps.needed.outputs.run == 'true'
+        run: npm run build
+      - if: steps.needed.outputs.run == 'true'
+        name: Browser checks against built Worker
         run: |
           npm run preview &
           preview_pid=$!
@@ -66,7 +104,6 @@ jobs:
           # PRs run the per-tool checks only for the tools they can affect
           # (scripts/affected-tools.mjs); main runs every tool.
           if [ "${{ github.event_name }}" = pull_request ]; then
-            git fetch --no-tags origin "${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}" || true
             export CHECK_TOOLS="$(node scripts/affected-tools.mjs "origin/${{ github.base_ref }}")"
             echo "Affected tools: ${CHECK_TOOLS:-none}"
           fi
