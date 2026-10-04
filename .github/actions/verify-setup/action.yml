@@ -1,0 +1,42 @@
+name: Verify setup
+description: Dependencies (after setup-node), the local Clerk keys (.dev.vars) and, when asked, local D1 and a Playwright browser
+inputs:
+  clerk-publishable-key:
+    description: Clerk test publishable key, written to .dev.vars
+    required: true
+  clerk-secret-key:
+    description: Clerk test secret key, written to .dev.vars
+    required: true
+  database:
+    description: "'true' to migrate and fill the local D1 database"
+    default: 'false'
+  browser:
+    description: "'true' to install the Playwright browser"
+    default: 'false'
+runs:
+  using: composite
+  steps:
+    - run: npm ci
+      shell: bash
+    - name: Local development Clerk keys
+      shell: bash
+      env:
+        CLERK_PUBLISHABLE_KEY: ${{ inputs.clerk-publishable-key }}
+        CLERK_SECRET_KEY: ${{ inputs.clerk-secret-key }}
+      run: node -e 'require("fs").writeFileSync(".dev.vars", `CLERK_PUBLISHABLE_KEY=${process.env.CLERK_PUBLISHABLE_KEY}\nCLERK_SECRET_KEY=${process.env.CLERK_SECRET_KEY}\n`)'
+    - if: inputs.database == 'true'
+      shell: bash
+      run: |
+        npm run db:migrate:local
+        npm run quiz:import:local
+        npm run math:import:local
+    # Only the browser download is cached; install still runs so the OS
+    # packages it needs land on the fresh runner either way.
+    - if: inputs.browser == 'true'
+      uses: actions/cache@v6
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+    - if: inputs.browser == 'true'
+      shell: bash
+      run: npx playwright install --with-deps chromium

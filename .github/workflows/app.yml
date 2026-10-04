@@ -10,7 +10,60 @@ concurrency:
   # Superseded PR runs can stop; a main run may be mid-migration or mid-deploy.
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 jobs:
-  verify:
+  # The checks run as three jobs side by side (plus `sympy`), each doing its own
+  # setup; deploy-dev needs all of them. The three rebuild the app because the
+  # last step of build-targets leaves the normal dev build behind.
+  # No browser, no server: unit tests, types and the build targets of each environment.
+  static:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .tool-versions
+          cache: npm
+      - uses: ./.github/actions/verify-setup
+        with:
+          clerk-publishable-key: ${{ secrets.CLERK_PUBLISHABLE_KEY }}
+          clerk-secret-key: ${{ secrets.CLERK_SECRET_KEY }}
+      # Every tests/unit/*.test.mjs (no build, server or browser needed).
+      - run: npm test
+      - run: npm run typecheck
+      - run: npm run e2e -- build-targets
+  # These start their own Workers/previews (tests/e2e/*.mjs headers).
+  e2e:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: ${{ github.event_name == 'pull_request' && '0' || '1' }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .tool-versions
+          cache: npm
+      # A PR skips this job when nothing it checks can have changed (scripts/ci-changes.mjs);
+      # main always runs it.
+      - name: Is this job needed?
+        id: needed
+        env:
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          git fetch --no-tags origin "$BASE_REF:refs/remotes/origin/$BASE_REF" 2>/dev/null || true
+          node scripts/ci-changes.mjs e2e >> "$GITHUB_OUTPUT"
+      - if: steps.needed.outputs.run == 'true'
+        uses: ./.github/actions/verify-setup
+        with:
+          clerk-publishable-key: ${{ secrets.CLERK_PUBLISHABLE_KEY }}
+          clerk-secret-key: ${{ secrets.CLERK_SECRET_KEY }}
+          database: 'true'
+          browser: 'true'
+      - if: steps.needed.outputs.run == 'true'
+        run: npm run build
+      - if: steps.needed.outputs.run == 'true'
+        run: npm run e2e -- access environments whois site-check
+  browser:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     steps:
@@ -23,29 +76,26 @@ jobs:
         with:
           node-version-file: .tool-versions
           cache: npm
-      - run: npm ci
-      - name: Local development Clerk keys
+      # A PR skips this job when nothing it checks can have changed (scripts/ci-changes.mjs);
+      # main always runs it.
+      - name: Is this job needed?
+        id: needed
         env:
-          CLERK_PUBLISHABLE_KEY: ${{ secrets.CLERK_PUBLISHABLE_KEY }}
-          CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
-        run: node -e 'require("fs").writeFileSync(".dev.vars", `CLERK_PUBLISHABLE_KEY=${process.env.CLERK_PUBLISHABLE_KEY}\nCLERK_SECRET_KEY=${process.env.CLERK_SECRET_KEY}\n`)'
-      # Every tests/unit/*.test.mjs (no build, server or browser needed).
-      - run: npm test
-      - run: npm run db:migrate:local
-      - run: npm run quiz:import:local
-      - run: npm run math:import:local
-      - run: npm run typecheck
-      - run: npm run e2e -- build-targets
-      # Only the browser download is cached; install still runs so the OS
-      # packages it needs land on the fresh runner either way.
-      - uses: actions/cache@v6
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          git fetch --no-tags origin "$BASE_REF:refs/remotes/origin/$BASE_REF" 2>/dev/null || true
+          node scripts/ci-changes.mjs browser >> "$GITHUB_OUTPUT"
+      - if: steps.needed.outputs.run == 'true'
+        uses: ./.github/actions/verify-setup
         with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-      - run: npx playwright install --with-deps chromium
-      # These start their own Workers/previews (tests/e2e/*.mjs headers).
-      - run: npm run e2e -- access environments whois site-check
-      - name: Browser checks against built Worker
+          clerk-publishable-key: ${{ secrets.CLERK_PUBLISHABLE_KEY }}
+          clerk-secret-key: ${{ secrets.CLERK_SECRET_KEY }}
+          database: 'true'
+          browser: 'true'
+      - if: steps.needed.outputs.run == 'true'
+        run: npm run build
+      - if: steps.needed.outputs.run == 'true'
+        name: Browser checks against built Worker
         run: |
           npm run preview &
           preview_pid=$!
@@ -54,13 +104,12 @@ jobs:
           # PRs run the per-tool checks only for the tools they can affect
           # (scripts/affected-tools.mjs); main runs every tool.
           if [ "${{ github.event_name }}" = pull_request ]; then
-            git fetch --no-tags origin "${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}" || true
             export CHECK_TOOLS="$(node scripts/affected-tools.mjs "origin/${{ github.base_ref }}")"
             echo "Affected tools: ${CHECK_TOOLS:-none}"
           fi
           CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run e2e -- smoke catalog tools quiz-browser
   # SymPy re-derives every math answer (CPU only, no browser), so it runs beside
-  # `verify` instead of before it. deploy-dev needs both, so only SymPy-verified
+  # the other checks instead of before them. deploy-dev needs all of them, so only SymPy-verified
   # banks are imported and the deploy jobs do not need Python themselves.
   sympy:
     runs-on: ubuntu-24.04
@@ -92,7 +141,7 @@ jobs:
       - if: steps.affected.outputs.run == 'true'
         run: npm run test:sympy
   deploy-dev:
-    needs: [verify, sympy]
+    needs: [static, e2e, browser, sympy]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
