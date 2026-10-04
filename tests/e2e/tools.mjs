@@ -8,8 +8,10 @@ import { existsSync } from 'node:fs';
 import { chromium } from 'playwright';
 import { configureAccess } from '../../scripts/lib/access.mjs';
 import { selectedTools } from './lib/selected-tools.mjs';
+import { siteOrigins } from '../../src/lib/sites.ts';
 
-const base = process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002';
+// Every script starts on the app site (src/lib/sites.ts), whatever host the preview was given.
+const base = siteOrigins(new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://app.localhost:3002').origin).app;
 const flowFile = slug => [new URL(`../../src/tools/${slug}/e2e.mjs`, import.meta.url), new URL(`./flows/${slug}.mjs`, import.meta.url)].find(existsSync);
 const tools = selectedTools();
 const browser = await chromium.launch();

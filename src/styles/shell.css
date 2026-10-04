@@ -40,6 +40,7 @@ a {
   margin: 0 auto;
   padding: 1.25rem 0;
 }
+@media (min-width: 761px) { .topbar:not([data-switcher]) { grid-template-columns: 1fr auto; } }
 .topbar > .brand { justify-self: start; }
 .topbar > .toolbar { justify-self: end; }
 
@@ -65,6 +66,12 @@ a {
   letter-spacing: 0;
   text-decoration: none;
 }
+
+.brand-trail { display: inline-flex; align-items: center; gap: .5rem; justify-self: start; }
+.brand-slash { color: var(--muted); }
+.brand-site { color: var(--accent); font-size: .95rem; font-weight: 600; text-decoration: none; }
+.brand-site:hover, .brand-site:focus-visible { text-decoration: underline; }
+.topbar > .brand-trail > .brand { justify-self: auto; }
 
 .brand-logo {
   display: block;
@@ -93,6 +100,8 @@ nav {
   text-transform: uppercase;
   letter-spacing: .08em;
 }
+
+nav.site-switcher { text-transform: none; letter-spacing: .02em; font-size: .92rem; }
 
 nav a {
   text-decoration: none;

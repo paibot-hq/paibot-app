@@ -19,9 +19,10 @@ npm run dev
 Open http://localhost:3002/ja. Source lives in `src/`, translations in `messages/`,
 and assets in `public/`.
 
-`CLERK_PUBLISHABLE_KEY` replaces `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` in the app.
-`CLERK_SECRET_KEY` stays server-only. CI still reads the existing GitHub secret
-names, so no GitHub-secret rename is needed. `.env.local` is no longer the app's
+The app reads `CLERK_PUBLISHABLE_KEY` (the old Next.js name `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` is no longer
+used; production keeps its Workers secret only so a pre-migration tag can be rolled back to).
+`CLERK_SECRET_KEY` stays server-only. The GitHub secrets are `CLERK_PUBLISHABLE_KEY` and `CLERK_SECRET_KEY`
+(development keys, used by CI and the e2e checks) and `PROD_CLERK_PUBLISHABLE_KEY` / `PROD_CLERK_SECRET_KEY`. `.env.local` is no longer the app's
 local Clerk configuration. Never use production keys in local auth tests.
 
 ## Database changes
@@ -113,8 +114,8 @@ origin and never automatically forwarded across an external redirect.
 
 | Build | Worker | Domain | Indexing |
 | --- | --- | --- | --- |
-| `npm run build` | `paibot-app-dev` | `dev.paibot.app` | noindex |
-| `npm run build:production` | `paibot-app` | `paibot.app` | index |
+| `npm run build` | `paibot-app-dev` | `app-dev.paibot.dev` | noindex |
+| `npm run build:production` | `paibot-app` | `app.paibot.dev` | index |
 
 Select the environment at **build time**; deploy `build/server/wrangler.json`
 without another `--env`. Runtime keys live in Workers Secrets. Local `.dev.vars`

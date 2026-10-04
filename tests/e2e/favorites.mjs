@@ -5,12 +5,14 @@ import { spawnSync } from 'node:child_process';
 import { chromium } from 'playwright';
 import { clerkSetup, setupClerkTestingToken, clerk } from '@clerk/testing/playwright';
 import { createClerkClient } from '@clerk/backend';
+import { siteOrigins } from '../../src/lib/sites.ts';
 
 // Same disposable-test-user technique as tests/e2e/auth.mjs (a real Clerk
 // sign-up against the dev instance, deleted in `finally`) - favorites needs
 // a real signed-in userId, which nothing else in this repo can fake.
-const base = process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002';
-assert.ok(['localhost', '127.0.0.1'].includes(new URL(base).hostname), 'Auth fixture test is local-only');
+// Every script starts on the app site (src/lib/sites.ts), whatever host the preview was given.
+const base = siteOrigins(new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://app.localhost:3002').origin).app;
+assert.ok(/^(localhost|127\.0\.0\.1|[a-z]+\.localhost)$/.test(new URL(base).hostname), 'Auth fixture test is local-only');
 assert.ok(process.env.CLERK_PUBLISHABLE_KEY?.startsWith('pk_test_'), 'Development publishable key required');
 assert.ok(process.env.CLERK_SECRET_KEY?.startsWith('sk_test_'), 'Development secret key required');
 const email = `paibot-e2e-${randomUUID()}+clerk_test@example.com`;
@@ -34,9 +36,9 @@ try {
 
   // A signed-out visitor sees every star (same as signed-in), but clicking
   // one opens Clerk's sign-in modal instead of writing to D1.
-  await page.goto(`${base}/en/apps`);
+  await page.goto(`${base}/en`);
   await clerk.signOut({ page });
-  await page.goto(`${base}/en/apps`);
+  await page.goto(`${base}/en`);
   await clerk.loaded({ page });
   assert.ok((await page.locator('.favorite-button').count()) > 0, 'signed-out visitors still see favorite buttons');
   await page.locator('[data-slug="wc"]').click();
@@ -45,7 +47,7 @@ try {
   console.log('PASS: favoriting while signed out opens the sign-in modal, not a D1 write');
 
   await clerk.signIn({ page, signInParams: { strategy: 'email_code', identifier: email } });
-  await page.goto(`${base}/en/apps`);
+  await page.goto(`${base}/en`);
   await clerk.loaded({ page });
 
   // "wc" (character count) is a stable, always-published tool to key the test on.
@@ -70,17 +72,17 @@ try {
 
   // The same star also shows on the tool's own page (ToolLayout), reading
   // routes/locale.tsx's shared loader, and its fetcher submits cross-route
-  // to routes/apps.tsx's action (explicit actionPath, since the current
-  // page here is /wc, not /apps).
+  // to routes/favorites.ts's action (explicit actionPath, since the current
+  // page here is /wc, not the list).
   await page.goto(`${base}/en/wc`);
   const toolStar = page.locator('[data-slug="wc"]');
   await toolStar.waitFor();
   assert.equal(await toolStar.getAttribute('aria-pressed'), 'false', 'tool page reflects unfavorited state too');
   await toolStar.click();
   await page.waitForFunction(() => document.querySelector('[data-slug="wc"]')?.getAttribute('aria-pressed') === 'true');
-  await page.goto(`${base}/en/apps`);
+  await page.goto(`${base}/en`);
   await card.locator('.favorite-button').waitFor();
-  assert.equal(await card.locator('.favorite-button').getAttribute('aria-pressed'), 'true', 'favoriting from the tool page reflects on /apps');
+  assert.equal(await card.locator('.favorite-button').getAttribute('aria-pressed'), 'true', 'favoriting from the tool page reflects on the list of the app');
   await card.locator('.favorite-button').click();
   await page.waitForFunction(() => document.querySelector('[data-slug="wc"]')?.getAttribute('aria-pressed') === 'false');
   console.log('PASS: the favorite star also works from the tool\'s own page');

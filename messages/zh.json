@@ -193,7 +193,7 @@
     "title": "PAIBOT.app",
     "description": "介绍 PAIBOT 开发的应用与云端工具。我们正在打造用于运维、信息整理和自动化的工具。",
     "navSites": "站点",
-    "site": { "app": "应用", "learn": "学习", "doc": "文档" },
+    "site": { "app": "App", "learn": "Learn", "tools": "Tools", "doc": "Doc" },
     "navApps": "应用",
     "navAbout": "关于",
     "lead": "有这个，就够了。",
@@ -259,7 +259,7 @@
       "title": "PAIBOT | 应用、学习与文档",
       "description": "PAIBOT LLC 的小工具、四选一练习，以及技术解说文章。",
       "lead": "小工具、学习，和值得一读的文章。",
-      "sites": "三个站点",
+      "sites": "站点",
       "open": "已开放",
       "soon": "即将推出",
       "stats": {
@@ -276,6 +276,11 @@
         "title": "Learn",
         "text": "从小学到大学，用四选一从基础一步步学的数学练习。英语和 IT 即将推出。",
         "meta": "{items} 个学习项目"
+      },
+      "tools": {
+        "title": "Tools",
+        "text": "网络诊断、JSON 格式化、Base64 等开发者工具。之后还有监控。",
+        "meta": "{tools} 个工具"
       },
       "doc": {
         "title": "Doc",
@@ -307,9 +312,22 @@
         }
       }
     },
+      "toolsSite": {
+      "title": "PAIBOT Tools | 面向开发者的工具",
+      "description": "面向开发者的免费工具：JSON 格式化、Base64、URL 编码、IP 查询、域名查询、CIDR 计算、网站检测等。",
+      "heading": "Tools",
+      "lead": "面向开发者的工具。",
+      "tools": "工具",
+      "free": "免费",
+      "soon": "即将推出",
+      "monitor": {
+        "title": "监控",
+        "text": "监控网站是否在线，以及域名、证书的到期，并在有变化时通知。即将推出。"
+      }
+    },
     "home": {
-      "learnBanner": {"title": "想学习？前往 Learn →", "text": "从小学到大学的四选一数学练习，在学习站点 Learn。"},
       "stats": {
+        "categories": "分类",
         "tools": "工具",
         "units": "数学单元",
         "items": "数学知识点",

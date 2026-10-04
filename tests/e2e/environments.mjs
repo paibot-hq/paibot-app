@@ -10,11 +10,12 @@ async function run(command, args, env) {
     child.on('exit', code => code === 0 ? resolve() : reject(new Error(`${command} exited ${code}`)));
   });
 }
+// wrangler dev shows the Worker its first route's host; --local-upstream makes it the app site's (src/lib/sites.ts).
 // Simulate both indexing policies using the built Worker, never a live deployment.
 // --persist-to shares the local D1 that db:migrate:local migrates; without it the
 // built config keeps its own empty database under build/server/.wrangler.
-for (const [indexable, origin, port] of [[false, 'https://dev.paibot.app', 4311], [true, 'https://paibot.app', 4312]]) {
-  const server = spawn('node', ['node_modules/wrangler/bin/wrangler.js', 'dev', '--config', 'build/server/wrangler.json', '--persist-to', '.wrangler/state', '--port', String(port), '--inspector-port', '0', '--var', `SITE_URL:${origin}`, '--var', `SITE_INDEXABLE:${indexable}`], { stdio: ['ignore', 'pipe', 'pipe'] });
+for (const [indexable, origin, port] of [[false, 'https://app-dev.paibot.dev', 4311], [true, 'https://app.paibot.dev', 4312]]) {
+  const server = spawn('node', ['node_modules/wrangler/bin/wrangler.js', 'dev', '--config', 'build/server/wrangler.json', '--persist-to', '.wrangler/state', '--port', String(port), '--inspector-port', '0', '--local-upstream', 'app.localhost', '--var', `SITE_URL:${origin}`, '--var', `SITE_INDEXABLE:${indexable}`], { stdio: ['ignore', 'pipe', 'pipe'] });
   let output = '';
   server.stdout.on('data', data => { output = (output + data).slice(-4000); });
   server.stderr.on('data', data => { output = (output + data).slice(-4000); });
@@ -27,7 +28,7 @@ for (const [indexable, origin, port] of [[false, 'https://dev.paibot.app', 4311]
       await delay(500);
     }
     assert.ok(ready, 'Local Worker did not start');
-    await run('node', ['tests/e2e/smoke.mjs'], { CHECK_BROWSER_BASE_URL: `http://localhost:${port}`, CHECK_SITE_URL: origin, CHECK_SITE_INDEXABLE: String(indexable), CHECK_SSR_ONLY: 'true' });
+    await run('node', ['tests/e2e/smoke.mjs'], { CHECK_BROWSER_BASE_URL: `http://app.localhost:${port}`, CHECK_SITE_URL: origin, CHECK_SITE_INDEXABLE: String(indexable), CHECK_SSR_ONLY: 'true' });
   } finally {
     server.kill('SIGTERM');
     await new Promise(resolve => { if (server.exitCode !== null) resolve(); else server.once('exit', resolve); });

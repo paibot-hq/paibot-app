@@ -4,9 +4,11 @@ import { randomUUID } from 'node:crypto';
 import { chromium } from 'playwright';
 import { clerkSetup, setupClerkTestingToken, clerk } from '@clerk/testing/playwright';
 import { createClerkClient } from '@clerk/backend';
+import { siteOrigins } from '../../src/lib/sites.ts';
 
-const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002').origin;
-assert.ok(['localhost', '127.0.0.1'].includes(new URL(base).hostname), 'Local targets only');
+// Every script starts on the app site (src/lib/sites.ts), whatever host the preview was given.
+const base = siteOrigins(new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://app.localhost:3002').origin).app;
+assert.ok(/^(localhost|127\.0\.0\.1|[a-z]+\.localhost)$/.test(new URL(base).hostname), 'Local targets only');
 assert.ok(process.env.CLERK_PUBLISHABLE_KEY?.startsWith('pk_test_'));
 assert.ok(process.env.CLERK_SECRET_KEY?.startsWith('sk_test_'));
 const backend = createClerkClient({ secretKey: process.env.CLERK_SECRET_KEY });
@@ -84,7 +86,8 @@ try {
   assert.equal(unset.headers()['location'], '/ja', 'unsetting the language restores the default');
   await page.goto(`${base}/en/profile`);
   assert.equal(await page.locator('#profile-locale').inputValue(), '', 'the language shows as unset');
-  await page.locator('#profile-theme').selectOption('');
+  // Wait for the save itself: reloading first would cancel it.
+  await Promise.all([page.waitForResponse(response => response.request().method() === 'POST' && response.url().includes('/profile')), page.locator('#profile-theme').selectOption('')]);
   await page.waitForFunction(() => !document.documentElement.dataset.theme || ['light', 'dark'].includes(document.documentElement.dataset.theme));
   await page.reload();
   assert.equal(await page.locator('#profile-theme').inputValue(), '', 'the appearance shows as unset');

@@ -6,9 +6,10 @@ import { spawnSync } from 'node:child_process';
 // Leave the normal dev build last, so subsequent local checks use test keys.
 // database: each environment must bind its own D1 database - production
 // pointing at the dev one (or vice versa) would mix real users' data with tests.
-for (const [environment, name, host, indexable, database] of [
-  ['production', 'paibot-app', 'paibot.app', 'true', 'paibot-app-apac'],
-  ['', 'paibot-app-dev', 'dev.paibot.app', 'false', 'paibot-app-dev-apac'],
+// routes: the site's domain first; every site's host is routed (src/lib/sites.ts), and production also the old paibot.app, which only redirects (src/lib/legacy-host.ts).
+for (const [environment, name, host, indexable, database, routes] of [
+  ['production', 'paibot-app', 'app.paibot.dev', 'true', 'paibot-app-apac', ['paibot.dev', 'app.paibot.dev', 'learn.paibot.dev', 'tools.paibot.dev', 'paibot.app']],
+  ['', 'paibot-app-dev', 'app-dev.paibot.dev', 'false', 'paibot-app-dev-apac', ['dev.paibot.dev', 'app-dev.paibot.dev', 'learn-dev.paibot.dev', 'tools-dev.paibot.dev']],
 ]) {
   const env = { ...process.env };
   if (environment) env.CLOUDFLARE_ENV = environment;
@@ -21,7 +22,7 @@ for (const [environment, name, host, indexable, database] of [
   }
   const config = JSON.parse(readFileSync('build/server/wrangler.json', 'utf8'));
   assert.equal(config.name, name);
-  assert.deepEqual(config.routes, [{ pattern: host, custom_domain: true }]);
+  assert.deepEqual(config.routes, routes.map(pattern => ({ pattern, custom_domain: true })));
   assert.equal(config.vars.SITE_URL, `https://${host}`);
   assert.equal(config.vars.SITE_INDEXABLE, indexable);
   assert.deepEqual(config.d1_databases.map(d => [d.binding, d.database_name]), [['DB', database]]);

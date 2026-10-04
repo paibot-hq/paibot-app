@@ -1,5 +1,7 @@
 # infra/ — CloudflareリソースのTerraform管理
 
+> **ドメインは`paibot.app`から`paibot.dev`へ移行中**(`docs/plans/paibot-dev-migration.md`)。既定ゾーンは`paibot.dev`(`root_domain`)、旧ゾーンは`legacy_domain`として廃止まで残す。以下の`paibot.app`の記述は旧ゾーンの説明。
+
 意図的に最小限にしたTerraform構成です。何か触る前に、特に「まだやっていないこと」の節を読んでください。
 
 ## TerraformとWranglerの管理範囲
@@ -12,11 +14,11 @@
 
 1. **`paibot.app`ゾーンの読み取り専用データソース参照**(`infra/data.tf`)。このゾーンはTerraformが作ったものではなく(Cloudflare APIで確認済み、ステータス`active`)、`resource`ブロックを持たないので、Terraformが削除・再作成を提案することは原理的にありません。
 2. **devのWorker(`paibot-app-dev`)を守るCloudflare Accessアプリケーション**(`infra/access.tf`)。`sanofc@gmail.com`のログインと、GitHub Actions用のService Tokenの両方を許可。この2つは**別々のポリシー**にしてある(`sanofc@gmail.com`用は`decision = "allow"`、Service Token用は`decision = "non_identity"`、ダッシュボード上の表示名は「Service Auth」)。1つの`allow`ポリシーの`include`にemailとservice_tokenを両方並べる書き方は誤り — service tokenにはそもそも検証できるアイデンティティが無いため、`allow`ポリシーはservice tokenだけのリクエストでもIdPログイン画面へのリダイレクトを止めない(実際のトラフィックで確認済み: 最初はこの誤った書き方でapplyし、`smoke-test-dev`のリクエストがCloudflareのログイン画面に静かにリダイレクトされ続ける不具合が発生した)。セッションは24時間。
-   - 対象は`destinations`の`type = "worker"`(Worker単位)なので、カスタムドメイン(`dev.paibot.app`)・workers.dev・プレビューURLのすべてに掛かる。
+   - 対象は`destinations`の`type = "worker"`(Worker単位)なので、カスタムドメイン(`app-dev.paibot.dev`)・workers.dev・プレビューURLのすべてに掛かる。
    - Accessを`wrangler.jsonc`ではなくTerraformで持つ理由: Wranglerの`access`ブロックは`wrangler dev`でのID模擬用で、本番のAccess設定はできないため。
    - `worker_id`はWorkerの内部ID(名前ではない)。Workerを削除して作り直すと変わるので、その場合は`access.tf`の値を更新すること。取得方法は`access.tf`のコメントを参照。
-   - `paibot-app-dev`のworkers.devは無効(APIで`enabled: false`を確認)。外からの入口は`dev.paibot.app`だけ。
-   - **Service Token(`cloudflare_zero_trust_access_service_token.ci`)**: `.github/workflows/app.yml`の`smoke-test-dev`ジョブ(`deploy-dev`後、`https://dev.paibot.app`に対して`npm run e2e -- smoke`をPlaywrightで実行する緩いスモークテスト)がAccessのログイン画面にリダイレクトされずに済むようにするためのもの。有効期限は`duration = "8760h"`(約1年、`forever`ではなく期限切れ前提)。`client_id`/`client_secret`は`infra/outputs.tf`の`ci_access_client_id`/`ci_access_client_secret`(いずれも`sensitive = true`)から`terraform output -raw <name>`で取得し、GitHub Secretsの`CF_ACCESS_CLIENT_ID`/`CF_ACCESS_CLIENT_SECRET`に登録する(CIのログには出力されない)。ローテーション時は再applyで新しい`client_secret`が発行されるので、同じ手順でSecretsを更新する。
+   - `paibot-app-dev`のworkers.devは無効(APIで`enabled: false`を確認)。外からの入口は`app-dev.paibot.dev`だけ。
+   - **Service Token(`cloudflare_zero_trust_access_service_token.ci`)**: `.github/workflows/app.yml`の`smoke-test-dev`ジョブ(`deploy-dev`後、`https://app-dev.paibot.dev`に対して`npm run e2e -- smoke`をPlaywrightで実行する緩いスモークテスト)がAccessのログイン画面にリダイレクトされずに済むようにするためのもの。有効期限は`duration = "8760h"`(約1年、`forever`ではなく期限切れ前提)。`client_id`/`client_secret`は`infra/outputs.tf`の`ci_access_client_id`/`ci_access_client_secret`(いずれも`sensitive = true`)から`terraform output -raw <name>`で取得し、GitHub Secretsの`CF_ACCESS_CLIENT_ID`/`CF_ACCESS_CLIENT_SECRET`に登録する(CIのログには出力されない)。ローテーション時は再applyで新しい`client_secret`が発行されるので、同じ手順でSecretsを更新する。
 3. **Clerk本番インスタンス用のDNSレコード**(`infra/dns.tf`)。`clerk deploy`が要求するCNAME5件(認証用カスタムドメイン+メール送信用DKIM)。`clerk deploy`実行時に生成されるBINDゾーンファイルの内容をそのまま`cloudflare_dns_record`として転記したもの。すべて`proxied = false`(Clerk自身がTLS終端するため、Cloudflareのプロキシを挟まない)。
 4. **D1データベース(dev・本番の2つ)**(`infra/d1.tf`、`cloudflare_d1_database.app_dev_apac`=`paibot-app-dev-apac`と`cloudflare_d1_database.app_prod_apac`=`paibot-app-apac`。どちらも`primary_location_hint = "apac"`でプライマリをアジア太平洋に固定)。最初に作った`paibot-app-dev`/`paibot-app`は位置指定なしでGitHub ActionsのランナーからつくったためENAMに置かれ、東京のエッジからのクエリごとに約140ms余計にかかっていた。2026年9月にAPACの2つを新設し、`wrangler d1 export`→`wrangler d1 execute --file`でデータを移して`wrangler.jsonc`を切り替え、旧DBは削除した(書き出したファイルは手元の`app/.wrangler/backups/`に保管)。既存DBの`primary_location_hint`を変えるとTerraformは作り直し(=データごと削除)になるので、位置を変えるときは新しいリソースを足してデータを移すこと。お気に入り機能(issue #18)が最初の利用で、機能ごとにデータベースを分けず、環境ごとにアプリ全体で1つを共用する方針(将来`/math`の問題集でも同じDBを使う想定)。本番はdevと別のDBにしてあり、dev側のテストが本番ユーザーのデータに触れないようにしている。
    - Terraformは`cloudflare_d1_database`リソース(D1データベースの存在)までを管理する。Workerからのバインディング設定自体は`wrangler.jsonc`の`d1_databases`(Wrangler管轄、上の「TerraformとWranglerの管理範囲」参照)なので、`terraform apply`後に`infra/outputs.tf`の`d1_app_dev_apac_database_id`/`d1_app_prod_apac_database_id`から`database_id`を**手で**転記すること(本番分は`env.production`側に、別PRとして)。テーブル定義(スキーマ変更)はTerraformではなくWranglerのマイグレーション(`migrations/`、`migrations/README.md`)で両方のDBに適用する。
@@ -110,6 +112,6 @@ aws s3api copy-object --endpoint-url "https://<account_id>.r2.cloudflarestorage.
 - `terraform fmt -check -recursive` / `terraform validate`: 成功(PRの`Infra Plan`でも毎回実行)
 - 本物のR2バケットに対する`init`/`plan`/`apply`: 成功(stateの保存、ロックの取得・解放を確認)
 - `access.tf`: `Infra Apply`で1件作成(`Resources: 1 added, 0 changed, 0 destroyed`)。
-  - 未ログインで`https://dev.paibot.app`を開くと、Cloudflare Accessのログイン画面に転送されることを確認。
+  - 未ログインで`https://app-dev.paibot.dev`を開くと、Cloudflare Accessのログイン画面に転送されることを確認。
   - `sanofc@gmail.com`でログインして入れることを、手動で確認。
 - 未検証: 同時applyによるロック競合(上記)、`infra-apply`環境の承認者。

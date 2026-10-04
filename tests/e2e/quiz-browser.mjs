@@ -3,8 +3,10 @@ import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { bank } from '../../scripts/validate-quiz.mjs';
 import { appFetch, configureAccess } from '../../scripts/lib/access.mjs';
+import { siteOrigins } from '../../src/lib/sites.ts';
 
-const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002').origin;
+// Every script starts on the app site (src/lib/sites.ts), whatever host the preview was given.
+const base = siteOrigins(new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://app.localhost:3002').origin).app;
 for (const locale of ['ja', 'en', 'zh']) {
   const response = await appFetch(base, `/api/quiz?locale=${locale}`);
   assert.equal(response.status, 200);
@@ -26,7 +28,7 @@ try {
   await configureAccess(page, base);
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.goto(`${base}/en/apps`);
+  await page.goto(`${base}/en`);
   await page.locator('a[href="/en/quiz"]').click();
   await page.waitForURL(`${base}/en/quiz`);
   await page.getByRole('button', { name: 'Start quiz', exact: true }).click();

@@ -6,7 +6,7 @@
 import type { ComponentType, SVGProps } from "react";
 import { APP_CATALOG, type AppCategory, type AppData, type AppSlug } from "./app-catalog";
 
-export { APP_CATEGORIES, type AppCategory } from "./app-catalog";
+export { APP_CATEGORIES, APP_SITE_CATEGORIES, type AppCategory } from "./app-catalog";
 
 // use-intl types `t()` against ja.json's literal key paths (see
 // src/i18n/types.d.ts), but category/app keys are only known at runtime
@@ -250,12 +250,10 @@ export type HomeCategoryTile = {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
 };
 
-// Every category has its own landing page linked from the homepage.
+// The app's categories, each with its own landing page linked from the app's cover; learn, developer and network
+// tools are on their own sites.
 export const HOME_CATEGORY_TILES: HomeCategoryTile[] = [
   { category: "daily", messageKey: "daily", icon: AgeIcon },
   { category: "game", messageKey: "game", icon: GameIcon },
   { category: "utility", messageKey: "utility", icon: UtilityIcon },
-  { category: "study", messageKey: "study", icon: StudyIcon },
-  { category: "dev", messageKey: "dev", icon: JsonIcon },
-  { category: "network", messageKey: "network", icon: CidrIcon },
 ];

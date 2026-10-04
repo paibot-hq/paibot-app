@@ -10,7 +10,7 @@ import { APP_CATALOG, type AppData } from "./app-catalog.ts";
 
 // Every published, non-private app in the catalog is public, so a new tool
 // needs no edit here; add only pages outside the catalog below.
-const sitePaths = ["", "/apps", "/daily", "/game", "/utility", "/study", "/learn", "/dev", "/network", "/about", "/supporter", "/legal/terms", "/legal/privacy", "/legal/commerce"];
+const sitePaths = ["", "/about", "/supporter", "/legal/terms", "/legal/privacy", "/legal/commerce"];
 const mathSetPaths = ["/math/arith", "/math/signed", "/math/factorization", "/math/pythagoras", "/math/arith/order-of-operations", "/math/signed/four-operations", "/math/factorization/trinomial", "/math/pythagoras/sides"];
 export const publicPaths: readonly string[] = [
   ...sitePaths,
@@ -30,7 +30,7 @@ export function pathLocales(path: string): readonly Locale[] {
   return localeOnlyPaths[path] ?? locales;
 }
 
-// x-default is the locale-less URL (e.g. https://paibot.app/), which
+// x-default is the locale-less URL (e.g. https://app.paibot.dev/), which
 // routes/redirect.ts sends to the visitor's language - what Google recommends
 // for auto-redirecting pages. A page missing from some locales can't use it
 // (the redirect could land on a 404), so it points at a served locale.

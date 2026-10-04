@@ -1,5 +1,5 @@
 # Protects the dev Worker (paibot-app-dev) with Cloudflare Access, so nobody can
-# reach it — via dev.paibot.app, the workers.dev URL, or preview URLs — without
+# reach it — via app-dev.paibot.dev, the workers.dev URL, or preview URLs — without
 # signing in as an allowed email. Access is configured here (account-level), not
 # in wrangler.jsonc: Wrangler's own `access` block only simulates an identity
 # for `wrangler dev` and does not configure real Access.
@@ -14,7 +14,7 @@ locals {
 }
 
 # Lets GitHub Actions (the post-deploy e2e smoke test, see .github/workflows/app.yml's
-# smoke-test-dev job) reach dev.paibot.app without a human Access login. Scoped to just
+# smoke-test-dev job) reach app-dev.paibot.dev without a human Access login. Scoped to just
 # this one application below via the policy's `include` — it doesn't grant access to
 # anything else Access might protect in the future.
 resource "cloudflare_zero_trust_access_service_token" "ci" {

@@ -193,7 +193,7 @@
     "title": "PAIBOT.app",
     "description": "Explore PAIBOT apps and cloud utilities. We are building tools for operations, organizing information, and automation.",
     "navSites": "Sites",
-    "site": { "app": "Apps", "learn": "Learn", "doc": "Docs" },
+    "site": { "app": "App", "learn": "Learn", "tools": "Tools", "doc": "Doc" },
     "navApps": "Apps",
     "navAbout": "About",
     "lead": "That's all you need.",
@@ -259,7 +259,7 @@
       "title": "PAIBOT | Apps, Learn and Docs",
       "description": "PAIBOT LLC's small tools, four-choice drills, and technical write-ups.",
       "lead": "Small tools, learning, and things to read.",
-      "sites": "Three sites",
+      "sites": "Sites",
       "open": "Open",
       "soon": "Coming soon",
       "stats": {
@@ -276,6 +276,11 @@
         "title": "Learn",
         "text": "Math drills in four choices, built up from the basics, from elementary school to university. English and IT are coming.",
         "meta": "{items} learning items"
+      },
+      "tools": {
+        "title": "Tools",
+        "text": "Network checks, JSON formatter, Base64 and more, for developers. Monitoring later.",
+        "meta": "{tools} tools"
       },
       "doc": {
         "title": "Doc",
@@ -307,9 +312,22 @@
         }
       }
     },
+      "toolsSite": {
+      "title": "PAIBOT Tools | Tools for developers",
+      "description": "Free tools for developers: JSON formatter, Base64, URL encoding, IP lookup, domain lookup, CIDR calculator and site check.",
+      "heading": "Tools",
+      "lead": "Tools for developers.",
+      "tools": "Tools",
+      "free": "Free",
+      "soon": "Coming soon",
+      "monitor": {
+        "title": "Monitoring",
+        "text": "Watch a site's uptime and the expiry of a domain or certificate, and get notified of changes. Coming soon."
+      }
+    },
     "home": {
-      "learnBanner": {"title": "Looking to learn? Go to Learn →", "text": "Four-choice math drills, from elementary school to university, live on the learning site, Learn."},
       "stats": {
+        "categories": "Categories",
         "tools": "Tools",
         "units": "Math units",
         "items": "Math topics",

@@ -3,11 +3,15 @@ import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { appFetch, configureAccess } from '../../scripts/lib/access.mjs';
 import { locales } from '../../src/i18n/routing.ts';
-import { pathLocales, publicPaths as paths } from '../../src/lib/seo.ts';
-import { APP_CATALOG, APP_CATEGORIES } from '../../src/lib/app-catalog.ts';
+import { pathLocales, publicPaths } from '../../src/lib/seo.ts';
+import { ownerOfPath, siteOrigins } from '../../src/lib/sites.ts';
+import { APP_CATALOG, APP_SITE_CATEGORIES as APP_CATEGORIES } from '../../src/lib/app-catalog.ts';
 
-const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002').origin;
-const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app').origin;
+// The app site (src/lib/sites.ts): its pages and sitemap are the ones checked here; the drills (learning site) and
+// the network tools (tools site) are covered by their own flows and the catalog check.
+const base = siteOrigins(new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://app.localhost:3002').origin).app;
+const siteOrigin = siteOrigins(new URL(process.env.CHECK_SITE_URL ?? 'https://app-dev.paibot.dev').origin).app;
+const paths = publicPaths.filter(path => [null, 'app'].includes(ownerOfPath(path)));
 const indexable = process.env.CHECK_SITE_INDEXABLE === 'true';
 const authPaths = ['sign-in', 'sign-up', 'diary', 'profile'];
 const browser = await chromium.launch();
@@ -112,13 +116,13 @@ try {
     [{ 'Accept-Language': 'fr-FR,fr;q=0.9' }, 'ja'],
     [{ 'Accept-Language': 'en-US', Cookie: 'locale=zh' }, 'zh'],
   ]) {
-    const res = await request('/json?x=1', { redirect: 'manual', headers });
+    const res = await request('/about?x=1', { redirect: 'manual', headers });
     assert.equal(res.status, 307);
-    assert.equal(res.headers.get('location'), `/${expected}/json?x=1`, JSON.stringify(headers));
+    assert.equal(res.headers.get('location'), `/${expected}/about?x=1`, JSON.stringify(headers));
     assert.match(res.headers.get('vary') ?? '', /Accept-Language/);
   }
   // Locale URLs never redirect by language, so crawlers can reach every one.
-  const pinned = await request('/ja/json', { redirect: 'manual', headers: { 'Accept-Language': 'en' } });
+  const pinned = await request('/ja/about', { redirect: 'manual', headers: { 'Accept-Language': 'en' } });
   assert.equal(pinned.status, 200);
   await pinned.body?.cancel();
   for (const path of ['/invalid/wc', '/ja/missing', '/api/missing', '/missing']) {
@@ -187,35 +191,24 @@ try {
   }
   // Expected card links per category, straight from the app catalog.
   const categoryApps = Object.fromEntries(APP_CATEGORIES.map(category => [category, APP_CATALOG.filter(app => app.category === category).map(app => app.href)]));
+  // The app's cover lists its tools by category (the list that used to be /apps), with a search.
   for (const locale of locales) {
     await go(`/${locale}`);
-    assert.deepEqual((await page.locator('.category-item').evaluateAll(links => links.map(link => link.getAttribute('href')))).sort(), Object.keys(categoryApps).map(category => `/${locale}/${category}`).sort());
     for (const [category, hrefs] of Object.entries(categoryApps)) {
-      await page.locator(`.category-item[href="/${locale}/${category}"]`).click();
-      await page.waitForURL(`${base}/${locale}/${category}`);
-      await page.locator(`.category-nav a[aria-current="page"][href="/${locale}/${category}"]`).waitFor();
-      assert.equal(await page.locator('main h1').count(), 1);
-      assert.deepEqual((await page.locator('.app-card').evaluateAll(links => links.map(link => link.getAttribute('href')))).sort(), hrefs.map(href => `/${locale}${href}`).sort());
-      assert.equal(await page.locator('.category-nav [aria-current="page"]').getAttribute('href'), `/${locale}/${category}`);
-      await page.getByRole('searchbox').fill('no-such-app-987654');
-      await page.locator('.app-empty').waitFor();
-      assert.equal(await page.locator('.app-card').count(), 0);
-      await page.locator(`.category-nav a[href="/${locale}/apps"]`).click();
-      await page.waitForURL(`${base}/${locale}/apps`);
-      // React Router can update the URL before React commits the new page.
-      // The old category still shows zero search results until that commit.
-      await page.locator(`.category-nav a[aria-current="page"][href="/${locale}/apps"]`).waitFor();
-      assert.equal(await page.getByRole('searchbox').inputValue(), '', 'all-app navigation resets the category search');
-      await page.locator('.app-card').first().waitFor();
-      assert.equal(await page.locator('.app-card').count(), APP_CATALOG.length);
-      await go(`/${locale}`);
+      assert.deepEqual((await page.locator(`#${category} .app-card`).evaluateAll(links => links.map(link => link.getAttribute('href')))).sort(), hrefs.map(href => `/${locale}${href}`).sort(), `${locale} ${category}`);
     }
+    await page.getByRole('searchbox').fill('no-such-app-987654');
+    await page.locator('.app-empty').waitFor();
+    assert.equal(await page.locator('.app-card').count(), 0);
+    await page.getByRole('searchbox').fill('');
+    await page.locator('.app-card').first().waitFor();
+    assert.equal(await page.locator('.app-card').count(), APP_CATALOG.filter(app => APP_CATEGORIES.includes(app.category)).length);
   }
   await page.setViewportSize({ width: 375, height: 812 });
-  await go('/ja/network');
-  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'category page fits mobile width');
+  await go('/ja');
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'the app cover fits mobile width');
   await page.setViewportSize({ width: 1280, height: 720 });
-  console.log('PASS: six categories in three locales, home links, scoped search, all-app navigation and mobile width');
+  console.log('PASS: the list of the app by category in three locales, search and mobile width');
   for (const locale of locales) {
     await go(`/${locale}/wc`);
     // fill auto-waits for the textarea to become enabled after hydration.
@@ -223,15 +216,15 @@ try {
     await page.waitForFunction(() => document.querySelector('[aria-live="polite"]')?.textContent === '3');
   }
   console.log('PASS: character counting including emoji in three locales');
-  await go('/ja/wc');
+  await go('/ja/age');
   await page.locator('.language-toggle').click();
   await page.getByRole('menuitem', { name: 'English', exact: true }).click();
-  await page.waitForURL(`${base}/en/wc`);
+  await page.waitForURL(`${base}/en/age`);
   await page.waitForFunction(() => document.documentElement.lang === 'en');
   // Remembered for locale-less URLs (see the redirect checks above).
   assert.equal((await page.context().cookies()).find(cookie => cookie.name === 'locale')?.value, 'en');
   assert.equal(await page.locator('title').count(), 1);
-  assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), `${siteOrigin}/en/wc`);
+  assert.equal(await page.locator('link[rel="canonical"]').getAttribute('href'), `${siteOrigin}/en/age`);
   const beforeTheme = await page.locator('html').getAttribute('data-theme');
   const theme = beforeTheme === 'dark' ? 'light' : 'dark';
   await page.locator('.theme-toggle').click();
