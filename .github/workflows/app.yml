@@ -25,7 +25,7 @@ jobs:
       - run: npm ci
       - name: Local development Clerk keys
         env:
-          CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          CLERK_PUBLISHABLE_KEY: ${{ secrets.CLERK_PUBLISHABLE_KEY }}
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
         run: node -e 'require("fs").writeFileSync(".dev.vars", `CLERK_PUBLISHABLE_KEY=${process.env.CLERK_PUBLISHABLE_KEY}\nCLERK_SECRET_KEY=${process.env.CLERK_SECRET_KEY}\n`)'
       # Every tests/unit/*.test.mjs (no build, server or browser needed).
@@ -93,7 +93,7 @@ jobs:
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
-          CLERK_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY }}
+          CLERK_PUBLISHABLE_KEY: ${{ secrets.CLERK_PUBLISHABLE_KEY }}
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
         run: |
           node -e 'console.log(JSON.stringify({CLERK_PUBLISHABLE_KEY:process.env.CLERK_PUBLISHABLE_KEY,CLERK_SECRET_KEY:process.env.CLERK_SECRET_KEY}))' | npx wrangler secret bulk --config build/server/wrangler.json
