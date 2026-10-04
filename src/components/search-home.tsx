@@ -100,7 +100,7 @@ export default function SearchHome({ year }: { year: number }) {
               return (
                 <section key={category}>
                   <h2>{td(`categories.${category}`)}</h2>
-                  <ul>{list.map(app => <li key={app.slug}><Link href={app.href!}><app.icon aria-hidden="true" />{td(`${app.messageKey}.title`)}</Link></li>)}</ul>
+                  <ul>{list.map(app => <li key={app.slug}><Link href={app.href!}><app.icon aria-hidden="true" /><span className={styles.name}>{td(`${app.messageKey}.title`)}<span className={styles.about}>{td(`${app.messageKey}.description`)}</span></span></Link></li>)}</ul>
                 </section>
               );
             })}
