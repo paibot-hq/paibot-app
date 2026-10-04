@@ -14,7 +14,7 @@ import { JP_GRADES, jpGrade } from '../src/lib/math-curriculum-jp.ts';
 //   C: text in three languages (word problems, knowledge, proof steps, construction steps)
 //   D: a figure or graph drawn on the page
 export const NEEDS = {
-  addition: 'A', multiplication: 'A', 'division/remainder': 'B', arith: 'A',
+  addition: 'A', multiplication: 'A', arith: 'A',
   unknowns: 'B', 'unknowns/letters': 'A', 'place-value': 'C', time: 'D', 'time/elapsed': 'C',
   decimal: 'A', fraction: 'A', 'fraction/unit-fractions': 'D', 'fraction/meaning': 'D', 'fraction/mixed': 'B',
   divisors: 'B', rounding: 'B', ratio: 'C', measurement: 'D', 'measurement/length-capacity': 'C', 'measurement/weight': 'C', 'measurement/area-units': 'C',

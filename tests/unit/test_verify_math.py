@@ -32,9 +32,11 @@ def shift_answer(problem):
     problem['answerIndex'] = (problem['answerIndex'] + 1) % 4
 
 
-# Units whose bank is still empty have nothing to break.
+# Units whose bank is still empty have nothing to break. A statement problem (a construction or a missing
+# step of a proof) has no answer to re-derive: only the blind review checks its key, so it is left out.
 for unit in UNITS:
-    if bank(unit)['problems']:
+    problems = bank(unit)['problems']
+    if problems and problems[0].get('kind') != 'statement':
         rejects(unit, shift_answer, 'matching choices')
 
 

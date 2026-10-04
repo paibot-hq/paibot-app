@@ -109,7 +109,7 @@
         "(x + 2)*(x - 3) = 0",
         "x = -2, x = 3"
       ],
-      "choices": ["-2,  3", "-3,  2", "-3,  -2", "2,  3"],
+      "choices": ["-2,   3", "-3,   2", "-3,   -2", "2,   3"],
       "answerIndex": 0
     },
     {
@@ -130,7 +130,7 @@
         "(x + 4)*(x - 2) = 0",
         "x = -4, x = 2"
       ],
-      "choices": ["-2,  4", "-4,  -2", "-4,  2", "2,  4"],
+      "choices": ["-2,   4", "-4,   -2", "-4,   2", "2,   4"],
       "answerIndex": 2
     },
     {
@@ -152,7 +152,7 @@
         "(x + 3)*(x - 1) = 0",
         "x = -3, x = 1"
       ],
-      "choices": ["-1,  3", "-3,  1", "-3,  -1", "1,  3"],
+      "choices": ["-1,   3", "-3,   1", "-3,   -1", "1,   3"],
       "answerIndex": 1
     },
     {
@@ -174,7 +174,7 @@
         "(x + 1)*(x - 3) = 0",
         "x = -1, x = 3"
       ],
-      "choices": ["-3,  1", "-3,  -1", "1,  3", "-1,  3"],
+      "choices": ["-3,   1", "-3,   -1", "1,   3", "-1,   3"],
       "answerIndex": 3
     },
     {
@@ -196,7 +196,97 @@
         "(x + 4)*(x - 1) = 0",
         "x = -4, x = 1"
       ],
-      "choices": ["-4,  1", "-1,  4", "-4,  -1", "1,  4"],
+      "choices": ["-4,   1", "-1,   4", "-4,   -1", "1,   4"],
+      "answerIndex": 0
+    },
+    {
+      "id": "square-function-011",
+      "item": "graph",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "graph",
+      "question": "x^2",
+      "given": null,
+      "which": "parabola",
+      "steps": [
+        "y = x^2"
+      ],
+      "choices": ["y = -x^2", "y = 2*x^2", "y = x^2", "y = 1/2*x^2"],
+      "answerIndex": 2
+    },
+    {
+      "id": "square-function-012",
+      "item": "graph",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "graph",
+      "question": "2*x^2",
+      "given": null,
+      "which": "parabola",
+      "steps": [
+        "y = 2*x^2"
+      ],
+      "choices": ["y = 4*x^2", "y = x^2", "y = -2*x^2", "y = 2*x^2"],
+      "answerIndex": 3
+    },
+    {
+      "id": "square-function-013",
+      "item": "graph",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "graph",
+      "question": "-x^2",
+      "given": null,
+      "which": "parabola",
+      "steps": [
+        "y = -x^2"
+      ],
+      "choices": ["y = x^2", "y = -2*x^2", "y = -x^2", "y = -1/2*x^2"],
+      "answerIndex": 2
+    },
+    {
+      "id": "square-function-014",
+      "item": "graph",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "graph",
+      "question": "1/2*x^2",
+      "given": null,
+      "which": "parabola",
+      "steps": [
+        "y = 1/2*x^2"
+      ],
+      "choices": ["y = -1/2*x^2", "y = 1/4*x^2", "y = 1/2*x^2", "y = x^2"],
+      "answerIndex": 2
+    },
+    {
+      "id": "square-function-015",
+      "item": "graph",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "graph",
+      "question": "-2*x^2",
+      "given": null,
+      "which": "parabola",
+      "steps": [
+        "y = -2*x^2"
+      ],
+      "choices": ["y = -2*x^2", "y = -4*x^2", "y = 2*x^2", "y = -x^2"],
       "answerIndex": 0
     }
   ]

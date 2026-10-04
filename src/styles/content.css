@@ -191,6 +191,23 @@ html[data-theme="light"] .cloud-c {
   }
 }
 
+.home-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1rem;
+  width: min(100%, 840px);
+  margin: 1.5rem auto 0;
+  padding: 1.25rem .5rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-align: center;
+}
+
+.home-stats > div { display: flex; flex-direction: column-reverse; gap: .2rem; min-width: 0; }
+.home-stats dd { margin: 0; color: var(--accent); font-size: clamp(2rem, 7vw, 3rem); font-weight: 700; line-height: 1.1; font-variant-numeric: tabular-nums; }
+.home-stats dt { color: var(--muted); font-size: .8rem; }
+
 .category-showcase-intro {
   margin: 2rem 0 0;
   color: var(--muted);

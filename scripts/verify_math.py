@@ -18,9 +18,12 @@ import re
 import sys
 from pathlib import Path
 
-from sympy import (Abs, And, Eq, FiniteSet, Function, Ge, Gt, I, Integer, Interval, Le, Lt, Or, Poly, Rational, S, Sum, Symbol, Tuple,
+from sympy import (Abs, And, Eq, FiniteSet, Function, Ge, Gt, I, Integer, Interval, Le, Lt, Matrix, Or, Poly, Rational, S, Sum, Symbol, Tuple,
                    binomial, cos, diff, divisor_count, expand, ff, gcd, integrate, isprime, lcm, log, oo, pi, rem, rsolve, simplify, sin,
                    solve, sqrt, tan)
+from sympy import atan2
+from sympy import arg as sympy_arg, conjugate, dsolve, exp, im as sympy_im, limit, re as sympy_re, series
+from sympy.matrices.matrices import MatrixBase
 from sympy.calculus.util import maximum, minimum
 from sympy.solvers.inequalities import solve_univariate_inequality
 
@@ -62,14 +65,108 @@ def arith(problem):
 # fraction bar binds before × and ÷, so 3/5 : 2/7 is (3/5) / (2/7)). Decimals
 # are exact fractions; '^' takes a small integer or fraction exponent; letters
 # other than i are variables, i is the imaginary unit and pi is π; functions are
-# sqrt, sin, cos, tan, abs, log(x, base), C(n, k), P(n, k) and sum(term, k, from, to).
+# sqrt, sin, cos, tan, abs, log(x, base), C(n, k), P(n, k) and sum(term, k, from, to), and the
+# ones listed in FUNCTIONS (exp, ln, matrices, limits, ...). [1, 2] is a vector (a column) and
+# [[1, 2], [3, 4]] a matrix; oo is infinity.
 LETTERS = {letter: Symbol(letter) for letter in 'abcdefghjklmnopqrstuvwxyz'}
-FUNCTIONS = {'sqrt': 1, 'sin': 1, 'cos': 1, 'tan': 1, 'abs': 1, 'log': 2, 'C': 2, 'P': 2, 'sum': 4}
-FORMULA_TOKEN = re.compile(r'\s*(\d+(?:\.\d+)?|sqrt|sin|cos|tan|abs|log|sum|pi|[CP](?=\s*\()|[a-z]|[-+*/:^(),])')
+FUNCTIONS = {
+    'sqrt': (1, 1), 'sin': (1, 1), 'cos': (1, 1), 'tan': (1, 1), 'abs': (1, 1), 'log': (2, 2), 'C': (2, 2), 'P': (2, 2), 'sum': (4, 4),
+    'exp': (1, 1), 'ln': (1, 1), 'det': (1, 1), 'inv': (1, 1), 'tr': (1, 1), 'rank': (1, 1), 'nullity': (1, 1), 'rref': (1, 1),
+    'T': (1, 1), 'dot': (2, 2), 'cross': (2, 2), 'norm': (1, 1), 'orth': (2, 2), 'jac': (1, 1), 'eigvals': (1, 1),
+    'arg': (1, 1), 'conj': (1, 1), 're': (1, 1), 'im': (1, 1), 'lim': (3, 3), 'd': (2, 3), 'taylor': (3, 3), 'vol': (3, 3),
+    'arc': (3, 3), 'int2': (7, 7),
+}
+FORMULA_TOKEN = re.compile(r'\s*(\d+(?:\.\d+)?|sqrt|sin|cos|tan|abs|log|sum|exp|ln|det|inv|tr|rank|nullity|rref|dot|cross|norm|orth|jac|eigvals|arg|conj|re|im|lim|taylor|vol|arc|int2|oo|pi|[CPTd](?=\s*\()|[a-z]|[-+*/:^(),\[\]])')
 
 
 def small(value, limit):
     return value.is_Integer and abs(value) <= limit
+
+
+MATRIX_FUNCTIONS = {'det', 'inv', 'tr', 'rank', 'nullity', 'rref', 'T', 'dot', 'cross', 'norm', 'orth', 'jac', 'eigvals'}
+CALCULUS_FUNCTIONS = {'lim', 'd', 'taylor', 'vol', 'arc', 'int2'}
+
+
+def matrix_call(name, args, text):
+    if name == 'jac':
+        f = args[0]
+        if not isinstance(f, MatrixBase) or f.cols != 1:
+            raise ValueError(f'jac needs a list of expressions in {text!r}')
+        letters = sorted(f.free_symbols, key=lambda symbol: symbol.name)
+        return f.jacobian(letters)
+    if not all(isinstance(arg, MatrixBase) for arg in args):
+        raise ValueError(f'{name} needs a vector or matrix in {text!r}')
+    a = args[0]
+    if name in ('det', 'inv', 'tr', 'eigvals') and a.rows != a.cols:
+        raise ValueError(f'{name} needs a square matrix in {text!r}')
+    if name == 'det':
+        return simplify(a.det())
+    if name == 'inv':
+        if a.det() == 0:
+            raise ValueError(f'the matrix in {text!r} has no inverse')
+        return a.inv()
+    if name == 'T':
+        return a.T
+    if name == 'tr':
+        return a.trace()
+    if name == 'rank':
+        return Integer(a.rank())
+    if name == 'nullity':
+        return Integer(a.cols - a.rank())
+    if name == 'rref':
+        return a.rref()[0]
+    if name == 'norm':
+        return simplify(sqrt(sum(component ** 2 for component in a)))
+    if name == 'eigvals':
+        values = []
+        for value, multiplicity in a.eigenvals().items():
+            if not value.is_real:
+                raise ValueError(f'eigenvalues must be real in {text!r}')
+            values += [value] * multiplicity
+        return Matrix(sorted(values, key=lambda value: float(value)))
+    b = args[1]
+    if a.shape != b.shape or a.cols != 1:
+        raise ValueError(f'{name} needs two vectors of the same size in {text!r}')
+    if name == 'dot':
+        return a.dot(b)
+    if name == 'cross':
+        if a.rows != 3:
+            raise ValueError(f'cross needs 3-component vectors in {text!r}')
+        return a.cross(b)
+    if b.dot(b) == 0:
+        raise ValueError(f'orth needs a nonzero second vector in {text!r}')
+    return a - (a.dot(b) / b.dot(b)) * b    # orth(v, u): the part of v perpendicular to u
+
+
+def calculus_call(name, args, text):
+    x = LETTERS['x']
+    if name == 'lim':
+        f, variable, target = args
+        if not variable.is_Symbol:
+            raise ValueError(f'lim needs a letter in {text!r}')
+        return limit(f, variable, target)
+    if name == 'd':
+        f, variable = args[0], args[1]
+        order = args[2] if len(args) == 3 else Integer(1)
+        if not (variable.is_Symbol and order.is_Integer and 1 <= order <= 4):
+            raise ValueError(f'd(f, x, n) needs a letter and an order from 1 to 4 in {text!r}')
+        return diff(f, variable, int(order))
+    if name == 'taylor':
+        f, variable, degree = args
+        if not (variable.is_Symbol and degree.is_Integer and 0 <= degree <= 8):
+            raise ValueError(f'taylor needs a letter and a degree from 0 to 8 in {text!r}')
+        return series(f, variable, 0, int(degree) + 1).removeO()
+    if name in ('vol', 'arc'):
+        f, low, high = args
+        if not (low.is_real and high.is_real and low < high):
+            raise ValueError(f'the interval in {text!r} must be increasing')
+        if name == 'vol':
+            return simplify(pi * integrate(f ** 2, (x, low, high)))
+        return simplify(integrate(sqrt(1 + diff(f, x) ** 2), (x, low, high)))
+    f, inner, c, d, outer, a, b = args
+    if not (inner.is_Symbol and outer.is_Symbol):
+        raise ValueError(f'int2 needs two letters in {text!r}')
+    return simplify(integrate(integrate(f, (inner, c, d)), (outer, a, b)))
 
 
 def call(name, args, text):
@@ -79,6 +176,12 @@ def call(name, args, text):
         return {'sin': sin, 'cos': cos, 'tan': tan}[name](args[0])
     if name == 'abs':
         return Abs(args[0])
+    if name == 'exp':
+        return exp(args[0])
+    if name == 'ln':
+        return log(args[0])
+    if name in ('arg', 'conj', 're', 'im'):
+        return {'arg': sympy_arg, 'conj': conjugate, 're': sympy_re, 'im': sympy_im}[name](args[0])
     if name == 'log':
         return log(args[0], args[1])
     if name in ('C', 'P'):
@@ -86,7 +189,13 @@ def call(name, args, text):
         if not (small(n, 60) and small(k, 60) and 0 <= k <= n):
             raise ValueError(f'{name}(n, k) needs 0 <= k <= n <= 60 in {text!r}')
         return binomial(n, k) if name == 'C' else ff(n, k)
+    if name in MATRIX_FUNCTIONS:
+        return matrix_call(name, args, text)
+    if name in CALCULUS_FUNCTIONS:
+        return calculus_call(name, args, text)
     term, index, low, high = args
+    if index.is_Symbol and small(low, 1000) and high == oo:
+        return Sum(term, (index, low, oo)).doit()
     if not (index.is_Symbol and small(low, 1000) and small(high, 1000) and high - low <= 1000):
         raise ValueError(f'sum needs a letter and integer bounds at most 1000 apart in {text!r}')
     return Sum(term, (index, low, high)).doit()
@@ -160,6 +269,22 @@ def parse_formula(text):
             return pi
         if token == 'i':
             return I
+        if token == 'oo':
+            return oo
+        if token == '[':
+            items = [expr()]
+            while peek() == ',':
+                take()
+                items.append(expr())
+            take(']')
+            if all(isinstance(item, MatrixBase) for item in items):
+                # a list of columns written as rows: [[1, 2], [3, 4]]
+                if len({item.rows for item in items}) != 1 or any(item.cols != 1 for item in items):
+                    raise ValueError(f'the rows of a matrix must have the same length in {text!r}')
+                return Matrix([list(item) for item in items])
+            if any(isinstance(item, MatrixBase) for item in items):
+                raise ValueError(f'a list holds numbers or lists, not both in {text!r}')
+            return Matrix(items)
         if token in FUNCTIONS:
             take('(')
             args = [expr()]
@@ -167,8 +292,9 @@ def parse_formula(text):
                 take()
                 args.append(expr())
             take(')')
-            if len(args) != FUNCTIONS[token]:
-                raise ValueError(f'{token} takes {FUNCTIONS[token]} argument(s) in {text!r}')
+            fewest, most = FUNCTIONS[token]
+            if not fewest <= len(args) <= most:
+                raise ValueError(f'{token} takes {fewest if fewest == most else f"{fewest} or {most}"} argument(s) in {text!r}')
             return call(token, args, text)
         if token in LETTERS:
             return LETTERS[token]
@@ -188,7 +314,7 @@ def split_top(text, separator):
     """Splits at separator outside parentheses (like splitTop in math-formula.ts)."""
     parts, depth, start = [], 0, 0
     for index, char in enumerate(text):
-        depth += (char == '(') - (char == ')')
+        depth += (char in '([') - (char in ')]')
         if char == separator and depth == 0:
             parts.append(text[start:index])
             start = index + 1
@@ -249,7 +375,7 @@ def point(problem):
 
 def bounds(problem):
     low, high = (parse_formula(part) for part in split_top(problem['bounds'], ','))
-    if not (low.is_real and high.is_real and low < high):
+    if not (low.is_extended_real and high.is_extended_real and low < high):
         raise ValueError(f'bounds must be increasing real numbers: {problem["bounds"]!r}')
     return low, high
 
@@ -876,6 +1002,587 @@ def rearrange(problem):
     return found[0], [parse_formula(c) for c in problem['choices']]
 
 
+def eigenvector(problem):
+    """The one choice that is an eigenvector of the matrix for the eigenvalue (v != 0, Av = lambda v)."""
+    matrix_text, lambda_text = problem['question'].split(';')
+    matrix, eigenvalue = parse_formula(matrix_text), parse_formula(lambda_text)
+    if not (isinstance(matrix, MatrixBase) and matrix.rows == matrix.cols):
+        raise ValueError('the question needs a square matrix')
+    vectors = [parse_formula(choice) for choice in problem['choices']]
+    if any(not isinstance(v, MatrixBase) or v.shape != (matrix.rows, 1) for v in vectors):
+        raise ValueError('every choice must be a vector of the matrix size')
+    good = [v for v in vectors if any(entry != 0 for entry in v) and same(matrix * v, eigenvalue * v)]
+    if len(good) != 1:
+        raise ValueError(f'exactly one choice must be an eigenvector, found {len(good)}')
+    return good[0], vectors
+
+
+def ode(problem):
+    """The solution y(x) of the initial value problem, as an expression in x."""
+    which, parts = problem['which'], problem['question'].split(';')
+    x, y = LETTERS['x'], Function('y')
+    if which in ('separable', 'linear'):
+        right = parse_formula(parts[0])
+        x0, y0 = pair(parts[1])
+        solution = dsolve(Eq(y(x).diff(x), right.subs(LETTERS['y'], y(x))), y(x), ics={y(x0): y0})
+    elif which == 'second':
+        (a, b, c), (y0, v0) = pair(parts[0]), pair(parts[1])
+        if a == 0:
+            raise ValueError('a second-order equation needs a nonzero leading coefficient')
+        solution = dsolve(Eq(a * y(x).diff(x, 2) + b * y(x).diff(x) + c * y(x), 0), y(x), ics={y(0): y0, y(x).diff(x).subs(x, 0): v0})
+    else:
+        raise ValueError(f'unknown ode variant {which!r}')
+    if isinstance(solution, list):
+        raise ValueError('the initial value problem must have one solution')
+    return simplify(solution.rhs), [parse_formula(choice) for choice in problem['choices']]
+
+
+def conic(problem):
+    which, question = problem['which'], problem['question']
+    x, y = LETTERS['x'], LETTERS['y']
+    choices = problem['choices']
+
+    def equation(text):
+        sides = text.split('=')
+        if len(sides) != 2:
+            raise ValueError(f'expected an equation in {text!r}')
+        return expand(parse_formula(sides[0]) - parse_formula(sides[1]))
+
+    if which in ('parabola-focus', 'parabola-directrix'):
+        # y^2 = 4px (focus (p, 0), directrix x = -p) or x^2 = 4py (focus (0, p), directrix y = -p)
+        poly = Poly(equation(question), x, y)
+        terms = dict(poly.terms())
+        if set(terms) == {(0, 2), (1, 0)} and terms[(0, 2)] == 1:
+            p, axis = -terms[(1, 0)] / 4, 'x'
+        elif set(terms) == {(2, 0), (0, 1)} and terms[(2, 0)] == 1:
+            p, axis = -terms[(0, 1)] / 4, 'y'
+        else:
+            raise ValueError('a parabola is y^2 = 4*p*x or x^2 = 4*p*y')
+        if p == 0:
+            raise ValueError('p must not be 0')
+        if which == 'parabola-focus':
+            return (Tuple(p, 0) if axis == 'x' else Tuple(0, p)), [Tuple(*pair(choice)) for choice in choices]
+        return circle_form((x if axis == 'x' else y) + p), [circle_form(choice) for choice in choices]
+    if which == 'parabola-equation':
+        p = parse_formula(question)
+        if p == 0:
+            raise ValueError('p must not be 0')
+        return circle_form(y ** 2 - 4 * p * x), [circle_form(choice) for choice in choices]
+    if which in ('ellipse-c', 'ellipse-major', 'hyperbola-c', 'hyperbola-asymptote'):
+        poly = Poly(equation(question), x, y)
+        terms = dict(poly.terms())
+        cx, cy, constant = terms.get((2, 0), 0), terms.get((0, 2), 0), terms.get((0, 0), 0)
+        if set(terms) - {(2, 0), (0, 2), (0, 0)} or cx == 0 or cy == 0 or constant >= 0:
+            raise ValueError('expected x^2/A + y^2/B = 1 or x^2/A - y^2/B = 1')
+        A, B = -constant / cx, -constant / cy    # cx x^2 + cy y^2 = -constant
+        if which.startswith('ellipse'):
+            if not (A > 0 and B > 0 and A != B):
+                raise ValueError('an ellipse needs A, B > 0 and A != B')
+            answer = sqrt(abs(A - B)) if which == 'ellipse-c' else 2 * sqrt(max(A, B))
+        else:
+            if not (A > 0 and B < 0):
+                raise ValueError('a hyperbola is x^2/A - y^2/B = 1 with A, B > 0')
+            answer = sqrt(A - B) if which == 'hyperbola-c' else sqrt(-B / A)
+        return simplify(answer), [parse_formula(choice) for choice in choices]
+    if which == 'polar-to-xy':
+        r, theta = pair(question)
+        if not r > 0:
+            raise ValueError('r must be positive')
+        return Tuple(simplify(r * cos(theta)), simplify(r * sin(theta))), [Tuple(*pair(choice)) for choice in choices]
+    if which == 'xy-to-polar':
+        px, py = pair(question)
+        r = simplify(sqrt(px ** 2 + py ** 2))
+        if r == 0:
+            raise ValueError('the origin has no polar angle')
+        theta = simplify(atan2(py, px))
+        if theta < 0:
+            theta += 2 * pi
+        return Tuple(r, simplify(theta)), [Tuple(*pair(choice)) for choice in choices]
+    raise ValueError(f'unknown conic variant {which!r}')
+
+
+def classify(problem):
+    """The one choice that is irrational (or rational, by `which`)."""
+    values = [parse_formula(choice) for choice in problem['choices']]
+    if any(value.free_symbols for value in values):
+        raise ValueError('classify choices must be numbers')
+    wanted = problem['which'] == 'irrational'
+    hits = [v for v in values if (v.is_irrational if wanted else v.is_rational)]
+    if len(hits) != 1:
+        raise ValueError(f'exactly one choice must be {problem["which"]}, found {len(hits)}')
+    return hits[0], values
+
+
+def mvt(problem):
+    """The c in (a, b) with f'(c) = (f(b) - f(a))/(b - a)."""
+    function_text, interval = problem['question'].split(';')
+    f = parse_formula(function_text)
+    a, b = pair(interval)
+    x = LETTERS['x']
+    if not (a.is_real and b.is_real and a < b):
+        raise ValueError('the interval must increase')
+    slope = (f.subs(x, b) - f.subs(x, a)) / (b - a)
+    roots = [r for r in solve(diff(f, x) - slope, x) if r.is_real and a < r < b]
+    if len(roots) != 1:
+        raise ValueError(f'expected exactly one c in ({a}, {b}), found {roots}')
+    return roots[0], [parse_formula(choice) for choice in problem['choices']]
+
+
+def whole_set(text):
+    values = pair(text)
+    if any(not value.is_Integer for value in values):
+        raise ValueError('sets hold whole numbers')
+    return set(int(value) for value in values)
+
+
+def sets_answer(problem):
+    which, parts = problem['which'], problem['question'].split(';')
+    a, b = whole_set(parts[0]), whole_set(parts[1])
+    universe = whole_set(problem['given']) if problem.get('given') else None
+    if which in ('complement', 'complement-union', 'complement-intersection'):
+        if universe is None or not (a | b) <= universe:
+            raise ValueError('a complement needs the universe (given) to contain both sets')
+    result = {
+        'union': lambda: a | b, 'intersection': lambda: a & b, 'difference': lambda: a - b,
+        'complement': lambda: universe - a, 'complement-union': lambda: universe - (a | b), 'complement-intersection': lambda: universe - (a & b),
+    }[which]()
+    if not result:
+        raise ValueError('the answer must not be empty')
+    return FiniteSet(*result), [FiniteSet(*whole_set(choice)) for choice in problem['choices']]
+
+
+def condition(text):
+    """Parses the condition notation of math-formula.ts (parseCondition) into a function of an environment."""
+    tokens, buffer, at = [], '', 0
+    def flush():
+        nonlocal buffer
+        if buffer.strip():
+            tokens.append(buffer.strip())
+        buffer = ''
+    while at < len(text):
+        if text[at] in '()':
+            flush(); tokens.append(text[at]); at += 1; continue
+        if text.startswith('=>', at):
+            flush(); tokens.append('=>'); at += 2; continue
+        word = re.match(r'(and|or|not)(?![a-z0-9])', text[at:])
+        if word and (at == 0 or text[at - 1] in ' ()'):
+            flush(); tokens.append(word.group(1)); at += len(word.group(1)); continue
+        buffer += text[at]; at += 1
+    flush()
+    position = 0
+
+    def peek():
+        return tokens[position] if position < len(tokens) else None
+
+    def take():
+        nonlocal position
+        position += 1
+        return tokens[position - 1]
+
+    def imp():
+        left = or_()
+        if peek() == '=>':
+            take(); right = imp()
+            return lambda env: (not left(env)) or right(env)
+        return left
+
+    def or_():
+        node = and_()
+        while peek() == 'or':
+            take(); node = (lambda l, r: lambda env: l(env) or r(env))(node, and_())
+        return node
+
+    def and_():
+        node = not_()
+        while peek() == 'and':
+            take(); node = (lambda l, r: lambda env: l(env) and r(env))(node, not_())
+        return node
+
+    def not_():
+        if peek() == 'not':
+            take(); inner = not_()
+            return lambda env: not inner(env)
+        if peek() == '(':
+            take(); inner = imp()
+            if take() != ')':
+                raise ValueError(f'missing ) in {text!r}')
+            return inner
+        token = take()
+        if token in ('p', 'q', 'r'):
+            return lambda env: env[token]
+        match = re.match(r'^(.*?)(<=|>=|!=|<|>|=)(.*)$', token)
+        if not match:
+            raise ValueError(f'not a condition: {token!r}')
+        left, op, right = parse_formula(match.group(1)), match.group(2), parse_formula(match.group(3))
+        compare = {'<': lambda u, v: u < v, '>': lambda u, v: u > v, '<=': lambda u, v: u <= v, '>=': lambda u, v: u >= v,
+                   '=': lambda u, v: u == v, '!=': lambda u, v: u != v}[op]
+        return lambda env: bool(compare(left.subs({LETTERS['x']: env['x']}), right.subs({LETTERS['x']: env['x']})))
+
+    node = imp()
+    if position != len(tokens):
+        raise ValueError(f'unexpected {tokens[position]!r} in {text!r}')
+    return node
+
+
+DOMAIN = [Integer(v) for v in range(-12, 13)]
+LABELS_NECESSARY = {'sufficient', 'necessary', 'both', 'neither'}
+LABELS_MAP = {'injective', 'surjective', 'bijective', 'neither'}
+LABELS_RELATION = {'reflexive', 'symmetric', 'transitive', 'equivalence'}
+
+
+def truth_table(node):
+    return tuple(bool(node({'x': v})) for v in DOMAIN)
+
+
+def logic_answer(problem):
+    which, question = problem['which'], problem['question']
+    choices = problem['choices']
+    if which in ('contrapositive', 'negation'):
+        base = truth_table(condition(question))
+        target = base if which == 'contrapositive' else tuple(not v for v in base)
+        tables = [truth_table(condition(choice)) for choice in choices]
+        hits = [index for index, table in enumerate(tables) if table == target]
+        if len(hits) != 1 or len(set(tables)) != 4:
+            raise ValueError(f'exactly one choice must be the {which} and the choices must differ, found {len(hits)}')
+        return Symbol(f'c{hits[0]}'), [Symbol(f'c{index}') for index in range(4)]
+    if which == 'necessary':
+        a, b = question.split(';')
+        p, q = condition(a), condition(b)
+        sufficient = all((not p({'x': v})) or q({'x': v}) for v in DOMAIN)
+        necessary = all((not q({'x': v})) or p({'x': v}) for v in DOMAIN)
+        label = 'both' if sufficient and necessary else 'sufficient' if sufficient else 'necessary' if necessary else 'neither'
+        if set(choices) != LABELS_NECESSARY:
+            raise ValueError('choices must be sufficient, necessary, both and neither')
+        return Symbol(label), [Symbol(c) for c in choices]
+    if which == 'truth':
+        node = condition(question)
+        answer = tuple(Integer(1 if node({'p': pv, 'q': qv, 'r': False}) else 0) for pv in (True, False) for qv in (True, False))
+        parsed = []
+        for choice in choices:
+            values = [part.strip() for part in choice.split(',')]
+            if len(values) != 4 or any(v not in ('T', 'F') for v in values):
+                raise ValueError(f'a truth table is four T or F values, got {choice!r}')
+            parsed.append(Tuple(*[Integer(1 if v == 'T' else 0) for v in values]))
+        return Tuple(*answer), parsed
+    raise ValueError(f'unknown logic variant {which!r}')
+
+
+def mapping_answer(problem):
+    which, parts = problem['which'], problem['question'].split(';')
+    choices = problem['choices']
+    if which == 'type':
+        domain, codomain = whole_set(parts[0]), whole_set(parts[1])
+        table = {}
+        for item in parts[2].split(','):
+            left, right = item.split('>')
+            table[int(parse_formula(left))] = int(parse_formula(right))
+        if set(table) != domain or not set(table.values()) <= codomain:
+            raise ValueError('f must be defined on every element of A with values in B')
+        injective = len(set(table.values())) == len(domain)
+        surjective = set(table.values()) == codomain
+        label = 'bijective' if injective and surjective else 'injective' if injective else 'surjective' if surjective else 'neither'
+        allowed = LABELS_MAP
+    elif which == 'relation':
+        domain = whole_set(parts[0])
+        relation = set()
+        for item in parts[1].split(','):
+            left, right = item.split('~')
+            relation.add((int(parse_formula(left)), int(parse_formula(right))))
+        if any(u not in domain or v not in domain for u, v in relation):
+            raise ValueError('R must be a relation on A')
+        reflexive = all((u, u) in relation for u in domain)
+        symmetric = all((v, u) in relation for u, v in relation)
+        transitive = all((u, w) in relation for u, v in relation for v2, w in relation if v == v2)
+        failing = [name for name, ok in (('reflexive', reflexive), ('symmetric', symmetric), ('transitive', transitive)) if not ok]
+        if len(failing) > 1:
+            raise ValueError(f'exactly one property may fail, found {failing}')
+        label = failing[0] if failing else 'equivalence'
+        allowed = LABELS_RELATION
+    else:
+        raise ValueError(f'unknown mapping variant {which!r}')
+    if set(choices) != allowed:
+        raise ValueError(f'choices must be {sorted(allowed)}')
+    return Symbol(label), [Symbol(c) for c in choices]
+
+
+FIGURE_LABELS = {'equilateral', 'isosceles', 'right', 'scalene', 'square', 'rectangle', 'rhombus', 'parallelogram', 'sss', 'sas', 'asa', 'insufficient', 'cube', 'cuboid', 'cylinder', 'sphere'}
+
+
+def labelled(label, choices, allowed):
+    """A figure problem answered by a word (a shape's name, a congruence condition)."""
+    if not (set(choices) <= FIGURE_LABELS and len(set(choices)) == len(choices)):
+        raise ValueError(f'choices must be different labels out of {sorted(FIGURE_LABELS)}')
+    return Symbol(label), [Symbol(c) for c in choices]
+
+
+def figure(problem):
+    """The answer to a problem about a drawn figure, from the numbers behind the figure (see components/math-shape.tsx)."""
+    which, v = problem['which'], pair(problem['question'])
+    positive = lambda *values: all(x.is_number and x > 0 for x in values)
+    if not positive(*v) and which not in ('distance', 'centroid', 'protractor', 'parallel-pairs', 'perpendicular-pairs', 'congruence-condition', 'congruent-side', 'solid-name') and not which.startswith('move-'):
+        raise ValueError('the numbers of a figure must be positive')
+    if which in ('clock-read', 'centroid') or which.startswith('move-'):
+        choices = [Tuple(*pair(c)) for c in problem['choices']]
+    elif which in ('triangle-type', 'quad-type', 'congruence-condition', 'solid-name'):
+        choices = None
+    else:
+        choices = [parse_formula(c) for c in problem['choices']]
+    if which == 'rect-area':
+        answer = v[0] * v[1]
+    elif which == 'tri-area':
+        answer = v[0] * v[1] / 2
+    elif which == 'para-area':
+        answer = v[0] * v[1]
+    elif which == 'trap-area':
+        if not v[0] < v[1]:
+            raise ValueError('the top of a trapezoid must be shorter than its bottom')
+        answer = (v[0] + v[1]) * v[2] / 2
+    elif which == 'cuboid-volume':
+        answer = v[0] * v[1] * v[2]
+    elif which == 'circle-circumference':
+        answer = 2 * v[0] * (v[1] if len(v) > 1 else pi)
+    elif which == 'circle-area':
+        answer = v[0] ** 2 * (v[1] if len(v) > 1 else pi)
+    elif which == 'prism-volume':
+        answer = v[0] * v[1] / 2 * v[2]
+    elif which == 'cylinder-volume':
+        answer = v[0] ** 2 * v[1] * (v[2] if len(v) > 2 else pi)
+    elif which == 'cone-volume':
+        answer = v[0] ** 2 * v[1] * pi / 3
+    elif which == 'sphere-volume':
+        answer = Rational(4, 3) * pi * v[0] ** 3
+    elif which == 'sphere-surface':
+        answer = 4 * pi * v[0] ** 2
+    elif which == 'angle-triangle':
+        answer = 180 - v[0] - v[1]
+        if answer <= 0:
+            raise ValueError('the angles of a triangle sum to 180')
+    elif which == 'angle-quad':
+        answer = 360 - v[0] - v[1] - v[2]
+        if answer <= 0 or v[0] >= 180 or v[1] >= 180 or v[2] >= 180:
+            raise ValueError('the angles of a quadrilateral sum to 360')
+    elif which in ('parallel-vertical', 'parallel-corresponding', 'parallel-alternate', 'inscribed-same-arc'):
+        answer = v[0]
+    elif which == 'parallel-cointerior':
+        answer = 180 - v[0]
+    elif which == 'polygon-interior-sum':
+        answer = 180 * (v[0] - 2)
+    elif which == 'polygon-exterior':
+        answer = 360 / v[0]
+    elif which == 'polygon-each-interior':
+        answer = 180 * (v[0] - 2) / v[0]
+    elif which == 'sector-arc':
+        answer = 2 * pi * v[0] * v[1] / 360
+    elif which == 'sector-area':
+        answer = pi * v[0] ** 2 * v[1] / 360
+    elif which == 'inscribed-angle':
+        answer = v[0] / 2
+    elif which == 'inscribed-diameter':
+        answer = 90 - v[0]
+        if answer <= 0:
+            raise ValueError('the angle must be under 90')
+    elif which == 'similar-side':
+        answer = v[1] * v[2] / v[0]
+    elif which == 'similar-area':
+        answer = v[2] * (v[1] / v[0]) ** 2
+    elif which == 'power-chord':
+        answer = v[0] * v[1] / v[2]
+    elif which == 'distance':
+        answer = sqrt((v[2] - v[0]) ** 2 + (v[3] - v[1]) ** 2)
+        if answer == 0:
+            raise ValueError('the points must differ')
+    elif which == 'centroid':
+        answer = Tuple((v[0] + v[2] + v[4]) / 3, (v[1] + v[3] + v[5]) / 3)
+    elif which == 'clock-read':
+        if not (v[0].is_Integer and 1 <= v[0] <= 12 and v[1].is_Integer and 0 <= v[1] < 60):
+            raise ValueError('a clock time is h (1-12) and m (0-59)')
+        answer = Tuple(v[0], v[1])
+    elif which in ('prism-faces', 'prism-edges', 'prism-vertices', 'pyramid-faces', 'pyramid-edges', 'pyramid-vertices'):
+        n = v[0]
+        if not (n.is_Integer and 3 <= n <= 12):
+            raise ValueError('the base has 3 to 12 sides')
+        answer = {'prism-faces': n + 2, 'prism-edges': 3 * n, 'prism-vertices': 2 * n,
+                  'pyramid-faces': n + 1, 'pyramid-edges': 2 * n, 'pyramid-vertices': n + 1}[which]
+    elif which == 'euler-faces':
+        answer = v[1] - v[0] + 2
+    elif which == 'euler-vertices':
+        answer = v[0] - v[1] + 2
+    elif which == 'triangle-type':
+        a, b, c = sorted(v)
+        if not a + b > c:
+            raise ValueError('not a triangle')
+        if a == b == c:
+            label = 'equilateral'
+        elif a == b or b == c:
+            label = 'isosceles'
+        elif a ** 2 + b ** 2 == c ** 2:
+            label = 'right'
+        else:
+            label = 'scalene'
+        if a == b and a ** 2 + b ** 2 == c ** 2:
+            raise ValueError('a right isosceles triangle is ambiguous')
+        return labelled(label, problem['choices'], {'equilateral', 'isosceles', 'right', 'scalene'})
+    elif which == 'quad-type':
+        a, b, angle = v
+        if not 0 < angle < 180:
+            raise ValueError('the angle is between 0 and 180')
+        label = ('square' if a == b else 'rectangle') if angle == 90 else ('rhombus' if a == b else 'parallelogram')
+        return labelled(label, problem['choices'], {'square', 'rectangle', 'rhombus', 'parallelogram'})
+    elif which == 'isosceles-base':
+        answer = (180 - v[0]) / 2
+    elif which == 'isosceles-apex':
+        answer = 180 - 2 * v[0]
+        if answer <= 0:
+            raise ValueError('the base angle must be under 90')
+    elif which == 'circle-diameter':
+        answer = 2 * v[0]
+    elif which == 'circle-radius':
+        answer = v[0] / 2
+    elif which == 'protractor':
+        answer = v[1] - v[0]
+        if not (0 <= v[0] < v[1] <= 180):
+            raise ValueError('the rays are at 0 to 180 degrees, start below end')
+    elif which == 'parallel-pairs':
+        answer = sum(1 for i in range(len(v)) for j in range(i + 1, len(v)) if (v[i] - v[j]) % 180 == 0)
+    elif which == 'perpendicular-pairs':
+        answer = sum(1 for i in range(len(v)) for j in range(i + 1, len(v)) if (v[i] - v[j]) % 180 == 90)
+    elif which == 'congruent-side':
+        answer = v[int(v[3])]
+        if not (v[3] in (0, 1, 2) and v[0] + v[1] > v[2] and v[1] + v[2] > v[0] and v[0] + v[2] > v[1]):
+            raise ValueError('sides must form a triangle and the correspondence is 0, 1 or 2')
+    elif which == 'congruence-condition':
+        ab, bc, ca, angle_a, angle_b, angle_c = v
+        if sorted(set(v)) not in ([0, 1], [0], [1]) or sum(v) != 3:
+            raise ValueError('mark exactly three of the six parts (1 = marked, 0 = not)')
+        if ab + bc + ca == 3:
+            label = 'sss'
+        elif (ab and bc and angle_b) or (ab and ca and angle_a) or (bc and ca and angle_c):
+            label = 'sas'
+        elif (angle_a and angle_b and ab) or (angle_b and angle_c and bc) or (angle_a and angle_c and ca):
+            label = 'asa'
+        else:
+            label = 'insufficient'
+        return labelled(label, problem['choices'], {'sss', 'sas', 'asa', 'insufficient'})
+    elif which == 'solid-name':
+        code = int(v[0])
+        if code not in (0, 1, 2, 3):
+            raise ValueError('solid code 0 cube, 1 cuboid, 2 cylinder, 3 sphere')
+        if code == 0 and not v[1] == v[2] == v[3]:
+            raise ValueError('a cube has equal edges')
+        if code == 1 and len({v[1], v[2], v[3]}) == 1:
+            raise ValueError('a cuboid has unequal edges')
+        return labelled(['cube', 'cuboid', 'cylinder', 'sphere'][code], problem['choices'], {'cube', 'cuboid', 'cylinder', 'sphere'})
+    elif which in ('box-faces', 'box-edges', 'box-vertices'):
+        answer = {'box-faces': 6, 'box-edges': 12, 'box-vertices': 8}[which]
+    elif which == 'cube-edge-total':
+        answer = 12 * v[0]
+    elif which == 'box-edge-total':
+        answer = 4 * (v[0] + v[1] + v[2])
+    elif which == 'parallelogram-angle':
+        answer = 180 - v[0]
+    elif which == 'parallelogram-half':
+        answer = v[0] / 2
+    elif which == 'parallelogram-perimeter':
+        answer = 2 * (v[0] + v[1])
+    elif which == 'lines-of-symmetry':
+        answer = v[0]
+    elif which == 'scale-actual':
+        answer = v[0] * v[1] / 100
+    elif which == 'scale-enlarge':
+        answer = v[0] * v[1]
+    elif which in ('move-translate', 'move-reflect-x', 'move-reflect-y', 'move-rotate90', 'move-rotate180'):
+        x, y = v[0], v[1]
+        answer = {'move-translate': lambda: Tuple(x + v[2], y + v[3]), 'move-reflect-x': lambda: Tuple(x, -y), 'move-reflect-y': lambda: Tuple(-x, y),
+                  'move-rotate90': lambda: Tuple(-y, x), 'move-rotate180': lambda: Tuple(-x, -y)}[which]()
+    elif which == 'bar-diff':
+        i, j = int(v[4]), int(v[5])
+        if i == j or not (1 <= i <= 4 and 1 <= j <= 4):
+            raise ValueError('two different bars among 1 to 4')
+        answer = abs(v[i - 1] - v[j - 1])
+    elif which == 'bar-total':
+        answer = sum(v)
+    elif which == 'line-change':
+        changes = [abs(b - a) for a, b in zip(v, v[1:])]
+        if changes.count(max(changes)) != 1:
+            raise ValueError('the largest change must be unique')
+        answer = max(changes)
+    elif which == 'pie-count':
+        total, shares, i = v[0], v[1:5], int(v[5])
+        if sum(shares) != 100 or not 1 <= i <= 4:
+            raise ValueError('four shares sum to 100; pick one of 1 to 4')
+        answer = total * shares[i - 1] / 100
+    elif which == 'hist-above':
+        k = int(v[5])
+        if not 1 <= k <= 5:
+            raise ValueError('class 1 to 5')
+        answer = sum(v[k - 1:5])
+    elif which == 'table-total':
+        answer = sum(v)
+    elif which == 'twoway-missing':
+        answer = v[3] - v[2]
+    elif which == 'relative-frequency':
+        i = int(v[5])
+        if not 1 <= i <= 5:
+            raise ValueError('class 1 to 5')
+        answer = v[i - 1] / sum(v[:5])
+    elif which in ('box-iqr', 'box-range'):
+        low, q1, med, q3, high = v
+        if not low <= q1 <= med <= q3 <= high:
+            raise ValueError('min <= q1 <= median <= q3 <= max')
+        answer = q3 - q1 if which == 'box-iqr' else high - low
+    elif which in ('quartile-q1', 'quartile-q3'):
+        data = sorted(v)
+        n = len(data)
+        half = n // 2
+        lower, upper = data[:half], data[n - half:]
+        def median(xs):
+            m = len(xs) // 2
+            return xs[m] if len(xs) % 2 else (xs[m - 1] + xs[m]) / 2
+        answer = median(lower) if which == 'quartile-q1' else median(upper)
+    elif which == 'proportion-table':
+        answer = v[0] * v[4]
+    elif which == 'net-cylinder':
+        answer = 2 * v[0] * pi
+    elif which == 'net-cuboid':
+        answer = 2 * (v[0] * v[1] + v[1] * v[2] + v[2] * v[0])
+    elif which == 'space-diagonal':
+        answer = sqrt(v[0] ** 2 + v[1] ** 2 + v[2] ** 2)
+    elif which in ('ceva-ratio', 'menelaus-ratio'):
+        answer = v[1] * v[3] / (v[0] * v[2])
+    elif which == 'fraction-shaded':
+        if not (v[0].is_Integer and v[1].is_Integer and 1 <= v[1] <= v[0]):
+            raise ValueError('parts and shaded must be whole numbers, shaded <= parts')
+        answer = v[1] / v[0]
+    else:
+        raise ValueError(f'unknown figure variant {which!r}')
+    return answer, choices
+
+
+def statement(problem):
+    """A problem in words (a construction, a missing step of a proof): only its shape is checked here;
+    the blind review decides whether the marked option is the right one."""
+    shown = problem.get('statement')
+    if not isinstance(shown, dict) or set(shown) != {'ja', 'en', 'zh'}:
+        raise ValueError('statement needs ja, en and zh')
+    for locale, text in shown.items():
+        options = text.get('options')
+        if not (isinstance(text.get('prompt'), str) and text['prompt'].strip() and isinstance(text.get('explanation'), str) and text['explanation'].strip()):
+            raise ValueError(f'{locale}: a prompt and an explanation')
+        if not (isinstance(options, list) and len(options) == 4 and all(isinstance(o, str) and o.strip() for o in options) and len(set(options)) == 4):
+            raise ValueError(f'{locale}: four different options')
+    if problem['choices'] != ['1', '2', '3', '4']:
+        raise ValueError('statement choices are "1" to "4"')
+    return Integer(problem['answerIndex'] + 1), [Integer(i) for i in range(1, 5)]
+
+
+def divmod_answer(problem):
+    """The quotient and the remainder of a ÷ b (whole numbers, b > 0)."""
+    a, b = pair(problem['question'])
+    if not (a.is_Integer and b.is_Integer and a >= 0 and b > 0):
+        raise ValueError('divmod needs whole numbers a >= 0 and b > 0')
+    return Tuple(a // b, a % b), [Tuple(*pair(choice)) for choice in problem['choices']]
+
+
 def _formula(problem):
     kind, question, choices = problem['kind'], problem['question'], problem['choices']
     if kind == 'inequality' and problem['which'] == 'solve':
@@ -896,8 +1603,30 @@ def _formula(problem):
     keyed = problem['answerIndex']
     if kind == 'graph':
         return graph(problem)
+    if kind == 'divmod':
+        return divmod_answer(problem)
+    if kind == 'figure':
+        return figure(problem)
+    if kind == 'statement':
+        return statement(problem)
+    if kind == 'classify':
+        return classify(problem)
+    if kind == 'mvt':
+        return mvt(problem)
+    if kind == 'sets':
+        return sets_answer(problem)
+    if kind == 'logic':
+        return logic_answer(problem)
+    if kind == 'mapping':
+        return mapping_answer(problem)
     if kind == 'region':
         return region(problem)
+    if kind == 'eigenvector':
+        return eigenvector(problem)
+    if kind == 'ode':
+        return ode(problem)
+    if kind == 'conic':
+        return conic(problem)
     if kind == 'inference':
         answer = inference(problem)
         return answer, [Tuple(*pair(choice)) if isinstance(answer, Tuple) else parse_formula(choice) for choice in choices]
@@ -1018,15 +1747,31 @@ def check_steps(problem, answer):
     every solution ("x = 2, x = -2" for each root in turn); tangent, every line
     holds on the tangent line; extremum, every line holds at some critical point."""
     kind, steps = problem['kind'], problem['steps']
+    if kind in ('ode', 'sets', 'logic', 'mapping', 'figure', 'statement') and steps == []:
+        return    # an initial value problem's working is not a chain of equal expressions
     if not (isinstance(steps, list) and 1 <= len(steps) <= 6 and all(isinstance(line, str) and line.strip() for line in steps)):
         raise ValueError('steps must be 1 to 6 non-empty lines')
     if kind == 'recurrence':
         return check_recurrence_steps(problem, answer, steps)
     for line in steps:
+        if ((kind == 'calc' and problem.get('word')) or kind == 'mvt') and any(letter in line for letter in 'xyzabcnmpqt'):
+            # A word problem may write its equation ("150*x + 90*(15 - x) = 1710"): it must hold at the answer.
+            unknowns = set().union(*(parse_formula(part).free_symbols for part in line.split('=')))
+            if len(unknowns) == 1:
+                symbol = next(iter(unknowns))
+                if not holds(line.split('='), {symbol: answer}):
+                    raise ValueError(f'step {line!r} does not hold when {symbol} = {answer}')
+                continue
         if (kind == 'inequality' and problem['which'] == 'solve') or (kind == 'quadratic' and problem['which'] == 'krange'):
             check_boundary_line(problem, line)
             continue
-        if kind in ('region', 'inference', 'number', 'stat', 'triangle', 'quadratic') or (kind == 'graph' and problem['which'] in ('vertex', 'region')) or (kind == 'function' and problem['which'] in ('slope', 'intercept', 'xintercept', 'rate')):
+        if kind == 'conic' and problem['which'] in ('parabola-directrix', 'parabola-equation'):
+            check_equation_line(problem, answer, line)    # lines hold on the curve (y = -3 for the directrix y + 3 = 0)
+            continue
+        if kind in ('eigenvector', 'ode', 'conic', 'classify', 'sets', 'logic', 'mapping'):
+            check_consistent_chain(line)
+            continue
+        if kind in ('region', 'inference', 'number', 'stat', 'triangle', 'quadratic', 'divmod', 'mvt') or (kind == 'graph' and problem['which'] in ('vertex', 'region')) or (kind == 'function' and problem['which'] in ('slope', 'intercept', 'xintercept', 'rate')):
             check_numeric_chain(line)
             continue
         if kind in ('solve', 'tangent', 'extremum', 'identity') or (kind == 'inequality' and problem['which'] == 'amgm-equal') or kind == 'graph' or kind in ('function', 'rearrange') or (kind == 'geometry' and problem['which'].startswith(('line-', 'circle-', 'locus-'))):
@@ -1043,6 +1788,14 @@ def check_steps(problem, answer):
                 ok = same(value, answer)
             if not ok:
                 raise ValueError(f'step {line!r}: {part.strip()!r} is not equal to the answer {answer}')
+
+
+def check_consistent_chain(line):
+    """A line a = b = c whose parts are all equal to each other (numbers, vectors, matrices or expressions)."""
+    for item in split_top(line, ','):
+        values = [parse_formula(part) for part in item.split('=')]
+        if any(not same(values[0], value) for value in values[1:]):
+            raise ValueError(f'step {line!r} is not a true chain of equal values')
 
 
 def check_numeric_chain(line):
@@ -1102,7 +1855,7 @@ def on_circle(sides, circle):
 
 def check_equation_line(problem, answer, line):
     kind = problem['kind']
-    if (kind == 'geometry' and problem['which'].startswith(('circle-', 'locus-'))) or (kind == 'graph' and problem['which'] == 'circle'):
+    if (kind == 'geometry' and problem['which'].startswith(('circle-', 'locus-'))) or (kind == 'graph' and problem['which'] == 'circle') or kind == 'conic':
         items = split_top(line, ',')
         if not all(on_circle(item.split('='), answer) for item in items):
             raise ValueError(f'step {line!r} does not hold for the circle')
@@ -1213,12 +1966,55 @@ UNITS = {
     'linear-function': ('math-linear-function.json', formula),
     'square-function': ('math-square-function.json', formula),
     'quadratic-function': ('math-quadratic-function.json', formula),
+    'conic': ('math-conic.json', formula),
+    'vector': ('math-vector.json', formula),
+    'matrix': ('math-matrix.json', formula),
+    'linear-system': ('math-linear-system.json', formula),
+    'vector-space': ('math-vector-space.json', formula),
+    'eigen': ('math-eigen.json', formula),
+    'series': ('math-series.json', formula),
+    'improper-integral': ('math-improper-integral.json', formula),
+    'multivariable': ('math-multivariable.json', formula),
+    'limit': ('math-limit.json', formula),
+    'linear-map': ('math-linear-map.json', formula),
+    'inner-product': ('math-inner-product.json', formula),
+    'ode': ('math-ode.json', formula),
+    'division-remainder': ('math-division-remainder.json', formula),
+    'place-value': ('math-place-value.json', formula),
+    'measurement': ('math-measurement.json', formula),
+    'time': ('math-time.json', formula),
+    'rate': ('math-rate.json', formula),
+    'ratio': ('math-ratio.json', formula),
+    'relations': ('math-relations.json', formula),
+    'counting': ('math-counting.json', formula),
+    'sampling': ('math-sampling.json', formula),
+    'probability': ('math-probability.json', formula),
+    'sets': ('math-sets.json', formula),
+    'logic': ('math-logic.json', formula),
+    'mapping': ('math-mapping.json', formula),
+    'shapes': ('math-shapes.json', formula),
+    'geometric-reasoning': ('math-geometric-reasoning.json', formula),
+    'pythagoras-applications': ('math-pythagoras-applications.json', formula),
+    'symmetry': ('math-symmetry.json', formula),
+    'graphs': ('math-graphs.json', formula),
+    'transformations': ('math-transformations.json', formula),
+    'frequency': ('math-frequency.json', formula),
+    'congruence': ('math-congruence.json', formula),
+    'quartiles': ('math-quartiles.json', formula),
+    'angles': ('math-angles.json', formula),
+    'circle-solid': ('math-circle-solid.json', formula),
+    'similarity': ('math-similarity.json', formula),
+    'triangle-properties': ('math-triangle-properties.json', formula),
+    'univ-calculus': ('math-univ-calculus.json', formula),
     'factorization': ('math-factorization.json', factorization),
     'pythagoras': ('math-pythagoras.json', pythagoras),
 }
 
 
 def same(a, b):
+    # Vectors and matrices compare entry by entry.
+    if isinstance(a, MatrixBase) or isinstance(b, MatrixBase):
+        return isinstance(a, MatrixBase) and isinstance(b, MatrixBase) and a.shape == b.shape and all(same(p, q) for p, q in zip(a, b))
     # Solution sets and tuples (formula units) compare element by element.
     if isinstance(a, (FiniteSet, Tuple)) or isinstance(b, (FiniteSet, Tuple)):
         if type(a) is not type(b) or len(a) != len(b):

@@ -1,0 +1,1 @@
+同値関係（大学1年、kind "mapping"、which "relation"）。question は "A; 1~1, 2~2, 3~3, 1~2, 2~1"（A は {1, 2, 3} など、R の要素を a~b で書く）。choices は必ず "reflexive", "symmetric", "transitive", "equivalence" の4つ（reflexive は反射律だけが成り立たない、…、equivalence は同値関係）。成り立たない性質は高々1つ。5問で答えを偏らせない。steps は [] でよい。

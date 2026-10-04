@@ -1,0 +1,14 @@
+.shape { display: block; width: min(100%, 360px); height: auto; margin: 0 auto; }
+.line { fill: none; stroke: var(--text); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.fill { fill: color-mix(in srgb, var(--accent) 16%, var(--surface)); stroke: var(--text); stroke-width: 2; stroke-linejoin: round; }
+.shaded { fill: color-mix(in srgb, var(--accent) 45%, var(--surface)); stroke: var(--text); stroke-width: 1.6; }
+.plain { fill: var(--surface); stroke: var(--text); stroke-width: 1.6; }
+.dashed { fill: none; stroke: var(--muted); stroke-width: 1.6; stroke-dasharray: 5 4; stroke-linecap: round; }
+.mark { fill: none; stroke: var(--accent); stroke-width: 1.6; }
+.grid { stroke: var(--line); stroke-width: 1; }
+.axis { stroke: var(--muted); stroke-width: 1.4; }
+.dot { fill: var(--accent); }
+.hand { stroke: var(--text); stroke-linecap: round; }
+.text { fill: var(--text); font-size: 13px; }
+.unknown { fill: var(--accent); font-size: 14px; font-weight: 700; }
+.tick { fill: var(--muted); font-size: 10px; }

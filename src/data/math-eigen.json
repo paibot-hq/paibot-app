@@ -1,0 +1,260 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "eigen-001",
+      "item": "eigenvalues",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "eigvals([[1, 2], [3, 2]])",
+      "given": null,
+      "steps": [
+        "eigvals([[1, 2], [3, 2]]) = [-1, 4]"
+      ],
+      "choices": ["[-1,    4]", "[-4,    1]", "[-4,    -1]", "[1,    4]"],
+      "answerIndex": 0
+    },
+    {
+      "id": "eigen-002",
+      "item": "eigenvalues",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "eigvals([[3, -1], [2, 0]])",
+      "given": null,
+      "steps": [
+        "eigvals([[3, -1], [2, 0]]) = [1, 2]"
+      ],
+      "choices": ["[-2,    -1]", "[1,    2]", "[-1,    2]", "[-2,    1]"],
+      "answerIndex": 1
+    },
+    {
+      "id": "eigen-003",
+      "item": "eigenvalues",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "eigvals([[1, 1], [-1, 3]])",
+      "given": null,
+      "steps": [
+        "eigvals([[1, 1], [-1, 3]]) = [2, 2]"
+      ],
+      "choices": ["[-2,    -2]", "[-2,    2]", "[2,    2]", "[1,    4]"],
+      "answerIndex": 2
+    },
+    {
+      "id": "eigen-004",
+      "item": "eigenvalues",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "eigvals([[-2, 3], [2, -1]])",
+      "given": null,
+      "steps": [
+        "eigvals([[-2, 3], [2, -1]]) = [-4, 1]"
+      ],
+      "choices": ["[-1,    4]", "[1,    4]", "[-4,    -1]", "[-4,    1]"],
+      "answerIndex": 3
+    },
+    {
+      "id": "eigen-005",
+      "item": "eigenvalues",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "eigvals([[2, 4], [1, -1]])",
+      "given": null,
+      "steps": [
+        "eigvals([[2, 4], [1, -1]]) = [-2, 3]"
+      ],
+      "choices": ["[-3,    2]", "[-2,    3]", "[2,    3]", "[-3,    -2]"],
+      "answerIndex": 1
+    },
+    {
+      "id": "eigen-006",
+      "item": "eigenvectors",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "eigenvector",
+      "question": "[[4, 2], [1, 3]]; 5",
+      "given": null,
+      "steps": [
+        "[[4, 2], [1, 3]]*[2, 1] = [10, 5] = 5*[2, 1]"
+      ],
+      "choices": ["[2,   1]", "[1,   -1]", "[1,   2]", "[2,   -1]"],
+      "answerIndex": 0
+    },
+    {
+      "id": "eigen-007",
+      "item": "eigenvectors",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "eigenvector",
+      "question": "[[1, 4], [2, 3]]; -1",
+      "given": null,
+      "steps": [
+        "[[1, 4], [2, 3]]*[2, -1] = [-2, 1] = -1*[2, -1]"
+      ],
+      "choices": ["[1,   1]", "[2,   -1]", "[2,   1]", "[1,   -2]"],
+      "answerIndex": 1
+    },
+    {
+      "id": "eigen-008",
+      "item": "eigenvectors",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "eigenvector",
+      "question": "[[2, -1], [-4, -1]]; 3",
+      "given": null,
+      "steps": [
+        "[[2, -1], [-4, -1]]*[1, -1] = [3, -3] = 3*[1, -1]"
+      ],
+      "choices": ["[1,   4]", "[1,   1]", "[1,   -1]", "[4,   1]"],
+      "answerIndex": 2
+    },
+    {
+      "id": "eigen-009",
+      "item": "eigenvectors",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "eigenvector",
+      "question": "[[5, -2], [3, 0]]; 2",
+      "given": null,
+      "steps": [
+        "[[5, -2], [3, 0]]*[2, 3] = [4, 6] = 2*[2, 3]"
+      ],
+      "choices": ["[1,   1]", "[3,   2]", "[2,   -3]", "[2,   3]"],
+      "answerIndex": 3
+    },
+    {
+      "id": "eigen-010",
+      "item": "eigenvectors",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "eigenvector",
+      "question": "[[-1, 4], [1, 2]]; -2",
+      "given": null,
+      "steps": [
+        "[[-1, 4], [1, 2]]*[4, -1] = [-8, 2] = -2*[4, -1]"
+      ],
+      "choices": ["[4,   -1]", "[1,   1]", "[4,   1]", "[1,   -4]"],
+      "answerIndex": 0
+    },
+    {
+      "id": "eigen-011",
+      "item": "diagonalize",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "inv([[2, 1], [1, -1]]) * [[3, 2], [1, 2]] * [[2, 1], [1, -1]]",
+      "given": null,
+      "steps": [
+        "inv([[2, 1], [1, -1]]) * [[3, 2], [1, 2]] * [[2, 1], [1, -1]] = [[4, 0], [0, 1]]"
+      ],
+      "choices": ["[[4,  0],  [0,  1]]", "[[1,  0],  [0,  4]]", "[[4,  0],  [0,  -1]]", "[[-4,  0],  [0,  1]]"],
+      "answerIndex": 0
+    },
+    {
+      "id": "eigen-012",
+      "item": "diagonalize",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "inv([[3, 1], [2, -1]]) * [[2, 3], [2, 1]] * [[3, 1], [2, -1]]",
+      "given": null,
+      "steps": [
+        "inv([[3, 1], [2, -1]]) * [[2, 3], [2, 1]] * [[3, 1], [2, -1]] = [[4, 0], [0, -1]]"
+      ],
+      "choices": ["[[-1,  0],  [0,  4]]", "[[4,  0],  [0,  -1]]", "[[4,  0],  [0,  1]]", "[[-4,  0],  [0,  -1]]"],
+      "answerIndex": 1
+    },
+    {
+      "id": "eigen-013",
+      "item": "diagonalize",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "inv([[2, 1], [-1, -2]]) * [[6, 2], [-2, 1]] * [[2, 1], [-1, -2]]",
+      "given": null,
+      "steps": [
+        "inv([[2, 1], [-1, -2]]) * [[6, 2], [-2, 1]] * [[2, 1], [-1, -2]] = [[5, 0], [0, 2]]"
+      ],
+      "choices": ["[[2,  0],  [0,  5]]", "[[-5,  0],  [0,  2]]", "[[5,  0],  [0,  2]]", "[[5,  0],  [0,  -2]]"],
+      "answerIndex": 2
+    },
+    {
+      "id": "eigen-014",
+      "item": "diagonalize",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "inv([[2, 1], [1, -1]]) * [[1, 4], [2, -1]] * [[2, 1], [1, -1]]",
+      "given": null,
+      "steps": [
+        "inv([[2, 1], [1, -1]]) * [[1, 4], [2, -1]] * [[2, 1], [1, -1]] = [[3, 0], [0, -3]]"
+      ],
+      "choices": ["[[-3,  0],  [0,  3]]", "[[3,  0],  [0,  3]]", "[[-3,  0],  [0,  -3]]", "[[3,  0],  [0,  -3]]"],
+      "answerIndex": 3
+    },
+    {
+      "id": "eigen-015",
+      "item": "diagonalize",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "inv([[1, 2], [-1, 1]]) * [[0, 2], [1, -1]] * [[1, 2], [-1, 1]]",
+      "given": null,
+      "steps": [
+        "inv([[1, 2], [-1, 1]]) * [[0, 2], [1, -1]] * [[1, 2], [-1, 1]] = [[-2, 0], [0, 1]]"
+      ],
+      "choices": ["[[1,  0],  [0,  -2]]", "[[-2,  0],  [0,  1]]", "[[2,  0],  [0,  1]]", "[[-2,  0],  [0,  -1]]"],
+      "answerIndex": 1
+    }
+  ]
+}

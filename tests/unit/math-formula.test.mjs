@@ -28,6 +28,10 @@ const cases = {
   '2*x/3': '\\frac{2x}{3}',
   '1/2 * 3/4': '\\frac{1}{2} \\times \\frac{3}{4}',
   // A negative operand keeps its sign visible: 2 * -x is not "2-x".
+  'exp(1) - 2': 'e - 2',
+  '-2/3': '-\\frac{2}{3}',
+  '1*r': 'r',
+  'int2(x^2 + y, y, 0, 2, x, 0, 3)': '\\int_{0}^{3}\\int_{0}^{2}\\left(x^{2} + y\\right)\\,dy\\,dx',
   '2 * -x + 3*x': '2 \\times \\left(-x\\right) + 3x',
   'x - -y': 'x - \\left(-y\\right)',
   'a + -b': 'a + \\left(-b\\right)',

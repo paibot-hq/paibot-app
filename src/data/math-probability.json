@@ -1,0 +1,315 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "probability-001",
+      "item": "relative-frequency",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "168 / 400",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "画鋲を400回投げたところ、針が上を向いた回数は168回でした。針が上を向いた相対度数を求めなさい。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "When a thumbtack was tossed 400 times, it landed point up 168 times. Find the relative frequency of landing point up.",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "将图钉投掷400次，其中针尖朝上的次数为168次。求针尖朝上的相对频数。",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "168 / 400 = 0.42"
+      ],
+      "choices": ["0.42", "0.38", "0.45", "0.52"],
+      "answerIndex": 0
+    },
+    {
+      "id": "probability-002",
+      "item": "relative-frequency",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "600 * 0.35",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "ペットボトルのキャップを投げて表が出る相対度数が0.35であることがわかっています。このキャップを600回投げるとき、表はおよそ何回出ると考えられますか。",
+          "unit": "回"
+        },
+        "en": {
+          "prompt": "The relative frequency of a bottle cap landing right side up is known to be 0.35. If this bottle cap is tossed 600 times, about how many times is it expected to land right side up?",
+          "unit": "times"
+        },
+        "zh": {
+          "prompt": "已知投掷塑料瓶盖正面朝上的相对频数为0.35。如果将这个瓶盖投掷600次，大约会出现多少次正面朝上？",
+          "unit": "次"
+        }
+      },
+      "steps": [
+        "600 * 0.35 = 210"
+      ],
+      "choices": ["180", "210", "240", "200"],
+      "answerIndex": 1
+    },
+    {
+      "id": "probability-003",
+      "item": "relative-frequency",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "115 / 500",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "袋から玉を1個取り出して色を調べてからもとに戻す実験を500回行ったところ、赤玉が115回出ました。赤玉が出た相対度数を求めなさい。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "In an experiment of drawing a ball from a bag, recording its color, and putting it back, repeated 500 times, a red ball was drawn 115 times. Find the relative frequency of drawing a red ball.",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "进行从袋中摸出一个球、记录颜色后放回的有放回摸球实验500次，摸出红球115次。求摸出红球的相对频数。",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "115 / 500 = 0.23"
+      ],
+      "choices": ["0.21", "0.25", "0.23", "0.28"],
+      "answerIndex": 2
+    },
+    {
+      "id": "probability-004",
+      "item": "relative-frequency",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "750 * 0.08",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "あるくじを多数回引いた実験から、当たりが出る相対度数は0.08であることがわかっています。このくじを750回引くとき、当たりはおよそ何回出ると考えられますか。",
+          "unit": "回"
+        },
+        "en": {
+          "prompt": "From experiments of drawing a lottery ticket many times, the relative frequency of winning is known to be 0.08. If this lottery is drawn 750 times, about how many times is a winning ticket expected to be drawn?",
+          "unit": "times"
+        },
+        "zh": {
+          "prompt": "通过多次抽奖实验，已知中奖的相对频数为0.08。如果抽奖750次，大约会中奖多少次？",
+          "unit": "次"
+        }
+      },
+      "steps": [
+        "750 * 0.08 = 60"
+      ],
+      "choices": ["50", "80", "75", "60"],
+      "answerIndex": 3
+    },
+    {
+      "id": "probability-005",
+      "item": "relative-frequency",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "135 / 250",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "コインを250回投げたところ、表が135回出ました。表が出た相対度数を求めなさい。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "When a coin was tossed 250 times, heads appeared 135 times. Find the relative frequency of getting heads.",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "投掷一枚硬币250次，正面朝上出现了135次。求正面朝上的相对频数。",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "135 / 250 = 0.54"
+      ],
+      "choices": ["0.54", "0.46", "0.56", "0.52"],
+      "answerIndex": 0
+    },
+    {
+      "id": "probability-006",
+      "item": "basic",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "4 / 10",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "赤玉が4個、白玉が6個入っている袋から玉を1個取り出すとき、赤玉が出る確率を求めなさい。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "A bag contains 4 red balls and 6 white balls. If one ball is drawn at random, find the probability that it is red.",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "一个袋子里装有4个红球和6个白球。从中随机摸出1个球，求摸出红球的概率。",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "4 / 10 = 2/5"
+      ],
+      "choices": ["2/5", "3/5", "1/4", "1/2"],
+      "answerIndex": 0
+    },
+    {
+      "id": "probability-007",
+      "item": "basic",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "4 / 6",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1個のさいころを投げるとき、4以下の目が出る確率を求めなさい。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "When rolling a single die, find the probability of rolling a number less than or equal to 4.",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "掷一枚骰子，求掷出的点数不超过4的概率。",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "4 / 6 = 2/3"
+      ],
+      "choices": ["1/3", "2/3", "1/2", "5/6"],
+      "answerIndex": 1
+    },
+    {
+      "id": "probability-008",
+      "item": "basic",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "5 / 20",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1から20までの番号が書かれた20枚のカードから1枚を引くとき、その番号が4の倍数である確率を求めなさい。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "A card is drawn at random from 20 cards numbered 1 to 20. Find the probability that the number on the card is a multiple of 4.",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "从写有1到20的20张卡片中随机抽取1张，求抽到的卡片号码是4的倍数的概率。",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "5 / 20 = 1/4"
+      ],
+      "choices": ["1/5", "3/20", "1/4", "3/10"],
+      "answerIndex": 2
+    },
+    {
+      "id": "probability-009",
+      "item": "basic",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "2 / 4",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "2枚の硬貨を同時に投げるとき、表と裏が1枚ずつ出る確率を求めなさい。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "When two coins are tossed simultaneously, find the probability of getting one head and one tail.",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "同时掷两枚硬币，求一枚正面朝上、一枚反面朝上的概率。",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "2 / 4 = 1/2"
+      ],
+      "choices": ["1/4", "3/4", "1/3", "1/2"],
+      "answerIndex": 3
+    },
+    {
+      "id": "probability-010",
+      "item": "basic",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "6 / 36",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "大小2個のさいころを同時に投げるとき、出る目の数の和が7になる確率を求めなさい。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "When two dice, one large and one small, are rolled simultaneously, find the probability that the sum of the numbers rolled is 7.",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "同时掷大小两枚骰子，求掷出的点数之和为7的概率。",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "6 / 36 = 1/6"
+      ],
+      "choices": ["1/6", "5/36", "1/9", "7/36"],
+      "answerIndex": 0
+    }
+  ]
+}

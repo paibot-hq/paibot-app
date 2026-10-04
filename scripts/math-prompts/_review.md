@@ -6,6 +6,7 @@
 - expression はかっこ→かけ算・わり算→足し算・引き算、同じ優先度は左から。* はかけ算、/ はわり算。answer は整数。
 - formula は学習者に見えるとおりの LaTeX（question・given・choices）。kind が calc なら値を計算（given があれば代入）、expand なら展開・整理した式、solve なら方程式の解。answer に選んだ choices の文字列をそのまま書く。答えは分数・小数・根号をふくんでよい。
 - word は日本語 ja の問題文だけから立式して解き、その式を wordExpression に書く（整数・+ - * / ( ) と半角スペースを使い、負の数は (-3) の形）。en・zh もそれぞれ問題文だけから同じ条件を復元できるか確認する。
+- statement は作図の手順や証明の空欄を選ぶ言葉の問題。ja の prompt と options だけから最も適切な選択肢を選び（choices は "1"〜"4" で、answer にその数字を書く）、choiceIndex は選んだ選択肢の位置（0始まり）。正解が複数ある・1つもない、誤答が紛らわしすぎる、数学的に誤り、en・zh が ja と内容・順序で一致しないときは issues に書く。
 - factorization は trinomial を因数分解し、answer に選んだ choices の文字列をそのまま書く。選択肢を展開して確かめる。
 - pythagoras は直角三角形ABC。figure の rightAngle が直角、given は既知の辺と長さ(cm)、unknown は求める辺。三平方の定理で解き、answer に選んだ choices の文字列をそのまま書く。√は平方根。
 2. 問題点は issues に日本語で書く。無ければ空配列。

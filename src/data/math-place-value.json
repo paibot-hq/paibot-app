@@ -1,0 +1,625 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "place-value-001",
+      "item": "to-100",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "10 * 3 + 5",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "ばらが 5こと、10の まとまりが 3つ あります。あわせて なんこ ありますか。",
+          "unit": "こ"
+        },
+        "en": {
+          "prompt": "There are 5 loose blocks and 3 groups of 10. How many blocks are there in all?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "有5个单个的积木和3个10个一组的积木。一共有多少个积木？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "10 * 3 + 5 = 30 + 5 = 35"
+      ],
+      "choices": ["35", "53", "30", "8"],
+      "answerIndex": 0
+    },
+    {
+      "id": "place-value-002",
+      "item": "to-100",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "10 * 7",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "10こ入りの チョコレートの はこが 7つ あります。ばらは ありません。チョコレートは ぜんぶで なんこ ありますか。",
+          "unit": "こ"
+        },
+        "en": {
+          "prompt": "There are 7 boxes of chocolates with 10 pieces in each box, and no loose chocolates. How many chocolates are there in total?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "有7盒巧克力，每盒装10块，没有散装的。一共有多少块巧克力？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "10 * 7 = 70"
+      ],
+      "choices": ["7", "70", "17", "77"],
+      "answerIndex": 1
+    },
+    {
+      "id": "place-value-003",
+      "item": "to-100",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "64 - 10 * 6",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "あめが 64こ あります。10こずつの ふくろを 6つ つくりました。のこった ばらの あめは なんこ ありますか。",
+          "unit": "こ"
+        },
+        "en": {
+          "prompt": "There are 64 candies. 6 bags of 10 candies each were made. How many loose candies are left?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "有64颗糖果。装了6袋，每袋10颗。剩下的单颗糖果有多少颗？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "64 - 10 * 6 = 64 - 60 = 4"
+      ],
+      "choices": ["6", "60", "4", "10"],
+      "answerIndex": 2
+    },
+    {
+      "id": "place-value-004",
+      "item": "to-100",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "4",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "47は、10の まとまりが なんこと、1が 7こを あわせた かずですか。",
+          "unit": "こ"
+        },
+        "en": {
+          "prompt": "47 is made of how many groups of 10 and 7 ones?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "47是由几个10和7个1组成的？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "(47 - 7) / 10 = 40 / 10 = 4"
+      ],
+      "choices": ["7", "40", "14", "4"],
+      "answerIndex": 3
+    },
+    {
+      "id": "place-value-005",
+      "item": "to-100",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "10 * 10",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "10こ入りの みかんの ふくろが 10ふくろ あります。みかんは ぜんぶで なんこ ありますか。",
+          "unit": "こ"
+        },
+        "en": {
+          "prompt": "There are 10 bags of tangerines with 10 tangerines in each bag. How many tangerines are there in all?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "有10袋橘子，每袋装10个。一共有多少个橘子？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "10 * 10 = 100"
+      ],
+      "choices": ["10", "100", "20", "90"],
+      "answerIndex": 1
+    },
+    {
+      "id": "place-value-006",
+      "item": "to-10000",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "1000 * 4 + 100 * 7 + 5",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1000を 4こ、100を 7こ、1を 5こ あわせた 数は いくつですか。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "What number is 4 thousands, 7 hundreds, and 5 ones combined?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "4个1000、7个100和5个1合起来是多少？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "1000 * 4 + 100 * 7 + 5 = 4000 + 700 + 5 = 4705"
+      ],
+      "choices": ["4705", "4750", "4075", "475"],
+      "answerIndex": 0
+    },
+    {
+      "id": "place-value-007",
+      "item": "to-10000",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "1000 * 10",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1000を 10こ あつめた 数は いくつですか。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "What number do you get by collecting 10 thousands?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "10个1000合起来是多少？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "1000 * 10 = 10000"
+      ],
+      "choices": ["1000", "10000", "100000", "2000"],
+      "answerIndex": 1
+    },
+    {
+      "id": "place-value-008",
+      "item": "to-10000",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "1000 / 10",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1000は、10を 何こ あつめた 数ですか。",
+          "unit": "こ"
+        },
+        "en": {
+          "prompt": "How many 10s make 1000?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "1000是几个10合起来的数？",
+          "unit": "个"
+        }
+      },
+      "steps": [
+        "1000 / 10 = 100"
+      ],
+      "choices": ["10", "1000", "100", "10000"],
+      "answerIndex": 2
+    },
+    {
+      "id": "place-value-009",
+      "item": "to-10000",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "100 * 38",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "100を 38こ あつめた 数は いくつですか。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "What number do you get by collecting 38 hundreds?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "38个100合起来是多少？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "100 * 38 = 3800"
+      ],
+      "choices": ["380", "38000", "3080", "3800"],
+      "answerIndex": 3
+    },
+    {
+      "id": "place-value-010",
+      "item": "to-10000",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "1000 * 6 + 100 * 2 + 10 * 8 + 5",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1000を 6こ、100を 2こ、10を 8こ、1を 5こ あわせた 数は いくつですか。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "What number is 6 thousands, 2 hundreds, 8 tens, and 5 ones combined?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "6个1000、2个100、8个10和5个1合起来是多少？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "1000 * 6 + 100 * 2 + 10 * 8 + 5 = 6000 + 200 + 80 + 5 = 6285"
+      ],
+      "choices": ["6825", "6285", "6258", "2685"],
+      "answerIndex": 1
+    },
+    {
+      "id": "place-value-011",
+      "item": "ten-thousands",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "10000 * 4 + 1000 * 7 + 10 * 3",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "10000を4こ、1000を7こ、10を3こあわせた数はいくつですか。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "What number do you get by combining 4 ten-thousands, 7 thousands, and 3 tens?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "4个10000、7个1000和3个10合起来是多少？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "10000 * 4 + 1000 * 7 + 10 * 3 = 40000 + 7000 + 30 = 47030"
+      ],
+      "choices": ["47030", "47300", "47003", "40730"],
+      "answerIndex": 0
+    },
+    {
+      "id": "place-value-012",
+      "item": "ten-thousands",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "1000 * 26",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1000を26こあつめた数はいくつですか。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "What number is made by grouping 26 thousands?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "26个1000是多少？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "1000 * 26 = 26000"
+      ],
+      "choices": ["2600", "26000", "260000", "20600"],
+      "answerIndex": 1
+    },
+    {
+      "id": "place-value-013",
+      "item": "ten-thousands",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "60000 / 10",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "60000を10でわった数はいくつですか。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "What number do you get when you divide 60000 by 10?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "60000除以10是多少？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "60000 / 10 = 6000"
+      ],
+      "choices": ["600", "60000", "6000", "60"],
+      "answerIndex": 2
+    },
+    {
+      "id": "place-value-014",
+      "item": "ten-thousands",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "10000 * 3 + 1000 * 15",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "10000を3こと、1000を15こあわせた数はいくつですか。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "What number do you get by combining 3 ten-thousands and 15 thousands?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "3个10000和15个1000合起来是多少？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "10000 * 3 + 1000 * 15 = 30000 + 15000 = 45000"
+      ],
+      "choices": ["31500", "35000", "40500", "45000"],
+      "answerIndex": 3
+    },
+    {
+      "id": "place-value-015",
+      "item": "ten-thousands",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "4200 * 10",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "4200を10倍した数はいくつですか。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "What number is 10 times 4200?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "4200的10倍是多少？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "4200 * 10 = 42000"
+      ],
+      "choices": ["42000", "420000", "4200", "40200"],
+      "answerIndex": 0
+    },
+    {
+      "id": "place-value-016",
+      "item": "large-numbers",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "100000000 / 10000",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1億は、1万を何こ集めた数ですか。",
+          "unit": "こ"
+        },
+        "en": {
+          "prompt": "How many 10 thousand make 100 million?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "1亿是多少个1万？",
+          "unit": "个"
+        }
+      },
+      "steps": [
+        "100000000 / 10000 = 10000"
+      ],
+      "choices": ["1000", "10000", "100000", "100"],
+      "answerIndex": 1
+    },
+    {
+      "id": "place-value-017",
+      "item": "large-numbers",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "10000000 * 10",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1000万を10倍した数はいくつですか。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "What is 10 times 10 million?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "1000万的10倍是多少？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "10000000 * 10 = 100000000"
+      ],
+      "choices": ["100000000", "1000000000", "10000000", "1000000"],
+      "answerIndex": 0
+    },
+    {
+      "id": "place-value-018",
+      "item": "large-numbers",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "320000000 / 10000000",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "3億2000万は、1000万を何こ集めた数ですか。",
+          "unit": "こ"
+        },
+        "en": {
+          "prompt": "How many 10 million make 320 million?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "3亿2000万是多少个1000万？",
+          "unit": "个"
+        }
+      },
+      "steps": [
+        "320000000 / 10000000 = 32"
+      ],
+      "choices": ["320", "302", "3200", "32"],
+      "answerIndex": 3
+    },
+    {
+      "id": "place-value-019",
+      "item": "large-numbers",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "10000000000 / 10",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "100億を10でわった数はいくつですか。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "What is 10 billion divided by 10?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "100亿除以10是多少？",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "10000000000 / 10 = 1000000000"
+      ],
+      "choices": ["100000000", "10000000000", "1000000000", "10000000"],
+      "answerIndex": 2
+    },
+    {
+      "id": "place-value-020",
+      "item": "large-numbers",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "1000000000000 / 100000000",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1兆は、1億を何こ集めた数ですか。",
+          "unit": "こ"
+        },
+        "en": {
+          "prompt": "How many 100 million make 1 trillion?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "1兆（1万亿）是多少个1亿？",
+          "unit": "个"
+        }
+      },
+      "steps": [
+        "1000000000000 / 100000000 = 10000"
+      ],
+      "choices": ["10000", "1000", "100000", "100"],
+      "answerIndex": 0
+    }
+  ]
+}

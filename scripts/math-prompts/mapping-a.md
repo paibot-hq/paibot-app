@@ -1,0 +1,1 @@
+単射・全射（大学1年、kind "mapping"、which "type"）。question は "A; B; 1>2, 2>1, 3>2"（A, B は整数の集合、f(1)=2, f(2)=1, f(3)=2）。f は A のすべての要素で定義され、値は B に入る。choices は必ず "injective", "surjective", "bijective", "neither" の4つ。5問で答えが偏らないようにし、4種類をそれぞれ使う。steps は [] でよい。

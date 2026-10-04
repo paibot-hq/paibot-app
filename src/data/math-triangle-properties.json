@@ -1,0 +1,590 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "triangle-properties-001",
+      "item": "centers",
+      "setId": "1",
+      "position": 1,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "-3, -2, -2, 6, 2, -1",
+      "given": null,
+      "which": "centroid",
+      "steps": [],
+      "choices": ["0,       1", "-1,       0", "-1,       1", "1,       -1"],
+      "answerIndex": 2
+    },
+    {
+      "id": "triangle-properties-002",
+      "item": "centers",
+      "setId": "1",
+      "position": 2,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 6, -3, -4, 3, 4",
+      "given": null,
+      "which": "centroid",
+      "steps": [],
+      "choices": ["6,       6", "2,       2", "2,       1", "3,       2"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-properties-003",
+      "item": "centers",
+      "setId": "1",
+      "position": 3,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5, 8, 8, 7, 2, 3",
+      "given": null,
+      "which": "centroid",
+      "steps": [],
+      "choices": ["5,       5", "5,       6", "6,       5", "6,       6"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-properties-004",
+      "item": "centers",
+      "setId": "1",
+      "position": 4,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8, 6, -3, 2, -2, 1",
+      "given": null,
+      "which": "centroid",
+      "steps": [],
+      "choices": ["1,       2", "1,       3", "3,       1", "2,       3"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-properties-005",
+      "item": "centers",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "0, -3, -4, 7, -2, 8",
+      "given": null,
+      "which": "centroid",
+      "steps": [],
+      "choices": ["-2,       4", "-1,       4", "4,       -2", "-2,       2"],
+      "answerIndex": 0
+    },
+    {
+      "id": "triangle-properties-006",
+      "item": "power",
+      "setId": "1",
+      "position": 1,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 9, 3",
+      "given": null,
+      "which": "power-chord",
+      "steps": [
+        "4*9/3 = 12"
+      ],
+      "choices": ["10", "1", "12", "108"],
+      "answerIndex": 2
+    },
+    {
+      "id": "triangle-properties-007",
+      "item": "power",
+      "setId": "1",
+      "position": 2,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 9, 3",
+      "given": null,
+      "which": "power-chord",
+      "steps": [
+        "6*9/3 = 18"
+      ],
+      "choices": ["18", "162", "12", "2"],
+      "answerIndex": 0
+    },
+    {
+      "id": "triangle-properties-008",
+      "item": "power",
+      "setId": "1",
+      "position": 3,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 7, 2",
+      "given": null,
+      "which": "power-chord",
+      "steps": [
+        "4*7/2 = 14"
+      ],
+      "choices": ["1", "14", "9", "56"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-properties-009",
+      "item": "power",
+      "setId": "1",
+      "position": 4,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8, 7, 4",
+      "given": null,
+      "which": "power-chord",
+      "steps": [
+        "8*7/4 = 14"
+      ],
+      "choices": ["224", "4", "14", "11"],
+      "answerIndex": 2
+    },
+    {
+      "id": "triangle-properties-010",
+      "item": "power",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 6, 2",
+      "given": null,
+      "which": "power-chord",
+      "steps": [
+        "6*6/2 = 18"
+      ],
+      "choices": ["2", "10", "72", "18"],
+      "answerIndex": 3
+    },
+    {
+      "id": "triangle-properties-011",
+      "item": "polyhedra",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 14",
+      "given": null,
+      "which": "euler-faces",
+      "steps": [
+        "14 - 6 + 2 = 10"
+      ],
+      "choices": ["10", "11", "20", "8"],
+      "answerIndex": 0
+    },
+    {
+      "id": "triangle-properties-012",
+      "item": "polyhedra",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "12, 6",
+      "given": null,
+      "which": "euler-vertices",
+      "steps": [
+        "12 - 6 + 2 = 8"
+      ],
+      "choices": ["18", "6", "8", "9"],
+      "answerIndex": 2
+    },
+    {
+      "id": "triangle-properties-013",
+      "item": "polyhedra",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 11",
+      "given": null,
+      "which": "euler-faces",
+      "steps": [
+        "11 - 6 + 2 = 7"
+      ],
+      "choices": ["7", "8", "17", "5"],
+      "answerIndex": 0
+    },
+    {
+      "id": "triangle-properties-014",
+      "item": "polyhedra",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "16, 10",
+      "given": null,
+      "which": "euler-vertices",
+      "steps": [
+        "16 - 10 + 2 = 8"
+      ],
+      "choices": ["6", "8", "26", "9"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-properties-015",
+      "item": "polyhedra",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7, 13",
+      "given": null,
+      "which": "euler-faces",
+      "steps": [
+        "13 - 7 + 2 = 8"
+      ],
+      "choices": ["20", "6", "9", "8"],
+      "answerIndex": 3
+    },
+    {
+      "id": "triangle-properties-016",
+      "item": "ceva-menelaus",
+      "setId": "1",
+      "position": 1,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 3, 3, 2",
+      "given": null,
+      "which": "ceva-ratio",
+      "steps": [
+        "3*2/(4*3) = 1/2"
+      ],
+      "choices": ["2", "1/2", "9/8", "8/9"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-properties-017",
+      "item": "ceva-menelaus",
+      "setId": "1",
+      "position": 2,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 2, 4, 2",
+      "given": null,
+      "which": "menelaus-ratio",
+      "steps": [
+        "2*2/(3*4) = 1/3"
+      ],
+      "choices": ["3", "1/3", "4/3", "3/4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-properties-018",
+      "item": "ceva-menelaus",
+      "setId": "1",
+      "position": 3,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 3, 1, 3",
+      "given": null,
+      "which": "ceva-ratio",
+      "steps": [
+        "3*3/(4*1) = 9/4"
+      ],
+      "choices": ["1/4", "4", "9/4", "4/9"],
+      "answerIndex": 2
+    },
+    {
+      "id": "triangle-properties-019",
+      "item": "ceva-menelaus",
+      "setId": "1",
+      "position": 4,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "1, 3, 2, 1",
+      "given": null,
+      "which": "menelaus-ratio",
+      "steps": [
+        "3*1/(1*2) = 3/2"
+      ],
+      "choices": ["2/3", "6", "3/2", "1/6"],
+      "answerIndex": 2
+    },
+    {
+      "id": "triangle-properties-020",
+      "item": "ceva-menelaus",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 4, 1, 2",
+      "given": null,
+      "which": "ceva-ratio",
+      "steps": [
+        "4*2/(3*1) = 8/3"
+      ],
+      "choices": ["8/3", "3/2", "3/8", "2/3"],
+      "answerIndex": 0
+    },
+    {
+      "id": "triangle-properties-021",
+      "item": "construction",
+      "setId": "1",
+      "position": 1,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "一直線上に長さ1の線分ABと長さ a の線分BCがこの順に並んでおり、線分ACの長さは 1+a である。線分ACの中点をMとし、点Mを中心として線分ACを直径とする半円を描いた。この半円を利用して、長さ √a の線分を作図する手順として最も適切なものはどれか。",
+          "options": [
+            "点Bを通り直線ACに垂直な直線を引き、半円との交点をPとするとき、線分BPをとる。",
+            "線分ACの垂直二等分線を引き、半円との交点をPとするとき、線分BPをとる。",
+            "点Aから半円に接線を引き、その接点をPとするとき、線分APをとる。",
+            "点Bを中心として半径 a の円を描き、半円との交点をPとするとき、線分BPをとる。"
+          ],
+          "explanation": "直径ACに対する円周角は90°なので、△APCは∠APC=90°の直角三角形です。点Bから斜辺ACに下ろした垂線の足をBとすると、直角三角形の相似（射影定理）より BP² = AB・BC = 1・a = a が成り立ち、BP = √a となります。"
+        },
+        "en": {
+          "prompt": "Line segment AB of length 1 and line segment BC of length a lie in this order on a straight line, forming line segment AC of length 1+a. Let M be the midpoint of line segment AC, and draw a semicircle with diameter AC centered at M. Which of the following is the most appropriate procedure to construct a line segment of length √a using this semicircle?",
+          "options": [
+            "Draw a line perpendicular to line AC through point B, let P be its intersection with the semicircle, and take segment BP.",
+            "Draw the perpendicular bisector of segment AC, let P be its intersection with the semicircle, and take segment BP.",
+            "Draw a tangent line from point A to the semicircle, let P be the point of tangency, and take segment AP.",
+            "Draw a circle centered at point B with radius a, let P be its intersection with the semicircle, and take segment BP."
+          ],
+          "explanation": "Since the angle inscribed in semicircle AC is 90°, △APC is a right triangle with ∠APC=90°. Because PB is perpendicular to hypotenuse AC, by the geometric mean theorem, BP² = AB・BC = 1・a = a, which gives BP = √a."
+        },
+        "zh": {
+          "prompt": "在一条直线上，长度为1的线段AB和长度为 a 的线段BC按此顺序排列，构成长度为 1+a 的线段AC。设M为线段AC的中点，以M为圆心画以AC为直径的半圆。下列哪项是利用该半圆作长度为 √a 的线段的最恰当步骤？",
+          "options": [
+            "过点B作直线AC的垂线，设其与半圆的交点为P，取线段BP。",
+            "作线段AC的垂直平分线，设其与半圆的交点为P，取线段BP。",
+            "从点A向半圆引切线，设切点为P，取线段AP。",
+            "以点B为圆心、以 a 为半径画圆，设其与半圆的交点为P，取线段BP。"
+          ],
+          "explanation": "由于直径AC所对的圆周角为90°，△APC是∠APC=90°的直角三角形。由垂线PB垂直于斜边AC，根据直角三角形射影定理可知 BP² = AB・BC = 1・a = a，因此 BP = √a。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 0
+    },
+    {
+      "id": "triangle-properties-022",
+      "item": "construction",
+      "setId": "1",
+      "position": 2,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "円Oの外部に点Pがある。点Pから円Oへ接線を引く作図を行う。線分OPを結び、その垂直二等分線を作図して線分OPの中点Mを求めた。この後、円Oとの接点を決定するために描く円として正しいものはどれか。",
+          "options": [
+            "点Pを中心とし、半径POの円",
+            "点Oを中心とし、半径OPの円",
+            "点Mを中心とし、半径MOの円",
+            "点Mを中心とし、円Oの半径と同じ半径をもつ円"
+          ],
+          "explanation": "線分OPを直径とする円（中心M、半径MO）を描くと、円Oとの交点をTとしたとき、直径に対する円周角の定理より ∠OTP = 90° となります。円Oの半径OTと直線PTが垂直になるため、直線PTは接線となり交点Tが接点になります。"
+        },
+        "en": {
+          "prompt": "Point P lies outside circle O. We want to construct the tangent lines from point P to circle O. We connect segment OP, construct its perpendicular bisector, and find the midpoint M of segment OP. Which of the following is the correct circle to draw next to determine the points of tangency on circle O?",
+          "options": [
+            "A circle centered at point P with radius PO",
+            "A circle centered at point O with radius OP",
+            "A circle centered at point M with radius MO",
+            "A circle centered at point M with the same radius as circle O"
+          ],
+          "explanation": "Drawing a circle with diameter OP (centered at M with radius MO), let T be an intersection with circle O; by the inscribed angle theorem, ∠OTP = 90°. Since radius OT is perpendicular to line PT, line PT is tangent to circle O at point T."
+        },
+        "zh": {
+          "prompt": "点P位于圆O的外部。要作从点P到圆O的切线。连接线段OP，作其垂直平分线求得线段OP的中点M。接下来为了确定圆O上的切点，应该画的圆是哪一个？",
+          "options": [
+            "以点P为圆心、以PO为半径的圆",
+            "以点O为圆心、以OP为半径的圆",
+            "以点M为圆心、以MO为半径的圆",
+            "以点M为圆心、半径等于圆O半径的圆"
+          ],
+          "explanation": "以线段OP为直径画圆（圆心为M，半径为MO），设其与圆O的交点为T，由直径所对的圆周角定理可知 ∠OTP = 90°。由于圆O的半径OT垂直于直线PT，直线PT即为圆O的切线，交点T为切点。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 2
+    },
+    {
+      "id": "triangle-properties-023",
+      "item": "construction",
+      "setId": "1",
+      "position": 3,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "線分ABを 3:1 に外分する点Qを作図したい。点Aを端点とし、直線ABとは異なる半直線AXを引いた。コンパスを用いて半直線AX上に等間隔に点 X1, X2, X3 をこの順にとり、AX1 = X1X2 = X2X3 とした。この後、外分点Qを求める手順として正しいものはどれか。",
+          "options": [
+            "点X3と点Bを結ぶ直線を引き、点X1を通り直線X3Bに平行な直線を引いて、線分ABとの交点をQとする。",
+            "点X2と点Bを結ぶ直線を引き、点X3を通り直線X2Bに平行な直線を引いて、直線ABとの交点をQとする。",
+            "点X1と点Bを結ぶ直線を引き、点X3を通り直線X1Bに平行な直線を引いて、直線ABとの交点をQとする。",
+            "点X3と点Bを結ぶ直線を引き、点X2を通り直線X3Bに平行な直線を引いて、直線ABとの交点をQとする。"
+          ],
+          "explanation": "点Qが線分ABを 3:1 に外分するとき、AQ:BQ = 3:1 より AB:BQ = (3-1):1 = 2:1 となります。AX2:X2X3 = 2:1 であるため、点X2と点Bを結び、点X3から直線X2Bに平行な直線を引くことで、AB:BQ = AX2:X2X3 = 2:1 となり外分点Qが得られます。"
+        },
+        "en": {
+          "prompt": "We want to construct point Q that divides line segment AB externally in the ratio 3:1. Draw a ray AX starting at point A that does not lie on line AB. Using a compass, mark points X1, X2, X3 in order on ray AX such that AX1 = X1X2 = X2X3. Which of the following is the correct procedure to locate external division point Q?",
+          "options": [
+            "Draw line X3B, then draw a line through X1 parallel to line X3B, and let Q be its intersection with segment AB.",
+            "Draw line X2B, then draw a line through X3 parallel to line X2B, and let Q be its intersection with line AB.",
+            "Draw line X1B, then draw a line through X3 parallel to line X1B, and let Q be its intersection with line AB.",
+            "Draw line X3B, then draw a line through X2 parallel to line X3B, and let Q be its intersection with line AB."
+          ],
+          "explanation": "When point Q divides segment AB externally in the ratio 3:1, AQ:BQ = 3:1, which implies AB:BQ = (3-1):1 = 2:1. Since AX2:X2X3 = 2:1, connecting X2 with B and drawing a parallel line through X3 ensures AB:BQ = AX2:X2X3 = 2:1, correctly locating point Q."
+        },
+        "zh": {
+          "prompt": "要作将线段AB按 3:1 外分的点Q。以点A为端点，引一条不与直线AB重合的射线AX。用圆规在射线AX上按顺序等距截取点 X1, X2, X3，使 AX1 = X1X2 = X2X3。接下来确定外分点Q的正确步骤是哪一个？",
+          "options": [
+            "作直线X3B，过点X1作直线X3B的平行线，设其与线段AB的交点为Q。",
+            "作直线X2B，过点X3作直线X2B的平行线，设其与直线AB的交点为Q。",
+            "作直线X1B，过点X3作直线X1B的平行线，设其与直线AB的交点为Q。",
+            "作直线X3B，过点X2作直线X3B的平行线，设其与直线AB的交点为Q。"
+          ],
+          "explanation": "当点Q将线段AB按 3:1 外分时，AQ:BQ = 3:1，因此 AB:BQ = (3-1):1 = 2:1。由于 AX2:X2X3 = 2:1，连接 X2 与 B 并过 X3 作其平行线，即可保证 AB:BQ = AX2:X2X3 = 2:1，从而正确得到外分点Q。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "triangle-properties-024",
+      "item": "construction",
+      "setId": "1",
+      "position": 4,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "単位の長さ1をもつ線分、および長さ a、b をもつ線分が与えられている。1つの頂点Oから出る異なる2本の半直線OX, OYを考える。半直線OX上に点A, Bを OA=1, OB=a となるようにとり、半直線OY上に点Cを OC=b となるようにとった。このとき、長さ ab の線分を作図するための操作として正しいものはどれか。",
+          "options": [
+            "点Bと点Cを結び、点Aを通り直線BCに平行な直線を引いて、半直線OYとの交点をDとする。",
+            "点Aと点Bを結び、点Cを通り直線OXに平行な直線を引いて、半直線OYとの交点をDとする。",
+            "点Oを中心として半径 a の円を描き、線分OCの垂直二等分線との交点をDとする。",
+            "点Aと点Cを結び、点Bを通り直線ACに平行な直線を引いて、半直線OYとの交点をDとする。"
+          ],
+          "explanation": "直線ACと直線BDが平行であるとき、平行線と線分の比の定理より OA:OB = OC:OD が成り立ちます。長さを代入すると 1:a = b:OD となるため OD = ab となり、線分ODの長さとして積 ab が得られます。"
+        },
+        "en": {
+          "prompt": "Given a line segment of unit length 1 and line segments of lengths a and b, consider two distinct rays OX and OY originating from point O. On ray OX, choose points A and B such that OA=1 and OB=a, and on ray OY, choose point C such that OC=b. Which of the following operations correctly constructs a line segment of length ab?",
+          "options": [
+            "Connect points B and C, draw a line through point A parallel to line BC, and let D be its intersection with ray OY.",
+            "Connect points A and B, draw a line through point C parallel to line OX, and let D be its intersection with ray OY.",
+            "Draw a circle centered at point O with radius a, and let D be its intersection with the perpendicular bisector of segment OC.",
+            "Connect points A and C, draw a line through point B parallel to line AC, and let D be its intersection with ray OY."
+          ],
+          "explanation": "When line AC is parallel to line BD, by the intercept theorem on parallel lines, OA:OB = OC:OD. Substituting the given lengths gives 1:a = b:OD, which yields OD = ab, so segment OD has length ab."
+        },
+        "zh": {
+          "prompt": "已知单位长度为1的线段，以及长度分别为 a 和 b 的线段。考虑从同一顶点O出发的两条不同射线OX和OY。在射线OX上取点A、B使得 OA=1, OB=a，在射线OY上取点C使得 OC=b。此时，为了作出长度为 ab 的线段，下列哪项操作是正确的？",
+          "options": [
+            "连接点B和点C，过点A作直线BC的平行线，设其与射线OY的交点为D。",
+            "连接点A和点B，过点C作直线OX的平行线，设其与射线OY的交点为D。",
+            "以点O为圆心、以 a 为半径画圆，设其与线段OC的垂直平分线的交点为D。",
+            "连接点A和点C，过点B作直线AC的平行线，设其与射线OY的交点为D。"
+          ],
+          "explanation": "当直线AC与直线BD平行时，由平行线分线段成比例定理可知 OA:OB = OC:OD。代入已知长度得 1:a = b:OD，解得 OD = ab，线段OD的长度即为所求的积 ab。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 3
+    },
+    {
+      "id": "triangle-properties-025",
+      "item": "construction",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "三角形ABCにおいて、∠Bの二等分線と∠Cの二等分線の交点をIとし、内心Iを求めた。続けて三角形ABCの内接円を正しく作図するための手順として最も適切なものはどれか。",
+          "options": [
+            "点Iから辺BCに垂線を下ろしてその足をDとし、点Iを中心とする半径IDの円を描く。",
+            "辺BCの中点Mを求め、点Iを中心とする半径IMの円を描く。",
+            "点Iを中心とし、頂点Aまでの距離IAを半径とする円を描く。",
+            "辺BCの垂直二等分線を引き、その直線と辺BCの交点をDとして、点Iを中心とする半径IDの円を描く。"
+          ],
+          "explanation": "内接円の半径は内心から各辺までの垂直な距離に等しいため、内心Iから辺BCへ下ろした垂線の足Dが接点となります。一般の三角形では接点Dは辺BCの中点とは一致しないため、垂線を作図して接点と半径を決定する必要があります。"
+        },
+        "en": {
+          "prompt": "In △ABC, the incenter I is found as the intersection of the angle bisectors of ∠B and ∠C. Which of the following is the most appropriate procedure to correctly construct the inscribed circle (incircle) of △ABC?",
+          "options": [
+            "Drop a perpendicular from point I to side BC and let D be the foot, then draw a circle centered at point I with radius ID.",
+            "Find the midpoint M of side BC, then draw a circle centered at point I with radius IM.",
+            "Draw a circle centered at point I with radius equal to the distance IA to vertex A.",
+            "Draw the perpendicular bisector of side BC, let D be its intersection with side BC, and draw a circle centered at point I with radius ID."
+          ],
+          "explanation": "The radius of the incircle is the perpendicular distance from the incenter to each side, so the foot D of the perpendicular from I to BC is the point of tangency. In a general triangle, the point of tangency does not coincide with the midpoint of the side, so one must construct a perpendicular to determine the point of tangency and radius."
+        },
+        "zh": {
+          "prompt": "在 △ABC 中，求得 ∠B 的平分线与 ∠C 的平分线的交点I作为内心。接下来为了正确作出 △ABC 的内切圆，最恰当的步骤是哪一个？",
+          "options": [
+            "从点I向边BC作垂线，设垂足为D，以点I为圆心、以ID为半径画圆。",
+            "求边BC的中点M，以点I为圆心、以IM为半径画圆。",
+            "以点I为圆心、以到顶点A的距离IA为半径画圆。",
+            "作边BC的垂直平分线，设其与边BC的交点为D，以点I为圆心、以ID为半径画圆。"
+          ],
+          "explanation": "内切圆的半径等于内心到各边的垂直距离，因此从内心I向边BC所作垂线的垂足D即为切点。在一般三角形中，切点D与边BC的中点并不重合，因此必须作垂线来确定切点和半径。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 0
+    }
+  ]
+}

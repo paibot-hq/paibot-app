@@ -1,0 +1,405 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "relations-001",
+      "item": "simple-proportion",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "140 * 8",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1冊140円のノートを8冊買うと、代金は何円ですか。",
+          "unit": "円"
+        },
+        "en": {
+          "prompt": "If you buy 8 notebooks that cost 140 yen each, how much is the total cost in yen?",
+          "unit": "yen"
+        },
+        "zh": {
+          "prompt": "买8本每本140日元的笔记本，总共需要多少日元？",
+          "unit": "日元"
+        }
+      },
+      "steps": [
+        "140 * 8 = 1120"
+      ],
+      "choices": ["1120", "1040", "1140", "1220"],
+      "answerIndex": 0
+    },
+    {
+      "id": "relations-002",
+      "item": "simple-proportion",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "85 * 12",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "分速85mで歩く人が12分間に進む道のりは何mですか。",
+          "unit": "m"
+        },
+        "en": {
+          "prompt": "If a person walks at a speed of 85 m per minute, how many meters do they walk in 12 minutes?",
+          "unit": "m"
+        },
+        "zh": {
+          "prompt": "一个人以每分钟85米的速度行走，12分钟走多少米？",
+          "unit": "米"
+        }
+      },
+      "steps": [
+        "85 * 12 = 1020"
+      ],
+      "choices": ["960", "1020", "1080", "1120"],
+      "answerIndex": 1
+    },
+    {
+      "id": "relations-003",
+      "item": "simple-proportion",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "35 * 16",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1mの重さが35gの針金があります。この針金16mの重さは何gですか。",
+          "unit": "g"
+        },
+        "en": {
+          "prompt": "A wire weighs 35 g per meter. How many grams does 16 m of this wire weigh?",
+          "unit": "g"
+        },
+        "zh": {
+          "prompt": "某种铁丝每米重35克。这种铁丝16米重多少克？",
+          "unit": "克"
+        }
+      },
+      "steps": [
+        "35 * 16 = 560"
+      ],
+      "choices": ["520", "580", "560", "640"],
+      "answerIndex": 2
+    },
+    {
+      "id": "relations-004",
+      "item": "simple-proportion",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "24 * 15",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1分間に24Lずつ水を出すポンプがあります。このポンプで15分間水を出すと、出る水の量は何Lですか。",
+          "unit": "L"
+        },
+        "en": {
+          "prompt": "A pump pumps 24 L of water per minute. How many liters of water are pumped in 15 minutes?",
+          "unit": "L"
+        },
+        "zh": {
+          "prompt": "一台水泵每分钟出水24升。用这台水泵抽水15分钟，出水量是多少升？",
+          "unit": "升"
+        }
+      },
+      "steps": [
+        "24 * 15 = 360"
+      ],
+      "choices": ["340", "380", "420", "360"],
+      "answerIndex": 3
+    },
+    {
+      "id": "relations-005",
+      "item": "simple-proportion",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "45 * 18",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1分間に45枚印刷できるプリンターがあります。このプリンターで18分間に印刷できる紙は何枚ですか。",
+          "unit": "枚"
+        },
+        "en": {
+          "prompt": "A printer can print 45 sheets per minute. How many sheets can it print in 18 minutes?",
+          "unit": "sheets"
+        },
+        "zh": {
+          "prompt": "一台打印机每分钟可以打印45张纸。这台打印机在18分钟内可以打印多少张纸？",
+          "unit": "张"
+        }
+      },
+      "steps": [
+        "45 * 18 = 810"
+      ],
+      "choices": ["810", "720", "850", "760"],
+      "answerIndex": 0
+    },
+    {
+      "id": "relations-006",
+      "item": "proportion",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "150 / 6 * 14",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "重さが長さに比例する針金があります。長さが 6 m のときの重さは 150 g でした。この針金 14 m の重さは何 g ですか。",
+          "unit": "g"
+        },
+        "en": {
+          "prompt": "The weight of a wire is directly proportional to its length. A 6 m wire weighs 150 g. How many grams does a 14 m wire weigh?",
+          "unit": "g"
+        },
+        "zh": {
+          "prompt": "铁丝的重量与长度成正比。长 6 m 的铁丝重 150 g。长 14 m 的铁丝重多少克？",
+          "unit": "g"
+        }
+      },
+      "steps": [
+        "150 / 6 * 14 = 25 * 14 = 350"
+      ],
+      "choices": ["300", "350", "375", "400"],
+      "answerIndex": 1
+    },
+    {
+      "id": "relations-007",
+      "item": "proportion",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "12 * 15 / 20",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "水そうに水を入れるのに、毎分 12 L ずつ入れると 15 分で満水になります。毎分 20 L ずつ入れると、何分で満水になりますか。",
+          "unit": "分"
+        },
+        "en": {
+          "prompt": "When filling a water tank at 12 L per minute, it takes 15 minutes to become full. How many minutes will it take if filled at 20 L per minute?",
+          "unit": "min"
+        },
+        "zh": {
+          "prompt": "给水箱注水，如果每分钟注水 12 L，15 分钟可以注满。如果每分钟注水 20 L，几分钟可以注满？",
+          "unit": "分钟"
+        }
+      },
+      "steps": [
+        "12 * 15 / 20 = 180 / 20 = 9"
+      ],
+      "choices": ["6", "8", "9", "10"],
+      "answerIndex": 2
+    },
+    {
+      "id": "relations-008",
+      "item": "proportion",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "35 / 5 * 18",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "空の水そうに一定の割合で水を入れます。水を入れ始めてから 5 分後に水面の深さが 35 cm になりました。同じ割合で水を入れ続けると、18 分後には水面の深さは何 cm になりますか。",
+          "unit": "cm"
+        },
+        "en": {
+          "prompt": "Water is poured into an empty tank at a constant rate. After 5 minutes, the water depth reached 35 cm. If water continues to be poured at the same rate, what will the depth be in cm after 18 minutes?",
+          "unit": "cm"
+        },
+        "zh": {
+          "prompt": "向一个空水箱中以恒定速度注水。开始注水 5 分钟后，水深达到 35 cm。如果继续以相同速度注水，18 分钟后水深将达到多少厘米？",
+          "unit": "cm"
+        }
+      },
+      "steps": [
+        "35 / 5 * 18 = 7 * 18 = 126"
+      ],
+      "choices": ["126", "119", "133", "140"],
+      "answerIndex": 0
+    },
+    {
+      "id": "relations-009",
+      "item": "proportion",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "36 * 10 / 24",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "歯数が 36 の歯車 A と、歯数が 24 の歯車 B がかみ合って回っています。歯車 A が 10 回転するとき、歯車 B は何回転しますか。",
+          "unit": "回転"
+        },
+        "en": {
+          "prompt": "Gear A with 36 teeth and gear B with 24 teeth mesh and rotate together. When gear A makes 10 rotations, how many rotations does gear B make?",
+          "unit": "rotations"
+        },
+        "zh": {
+          "prompt": "齿数为 36 的齿轮 A 与齿数为 24 的齿轮 B 咬合转动。当齿轮 A 转动 10 圈时，齿轮 B 转动多少圈？",
+          "unit": "圈"
+        }
+      },
+      "steps": [
+        "36 * 10 / 24 = 360 / 24 = 15"
+      ],
+      "choices": ["12", "18", "20", "15"],
+      "answerIndex": 3
+    },
+    {
+      "id": "relations-010",
+      "item": "proportion",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "96 / 8 * 15",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "ある自動車は、ガソリン 8 L で 96 km 走ることができます。ガソリンの量と走る道のりが比例するとき、ガソリン 15 L では何 km 走ることができますか。",
+          "unit": "km"
+        },
+        "en": {
+          "prompt": "A car travels 96 km on 8 L of gasoline. If the distance traveled is directly proportional to the amount of gasoline, how many km can it travel on 15 L of gasoline?",
+          "unit": "km"
+        },
+        "zh": {
+          "prompt": "一辆汽车用 8 L 汽油可以行驶 96 km。如果行驶路程与汽油量成正比，用 15 L 汽油可以行驶多少千米？",
+          "unit": "km"
+        }
+      },
+      "steps": [
+        "96 / 8 * 15 = 12 * 15 = 180"
+      ],
+      "choices": ["160", "170", "180", "190"],
+      "answerIndex": 2
+    },
+    {
+      "id": "relations-011",
+      "item": "change",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 1, 2, 3, 5",
+      "given": null,
+      "which": "proportion-table",
+      "steps": [
+        "4*5 = 20"
+      ],
+      "choices": ["12", "9", "5", "20"],
+      "answerIndex": 3
+    },
+    {
+      "id": "relations-012",
+      "item": "change",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "9, 2, 4, 7, 8",
+      "given": null,
+      "which": "proportion-table",
+      "steps": [
+        "9*8 = 72"
+      ],
+      "choices": ["63", "72", "17", "8"],
+      "answerIndex": 1
+    },
+    {
+      "id": "relations-013",
+      "item": "change",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 1, 2, 3, 4",
+      "given": null,
+      "which": "proportion-table",
+      "steps": [
+        "6*4 = 24"
+      ],
+      "choices": ["4", "18", "10", "24"],
+      "answerIndex": 3
+    },
+    {
+      "id": "relations-014",
+      "item": "change",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8, 2, 5, 6, 10",
+      "given": null,
+      "which": "proportion-table",
+      "steps": [
+        "8*10 = 80"
+      ],
+      "choices": ["48", "80", "18", "10"],
+      "answerIndex": 1
+    },
+    {
+      "id": "relations-015",
+      "item": "change",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 1, 2, 3, 8",
+      "given": null,
+      "which": "proportion-table",
+      "steps": [
+        "4*8 = 32"
+      ],
+      "choices": ["12", "8", "36", "32"],
+      "answerIndex": 3
+    }
+  ]
+}

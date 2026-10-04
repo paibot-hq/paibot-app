@@ -1,0 +1,1720 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "shapes-001",
+      "item": "angle-sum",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "50, 60",
+      "given": null,
+      "which": "angle-triangle",
+      "steps": [
+        "180 - 50 - 60 = 70"
+      ],
+      "choices": ["80", "130", "110", "70"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-002",
+      "item": "angle-sum",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "30, 55",
+      "given": null,
+      "which": "angle-triangle",
+      "steps": [
+        "180 - 30 - 55 = 95"
+      ],
+      "choices": ["85", "105", "150", "95"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-003",
+      "item": "angle-sum",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "40, 30",
+      "given": null,
+      "which": "angle-triangle",
+      "steps": [
+        "180 - 40 - 30 = 110"
+      ],
+      "choices": ["70", "140", "120", "110"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-004",
+      "item": "angle-sum",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "90, 70, 70",
+      "given": null,
+      "which": "angle-quad",
+      "steps": [
+        "360 - 90 - 70 - 70 = 130"
+      ],
+      "choices": ["150", "230", "140", "130"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-005",
+      "item": "angle-sum",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "50, 95, 45",
+      "given": null,
+      "which": "angle-quad",
+      "steps": [
+        "360 - 50 - 95 - 45 = 170"
+      ],
+      "choices": ["170", "190", "160", "180"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-006",
+      "item": "quadrilaterals",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 6, 130",
+      "given": null,
+      "which": "quad-type",
+      "steps": [],
+      "choices": ["rectangle", "square", "parallelogram", "rhombus"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-007",
+      "item": "quadrilaterals",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7, 9, 60",
+      "given": null,
+      "which": "quad-type",
+      "steps": [],
+      "choices": ["square", "parallelogram", "rectangle", "rhombus"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-008",
+      "item": "quadrilaterals",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7, 7, 90",
+      "given": null,
+      "which": "quad-type",
+      "steps": [],
+      "choices": ["parallelogram", "rectangle", "square", "rhombus"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-009",
+      "item": "quadrilaterals",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 6, 90",
+      "given": null,
+      "which": "quad-type",
+      "steps": [],
+      "choices": ["rectangle", "square", "parallelogram", "rhombus"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-010",
+      "item": "quadrilaterals",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8, 8, 60",
+      "given": null,
+      "which": "quad-type",
+      "steps": [],
+      "choices": ["rhombus", "parallelogram", "square", "rectangle"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-011",
+      "item": "circles",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "10",
+      "given": null,
+      "which": "circle-diameter",
+      "steps": [
+        "2*10 = 20"
+      ],
+      "choices": ["10", "20", "40", "100"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-012",
+      "item": "circles",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "20",
+      "given": null,
+      "which": "circle-radius",
+      "steps": [
+        "20/2 = 10"
+      ],
+      "choices": ["20", "40", "12", "10"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-013",
+      "item": "circles",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "9",
+      "given": null,
+      "which": "circle-diameter",
+      "steps": [
+        "2*9 = 18"
+      ],
+      "choices": ["9", "18", "36", "81"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-014",
+      "item": "circles",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "18",
+      "given": null,
+      "which": "circle-radius",
+      "steps": [
+        "18/2 = 9"
+      ],
+      "choices": ["11", "9", "18", "36"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-015",
+      "item": "circles",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "11",
+      "given": null,
+      "which": "circle-diameter",
+      "steps": [
+        "2*11 = 22"
+      ],
+      "choices": ["11", "22", "121", "44"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-016",
+      "item": "angles",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "40, 70",
+      "given": null,
+      "which": "protractor",
+      "steps": [
+        "70 - 40 = 30"
+      ],
+      "choices": ["110", "70", "30", "150"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-017",
+      "item": "angles",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "0, 50",
+      "given": null,
+      "which": "protractor",
+      "steps": [
+        "50 - 0 = 50"
+      ],
+      "choices": ["130", "60", "50", "40"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-018",
+      "item": "angles",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "20, 130",
+      "given": null,
+      "which": "protractor",
+      "steps": [
+        "130 - 20 = 110"
+      ],
+      "choices": ["70", "150", "130", "110"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-019",
+      "item": "angles",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "30, 100",
+      "given": null,
+      "which": "protractor",
+      "steps": [
+        "100 - 30 = 70"
+      ],
+      "choices": ["70", "110", "130", "100"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-020",
+      "item": "angles",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "30, 130",
+      "given": null,
+      "which": "protractor",
+      "steps": [
+        "130 - 30 = 100"
+      ],
+      "choices": ["130", "80", "100", "160"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-021",
+      "item": "prisms",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6",
+      "given": null,
+      "which": "prism-faces",
+      "steps": [
+        "6 + 2 = 8"
+      ],
+      "choices": ["9", "7", "8", "10"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-022",
+      "item": "prisms",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7",
+      "given": null,
+      "which": "prism-vertices",
+      "steps": [
+        "2*7 = 14"
+      ],
+      "choices": ["16", "14", "13", "15"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-023",
+      "item": "prisms",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8",
+      "given": null,
+      "which": "prism-edges",
+      "steps": [
+        "3*8 = 24"
+      ],
+      "choices": ["25", "24", "23", "26"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-024",
+      "item": "prisms",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8",
+      "given": null,
+      "which": "prism-faces",
+      "steps": [
+        "8 + 2 = 10"
+      ],
+      "choices": ["12", "11", "10", "9"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-025",
+      "item": "prisms",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8",
+      "given": null,
+      "which": "prism-vertices",
+      "steps": [
+        "2*8 = 16"
+      ],
+      "choices": ["16", "15", "18", "17"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-026",
+      "item": "perpendicular-parallel",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "90, 45, 90, 120",
+      "given": null,
+      "which": "parallel-pairs",
+      "steps": [],
+      "choices": ["3", "1", "4", "2"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-027",
+      "item": "perpendicular-parallel",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "45, 30, 135, 90",
+      "given": null,
+      "which": "perpendicular-pairs",
+      "steps": [],
+      "choices": ["4", "3", "1", "2"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-028",
+      "item": "perpendicular-parallel",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "60, 120, 60, 90",
+      "given": null,
+      "which": "parallel-pairs",
+      "steps": [],
+      "choices": ["4", "2", "1", "3"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-029",
+      "item": "perpendicular-parallel",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "45, 90, 135, 30",
+      "given": null,
+      "which": "perpendicular-pairs",
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-030",
+      "item": "perpendicular-parallel",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "30, 60, 150, 30",
+      "given": null,
+      "which": "parallel-pairs",
+      "steps": [],
+      "choices": ["2", "3", "1", "4"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-031",
+      "item": "solids-basic",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "0, 3, 3, 3",
+      "given": null,
+      "which": "solid-name",
+      "steps": [],
+      "choices": ["cylinder", "cuboid", "sphere", "cube"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-032",
+      "item": "solids-basic",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "1, 6, 7, 10",
+      "given": null,
+      "which": "solid-name",
+      "steps": [],
+      "choices": ["cylinder", "cube", "sphere", "cuboid"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-033",
+      "item": "solids-basic",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2, 2, 4, 6",
+      "given": null,
+      "which": "solid-name",
+      "steps": [],
+      "choices": ["cylinder", "cube", "cuboid", "sphere"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-034",
+      "item": "solids-basic",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 3, 6, 6",
+      "given": null,
+      "which": "solid-name",
+      "steps": [],
+      "choices": ["sphere", "cylinder", "cube", "cuboid"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-035",
+      "item": "solids-basic",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "1, 2, 4, 4",
+      "given": null,
+      "which": "solid-name",
+      "steps": [],
+      "choices": ["cuboid", "sphere", "cylinder", "cube"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-036",
+      "item": "cuboids",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5, 5, 8",
+      "given": null,
+      "which": "box-edge-total",
+      "steps": [
+        "4*(5 + 5 + 8) = 72"
+      ],
+      "choices": ["60", "36", "18", "72"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-037",
+      "item": "cuboids",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 6, 4",
+      "given": null,
+      "which": "box-edge-total",
+      "steps": [
+        "4*(3 + 6 + 4) = 52"
+      ],
+      "choices": ["13", "26", "52", "36"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-038",
+      "item": "cuboids",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8, 6, 3",
+      "given": null,
+      "which": "box-edge-total",
+      "steps": [
+        "4*(8 + 6 + 3) = 68"
+      ],
+      "choices": ["68", "96", "17", "34"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-039",
+      "item": "cuboids",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7, 8, 9",
+      "given": null,
+      "which": "box-edge-total",
+      "steps": [
+        "4*(7 + 8 + 9) = 96"
+      ],
+      "choices": ["84", "96", "24", "48"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-040",
+      "item": "cuboids",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 3, 9",
+      "given": null,
+      "which": "box-edge-total",
+      "steps": [
+        "4*(3 + 3 + 9) = 60"
+      ],
+      "choices": ["36", "60", "30", "15"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-041",
+      "item": "congruent",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 5, 6, 0",
+      "given": null,
+      "which": "congruent-side",
+      "steps": [],
+      "choices": ["15", "6", "5", "4"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-042",
+      "item": "congruent",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 5, 6, 1",
+      "given": null,
+      "which": "congruent-side",
+      "steps": [],
+      "choices": ["6", "15", "5", "4"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-043",
+      "item": "congruent",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 4, 5, 2",
+      "given": null,
+      "which": "congruent-side",
+      "steps": [],
+      "choices": ["12", "5", "3", "4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-044",
+      "item": "congruent",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 8, 10, 0",
+      "given": null,
+      "which": "congruent-side",
+      "steps": [],
+      "choices": ["8", "10", "6", "24"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-045",
+      "item": "congruent",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 8, 10, 1",
+      "given": null,
+      "which": "congruent-side",
+      "steps": [],
+      "choices": ["8", "24", "10", "6"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-046",
+      "item": "basic-shapes",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5, 5, 90",
+      "given": null,
+      "which": "quad-type",
+      "steps": [],
+      "choices": ["rectangle", "right", "equilateral", "square"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-047",
+      "item": "basic-shapes",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "9, 11, 90",
+      "given": null,
+      "which": "quad-type",
+      "steps": [],
+      "choices": ["square", "equilateral", "right", "rectangle"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-048",
+      "item": "basic-shapes",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 3, 5",
+      "given": null,
+      "which": "triangle-type",
+      "steps": [],
+      "choices": ["equilateral", "right", "scalene", "isosceles"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-049",
+      "item": "basic-shapes",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7, 9, 90",
+      "given": null,
+      "which": "quad-type",
+      "steps": [],
+      "choices": ["equilateral", "rectangle", "square", "right"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-050",
+      "item": "basic-shapes",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 4, 90",
+      "given": null,
+      "which": "quad-type",
+      "steps": [],
+      "choices": ["equilateral", "right", "square", "rectangle"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-051",
+      "item": "triangles",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 4, 4",
+      "given": null,
+      "which": "triangle-type",
+      "steps": [],
+      "choices": ["equilateral", "right", "scalene", "isosceles"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-052",
+      "item": "triangles",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 4, 2",
+      "given": null,
+      "which": "triangle-type",
+      "steps": [],
+      "choices": ["equilateral", "scalene", "isosceles", "right"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-053",
+      "item": "triangles",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 5, 6",
+      "given": null,
+      "which": "triangle-type",
+      "steps": [],
+      "choices": ["isosceles", "equilateral", "right", "scalene"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-054",
+      "item": "triangles",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5, 5, 3",
+      "given": null,
+      "which": "triangle-type",
+      "steps": [],
+      "choices": ["right", "scalene", "equilateral", "isosceles"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-055",
+      "item": "triangles",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8, 8, 8",
+      "given": null,
+      "which": "triangle-type",
+      "steps": [],
+      "choices": ["scalene", "isosceles", "equilateral", "right"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-056",
+      "item": "boxes",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2, 7, 6",
+      "given": null,
+      "which": "box-faces",
+      "steps": [],
+      "choices": ["6", "4", "12", "8"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-057",
+      "item": "boxes",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 2, 8",
+      "given": null,
+      "which": "box-edges",
+      "steps": [],
+      "choices": ["10", "8", "12", "6"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-058",
+      "item": "boxes",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 6, 3",
+      "given": null,
+      "which": "box-vertices",
+      "steps": [],
+      "choices": ["12", "10", "6", "8"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-059",
+      "item": "boxes",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2, 3, 4",
+      "given": null,
+      "which": "box-faces",
+      "steps": [],
+      "choices": ["6", "8", "12", "4"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-060",
+      "item": "boxes",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 8, 8",
+      "given": null,
+      "which": "box-edges",
+      "steps": [],
+      "choices": ["8", "10", "12", "6"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-061",
+      "item": "compass-drawing",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "コンパスを使ってノートに半径 3 cm の円をかきます。正しい作図の手順を説明しているものを1つ選びなさい。",
+          "options": [
+            "コンパスの針と鉛筆の先の間を 6 cm に広げ、針を円の中心にさして1回転させる。",
+            "コンパスの針と鉛筆の先の間を 3 cm に広げ、針を円の中心にさして1回転させる。",
+            "コンパスの針と鉛筆の先の間を 3 cm に広げ、針を円のまわりの線の上にさして1回転させる。",
+            "コンパスの針と鉛筆の先の間を 1.5 cm に広げ、針を円の中心にさして1回転させる。"
+          ],
+          "explanation": "円をかくとき、コンパスの針と鉛筆の先の間は半径の長さに合わせます。そのため開き方を 3 cm にし、針を中心となる点にさしてまわします。"
+        },
+        "en": {
+          "prompt": "You want to draw a circle with a radius of 3 cm in your notebook using a compass. Choose the correct procedure for drawing it.",
+          "options": [
+            "Open the compass to 6 cm between the needle and the pencil tip, place the needle at the center of the circle, and rotate it once.",
+            "Open the compass to 3 cm between the needle and the pencil tip, place the needle at the center of the circle, and rotate it once.",
+            "Open the compass to 3 cm between the needle and the pencil tip, place the needle on the circumference of the circle, and rotate it once.",
+            "Open the compass to 1.5 cm between the needle and the pencil tip, place the needle at the center of the circle, and rotate it once."
+          ],
+          "explanation": "When drawing a circle, the distance between the needle and the pencil tip must be set to the radius. Therefore, set the opening to 3 cm and rotate the compass with the needle placed at the center."
+        },
+        "zh": {
+          "prompt": "用圆规在笔记本上画一个半径为 3 cm 的圆。请选出正确的作图步骤。",
+          "options": [
+            "将圆规的针尖与铅笔尖之间的距离打开为 6 cm，把针尖扎在圆心上旋转一周。",
+            "将圆规的针尖与铅笔尖之间的距离打开为 3 cm，把针尖扎在圆心上旋转一周。",
+            "将圆规的针尖与铅笔尖之间的距离打开为 3 cm，把针尖扎在圆周线上旋转一周。",
+            "将圆规的针尖与铅笔尖之间的距离打开为 1.5 cm，把针尖扎在圆心上旋转一周。"
+          ],
+          "explanation": "画圆时，圆规针尖与铅笔尖之间的距离应设置为半径的长度。因此开度应为 3 cm，把针尖固定在圆心处旋转一周。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-062",
+      "item": "compass-drawing",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "コンパスを使って円をかくとき、コンパスの針をさす点と、針と鉛筆の先の間を開いた長さについて正しく説明しているものを1つ選びなさい。",
+          "options": [
+            "針をさす点が円の中心になり、開いた長さが円の直径になる。",
+            "針をさす点が円の中心になり、開いた長さが円の半径になる。",
+            "針をさす点が円周上の点になり、開いた長さが円の半径になる。",
+            "針をさす点が円周上の点になり、開いた長さが円の直径になる。"
+          ],
+          "explanation": "円をかくとき、コンパスの針を固定する点が「円の中心」になり、針と鉛筆の先の間の開きが「半径」になります。"
+        },
+        "en": {
+          "prompt": "When drawing a circle using a compass, choose the correct description of the point where the compass needle is placed and the distance between the needle and the pencil tip.",
+          "options": [
+            "The point where the needle is placed is the center of the circle, and the distance is the diameter of the circle.",
+            "The point where the needle is placed is the center of the circle, and the distance is the radius of the circle.",
+            "The point where the needle is placed is a point on the circle, and the distance is the radius of the circle.",
+            "The point where the needle is placed is a point on the circle, and the distance is the diameter of the circle."
+          ],
+          "explanation": "When drawing a circle, the fixed point where the compass needle is placed becomes the center of the circle, and the opening between the needle and the pencil tip represents the radius."
+        },
+        "zh": {
+          "prompt": "用圆规画圆时，关于圆规针尖所固定的点以及针尖与铅笔尖之间的距离，选择一项正确的说明。",
+          "options": [
+            "固定针尖的点是圆心，两尖之间的距离是圆的直径。",
+            "固定针尖的点是圆心，两尖之间的距离是圆的半径。",
+            "固定针尖的点是圆周上的点，两尖之间的距离是圆的半径。",
+            "固定针尖的点是圆周上的点，两尖之间的距离是圆的直径。"
+          ],
+          "explanation": "用圆规画圆时，固定针尖的点是圆心，针尖与铅笔尖张开的距离等于圆的半径。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-063",
+      "item": "compass-drawing",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "直径が 8 cm の円をコンパスを使ってかきます。コンパスの開き方と円のかき方について正しく説明しているものを1つ選びなさい。",
+          "options": [
+            "コンパスの針と鉛筆の間を 8 cm に開き、中心を決めて針をさして回す。",
+            "コンパスの針と鉛筆の間を 16 cm に開き、中心を決めて針をさして回す。",
+            "コンパスの針と鉛筆の間を 4 cm に開き、中心を決めて針をさして回す。",
+            "コンパスの針と鉛筆の間を 2 cm に開き、中心を決めて針をさして回す。"
+          ],
+          "explanation": "円をかくときのコンパスの開きは半径の長さにします。直径が 8 cm の円の半径は 8 ÷ 2 = 4 cm なので、針と鉛筆の間を 4 cm に開いてかきます。"
+        },
+        "en": {
+          "prompt": "You want to draw a circle with a diameter of 8 cm using a compass. Choose the correct description of how to set the compass and draw the circle.",
+          "options": [
+            "Open the compass to 8 cm between the needle and pencil tip, fix the center with the needle, and rotate it.",
+            "Open the compass to 16 cm between the needle and pencil tip, fix the center with the needle, and rotate it.",
+            "Open the compass to 4 cm between the needle and pencil tip, fix the center with the needle, and rotate it.",
+            "Open the compass to 2 cm between the needle and pencil tip, fix the center with the needle, and rotate it."
+          ],
+          "explanation": "The opening of a compass corresponds to the radius of the circle. Since the radius of a circle with a diameter of 8 cm is 8 ÷ 2 = 4 cm, you should open the compass to 4 cm."
+        },
+        "zh": {
+          "prompt": "要用圆规画一个直径为 8 cm 的圆。关于圆规的张开程度和画圆的方法，选择一项正确的说明。",
+          "options": [
+            "将圆规针尖与铅笔尖张开 8 cm，确定圆心并固定针尖后旋转画圆。",
+            "将圆规针尖与铅笔尖张开 16 cm，确定圆心并固定针尖后旋转画圆。",
+            "将圆规针尖与铅笔尖张开 4 cm，确定圆心并固定针尖后旋转画圆。",
+            "将圆规针尖与铅笔尖张开 2 cm，确定圆心并固定针尖后旋转画圆。"
+          ],
+          "explanation": "画圆时圆规张开的距离是圆的半径。直径为 8 cm 的圆，其半径为 8 ÷ 2 = 4 cm，因此应将圆规张开 4 cm 来画圆。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-064",
+      "item": "compass-drawing",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "1辺の長さが 4 cm の正三角形 ABC を定規とコンパスを使ってかきます。まず定規で長さ 4 cm の辺 BC をひきました。残りの頂点 A を見つけるための正しい手順を1つ選びなさい。",
+          "options": [
+            "コンパスを 4 cm に開き、点 B と点 C を中心としてそれぞれ円の一部をかき、その交点を点 A とする。",
+            "コンパスを 8 cm に開き、点 B と点 C を中心としてそれぞれ円の一部をかき、その交点を点 A とする。",
+            "コンパスを 2 cm に開き、点 B と点 C を中心としてそれぞれ円の一部をかき、その交点を点 A とする。",
+            "コンパスを 4 cm に開き、辺 BC の真ん中の点を中心として円の一部をかき、その上の点を点 A とする。"
+          ],
+          "explanation": "正三角形は3つの辺の長さがすべて等しい三角形です。AB = 4 cm、AC = 4 cm となる点 A を見つけるため、点 B と点 C を中心にして半径 4 cm の円の一部をかき、その交点を点 A とします。"
+        },
+        "en": {
+          "prompt": "You want to draw an equilateral triangle ABC with a side length of 4 cm using a ruler and a compass. First, side BC of length 4 cm is drawn with a ruler. Choose the correct step to locate the remaining vertex A.",
+          "options": [
+            "Open the compass to 4 cm, draw arcs centered at point B and point C respectively, and let their intersection be point A.",
+            "Open the compass to 8 cm, draw arcs centered at point B and point C respectively, and let their intersection be point A.",
+            "Open the compass to 2 cm, draw arcs centered at point B and point C respectively, and let their intersection be point A.",
+            "Open the compass to 4 cm, draw an arc centered at the midpoint of side BC, and let a point on it be point A."
+          ],
+          "explanation": "An equilateral triangle has three sides of equal length. To find vertex A such that AB = 4 cm and AC = 4 cm, draw arcs of radius 4 cm centered at points B and C; their intersection is vertex A."
+        },
+        "zh": {
+          "prompt": "要用直尺和圆规画一个边长为 4 cm 的等边三角形 ABC。首先用直尺画出长度为 4 cm 的边 BC。选择一个找出剩余顶点 A 的正确步骤。",
+          "options": [
+            "将圆规张开 4 cm，分别以点 B 和点 C 为圆心画弧，将两弧的交点定为点 A。",
+            "将圆规张开 8 cm，分别以点 B 和点 C 为圆心画弧，将两弧的交点定为点 A。",
+            "将圆规张开 2 cm，分别以点 B 和点 C 为圆心画弧，将两弧的交点定为点 A。",
+            "将圆规张开 4 cm，以边 BC 的中点为圆心画弧，将弧上的点定为点 A。"
+          ],
+          "explanation": "等边三角形的三条边长度都相等。为了确定满足 AB = 4 cm 且 AC = 4 cm 的顶点 A，分别以点 B 和点 C 为圆心、4 cm 为半径画弧，两弧的交点即为顶点 A。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-065",
+      "item": "compass-drawing",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "3辺の長さが 3 cm, 5 cm, 5 cm の二等辺三角形 ABC を定規とコンパスを使ってかきます。まず定規で長さ 3 cm の辺 BC をひきました。頂点 A を見つけるための正しい手順を1つ選びなさい。",
+          "options": [
+            "コンパスを 3 cm に開き、点 B と点 C を中心としてそれぞれ円の一部をかき、その交点を点 A とする。",
+            "コンパスを 4 cm に開き、点 B と点 C を中心としてそれぞれ円の一部をかき、その交点を点 A とする。",
+            "コンパスを 5 cm に開き、辺 BC の真ん中の点を中心として円の一部をかき、その上の点を点 A とする。",
+            "コンパスを 5 cm に開き、点 B と点 C を中心としてそれぞれ円の一部をかき、その交点を点 A とする。"
+          ],
+          "explanation": "残りの2辺は AB = 5 cm、AC = 5 cm です。点 B からの距離が 5 cm、点 C からの距離も 5 cm の場所を見つけるため、コンパスを 5 cm に開き、点 B と点 C の両方を中心にして円の一部をかき、その交点を点 A とします。"
+        },
+        "en": {
+          "prompt": "You want to draw an isosceles triangle ABC with side lengths of 3 cm, 5 cm, and 5 cm using a ruler and a compass. First, side BC of length 3 cm is drawn with a ruler. Choose the correct step to locate vertex A.",
+          "options": [
+            "Open the compass to 3 cm, draw arcs centered at point B and point C respectively, and let their intersection be point A.",
+            "Open the compass to 4 cm, draw arcs centered at point B and point C respectively, and let their intersection be point A.",
+            "Open the compass to 5 cm, draw an arc centered at the midpoint of side BC, and let a point on it be point A.",
+            "Open the compass to 5 cm, draw arcs centered at point B and point C respectively, and let their intersection be point A."
+          ],
+          "explanation": "The other two sides are AB = 5 cm and AC = 5 cm. To find the point that is 5 cm away from both point B and point C, open the compass to 5 cm and draw arcs centered at points B and C; their intersection is vertex A."
+        },
+        "zh": {
+          "prompt": "要用直尺和圆规画一个三边长分别为 3 cm、5 cm、5 cm 的等腰三角形 ABC。首先用直尺画出长度为 3 cm 的边 BC。选择一个找出顶点 A 的正确步骤。",
+          "options": [
+            "将圆规张开 3 cm，分别以点 B 和点 C 为圆心画弧，将两弧的交点定为点 A。",
+            "将圆规张开 4 cm，分别以点 B 和点 C 为圆心画弧，将两弧的交点定为点 A。",
+            "将圆规张开 5 cm，以边 BC 的中点为圆心画弧，将弧上的点定为点 A。",
+            "将圆规张开 5 cm，分别以点 B 和点 C 为圆心画弧，将两弧的交点定为点 A。"
+          ],
+          "explanation": "另外两条边的长度为 AB = 5 cm 和 AC = 5 cm。为了找到与点 B 和点 C 的距离都为 5 cm 的点，将圆规张开 5 cm，分别以点 B 和点 C 为圆心画弧，两弧的交点即为顶点 A。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-066",
+      "item": "congruent-drawing",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "3つの辺の長さが AB = 5 cm, BC = 6 cm, CA = 4 cm の三角形ABCをかきます。まず、定規を使って長さ 6 cm の辺BCをひきました。残りの頂点Aを決めるための正しい手順を1つ選びなさい。",
+          "options": [
+            "点Bを中心に半径 4 cm の円の一部をかき、点Cを中心に半径 5 cm の円の一部をかいて、その交点をAとする。",
+            "点Bを中心に半径 5 cm の円の一部をかき、点Cを中心に半径 4 cm の円の一部をかいて、その交点をAとする。",
+            "分度器を使って点Bに 50° の角を作り、その線の上に長さ 5 cm の点Aをとる。",
+            "定規を使って点Bから 5 cm、点Cから 4 cm になるように目分量で交わる点Aをさがす。"
+          ],
+          "explanation": "頂点Aは、点Bからの距離が AB = 5 cm、点Cからの距離が CA = 4 cm となる点です。そのため、コンパスを使って点Bを中心に半径 5 cm の円の一部をかき、点Cを中心に半径 4 cm の円の一部をかいた交点が頂点Aになります。"
+        },
+        "en": {
+          "prompt": "To draw triangle ABC with three sides of lengths AB = 5 cm, BC = 6 cm, and CA = 4 cm, side BC of length 6 cm is first drawn using a ruler. Choose the one correct step to determine the remaining vertex A.",
+          "options": [
+            "Draw an arc with radius 4 cm centered at point B, draw an arc with radius 5 cm centered at point C, and let their intersection be A.",
+            "Draw an arc with radius 5 cm centered at point B, draw an arc with radius 4 cm centered at point C, and let their intersection be A.",
+            "Use a protractor to make a 50° angle at point B, and mark point A at a distance of 5 cm along that line.",
+            "Use a ruler to find point A by visual estimate so that it is 5 cm from point B and 4 cm from point C."
+          ],
+          "explanation": "Vertex A is a point whose distance from point B is AB = 5 cm and from point C is CA = 4 cm. Therefore, using compasses to draw an arc of radius 5 cm centered at B and an arc of radius 4 cm centered at C, their intersection gives vertex A."
+        },
+        "zh": {
+          "prompt": "要画出三条边长分别为 AB = 5 cm、BC = 6 cm、CA = 4 cm 的三角形ABC，首先用直尺画出长 6 cm 的边BC。请选择确定剩下顶点A的一个正确步骤。",
+          "options": [
+            "以点B为圆心画半径 4 cm 的圆弧，以点C为圆心画半径 5 cm 的圆弧，将交点记为A。",
+            "以点B为圆心画半径 5 cm 的圆弧，以点C为圆心画半径 4 cm 的圆弧，将交点记为A。",
+            "用量角器在点B处画一个 50° 的角，并在该条射线上取长 5 cm 处的点作为A。",
+            "用直尺凭目测找出距点B为 5 cm、距点C为 4 cm 的交点A。"
+          ],
+          "explanation": "顶点A到点B的距离为 AB = 5 cm，到点C的距离为 CA = 4 cm。因此，用圆规以点B为圆心画半径 5 cm 的圆弧，以点C为圆心画半径 4 cm 的圆弧，两弧的交点就是顶点A。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-067",
+      "item": "congruent-drawing",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "三角形ABCと合同な三角形をかきます。辺AB = 5 cm、辺BC = 7 cm であることがわかっているとき、この2つの辺のほかにどの角の大きさがわかれば、合同な三角形を1つに決めてかくことができますか。もっとも適切なものを1つ選びなさい。",
+          "options": [
+            "辺ABと辺BCの間の角である、角Bの大きさ",
+            "角Aの大きさであれば、どの角でもよい",
+            "角Cの大きさであれば、どの角でもよい",
+            "角Aと角Cの2つの角を足した大きさ"
+          ],
+          "explanation": "2つの辺の長さがわかっているとき、その2つの辺の「間の角」の大きさがわかれば合同な三角形が1つに決まります。辺ABと辺BCの間の角は角Bなので、角Bの大きさが必要です。"
+        },
+        "en": {
+          "prompt": "We want to draw a triangle congruent to triangle ABC. Given that side AB = 5 cm and side BC = 7 cm, which angle measurement, in addition to these two sides, is needed to uniquely determine and draw a congruent triangle? Choose the most appropriate option.",
+          "options": [
+            "The measure of angle B, which is the angle between side AB and side BC",
+            "The measure of angle A, as any angle is sufficient",
+            "The measure of angle C, as any angle is sufficient",
+            "The sum of the measures of the two angles, angle A and angle C"
+          ],
+          "explanation": "When the lengths of two sides are known, knowing the measure of the 'included angle' between them uniquely determines a congruent triangle. Since the angle between side AB and side BC is angle B, the measure of angle B is needed."
+        },
+        "zh": {
+          "prompt": "要画一个与三角形ABC全等的三角形。已知边 AB = 5 cm、边 BC = 7 cm，除了这两条边之外，还需要知道哪个角的大小才能唯一确定并画出全等三角形？请选择最合适的一项。",
+          "options": [
+            "边AB和边BC的夹角，即角B的大小",
+            "角A的大小，任何角都可以",
+            "角C的大小，任何角都可以",
+            "角A和角C两个角的度数之和"
+          ],
+          "explanation": "当已知两条边的长度时，只要知道这两条边的“夹角”的大小，就能唯一确定一个全等三角形。边AB和边BC之间的夹角是角B，因此需要知道角B的大小。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-068",
+      "item": "congruent-drawing",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "辺BC = 6 cm、角B = 50°、角C = 70° の三角形ABCと合同な三角形をかきます。まず定規で長さ 6 cm の辺BCをひきました。次に頂点Aを決めて三角形を完成させるための正しい手順を1つ選びなさい。",
+          "options": [
+            "点Bからコンパスで半径 5 cm の円をかき、点Cから半径 7 cm の円をかいて交点をAとする。",
+            "分度器を使って点Bに 70° の角、点Cに 50° の角をつくるように直線をのばし、交点をAとする。",
+            "分度器を使って点Bに 50° の角、点Cに 70° の角をつくるように直線をのばし、その交点をAとする。",
+            "点Bから 5 cm、点Cから 7 cm の直線を定規でひいて、その交点をAとする。"
+          ],
+          "explanation": "1つの辺とその両端の角がわかっているときは、辺BCの両端である点Bに 50°、点Cに 70° の角を分度器でそれぞれ作り、伸ばした線の交点を頂点Aとします。"
+        },
+        "en": {
+          "prompt": "To draw a triangle congruent to triangle ABC with side BC = 6 cm, angle B = 50°, and angle C = 70°, side BC of length 6 cm is first drawn with a ruler. Choose the one correct step to determine vertex A and complete the triangle.",
+          "options": [
+            "Draw a circle of radius 5 cm from point B and a circle of radius 7 cm from point C with compasses, and let their intersection be A.",
+            "Use a protractor to draw lines making a 70° angle at point B and a 50° angle at point C, and let their intersection be A.",
+            "Use a protractor to draw lines making a 50° angle at point B and a 70° angle at point C, and let their intersection be A.",
+            "Draw lines of 5 cm from point B and 7 cm from point C with a ruler, and let their intersection be A."
+          ],
+          "explanation": "When one side and the two angles at its ends are known, use a protractor to make a 50° angle at point B and a 70° angle at point C (the ends of side BC). The intersection of the extended lines becomes vertex A."
+        },
+        "zh": {
+          "prompt": "要画一个与边 BC = 6 cm、角 B = 50°、角 C = 70° 的三角形ABC全等的三角形，首先用直尺画出长 6 cm 的边BC。请选择确定顶点A并完成三角形的一个正确步骤。",
+          "options": [
+            "用圆规以点B为圆心画半径 5 cm 的圆，以点C为圆心画半径 7 cm 的圆，将交点记为A。",
+            "用量角器在点B处画 70° 的角、在点C处画 50° 的角并延长射线，将交点记为A。",
+            "用量角器在点B处画 50° 的角、在点C处画 70° 的角并延长射线，将它们的交点记为A。",
+            "用直尺分别从点B引出 5 cm、从点C引出 7 cm 的线段，将交点记为A。"
+          ],
+          "explanation": "当已知一条边及其两端的角时，使用量角器在边BC的两端即点B处作 50° 角、在点C处作 70° 角，两射线相交的点即为顶点A。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-069",
+      "item": "congruent-drawing",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "ある三角形と合同な三角形をかこうとしています。次の4つの組み合わせのうち、合同な三角形が【1つに決まらない】ものを1つ選びなさい。",
+          "options": [
+            "3つの辺の長さがすべてわかっているとき",
+            "2つの辺の長さと、その間の角の大きさがわかっているとき",
+            "1つの辺の長さと、その両端の角の大きさがわかっているとき",
+            "3つの角の大きさがすべてわかっていて、辺の長さが1つもわからないとき"
+          ],
+          "explanation": "3つの角の大きさがすべて等しい三角形は、形は同じになりますが、大きさ（拡大・縮小）が様々に変わるため、合同な三角形は1つに決まりません。"
+        },
+        "en": {
+          "prompt": "We are trying to draw a triangle congruent to a given triangle. Among the following four sets of conditions, choose the one that DOES NOT uniquely determine a congruent triangle.",
+          "options": [
+            "When the lengths of all three sides are known",
+            "When the lengths of two sides and the measure of the included angle between them are known",
+            "When the length of one side and the measures of the angles at its two ends are known",
+            "When the measures of all three angles are known, but no side length is known"
+          ],
+          "explanation": "Triangles with all three corresponding angles equal have the same shape, but their sizes can vary (enlarged or reduced), so a congruent triangle is not uniquely determined."
+        },
+        "zh": {
+          "prompt": "打算画一个与已知三角形全等的三角形。在下列四种条件组合中，请选出【不能唯一确定】全等三角形的一项。",
+          "options": [
+            "已知三条边的长度时",
+            "已知两条边的长度及其夹角的大小时",
+            "已知一条边的长度及其两端角的大小时",
+            "已知全部三个角的大小，但不知道任何一条边的长度时"
+          ],
+          "explanation": "三个角都相等的三角形形状相同，但大小可以放大或缩小，因此不能唯一确定全等三角形。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-070",
+      "item": "congruent-drawing",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "三角形ABCと合同な三角形DEFをかきます。頂点Aに対応する頂点をD、頂点Bに対応する頂点をE、頂点Cに対応する頂点をFとします。AB = 6 cm, BC = 8 cm, 角B = 40° のとき、三角形DEFをかくために必要な対応する辺と角の正しい組み合わせを1つ選びなさい。",
+          "options": [
+            "DE = 8 cm, EF = 6 cm, 角E = 40°",
+            "DE = 6 cm, EF = 8 cm, 角E = 40°",
+            "DE = 6 cm, EF = 8 cm, 角D = 40°",
+            "DE = 6 cm, DF = 8 cm, 角F = 40°"
+          ],
+          "explanation": "頂点A, B, Cがそれぞれ頂点D, E, Fに対応するため、辺ABに対応する辺はDE、辺BCに対応する辺はEF、角Bに対応する角は角Eとなります。したがって DE = 6 cm, EF = 8 cm, 角E = 40° です。"
+        },
+        "en": {
+          "prompt": "We want to draw triangle DEF congruent to triangle ABC. Vertex A corresponds to vertex D, vertex B to vertex E, and vertex C to vertex F. Given that AB = 6 cm, BC = 8 cm, and angle B = 40°, choose the correct combination of corresponding sides and angle needed to draw triangle DEF.",
+          "options": [
+            "DE = 8 cm, EF = 6 cm, angle E = 40°",
+            "DE = 6 cm, EF = 8 cm, angle E = 40°",
+            "DE = 6 cm, EF = 8 cm, angle D = 40°",
+            "DE = 6 cm, DF = 8 cm, angle F = 40°"
+          ],
+          "explanation": "Since vertices A, B, and C correspond to vertices D, E, and F respectively, the side corresponding to AB is DE, the side corresponding to BC is EF, and the angle corresponding to angle B is angle E. Therefore, DE = 6 cm, EF = 8 cm, and angle E = 40°."
+        },
+        "zh": {
+          "prompt": "要画一个与三角形ABC全等的三角形DEF。顶点A的对应顶点为D，顶点B为E，顶点C为F。已知 AB = 6 cm，BC = 8 cm，角 B = 40°，请选择画出三角形DEF所需的对应边与角的正确组合。",
+          "options": [
+            "DE = 8 cm, EF = 6 cm, 角 E = 40°",
+            "DE = 6 cm, EF = 8 cm, 角 E = 40°",
+            "DE = 6 cm, EF = 8 cm, 角 D = 40°",
+            "DE = 6 cm, DF = 8 cm, 角 F = 40°"
+          ],
+          "explanation": "因为顶点A、B、C分别对应顶点D、E、F，所以边AB对应的边是DE，边BC对应的边是EF，角B对应的角是角E。因此 DE = 6 cm, EF = 8 cm, 角 E = 40°。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-071",
+      "item": "parallel-drawing",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "直線Lがあります。三角定規を1枚だけ使って、直線Lに垂直な直線をひくには、三角定規のどの部分を直線Lにぴったり合わせればよいですか。もっとも適切なものを1つ選びなさい。",
+          "options": [
+            "直角をはさむ2つの辺のうちの、どちらか一方の辺",
+            "直角の向かい側にある、いちばん長い辺",
+            "いちばん角度が小さい角の頂点",
+            "三角定規の真ん中にある穴のふち"
+          ],
+          "explanation": "直線に垂直な直線をひくには、三角定規の直角を利用します。直角をはさむ2つの辺の一方を直線に合わせ、もう一方の辺にそって線をひくことで、90度で交わる垂直な直線をひくことができます。"
+        },
+        "en": {
+          "prompt": "A line L is drawn. To draw a line perpendicular to line L using only one set square (triangular ruler), which part of the set square should be placed exactly along line L? Choose the most suitable option.",
+          "options": [
+            "Either one of the two sides that form the right angle",
+            "The longest side opposite to the right angle",
+            "The vertex of the angle with the smallest measure",
+            "The inner edge of the hole in the center of the set square"
+          ],
+          "explanation": "To draw a perpendicular line, use the right angle of the set square. By aligning one of the sides that form the right angle with the line and drawing along the other side, you can draw a line that intersects at 90 degrees."
+        },
+        "zh": {
+          "prompt": "有一条直线L。只使用一块三角尺画出与直线L垂直的直线时，应该将三角尺的哪个部分紧贴在直线L上？请选择最合适的一项。",
+          "options": [
+            "组成直角的两条边中的任意一条边",
+            "直角对面的最长边",
+            "角度最小的角所在的顶点",
+            "三角尺中心孔洞的边缘"
+          ],
+          "explanation": "要画一条垂直线，需要利用三角尺的直角。将组成直角的一条边与直线对齐，沿着另一条边画线，就可以画出呈90度相交的垂直线。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 0
+    },
+    {
+      "id": "shapes-072",
+      "item": "parallel-drawing",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "2枚の三角定規を使って、直線Lに平行な直線をひく手順について正しく説明しているものを1つ選びなさい。",
+          "options": [
+            "2枚の三角定規の直角どうしを重ねて置き、そのまま動かさずに長い辺にそって線をひく。",
+            "1枚目の1辺を直線Lに合わせ、別の辺にもう1枚を当てて固定し、1枚目をすべらせて動かした辺にそって線をひく。",
+            "2枚の三角定規をたてに並べてテープで貼り合わせ、直線Lに直角になるように置いて線をひく。",
+            "1枚目の三角定規を直線Lの上で回転させながら、角の頂点を通るように直線をひく。"
+          ],
+          "explanation": "2枚の三角定規を使うと、一方の三角定規をガイドにして、もう一方の三角定規を平行にすべらせることができます。すべらせた三角定規の辺にそって線をひくことで、直線Lに平行な直線がかけます。"
+        },
+        "en": {
+          "prompt": "Which of the following correctly describes the procedure for drawing a line parallel to line L using two set squares?",
+          "options": [
+            "Overlap the right angles of both set squares and draw along the longest side without moving them.",
+            "Align one side of the first set square with line L, place the second firmly against another side, slide the first, and draw along its edge.",
+            "Tape the two set squares together vertically and place them perpendicular to line L to draw a line.",
+            "Rotate the first set square on line L and draw a line passing through the vertex of a corner."
+          ],
+          "explanation": "By using two set squares, you can use one as a fixed guide and slide the other parallel to it. Drawing along the edge of the slid set square produces a line parallel to line L."
+        },
+        "zh": {
+          "prompt": "下列关于使用两块三角尺画出与直线L平行的直线的步骤，哪一项说明是正确的？",
+          "options": [
+            "将两块三角尺的直角部分重叠放置，在不移动的情况下沿着最长边画线。",
+            "将第一块三角尺的一条边对齐直线L，用另一块三角尺紧靠其另一条边并固定，滑动第一块三角尺后沿着对应边画线。",
+            "将两块三角尺竖着拼接并用胶带固定，垂直放在直线L上画线。",
+            "让第一块三角尺在直线L上旋转，画出通过角顶点的直线。"
+          ],
+          "explanation": "使用两块三角尺时，可以用其中一块作为固定的导轨，让另一块三角尺平行滑动。沿着滑动后的三角尺边画线，即可画出与直线L平行的直线。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 1
+    },
+    {
+      "id": "shapes-073",
+      "item": "parallel-drawing",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "2本の直線AとBが平行であるとき、2本の直線の間の「距離（はば）」について正しく述べているものを1つ選びなさい。",
+          "options": [
+            "直線Aから直線Bに向けてななめに測った長さのことである。",
+            "測る場所によって距離がどんどん長くなったり短くなったりする。",
+            "一方の直線からもう一方の直線にひいた垂線の長さのことで、どこを測ってもいつでも等しい。",
+            "2本の直線をどこまで伸ばしても交わらないが、直線の間の距離は決めることができない。"
+          ],
+          "explanation": "平行な2本の直線の間の距離は、一方の直線からもう一方の直線にひいた垂線の長さで表されます。2本の直線が平行であるとき、この距離はどの場所で測ってもすべて等しくなります。"
+        },
+        "en": {
+          "prompt": "When two lines A and B are parallel, which of the following statements correctly describes the distance between the two lines?",
+          "options": [
+            "It refers to the length measured diagonally from line A to line B.",
+            "The distance becomes progressively longer or shorter depending on where it is measured.",
+            "It is the length of a perpendicular line segment drawn from one line to the other, and it is equal everywhere.",
+            "The two lines will never intersect no matter how far extended, but the distance between them cannot be determined."
+          ],
+          "explanation": "The distance between two parallel lines is represented by the length of a perpendicular segment drawn from one line to the other. When two lines are parallel, this distance is the same everywhere."
+        },
+        "zh": {
+          "prompt": "当两条直线A和B互相平行时，下列关于这两条直线之间“距离”的说法哪一项是正确的？",
+          "options": [
+            "是指从直线A向直线B倾斜测量的长度。",
+            "距离会根据测量位置的不同而变得越来越长或越来越短。",
+            "是指从一条直线向另一条直线所作垂线段的长度，无论在何处测量都是相等的。",
+            "两条直线无论延伸多远都不会相交，但无法确定两条直线之间的距离。"
+          ],
+          "explanation": "两条平行线之间的距离用从一条直线向另一条直线所作垂线段的长度来表示。当两条直线平行时，无论在哪个位置测量，这个距离都完全相等。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 2
+    },
+    {
+      "id": "shapes-074",
+      "item": "parallel-drawing",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "1本の直線Lに対して、2本の直線Mと直線Nがどちらも垂直に交わっています。このとき、直線Mと直線Nの位置関係について正しく述べているものを1つ選びなさい。",
+          "options": [
+            "直線Mと直線Nは互いに垂直である。",
+            "直線Mと直線Nを伸ばしていくと、やがて1点で直角に交わる。",
+            "直線Mと直線Nは交わっているが、交わる角度は90度ではない。",
+            "直線Mと直線Nは互いに平行である。"
+          ],
+          "explanation": "1本の直線に垂直な2本の直線は、互いに平行になります。直線Mと直線Nはどちらも直線Lと直角（90度）で交わっているため、2本の直線はどこまで伸ばしても交わらず平行です。"
+        },
+        "en": {
+          "prompt": "Two lines, line M and line N, are both perpendicular to a single line L. Which of the following correctly describes the relationship between line M and line N?",
+          "options": [
+            "Line M and line N are perpendicular to each other.",
+            "If line M and line N are extended, they will eventually intersect at a right angle.",
+            "Line M and line N intersect, but the angle of intersection is not 90 degrees.",
+            "Line M and line N are parallel to each other."
+          ],
+          "explanation": "Two lines that are perpendicular to the same line are parallel to each other. Since both line M and line N intersect line L at a right angle (90 degrees), they will never intersect and are parallel."
+        },
+        "zh": {
+          "prompt": "两条直线M和N都与同一条直线L垂直相交。此时，关于直线M与直线N的位置关系，下列说法正确的是哪一项？",
+          "options": [
+            "直线M与直线N互相垂直。",
+            "将直线M和直线N延长后，最终会以直角相交于一点。",
+            "直线M与直线N相交，但相交的角度不是90度。",
+            "直线M与直线N互相平行。"
+          ],
+          "explanation": "垂直于同一直线的两条直线互相平行。因为直线M和直线N都与直线L成直角（90度）相交，所以这两条直线无论延伸多远都不会相交，互相平行。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 3
+    },
+    {
+      "id": "shapes-075",
+      "item": "parallel-drawing",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "statement",
+      "question": "0",
+      "given": null,
+      "statement": {
+        "ja": {
+          "prompt": "直線Lと、直線L上にない点Pがあります。点Pを通り、直線Lに垂直な直線を三角定規を1枚使ってひく手順として、正しいものを1つ選びなさい。",
+          "options": [
+            "直角をはさむ1辺を直線Lに合わせ、もう1辺が点Pを通るように合わせてから、その辺にそって直線をひく。",
+            "いちばん長い辺を点Pに合わせ、直角の頂点が直線Lにふれるように置いてから、長い辺にそって直線をひく。",
+            "直角の頂点を点Pにぴったり重ねて置き、三角定規を自由に傾けて直線Lと交わるように線をひく。",
+            "直角をはさむ2つの辺の両方を直線Lの上にぴったり重ねて置き、長い辺にそって直線をひく。"
+          ],
+          "explanation": "直線の外にある点を通る垂線をひくには、三角定規の直角をはさむ2辺を利用します。1辺を直線Lに合わせ、もう1辺が点Pを通る位置まで三角定規をすべらせてから線をひくことで、点Pを通る垂線がかけます。"
+        },
+        "en": {
+          "prompt": "There is a line L and a point P not on line L. Which of the following is the correct procedure for drawing a line that passes through point P and is perpendicular to line L using one set square?",
+          "options": [
+            "Align one of the sides forming the right angle with line L, adjust so that the other side passes through point P, and then draw along that side.",
+            "Align the longest side with point P, place the right-angle vertex touching line L, and then draw along the longest side.",
+            "Place the vertex of the right angle on point P, tilt the set square freely, and draw a line intersecting line L.",
+            "Place both sides forming the right angle directly on top of line L and draw along the longest side."
+          ],
+          "explanation": "To draw a perpendicular line passing through a point outside a line, use the two sides forming the right angle of the set square. Align one side with line L, slide the set square until the other side passes through point P, and draw the line."
+        },
+        "zh": {
+          "prompt": "有一条直线L和一个不在线L上的点P。关于使用一块三角尺画出通过点P且与直线L垂直的直线的正确步骤，请选择正确的一项。",
+          "options": [
+            "将组成直角的一条边对齐直线L，调整使另一条边通过点P，然后沿着该边画出直线。",
+            "将最长边对准点P，让直角顶点接触直线L，然后沿着最长边画出直线。",
+            "将直角顶点对准点P，任意倾斜三角尺画出与直线L相交的直线。",
+            "将组成直角的两条边都紧贴在直线L上，沿着最长边画出直线。"
+          ],
+          "explanation": "要画一条通过线外一点的垂线，需要利用三角尺组成直角的两条边。将一条边与直线L对齐，滑动三角尺直到另一条边经过点P，然后画线，即可画出通过点P的垂线。"
+        }
+      },
+      "steps": [],
+      "choices": ["1", "2", "3", "4"],
+      "answerIndex": 0
+    }
+  ]
+}

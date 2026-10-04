@@ -18,9 +18,9 @@ try {
   const { set, bank, path, original } = context(unit, item, setId);
   assert.ok(set.rule, `Set ${item} ${setId} is coming soon: add its rule and prompt before generating problems`);
   const existing = bank.problems.map(p => unit === 'pythagoras' ? JSON.stringify(p.figure) : unit === 'factorization' ? blindProblem(unit, p).trinomial
-    : isFormulaUnit(unit) ? `${p.question}${p.given ? ` | ${p.given}` : ''}` : `${p.expression}${p.word ? ` | ${p.word.ja.prompt}` : ''}`);
+    : isFormulaUnit(unit) ? (p.statement ? p.statement.ja.prompt : `${p.question}${p.given ? ` | ${p.given}` : ''}`) : `${p.expression}${p.word ? ` | ${p.word.ja.prompt}` : ''}`);
   const position = Math.max(0, ...bank.problems.filter(p => p.item === item && p.setId === setId).map(p => p.position)) + 1;
-  const prompt = [promptFile('_rules'), ...(isFormulaUnit(unit) ? [promptFile('_formula')] : []), promptFile(unit), promptFile(set.rule),
+  const prompt = [promptFile('_rules'), ...(isFormulaUnit(unit) ? [promptFile(set.rule.startsWith('text-') ? '_statement' : '_formula')] : []), promptFile(unit), promptFile(set.rule),
     `${promptFile('_tiers')}\nこのセットの問題はすべてティア ${tier} にすること。`,
     `このセットの既存の問題（重複を避けること）。同じ単元の全問題:\n${existing.join('\n')}`,
     `${count}問作ること。追加先の position は ${position} から。問題順の条件は追加先の position に合わせること。id・setId・position・published・reviewedAt は出力しない。`].join('\n\n');

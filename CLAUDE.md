@@ -76,19 +76,34 @@ and display it uses (`components/math-questions.tsx`):
   drawn by `math-figure.tsx`, labels and accessible descriptions calculated.
 - `formula`: `FormulaPayload` (`src/lib/math-formula.ts`), a question and four
   choices in one small formula grammar (numbers, letters, `pi`, `i`, `sqrt`,
-  `sin`/`cos`/`tan`, `abs`, `log(x, base)`, `C`/`P`, `sum(term, k, from, to)`),
+  `sin`/`cos`/`tan`, `abs`, `log(x, base)`, `exp`, `ln`, `C`/`P`, `sum(term, k, from, to)`,
+  vectors and matrices as lists `[[1, 2], [3, 4]]` with `det`, `inv`, `rank`, `dot`, ...,
+  and `lim`, `d`, `taylor`, `int2`, `oo` for calculus; `src/lib/math-formula.ts` lists them),
   of kind `calc`, `expand`, `transform`, `factor`, `solve`, `remainder`,
   `derivative`, `tangent`, `extremum`, `integral`, `area`, `term`, `series`,
   `radian`, `degree`, `recurrence`, `distribution`, `geometry`, `identity`,
   `inequality`, `induction`, `inference`, `region`, `graph`, `number`, `stat`,
-  `function`, `rearrange`, `quadratic` or `triangle` (the
+  `function`, `rearrange`, `quadratic`, `triangle`, `eigenvector`, `ode`, `conic`,
+  `divmod`, `classify`, `mvt`, `sets`, `logic`, `mapping`, `figure` or `statement` (the
   grammar comment there lists each kind's extra fields and variants). The page renders the TeX and the
   instruction line from those strings, and `scripts/verify_math.py` parses the
   same grammar to re-derive the answer, so what is shown is what was checked.
+  A `calc` problem can be a word problem (`word`: prose and unit in ja/en/zh; `question` is the
+  hidden expression that solves it). Logic problems use a small condition notation
+  (`parseCondition` in `math-formula.ts`, `condition` in `verify_math.py`).
   Every problem carries `steps`, its worked solution as 1-6 lines of the same
   grammar (a chain "a = b = c", or "x = 2, x = -2"), shown under the answer;
   SymPy checks each line (`check_steps`). `npm run math:steps -- <unit>` has an
   LLM write and verify steps for problems that lack them.
+  A `figure` problem draws a shape from the hidden numbers in `question` (`components/math-shape.tsx`:
+  areas, volumes, angles, circles, similar triangles, a clock, ...) and asks for a length, area, angle or
+  point; `scripts/math-figure-generate.mjs <unit> <item> <set>` makes these deterministically (no LLM), with
+  the usual mistakes as wrong choices, and SymPy re-derives each answer. Elementary circle items use 3.14
+  (a second number in `question`), middle school uses π.
+  A `statement` problem (constructions, a missing step of a proof) is words only: `statement` holds the
+  prompt, four options and the explanation in ja/en/zh, `question` is "0" and `choices` "1" to "4"; SymPy has
+  nothing to re-derive, so its key is checked only by the blind review (`npm run math:generate` with a
+  `text-*` rule, `math-prompts/_statement.md`).
   A `graph` problem draws its hidden `question` with `components/math-graph.tsx`
   (a curve, circle or shaded region) and asks the learner to read it; the blind
   review is given the same readings as text (`graphReading` in math-pipeline.mjs).

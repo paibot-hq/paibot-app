@@ -392,6 +392,177 @@
       ],
       "choices": ["21/2", "24/7", "14/3", "11/6"],
       "answerIndex": 2
+    },
+    {
+      "id": "linear-equation-021",
+      "item": "word-problems",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(960 - 80 * 10) / (120 - 80)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1個120円のりんごと1個80円のみかんを合わせて10個買ったら、代金の合計は960円でした。りんごは何個買いましたか。",
+          "unit": "個"
+        },
+        "en": {
+          "prompt": "Apples cost 120 yen each and oranges cost 80 yen each. You bought a total of 10 fruits for 960 yen. How many apples did you buy?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "每个120日元的苹果和每个80日元的橘子一共买了10个，总共花了960日元。买了几个苹果？",
+          "unit": "个"
+        }
+      },
+      "steps": [
+        "120*x + 80*(10 - x) = 960",
+        "120*x + 800 - 80*x = 960",
+        "40*x = 160",
+        "x = 4"
+      ],
+      "choices": ["3", "4", "5", "6"],
+      "answerIndex": 1
+    },
+    {
+      "id": "linear-equation-022",
+      "item": "word-problems",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(12 + 4) / (7 - 5)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "何人かの生徒に折り紙を配ります。1人に5枚ずつ配ると12枚余り、1人に7枚ずつ配ると4枚足りません。生徒は何人いますか。",
+          "unit": "人"
+        },
+        "en": {
+          "prompt": "Origami paper is distributed to a group of students. If each student gets 5 sheets, 12 sheets are left over. If each student gets 7 sheets, there are 4 sheets short. How many students are there?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "把一些折纸分给若干名学生。如果每人分5张，就会多出12张；如果每人分7张，就会缺少4张。一共有多少名学生？",
+          "unit": "人"
+        }
+      },
+      "steps": [
+        "5*x + 12 = 7*x - 4",
+        "5*x - 7*x = -4 - 12",
+        "-2*x = -16",
+        "x = 8"
+      ],
+      "choices": ["6", "7", "8", "9"],
+      "answerIndex": 2
+    },
+    {
+      "id": "linear-equation-023",
+      "item": "word-problems",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "70 * 8 / (150 - 70)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "兄が分速70mで家を出発しました。その8分後に弟が分速150mの自転車で兄を追いかけました。弟は出発してから何分後に兄に追いつきますか。",
+          "unit": "分後"
+        },
+        "en": {
+          "prompt": "The older brother left home walking at a speed of 70 m/min. 8 minutes later, the younger brother chased after him on a bicycle at a speed of 150 m/min. How many minutes after leaving home will the younger brother catch up with the older brother?",
+          "unit": " minutes"
+        },
+        "zh": {
+          "prompt": "哥哥以每分钟70米的速度从家出发步行。8分钟后，弟弟骑自行车以每分钟150米的速度去追哥哥。弟弟出发后多少分钟能追上哥哥？",
+          "unit": "分钟后"
+        }
+      },
+      "steps": [
+        "70*(x + 8) = 150*x",
+        "70*x + 560 = 150*x",
+        "70*x - 150*x = -560",
+        "-80*x = -560",
+        "x = 7"
+      ],
+      "choices": ["7", "8", "9", "10"],
+      "answerIndex": 0
+    },
+    {
+      "id": "linear-equation-024",
+      "item": "word-problems",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(72 - 3) / 3",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "連続する3つの整数の和が72であるとき、この3つの整数のうち最も小さい整数を求めなさい。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "The sum of three consecutive integers is 72. Find the smallest of these three integers.",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "三个连续整数的和是72。求这三个整数中最小的一个。",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "x + (x + 1) + (x + 2) = 72",
+        "3*x + 3 = 72",
+        "3*x = 69",
+        "x = 23"
+      ],
+      "choices": ["20", "21", "22", "23"],
+      "answerIndex": 3
+    },
+    {
+      "id": "linear-equation-025",
+      "item": "word-problems",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(300 + 60) / (180 - 150)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "持っているお金で、1冊150円のノートを何冊か買うと300円余り、1冊180円のノートを同じ冊数買おうとすると60円足りません。ノートを何冊買う予定でしたか。",
+          "unit": "冊"
+        },
+        "en": {
+          "prompt": "With the money I had, buying a certain number of notebooks at 150 yen each would leave 300 yen, but trying to buy the same number of notebooks at 180 yen each would be 60 yen short. How many notebooks was I planning to buy?",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "用手里的钱买若干本每本150日元的笔记本会剩下300日元，如果买同样数量的每本180日元的笔记本就会缺少60日元。原计划买多少本笔记本？",
+          "unit": "本"
+        }
+      },
+      "steps": [
+        "150*x + 300 = 180*x - 60",
+        "150*x - 180*x = -60 - 300",
+        "-30*x = -360",
+        "x = 12"
+      ],
+      "choices": ["10", "12", "14", "16"],
+      "answerIndex": 1
     }
   ]
 }

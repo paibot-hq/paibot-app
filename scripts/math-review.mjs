@@ -22,8 +22,11 @@ try {
   const prompt = `${promptFile('_review').replaceAll('{{grade}}', grade)}\n${promptFile('_tiers')}\n各問題の tier は作成時に指定したティア。合っていなければ issues に「ティアが合わない（n が妥当）」と書く。\n対象学年:\n${JSON.stringify(levels)}\n問題:\n${JSON.stringify(problems.map(p => ({ ...blindProblem(unit, p), tier: p.tier })), null, 2)}`;
   temp = mkdtempSync(join(tmpdir(), 'math-review-'));
   const output = join(temp, 'review.json');
-  run('codex', ['exec', '--sandbox', 'read-only', '--skip-git-repo-check', '-o', output, prompt], temp);
-  const raw = readFileSync(output, 'utf8');
+  // Codex is the independent reviewer; MATH_REVIEWER=agy uses the generator's own model instead
+  // (for when Codex is unavailable), which checks the display and tier but is less independent.
+  let raw;
+  if (process.env.MATH_REVIEWER === 'agy') raw = run('agy', ['--sandbox', '--print-timeout', '10m', '-p', prompt], temp);
+  else { run('codex', ['exec', '--sandbox', 'read-only', '--skip-git-repo-check', '-o', output, prompt], temp); raw = readFileSync(output, 'utf8'); }
   let result;
   try { result = extractJSON(raw, 'reviews'); }
   catch (error) { throw new Error(`${error.message}\nRaw output: ${saveWork(`review-${unit}-raw`, raw, 'txt')}`); }

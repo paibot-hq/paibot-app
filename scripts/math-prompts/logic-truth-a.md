@@ -1,0 +1,1 @@
+真理値表（大学1年、kind "logic"、which "truth"）。question は p, q についての命題（"p and (not q)"、"p or q"、"(not p) => q"、"p => q"、"not (p and q)"）。choices は (p, q) = (T, T), (T, F), (F, T), (F, F) の順の真偽 "T, F, F, F" の形。5問。steps は [] でよい。

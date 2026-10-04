@@ -192,6 +192,161 @@
       ],
       "choices": ["-1", "1", "-1/2", "0"],
       "answerIndex": 0
+    },
+    {
+      "id": "statistics-011",
+      "item": "hypothesis",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(1/2)^5",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1枚のコインを5回投げて、5回とも表が出る確率を求めよ。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "Find the probability of getting heads on all 5 tosses of a fair coin.",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "求抛掷一枚硬币5次，5次都出现正面的概率。",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "(1/2)^5 = 1/32"
+      ],
+      "choices": ["1/16", "1/32", "5/32", "1/64"],
+      "answerIndex": 1
+    },
+    {
+      "id": "statistics-012",
+      "item": "hypothesis",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "C(6, 5)*(1/2)^6 + C(6, 6)*(1/2)^6",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1枚のコインを6回投げて、表が5回以上出る確率を求めよ。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "Find the probability of getting heads at least 5 times in 6 tosses of a fair coin.",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "求抛掷一枚硬币6次，正面出现5次或以上的概率。",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "C(6, 5)*(1/2)^6 + C(6, 6)*(1/2)^6 = 6/64 + 1/64 = 7/64"
+      ],
+      "choices": ["7/64", "3/32", "1/64", "5/64"],
+      "answerIndex": 0
+    },
+    {
+      "id": "statistics-013",
+      "item": "hypothesis",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "C(7, 6)*(1/2)^7 + C(7, 7)*(1/2)^7",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1枚のコインを7回投げて、表が6回以上出る確率を求めよ。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "Find the probability of getting heads at least 6 times in 7 tosses of a fair coin.",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "求抛掷一枚硬币7次，正面出现6次或以上的概率。",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "C(7, 6)*(1/2)^7 + C(7, 7)*(1/2)^7 = 7/128 + 1/128 = 8/128 = 1/16"
+      ],
+      "choices": ["7/128", "1/128", "1/16", "9/128"],
+      "answerIndex": 2
+    },
+    {
+      "id": "statistics-014",
+      "item": "hypothesis",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "C(8, 7)*(1/2)^8 + C(8, 8)*(1/2)^8",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1枚のコインを8回投げて、表が7回以上出る確率を求めよ。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "Find the probability of getting heads at least 7 times in 8 tosses of a fair coin.",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "求抛掷一枚硬币8次，正面出现7次或以上的概率。",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "C(8, 7)*(1/2)^8 + C(8, 8)*(1/2)^8 = 8/256 + 1/256 = 9/256"
+      ],
+      "choices": ["1/32", "5/128", "1/256", "9/256"],
+      "answerIndex": 3
+    },
+    {
+      "id": "statistics-015",
+      "item": "hypothesis",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "C(10, 9)*(1/2)^10 + C(10, 10)*(1/2)^10",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1枚のコインを10回投げて、表が9回以上出る確率を求めよ。",
+          "unit": ""
+        },
+        "en": {
+          "prompt": "Find the probability of getting heads at least 9 times in 10 tosses of a fair coin.",
+          "unit": ""
+        },
+        "zh": {
+          "prompt": "求抛掷一枚硬币10次，正面出现9次或以上的概率。",
+          "unit": ""
+        }
+      },
+      "steps": [
+        "C(10, 9)*(1/2)^10 + C(10, 10)*(1/2)^10 = 10/1024 + 1/1024 = 11/1024"
+      ],
+      "choices": ["5/512", "11/1024", "1/1024", "3/256"],
+      "answerIndex": 1
     }
   ]
 }

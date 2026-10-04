@@ -1,0 +1,1010 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "measurement-001",
+      "item": "length-capacity",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "1 * 100 + 40 - 65",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "長さが 1m 40cm の ひもから、65cm を 使いました。のこりの 長さは 何cm ですか。",
+          "unit": "cm"
+        },
+        "en": {
+          "prompt": "You used 65 cm from a 1 m 40 cm long string. How many centimeters of string are left?",
+          "unit": "cm"
+        },
+        "zh": {
+          "prompt": "从一条长 1m 40cm 的绳子上剪去了 65cm。还剩下多少厘米？",
+          "unit": "cm"
+        }
+      },
+      "steps": [
+        "1 * 100 + 40 - 65 = 140 - 65 = 75"
+      ],
+      "choices": ["75", "85", "65", "175"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-002",
+      "item": "length-capacity",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "5 * 10 + 3 + 7 * 10 + 8",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "5cm 3mm の 赤い テープと、7cm 8mm の 青い テープを つなげました。ぜんぶで 何mm に なりますか。",
+          "unit": "mm"
+        },
+        "en": {
+          "prompt": "A red tape of 5 cm 3 mm and a blue tape of 7 cm 8 mm are joined together. How many millimeters is the total length?",
+          "unit": "mm"
+        },
+        "zh": {
+          "prompt": "把一条 5cm 3mm 的红胶带和一条 7cm 8mm 的蓝胶带连在一起。总共有多少毫米？",
+          "unit": "mm"
+        }
+      },
+      "steps": [
+        "5 * 10 + 3 + 7 * 10 + 8 = 53 + 78 = 131"
+      ],
+      "choices": ["121", "141", "131", "138"],
+      "answerIndex": 2
+    },
+    {
+      "id": "measurement-003",
+      "item": "length-capacity",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "1 * 100 + 8 - 70",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "つくえの 横の 長さは 1m 8cm、たての 長さは 70cm です。横の 長さは たての 長さより 何cm 長いですか。",
+          "unit": "cm"
+        },
+        "en": {
+          "prompt": "The width of a desk is 1 m 8 cm, and its depth is 70 cm. How many centimeters longer is the width than the depth?",
+          "unit": "cm"
+        },
+        "zh": {
+          "prompt": "桌子的横向长 1m 8cm，纵向长 70cm。横向比纵向长多少厘米？",
+          "unit": "cm"
+        }
+      },
+      "steps": [
+        "1 * 100 + 8 - 70 = 108 - 70 = 38"
+      ],
+      "choices": ["110", "38", "48", "118"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-004",
+      "item": "length-capacity",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "1 * 1000 + 200 - 450",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1L 200mL 入った ジュースの パックが あります。450mL 飲むと、のこりは 何mL に なりますか。",
+          "unit": "mL"
+        },
+        "en": {
+          "prompt": "There is a 1 L 200 mL carton of juice. If you drink 450 mL, how many milliliters are left?",
+          "unit": "mL"
+        },
+        "zh": {
+          "prompt": "有一盒 1L 200mL 的果汁。喝了 450mL 后，还剩下多少毫升？",
+          "unit": "mL"
+        }
+      },
+      "steps": [
+        "1 * 1000 + 200 - 450 = 1200 - 450 = 750"
+      ],
+      "choices": ["850", "650", "75", "750"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-005",
+      "item": "length-capacity",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "2 * 10 + 4 + 1 * 10 + 8",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "赤い バケツに 水が 2L 4dL、青い バケツに 水が 1L 8dL 入って います。あわせると 何dL に なりますか。",
+          "unit": "dL"
+        },
+        "en": {
+          "prompt": "There are 2 L 4 dL of water in a red bucket and 1 L 8 dL of water in a blue bucket. How many deciliters are there in total?",
+          "unit": "dL"
+        },
+        "zh": {
+          "prompt": "红色水桶里有 2L 4dL 的水，蓝色水桶里有 1L 8dL 的水。合起来一共有多少分升？",
+          "unit": "dL"
+        }
+      },
+      "steps": [
+        "2 * 10 + 4 + 1 * 10 + 8 = 24 + 18 = 42"
+      ],
+      "choices": ["42", "32", "52", "40"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-006",
+      "item": "weight",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "2 * 1000 + 80",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "2kg 80g の重さは何gですか。",
+          "unit": "g"
+        },
+        "en": {
+          "prompt": "How many grams is 2 kg 80 g?",
+          "unit": "g"
+        },
+        "zh": {
+          "prompt": "2千克80克是多少克？",
+          "unit": "g"
+        }
+      },
+      "steps": [
+        "2 * 1000 + 80 = 2000 + 80 = 2080"
+      ],
+      "choices": ["2080", "2800", "2008", "280"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-007",
+      "item": "weight",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "1 * 1000 - 350",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "1kg ある小麦粉から、パンを作るために 350g 使いました。残りの小麦粉は何gですか。",
+          "unit": "g"
+        },
+        "en": {
+          "prompt": "A baker used 350 g of flour from a 1 kg bag to make bread. How many grams of flour are left?",
+          "unit": "g"
+        },
+        "zh": {
+          "prompt": "一袋面粉有1千克，做面包用去了350克。还剩下多少克面粉？",
+          "unit": "g"
+        }
+      },
+      "steps": [
+        "1 * 1000 - 350 = 1000 - 350 = 650"
+      ],
+      "choices": ["750", "650", "600", "550"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-008",
+      "item": "weight",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "3 * 1000 - 1800",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "トラックに 3t の砂を積む予定です。今 1800kg 積みました。あと何kg積めばよいですか。",
+          "unit": "kg"
+        },
+        "en": {
+          "prompt": "A truck is planned to be loaded with 3 t of sand. Currently, 1800 kg has been loaded. How many more kilograms need to be loaded?",
+          "unit": "kg"
+        },
+        "zh": {
+          "prompt": "卡车计划装载3吨沙子。现在已经装了1800千克。还需要装多少千克？",
+          "unit": "kg"
+        }
+      },
+      "steps": [
+        "3 * 1000 - 1800 = 3000 - 1800 = 1200"
+      ],
+      "choices": ["1000", "1500", "1200", "2200"],
+      "answerIndex": 2
+    },
+    {
+      "id": "measurement-009",
+      "item": "weight",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "5000 / 1000",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "重さが 5000kg のゾウがいます。このゾウの重さは何tですか。",
+          "unit": "t"
+        },
+        "en": {
+          "prompt": "An elephant weighs 5000 kg. How many tonnes does this elephant weigh?",
+          "unit": "t"
+        },
+        "zh": {
+          "prompt": "一头大象重5000千克。这头大象重多少吨？",
+          "unit": "t"
+        }
+      },
+      "steps": [
+        "5000 / 1000 = 5"
+      ],
+      "choices": ["50", "0.5", "500", "5"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-010",
+      "item": "weight",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "2 * 1000 + 300 - 400",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "かごにりんごを入れて重さをはかると 2kg 300g でした。かごだけの重さが 400g のとき、りんごの重さは何gですか。",
+          "unit": "g"
+        },
+        "en": {
+          "prompt": "An apple basket weighs 2 kg 300 g in total. If the empty basket weighs 400 g, what is the weight of the apples in grams?",
+          "unit": "g"
+        },
+        "zh": {
+          "prompt": "篮子里装满苹果后称重为2千克300克。空篮子的重量是400克，苹果的重量是多少克？",
+          "unit": "g"
+        }
+      },
+      "steps": [
+        "2 * 1000 + 300 - 400 = 2300 - 400 = 1900"
+      ],
+      "choices": ["1900", "1800", "2000", "2100"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-011",
+      "item": "area-units",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(20 * 35) / 100",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "たてが 20 m、横が 35 m の長方形の広場があります。この広場の面積は何 a ですか。",
+          "unit": "a"
+        },
+        "en": {
+          "prompt": "There is a rectangular plaza that is 20 m long and 35 m wide. What is the area of this plaza in a?",
+          "unit": "a"
+        },
+        "zh": {
+          "prompt": "有一个长 20 m、宽 35 m 的长方形广场。这个广场的面积是多少 a？",
+          "unit": "a"
+        }
+      },
+      "steps": [
+        "(20 * 35) / 100 = 700 / 100 = 7"
+      ],
+      "choices": ["70", "7", "700", "55"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-012",
+      "item": "area-units",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "3 * 100 + 40",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "3 ha の畑と 40 a の畑があります。合わせると何 a になりますか。",
+          "unit": "a"
+        },
+        "en": {
+          "prompt": "There is a field of 3 ha and a field of 40 a. How many a are there in total?",
+          "unit": "a"
+        },
+        "zh": {
+          "prompt": "有一块 3 ha 的田地和一块 40 a 的田地。合起来是多少 a？",
+          "unit": "a"
+        }
+      },
+      "steps": [
+        "3 * 100 + 40 = 300 + 40 = 340"
+      ],
+      "choices": ["340", "43", "304", "3400"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-013",
+      "item": "area-units",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "150 * (2 * 100)",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "たてが 150 cm、横が 2 m の長方形の板があります。この板の面積は何 cm2 ですか。",
+          "unit": "cm2"
+        },
+        "en": {
+          "prompt": "There is a rectangular board that is 150 cm long and 2 m wide. What is the area of this board in cm2?",
+          "unit": "cm2"
+        },
+        "zh": {
+          "prompt": "有一块长 150 cm、宽 2 m 的长方形木板。这块木板的面积是多少 cm2？",
+          "unit": "cm2"
+        }
+      },
+      "steps": [
+        "150 * (2 * 100) = 150 * 200 = 30000"
+      ],
+      "choices": ["300", "3000", "300000", "30000"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-014",
+      "item": "area-units",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "(300 * 400) / 10000",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "たてが 300 m、横が 400 m の長方形の森があります。この森の面積は何 ha ですか。",
+          "unit": "ha"
+        },
+        "en": {
+          "prompt": "There is a rectangular forest that is 300 m long and 400 m wide. What is the area of this forest in ha?",
+          "unit": "ha"
+        },
+        "zh": {
+          "prompt": "有一片长 300 m、宽 400 m 的长方形森林。这片森林的面积是多少 ha？",
+          "unit": "ha"
+        }
+      },
+      "steps": [
+        "(300 * 400) / 10000 = 120000 / 10000 = 12"
+      ],
+      "choices": ["120", "1200", "12", "70"],
+      "answerIndex": 2
+    },
+    {
+      "id": "measurement-015",
+      "item": "area-units",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "8 * 100 - 350",
+      "given": null,
+      "word": {
+        "ja": {
+          "prompt": "広さが 8 a の公園があります。そのうち 350 m2 が広場で、残りは花だんです。花だんの面積は何 m2 ですか。",
+          "unit": "m2"
+        },
+        "en": {
+          "prompt": "There is an 8 a park. Of that area, 350 m2 is an open space, and the rest is a flowerbed. What is the area of the flowerbed in m2?",
+          "unit": "m2"
+        },
+        "zh": {
+          "prompt": "有一个面积为 8 a 的公园。其中 350 m2 是广场，其余是花坛。花坛的面积是多少 m2？",
+          "unit": "m2"
+        }
+      },
+      "steps": [
+        "8 * 100 - 350 = 800 - 350 = 450"
+      ],
+      "choices": ["450", "550", "45", "270"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-016",
+      "item": "rect-area",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "10, 2",
+      "given": null,
+      "which": "rect-area",
+      "steps": [
+        "10*2 = 20"
+      ],
+      "choices": ["30", "24", "12", "20"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-017",
+      "item": "rect-area",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 8",
+      "given": null,
+      "which": "rect-area",
+      "steps": [
+        "4*8 = 32"
+      ],
+      "choices": ["12", "36", "24", "32"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-018",
+      "item": "rect-area",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 9",
+      "given": null,
+      "which": "rect-area",
+      "steps": [
+        "6*9 = 54"
+      ],
+      "choices": ["60", "15", "54", "30"],
+      "answerIndex": 2
+    },
+    {
+      "id": "measurement-019",
+      "item": "rect-area",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5, 6",
+      "given": null,
+      "which": "rect-area",
+      "steps": [
+        "5*6 = 30"
+      ],
+      "choices": ["22", "11", "30", "35"],
+      "answerIndex": 2
+    },
+    {
+      "id": "measurement-020",
+      "item": "rect-area",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7, 6",
+      "given": null,
+      "which": "rect-area",
+      "steps": [
+        "7*6 = 42"
+      ],
+      "choices": ["42", "13", "49", "26"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-021",
+      "item": "area",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "10, 7",
+      "given": null,
+      "which": "tri-area",
+      "steps": [
+        "10*7/2 = 35"
+      ],
+      "choices": ["45", "35", "70", "17"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-022",
+      "item": "area",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "10, 5",
+      "given": null,
+      "which": "para-area",
+      "steps": [
+        "10*5 = 50"
+      ],
+      "choices": ["50", "60", "25", "15"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-023",
+      "item": "area",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7, 10, 6",
+      "given": null,
+      "which": "trap-area",
+      "steps": [
+        "(7 + 10)*6/2 = 51"
+      ],
+      "choices": ["70", "30", "102", "51"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-024",
+      "item": "area",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "12, 8",
+      "given": null,
+      "which": "tri-area",
+      "steps": [
+        "12*8/2 = 48"
+      ],
+      "choices": ["60", "96", "20", "48"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-025",
+      "item": "area",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7, 12, 6",
+      "given": null,
+      "which": "trap-area",
+      "steps": [
+        "(7 + 12)*6/2 = 57"
+      ],
+      "choices": ["57", "36", "114", "84"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-026",
+      "item": "volume",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 9, 8",
+      "given": null,
+      "which": "cuboid-volume",
+      "steps": [
+        "3*9*8 = 216"
+      ],
+      "choices": ["216", "27", "246", "20"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-027",
+      "item": "volume",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7, 6, 2",
+      "given": null,
+      "which": "cuboid-volume",
+      "steps": [
+        "7*6*2 = 84"
+      ],
+      "choices": ["136", "15", "84", "42"],
+      "answerIndex": 2
+    },
+    {
+      "id": "measurement-028",
+      "item": "volume",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 4, 5",
+      "given": null,
+      "which": "cuboid-volume",
+      "steps": [
+        "6*4*5 = 120"
+      ],
+      "choices": ["15", "24", "148", "120"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-029",
+      "item": "volume",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 2, 2",
+      "given": null,
+      "which": "cuboid-volume",
+      "steps": [
+        "6*2*2 = 24"
+      ],
+      "choices": ["56", "24", "10", "12"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-030",
+      "item": "volume",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "5, 2, 4",
+      "given": null,
+      "which": "cuboid-volume",
+      "steps": [
+        "5*2*4 = 40"
+      ],
+      "choices": ["10", "40", "76", "11"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-031",
+      "item": "circumference",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "10, 3.14",
+      "given": null,
+      "which": "circle-circumference",
+      "steps": [
+        "2*10*3.14 = 62.8"
+      ],
+      "choices": ["314", "62.8", "31.4", "125.6"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-032",
+      "item": "circumference",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "7, 3.14",
+      "given": null,
+      "which": "circle-circumference",
+      "steps": [
+        "2*7*3.14 = 43.96"
+      ],
+      "choices": ["153.86", "43.96", "87.92", "21.98"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-033",
+      "item": "circumference",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "11, 3.14",
+      "given": null,
+      "which": "circle-circumference",
+      "steps": [
+        "2*11*3.14 = 69.08"
+      ],
+      "choices": ["138.16", "69.08", "34.54", "379.94"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-034",
+      "item": "circumference",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "9, 3.14",
+      "given": null,
+      "which": "circle-circumference",
+      "steps": [
+        "2*9*3.14 = 56.52"
+      ],
+      "choices": ["113.04", "254.34", "28.26", "56.52"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-035",
+      "item": "circumference",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 3.14",
+      "given": null,
+      "which": "circle-circumference",
+      "steps": [
+        "2*3*3.14 = 18.84"
+      ],
+      "choices": ["9.42", "18.84", "28.26", "37.68"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-036",
+      "item": "circle-area",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "12, 3.14",
+      "given": null,
+      "which": "circle-area",
+      "steps": [
+        "12*12*3.14 = 452.16"
+      ],
+      "choices": ["75.36", "452.16", "904.32", "37.68"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-037",
+      "item": "circle-area",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 3.14",
+      "given": null,
+      "which": "circle-area",
+      "steps": [
+        "3*3*3.14 = 28.26"
+      ],
+      "choices": ["56.52", "18.84", "28.26", "9.42"],
+      "answerIndex": 2
+    },
+    {
+      "id": "measurement-038",
+      "item": "circle-area",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 3.14",
+      "given": null,
+      "which": "circle-area",
+      "steps": [
+        "6*6*3.14 = 113.04"
+      ],
+      "choices": ["226.08", "113.04", "18.84", "37.68"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-039",
+      "item": "circle-area",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 3.14",
+      "given": null,
+      "which": "circle-area",
+      "steps": [
+        "4*4*3.14 = 50.24"
+      ],
+      "choices": ["12.56", "50.24", "100.48", "25.12"],
+      "answerIndex": 1
+    },
+    {
+      "id": "measurement-040",
+      "item": "circle-area",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "11, 3.14",
+      "given": null,
+      "which": "circle-area",
+      "steps": [
+        "11*11*3.14 = 379.94"
+      ],
+      "choices": ["379.94", "69.08", "759.88", "34.54"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-041",
+      "item": "prism-volume",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8, 7, 4",
+      "given": null,
+      "which": "prism-volume",
+      "steps": [
+        "8*7/2*4 = 112"
+      ],
+      "choices": ["112", "224", "28", "30"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-042",
+      "item": "prism-volume",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "6, 5, 8",
+      "given": null,
+      "which": "prism-volume",
+      "steps": [
+        "6*5/2*8 = 120"
+      ],
+      "choices": ["120", "44", "15", "240"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-043",
+      "item": "prism-volume",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "8, 8, 6",
+      "given": null,
+      "which": "prism-volume",
+      "steps": [
+        "8*8/2*6 = 192"
+      ],
+      "choices": ["192", "384", "32", "48"],
+      "answerIndex": 0
+    },
+    {
+      "id": "measurement-044",
+      "item": "prism-volume",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 8, 3.14",
+      "given": null,
+      "which": "cylinder-volume",
+      "steps": [
+        "4*4*8*3.14 = 401.92"
+      ],
+      "choices": ["100.48", "133.97", "200.96", "401.92"],
+      "answerIndex": 3
+    },
+    {
+      "id": "measurement-045",
+      "item": "prism-volume",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2, 7, 3.14",
+      "given": null,
+      "which": "cylinder-volume",
+      "steps": [
+        "2*2*7*3.14 = 87.92"
+      ],
+      "choices": ["43.96", "87.92", "29.3", "175.84"],
+      "answerIndex": 1
+    }
+  ]
+}

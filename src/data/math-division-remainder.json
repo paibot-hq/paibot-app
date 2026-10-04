@@ -1,0 +1,90 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "division-remainder-001",
+      "item": "remainder",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "divmod",
+      "question": "38, 7",
+      "given": null,
+      "steps": [
+        "7 * 5 + 3 = 38"
+      ],
+      "choices": ["3,   5", "5,   3", "4,   10", "6,   2"],
+      "answerIndex": 1
+    },
+    {
+      "id": "division-remainder-002",
+      "item": "remainder",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "divmod",
+      "question": "53, 8",
+      "given": null,
+      "steps": [
+        "8 * 6 + 5 = 53"
+      ],
+      "choices": ["5,   6", "5,   13", "6,   5", "7,   2"],
+      "answerIndex": 2
+    },
+    {
+      "id": "division-remainder-003",
+      "item": "remainder",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "divmod",
+      "question": "45, 6",
+      "given": null,
+      "steps": [
+        "6 * 7 + 3 = 45"
+      ],
+      "choices": ["7,   3", "3,   7", "6,   9", "8,   3"],
+      "answerIndex": 0
+    },
+    {
+      "id": "division-remainder-005",
+      "item": "remainder",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "divmod",
+      "question": "27, 4",
+      "given": null,
+      "steps": [
+        "4 * 6 + 3 = 27"
+      ],
+      "choices": ["3,   6", "6,   3", "5,   7", "7,   1"],
+      "answerIndex": 1
+    },
+    {
+      "id": "division-remainder-006",
+      "item": "remainder",
+      "setId": "1",
+      "position": 6,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "divmod",
+      "question": "62, 7",
+      "given": null,
+      "steps": [
+        "7 * 8 + 6 = 62"
+      ],
+      "choices": ["6,  8", "8,  6", "7,  13", "7,  6"],
+      "answerIndex": 1
+    }
+  ]
+}

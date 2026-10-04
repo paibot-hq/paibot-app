@@ -280,6 +280,346 @@
         "x = 2",
         "-2*2^3 + 3*2^2 + 12*2 - 5 = -16 + 12 + 24 - 5 = 15"
       ]
+    },
+    {
+      "id": "derivative-016",
+      "item": "transcendental",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "derivative",
+      "question": "3*sin(x) - 2*cos(x)",
+      "given": null,
+      "steps": [
+        "3*cos(x) - 2*(-sin(x)) = 3*cos(x) + 2*sin(x)"
+      ],
+      "choices": ["3*cos(x) - 2*sin(x)", "-3*cos(x) + 2*sin(x)", "3*cos(x) + 2*sin(x)", "-3*cos(x) - 2*sin(x)"],
+      "answerIndex": 2
+    },
+    {
+      "id": "derivative-017",
+      "item": "transcendental",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "derivative",
+      "question": "x*exp(x)",
+      "given": null,
+      "steps": [
+        "1*exp(x) + x*exp(x) = exp(x) + x*exp(x)"
+      ],
+      "choices": ["exp(x) + x*exp(x)", "exp(x)", "x*exp(x)", "exp(x) - x*exp(x)"],
+      "answerIndex": 0
+    },
+    {
+      "id": "derivative-018",
+      "item": "transcendental",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "derivative",
+      "question": "x*ln(x)",
+      "given": null,
+      "steps": [
+        "1*ln(x) + x*(1/x) = ln(x) + 1"
+      ],
+      "choices": ["ln(x)", "1/x", "ln(x) - 1", "ln(x) + 1"],
+      "answerIndex": 3
+    },
+    {
+      "id": "derivative-019",
+      "item": "transcendental",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "derivative",
+      "question": "2*exp(x) + 3*ln(x)",
+      "given": null,
+      "steps": [
+        "2*exp(x) + 3*(1/x) = 2*exp(x) + 3/x"
+      ],
+      "choices": ["2*exp(x) - 3/x", "2*exp(x) + 3/x", "exp(x) + 3/x", "2*exp(x) + 3*x"],
+      "answerIndex": 1
+    },
+    {
+      "id": "derivative-020",
+      "item": "transcendental",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "derivative",
+      "question": "x*cos(x)",
+      "given": null,
+      "steps": [
+        "1*cos(x) + x*(-sin(x)) = cos(x) - x*sin(x)"
+      ],
+      "choices": ["cos(x) + x*sin(x)", "-sin(x) - x*cos(x)", "cos(x) - x*sin(x)", "-x*sin(x)"],
+      "answerIndex": 2
+    },
+    {
+      "id": "derivative-021",
+      "item": "chain-rule",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "derivative",
+      "question": "sin(2*x + 1)",
+      "given": null,
+      "steps": [
+        "cos(2*x + 1)*2 = 2*cos(2*x + 1)"
+      ],
+      "choices": ["cos(2*x + 1)", "2*cos(2*x + 1)", "-2*cos(2*x + 1)", "2*sin(2*x + 1)"],
+      "answerIndex": 1
+    },
+    {
+      "id": "derivative-022",
+      "item": "chain-rule",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "derivative",
+      "question": "(x^2 + 1)^3",
+      "given": null,
+      "steps": [
+        "3*(x^2 + 1)^2*2*x = 6*x*(x^2 + 1)^2"
+      ],
+      "choices": ["3*(x^2 + 1)^2", "6*(x^2 + 1)^2", "2*x*(x^2 + 1)^2", "6*x*(x^2 + 1)^2"],
+      "answerIndex": 3
+    },
+    {
+      "id": "derivative-023",
+      "item": "chain-rule",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "derivative",
+      "question": "x^2*sin(x)",
+      "given": null,
+      "steps": [
+        "x*(2*sin(x) + x*cos(x)) = 2*x*sin(x) + x^2*cos(x)"
+      ],
+      "choices": ["2*x*sin(x) + x^2*cos(x)", "2*x*sin(x) - x^2*cos(x)", "2*x*sin(x)", "x^2*cos(x)"],
+      "answerIndex": 0
+    },
+    {
+      "id": "derivative-024",
+      "item": "chain-rule",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "derivative",
+      "question": "x^2*exp(x)",
+      "given": null,
+      "steps": [
+        "(2*x + x^2)*exp(x) = 2*x*exp(x) + x^2*exp(x)"
+      ],
+      "choices": ["2*x*exp(x)", "x^2*exp(x)", "2*x*exp(x) + x^2*exp(x)", "2*x*exp(x) - x^2*exp(x)"],
+      "answerIndex": 2
+    },
+    {
+      "id": "derivative-025",
+      "item": "chain-rule",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "derivative",
+      "question": "x/(x^2 + 1)",
+      "given": null,
+      "steps": [
+        "(1*(x^2 + 1) - x*2*x)/(x^2 + 1)^2 = (x^2 + 1 - 2*x^2)/(x^2 + 1)^2 = (1 - x^2)/(x^2 + 1)^2"
+      ],
+      "choices": ["(3*x^2 + 1)/(x^2 + 1)^2", "(1 - x^2)/(x^2 + 1)^2", "1/(x^2 + 1)^2", "(1 - x^2)/(x^2 + 1)"],
+      "answerIndex": 1
+    },
+    {
+      "id": "derivative-026",
+      "item": "parametric",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "d(t^4, t)/d(2*t^2, t)",
+      "given": null,
+      "steps": [
+        "d(t^4, t)/d(2*t^2, t) = (4*t^3)/(4*t) = t^2"
+      ],
+      "choices": ["t^2", "1/t^2", "2*t^2", "1/(2*t^2)"],
+      "answerIndex": 0
+    },
+    {
+      "id": "derivative-027",
+      "item": "parametric",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "d(1 - cos(t), t)/d(sin(t), t)",
+      "given": null,
+      "steps": [
+        "d(1 - cos(t), t)/d(sin(t), t) = sin(t)/cos(t) = tan(t)"
+      ],
+      "choices": ["1/tan(t)", "tan(t)", "-tan(t)", "-1/tan(t)"],
+      "answerIndex": 1
+    },
+    {
+      "id": "derivative-028",
+      "item": "parametric",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "d(t^2, t)/d(ln(t), t)",
+      "given": null,
+      "steps": [
+        "d(t^2, t)/d(ln(t), t) = (2*t)/(1/t) = 2*t^2"
+      ],
+      "choices": ["1/(2*t^2)", "2*t", "2*t^2", "2"],
+      "answerIndex": 2
+    },
+    {
+      "id": "derivative-029",
+      "item": "parametric",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "d(exp(3*t), t)/d(exp(t), t)",
+      "given": null,
+      "steps": [
+        "d(exp(3*t), t)/d(exp(t), t) = (3*exp(3*t))/exp(t) = 3*exp(2*t)"
+      ],
+      "choices": ["1/(3*exp(2*t))", "(1/3)*exp(2*t)", "3*exp(t)", "3*exp(2*t)"],
+      "answerIndex": 3
+    },
+    {
+      "id": "derivative-030",
+      "item": "parametric",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "d(t^3 - t, t)/d(t^2 + 1, t)",
+      "given": null,
+      "steps": [
+        "d(t^3 - t, t)/d(t^2 + 1, t) = (3*t^2 - 1)/(2*t)"
+      ],
+      "choices": ["(2*t)/(3*t^2 - 1)", "(3*t^2 - 1)/(2*t)", "(3*t^2 - 1)/2", "(2*t)/(3*t^2)"],
+      "answerIndex": 1
+    },
+    {
+      "id": "derivative-031",
+      "item": "motion",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "d(-t^3 + 6*t^2 - 5*t + 2, t)",
+      "given": "t = 3",
+      "steps": [
+        "-3*3^2 + 12*3 - 5 = -27 + 36 - 5 = 4"
+      ],
+      "choices": ["4", "6", "-2", "14"],
+      "answerIndex": 0
+    },
+    {
+      "id": "derivative-032",
+      "item": "motion",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "d(-6*cos(2*t), t)",
+      "given": "t = pi/3",
+      "steps": [
+        "12*sin(2*pi/3) = 12*(sqrt(3)/2) = 6*sqrt(3)"
+      ],
+      "choices": ["-6*sqrt(3)", "6*sqrt(3)", "3*sqrt(3)", "-3*sqrt(3)"],
+      "answerIndex": 1
+    },
+    {
+      "id": "derivative-033",
+      "item": "motion",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "d((1/4)*t^4 - 2*t^2 + 5*t, t)",
+      "given": "t = 3",
+      "steps": [
+        "3^3 - 4*3 + 5 = 27 - 12 + 5 = 20"
+      ],
+      "choices": ["26", "44", "20", "10"],
+      "answerIndex": 2
+    },
+    {
+      "id": "derivative-034",
+      "item": "motion",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "d(-t^4 + 3*t^3 - 2*t + 7, t, 2)",
+      "given": "t = 2",
+      "steps": [
+        "-12*2^2 + 18*2 = -48 + 36 = -12"
+      ],
+      "choices": ["2", "12", "-30", "-12"],
+      "answerIndex": 3
+    },
+    {
+      "id": "derivative-035",
+      "item": "motion",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "calc",
+      "question": "d(2*cos(3*t), t, 2)",
+      "given": "t = pi/4",
+      "steps": [
+        "-18*cos(3*pi/4) = -18*(-sqrt(2)/2) = 9*sqrt(2)"
+      ],
+      "choices": ["-9*sqrt(2)", "9*sqrt(2)", "-3*sqrt(2)", "3*sqrt(2)"],
+      "answerIndex": 1
     }
   ]
 }

@@ -15,7 +15,7 @@ export default async function ({ page, main, base, go, errors }) {
   ]);
   // Items link to their page; those with problems are highlighted.
   assert.equal(await link('/en/math/factorization/trinomial').getAttribute('data-playable'), 'true');
-  assert.equal(await link('/en/math/matrix/operations').getAttribute('data-playable'), null);
+  assert.equal(await link('/en/math/shapes/solids-basic').getAttribute('data-playable'), null);
   await main.getByRole('button', { name: 'Higher', exact: true }).click();
   assert.deepEqual(await main.getByRole('heading', { level: 2 }).allTextContents(), ['Statistics & probability', 'Sets & logic', 'Vectors & matrices', 'Calculus']);
   await main.getByRole('button', { name: 'Higher', exact: true }).click();
@@ -23,8 +23,8 @@ export default async function ({ page, main, base, go, errors }) {
   assert.ok(await main.locator('ul ul a').count() > 0);
   assert.equal(await main.locator('a[data-playable]').count(), await main.locator('ul ul a').count(), 'only playable items');
   await main.getByLabel('Playable sets only').uncheck();
-  await main.getByRole('searchbox').fill('cramer');
-  assert.deepEqual(await main.locator('ul ul a').allTextContents(), ["n×n determinants: cofactors & Cramer's rule (Coming soon)"]);
+  await main.getByRole('searchbox').fill('solid shapes');
+  assert.deepEqual(await main.locator('ul ul a').allTextContents(), ['Solid shapes (Coming soon)']);
   await main.getByRole('searchbox').fill('');
   // Japanese school year: only that year's items; the Suken filter is Japanese only.
   assert.equal(await main.getByRole('combobox').count(), 1);
@@ -97,9 +97,9 @@ export default async function ({ page, main, base, go, errors }) {
   console.log('PASS: item pages list their sets with tier counts; sets open their quiz (with each problem\'s tier) and link back to the item');
 
   // A unit without problems yet: its sets show the preparation message and are noindex.
-  await go('math/matrix/operations/1');
+  await go('math/shapes/solids-basic/1');
   await main.getByRole('status').filter({ hasText: 'being prepared' }).waitFor();
-  assert.equal(await page.title(), 'Matrices - Matrix addition & multiplication | PAIBOT.app');
+  assert.equal(await page.title(), 'Basic shapes - Solid shapes | PAIBOT.app');
   assert.equal(await page.locator('meta[name="robots"]').getAttribute('content'), 'noindex, nofollow');
   assert.equal((await page.goto(`${base}/en/math/arith/nothing`)).status(), 404);
   assert.equal((await page.goto(`${base}/en/math/arith/order-of-operations/9`)).status(), 404);

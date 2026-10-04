@@ -1,0 +1,535 @@
+{
+  "version": 1,
+  "problems": [
+    {
+      "id": "graphs-001",
+      "item": "tables",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "21, 16, 3, 3, 15, 15",
+      "given": null,
+      "which": "table-total",
+      "steps": [
+        "21 + 16 + 3 + 3 + 15 + 15 = 73"
+      ],
+      "choices": ["73", "83", "63", "40"],
+      "answerIndex": 0
+    },
+    {
+      "id": "graphs-002",
+      "item": "tables",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "2, 14, 22, 5, 25, 19",
+      "given": null,
+      "which": "table-total",
+      "steps": [
+        "2 + 14 + 22 + 5 + 25 + 19 = 87"
+      ],
+      "choices": ["38", "87", "97", "77"],
+      "answerIndex": 1
+    },
+    {
+      "id": "graphs-003",
+      "item": "tables",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "14, 16, 11, 16, 3, 22",
+      "given": null,
+      "which": "table-total",
+      "steps": [
+        "14 + 16 + 11 + 16 + 3 + 22 = 82"
+      ],
+      "choices": ["41", "92", "72", "82"],
+      "answerIndex": 3
+    },
+    {
+      "id": "graphs-004",
+      "item": "tables",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "4, 18, 15, 22, 11, 20",
+      "given": null,
+      "which": "table-total",
+      "steps": [
+        "4 + 18 + 15 + 22 + 11 + 20 = 90"
+      ],
+      "choices": ["90", "80", "37", "100"],
+      "answerIndex": 0
+    },
+    {
+      "id": "graphs-005",
+      "item": "tables",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "20, 19, 23, 18, 3, 5",
+      "given": null,
+      "which": "table-total",
+      "steps": [
+        "20 + 19 + 23 + 18 + 3 + 5 = 88"
+      ],
+      "choices": ["88", "78", "98", "62"],
+      "answerIndex": 0
+    },
+    {
+      "id": "graphs-006",
+      "item": "two-way-table",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "25, 10, 20, 30",
+      "given": null,
+      "which": "twoway-missing",
+      "steps": [
+        "30 - 20 = 10"
+      ],
+      "choices": ["50", "15", "10", "30"],
+      "answerIndex": 2
+    },
+    {
+      "id": "graphs-007",
+      "item": "two-way-table",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "9, 18, 16, 29",
+      "given": null,
+      "which": "twoway-missing",
+      "steps": [
+        "29 - 16 = 13"
+      ],
+      "choices": ["45", "11", "29", "13"],
+      "answerIndex": 3
+    },
+    {
+      "id": "graphs-008",
+      "item": "two-way-table",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "14, 23, 18, 36",
+      "given": null,
+      "which": "twoway-missing",
+      "steps": [
+        "36 - 18 = 18"
+      ],
+      "choices": ["19", "36", "54", "18"],
+      "answerIndex": 3
+    },
+    {
+      "id": "graphs-009",
+      "item": "two-way-table",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "24, 25, 16, 28",
+      "given": null,
+      "which": "twoway-missing",
+      "steps": [
+        "28 - 16 = 12"
+      ],
+      "choices": ["28", "12", "33", "44"],
+      "answerIndex": 1
+    },
+    {
+      "id": "graphs-010",
+      "item": "two-way-table",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "14, 17, 7, 14",
+      "given": null,
+      "which": "twoway-missing",
+      "steps": [
+        "14 - 7 = 7"
+      ],
+      "choices": ["24", "21", "7", "14"],
+      "answerIndex": 2
+    },
+    {
+      "id": "graphs-011",
+      "item": "histogram",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "12, 9, 9, 6, 7, 2",
+      "given": null,
+      "which": "hist-above",
+      "steps": [
+        "9 + 9 + 6 + 7 = 31"
+      ],
+      "choices": ["31", "22", "43", "21"],
+      "answerIndex": 0
+    },
+    {
+      "id": "graphs-012",
+      "item": "histogram",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 4, 8, 2, 11, 4",
+      "given": null,
+      "which": "hist-above",
+      "steps": [
+        "2 + 11 = 13"
+      ],
+      "choices": ["11", "28", "13", "17"],
+      "answerIndex": 2
+    },
+    {
+      "id": "graphs-013",
+      "item": "histogram",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "9, 7, 2, 6, 6, 3",
+      "given": null,
+      "which": "hist-above",
+      "steps": [
+        "2 + 6 + 6 = 14"
+      ],
+      "choices": ["12", "14", "30", "18"],
+      "answerIndex": 1
+    },
+    {
+      "id": "graphs-014",
+      "item": "histogram",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "3, 5, 3, 12, 4, 2",
+      "given": null,
+      "which": "hist-above",
+      "steps": [
+        "5 + 3 + 12 + 4 = 24"
+      ],
+      "choices": ["27", "24", "8", "19"],
+      "answerIndex": 1
+    },
+    {
+      "id": "graphs-015",
+      "item": "histogram",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "12, 9, 10, 6, 11, 4",
+      "given": null,
+      "which": "hist-above",
+      "steps": [
+        "6 + 11 = 17"
+      ],
+      "choices": ["37", "48", "11", "17"],
+      "answerIndex": 3
+    },
+    {
+      "id": "graphs-016",
+      "item": "bar-graph",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "30, 20, 40, 20, 2, 1",
+      "given": null,
+      "which": "bar-diff",
+      "steps": [
+        "30 - 20 = 10"
+      ],
+      "choices": ["50", "10", "20", "30"],
+      "answerIndex": 1
+    },
+    {
+      "id": "graphs-017",
+      "item": "bar-graph",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "50, 80, 60, 70, 40",
+      "given": null,
+      "which": "bar-total",
+      "steps": [
+        "50 + 80 + 60 + 70 + 40 = 300"
+      ],
+      "choices": ["320", "300", "310", "290"],
+      "answerIndex": 1
+    },
+    {
+      "id": "graphs-018",
+      "item": "bar-graph",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "80, 40, 60, 30, 1, 3",
+      "given": null,
+      "which": "bar-diff",
+      "steps": [
+        "80 - 60 = 20"
+      ],
+      "choices": ["40", "30", "20", "140"],
+      "answerIndex": 2
+    },
+    {
+      "id": "graphs-019",
+      "item": "bar-graph",
+      "setId": "1",
+      "position": 4,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "90, 20, 80, 20, 60",
+      "given": null,
+      "which": "bar-total",
+      "steps": [
+        "90 + 20 + 80 + 20 + 60 = 270"
+      ],
+      "choices": ["290", "260", "270", "280"],
+      "answerIndex": 2
+    },
+    {
+      "id": "graphs-020",
+      "item": "bar-graph",
+      "setId": "1",
+      "position": 5,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "30, 30, 40, 70, 1, 4",
+      "given": null,
+      "which": "bar-diff",
+      "steps": [
+        "70 - 30 = 40"
+      ],
+      "choices": ["50", "100", "60", "40"],
+      "answerIndex": 3
+    },
+    {
+      "id": "graphs-021",
+      "item": "line-graph",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "50, 60, 60, 50, 90",
+      "given": null,
+      "which": "line-change",
+      "steps": [],
+      "choices": ["40", "50", "90", "30"],
+      "answerIndex": 0
+    },
+    {
+      "id": "graphs-022",
+      "item": "line-graph",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "10, 40, 40, 60, 40",
+      "given": null,
+      "which": "line-change",
+      "steps": [],
+      "choices": ["30", "50", "20", "40"],
+      "answerIndex": 0
+    },
+    {
+      "id": "graphs-023",
+      "item": "line-graph",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "30, 80, 90, 60, 90",
+      "given": null,
+      "which": "line-change",
+      "steps": [],
+      "choices": ["50", "60", "90", "40"],
+      "answerIndex": 0
+    },
+    {
+      "id": "graphs-024",
+      "item": "line-graph",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "70, 10, 20, 50, 80",
+      "given": null,
+      "which": "line-change",
+      "steps": [],
+      "choices": ["70", "80", "60", "50"],
+      "answerIndex": 2
+    },
+    {
+      "id": "graphs-025",
+      "item": "line-graph",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "40, 80, 60, 30, 30",
+      "given": null,
+      "which": "line-change",
+      "steps": [],
+      "choices": ["40", "50", "30", "80"],
+      "answerIndex": 0
+    },
+    {
+      "id": "graphs-026",
+      "item": "pie-band",
+      "setId": "1",
+      "position": 1,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "200, 45, 25, 20, 10, 2",
+      "given": null,
+      "which": "pie-count",
+      "steps": [
+        "200*25/100 = 50"
+      ],
+      "choices": ["70", "25", "50", "150"],
+      "answerIndex": 2
+    },
+    {
+      "id": "graphs-027",
+      "item": "pie-band",
+      "setId": "1",
+      "position": 2,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "500, 40, 30, 20, 10, 3",
+      "given": null,
+      "which": "pie-count",
+      "steps": [
+        "500*20/100 = 100"
+      ],
+      "choices": ["20", "100", "400", "120"],
+      "answerIndex": 1
+    },
+    {
+      "id": "graphs-028",
+      "item": "pie-band",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "400, 40, 30, 20, 10, 3",
+      "given": null,
+      "which": "pie-count",
+      "steps": [
+        "400*20/100 = 80"
+      ],
+      "choices": ["100", "320", "80", "20"],
+      "answerIndex": 2
+    },
+    {
+      "id": "graphs-029",
+      "item": "pie-band",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "600, 40, 25, 20, 15, 3",
+      "given": null,
+      "which": "pie-count",
+      "steps": [
+        "600*20/100 = 120"
+      ],
+      "choices": ["20", "120", "480", "140"],
+      "answerIndex": 1
+    },
+    {
+      "id": "graphs-030",
+      "item": "pie-band",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "2026-09-30",
+      "kind": "figure",
+      "question": "300, 40, 30, 20, 10, 4",
+      "given": null,
+      "which": "pie-count",
+      "steps": [
+        "300*10/100 = 30"
+      ],
+      "choices": ["50", "30", "10", "270"],
+      "answerIndex": 1
+    }
+  ]
+}
