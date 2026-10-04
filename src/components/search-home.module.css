@@ -14,10 +14,8 @@
   letter-spacing: .14em;
 }
 .mark {
-  width: 1.1em;
-  height: 1.1em;
-  border-radius: 28%;
-  background: var(--accent);
+  width: 1.15em;
+  height: 1.15em;
 }
 .box { position: relative; width: min(680px, 100%); margin: 0 auto; }
 .input {

@@ -48,7 +48,7 @@ export default function SearchHome({ year }: { year: number }) {
   return (
     <>
       <main className={styles.page}>
-        <h1 className={styles.brand}><span className={styles.mark} aria-hidden="true" /><span>PAIBOT</span></h1>
+        <h1 className={styles.brand}><img className={styles.mark} src="/icon.svg" alt="" width="40" height="40" /><span>PAIBOT</span></h1>
         <div className={styles.box}>
           <input
             ref={input}
