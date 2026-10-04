@@ -27,7 +27,13 @@ function savePreference(key: string, value: string) {
 function readPreference(key: string): string | null {
   const cookie = document.cookie.split("; ").find(entry => entry.startsWith(`${key}=`))?.slice(key.length + 1);
   if (cookie) return cookie;
-  try { return localStorage.getItem(key); } catch { return null; }
+  // No shared cookie yet (a choice made before the sites shared one): a value this host kept in localStorage becomes
+  // the shared one, so the first site visited decides and the others follow instead of each using its own.
+  try {
+    const stored = localStorage.getItem(key);
+    if (stored) savePreference(key, stored);
+    return stored;
+  } catch { return null; }
 }
 
 export function usePreferences() {
