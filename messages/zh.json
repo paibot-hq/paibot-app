@@ -215,7 +215,7 @@
       "dev": "开发工具",
       "utility": "实用工具",
       "network": "网络",
-      "game": "游戏",
+      "game": "游戏", "simulator": "模拟器",
       "daily": "日常"
     },
     "learn": {

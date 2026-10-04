@@ -215,7 +215,7 @@
       "dev": "Dev Tools",
       "utility": "Utilities",
       "network": "Network",
-      "game": "Games",
+      "game": "Games", "simulator": "Simulators",
       "daily": "Everyday"
     },
     "learn": {

@@ -215,7 +215,7 @@
       "dev": "開発ツール",
       "utility": "便利ツール",
       "network": "ネットワーク",
-      "game": "ゲーム",
+      "game": "ゲーム", "simulator": "シミュレータ",
       "daily": "日常"
     },
     "learn": {
