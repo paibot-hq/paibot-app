@@ -16,8 +16,9 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          # PRs compare against the base branch to pick the affected tools.
-          fetch-depth: ${{ github.event_name == 'pull_request' && 0 || 1 }}
+          # PRs compare against the base branch to pick the affected tools. (A string:
+          # `cond && 0 || 1` is always 1, because 0 is falsy.)
+          fetch-depth: ${{ github.event_name == 'pull_request' && '0' || '1' }}
       - uses: actions/setup-node@v7
         with:
           node-version-file: .tool-versions
@@ -30,13 +31,6 @@ jobs:
         run: node -e 'require("fs").writeFileSync(".dev.vars", `CLERK_PUBLISHABLE_KEY=${process.env.CLERK_PUBLISHABLE_KEY}\nCLERK_SECRET_KEY=${process.env.CLERK_SECRET_KEY}\n`)'
       # Every tests/unit/*.test.mjs (no build, server or browser needed).
       - run: npm test
-      # Deploy jobs need this job, so they import only SymPy-verified banks
-      # and do not need Python themselves.
-      # setup-uv publishes no major-version tags after v7, so pin the release.
-      - uses: astral-sh/setup-uv@v10.2.0
-        with:
-          enable-cache: true
-      - run: npm run test:sympy
       - run: npm run db:migrate:local
       - run: npm run quiz:import:local
       - run: npm run math:import:local
@@ -65,8 +59,40 @@ jobs:
             echo "Affected tools: ${CHECK_TOOLS:-none}"
           fi
           CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run e2e -- smoke catalog tools quiz-browser
+  # SymPy re-derives every math answer (CPU only, no browser), so it runs beside
+  # `verify` instead of before it. deploy-dev needs both, so only SymPy-verified
+  # banks are imported and the deploy jobs do not need Python themselves.
+  sympy:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: ${{ github.event_name == 'pull_request' && '0' || '1' }}
+      # main always checks (the deploy depends on it); a PR checks only when it
+      # touches what the check reads, and otherwise this job passes at once.
+      - name: Does this change affect the SymPy check?
+        id: affected
+        run: |
+          if [ "${{ github.event_name }}" != pull_request ]; then echo "run=true" >> "$GITHUB_OUTPUT"; exit 0; fi
+          git fetch --no-tags origin "${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}" || { echo "run=true" >> "$GITHUB_OUTPUT"; exit 0; }
+          # If the diff cannot be taken, check anyway.
+          changed=$(git diff --name-only "origin/${{ github.base_ref }}...HEAD") || { echo "run=true" >> "$GITHUB_OUTPUT"; exit 0; }
+          if echo "$changed" | grep -qE '^(src/data/math-[^/]*\.json|scripts/verify_math\.py|tests/unit/test_verify_math\.py|pyproject\.toml|uv\.lock|\.python-version|\.github/workflows/app\.yml)$'; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "No math bank, verifier or Python dependency changed; skipping the SymPy check on this PR."
+          fi
+      # setup-uv publishes no major-version tags after v7, so pin the release.
+      - if: steps.affected.outputs.run == 'true'
+        uses: astral-sh/setup-uv@v10.2.0
+        with:
+          enable-cache: true
+      - if: steps.affected.outputs.run == 'true'
+        run: npm run test:sympy
   deploy-dev:
-    needs: verify
+    needs: [verify, sympy]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
