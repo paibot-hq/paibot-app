@@ -23,9 +23,10 @@ Do not print secret keys. Runtime Clerk keys must be synced to Workers Secrets;
 
 One site, one host: `paibot.app` (development: `dev.paibot.app`), with no subdomains (`paibot.dev` and its
 `app.`/`learn.`/`tools.` hosts were tried in October 2026 and dropped; see `docs/plans/domain.md`). The top page is a
-search (`src/components/search-home.tsx`, ranking in `src/lib/search.ts`) over the apps and the math drills' units and
-learning items, built from the catalogs and the messages: a new tool or item is found by its `title`, `description` and
-`keywords` with nothing else to register. The former list and category pages (`/apps`, `/daily`, `/study`, `/dev` ...)
+search (`src/components/search-home.tsx`, ranking in `src/lib/search.ts`) over the apps, with every app listed under the
+box as a small card; it is built from the app catalog and the messages, so a new tool is found by its `title`,
+`description` and `keywords` and shown as a card with nothing else to register. The math drills are reached through
+the "数学ドリル" app (`/math`), not searched. The former list and category pages (`/apps`, `/daily`, `/study`, `/dev` ...)
 redirect to the top page. Do not add a subdomain per tool or per kind of page.
 
 ## Adding a tool

@@ -620,7 +620,7 @@
     },
     "search": {
       "all": "全部应用", "label": "搜索",
-      "placeholder": "搜索应用和数学单元",
+      "placeholder": "搜索应用",
       "results": "搜索结果",
       "none": "没有找到与“{query}”相关的内容",
       "kind": {

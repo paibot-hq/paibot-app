@@ -2,12 +2,11 @@ import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react"
 import { useLocale, useTranslations } from "use-intl";
 import { Link } from "../i18n/navigation";
 import { apps, APP_CATEGORIES, type DynamicT } from "../lib/apps";
-import { MATH_CATALOG } from "../lib/math-catalog";
 import { prepare, search, type Entry } from "../lib/search";
 import SiteFooter from "./site-footer";
 import styles from "./search-home.module.css";
 
-// The top page: a search box, and what it finds - the apps, and the units and learning items of the math drills.
+// The top page: a search box that finds the apps, and every app listed under it.
 export default function SearchHome({ year }: { year: number }) {
   const t = useTranslations("App");
   const ts = useTranslations("App.search");
@@ -22,14 +21,6 @@ export default function SearchHome({ year }: { year: number }) {
     for (const app of apps) {
       if (app.status !== "published" || !app.href) continue;
       entries.push({ key: `app:${app.slug}`, kind: "app", href: app.href, title: td(`${app.messageKey}.title`), text: td(`${app.messageKey}.description`), keywords: td(`${app.messageKey}.keywords`), context: td(`categories.${app.category}`) });
-    }
-    for (const unit of MATH_CATALOG) {
-      if (unit.status !== "published") continue;
-      const unitTitle = td(`math.units.${unit.id}.title`);
-      entries.push({ key: `unit:${unit.id}`, kind: "unit", href: `/math/${unit.id}`, title: unitTitle, text: td(`math.units.${unit.id}.summary`), keywords: "", context: td("math.title") });
-      for (const item of unit.items) {
-        entries.push({ key: `item:${unit.id}/${item.id}`, kind: "item", href: `/math/${unit.id}/${item.id}`, title: td(`math.units.${unit.id}.items.${item.id}.title`), text: td(`math.units.${unit.id}.items.${item.id}.summary`), keywords: "", context: `${td("math.title")} › ${unitTitle}` });
-      }
     }
     return prepare(entries);
     // The texts depend on the language only.

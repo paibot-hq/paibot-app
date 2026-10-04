@@ -189,8 +189,8 @@ try {
     assert.equal(await page.locator('title').count(), 1, `${path}: hydrated title`);
     assert.ok((await page.title()).trim());
   }
-  // The top page is a search: it finds an app by its name, a math topic by its name, and says so when nothing matches.
-  for (const [locale, query, href] of [['ja', 'json', '/ja/json'], ['en', 'json', '/en/json'], ['zh', 'json', '/zh/json'], ['ja', '素因数分解', '/ja/math/prime/prime'], ['en', 'prime', '/en/math/prime/prime']]) {
+  // The top page is a search: it finds an app by its name or keywords, and says so when nothing matches.
+  for (const [locale, query, href] of [['ja', 'json', '/ja/json'], ['en', 'json', '/en/json'], ['zh', 'json', '/zh/json'], ['ja', '文字数', '/ja/wc'], ['en', 'password', '/en/password']]) {
     await go(`/${locale}`);
     const box = page.getByRole('combobox');
     await box.fill(query);
