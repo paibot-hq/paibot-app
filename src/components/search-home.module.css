@@ -128,12 +128,48 @@
   font-weight: 600;
   line-height: 1.35;
 }
+.all li { position: relative; }
+/* The description: a note under the card while it is hovered or focused; read by screen readers all the time. Where
+   there is no hover (a phone), it is a plain line under the name. */
 .about {
+  position: absolute;
+  top: calc(100% - .15rem);
+  left: 0;
+  right: 0;
+  z-index: 5;
+  box-sizing: border-box;
+  padding: .55rem .75rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-strong);
+  box-shadow: 0 10px 24px -12px var(--shadow);
   color: var(--muted);
-  font-size: .78rem;
+  font-size: .8rem;
   font-weight: 400;
-  line-height: 1.45;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  line-height: 1.55;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-2px);
+  transition: opacity .12s ease, transform .12s ease;
 }
+.all a:hover .about, .all a:focus-visible .about {
+  opacity: 1;
+  transform: none;
+  transition-delay: .2s;
+}
+@media (hover: none) {
+  .about {
+    position: static;
+    padding: 0;
+    border: 0;
+    background: none;
+    box-shadow: none;
+    opacity: 1;
+    transform: none;
+    font-size: .78rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+@media (prefers-reduced-motion: reduce) { .about { transition: none; transform: none; } }
