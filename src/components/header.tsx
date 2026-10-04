@@ -10,6 +10,7 @@ import { LOCALE_COOKIE } from "../i18n/negotiate";
 import { useTranslations, useLocale } from "use-intl";
 import { usePathname } from "../i18n/navigation";
 import { usePreferences } from "./providers";
+import { SITES, currentSite } from "../lib/sites";
 
 const languageNames: Record<Locale, string> = { ja: "日本語", en: "English", zh: "简体中文" };
 
@@ -54,11 +55,15 @@ export default function Header() {
     <header className="topbar">
       <Link className="brand" href="/">
         <img className="brand-logo" src="/icon.svg" alt="" width="24" height="24" />
-        <span className="wordmark">PAIBOT</span><span className="brand-suffix">.app</span>
+        <span className="wordmark">PAIBOT</span>
       </Link>
-      <nav aria-label={t("navApps")}>
-        <Link href="/apps">{t("navApps")}</Link>
-        <Link href="/about">{t("navAbout")}</Link>
+      <nav aria-label={t("navSites")}>
+        {SITES.filter(site => site.live).map(site => {
+          const current = currentSite(pathname) === site.key;
+          return site.external
+            ? <a key={site.key} href={site.external} aria-current={current ? "page" : undefined}>{t(`site.${site.key}`)}</a>
+            : <Link key={site.key} href={site.href} aria-current={current ? "page" : undefined}>{t(`site.${site.key}`)}</Link>;
+        })}
       </nav>
       <div className="toolbar">
         <Show when="signed-out">

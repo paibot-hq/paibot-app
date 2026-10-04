@@ -28,8 +28,8 @@ export default function Cover({ year }: { year: number }) {
           <span className="cloud cloud-c"></span>
         </div>
         <div className="hero-copy">
-          <p className="eyebrow">PAIBOT LLC</p>
-          <h1 id="hero-title"><span className="wordmark">PAIBOT</span><span className="title-suffix">.app</span></h1>
+          <p className="eyebrow">PAIBOT</p>
+          <h1 id="hero-title"><span className="wordmark">App</span></h1>
           <p className="lead">{t("lead")}</p>
           <Link className="auth-link" href="/apps">{t("heroCta")}</Link>
         </div>
@@ -53,6 +53,11 @@ export default function Cover({ year }: { year: number }) {
           </Link>
         ))}
       </div>
+
+      <Link className="learn-banner" href="/learn">
+        <span className="learn-banner-title">{t("home.learnBanner.title")}</span>
+        <span className="learn-banner-text">{t("home.learnBanner.text")}</span>
+      </Link>
     </main>
 
     <SiteFooter year={year} />

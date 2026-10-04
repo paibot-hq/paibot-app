@@ -7,8 +7,9 @@ import { Link } from '../i18n/navigation';
 export default function SiteFooter({ year }: { year: number }) {
   const t = useTranslations('App.footer');
   return <footer>
-    <span>PAIBOT.app</span>
+    <span>PAIBOT</span>
     <nav className="footer-links" aria-label={t('label')}>
+      <Link href="/about">{t('about')}</Link>
       <Link href="/supporter">{t('supporter')}</Link>
       <Link href="/legal/terms">{t('terms')}</Link>
       <Link href="/legal/privacy">{t('privacy')}</Link>

@@ -6,6 +6,10 @@ import assert from 'node:assert/strict';
 // published in the local D1 (CI imports them unpublished).
 export default async function ({ page, main, base, go, errors }) {
   const link = href => main.locator(`a[href="${href}"]`);
+  // The learning site's cover lists its subjects; math is open and links to the drills.
+  await go('learn');
+  assert.ok(!(await main.textContent()).includes('App.learn'), 'no untranslated keys on the learn page');
+  assert.equal(await main.locator('a[href="/en/math"]').count(), 2, 'the start button and the math card');
   // A missing translation renders its key (e.g. "App.math.units.arith.title").
   await go('math');
   assert.ok(!(await main.textContent()).includes('App.math.'), 'no untranslated keys on the math page');
