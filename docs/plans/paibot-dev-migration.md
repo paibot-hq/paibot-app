@@ -18,6 +18,8 @@
 | `www.paibot.dev` | - | `paibot.dev`へ301(TerraformのRedirect Rule) |
 | `paibot.app`, `www.paibot.app` | - | `paibot.dev`(hub)へ301。hubがページの持ち主のサイトへ、さらに301で送る。廃止まで |
 
+サイトは、ページの種類ではなく、**誰向けか**で分ける: `app`は一般の人、`learn`は学ぶ人、`tools`は開発者・運用担当、`doc`は開発者向けの記事。迷うツールは、「開発者でない人も検索して使うか」で決める(使うなら`app`)。ツール単位のサブドメインは作らない。
+
 開発の`app-dev`のように`-dev`を付けるのは、`dev.app.paibot.dev`のような2階層が無料のUniversal SSLの対象外のため。ローカルでは`localhost`がhub、`app.localhost`・`learn.localhost`・`tools.localhost`が各サイト(`*.localhost`はブラウザが自動で解決する)。
 
 ## 手作業(この順で)
