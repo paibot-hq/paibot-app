@@ -23,6 +23,12 @@ export default async function ({ page, main, go }) {
   await main.getByText('Sound arrives about 1.8 s later').waitFor();
   await main.getByLabel('Viewing distance').fill('1000');
   await main.getByText('Sound arrives about 2.9 s later').waitFor();
+  // With the sound on, a launch and its burst make no error (the sound itself can only be heard by a person).
+  await main.getByRole('button', { name: 'Sound: off' }).click();
+  await main.getByRole('button', { name: 'Sound: on' }).waitFor();
+  await main.getByRole('button', { name: 'Launch', exact: true }).click();
+  await page.waitForTimeout(1200);
+  await main.getByRole('button', { name: 'Sound: on' }).click();
   // A starmine, a Niagara and the festival launch by themselves.
   const before = await count();
   await main.getByRole('button', { name: 'Starmine', exact: true }).click();

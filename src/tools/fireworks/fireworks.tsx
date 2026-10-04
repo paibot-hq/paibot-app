@@ -46,7 +46,7 @@ export default function Fireworks() {
     const scene = sceneRef.current;
     const now = settingsRef.current;
     launch(scene, Math.random, x, y, { kind: kind ?? now.kind, size: size ?? now.size, palette: now.palette });
-    if (now.sound && audioRef.current) playLaunch(audioRef.current);
+    if (now.sound && audioRef.current) playLaunch(audioRef.current, settingsRef.current.distance);
   }
 
   function shootAnywhere() {
@@ -105,7 +105,7 @@ export default function Fireworks() {
         const item = line.items[line.next++];
         if (item.type === "shell") {
           launch(scene, Math.random, item.x, item.y, { kind: item.kind, size: item.size, palette: now.palette });
-          if (now.sound && audioRef.current) playLaunch(audioRef.current);
+          if (now.sound && audioRef.current) playLaunch(audioRef.current, settingsRef.current.distance);
         } else {
           fountain(scene, item.x0, item.x1, item.y, item.seconds);
         }
