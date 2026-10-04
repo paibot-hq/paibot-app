@@ -316,10 +316,10 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'plane', sets: [{ id: '1', rule: 'complex-plane-a' }] },
   ] },
   { id: 'coordinate-geometry', domain: 'geometry', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
-    { id: 'line', sets: [{ id: '1', rule: 'line-a' }, { id: '2', rule: 'graph-line-a' }] },
-    { id: 'circle', sets: [{ id: '1', rule: 'circle-a' }, { id: '2', rule: 'graph-circle-a' }] },
+    { id: 'line', sets: [{ id: '1', rule: 'line-a' }] },
+    { id: 'circle', sets: [{ id: '1', rule: 'circle-a' }] },
     { id: 'locus', sets: [{ id: '1', rule: 'locus-a' }] },
-    { id: 'region', sets: [{ id: '1', rule: 'region-a' }, { id: '2', rule: 'graph-region-a' }] },
+    { id: 'region', sets: [{ id: '1', rule: 'region-a' }] },
   ] },
   { id: 'vector', domain: 'linear-algebra', stage: 'high', status: 'comingSoon', kind: 'formula', items: [
     { id: 'components', sets: [{ id: '1', rule: 'vec-components-a' }] },
