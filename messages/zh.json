@@ -643,6 +643,23 @@
       "soundOn": "声音:开",
       "soundOff": "声音:关"
     },
+    "fireworks": {
+      "title": "烟花",
+      "description": "点击夜空，发射烟花。牡丹、菊花、垂柳、圆环四种。打开“表演”，还能欣赏像烟花大会一样接连升空的烟花秀。",
+      "keywords": "烟花 烟花大会 夜空 发射 免费",
+      "intro": "点击夜空，烟花就会在那里升起。打开“表演”后，烟花会自动接连升空，最后是压轴的大场面。",
+      "launched": "已发射",
+      "canvasLabel": "夜空。点击任意位置发射烟花",
+      "launch": "发射",
+      "showOn": "表演：开",
+      "showOff": "表演：关",
+      "soundOn": "声音：开",
+      "soundOff": "声音：关",
+      "kindLabel": "种类",
+      "kinds": { "random": "随机", "peony": "牡丹", "chrysanthemum": "菊花", "willow": "垂柳", "ring": "圆环" },
+      "calm": "你的设备要求减少动态效果，因此烟花已调得克制一些。",
+      "keys": "键盘：选中夜空，按空格或回车发射。"
+    },
     "stopwatch": {
       "title": "秒表",
       "description": "计时工具,可记录分段时间。",
