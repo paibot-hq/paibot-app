@@ -20,7 +20,7 @@ import type { Route } from './+types/math-item';
 // Set pages used to live at /math/<unit>/<set id>; the id was usually
 // "<item>-<letter>" (a, b, ... are now sets 1, 2, ...), except for these
 // published before items had their own names.
-const LEGACY_SETS: Record<string, string> = { 'arith/order-a': 'order-of-operations/1', 'arith/order-b': 'order-of-operations/2', 'arith/word-a': 'simple-word-problems/1', 'arith/word-b': 'word-problems/1', 'factorization/squares-a': 'difference-of-squares/1', 'signed/four-ops-a': 'four-operations/1' };
+const LEGACY_SETS: Record<string, string> = { 'arith/order-a': 'order-of-operations/1', 'arith/order-b': 'order-of-operations/1', 'arith/word-a': 'simple-word-problems/1', 'arith/word-b': 'word-problems/1', 'factorization/squares-a': 'difference-of-squares/1', 'signed/four-ops-a': 'four-operations/1' };
 
 // A learning item: what it covers and its practice sets (1, 2, ...), with a
 // signed-in user's latest and best score on each.

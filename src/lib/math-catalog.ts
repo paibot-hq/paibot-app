@@ -45,7 +45,7 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'remainder', sets: [{ id: '1', rule: 'divmod-a' }] },
   ] },
   { id: 'arith', domain: 'number', stage: 'elementary', status: 'published', kind: 'expression', items: [
-    { id: 'order-of-operations', sets: [{ id: '1', rule: 'order-a' }, { id: '2', rule: 'order-a' }] },
+    { id: 'order-of-operations', sets: [{ id: '1', rule: 'order-a' }] },
     { id: 'rules', sets: [{ id: '1', rule: 'rules-a' }] },
     { id: 'simple-word-problems', sets: [{ id: '1', rule: 'word-a' }] },
     { id: 'word-problems', sets: [{ id: '1', rule: 'word-b' }] },

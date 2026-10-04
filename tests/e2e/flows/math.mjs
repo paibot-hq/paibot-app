@@ -68,7 +68,7 @@ export default async function ({ page, main, base: appBase, go, errors }) {
   await page.waitForURL(`${base}/en/math/arith/order-of-operations`);
   await main.getByRole('heading', { level: 1, name: 'Order of operations' }).waitFor();
   assert.deepEqual(await main.locator('ul a').evaluateAll(cards => cards.map(card => card.getAttribute('href'))),
-    ['/en/math/arith/order-of-operations/1', '/en/math/arith/order-of-operations/2']);
+    ['/en/math/arith/order-of-operations/1']);
   assert.equal(await page.title(), 'Order of operations & word problems - Order of operations | PAIBOT');
   await main.getByText('Japanese school year: Elementary 4', { exact: true }).waitFor();
   // The previous and next learning items of the unit are linked at the bottom (the first item has no previous).
@@ -83,7 +83,7 @@ export default async function ({ page, main, base: appBase, go, errors }) {
   // Each playable set shows how many problems of each tier it has.
   assert.match(await main.locator('ul a').first().innerText(), /(Basic|Standard|Advanced) \d/);
   for (const [item, set, label] of [
-    ['arith/order-of-operations', '2', 'Order of operations Practice 2'],
+    ['arith/order-of-operations', '1', 'Order of operations'],
     ['factorization/trinomial', '1', 'Factoring trinomials'],
     ['signed/four-operations', '1', 'Negative numbers'],
     ['pythagoras/sides', '1', 'Side lengths'],

@@ -223,19 +223,6 @@
       "answerIndex": 0
     },
     {
-      "id": "arith-022",
-      "item": "order-of-operations",
-      "setId": "2",
-      "position": 1,
-      "tier": 2,
-      "published": true,
-      "reviewedAt": "2026-09-27",
-      "expression": "45 + 15 * (16 - 8) / 6",
-      "word": null,
-      "choices": [25, 80, 105, 65],
-      "answerIndex": 3
-    },
-    {
       "id": "arith-023",
       "item": "word-problems",
       "setId": "1",
@@ -260,19 +247,6 @@
       },
       "choices": [40, 30, 120, 165],
       "answerIndex": 1
-    },
-    {
-      "id": "arith-024",
-      "item": "order-of-operations",
-      "setId": "2",
-      "position": 2,
-      "tier": 2,
-      "published": true,
-      "reviewedAt": "2026-09-27",
-      "expression": "72 / (3 + 5) + 4 * 8",
-      "word": null,
-      "choices": [41, 21, 61, 104],
-      "answerIndex": 0
     },
     {
       "id": "arith-025",
@@ -351,45 +325,6 @@
       },
       "choices": [16, 19, 13, 83],
       "answerIndex": 1
-    },
-    {
-      "id": "arith-028",
-      "item": "order-of-operations",
-      "setId": "2",
-      "position": 3,
-      "tier": 2,
-      "published": true,
-      "reviewedAt": "2026-09-27",
-      "expression": "8 * (12 + 36 / 6)",
-      "word": null,
-      "choices": [144, 64, 102, 22],
-      "answerIndex": 0
-    },
-    {
-      "id": "arith-029",
-      "item": "order-of-operations",
-      "setId": "2",
-      "position": 4,
-      "tier": 3,
-      "published": true,
-      "reviewedAt": "2026-09-27",
-      "expression": "(18 + 6 * 7) / 6 - 4",
-      "word": null,
-      "choices": [24, 6, 30, 14],
-      "answerIndex": 1
-    },
-    {
-      "id": "arith-030",
-      "item": "order-of-operations",
-      "setId": "2",
-      "position": 5,
-      "tier": 2,
-      "published": true,
-      "reviewedAt": "2026-09-27",
-      "expression": "(72 - 18) / 9 + 8 * 5",
-      "word": null,
-      "choices": [70, 110, 34, 46],
-      "answerIndex": 3
     },
     {
       "id": "arith-031",
