@@ -63,13 +63,19 @@ resource "cloudflare_zero_trust_access_application" "paibot_app_dev" {
       ]
     },
     {
-      name     = "paibot-app-dev owner only"
+      name     = "paibot-app-dev owners only"
       decision = "allow"
 
+      # The people who may open the development sites (dev, app-dev, learn-dev and tools-dev .paibot.dev).
       include = [
         {
           email = {
             email = "sanofc@gmail.com"
+          }
+        },
+        {
+          email = {
+            email = "admin@paibot.co.jp"
           }
         }
       ]
