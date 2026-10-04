@@ -1,4 +1,4 @@
-> **2026年10月: サイトのドメインを`paibot.app`から`app.paibot.dev`へ移す。** この文書は`paibot.app`時代の経緯の記録で、現在の手順は`docs/plans/paibot-dev-migration.md`を参照。
+> **2026年10月: `paibot.dev`への移行は取りやめ、サイトは`paibot.app`のまま、サブドメインなしの1サイトにした。** 経緯は`docs/plans/domain.md`。
 
 # 本番デプロイの設計(2026年9月実装)
 

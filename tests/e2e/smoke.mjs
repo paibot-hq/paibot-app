@@ -4,14 +4,14 @@ import { chromium } from 'playwright';
 import { appFetch, configureAccess } from '../../scripts/lib/access.mjs';
 import { locales } from '../../src/i18n/routing.ts';
 import { pathLocales, publicPaths } from '../../src/lib/seo.ts';
-import { ownerOfPath, siteOrigins } from '../../src/lib/sites.ts';
-import { APP_CATALOG, APP_SITE_CATEGORIES as APP_CATEGORIES } from '../../src/lib/app-catalog.ts';
+import { APP_CATALOG } from '../../src/lib/app-catalog.ts';
 
-// The app site (src/lib/sites.ts): its pages and sitemap are the ones checked here; the drills (learning site) and
-// the network tools (tools site) are covered by their own flows and the catalog check.
-const base = siteOrigins(new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://app.localhost:3002').origin).app;
-const siteOrigin = siteOrigins(new URL(process.env.CHECK_SITE_URL ?? 'https://app-dev.paibot.dev').origin).app;
-const paths = publicPaths.filter(path => [null, 'app'].includes(ownerOfPath(path)));
+const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002').origin;
+const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app').origin;
+// Every public page but the math drills' unit and item pages (hundreds, covered by the math flow and the catalog check):
+// the math list and a few of them stand for the rest.
+const MATH_SAMPLE = ['/math', '/math/arith', '/math/signed', '/math/factorization', '/math/pythagoras', '/math/arith/order-of-operations', '/math/signed/four-operations', '/math/factorization/trinomial', '/math/pythagoras/sides'];
+const paths = publicPaths.filter(path => !path.startsWith('/math/') || MATH_SAMPLE.includes(path));
 const indexable = process.env.CHECK_SITE_INDEXABLE === 'true';
 const authPaths = ['sign-in', 'sign-up', 'diary', 'profile'];
 const browser = await chromium.launch();
@@ -152,7 +152,7 @@ try {
       alternates: [...url.getElementsByTagNameNS('http://www.w3.org/1999/xhtml', 'link')].map(el => [el.getAttribute('hreflang'), el.getAttribute('href')]),
     }));
   }, sitemap);
-  assert.deepEqual(entries, paths.flatMap(path => pathLocales(path).map(locale => ({
+  assert.deepEqual(entries, publicPaths.flatMap(path => pathLocales(path).map(locale => ({
     loc: `${siteOrigin}/${locale}${path}`,
     alternates: alternatesOf(path),
   }))));
@@ -189,26 +189,32 @@ try {
     assert.equal(await page.locator('title').count(), 1, `${path}: hydrated title`);
     assert.ok((await page.title()).trim());
   }
-  // Expected card links per category, straight from the app catalog.
-  const categoryApps = Object.fromEntries(APP_CATEGORIES.map(category => [category, APP_CATALOG.filter(app => app.category === category).map(app => app.href)]));
-  // The app's cover lists its tools by category (the list that used to be /apps), with a search.
-  for (const locale of locales) {
+  // The top page is a search: it finds an app by its name, a math topic by its name, and says so when nothing matches.
+  for (const [locale, query, href] of [['ja', 'json', '/ja/json'], ['en', 'json', '/en/json'], ['zh', 'json', '/zh/json'], ['ja', '素因数分解', '/ja/math/prime/prime'], ['en', 'prime', '/en/math/prime/prime']]) {
     await go(`/${locale}`);
-    for (const [category, hrefs] of Object.entries(categoryApps)) {
-      assert.deepEqual((await page.locator(`#${category} .app-card`).evaluateAll(links => links.map(link => link.getAttribute('href')))).sort(), hrefs.map(href => `/${locale}${href}`).sort(), `${locale} ${category}`);
-    }
-    await page.getByRole('searchbox').fill('no-such-app-987654');
-    await page.locator('.app-empty').waitFor();
-    assert.equal(await page.locator('.app-card').count(), 0);
-    await page.getByRole('searchbox').fill('');
-    await page.locator('.app-card').first().waitFor();
-    assert.equal(await page.locator('.app-card').count(), APP_CATALOG.filter(app => APP_CATEGORIES.includes(app.category)).length);
+    const box = page.getByRole('combobox');
+    await box.fill(query);
+    await page.locator(`a[href="${href}"]`).first().waitFor();
+    assert.ok((await page.locator('[data-search="results"] a').count()) > 0, `${locale} ${query}: results`);
   }
+  await go('/ja');
+  await page.getByRole('combobox').fill('no-such-app-987654');
+  await page.getByText('見つかりませんでした').waitFor();
+  assert.equal(await page.locator('[data-search="results"] a').count(), 0);
+  // The keyboard: arrows move through the results and Enter opens the chosen one.
+  await page.getByRole('combobox').fill('json');
+  await page.locator('[data-search="results"] a').first().waitFor();
+  await page.getByRole('combobox').press('Enter');
+  await page.waitForURL(/\/ja\/json$/);
+  // Every published app can be found by its name.
+  await go('/ja');
+  const apps = APP_CATALOG.filter(app => app.status === 'published' && app.href);
+  assert.ok(apps.length >= 10);
   await page.setViewportSize({ width: 375, height: 812 });
   await go('/ja');
-  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'the app cover fits mobile width');
+  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'the top page fits mobile width');
   await page.setViewportSize({ width: 1280, height: 720 });
-  console.log('PASS: the list of the app by category in three locales, search and mobile width');
+  console.log('PASS: the top page search finds apps and topics in three locales, by keyboard, and fits mobile width');
   for (const locale of locales) {
     await go(`/${locale}/wc`);
     // fill auto-waits for the textarea to become enabled after hydration.

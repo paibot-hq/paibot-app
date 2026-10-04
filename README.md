@@ -114,8 +114,8 @@ origin and never automatically forwarded across an external redirect.
 
 | Build | Worker | Domain | Indexing |
 | --- | --- | --- | --- |
-| `npm run build` | `paibot-app-dev` | `app-dev.paibot.dev` | noindex |
-| `npm run build:production` | `paibot-app` | `app.paibot.dev` | index |
+| `npm run build` | `paibot-app-dev` | `dev.paibot.app` | noindex |
+| `npm run build:production` | `paibot-app` | `paibot.app` | index |
 
 Select the environment at **build time**; deploy `build/server/wrangler.json`
 without another `--env`. Runtime keys live in Workers Secrets. Local `.dev.vars`

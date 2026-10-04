@@ -618,6 +618,19 @@
       "bestLabel": "个人最佳(误差)",
       "retry": "再试一次"
     },
+    "search": {
+      "label": "搜索",
+      "placeholder": "搜索应用和数学单元",
+      "hint": "试试：",
+      "examples": "计算|因式分解|JSON|密码|测验",
+      "results": "搜索结果",
+      "none": "没有找到与“{query}”相关的内容",
+      "kind": {
+        "app": "应用",
+        "unit": "单元",
+        "item": "知识点"
+      }
+    },
     "pinball": {
       "title": "弹球",
       "description": "用弹簧杆发射小球,再用左右挡板把球打回去。撞击缓冲器和通道得分,在三颗球内挑战最高分。",

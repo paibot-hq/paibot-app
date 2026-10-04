@@ -6,13 +6,11 @@ import { spawnSync } from 'node:child_process';
 import { chromium } from 'playwright';
 import { clerkSetup, setupClerkTestingToken, clerk } from '@clerk/testing/playwright';
 import { createClerkClient } from '@clerk/backend';
-import { siteOrigins } from '../../src/lib/sites.ts';
 
 // Same disposable-test-user technique as tests/e2e/favorites.mjs. Needs arithmetic
 // set order-of-operations/1 published in the local D1 the target server reads (see CLAUDE.md), and
 // removes the test user's attempts and Clerk account afterwards.
-// Everything here happens on the learning site (src/lib/sites.ts), where the drills are, including signing up.
-const base = siteOrigins(process.env.CHECK_BROWSER_BASE_URL ?? 'http://app.localhost:3002').learn;
+const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002').origin;
 assert.ok(/^(localhost|127\.0\.0\.1|[a-z]+\.localhost)$/.test(new URL(base).hostname), 'Auth fixture test is local-only');
 assert.ok(process.env.CLERK_PUBLISHABLE_KEY?.startsWith('pk_test_'), 'Development publishable key required');
 assert.ok(process.env.CLERK_SECRET_KEY?.startsWith('sk_test_'), 'Development secret key required');

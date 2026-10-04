@@ -6,10 +6,10 @@ import { spawnSync } from 'node:child_process';
 // Leave the normal dev build last, so subsequent local checks use test keys.
 // database: each environment must bind its own D1 database - production
 // pointing at the dev one (or vice versa) would mix real users' data with tests.
-// routes: the site's domain first; every site's host is routed (src/lib/sites.ts), and production also the old paibot.app, which only redirects (src/lib/legacy-host.ts).
+// routes: each environment is served on its one host (the Worker's custom domain).
 for (const [environment, name, host, indexable, database, routes] of [
-  ['production', 'paibot-app', 'app.paibot.dev', 'true', 'paibot-app-apac', ['paibot.dev', 'app.paibot.dev', 'learn.paibot.dev', 'tools.paibot.dev', 'paibot.app']],
-  ['', 'paibot-app-dev', 'app-dev.paibot.dev', 'false', 'paibot-app-dev-apac', ['dev.paibot.dev', 'app-dev.paibot.dev', 'learn-dev.paibot.dev', 'tools-dev.paibot.dev']],
+  ['production', 'paibot-app', 'paibot.app', 'true', 'paibot-app-apac', ['paibot.app']],
+  ['', 'paibot-app-dev', 'dev.paibot.app', 'false', 'paibot-app-dev-apac', ['dev.paibot.app']],
 ]) {
   const env = { ...process.env };
   if (environment) env.CLOUDFLARE_ENV = environment;

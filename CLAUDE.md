@@ -19,19 +19,14 @@ Existing AWS/GCP and Cloudflare account notes are in `docs/infra/`.
 Do not print secret keys. Runtime Clerk keys must be synced to Workers Secrets;
 `.dev.vars` only configures local execution and does not provision remote secrets.
 
-## Sites
+## Site
 
-One Worker serves every site and picks the site from the host name (`src/lib/sites.ts`; hosts and setup in
-`docs/plans/paibot-dev-migration.md`). The sites are split by who they are for, not by kind of page:
-- `paibot.dev` (hub): the entrance to the sites below.
-- `app.`: everyday tools, games and quizzes, for the general public.
-- `learn.`: the math drills (later English, IT), for people studying.
-- `tools.`: the network and developer tools, for developers and operators; the monitoring product, later.
-- `doc.`: articles for developers, a separate static site; reserved, not built, and its cover card is not a link.
-
-A tool's site follows its catalog category (`network` and `dev` are `tools`, the rest `app`; `ownerOfPath`).
-When unsure, ask whether someone who is not a developer would search for and use it: then it is `app`.
-A page has one home; the other sites 301 to it. Do not add a subdomain per tool.
+One site, one host: `paibot.app` (development: `dev.paibot.app`), with no subdomains (`paibot.dev` and its
+`app.`/`learn.`/`tools.` hosts were tried in October 2026 and dropped; see `docs/plans/domain.md`). The top page is a
+search (`src/components/search-home.tsx`, ranking in `src/lib/search.ts`) over the apps and the math drills' units and
+learning items, built from the catalogs and the messages: a new tool or item is found by its `title`, `description` and
+`keywords` with nothing else to register. The former list and category pages (`/apps`, `/daily`, `/study`, `/dev` ...)
+redirect to the top page. Do not add a subdomain per tool or per kind of page.
 
 ## Adding a tool
 

@@ -3,10 +3,8 @@ import assert from 'node:assert/strict';
 import { chromium } from 'playwright';
 import { bank } from '../../scripts/validate-quiz.mjs';
 import { appFetch, configureAccess } from '../../scripts/lib/access.mjs';
-import { siteOrigins } from '../../src/lib/sites.ts';
 
-// Every script starts on the app site (src/lib/sites.ts), whatever host the preview was given.
-const base = siteOrigins(new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://app.localhost:3002').origin).app;
+const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002').origin;
 for (const locale of ['ja', 'en', 'zh']) {
   const response = await appFetch(base, `/api/quiz?locale=${locale}`);
   assert.equal(response.status, 200);

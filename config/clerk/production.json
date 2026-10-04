@@ -21,11 +21,6 @@
       "max_attempts": 10
     }
   },
-  "auth_biometric": {
-    "enrollment_prompt_after_sign_in": false,
-    "enrollment_prompt_after_sign_up": false,
-    "used_for_sign_in": false
-  },
   "auth_email": {
     "immutable": false,
     "required_for_sign_up": true,
@@ -121,7 +116,7 @@
       "terms_of_service_url": null
     }
   },
-  "config_version": "v1_0568be3b",
+  "config_version": "v1_84f1e44d",
   "connection_oauth_agentid": {
     "authenticatable": true,
     "block_email_subaddresses": false,
@@ -207,7 +202,7 @@
   "connection_oauth_google": {
     "authenticatable": true,
     "block_email_subaddresses": true,
-    "client_id": "614262061030-77iaptcdedbk48d8thmiihodevat4175.apps.googleusercontent.com",
+    "client_id": "614262061030-ajdvj7mhosh6r62vtdbbtfj2k5pjuqv3.apps.googleusercontent.com",
     "client_secret": "REDACTED",
     "enabled": true,
     "show_account_selector_prompt": false
@@ -330,7 +325,7 @@
   "organization_settings": {
     "admin_delete_enabled": true,
     "creator_role": "org:admin",
-    "domains_default_role": "org:member",
+    "domains_default_role": "",
     "domains_enabled": false,
     "domains_enrollment_modes": [],
     "enabled": false,
