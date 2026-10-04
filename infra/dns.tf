@@ -46,12 +46,15 @@ resource "cloudflare_dns_record" "www" {
   comment = "Managed by Terraform (infra/dns.tf) - www redirects to the apex via infra/redirects.tf"
 }
 
-# The new production Clerk instance for app.paibot.dev. `clerk deploy` (interactive) prints the BIND zone
-# file: copy its five CNAMEs here ("clerk.app", "accounts.app", "clkmail.app", "clk._domainkey.app",
-# "clk2._domainkey.app" under paibot.dev, with that instance's own targets) and apply. Empty until then.
+# The production Clerk instance for paibot.dev (the parent domain, so every site shares the login), created with
+# `clerk deploy`: its five CNAMEs, copied from what it printed. They must stay DNS only (proxied = false below).
 locals {
   clerk_dns_records_dev = {
-    # "clerk.app.paibot.dev" = "frontend-api.clerk.services"
+    "clerk.paibot.dev"           = "frontend-api.clerk.services"
+    "accounts.paibot.dev"        = "accounts.clerk.services"
+    "clkmail.paibot.dev"         = "mail.9otjr4640v6g.clerk.services"
+    "clk._domainkey.paibot.dev"  = "dkim1.9otjr4640v6g.clerk.services"
+    "clk2._domainkey.paibot.dev" = "dkim2.9otjr4640v6g.clerk.services"
   }
 }
 
@@ -64,7 +67,7 @@ resource "cloudflare_dns_record" "clerk_dev" {
   content = each.value
   ttl     = 300
   proxied = false
-  comment = "Managed by Terraform (infra/dns.tf) - Clerk production instance for app.paibot.dev"
+  comment = "Managed by Terraform (infra/dns.tf) - Clerk production instance for paibot.dev"
 }
 
 # paibot.dev is the hub (the cover of the three sites) and app/learn/doc are its subdomains. The apex gets its DNS
