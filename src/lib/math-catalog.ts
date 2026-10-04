@@ -239,6 +239,10 @@ export const MATH_CATALOG: readonly MathCatalogUnit[] = [
     { id: 'identity', sets: [{ id: '1', rule: 'identity-a' }] },
     { id: 'inequality-proof', sets: [{ id: '1', rule: 'amgm-a' }] },
   ] },
+  { id: 'rational-expression', domain: 'algebra', stage: 'high', status: 'published', kind: 'formula', items: [
+    { id: 'simplify', sets: [{ id: '1', rule: 'rational-simplify-a' }] },
+    { id: 'add-sub', sets: [{ id: '1', rule: 'rational-add-sub-a' }] },
+  ] },
   { id: 'polynomial-equations', domain: 'algebra', stage: 'high', status: 'published', kind: 'formula', items: [
     { id: 'remainder', sets: [{ id: '1', rule: 'remainder-a' }] },
     { id: 'higher-degree', sets: [{ id: '1', rule: 'higher-degree-a' }] },

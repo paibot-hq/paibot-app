@@ -24,7 +24,7 @@ export default function MathUnitTable({ playable }: { playable: readonly string[
   const level = KENTEI_LEVELS.find(entry => entry.id === kentei);
   const gradeFits = (unitId: string, itemId: string) => {
     const itemGrade = jpGrade(unitId, itemId);
-    const inLevel = !level || (!!itemGrade && level.grades.includes(itemGrade)) || !!level.extra?.includes(`${unitId}/${itemId}`);
+    const inLevel = !level || (!!itemGrade && (level.grades.includes(itemGrade) || level.below.includes(itemGrade))) || !!level.extra?.includes(`${unitId}/${itemId}`);
     return (!grade || itemGrade === grade) && inLevel;
   };
   // A unit's stage is a default; the level filter follows each item's own school year (数学II's 3次の展開 sits in a middle-school unit).

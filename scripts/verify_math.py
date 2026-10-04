@@ -1943,6 +1943,7 @@ UNITS = {
     'quadratic': ('math-quadratic.json', formula),
     'factoring': ('math-factoring.json', formula),
     'identities': ('math-identities.json', formula),
+    'rational-expression': ('math-rational-expression.json', formula),
     'polynomial-equations': ('math-polynomial-equations.json', formula),
     'complex': ('math-complex.json', formula),
     'trig': ('math-trig.json', formula),
