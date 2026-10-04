@@ -6,7 +6,7 @@
 
 ## これは何か
 
-`app.paibot.dev`は、PAIBOT LLCが公開する小さなユーティリティツール集(IPアドレス確認、文字数カウント、パスワード生成など)+ 認証つきアカウント機能を持つWebアプリ。日本語・英語・簡体字中国語に対応。
+`paibot.app`は、PAIBOT LLCが公開する小さなユーティリティツール集(IPアドレス確認、文字数カウント、パスワード生成など)+ 認証つきアカウント機能を持つWebアプリ。日本語・英語・簡体字中国語に対応。
 
 ## 技術スタックと、なぜその組み合わせか
 
@@ -27,10 +27,10 @@ vinextはbeta版のアダプターで、他に前例の少ない「Next.js on Cl
 flowchart LR
     Browser["ブラウザ"]
 
-    subgraph Dev["app-dev.paibot.dev"]
+    subgraph Dev["dev.paibot.app"]
         WorkerDev["Worker: paibot-app-dev"]
     end
-    subgraph Prod["app.paibot.dev"]
+    subgraph Prod["paibot.app"]
         WorkerProd["Worker: paibot-app"]
     end
 
@@ -51,7 +51,7 @@ devとprodは**別々のWorker**(`paibot-app-dev`/`paibot-app`)で、`wrangler.j
 ## 認証情報・シークレットの扱い(混同しやすい)
 
 - **Clerkの鍵**: 実際にデプロイされたWorkerが読むのは、CIの`.env.local`ステップではなく**`wrangler secret put`で設定したCloudflare Workers Secret**。`.env.local`はローカルの`wrangler dev`用の`.dev.vars`にしかならず、デプロイ後のWorkerには反映されない(これも今日発見した罠、`docs/plans/production-deploy.md`参照)。`NEXT_PUBLIC_*`はクライアントバンドルへの静的埋め込みのため`.env.local`が別途必要。
-- **Clerkのインスタンス自体もdev/prodで別**: devは共有の開発用認証情報(Google等もClerkの共通キー)。本番は自分専用のGoogle OAuthクライアント(GCPの`paibot-app-prod`プロジェクトに作成)と、`clerk deploy`で作ったカスタムドメイン(`clerk.app.paibot.dev`)を使う。
+- **Clerkのインスタンス自体もdev/prodで別**: devは共有の開発用認証情報(Google等もClerkの共通キー)。本番は自分専用のGoogle OAuthクライアント(GCPの`paibot-app-prod`プロジェクトに作成)と、`clerk deploy`で作ったカスタムドメイン(`clerk.paibot.app`)を使う。
 
 ## CI/CD(GitHub Actions)
 
@@ -65,14 +65,14 @@ devとprodは**別々のWorker**(`paibot-app-dev`/`paibot-app`)で、`wrangler.j
 flowchart TD
     Push["git push (main)"] --> Verify["app.yml: verify\ntypecheck / npm test / build / e2e"]
     Verify -- 成功 --> DeployDev["deploy-dev"]
-    DeployDev --> WorkerDev["Worker: paibot-app-dev\n(app-dev.paibot.dev)"]
+    DeployDev --> WorkerDev["Worker: paibot-app-dev\n(dev.paibot.app)"]
 
     Manual["Actions → Run workflow\n(手動実行)"] --> ProdJob["app-production.yml"]
     ProdJob -- "refなし: 新規リリース" --> Tag["日付タグを自動作成・push"]
     ProdJob -- "refあり: ロールバック" --> Skip["タグ作成はスキップ"]
     Tag --> BuildProd["ビルド(CLOUDFLARE_ENV=production)"]
     Skip --> BuildProd
-    BuildProd --> WorkerProd["Worker: paibot-app\n(app.paibot.dev)"]
+    BuildProd --> WorkerProd["Worker: paibot-app\n(paibot.app)"]
     BuildProd --> Release["GitHub Release作成\n(refなし時のみ)"]
 
     InfraPush["infra/** の変更"] --> InfraPlan["infra-plan.yml\n(PRでplan)"]

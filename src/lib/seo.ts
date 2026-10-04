@@ -33,7 +33,7 @@ export function pathLocales(path: string): readonly Locale[] {
   return localeOnlyPaths[path] ?? locales;
 }
 
-// x-default is the locale-less URL (e.g. https://app.paibot.dev/), which
+// x-default is the locale-less URL (e.g. https://paibot.app/), which
 // routes/redirect.ts sends to the visitor's language - what Google recommends
 // for auto-redirecting pages. A page missing from some locales can't use it
 // (the redirect could land on a 404), so it points at a served locale.

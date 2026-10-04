@@ -618,6 +618,17 @@
       "bestLabel": "Best (off by)",
       "retry": "Try again"
     },
+    "search": {
+      "all": "All apps", "label": "Search",
+      "placeholder": "Search apps",
+      "results": "Search results",
+      "none": "Nothing found for \"{query}\"",
+      "kind": {
+        "app": "App",
+        "unit": "Unit",
+        "item": "Topic"
+      }
+    },
     "pinball": {
       "title": "Pinball",
       "description": "Launch the ball with the plunger and keep it in play with the flippers. Score on bumpers and lanes and chase a high score over three balls.",

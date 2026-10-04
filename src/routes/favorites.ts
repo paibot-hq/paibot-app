@@ -5,7 +5,7 @@ import type { Route } from './+types/favorites';
 
 // The write side of the favorite star. Favorites state itself comes from routes/locale.tsx's shared loader (see
 // useFavoritesData) - every locale-scoped page has it - so a star on the app's list or on a tool's own page
-// submits here explicitly (action={`/${locale}/favorites`}). Any site may post it (src/lib/sites.ts).
+// submits here explicitly (action={`/${locale}/favorites`}).
 export async function action(args: Route.ActionArgs) {
   const { userId } = await getAuth(args);
   if (!userId) return { status: 'error', reason: 'signed_out' } as const;

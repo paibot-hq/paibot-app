@@ -71,7 +71,7 @@ jobs:
         env:
           CLERK_PUBLISHABLE_KEY: ${{ secrets.PROD_CLERK_PUBLISHABLE_KEY }}
           CLERK_SECRET_KEY: ${{ secrets.PROD_CLERK_SECRET_KEY }}
-        run: node -e 'require("fs").writeFileSync(".env.local", `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${process.env.CLERK_PUBLISHABLE_KEY}\nCLERK_SECRET_KEY=${process.env.CLERK_SECRET_KEY}\nSITE_URL=https://app.paibot.dev\n`)'
+        run: node -e 'require("fs").writeFileSync(".env.local", `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=${process.env.CLERK_PUBLISHABLE_KEY}\nCLERK_SECRET_KEY=${process.env.CLERK_SECRET_KEY}\nSITE_URL=https://paibot.app\n`)'
       - if: steps.framework.outputs.react_router == 'true'
         run: npm run typecheck
       - name: Build production and verify deployment target
@@ -82,7 +82,7 @@ jobs:
         run: |
           npm run build
           if [ "$REACT_ROUTER" = true ]; then config=build/server/wrangler.json; else config=dist/server/wrangler.json; fi
-          node -e 'const c=require("./"+process.argv[1]); if(c.name!=="paibot-app" || c.vars?.SITE_INDEXABLE!=="true" || c.vars?.SITE_URL!=="https://app.paibot.dev") throw Error("Wrong production target or indexing configuration")' "$config"
+          node -e 'const c=require("./"+process.argv[1]); if(c.name!=="paibot-app" || c.vars?.SITE_INDEXABLE!=="true" || c.vars?.SITE_URL!=="https://paibot.app") throw Error("Wrong production target or indexing configuration")' "$config"
           echo "config=$config" >> "$GITHUB_OUTPUT"
       - if: steps.framework.outputs.react_router == 'true'
         uses: actions/cache@v6
@@ -144,7 +144,7 @@ jobs:
       - name: Wait for the deploy to reach the edge
         if: steps.framework.outputs.react_router == 'true'
         env:
-          CHECK_BROWSER_BASE_URL: https://app.paibot.dev
+          CHECK_BROWSER_BASE_URL: https://paibot.app
         run: EXPECTED_APP_VERSION="$(git rev-parse HEAD)" node scripts/wait-for-deploy.mjs
       - name: Wait for edge propagation (legacy refs)
         if: steps.framework.outputs.react_router != 'true'
@@ -152,8 +152,8 @@ jobs:
       - name: Verify deployed React Router app
         if: steps.framework.outputs.react_router == 'true'
         env:
-          CHECK_BROWSER_BASE_URL: https://app.paibot.dev
-          CHECK_SITE_URL: https://app.paibot.dev
+          CHECK_BROWSER_BASE_URL: https://paibot.app
+          CHECK_SITE_URL: https://paibot.app
           CHECK_SITE_INDEXABLE: 'true'
         run: |
           if [ -f tests/e2e/run.mjs ]; then npm run e2e -- smoke quiz-browser; else

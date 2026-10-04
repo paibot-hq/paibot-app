@@ -7,7 +7,6 @@ import { enUS, jaJP, zhCN } from "@clerk/localizations";
 import { useLocale } from "use-intl";
 import { usePathname } from "../i18n/navigation";
 import { useProfileData } from "../routes/locale";
-import { sharedCookieDomain } from "../lib/sites";
 
 type Theme = "auto" | "light" | "dark";
 type Preferences = {
@@ -16,24 +15,8 @@ type Preferences = {
 };
 const PreferencesContext = createContext<Preferences | null>(null);
 
-// A preference is kept in localStorage and in a cookie on the parent domain, so the sites (app, learn, tools, the
-// hub) share it; where a browser takes no such cookie (localhost) each host keeps its own.
 function savePreference(key: string, value: string) {
   try { localStorage.setItem(key, value); } catch { /* Preferences are optional. */ }
-  const domain = sharedCookieDomain(location.hostname);
-  document.cookie = `${key}=${value}; Path=/; Max-Age=31536000; SameSite=Lax${domain ? `; Domain=${domain}` : ""}${location.protocol === "https:" ? "; Secure" : ""}`;
-}
-
-function readPreference(key: string): string | null {
-  const cookie = document.cookie.split("; ").find(entry => entry.startsWith(`${key}=`))?.slice(key.length + 1);
-  if (cookie) return cookie;
-  // No shared cookie yet (a choice made before the sites shared one): a value this host kept in localStorage becomes
-  // the shared one, so the first site visited decides and the others follow instead of each using its own.
-  try {
-    const stored = localStorage.getItem(key);
-    if (stored) savePreference(key, stored);
-    return stored;
-  } catch { return null; }
 }
 
 export function usePreferences() {
@@ -83,8 +66,10 @@ export default function Providers({ children, loaderData }: { children: ReactNod
   const resolvedTheme = theme === "auto" ? (prefersLight ? "light" : "dark") : theme;
 
   useEffect(() => {
-    const storedTheme = readPreference("paibot-app-theme");
-    if (storedTheme === "auto" || storedTheme === "light" || storedTheme === "dark") setTheme(storedTheme);
+    try {
+      const storedTheme = localStorage.getItem("paibot-app-theme");
+      if (storedTheme === "auto" || storedTheme === "light" || storedTheme === "dark") setTheme(storedTheme);
+    } catch { /* Use defaults when storage is unavailable. */ }
     const media = window.matchMedia("(prefers-color-scheme: light)");
     const update = () => setPrefersLight(media.matches);
     update();

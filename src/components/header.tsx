@@ -10,8 +10,6 @@ import { LOCALE_COOKIE } from "../i18n/negotiate";
 import { useTranslations, useLocale } from "use-intl";
 import { usePathname } from "../i18n/navigation";
 import { usePreferences } from "./providers";
-import { useSiteMeta } from "../root";
-import { SHOW_SWITCHER, SWITCHER, sharedCookieDomain } from "../lib/sites";
 
 const languageNames: Record<Locale, string> = { ja: "日本語", en: "English", zh: "简体中文" };
 
@@ -21,14 +19,12 @@ export default function Header() {
   const t = useTranslations("App");
   const { resolvedTheme, toggleTheme } = usePreferences();
   const { signedIn } = useProfileData();
-  const { site, origins } = useSiteMeta();
   const saveLanguage = useFetcher();
   // The switch itself is the setting, so remember it: a cookie for the
   // locale-less redirect (routes/redirect.ts), and the profile when signed
   // in. The page navigates immediately either way; this just rides along.
   const chooseLanguage = (value: Locale) => {
-    const domain = sharedCookieDomain(location.hostname);
-    document.cookie = `${LOCALE_COOKIE}=${value}; Path=/; Max-Age=31536000; SameSite=Lax; Secure${domain ? `; Domain=${domain}` : ""}`;
+    document.cookie = `${LOCALE_COOKIE}=${value}; Path=/; Max-Age=31536000; SameSite=Lax; Secure`;
     if (signedIn && value !== language) saveLanguage.submit({ intent: "locale", value }, { method: "post", action: `/${language}/profile` });
   };
   const [menuOpen, setMenuOpen] = useState(false);
@@ -55,21 +51,11 @@ export default function Header() {
 
 
   return (
-    <header className="topbar" data-switcher={SHOW_SWITCHER || undefined}>
-      {/* PAIBOT goes to the hub, the site's name after it to the cover of the site being read. */}
-      <div className="brand-trail">
-        <a className="brand" href={`${origins.hub}/${language}`}>
-          <img className="brand-logo" src="/icon.svg" alt="" width="24" height="24" />
-          <span className="wordmark">PAIBOT</span>
-        </a>
-        {site !== "hub" && site !== "doc" && <>
-          <span className="brand-slash" aria-hidden="true">/</span>
-          <Link className="brand-site" href="/">{t(`site.${site}`)}</Link>
-        </>}
-      </div>
-      {SHOW_SWITCHER && <nav className="site-switcher" aria-label={t("navSites")}>
-                {SWITCHER.filter(entry => entry.live).map(({ key }) => <a key={key} href={`${origins[key]}/${language}`} aria-current={site === key ? "page" : undefined}>{t(`site.${key}`)}</a>)}
-              </nav>}
+    <header className="topbar">
+      <Link className="brand" href="/">
+        <img className="brand-logo" src="/icon.svg" alt="" width="24" height="24" />
+        <span className="wordmark">PAIBOT</span>
+      </Link>
       <div className="toolbar">
         <Show when="signed-out">
           <Link className="auth-link" href={`/sign-in?redirect_url=${encodeURIComponent(`/${language}${pathname === "/" ? "" : pathname}`)}`}>{t("signIn")}</Link>
