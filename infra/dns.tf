@@ -70,6 +70,19 @@ resource "cloudflare_dns_record" "clerk_dev" {
   comment = "Managed by Terraform (infra/dns.tf) - Clerk production instance for paibot.dev"
 }
 
+# Proves to Google Search Console that we own paibot.dev, for the domain property that covers every subdomain
+# (app, learn, tools, doc). The value is public. Cloudflare returns TXT content wrapped in quotes, so it is written
+# with them: without, the provider would show a difference on every plan.
+resource "cloudflare_dns_record" "search_console" {
+  zone_id = local.zone_id
+  name    = "paibot.dev"
+  type    = "TXT"
+  content = "\"google-site-verification=NDwX5T8wu9dI232CjvC3U-xI4II_bXWnja0t97IFlEI\""
+  ttl     = 3600
+  proxied = false
+  comment = "Managed by Terraform (infra/dns.tf) - Google Search Console domain verification"
+}
+
 # paibot.dev is the hub (the cover of the three sites) and app/learn/doc are its subdomains. The apex gets its DNS
 # record from the Worker's custom domain (wrangler.jsonc, added together with the host split), so none is managed
 # here. www.paibot.dev redirects to the apex (infra/redirects.tf); Redirect Rules only run on proxied traffic, so
