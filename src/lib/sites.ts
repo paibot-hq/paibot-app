@@ -11,6 +11,8 @@ export type SiteKey = "hub" | "app" | "learn" | "tools" | "doc";
 export const SITE_KEYS: readonly SiteKey[] = ["hub", "app", "learn", "tools", "doc"];
 
 const SUBDOMAIN = /^(app|learn|tools|doc)(-dev)?\.(.+)$/;
+// The development hub is dev.<root> (next to app-dev, learn-dev, ...).
+const DEV_HUB = /^dev\.(.+)$/;
 
 // Which site a request for this host name is for. An unknown host (localhost, the apex, a workers.dev preview) is the hub.
 export function siteOfHost(hostname: string): SiteKey {
@@ -21,10 +23,11 @@ export function siteOfHost(hostname: string): SiteKey {
 // https://app.paibot.dev -> hub https://paibot.dev, learn https://learn.paibot.dev, ...; http://learn.localhost:3038 -> ...
 export function siteOrigins(origin: string): Record<SiteKey, string> {
   const url = new URL(origin);
-  const match = SUBDOMAIN.exec(url.hostname);
-  const root = match?.[3] ?? url.hostname, suffix = match?.[2] ?? "";
+  const match = SUBDOMAIN.exec(url.hostname), devHub = DEV_HUB.exec(url.hostname);
+  // A development hub is dev.<root>, and its sites are app-dev.<root>, ...
+  const root = match?.[3] ?? devHub?.[1] ?? url.hostname, suffix = match?.[2] ?? (devHub ? "-dev" : "");
   const at = (host: string) => `${url.protocol}//${host}${url.port ? `:${url.port}` : ""}`;
-  return { hub: at(root), app: at(`app${suffix}.${root}`), learn: at(`learn${suffix}.${root}`), tools: at(`tools${suffix}.${root}`), doc: at(`doc${suffix}.${root}`) };
+  return { hub: at(devHub || suffix === "-dev" ? `dev.${root}` : root), app: at(`app${suffix}.${root}`), learn: at(`learn${suffix}.${root}`), tools: at(`tools${suffix}.${root}`), doc: at(`doc${suffix}.${root}`) };
 }
 
 const TOOL_CATEGORIES = ["network", "dev"];
@@ -33,7 +36,7 @@ const TOOL_PATH = new RegExp(`^/(${APP_CATALOG.filter(app => app.href && TOOL_CA
 // The Domain of a cookie the sites share (the theme, the language): the parent of the host, so app, learn, tools and
 // the hub all see it. null where a browser would not take one (localhost and IP addresses): there each host keeps its own.
 export function sharedCookieDomain(hostname: string): string | null {
-  const root = SUBDOMAIN.exec(hostname)?.[3] ?? hostname;
+  const root = SUBDOMAIN.exec(hostname)?.[3] ?? DEV_HUB.exec(hostname)?.[1] ?? hostname;
   return /^\d+(\.\d+){3}$/.test(root) || !root.includes(".") || root.endsWith(".localhost") ? null : `.${root}`;
 }
 

@@ -14,7 +14,7 @@ async function run(command, args, env) {
 // Simulate both indexing policies using the built Worker, never a live deployment.
 // --persist-to shares the local D1 that db:migrate:local migrates; without it the
 // built config keeps its own empty database under build/server/.wrangler.
-for (const [indexable, origin, port] of [[false, 'https://dev.paibot.app', 4311], [true, 'https://paibot.app', 4312]]) {
+for (const [indexable, origin, port] of [[false, 'https://app-dev.paibot.dev', 4311], [true, 'https://app.paibot.dev', 4312]]) {
   const server = spawn('node', ['node_modules/wrangler/bin/wrangler.js', 'dev', '--config', 'build/server/wrangler.json', '--persist-to', '.wrangler/state', '--port', String(port), '--inspector-port', '0', '--local-upstream', 'app.localhost', '--var', `SITE_URL:${origin}`, '--var', `SITE_INDEXABLE:${indexable}`], { stdio: ['ignore', 'pipe', 'pipe'] });
   let output = '';
   server.stdout.on('data', data => { output = (output + data).slice(-4000); });

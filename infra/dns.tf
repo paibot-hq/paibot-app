@@ -7,6 +7,9 @@
 # All records point at Clerk's own infrastructure, so they must stay
 # unproxied ("DNS only" / grey cloud): Clerk terminates TLS and serves these
 # hosts directly, and proxying through Cloudflare would break that.
+#
+# These are the paibot.app (legacy) zone's records for the old Clerk instance, kept until that domain is
+# released. The paibot.dev instance's records are in clerk_dns_records_dev below.
 locals {
   clerk_dns_records = {
     "clerk.paibot.app"           = "frontend-api.clerk.services"
@@ -20,7 +23,7 @@ locals {
 resource "cloudflare_dns_record" "clerk" {
   for_each = local.clerk_dns_records
 
-  zone_id = local.zone_id
+  zone_id = local.legacy_zone_id
   name    = each.key
   type    = "CNAME"
   content = each.value
@@ -34,11 +37,46 @@ resource "cloudflare_dns_record" "clerk" {
 # send visitors to the apex. CNAME-to-apex is fine here: Cloudflare
 # flattens it at the edge since the record is proxied.
 resource "cloudflare_dns_record" "www" {
-  zone_id = local.zone_id
+  zone_id = local.legacy_zone_id
   name    = "www"
   type    = "CNAME"
   content = "paibot.app"
   ttl     = 1 # must be 1 ("Auto") when proxied
   proxied = true
   comment = "Managed by Terraform (infra/dns.tf) - www redirects to the apex via infra/redirects.tf"
+}
+
+# The new production Clerk instance for app.paibot.dev. `clerk deploy` (interactive) prints the BIND zone
+# file: copy its five CNAMEs here ("clerk.app", "accounts.app", "clkmail.app", "clk._domainkey.app",
+# "clk2._domainkey.app" under paibot.dev, with that instance's own targets) and apply. Empty until then.
+locals {
+  clerk_dns_records_dev = {
+    # "clerk.app.paibot.dev" = "frontend-api.clerk.services"
+  }
+}
+
+resource "cloudflare_dns_record" "clerk_dev" {
+  for_each = local.clerk_dns_records_dev
+
+  zone_id = local.zone_id
+  name    = each.key
+  type    = "CNAME"
+  content = each.value
+  ttl     = 300
+  proxied = false
+  comment = "Managed by Terraform (infra/dns.tf) - Clerk production instance for app.paibot.dev"
+}
+
+# paibot.dev is the hub (the cover of the three sites) and app/learn/doc are its subdomains. The apex gets its DNS
+# record from the Worker's custom domain (wrangler.jsonc, added together with the host split), so none is managed
+# here. www.paibot.dev redirects to the apex (infra/redirects.tf); Redirect Rules only run on proxied traffic, so
+# it is a proxied CNAME. doc.paibot.dev is reserved for the documentation site.
+resource "cloudflare_dns_record" "www_dev" {
+  zone_id = local.zone_id
+  name    = "www"
+  type    = "CNAME"
+  content = "paibot.dev"
+  ttl     = 1
+  proxied = true
+  comment = "Managed by Terraform (infra/dns.tf) - redirect only, see infra/redirects.tf"
 }

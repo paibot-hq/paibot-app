@@ -26,7 +26,7 @@ export type SiteCheckResult =
 
 const TOTAL_BUDGET_MS = 10_000;
 const MAX_REDIRECTS = 5;
-const USER_AGENT = "PAIBOT.app site check (+https://paibot.app/site-check)";
+const USER_AGENT = "PAIBOT site check (+https://app.paibot.dev/site-check)";
 
 function parseUrl(text: string, base?: URL): URL | null {
   let url: URL;

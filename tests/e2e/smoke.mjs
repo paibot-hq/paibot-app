@@ -8,9 +8,9 @@ import { ownerOfPath, siteOrigins } from '../../src/lib/sites.ts';
 import { APP_CATALOG, APP_SITE_CATEGORIES as APP_CATEGORIES } from '../../src/lib/app-catalog.ts';
 
 // The app site (src/lib/sites.ts): its pages and sitemap are the ones checked here; the drills (learning site) and
-// the network tools (network site) are covered by their own flows and the catalog check.
+// the network tools (tools site) are covered by their own flows and the catalog check.
 const base = siteOrigins(new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://app.localhost:3002').origin).app;
-const siteOrigin = siteOrigins(new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app').origin).app;
+const siteOrigin = siteOrigins(new URL(process.env.CHECK_SITE_URL ?? 'https://app-dev.paibot.dev').origin).app;
 const paths = publicPaths.filter(path => [null, 'app'].includes(ownerOfPath(path)));
 const indexable = process.env.CHECK_SITE_INDEXABLE === 'true';
 const authPaths = ['sign-in', 'sign-up', 'diary', 'profile'];

@@ -6,6 +6,7 @@ import { siteOrigin, isIndexable } from '../src/lib/seo.server';
 import { buildContentSecurityPolicy } from '../src/lib/security-headers.server';
 import { pathWithoutLocale } from '../src/lib/seo';
 import { ownerOfPath, siteOfHost, siteOrigins } from '../src/lib/sites';
+import { legacyRedirect } from '../src/lib/legacy-host';
 
 const handle = createRequestHandler(() => import('virtual:react-router/server-build'), import.meta.env.MODE);
 const AUTH_PATH = new RegExp(`^/(${locales.join('|')})/(sign-in|sign-up|diary|profile)(/|\\.data$|$)`);
@@ -14,6 +15,8 @@ const csp = buildContentSecurityPolicy();
 export default {
   async fetch(request: Request) {
     const url = new URL(request.url);
+    const moved = legacyRedirect(url, siteOrigin);
+    if (moved) return Response.redirect(moved, 301);
     const site = siteOfHost(url.hostname), origins = siteOrigins(siteOrigin);
     // Each page has one home: the drills on the learning site, the tools on the app. A request for the other
     // site's page is sent there (one URL per page, for search engines and for people).

@@ -47,3 +47,12 @@ test('a cookie shared by the sites is set on the parent domain, and not where br
   for (const host of ['paibot.dev', 'app.paibot.dev', 'learn-dev.paibot.dev', 'tools.paibot.dev']) assert.equal(sharedCookieDomain(host), '.paibot.dev', host);
   for (const host of ['localhost', 'app.localhost', 'learn.localhost', '127.0.0.1']) assert.equal(sharedCookieDomain(host), null, host);
 });
+
+test('the development hub is dev.<root>, beside app-dev, learn-dev and tools-dev', () => {
+  assert.equal(siteOfHost('dev.paibot.dev'), 'hub');
+  for (const origin of ['https://dev.paibot.dev', 'https://app-dev.paibot.dev', 'https://learn-dev.paibot.dev']) {
+    assert.deepEqual(siteOrigins(origin), { hub: 'https://dev.paibot.dev', app: 'https://app-dev.paibot.dev', learn: 'https://learn-dev.paibot.dev', tools: 'https://tools-dev.paibot.dev', doc: 'https://doc-dev.paibot.dev' }, origin);
+  }
+  assert.equal(sharedCookieDomain('dev.paibot.dev'), '.paibot.dev');
+  assert.equal(sharedCookieDomain('app-dev.paibot.dev'), '.paibot.dev');
+});
