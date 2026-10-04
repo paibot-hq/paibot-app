@@ -124,18 +124,21 @@ export default async function ({ page, main, base: appBase, go, errors }) {
   assert.deepEqual(errors, []);
   console.log('PASS: former unit, entry and set URLs redirect to the new pages');
 
-  // Suken levels (Japanese only) follow the school years: 準2級 = 数学I・A.
+  // Suken levels (Japanese only) follow the school years and include the years below: 準2級 = 数学I・A and 中3.
   await page.goto(`${base}/ja/math`);
   await page.waitForFunction(() => document.documentElement.dataset.theme);
   await main.getByRole('combobox', { name: '数検の級で絞り込む' }).selectOption('pre2');
   assert.ok(await link('/ja/math/factoring/ac-method').isVisible());
-  assert.equal(await link('/ja/math/factorization/trinomial').count(), 0, '中3 items are 3級');
+  assert.ok(await link('/ja/math/factorization/trinomial').isVisible(), '準2級 also covers 中3');
+  assert.equal(await link('/ja/math/expansion/square').count(), 1, '中3 items are included');
+  assert.equal(await link('/ja/math/limit/sequence').count(), 0, '数学III is 準1級');
   await main.getByText('日本数学検定協会とは関係ありません', { exact: false }).waitFor();
-  // 準1級 = 数学III・C, plus the matrices its official topic list names.
+  // 準1級 = 数学III・C and 数学II・B, plus the matrices its official topic list names.
   await main.getByRole('combobox', { name: '数検の級で絞り込む' }).selectOption('pre1');
   assert.ok(await link('/ja/math/limit/sequence').isVisible());
   assert.ok(await link('/ja/math/matrix/operations').isVisible());
-  assert.equal(await link('/ja/math/sequence/arithmetic').count(), 0, '数列 (数学B) is 2級');
+  assert.ok(await link('/ja/math/sequence/arithmetic').isVisible(), '準1級 also covers 数学II・B (数列)');
+  assert.equal(await link('/ja/math/factoring/ac-method').count(), 0, '数学I is not in 準1級');
   await main.getByRole('combobox', { name: '数検の級で絞り込む' }).selectOption('11');
   assert.ok(await link('/ja/math/addition/within-10').isVisible());
   assert.deepEqual(errors, []);
