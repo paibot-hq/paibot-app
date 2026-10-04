@@ -1,5 +1,6 @@
-// The site moved from paibot.app to app.paibot.dev. A request for the old domain is answered with a 301 to the same
-// path and query on the new one (workers/app.ts), so links and bookmarks keep working.
+// The site moved from paibot.app to paibot.dev. A request for the old domain is answered with a 301 to the same
+// path and query on the hub (workers/app.ts), which forwards a page to the site that owns it, so links and
+// bookmarks keep working.
 export const LEGACY_HOSTS = ['paibot.app', 'www.paibot.app'];
 
 // Where a request for `url` should go, or null when it is not for a legacy host (or `origin` is itself legacy).
