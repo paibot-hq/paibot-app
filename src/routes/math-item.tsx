@@ -53,7 +53,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
   const itemKey = `units.${unitId}.items.${itemId}`;
   const title = t(`${itemKey}.title`);
   const description = has(`${itemKey}.description`) ? t(`${itemKey}.description`) : t(`units.${unitId}.summary`);
-  const head = `${unitTitle} - ${title} | PAIBOT.app`;
+  const head = `${unitTitle} - ${title} | PAIBOT`;
   return <>
     {published ? <PublicHead locale={locale} path={`/math/${unitId}/${itemId}`} title={head} description={description} /> : <title>{head}</title>}
     <ToolLayout title={title} centerTitle aboveTitle={<MathBreadcrumb crumbs={[{ label: unitTitle, href: `/math/${unitId}` }, { label: title }]} />}>

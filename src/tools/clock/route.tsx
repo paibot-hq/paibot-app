@@ -98,7 +98,7 @@ function ClockFace({ settings }: { settings: Route.ComponentProps['loaderData'] 
       if (panel.current?.requestFullscreen) await panel.current.requestFullscreen().catch(() => {});
     }
   }
-  return <><PublicHead locale={locale} path="/clock" title={`${t('title')} | PAIBOT.app`} description={t('description')} />
+  return <><PublicHead locale={locale} path="/clock" title={`${t('title')} | PAIBOT`} description={t('description')} />
     <ToolLayout title={t('title')}>
       <div ref={panel} className={styles.panel} data-expanded={expanded || undefined}>
         <div className={styles.face}>

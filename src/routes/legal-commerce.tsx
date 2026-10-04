@@ -7,7 +7,7 @@ import type { Locale } from '../i18n/routing';
 export default function Page() {
   const locale = useLocale() as Locale;
   const document = commerce[locale];
-  return <><PublicHead locale={locale} path="/legal/commerce" title={`${document.title} | PAIBOT.app`} description={document.description} />
+  return <><PublicHead locale={locale} path="/legal/commerce" title={`${document.title} | PAIBOT`} description={document.description} />
     <CommercePage document={document} />
   </>;
 }

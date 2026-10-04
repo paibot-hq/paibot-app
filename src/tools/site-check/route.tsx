@@ -14,5 +14,5 @@ export async function action({ request }: Route.ActionArgs): Promise<SiteCheckRe
 export default function Page() {
   const t = useTranslations('App');
   const locale = useLocale();
-  return <><PublicHead locale={locale} path="/site-check" title={`${t('siteCheck.title')} | PAIBOT.app`} description={t('siteCheck.description')} /><SiteCheck /></>;
+  return <><PublicHead locale={locale} path="/site-check" title={`${t('siteCheck.title')} | PAIBOT`} description={t('siteCheck.description')} /><SiteCheck /></>;
 }

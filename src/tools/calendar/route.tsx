@@ -97,7 +97,7 @@ export default function Calendar() {
     </table>;
   }
 
-  return <><PublicHead locale={locale} path="/calendar" title={`${t('title')} | PAIBOT.app`} description={t('description')} />
+  return <><PublicHead locale={locale} path="/calendar" title={`${t('title')} | PAIBOT`} description={t('description')} />
     <ToolLayout title={t('title')}>
       <div className={styles.calendar}>
         {!cursor ? <p className={styles.loading}>{t('loading')}</p> : <>

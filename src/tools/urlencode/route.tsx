@@ -4,5 +4,5 @@ import { useLocale, useTranslations } from 'use-intl';
 export default function Page() {
   const t = useTranslations('App');
   const locale = useLocale();
-  return <><PublicHead locale={locale} path="/urlencode" title={`${t('urlencode.title')} | PAIBOT.app`} description={t('urlencode.description')} /><UrlEncodeTool /></>;
+  return <><PublicHead locale={locale} path="/urlencode" title={`${t('urlencode.title')} | PAIBOT`} description={t('urlencode.description')} /><UrlEncodeTool /></>;
 }
