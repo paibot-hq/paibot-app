@@ -1,0 +1,33 @@
+.wheel {
+  display: block;
+  width: min(420px, 92%);
+  aspect-ratio: 1;
+  margin: 1rem auto .6rem;
+}
+.actions {
+  display: flex;
+  justify-content: center;
+}
+.actions button[disabled] { opacity: .6; cursor: default; }
+.result {
+  min-height: 2rem;
+  margin: .8rem 0 1rem;
+  color: var(--text);
+  font-size: 1.3rem;
+  font-weight: 700;
+  text-align: center;
+  overflow-wrap: anywhere;
+}
+.items {
+  min-height: 7rem;
+  resize: vertical;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+.history {
+  margin: 0;
+  padding: .4rem 0 .4rem 1.6rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.history li:first-child { color: var(--text); font-weight: 600; }
