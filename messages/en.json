@@ -653,6 +653,20 @@
       "fade": "Fade away",
       "hint": "More segments make a finer pattern. Turn the mirror off for a softer, turning-only pattern. With \"Fade away\" on, the automatic drawing is hard to stop watching."
     },
+    "balls": {
+      "title": "Splitting Balls",
+      "description": "Balls fly around inside a circle and split in two when they collide, filling it up. Tap to add a ball, turn splitting or trails on and off. Soothing to watch.",
+      "keywords": "balls split physics simulation collision relax free",
+      "intro": "Balls fly around in the circle. When two meet, each splits in two. Tap the circle to add a ball.",
+      "canvasLabel": "A circle where balls fly around and split in two when they meet",
+      "count": "{count} balls · {splits} splits",
+      "pause": "Running",
+      "resume": "Resume",
+      "reset": "Start over",
+      "split": "Split on hit",
+      "trails": "Trails",
+      "hint": "The number is capped, and a ball pops after a while. With splitting off, the balls just bounce."
+    },
     "pinball": {
       "title": "Pinball",
       "description": "Launch the ball with the plunger and keep it in play with the flippers. Score on bumpers and lanes and chase a high score over three balls.",
