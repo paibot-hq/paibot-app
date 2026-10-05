@@ -651,12 +651,7 @@
       "options": "Options",
       "mirror": "Mirror",
       "fade": "Fade away",
-      "hint": "More segments make a finer pattern. Turn the mirror off for a softer, turning-only pattern. With \"Fade away\" on, the automatic drawing is hard to stop watching.",
-      "ballsOff": "Launch balls",
-      "ballsOn": "Balls flying",
-      "addBall": "Add a ball",
-      "split": "Split on hit",
-      "count": "{count} balls · {splits} splits"
+      "hint": "More segments make a finer pattern. Turn the mirror off for a softer, turning-only pattern. With \"Fade away\" on, the automatic drawing is hard to stop watching."
     },
     "pinball": {
       "title": "Pinball",

@@ -1,10 +1,8 @@
-.stage { position: relative; width: min(560px, 100%); aspect-ratio: 1; margin: 1rem auto; }
-.overlay { position: absolute; inset: 0; width: 100%; height: 100%; border-radius: 50%; pointer-events: none; }
-.count { margin: 0; text-align: center; color: var(--muted); font-size: .9rem; }
 .canvas {
   display: block;
-  width: 100%;
+  width: min(560px, 100%);
   aspect-ratio: 1;
+  margin: 1rem auto;
   border: 1px solid var(--line);
   border-radius: 50%;
   background: #0b1020;
