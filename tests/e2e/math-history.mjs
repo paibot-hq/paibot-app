@@ -65,12 +65,20 @@ try {
   await clerk.signOut({ page });
   assert.equal(await play(page, 3), 'Sign in to keep a record of your scores.');
   assert.equal(await cardRecord(page), null, 'signed-out visitors see no records');
+  assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}/${SET}"]`).getAttribute('data-done'), null, 'nothing is green for a visitor who is not signed in');
   console.log('PASS: signed-out attempts are not saved and point to signing in');
 
   await clerk.signIn({ page, signInParams: { strategy: 'email_code', identifier: email } });
   assert.equal(await cardRecord(page), null, 'a new user starts with no records');
+  assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}/${SET}"]`).getAttribute('data-done'), null, 'a new user has nothing green');
   assert.equal(await play(page, 4), 'Your score has been saved.');
   assert.equal(await cardRecord(page), 'Last 4 / 5 · Best 4 / 5');
+  // A finished practice card is green on its item's page, and so is the item in the unit's page and in the list.
+  assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}/${SET}"]`).getAttribute('data-done'), 'true');
+  await page.goto(`${base}/en/math/arith`);
+  assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}"]`).getAttribute('data-done'), 'true', "the unit's page shows the finished item green");
+  await page.goto(`${base}/en/math`);
+  assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}"]`).first().getAttribute('data-done'), 'true', 'the list shows the finished item green');
   assert.equal(await play(page, 5), 'Your score has been saved.');
   assert.equal(await play(page, 1), 'Your score has been saved.');
   assert.equal(await cardRecord(page), 'Last 1 / 5 · Best 5 / 5');

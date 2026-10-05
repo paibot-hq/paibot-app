@@ -13,7 +13,7 @@ import styles from './math-unit-table.module.css';
 // highlighted. The filters are client-side; the server renders the full list.
 // Grades are Japan's school years (math-curriculum-jp.ts); the Suken filter,
 // derived from them, is shown in Japanese only.
-export default function MathUnitTable({ playable }: { playable: readonly string[] }) {
+export default function MathUnitTable({ playable, done }: { playable: readonly string[]; done: readonly string[] }) {
   const t = useTranslations('App.math');
   const td = t as unknown as DynamicT;
   const locale = useLocale();
@@ -44,6 +44,8 @@ export default function MathUnitTable({ playable }: { playable: readonly string[
         const items = unit.items.map(item => ({
           id: item.id, label: td(`units.${unit.id}.items.${item.id}.title`),
           playable: item.sets.some(set => playable.includes(`${unit.id}/${item.id}/${set.id}`)),
+          // Every practice set of the item that can be played has been finished: the item is green.
+          done: item.sets.some(set => playable.includes(`${unit.id}/${item.id}/${set.id}`)) && item.sets.filter(set => playable.includes(`${unit.id}/${item.id}/${set.id}`)).every(set => done.includes(`${unit.id}/${item.id}/${set.id}`)),
         })).filter(item => (!playableOnly || item.playable) && stageFits(unit, item.id) && gradeFits(unit.id, item.id) && (matches(title) || matches(item.label)));
         return { unit, title, items };
       })
@@ -93,7 +95,7 @@ export default function MathUnitTable({ playable }: { playable: readonly string[
               <ul className={styles.sets}>
                 {items.map(item => (
                   <li key={item.id}>
-                    <Link href={`/math/${unit.id}/${item.id}`} className={styles.set} data-playable={item.playable || undefined}>
+                    <Link href={`/math/${unit.id}/${item.id}`} className={styles.set} data-playable={item.playable || undefined} data-done={item.done || undefined}>
                       {item.label}{!item.playable && <span className={styles.srOnly}> ({t('comingSoon')})</span>}
                     </Link>
                   </li>

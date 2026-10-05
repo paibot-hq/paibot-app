@@ -80,10 +80,11 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
       <ul className={styles.sets}>
         {sets.map(({ id, playable, record, tiers }) => (
           <li key={id}>
-            <Link href={`/math/${unitId}/${itemId}/${id}`} className={styles.card} data-playable={playable || undefined}>
+            <Link href={`/math/${unitId}/${itemId}/${id}`} className={styles.card} data-playable={playable || undefined} data-done={record ? true : undefined}>
               <span className={styles.cardTitle}>
                 {tq('practice', { number: id })}
                 {!playable && <span className={styles.badge}>{t('comingSoon')}</span>}
+                {record && <span className={styles.done}>{tq('done')}</span>}
               </span>
               {has(`${itemKey}.sets.${id}`) && <span className={styles.note}>{t(`${itemKey}.sets.${id}`)}</span>}
               {tiers && <span className={styles.tiers}>{Object.entries(tiers).map(([tier, n]) => tq('tierCount', { tier: t(`tiers.${tier}`), count: n })).join(tq('tierSeparator'))}</span>}

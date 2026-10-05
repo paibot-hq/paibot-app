@@ -740,6 +740,7 @@
       },
       "quiz": {
         "setComingSoon": "此题组正在准备中，请稍候。",
+        "done": "已完成",
         "backToMath": "数学",
         "breadcrumb": "面包屑导航",
         "progress": "{current} / {total}",

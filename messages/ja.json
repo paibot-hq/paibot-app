@@ -740,6 +740,7 @@
       },
       "quiz": {
         "setComingSoon": "この問題セットは準備中です。もうしばらくお待ちください。",
+        "done": "完了",
         "backToMath": "数学",
         "breadcrumb": "パンくずリスト",
         "progress": "{current} / {total}",

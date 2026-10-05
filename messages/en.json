@@ -740,6 +740,7 @@
       },
       "quiz": {
         "setComingSoon": "This problem set is being prepared. Check back soon.",
+        "done": "Done",
         "backToMath": "Math",
         "breadcrumb": "Breadcrumb",
         "progress": "{current} / {total}",

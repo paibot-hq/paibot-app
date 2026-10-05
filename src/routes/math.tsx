@@ -2,11 +2,13 @@ import { useLocale, useTranslations } from 'use-intl';
 import MathUnitTable from '../components/math-unit-table';
 import PublicHead from '../components/public-head';
 import ToolLayout from '../components/tool-layout';
+import { getDoneSets } from '../lib/math-attempts.server';
 import { getPlayableSets } from '../lib/math-problems.server';
 import type { Route } from './+types/math';
 
-export async function loader() {
-  return { playable: await getPlayableSets() };
+export async function loader(args: Route.LoaderArgs) {
+  const [playable, done] = await Promise.all([getPlayableSets(), getDoneSets(args)]);
+  return { playable, done };
 }
 
 // One page for all of math: every unit and learning item, filtered in the browser.
@@ -16,7 +18,7 @@ export default function Math({ loaderData }: Route.ComponentProps) {
   return <><PublicHead locale={locale} path="/math" title={`${t('title')} | PAIBOT`} description={t('description')} />
     <ToolLayout title={t('title')} centerTitle>
       <p>{t('intro')}</p>
-      <MathUnitTable playable={loaderData.playable} />
+      <MathUnitTable playable={loaderData.playable} done={loaderData.done} />
     </ToolLayout>
   </>;
 }
