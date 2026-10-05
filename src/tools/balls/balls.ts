@@ -27,7 +27,7 @@ export function createWorld(): World {
 }
 
 // A ball at a random place inside the circle, going in a random direction at a speed of `speed` pixels a second.
-export function spawn(options: Options, rng: () => number, speed = 190, r = 12): Ball {
+export function spawn(options: Options, rng: () => number, speed = 190, r = 7): Ball {
   const angle = rng() * Math.PI * 2;
   const away = Math.sqrt(rng()) * (options.radius - r - 4);
   const heading = rng() * Math.PI * 2;
@@ -80,8 +80,25 @@ export function step(world: World, dt: number, options: Options, rng: () => numb
   const added: Ball[] = [];
   const removed = new Set<Ball>();
   const balls = world.balls;
+  // Only balls in the same or a next cell of a grid can touch, so with many balls not every pair is looked at.
+  let widest = 0;
+  for (const ball of balls) widest = Math.max(widest, ball.r);
+  const cell = Math.max(widest * 2, 1);
+  const key = (cx: number, cy: number) => cx * 100003 + cy;
+  const grid = new Map<number, number[]>();
+  balls.forEach((ball, index) => {
+    const k = key(Math.floor(ball.x / cell), Math.floor(ball.y / cell));
+    const bucket = grid.get(k);
+    if (bucket) bucket.push(index); else grid.set(k, [index]);
+  });
   for (let i = 0; i < balls.length; i++) {
-    for (let j = i + 1; j < balls.length; j++) {
+    const near: number[] = [];
+    const gx = Math.floor(balls[i].x / cell), gy = Math.floor(balls[i].y / cell);
+    for (let dx = -1; dx <= 1; dx++) for (let dy = -1; dy <= 1; dy++) {
+      for (const j of grid.get(key(gx + dx, gy + dy)) ?? []) if (j > i) near.push(j);
+    }
+    near.sort((p, q) => p - q);
+    for (const j of near) {
       const a = balls[i], b = balls[j];
       if (done.has(a) || done.has(b) || (a.cool ?? 0) > 0 || (b.cool ?? 0) > 0) continue;
       const dx = b.x - a.x, dy = b.y - a.y;

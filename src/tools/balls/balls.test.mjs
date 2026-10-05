@@ -108,3 +108,17 @@ test('gravity pulls the balls down: they spend their time in the lower half, and
   }
   assert.ok(low / samples > 0.6, `lower half ${low / samples}`);
 });
+
+test('with a thousand balls a step is quick, and none is lost or outside the circle', () => {
+  const rng = seeded(21);
+  const world = createWorld();
+  for (let i = 0; i < 1000; i++) { const ball = spawn(options, rng); ball.life = 1e9; world.balls.push(ball); }
+  const wide = { ...options, maxBalls: 1000, gravity: 700 };
+  const began = performance.now();
+  for (let i = 0; i < 100; i++) step(world, 0.016, wide, rng);
+  const each = (performance.now() - began) / 100;
+  assert.ok(each < 8, `${each} ms a step`);
+  assert.equal(world.balls.length, 1000);
+  // Packed this close, one pushed by its neighbours may dip a little into the wall, but its centre stays inside.
+  for (const ball of world.balls) assert.ok(Math.hypot(ball.x - 320, ball.y - 320) <= options.radius);
+});

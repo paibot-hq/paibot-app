@@ -9,7 +9,7 @@ import { createWorld, spawn, step, type Options, type World } from "./balls";
 
 const SIZE = 640;
 const BACKGROUND = "#0b1020";
-const ARENA: Options = { cx: SIZE / 2, cy: SIZE / 2, radius: SIZE / 2 - 2, maxBalls: 400, minRadius: 3, split: true, gravity: 0 };
+const ARENA: Options = { cx: SIZE / 2, cy: SIZE / 2, radius: SIZE / 2 - 2, maxBalls: 1000, minRadius: 3, split: true, gravity: 0 };
 const GRAVITY = 700;
 type Flash = { x: number; y: number; hue: number; age: number };
 
@@ -68,7 +68,7 @@ export default function Balls() {
         ctx.arc(ARENA.cx, ARENA.cy, ARENA.radius, 0, Math.PI * 2);
         ctx.stroke();
         for (const ball of world.balls) {
-          if (ball.r < 6) {
+          if (ball.r < 6 || world.balls.length > 250) {
             ctx.fillStyle = `hsl(${ball.hue}, 90%, 62%)`;
             ctx.beginPath();
             ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
