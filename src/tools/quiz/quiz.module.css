@@ -16,7 +16,7 @@
 .choices button[data-result="correct"] { border: 2px solid var(--success); }
 .choices button[data-result="incorrect"] { border: 2px solid var(--error); }
 .choices button:disabled:not([data-result]) { opacity: .55; }
-.feedback { margin-top: 1rem; padding: 1rem; border-radius: 10px; background: var(--surface-strong); line-height: 1.7; }
+.feedback { margin: 0 0 1.2rem; padding: 1rem; border-radius: 10px; background: var(--surface-strong); line-height: 1.7; }
 .feedback > p { margin: .4rem 0; }
 .solution p { margin: .5rem 0; }
 .actions { display: flex; justify-content: center; flex-wrap: wrap; gap: .75rem; margin: 1.2rem 0; }
