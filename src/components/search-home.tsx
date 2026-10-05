@@ -30,6 +30,7 @@ export default function SearchHome({ year }: { year: number }) {
   const input = useRef<HTMLInputElement | null>(null);
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
+  const [onlyMine, setOnlyMine] = useState(false);
 
   const prepared = useMemo(() => {
     const entries: Entry[] = [];
@@ -85,6 +86,14 @@ export default function SearchHome({ year }: { year: number }) {
             data-search="input"
           />
         </div>
+        {signedIn && !query.trim() && (
+          <p className={styles.filter}>
+            <button type="button" className={styles.chip} aria-pressed={onlyMine} onClick={() => setOnlyMine(on => !on)} data-search="only-favorites">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L12 17l-5.2 2.8 1-5.9-4.3-4.2 5.9-.8z" /></svg>
+              {ts("onlyFavorites")}
+            </button>
+          </p>
+        )}
         {query.trim() && (
           <ul id="search-results" className={styles.results} role="listbox" aria-label={ts("results")} data-search="results">
             {results.length === 0 && <li className={styles.none} role="presentation">{ts("none", { query: query.trim() })}</li>}
@@ -101,12 +110,12 @@ export default function SearchHome({ year }: { year: number }) {
         )}
         {!query.trim() && (
           <nav className={styles.all} aria-label={ts("all")}>
-            {mine.length > 0 && (
+            {onlyMine ? (
               <section>
                 <h2>{ts("favorites")}</h2>
-                <ul>{mine.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited={favorites.has(app.slug)} />)}</ul>
+                {mine.length === 0 ? <p className={styles.empty}>{ts("noFavorites")}</p> : <ul data-search="favorites">{mine.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited />)}</ul>}
               </section>
-            )}
+            ) : <>
             {APP_CATEGORIES.map(category => {
               const list = apps.filter(app => app.category === category && app.status === "published" && app.href);
               if (!list.length) return null;
@@ -117,6 +126,7 @@ export default function SearchHome({ year }: { year: number }) {
                 </section>
               );
             })}
+            </>}
           </nav>
         )}
       </main>

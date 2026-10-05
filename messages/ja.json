@@ -619,7 +619,7 @@
       "retry": "もう一度"
     },
     "search": {
-      "favorites": "お気に入り", "all": "すべてのアプリ", "label": "検索",
+      "onlyFavorites": "お気に入りだけ", "noFavorites": "お気に入りはまだありません。カードの星を押すと、ここに集まります。", "favorites": "お気に入り", "all": "すべてのアプリ", "label": "検索",
       "placeholder": "アプリを検索",
       "results": "検索結果",
       "none": "「{query}」に当てはまるものが見つかりませんでした",

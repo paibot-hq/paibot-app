@@ -204,3 +204,30 @@
 .all li:hover :global(.favorite-button), .all :global(.favorite-button):focus-visible, .all :global(.favorite-button[aria-pressed="true"]) { opacity: 1; }
 .all :global(.favorite-button) svg { width: 16px; height: 16px; padding: 0; background: none; }
 @media (hover: none) { .all :global(.favorite-button) { opacity: 1; } }
+.filter {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0 0;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .4rem .9rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: .85rem;
+  cursor: pointer;
+}
+.chip svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; }
+.chip:hover, .chip:focus-visible { color: var(--text); border-color: var(--accent); outline: none; }
+.chip[aria-pressed="true"] {
+  border-color: light-dark(#d79a00, #f4c24f);
+  background: color-mix(in srgb, light-dark(#d79a00, #f4c24f) 14%, transparent);
+  color: var(--text);
+}
+.chip[aria-pressed="true"] svg { fill: light-dark(#d79a00, #f4c24f); stroke: light-dark(#d79a00, #f4c24f); }
+.empty { margin: 0; padding: 1.2rem 0; color: var(--muted); text-align: center; }

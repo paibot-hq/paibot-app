@@ -619,7 +619,7 @@
       "retry": "Try again"
     },
     "search": {
-      "favorites": "Favorites", "all": "All apps", "label": "Search",
+      "onlyFavorites": "Favorites only", "noFavorites": "No favorites yet. Press a card's star and it will be gathered here.", "favorites": "Favorites", "all": "All apps", "label": "Search",
       "placeholder": "Search apps",
       "results": "Search results",
       "none": "Nothing found for \"{query}\"",
