@@ -629,6 +629,30 @@
         "item": "Topic"
       }
     },
+    "kaleidoscope": {
+      "title": "Kaleidoscope",
+      "description": "Trace with a finger or the mouse and the pattern spreads round the centre as if mirrored. The colours drift like a rainbow, it can draw by itself, and you can save the picture.",
+      "keywords": "kaleidoscope drawing pattern symmetry art free",
+      "intro": "Trace inside the circle: your line is copied round and round.",
+      "canvasLabel": "The kaleidoscope. What you trace is copied round the centre.",
+      "autoOff": "Draw by itself",
+      "autoOn": "Drawing by itself",
+      "clear": "Clear",
+      "save": "Save image",
+      "segments": "Segments",
+      "size": "Brush size",
+      "color": "Colour",
+      "colors": {
+        "rainbow": "Rainbow",
+        "warm": "Warm",
+        "cool": "Cool",
+        "mono": "White"
+      },
+      "options": "Options",
+      "mirror": "Mirror",
+      "fade": "Fade away",
+      "hint": "More segments make a finer pattern. Turn the mirror off for a softer, turning-only pattern. With \"Fade away\" on, the automatic drawing is hard to stop watching."
+    },
     "pinball": {
       "title": "Pinball",
       "description": "Launch the ball with the plunger and keep it in play with the flippers. Score on bumpers and lanes and chase a high score over three balls.",
