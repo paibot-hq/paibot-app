@@ -629,6 +629,21 @@
         "item": "Topic"
       }
     },
+    "polyhedra": {
+      "title": "Platonic Solids",
+      "description": "A 3D viewer for the tetrahedron, cube, octahedron, dodecahedron and icosahedron that you turn by dragging. See their vertices, edges and faces and check Euler's formula V − E + F = 2.",
+      "keywords": "platonic solids 3d polyhedron cube dodecahedron icosahedron euler math free",
+      "intro": "Drag the solid to turn it. It keeps turning for a moment after you let go.",
+      "canvasLabel": "3D view of the {name}. Drag to turn it",
+      "stats": "{name}: {v} vertices · {e} edges · {f} faces (V − E + F = {v} − {e} + {f} = 2)",
+      "choose": "Choose a solid",
+      "solids": {"tetra": "Tetrahedron", "cube": "Cube", "octa": "Octahedron", "dodeca": "Dodecahedron", "icosa": "Icosahedron"},
+      "autoOn": "Spinning",
+      "autoOff": "Spin by itself",
+      "solid": "Solid",
+      "wire": "Wireframe",
+      "hint": "For every one of them, vertices − edges + faces is 2 (Euler's polyhedron formula). In wireframe the edges at the back show faintly."
+    },
     "pinball": {
       "title": "Pinball",
       "description": "Launch the ball with the plunger and keep it in play with the flippers. Score on bumpers and lanes and chase a high score over three balls.",
