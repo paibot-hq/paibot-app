@@ -11,7 +11,7 @@ const painted = canvas => canvas.evaluate(element => {
 
 export default async function ({ page, main, go }) {
   await go('kaleidoscope');
-  const canvas = main.locator('canvas');
+  const canvas = main.locator('canvas[role="img"]');
   assert.equal(await painted(canvas), 0, 'the canvas starts empty');
   // A stroke with the mouse is drawn, copied round the centre.
   const box = await canvas.boundingBox();
@@ -33,8 +33,15 @@ export default async function ({ page, main, go }) {
   assert.equal(await painted(canvas), 0, 'clear empties the canvas');
   await main.locator('[data-kaleidoscope="auto"]').click();
   await main.getByRole('button', { name: 'Drawing by itself' }).waitFor();
-  await page.waitForFunction(() => { const c = document.querySelector('main canvas'); const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 0; i < d.length; i += 4) if (d[i] > 40 || d[i + 1] > 40 || d[i + 2] > 70) n++; return n > 800; }, undefined, { timeout: 8000 });
+  await page.waitForFunction(() => { const c = document.querySelector('main canvas[role="img"]'); const d = c.getContext('2d').getImageData(0, 0, c.width, c.height).data; let n = 0; for (let i = 0; i < d.length; i += 4) if (d[i] > 40 || d[i + 1] > 40 || d[i + 2] > 70) n++; return n > 800; }, undefined, { timeout: 8000 });
   await main.locator('[data-kaleidoscope="auto"]').click();
   await main.getByRole('button', { name: 'Save image' }).waitFor();
-  console.log('PASS: kaleidoscope: a stroke is copied round the centre, more segments paint more, clear, automatic drawing');
+  // Balls fly in the circle, split when they meet and leave strokes behind.
+  await main.locator('[data-kaleidoscope="clear"]').click();
+  await main.locator('[data-kaleidoscope="balls"]').click();
+  await main.getByRole('button', { name: 'Balls flying' }).waitFor();
+  await page.waitForFunction(() => /^(\d+) balls/.test(document.querySelector('[data-kaleidoscope="count"]')?.textContent ?? '') && Number(document.querySelector('[data-kaleidoscope="count"]').textContent.match(/^(\d+)/)[1]) > 2, undefined, { timeout: 30000 });
+  assert.ok((await painted(canvas)) > 500, 'the balls leave strokes');
+  await main.locator('[data-kaleidoscope="balls"]').click();
+  console.log('PASS: kaleidoscope: a stroke is copied round the centre, more segments paint more, clear, automatic drawing, balls split');
 }
