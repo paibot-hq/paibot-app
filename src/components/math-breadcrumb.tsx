@@ -4,7 +4,7 @@ import styles from './math-breadcrumb.module.css';
 
 export interface MathCrumb { label: string; href?: string }
 
-// Where the page sits in Math Drills: Math Drills > unit > learning item > set.
+// Where the page sits in Math: Math > unit > learning item > set.
 // The last crumb is the current page and is not a link.
 export default function MathBreadcrumb({ crumbs }: { crumbs: MathCrumb[] }) {
   const t = useTranslations('App.math.quiz');

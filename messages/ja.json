@@ -725,7 +725,7 @@
       "postalMark": "〒"
     },
     "math": {
-      "title": "数学ドリル",
+      "title": "数学",
       "description": "四則演算や因数分解などを、単元ごとに練習できます。",
       "keywords": "数学 ドリル 算数 問題集 四則演算 因数分解 クイズ",
       "intro": "分野ごとに、すべての単元と問題セットを並べています。色の付いたセットは今すぐ練習できます。",
@@ -740,7 +740,7 @@
       },
       "quiz": {
         "setComingSoon": "この問題セットは準備中です。もうしばらくお待ちください。",
-        "backToMath": "数学ドリル",
+        "backToMath": "数学",
         "breadcrumb": "パンくずリスト",
         "progress": "{current} / {total}",
         "answer": "回答する",

@@ -725,7 +725,7 @@
       "postalMark": ""
     },
     "math": {
-      "title": "数学练习",
+      "title": "数学",
       "description": "按单元练习四则运算、因式分解等数学内容。",
       "keywords": "数学 练习 四则运算 因式分解 测验 题库",
       "intro": "按数学领域列出全部单元和题组。带颜色的题组现在就可以练习。",
@@ -740,7 +740,7 @@
       },
       "quiz": {
         "setComingSoon": "此题组正在准备中，请稍候。",
-        "backToMath": "数学练习",
+        "backToMath": "数学",
         "breadcrumb": "面包屑导航",
         "progress": "{current} / {total}",
         "answer": "作答",

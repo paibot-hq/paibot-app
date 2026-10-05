@@ -26,7 +26,7 @@ One site, one host: `paibot.app` (development: `dev.paibot.app`), with no subdom
 search (`src/components/search-home.tsx`, ranking in `src/lib/search.ts`) over the apps, with every app listed under the
 box as a small card; it is built from the app catalog and the messages, so a new tool is found by its `title`,
 `description` and `keywords` and shown as a card with nothing else to register. The math drills are reached through
-the "数学ドリル" app (`/math`), not searched. The former list and category pages (`/apps`, `/daily`, `/study`, `/dev` ...)
+the "数学" app (`/math`), not searched. The former list and category pages (`/apps`, `/daily`, `/study`, `/dev` ...)
 redirect to the top page. Do not add a subdomain per tool or per kind of page.
 
 ## Adding a tool
@@ -56,7 +56,7 @@ a change to shared code runs every tool, as does every push to `main`.
 Math is organized unit → learning item → practice set, all in
 `src/lib/math-catalog.ts` (names under `App.math.units.<unit>.items.<item>` in
 `messages/*.json`). Pages:
-- `/math` ("Math Drills", `routes/math.tsx` + `components/math-unit-table.tsx`):
+- `/math` ("Math", `routes/math.tsx` + `components/math-unit-table.tsx`):
   every unit with its learning items, filtered in the browser by level,
   playability and name. Each unit's name links to its page and each item to its
   own; items with published problems in D1 are highlighted.

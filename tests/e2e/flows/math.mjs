@@ -85,7 +85,7 @@ export default async function ({ page, main, base, go, errors }) {
     await main.getByText(label, { exact: true }).last().waitFor();
     await main.getByText('1 / 5', { exact: true }).waitFor();
     assert.match(await main.locator('[data-tier]').innerText(), /^(Basic|Standard|Advanced)$/);
-    // A breadcrumb: Math Drills > unit > learning item > set (current, not a link).
+    // A breadcrumb: Math > unit > learning item > set (current, not a link).
     const crumbs = page.getByRole('navigation', { name: 'Breadcrumb' });
     assert.deepEqual(await crumbs.getByRole('link').evaluateAll(links => links.map(link => link.getAttribute('href'))),
       ['/en/math', `/en/math/${item.split('/')[0]}`, `/en/math/${item}`]);

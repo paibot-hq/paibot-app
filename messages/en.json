@@ -725,7 +725,7 @@
       "postalMark": ""
     },
     "math": {
-      "title": "Math Drills",
+      "title": "Math",
       "description": "Practice arithmetic, factoring, and other math topics, one topic at a time.",
       "keywords": "math drills arithmetic algebra factoring quiz problem set",
       "intro": "Every unit and problem set, grouped by area of mathematics. Highlighted sets are ready to practice.",
@@ -740,7 +740,7 @@
       },
       "quiz": {
         "setComingSoon": "This problem set is being prepared. Check back soon.",
-        "backToMath": "Math Drills",
+        "backToMath": "Math",
         "breadcrumb": "Breadcrumb",
         "progress": "{current} / {total}",
         "answer": "Answer",
