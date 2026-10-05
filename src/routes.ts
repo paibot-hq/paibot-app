@@ -11,7 +11,7 @@ const toolRoutes = APP_CATALOG
   .map(app => route(app.href!.slice(1), `tools/${app.slug}/route.tsx`));
 export default [
   index('routes/redirect.ts'),
-  ...[...publicPaths.filter(path => path !== '').map(path => path.slice(1)), 'diary', 'profile', 'sign-in/*', 'sign-up/*']
+  ...[...publicPaths.filter(path => path !== '').map(path => path.slice(1)), 'diary', 'profile', 'legal/commerce', 'sign-in/*', 'sign-up/*']
     .map(path => route(path, 'routes/redirect.ts', { id: `locale-redirect/${path}` })),
   route('api/quiz', 'routes/api.quiz.ts'),
   route('sitemap.xml', 'routes/sitemap.ts'),
