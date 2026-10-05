@@ -6,7 +6,9 @@ import { siteOrigin, isIndexable } from '../src/lib/seo.server';
 import { buildContentSecurityPolicy } from '../src/lib/security-headers.server';
 
 const handle = createRequestHandler(() => import('virtual:react-router/server-build'), import.meta.env.MODE);
-const AUTH_PATH = new RegExp(`^/(${locales.join('|')})/(sign-in|sign-up|diary|profile)(/|\\.data$|$)`);
+// Pages kept out of search results: the signed-in ones, and the notice under the Specified Commercial Transactions Act
+// (it names the seller; it stays reachable by its link and from the footer).
+const AUTH_PATH = new RegExp(`^/(${locales.join('|')})/(sign-in|sign-up|diary|profile|legal/commerce)(/|\\.data$|$)`);
 const csp = buildContentSecurityPolicy();
 
 export default {

@@ -13,7 +13,7 @@ const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app
 const MATH_SAMPLE = ['/math', '/math/arith', '/math/signed', '/math/factorization', '/math/pythagoras', '/math/arith/order-of-operations', '/math/signed/four-operations', '/math/factorization/trinomial', '/math/pythagoras/sides'];
 const paths = publicPaths.filter(path => !path.startsWith('/math/') || MATH_SAMPLE.includes(path));
 const indexable = process.env.CHECK_SITE_INDEXABLE === 'true';
-const authPaths = ['sign-in', 'sign-up', 'diary', 'profile'];
+const authPaths = ['sign-in', 'sign-up', 'diary', 'profile', 'legal/commerce'];
 const browser = await chromium.launch();
 try {
   // Parse the actual server response, without allowing hydration to repair it.
@@ -102,7 +102,7 @@ try {
   }
   console.log(`PASS: ${publicPages} public pages and ${authPaths.length * locales.length} non-indexable pages: SSR titles, SEO tags and security headers`);
 
-  for (const path of ['/', ...paths.filter(Boolean), '/diary', '/profile', '/sign-in', '/sign-up', '/sign-in/factor-one', '/sign-up/verify-email-address']) {
+  for (const path of ['/', ...paths.filter(Boolean), '/diary', '/profile', '/legal/commerce', '/sign-in', '/sign-up', '/sign-in/factor-one', '/sign-up/verify-email-address']) {
     const query = '?redirect_url=%2Fen%2Fwc&source=smoke';
     const res = await request(`${path}${query}`, { redirect: 'manual' });
     assert.equal(res.status, 307, `${path}: locale redirect`);
