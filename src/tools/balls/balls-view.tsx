@@ -9,7 +9,7 @@ import { createWorld, spawn, step, type Options, type World } from "./balls";
 
 const SIZE = 640;
 const BACKGROUND = "#0b1020";
-const ARENA: Options = { cx: SIZE / 2, cy: SIZE / 2, radius: SIZE / 2 - 2, maxBalls: 60, minRadius: 5, split: true };
+const ARENA: Options = { cx: SIZE / 2, cy: SIZE / 2, radius: SIZE / 2 - 2, maxBalls: 400, minRadius: 3, split: true };
 type Flash = { x: number; y: number; hue: number; age: number };
 
 export default function Balls() {
@@ -30,7 +30,7 @@ export default function Balls() {
 
   function reset() {
     const world = createWorld();
-    for (let i = 0; i < 5; i++) world.balls.push(spawn(ARENA, Math.random));
+    for (let i = 0; i < 8; i++) world.balls.push(spawn(ARENA, Math.random));
     worldRef.current = world;
     flashes.current = [];
     const ctx = canvasRef.current?.getContext("2d");
@@ -64,6 +64,13 @@ export default function Balls() {
         ctx.arc(ARENA.cx, ARENA.cy, ARENA.radius, 0, Math.PI * 2);
         ctx.stroke();
         for (const ball of world.balls) {
+          if (ball.r < 6) {
+            ctx.fillStyle = `hsl(${ball.hue}, 90%, 62%)`;
+            ctx.beginPath();
+            ctx.arc(ball.x, ball.y, ball.r, 0, Math.PI * 2);
+            ctx.fill();
+            continue;
+          }
           const glow = ctx.createRadialGradient(ball.x - ball.r * 0.3, ball.y - ball.r * 0.3, ball.r * 0.1, ball.x, ball.y, ball.r);
           glow.addColorStop(0, `hsl(${ball.hue}, 95%, 82%)`);
           glow.addColorStop(1, `hsl(${ball.hue}, 85%, 50%)`);

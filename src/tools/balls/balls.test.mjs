@@ -1,14 +1,14 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createWorld, spawn, step, totalArea } from './balls.ts';
+import { createWorld, spawn, step, SHRINK } from './balls.ts';
 
 const seeded = seed => () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
-const options = { cx: 320, cy: 320, radius: 300, maxBalls: 40, minRadius: 6, split: true };
+const options = { cx: 320, cy: 320, radius: 300, maxBalls: 40, minRadius: 3, split: true };
 const speedOf = ball => Math.hypot(ball.vx, ball.vy);
 
 test('a spawned ball is inside the circle and goes at the speed asked for', () => {
   for (let seed = 1; seed <= 50; seed++) {
-    const ball = spawn(options, seeded(seed), 190, 22);
+    const ball = spawn(options, seeded(seed), 190, 12);
     assert.ok(Math.hypot(ball.x - 320, ball.y - 320) + ball.r <= options.radius);
     assert.ok(Math.abs(speedOf(ball) - 190) < 1e-9);
   }
@@ -29,16 +29,15 @@ test('balls bounce off the wall and never leave the circle, keeping their energy
   assert.ok(Math.abs(energy() - before) / before < 1e-6, 'bounces keep the total energy');
 });
 
-test('two balls that meet each split in two, and the area is kept', () => {
+test('two balls that meet each split in two, a little smaller, with the same speed', () => {
   const rng = seeded(5);
   const world = createWorld();
   world.balls.push({ x: 300, y: 320, vx: 100, vy: 0, r: 20, hue: 10, life: 10 }, { x: 330, y: 320, vx: -100, vy: 0, r: 20, hue: 200, life: 10 });
-  const before = totalArea(world.balls);
   const flashes = step(world, 0.016, options, rng);
   assert.equal(world.balls.length, 4);
   assert.equal(world.splits, 1);
   assert.equal(flashes.length, 1);
-  assert.ok(Math.abs(totalArea(world.balls) - before) < 1e-6, 'the pieces have the area of the balls');
+  for (const ball of world.balls) assert.ok(Math.abs(ball.r - 20 * SHRINK) < 1e-9, 'the pieces are smaller');
   for (const ball of world.balls) assert.ok(Math.abs(speedOf(ball) - 100) < 1e-6, 'the pieces keep the speed');
 });
 
@@ -47,7 +46,7 @@ test('with splitting off, or at the cap, or when too small, a meeting is only a 
   for (const [label, balls, opts] of [
     ['off', meet(20), { ...options, split: false }],
     ['cap', meet(20), { ...options, maxBalls: 3 }],
-    ['small', meet(5), options],
+    ['small', meet(3), options],
   ]) {
     const world = createWorld();
     world.balls.push(...balls);

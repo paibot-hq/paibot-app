@@ -1,6 +1,6 @@
-// Balls flying inside a circle. They bounce off its wall, and when two meet, each splits in two (the pieces together have the area
-// of the ball they came from). A cap on their number and a life span keep them from filling the circle for good: a ball
-// pops when its life runs out, and a new one is let in when none is left. Pure functions of (state, dt, rng), tested without
+// Balls flying inside a circle. They bounce off its wall, and when two meet, each splits in two, each piece a little smaller than the
+// ball it came from (so the area is not kept: they multiply, and the smallest stop splitting). A cap on their number and a long life
+// span keep them from filling the circle for good: a ball pops when its life runs out, and a new one is let in when none is left. Pure functions of (state, dt, rng), tested without
 // a browser.
 
 export type Ball = { x: number; y: number; vx: number; vy: number; r: number; hue: number; life: number };
@@ -15,14 +15,15 @@ export type Options = {
 };
 
 export const MAX_DT = 0.05;
-export const LIFE = [14, 24] as const;
+export const LIFE = [40, 70] as const;
+export const SHRINK = 0.88;
 
 export function createWorld(): World {
   return { balls: [], splits: 0, time: 0 };
 }
 
 // A ball at a random place inside the circle, going in a random direction at a speed of `speed` pixels a second.
-export function spawn(options: Options, rng: () => number, speed = 190, r = 22): Ball {
+export function spawn(options: Options, rng: () => number, speed = 190, r = 12): Ball {
   const angle = rng() * Math.PI * 2;
   const away = Math.sqrt(rng()) * (options.radius - r - 4);
   const heading = rng() * Math.PI * 2;
@@ -33,15 +34,12 @@ export function spawn(options: Options, rng: () => number, speed = 190, r = 22):
   };
 }
 
-const area = (balls: readonly Ball[]) => balls.reduce((sum, ball) => sum + ball.r * ball.r, 0);
-export const totalArea = area;
-
-// Two balls that touch, each in two: the pieces fly off to either side of the way the ball was going, with its speed.
+// A ball in two: the pieces fly off to either side of the way it was going, with its speed, each a little smaller.
 function halves(ball: Ball, rng: () => number): Ball[] {
   const speed = Math.hypot(ball.vx, ball.vy);
   const heading = Math.atan2(ball.vy, ball.vx);
   const spread = 0.5 + rng() * 0.5;
-  const r = ball.r / Math.SQRT2;
+  const r = ball.r * SHRINK;
   return [-1, 1].map(side => ({
     x: ball.x + Math.cos(heading + side * Math.PI / 2) * r * 0.6, y: ball.y + Math.sin(heading + side * Math.PI / 2) * r * 0.6,
     vx: Math.cos(heading + side * spread) * speed, vy: Math.sin(heading + side * spread) * speed, r,
