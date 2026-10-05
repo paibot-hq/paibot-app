@@ -619,7 +619,7 @@
       "retry": "再试一次"
     },
     "search": {
-      "all": "全部应用", "label": "搜索",
+      "onlyFavorites": "只看收藏", "noFavorites": "还没有收藏。点击卡片上的星标，就会收集到这里。", "favorites": "收藏", "all": "全部应用", "label": "搜索",
       "placeholder": "搜索应用",
       "results": "搜索结果",
       "none": "没有找到与“{query}”相关的内容",
@@ -725,8 +725,8 @@
       "postalMark": ""
     },
     "math": {
-      "title": "数学练习",
-      "description": "按单元练习四则运算、因式分解等数学内容。",
+      "title": "数学",
+      "description": "从小学到大学，用四选一题练习数学。",
       "keywords": "数学 练习 四则运算 因式分解 测验 题库",
       "intro": "按数学领域列出全部单元和题组。带颜色的题组现在就可以练习。",
       "itemPage": {
@@ -740,7 +740,8 @@
       },
       "quiz": {
         "setComingSoon": "此题组正在准备中，请稍候。",
-        "backToMath": "数学练习",
+        "done": "已完成",
+        "backToMath": "数学",
         "breadcrumb": "面包屑导航",
         "progress": "{current} / {total}",
         "answer": "作答",

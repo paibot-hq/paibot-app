@@ -21,11 +21,6 @@
       "max_attempts": 10
     }
   },
-  "auth_biometric": {
-    "enrollment_prompt_after_sign_in": false,
-    "enrollment_prompt_after_sign_up": false,
-    "used_for_sign_in": false
-  },
   "auth_email": {
     "immutable": false,
     "required_for_sign_up": true,
@@ -121,7 +116,7 @@
       "terms_of_service_url": null
     }
   },
-  "config_version": "v1_a569fbd0",
+  "config_version": "v1_7b58010a",
   "connection_oauth_agentid": {
     "authenticatable": true,
     "block_email_subaddresses": false,
@@ -330,7 +325,7 @@
   "organization_settings": {
     "admin_delete_enabled": true,
     "creator_role": "org:admin",
-    "domains_default_role": "org:member",
+    "domains_default_role": "",
     "domains_enabled": false,
     "domains_enrollment_modes": [],
     "enabled": false,

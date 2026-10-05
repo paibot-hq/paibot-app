@@ -55,6 +55,7 @@ function QuizGame({ locale }: { locale: string }) {
       {!questions.length ? <>
         <p className={styles.intro}>{t('intro')}</p><p className={styles.note}>{t('note')}</p>
         {failed && <p role="alert">{t('loadError')}</p>}
+        {/* The button stays under the choices (the explanation can be long and would push it off screen). */}
         <div className={styles.actions}><button className={styles.primary} disabled={loading} onClick={start}>{loading ? t('loading') : t('start')}</button></div>
       </> : finished ? <section>
         <h2 ref={heading} tabIndex={-1}>{t('complete')}</h2>
@@ -75,11 +76,12 @@ function QuizGame({ locale }: { locale: string }) {
           aria-pressed={selected === index} onClick={() => { if (selected === null) setSelected(index); }}>
           <small aria-hidden="true">{index + 1}</small><span>{choice}</span>
         </button>)}</div>
+        {/* The button stays under the choices (the explanation can be long and would push it off screen). */}
+        <div className={styles.actions}><button className={styles.primary} disabled={selected === null} onClick={next}>{answers.length + 1 === questions.length ? t('seeResults') : t('next')}</button></div>
         {selected !== null && <div className={styles.feedback} role="status">
           <strong>{selected === question.answerIndex ? t('correct') : t('incorrect')}</strong>
           <p>{t('rightAnswer', { answer: question.choices[question.answerIndex] })}</p><Solution question={question} />
         </div>}
-        <div className={styles.actions}><button className={styles.primary} disabled={selected === null} onClick={next}>{answers.length + 1 === questions.length ? t('seeResults') : t('next')}</button></div>
         <button className={styles.back} onClick={back}>{t('back')}</button>
       </section>}
     </div></ToolLayout>

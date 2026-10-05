@@ -619,7 +619,7 @@
       "retry": "もう一度"
     },
     "search": {
-      "all": "すべてのアプリ", "label": "検索",
+      "onlyFavorites": "お気に入りだけ", "noFavorites": "お気に入りはまだありません。カードの星を押すと、ここに集まります。", "favorites": "お気に入り", "all": "すべてのアプリ", "label": "検索",
       "placeholder": "アプリを検索",
       "results": "検索結果",
       "none": "「{query}」に当てはまるものが見つかりませんでした",
@@ -725,8 +725,8 @@
       "postalMark": "〒"
     },
     "math": {
-      "title": "数学ドリル",
-      "description": "四則演算や因数分解などを、単元ごとに練習できます。",
+      "title": "数学",
+      "description": "小学校から大学まで、4択で基礎から学べる数学の練習問題。",
       "keywords": "数学 ドリル 算数 問題集 四則演算 因数分解 クイズ",
       "intro": "分野ごとに、すべての単元と問題セットを並べています。色の付いたセットは今すぐ練習できます。",
       "itemPage": {
@@ -740,7 +740,8 @@
       },
       "quiz": {
         "setComingSoon": "この問題セットは準備中です。もうしばらくお待ちください。",
-        "backToMath": "数学ドリル",
+        "done": "完了",
+        "backToMath": "数学",
         "breadcrumb": "パンくずリスト",
         "progress": "{current} / {total}",
         "answer": "回答する",

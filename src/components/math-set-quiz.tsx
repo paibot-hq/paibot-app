@@ -115,15 +115,18 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
           </button>;
         })}
       </div>
-      {!revealed
-        ? <button type="button" className={styles.primary} disabled={selected === null} onClick={submit}>{t('answer')}</button>
-        : <div className={styles.feedback} aria-live="polite">
-          <p className={styles.verdict} data-correct={selected === question.answerIndex || undefined}>
-            {selected === question.answerIndex ? t('correct') : t('incorrect')}
-          </p>
-          <div className={styles.explanation}>{question.explanation}</div>
-          <button type="button" className={styles.primary} onClick={next}>{t('next')}</button>
-        </div>}
+      {/* The button stays where it was after the answer: "Answer" becomes "Next" in the same place, with the verdict
+          beside it, and the explanation (which can be long) goes below, so the next step is never pushed off screen. */}
+      <div className={styles.action}>
+        {!revealed
+          ? <button type="button" className={styles.primary} disabled={selected === null} onClick={submit}>{t('answer')}</button>
+          : <button type="button" className={styles.primary} onClick={next} autoFocus>{t('next')}</button>}
+        {/* Always in the page, so a screen reader announces the verdict when its text appears. */}
+        <p className={styles.verdict} data-correct={(revealed && selected === question.answerIndex) || undefined} aria-live="polite">
+          {revealed ? (selected === question.answerIndex ? t('correct') : t('incorrect')) : ''}
+        </p>
+      </div>
+      {revealed && <div className={styles.feedback}><div className={styles.explanation}>{question.explanation}</div></div>}
     </div>
   </ToolLayout>;
 }

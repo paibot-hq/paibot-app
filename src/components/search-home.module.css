@@ -69,20 +69,34 @@
 .none { padding: 1rem; color: var(--muted); text-align: center; }
 .all {
   display: grid;
-  gap: 2.4rem;
+  gap: 2.6rem;
   margin-top: 3.5rem;
 }
+.all section {
+  padding-top: 1.1rem;
+  border-top: 1px solid var(--line);
+}
 .all h2 {
-  margin: 0 0 .8rem;
-  color: var(--muted);
-  font-size: .8rem;
-  font-weight: 600;
-  letter-spacing: .08em;
+  margin: 0 0 .9rem;
+  color: var(--text);
+  font-size: .9rem;
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+.all h2::before {
+  content: "";
+  display: inline-block;
+  width: .3rem;
+  height: .9em;
+  margin-right: .55rem;
+  border-radius: 2px;
+  background: var(--accent);
+  vertical-align: -.08em;
 }
 .all ul {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
-  gap: .3rem;
+  gap: .6rem;
   margin: 0;
   padding: 0;
   list-style: none;
@@ -93,19 +107,22 @@
   gap: .8rem;
   height: 100%;
   box-sizing: border-box;
-  padding: .6rem .7rem;
+  padding: .6rem 2.8rem .6rem .7rem;
+  border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
   border-radius: 12px;
+  background: color-mix(in srgb, var(--surface-strong) 60%, transparent);
   color: var(--text);
   text-decoration: none;
-  transition: background .15s ease;
+  transition: background .15s ease, border-color .15s ease;
 }
 .all a:hover, .all a:focus-visible {
   /* The accent tinted over the card colour: visible in the light and in the dark theme (--surface is nearly the page's own colour in the dark one). */
   background: color-mix(in srgb, var(--accent) 13%, var(--surface-strong));
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
   outline: none;
 }
 .all a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-.all svg {
+.all a svg {
   flex: none;
   box-sizing: content-box;
   width: 18px;
@@ -172,3 +189,45 @@
   }
 }
 @media (prefers-reduced-motion: reduce) { .about { transition: none; transform: none; } }
+/* The favourite star sits in the card's corner, small and quiet until the card is hovered. */
+.all :global(.favorite-button) {
+  top: 50%;
+  right: .55rem;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  transform: translateY(-50%);
+  border-color: transparent;
+  background: transparent;
+  opacity: .75;
+}
+.all li:hover :global(.favorite-button), .all :global(.favorite-button):focus-visible, .all :global(.favorite-button[aria-pressed="true"]) { opacity: 1; }
+.all :global(.favorite-button) svg { width: 16px; height: 16px; padding: 0; background: none; }
+@media (hover: none) { .all :global(.favorite-button) { opacity: 1; } }
+.filter {
+  display: flex;
+  justify-content: center;
+  margin: 1rem 0 0;
+}
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .4rem;
+  padding: .4rem .9rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: .85rem;
+  cursor: pointer;
+}
+.chip svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linejoin: round; }
+.chip:hover, .chip:focus-visible { color: var(--text); border-color: var(--accent); outline: none; }
+.chip[aria-pressed="true"] {
+  border-color: light-dark(#d79a00, #f4c24f);
+  background: color-mix(in srgb, light-dark(#d79a00, #f4c24f) 14%, transparent);
+  color: var(--text);
+}
+.chip[aria-pressed="true"] svg { fill: light-dark(#d79a00, #f4c24f); stroke: light-dark(#d79a00, #f4c24f); }
+.empty { margin: 0; padding: 1.2rem 0; color: var(--muted); text-align: center; }

@@ -619,7 +619,7 @@
       "retry": "Try again"
     },
     "search": {
-      "all": "All apps", "label": "Search",
+      "onlyFavorites": "Favorites only", "noFavorites": "No favorites yet. Press a card's star and it will be gathered here.", "favorites": "Favorites", "all": "All apps", "label": "Search",
       "placeholder": "Search apps",
       "results": "Search results",
       "none": "Nothing found for \"{query}\"",
@@ -725,8 +725,8 @@
       "postalMark": ""
     },
     "math": {
-      "title": "Math Drills",
-      "description": "Practice arithmetic, factoring, and other math topics, one topic at a time.",
+      "title": "Math",
+      "description": "Multiple-choice math practice, from elementary school to university.",
       "keywords": "math drills arithmetic algebra factoring quiz problem set",
       "intro": "Every unit and problem set, grouped by area of mathematics. Highlighted sets are ready to practice.",
       "itemPage": {
@@ -740,7 +740,8 @@
       },
       "quiz": {
         "setComingSoon": "This problem set is being prepared. Check back soon.",
-        "backToMath": "Math Drills",
+        "done": "Done",
+        "backToMath": "Math",
         "breadcrumb": "Breadcrumb",
         "progress": "{current} / {total}",
         "answer": "Answer",

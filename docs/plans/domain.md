@@ -19,7 +19,7 @@
 
 ## `paibot.dev`から戻す手作業(この順で)
 
-1. **Clerkのキーを旧インスタンスのものに戻す**: GitHubの`PROD_CLERK_PUBLISHABLE_KEY`・`PROD_CLERK_SECRET_KEY`を、旧`paibot.app`の本番インスタンス(`pk_live_`の値が`clerk.paibot.app`を指すもの)のキーにする。Workerのシークレットは、本番デプロイ時にワークフローが同期する。確認は、デプロイ後に配信されたキーを`pk_live_`のあとのBase64で見る(`clerk.paibot.app`のはず)。
+1. **Clerkのキーを旧インスタンスのものに戻す**(本番と開発の両方。開発は、移行のときに作り直した新しい開発用インスタンスをやめ、元の開発用インスタンスに戻す。`config/clerk/development.json`も、そのインスタンスの設定に戻してある): GitHubの`PROD_CLERK_PUBLISHABLE_KEY`・`PROD_CLERK_SECRET_KEY`を、旧`paibot.app`の本番インスタンス(`pk_live_`の値が`clerk.paibot.app`を指すもの)のキーにする。開発は、GitHubの`CLERK_PUBLISHABLE_KEY`・`CLERK_SECRET_KEY`を、元の開発用インスタンスの`pk_test_`・`sk_test_`にする。手元の`.dev.vars`の同じ2つも、同じ値にする(CIの認証テストと、ローカルのテストが、同じインスタンスを使うため)。Workerのシークレットは、デプロイ時にワークフローが同期する。確認は、デプロイ後に配信されたキーを`pk_live_`のあとのBase64で見る(`clerk.paibot.app`のはず)。
 2. **このPRをマージ**し、devのデプロイが`dev.paibot.app`で動くことを確認する。
 3. **`Infra Plan`を確認して`Infra Apply`**: `paibot.dev`ゾーンのDNS(Clerk用のCNAME 5つ、Search ConsoleのTXT、`www`)とRedirect Ruleが削除され、`paibot.app`側が元の形に戻る。`paibot.dev`のゾーンを先にCloudflareから外した場合は、そのリソースの削除が失敗するので、先にApplyする。
 4. **`App (production)`を実行**: 本番が`paibot.app`で配信される。`paibot.dev`のカスタムドメイン(`paibot.dev`、`app.`、`learn.`、`tools.`)は、Wranglerの設定から外れるが、**Cloudflareのダッシュボード(Workers > paibot-app > Settings > Domains)に残っていないか確認し、残っていれば手で外す**。

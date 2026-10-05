@@ -22,6 +22,8 @@
 .sets { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: .4rem; }
 .set { display: inline-block; font-size: .82rem; padding: .2rem .6rem; border-radius: 6px; border: 1px solid var(--line); color: var(--muted); text-decoration: none; }
 .set[data-playable] { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+/* An item whose practice is all finished is green. */
+.set[data-done] { border-color: var(--success); color: var(--success); background: color-mix(in srgb, var(--success) 12%, transparent); }
 .set:hover { border-color: var(--accent); color: var(--accent); }
 .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 .record { margin-left: .4rem; font-size: .72rem; font-weight: 400; font-variant-numeric: tabular-nums; }

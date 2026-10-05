@@ -376,6 +376,10 @@ h1 .title-suffix {
   cursor: pointer;
 }
 .favorite-button svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 1.6; }
+/* A favourite is gold, so it can be told from one that is not at a glance (light-dark() follows the theme). */
+.favorite-button { color: var(--muted); }
+.favorite-button[aria-pressed="true"] { color: light-dark(#d79a00, #f4c24f); }
+.favorite-button:hover, .favorite-button:focus-visible { color: light-dark(#d79a00, #f4c24f); }
 .favorite-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .about { width: min(720px, calc(100% - 2rem)); }

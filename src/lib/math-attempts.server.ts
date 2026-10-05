@@ -76,3 +76,14 @@ export async function getSetRecords(args: RouteArgs, unit: string, item: string)
     return Object.fromEntries(rows.map(row => [row.setId, { last: row.correct, best: row.best, total: row.total }]));
   } catch { return {}; }
 }
+
+// The sets the signed-in visitor has finished at least once, as "unit/item/set": a practice card turns green for these.
+// Signed-out visitors never reach D1; a failed read just shows nothing as done.
+export async function getDoneSets(args: RouteArgs): Promise<string[]> {
+  const { userId } = await getAuth(args);
+  if (!userId) return [];
+  try {
+    const rows = await getDb().selectDistinct({ unit: mathAttempts.unit, item: mathAttempts.item, setId: mathAttempts.setId }).from(mathAttempts).where(eq(mathAttempts.userId, userId));
+    return rows.map(row => `${row.unit}/${row.item}/${row.setId}`);
+  } catch { return []; }
+}
