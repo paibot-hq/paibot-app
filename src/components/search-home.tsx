@@ -1,10 +1,23 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { useLocale, useTranslations } from "use-intl";
 import { Link } from "../i18n/navigation";
-import { apps, APP_CATEGORIES, type DynamicT } from "../lib/apps";
+import { apps, APP_CATEGORIES, type AppEntry, type DynamicT } from "../lib/apps";
 import { prepare, search, type Entry } from "../lib/search";
+import FavoriteButton from "./favorite-button";
 import SiteFooter from "./site-footer";
+import { useFavoritesData } from "../routes/locale";
 import styles from "./search-home.module.css";
+
+// A card: the app's link, and the favourite star beside it (a button cannot sit inside a link). Defined here, not
+// inside SearchHome: a component made inside another is a new component on every render, and React would rebuild every card.
+function Card({ app, td, locale, signedIn, favorited }: { app: AppEntry; td: DynamicT; locale: string; signedIn: boolean; favorited: boolean }) {
+  return (
+    <li className="app-card-wrap">
+      <Link href={app.href!}><app.icon aria-hidden="true" /><span className={styles.name}>{td(`${app.messageKey}.title`)}<span className={styles.about}>{td(`${app.messageKey}.description`)}</span></span></Link>
+      <FavoriteButton actionPath={`/${locale}/favorites`} slug={app.slug} signedIn={signedIn} favorited={favorited} addLabel={td("apps.favorite")} removeLabel={td("apps.unfavorite")} />
+    </li>
+  );
+}
 
 // The top page: a search box that finds the apps, and every app listed under it.
 export default function SearchHome({ year }: { year: number }) {
@@ -12,6 +25,8 @@ export default function SearchHome({ year }: { year: number }) {
   const ts = useTranslations("App.search");
   const locale = useLocale();
   const td = t as unknown as DynamicT;
+  const { signedIn, favoriteSlugs } = useFavoritesData();
+  const favorites = useMemo(() => new Set(favoriteSlugs), [favoriteSlugs]);
   const input = useRef<HTMLInputElement | null>(null);
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
@@ -27,7 +42,8 @@ export default function SearchHome({ year }: { year: number }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [locale]);
   const results = useMemo(() => search(prepared, query), [prepared, query]);
-
+  // The signed-in visitor's favourite apps come first.
+  const mine = apps.filter(app => app.status === "published" && app.href && favorites.has(app.slug));
   // "/" jumps to the box from anywhere on the page, as on most sites.
   useEffect(() => {
     const onKey = (event: globalThis.KeyboardEvent) => {
@@ -85,13 +101,19 @@ export default function SearchHome({ year }: { year: number }) {
         )}
         {!query.trim() && (
           <nav className={styles.all} aria-label={ts("all")}>
+            {mine.length > 0 && (
+              <section>
+                <h2>{ts("favorites")}</h2>
+                <ul>{mine.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited={favorites.has(app.slug)} />)}</ul>
+              </section>
+            )}
             {APP_CATEGORIES.map(category => {
               const list = apps.filter(app => app.category === category && app.status === "published" && app.href);
               if (!list.length) return null;
               return (
                 <section key={category}>
                   <h2>{td(`categories.${category}`)}</h2>
-                  <ul>{list.map(app => <li key={app.slug}><Link href={app.href!}><app.icon aria-hidden="true" /><span className={styles.name}>{td(`${app.messageKey}.title`)}<span className={styles.about}>{td(`${app.messageKey}.description`)}</span></span></Link></li>)}</ul>
+                  <ul>{list.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited={favorites.has(app.slug)} />)}</ul>
                 </section>
               );
             })}

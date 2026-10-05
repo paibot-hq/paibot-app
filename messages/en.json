@@ -619,7 +619,7 @@
       "retry": "Try again"
     },
     "search": {
-      "all": "All apps", "label": "Search",
+      "favorites": "Favorites", "all": "All apps", "label": "Search",
       "placeholder": "Search apps",
       "results": "Search results",
       "none": "Nothing found for \"{query}\"",

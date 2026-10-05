@@ -93,7 +93,7 @@
   gap: .8rem;
   height: 100%;
   box-sizing: border-box;
-  padding: .6rem .7rem;
+  padding: .6rem 2.8rem .6rem .7rem;
   border-radius: 12px;
   color: var(--text);
   text-decoration: none;
@@ -172,3 +172,18 @@
   }
 }
 @media (prefers-reduced-motion: reduce) { .about { transition: none; transform: none; } }
+/* The favourite star sits in the card's corner, small and quiet until the card is hovered. */
+.all :global(.favorite-button) {
+  top: 50%;
+  right: .55rem;
+  width: 28px;
+  height: 28px;
+  margin: 0;
+  transform: translateY(-50%);
+  border-color: transparent;
+  background: transparent;
+  opacity: .55;
+}
+.all li:hover :global(.favorite-button), .all :global(.favorite-button):focus-visible, .all :global(.favorite-button[aria-pressed="true"]) { opacity: 1; }
+.all :global(.favorite-button) svg { width: 15px; height: 15px; }
+@media (hover: none) { .all :global(.favorite-button) { opacity: 1; } }

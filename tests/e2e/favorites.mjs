@@ -49,7 +49,8 @@ try {
   await clerk.loaded({ page });
 
   // "wc" (character count) is a stable, always-published tool to key the test on.
-  const card = page.locator('.app-card-wrap').filter({ has: page.locator('a[href="/en/wc"]') });
+  // A favourite is listed twice (first among the favourites, then in its category): the first one is the one checked.
+  const card = page.locator('.app-card-wrap').filter({ has: page.locator('a[href="/en/wc"]') }).first();
   const star = card.locator('.favorite-button');
   await star.waitFor();
   assert.equal(await star.getAttribute('aria-pressed'), 'false', 'starts unfavorited');

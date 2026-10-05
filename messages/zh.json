@@ -619,7 +619,7 @@
       "retry": "再试一次"
     },
     "search": {
-      "all": "全部应用", "label": "搜索",
+      "favorites": "收藏", "all": "全部应用", "label": "搜索",
       "placeholder": "搜索应用",
       "results": "搜索结果",
       "none": "没有找到与“{query}”相关的内容",

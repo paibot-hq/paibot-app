@@ -619,7 +619,7 @@
       "retry": "もう一度"
     },
     "search": {
-      "all": "すべてのアプリ", "label": "検索",
+      "favorites": "お気に入り", "all": "すべてのアプリ", "label": "検索",
       "placeholder": "アプリを検索",
       "results": "検索結果",
       "none": "「{query}」に当てはまるものが見つかりませんでした",
