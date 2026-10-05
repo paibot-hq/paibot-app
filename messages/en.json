@@ -664,6 +664,7 @@
       "resume": "Resume",
       "reset": "Start over",
       "split": "Split on hit",
+      "gravity": "Gravity",
       "trails": "Trails",
       "hint": "The number is capped, and a ball pops after a while. With splitting off, the balls just bounce."
     },

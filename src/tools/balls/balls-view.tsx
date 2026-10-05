@@ -9,7 +9,8 @@ import { createWorld, spawn, step, type Options, type World } from "./balls";
 
 const SIZE = 640;
 const BACKGROUND = "#0b1020";
-const ARENA: Options = { cx: SIZE / 2, cy: SIZE / 2, radius: SIZE / 2 - 2, maxBalls: 400, minRadius: 3, split: true };
+const ARENA: Options = { cx: SIZE / 2, cy: SIZE / 2, radius: SIZE / 2 - 2, maxBalls: 400, minRadius: 3, split: true, gravity: 0 };
+const GRAVITY = 700;
 type Flash = { x: number; y: number; hue: number; age: number };
 
 export default function Balls() {
@@ -20,17 +21,20 @@ export default function Balls() {
   const splitRef = useRef(true);
   const runningRef = useRef(true);
   const trailsRef = useRef(true);
+  const gravityRef = useRef(false);
   const [split, setSplit] = useState(true);
   const [running, setRunning] = useState(true);
   const [trails, setTrails] = useState(true);
+  const [gravity, setGravity] = useState(false);
   const [stats, setStats] = useState({ count: 0, splits: 0 });
   splitRef.current = split;
   runningRef.current = running;
   trailsRef.current = trails;
+  gravityRef.current = gravity;
 
   function reset() {
     const world = createWorld();
-    for (let i = 0; i < 8; i++) world.balls.push(spawn(ARENA, Math.random));
+    for (let i = 0; i < 2; i++) world.balls.push(spawn(ARENA, Math.random));
     worldRef.current = world;
     flashes.current = [];
     const ctx = canvasRef.current?.getContext("2d");
@@ -53,7 +57,7 @@ export default function Balls() {
       const world = worldRef.current;
       if (ctx) {
         if (runningRef.current) {
-          for (const found of step(world, dt, { ...ARENA, split: splitRef.current }, Math.random)) flashes.current.push({ ...found, age: 0 });
+          for (const found of step(world, dt, { ...ARENA, split: splitRef.current, gravity: gravityRef.current ? GRAVITY : 0 }, Math.random)) flashes.current.push({ ...found, age: 0 });
         }
         // The past slowly melts away; with trails off it is gone at once.
         ctx.fillStyle = trailsRef.current ? "rgba(11, 16, 32, 0.16)" : BACKGROUND;
@@ -121,6 +125,7 @@ export default function Balls() {
       </div>
       <div className={styles.buttons}>
         <button type="button" className={styles.choice} aria-pressed={split} onClick={() => setSplit(on => !on)}>{t("split")}</button>
+        <button type="button" className={styles.choice} aria-pressed={gravity} onClick={() => setGravity(on => !on)} data-balls="gravity">{t("gravity")}</button>
         <button type="button" className={styles.choice} aria-pressed={trails} onClick={() => setTrails(on => !on)}>{t("trails")}</button>
       </div>
       <p className={controls.label}>{t("hint")}</p>

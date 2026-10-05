@@ -1,9 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { createWorld, spawn, step, SHRINK } from './balls.ts';
+import { createWorld, spawn, step, COOL } from './balls.ts';
 
 const seeded = seed => () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
-const options = { cx: 320, cy: 320, radius: 300, maxBalls: 40, minRadius: 3, split: true };
+const options = { cx: 320, cy: 320, radius: 300, maxBalls: 40, minRadius: 3, split: true, gravity: 0 };
 const speedOf = ball => Math.hypot(ball.vx, ball.vy);
 
 test('a spawned ball is inside the circle and goes at the speed asked for', () => {
@@ -29,7 +29,7 @@ test('balls bounce off the wall and never leave the circle, keeping their energy
   assert.ok(Math.abs(energy() - before) / before < 1e-6, 'bounces keep the total energy');
 });
 
-test('two balls that meet each split in two, a little smaller, with the same speed', () => {
+test('two balls that meet each split in two, as big, with the same speed, and the pieces do not split again at once', () => {
   const rng = seeded(5);
   const world = createWorld();
   world.balls.push({ x: 300, y: 320, vx: 100, vy: 0, r: 20, hue: 10, life: 10 }, { x: 330, y: 320, vx: -100, vy: 0, r: 20, hue: 200, life: 10 });
@@ -37,7 +37,10 @@ test('two balls that meet each split in two, a little smaller, with the same spe
   assert.equal(world.balls.length, 4);
   assert.equal(world.splits, 1);
   assert.equal(flashes.length, 1);
-  for (const ball of world.balls) assert.ok(Math.abs(ball.r - 20 * SHRINK) < 1e-9, 'the pieces are smaller');
+  for (const ball of world.balls) assert.equal(ball.r, 20);
+  for (let i = 0; i < 10; i++) step(world, 0.016, options, rng);
+  assert.equal(world.balls.length, 4, 'a new piece takes no part in meetings for a moment');
+  assert.ok(COOL > 0);
   for (const ball of world.balls) assert.ok(Math.abs(speedOf(ball) - 100) < 1e-6, 'the pieces keep the speed');
 });
 
@@ -87,4 +90,21 @@ test('a long pause is taken a little at a time', () => {
   world.balls.push({ x: 320, y: 320, vx: 200, vy: 0, r: 20, hue: 1, life: 100 });
   step(world, 30, options, seeded(1));
   assert.ok(Math.abs(world.balls[0].x - 320) <= 200 * 0.05 + 1e-6);
+});
+
+test('gravity pulls the balls down: they spend their time in the lower half, and stay in the circle', () => {
+  const rng = seeded(8);
+  const world = createWorld();
+  world.balls.push(spawn(options, rng), spawn(options, rng));
+  for (const ball of world.balls) ball.life = 1e9;
+  const pulled = { ...options, split: false, gravity: 700 };
+  let low = 0, samples = 0;
+  for (let i = 0; i < 3000; i++) {
+    step(world, 0.016, pulled, rng);
+    for (const ball of world.balls) {
+      assert.ok(Math.hypot(ball.x - 320, ball.y - 320) + ball.r <= options.radius + 1e-6);
+      if (i > 500) { samples++; if (ball.y > 320) low++; }
+    }
+  }
+  assert.ok(low / samples > 0.6, `lower half ${low / samples}`);
 });

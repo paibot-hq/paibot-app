@@ -1,9 +1,10 @@
-// Balls flying inside a circle. They bounce off its wall, and when two meet, each splits in two, each piece a little smaller than the
-// ball it came from (so the area is not kept: they multiply, and the smallest stop splitting). A cap on their number and a long life
+// Balls flying inside a circle. They bounce off its wall, and when two meet, each splits in two, each piece as big as the
+// ball it came from (so they multiply), and a ball that is new does not meet anything for a moment, so the pieces can get apart. Gravity
+// pulls them down when it is on. A cap on their number and a long life
 // span keep them from filling the circle for good: a ball pops when its life runs out, and a new one is let in when none is left. Pure functions of (state, dt, rng), tested without
 // a browser.
 
-export type Ball = { x: number; y: number; vx: number; vy: number; r: number; hue: number; life: number };
+export type Ball = { x: number; y: number; vx: number; vy: number; r: number; hue: number; life: number; cool?: number };
 export type World = { balls: Ball[]; splits: number; time: number };
 export type Options = {
   // The circle: its centre and radius.
@@ -12,11 +13,14 @@ export type Options = {
   maxBalls: number; minRadius: number;
   // Whether a meeting splits the balls (off: they only bounce).
   split: boolean;
+  // Pull downwards in pixels a second per second (0: none).
+  gravity: number;
 };
 
 export const MAX_DT = 0.05;
 export const LIFE = [40, 70] as const;
-export const SHRINK = 0.88;
+// Seconds a new piece takes no part in meetings.
+export const COOL = 0.5;
 
 export function createWorld(): World {
   return { balls: [], splits: 0, time: 0 };
@@ -34,16 +38,16 @@ export function spawn(options: Options, rng: () => number, speed = 190, r = 12):
   };
 }
 
-// A ball in two: the pieces fly off to either side of the way it was going, with its speed, each a little smaller.
+// A ball in two: the pieces fly off to either side of the way it was going, with its speed.
 function halves(ball: Ball, rng: () => number): Ball[] {
   const speed = Math.hypot(ball.vx, ball.vy);
   const heading = Math.atan2(ball.vy, ball.vx);
   const spread = 0.5 + rng() * 0.5;
-  const r = ball.r * SHRINK;
+  const r = ball.r;
   return [-1, 1].map(side => ({
-    x: ball.x + Math.cos(heading + side * Math.PI / 2) * r * 0.6, y: ball.y + Math.sin(heading + side * Math.PI / 2) * r * 0.6,
+    x: ball.x + Math.cos(heading + side * Math.PI / 2) * r * 1.05, y: ball.y + Math.sin(heading + side * Math.PI / 2) * r * 1.05,
     vx: Math.cos(heading + side * spread) * speed, vy: Math.sin(heading + side * spread) * speed, r,
-    hue: (ball.hue + side * 24 + 360) % 360, life: LIFE[0] + rng() * (LIFE[1] - LIFE[0]),
+    hue: (ball.hue + side * 24 + 360) % 360, life: LIFE[0] + rng() * (LIFE[1] - LIFE[0]), cool: COOL,
   }));
 }
 
@@ -53,6 +57,8 @@ export function step(world: World, dt: number, options: Options, rng: () => numb
   world.time += t;
   const flashes: { x: number; y: number; hue: number }[] = [];
   for (const ball of world.balls) {
+    ball.vy += options.gravity * t;
+    if (ball.cool && ball.cool > 0) ball.cool -= t;
     ball.x += ball.vx * t;
     ball.y += ball.vy * t;
     ball.life -= t;
@@ -77,7 +83,7 @@ export function step(world: World, dt: number, options: Options, rng: () => numb
   for (let i = 0; i < balls.length; i++) {
     for (let j = i + 1; j < balls.length; j++) {
       const a = balls[i], b = balls[j];
-      if (done.has(a) || done.has(b)) continue;
+      if (done.has(a) || done.has(b) || (a.cool ?? 0) > 0 || (b.cool ?? 0) > 0) continue;
       const dx = b.x - a.x, dy = b.y - a.y;
       const distance = Math.hypot(dx, dy);
       if (distance >= a.r + b.r) continue;
