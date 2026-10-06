@@ -12,6 +12,10 @@
 }
 .canvas:active { cursor: grabbing; }
 .stats { margin: 0; text-align: center; color: var(--muted); font-size: .95rem; }
+
+.slider { display: flex; align-items: center; justify-content: center; gap: .7rem; margin: .4rem auto .9rem; width: min(360px, 100%); color: var(--muted); }
+.slider input { flex: 1; }
+.value { min-width: 1.5rem; text-align: right; color: var(--text); }
 .buttons { display: flex; flex-wrap: wrap; gap: .6rem; justify-content: center; margin: .9rem 0; }
 .choice {
   padding: .35rem .8rem;

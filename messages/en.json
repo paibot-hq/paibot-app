@@ -630,19 +630,22 @@
       }
     },
     "polyhedra": {
-      "title": "Platonic Solids",
-      "description": "A 3D viewer for the tetrahedron, cube, octahedron, dodecahedron and icosahedron that you turn by dragging. See their vertices, edges and faces and check Euler's formula V − E + F = 2.",
-      "keywords": "platonic solids 3d polyhedron cube dodecahedron icosahedron euler math free",
+      "title": "Polyhedra",
+      "description": "A 3D viewer you turn by dragging: the five Platonic solids, prisms and pyramids with any number of corners, and geodesic polyhedra that approach a sphere. See their vertices, edges and faces and check Euler's formula V − E + F = 2.",
+      "keywords": "polyhedra platonic solids prism pyramid geodesic sphere 3d euler math free",
       "intro": "Drag the solid to turn it. It keeps turning for a moment after you let go.",
       "canvasLabel": "3D view of the {name}. Drag to turn it",
       "stats": "{name}: {v} vertices · {e} edges · {f} faces (V − E + F = {v} − {e} + {f} = 2)",
       "choose": "Choose a solid",
-      "solids": {"tetra": "Tetrahedron", "cube": "Cube", "octa": "Octahedron", "dodeca": "Dodecahedron", "icosa": "Icosahedron"},
+      "solids": {"tetra": "Tetrahedron", "cube": "Cube", "octa": "Octahedron", "dodeca": "Dodecahedron", "icosa": "Icosahedron", "prism": "Prism", "pyramid": "Pyramid", "geodesic": "Geodesic sphere"},
       "autoOn": "Spinning",
       "autoOff": "Spin by itself",
       "solid": "Solid",
       "wire": "Wireframe",
-      "hint": "For every one of them, vertices − edges + faces is 2 (Euler's polyhedron formula). In wireframe the edges at the back show faintly."
+      "hint": "For every one of them, vertices − edges + faces is 2 (Euler's polyhedron formula). Change the corners or the frequency and see that it stays 2 however many faces there are. In wireframe the edges at the back show faintly.",
+      "names": {"prism": "{n}-gonal prism", "pyramid": "{n}-gonal pyramid", "geodesic": "Geodesic polyhedron (frequency {n})"},
+      "corners": "Corners",
+      "frequency": "Frequency"
     },
     "pinball": {
       "title": "Pinball",

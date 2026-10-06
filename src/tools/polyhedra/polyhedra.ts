@@ -70,9 +70,7 @@ export function buildFaces(vertices: Vec[]): number[][] {
   return faces;
 }
 
-export function polyhedron(solid: Solid): Polyhedron {
-  const vertices = corners(solid).map(unit);
-  const faces = buildFaces(vertices);
+function withEdges(vertices: Vec[], faces: number[][]): Polyhedron {
   const seen = new Set<string>();
   const edges: [number, number][] = [];
   for (const face of faces) {
@@ -83,6 +81,73 @@ export function polyhedron(solid: Solid): Polyhedron {
     });
   }
   return { vertices, faces, edges };
+}
+
+export function polyhedron(solid: Solid): Polyhedron {
+  const vertices = corners(solid).map(unit);
+  return withEdges(vertices, buildFaces(vertices));
+}
+
+// Shapes with a number to turn: the corners of a prism or pyramid, how finely a geodesic polyhedron is cut.
+export type Kind = Solid | "prism" | "pyramid" | "geodesic";
+export const KINDS: readonly Kind[] = [...SOLIDS, "prism", "pyramid", "geodesic"];
+export const PARAMETERS: Partial<Record<Kind, { min: number; max: number; initial: number }>> = {
+  prism: { min: 3, max: 20, initial: 5 },
+  pyramid: { min: 3, max: 20, initial: 5 },
+  geodesic: { min: 1, max: 5, initial: 2 },
+};
+
+// An n-gon on a ring with the same ring above (prism) or one point above (pyramid); the origin is inside either.
+function ring(n: number, y: number, radius: number): Vec[] {
+  return Array.from({ length: n }, (_, k) => ({ x: radius * Math.cos((2 * Math.PI * k) / n), y, z: radius * Math.sin((2 * Math.PI * k) / n) }));
+}
+
+export function prism(n: number): Polyhedron {
+  const vertices = [...ring(n, 0.6, 0.8), ...ring(n, -0.6, 0.8)];
+  return withEdges(vertices, buildFaces(vertices));
+}
+
+export function pyramid(n: number): Polyhedron {
+  const vertices = [...ring(n, -0.5, 0.9), { x: 0, y: 1, z: 0 }];
+  return withEdges(vertices, buildFaces(vertices));
+}
+
+// The icosahedron with each face cut into frequency² small triangles, the new corners pushed out onto the sphere:
+// 10 f² + 2 vertices, 30 f² edges and 20 f² faces.
+export function geodesic(frequency: number): Polyhedron {
+  const base = polyhedron("icosa");
+  const vertices: Vec[] = [];
+  const index = new Map<string, number>();
+  const at = (p: Vec) => {
+    const q = unit(p);
+    // Rounded to integers (+ 0 turns -0 into 0), so the same corner reached from two faces is one vertex.
+    const key = `${Math.round(q.x * 1e6) + 0},${Math.round(q.y * 1e6) + 0},${Math.round(q.z * 1e6) + 0}`;
+    let found = index.get(key);
+    if (found === undefined) { found = vertices.length; vertices.push(q); index.set(key, found); }
+    return found;
+  };
+  const faces: number[][] = [];
+  const f = frequency;
+  for (const [ia, ib, ic] of base.faces) {
+    const a = base.vertices[ia], b = base.vertices[ib], c = base.vertices[ic];
+    const point = (i: number, j: number): Vec => ({
+      x: a.x + ((b.x - a.x) * i + (c.x - a.x) * j) / f,
+      y: a.y + ((b.y - a.y) * i + (c.y - a.y) * j) / f,
+      z: a.z + ((b.z - a.z) * i + (c.z - a.z) * j) / f,
+    });
+    for (let i = 0; i < f; i++) for (let j = 0; i + j < f; j++) {
+      faces.push([at(point(i, j)), at(point(i + 1, j)), at(point(i, j + 1))]);
+      if (i + j < f - 1) faces.push([at(point(i + 1, j)), at(point(i + 1, j + 1)), at(point(i, j + 1))]);
+    }
+  }
+  return withEdges(vertices, faces);
+}
+
+export function build(kind: Kind, n = PARAMETERS[kind]?.initial ?? 0): Polyhedron {
+  if (kind === "prism") return prism(n);
+  if (kind === "pyramid") return pyramid(n);
+  if (kind === "geodesic") return geodesic(n);
+  return polyhedron(kind);
 }
 
 // Turned about the vertical axis by `yaw`, then about the horizontal one by `pitch`.

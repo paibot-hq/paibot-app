@@ -5,7 +5,7 @@ import { useTranslations } from "use-intl";
 import ToolLayout from "../../components/tool-layout";
 import controls from "../../components/tool-controls.module.css";
 import styles from "./polyhedra-view.module.css";
-import { SOLIDS, brightness, faceNormal, polyhedron, project, rotate, type Solid } from "./polyhedra";
+import { KINDS, PARAMETERS, brightness, build, faceNormal, project, rotate, type Kind, type Polyhedron } from "./polyhedra";
 
 const SIZE = 640;
 const BACKGROUND = "#0b1020";
@@ -17,14 +17,17 @@ export default function Polyhedra() {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const turn = useRef({ yaw: 0.6, pitch: -0.45, spin: 0.5 });
   const dragging = useRef<{ x: number; y: number } | null>(null);
-  const [solid, setSolid] = useState<Solid>("dodeca");
+  const [solid, setSolid] = useState<Kind>("dodeca");
+  const [counts, setCounts] = useState({ prism: 5, pyramid: 5, geodesic: 2 });
   const [mode, setMode] = useState<Mode>("solid");
   const [auto, setAuto] = useState(true);
-  const state = useRef({ solid, mode, auto });
-  state.current = { solid, mode, auto };
-  const shapes = useMemo(() => Object.fromEntries(SOLIDS.map(name => [name, polyhedron(name)])) as Record<Solid, ReturnType<typeof polyhedron>>, []);
-  const shapesRef = useRef(shapes);
-  const current = shapes[solid];
+  const parameter = PARAMETERS[solid];
+  const n = solid === "prism" || solid === "pyramid" || solid === "geodesic" ? counts[solid] : 0;
+  // The shapes are built again only when the kind or its number changes (the regular ones are cheap).
+  const current = useMemo(() => build(solid, n || undefined), [solid, n]);
+  const state = useRef({ shape: current, mode, auto });
+  state.current = { shape: current, mode, auto };
+  const name = solid === "prism" || solid === "pyramid" ? t(`names.${solid}`, { n }) : solid === "geodesic" ? t("names.geodesic", { n }) : t(`solids.${solid}`);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -38,13 +41,13 @@ export default function Polyhedra() {
       before = now;
       const ctx = canvas.getContext("2d");
       const view = turn.current;
-      const { solid: name, mode: how, auto: spinning } = state.current;
+      const { shape, mode: how, auto: spinning } = state.current;
       if (!dragging.current) {
         // The speed settles to the slow spin of the automatic mode, or to a stop, whatever a drag made it.
         view.spin += ((spinning ? 0.5 : 0) - view.spin) * (1 - Math.pow(0.04, dt));
         view.yaw += view.spin * dt;
       }
-      if (ctx) draw(ctx, shapesRef.current[name], how, view.yaw, view.pitch);
+      if (ctx) draw(ctx, shape, how, view.yaw, view.pitch);
       frame = requestAnimationFrame(loop);
     };
     frame = requestAnimationFrame(loop);
@@ -71,11 +74,18 @@ export default function Polyhedra() {
   return (
     <ToolLayout title={t("title")}>
       <p className={controls.label}>{t("intro")}</p>
-      <canvas ref={canvasRef} className={styles.canvas} role="img" aria-label={t("canvasLabel", { name: t(`solids.${solid}`) })} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} />
-      <p className={styles.stats} role="status" data-polyhedra="stats">{t("stats", { name: t(`solids.${solid}`), v: current.vertices.length, e: current.edges.length, f: current.faces.length })}</p>
+      <canvas ref={canvasRef} className={styles.canvas} role="img" aria-label={t("canvasLabel", { name })} onPointerDown={down} onPointerMove={move} onPointerUp={up} onPointerCancel={up} />
+      <p className={styles.stats} role="status" data-polyhedra="stats">{t("stats", { name, v: current.vertices.length, e: current.edges.length, f: current.faces.length })}</p>
       <div className={styles.buttons} role="group" aria-label={t("choose")}>
-        {SOLIDS.map(name => <button key={name} type="button" className={styles.choice} aria-pressed={solid === name} onClick={() => setSolid(name)}>{t(`solids.${name}`)}</button>)}
+        {KINDS.map(kind => <button key={kind} type="button" className={styles.choice} aria-pressed={solid === kind} onClick={() => setSolid(kind)}>{t(`solids.${kind}`)}</button>)}
       </div>
+      {parameter && (solid === "prism" || solid === "pyramid" || solid === "geodesic") && (
+        <label className={styles.slider}>
+          <span>{t(solid === "geodesic" ? "frequency" : "corners")}</span>
+          <input type="range" aria-label={t(solid === "geodesic" ? "frequency" : "corners")} min={parameter.min} max={parameter.max} step={1} value={counts[solid]} onChange={event => setCounts(c => ({ ...c, [solid]: Number(event.target.value) }))} />
+          <span className={styles.value}>{counts[solid]}</span>
+        </label>
+      )}
       <div className={styles.buttons}>
         <button className="auth-link" type="button" aria-pressed={auto} onClick={() => setAuto(on => !on)} data-polyhedra="auto">{auto ? t("autoOn") : t("autoOff")}</button>
         <button type="button" className={styles.choice} aria-pressed={mode === "solid"} onClick={() => setMode("solid")}>{t("solid")}</button>
@@ -86,7 +96,7 @@ export default function Polyhedra() {
   );
 }
 
-function draw(ctx: CanvasRenderingContext2D, shape: ReturnType<typeof polyhedron>, mode: Mode, yaw: number, pitch: number) {
+function draw(ctx: CanvasRenderingContext2D, shape: Polyhedron, mode: Mode, yaw: number, pitch: number) {
   ctx.globalCompositeOperation = "source-over";
   ctx.fillStyle = BACKGROUND;
   ctx.fillRect(0, 0, SIZE, SIZE);
@@ -124,8 +134,8 @@ function draw(ctx: CanvasRenderingContext2D, shape: ReturnType<typeof polyhedron
     const hue = (index * 360) / shape.faces.length;
     const light = brightness(normal);
     ctx.fillStyle = `hsl(${hue}, 70%, ${Math.round(18 + 52 * light)}%)`;
-    ctx.strokeStyle = "rgba(255, 255, 255, 0.55)";
-    ctx.lineWidth = 1.5;
+    ctx.strokeStyle = `rgba(255, 255, 255, ${shape.faces.length > 100 ? 0.3 : 0.55})`;
+    ctx.lineWidth = shape.faces.length > 100 ? 0.8 : 1.5;
     ctx.beginPath();
     face.forEach((i, k) => (k === 0 ? ctx.moveTo(screen[i].x, screen[i].y) : ctx.lineTo(screen[i].x, screen[i].y)));
     ctx.closePath();

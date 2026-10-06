@@ -20,6 +20,19 @@ export default async function ({ page, main, go }) {
     await page.waitForFunction(([expected]) => new RegExp(expected).test(document.querySelector('[data-polyhedra="stats"]').textContent), [text.source]);
   }
   assert.ok((await fingerprint(canvas)).count > 3000, 'the solid is drawn');
+  // A prism's faces grow with its corners; a geodesic polyhedron's with how finely it is cut.
+  const see = text => page.waitForFunction(expected => new RegExp(expected).test(document.querySelector('[data-polyhedra="stats"]').textContent), text.source);
+  await main.getByRole('button', { name: 'Prism', exact: true }).click();
+  await see(/5-gonal prism: 10 vertices.*15 edges.*7 faces/);
+  await main.getByLabel('Corners', { exact: true }).fill('8');
+  await see(/8-gonal prism: 16 vertices.*24 edges.*10 faces/);
+  await main.getByRole('button', { name: 'Pyramid', exact: true }).click();
+  await see(/5-gonal pyramid: 6 vertices.*10 edges.*6 faces/);
+  await main.getByRole('button', { name: 'Geodesic sphere', exact: true }).click();
+  await see(/frequency 2\): 42 vertices.*120 edges.*80 faces/);
+  await main.getByLabel('Frequency', { exact: true }).fill('4');
+  await see(/frequency 4\): 162 vertices.*480 edges.*320 faces/);
+  assert.ok((await fingerprint(canvas)).count > 3000, 'the geodesic polyhedron is drawn');
   // Switching off the spin, a drag turns it.
   await main.locator('[data-polyhedra="auto"]').click();
   await main.getByRole('button', { name: 'Spin by itself' }).waitFor();
