@@ -889,7 +889,7 @@
         "botHello": "Hello. Ask what you want to know about government procedures in plain sentences (the FAQ is in Japanese). I will look for the nearest question in the FAQ and show you its answer.",
         "botSure": "I think this answer is close to your question.",
         "botUnsure": "I could not find an exact question. Here is what I think comes closest.",
-        "botNone": "I could not find a question that fits. Try asking in other words, for example like these.",
+        "botNone": "I could not find a question that fits. Try asking in other words.",
         "others": "Other candidates (press one to see its answer)",
         "chatPlaceholder": "Write what you want to know",
         "chatInput": "Your question",

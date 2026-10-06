@@ -46,14 +46,15 @@ export default async function ({ page, main, go, base }) {
   await main.getByText('Other candidates').waitFor();
   await main.locator('[data-chat-from="bot"]').last().locator('button[lang="ja"]').first().click();
   await page.waitForFunction(count => document.querySelectorAll('[data-chat="card"]').length === count + 1, before);
-  // An example in the greeting asks it; nonsense gets a "not found" with ways to ask.
+  // Nonsense gets a "not found".
   await input.fill('ぬるぽがっ');
   await main.locator('[data-chat="send"]').click();
   await main.getByText('could not find a question that fits').waitFor();
   // Starting over clears the conversation but for the greeting.
   await main.locator('[data-chat="reset"]').click();
   await page.waitForFunction(() => document.querySelectorAll('[data-chat-from]').length === 1);
-  await main.locator('[data-chat-from="bot"] button').first().click();
+  await input.fill('年金はいつからもらえますか');
+  await main.locator('[data-chat="send"]').click();
   await page.waitForFunction(() => document.querySelectorAll('[data-chat="card"]').length === 1);
   // The list: another way to look, with the box, the categories and all of the matches.
   await main.locator('[data-faq="tab-list"]').click();

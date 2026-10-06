@@ -7,8 +7,6 @@ import { AnswerText, Tag } from "./govfaq-parts";
 import { compose, isLong, type Faq, type Index, type Item } from "./govfaq-search";
 import { embedQuestion, rank, type Vectors } from "./govfaq-semantic";
 
-const EXAMPLES = ["マイナンバーカードをなくしてしまったのですが、どうすればいいですか？", "子どもが生まれたときの手続きを教えて", "確定申告のやり方がわからない", "年金はいつからもらえますか"];
-
 // A FAQ in the chat: a long answer is folded to a few lines, so one reply does not fill the screen; "続きを読む" opens it.
 
 function Card({ item, category }: { item: Item; category: string | undefined }) {
@@ -72,22 +70,8 @@ export default function FaqChat({ faq, index, vectors }: { faq: Faq | null; inde
             <span className={styles.who}>{m.from === "you" ? t("you") : t("bot")}</span>
             {m.from === "you" ? <p className={styles.bubble} lang="ja">{m.text}</p> : (
               <div className={styles.bubble} data-flat={m.kind === "answer" || m.kind === "faq" || undefined}>
-                {m.kind === "hello" && (
-                  <>
-                    <p>{t("botHello")}</p>
-                    <div className={styles.chips}>
-                      {EXAMPLES.map(example => <button key={example} type="button" className={styles.chip} lang="ja" onClick={() => ask(example)} disabled={!index}>{example}</button>)}
-                    </div>
-                  </>
-                )}
-                {m.kind === "none" && (
-                  <>
-                    <p>{t("botNone")}</p>
-                    <div className={styles.chips}>
-                      {EXAMPLES.slice(1).map(example => <button key={example} type="button" className={styles.chip} lang="ja" onClick={() => ask(example)}>{example}</button>)}
-                    </div>
-                  </>
-                )}
+                {m.kind === "hello" && <p>{t("botHello")}</p>}
+                {m.kind === "none" && <p>{t("botNone")}</p>}
                 {m.kind === "answer" && (
                   <>
                     <p>{m.confidence === "sure" ? t("botSure") : t("botUnsure")}</p>
