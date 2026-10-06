@@ -48,6 +48,7 @@ export const APP_CATALOG = [
   { slug: "stocks", href: "/stocks", category: "utility", status: "published", messageKey: "stocks" },
   { slug: "quake", href: "/quake", category: "daily", status: "published", messageKey: "quake" },
   { slug: "warnings", href: "/warnings", category: "daily", status: "published", messageKey: "warnings" },
+  { slug: "approx", href: "/approx", category: "game", status: "published", messageKey: "approx" },
   { slug: "grapher", href: "/grapher", category: "utility", status: "published", messageKey: "grapher" },
   { slug: "stopwatch", href: "/stopwatch", category: "utility", status: "published", messageKey: "stopwatch" },
   { slug: "business-card", href: "/business-card", category: "utility", status: "published", messageKey: "businessCard" },

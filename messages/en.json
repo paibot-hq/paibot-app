@@ -823,6 +823,58 @@
       "creditLink": "Japan Meteorological Agency website, \"Warnings and Advisories\"",
       "creditEnd": " (processed by us)"
     },
+    "approx": {
+      "title": "Approximation Showdown",
+      "description": "One function, three ways of approaching it with the same number of numbers: a Taylor series, a Fourier series and a neural network that learns right in your browser. Find out from the errors and the graph which method is strong on which function.",
+      "keywords": "approximation taylor series fourier series neural network machine learning visualization math free",
+      "intro": "The same function is approached three ways, and they compete. Each has the same number of numbers to use (the budget). The neural network learns right here, right now.",
+      "target": "Choose a function",
+      "targets": {
+        "sin": "sin x",
+        "wiggle": "Three waves",
+        "gauss": "Gaussian e^(−x²)",
+        "runge": "1/(1+x²)",
+        "exp": "e^x",
+        "atan": "arctan x",
+        "abs": "|x| (a corner)",
+        "step": "Step (a jump)",
+        "line": "The line x"
+      },
+      "canvasLabel": "{name} (black) and the three approximations (orange: Taylor, blue: Fourier, green: neural network)",
+      "curves": "Curves to show",
+      "original": "The function",
+      "methods": {
+        "taylor": "Taylor series",
+        "fourier": "Fourier series",
+        "network": "Neural network"
+      },
+      "budget": "Budget (how many numbers)",
+      "budgetNote": "Taylor {taylor} terms · Fourier {fourier} coefficients · neural network {hidden} hidden units ({params} numbers)",
+      "training": "Training",
+      "paused": "Paused",
+      "restart": "Train again",
+      "steps": "{n} steps of training",
+      "method": "Method",
+      "numbers": "Numbers used",
+      "error": "Error (root mean square)",
+      "noTaylor": "No Taylor series",
+      "winner": "Closest",
+      "notes": {
+        "sin": "With a Fourier series sin x is exactly one wave. A Taylor series gets closer as terms are added, but over a wide range it takes many.",
+        "wiggle": "Three waves added together. A Fourier series reproduces it exactly with three coefficients. A Taylor series is far off at a distance.",
+        "gauss": "A smooth hill. A Taylor series fits well near 0 and drifts off further out. The Fourier series and the network approach it evenly all the way.",
+        "runge": "The Taylor series of 1/(1+x²) does not hold outside −1 to 1 (radius of convergence 1): the more terms, the worse it gets out there.",
+        "exp": "e^x grows fast. A Taylor series gets quite close as terms are added. A Fourier series struggles because the values at the two ends of the range do not match.",
+        "atan": "The Taylor series of arctan x does not hold outside −1 to 1 either, and a Fourier series is off at the ends of the range.",
+        "abs": "A function with a corner has no Taylor series. A Fourier series gets close but rounds the corner, and so does the network.",
+        "step": "A function with a jump. A Taylor series is not possible. A Fourier series keeps a bump beside the jump (the Gibbs phenomenon). The network joins the two sides smoothly.",
+        "line": "Just a straight line. A Taylor series is exact with one term. A Fourier series struggles because the range makes a jump where it repeats."
+      },
+      "howTitle": "What are the three methods?",
+      "howTaylor": "Taylor series: adds up x, x², x³ and so on around 0. Very exact near 0 and more and more off as you go away. The numbers are the terms used.",
+      "howFourier": "Fourier series: adds up waves (sines and cosines), treating the whole range as one that repeats. The numbers are the biggest coefficients, the strengths of the waves.",
+      "howNetwork": "Neural network: a row of small calculating parts (tanh units). The 3 numbers of each unit (weights and so on) are adjusted, a little at a time and automatically, to make the error smaller. Here it learns in your browser, as you watch. The numbers are 3 × units + 1."
+    },
     "grapher": {
       "title": "Graphing Calculator",
       "description": "Type a formula and its graph is drawn at once; a formula in x and y gives a 3D surface you can turn. Leave out the times sign, as in 2x or sin(x), overlay several formulas, drag the picture around and zoom with the wheel or a pinch.",
