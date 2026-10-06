@@ -1,0 +1,36 @@
+.dial {
+  position: relative;
+  width: min(280px, 80vw);
+  aspect-ratio: 1;
+  margin: 1rem auto;
+}
+.ring { width: 100%; height: 100%; }
+.track { fill: none; stroke: var(--line); stroke-width: 10; }
+.bar {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 10;
+  stroke-linecap: round;
+  transition: stroke-dashoffset .3s linear;
+}
+.dial[data-phase="short"] .bar { stroke: var(--success); }
+.dial[data-phase="long"] .bar { stroke: #b58ae6; }
+.inside {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  gap: .15rem;
+  text-align: center;
+}
+.phase { color: var(--muted); font-size: .95rem; }
+.time { font-size: clamp(2.4rem, 12vw, 3.4rem); font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.1; }
+.count { color: var(--muted); font-size: .85rem; }
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .6rem;
+  justify-content: center;
+  margin-bottom: 1.2rem;
+}
+@media (prefers-reduced-motion: reduce) { .bar { transition: none; } }
