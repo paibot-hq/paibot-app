@@ -56,6 +56,12 @@ export default async function ({ page, main, go, base }) {
   await input.fill('年金はいつからもらえますか');
   await main.locator('[data-chat="send"]').click();
   await page.waitForFunction(() => document.querySelectorAll('[data-chat="card"]').length === 1);
+  // The cautions and the source are in their own tab, and the conversation is still there when coming back.
+  await main.locator('[data-faq="tab-info"]').click();
+  assert.match(await main.locator('[data-faq="info"]').innerText(), /not an official one/);
+  assert.equal(await main.locator('[data-chat="log"]').isVisible(), false);
+  await main.locator('[data-faq="tab-chat"]').click();
+  assert.equal(await main.locator('[data-chat="card"]').count(), 1, 'the conversation is kept');
   // The list: another way to look, with the box, the categories and all of the matches.
   await main.locator('[data-faq="tab-list"]').click();
   const box = main.locator('[data-faq="query"]');
@@ -99,6 +105,7 @@ export default async function ({ page, main, go, base }) {
   await main.locator('[data-faq="status"]').filter({ hasText: 'No questions' }).waitFor();
   assert.equal(await items.count(), 0);
   // The source is credited, with a link to the Ministry's page, and the snapshot's date.
+  await main.locator('[data-faq="tab-info"]').click();
   const credit = await main.locator('[data-faq="credit"]').innerText();
   assert.match(credit, /Ministry of Internal Affairs and Communications/); assert.match(credit, /2026-10-01/);
   assert.equal(await main.locator('[data-faq="credit"] a').getAttribute('href'), 'https://www.soumu.go.jp/main_sosiki/hyouka/soudan_n/kyotsucb_top.html');
@@ -108,7 +115,9 @@ export default async function ({ page, main, go, base }) {
   assert.equal(await main.locator('[data-faq="semantic"]').count(), 0);
   vectorsOn = true;
   await go('govfaq');
+  await main.locator('[data-faq="tab-info"]').click();
   await main.locator('[data-faq="semantic"]').waitFor();
+  await main.locator('[data-faq="tab-chat"]').click();
   await main.locator('[data-chat="input"]').fill('ぬるぽがっ');
   await main.locator('[data-chat="send"]').click();
   await page.waitForFunction(() => document.querySelectorAll('[data-chat="card"]').length === 1);

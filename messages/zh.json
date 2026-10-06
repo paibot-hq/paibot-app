@@ -883,6 +883,7 @@
       "mode": "显示",
         "tabChat": "聊天",
         "tabList": "列表搜索",
+        "tabInfo": "出处与说明",
         "chatLabel": "FAQ 聊天",
         "you": "你",
         "bot": "FAQ 机器人",

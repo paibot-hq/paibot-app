@@ -883,6 +883,7 @@
       "mode": "View",
         "tabChat": "Chat",
         "tabList": "Browse",
+        "tabInfo": "Source & notes",
         "chatLabel": "FAQ chat",
         "you": "You",
         "bot": "FAQ bot",
