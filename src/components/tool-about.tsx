@@ -26,7 +26,9 @@ export default function ToolAbout({ app }: { app: AppData }) {
   return (
     <section className={styles.about} aria-labelledby="tool-about" data-tool-about>
       <h2 id="tool-about" className={styles.heading}>{t("apps.about")}</h2>
-      <p className={styles.text}>{dynamic(`${app.messageKey}.description`)}</p>
+      <p className={styles.text}>{dynamic(`${app.messageKey}.about`)}</p>
+      <h3 className={styles.sub}>{t("apps.howTo")}</h3>
+      <p className={styles.text}>{dynamic(`${app.messageKey}.use`)}</p>
       {related.length > 0 && (
         <nav aria-label={t("apps.related")}>
           <h3 className={styles.sub}>{t("apps.related")}</h3>

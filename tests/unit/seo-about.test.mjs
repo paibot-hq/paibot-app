@@ -25,3 +25,13 @@ test('structured data is a WebApplication with the tool facts and a category typ
   assert.equal(toolStructuredData({ ...data, category: 'game', siteName: 'P', siteUrl: 'u', locale: 'en' }).applicationCategory, 'GameApplication');
   assert.equal(toolStructuredData({ ...data, category: 'daily', siteName: 'P', siteUrl: 'u', locale: 'en' }).applicationCategory, 'UtilitiesApplication');
 });
+
+test('every public tool has its text about it, and how to use it, in all three languages', async () => {
+  const { readFileSync } = await import('node:fs');
+  for (const locale of ['ja', 'en', 'zh']) {
+    const app = JSON.parse(readFileSync(new URL(`../../messages/${locale}.json`, import.meta.url), 'utf8')).App;
+    for (const tool of APP_CATALOG.filter(a => a.status === 'published' && a.href && !a.private)) {
+      for (const key of ['about', 'use']) assert.ok(typeof app[tool.messageKey]?.[key] === 'string' && app[tool.messageKey][key].length >= 8, `${locale} ${tool.slug}.${key}`);
+    }
+  }
+});
