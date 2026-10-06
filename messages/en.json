@@ -676,6 +676,28 @@
       "speed": "Speed",
       "hint": "Angles are from straight down, which is 0°. The offset is the difference between the start angles of the first and the last pendulum. Even 0.01° soon gives a completely different motion (the butterfly effect). With small angles they stay together for a long time."
     },
+    "fourier": {
+      "title": "Fourier Drawing",
+      "description": "Any picture can be drawn by adding up turning circles. Hearts and stars, or your own stroke, are redrawn by circles. Use fewer circles and the picture softens, bit by bit, toward a round blob.",
+      "keywords": "fourier fourier transform epicycles circles math art free",
+      "intro": "Chain turning circles end to end and the tip draws a picture. Draw on the canvas and the circles redraw your picture.",
+      "canvasLabel": "Fourier drawing. The tip of the turning circles draws the picture; draw on the canvas to have it redrawn by circles",
+      "stats": "{count} of {total} circles · {source}",
+      "drawn": "Your drawing",
+      "circles": "Circles",
+      "examples": "Examples",
+      "presets": {
+        "heart": "Heart",
+        "star": "Star",
+        "trefoil": "Trefoil",
+        "infinity": "Infinity",
+        "treble": "Flower"
+      },
+      "showCircles": "Circles and arms",
+      "showOriginal": "Original picture",
+      "speedOf": "Speed ×{n}",
+      "hint": "The more circles, the closer to the original. The biggest circles are used first, so even a few give the rough shape. The Fourier transform breaks the picture down into turning circles."
+    },
     "grapher": {
       "title": "Graphing Calculator",
       "description": "Type a formula and its graph is drawn at once; a formula in x and y gives a 3D surface you can turn. Leave out the times sign, as in 2x or sin(x), overlay several formulas, drag the picture around and zoom with the wheel or a pinch.",
