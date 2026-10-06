@@ -629,6 +629,43 @@
         "item": "知识点"
       }
     },
+    "grapher": {
+      "title": "函数图像计算器",
+      "description": "输入公式，立刻画出图像；输入关于 x、y 的公式，还能旋转查看 3D 曲面。可以省略乘号，如 2x、sin(x)；可以叠加多个公式，拖动画面，用滚轮或双指缩放。",
+      "keywords": "函数图像 图像计算器 函数 公式 y= 二次函数 sin cos 三角函数 对数 免费",
+      "intro": "输入公式即可画出图像。拖动可以移动画面，用滚轮或双指进行缩放。",
+      "canvasLabel": "函数图像。拖动移动，滚轮缩放；方向键移动，加减号缩放，0 恢复原位",
+      "expression": "公式{n}",
+      "placeholder": "例如：x^2 - 2x + 1",
+      "toggle": "显示或隐藏公式{n}",
+      "remove": "删除公式{n}",
+      "add": "添加公式",
+      "zoomIn": "放大",
+      "zoomOut": "缩小",
+      "reset": "恢复视图",
+      "readoutEmpty": "把指针放在图像上，就能看到该处的数值。",
+      "examples": "示例",
+      "errors": {
+        "empty": "请输入公式。",
+        "unexpected": "公式不完整，或含有无法使用的字符。",
+        "unknownName": "有不认识的名称。可以使用 x、pi、e、sin、cos、tan、sqrt、abs、ln、log、exp 等。",
+        "brackets": "括号不匹配。",
+        "needBrackets": "函数需要括号，如 sin(x)。",
+        "arguments": "函数的参数个数不对。"
+      },
+      "mode": "显示",
+      "mode2d": "2D 图像",
+      "mode3d": "3D 曲面",
+      "surfaceExpression": "公式 z",
+      "placeholder3d": "例如：sin(x)cos(y)",
+      "wire": "线框",
+      "range": "范围",
+      "canvasLabel3d": "3D 曲面。拖动旋转，滚轮缩放；方向键旋转，加减号缩放，0 恢复原位",
+      "readout3d": "x、y：−{half} 到 {half} · z：{min} 到 {max}",
+      "readoutEmpty3d": "请输入公式。",
+      "hint3d": "输入关于 x 和 y 的公式（例如：x^2 + y^2、sin(x)cos(y)）。颜色表示高度：蓝色低，红色高。没有值或趋向无穷的地方会留成空洞。",
+      "hint": "写法：2x、x^2、sqrt(x)、abs(x)、sin(x)、cos(x)、tan(x)、ln(x)（自然对数）、log(x)（常用对数）、log(x, 2)、exp(x)、pi、e。角度单位为弧度。开头可以加 y =。"
+    },
     "polyhedra": {
       "title": "多面体",
       "description": "可以拖动旋转的3D查看器：五种正多面体，可以改变角数的棱柱和棱锥，以及逐渐接近球体的测地多面体。可以查看顶点、棱、面的数量，并验证欧拉公式 V−E+F=2。",
