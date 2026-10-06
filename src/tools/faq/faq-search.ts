@@ -233,6 +233,27 @@ export function snippet(answer: string, length = 110): string {
   return chars.length > length ? `${chars.slice(0, length).join("")}…` : plain;
 }
 
+// A reply for a chat: the question it answers and some others that come close, or nothing. "sure" is when the best of them has most of what was asked.
+export type Reply = { kind: "answer"; confidence: "sure" | "unsure"; primary: Item; others: Item[] } | { kind: "none" };
+export const SURE_COVERAGE = 0.55;
+export function reply(index: Index, query: string, options: { others?: number } = {}): Reply {
+  const wanted = options.others ?? 3;
+  const hits = search(index, query, { limit: 1 + wanted * 4 });
+  if (hits.length === 0) return { kind: "none" };
+  // The same question can be in several fields (and answered alike): each question is offered once.
+  const primary = index.items[hits[0].doc];
+  const seen = new Set([primary.question]);
+  const others: Item[] = [];
+  for (const hit of hits.slice(1)) {
+    const item = index.items[hit.doc];
+    if (seen.has(item.question)) continue;
+    seen.add(item.question);
+    others.push(item);
+    if (others.length === wanted) break;
+  }
+  return { kind: "answer", confidence: hits[0].coverage >= SURE_COVERAGE ? "sure" : "unsure", primary, others };
+}
+
 // How many questions each category has, the biggest first.
 export function categoryCounts(items: Item[], categories: string[]): { category: number; name: string; count: number }[] {
   const counts = new Map<number, number>();

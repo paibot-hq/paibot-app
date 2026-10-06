@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { fold, terms, queryTerms, buildIndex, search, highlight, parseAnswer, snippet, categoryCounts, toItems, SYNONYMS } from './faq-search.ts';
+import { fold, terms, queryTerms, buildIndex, search, highlight, parseAnswer, snippet, categoryCounts, toItems, reply, SYNONYMS } from './faq-search.ts';
 
 const categories = ['マイナンバー', '年金', '税', '子育て'];
 const entries = [
@@ -116,6 +116,27 @@ test('an answer is parsed into text and links; only http and https addresses bec
   assert.equal(snippet(entries[0][3], 20), 'すぐにコールセンターへ連絡して、カードの…');
   assert.equal(snippet('短い<ここ,https://example.go.jp/>です。※これから先は、外部のサイトに移動します。'), '短いここです。');
   assert.equal(snippet('a\n\n  b'), 'a b');
+});
+
+test('a chat reply is the best question as the main answer, some others that come close, and how sure it is', () => {
+  const r = reply(index, 'マイナンバーカードを紛失したらどうすればよいですか？');
+  assert.equal(r.kind, 'answer');
+  assert.equal(r.primary.id, 'M-1');
+  assert.ok(r.others.length >= 1 && r.others.length <= 3);
+  assert.ok(!r.others.some(o => o.id === r.primary.id), 'the main answer is not repeated among the others');
+  assert.equal(r.confidence, 'sure');
+  const unsure = reply(index, '手続');
+  assert.equal(unsure.kind, 'answer');
+  assert.equal(reply(index, '児童手当', { others: 1 }).others.length, 1);
+  // The same question in two fields is offered once, and never as an "other" of itself.
+  const twin = [...entries, ['M-1b', 3, 'マイナンバーカードを紛失した場合はどうすればよいですか。', '同じ質問の別の回答です。']];
+  const twinIndex = buildIndex(toItems({ source: {}, categories, items: twin }), categories);
+  const twins = reply(twinIndex, 'マイナンバーカードを紛失したらどうすればよいですか？', { others: 5 });
+  assert.equal(twins.kind, 'answer');
+  const questions = [twins.primary.question, ...twins.others.map(o => o.question)];
+  assert.equal(new Set(questions).size, questions.length, 'no question twice');
+  assert.deepEqual(reply(index, 'ぬるぽがっ'), { kind: 'none' });
+  assert.deepEqual(reply(index, ''), { kind: 'none' });
 });
 
 test('categories are counted, the biggest first', () => {

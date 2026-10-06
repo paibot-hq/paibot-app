@@ -4,9 +4,37 @@ import assert from 'node:assert/strict';
 
 export default async function ({ page, main, go, base }) {
   await go('faq');
+  // The chat comes first: the bot greets, a question in a plain sentence gets the nearest FAQ as the answer, with others to open.
+  const input = main.locator('[data-chat="input"]');
+  await page.waitForFunction(() => !document.querySelector('[data-chat="input"]').disabled);
+  assert.equal(await main.locator('[data-chat-from="bot"]').count(), 1, 'the greeting');
+  await input.fill('マイナンバーカードをなくしてしまったのですが、どうすればいいですか？');
+  await main.locator('[data-chat="send"]').click();
+  await page.waitForFunction(() => document.querySelectorAll('[data-chat="card"]').length === 1);
+  assert.equal(await main.locator('[data-chat-from="you"]').count(), 1);
+  const card = await main.locator('[data-chat="card"]').first().innerText();
+  assert.ok(card.includes('マイナンバーカード') && card.includes('紛失'), 'the nearest question is about losing the card');
+  assert.match(card, /ID: /);
+  assert.equal(await input.inputValue(), '', 'the box is emptied');
+  // Others that come close can be opened: each adds its own answer.
+  const before = await main.locator('[data-chat="card"]').count();
+  await main.getByText('Other candidates').waitFor();
+  await main.locator('[data-chat-from="bot"]').last().locator('button').first().click();
+  await page.waitForFunction(count => document.querySelectorAll('[data-chat="card"]').length === count + 1, before);
+  // An example in the greeting asks it; nonsense gets a "not found" with ways to ask.
+  await input.fill('ぬるぽがっ');
+  await main.locator('[data-chat="send"]').click();
+  await main.getByText('could not find a question that fits').waitFor();
+  // Starting over clears the conversation but for the greeting.
+  await main.locator('[data-chat="reset"]').click();
+  await page.waitForFunction(() => document.querySelectorAll('[data-chat-from]').length === 1);
+  await main.locator('[data-chat-from="bot"] button').first().click();
+  await page.waitForFunction(() => document.querySelectorAll('[data-chat="card"]').length === 1);
+  // The list: another way to look, with the box, the categories and all of the matches.
+  await main.locator('[data-faq="tab-list"]').click();
   const box = main.locator('[data-faq="query"]');
   const items = main.locator('[data-faq-id]');
-  await page.waitForFunction(() => !document.querySelector('[data-faq="query"]').disabled);
+  await box.waitFor();
   // Before asking there are examples; an example fills the box and finds questions, with the matching words marked.
   await main.getByRole('button', { name: 'マイナンバーカードをなくした' }).click();
   await page.waitForFunction(() => document.querySelectorAll('[data-faq-id]').length > 0);
@@ -28,6 +56,7 @@ export default async function ({ page, main, go, base }) {
   }
   // The question is kept in the address, so a reload asks it again.
   assert.match(page.url(), /[?&]q=/);
+  assert.match(page.url(), /[?&]tab=list/);
   await page.reload();
   await page.waitForFunction(() => document.querySelectorAll('[data-faq-id]').length > 0);
   assert.equal(await box.inputValue(), 'マイナンバーカードをなくした');
@@ -47,5 +76,5 @@ export default async function ({ page, main, go, base }) {
   const credit = await main.locator('[data-faq="credit"]').innerText();
   assert.match(credit, /Ministry of Internal Affairs and Communications/); assert.match(credit, /2026-10-01/);
   assert.equal(await main.locator('[data-faq="credit"] a').getAttribute('href'), 'https://www.soumu.go.jp/main_sosiki/hyouka/soudan_n/kyotsucb_top.html');
-  console.log('PASS: faq: examples, search with marks and words of the same meaning, an answer with safe links, the question kept in the address, categories, no results, the source credited');
+  console.log('PASS: faq: the chat (a sentence answered by the nearest FAQ, others to open, nothing found, starting over), the list: examples, search with marks and words of the same meaning, an answer with safe links, the question kept in the address, categories, no results, the source credited');
 }
