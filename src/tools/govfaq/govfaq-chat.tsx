@@ -70,7 +70,7 @@ export default function FaqChat({ faq, index, vectors }: { faq: Faq | null; inde
           <div key={m.id} className={m.from === "you" ? styles.you : styles.bot} data-chat-from={m.from}>
             <span className={styles.who}>{m.from === "you" ? t("you") : t("bot")}</span>
             {m.from === "you" ? <p className={styles.bubble} lang="ja">{m.text}</p> : (
-              <div className={styles.bubble}>
+              <div className={styles.bubble} data-flat={m.kind === "answer" || m.kind === "faq" || undefined}>
                 {m.kind === "hello" && (
                   <>
                     <p>{t("botHello")}</p>
@@ -97,7 +97,6 @@ export default function FaqChat({ faq, index, vectors }: { faq: Faq | null; inde
                         {m.others.map(other => <button key={other.id} type="button" className={styles.other} lang="ja" onClick={() => open(other)}>{other.question}</button>)}
                       </div>
                     )}
-                    <p className={styles.small}>{t("botCheck")}</p>
                   </>
                 )}
                 {m.kind === "faq" && card(m.item)}
@@ -113,7 +112,6 @@ export default function FaqChat({ faq, index, vectors }: { faq: Faq | null; inde
         <button type="submit" className="auth-link" disabled={!index || waiting || text.trim() === ""} data-chat="send">{t("send")}</button>
         {messages.length > 1 && <button type="button" className={styles.reset} onClick={() => { setMessages([{ id: next.current++, from: "bot", kind: "hello" }]); setText(""); }} data-chat="reset">{t("reset")}</button>}
       </form>
-      <p className={styles.small}>{t("chatNote")}</p>
     </section>
   );
 }

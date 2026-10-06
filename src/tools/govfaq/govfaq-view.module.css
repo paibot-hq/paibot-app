@@ -35,6 +35,8 @@
 .you .bubble { background: color-mix(in srgb, var(--accent) 18%, transparent); border-top-right-radius: 4px; }
 .bot .bubble { background: color-mix(in srgb, var(--muted) 12%, transparent); border-top-left-radius: 4px; }
 .bubble p { margin: 0 0 .5rem; }
+/* A reply that is a FAQ card is not a bubble in a card in a box: the card alone. */
+.bot .bubble[data-flat] { padding: 0; background: none; }
 .card { margin: .3rem 0; padding: .7rem .85rem; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
 .cardQuestion { margin: .4rem 0 !important; font-weight: 700; }
 .cardAnswer { white-space: pre-wrap; font-size: .92rem; line-height: 1.75; }
