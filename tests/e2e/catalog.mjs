@@ -20,7 +20,7 @@ try {
   await page.route('https://ipv6.icanhazip.com/**', route => route.fulfill({ body: '2001:db8::10\n', headers: { 'Access-Control-Allow-Origin': '*' } }));
   const errors = [];
   page.on('pageerror', error => errors.push(`${page.url()}: ${error.message}`));
-  for (const { href } of tools) {
+  for (const { href, private: isPrivate } of tools) {
     for (const locale of locales) {
       const path = `/${locale}${href}`;
       const response = await page.goto(`${base}${path}`);
@@ -30,6 +30,17 @@ try {
       await page.waitForFunction(() => document.documentElement.dataset.theme);
       const title = (await page.locator('main h1').first().textContent())?.trim();
       assert.ok(title, `${path}: no <h1>`);
+      // (A signed-in page is not a public one: it has none of this.)
+      if (!isPrivate) {
+        // The text about the tool, links to other tools and structured data are in the page as the server sent it (what a search engine reads).
+        const about = page.locator('[data-tool-about]');
+        assert.equal(await about.count(), 1, `${path}: no text about the tool`);
+        assert.ok((await about.locator('p').first().innerText()).length >= 10, `${path}: the text is too short`);
+        assert.ok(await about.locator('nav a').count() > 0, `${path}: no links to other tools`);
+        const data = JSON.parse(await page.locator('script[type="application/ld+json"]').first().textContent());
+        assert.equal(data['@type'], 'WebApplication'); assert.equal(data.inLanguage, locale);
+        assert.equal(new URL(data.url).pathname, path);
+      }
       assert.ok(!/\bApp\.[A-Za-z]/.test(await page.locator('body').innerText()), `${path}: untranslated message key`);
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${path}: horizontal scroll at 390px`);
     }

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { useLocale, useTranslations } from "use-intl";
 import FavoriteButton from "./favorite-button";
+import ToolAbout from "./tool-about";
 import { usePathname } from "../i18n/navigation";
 import { apps } from "../lib/apps";
 import { useFavoritesData } from "../routes/locale";
@@ -47,6 +48,7 @@ export default function ToolLayout({
       <div className={styles.content} data-layout={layout} data-width={contentWidth}>
         {children}
       </div>
+      {app && !app.private && <ToolAbout app={app} />}
     </main>
   );
 }

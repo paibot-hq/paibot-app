@@ -12,8 +12,8 @@ export default async function ({ page, main, go }) {
   await main.locator('[data-balls="run"]').click();
   await main.getByRole('button', { name: 'Resume' }).waitFor();
   await startsWith(2);
-  const box = await main.locator('canvas').boundingBox();
-  const tap = (x, y) => page.mouse.click(box.x + box.width * x, box.y + box.height * y);
+  // The page scrolls as buttons are pressed, so the canvas is measured again before each tap.
+  const tap = async (x, y) => { const canvas = main.locator('canvas'); await canvas.scrollIntoViewIfNeeded(); const box = await canvas.boundingBox(); await page.mouse.click(box.x + box.width * x, box.y + box.height * y); };
   await tap(0.3, 0.3);
   await startsWith(3);
   // Gravity can be switched on.

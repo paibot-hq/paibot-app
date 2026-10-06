@@ -1,0 +1,13 @@
+.about {
+  width: 100%;
+  max-width: 40rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 2.5rem;
+  border-top: 1px solid var(--line);
+  color: var(--muted, inherit);
+}
+.heading { margin: 0 0 .5rem; font-size: 1rem; font-weight: 700; }
+.text { margin: 0 0 1rem; line-height: 1.8; overflow-wrap: anywhere; }
+.sub { margin: 0 0 .4rem; font-size: .875rem; font-weight: 700; }
+.list { display: flex; flex-wrap: wrap; gap: .4rem .9rem; margin: 0; padding: 0; list-style: none; font-size: .875rem; }
+.list a { color: var(--accent); }
