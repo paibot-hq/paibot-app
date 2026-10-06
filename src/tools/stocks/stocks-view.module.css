@@ -1,0 +1,21 @@
+.consent {
+  width: min(640px, 100%);
+  box-sizing: border-box;
+  margin: 1.2rem auto;
+  padding: 1.2rem 1.4rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  text-align: center;
+}
+.consentTitle { margin: 0 0 .5rem; font-size: 1.05rem; }
+.consent p { margin: .4rem 0 1rem; color: var(--muted); line-height: 1.7; }
+.block { width: min(1000px, 100%); margin: 1.4rem auto; }
+.heading { margin: 0 0 .4rem; font-size: 1.05rem; }
+.sub { margin: 0 0 .6rem; color: var(--muted); font-size: .85rem; }
+.widget { width: 100%; overflow: hidden; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.credit { margin: .4rem 0 0; text-align: right; font-size: .78rem; }
+.credit a { color: var(--muted); }
+.stop { text-align: center; margin: 1rem 0; }
+.link { border: 0; background: none; color: var(--muted); font: inherit; font-size: .85rem; text-decoration: underline; cursor: pointer; }
+.placeholder { min-height: 14rem; }

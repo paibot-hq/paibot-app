@@ -731,6 +731,26 @@
         "triangle": "The triangle wave has corners but no jump, so there is no bump, and a few terms fit well."
       }
     },
+    "stocks": {
+      "title": "World Stock Prices",
+      "description": "Stock indices such as the S&P 500, Nasdaq, Dow, Nikkei 225, Hang Seng, Shanghai Composite and DAX, plus currencies like USD/JPY, bitcoin, gold and oil, in one list, with a heatmap of the S&P 500. Shown with TradingView widgets.",
+      "keywords": "stock prices stock indices world nikkei s&p 500 dow nasdaq forex usd jpy heatmap free",
+      "intro": "See how the world's main stock indices, currencies and more are moving, in one list. The display is made by TradingView widgets.",
+      "consentTitle": "About showing prices",
+      "consentBody": "Prices are shown with widgets supplied by TradingView. Once shown, your browser connects to TradingView directly, and your IP address, cookies and similar are sent to it. Nothing connects until you press the button below. See the privacy policy for details.",
+      "show": "Show stock prices",
+      "hide": "Stop showing (disconnect from TradingView)",
+      "overview": "Markets",
+      "heatmap": "S&P 500 heatmap",
+      "heatmapNote": "The size of a box is the market value and its colour the change on the day (green up, red down).",
+      "tabs": {
+        "indices": "Indices",
+        "currencies": "Currencies",
+        "others": "Others"
+      },
+      "credit": "Track all markets on TradingView",
+      "note": "Prices and other data are supplied by TradingView. Depending on the exchange they may be delayed. This is not investment advice or an offer to trade. Make your own investment decisions."
+    },
     "grapher": {
       "title": "Graphing Calculator",
       "description": "Type a formula and its graph is drawn at once; a formula in x and y gives a 3D surface you can turn. Leave out the times sign, as in 2x or sin(x), overlay several formulas, drag the picture around and zoom with the wheel or a pinch.",
