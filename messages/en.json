@@ -215,7 +215,7 @@
       "dev": "Dev Tools",
       "utility": "Utilities",
       "network": "Network",
-      "game": "Games & Toys",
+      "game": "Games",
       "daily": "Everyday"
     },
     "learn": {
@@ -343,7 +343,7 @@
         "summary": "Character counts and passwords"
       },
       "game": {
-        "description": "Quick games and toys to play with, from quizzes and reaction tests to fireworks, a kaleidoscope and dice.",
+        "description": "Quick games and small apps to play with, from quizzes and reaction tests to fireworks, a kaleidoscope and dice.",
         "summary": "Games, fireworks, kaleidoscope and more"
       },
       "daily": {
