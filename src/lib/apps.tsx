@@ -126,6 +126,41 @@ function StocksIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function QuakeIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M3 12h4l2-6 3 12 2-8 2 4h5" />
+    </svg>
+  );
+}
+
+function WarningsIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M12 3l10 18H2L12 3z" />
+      <path d="M12 10v5M12 18v.5" />
+    </svg>
+  );
+}
+
+function ApproxIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M3 18C7 18 8 6 12 6s5 12 9 12" />
+      <path d="M3 12h18" strokeDasharray="2 2" />
+    </svg>
+  );
+}
+
+function GovFaqIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M4 5h16v11H9l-4 3v-3H4z" />
+      <path d="M10.5 8.5a1.7 1.7 0 113 .8c-.6.6-1.5.9-1.5 1.8M12 13.2v.1" />
+    </svg>
+  );
+}
+
 function GrapherIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -363,7 +398,7 @@ const APP_ICONS: Record<AppSlug, Icon> = {
   json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon,
   wc: WcIcon, password: PasswordIcon, stopwatch: StopwatchIcon, "business-card": CardIcon,
   ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
-  dice: DiceIcon, reaction: ReactionIcon, timing: TimingIcon, pinball: PinballIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, fireworks: FireworksIcon,
+  dice: DiceIcon, reaction: ReactionIcon, timing: TimingIcon, pinball: PinballIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, govfaq: GovFaqIcon, "approx": ApproxIcon, "warnings": WarningsIcon, "quake": QuakeIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, fireworks: FireworksIcon,
   tax: TaxIcon, split: SplitIcon, "unit-converter": UnitConverterIcon, "date-calc": DateCalcIcon, pomodoro: PomodoroIcon, roulette: RouletteIcon,
   calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, diary: WcIcon, age: AgeIcon,
 };
