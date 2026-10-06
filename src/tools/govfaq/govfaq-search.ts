@@ -243,19 +243,24 @@ export const SURE_COVERAGE = 0.55;
 export function reply(index: Index, query: string, options: { others?: number } = {}): Reply {
   const wanted = options.others ?? 3;
   const hits = search(index, query, { limit: 1 + wanted * 4 });
-  if (hits.length === 0) return { kind: "none" };
+  return compose(index, hits.map(hit => ({ doc: hit.doc, sure: hit.coverage >= SURE_COVERAGE })), wanted);
+}
+
+// A reply from candidates already put in order (by words, by meaning or both): the first is the answer, and `sure` says how far it is trusted.
+export function compose(index: Index, ranked: { doc: number; sure: boolean }[], wanted = 3): Reply {
+  if (ranked.length === 0) return { kind: "none" };
   // The same question can be in several fields (and answered alike): each question is offered once.
-  const primary = index.items[hits[0].doc];
+  const primary = index.items[ranked[0].doc];
   const seen = new Set([primary.question]);
   const others: Item[] = [];
-  for (const hit of hits.slice(1)) {
-    const item = index.items[hit.doc];
+  for (const { doc } of ranked.slice(1)) {
+    const item = index.items[doc];
     if (seen.has(item.question)) continue;
     seen.add(item.question);
     others.push(item);
     if (others.length === wanted) break;
   }
-  return { kind: "answer", confidence: hits[0].coverage >= SURE_COVERAGE ? "sure" : "unsure", primary, others };
+  return { kind: "answer", confidence: ranked[0].sure ? "sure" : "unsure", primary, others };
 }
 
 // How many questions each category has, the biggest first.

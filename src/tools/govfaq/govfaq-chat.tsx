@@ -4,7 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "use-intl";
 import styles from "./govfaq-view.module.css";
 import { AnswerText, Tag } from "./govfaq-parts";
-import { isLong, reply, type Faq, type Index, type Item } from "./govfaq-search";
+import { compose, isLong, type Faq, type Index, type Item } from "./govfaq-search";
+import { embedQuestion, rank, type Vectors } from "./govfaq-semantic";
 
 const EXAMPLES = ["マイナンバーカードをなくしてしまったのですが、どうすればいいですか？", "子どもが生まれたときの手続きを教えて", "確定申告のやり方がわからない", "年金はいつからもらえますか"];
 
@@ -34,25 +35,29 @@ type Message =
 
 // A chat over the FAQ: each question is answered with the nearest FAQ as it is written (no one is making up an answer), with some others that
 // come close to open. It does not remember what was said before.
-export default function FaqChat({ faq, index }: { faq: Faq | null; index: Index | null }) {
+export default function FaqChat({ faq, index, vectors }: { faq: Faq | null; index: Index | null; vectors: Vectors | null }) {
   const t = useTranslations("App.govfaq");
   const [messages, setMessages] = useState<Message[]>([{ id: 0, from: "bot", kind: "hello" }]);
   const [text, setText] = useState("");
+  const [waiting, setWaiting] = useState(false);
   const next = useRef(1);
   const end = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => { end.current?.scrollIntoView({ block: "nearest" }); }, [messages]);
 
-  function ask(question: string) {
+  async function ask(question: string) {
     const clean = question.trim();
-    if (!clean || !index) return;
-    const answer = reply(index, clean);
-    const you: Message = { id: next.current++, from: "you", text: clean };
+    if (!clean || !index || waiting) return;
+    setText("");
+    setMessages(list => [...list, { id: next.current++, from: "you", text: clean }]);
+    // The question goes to the Worker to be turned into a vector (nothing else is sent); if that does not work, the words alone are searched.
+    let vector: Int8Array | null = null;
+    if (vectors) { setWaiting(true); vector = await embedQuestion(clean); setWaiting(false); }
+    const answer = compose(index, rank(index, clean, { vectors, vector, limit: 13 }));
     const bot: Message = answer.kind === "none"
       ? { id: next.current++, from: "bot", kind: "none" }
       : { id: next.current++, from: "bot", kind: "answer", confidence: answer.confidence, primary: answer.primary, others: answer.others };
-    setMessages(list => [...list, you, bot]);
-    setText("");
+    setMessages(list => [...list, bot]);
   }
   const open = (item: Item) => setMessages(list => [...list, { id: next.current++, from: "bot", kind: "faq", item }]);
 
@@ -100,11 +105,12 @@ export default function FaqChat({ faq, index }: { faq: Faq | null; index: Index 
             )}
           </div>
         ))}
+        {waiting && <p className={styles.small} role="status" data-chat="waiting">{t("thinking")}</p>}
         <div ref={end} />
       </div>
       <form className={styles.compose} onSubmit={event => { event.preventDefault(); ask(text); }}>
         <input className={styles.input} value={text} lang="ja" placeholder={t("chatPlaceholder")} aria-label={t("chatInput")} autoComplete="off" disabled={!index} onChange={event => setText(event.target.value)} data-chat="input" />
-        <button type="submit" className="auth-link" disabled={!index || text.trim() === ""} data-chat="send">{t("send")}</button>
+        <button type="submit" className="auth-link" disabled={!index || waiting || text.trim() === ""} data-chat="send">{t("send")}</button>
         {messages.length > 1 && <button type="button" className={styles.reset} onClick={() => { setMessages([{ id: next.current++, from: "bot", kind: "hello" }]); setText(""); }} data-chat="reset">{t("reset")}</button>}
       </form>
       <p className={styles.small}>{t("chatNote")}</p>

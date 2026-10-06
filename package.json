@@ -28,7 +28,9 @@
     "math:import:dev": "node scripts/import-math.mjs dev",
     "math:import:prod": "node scripts/import-math.mjs prod",
     "math:generate": "node scripts/math-generate.mjs",
-    "math:review": "node scripts/math-review.mjs"
+    "math:review": "node scripts/math-review.mjs",
+    "govfaq:build": "node scripts/govfaq-build.mjs",
+    "govfaq:embed": "node scripts/govfaq-embed.mjs"
   },
   "dependencies": {
     "@clerk/localizations": "^4.16.1",

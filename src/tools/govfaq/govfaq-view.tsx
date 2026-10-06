@@ -8,6 +8,7 @@ import styles from "./govfaq-view.module.css";
 import FaqBrowse from "./govfaq-browse";
 import FaqChat from "./govfaq-chat";
 import { buildIndex, categoryCounts, toItems, type Faq, type Index } from "./govfaq-search";
+import { loadVectors, type Vectors } from "./govfaq-semantic";
 
 type Tab = "chat" | "list";
 
@@ -16,6 +17,7 @@ export default function Faqs() {
   const [faq, setFaq] = useState<Faq | null>(null);
   const [failed, setFailed] = useState(false);
   const [tab, setTab] = useState<Tab>("chat");
+  const [vectors, setVectors] = useState<Vectors | null>(null);
 
   // The FAQ (about 3 MB) is loaded when this page is opened, not with the rest of the site. A search in the address (?q=) opens the list.
   useEffect(() => {
@@ -33,6 +35,13 @@ export default function Faqs() {
   }
 
   const index: Index | null = useMemo(() => (faq ? buildIndex(toItems(faq), faq.categories) : null), [faq]);
+  // The vectors for the search by meaning (about 4.7 MB) come after the FAQ, in the background; until they are here (or when they are not), the search by words is used.
+  useEffect(() => {
+    if (!index) return;
+    let current = true;
+    loadVectors(index.items).then(loaded => { if (current) setVectors(loaded); });
+    return () => { current = false; };
+  }, [index]);
   const counts = useMemo(() => (index ? categoryCounts(index.items, index.categories) : []), [index]);
 
   return (
@@ -44,7 +53,8 @@ export default function Faqs() {
       </div>
       {failed && <p className={styles.error} role="alert">{t("loadFailed")}</p>}
       {!faq && !failed && <p className={styles.status} role="status">{t("loading")}</p>}
-      {tab === "chat" ? <FaqChat faq={faq} index={index} /> : <FaqBrowse faq={faq} index={index} counts={counts} failed={false} />}
+      {tab === "chat" ? <FaqChat faq={faq} index={index} vectors={vectors} /> : <FaqBrowse faq={faq} index={index} vectors={vectors} counts={counts} failed={false} />}
+      {vectors && <p className={styles.small} data-faq="semantic">{t("semanticOn")}</p>}
       <p className={controls.label}>{t("note")}</p>
       {faq && (
         <p className={styles.credit} data-faq="credit">

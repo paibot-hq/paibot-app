@@ -899,6 +899,8 @@
         "chatNote": "For now each question is looked up in the FAQ on its own (it does not remember what was said before). No AI is writing the answers: the FAQ's answers are shown as they are.",
         "more": "Read more",
         "less": "Show less",
+        "semanticOn": "Questions close in meaning are found even when the words differ (your question text alone is sent to the server to be turned into a vector by an AI model).",
+        "thinking": "Looking…",
         "searchLabel": "What do you want to know",
       "placeholder": "e.g. マイナンバーカードをなくした",
       "category": "Filter by field",

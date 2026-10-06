@@ -14,6 +14,7 @@ export default [
   ...[...publicPaths.filter(path => path !== '').map(path => path.slice(1)), 'diary', 'profile', 'legal/commerce', 'sign-in/*', 'sign-up/*']
     .map(path => route(path, 'routes/redirect.ts', { id: `locale-redirect/${path}` })),
   route('api/quiz', 'routes/api.quiz.ts'),
+  route('api/govfaq/embed', 'routes/api.govfaq.embed.ts'),
   route('sitemap.xml', 'routes/sitemap.ts'),
   route(':locale', 'routes/locale.tsx', [
     index('routes/home.tsx'),
