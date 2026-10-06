@@ -9,7 +9,7 @@ export class ExpressionError extends Error {
   constructor(code: ErrorCode) { super(code); this.code = code; }
 }
 
-export type Compiled = { ok: true; evaluate: (x: number, y?: number) => number } | { ok: false; error: ErrorCode };
+export type Compiled = { ok: true; evaluate: (x: number, y?: number) => number; tex: string } | { ok: false; error: ErrorCode };
 
 const FUNCTIONS: Record<string, (...a: number[]) => number> = {
   sin: Math.sin, cos: Math.cos, tan: Math.tan, asin: Math.asin, acos: Math.acos, atan: Math.atan,
@@ -51,51 +51,56 @@ function tokenize(text: string, variables: string[]): Token[] {
   return tokens;
 }
 
-type Fn = (x: number, y: number) => number;
+// The formula as a tree: evaluated for the graph, and written as TeX for the preview under the input.
+export type Node =
+  | { kind: "number"; value: number }
+  | { kind: "constant"; name: string }
+  | { kind: "variable"; name: string }
+  | { kind: "negate"; operand: Node }
+  | { kind: "binary"; op: "+" | "-" | "*" | "/" | "^"; left: Node; right: Node }
+  | { kind: "call"; name: string; args: Node[] };
 
-function parse(tokens: Token[], variables: string[]): Fn {
+function parse(tokens: Token[], variables: string[]): Node {
   let position = 0;
   const peek = () => tokens[position];
   const isOp = (token: Token | undefined, op: string) => token?.kind === "op" && token.op === op;
   const startsPrimary = (token: Token | undefined) => token !== undefined && (token.kind === "number" || token.kind === "name" || isOp(token, "("));
 
-  function expression(): Fn {
+  function expression(): Node {
     let left = term();
     while (isOp(peek(), "+") || isOp(peek(), "-")) {
-      const plus = (peek() as { op: string }).op === "+";
+      const op = (peek() as { op: "+" | "-" }).op;
       position++;
-      const a = left, b = term();
-      left = plus ? (x, y) => a(x, y) + b(x, y) : (x, y) => a(x, y) - b(x, y);
+      left = { kind: "binary", op, left, right: term() };
     }
     return left;
   }
-  function term(): Fn {
+  function term(): Node {
     let left = unary();
     for (;;) {
       const token = peek();
-      let times = true;
-      if (isOp(token, "*") || isOp(token, "/")) { times = (token as { op: string }).op === "*"; position++; }
+      let op: "*" | "/" = "*";
+      if (isOp(token, "*") || isOp(token, "/")) { op = (token as { op: "*" | "/" }).op; position++; }
       else if (!startsPrimary(token)) break;
-      const a = left, b = unary();
-      left = times ? (x, y) => a(x, y) * b(x, y) : (x, y) => a(x, y) / b(x, y);
+      left = { kind: "binary", op, left, right: unary() };
     }
     return left;
   }
-  function unary(): Fn {
-    if (isOp(peek(), "-")) { position++; const a = unary(); return (x, y) => -a(x, y); }
+  function unary(): Node {
+    if (isOp(peek(), "-")) { position++; return { kind: "negate", operand: unary() }; }
     if (isOp(peek(), "+")) { position++; return unary(); }
     return power();
   }
-  function power(): Fn {
+  function power(): Node {
     const base = primary();
-    if (isOp(peek(), "^")) { position++; const exponent = unary(); return (x, y) => realPower(base(x, y), exponent(x, y)); }
+    if (isOp(peek(), "^")) { position++; return { kind: "binary", op: "^", left: base, right: unary() }; }
     return base;
   }
-  function primary(): Fn {
+  function primary(): Node {
     const token = peek();
     if (!token) throw new ExpressionError("unexpected");
     position++;
-    if (token.kind === "number") { const value = token.value; return () => value; }
+    if (token.kind === "number") return { kind: "number", value: token.value };
     if (token.kind === "op") {
       if (token.op !== "(") throw new ExpressionError("unexpected");
       const inner = expression();
@@ -104,24 +109,109 @@ function parse(tokens: Token[], variables: string[]): Fn {
       return inner;
     }
     const { name } = token;
-    if (name in CONSTANTS) { const value = CONSTANTS[name]; return () => value; }
-    if (variables.includes(name)) return name === "y" ? (_x, y) => y : x => x;
+    if (name in CONSTANTS) return { kind: "constant", name };
+    if (variables.includes(name)) return { kind: "variable", name };
     // a function
     if (!isOp(peek(), "(")) throw new ExpressionError("needBrackets");
     position++;
-    const args: Fn[] = [expression()];
+    const args: Node[] = [expression()];
     while (isOp(peek(), ",")) { position++; args.push(expression()); }
     if (!isOp(peek(), ")")) throw new ExpressionError("brackets");
     position++;
     const [min, max] = ARITY[name] ?? [1, 1];
     if (args.length < min || args.length > max) throw new ExpressionError("arguments");
-    const fn = FUNCTIONS[name];
-    return (x, y) => fn(...args.map(arg => arg(x, y)));
+    return { kind: "call", name, args };
   }
 
   const tree = expression();
   if (position < tokens.length) throw new ExpressionError(isOp(peek(), ")") ? "brackets" : "unexpected");
   return tree;
+}
+
+type Fn = (x: number, y: number) => number;
+
+function evaluator(node: Node): Fn {
+  switch (node.kind) {
+    case "number": { const value = node.value; return () => value; }
+    case "constant": { const value = CONSTANTS[node.name]; return () => value; }
+    case "variable": return node.name === "y" ? (_x, y) => y : x => x;
+    case "negate": { const a = evaluator(node.operand); return (x, y) => -a(x, y); }
+    case "call": {
+      const args = node.args.map(evaluator);
+      const fn = FUNCTIONS[node.name];
+      return (x, y) => fn(...args.map(arg => arg(x, y)));
+    }
+    case "binary": {
+      const a = evaluator(node.left), b = evaluator(node.right);
+      switch (node.op) {
+        case "+": return (x, y) => a(x, y) + b(x, y);
+        case "-": return (x, y) => a(x, y) - b(x, y);
+        case "*": return (x, y) => a(x, y) * b(x, y);
+        case "/": return (x, y) => a(x, y) / b(x, y);
+        case "^": return (x, y) => realPower(a(x, y), b(x, y));
+      }
+    }
+  }
+}
+
+const TEX_NAMES: Record<string, string> = { sin: "\\sin", cos: "\\cos", tan: "\\tan", asin: "\\arcsin", acos: "\\arccos", atan: "\\arctan", sinh: "\\sinh", cosh: "\\cosh", tanh: "\\tanh", ln: "\\ln" };
+const TRIG = new Set(["sin", "cos", "tan", "sinh", "cosh", "tanh"]);
+const paren = (tex: string) => `\\left(${tex}\\right)`;
+const isSum = (node: Node) => node.kind === "binary" && (node.op === "+" || node.op === "-");
+
+function numberTex(value: number): string {
+  const text = String(value);
+  const e = /^(.*)e([+-]?\d+)$/.exec(text);
+  return e ? `${e[1]}\\times 10^{${Number(e[2])}}` : text;
+}
+
+// Does what is written begin with a digit? Then a times sign is needed in front of it (2 \\times 3, x \\cdot 2).
+const startsWithNumber = (node: Node): boolean =>
+  node.kind === "number" || (node.kind === "binary" && (node.op === "*" || node.op === "^") && startsWithNumber(node.left));
+
+// The formula as TeX, as school maths writes it: fractions with a bar, roots, no times sign between a number and a letter.
+export function toTex(node: Node): string {
+  switch (node.kind) {
+    case "number": return numberTex(node.value);
+    case "constant": return node.name === "pi" ? "\\pi" : node.name;
+    case "variable": return node.name;
+    case "negate": return `-${isSum(node.operand) ? paren(toTex(node.operand)) : toTex(node.operand)}`;
+    case "call": return callTex(node);
+    case "binary": {
+      const { op, left, right } = node;
+      if (op === "/") return `\\frac{${toTex(left)}}{${toTex(right)}}`;
+      if (op === "^") {
+        if (left.kind === "call" && TRIG.has(left.name) && right.kind === "number" && right.value >= 0) {
+          return `${TEX_NAMES[left.name]}^{${numberTex(right.value)}}${paren(toTex(left.args[0]))}`;
+        }
+        const base = toTex(left);
+        const plain = left.kind === "variable" || left.kind === "constant" || (left.kind === "number" && left.value >= 0);
+        return `${plain ? base : paren(base)}^{${toTex(right)}}`;
+      }
+      if (op === "*") {
+        const wrap = (n: Node) => (isSum(n) || n.kind === "negate" ? paren(toTex(n)) : toTex(n));
+        return `${wrap(left)}${startsWithNumber(right) ? (left.kind === "number" || startsWithNumber(left) ? "\\times " : "\\cdot ") : ""}${wrap(right)}`;
+      }
+      const rightTex = (op === "-" && isSum(right)) || right.kind === "negate" ? paren(toTex(right)) : toTex(right);
+      return `${toTex(left)}${op}${rightTex}`;
+    }
+  }
+}
+
+function callTex(node: Extract<Node, { kind: "call" }>): string {
+  const [a, b] = node.args.map(toTex);
+  switch (node.name) {
+    case "sqrt": return `\\sqrt{${a}}`;
+    case "cbrt": return `\\sqrt[3]{${a}}`;
+    case "abs": return `\\left|${a}\\right|`;
+    case "exp": return `e^{${a}}`;
+    case "log": return `\\log_{${b ?? "10"}}${paren(a)}`;
+    case "floor": return `\\lfloor ${a}\\rfloor`;
+    case "ceil": return `\\lceil ${a}\\rceil`;
+    case "round": return `\\operatorname{round}${paren(a)}`;
+    case "sign": return `\\operatorname{sgn}${paren(a)}`;
+    default: return `${TEX_NAMES[node.name]}${paren(a)}`;
+  }
 }
 
 // What people type for the same thing: full-width characters, × ÷ − π, a leading "y =" or "f(x) =".
@@ -134,7 +224,8 @@ export function compile(text: string, variables: string[] = ["x"]): Compiled {
     const source = clean(text);
     if (source.trim() === "") throw new ExpressionError("empty");
     const tree = parse(tokenize(source, variables), variables);
-    return { ok: true, evaluate: (x, y = 0) => tree(x, y) };
+    const run = evaluator(tree);
+    return { ok: true, evaluate: (x, y = 0) => run(x, y), tex: toTex(tree) };
   } catch (error) {
     if (error instanceof ExpressionError) return { ok: false, error: error.code };
     throw error;

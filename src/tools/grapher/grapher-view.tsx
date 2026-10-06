@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useRef, useState, type KeyboardEvent a
 import { useTranslations } from "use-intl";
 import ToolLayout from "../../components/tool-layout";
 import controls from "../../components/tool-controls.module.css";
+import { MathTex } from "../../components/math-tex";
 import styles from "./grapher-view.module.css";
 import { compile } from "./expression";
 import { formatTick, fromScreen, niceStep, polylines, ticks, toScreen, zoomAt, type View } from "./graph";
@@ -221,6 +222,7 @@ export default function Grapher() {
               <span className={styles.prefix} aria-hidden="true">y =</span>
               <input className={styles.input} value={row.text} spellCheck={false} autoComplete="off" autoCapitalize="off" inputMode="text" aria-label={t("expression", { n: index + 1 })} aria-invalid={!result.ok && row.text.trim() !== ""} placeholder={t("placeholder")} onChange={event => change(row.id, { text: event.target.value })} />
               <button type="button" className={styles.remove} aria-label={t("remove", { n: index + 1 })} onClick={() => setRows(list => list.filter(item => item.id !== row.id))}>×</button>
+              {result.ok && <div className={styles.preview} data-grapher="tex"><MathTex tex={`y = ${result.tex}`} /></div>}
               {!result.ok && row.text.trim() !== "" && <p className={styles.error} role="alert">{t(`errors.${result.error}`)}</p>}
             </li>
           );

@@ -16,6 +16,10 @@ export default async function ({ page, main, go }) {
   const first = main.getByLabel('Expression 1', { exact: true });
   const start = await fingerprint(canvas);
   assert.ok(Number(start.split(':')[0]) > 3000, 'the two curves and the axes are drawn');
+  // Each formula is also shown typeset under its input: a fraction bar and a root appear for these.
+  await first.fill('sqrt(x)/(x + 1)');
+  await page.waitForFunction(() => document.querySelector('[data-grapher="tex"] .mfrac') && document.querySelector('[data-grapher="tex"] .sqrt'));
+  assert.equal(await main.locator('[data-grapher="tex"]').count(), 2, 'one preview for each valid formula');
   // Changing a formula redraws; a mistake is explained and the picture keeps the others.
   await first.fill('x^3');
   await page.waitForTimeout(150);

@@ -98,3 +98,51 @@ test('values outside the domain are NaN or infinite, not errors', () => {
   assert.ok(Number.isNaN(compile('sqrt(x)').evaluate(-1)));
   assert.ok(Number.isNaN(compile('ln(x)').evaluate(-1)));
 });
+
+const tex = text => { const c = compile(text, ['x', 'y']); assert.ok(c.ok, text); return c.tex; };
+
+test('the formula as TeX: fractions, roots, powers, and no times sign between a number and a letter', () => {
+  assert.equal(tex('x^2/(x+1)'), '\\frac{x^{2}}{x+1}');
+  assert.equal(tex('2x'), '2x');
+  assert.equal(tex('3x^2y'), '3x^{2}y');
+  assert.equal(tex('2*3'), '2\\times 3');
+  assert.equal(tex('x*2'), 'x\\cdot 2');
+  assert.equal(tex('sqrt(x)'), '\\sqrt{x}');
+  assert.equal(tex('cbrt(x)'), '\\sqrt[3]{x}');
+  assert.equal(tex('sin(x)/x'), '\\frac{\\sin\\left(x\\right)}{x}');
+  assert.equal(tex('1/2x'), '\\frac{1}{2}x');
+  assert.equal(tex('2pi'), '2\\pi');
+  assert.equal(tex('abs(x)'), '\\left|x\\right|');
+});
+
+test('TeX brackets appear only where they are needed', () => {
+  assert.equal(tex('-x^2'), '-x^{2}');
+  assert.equal(tex('(-x)^2'), '\\left(-x\\right)^{2}');
+  assert.equal(tex('(x+1)(x-1)'), '\\left(x+1\\right)\\left(x-1\\right)');
+  assert.equal(tex('(x+1)^2'), '\\left(x+1\\right)^{2}');
+  assert.equal(tex('x-(x+1)'), 'x-\\left(x+1\\right)');
+  assert.equal(tex('x-(-x)'), 'x-\\left(-x\\right)');
+  assert.equal(tex('x+x-x'), 'x+x-x');
+  assert.equal(tex('2^-x'), '2^{-x}');
+  assert.equal(tex('2^3^2'), '2^{3^{2}}');
+  assert.equal(tex('-(x+1)'), '-\\left(x+1\\right)');
+});
+
+test('functions in TeX: exp as a power of e, logarithms with their base, powers of sine written the usual way', () => {
+  assert.equal(tex('exp(x)'), 'e^{x}');
+  assert.equal(tex('e^x'), 'e^{x}');
+  assert.equal(tex('ln(x)'), '\\ln\\left(x\\right)');
+  assert.equal(tex('log(x)'), '\\log_{10}\\left(x\\right)');
+  assert.equal(tex('log(x, 2)'), '\\log_{2}\\left(x\\right)');
+  assert.equal(tex('sin(x)^2'), '\\sin^{2}\\left(x\\right)');
+  assert.equal(tex('atan(x)'), '\\arctan\\left(x\\right)');
+  assert.equal(tex('floor(x)'), '\\lfloor x\\rfloor');
+  assert.equal(tex('1e-7'), '1\\times 10^{-7}');
+  assert.equal(tex('0.25x'), '0.25x');
+});
+
+test('the TeX is the same whatever the formula was typed like', () => {
+  assert.equal(tex('y = x²'.replace('²', '^2')), 'x^{2}');
+  assert.equal(tex('２ｘ'), '2x');
+  assert.equal(tex('π'), '\\pi');
+});
