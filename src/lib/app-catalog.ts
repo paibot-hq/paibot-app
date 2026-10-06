@@ -2,13 +2,13 @@
 // Node scripts such as tests/e2e/smoke.mjs can import it and derive their
 // expectations instead of repeating the list.
 
-export type AppCategory = "study" | "dev" | "utility" | "network" | "game" | "daily";
+export type AppCategory = "study" | "dev" | "utility" | "network" | "game" | "daily" | "simulator";
 
 // Display order for category sections on /apps.
-export const APP_CATEGORIES: AppCategory[] = ["daily", "game", "utility", "study", "dev", "network"];
+export const APP_CATEGORIES: AppCategory[] = ["daily", "game", "simulator", "utility", "study", "dev", "network"];
 
 // The categories listed on the top page's search as apps; study is the math drills, dev and network the developer tools.
-export const APP_SITE_CATEGORIES: AppCategory[] = ["daily", "game", "utility"];
+export const APP_SITE_CATEGORIES: AppCategory[] = ["daily", "game", "simulator", "utility"];
 
 export type AppData = {
   // Unique, stable id. Matches the route slug for published apps; for a
@@ -43,6 +43,9 @@ export const APP_CATALOG = [
   { slug: "password", href: "/password", category: "utility", status: "published", messageKey: "password" },
   { slug: "stopwatch", href: "/stopwatch", category: "utility", status: "published", messageKey: "stopwatch" },
   { slug: "business-card", href: "/business-card", category: "utility", status: "published", messageKey: "businessCard" },
+  { slug: "tax", href: "/tax", category: "utility", status: "published", messageKey: "tax" },
+  { slug: "split", href: "/split", category: "utility", status: "published", messageKey: "split" },
+  { slug: "unit-converter", href: "/unit-converter", category: "utility", status: "published", messageKey: "unitConverter" },
 
   // ネットワーク / Network
   { slug: "ip", href: "/ip", category: "network", status: "published", messageKey: "ip" },
@@ -51,18 +54,22 @@ export const APP_CATALOG = [
   { slug: "site-check", href: "/site-check", category: "network", status: "published", messageKey: "siteCheck" },
 
   // ゲーム / Game
-  { slug: "dice", href: "/dice", category: "game", status: "published", messageKey: "dice" },
+  { slug: "dice", href: "/dice", category: "simulator", status: "published", messageKey: "dice" },
   { slug: "reaction", href: "/reaction", category: "game", status: "published", messageKey: "reaction" },
   { slug: "timing", href: "/timing", category: "game", status: "published", messageKey: "timing" },
   { slug: "pinball", href: "/pinball", category: "game", status: "published", messageKey: "pinball" },
-  { slug: "polyhedra", href: "/polyhedra", category: "game", status: "published", messageKey: "polyhedra" },
+  { slug: "polyhedra", href: "/polyhedra", category: "simulator", status: "published", messageKey: "polyhedra" },
 
   // 日常 / Daily
   { slug: "calendar", href: "/calendar", category: "daily", status: "published", messageKey: "calendar" },
   { slug: "life-calendar", href: "/life-calendar", category: "daily", status: "published", messageKey: "lifeCalendar" },
+  { slug: "fireworks", href: "/fireworks", category: "simulator", status: "published", messageKey: "fireworks" },
   { slug: "clock", href: "/clock", category: "daily", status: "published", messageKey: "clock" },
   { slug: "diary", href: "/diary", category: "daily", status: "published", messageKey: "diary", private: true },
   { slug: "age", href: "/age", category: "daily", status: "published", messageKey: "age" },
+  { slug: "date-calc", href: "/date-calc", category: "daily", status: "published", messageKey: "dateCalc" },
+  { slug: "pomodoro", href: "/pomodoro", category: "daily", status: "published", messageKey: "pomodoro" },
+  { slug: "roulette", href: "/roulette", category: "simulator", status: "published", messageKey: "roulette" },
 ] as const satisfies readonly AppData[];
 
 export type AppSlug = (typeof APP_CATALOG)[number]["slug"];
