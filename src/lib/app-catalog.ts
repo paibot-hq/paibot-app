@@ -59,6 +59,8 @@ export const APP_CATALOG = [
   { slug: "timing", href: "/timing", category: "game", status: "published", messageKey: "timing" },
   { slug: "pinball", href: "/pinball", category: "game", status: "published", messageKey: "pinball" },
   { slug: "polyhedra", href: "/polyhedra", category: "simulator", status: "published", messageKey: "polyhedra" },
+  { slug: "balls", href: "/balls", category: "simulator", status: "published", messageKey: "balls" },
+  { slug: "kaleidoscope", href: "/kaleidoscope", category: "game", status: "published", messageKey: "kaleidoscope" },
 
   // 日常 / Daily
   { slug: "calendar", href: "/calendar", category: "daily", status: "published", messageKey: "calendar" },

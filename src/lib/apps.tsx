@@ -55,6 +55,27 @@ function PulseIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function BallsIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <circle cx="12" cy="12" r="9.5" />
+      <circle cx="9" cy="10" r="2.6" />
+      <circle cx="15.5" cy="14.5" r="1.9" />
+      <circle cx="15" cy="8" r="1.2" />
+    </svg>
+  );
+}
+
+function KaleidoscopeIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <circle cx="12" cy="12" r="8.5" />
+      <path d="M12 3.5v17M3.5 12h17M6 6l12 12M18 6L6 18" />
+      <circle cx="12" cy="12" r="3" />
+    </svg>
+  );
+}
+
 function PolyhedraIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -283,7 +304,7 @@ const APP_ICONS: Record<AppSlug, Icon> = {
   json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon,
   wc: WcIcon, password: PasswordIcon, stopwatch: StopwatchIcon, "business-card": CardIcon,
   ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
-  dice: DiceIcon, reaction: ReactionIcon, timing: TimingIcon, pinball: PinballIcon, polyhedra: PolyhedraIcon, fireworks: FireworksIcon,
+  dice: DiceIcon, reaction: ReactionIcon, timing: TimingIcon, pinball: PinballIcon, polyhedra: PolyhedraIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, fireworks: FireworksIcon,
   tax: TaxIcon, split: SplitIcon, "unit-converter": UnitConverterIcon, "date-calc": DateCalcIcon, pomodoro: PomodoroIcon, roulette: RouletteIcon,
   calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, diary: WcIcon, age: AgeIcon,
 };
