@@ -233,6 +233,10 @@ export function snippet(answer: string, length = 110): string {
   return chars.length > length ? `${chars.slice(0, length).join("")}…` : plain;
 }
 
+// An answer is long when the chat folds it: more than 180 characters or more than five lines.
+export const LONG_ANSWER = 180;
+export const isLong = (answer: string) => [...parseAnswer(answer).map(p => ("text" in p ? p.text : p.label)).join("")].length > LONG_ANSWER || answer.split("\n").length > 5;
+
 // A reply for a chat: the question it answers and some others that come close, or nothing. "sure" is when the best of them has most of what was asked.
 export type Reply = { kind: "answer"; confidence: "sure" | "unsure"; primary: Item; others: Item[] } | { kind: "none" };
 export const SURE_COVERAGE = 0.55;

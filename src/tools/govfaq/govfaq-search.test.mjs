@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { fold, terms, queryTerms, buildIndex, search, highlight, parseAnswer, snippet, categoryCounts, toItems, reply, SYNONYMS } from './govfaq-search.ts';
+import { isLong, fold, terms, queryTerms, buildIndex, search, highlight, parseAnswer, snippet, categoryCounts, toItems, reply, SYNONYMS } from './govfaq-search.ts';
 
 const categories = ['マイナンバー', '年金', '税', '子育て'];
 const entries = [
@@ -137,6 +137,15 @@ test('a chat reply is the best question as the main answer, some others that com
   assert.equal(new Set(questions).size, questions.length, 'no question twice');
   assert.deepEqual(reply(index, 'ぬるぽがっ'), { kind: 'none' });
   assert.deepEqual(reply(index, ''), { kind: 'none' });
+});
+
+test('an answer is long when it is over 180 characters (its links counted by their labels) or over five lines', () => {
+  assert.equal(isLong('短い回答です。'), false);
+  assert.equal(isLong('あ'.repeat(180)), false);
+  assert.equal(isLong('あ'.repeat(181)), true);
+  assert.equal(isLong('1\n2\n3\n4\n5'), false);
+  assert.equal(isLong('1\n2\n3\n4\n5\n6'), true);
+  assert.equal(isLong('<' + 'ア'.repeat(50) + ',https://example.go.jp/' + 'x'.repeat(300) + '>'), false, 'a long address is not text');
 });
 
 test('categories are counted, the biggest first', () => {

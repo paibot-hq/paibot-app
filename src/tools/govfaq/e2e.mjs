@@ -16,10 +16,19 @@ export default async function ({ page, main, go, base }) {
   assert.ok(card.includes('マイナンバーカード') && card.includes('紛失'), 'the nearest question is about losing the card');
   assert.match(card, /ID: /);
   assert.equal(await input.inputValue(), '', 'the box is emptied');
+  // A long answer is folded so that one reply does not fill the chat; "Read more" opens it, and "Show less" folds it again.
+  const answerBox = main.locator('[data-chat="answer"]').first();
+  assert.equal(await answerBox.getAttribute('data-clamped'), 'true');
+  const folded = (await answerBox.boundingBox()).height;
+  await main.locator('[data-chat="more"]').first().click();
+  assert.equal(await answerBox.getAttribute('data-clamped'), 'false');
+  assert.ok((await answerBox.boundingBox()).height > folded * 1.3, 'opened, it is taller');
+  await main.getByRole('button', { name: 'Show less' }).first().click();
+  assert.equal(await answerBox.getAttribute('data-clamped'), 'true');
   // Others that come close can be opened: each adds its own answer.
   const before = await main.locator('[data-chat="card"]').count();
   await main.getByText('Other candidates').waitFor();
-  await main.locator('[data-chat-from="bot"]').last().locator('button').first().click();
+  await main.locator('[data-chat-from="bot"]').last().locator('button[lang="ja"]').first().click();
   await page.waitForFunction(count => document.querySelectorAll('[data-chat="card"]').length === count + 1, before);
   // An example in the greeting asks it; nonsense gets a "not found" with ways to ask.
   await input.fill('ぬるぽがっ');

@@ -4,9 +4,26 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "use-intl";
 import styles from "./govfaq-view.module.css";
 import { AnswerText, Tag } from "./govfaq-parts";
-import { reply, type Faq, type Index, type Item } from "./govfaq-search";
+import { isLong, reply, type Faq, type Index, type Item } from "./govfaq-search";
 
 const EXAMPLES = ["マイナンバーカードをなくしてしまったのですが、どうすればいいですか？", "子どもが生まれたときの手続きを教えて", "確定申告のやり方がわからない", "年金はいつからもらえますか"];
+
+// A FAQ in the chat: a long answer is folded to a few lines, so one reply does not fill the screen; "続きを読む" opens it.
+
+function Card({ item, category }: { item: Item; category: string | undefined }) {
+  const t = useTranslations("App.govfaq");
+  const long = isLong(item.answer);
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={styles.card} lang="ja" data-chat="card">
+      <Tag>{category}</Tag>
+      <p className={styles.cardQuestion}>{item.question}</p>
+      <div className={styles.cardAnswer} data-clamped={long && !open} data-chat="answer"><AnswerText answer={item.answer} /></div>
+      {long && <button type="button" className={styles.more} aria-expanded={open} onClick={() => setOpen(o => !o)} data-chat="more">{open ? t("less") : t("more")}</button>}
+      <p className={styles.meta}>{t("itemId", { id: item.id })}</p>
+    </div>
+  );
+}
 
 type Message =
   | { id: number; from: "you"; text: string }
@@ -39,14 +56,7 @@ export default function FaqChat({ faq, index }: { faq: Faq | null; index: Index 
   }
   const open = (item: Item) => setMessages(list => [...list, { id: next.current++, from: "bot", kind: "faq", item }]);
 
-  const card = (item: Item) => (
-    <div className={styles.card} lang="ja" data-chat="card">
-      <Tag>{faq?.categories[item.category]}</Tag>
-      <p className={styles.cardQuestion}>{item.question}</p>
-      <div className={styles.cardAnswer}><AnswerText answer={item.answer} /></div>
-      <p className={styles.meta}>{t("itemId", { id: item.id })}</p>
-    </div>
-  );
+  const card = (item: Item) => <Card item={item} category={faq?.categories[item.category]} />;
 
   return (
     <section className={styles.chat} aria-label={t("chatLabel")}>
