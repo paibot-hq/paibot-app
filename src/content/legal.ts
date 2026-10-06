@@ -11,6 +11,8 @@ export interface CommerceDocument { title: string; description: string; updated:
 
 const price = { ja: `月額${SUPPORTER_PLAN.priceYen}円（税込）`, en: `¥${SUPPORTER_PLAN.priceYen} per month (tax included)`, zh: `每月${SUPPORTER_PLAN.priceYen}日元（含税）` };
 const updated = { ja: '2026年9月28日 制定', en: 'Established September 28, 2026', zh: '2026年9月28日制定' };
+// The privacy policy was revised when the stock prices page (TradingView widgets) was added; the other documents were not.
+const privacyUpdated = { ja: '2026年9月28日 制定、2026年10月6日 改定', en: 'Established September 28, 2026; revised October 6, 2026', zh: '2026年9月28日制定，2026年10月6日修订' };
 const referenceNotice = {
   en: 'This is a reference translation. If it differs from the Japanese version, the Japanese version prevails.',
   zh: '本文为参考译文。如与日文版有出入，以日文版为准。',
@@ -184,7 +186,7 @@ export const privacy: Record<Locale, LegalDocument> = {
   ja: {
     title: 'プライバシーポリシー',
     description: 'PAIBOT.app における個人情報の取り扱いについて定めたものです。',
-    updated: updated.ja,
+    updated: privacyUpdated.ja,
     sections: [
       { heading: '1. 事業者', paragraphs: [`本サービス「PAIBOT.app」は、${SELLER.ja}（以下「当社」）が運営しています。`] },
       { heading: '2. 取得する情報', items: [
@@ -208,6 +210,7 @@ export const privacy: Record<Locale, LegalDocument> = {
         'Clerk, Inc.（アカウントとログインの管理）',
         'Stripe, Inc.（有料プランの決済）',
         'Cloudflare, Inc.（サービスの配信とデータの保存）',
+        'TradingView Inc.（「世界の株価」の株価の表示。利用者が「株価を表示する」を押したときだけ、お使いのブラウザが TradingView に直接接続し、IPアドレスやブラウザの情報、Cookie などが同社に送られます。同社のプライバシーポリシーに従って取り扱われます）',
       ] },
       { heading: '5. 安全管理', paragraphs: ['当社は、個人情報の漏えい・滅失・毀損を防ぐため、アクセスの制限など必要かつ適切な安全管理措置を講じます。'] },
       { heading: '6. 開示・訂正・削除などの請求', paragraphs: ['本人から個人情報の開示・訂正・利用停止・削除などの請求があった場合は、本人であることを確認したうえで、法令に従って対応します。日記やプロフィールなど、本サービスの画面から削除できる情報もあります。'] },
@@ -219,7 +222,7 @@ export const privacy: Record<Locale, LegalDocument> = {
   en: {
     title: 'Privacy Policy',
     description: 'How PAIBOT.app handles personal information.',
-    updated: updated.en,
+    updated: privacyUpdated.en,
     notice: referenceNotice.en,
     sections: [
       { heading: '1. Operator', paragraphs: [`PAIBOT.app (the "Service") is operated by ${SELLER.en} ("we").`] },
@@ -244,6 +247,7 @@ export const privacy: Record<Locale, LegalDocument> = {
         'Clerk, Inc. (accounts and sign-in)',
         'Stripe, Inc. (payments for paid plans)',
         'Cloudflare, Inc. (delivery of the Service and data storage)',
+        'TradingView Inc. (the display of prices on "World Stock Prices"; only when you press "Show stock prices", your browser connects to TradingView directly, and your IP address, browser information, cookies and similar are sent to it and handled under its privacy policy)',
       ] },
       { heading: '5. Security', paragraphs: ['We take necessary and appropriate measures, such as access restrictions, to prevent the leakage, loss or damage of personal information.'] },
       { heading: '6. Requests about your information', paragraphs: ['When you ask us to disclose, correct, stop using or delete your personal information, we respond in accordance with the law after confirming your identity. Some information, such as diary entries and profile details, can also be deleted from the Service itself.'] },
@@ -255,7 +259,7 @@ export const privacy: Record<Locale, LegalDocument> = {
   zh: {
     title: '隐私政策',
     description: 'PAIBOT.app 关于个人信息处理的规定。',
-    updated: updated.zh,
+    updated: privacyUpdated.zh,
     notice: referenceNotice.zh,
     sections: [
       { heading: '1. 运营者', paragraphs: [`本服务"PAIBOT.app"由${SELLER.zh}（以下称"本公司"）运营。`] },
@@ -280,6 +284,7 @@ export const privacy: Record<Locale, LegalDocument> = {
         'Clerk, Inc.（账户与登录管理）',
         'Stripe, Inc.（付费方案的支付）',
         'Cloudflare, Inc.（服务分发与数据存储）',
+        'TradingView Inc.（用于“全球股价”页面的价格显示。仅当你点击“显示股价”时，你的浏览器才会直接连接到 TradingView，IP 地址、浏览器信息和 Cookie 等会发送给该公司，并按其隐私政策处理）',
       ] },
       { heading: '5. 安全管理', paragraphs: ['本公司采取访问限制等必要且适当的安全管理措施，防止个人信息泄露、丢失或损毁。'] },
       { heading: '6. 查询、更正、删除等请求', paragraphs: ['本人提出查询、更正、停止使用或删除个人信息等请求时，本公司将在确认本人身份后依法处理。日记和个人资料等部分信息也可在本服务的页面上直接删除。'] },

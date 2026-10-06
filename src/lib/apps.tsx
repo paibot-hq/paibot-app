@@ -76,6 +76,56 @@ function KaleidoscopeIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function LifeIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="4" y="4" width="4" height="4" />
+      <rect x="10" y="10" width="4" height="4" />
+      <rect x="16" y="4" width="4" height="4" />
+      <rect x="4" y="16" width="4" height="4" />
+      <rect x="16" y="16" width="4" height="4" />
+    </svg>
+  );
+}
+
+function PendulumIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M12 3v6" />
+      <circle cx="12" cy="11" r="2" />
+      <path d="M12 13l5 6" />
+      <circle cx="17.5" cy="20" r="2" />
+    </svg>
+  );
+}
+
+function FourierIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <circle cx="9" cy="12" r="6" />
+      <circle cx="17.5" cy="7" r="2.5" />
+      <path d="M9 12l8.5-5" />
+    </svg>
+  );
+}
+
+function SeriesIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M18 5H7l6 7-6 7h11" />
+    </svg>
+  );
+}
+
+function StocksIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M4 4v16h16" />
+      <path d="M7 15l4-5 3 3 5-7" />
+    </svg>
+  );
+}
+
 function GrapherIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -313,7 +363,7 @@ const APP_ICONS: Record<AppSlug, Icon> = {
   json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon,
   wc: WcIcon, password: PasswordIcon, stopwatch: StopwatchIcon, "business-card": CardIcon,
   ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
-  dice: DiceIcon, reaction: ReactionIcon, timing: TimingIcon, pinball: PinballIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, fireworks: FireworksIcon,
+  dice: DiceIcon, reaction: ReactionIcon, timing: TimingIcon, pinball: PinballIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, fireworks: FireworksIcon,
   tax: TaxIcon, split: SplitIcon, "unit-converter": UnitConverterIcon, "date-calc": DateCalcIcon, pomodoro: PomodoroIcon, roulette: RouletteIcon,
   calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, diary: WcIcon, age: AgeIcon,
 };

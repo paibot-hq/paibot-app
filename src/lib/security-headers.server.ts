@@ -50,6 +50,8 @@ export function buildContentSecurityPolicy(): string {
       "https://js.stripe.com",
       "https://hooks.stripe.com",
       "https://*.protect.clerk.com",
+      // The TradingView widgets of the stocks page, shown in a frame only after the visitor asks for them.
+      "https://www.tradingview-widget.com",
     ],
     // "data:" is needed for a Clerk UI background asset (an inline noise
     // SVG data URI) — Clerk's own DEFAULT_DIRECTIVES for @clerk/nextjs
