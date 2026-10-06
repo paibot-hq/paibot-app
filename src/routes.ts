@@ -15,6 +15,7 @@ export default [
     .map(path => route(path, 'routes/redirect.ts', { id: `locale-redirect/${path}` })),
   route('api/quiz', 'routes/api.quiz.ts'),
   route('api/govfaq/embed', 'routes/api.govfaq.embed.ts'),
+  route('api/ip', 'routes/api.ip.ts'),
   route('sitemap.xml', 'routes/sitemap.ts'),
   route(':locale', 'routes/locale.tsx', [
     index('routes/home.tsx'),

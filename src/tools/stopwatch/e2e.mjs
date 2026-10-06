@@ -6,7 +6,7 @@ export default async function ({ page, main, go, result }) {
   await main.getByRole('button', { name: 'Start', exact: true }).click();
   await page.waitForFunction(() => document.querySelector('main [aria-live]').textContent !== '00:00.00');
   await main.getByRole('button', { name: 'Lap', exact: true }).click();
-  assert.equal(await main.locator('li').count(), 1);
+  assert.equal(await main.locator('li:not([data-tool-about] li)').count(), 1);
   await main.getByRole('button', { name: 'Stop', exact: true }).click();
   await main.getByRole('button', { name: 'Reset', exact: true }).click();
   await result('00:00.00');

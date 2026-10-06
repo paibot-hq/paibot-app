@@ -11,3 +11,12 @@
 .ip-value:last-child {
   margin-bottom: 0;
 }
+
+.details { width: 100%; max-width: 40rem; margin: 1.5rem auto 0; }
+.heading { margin: 0 0 .5rem; font-size: 1rem; font-weight: 700; }
+.list { margin: 0; border-top: 1px solid var(--line); }
+.row { display: grid; grid-template-columns: 9rem 1fr; gap: .75rem; padding: .55rem 0; border-bottom: 1px solid var(--line); font-size: .9rem; }
+.row dt { color: var(--muted, inherit); }
+.row dd { margin: 0; overflow-wrap: anywhere; }
+.note { margin-top: 1rem; text-align: left; }
+@media (max-width: 480px) { .row { grid-template-columns: 1fr; gap: .1rem; } }

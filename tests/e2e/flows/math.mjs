@@ -5,11 +5,13 @@ import assert from 'node:assert/strict';
 // practice sets; a set is the quiz. Works whether or not the newer sets are
 // published in the local D1 (CI imports them unpublished).
 export default async function ({ page, main, base, go, errors }) {
+  // The units' headings (the text about the tool under the page has its own).
+  const units = main.locator('h2:not([data-tool-about] h2)');
   const link = href => main.locator(`a[href="${href}"]`);
   // A missing translation renders its key (e.g. "App.math.units.arith.title").
   await go('math');
   assert.ok(!(await main.textContent()).includes('App.math.'), 'no untranslated keys on the math page');
-  assert.deepEqual(await main.getByRole('heading', { level: 2 }).allTextContents(), [
+  assert.deepEqual(await units.allTextContents(), [
     'Number', 'Algebra', 'Functions', 'Geometry & measurement',
     'Statistics & probability', 'Sets & logic', 'Vectors & matrices', 'Calculus',
   ]);
@@ -17,7 +19,7 @@ export default async function ({ page, main, base, go, errors }) {
   assert.equal(await link('/en/math/factorization/trinomial').getAttribute('data-playable'), 'true');
   assert.equal(await link('/en/math/shapes/solids-basic').getAttribute('data-playable'), 'true');
   await main.getByRole('button', { name: 'Higher', exact: true }).click();
-  assert.deepEqual(await main.getByRole('heading', { level: 2 }).allTextContents(), ['Statistics & probability', 'Sets & logic', 'Vectors & matrices', 'Calculus']);
+  assert.deepEqual(await units.allTextContents(), ['Statistics & probability', 'Sets & logic', 'Vectors & matrices', 'Calculus']);
   await main.getByRole('button', { name: 'Higher', exact: true }).click();
   await main.getByLabel('Playable sets only').check();
   assert.ok(await main.locator('ul ul a').count() > 0);

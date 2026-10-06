@@ -58,3 +58,20 @@ export function pathWithoutLocale(pathname: string): string {
   const rest = parts.slice(2).join("/");
   return rest ? `/${rest}` : "";
 }
+
+// The facts of a tool as schema.org structured data (WebApplication), for search engines. Plain data, no env.
+export function toolStructuredData(tool: { name: string; description: string; url: string; locale: Locale; category: string; siteName: string; siteUrl: string }) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    name: tool.name,
+    description: tool.description,
+    url: tool.url,
+    inLanguage: tool.locale,
+    applicationCategory: tool.category === "game" ? "GameApplication" : tool.category === "study" ? "EducationalApplication" : tool.category === "dev" ? "DeveloperApplication" : "UtilitiesApplication",
+    operatingSystem: "Any",
+    browserRequirements: "Requires JavaScript",
+    isAccessibleForFree: true,
+    isPartOf: { "@type": "WebSite", name: tool.siteName, url: tool.siteUrl },
+  };
+}

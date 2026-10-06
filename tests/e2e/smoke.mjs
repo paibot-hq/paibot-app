@@ -144,6 +144,7 @@ try {
   assert.equal(sitemapResponse.status, 200);
   assert.match(sitemapResponse.headers.get('content-type'), /application\/xml/);
   const sitemap = await sitemapResponse.text();
+  assert.ok(sitemap.split('<url>').slice(1).every(url => /<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod>/.test(url)), 'every sitemap entry has the build date as lastmod');
   const entries = await parser.evaluate(xml => {
     const doc = new DOMParser().parseFromString(xml, 'application/xml');
     if (doc.querySelector('parsererror')) throw new Error('Malformed sitemap XML');

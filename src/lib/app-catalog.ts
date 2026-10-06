@@ -85,3 +85,9 @@ export const APP_CATALOG = [
 ] as const satisfies readonly AppData[];
 
 export type AppSlug = (typeof APP_CATALOG)[number]["slug"];
+
+// The tools to go to from a tool's page: those of the same kind first, then the others, up to six, so that every page links onwards.
+export function relatedApps(app: AppData, list: readonly AppData[] = APP_CATALOG, limit = 6): AppData[] {
+  const published = list.filter(other => other.status === "published" && other.href && !other.private && other.slug !== app.slug);
+  return [...published.filter(other => other.category === app.category), ...published.filter(other => other.category !== app.category)].slice(0, limit);
+}
