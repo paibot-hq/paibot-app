@@ -1,0 +1,24 @@
+.search { display: flex; flex-wrap: wrap; gap: .6rem; width: min(820px, 100%); margin: 1rem auto .6rem; }
+.input { flex: 1 1 18rem; min-width: 0; padding: .7rem .9rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); font: inherit; font-size: 1.05rem; }
+.select { flex: 0 1 14rem; min-width: 0; padding: .6rem .7rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); font: inherit; }
+.status { width: min(820px, 100%); margin: .8rem auto; text-align: left; color: var(--muted); }
+.error { color: var(--error, #d33); text-align: center; }
+.hint { width: min(820px, 100%); margin: 0 auto; color: var(--muted); font-size: .9rem; }
+.examples { width: min(820px, 100%); margin: 1rem auto; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: .45rem; }
+.chip { padding: .3rem .8rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--text); font: inherit; font-size: .9rem; cursor: pointer; }
+.small { font-size: .8rem; }
+.list { list-style: none; width: min(820px, 100%); margin: .4rem auto; padding: 0; display: grid; gap: .5rem; }
+.item { border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
+.item[data-open="true"] { border-color: var(--accent); }
+.head { display: flex; flex-direction: column; gap: .3rem; align-items: flex-start; width: 100%; padding: .75rem .9rem; border: 0; background: none; color: var(--text); font: inherit; text-align: left; cursor: pointer; }
+.tag { padding: .05rem .5rem; border-radius: 999px; background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--muted); font-size: .72rem; }
+.question { font-weight: 600; line-height: 1.55; }
+.question mark { background: color-mix(in srgb, #ffe600 55%, transparent); color: inherit; border-radius: 3px; }
+.snippet { color: var(--muted); font-size: .88rem; line-height: 1.55; }
+.answer { padding: .2rem .9rem .9rem; white-space: pre-wrap; overflow-wrap: anywhere; font-size: .92rem; line-height: 1.75; border-top: 1px dashed var(--line); }
+.answer a { color: var(--accent); }
+.meta { margin: .8rem 0 0; color: var(--muted); font-size: .72rem; white-space: normal; }
+.more { text-align: center; }
+.credit { width: min(820px, 100%); margin: .4rem auto 1.5rem; color: var(--muted); font-size: .8rem; text-align: center; }
+.credit a { color: var(--muted); }
