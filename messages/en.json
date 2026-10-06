@@ -629,6 +629,35 @@
         "item": "Topic"
       }
     },
+    "life": {
+      "title": "Game of Life",
+      "description": "Conway's Game of Life: cells on a grid are born, live and die by the number of neighbours alone. Place gliders, pulsars or a glider gun, or draw your own, and just watch.",
+      "keywords": "game of life conway cellular automaton glider pattern free",
+      "intro": "Click the grid to place cells. The only rule is how many neighbours a cell has.",
+      "canvasLabel": "The Game of Life board. Click or drag to place or erase cells",
+      "stats": "Generation {generation} · {population} alive",
+      "running": "Running",
+      "paused": "Paused",
+      "step": "Step",
+      "random": "Random",
+      "clear": "Clear",
+      "speed": "Speed",
+      "perSecond": "{n} per second",
+      "tool": "What to place",
+      "pen": "Pen",
+      "patterns": {
+        "glider": "Glider",
+        "blinker": "Blinker",
+        "toad": "Toad",
+        "beacon": "Beacon",
+        "pulsar": "Pulsar",
+        "lwss": "Spaceship",
+        "rpentomino": "R-pentomino",
+        "acorn": "Acorn",
+        "gun": "Glider gun"
+      },
+      "hint": "A cell with two or three neighbours survives, and an empty square with exactly three neighbours is born. The edges wrap round to the far side. Young cells are green and the older they get the bluer they look."
+    },
     "grapher": {
       "title": "Graphing Calculator",
       "description": "Type a formula and its graph is drawn at once; a formula in x and y gives a 3D surface you can turn. Leave out the times sign, as in 2x or sin(x), overlay several formulas, drag the picture around and zoom with the wheel or a pinch.",
