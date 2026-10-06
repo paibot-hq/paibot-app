@@ -631,7 +631,7 @@
     },
     "grapher": {
       "title": "Graphing Calculator",
-      "description": "Type a formula and its graph is drawn at once. Leave out the times sign, as in 2x or sin(x), overlay several formulas, drag the picture around and zoom with the wheel or a pinch.",
+      "description": "Type a formula and its graph is drawn at once; a formula in x and y gives a 3D surface you can turn. Leave out the times sign, as in 2x or sin(x), overlay several formulas, drag the picture around and zoom with the wheel or a pinch.",
       "keywords": "graphing calculator graph function formula y= quadratic sin cos trigonometry logarithm free",
       "intro": "Type a formula to draw its graph. Drag to move the picture and zoom with the wheel or a pinch.",
       "canvasLabel": "The graph. Drag to move, wheel to zoom; arrow keys move, plus and minus zoom, 0 puts it back",
@@ -653,6 +653,17 @@
         "needBrackets": "A function needs brackets, as in sin(x).",
         "arguments": "A function was given the wrong number of values."
       },
+      "mode": "View",
+      "mode2d": "2D graph",
+      "mode3d": "3D surface",
+      "surfaceExpression": "Expression z",
+      "placeholder3d": "e.g. sin(x)cos(y)",
+      "wire": "Wireframe",
+      "range": "Range",
+      "canvasLabel3d": "The 3D surface. Drag to turn it, wheel to zoom; arrow keys turn, plus and minus zoom, 0 puts it back",
+      "readout3d": "x, y: −{half} to {half} · z: {min} to {max}",
+      "readoutEmpty3d": "Type a formula.",
+      "hint3d": "Type a formula in x and y (e.g. x^2 + y^2, sin(x)cos(y)). The colour is the height: blue is low, red is high. Where the formula has no value or runs off to infinity there is a hole.",
       "hint": "How to write: 2x, x^2, sqrt(x), abs(x), sin(x), cos(x), tan(x), ln(x) (natural log), log(x) (common log), log(x, 2), exp(x), pi, e. Angles are in radians. A leading y = is fine."
     },
     "polyhedra": {

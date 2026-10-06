@@ -42,3 +42,8 @@
 .readout { min-height: 1.5em; margin: 0; text-align: center; color: var(--muted); font-size: .95rem; font-variant-numeric: tabular-nums; }
 .examples { display: flex; flex-wrap: wrap; gap: .45rem; justify-content: center; align-items: center; margin: 1rem auto; width: min(960px, 100%); }
 .examplesLabel { color: var(--muted); font-size: .9rem; }
+.modes { display: flex; gap: .5rem; justify-content: center; margin: 1rem 0 .2rem; }
+.row3d { display: grid; grid-template-columns: auto 1fr; align-items: center; gap: .5rem; }
+.row3d .preview, .row3d .error { grid-column: 2; }
+.range { display: inline-flex; align-items: center; gap: .6rem; color: var(--muted); }
+.rangeValue { min-width: 2.2rem; color: var(--text); font-variant-numeric: tabular-nums; }

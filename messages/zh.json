@@ -631,7 +631,7 @@
     },
     "grapher": {
       "title": "函数图像计算器",
-      "description": "输入公式，立刻画出图像。可以省略乘号，如 2x、sin(x)；可以叠加多个公式，拖动画面，用滚轮或双指缩放。",
+      "description": "输入公式，立刻画出图像；输入关于 x、y 的公式，还能旋转查看 3D 曲面。可以省略乘号，如 2x、sin(x)；可以叠加多个公式，拖动画面，用滚轮或双指缩放。",
       "keywords": "函数图像 图像计算器 函数 公式 y= 二次函数 sin cos 三角函数 对数 免费",
       "intro": "输入公式即可画出图像。拖动可以移动画面，用滚轮或双指进行缩放。",
       "canvasLabel": "函数图像。拖动移动，滚轮缩放；方向键移动，加减号缩放，0 恢复原位",
@@ -653,6 +653,17 @@
         "needBrackets": "函数需要括号，如 sin(x)。",
         "arguments": "函数的参数个数不对。"
       },
+      "mode": "显示",
+      "mode2d": "2D 图像",
+      "mode3d": "3D 曲面",
+      "surfaceExpression": "公式 z",
+      "placeholder3d": "例如：sin(x)cos(y)",
+      "wire": "线框",
+      "range": "范围",
+      "canvasLabel3d": "3D 曲面。拖动旋转，滚轮缩放；方向键旋转，加减号缩放，0 恢复原位",
+      "readout3d": "x、y：−{half} 到 {half} · z：{min} 到 {max}",
+      "readoutEmpty3d": "请输入公式。",
+      "hint3d": "输入关于 x 和 y 的公式（例如：x^2 + y^2、sin(x)cos(y)）。颜色表示高度：蓝色低，红色高。没有值或趋向无穷的地方会留成空洞。",
       "hint": "写法：2x、x^2、sqrt(x)、abs(x)、sin(x)、cos(x)、tan(x)、ln(x)（自然对数）、log(x)（常用对数）、log(x, 2)、exp(x)、pi、e。角度单位为弧度。开头可以加 y =。"
     },
     "polyhedra": {

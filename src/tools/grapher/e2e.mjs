@@ -57,5 +57,37 @@ export default async function ({ page, main, go }) {
   assert.equal(await fingerprint(canvas), await fingerprint(canvas));
   await main.getByRole('button', { name: 'Zoom in' }).click();
   await page.waitForTimeout(150);
-  console.log('PASS: grapher: formulas are drawn and explained when wrong, examples add rows, hover readout, drag, wheel and buttons');
+  // 3D: a formula in x and y is drawn as a surface; a drag turns it, the range and the wireframe change it, a mistake is explained.
+  await main.locator('[data-grapher="mode-3d"]').click();
+  const z = main.getByLabel('Expression z', { exact: true });
+  await z.fill('x^2 + y^2');
+  await page.waitForFunction(() => /^z = /.test(document.querySelector('[data-grapher="tex"]').textContent.replace(/\s+/g, ' ')) || document.querySelector('[data-grapher="tex"] .katex'));
+  await page.waitForFunction(() => /−5 to 5/.test(document.querySelector('[data-grapher="readout"]').textContent) && /0 to 50/.test(document.querySelector('[data-grapher="readout"]').textContent));
+  await page.waitForTimeout(150);
+  const surface = await fingerprint(canvas);
+  assert.ok(Number(surface.split(':')[0]) > 8000, 'the surface is drawn');
+  await canvas.scrollIntoViewIfNeeded();
+  const area = await canvas.boundingBox();
+  await page.mouse.move(area.x + area.width * 0.5, area.y + area.height * 0.5);
+  await page.mouse.down();
+  await page.mouse.move(area.x + area.width * 0.7, area.y + area.height * 0.4, { steps: 6 });
+  await page.mouse.up();
+  await page.waitForTimeout(150);
+  assert.notEqual(await fingerprint(canvas), surface, 'a drag turns the surface');
+  await main.getByLabel('Range', { exact: true }).fill('2');
+  await page.waitForFunction(() => /−2 to 2/.test(document.querySelector('[data-grapher="readout"]').textContent));
+  const solid = Number((await fingerprint(canvas)).split(':')[0]);
+  await main.locator('[data-grapher="wire"]').click();
+  await page.waitForTimeout(150);
+  const wired = Number((await fingerprint(canvas)).split(':')[0]);
+  assert.ok(wired > 300 && wired < solid, 'the wireframe is drawn');
+  await z.fill('x^2 +');
+  await main.getByRole('alert').waitFor();
+  await z.fill('1/(x^2 + y^2)');
+  await main.getByRole('alert').waitFor({ state: 'detached' });
+  await main.getByRole('button', { name: 'sin(x)cos(y)', exact: true }).click();
+  assert.equal(await z.inputValue(), 'sin(x)cos(y)');
+  await main.locator('[data-grapher="mode-2d"]').click();
+  await main.getByLabel('Expression 1', { exact: true }).waitFor();
+  console.log('PASS: grapher: formulas are drawn and explained when wrong, examples add rows, hover readout, drag, wheel and buttons, 3D surfaces');
 }
