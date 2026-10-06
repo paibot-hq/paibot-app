@@ -3,7 +3,7 @@
 import assert from 'node:assert/strict';
 
 export default async function ({ page, main, go, base }) {
-  await go('faq');
+  await go('govfaq');
   // The chat comes first: the bot greets, a question in a plain sentence gets the nearest FAQ as the answer, with others to open.
   const input = main.locator('[data-chat="input"]');
   await page.waitForFunction(() => !document.querySelector('[data-chat="input"]').disabled);
@@ -76,5 +76,5 @@ export default async function ({ page, main, go, base }) {
   const credit = await main.locator('[data-faq="credit"]').innerText();
   assert.match(credit, /Ministry of Internal Affairs and Communications/); assert.match(credit, /2026-10-01/);
   assert.equal(await main.locator('[data-faq="credit"] a').getAttribute('href'), 'https://www.soumu.go.jp/main_sosiki/hyouka/soudan_n/kyotsucb_top.html');
-  console.log('PASS: faq: the chat (a sentence answered by the nearest FAQ, others to open, nothing found, starting over), the list: examples, search with marks and words of the same meaning, an answer with safe links, the question kept in the address, categories, no results, the source credited');
+  console.log('PASS: govfaq: the chat (a sentence answered by the nearest FAQ, others to open, nothing found, starting over), the list: examples, search with marks and words of the same meaning, an answer with safe links, the question kept in the address, categories, no results, the source credited');
 }

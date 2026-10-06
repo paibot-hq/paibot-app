@@ -2,15 +2,15 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "use-intl";
-import styles from "./faq-view.module.css";
-import { AnswerText, Marked } from "./faq-parts";
-import { search, snippet, type Faq, type Index, type Item } from "./faq-search";
+import styles from "./govfaq-view.module.css";
+import { AnswerText, Marked } from "./govfaq-parts";
+import { search, snippet, type Faq, type Index, type Item } from "./govfaq-search";
 
 const PAGE = 20;
 const EXAMPLES = ["マイナンバーカードをなくした", "年金はいつからもらえる", "児童手当の申請", "確定申告のやり方", "遺失物を届けたい", "引っ越しの手続き"];
 
 export default function FaqBrowse({ faq, index, counts, failed }: { faq: Faq | null; index: Index | null; counts: { category: number; name: string; count: number }[]; failed: boolean }) {
-  const t = useTranslations("App.faq");
+  const t = useTranslations("App.govfaq");
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<number | null>(null);
   const [shown, setShown] = useState(PAGE);

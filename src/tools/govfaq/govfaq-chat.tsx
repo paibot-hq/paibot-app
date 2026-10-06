@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "use-intl";
-import styles from "./faq-view.module.css";
-import { AnswerText, Tag } from "./faq-parts";
-import { reply, type Faq, type Index, type Item } from "./faq-search";
+import styles from "./govfaq-view.module.css";
+import { AnswerText, Tag } from "./govfaq-parts";
+import { reply, type Faq, type Index, type Item } from "./govfaq-search";
 
 const EXAMPLES = ["マイナンバーカードをなくしてしまったのですが、どうすればいいですか？", "子どもが生まれたときの手続きを教えて", "確定申告のやり方がわからない", "年金はいつからもらえますか"];
 
@@ -18,7 +18,7 @@ type Message =
 // A chat over the FAQ: each question is answered with the nearest FAQ as it is written (no one is making up an answer), with some others that
 // come close to open. It does not remember what was said before.
 export default function FaqChat({ faq, index }: { faq: Faq | null; index: Index | null }) {
-  const t = useTranslations("App.faq");
+  const t = useTranslations("App.govfaq");
   const [messages, setMessages] = useState<Message[]>([{ id: 0, from: "bot", kind: "hello" }]);
   const [text, setText] = useState("");
   const next = useRef(1);

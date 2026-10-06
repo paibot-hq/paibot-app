@@ -4,15 +4,15 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "use-intl";
 import ToolLayout from "../../components/tool-layout";
 import controls from "../../components/tool-controls.module.css";
-import styles from "./faq-view.module.css";
-import FaqBrowse from "./faq-browse";
-import FaqChat from "./faq-chat";
-import { buildIndex, categoryCounts, toItems, type Faq, type Index } from "./faq-search";
+import styles from "./govfaq-view.module.css";
+import FaqBrowse from "./govfaq-browse";
+import FaqChat from "./govfaq-chat";
+import { buildIndex, categoryCounts, toItems, type Faq, type Index } from "./govfaq-search";
 
 type Tab = "chat" | "list";
 
 export default function Faqs() {
-  const t = useTranslations("App.faq");
+  const t = useTranslations("App.govfaq");
   const [faq, setFaq] = useState<Faq | null>(null);
   const [failed, setFailed] = useState(false);
   const [tab, setTab] = useState<Tab>("chat");
@@ -23,7 +23,7 @@ export default function Faqs() {
     if (params.get("tab") === "list" || params.get("q")) setTab("list");
     // Only the browser reads the FAQ: this keeps it out of the server's bundle (the Worker's size is limited).
     if (import.meta.env.SSR) return;
-    import("../../data/faq.json").then(module => setFaq(module.default as unknown as Faq)).catch(() => setFailed(true));
+    import("../../data/govfaq.json").then(module => setFaq(module.default as unknown as Faq)).catch(() => setFailed(true));
   }, []);
   function choose(next: Tab) {
     setTab(next);

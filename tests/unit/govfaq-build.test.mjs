@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { deflateRawSync } from 'node:zlib';
 import { readZip, readFirstSheet, parseSharedStrings, parseSheet, unescapeXml } from '../../scripts/lib/xlsx.mjs';
-import { stripReading, cleanText, buildFaq } from '../../scripts/lib/faq.mjs';
+import { stripReading, cleanText, buildFaq } from '../../scripts/lib/govfaq.mjs';
 
 // A ZIP built by hand: stored and deflated files, a local header and a central directory entry for each.
 function zip(files) {

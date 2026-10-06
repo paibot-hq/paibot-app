@@ -875,7 +875,7 @@
       "howFourier": "Fourier series: adds up waves (sines and cosines), treating the whole range as one that repeats. The numbers are the biggest coefficients, the strengths of the waves.",
       "howNetwork": "Neural network: a row of small calculating parts (tanh units). The 3 numbers of each unit (weights and so on) are adjusted, a little at a time and automatically, to make the error smaller. Here it learns in your browser, as you watch. The numbers are 3 × units + 1."
     },
-    "faq": {
+    "govfaq": {
       "title": "Government FAQ Search",
       "description": "Search the FAQ (about 4,600 questions) of the Japanese Ministry of Internal Affairs and Communications' chatbot Govbot by words: 25 fields such as My Number, pensions, child-rearing, taxes, health insurance, police and disaster response. The answers are shown as in the original FAQ, with the source. The FAQ itself is in Japanese.",
       "keywords": "government faq japan my number pension child allowance tax return procedures ministry govbot search",

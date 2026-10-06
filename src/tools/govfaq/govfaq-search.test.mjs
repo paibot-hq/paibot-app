@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { fold, terms, queryTerms, buildIndex, search, highlight, parseAnswer, snippet, categoryCounts, toItems, reply, SYNONYMS } from './faq-search.ts';
+import { fold, terms, queryTerms, buildIndex, search, highlight, parseAnswer, snippet, categoryCounts, toItems, reply, SYNONYMS } from './govfaq-search.ts';
 
 const categories = ['マイナンバー', '年金', '税', '子育て'];
 const entries = [

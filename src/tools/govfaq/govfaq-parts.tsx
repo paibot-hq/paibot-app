@@ -1,8 +1,8 @@
 "use client";
 
 import { Fragment } from "react";
-import styles from "./faq-view.module.css";
-import { highlight, parseAnswer } from "./faq-search";
+import styles from "./govfaq-view.module.css";
+import { highlight, parseAnswer } from "./govfaq-search";
 
 // The text with the parts that match the query marked.
 export function Marked({ text, query }: { text: string; query: string }) {

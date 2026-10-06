@@ -1,7 +1,7 @@
 // Searching the FAQ in the browser: the text is cut into pairs of characters (Japanese has no spaces to cut at), and the questions that share the
 // most of the query's pairs, rare ones counting for more (BM25), come first. A few words with the same meaning are treated as one ("なくした" for
 // "紛失"). Pure functions, tested without a browser. The questions and answers are from the Ministry of Internal Affairs and Communications' FAQ
-// file (see scripts/faq-build.mjs).
+// file (see scripts/govfaq-build.mjs).
 
 export type Item = { id: string; category: number; question: string; answer: string };
 export type Faq = {
