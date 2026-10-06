@@ -1,0 +1,43 @@
+.rows { list-style: none; margin: 1rem auto .6rem; padding: 0; display: grid; gap: .5rem; width: min(960px, 100%); }
+.row { display: grid; grid-template-columns: auto auto 1fr auto; align-items: center; gap: .5rem; }
+.swatch { box-sizing: border-box; width: 1.5rem; height: 1.5rem; min-width: 0; min-height: 0; flex: none; border-radius: 50%; border: 2.5px solid; padding: 0; cursor: pointer; }
+.prefix { color: var(--muted); font-family: ui-monospace, monospace; }
+.input {
+  min-width: 0;
+  padding: .5rem .7rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: 1rem ui-monospace, SFMono-Regular, Menlo, monospace;
+}
+.input[aria-invalid="true"] { border-color: var(--error, #d33); }
+.remove { box-sizing: border-box; width: 2rem; height: 2rem; min-width: 0; min-height: 0; padding: 0; border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--muted); font: inherit; font-size: 1.1rem; cursor: pointer; }
+.error { grid-column: 3 / -1; margin: 0; color: var(--error, #d33); font-size: .85rem; }
+.actions { display: flex; flex-wrap: wrap; gap: .5rem; justify-content: center; margin: .6rem 0; }
+.button, .choice {
+  padding: .4rem .9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+.choice { border-radius: 999px; padding: .25rem .7rem; color: var(--muted); font-family: ui-monospace, monospace; font-size: .9rem; }
+.canvas {
+  display: block;
+  width: min(960px, 100%);
+  aspect-ratio: 3 / 2;
+  margin: .6rem auto;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  box-shadow: 0 18px 40px -22px var(--shadow);
+  cursor: grab;
+  touch-action: none;
+}
+.canvas:active { cursor: grabbing; }
+.readout { min-height: 1.5em; margin: 0; text-align: center; color: var(--muted); font-size: .95rem; font-variant-numeric: tabular-nums; }
+.examples { display: flex; flex-wrap: wrap; gap: .45rem; justify-content: center; align-items: center; margin: 1rem auto; width: min(960px, 100%); }
+.examplesLabel { color: var(--muted); font-size: .9rem; }
