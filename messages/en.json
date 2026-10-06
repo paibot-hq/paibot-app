@@ -788,6 +788,41 @@
       "creditLink": "Japan Meteorological Agency website, \"Earthquake Information\"",
       "creditEnd": " (processed by us)"
     },
+    "warnings": {
+      "title": "Weather Warnings Across Japan",
+      "description": "The weather warnings and advisories in force across Japan right now (emergency warnings, urgent warnings, warnings and advisories), on a tile map of the prefectures and in a list. Sorted from the strongest down, with the areas opening on a tap. Refreshed from the Japan Meteorological Agency every minute.",
+      "keywords": "weather warnings advisories emergency warning japan heavy rain strong wind thunder meteorological agency disaster weather",
+      "intro": "The warnings and advisories in force across Japan now. The colour of a tile is the strongest in that prefecture. Tap to open the areas.",
+      "summary": "Prefectures with a warning or advisory",
+      "levels": {
+        "special": "Emergency warning",
+          "urgent": "Urgent warning",
+        "warning": "Warning",
+        "advisory": "Advisory",
+        "none": "None",
+        "unknown": "Unknown"
+      },
+      "statsNote": "A prefecture counts if any area in it has one.",
+      "mapLabel": "A tile map of the prefectures. The colour is the strongest warning or advisory in force in each",
+      "filter": "What to show",
+      "show": {
+        "warning": "Warnings and up",
+        "advisory": "Advisories and up",
+        "all": "All"
+      },
+      "loading": "Loading…",
+      "none": "No prefecture has one in this range.",
+      "failed": "The Agency's data could not be loaded.",
+      "retry": "Try again",
+      "stale": "The Agency's data does not seem to have been updated for {days} days or more. It may be out of date, so check the Agency's page.",
+      "noData": "This prefecture is not in the Agency's data.",
+      "reported": "Latest report: {time}",
+      "checked": "Checked {time} (refreshed every minute) · latest report {report}",
+      "note": "This shows the warnings and advisories that the Japan Meteorological Agency has issued, as they are; it is not a forecast. It can be late or stop updating. For decisions such as evacuating, use official sources such as TV, radio, your local government and the Agency.",
+      "credit": "Source: ",
+      "creditLink": "Japan Meteorological Agency website, \"Warnings and Advisories\"",
+      "creditEnd": " (processed by us)"
+    },
     "grapher": {
       "title": "Graphing Calculator",
       "description": "Type a formula and its graph is drawn at once; a formula in x and y gives a 3D surface you can turn. Leave out the times sign, as in 2x or sin(x), overlay several formulas, drag the picture around and zoom with the wheel or a pinch.",
