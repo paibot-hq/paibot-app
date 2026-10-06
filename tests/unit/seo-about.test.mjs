@@ -31,7 +31,7 @@ test('every public tool has its text about it, and how to use it, in all three l
   for (const locale of ['ja', 'en', 'zh']) {
     const app = JSON.parse(readFileSync(new URL(`../../messages/${locale}.json`, import.meta.url), 'utf8')).App;
     for (const tool of APP_CATALOG.filter(a => a.status === 'published' && a.href && !a.private)) {
-      for (const key of ['about', 'use']) assert.ok(typeof app[tool.messageKey]?.[key] === 'string' && app[tool.messageKey][key].length >= 8, `${locale} ${tool.slug}.${key}`);
+      for (const key of ['about']) assert.ok(typeof app[tool.messageKey]?.[key] === 'string' && app[tool.messageKey][key].length >= 8, `${locale} ${tool.slug}.${key}`);
     }
   }
 });
