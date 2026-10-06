@@ -39,6 +39,8 @@ export function buildContentSecurityPolicy(): string {
       "https://*.google-analytics.com",
       "https://www.googletagmanager.com",
       "https://*.google.com",
+      // The Japan Meteorological Agency's earthquake list and reports, read by the quake page (https://www.jma.go.jp allows any origin).
+      "https://www.jma.go.jp",
       ...(clerkHost ? [clerkHost] : []),
     ],
     "default-src": ["'self'"],
