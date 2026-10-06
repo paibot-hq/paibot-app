@@ -14,6 +14,8 @@ export default async function ({ page, main, go }) {
   await go('grapher');
   const canvas = main.locator('canvas');
   const first = main.getByLabel('Expression 1', { exact: true });
+  // The picture is drawn on the next animation frame, so wait for it.
+  await page.waitForFunction(() => { const c = document.querySelector('main canvas'); const { data } = c.getContext('2d').getImageData(0, 0, c.width, c.height); const [r, g, b] = data; let n = 0; for (let i = 0; i < data.length; i += 4) if (Math.abs(data[i] - r) + Math.abs(data[i + 1] - g) + Math.abs(data[i + 2] - b) > 60) n++; return n > 3000; });
   const start = await fingerprint(canvas);
   assert.ok(Number(start.split(':')[0]) > 3000, 'the two curves and the axes are drawn');
   // Each formula is also shown typeset under its input: a fraction bar and a root appear for these.
