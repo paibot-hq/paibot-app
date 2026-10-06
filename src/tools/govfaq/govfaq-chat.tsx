@@ -43,7 +43,8 @@ export default function FaqChat({ faq, index, vectors }: { faq: Faq | null; inde
   const next = useRef(1);
   const end = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => { end.current?.scrollIntoView({ block: "nearest" }); }, [messages]);
+  // The page scrolls to the newest message (not at the start, when there is only the greeting).
+  useEffect(() => { if (messages.length > 1) end.current?.scrollIntoView({ block: "nearest" }); }, [messages]);
 
   async function ask(question: string) {
     const clean = question.trim();
@@ -105,7 +106,7 @@ export default function FaqChat({ faq, index, vectors }: { faq: Faq | null; inde
           </div>
         ))}
         {waiting && <p className={styles.small} role="status" data-chat="waiting">{t("thinking")}</p>}
-        <div ref={end} />
+        <div ref={end} className={styles.end} />
       </div>
       <form className={styles.compose} onSubmit={event => { event.preventDefault(); ask(text); }}>
         <input className={styles.input} value={text} lang="ja" placeholder={t("chatPlaceholder")} aria-label={t("chatInput")} autoComplete="off" disabled={!index} onChange={event => setText(event.target.value)} data-chat="input" />
