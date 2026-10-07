@@ -4,11 +4,12 @@ import { useEffect, useRef, useState, type ClipboardEvent, type DragEvent } from
 import { useTranslations } from "use-intl";
 import ToolLayout from "../../components/tool-layout";
 import controls from "../../components/tool-controls.module.css";
-import styles from "./exif-view.module.css";
-import { readMetadata, sensitive, stripMetadata, type Group, type Report } from "./exif";
+import styles from "./metadata-view.module.css";
+import { readMetadata, sensitive, stripMetadata, type Group, type Report } from "./index";
 
-const GROUPS: Group[] = ["location", "time", "device", "person", "shot", "image", "software", "text"];
-const EXTRAS = ["xmp", "iptc", "comment", "trailer", "thumbnail", "makerNote"] as const;
+const GROUPS: Group[] = ["location", "time", "device", "person", "document", "custom", "shot", "image", "software", "text"];
+const EXTRAS = ["xmp", "iptc", "comment", "trailer", "thumbnail", "makerNote", "comments", "trackedChanges"] as const;
+const OFFICE = { docx: "application/vnd.openxmlformats-officedocument.wordprocessingml.document", xlsx: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", pptx: "application/vnd.openxmlformats-officedocument.presentationml.presentation" } as const;
 
 type Loaded = { name: string; size: number; type: string; bytes: Uint8Array; url: string; report: Report; width: number | null; height: number | null };
 type Cleaned = { count: number; saved: number };
@@ -17,8 +18,8 @@ const sizeText = (n: number) => (n >= 1048576 ? `${(n / 1048576).toFixed(1)} MB`
 
 // A photo is looked into here and nowhere else: the file is read in the browser, its metadata is listed, and a copy without it can be saved. Nothing is
 // sent to a server. For JPEG and PNG the copy is the same file with the metadata left out; for other formats the picture is drawn again (no metadata).
-export default function ExifView() {
-  const t = useTranslations("App.exif");
+export default function MetadataView() {
+  const t = useTranslations("App.metadata");
   const dynamic = t as unknown as ((key: string, values?: Record<string, string | number>) => string) & { has: (key: string) => boolean };
   const [loaded, setLoaded] = useState<Loaded | null>(null);
   const [state, setState] = useState<"idle" | "reading" | "failed">("idle");
@@ -26,6 +27,7 @@ export default function ExifView() {
   const [cleanFailed, setCleanFailed] = useState(false);
   const [working, setWorking] = useState(false);
   const [over, setOver] = useState(false);
+  const [anonymize, setAnonymize] = useState(false);
   const input = useRef<HTMLInputElement | null>(null);
   const url = useRef<string | null>(null);
 
@@ -38,14 +40,16 @@ export default function ExifView() {
       const bytes = new Uint8Array(await file.arrayBuffer());
       if (url.current) URL.revokeObjectURL(url.current);
       url.current = URL.createObjectURL(file);
-      const dimensions = await new Promise<{ w: number; h: number } | null>(resolve => {
+      const report = await readMetadata(bytes);
+      const office = report.format === "docx" || report.format === "xlsx" || report.format === "pptx";
+      const dimensions = office ? null : await new Promise<{ w: number; h: number } | null>(resolve => {
         const image = new Image();
         image.onload = () => resolve({ w: image.naturalWidth, h: image.naturalHeight });
         image.onerror = () => resolve(null);
         image.src = url.current!;
       });
-      const report = readMetadata(bytes);
-      // A file that is not a picture the browser (or this page) knows is not shown as one.
+      setAnonymize(false);
+      // A file that is not a picture the browser (or this page) knows, nor an Office file, is refused.
       if (!dimensions && report.format === "other") { setLoaded(null); setState("failed"); return; }
       setLoaded({ name: file.name, size: file.size, type: file.type, bytes, url: url.current, report, width: dimensions?.w ?? null, height: dimensions?.h ?? null });
       setState("idle");
@@ -75,12 +79,13 @@ export default function ExifView() {
     if (!loaded) return;
     setWorking(true); setCleanFailed(false); setCleaned(null);
     try {
-      const base = loaded.name.replace(/\.[^.]*$/, "") || "photo";
-      let out: Uint8Array | null = stripMetadata(loaded.bytes);
-      let extension = loaded.report.format === "png" ? "png" : "jpg";
-      let type = loaded.report.format === "png" ? "image/png" : "image/jpeg";
+      const base = loaded.name.replace(/\.[^.]*$/, "") || "file";
+      const format = loaded.report.format;
+      let out: Uint8Array | null = await stripMetadata(loaded.bytes, { anonymizeAuthors: anonymize });
+      let extension: string = format === "png" ? "png" : format === "jpeg" ? "jpg" : format;
+      let type: string = format === "png" ? "image/png" : format === "jpeg" ? "image/jpeg" : format in OFFICE ? OFFICE[format as keyof typeof OFFICE] : "";
       if (!out) {
-        // Another format: the picture is drawn again, which leaves the metadata behind (and may change the quality a little).
+        // Another format of picture: it is drawn again, which leaves the metadata behind (and may change the quality a little).
         const bitmap = await createImageBitmap(new Blob([loaded.bytes as BlobPart], { type: loaded.type }));
         const canvas = document.createElement("canvas");
         canvas.width = bitmap.width; canvas.height = bitmap.height;
@@ -93,7 +98,7 @@ export default function ExifView() {
       }
       download(new Blob([out as BlobPart], { type }), `${base}-clean.${extension}`);
       // What is left in the saved file, read back the same way.
-      setCleaned({ count: readMetadata(out).tags.filter(tag => tag.key !== "Orientation").length, saved: loaded.size - out.length });
+      setCleaned({ count: (await readMetadata(out)).tags.filter(tag => tag.key !== "Orientation").length, saved: loaded.size - out.length });
     } catch {
       setCleanFailed(true);
     } finally {
@@ -102,6 +107,8 @@ export default function ExifView() {
   }
 
   const report = loaded?.report;
+  const office = report?.format === "docx" || report?.format === "xlsx" || report?.format === "pptx";
+  const hasAuthors = !!report?.tags.some(tag => tag.key === "CommentAuthor");
   const groups = report ? sensitive(report) : [];
   const label = (key: string) => (dynamic.has(`tags.${key}`) ? dynamic(`tags.${key}`) : key);
   const value = (key: string, text: string) => (key === "Orientation" && dynamic.has(`orientation.${text}`) ? `${text}（${dynamic(`orientation.${text}`)}）` : text);
@@ -111,39 +118,39 @@ export default function ExifView() {
     <ToolLayout title={t("title")} contentWidth="auto">
       <div className={styles.page} onPaste={paste}>
         <label className={styles.drop} data-over={over || undefined} onDragOver={event => { event.preventDefault(); setOver(true); }} onDragLeave={() => setOver(false)} onDrop={drop}>
-          <input ref={input} type="file" accept="image/*" className={styles.file} onChange={event => { void load(event.target.files?.[0]); event.target.value = ""; }} data-exif="file" />
+          <input ref={input} type="file" accept="image/*,.docx,.xlsx,.pptx,.docm,.xlsm,.pptm" className={styles.file} onChange={event => { void load(event.target.files?.[0]); event.target.value = ""; }} data-meta="file" />
           <span className={styles.dropText}>{t("drop")}</span>
           <span className={styles.choose}>{t("choose")}</span>
         </label>
-        <p className={controls.label} data-exif="privacy">{t("privacy")}</p>
+        <p className={controls.label} data-meta="privacy">{t("privacy")}</p>
         {state === "reading" && <p role="status" className={styles.status}>{t("reading")}</p>}
         {state === "failed" && <p role="alert" className={styles.error}>{t("readFailed")}</p>}
 
         {loaded && report && (
-          <section className={styles.result} aria-label={t("fileInfo")} data-exif="result">
+          <section className={styles.result} aria-label={t("fileInfo")} data-meta="result">
             <div className={styles.head}>
-              <img className={styles.thumb} src={loaded.url} alt="" />
+              {office ? <span className={styles.thumb} data-meta="document" aria-hidden="true">{report.format.toUpperCase()}</span> : <img className={styles.thumb} src={loaded.url} alt="" />}
               <dl className={styles.file_info}>
-                <div><dt>{t("fileInfo")}</dt><dd data-exif="name">{loaded.name}</dd></div>
+                <div><dt>{t("fileInfo")}</dt><dd data-meta="name">{loaded.name}</dd></div>
                 <div><dt>{t("size")}</dt><dd>{sizeText(loaded.size)}</dd></div>
                 {loaded.width && <div><dt>{t("dimensions")}</dt><dd>{loaded.width} × {loaded.height}</dd></div>}
-                <div><dt>{t("type")}</dt><dd>{report.format === "jpeg" ? "JPEG" : report.format === "png" ? "PNG" : loaded.type || "?"}</dd></div>
+                <div><dt>{t("type")}</dt><dd>{report.format === "jpeg" ? "JPEG" : report.format === "png" ? "PNG" : office ? report.format.toUpperCase() : loaded.type || "?"}</dd></div>
               </dl>
             </div>
 
             {report.format === "other" ? (
-              <p className={styles.note} data-exif="verdict">{t("noneOther")}</p>
+              <p className={styles.note} data-meta="verdict">{t("noneOther")}</p>
             ) : groups.length > 0 ? (
-              <div className={styles.warning} role="status" data-exif="verdict">
+              <div className={styles.warning} role="status" data-meta="verdict">
                 <strong>{t("foundTitle")}</strong>
                 <ul>{groups.map(group => <li key={group}>{t(`sensitive.${group}`)}</li>)}</ul>
               </div>
             ) : (
-              <p className={styles.ok} role="status" data-exif="verdict">{t("none")}</p>
+              <p className={styles.ok} role="status" data-meta="verdict">{t("none")}</p>
             )}
 
             {report.gps && mapUrl && (
-              <div className={styles.place} data-exif="place">
+              <div className={styles.place} data-meta="place">
                 <strong>{t("place")}</strong>
                 <span className={styles.coordinates}>{t("coordinates", { lat: report.gps.lat.toFixed(6), lon: report.gps.lon.toFixed(6) })}</span>
                 <a href={mapUrl} target="_blank" rel="noopener noreferrer">{t("openMap")}</a>
@@ -155,7 +162,7 @@ export default function ExifView() {
               const tags = report.tags.filter(tag => tag.group === group);
               if (tags.length === 0) return null;
               return (
-                <section key={group} className={styles.group} data-exif-group={group}>
+                <section key={group} className={styles.group} data-meta-group={group}>
                   <h2>{t(`groups.${group}`)}</h2>
                   <dl className={styles.tags}>
                     {tags.map(tag => <div key={`${tag.key}-${tag.value}`}><dt>{label(tag.key)}</dt><dd>{value(tag.key, tag.value)}</dd></div>)}
@@ -164,20 +171,25 @@ export default function ExifView() {
               );
             })}
 
-            {EXTRAS.some(key => report.extras[key]) && (
+            {(EXTRAS.some(key => report.extras[key]) || report.extras.embeddedPhotos > 0) && (
               <section className={styles.group}>
                 <h2>{t("extrasTitle")}</h2>
-                <ul className={styles.extras}>{EXTRAS.filter(key => report.extras[key]).map(key => <li key={key}>{t(`extras.${key}`)}</li>)}</ul>
+                <ul className={styles.extras}>{EXTRAS.filter(key => report.extras[key]).map(key => <li key={key}>{t(`extras.${key}`)}</li>)}{report.extras.embeddedPhotos > 0 && <li>{t("extras.embeddedPhotos")}（{report.extras.embeddedPhotos}）</li>}</ul>
               </section>
             )}
 
+            {hasAuthors && (
+              <label className={styles.check}>
+                <input type="checkbox" checked={anonymize} onChange={event => setAnonymize(event.target.checked)} data-meta="anonymize" /> {t("anonymize")}
+              </label>
+            )}
             <div className={styles.actions}>
-              <button type="button" className="auth-link" onClick={clean} disabled={working} data-exif="clean">{working ? t("cleaning") : t("clean")}</button>
+              <button type="button" className="auth-link" onClick={clean} disabled={working} data-meta="clean">{working ? t("cleaning") : t("clean")}</button>
               <button type="button" className={styles.again} onClick={() => input.current?.click()}>{t("another")}</button>
             </div>
-            <p className={styles.small}>{report.format === "other" ? t("cleanRecode") : t("cleanLossless")}</p>
+            <p className={styles.small}>{office ? t("cleanOffice") : report.format === "other" ? t("cleanRecode") : t("cleanLossless")}</p>
             {cleaned && (
-              <p role="status" className={styles.ok} data-exif="cleaned">{t("cleaned")} {t("cleanedCheck", { count: cleaned.count })}{cleaned.saved > 0 ? `（−${sizeText(cleaned.saved)}）` : ""}</p>
+              <p role="status" className={styles.ok} data-meta="cleaned">{t("cleaned")} {t("cleanedCheck", { count: cleaned.count })}{cleaned.saved > 0 ? `（−${sizeText(cleaned.saved)}）` : ""}</p>
             )}
             {cleanFailed && <p role="alert" className={styles.error}>{t("cleanFailed")}</p>}
           </section>

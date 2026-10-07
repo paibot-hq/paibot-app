@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { detectFormat, readMetadata, stripMetadata, sensitive, orientationOnly, readTiff } from './exif.ts';
+import { detectFormat, readImage as readMetadata, stripImage as stripMetadata, sensitive, orientationOnly, readTiff } from './image.ts';
 import { TINY_JPEG, phonePhoto, phonePng, png, jpeg, exifSegment, iccSegment, tiffBlock, chunk } from './fixture.mjs';
 
 const bytes = buffer => new Uint8Array(buffer);
@@ -25,7 +25,7 @@ test('a phone photo gives its camera, time, settings, owner, serial number and p
   assert.ok(Math.abs(report.gps.lon - (139 + 41 / 60 + 30 / 3600)) < 1e-9);
   assert.equal(report.gps.altitude, 40);
   assert.equal(tag(report, 'GPSAltitude'), '40 m');
-  assert.deepEqual(report.extras, { xmp: true, iptc: true, comment: true, trailer: true, thumbnail: false, makerNote: false });
+  assert.deepEqual(report.extras, { xmp: true, iptc: true, comment: true, trailer: true, thumbnail: false, makerNote: false, comments: false, trackedChanges: false, embeddedPhotos: 0 });
 });
 
 test('both byte orders are read, and a photo with no position has none', () => {
@@ -62,7 +62,7 @@ test('removing the metadata from a JPEG leaves the picture byte for byte, the co
   assert.deepEqual(after.tags.map(t => t.key), ['Orientation']);
   assert.equal(after.orientation, 6);
   assert.equal(after.gps, null);
-  assert.deepEqual(after.extras, { xmp: false, iptc: false, comment: false, trailer: false, thumbnail: false, makerNote: false });
+  assert.deepEqual(after.extras, { xmp: false, iptc: false, comment: false, trailer: false, thumbnail: false, makerNote: false, comments: false, trackedChanges: false, embeddedPhotos: 0 });
   // The picture's own data (from its first table to the end) is the base's, unchanged.
   const picture = TINY_JPEG.subarray(TINY_JPEG.indexOf(Buffer.from([0xff, 0xdb])));
   assert.ok(Buffer.from(out).includes(picture), 'the picture is untouched');

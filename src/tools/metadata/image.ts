@@ -2,8 +2,10 @@
 // other metadata next to it (XMP, IPTC, comments, text chunks, data stuck on the end of the file). Removing is lossless for those two formats:
 // the segments or chunks are left out and the picture's data is copied as it is. Pure functions on bytes, tested without a browser.
 
-export type Format = "jpeg" | "png" | "other";
-export type Group = "location" | "time" | "device" | "person" | "shot" | "image" | "software" | "text";
+export type Format = "jpeg" | "png" | "docx" | "xlsx" | "pptx" | "other";
+// What detectFormat tells of a picture file ("other" for anything else, a ZIP included: an Office file is told apart in office.ts).
+export type ImageFormat = "jpeg" | "png" | "other";
+export type Group = "location" | "time" | "device" | "person" | "shot" | "image" | "software" | "text" | "document" | "custom";
 export type Tag = { group: Group; key: string; value: string };
 export type Report = {
   format: Format;
@@ -12,10 +14,16 @@ export type Report = {
   gps: { lat: number; lon: number; altitude: number | null } | null;
   orientation: number | null;
   // Metadata that is there but is not listed tag by tag.
-  extras: { xmp: boolean; iptc: boolean; comment: boolean; trailer: boolean; thumbnail: boolean; makerNote: boolean };
+  extras: Extras;
 };
+export type Extras = {
+  xmp: boolean; iptc: boolean; comment: boolean; trailer: boolean; thumbnail: boolean; makerNote: boolean;
+  // Of an Office file: comments, tracked changes, and how many of the pictures inside it carry metadata of their own.
+  comments: boolean; trackedChanges: boolean; embeddedPhotos: number;
+};
+export const emptyExtras = (): Extras => ({ xmp: false, iptc: false, comment: false, trailer: false, thumbnail: false, makerNote: false, comments: false, trackedChanges: false, embeddedPhotos: 0 });
 
-export function detectFormat(bytes: Uint8Array): Format {
+export function detectFormat(bytes: Uint8Array): ImageFormat {
   if (bytes[0] === 0xff && bytes[1] === 0xd8 && bytes[2] === 0xff) return "jpeg";
   if (bytes.length > 8 && bytes[0] === 0x89 && bytes[1] === 0x50 && bytes[2] === 0x4e && bytes[3] === 0x47) return "png";
   return "other";
@@ -244,7 +252,7 @@ export function stripJpeg(bytes: Uint8Array): Uint8Array | null {
 }
 
 function reportJpeg(bytes: Uint8Array): Report {
-  const report: Report = { format: "jpeg", tags: [], gps: null, orientation: null, extras: { xmp: false, iptc: false, comment: false, trailer: false, thumbnail: false, makerNote: false } };
+  const report: Report = { format: "jpeg", tags: [], gps: null, orientation: null, extras: emptyExtras() };
   const parsed = jpegSegments(bytes);
   if (!parsed) return report;
   for (const s of parsed.segments) {
@@ -296,7 +304,7 @@ export function stripPng(bytes: Uint8Array): Uint8Array | null {
 }
 
 function reportPng(bytes: Uint8Array): Report {
-  const report: Report = { format: "png", tags: [], gps: null, orientation: null, extras: { xmp: false, iptc: false, comment: false, trailer: false, thumbnail: false, makerNote: false } };
+  const report: Report = { format: "png", tags: [], gps: null, orientation: null, extras: emptyExtras() };
   const chunks = pngChunks(bytes);
   if (!chunks) return report;
   for (const c of chunks) {
@@ -324,15 +332,15 @@ function reportPng(bytes: Uint8Array): Report {
 
 // --- Both -----------------------------------------------------------------------------------------------------------------------------------
 
-export function readMetadata(bytes: Uint8Array): Report {
+export function readImage(bytes: Uint8Array): Report {
   const format = detectFormat(bytes);
   if (format === "jpeg") return reportJpeg(bytes);
   if (format === "png") return reportPng(bytes);
-  return { format, tags: [], gps: null, orientation: null, extras: { xmp: false, iptc: false, comment: false, trailer: false, thumbnail: false, makerNote: false } };
+  return { format, tags: [], gps: null, orientation: null, extras: emptyExtras() };
 }
 
 // The file without its metadata, byte for byte otherwise; null when the format is not one of these two (or the file is damaged).
-export function stripMetadata(bytes: Uint8Array): Uint8Array | null {
+export function stripImage(bytes: Uint8Array): Uint8Array | null {
   const format = detectFormat(bytes);
   return format === "jpeg" ? stripJpeg(bytes) : format === "png" ? stripPng(bytes) : null;
 }
@@ -343,6 +351,7 @@ export function sensitive(report: Pick<Report, "tags">): SensitiveGroup[] {
   const groups = new Set<SensitiveGroup>();
   for (const tag of report.tags) {
     if (tag.group === "location" || tag.group === "time" || tag.group === "person" || tag.group === "text") groups.add(tag.group);
+    if (tag.group === "custom") groups.add("text");
     if (tag.group === "device" && /Serial|UniqueID/.test(tag.key)) groups.add("device");
   }
   return [...groups];

@@ -50,7 +50,7 @@ export const APP_CATALOG = [
   { slug: "warnings", href: "/warnings", category: "daily", status: "published", messageKey: "warnings" },
   { slug: "approx", href: "/approx", category: "game", status: "published", messageKey: "approx" },
   { slug: "govfaq", href: "/govfaq", category: "daily", status: "published", messageKey: "govfaq" },
-  { slug: "exif", href: "/exif", category: "utility", status: "published", messageKey: "exif" },
+  { slug: "metadata", href: "/metadata", category: "utility", status: "published", messageKey: "metadata" },
   { slug: "grapher", href: "/grapher", category: "utility", status: "published", messageKey: "grapher" },
   { slug: "stopwatch", href: "/stopwatch", category: "utility", status: "published", messageKey: "stopwatch" },
   { slug: "business-card", href: "/business-card", category: "utility", status: "published", messageKey: "businessCard" },

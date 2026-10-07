@@ -11,7 +11,8 @@
 .note { color: var(--muted); }
 .result { display: grid; gap: 1rem; }
 .head { display: flex; gap: 1rem; align-items: flex-start; }
-.thumb { flex: none; width: 96px; height: 96px; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); }
+.thumb { flex: none; display: grid; place-items: center; width: 96px; height: 96px; object-fit: cover; border-radius: 10px; border: 1px solid var(--line); background: var(--surface); color: var(--accent); font-weight: 700; letter-spacing: .05em; }
+.check { display: flex; gap: .5rem; align-items: flex-start; font-size: .9rem; line-height: 1.6; }
 .file_info, .tags { margin: 0; display: grid; gap: .3rem; min-width: 0; }
 .file_info > div, .tags > div { display: grid; grid-template-columns: 9rem 1fr; gap: .6rem; font-size: .9rem; }
 dt { color: var(--muted); }
