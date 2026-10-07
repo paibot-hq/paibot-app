@@ -1,0 +1,24 @@
+.page { width: min(100%, 760px); display: grid; gap: 1rem; }
+.drop { display: grid; gap: .6rem; justify-items: center; padding: 2.5rem 1rem; border: 2px dashed var(--line); border-radius: var(--radius); background: var(--surface); text-align: center; cursor: pointer; }
+.drop[data-over] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.drop:focus-within { outline: 2px solid var(--accent); outline-offset: 2px; }
+.file { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.dropText { color: var(--muted); line-height: 1.6; }
+.choose { padding: .45rem 1.1rem; border-radius: 999px; background: var(--accent); color: #fff; font-weight: 600; }
+.editor { display: grid; gap: .8rem; }
+.tools { display: flex; flex-wrap: wrap; gap: .6rem 1rem; align-items: center; }
+.choices { display: inline-flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--surface); }
+.choice { padding: .4rem .9rem; border: 0; background: none; color: var(--text); font: inherit; font-size: .9rem; cursor: pointer; }
+.choice + .choice { border-left: 1px solid var(--line); }
+.choice[aria-pressed="true"] { background: var(--accent); color: #fff; }
+.choice:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.slider { display: inline-flex; gap: .5rem; align-items: center; font-size: .9rem; color: var(--muted); }
+.stage { width: 100%; display: grid; justify-items: center; }
+.canvas { max-width: 100%; touch-action: none; cursor: crosshair; border: 1px solid var(--line); border-radius: 8px; background: repeating-conic-gradient(#ddd 0 25%, #fff 0 50%) 0 0 / 16px 16px; }
+.actions { display: flex; flex-wrap: wrap; gap: .6rem; align-items: center; }
+.plain { padding: .45rem .9rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); font: inherit; cursor: pointer; }
+.plain:disabled { opacity: .5; cursor: default; }
+.count { color: var(--muted); font-size: .85rem; font-variant-numeric: tabular-nums; }
+.small { margin: 0; color: var(--muted); font-size: .8rem; line-height: 1.6; }
+.ok { margin: 0; color: var(--success); }
+.error { margin: 0; color: var(--error, #c0392b); }
