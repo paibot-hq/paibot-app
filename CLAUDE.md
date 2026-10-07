@@ -51,6 +51,17 @@ a change to shared code runs every tool, as does every push to `main`.
 - Authenticate/authorize in each protected loader/action using Clerk's server API;
   merely nesting a route does not protect it.
 
+## Government FAQ data
+
+The FAQ search (`src/tools/govfaq/`) works on a snapshot of the Ministry of Internal Affairs and Communications' Govbot FAQ:
+`src/data/govfaq.json` (`scripts/govfaq-build.mjs`) and the vectors for the search by meaning, `public/govfaq-vectors.bin` plus
+`src/data/govfaq-vectors.meta.json` (`scripts/govfaq-embed.mjs`, Workers AI; only new or changed FAQs are sent). The workflow
+`.github/workflows/govfaq-update.yml` (weekly, or by hand) finds the Excel file on the Ministry's page, rebuilds both when it differs from the one
+the data was built from (SHA-256 in `source.sha256`) and opens a pull request that says what changed; it fails when the page is not as expected.
+By hand: `node scripts/govfaq-build.mjs [--if-changed]`, then `CLOUDFLARE_ACCOUNT_ID=... CLOUDFLARE_API_TOKEN=... npm run govfaq:embed`
+(a token that may use Workers AI; never print it). The answers written from the FAQ (`src/lib/govfaq-answer.server.ts`) keep the prompt in
+`SYSTEM_PROMPT`; locally, `LOCAL_AI_ACCOUNT_ID` and `LOCAL_AI_TOKEN` in `.dev.vars` let the site reach Workers AI by its REST address.
+
 ## Math project
 
 Math is organized unit → learning item → practice set, all in

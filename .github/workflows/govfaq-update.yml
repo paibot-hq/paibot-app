@@ -1,0 +1,66 @@
+name: FAQ data update
+
+# Keeps the government FAQ (src/data/govfaq.json and the vectors for the search by meaning) up to date with the Ministry of Internal Affairs and
+# Communications' file. Every week it reads the Ministry's page, finds the Excel file and compares it with the one the data was built from
+# (SHA-256); when it differs it rebuilds the data, makes the vectors of the FAQs that are new or changed (Workers AI, a few cents at most) and opens
+# a pull request that says what changed. Run it by hand from the Actions tab at any time. It fails, and so tells you, when the page is not as expected.
+#
+# Secrets (Settings > Secrets and variables > Actions):
+#   CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_TOKEN: a token that may use Workers AI and nothing else (used only by the vectors step).
+#   GOVFAQ_UPDATE_TOKEN (optional but wanted): a fine-grained token with "Contents" and "Pull requests" write on this repository. Pushes and pull
+#   requests made with the built-in token do not start other workflows, so without it the checks (and the deploy to dev after a merge) do not run
+#   on the pull request this opens.
+on:
+  schedule:
+    - cron: "17 3 * * 1" # Mondays, 03:17 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: govfaq-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    env:
+      GH_TOKEN: ${{ secrets.GOVFAQ_UPDATE_TOKEN || github.token }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.GOVFAQ_UPDATE_TOKEN || github.token }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .tool-versions
+      # The scripts use Node's own modules only; no install is needed.
+      - name: Rebuild the data when the Ministry's file has changed
+        id: build
+        run: node scripts/govfaq-build.mjs --if-changed --summary "$RUNNER_TEMP/govfaq-summary.md"
+      - name: Make the vectors of the FAQs that are new or changed
+        if: steps.build.outputs.changed == 'true'
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+        run: npm run govfaq:embed
+      - name: Open (or update) the pull request
+        if: steps.build.outputs.changed == 'true'
+        run: |
+          branch=automation/govfaq-update
+          date=$(node -e "console.log(JSON.parse(require('fs').readFileSync('src/data/govfaq.json','utf8')).source.updated)")
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add src/data/govfaq.json src/data/govfaq-vectors.meta.json public/govfaq-vectors.bin
+          git commit -m "govfaq: the Ministry's FAQ data of $date"
+          git push --force origin "HEAD:refs/heads/$branch"
+          title="行政FAQ: 総務省のFAQデータを更新（$date 時点）"
+          number=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$number" ]; then
+            gh pr edit "$number" --title "$title" --body-file "$RUNNER_TEMP/govfaq-summary.md"
+          else
+            gh pr create --head "$branch" --base main --title "$title" --body-file "$RUNNER_TEMP/govfaq-summary.md"
+          fi
