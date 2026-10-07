@@ -30,7 +30,9 @@
 .you, .bot { display: flex; flex-direction: column; gap: .2rem; max-width: 92%; }
 .you { align-self: flex-end; align-items: flex-end; }
 .bot { align-self: flex-start; }
-.who { color: var(--muted); font-size: .72rem; }
+.who { display: inline-flex; gap: .3rem; align-items: center; color: var(--muted); font-size: .72rem; }
+.avatar { width: 1.4rem; height: 1.4rem; fill: none; stroke: currentColor; stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.bot .who .avatar { color: var(--accent); }
 .bubble { margin: 0; padding: .6rem .85rem; border-radius: 14px; line-height: 1.65; overflow-wrap: anywhere; }
 .you .bubble { background: color-mix(in srgb, var(--accent) 18%, transparent); border-top-right-radius: 4px; }
 .bot .bubble { background: color-mix(in srgb, var(--muted) 12%, transparent); border-top-left-radius: 4px; }

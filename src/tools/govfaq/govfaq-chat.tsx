@@ -56,6 +56,31 @@ function Sources({ items, categories }: { items: Item[]; categories: string[] | 
   );
 }
 
+// Who is speaking, as a small line drawing beside the name: a robot for the FAQ bot, a person for you.
+function Speaker({ bot, name }: { bot: boolean; name: string }) {
+  return (
+    <span className={styles.who} data-chat="who">
+      <svg className={styles.avatar} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        {bot ? (
+          <>
+            <rect x="4" y="8" width="16" height="11" rx="3" />
+            <path d="M12 8V4.5M9.5 4.5h5" />
+            <circle cx="9" cy="13" r="1.1" />
+            <circle cx="15" cy="13" r="1.1" />
+            <path d="M9.5 16.2h5" />
+          </>
+        ) : (
+          <>
+            <circle cx="12" cy="8.5" r="3.5" />
+            <path d="M5 20c.7-3.7 3.5-5.5 7-5.5s6.3 1.8 7 5.5" />
+          </>
+        )}
+      </svg>
+      {name}
+    </span>
+  );
+}
+
 type Message =
   | { id: number; from: "you"; text: string }
   | { id: number; from: "bot"; kind: "hello" }
@@ -129,7 +154,7 @@ export default function FaqChat({ faq, index, vectors }: { faq: Faq | null; inde
       <div className={styles.log} role="log" aria-live="polite" data-chat="log">
         {messages.map(m => (
           <div key={m.id} className={m.from === "you" ? styles.you : styles.bot} data-chat-from={m.from}>
-            <span className={styles.who}>{m.from === "you" ? t("you") : t("bot")}</span>
+            <Speaker bot={m.from !== "you"} name={m.from === "you" ? t("you") : t("bot")} />
             {m.from === "you" ? <p className={styles.bubble} lang="ja">{m.text}</p> : (
               <div className={styles.bubble} data-flat={m.kind === "answer" || m.kind === "faq" || undefined}>
                 {m.kind === "hello" && <p>{t("botHello")}</p>}
