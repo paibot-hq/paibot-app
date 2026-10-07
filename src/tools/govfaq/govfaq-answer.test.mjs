@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { buildIndex } from './govfaq-search.ts';
-import { askAnswer, candidates, partialText, withoutMarks } from './govfaq-answer.ts';
+import { askAnswer, candidates, distinct, likeness, partialText, withoutMarks } from './govfaq-answer.ts';
 
 const items = ['a', 'b', 'b2', 'c', 'd', 'e'].map((id, i) => ({ id, category: 0, question: id === 'b2' ? '質問 b' : `質問 ${id}`, answer: `回答 ${i}` }));
 const index = buildIndex(items, ['x']);
@@ -61,4 +61,18 @@ test('a stream that ends in no answer shows nothing and is null; one that is cut
   assert.deepEqual(shown, []);
   assert.deepEqual(await askAnswer('q', ['a', 'b'], () => {}, async () => lines({ t: '途中まで' })), { answer: '途中まで', used: ['a'] });
   assert.equal(await askAnswer('q', ['a'], () => {}, async () => lines()), null);
+});
+
+test('the same question for another reader reads like it: one heading stands for them', () => {
+  const dev = 'AIが人に危害を及ぼさないようにするために、AI開発者はどのような対策をすればよいですか。';
+  const user = 'AIが人に危害を及ぼさないようにするために、AI利用者はどのような対策をすればよいですか。';
+  const other = 'マイナンバーカードを紛失した場合、どうすればよいですか。';
+  assert.ok(likeness(dev, user) >= 0.7, String(likeness(dev, user)));
+  assert.ok(likeness(dev, other) < 0.3, String(likeness(dev, other)));
+  assert.equal(likeness('同じ質問です', '同じ質問です'), 1);
+  assert.equal(likeness('', ''), 1);
+  const make = (id, question) => ({ id, category: 0, question, answer: '' });
+  const result = distinct([make('1', dev), make('2', other), make('3', user), make('4', dev.replace('開発者', '提供者'))]);
+  assert.deepEqual(result.first.map(i => i.id), ['1', '2']);
+  assert.deepEqual(result.repeats.map(i => i.id), ['3', '4']);
 });

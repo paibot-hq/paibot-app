@@ -1,7 +1,7 @@
 // The answer written from the FAQs, in the browser: which of the found FAQs are given to the Worker (by id only; the Worker has the texts), and
 // what comes back. When it cannot be had (no AI, too many questions, no network, too slow, the FAQs do not answer) it is null and the chat shows
 // the nearest FAQs as they are written.
-import type { Index, Item } from "./govfaq-search.ts";
+import { fold, type Index, type Item } from "./govfaq-search.ts";
 
 export const ANSWER_URL = "/api/govfaq/answer";
 export const ANSWER_TIMEOUT = 25000;
@@ -76,3 +76,27 @@ export async function askAnswer(question: string, ids: string[], onText: (text: 
 
 // The answer without the [id] marks the model puts after the sentences (the FAQs they name are shown under it).
 export const withoutMarks = (answer: string): string => answer.replace(/[ \t]*\[[^\[\]\s]{1,24}\]/g, "").replace(/[ \t]+\n/g, "\n").trim();
+
+// How alike two questions are, from 0 to 1: the share of the pairs of characters they have in common (the same question for another reader, or in
+// other words, is near 1).
+export function likeness(a: string, b: string): number {
+  const pairs = (text: string) => {
+    const chars = [...fold(text)].filter(c => /[\p{L}\p{N}]/u.test(c));
+    return new Set(chars.slice(1).map((c, i) => chars[i] + c));
+  };
+  const x = pairs(a), y = pairs(b);
+  if (x.size === 0 || y.size === 0) return a === b ? 1 : 0;
+  let shared = 0;
+  for (const pair of x) if (y.has(pair)) shared++;
+  return shared / (x.size + y.size - shared);
+}
+
+export const ALIKE = 0.7;
+
+// The FAQs with those that read like one before them put after the others, so that one heading stands for each kind of question: the first of each
+// kind comes first, in the order given; the repeats follow.
+export function distinct(items: Item[], threshold = ALIKE): { first: Item[]; repeats: Item[] } {
+  const first: Item[] = [], repeats: Item[] = [];
+  for (const item of items) (first.some(kept => likeness(kept.question, item.question) >= threshold) ? repeats : first).push(item);
+  return { first, repeats };
+}

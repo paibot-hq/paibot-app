@@ -6,7 +6,7 @@ import styles from "./govfaq-view.module.css";
 import { AnswerText, Tag } from "./govfaq-parts";
 import { compose, isLong, type Faq, type Index, type Item } from "./govfaq-search";
 import { embedQuestion, rank, type Vectors } from "./govfaq-semantic";
-import { askAnswer, candidates, withoutMarks } from "./govfaq-answer";
+import { askAnswer, candidates, distinct, withoutMarks } from "./govfaq-answer";
 
 // A FAQ in the chat: a long answer is folded to a few lines, so one reply does not fill the screen; "続きを読む" opens it.
 
@@ -39,16 +39,19 @@ function Source({ item, category }: { item: Item; category: string | undefined }
   );
 }
 
-// The FAQs an answer is based on: the first two as headings, the rest (often the same question for another reader) behind a button.
+// The FAQs an answer is based on: a heading for each kind of question (the same question for another reader is not a heading of its own), the
+// first two shown and the rest, repeats included, behind a button.
 const SOURCES_SHOWN = 2;
 function Sources({ items, categories }: { items: Item[]; categories: string[] | undefined }) {
   const t = useTranslations("App.govfaq");
   const [all, setAll] = useState(false);
-  const shown = all ? items : items.slice(0, SOURCES_SHOWN);
+  const { first, repeats } = distinct(items);
+  const ordered = [...first, ...repeats];
+  const shown = all ? ordered : first.slice(0, SOURCES_SHOWN);
   return (
     <>
       {shown.map(item => <Source key={item.id} item={item} category={categories?.[item.category]} />)}
-      {!all && items.length > SOURCES_SHOWN && <button type="button" className={styles.moreSources} onClick={() => setAll(true)} data-chat="more-sources">{t("moreSources", { n: items.length - SOURCES_SHOWN })}</button>}
+      {!all && ordered.length > shown.length && <button type="button" className={styles.moreSources} onClick={() => setAll(true)} data-chat="more-sources">{t("moreSources", { n: ordered.length - shown.length })}</button>}
     </>
   );
 }
