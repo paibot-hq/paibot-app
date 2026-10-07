@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useUser } from "@clerk/react-router";
 import { useTranslations } from "use-intl";
 import styles from "./govfaq-view.module.css";
 import { AnswerText, Tag } from "./govfaq-parts";
@@ -56,28 +57,19 @@ function Sources({ items, categories }: { items: Item[]; categories: string[] | 
   );
 }
 
-// Who is speaking, as a small line drawing beside the name: a robot for the FAQ bot, a person for you.
-function Speaker({ bot, name }: { bot: boolean; name: string }) {
+// Who is speaking, beside the message: the FAQ bot is PAIBOT's own icon; you are the signed-in user's picture, or a person drawn in lines when no one is
+// signed in (or the picture cannot be had).
+function Avatar({ bot }: { bot: boolean }) {
+  const { isSignedIn, user } = useUser();
+  const [broken, setBroken] = useState(false);
+  const picture = !bot && isSignedIn && user?.imageUrl && !broken ? user.imageUrl : null;
+  if (bot) return <img className={styles.avatar} src="/icon.svg" alt="" width={32} height={32} data-chat="avatar" data-who="bot" />;
+  if (picture) return <img className={styles.avatar} src={picture} alt="" width={32} height={32} referrerPolicy="no-referrer" onError={() => setBroken(true)} data-chat="avatar" data-who="you-user" />;
   return (
-    <span className={styles.who} data-chat="who">
-      <svg className={styles.avatar} viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-        {bot ? (
-          <>
-            <rect x="4" y="8" width="16" height="11" rx="3" />
-            <path d="M12 8V4.5M9.5 4.5h5" />
-            <circle cx="9" cy="13" r="1.1" />
-            <circle cx="15" cy="13" r="1.1" />
-            <path d="M9.5 16.2h5" />
-          </>
-        ) : (
-          <>
-            <circle cx="12" cy="8.5" r="3.5" />
-            <path d="M5 20c.7-3.7 3.5-5.5 7-5.5s6.3 1.8 7 5.5" />
-          </>
-        )}
-      </svg>
-      {name}
-    </span>
+    <svg className={`${styles.avatar} ${styles.avatarPerson}`} viewBox="0 0 24 24" aria-hidden="true" focusable="false" data-chat="avatar" data-who="you">
+      <circle cx="12" cy="9" r="3.4" />
+      <path d="M5.5 20c.7-3.6 3.3-5.3 6.5-5.3s5.8 1.7 6.5 5.3" />
+    </svg>
   );
 }
 
@@ -154,7 +146,9 @@ export default function FaqChat({ faq, index, vectors }: { faq: Faq | null; inde
       <div className={styles.log} role="log" aria-live="polite" data-chat="log">
         {messages.map(m => (
           <div key={m.id} className={m.from === "you" ? styles.you : styles.bot} data-chat-from={m.from}>
-            <Speaker bot={m.from !== "you"} name={m.from === "you" ? t("you") : t("bot")} />
+            <Avatar bot={m.from !== "you"} />
+            <div className={styles.body}>
+            <span className={styles.who}>{m.from === "you" ? t("you") : t("bot")}</span>
             {m.from === "you" ? <p className={styles.bubble} lang="ja">{m.text}</p> : (
               <div className={styles.bubble} data-flat={m.kind === "answer" || m.kind === "faq" || undefined}>
                 {m.kind === "hello" && <p>{t("botHello")}</p>}
@@ -192,6 +186,7 @@ export default function FaqChat({ faq, index, vectors }: { faq: Faq | null; inde
                 {m.kind === "faq" && card(m.item)}
               </div>
             )}
+            </div>
           </div>
         ))}
         {waiting && <p className={styles.small} role="status" data-chat="waiting">{waiting === "answer" ? t("answering") : t("thinking")}</p>}
