@@ -40,6 +40,7 @@ export const APP_CATALOG = [
 
   // ユーティリティ / Utility
   { slug: "wc", href: "/wc", category: "utility", status: "published", messageKey: "wc" },
+  { slug: "mosaic", href: "/mosaic", category: "utility", status: "published", messageKey: "mosaic" },
   { slug: "password", href: "/password", category: "utility", status: "published", messageKey: "password" },
   { slug: "life", href: "/life", category: "game", status: "published", messageKey: "life" },
   { slug: "pendulum", href: "/pendulum", category: "game", status: "published", messageKey: "pendulum" },
@@ -50,7 +51,6 @@ export const APP_CATALOG = [
   { slug: "warnings", href: "/warnings", category: "daily", status: "published", messageKey: "warnings" },
   { slug: "approx", href: "/approx", category: "game", status: "published", messageKey: "approx" },
   { slug: "govfaq", href: "/govfaq", category: "daily", status: "published", messageKey: "govfaq" },
-  { slug: "mosaic", href: "/mosaic", category: "utility", status: "published", messageKey: "mosaic" },
   { slug: "grapher", href: "/grapher", category: "utility", status: "published", messageKey: "grapher" },
   { slug: "stopwatch", href: "/stopwatch", category: "utility", status: "published", messageKey: "stopwatch" },
   { slug: "business-card", href: "/business-card", category: "utility", status: "published", messageKey: "businessCard" },
