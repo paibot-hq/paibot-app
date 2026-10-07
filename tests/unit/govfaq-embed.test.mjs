@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { handleEmbed, MAX_QUESTION } from '../../src/lib/govfaq-embed.server.ts';
+import { handleEmbed, restAi, MAX_QUESTION } from '../../src/lib/govfaq-embed.server.ts';
 import { MODEL, DIM, fromBase64 } from '../../src/tools/govfaq/govfaq-vectors.ts';
 
 const post = (body, headers = {}) => new Request('https://paibot.app/api/govfaq/embed', { method: 'POST', body: typeof body === 'string' ? body : JSON.stringify(body), headers });
@@ -53,4 +53,13 @@ test('when the AI is missing, fails, or answers with something that is not a vec
   }
   const text = await (await handleEmbed(post({ q: 'はい' }), deps({ ai: { run: async () => { throw new Error('secret detail'); } } }))).text();
   assert.ok(!text.includes('secret'), 'the error of the AI is not passed on');
+});
+
+test('the REST address gives what the binding gives, and its errors are errors', async () => {
+  const calls = [];
+  const ai = restAi({ accountId: 'acc', token: 'tok', fetchImpl: async (url, init) => { calls.push([url, init.headers.Authorization, JSON.parse(init.body)]); return Response.json({ success: true, result: { data: [[1, 2]] } }); } });
+  assert.deepEqual(await ai.run(MODEL, { text: ['a'] }), { data: [[1, 2]] });
+  assert.deepEqual(calls, [[`https://api.cloudflare.com/client/v4/accounts/acc/ai/run/${MODEL}`, 'Bearer tok', { text: ['a'] }]]);
+  const failing = restAi({ accountId: 'a', token: 'secret-token', fetchImpl: async () => new Response('no', { status: 401 }) });
+  await assert.rejects(failing.run(MODEL, {}), error => /401/.test(error.message) && !error.message.includes('secret-token'));
 });

@@ -32,3 +32,21 @@ export async function handleEmbed(request: Request, deps: EmbedDeps): Promise<Re
     return fail(503, "Unavailable");
   }
 }
+
+// Workers AI through its REST address instead of the binding, for running the site on your own computer: the binding reaches the real service
+// through a helper Worker that Cloudflare Access can turn away. It is used only where LOCAL_AI_ACCOUNT_ID and LOCAL_AI_TOKEN are set
+// (in .dev.vars, which is never deployed); the deployed Worker uses the binding. Gives what the binding gives: the `result` of the answer.
+export function restAi(options: { accountId: string; token: string; fetchImpl?: typeof fetch }): NonNullable<EmbedDeps["ai"]> {
+  const { accountId, token, fetchImpl = fetch } = options;
+  return {
+    async run(model, input) {
+      const response = await fetchImpl(`https://api.cloudflare.com/client/v4/accounts/${accountId}/ai/run/${model}`, {
+        method: "POST",
+        headers: { Authorization: `Bearer ${token}`, "Content-Type": "application/json" },
+        body: JSON.stringify(input),
+      });
+      if (!response.ok) throw new Error(`Workers AI answered ${response.status}`);
+      return ((await response.json()) as { result?: unknown }).result;
+    },
+  };
+}
