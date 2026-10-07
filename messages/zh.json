@@ -963,6 +963,7 @@
         "tabInfo": "出处与说明",
         "botGenerated": "这是 AI 根据 FAQ 的内容撰写的回答，可能有误，请同时查看下方的 FAQ 原文。",
         "sources": "依据的 FAQ",
+        "moreSources": "查看另外 {n} 条依据",
         "answering": "正在根据 FAQ 撰写回答…",
         "chatLabel": "FAQ 聊天",
         "you": "你",

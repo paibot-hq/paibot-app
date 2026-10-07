@@ -92,10 +92,10 @@ test('the pieces of text are read from a stream of events, whole or cut anywhere
   assert.deepEqual(await collect(sse(`data: ${JSON.stringify({ response: 'no newline at the end' })}`)), ['no newline at the end']);
 });
 
-test('how the text ended: the FAQs it names, or those it looked at, or nothing', () => {
+test('how the text ended: the FAQs it names, or the nearest one, or nothing', () => {
   assert.deepEqual(finish('停止します。[A-1]', FAQS), { answer: '停止します。[A-1]', used: ['A-1'] });
-  assert.deepEqual(finish('名前なし', FAQS), { answer: '名前なし', used: ['A-1', 'B-2', 'C-3'] });
-  assert.deepEqual(finish('[Z-9] だけ', FAQS), { answer: '[Z-9] だけ', used: ['A-1', 'B-2', 'C-3'] });
+  assert.deepEqual(finish('名前なし', FAQS), { answer: '名前なし', used: ['A-1'] });
+  assert.deepEqual(finish('[Z-9] だけ', FAQS), { answer: '[Z-9] だけ', used: ['A-1'] });
   assert.deepEqual(finish(NO_ANSWER, FAQS), { answer: null, used: [] });
   assert.deepEqual(finish('', FAQS), { answer: null, used: [] });
 });

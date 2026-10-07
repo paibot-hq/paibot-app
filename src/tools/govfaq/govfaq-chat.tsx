@@ -39,6 +39,20 @@ function Source({ item, category }: { item: Item; category: string | undefined }
   );
 }
 
+// The FAQs an answer is based on: the first two as headings, the rest (often the same question for another reader) behind a button.
+const SOURCES_SHOWN = 2;
+function Sources({ items, categories }: { items: Item[]; categories: string[] | undefined }) {
+  const t = useTranslations("App.govfaq");
+  const [all, setAll] = useState(false);
+  const shown = all ? items : items.slice(0, SOURCES_SHOWN);
+  return (
+    <>
+      {shown.map(item => <Source key={item.id} item={item} category={categories?.[item.category]} />)}
+      {!all && items.length > SOURCES_SHOWN && <button type="button" className={styles.moreSources} onClick={() => setAll(true)} data-chat="more-sources">{t("moreSources", { n: items.length - SOURCES_SHOWN })}</button>}
+    </>
+  );
+}
+
 type Message =
   | { id: number; from: "you"; text: string }
   | { id: number; from: "bot"; kind: "hello" }
@@ -124,7 +138,7 @@ export default function FaqChat({ faq, index, vectors }: { faq: Faq | null; inde
                       <>
                         <p className={styles.small}>{t("botGenerated")}</p>
                         <p className={styles.small}>{t("sources")}</p>
-                        {m.used.map(item => <Source key={item.id} item={item} category={faq?.categories[item.category]} />)}
+                        <Sources items={m.used} categories={faq?.categories} />
                       </>
                     )}
                     {!m.streaming && m.others.length > 0 && (

@@ -70,7 +70,7 @@ export async function askAnswer(question: string, ids: string[], onText: (text: 
     }
     line(buffer);
     // Without the last line (cut short), what was written is the answer, with the FAQs it was given.
-    return last ? finish((last as { answer?: unknown }).answer, (last as { used?: unknown }).used) : finish(written, ids);
+    return last ? finish((last as { answer?: unknown }).answer, (last as { used?: unknown }).used) : finish(written, ids.slice(0, 1));
   } catch { return null; }
 }
 

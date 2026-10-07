@@ -963,6 +963,7 @@
         "tabInfo": "出典・注意",
         "botGenerated": "FAQ の内容をもとに、AI が作った回答です。間違うことがあるので、下の FAQ の原文もあわせて確認してください。",
         "sources": "根拠にした FAQ",
+        "moreSources": "ほかの根拠 {n} 件を見る",
         "answering": "FAQ をもとに回答を作っています…",
         "chatLabel": "FAQ チャット",
         "you": "あなた",

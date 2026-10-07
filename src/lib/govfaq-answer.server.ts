@@ -111,13 +111,13 @@ export async function* texts(stream: ReadableStream<Uint8Array>): AsyncGenerator
 const ndjson = (event: unknown) => new TextEncoder().encode(`${JSON.stringify(event)}\n`);
 
 // What the stream of text ends in: the whole answer (null when the FAQs do not answer) and the FAQs to show under it. The FAQs the text names are
-// the ones it is based on; when it names none (it has been shown already, so it is not taken back), those it was given are shown as what was looked at.
+// the ones it is based on; when it names none (it has been shown already, so it is not taken back), the nearest of those it was given is shown.
 export function finish(raw: string, given: FaqText[]): { answer: string | null; used: string[] } {
   const text = raw.replace(/<\/?(faq|question)>/g, "").trim();
   if (!text || text.includes(NO_ANSWER)) return { answer: null, used: [] };
   const known = new Set(given.map(f => f.id));
   const named = [...new Set([...text.matchAll(/\[([^\[\]\s]{1,24})\]/g)].map(m => m[1]).filter(id => known.has(id)))];
-  return { answer: text, used: named.length > 0 ? named : given.map(f => f.id) };
+  return { answer: text, used: named.length > 0 ? named : given.slice(0, 1).map(f => f.id) };
 }
 
 export async function handleAnswer(request: Request, deps: AnswerDeps): Promise<Response> {

@@ -59,6 +59,6 @@ test('a stream that ends in no answer shows nothing and is null; one that is cut
   const shown = [];
   assert.equal(await askAnswer('q', ['a'], text => shown.push(text), async () => lines({ t: 'FAQ_NO' }, { t: '_ANSWER' }, { done: true, answer: null, used: [] })), null);
   assert.deepEqual(shown, []);
-  assert.deepEqual(await askAnswer('q', ['a', 'b'], () => {}, async () => lines({ t: '途中まで' })), { answer: '途中まで', used: ['a', 'b'] });
+  assert.deepEqual(await askAnswer('q', ['a', 'b'], () => {}, async () => lines({ t: '途中まで' })), { answer: '途中まで', used: ['a'] });
   assert.equal(await askAnswer('q', ['a'], () => {}, async () => lines()), null);
 });

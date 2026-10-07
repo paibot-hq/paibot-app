@@ -27,7 +27,7 @@ export default async function ({ page, main, go, base }) {
     asked.push(body);
     if (!answerOn) return route.fulfill({ status: 503, json: { error: 'Unavailable' } });
     // The text comes as lines, one for each piece, the last one saying how it ended (as the Worker sends it).
-    const lines = [{ t: 'これは作られた' }, { t: `回答です。[${body.ids[0]}` }, { t: ']' }, { done: true, answer: `これは作られた回答です。[${body.ids[0]}]`, used: [body.ids[0]] }];
+    const lines = [{ t: 'これは作られた' }, { t: `回答です。[${body.ids[0]}` }, { t: ']' }, { done: true, answer: `これは作られた回答です。[${body.ids[0]}]`, used: body.ids.slice(0, 3) }];
     return route.fulfill({ body: lines.map(line => JSON.stringify(line)).join('\n') + '\n', contentType: 'application/x-ndjson' });
   });
   await go('govfaq');
@@ -140,6 +140,10 @@ export default async function ({ page, main, go, base }) {
   assert.equal((await main.locator('[data-chat="generated"]').innerText()).trim(), 'これは作られた回答です。');
   await main.getByText('written by an AI from the FAQ').waitFor();
   assert.equal(await main.locator('[data-chat="card"]').count(), 0, 'the FAQ is a heading first');
+  // Of several FAQs it is based on, two are shown as headings and the rest are behind a button.
+  assert.equal(await main.locator('[data-chat="source"]').count(), 2);
+  await main.locator('[data-chat="more-sources"]').click();
+  assert.ok(await main.locator('[data-chat="source"]').count() >= 3);
   const source = main.locator('[data-chat="source"]').first();
   assert.ok((await source.innerText()).includes(faqItems[target].question), 'the FAQ near in meaning is the one it is based on');
   await source.locator('button').click();

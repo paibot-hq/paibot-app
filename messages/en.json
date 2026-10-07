@@ -963,6 +963,7 @@
         "tabInfo": "Source & notes",
         "botGenerated": "This answer was written by an AI from the FAQ. It can be wrong, so please check the original FAQ below as well.",
         "sources": "FAQ it is based on",
+        "moreSources": "Show {n} more",
         "answering": "Writing an answer from the FAQ…",
         "chatLabel": "FAQ chat",
         "you": "You",
