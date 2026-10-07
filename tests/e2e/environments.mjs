@@ -1,5 +1,6 @@
 // Needs: a build (starts its own Workers).
 import assert from 'node:assert/strict';
+import { readFileSync, writeFileSync } from 'node:fs';
 import { spawn } from 'node:child_process';
 import { setTimeout as delay } from 'node:timers/promises';
 
@@ -10,11 +11,15 @@ async function run(command, args, env) {
     child.on('exit', code => code === 0 ? resolve() : reject(new Error(`${command} exited ${code}`)));
   });
 }
+// A copy of the built config without Workers AI (the FAQ's search by meaning), which only runs against the real service and needs a login.
+const config = JSON.parse(readFileSync('build/server/wrangler.json', 'utf8'));
+delete config.ai;
+writeFileSync('build/server/wrangler.local.json', JSON.stringify(config));
 // Simulate both indexing policies using the built Worker, never a live deployment.
 // --persist-to shares the local D1 that db:migrate:local migrates; without it the
 // built config keeps its own empty database under build/server/.wrangler.
 for (const [indexable, origin, port] of [[false, 'https://dev.paibot.app', 4311], [true, 'https://paibot.app', 4312]]) {
-  const server = spawn('node', ['node_modules/wrangler/bin/wrangler.js', 'dev', '--config', 'build/server/wrangler.json', '--persist-to', '.wrangler/state', '--port', String(port), '--inspector-port', '0', '--var', `SITE_URL:${origin}`, '--var', `SITE_INDEXABLE:${indexable}`], { stdio: ['ignore', 'pipe', 'pipe'] });
+  const server = spawn('node', ['node_modules/wrangler/bin/wrangler.js', 'dev', '--config', 'build/server/wrangler.local.json', '--persist-to', '.wrangler/state', '--port', String(port), '--inspector-port', '0', '--var', `SITE_URL:${origin}`, '--var', `SITE_INDEXABLE:${indexable}`], { stdio: ['ignore', 'pipe', 'pipe'] });
   let output = '';
   server.stdout.on('data', data => { output = (output + data).slice(-4000); });
   server.stderr.on('data', data => { output = (output + data).slice(-4000); });

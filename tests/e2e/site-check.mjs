@@ -35,6 +35,8 @@ const originalWranglerJson = readFileSync(wranglerJsonPath, 'utf8');
 const { server: fakeSite, port: sitePort } = await startFakeSite();
 const config = JSON.parse(originalWranglerJson);
 config.vars.SITE_CHECK_ALLOW_PRIVATE = 'true';
+// Workers AI (the FAQ's search by meaning) only runs against the real service, which needs a login; these checks do not use it.
+delete config.ai;
 writeFileSync(wranglerJsonPath, JSON.stringify(config));
 
 const port = 3007;

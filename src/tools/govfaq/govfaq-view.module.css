@@ -25,8 +25,8 @@
 .tabs { display: flex; gap: .3rem; justify-content: center; margin: .8rem 0; }
 .tab { padding: .45rem 1.2rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--muted); font: inherit; cursor: pointer; }
 .tab[aria-selected="true"] { border-color: var(--accent); color: var(--text); background: color-mix(in srgb, var(--accent) 14%, transparent); }
-.chat { width: min(820px, 100%); margin: .6rem auto; }
-.log { display: flex; flex-direction: column; gap: .9rem; min-height: 16rem; max-height: min(62vh, 640px); overflow-y: auto; padding: .9rem; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
+.chat { width: min(820px, 100%); margin: .6rem auto; padding-bottom: 7rem; }
+.log { display: flex; flex-direction: column; gap: .9rem; min-height: 16rem; padding: .9rem; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
 .you, .bot { display: flex; flex-direction: column; gap: .2rem; max-width: 92%; }
 .you { align-self: flex-end; align-items: flex-end; }
 .bot { align-self: flex-start; }
@@ -35,14 +35,29 @@
 .you .bubble { background: color-mix(in srgb, var(--accent) 18%, transparent); border-top-right-radius: 4px; }
 .bot .bubble { background: color-mix(in srgb, var(--muted) 12%, transparent); border-top-left-radius: 4px; }
 .bubble p { margin: 0 0 .5rem; }
+/* A reply that is a FAQ card is not a bubble in a card in a box: the card alone. */
+.bot .bubble[data-flat] { padding: 0; background: none; }
 .card { margin: .3rem 0; padding: .7rem .85rem; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
 .cardQuestion { margin: .4rem 0 !important; font-weight: 700; }
 .cardAnswer { white-space: pre-wrap; font-size: .92rem; line-height: 1.75; }
 .cardAnswer a { color: var(--accent); }
 .others { display: grid; gap: .35rem; margin-top: .6rem; }
 .other { padding: .4rem .7rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); color: var(--text); font: inherit; font-size: .88rem; text-align: left; cursor: pointer; line-height: 1.5; }
-.compose { display: flex; flex-wrap: wrap; gap: .5rem; margin-top: .7rem; }
+/* The box to write in is fixed to the bottom of the screen, as in a chat app; the chat leaves room for it below the last message. */
+.compose { position: fixed; bottom: calc(1.25rem + env(safe-area-inset-bottom)); left: 50%; z-index: 5; transform: translateX(-50%); box-sizing: border-box; display: flex; flex-wrap: wrap; gap: .5rem; width: min(820px, calc(100% - 1.5rem)); padding: .5rem; border: 1px solid var(--line); border-radius: 16px; background: var(--surface); box-shadow: 0 6px 24px rgb(0 0 0 / .12); }
 .reset { padding: .45rem .9rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--muted); font: inherit; cursor: pointer; }
 .cardAnswer[data-clamped="true"] { position: relative; max-height: 7.2em; overflow: hidden; }
 .cardAnswer[data-clamped="true"]::after { content: ""; position: absolute; inset: auto 0 0 0; height: 2.6em; background: linear-gradient(to bottom, transparent, var(--surface)); pointer-events: none; }
 .more { margin-top: .3rem; padding: .25rem .8rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--accent); font: inherit; font-size: .85rem; cursor: pointer; }
+.end { scroll-margin-bottom: 7rem; }
+.info { width: min(820px, 100%); margin: .6rem auto 1.5rem; display: grid; gap: .8rem; }
+.info .credit { margin: 0; text-align: left; }
+.generated { margin: 0 0 .4rem !important; white-space: pre-wrap; line-height: 1.8; }
+.generated[data-streaming]::after { content: "▍"; margin-left: .1em; animation: blink 1s steps(2, start) infinite; }
+@keyframes blink { to { visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) { .generated[data-streaming]::after { animation: none; } }
+.source { margin: .3rem 0; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
+.source .card { margin: 0; border: 0; border-top: 1px solid var(--line); border-radius: 0; }
+.sourceHead { display: flex; gap: .55rem; align-items: baseline; width: 100%; padding: .55rem .8rem; border: 0; background: none; color: var(--text); font: inherit; font-size: .9rem; font-weight: 600; line-height: 1.5; text-align: left; cursor: pointer; }
+.sourceMark { flex: none; width: 1em; color: var(--accent); text-align: center; }
+.moreSources { padding: .3rem .2rem; border: 0; background: none; color: var(--accent); font: inherit; font-size: .85rem; cursor: pointer; }

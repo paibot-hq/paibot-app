@@ -82,6 +82,8 @@ const { server: fakeRdap, port: rdapPort } = await startFakeRdapServer();
 const config = JSON.parse(originalWranglerJson);
 config.vars.WHOIS_ROOT_SERVER = `127.0.0.1:${fakePort}`;
 config.vars.RDAP_BOOTSTRAP_URL = `http://127.0.0.1:${rdapPort}/dns.json`;
+// Workers AI (the FAQ's search by meaning) only runs against the real service, which needs a login; these checks do not use it.
+delete config.ai;
 writeFileSync(wranglerJsonPath, JSON.stringify(config));
 
 const port = 3006;

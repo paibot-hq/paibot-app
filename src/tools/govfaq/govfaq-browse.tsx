@@ -4,17 +4,19 @@ import { useEffect, useMemo, useState } from "react";
 import { useTranslations } from "use-intl";
 import styles from "./govfaq-view.module.css";
 import { AnswerText, Marked } from "./govfaq-parts";
-import { search, snippet, type Faq, type Index, type Item } from "./govfaq-search";
+import { snippet, type Faq, type Index, type Item } from "./govfaq-search";
+import { embedQuestion, rank, type Vectors } from "./govfaq-semantic";
 
 const PAGE = 20;
 const EXAMPLES = ["マイナンバーカードをなくした", "年金はいつからもらえる", "児童手当の申請", "確定申告のやり方", "遺失物を届けたい", "引っ越しの手続き"];
 
-export default function FaqBrowse({ faq, index, counts, failed }: { faq: Faq | null; index: Index | null; counts: { category: number; name: string; count: number }[]; failed: boolean }) {
+export default function FaqBrowse({ faq, index, vectors, counts, failed }: { faq: Faq | null; index: Index | null; vectors: Vectors | null; counts: { category: number; name: string; count: number }[]; failed: boolean }) {
   const t = useTranslations("App.govfaq");
   const [query, setQuery] = useState("");
   const [category, setCategory] = useState<number | null>(null);
   const [shown, setShown] = useState(PAGE);
   const [open, setOpen] = useState<string | null>(null);
+  const [meaning, setMeaning] = useState<{ query: string; vector: Int8Array } | null>(null);
 
   // The question asked last time is in the address.
   useEffect(() => { setQuery(new URLSearchParams(window.location.search).get("q") ?? ""); }, []);
@@ -25,12 +27,21 @@ export default function FaqBrowse({ faq, index, counts, failed }: { faq: Faq | n
     setShown(PAGE);
   }, [query, category]);
 
+  // The words are searched at once; a moment after typing stops, the question is turned into a vector and the search by meaning is merged in.
+  useEffect(() => {
+    const asked = query.trim();
+    if (!vectors || asked.length < 2) { setMeaning(null); return; }
+    let current = true;
+    const timer = setTimeout(() => { embedQuestion(asked).then(vector => { if (current && vector) setMeaning({ query: asked, vector }); }); }, 500);
+    return () => { current = false; clearTimeout(timer); };
+  }, [query, vectors]);
+
   const asking = query.trim().length > 0;
   const results: Item[] = useMemo(() => {
     if (!index) return [];
-    if (asking) return search(index, query, { category, limit: 200 }).map(hit => index.items[hit.doc]);
+    if (asking) return rank(index, query, { vectors, vector: meaning && meaning.query === query.trim() ? meaning.vector : null, category, limit: 200 }).map(hit => index.items[hit.doc]);
     return category === null ? [] : index.items.filter(item => item.category === category);
-  }, [index, query, category, asking]);
+  }, [index, query, category, asking, vectors, meaning]);
   const visible = results.slice(0, shown);
   const listing = asking || category !== null;
 

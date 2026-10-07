@@ -4,7 +4,11 @@ import { cloudflare } from '@cloudflare/vite-plugin';
 export default defineConfig({
   // The day of the build: the sitemap's <lastmod> (a page can only have changed in a new release).
   define: { __BUILD_DATE__: JSON.stringify(new Date().toISOString().slice(0, 10)) },
-  plugins: [cloudflare({ viteEnvironment: { name: 'ssr' } }), reactRouter()],
+  plugins: [
+    // Local dev and preview never reach the real Workers AI (it is billed and needs a login): the tests stub the route's answers. REMOTE_BINDINGS=1 turns it on.
+    cloudflare({ viteEnvironment: { name: 'ssr' }, remoteBindings: process.env.REMOTE_BINDINGS === '1' }),
+    reactRouter(),
+  ],
   // Small fonts (KaTeX's) would otherwise be inlined as data: URLs, which the
   // CSP's default-src 'self' blocks; emit them as same-origin files instead.
   build: { assetsInlineLimit: file => /\.(woff2?|ttf)$/.test(file) ? false : undefined },
