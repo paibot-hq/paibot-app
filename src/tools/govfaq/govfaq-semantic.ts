@@ -6,8 +6,10 @@ import { search, SURE_COVERAGE, type Index, type Item } from "./govfaq-search.ts
 
 export type Vectors = { data: Int8Array; dim: number };
 
-// By meaning alone, a question must be at least this near (cosine) to be offered, and at least this near to be said to be the answer. These are
-// first guesses to be measured with the real vectors (see docs/plans or the PR), not known values.
+// By meaning alone, a question must be at least this near (cosine) to be offered, and at least this near to be said to be the answer.
+// Measured on 2026-10-07 with the real vectors (bge-m3): questions that have nothing to do with the FAQ ("ぬるぽがっ", "ラーメンの作り方") reach 0.49 at
+// most; the same thing in other words ("財布を落とした", "赤ちゃんが生まれたらもらえるお金") is 0.58-0.70 and the nearest question; a plain question
+// ("年金はいつからもらえる") is 0.72-0.78.
 export const SEM_MIN = 0.55;
 export const SEM_SURE = 0.72;
 
