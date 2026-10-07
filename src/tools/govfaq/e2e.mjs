@@ -138,7 +138,7 @@ export default async function ({ page, main, go, base }) {
   // The answer written from the FAQs is shown (without the [id] mark), says an AI wrote it, and the FAQ it is based on is under it as a heading
   // only; it opens to the FAQ as it is written.
   assert.equal((await main.locator('[data-chat="generated"]').innerText()).trim(), 'これは作られた回答です。');
-  await main.getByText('written by an AI from the FAQ').waitFor();
+  await main.locator('[data-chat="log"]').getByText('written by an AI from the FAQ').waitFor();
   assert.equal(await main.locator('[data-chat="card"]').count(), 0, 'the FAQ is a heading first');
   // Of several FAQs it is based on, two are shown as headings and the rest are behind a button.
   assert.equal(await main.locator('[data-chat="source"]').count(), 2);

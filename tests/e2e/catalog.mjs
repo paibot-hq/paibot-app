@@ -35,7 +35,7 @@ try {
         // The text about the tool, links to other tools and structured data are in the page as the server sent it (what a search engine reads).
         const about = page.locator('[data-tool-about]');
         assert.equal(await about.count(), 1, `${path}: no text about the tool`);
-        assert.ok((await about.locator('p').first().innerText()).length >= 10, `${path}: the text is too short`);
+        assert.ok(((await about.locator('p').first().textContent()) ?? '').trim().length >= 10, `${path}: the text is too short`);
         assert.ok(await about.locator('nav a').count() > 0, `${path}: no links to other tools`);
         const data = JSON.parse(await page.locator('script[type="application/ld+json"]').first().textContent());
         assert.equal(data['@type'], 'WebApplication'); assert.equal(data.inLanguage, locale);

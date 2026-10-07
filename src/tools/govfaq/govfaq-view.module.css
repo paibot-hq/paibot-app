@@ -61,3 +61,4 @@
 .sourceHead { display: flex; gap: .55rem; align-items: baseline; width: 100%; padding: .55rem .8rem; border: 0; background: none; color: var(--text); font: inherit; font-size: .9rem; font-weight: 600; line-height: 1.5; text-align: left; cursor: pointer; }
 .sourceMark { flex: none; width: 1em; color: var(--accent); text-align: center; }
 .moreSources { padding: .3rem .2rem; border: 0; background: none; color: var(--accent); font: inherit; font-size: .85rem; cursor: pointer; }
+.info[hidden] { display: none; }
