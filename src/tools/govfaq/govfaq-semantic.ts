@@ -29,7 +29,7 @@ export async function loadVectors(items: Item[], fetchImpl: typeof fetch = fetch
 // A question as a vector, from the Worker; null when it cannot (no AI, too many questions, no network, too slow).
 export async function embedQuestion(question: string, fetchImpl: typeof fetch = fetch, timeout = EMBED_TIMEOUT): Promise<Int8Array | null> {
   try {
-    const response = await fetchImpl(EMBED_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ question }), signal: AbortSignal.timeout(timeout) });
+    const response = await fetchImpl(EMBED_URL, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ q: question }), signal: AbortSignal.timeout(timeout) });
     if (!response.ok) return null;
     const body = (await response.json()) as { model?: string; dim?: number; vector?: string };
     if (body.model !== MODEL || body.dim !== DIM || typeof body.vector !== "string") return null;

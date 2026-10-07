@@ -73,7 +73,7 @@ test('a question is turned into a vector by the Worker, or null', async () => {
   let sent;
   const ok = async (url, init) => { sent = [url, JSON.parse(init.body)]; return Response.json({ model: MODEL, dim: DIM, vector: toBase64(v) }); };
   assert.deepEqual([...(await embedQuestion('質問', ok))], [...v]);
-  assert.deepEqual(sent, ['/api/govfaq/embed', { question: '質問' }]);
+  assert.deepEqual(sent, ['/api/govfaq/embed', { q: '質問' }]);
   assert.equal(await embedQuestion('q', async () => new Response('', { status: 503 })), null);
   assert.equal(await embedQuestion('q', async () => Response.json({ model: 'x', dim: DIM, vector: toBase64(v) })), null);
   assert.equal(await embedQuestion('q', async () => Response.json({ model: MODEL, dim: DIM, vector: 'AAAA' })), null);

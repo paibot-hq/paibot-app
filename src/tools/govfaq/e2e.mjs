@@ -16,7 +16,7 @@ export default async function ({ page, main, go, base }) {
   const embedded = [];
   await page.route('**/govfaq-vectors.bin', route => (vectorsOn ? route.fulfill({ body: Buffer.from(file), contentType: 'application/octet-stream' }) : route.fulfill({ status: 404, body: 'none' })));
   await page.route('**/api/govfaq/embed', async route => {
-    embedded.push(JSON.parse(route.request().postData()).question);
+    embedded.push(JSON.parse(route.request().postData()).q);
     await route.fulfill({ json: { model: MODEL, dim: DIM, vector: toBase64(row(target)) } });
   });
   await go('govfaq');
