@@ -40,6 +40,7 @@ export const APP_CATALOG = [
 
   // ユーティリティ / Utility
   { slug: "wc", href: "/wc", category: "utility", status: "published", messageKey: "wc" },
+  { slug: "mosaic", href: "/mosaic", category: "utility", status: "published", messageKey: "mosaic" },
   { slug: "password", href: "/password", category: "utility", status: "published", messageKey: "password" },
   { slug: "life", href: "/life", category: "game", status: "published", messageKey: "life" },
   { slug: "pendulum", href: "/pendulum", category: "game", status: "published", messageKey: "pendulum" },

@@ -618,6 +618,42 @@
       "copied": "Copied",
       "invalidError": "That isn't a valid URL-encoded string"
     },
+    "mosaic": {
+      "title": "Photo Mosaic & Blur",
+      "description": "Hide faces, number plates, addresses and the like in a photo with a mosaic, a blur or a black patch, and save it. The mosaic is made coarse enough that it cannot be undone, and the photo is handled in your browser only, never uploaded.",
+      "about": "Before you post a photo on social media, a blog or a marketplace, hide the faces, car number plates, name plates or document text that got into it. Pick an area with a rectangle, an ellipse or the pen and it is covered with a mosaic, a blur or black. The mosaic is made as coarse as the area is large, so that it cannot be undone afterwards. The saved photo is made again from the full-size picture, so it carries no metadata such as position. The photo is handled in this browser only and is never uploaded.",
+      "keywords": "mosaic blur photo image face number plate privacy hide redact censor pixelate",
+      "drop": "Drop a photo here, paste it, or choose a file",
+      "choose": "Choose a photo",
+      "privacy": "The photo is handled in this browser only. It is never uploaded.",
+      "readFailed": "This image could not be read.",
+      "shapeLabel": "Shape of the area",
+      "effectLabel": "How to hide",
+      "shapes": {
+        "rect": "Rectangle",
+        "ellipse": "Ellipse",
+        "pen": "Pen"
+      },
+      "effects": {
+        "mosaic": "Mosaic",
+        "blur": "Blur",
+        "black": "Black"
+      },
+      "level": "Coarseness",
+      "penSize": "Pen size",
+      "canvasLabel": "The photo. What you draw over is hidden.",
+      "hint": "Draw over the photo to hide that part. The larger the area, the coarser the mosaic is made, so that it cannot be undone. Ctrl+Z undoes one step.",
+      "undo": "Undo",
+      "redo": "Redo",
+      "clearAll": "Clear all",
+      "count": "Hidden areas: {count}",
+      "save": "Save",
+      "saving": "Working…",
+      "saved": "Saved the photo with the areas hidden.",
+      "saveFailed": "The photo could not be saved. The picture may be too large.",
+      "another": "Choose another photo",
+      "note": "The saved photo is made again from the full-size picture, so it carries no metadata such as position. Once saved, the hidden parts cannot be brought back (what you are editing here is lost when you close the page)."
+    },
     "dice": {
       "title": "Dice Roller",
       "description": "Roll dice and see the result. Choose how many dice to roll.",
