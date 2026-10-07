@@ -6,7 +6,8 @@ name: FAQ data update
 # a pull request that says what changed. Run it by hand from the Actions tab at any time. It fails, and so tells you, when the page is not as expected.
 #
 # Secrets (Settings > Secrets and variables > Actions):
-#   CLOUDFLARE_ACCOUNT_ID, CLOUDFLARE_API_TOKEN: a token that may use Workers AI and nothing else (used only by the vectors step).
+#   CLOUDFLARE_ACCOUNT_ID (already there) and CLOUDFLARE_API_TOKEN_WORKERS_AI: a token that may use Workers AI and nothing else, used only by the
+#   vectors step. (CLOUDFLARE_API_TOKEN is the one that deploys; it is not used here.)
 #   GOVFAQ_UPDATE_TOKEN (optional but wanted): a fine-grained token with "Contents" and "Pull requests" write on this repository. Pushes and pull
 #   requests made with the built-in token do not start other workflows, so without it the checks (and the deploy to dev after a merge) do not run
 #   on the pull request this opens.
@@ -44,7 +45,8 @@ jobs:
         if: steps.build.outputs.changed == 'true'
         env:
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          # The script reads CLOUDFLARE_API_TOKEN; here it is the Workers AI token, not the deploy one.
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_WORKERS_AI }}
         run: npm run govfaq:embed
       - name: Open (or update) the pull request
         if: steps.build.outputs.changed == 'true'
