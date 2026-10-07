@@ -33,8 +33,8 @@
 .body { display: flex; flex-direction: column; gap: .2rem; min-width: 0; }
 .you .body { align-items: flex-end; }
 .who { color: var(--muted); font-size: .72rem; }
-/* The picture beside a message: round, the size of two lines, lined up with the first line of the bubble. */
-.avatar { flex: none; box-sizing: border-box; width: 2rem; height: 2rem; margin-top: 1.1rem; border-radius: 50%; object-fit: cover; }
+/* The picture beside a message: a rounded square, the same for the bot and for you, the size of two lines, lined up with the first line of the bubble. */
+.avatar { flex: none; box-sizing: border-box; width: 2rem; height: 2rem; margin-top: 1.1rem; border-radius: 25%; object-fit: cover; }
 .avatarPerson { padding: .1rem; border: 1px solid var(--line); background: var(--surface); fill: none; stroke: var(--muted); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .bubble { margin: 0; padding: .6rem .85rem; border-radius: 14px; line-height: 1.65; overflow-wrap: anywhere; }
 .you .bubble { background: color-mix(in srgb, var(--accent) 18%, transparent); border-top-right-radius: 4px; }
@@ -67,4 +67,3 @@
 .sourceMark { flex: none; width: 1em; color: var(--accent); text-align: center; }
 .moreSources { padding: .3rem .2rem; border: 0; background: none; color: var(--accent); font: inherit; font-size: .85rem; cursor: pointer; }
 .info[hidden] { display: none; }
-.avatar[data-who="bot"] { border-radius: 25%; }
