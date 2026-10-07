@@ -52,3 +52,4 @@
 .end { scroll-margin-bottom: 7rem; }
 .info { width: min(820px, 100%); margin: .6rem auto 1.5rem; display: grid; gap: .8rem; }
 .info .credit { margin: 0; text-align: left; }
+.generated { margin: 0 0 .4rem !important; white-space: pre-wrap; line-height: 1.8; }

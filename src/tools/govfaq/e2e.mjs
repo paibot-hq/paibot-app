@@ -19,6 +19,15 @@ export default async function ({ page, main, go, base }) {
     embedded.push(JSON.parse(route.request().postData()).q);
     await route.fulfill({ json: { model: MODEL, dim: DIM, vector: toBase64(row(target)) } });
   });
+  // The answer written by the AI is a stub too: off at first (the nearest FAQ is the answer), then on, naming the first FAQ it was given.
+  let answerOn = false;
+  const asked = [];
+  await page.route('**/api/govfaq/answer', async route => {
+    const body = JSON.parse(route.request().postData());
+    asked.push(body);
+    if (!answerOn) return route.fulfill({ status: 503, json: { error: 'Unavailable' } });
+    return route.fulfill({ json: { answer: `これは作られた回答です。[${body.ids[0]}]`, used: [body.ids[0]] } });
+  });
   await go('govfaq');
   // The chat comes first: the bot greets, a question in a plain sentence gets the nearest FAQ as the answer, with others to open.
   const input = main.locator('[data-chat="input"]');
@@ -113,7 +122,9 @@ export default async function ({ page, main, go, base }) {
   // and the list merges it in. Nothing is sent when the vectors are not there (above).
   assert.equal(embedded.length, 0, 'no question was sent while there were no vectors');
   assert.equal(await main.locator('[data-faq="semantic"]').count(), 0);
+  assert.ok(asked.length > 0 && asked.every(body => body.ids.length >= 1 && body.ids.length <= 4 && typeof body.q === 'string'), 'the ids of the found FAQs were sent, at most four');
   vectorsOn = true;
+  answerOn = true;
   await go('govfaq');
   await main.locator('[data-faq="tab-info"]').click();
   await main.locator('[data-faq="semantic"]').waitFor();
@@ -123,6 +134,10 @@ export default async function ({ page, main, go, base }) {
   await page.waitForFunction(() => document.querySelectorAll('[data-chat="card"]').length === 1);
   assert.deepEqual(embedded, ['ぬるぽがっ']);
   assert.ok((await main.locator('[data-chat="card"]').first().innerText()).includes(faqItems[target].question), 'the FAQ near in meaning is the answer');
+  // The answer written from the FAQs is shown (without the [id] mark), says an AI wrote it, and the FAQ it is based on is under it as it is written.
+  assert.equal((await main.locator('[data-chat="generated"]').innerText()).trim(), 'これは作られた回答です。');
+  await main.getByText('written by an AI from the FAQ').waitFor();
+  assert.equal(asked.at(-1).ids[0], faqItems[target].id, 'the nearest FAQ was given first');
   await main.locator('[data-faq="tab-list"]').click();
   await main.locator('[data-faq="query"]').fill('ぬるぽがっ');
   await page.waitForFunction(() => document.querySelectorAll('[data-faq-id]').length > 0);

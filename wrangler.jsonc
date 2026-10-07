@@ -21,7 +21,9 @@
   // Bindings are not inherited: production has its own, in a separate namespace.
   "ratelimits": [
     { "name": "TOOL_RATE_LIMIT", "namespace_id": "1001", "simple": { "limit": 10, "period": 60 } },
-    { "name": "GOVFAQ_RATE_LIMIT", "namespace_id": "1003", "simple": { "limit": 30, "period": 60 } }
+    { "name": "GOVFAQ_RATE_LIMIT", "namespace_id": "1003", "simple": { "limit": 30, "period": 60 } },
+    // The FAQ answers written by the model (src/routes/api.govfaq.answer.ts): dearer than a vector, so fewer.
+    { "name": "GOVFAQ_ANSWER_RATE_LIMIT", "namespace_id": "1005", "simple": { "limit": 6, "period": 60 } }
   ],
   // Workers AI, for the government FAQ search (src/routes/api.govfaq.embed.ts): it turns a question into numbers (an embedding). The AI is
   // Cloudflare's own and is billed to the account beyond the free allowance; the route is limited per client IP by GOVFAQ_RATE_LIMIT.
@@ -43,7 +45,8 @@
       "ai": { "binding": "AI" },
       "ratelimits": [
         { "name": "TOOL_RATE_LIMIT", "namespace_id": "1002", "simple": { "limit": 10, "period": 60 } },
-        { "name": "GOVFAQ_RATE_LIMIT", "namespace_id": "1004", "simple": { "limit": 30, "period": 60 } }
+        { "name": "GOVFAQ_RATE_LIMIT", "namespace_id": "1004", "simple": { "limit": 30, "period": 60 } },
+        { "name": "GOVFAQ_ANSWER_RATE_LIMIT", "namespace_id": "1006", "simple": { "limit": 6, "period": 60 } }
       ],
       // Not inherited from the top level - production has its own database
       // (infra/d1.tf's app_prod_apac), never the dev one.
