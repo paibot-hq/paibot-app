@@ -67,8 +67,8 @@ function Avatar({ bot }: { bot: boolean }) {
   if (picture) return <img className={styles.avatar} src={picture} alt="" width={32} height={32} referrerPolicy="no-referrer" onError={() => setBroken(true)} data-chat="avatar" data-who="you-user" />;
   return (
     <svg className={`${styles.avatar} ${styles.avatarPerson}`} viewBox="0 0 24 24" aria-hidden="true" focusable="false" data-chat="avatar" data-who="you">
-      <circle cx="12" cy="9" r="3.4" />
-      <path d="M5.5 20c.7-3.6 3.3-5.3 6.5-5.3s5.8 1.7 6.5 5.3" />
+      <circle cx="12" cy="9.5" r="3.9" />
+      <path d="M4.6 20.6c.8-4 3.6-6 7.4-6s6.6 2 7.4 6" />
     </svg>
   );
 }

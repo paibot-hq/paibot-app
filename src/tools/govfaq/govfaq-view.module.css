@@ -35,7 +35,7 @@
 .who { color: var(--muted); font-size: .72rem; }
 /* The picture beside a message: round, the size of two lines, lined up with the first line of the bubble. */
 .avatar { flex: none; box-sizing: border-box; width: 2rem; height: 2rem; margin-top: 1.1rem; border-radius: 50%; object-fit: cover; }
-.avatarPerson { padding: .3rem; border: 1px solid var(--line); background: var(--surface); fill: none; stroke: var(--muted); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.avatarPerson { padding: .1rem; border: 1px solid var(--line); background: var(--surface); fill: none; stroke: var(--muted); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .bubble { margin: 0; padding: .6rem .85rem; border-radius: 14px; line-height: 1.65; overflow-wrap: anywhere; }
 .you .bubble { background: color-mix(in srgb, var(--accent) 18%, transparent); border-top-right-radius: 4px; }
 .bot .bubble { background: color-mix(in srgb, var(--muted) 12%, transparent); border-top-left-radius: 4px; }
