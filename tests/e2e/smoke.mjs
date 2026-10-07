@@ -44,6 +44,7 @@ try {
     assert.match(csp, /(?:^|; )default-src 'self'(?:;|$)/, `${path}: CSP`);
     assert.match(csp, /(?:^|; )frame-ancestors 'none'(?:;|$)/);
     assert.match(csp, /(?:^|; )img-src [^;]*data:/);
+    assert.match(csp, /(?:^|; )img-src [^;]*blob:/, 'a photo chosen by the visitor can be shown (the photo checker)');
     // GA loads only when indexable (production), which no browser check here
     // exercises - so guard the hosts it needs at the header level instead.
     if (indexable) {

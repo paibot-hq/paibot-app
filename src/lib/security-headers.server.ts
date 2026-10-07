@@ -60,7 +60,8 @@ export function buildContentSecurityPolicy(): string {
     // lack it too, so this is likely a latent gap there as well, not
     // something specific to this hand-rolled CSP. Found via an actual CSP
     // violation on /sign-in, not from Clerk's docs.
-    "img-src": ["'self'", "https://img.clerk.com", "data:", "https://www.googletagmanager.com", "https://*.google-analytics.com"],
+    // "blob:" shows a photo the visitor chose, from the browser's own memory (the photo checker); nothing is fetched.
+    "img-src": ["'self'", "https://img.clerk.com", "data:", "blob:", "https://www.googletagmanager.com", "https://*.google-analytics.com"],
     "script-src": [
       "'self'",
       "'unsafe-inline'",
