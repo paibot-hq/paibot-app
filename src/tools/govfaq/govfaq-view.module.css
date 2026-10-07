@@ -27,10 +27,15 @@
 .tab[aria-selected="true"] { border-color: var(--accent); color: var(--text); background: color-mix(in srgb, var(--accent) 14%, transparent); }
 .chat { width: min(820px, 100%); margin: .6rem auto; padding-bottom: 7rem; }
 .log { display: flex; flex-direction: column; gap: .9rem; min-height: 16rem; padding: .9rem; border: 1px solid var(--line); border-radius: 14px; background: var(--surface); }
-.you, .bot { display: flex; flex-direction: column; gap: .2rem; max-width: 92%; }
-.you { align-self: flex-end; align-items: flex-end; }
+.you, .bot { display: flex; gap: .55rem; align-items: flex-start; max-width: 96%; }
+.you { align-self: flex-end; flex-direction: row-reverse; }
 .bot { align-self: flex-start; }
+.body { display: flex; flex-direction: column; gap: .2rem; min-width: 0; }
+.you .body { align-items: flex-end; }
 .who { color: var(--muted); font-size: .72rem; }
+/* The picture beside a message: a rounded square, the same for the bot and for you, the size of two lines, lined up with the first line of the bubble. */
+.avatar { flex: none; box-sizing: border-box; width: 2rem; height: 2rem; margin-top: 1.1rem; border-radius: 25%; object-fit: cover; }
+.avatarPerson { padding: .1rem; border: 1px solid var(--line); background: var(--surface); fill: none; stroke: var(--muted); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
 .bubble { margin: 0; padding: .6rem .85rem; border-radius: 14px; line-height: 1.65; overflow-wrap: anywhere; }
 .you .bubble { background: color-mix(in srgb, var(--accent) 18%, transparent); border-top-right-radius: 4px; }
 .bot .bubble { background: color-mix(in srgb, var(--muted) 12%, transparent); border-top-left-radius: 4px; }
@@ -61,3 +66,4 @@
 .sourceHead { display: flex; gap: .55rem; align-items: baseline; width: 100%; padding: .55rem .8rem; border: 0; background: none; color: var(--text); font: inherit; font-size: .9rem; font-weight: 600; line-height: 1.5; text-align: left; cursor: pointer; }
 .sourceMark { flex: none; width: 1em; color: var(--accent); text-align: center; }
 .moreSources { padding: .3rem .2rem; border: 0; background: none; color: var(--accent); font: inherit; font-size: .85rem; cursor: pointer; }
+.info[hidden] { display: none; }

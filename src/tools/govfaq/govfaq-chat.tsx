@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useUser } from "@clerk/react-router";
 import { useTranslations } from "use-intl";
 import styles from "./govfaq-view.module.css";
 import { AnswerText, Tag } from "./govfaq-parts";
@@ -53,6 +54,22 @@ function Sources({ items, categories }: { items: Item[]; categories: string[] | 
       {shown.map(item => <Source key={item.id} item={item} category={categories?.[item.category]} />)}
       {!all && ordered.length > shown.length && <button type="button" className={styles.moreSources} onClick={() => setAll(true)} data-chat="more-sources">{t("moreSources", { n: ordered.length - shown.length })}</button>}
     </>
+  );
+}
+
+// Who is speaking, beside the message: the FAQ bot is PAIBOT's own icon; you are the signed-in user's picture, or a person drawn in lines when no one is
+// signed in (or the picture cannot be had).
+function Avatar({ bot }: { bot: boolean }) {
+  const { isSignedIn, user } = useUser();
+  const [broken, setBroken] = useState(false);
+  const picture = !bot && isSignedIn && user?.imageUrl && !broken ? user.imageUrl : null;
+  if (bot) return <img className={styles.avatar} src="/icon.svg" alt="" width={32} height={32} data-chat="avatar" data-who="bot" />;
+  if (picture) return <img className={styles.avatar} src={picture} alt="" width={32} height={32} referrerPolicy="no-referrer" onError={() => setBroken(true)} data-chat="avatar" data-who="you-user" />;
+  return (
+    <svg className={`${styles.avatar} ${styles.avatarPerson}`} viewBox="0 0 24 24" aria-hidden="true" focusable="false" data-chat="avatar" data-who="you">
+      <circle cx="12" cy="9.5" r="3.9" />
+      <path d="M4.6 20.6c.8-4 3.6-6 7.4-6s6.6 2 7.4 6" />
+    </svg>
   );
 }
 
@@ -129,6 +146,8 @@ export default function FaqChat({ faq, index, vectors }: { faq: Faq | null; inde
       <div className={styles.log} role="log" aria-live="polite" data-chat="log">
         {messages.map(m => (
           <div key={m.id} className={m.from === "you" ? styles.you : styles.bot} data-chat-from={m.from}>
+            <Avatar bot={m.from !== "you"} />
+            <div className={styles.body}>
             <span className={styles.who}>{m.from === "you" ? t("you") : t("bot")}</span>
             {m.from === "you" ? <p className={styles.bubble} lang="ja">{m.text}</p> : (
               <div className={styles.bubble} data-flat={m.kind === "answer" || m.kind === "faq" || undefined}>
@@ -167,6 +186,7 @@ export default function FaqChat({ faq, index, vectors }: { faq: Faq | null; inde
                 {m.kind === "faq" && card(m.item)}
               </div>
             )}
+            </div>
           </div>
         ))}
         {waiting && <p className={styles.small} role="status" data-chat="waiting">{waiting === "answer" ? t("answering") : t("thinking")}</p>}

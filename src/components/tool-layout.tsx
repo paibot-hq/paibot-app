@@ -17,10 +17,13 @@ type ToolLayoutProps = {
   // parent page" for a tool with sub-pages, like the math factorization set
   // picker/quiz. Rendered above <h1>, unlike children which render below it.
   aboveTitle?: ReactNode;
+  // The text about the tool and the links to other tools under the page (for search engines and for those who scroll); a tool that shows them
+  // somewhere of its own (the government FAQ, in a tab) turns this off and renders <ToolAbout> itself.
+  about?: boolean;
 };
 
 export default function ToolLayout({
-  title, children, layout = "stacked", contentWidth = "full", centerTitle = false, aboveTitle,
+  title, children, layout = "stacked", contentWidth = "full", centerTitle = false, aboveTitle, about = true,
 }: ToolLayoutProps) {
   const t = useTranslations("App");
   const locale = useLocale();
@@ -48,7 +51,7 @@ export default function ToolLayout({
       <div className={styles.content} data-layout={layout} data-width={contentWidth}>
         {children}
       </div>
-      {app && !app.private && <ToolAbout app={app} />}
+      {about && app && !app.private && <ToolAbout app={app} />}
     </main>
   );
 }
