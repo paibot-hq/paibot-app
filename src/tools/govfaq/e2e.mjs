@@ -26,7 +26,9 @@ export default async function ({ page, main, go, base }) {
     const body = JSON.parse(route.request().postData());
     asked.push(body);
     if (!answerOn) return route.fulfill({ status: 503, json: { error: 'Unavailable' } });
-    return route.fulfill({ json: { answer: `これは作られた回答です。[${body.ids[0]}]`, used: [body.ids[0]] } });
+    // The text comes as lines, one for each piece, the last one saying how it ended (as the Worker sends it).
+    const lines = [{ t: 'これは作られた' }, { t: `回答です。[${body.ids[0]}` }, { t: ']' }, { done: true, answer: `これは作られた回答です。[${body.ids[0]}]`, used: [body.ids[0]] }];
+    return route.fulfill({ body: lines.map(line => JSON.stringify(line)).join('\n') + '\n', contentType: 'application/x-ndjson' });
   });
   await go('govfaq');
   // The chat comes first: the bot greets, a question in a plain sentence gets the nearest FAQ as the answer, with others to open.
@@ -131,12 +133,18 @@ export default async function ({ page, main, go, base }) {
   await main.locator('[data-faq="tab-chat"]').click();
   await main.locator('[data-chat="input"]').fill('ぬるぽがっ');
   await main.locator('[data-chat="send"]').click();
-  await page.waitForFunction(() => document.querySelectorAll('[data-chat="card"]').length === 1);
+  await main.locator('[data-chat="generated"]:not([data-streaming])').waitFor();
   assert.deepEqual(embedded, ['ぬるぽがっ']);
-  assert.ok((await main.locator('[data-chat="card"]').first().innerText()).includes(faqItems[target].question), 'the FAQ near in meaning is the answer');
-  // The answer written from the FAQs is shown (without the [id] mark), says an AI wrote it, and the FAQ it is based on is under it as it is written.
+  // The answer written from the FAQs is shown (without the [id] mark), says an AI wrote it, and the FAQ it is based on is under it as a heading
+  // only; it opens to the FAQ as it is written.
   assert.equal((await main.locator('[data-chat="generated"]').innerText()).trim(), 'これは作られた回答です。');
   await main.getByText('written by an AI from the FAQ').waitFor();
+  assert.equal(await main.locator('[data-chat="card"]').count(), 0, 'the FAQ is a heading first');
+  const source = main.locator('[data-chat="source"]').first();
+  assert.ok((await source.innerText()).includes(faqItems[target].question), 'the FAQ near in meaning is the one it is based on');
+  await source.locator('button').click();
+  await page.waitForFunction(() => document.querySelectorAll('[data-chat="card"]').length === 1);
+  assert.ok((await source.innerText()).includes('ID: '), 'opened, the FAQ as it is written');
   assert.equal(asked.at(-1).ids[0], faqItems[target].id, 'the nearest FAQ was given first');
   await main.locator('[data-faq="tab-list"]').click();
   await main.locator('[data-faq="query"]').fill('ぬるぽがっ');

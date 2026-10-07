@@ -53,3 +53,10 @@
 .info { width: min(820px, 100%); margin: .6rem auto 1.5rem; display: grid; gap: .8rem; }
 .info .credit { margin: 0; text-align: left; }
 .generated { margin: 0 0 .4rem !important; white-space: pre-wrap; line-height: 1.8; }
+.generated[data-streaming]::after { content: "▍"; margin-left: .1em; animation: blink 1s steps(2, start) infinite; }
+@keyframes blink { to { visibility: hidden; } }
+@media (prefers-reduced-motion: reduce) { .generated[data-streaming]::after { animation: none; } }
+.source { margin: .3rem 0; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); overflow: hidden; }
+.source .card { margin: 0; border: 0; border-top: 1px solid var(--line); border-radius: 0; }
+.sourceHead { display: flex; gap: .55rem; align-items: baseline; width: 100%; padding: .55rem .8rem; border: 0; background: none; color: var(--text); font: inherit; font-size: .9rem; font-weight: 600; line-height: 1.5; text-align: left; cursor: pointer; }
+.sourceMark { flex: none; width: 1em; color: var(--accent); text-align: center; }

@@ -1,6 +1,6 @@
 "use client";
 
-import { Fragment, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "use-intl";
 import styles from "./govfaq-view.module.css";
 import { AnswerText, Tag } from "./govfaq-parts";
@@ -25,11 +25,25 @@ function Card({ item, category }: { item: Item; category: string | undefined }) 
   );
 }
 
+// A FAQ an answer is based on: first only its question, as a heading; it opens to the FAQ as it is written.
+function Source({ item, category }: { item: Item; category: string | undefined }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className={styles.source} data-chat="source" data-open={open}>
+      <button type="button" className={styles.sourceHead} aria-expanded={open} onClick={() => setOpen(o => !o)} lang="ja">
+        <span className={styles.sourceMark} aria-hidden="true">{open ? "−" : "+"}</span>
+        <span>{item.question}</span>
+      </button>
+      {open && <Card item={item} category={category} />}
+    </div>
+  );
+}
+
 type Message =
   | { id: number; from: "you"; text: string }
   | { id: number; from: "bot"; kind: "hello" }
   | { id: number; from: "bot"; kind: "answer"; confidence: "sure" | "unsure"; primary: Item; others: Item[] }
-  | { id: number; from: "bot"; kind: "generated"; text: string; used: Item[]; others: Item[] }
+  | { id: number; from: "bot"; kind: "generated"; text: string; streaming: boolean; used: Item[]; others: Item[] }
   | { id: number; from: "bot"; kind: "none" }
   | { id: number; from: "bot"; kind: "faq"; item: Item };
 
@@ -62,15 +76,32 @@ export default function FaqChat({ faq, index, vectors }: { faq: Faq | null; inde
       setMessages(list => [...list, { id: next.current++, from: "bot", kind: "none" }]);
       return;
     }
-    // The ids of the nearest FAQs go to the Worker, which writes an answer from their texts alone.
+    // The ids of the nearest FAQs go to the Worker, which writes an answer from their texts alone; the text is shown as it is written.
     setWaiting("answer");
     const given = candidates(index, ranked);
-    const written = await askAnswer(clean, given.map(item => item.id));
+    let shownId: number | null = null;
+    const written = await askAnswer(clean, given.map(item => item.id), text => {
+      if (shownId === null) {
+        shownId = next.current++;
+        const id = shownId;
+        setWaiting(null);
+        setMessages(list => [...list, { id, from: "bot", kind: "generated", text, streaming: true, used: [], others: [] }]);
+      } else {
+        const id = shownId;
+        setMessages(list => list.map(m => (m.id === id && m.from === "bot" && m.kind === "generated" ? { ...m, text } : m)));
+      }
+    });
     setWaiting(null);
-    const bot: Message = written
-      ? { id: next.current++, from: "bot", kind: "generated", text: withoutMarks(written.answer), used: given.filter(item => written.used.includes(item.id)), others: given.filter(item => !written.used.includes(item.id)) }
-      : { id: next.current++, from: "bot", kind: "answer", confidence: found.confidence, primary: found.primary, others: found.others };
-    setMessages(list => [...list, bot]);
+    const id = shownId;
+    const fallback: Message = { id: next.current++, from: "bot", kind: "answer", confidence: found.confidence, primary: found.primary, others: found.others };
+    if (!written) {
+      // Nothing usable (or nothing was written): the nearest FAQ is the answer, in place of anything half shown.
+      setMessages(list => [...list.filter(m => m.id !== id), fallback]);
+      return;
+    }
+    const done = { used: given.filter(item => written.used.includes(item.id)), others: given.filter(item => !written.used.includes(item.id)) };
+    if (id === null) setMessages(list => [...list, { id: next.current++, from: "bot", kind: "generated", text: withoutMarks(written.answer), streaming: false, ...done }]);
+    else setMessages(list => list.map(m => (m.id === id && m.from === "bot" && m.kind === "generated" ? { ...m, text: withoutMarks(written.answer), streaming: false, ...done } : m)));
   }
   const open = (item: Item) => setMessages(list => [...list, { id: next.current++, from: "bot", kind: "faq", item }]);
 
@@ -88,11 +119,15 @@ export default function FaqChat({ faq, index, vectors }: { faq: Faq | null; inde
                 {m.kind === "none" && <p>{t("botNone")}</p>}
                 {m.kind === "generated" && (
                   <>
-                    <p className={styles.generated} lang="ja" data-chat="generated">{m.text}</p>
-                    <p className={styles.small}>{t("botGenerated")}</p>
-                    <p className={styles.small}>{t("sources")}</p>
-                    {m.used.map(item => <Fragment key={item.id}>{card(item)}</Fragment>)}
-                    {m.others.length > 0 && (
+                    <p className={styles.generated} lang="ja" data-chat="generated" data-streaming={m.streaming || undefined}>{m.text}</p>
+                    {!m.streaming && (
+                      <>
+                        <p className={styles.small}>{t("botGenerated")}</p>
+                        <p className={styles.small}>{t("sources")}</p>
+                        {m.used.map(item => <Source key={item.id} item={item} category={faq?.categories[item.category]} />)}
+                      </>
+                    )}
+                    {!m.streaming && m.others.length > 0 && (
                       <div className={styles.others}>
                         <p className={styles.small}>{t("others")}</p>
                         {m.others.map(other => <button key={other.id} type="button" className={styles.other} lang="ja" onClick={() => open(other)}>{other.question}</button>)}

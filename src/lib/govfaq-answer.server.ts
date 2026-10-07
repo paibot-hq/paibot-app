@@ -7,6 +7,7 @@ import { parseAnswer } from "../tools/govfaq/govfaq-search.ts";
 export type FaqText = { id: string; question: string; answer: string };
 export type AnswerDeps = {
   within: (key: string) => Promise<boolean>;
+  // For a question asked with `stream: true` it gives a stream of server-sent events (as Workers AI does), otherwise an object.
   ai: { run: (model: string, input: unknown) => Promise<unknown> } | undefined;
   // The FAQs with these ids (those that exist), in the order asked.
   lookup: (ids: string[]) => Promise<FaqText[]>;
@@ -72,6 +73,51 @@ export function readAnswer(raw: string, given: FaqText[]): { answer: string; use
   return used.length === 0 ? null : { answer: text, used };
 }
 
+// The pieces of text in a stream of server-sent events from Workers AI (`data: {"response":"..."}`, or the OpenAI shape with choices), until [DONE].
+export async function* texts(stream: ReadableStream<Uint8Array>): AsyncGenerator<string> {
+  const reader = stream.getReader();
+  const decoder = new TextDecoder();
+  let buffer = "";
+  const piece = (line: string): string | null | undefined => {
+    if (!line.startsWith("data:")) return undefined;
+    const data = line.slice(5).trim();
+    if (data === "[DONE]") return null;
+    try {
+      const event = JSON.parse(data) as { response?: unknown; choices?: { delta?: { content?: unknown }; message?: { content?: unknown } }[] };
+      const text = typeof event.response === "string" ? event.response : event.choices?.[0]?.delta?.content ?? event.choices?.[0]?.message?.content;
+      return typeof text === "string" ? text : undefined;
+    } catch { return undefined; }
+  };
+  try {
+    for (;;) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split("\n");
+      buffer = lines.pop() ?? "";
+      for (const line of lines) {
+        const text = piece(line.trim());
+        if (text === null) return;
+        if (text) yield text;
+      }
+    }
+    const last = piece(buffer.trim());
+    if (last) yield last;
+  } finally { reader.releaseLock(); }
+}
+
+const ndjson = (event: unknown) => new TextEncoder().encode(`${JSON.stringify(event)}\n`);
+
+// What the stream of text ends in: the whole answer (null when the FAQs do not answer) and the FAQs to show under it. The FAQs the text names are
+// the ones it is based on; when it names none (it has been shown already, so it is not taken back), those it was given are shown as what was looked at.
+export function finish(raw: string, given: FaqText[]): { answer: string | null; used: string[] } {
+  const text = raw.replace(/<\/?(faq|question)>/g, "").trim();
+  if (!text || text.includes(NO_ANSWER)) return { answer: null, used: [] };
+  const known = new Set(given.map(f => f.id));
+  const named = [...new Set([...text.matchAll(/\[([^\[\]\s]{1,24})\]/g)].map(m => m[1]).filter(id => known.has(id)))];
+  return { answer: text, used: named.length > 0 ? named : given.map(f => f.id) };
+}
+
 export async function handleAnswer(request: Request, deps: AnswerDeps): Promise<Response> {
   if (request.method !== "POST") return fail(405, "POST only", { Allow: "POST" });
   let body: unknown;
@@ -86,9 +132,25 @@ export async function handleAnswer(request: Request, deps: AnswerDeps): Promise<
   const faqs = await deps.lookup([...new Set(ids as string[])]);
   if (faqs.length === 0) return fail(400, "No such FAQ");
   try {
-    const result = await deps.ai.run(ANSWER_MODEL, { messages: buildMessages(question, faqs), max_tokens: 700, temperature: 0.2 });
-    const read = readAnswer(textOf(result), faqs);
-    return Response.json(read ? { answer: read.answer, used: read.used } : { answer: null, used: [] }, { headers });
+    const result = await deps.ai.run(ANSWER_MODEL, { messages: buildMessages(question, faqs), max_tokens: 700, temperature: 0.2, stream: true });
+    if (!(result instanceof ReadableStream)) {
+      const read = readAnswer(textOf(result), faqs);
+      return Response.json(read ? { answer: read.answer, used: read.used } : { answer: null, used: [] }, { headers });
+    }
+    // The text goes on as it is written, one JSON line for each piece, and the last line says how it ended.
+    let whole = "";
+    const out = new ReadableStream<Uint8Array>({
+      async start(controller) {
+        try {
+          for await (const piece of texts(result as ReadableStream<Uint8Array>)) { whole += piece; controller.enqueue(ndjson({ t: piece })); }
+          controller.enqueue(ndjson({ done: true, ...finish(whole, faqs) }));
+        } catch {
+          controller.enqueue(ndjson({ done: true, ...(whole.trim() ? finish(whole, faqs) : { answer: null, used: [] }) }));
+        }
+        controller.close();
+      },
+    });
+    return new Response(out, { headers: { ...headers, "Content-Type": "application/x-ndjson; charset=utf-8" } });
   } catch {
     return fail(503, "Unavailable");
   }

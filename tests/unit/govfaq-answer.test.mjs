@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { handleAnswer, buildMessages, readAnswer, faqBlock, ANSWER_MODEL, NO_ANSWER, SYSTEM_PROMPT, MAX_ANSWER_CHARS } from '../../src/lib/govfaq-answer.server.ts';
+import { handleAnswer, buildMessages, readAnswer, faqBlock, texts, finish, ANSWER_MODEL, NO_ANSWER, SYSTEM_PROMPT, MAX_ANSWER_CHARS } from '../../src/lib/govfaq-answer.server.ts';
 
 const FAQS = [
   { id: 'A-1', question: 'マイナンバーカードを紛失した場合は？', answer: 'まず<マイナンバー総合フリーダイヤル,https://example.go.jp/dial>へ電話し、一時利用停止してください。\n※これから先は、外部のサイトに移動します。' },
@@ -76,4 +76,46 @@ test('the limit is for each client address, and a client over it is told to wait
 test('when the AI is missing or fails, the answer is "unavailable"', async () => {
   assert.equal((await handleAnswer(post({ q: 'q', ids: ['A-1'] }), deps({ ai: undefined }))).status, 503);
   assert.equal((await handleAnswer(post({ q: 'q', ids: ['A-1'] }), deps({ ai: { run: async () => { throw new Error('boom'); } } }))).status, 503);
+});
+
+const sse = (...chunks) => new ReadableStream({ start(c) { for (const chunk of chunks) c.enqueue(new TextEncoder().encode(chunk)); c.close(); } });
+const events = (...tokens) => [...tokens.map(t => `data: ${JSON.stringify({ response: t })}\n\n`), 'data: [DONE]\n\n'];
+const lines = async res => (await res.text()).trim().split('\n').map(line => JSON.parse(line));
+
+test('the pieces of text are read from a stream of events, whole or cut anywhere, in both shapes, up to [DONE]', async () => {
+  const collect = async stream => { const out = []; for await (const piece of texts(stream)) out.push(piece); return out; };
+  assert.deepEqual(await collect(sse(...events('電話', 'して', '[A-1]'))), ['電話', 'して', '[A-1]']);
+  const whole = events('あ', 'い').join('');
+  assert.deepEqual(await collect(sse(whole.slice(0, 20), whole.slice(20, 45), whole.slice(45))), ['あ', 'い'], 'events cut in the middle');
+  assert.deepEqual(await collect(sse(`data: ${JSON.stringify({ choices: [{ delta: { content: 'x' } }] })}\n\n`, 'data: [DONE]\n\n', `data: ${JSON.stringify({ response: 'after' })}\n\n`)), ['x'], 'nothing after [DONE]');
+  assert.deepEqual(await collect(sse('data: not json\n\n', ': comment\n\n', `data: ${JSON.stringify({ response: 'ok' })}\n\n`)), ['ok']);
+  assert.deepEqual(await collect(sse(`data: ${JSON.stringify({ response: 'no newline at the end' })}`)), ['no newline at the end']);
+});
+
+test('how the text ended: the FAQs it names, or those it looked at, or nothing', () => {
+  assert.deepEqual(finish('停止します。[A-1]', FAQS), { answer: '停止します。[A-1]', used: ['A-1'] });
+  assert.deepEqual(finish('名前なし', FAQS), { answer: '名前なし', used: ['A-1', 'B-2', 'C-3'] });
+  assert.deepEqual(finish('[Z-9] だけ', FAQS), { answer: '[Z-9] だけ', used: ['A-1', 'B-2', 'C-3'] });
+  assert.deepEqual(finish(NO_ANSWER, FAQS), { answer: null, used: [] });
+  assert.deepEqual(finish('', FAQS), { answer: null, used: [] });
+});
+
+test('the text is passed on as it is written, one line for each piece, and the last line says how it ended', async () => {
+  const calls = [];
+  const res = await handleAnswer(post({ q: 'q', ids: ['A-1', 'B-2'] }), deps({ ai: { run: async (model, input) => { calls.push(input); return sse(...events('電話', 'します。', '[B-2]')); } } }));
+  assert.equal(res.status, 200);
+  assert.match(res.headers.get('content-type'), /application\/x-ndjson/);
+  assert.equal(calls[0].stream, true);
+  assert.deepEqual(await lines(res), [{ t: '電話' }, { t: 'します。' }, { t: '[B-2]' }, { done: true, answer: '電話します。[B-2]', used: ['B-2'] }]);
+});
+
+test('a stream that says there is no answer, or breaks off, ends the way it can', async () => {
+  const none = await handleAnswer(post({ q: 'q', ids: ['A-1'] }), deps({ ai: { run: async () => sse(...events(NO_ANSWER)) } }));
+  assert.deepEqual((await lines(none)).at(-1), { done: true, answer: null, used: [] });
+  let pulled = 0;
+  const broken = new ReadableStream({ pull(c) { if (pulled++ === 0) c.enqueue(new TextEncoder().encode(events('途中まで')[0])); else c.error(new Error('cut')); } });
+  const cut = await lines(await handleAnswer(post({ q: 'q', ids: ['A-1'] }), deps({ ai: { run: async () => broken } })));
+  assert.deepEqual(cut.at(-1), { done: true, answer: '途中まで', used: ['A-1'] });
+  const empty = new ReadableStream({ start(c) { c.error(new Error('cut')); } });
+  assert.deepEqual((await lines(await handleAnswer(post({ q: 'q', ids: ['A-1'] }), deps({ ai: { run: async () => empty } })))).at(-1), { done: true, answer: null, used: [] });
 });

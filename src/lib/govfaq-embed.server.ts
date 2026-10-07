@@ -46,6 +46,8 @@ export function restAi(options: { accountId: string; token: string; fetchImpl?: 
         body: JSON.stringify(input),
       });
       if (!response.ok) throw new Error(`Workers AI answered ${response.status}`);
+      // A question asked with `stream: true` is answered with the stream itself, as the binding does.
+      if ((input as { stream?: unknown } | null)?.stream === true && response.body) return response.body;
       return ((await response.json()) as { result?: unknown }).result;
     },
   };
