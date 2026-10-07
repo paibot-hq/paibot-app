@@ -9,7 +9,8 @@ export default async function ({ page, main, go }) {
   assert.match(await main.locator('[data-exif="privacy"]').innerText(), /never uploaded/);
   // No request carries the photo anywhere: nothing but the page's own files is asked for after a photo is chosen.
   const requests = [];
-  page.on('request', request => { if (request.method() !== 'GET') requests.push(`${request.method()} ${request.url()}`); });
+  // (Clerk's own start-up call, which has nothing to do with the photo, is not counted.)
+  page.on('request', request => { if (request.method() !== 'GET' && !/clerk/i.test(request.url())) requests.push(`${request.method()} ${request.url()}`); });
 
   // A phone's photo: what can say where, when and who is listed, the position has a map link, and the extras are named.
   await main.locator('[data-exif="file"]').setInputFiles({ name: 'holiday.jpg', mimeType: 'image/jpeg', buffer: phonePhoto({ orientation: 6 }) });
