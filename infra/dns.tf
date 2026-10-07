@@ -42,3 +42,15 @@ resource "cloudflare_dns_record" "www" {
   proxied = true
   comment = "Managed by Terraform (infra/dns.tf) - www redirects to the apex via infra/redirects.tf"
 }
+
+# Bing Webmaster Tools proves ownership of the site by this CNAME (Bing's "CNAME record" verification method). It points at Bing, not at the app,
+# so it stays unproxied ("DNS only"). It can be removed once the site is verified and no longer needs to be re-checked, but Bing re-checks now and then.
+resource "cloudflare_dns_record" "bing_verification" {
+  zone_id = local.zone_id
+  name    = "048841c43e41259fb3ee015e3e86aae2.paibot.app"
+  type    = "CNAME"
+  content = "verify.bing.com"
+  ttl     = 300
+  proxied = false
+  comment = "Managed by Terraform (infra/dns.tf) - Bing Webmaster Tools site verification"
+}
