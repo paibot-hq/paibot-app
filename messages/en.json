@@ -1008,7 +1008,7 @@
       "creditEnd": " (FAQ data as of {date}; processed by us)"
     },
     "metadata": {
-      "title": "File Metadata Checker & Remover (Photos, Word, Excel, PowerPoint)",
+      "title": "File Metadata Checker & Remover",
       "description": "See and remove what a file carries: the place (GPS) and time of a photo, the author, company and edit history of a Word, Excel or PowerPoint file. Files are handled in your browser only and never uploaded.",
       "about": "A photo from a smartphone carries, out of sight, the coordinates of where it was taken, the time and the model of the phone (EXIF). A Word, Excel or PowerPoint file carries the name of its author and of whoever saved it last, the company, the software, the editing history, a small picture of its first page, the names on comments and more. Before you pass a file on by social media, email, a marketplace or to a client, check what is in it and save a copy without it. For photos (JPEG, PNG) the picture is not changed; for Office files the text and layout are not changed: only the metadata is removed. The file is handled in this browser only and is never uploaded.",
       "keywords": "metadata remove EXIF GPS location photo Word Excel PowerPoint author company privacy properties docx xlsx pptx",
