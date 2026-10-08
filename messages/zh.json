@@ -1008,7 +1008,7 @@
       "creditEnd": "（FAQ 数据，截至 {date}；经本站加工）"
     },
     "metadata": {
-      "title": "文件元数据检查与删除（照片、Word、Excel、PowerPoint）",
+      "title": "文件元数据检查与删除",
       "description": "查看并删除文件中嵌入的信息：照片的拍摄地点（GPS）和时间，Word、Excel、PowerPoint 的作者、公司和编辑历史等。文件只在浏览器中处理，不会上传。",
       "about": "手机拍的照片会在不显眼之处写入拍摄地点的坐标、时间和机型（EXIF）。Word、Excel、PowerPoint 文件也带有作者姓名、最后保存者、公司、所用软件、编辑历史、首页缩略图以及批注中的姓名等。通过社交媒体、邮件、二手平台或交给客户之前，先看看里面有什么，并保存一份删除后的副本。照片（JPEG、PNG）不改变画面，Office 文件不改变正文和排版，只删除元数据。文件只在此浏览器中处理，不会上传。",
       "keywords": "元数据 删除 EXIF GPS 位置 照片 Word Excel PowerPoint 作者 公司 隐私 属性 docx xlsx pptx",
