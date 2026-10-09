@@ -42,3 +42,11 @@ A figure that only an aggregator gives (the organization's page does not state i
 
 Dates and counts change as an investigation goes on (first report, second report, final). The date is the first announcement; the latest figure goes
 in `countNote`, with the earlier one in `note`.
+
+## The charts
+
+Above the list, for the entries the filters leave: incidents per month by type (stacked columns) and the size of each incident with a published
+count (dots, log scale). The numbers are in `breaches-stats.ts` (tested in `breaches-stats.test.mjs`); the drawing is `breaches-charts.tsx`. The axis
+always covers the whole list, so a filter takes columns down but does not move anything. The colours are the validated categorical palette for the five
+types; the contrast of some of them against the surface is under 3:1, so the legend, the tooltips and the table under the chart are not optional.
+The charts count what is listed, not what happened: the page says so, and months that were researched less show lower.

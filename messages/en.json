@@ -575,7 +575,16 @@
       "checked": "Checked {date}",
       "verifyFilter": "How well checked",
       "verifyAll": "All",
-      "verifyHelp": "\"Confirmed by the organization\" means its own notice was read; \"Confirmed by several reports\" means two or more separate outlets agree; \"One report only\" means just one outlet could be found."
+      "verifyHelp": "\"Confirmed by the organization\" means its own notice was read; \"Confirmed by several reports\" means two or more separate outlets agree; \"One report only\" means just one outlet could be found.",
+      "chartsTitle": "Charts",
+      "chartMonthly": "Incidents per month, by type",
+      "chartRecords": "Size of incidents with a published count (log scale)",
+      "chartRecordsHelp": "Each dot is one incident. The vertical axis steps by factors of ten; higher means more records. Hover or focus a dot for details.",
+      "chartNote": "The charts count the incidents listed on this page, not all incidents that happened. January to April were researched less, so they are undercounted. Incidents with no published count are not in the lower chart.",
+      "tableView": "Show the monthly numbers as a table",
+      "month": "Month",
+      "total": "Total",
+      "incidents": "{count}"
     },
     "age": {
       "title": "Birth Year Lookup",

@@ -1,5 +1,6 @@
 "use client";
 
+import BreachesCharts from "./breaches-charts";
 import ToolLayout from "../../components/tool-layout";
 import data from "../../data/breaches.json";
 
@@ -19,6 +20,7 @@ type Verification = "official" | "reported" | "single";
 type Item = { id: string; date: string; name: string; type: string; count: number | null; countNote: string; data: string; cause: string; note: string; verification: Verification; checkedAt: string; sources: Source[] };
 const VERIFY_KEYS = { official: "verifyOfficial", reported: "verifyReported", single: "verifySingle" } as const;
 const ITEMS = data.items as Item[];
+const FIRST = ITEMS.reduce((min, item) => (item.date < min ? item.date : min), ITEMS[0].date);
 
 export default function BreachesView() {
   const t = useTranslations("App");
@@ -68,6 +70,7 @@ export default function BreachesView() {
         {t("breaches.results", { count: items.length })} · {t("breaches.asOf", { date: data.asOf })}
       </p>
       {items.length === 0 && <p className={styles.status}>{t("breaches.none")}</p>}
+      <BreachesCharts items={items} first={FIRST} until={data.asOf} />
       <ul className={styles.list}>
         {items.map(item => (
           <li key={item.id} className={styles.card} data-breach={item.id}>
