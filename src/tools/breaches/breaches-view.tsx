@@ -14,7 +14,10 @@ type Kind = "leak" | "ransomware" | "outage" | "fraud" | "other";
 const KINDS: Kind[] = ["leak", "ransomware", "outage", "fraud", "other"];
 const KIND_KEYS = { leak: "typeLeak", ransomware: "typeRansomware", outage: "typeOutage", fraud: "typeFraud", other: "typeOther" } as const;
 
-type Item = { id: string; date: string; name: string; type: string; count: number | null; countNote: string; data: string; cause: string; note: string; source: string; url: string };
+type Source = { name: string; url: string; kind: string };
+type Verification = "official" | "reported" | "single";
+type Item = { id: string; date: string; name: string; type: string; count: number | null; countNote: string; data: string; cause: string; note: string; verification: Verification; checkedAt: string; sources: Source[] };
+const VERIFY_KEYS = { official: "verifyOfficial", reported: "verifyReported", single: "verifySingle" } as const;
 const ITEMS = data.items as Item[];
 
 export default function BreachesView() {
@@ -23,17 +26,19 @@ export default function BreachesView() {
   const [sort, setSort] = useState<Sort>("date");
   const [kind, setKind] = useState<Kind | "all">("all");
   const [query, setQuery] = useState("");
+  const [verification, setVerification] = useState<Verification | "all">("all");
 
   const items = useMemo(() => {
     const words = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
     return ITEMS
       .filter(item => kind === "all" || item.type === kind)
+      .filter(item => verification === "all" || item.verification === verification)
       .filter(item => {
         const text = [item.name, item.countNote, item.data, item.cause, item.note].join(" ").toLowerCase();
         return words.every(word => text.includes(word));
       })
       .sort((a, b) => (sort === "date" ? b.date.localeCompare(a.date) : (b.count ?? -1) - (a.count ?? -1)));
-  }, [sort, kind, query]);
+  }, [sort, kind, verification, query]);
   const max = Math.max(...ITEMS.map(item => item.count ?? 0));
 
   return (
@@ -52,6 +57,13 @@ export default function BreachesView() {
           <button key={k} type="button" aria-pressed={kind === k} onClick={() => setKind(k)} data-kind={k}>{t(`breaches.${KIND_KEYS[k]}`)}</button>
         ))}
       </div>
+      <div className={styles.kinds} role="group" aria-label={t("breaches.verifyFilter")}>
+        <button type="button" aria-pressed={verification === "all"} onClick={() => setVerification("all")}>{t("breaches.verifyAll")}</button>
+        {(Object.keys(VERIFY_KEYS) as Verification[]).map(v => (
+          <button key={v} type="button" aria-pressed={verification === v} onClick={() => setVerification(v)} data-verify={v}>{t(`breaches.${VERIFY_KEYS[v]}`)}</button>
+        ))}
+      </div>
+      <p className={styles.status}>{t("breaches.verifyHelp")}</p>
       <p className={styles.status} aria-live="polite" data-breaches="status">
         {t("breaches.results", { count: items.length })} · {t("breaches.asOf", { date: data.asOf })}
       </p>
@@ -63,7 +75,10 @@ export default function BreachesView() {
               <h2 lang="ja">{item.name}</h2>
               <time dateTime={item.date}>{item.date}</time>
             </div>
-            <span className={styles.kind} data-kind={item.type}>{t(`breaches.${KIND_KEYS[item.type as Kind]}`)}</span>
+            <div className={styles.tags}>
+              <span className={styles.kind} data-kind={item.type}>{t(`breaches.${KIND_KEYS[item.type as Kind]}`)}</span>
+              <span className={styles.verify} data-verification={item.verification}>{t(`breaches.${VERIFY_KEYS[item.verification]}`)}</span>
+            </div>
             {item.count != null && <div className={styles.meter} aria-hidden="true"><span style={{ width: `${Math.max(1, (item.count / max) * 100)}%` }} /></div>}
             {item.countNote && <p className={styles.count} lang="ja">{item.countNote}</p>}
             <dl lang="ja">
@@ -72,9 +87,14 @@ export default function BreachesView() {
             </dl>
             {item.note && <p className={styles.note} lang="ja">{item.note}</p>}
             <p className={styles.src}>
-              {item.url
-                ? <a href={item.url} target="_blank" rel="noopener noreferrer">{t("breaches.source")}: <span lang="ja">{item.source}</span></a>
-                : <span>{t("breaches.source")}: <span lang="ja">{item.source}</span></span>}
+              {t("breaches.sourcesLabel")}:{" "}
+              {item.sources.map((source, index) => (
+                <span key={source.url}>
+                  {index > 0 && " / "}
+                  <a href={source.url} target="_blank" rel="noopener noreferrer" lang="ja" data-source-kind={source.kind}>{source.name}</a>
+                </span>
+              ))}
+              {" · "}{t("breaches.checked", { date: item.checkedAt })}
             </p>
           </li>
         ))}

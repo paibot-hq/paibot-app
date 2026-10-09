@@ -545,7 +545,7 @@
     "breaches": {
       "title": "Japan Cyber Incident Roundup",
       "description": "Cyber incidents in Japan in 2026 - data breaches, ransomware, outages and fraud - with the date, scale, cause and a source link for each.",
-      "about": "A list of cyber incidents announced in Japan in 2026: data breaches, ransomware, outages and fraud. Filter by type and search by name; each entry links to its original report.",
+      "about": "A list of cyber incidents announced in Japan in 2026: data breaches, ransomware, outages and fraud. Filter by type and search by name; each entry has its sources and says how well it was checked.",
       "keywords": "cyber attack data breach Japan ransomware unauthorized access 2026",
       "intro": "Cyber incidents announced in Japan in 2026. Filter by type and search by name.",
       "asOf": "As of {date}",
@@ -567,7 +567,15 @@
       "results": "{count} found",
       "none": "No incidents match.",
       "scale": "Scale",
-      "tail": "Incidents with no published count have no bar."
+      "tail": "Incidents with no published count have no bar.",
+      "verifyOfficial": "Confirmed by the organization",
+      "verifyReported": "Confirmed by several reports",
+      "verifySingle": "One report only - unconfirmed",
+      "sourcesLabel": "Sources",
+      "checked": "Checked {date}",
+      "verifyFilter": "How well checked",
+      "verifyAll": "All",
+      "verifyHelp": "\"Confirmed by the organization\" means its own notice was read; \"Confirmed by several reports\" means two or more separate outlets agree; \"One report only\" means just one outlet could be found."
     },
     "age": {
       "title": "Birth Year Lookup",

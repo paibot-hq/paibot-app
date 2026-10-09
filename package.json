@@ -24,6 +24,7 @@
     "math:steps": "node scripts/math-steps.mjs",
     "math:describe": "node scripts/math-describe.mjs",
     "math:formulas": "node scripts/math-formulas.mjs",
+    "breaches:check": "node scripts/check-breaches.mjs",
     "math:import:local": "node scripts/import-math.mjs local",
     "math:import:dev": "node scripts/import-math.mjs dev",
     "math:import:prod": "node scripts/import-math.mjs prod",

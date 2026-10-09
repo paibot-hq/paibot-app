@@ -6,8 +6,11 @@
 .kinds button { padding: .2rem .65rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--text); font: inherit; font-size: .85rem; cursor: pointer; }
 .kinds button[aria-pressed="true"] { border-color: var(--accent); font-weight: 700; }
 .status { width: min(720px, 100%); margin: 0 0 .75rem; font-size: .85rem; color: var(--muted, inherit); }
-.kind { display: inline-block; margin-top: .35rem; padding: 0 .5rem; border: 1px solid var(--line); border-radius: 999px; font-size: .75rem; }
-.src { margin: 0; font-size: .85rem; }
+.tags { display: flex; flex-wrap: wrap; gap: .35rem; margin-top: .35rem; }
+.kind, .verify { display: inline-block; padding: 0 .5rem; border: 1px solid var(--line); border-radius: 999px; font-size: .75rem; }
+.verify[data-verification="official"] { border-color: var(--accent); }
+.verify[data-verification="single"] { border-style: dashed; font-weight: 700; }
+.src { margin: 0; font-size: .85rem; overflow-wrap: anywhere; }
 .sort { display: flex; gap: .25rem; }
 .sort button { padding: .25rem .75rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); font: inherit; cursor: pointer; }
 .sort button[aria-pressed="true"] { border-color: var(--accent); font-weight: 700; }
