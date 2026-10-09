@@ -543,11 +543,11 @@
       "bestTimeLabel": "Best time"
     },
     "breaches": {
-      "title": "Japan Data Breach Roundup",
-      "description": "Recent personal-data breaches in Japan, with the date, number of records, data exposed, cause and a source link for each.",
-      "about": "A list of recently announced personal-data breaches in Japan, with the date, number of records, data exposed and cause. Each entry links to its original report or announcement.",
-      "keywords": "data breach Japan personal information leak unauthorized access 2026",
-      "intro": "Personal-data breaches announced recently in Japan. You can also sort them by size.",
+      "title": "Japan Cyber Incident Roundup",
+      "description": "Cyber incidents in Japan in 2026 - data breaches, ransomware, outages and fraud - with the date, scale, cause and a source link for each.",
+      "about": "A list of cyber incidents announced in Japan in 2026: data breaches, ransomware, outages and fraud. Filter by type and search by name; each entry links to its original report.",
+      "keywords": "cyber attack data breach Japan ransomware unauthorized access 2026",
+      "intro": "Cyber incidents announced in Japan in 2026. Filter by type and search by name.",
       "asOf": "As of {date}",
       "sort": "Sort by",
       "sortDate": "Newest",
@@ -556,7 +556,18 @@
       "cause": "Cause",
       "source": "View source",
       "jaOnly": "(Incident descriptions are in Japanese only.)",
-      "advice": "If you may be affected, check the company's notice, and change any password you reuse on other services."
+      "advice": "If you may be affected, check the company's notice, and change any password you reuse on other services.",
+      "search": "Search by name or content",
+      "typeAll": "All",
+      "typeLeak": "Data breach",
+      "typeRansomware": "Ransomware",
+      "typeOutage": "Outage",
+      "typeFraud": "Fraud / financial loss",
+      "typeOther": "Other",
+      "results": "{count} found",
+      "none": "No incidents match.",
+      "scale": "Scale",
+      "tail": "Incidents with no published count have no bar."
     },
     "age": {
       "title": "Birth Year Lookup",
