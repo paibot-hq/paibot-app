@@ -1,0 +1,55 @@
+/* The chart colours are the validated categorical palette (blue, orange, aqua, yellow, magenta), stepped for each surface; the chart card has its own
+   surface so that the contrast the palette was checked against is the contrast the reader gets. */
+.charts {
+  --c-surface: #1a1a19; --c-ink: #ffffff; --c-ink2: #c3c2b7; --c-muted: #8f8e86; --c-grid: rgba(255, 255, 255, .1); --c-axis: rgba(255, 255, 255, .35);
+  --k-leak: #3987e5; --k-ransomware: #d95926; --k-outage: #199e70; --k-fraud: #c98500; --k-other: #d55181;
+  width: min(720px, 100%); margin: 0 0 1rem; padding: .9rem 1rem; border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--c-surface); color: var(--c-ink2); box-sizing: border-box;
+}
+:global(html[data-theme="light"]) .charts {
+  --c-surface: #fcfcfb; --c-ink: #0b0b0b; --c-ink2: #52514e; --c-muted: #6b6a66; --c-grid: rgba(0, 0, 0, .08); --c-axis: rgba(0, 0, 0, .35);
+  --k-leak: #2a78d6; --k-ransomware: #eb6834; --k-outage: #1baf7a; --k-fraud: #eda100; --k-other: #e87ba4;
+}
+@media (prefers-color-scheme: light) {
+  :global(html:not([data-theme="dark"])) .charts {
+    --c-surface: #fcfcfb; --c-ink: #0b0b0b; --c-ink2: #52514e; --c-muted: #6b6a66; --c-grid: rgba(0, 0, 0, .08); --c-axis: rgba(0, 0, 0, .35);
+    --k-leak: #2a78d6; --k-ransomware: #eb6834; --k-outage: #1baf7a; --k-fraud: #eda100; --k-other: #e87ba4;
+  }
+}
+.title { margin: 0 0 .4rem; color: var(--c-ink); font-size: .95rem; }
+.title:not(:first-child) { margin-top: 1.1rem; }
+.help { margin: 0 0 .4rem; color: var(--c-ink2); font-size: .8rem; }
+.legend { display: flex; flex-wrap: wrap; gap: .25rem .9rem; margin-bottom: .4rem; font-size: .8rem; color: var(--c-ink2); }
+.legendItem { display: inline-flex; align-items: center; gap: .35rem; }
+.key { display: inline-block; width: 10px; height: 10px; border-radius: 2px; background: var(--c-muted); flex: none; }
+.key[data-kind="leak"], .seg[data-kind="leak"] { background: var(--k-leak); fill: var(--k-leak); }
+.key[data-kind="ransomware"], .seg[data-kind="ransomware"] { background: var(--k-ransomware); fill: var(--k-ransomware); }
+.key[data-kind="outage"], .seg[data-kind="outage"] { background: var(--k-outage); fill: var(--k-outage); }
+.key[data-kind="fraud"], .seg[data-kind="fraud"] { background: var(--k-fraud); fill: var(--k-fraud); }
+.key[data-kind="other"], .seg[data-kind="other"] { background: var(--k-other); fill: var(--k-other); }
+.plot { position: relative; }
+.plot svg { display: block; max-width: 100%; overflow: visible; }
+.grid { stroke: var(--c-grid); stroke-width: 1; }
+.axis { stroke: var(--c-axis); stroke-width: 1; }
+.tick { fill: var(--c-muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.value { fill: var(--c-ink2); font-size: 11px; font-weight: 700; font-variant-numeric: tabular-nums; }
+.label { fill: var(--c-ink2); font-size: 11px; paint-order: stroke; stroke: var(--c-surface); stroke-width: 3px; }
+.seg { stroke: none; }
+g[data-active] .seg { filter: brightness(1.15); }
+.dot { fill: var(--k-leak); stroke: var(--c-surface); stroke-width: 2px; }
+.hit { fill: transparent; outline: none; cursor: default; }
+.hit:focus-visible { stroke: var(--c-ink); stroke-width: 2px; }
+.tip {
+  position: absolute; z-index: 2; transform: translate(-50%, -100%); min-width: 150px; max-width: 220px; padding: .45rem .6rem; pointer-events: none;
+  border: 1px solid var(--c-grid); border-radius: 8px; background: var(--c-surface); color: var(--c-ink2); font-size: .78rem; box-shadow: 0 4px 14px rgba(0, 0, 0, .25);
+}
+.tipHead { display: flex; justify-content: space-between; gap: .75rem; margin-bottom: .2rem; color: var(--c-ink); }
+.tipRow { display: flex; align-items: center; gap: .4rem; }
+.tipRow strong { margin-left: auto; color: var(--c-ink); font-variant-numeric: tabular-nums; }
+.tipRow .key { width: 12px; height: 3px; border-radius: 0; }
+.table { margin-top: .6rem; font-size: .8rem; }
+.table summary { cursor: pointer; color: var(--c-ink2); }
+.table table { width: 100%; margin-top: .4rem; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.table th, .table td { padding: .15rem .3rem; border-bottom: 1px solid var(--c-grid); text-align: right; }
+.table thead th:first-child, .table tbody th { text-align: left; }
+@media (prefers-reduced-motion: no-preference) { .seg { transition: filter .12s; } }
