@@ -54,3 +54,27 @@ resource "cloudflare_dns_record" "bing_verification" {
   proxied = false
   comment = "Managed by Terraform (infra/dns.tf) - Bing Webmaster Tools site verification"
 }
+
+# Mail for the apex (paibot.app) is handled by Google Workspace: Google's single MX host, and an SPF record that lets Google send for the domain.
+# (The two google-site-verification TXT records on the apex were added by hand when Workspace was set up; they are not managed here.)
+# The DKIM key (google._domainkey) is made in Google's Admin console after the MX is live, and DMARC (_dmarc) is added once mail flows; both are TXT records
+# to be added here as well. The SPF record is the only one on the apex: a domain may have just one.
+resource "cloudflare_dns_record" "google_workspace_mx" {
+  zone_id  = local.zone_id
+  name     = "paibot.app"
+  type     = "MX"
+  content  = "smtp.google.com"
+  priority = 1
+  ttl      = 300
+  comment  = "Managed by Terraform (infra/dns.tf) - Google Workspace mail"
+}
+
+resource "cloudflare_dns_record" "google_workspace_spf" {
+  zone_id = local.zone_id
+  name    = "paibot.app"
+  type    = "TXT"
+  # The provider keeps TXT content in quotes, as the API returns it; without them every plan would show a change.
+  content = "\"v=spf1 include:_spf.google.com ~all\""
+  ttl     = 300
+  comment = "Managed by Terraform (infra/dns.tf) - SPF for Google Workspace"
+}
