@@ -580,7 +580,7 @@
       "chartMonthly": "Incidents per month, by type",
       "chartRecords": "Size of incidents with a published count (log scale)",
       "chartRecordsHelp": "Each dot is one incident. The vertical axis steps by factors of ten; higher means more records. Hover or focus a dot for details.",
-      "chartNote": "The charts count the incidents listed on this page, not all incidents that happened. January to April were researched less, so they are undercounted. Incidents with no published count are not in the lower chart.",
+      "chartNote": "The charts count the incidents listed on this page, not all incidents that happened. How deeply each month was researched differs: September and October include small incidents too, so they look higher. Incidents with no published count are not in the lower chart.",
       "tableView": "Show the monthly numbers as a table",
       "month": "Month",
       "total": "Total",

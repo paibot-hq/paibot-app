@@ -28,6 +28,46 @@
    "checkedAt": "2026-10-09"
   },
   {
+   "id": "jgc-digital",
+   "date": "2026-10-09",
+   "name": "JGC Digital",
+   "type": "leak",
+   "count": 60000,
+   "countNote": "約6万件",
+   "data": "",
+   "cause": "BIツール「Metabase」への不正アクセス",
+   "note": "詳細は公表を確認中。同じツールの脆弱性はLEAN BODYでも悪用された。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/09/56422.html",
+     "kind": "press"
+    }
+   ]
+  },
+  {
+   "id": "toda-corp",
+   "date": "2026-10-09",
+   "name": "戸田建設",
+   "type": "leak",
+   "count": null,
+   "countNote": "件数は未公表",
+   "data": "取引先に関する情報",
+   "cause": "不正アクセス",
+   "note": "詳細は調査中。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/09/56425.html",
+     "kind": "press"
+    }
+   ]
+  },
+  {
    "id": "lawson-id",
    "date": "2026-10-08",
    "name": "ローソン(ローソンID・ローソンアプリ予約)",
@@ -293,6 +333,31 @@
    "checkedAt": "2026-10-09"
   },
   {
+   "id": "rakuten-drive",
+   "date": "2026-10-06",
+   "name": "楽天ドライブ(楽天シンフォニー)",
+   "type": "leak",
+   "count": 15382,
+   "countNote": "1万5,382アカウント分のデータ",
+   "data": "写真・文書などの保存データ(別に687件のアカウント名、表示名、プロフィール画像URL)",
+   "cause": "システムの管理者用アカウントの認証情報を不正に取得され、閲覧された(2026年1月29日〜9月17日)",
+   "note": "新規アカウントの発行とアプリのダウンロードを制限した。",
+   "verification": "reported",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "INTERNET Watch",
+     "url": "https://internet.watch.impress.co.jp/docs/news/2146152.html",
+     "kind": "press"
+    },
+    {
+     "name": "coki",
+     "url": "https://coki.jp/article/column/94625/",
+     "kind": "press"
+    }
+   ]
+  },
+  {
    "id": "yakiniku-king",
    "date": "2026-10-05",
    "name": "物語コーポレーション(焼肉きんぐ)",
@@ -543,6 +608,31 @@
    "checkedAt": "2026-10-09"
   },
   {
+   "id": "benefit-one",
+   "date": "2026-09-30",
+   "name": "ベネフィット・ワン",
+   "type": "leak",
+   "count": 13460,
+   "countNote": "2,322の企業・団体の13,460名",
+   "data": "社員・職員番号、氏名、性別、生年月日、企業・団体名、所属・役職、入退社情報",
+   "cause": "2025年6月のシステム改修によるプログラムの条件設定の不備で、アンケート結果のダウンロード時に他企業の情報が表示された",
+   "note": "2025年10月に不具合を認知したが、解消作業が適切に行われていなかった。",
+   "verification": "reported",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/06/56394.html",
+     "kind": "press"
+    },
+    {
+     "name": "Innovatopia",
+     "url": "https://innovatopia.jp/cyber-security/cyber-security-news/118411/",
+     "kind": "press"
+    }
+   ]
+  },
+  {
    "id": "seicomart",
    "date": "2026-09-29",
    "name": "セイコーマート(アプリ)",
@@ -653,6 +743,36 @@
    "checkedAt": "2026-10-09"
   },
   {
+   "id": "eplus",
+   "date": "2026-09-29",
+   "name": "イープラス",
+   "type": "leak",
+   "count": 1463,
+   "countNote": "1,463件",
+   "data": "メールアドレス、カタカナ氏名。銀行口座払戻しの751件は口座情報、郵便為替の68件は住所も",
+   "cause": "スマチケ(払戻し)の管理システムへの不正アクセス(9月11〜12日)",
+   "note": "クレジットカード情報とパスワードは含まれない。",
+   "verification": "reported",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/02/56372.html",
+     "kind": "press"
+    },
+    {
+     "name": "ファミ通(電ファミニコゲーマー)",
+     "url": "https://news.denfaminicogamer.jp/news/2609292x",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=41836",
+     "kind": "aggregator"
+    }
+   ]
+  },
+  {
    "id": "times-car",
    "date": "2026-09-28",
    "name": "タイムズモビリティ(タイムズカー)",
@@ -748,6 +868,36 @@
    "checkedAt": "2026-10-09"
   },
   {
+   "id": "tokyo-metro",
+   "date": "2026-09-27",
+   "name": "東京地下鉄(メトロポイントクラブ)",
+   "type": "leak",
+   "count": 59000,
+   "countNote": "約59,000件",
+   "data": "メール配信を停止した会員のメールアドレス",
+   "cause": "メール配信サービスへの不正アクセス(国外からとみられる、9月25日に判明)",
+   "note": "メールアドレス以外の会員情報は含まれないとしている。",
+   "verification": "official",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "東京地下鉄(お知らせ)",
+     "url": "https://www.tokyometro.jp/info/files/9172e2efa7222d15f8d4f601b6385457.pdf",
+     "kind": "official"
+    },
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/02/56374.html",
+     "kind": "press"
+    },
+    {
+     "name": "Innovatopia",
+     "url": "https://innovatopia.jp/cyber-security/cyber-security-news/118275/",
+     "kind": "press"
+    }
+   ]
+  },
+  {
    "id": "keio",
    "date": "2026-09-26",
    "name": "京王電鉄グループ(京王プラザホテルなど)",
@@ -783,6 +933,36 @@
     {
      "name": "セキュリティ対策Lab",
      "url": "https://rocket-boys.co.jp/?p=42022",
+     "kind": "aggregator"
+    }
+   ]
+  },
+  {
+   "id": "nippon-rentacar",
+   "date": "2026-09-26",
+   "name": "ニッポンレンタカーサービス(ニッポンレンタカーアプリ)",
+   "type": "leak",
+   "count": 96,
+   "countNote": "41名(9月26日)と55名(10月1日、別の手法)の計96名",
+   "data": "氏名、電話番号、メールアドレス、ログインID、利用履歴、予約情報。登録状況により免許証番号、住所、生年月日、カード番号の下4桁",
+   "cause": "アプリへの不正アクセス(9月19〜21日に別の手法のものも)",
+   "note": "",
+   "verification": "official",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ニッポンレンタカー(お知らせ)",
+     "url": "https://www.nipponrentacar.co.jp/info/202610_2.html",
+     "kind": "official"
+    },
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/01/56358.html",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=42272",
      "kind": "aggregator"
     }
    ]
@@ -851,6 +1031,81 @@
     }
    ],
    "checkedAt": "2026-10-09"
+  },
+  {
+   "id": "smaregi-ec",
+   "date": "2026-09-25",
+   "name": "スマレジ(スマレジEC・リピート/B2B)",
+   "type": "leak",
+   "count": null,
+   "countNote": "利用する4社に影響の可能性",
+   "data": "顧客情報、受注情報、管理者情報など",
+   "cause": "顧客管理画面のログイン機能の脆弱性の悪用",
+   "note": "9月18日に修正済み。クレジットカードは対象外。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/29/56331.html",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=41692",
+     "kind": "aggregator"
+    }
+   ]
+  },
+  {
+   "id": "japan-post-intl",
+   "date": "2026-09-25",
+   "name": "日本郵便(国際郵便の調査請求Web受付)",
+   "type": "other",
+   "count": null,
+   "countNote": "件数は未公表",
+   "data": "",
+   "cause": "サーバーへの不正アクセスの可能性(9月25日15時ごろに判明)",
+   "note": "受付を一時停止した。神奈川県と山梨県で試行運用中のサービス。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/30/56344.html",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=41492",
+     "kind": "aggregator"
+    }
+   ]
+  },
+  {
+   "id": "ikegami-tsushinki",
+   "date": "2026-09-24",
+   "name": "池上通信機",
+   "type": "ransomware",
+   "count": null,
+   "countNote": "サーバー内の一部ファイルが暗号化",
+   "data": "",
+   "cause": "ランサムウェアとみられるサイバー攻撃(9月21日に外部からの情報提供で判明)",
+   "note": "Qilinが66GB・約10.6万ファイルの窃取を主張しているが、会社による確認ではない。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/05/56384.html",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=41399",
+     "kind": "aggregator"
+    }
+   ]
   },
   {
    "id": "aichi-iconnavi",
@@ -958,6 +1213,56 @@
    "checkedAt": "2026-10-09"
   },
   {
+   "id": "lean-body",
+   "date": "2026-09-15",
+   "name": "LEAN BODY",
+   "type": "leak",
+   "count": 440000,
+   "countNote": "約44万件(退会者を含む)",
+   "data": "メールアドレス、ニックネーム、性別、生年月日、都道府県",
+   "cause": "分析ツール「Metabase」の脆弱性(CVE-2026-72898)の悪用(8月11日に侵入)",
+   "note": "同じ脆弱性は他の組織でも悪用された。パスワードやカード情報は含まれない。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/05/56382.html",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=40986",
+     "kind": "aggregator"
+    }
+   ]
+  },
+  {
+   "id": "odawara-engineering",
+   "date": "2026-09-15",
+   "name": "小田原エンジニアリング",
+   "type": "fraud",
+   "count": null,
+   "countNote": "約3,500通のメールが閲覧され、取引先に金銭被害",
+   "data": "",
+   "cause": "ドイツ子会社に出向していた従業員のメールアカウントへの不正アクセス(3月27日〜8月31日)。従業員になりすまして入金を指示するメールが送られた",
+   "note": "一部の取引先で金銭的な被害が出た。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=40809",
+     "kind": "aggregator"
+    },
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/07/56400.html",
+     "kind": "press"
+    }
+   ]
+  },
+  {
    "id": "digital-agency",
    "date": "2026-09-11",
    "name": "デジタル庁(ガバメントソリューションサービス)",
@@ -1038,6 +1343,36 @@
    "checkedAt": "2026-10-09"
   },
   {
+   "id": "rohto",
+   "date": "2026-09-11",
+   "name": "ロート製薬",
+   "type": "leak",
+   "count": null,
+   "countNote": "件数は調査中(攻撃者はSalesforceの顧客情報約395万件、通話録音約85万件を主張)",
+   "data": "通販の通話音声データと付随する情報",
+   "cause": "通販のシステムへの不正アクセス(9月10日に確認)",
+   "note": "攻撃者の主張で、会社が確認した数字ではない。",
+   "verification": "reported",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/24/56293.html",
+     "kind": "press"
+    },
+    {
+     "name": "Innovatopia",
+     "url": "https://innovatopia.jp/cyber-security/cyber-security-news/117940/",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=40675",
+     "kind": "aggregator"
+    }
+   ]
+  },
+  {
    "id": "fivefoxes",
    "date": "2026-09-08",
    "name": "ファイブフォックス",
@@ -1061,6 +1396,31 @@
     }
    ],
    "checkedAt": "2026-10-09"
+  },
+  {
+   "id": "kyoto-sanga",
+   "date": "2026-09-08",
+   "name": "京都パープルサンガ(京都サンガF.C.)",
+   "type": "leak",
+   "count": 15612,
+   "countNote": "ファンクラブ会員 15,612人分",
+   "data": "氏名、住所、メールアドレス、電話番号、生年月日、性別、ファンクラブのコース、JリーグIDなど",
+   "cause": "取引先へのメールに、会員情報のファイルを誤って添付(9月2日)",
+   "note": "受信した11名のうち2名が開封。取引先に削除を依頼し、消去を確認した。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/25/56301.html",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=40294",
+     "kind": "aggregator"
+    }
+   ]
   },
   {
    "id": "musashino-univ",
@@ -1101,6 +1461,36 @@
     }
    ],
    "checkedAt": "2026-10-09"
+  },
+  {
+   "id": "coop-yamaguchi",
+   "date": "2026-09-07",
+   "name": "コープやまぐち(LINEミニアプリ)",
+   "type": "leak",
+   "count": 217295,
+   "countNote": "4区分の合計 21万7,295件(区分間の重複は未公表)",
+   "data": "組合員の情報。電子マネー付き「ここカード」の14万3,126件はカード番号とPINも対象",
+   "cause": "LINEミニアプリのデータベースへの不正アクセス(8月27日)。データベースの全データが削除された",
+   "note": "クレジットカード情報、口座情報、ログインパスワードは含まれない。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/24/56292.html",
+     "kind": "press"
+    },
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/17/56258.html",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=40721",
+     "kind": "aggregator"
+    }
+   ]
   },
   {
    "id": "rizap",
@@ -1173,6 +1563,76 @@
    "checkedAt": "2026-10-09"
   },
   {
+   "id": "hamagin-tt",
+   "date": "2026-09-03",
+   "name": "浜銀TT証券",
+   "type": "fraud",
+   "count": null,
+   "countNote": "件数・被害額は未公表",
+   "data": "",
+   "cause": "フィッシングで口座情報を盗まれ、顧客が持つ投資信託が売買された",
+   "note": "パスキー認証を案内。金融庁は、8月は4社で25件の不正取引があったと注意喚起した。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/08/56154.html",
+     "kind": "press"
+    },
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/28/56308.html",
+     "kind": "press"
+    }
+   ]
+  },
+  {
+   "id": "seibu-railway",
+   "date": "2026-09-02",
+   "name": "西武鉄道(旅するレストラン「52席の至福」予約サイト)",
+   "type": "leak",
+   "count": null,
+   "countNote": "件数は未公表",
+   "data": "予約サイトの管理画面で共有された入力内容(個人情報を含む)",
+   "cause": "管理画面の入力内容が、エンコードされた形で外部から閲覧できる状態だった(2025年1月9日〜2026年8月27日)",
+   "note": "お客様センターへの問い合わせで発覚した。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/24/56291.html",
+     "kind": "press"
+    }
+   ]
+  },
+  {
+   "id": "mitsui-fudosan",
+   "date": "2026-09-01",
+   "name": "三井不動産",
+   "type": "leak",
+   "count": 55000,
+   "countNote": "最大5万5,000件(役職員等 最大1万9,000件、社外関係者 最大3万6,000件)",
+   "data": "役職員等の氏名・メールアドレス・部署・役職、社外関係者のメールアドレスと表示名",
+   "cause": "一部システムの資格情報の不正利用(8月28日に確認)",
+   "note": "メールやファイルなどの業務情報、パスワードの漏えいは確認されていない。影響範囲と侵入経路は調査中。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/07/56140.html",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=39743",
+     "kind": "aggregator"
+    }
+   ]
+  },
+  {
    "id": "ultra-mart",
    "date": "2026-09",
    "name": "ULTRA MART(mogily)",
@@ -1211,6 +1671,31 @@
     }
    ],
    "checkedAt": "2026-10-09"
+  },
+  {
+   "id": "ando-hazama",
+   "date": "2026-08-31",
+   "name": "安藤・間(安藤ハザマ)",
+   "type": "leak",
+   "count": 5000,
+   "countNote": "約5,000件",
+   "data": "名刺情報(会社名、部署、役職、氏名、住所、電話番号、メールアドレス)",
+   "cause": "警察官を名乗る者に求められ、社員が名刺管理システムのデータをメールで提出(詐欺)",
+   "note": "8月23日に社員が警察に連絡して判明した。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/18/56269.html",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=39688",
+     "kind": "aggregator"
+    }
+   ]
   },
   {
    "id": "tk-toka",
@@ -1313,6 +1798,86 @@
    ]
   },
   {
+   "id": "shizugin-tm",
+   "date": "2026-08-28",
+   "name": "静銀ティーエム証券",
+   "type": "fraud",
+   "count": null,
+   "countNote": "件数・被害額は未公表",
+   "data": "",
+   "cause": "フィッシング詐欺などで口座に不正アクセスされ、第三者が顧客の資産で売買した",
+   "note": "被害を調べて、個別の事情に応じて一定の補償をする方針。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/18/56273.html",
+     "kind": "press"
+    }
+   ]
+  },
+  {
+   "id": "kindal",
+   "date": "2026-08-28",
+   "name": "カインドオル(トレジャー・ファクトリーの子会社)",
+   "type": "leak",
+   "count": 136464,
+   "countNote": "最大13万6,464人(うち住所を含む 10万9,311人)",
+   "data": "氏名、住所、電話番号、生年月日、メールアドレス、購入回数・金額、ポイント履歴",
+   "cause": "フィッシングで盗まれたスタッフアカウントの認証情報により、ECの顧客情報が一括エクスポートされた(8月22〜23日)",
+   "note": "二段階認証が未設定だった。",
+   "verification": "reported",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ネットショップ担当者フォーラム",
+     "url": "https://netshop.impress.co.jp/n/2026/09/01/16648",
+     "kind": "press"
+    },
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/18/56270.html",
+     "kind": "press"
+    },
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/24/56285.html",
+     "kind": "press"
+    }
+   ]
+  },
+  {
+   "id": "sanko-techno-vn",
+   "date": "2026-08-28",
+   "name": "サンコーテクノ(ベトナム子会社)",
+   "type": "ransomware",
+   "count": null,
+   "countNote": "サーバーとPCのファイルが暗号化",
+   "data": "",
+   "cause": "海外子会社(SANKO FASTEM VIETNAM)へのランサムウェア攻撃(8月25日に確認)",
+   "note": "グループのほかの会社のネットワークや業務への影響は確認されていない。",
+   "verification": "official",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "サンコーテクノ(適時開示)",
+     "url": "https://www2.jpx.co.jp/disc/34350/140120260828527717.pdf",
+     "kind": "official"
+    },
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/01/56095.html",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=39535",
+     "kind": "aggregator"
+    }
+   ]
+  },
+  {
    "id": "01-bank",
    "date": "2026-08-27",
    "name": "01銀行",
@@ -1338,6 +1903,31 @@
    ]
   },
   {
+   "id": "zurich-insurance",
+   "date": "2026-08-27",
+   "name": "チューリッヒ保険会社(Z-Dash)",
+   "type": "leak",
+   "count": 1668,
+   "countNote": "最大1,668名",
+   "data": "事案管理番号、氏名、メールアドレス",
+   "cause": "ドライブレコーダーのデータをアップロードするシステム「Z-Dash」の脆弱性を突いた不正アクセス(4月1日と6日)",
+   "note": "ドライブレコーダーの映像などは含まれない。Z-Dashの利用を停止した。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/01/56094.html",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/security-measures-lab/zurich-z-dash-unauthorized-access-leak/",
+     "kind": "aggregator"
+    }
+   ]
+  },
+  {
    "id": "swagelok-fst",
    "date": "2026-08-26",
    "name": "日本スウェージロックFST",
@@ -1358,6 +1948,31 @@
     {
      "name": "セキュリティ対策Lab",
      "url": "https://rocket-boys.co.jp/security-measures-lab/nippon-swagelok-fst-ransomware-leak/",
+     "kind": "aggregator"
+    }
+   ]
+  },
+  {
+   "id": "nittetsu-kowa",
+   "date": "2026-08-26",
+   "name": "日鉄興和不動産",
+   "type": "other",
+   "count": null,
+   "countNote": "件数は未公表",
+   "data": "マンション販売業務などの顧客情報を保存したクラウドサービス",
+   "cause": "クラウドサービスへの不正アクセス(8月25日に確認)",
+   "note": "個人情報の漏えいや不正利用は確認されていないとしている。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/16/56246.html",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=39385",
      "kind": "aggregator"
     }
    ]
@@ -1416,6 +2031,101 @@
     }
    ],
    "checkedAt": "2026-10-09"
+  },
+  {
+   "id": "meitetsu-kyosho",
+   "date": "2026-08-18",
+   "name": "名鉄協商(中電不動産の顧客情報)",
+   "type": "ransomware",
+   "count": 4000,
+   "countNote": "中電不動産の顧客情報 約4,000件",
+   "data": "顧客情報",
+   "cause": "名鉄協商へのランサムウェア攻撃(6月19日に痕跡を確認)",
+   "note": "",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/08/18/55948.html",
+     "kind": "press"
+    }
+   ]
+  },
+  {
+   "id": "logicvein",
+   "date": "2026-08-17",
+   "name": "ロジックベイン",
+   "type": "ransomware",
+   "count": 17559,
+   "countNote": "リークサイトへの掲載を確認 17,559名(漏えいのおそれは約97,338名)",
+   "data": "顧客・取引先・展示会来場者の氏名、所属先、メールアドレス、住所、電話番号など",
+   "cause": "ファイアウォールの脆弱性を突かれたVPN侵入の可能性が高い(Qilinのリークサイトに掲載)",
+   "note": "2025年12月8日に最初の公表。8月17日の第4報で、ダークウェブ上のリークサイトへの掲載を確認した。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/07/56145.html",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/security-measures-lab/logicvein-releases-second-report-on-unauthorized-access-possible-customer-data-breach/",
+     "kind": "aggregator"
+    }
+   ]
+  },
+  {
+   "id": "kyoiku-software",
+   "date": "2026-08-17",
+   "name": "教育ソフトウェア",
+   "type": "ransomware",
+   "count": 4627,
+   "countNote": "4,627件",
+   "data": "2016年までのWebサービス(自己採点システム)の対象者の顧客情報、所属大学名、氏名、学籍番号の一部",
+   "cause": "休眠中のレンタルサーバーへのランサムウェア攻撃(4月30日〜5月1日)",
+   "note": "サーバー内の過去のメールも閲覧された可能性がある。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/08/56158.html",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=39084",
+     "kind": "aggregator"
+    }
+   ]
+  },
+  {
+   "id": "akabu-engineering",
+   "date": "2026-08-13",
+   "name": "赤武エンジニアリング",
+   "type": "ransomware",
+   "count": null,
+   "countNote": "システム障害(流出の有無は調査中)",
+   "data": "",
+   "cause": "ランサムウェア感染",
+   "note": "外部専門機関と警察に連携して調査中。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/02/56105.html",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=38696",
+     "kind": "aggregator"
+    }
+   ]
   },
   {
    "id": "rext",
@@ -1539,6 +2249,36 @@
      "name": "ISSOH",
      "url": "https://www.issoh.co.jp/tech/details/15978/",
      "kind": "press"
+    }
+   ]
+  },
+  {
+   "id": "fuso-dentsu",
+   "date": "2026-07-22",
+   "name": "扶桑電通",
+   "type": "leak",
+   "count": 26489,
+   "countNote": "26,489件",
+   "data": "取引先の顧客・担当者の氏名、住所、電話番号",
+   "cause": "社外関係者との情報共有に使うクラウドストレージの共有フォルダへの、認証情報の不正利用(7月15日に確認)",
+   "note": "9月10日の第2報で件数を公表。外部利用者にMFAを義務化する。",
+   "verification": "single",
+   "checkedAt": "2026-10-09",
+   "sources": [
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/29/56329.html",
+     "kind": "press"
+    },
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/08/12/55909.html",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/security-measures-lab/fuso-dentsu-security-incident-report/",
+     "kind": "aggregator"
     }
    ]
   },
