@@ -2,7 +2,7 @@
 // so a price or address is changed in exactly one place.
 
 // Shared support address for all localized legal documents.
-export const CONTACT_EMAIL = 'support@paibot.co.jp';
+export const CONTACT_EMAIL = 'support@paibot.app';
 
 export const SELLER = { ja: '合同会社PAIBOT', en: 'PAIBOT LLC', zh: 'PAIBOT LLC（合同会社PAIBOT）' } as const;
 
