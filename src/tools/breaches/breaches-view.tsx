@@ -6,10 +6,11 @@ import data from "../../data/breaches.json";
 
 import styles from "./breaches.module.css";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { useLocale, useTranslations } from "use-intl";
 
 type Sort = "date" | "count";
+type Tab = "list" | "stats";
 type Kind = "leak" | "ransomware" | "outage" | "fraud" | "other";
 
 const KINDS: Kind[] = ["leak", "ransomware", "outage", "fraud", "other"];
@@ -25,10 +26,22 @@ const FIRST = ITEMS.reduce((min, item) => (item.date < min ? item.date : min), I
 export default function BreachesView() {
   const t = useTranslations("App");
   const locale = useLocale();
+  const [tab, setTab] = useState<Tab>("list");
   const [sort, setSort] = useState<Sort>("date");
   const [kind, setKind] = useState<Kind | "all">("all");
   const [query, setQuery] = useState("");
   const [verification, setVerification] = useState<Verification | "all">("all");
+
+  // The tab is kept in the address (?tab=stats), so a link opens the statistics.
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).get("tab") === "stats") setTab("stats");
+  }, []);
+  function choose(next: Tab) {
+    setTab(next);
+    const url = new URL(window.location.href);
+    if (next === "stats") url.searchParams.set("tab", next); else url.searchParams.delete("tab");
+    window.history.replaceState(null, "", url);
+  }
 
   const items = useMemo(() => {
     const words = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
@@ -46,12 +59,16 @@ export default function BreachesView() {
   return (
     <ToolLayout title={t("breaches.title")}>
       <p className={styles.intro}>{t("breaches.intro")}</p>
+      <div className={styles.tabs} role="tablist" aria-label={t("breaches.mode")}>
+        <button type="button" role="tab" aria-selected={tab === "list"} className={styles.tab} onClick={() => choose("list")} data-breaches="tab-list">{t("breaches.tabList")}</button>
+        <button type="button" role="tab" aria-selected={tab === "stats"} className={styles.tab} onClick={() => choose("stats")} data-breaches="tab-stats">{t("breaches.tabStats")}</button>
+      </div>
       <div className={styles.bar}>
         <input type="search" className={styles.search} value={query} onChange={event => setQuery(event.target.value)} placeholder={t("breaches.search")} aria-label={t("breaches.search")} data-breaches="query" />
-        <div role="radiogroup" aria-label={t("breaches.sort")} className={styles.sort}>
+        {tab === "list" && <div role="radiogroup" aria-label={t("breaches.sort")} className={styles.sort}>
           <button type="button" aria-pressed={sort === "date"} onClick={() => setSort("date")}>{t("breaches.sortDate")}</button>
           <button type="button" aria-pressed={sort === "count"} onClick={() => setSort("count")}>{t("breaches.sortCount")}</button>
-        </div>
+        </div>}
       </div>
       <div className={styles.kinds}>
         <button type="button" aria-pressed={kind === "all"} onClick={() => setKind("all")}>{t("breaches.typeAll")}</button>
@@ -70,8 +87,8 @@ export default function BreachesView() {
         {t("breaches.results", { count: items.length })} · {t("breaches.asOf", { date: data.asOf })}
       </p>
       {items.length === 0 && <p className={styles.status}>{t("breaches.none")}</p>}
-      <BreachesCharts items={items} first={FIRST} until={data.asOf} />
-      <ul className={styles.list}>
+      {tab === "stats" && <BreachesCharts items={items} first={FIRST} until={data.asOf} />}
+      {tab === "list" && <ul className={styles.list}>
         {items.map(item => (
           <li key={item.id} className={styles.card} data-breach={item.id}>
             <div className={styles.head}>
@@ -101,7 +118,7 @@ export default function BreachesView() {
             </p>
           </li>
         ))}
-      </ul>
+      </ul>}
       <p className={styles.footnote}>{data.note}{locale !== "ja" && ` ${t("breaches.jaOnly")}`}</p>
       <p className={styles.footnote}>{t("breaches.tail")}</p>
       <p className={styles.footnote}>{t("breaches.advice")}</p>

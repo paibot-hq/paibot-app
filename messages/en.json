@@ -584,7 +584,10 @@
       "tableView": "Show the monthly numbers as a table",
       "month": "Month",
       "total": "Total",
-      "incidents": "{count}"
+      "incidents": "{count}",
+      "mode": "View",
+      "tabList": "List",
+      "tabStats": "Statistics"
     },
     "age": {
       "title": "Birth Year Lookup",

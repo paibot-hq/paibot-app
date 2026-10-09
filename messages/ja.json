@@ -584,7 +584,10 @@
       "tableView": "月ごとの数を表で見る",
       "month": "月",
       "total": "合計",
-      "incidents": "{count} 件"
+      "incidents": "{count} 件",
+      "mode": "表示",
+      "tabList": "一覧",
+      "tabStats": "統計"
     },
     "age": {
       "title": "生年早見表",

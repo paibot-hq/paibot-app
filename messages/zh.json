@@ -584,7 +584,10 @@
       "tableView": "以表格查看每月数量",
       "month": "月份",
       "total": "合计",
-      "incidents": "{count} 起"
+      "incidents": "{count} 起",
+      "mode": "显示",
+      "tabList": "列表",
+      "tabStats": "统计"
     },
     "age": {
       "title": "出生年份速查表",
