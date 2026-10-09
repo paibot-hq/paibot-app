@@ -1,0 +1,20 @@
+.intro { max-width: 40rem; margin: 0 0 1rem; color: var(--muted, inherit); }
+.bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .5rem; width: min(720px, 100%); margin-bottom: 1rem; font-size: .9rem; }
+.sort { display: flex; gap: .25rem; }
+.sort button { padding: .25rem .75rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); font: inherit; cursor: pointer; }
+.sort button[aria-pressed="true"] { border-color: var(--accent); font-weight: 700; }
+.list { display: grid; gap: .75rem; width: min(720px, 100%); margin: 0; padding: 0; list-style: none; }
+.card { padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .25rem .75rem; }
+.head h2 { margin: 0; font-size: 1.05rem; }
+.head time { color: var(--muted, inherit); font-size: .85rem; }
+.meter { height: 6px; margin: .6rem 0 .3rem; border-radius: 3px; background: var(--line); overflow: hidden; }
+.meter span { display: block; height: 100%; background: var(--accent); }
+.count { margin: 0 0 .5rem; font-weight: 700; }
+.card dl { display: grid; grid-template-columns: max-content 1fr; gap: .25rem .75rem; margin: 0 0 .5rem; font-size: .9rem; }
+.card dt { color: var(--muted, inherit); }
+.card dd { margin: 0; }
+.note { margin: 0 0 .5rem; font-size: .85rem; color: var(--muted, inherit); }
+.card a { font-size: .85rem; }
+.footnote { width: min(720px, 100%); margin: 1rem 0 0; font-size: .85rem; color: var(--muted, inherit); }
+@media (max-width: 480px) { .card dl { grid-template-columns: 1fr; } }

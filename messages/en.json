@@ -542,6 +542,22 @@
       "newRecord": "New record!",
       "bestTimeLabel": "Best time"
     },
+    "breaches": {
+      "title": "Japan Data Breach Roundup",
+      "description": "Recent personal-data breaches in Japan, with the date, number of records, data exposed, cause and a source link for each.",
+      "about": "A list of recently announced personal-data breaches in Japan, with the date, number of records, data exposed and cause. Each entry links to its original report or announcement.",
+      "keywords": "data breach Japan personal information leak unauthorized access 2026",
+      "intro": "Personal-data breaches announced recently in Japan. You can also sort them by size.",
+      "asOf": "As of {date}",
+      "sort": "Sort by",
+      "sortDate": "Newest",
+      "sortCount": "Most records",
+      "data": "Data exposed",
+      "cause": "Cause",
+      "source": "View source",
+      "jaOnly": "(Incident descriptions are in Japanese only.)",
+      "advice": "If you may be affected, check the company's notice, and change any password you reuse on other services."
+    },
     "age": {
       "title": "Birth Year Lookup",
       "description": "Enter your age to find the year you were born, in both the Western and Japanese era calendars.",

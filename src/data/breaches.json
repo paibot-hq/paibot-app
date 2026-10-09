@@ -1,0 +1,83 @@
+{
+  "asOf": "2026-10-09",
+  "note": "各社・各機関の公表と報道にもとづく。件数は「最大」「可能性」を含む公表値で、調査が進むと変わることがある。",
+  "items": [
+    {
+      "id": "bookoff",
+      "date": "2026-10-09",
+      "name": "ブックオフグループホールディングス",
+      "count": 6430000,
+      "countNote": "最大約643万件(会員番号ベース)",
+      "data": "氏名、生年月日、性別、メールアドレス、電話番号、住所、パスワードのハッシュ値、ポイントカード番号、会員番号",
+      "cause": "子会社の会員管理システムへの不正アクセス(脆弱性)",
+      "note": "クレジットカードなどの決済情報は含まれないとしている。10月6日に確認。",
+      "url": "https://www.itmedia.co.jp/news/article/2610/09/2000002150/"
+    },
+    {
+      "id": "times-car",
+      "date": "2026-09-28",
+      "name": "タイムズモビリティ(タイムズカー)",
+      "count": 6600000,
+      "countNote": "約660万アカウント",
+      "data": "氏名、住所、生年月日、電話番号、メールアドレス、運転免許情報と免許証画像、パスワード、連携サービスID",
+      "cause": "Webシステムへの不正アクセス",
+      "note": "9月25日に検知し、26日までに侵入経路と攻撃元との通信を遮断した。",
+      "url": "https://www.watch.impress.co.jp/docs/news/2143794.html"
+    },
+    {
+      "id": "digital-agency",
+      "date": "2026-09-11",
+      "name": "デジタル庁(ガバメントソリューションサービス)",
+      "count": 246000,
+      "countNote": "約24.6万件(漏えいの可能性)",
+      "data": "氏名、メールアドレス、電話番号、住所",
+      "cause": "VPN機器の脆弱性を突いた不正アクセス",
+      "note": "対象は利用機関の職員や業務に関わった事業者・個人などで、一般の国民の情報は含まれないとしている。",
+      "url": "https://atmarkit.itmedia.co.jp/ait/articles/2609/14/news038.html"
+    },
+    {
+      "id": "japan-post-app",
+      "date": "2026-09-29",
+      "name": "日本郵政・日本郵便(郵便局アプリ・ゆうID)",
+      "count": 19,
+      "countNote": "19名分・69件",
+      "data": "ゆうID会員情報、住所録、送り状情報",
+      "cause": "外部からの不正アクセス",
+      "note": "",
+      "url": "https://rocket-boys.co.jp/security-measures-lab/japan-post-app-yu-id-unauthorized-access-19-users/"
+    },
+    {
+      "id": "rizap",
+      "date": "2026-09-03",
+      "name": "RIZAP",
+      "count": 19996,
+      "countNote": "19,996名",
+      "data": "住所、電話番号、疾患情報(高血圧症・糖尿病など)",
+      "cause": "従業員が外部の生成AIにデータを入力した",
+      "note": "",
+      "url": "https://rocket-boys.co.jp/security-measures-lab/rizap-employee-ihi-ai-upload-incident/"
+    },
+    {
+      "id": "aflac",
+      "date": "2026-06-30",
+      "name": "アフラック生命保険",
+      "count": 4400000,
+      "countNote": "約440万人(うち約22万人は保険料振替口座情報を含む)",
+      "data": "契約者・被保険者の氏名、生年月日、性別、住所、電話番号、証券番号、保障内容など",
+      "cause": "不正アクセス(短時間の大量照会を監視・制御する機能が不足)",
+      "note": "6月30日に約438万人と公表し、7月13日に約440万人へ更新。7月31日に金融庁へ調査結果と再発防止策を報告。",
+      "url": "https://scan.netsecurity.ne.jp/article/2026/07/28/55795.html"
+    },
+    {
+      "id": "kddi-mail",
+      "date": "2026-06-23",
+      "name": "KDDI(ISP事業者向けメールシステム)",
+      "count": 14220000,
+      "countNote": "最大1,422万件(7月6日時点で約1,223万人分のアドレス、うち約762万人分のパスワード)",
+      "data": "メールアドレス、パスワード",
+      "cause": "システムで利用していた第三者製ソフトウェアの脆弱性を悪用した不正アクセス",
+      "note": "対象は、ピカラ、CPI、J:COM NET、コミュファ光、@nifty、BIGLOBE などのメール。6月17日に確認。",
+      "url": "https://atmarkit.itmedia.co.jp/ait/articles/2606/25/news036.html"
+    }
+  ]
+}
