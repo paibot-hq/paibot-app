@@ -1306,6 +1306,25 @@
       "soundOn": "Sound: on",
       "soundOff": "Sound: off"
     },
+    "puchi": {
+      "title": "Bubble Pop",
+      "description": "A satisfying bubble-wrap game. Pop in a row for a combo and the sound climbs; gold bubbles set off the ones around them and a rainbow bubble pops the whole sheet at once.",
+      "about": "A small game of popping a sheet of bubble wrap. Tap or swipe to pop; the longer your streak, the higher the sound climbs. Gold bubbles set off their neighbours, a rainbow bubble pops the whole sheet, and clearing the sheet gives a bonus.",
+      "keywords": "bubble wrap pop game stress relief combo satisfying",
+      "intro": "Tap or swipe across the bubbles to pop them. Pop in quick succession for a combo - the sound climbs with it. Gold bubbles set off the ones around them, and a rainbow bubble pops the whole sheet.",
+      "score": "Score",
+      "pops": "Popped",
+      "remaining": "Left",
+      "best": "Best combo",
+      "combo": "combo",
+      "milestone": "{count} combo!",
+      "canvasLabel": "A sheet of bubbles. Tap or swipe to pop them. Space or Enter pops one at a time",
+      "sound": "Sound",
+      "on": "on",
+      "off": "off",
+      "newSheet": "New sheet",
+      "hint": "Holding Space or Enter pops them too."
+    },
     "fireworks": {
       "title": "Fireworks",
       "description": "A fireworks simulator. Tap the night sky to launch shells, and choose the kind, size, colour, wind and viewing distance. Watch a whole festival with a starmine, a Niagara and a finale.",

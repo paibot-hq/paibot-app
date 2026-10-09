@@ -1,0 +1,16 @@
+.hud { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; width: min(560px, 100%); margin: .6rem auto; text-align: center; }
+.hud div { padding: .35rem .25rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.hud dt { color: var(--muted); font-size: .72rem; }
+.hud dd { margin: 0; font-size: 1.15rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stage { position: relative; width: min(560px, 100%); margin: 0 auto; }
+.canvas { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 14px; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; cursor: pointer; }
+.canvas:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+/* The combo sits over the sheet's corner and does not catch the pointer, so that it never gets in the way of the popping. */
+.combo { position: absolute; top: .5rem; left: .75rem; z-index: 1; pointer-events: none; min-height: 3rem; }
+.comboNumber { display: inline-flex; align-items: baseline; gap: .3rem; color: #fff; font-size: 2.6rem; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; text-shadow: 0 2px 0 rgba(20, 60, 120, .55), 0 0 12px rgba(20, 60, 120, .45); animation: pulse .22s ease-out; }
+.comboNumber small { font-size: .9rem; font-weight: 700; }
+@keyframes pulse { from { transform: scale(1.5); } to { transform: scale(1); } }
+.buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; margin: .8rem 0 .3rem; }
+.hint { margin: 0; color: var(--muted); font-size: .8rem; text-align: center; }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+@media (prefers-reduced-motion: reduce) { .comboNumber { animation: none; } }
