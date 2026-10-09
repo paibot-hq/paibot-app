@@ -78,3 +78,14 @@ resource "cloudflare_dns_record" "google_workspace_spf" {
   ttl     = 300
   comment = "Managed by Terraform (infra/dns.tf) - SPF for Google Workspace"
 }
+
+# DKIM for Google Workspace: the public key of the signature Google puts on mail sent from paibot.app (made in the Admin console, "Authenticate email").
+# A TXT string is at most 255 characters and the key is longer, so the value is written as two quoted strings, which resolvers join into one.
+resource "cloudflare_dns_record" "google_workspace_dkim" {
+  zone_id = local.zone_id
+  name    = "google._domainkey.paibot.app"
+  type    = "TXT"
+  content = "\"v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvbZvU3VYRFPPF2py+tB2MkcpVmn1li4UNyYICDCIbQzHUEHim1ASyERiJs7QYdCAlKBcnYMRGSaZxlZ5s04gsY+62M4H6t1ovzA978Rg+3TjPJEPgAuZ+SukpT9S1i+nDzz9pmNIMpKotcdv1Kj6Ydw84yUJef0XlA/i3/BRABfV3x777w7jjt+4Uym0\" \"Hxqebh7K6LUWDTTS3x8nm1uZUsDqgn07Q+5ytVt2Jx/bXB9yKRtQ8yr7hznGShCS6BBpJt05vhY0J0Kkm16hIUVDn4OsI/Wc8WJrCQpTcLxfENtZUPSKUq8hUlPOmGB4+Y16Io/W+yx2evnqf4DlB1wcGwIDAQAB\""
+  ttl     = 300
+  comment = "Managed by Terraform (infra/dns.tf) - DKIM for Google Workspace"
+}
