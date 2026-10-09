@@ -29,6 +29,19 @@ resource "cloudflare_dns_record" "clerk" {
   comment = "Managed by Terraform (infra/dns.tf) - Clerk production instance"
 }
 
+# DMARC: what a receiving mail server should do with mail from paibot.app that fails SPF and DKIM. "p=none" only watches: nothing is rejected or sent to
+# spam because of it, so it is safe to start with. It can be tightened (p=quarantine, then p=reject) once reports show that all the mail that should pass does.
+# No report address (rua) is set yet, so no reports are sent; add one (mailto:...) to see who sends mail as paibot.app.
+resource "cloudflare_dns_record" "dmarc" {
+  zone_id = local.zone_id
+  name    = "_dmarc.paibot.app"
+  type    = "TXT"
+  # In quotes, as the API returns TXT content (see google_workspace_spf).
+  content = "\"v=DMARC1; p=none\""
+  ttl     = 1 # "Auto"
+  comment = "Managed by Terraform (infra/dns.tf) - DMARC, monitoring only"
+}
+
 # Proxied (not DNS-only) so infra/redirects.tf's Redirect Rule — which only
 # runs on traffic actually passing through Cloudflare — can catch it and
 # send visitors to the apex. CNAME-to-apex is fine here: Cloudflare
