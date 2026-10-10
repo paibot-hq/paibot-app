@@ -111,14 +111,17 @@ export default function MathUnitTable({ playable, done: finished }: { playable: 
   };
 
   return <>
-    {resume && <Link href={`/math/${resume.unit}/${resume.item}/${resume.set}`} className={styles.resume} data-math-resume>
-      <span className={styles.resumeLabel}>{t('quiz.resume')}</span>
-      <span>{resumeItem}{resumeSeveral && ` ${t('quiz.practice', { number: resume.set })}`}</span>
-    </Link>}
-    <Link href="/math/test" className={styles.testEntry} data-math-test-entry>
-      <span className={styles.testName}>{t('test.entry')}</span>
-      <span className={styles.testNote}>{t('test.entryNote')}</span>
-    </Link>
+    {/* The two ways in besides the list: back to the set last opened (once there is one), and the tests. */}
+    <div className={styles.shortcuts}>
+      {resume && <Link href={`/math/${resume.unit}/${resume.item}/${resume.set}`} className={styles.resume} data-math-resume>
+        <span className={styles.shortcutLabel}>{t('quiz.resume')}</span>
+        <span className={styles.shortcutName}>{resumeItem}{resumeSeveral && ` ${t('quiz.practice', { number: resume.set })}`}</span>
+      </Link>}
+      <Link href="/math/test" className={styles.testEntry} data-math-test-entry>
+        <span className={styles.shortcutLabel}>{t('test.entryNote')}</span>
+        <span className={styles.shortcutName}>{t('test.entry')}</span>
+      </Link>
+    </div>
     <div className={styles.views} role="group" aria-label={t('unitList.views')}>
       {VIEWS.map(v => <button key={v} type="button" className={styles.view} aria-pressed={!filtering && view === v} data-math-view={v} onClick={() => choose(v)}>
         {v === 'areas' ? t('unitList.byArea') : t(`stages.${v}`)}
@@ -144,11 +147,6 @@ export default function MathUnitTable({ playable, done: finished }: { playable: 
           {t('unitList.playableOnly')}
         </label>
       </div>
-      {!filtering && view === 'areas' && (
-        <button type="button" className={styles.chip} onClick={() => remember(opened.size >= MATH_DOMAINS.length ? new Set() : new Set(MATH_DOMAINS))} data-math-list="toggle-all">
-          {opened.size >= MATH_DOMAINS.length ? t('unitList.closeAll') : t('unitList.openAll')}
-        </button>
-      )}
     </div>
     {filtering && <h2 className={styles.resultsHeading}>{t('unitList.results')}</h2>}
     {level && <p className={styles.note}>

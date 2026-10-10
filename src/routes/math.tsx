@@ -16,8 +16,7 @@ export default function Math({ loaderData }: Route.ComponentProps) {
   const locale = useLocale();
   const t = useTranslations('App.math');
   return <><PublicHead locale={locale} path="/math" title={`${t('title')} | PAIBOT`} description={t('description')} />
-    <ToolLayout title={t('title')} centerTitle>
-      <p>{t('intro')}</p>
+    <ToolLayout title={t('title')} centerTitle compact>
       <MathUnitTable playable={loaderData.playable} done={loaderData.done} />
     </ToolLayout>
   </>;
