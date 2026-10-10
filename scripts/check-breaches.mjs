@@ -88,6 +88,14 @@ await pool(items, 5, async item => {
   }
 });
 
+// The advisories' links: a dead one is a failure, a block is a warning.
+for (const advisory of data.advisories ?? []) {
+  if (only) break;
+  const page = await load(advisory.url);
+  if (page.status === 404 || page.status === 410 || page.status === 0) { console.log(`FAIL advisory ${advisory.url} -> ${page.status || page.error}`); process.exitCode = 1; }
+  else if (!(page.status >= 200 && page.status < 300)) console.log(`WARN advisory ${advisory.url} -> ${page.status} (blocked or server error; check by hand)`);
+}
+
 let fails = 0, warns = 0;
 for (const item of items) {
   const { fail, warn, ok } = results.get(item.id);
@@ -98,4 +106,4 @@ for (const item of items) {
   for (const line of warn) console.log(`       WARN ${line}`);
 }
 console.log(`\n${items.length} entries: ${fails} dead links, ${warns} warnings.`);
-process.exit(fails || (flag('strict') && warns) ? 1 : 0);
+process.exit(fails || process.exitCode || (flag('strict') && warns) ? 1 : 0);

@@ -552,6 +552,7 @@
       "about": "A list of cyber incidents announced in Japan in 2026: data breaches, ransomware, outages and fraud. Filter by type and search by name; each entry has its sources and says how well it was checked.",
       "keywords": "cyber attack data breach Japan ransomware unauthorized access 2026",
       "intro": "Cyber incidents announced in Japan in 2026. Filter by type and search by name.",
+      "advisoriesTitle": "Government advisories",
       "asOf": "As of {date}",
       "sort": "Sort by",
       "sortDate": "Newest",

@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-09",
+ "asOf": "2026-10-10",
  "note": "各社・各機関の公表と報道にもとづく。件数は「最大」「可能性」を含む公表値で、調査が進むと変わることがある。出典どうしで日付や件数が食い違う場合は、備考に書いた。",
  "items": [
   {
@@ -127,38 +127,53 @@
    "date": "2026-10-08",
    "name": "ユーザベース(NewsPicks)",
    "type": "leak",
-   "count": null,
-   "countNote": "人数は調査中",
+   "count": 362000,
+   "countNote": "項目別(重複を含む可能性): メールアドレス約32万3,000件、クレジットカード情報の一部 約36万2,000件、役職情報 27万3,000件、氏名5万9,000件など(10月9日の第二報)",
    "data": "氏名、勤務先、メールアドレス、住所、電話番号、クレジットカード名義、カード番号の下3桁または下4桁など",
-   "cause": "業務で使う管理ツールへの不正アクセス",
-   "note": "10月8日12時48分に検知した。",
+   "cause": "業務で利用する管理ツールの脆弱性を突いた不正アクセス",
+   "note": "10月8日12時48分に検知。第二報で項目別の件数を公表した(初めの報道の「最大117万件」は、重複を考慮しない数値だったため訂正された)。カード番号の全体とセキュリティコードは対象外。",
    "verification": "official",
    "sources": [
     {
      "name": "NewsPicks(お詫びとお知らせ)",
-     "url": "https://newspicks.com/news/17661120/",
+     "url": "https://corp.newspicks.com/info/20261008",
      "kind": "official"
     },
     {
-     "name": "ITmedia ビジネス",
+     "name": "ITmedia NEWS(第二報)",
+     "url": "https://www.itmedia.co.jp/news/article/2610/09/2000002175/",
+     "kind": "press"
+    },
+    {
+     "name": "ITmedia ビジネス(第一報)",
      "url": "https://www.itmedia.co.jp/business/articles/2610/08/news105.html",
      "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab(第二報)",
+     "url": "https://rocket-boys.co.jp/security-measures-lab/newspicks_uzabase_admin_tool_unauthorized_access-2/",
+     "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-10"
   },
   {
    "id": "commune",
    "date": "2026-10-08",
    "name": "コミューン(Commune)を使うコミュニティサイト",
    "type": "leak",
-   "count": null,
-   "countNote": "VALX FUN 約2,950名。青森県「青森びいき」、ウイングアーク1st「nest Portal」にも波及",
-   "data": "メールアドレス、ニックネーム、アカウント名、任意のプロフィール、ポイントなど",
-   "cause": "Communeの不備を突いた管理者へのなりすまし(10月6日)",
-   "note": "",
+   "count": 307000,
+   "countNote": "約30万7,000人(メールアドレスを含む約12万6,000人)。VALX FUN 約2,950名、青森県「青森びいき」、ウイングアーク1st「nest Portal」にも波及",
+   "data": "メールアドレス、表示名、自己紹介、非公開グループへの所属など(項目は会員・コミュニティで異なる)",
+   "cause": "非公開コミュニティの招待リンクを不正に取得して会員登録し、管理者になりすまして会員情報を閲覧・取得(10月6日)",
+   "note": "10月9日にコミューンが影響範囲を公表した。",
    "verification": "official",
    "sources": [
+    {
+     "name": "コミューン(お知らせ)",
+     "url": "https://communeinc.com/ja/news/2026oct09",
+     "kind": "official"
+    },
     {
      "name": "ウイングアーク1st(nest Portal)",
      "url": "https://corp.wingarc.com/public/202610/news3042.html",
@@ -175,7 +190,7 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-10"
   },
   {
    "id": "skyticket",
@@ -183,19 +198,24 @@
    "name": "skyticket",
    "type": "leak",
    "count": null,
-   "countNote": "規模は未公表",
-   "data": "氏名、連絡先、ハッシュ化パスワード、銀行口座情報",
-   "cause": "不正アクセス",
-   "note": "公式発表は確認できていない。",
-   "verification": "single",
+   "countNote": "対象人数は未公表",
+   "data": "氏名、生年月日、メールアドレス、電話番号、住所、ハッシュ化されたログインパスワード、銀行口座情報(金融機関・支店・口座種別・口座番号・名義)、振込依頼人名義",
+   "cause": "サーバーの一部への不正アクセス(脆弱性が修正された)",
+   "note": "10月7日18時ごろに保存済みカードでの決済を停止し、8日から対象者へ個別に通知した。クレジットカード情報は流出していないとしている。",
+   "verification": "official",
    "sources": [
+    {
+     "name": "アドベンチャー(お詫びとお知らせ)",
+     "url": "https://jp.adventurekk.com/news/apology-unauthorized-access-data-leak/",
+     "kind": "official"
+    },
     {
      "name": "セキュリティ対策Lab",
      "url": "https://rocket-boys.co.jp/security-measures-lab/skyticket_account_breach_notification_reset_error/",
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-10"
   },
   {
    "id": "idcf-cloud",
@@ -206,7 +226,7 @@
    "countNote": "495の企業・自治体に影響",
    "data": "",
    "cause": "ランサムウェア攻撃(10月7日3時40分ごろ、東日本リージョン1)",
-   "note": "ネットワークから切り離して調査中。日水物流など多くの顧客の業務が止まった。",
+   "note": "ネットワークから切り離して調査中。4つのゾーン(tesla、henry、pascal、joule)の顧客データは取り出し・復元が難しく、自社のバックアップから別の環境へ再構築している。日水物流、茨城県、小平市などに影響した。",
    "verification": "official",
    "sources": [
     {
@@ -223,9 +243,19 @@
      "name": "マイナビニュース",
      "url": "https://news.mynavi.jp/techplus/article/20261008-5095937/",
      "kind": "press"
+    },
+    {
+     "name": "ITmedia NEWS",
+     "url": "https://www.itmedia.co.jp/news/article/2610/07/2000002107/",
+     "kind": "press"
+    },
+    {
+     "name": "Impress Watch",
+     "url": "https://www.watch.impress.co.jp/docs/news/2146693.html",
+     "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-10"
   },
   {
    "id": "nissui-logistics",
@@ -426,7 +456,7 @@
    "countNote": "13万人分の個人情報を保管するシステムが被害(流出したかは調査中)",
    "data": "氏名、住所、電話番号、メールアドレスなど",
    "cause": "ランサムウェア(10月2日未明、約500台のサーバーが停止)",
-   "note": "授業は10月8日まで休講。復旧のめどは立っていないと報じられた。",
+   "note": "10月8日の第4報で、10月9日から全キャンパスで対面授業を再開すると発表した。学内メール(OMUメール)は一部復旧したが、システム全体の復旧時期は未定で、個人情報が流出したかの調査も続いている。",
    "verification": "reported",
    "sources": [
     {
@@ -438,9 +468,14 @@
      "name": "Innovatopia",
      "url": "https://innovatopia.jp/cyber-security/cyber-security-news/118599/",
      "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab(第4報)",
+     "url": "https://rocket-boys.co.jp/?p=42984",
+     "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-10"
   },
   {
    "id": "daiwa-securities",
@@ -1186,6 +1221,36 @@
     }
    ],
    "checkedAt": "2026-10-09"
+  },
+  {
+   "id": "docomo-amazon",
+   "date": "2026-09-16",
+   "name": "NTTドコモ(Amazonへの情報の無断提供)",
+   "type": "leak",
+   "count": 344213,
+   "countNote": "344,213回線(約34万人分)",
+   "data": "電話番号と、契約している料金プランの名前(氏名・住所・カード情報・パスワードは含まれない)",
+   "cause": "契約の申し込み画面の設定の誤り(2月の同意文の見直しで、Amazonへの提供についての同意の項目を誤って削除した)",
+   "note": "対象は、2026年4月21日〜8月20日にオンラインで「ドコモ MAX」「ポイ活 MAX」「ポイ活 20」「ドコモ mini」を申し込んだ人。Amazon側でデータは削除され、利用されていないとしている。",
+   "verification": "single",
+   "checkedAt": "2026-10-10",
+   "sources": [
+    {
+     "name": "熊本日日新聞(共同通信)",
+     "url": "https://kumanichi.com/articles/2036371",
+     "kind": "press"
+    },
+    {
+     "name": "セレクトラ",
+     "url": "https://selectra.jp/telecom/news/docomo-amazon-data-provision-20260916",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=40856",
+     "kind": "aggregator"
+    }
+   ]
   },
   {
    "id": "muraucchi",
@@ -3246,6 +3311,26 @@
     }
    ],
    "checkedAt": "2026-10-09"
+  }
+ ],
+ "advisories": [
+  {
+   "date": "2026-10-09",
+   "name": "内閣官房 国家サイバー統括室",
+   "title": "不正アクセスによる漏えい等の事案を踏まえた対応について",
+   "url": "https://www.cyber.go.jp/pdf/press/taiou.pdf"
+  },
+  {
+   "date": "2026-10-09",
+   "name": "経済産業省",
+   "title": "不正アクセスによる情報漏えい等の事案を踏まえた注意喚起及び情報提供に係る協力依頼",
+   "url": "https://www.meti.go.jp/policy/netsecurity/pdf/20261009_chuuikanki.pdf"
+  },
+  {
+   "date": "2026-10-07",
+   "name": "個人情報保護委員会",
+   "title": "大規模な漏えい事案を受けた注意喚起(安全管理措置の見直し案を先行提示)",
+   "url": "https://www.ppc.go.jp/news/press/2026/261007_houdou"
   }
  ]
 }

@@ -14,12 +14,21 @@ export default async function ({ page, main, go }) {
   await main.getByRole('button', { name: 'Most records', exact: true }).click();
   assert.equal(await cards.first().getAttribute('data-breach'), 'gyazo', 'largest first');
 
+  // The government advisories are shown above the list (only while nothing is filtered), with links that open safely.
+  const advisories = main.locator('[data-breaches="advisories"]');
+  assert.ok(await advisories.locator('li').count() >= 1, 'the advisories are listed');
+  for (const link of await advisories.locator('a').all()) {
+    assert.match(await link.getAttribute('href'), /^https:\/\//);
+    assert.match(await link.getAttribute('rel'), /noopener/);
+  }
+
   // A type narrows the list to it.
   const all = await cards.count();
   await main.locator('button[data-kind="ransomware"]').click();
   const ransomware = await cards.count();
   assert.ok(ransomware > 0 && ransomware < all, 'ransomware is a part of the list');
   assert.equal(await main.locator('[data-breach] [data-kind]:not([data-kind="ransomware"])').count(), 0);
+  assert.equal(await advisories.count(), 0, 'not while a filter is on');
 
   // The statistics are a tab of their own, the address keeps it, and they follow the filters: a column for every month (the axis does not move), a
   // dot for every incident with a published count, a tooltip on hover and on keyboard focus, and a table with the same numbers.

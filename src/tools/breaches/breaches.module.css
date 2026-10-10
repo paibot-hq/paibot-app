@@ -32,3 +32,10 @@
 .tab { padding: .4rem 1.2rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--muted); font: inherit; cursor: pointer; }
 .tab[aria-selected="true"] { border-color: var(--accent); color: var(--text); background: color-mix(in srgb, var(--accent) 14%, transparent); }
 .tab:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.advisories { width: min(720px, 100%); margin: 0 0 1rem; padding: .7rem .9rem; border: 1px solid var(--line); border-left: 4px solid var(--accent); border-radius: var(--radius); background: var(--surface); }
+.advisories h2 { margin: 0 0 .4rem; font-size: .9rem; }
+.advisories ul { display: grid; gap: .35rem; margin: 0; padding: 0; list-style: none; }
+.advisories li { display: grid; grid-template-columns: 5.6rem 1fr; gap: .5rem; font-size: .85rem; }
+.advisories time { color: var(--muted); font-variant-numeric: tabular-nums; }
+.advisories a { overflow-wrap: anywhere; }
+@media (max-width: 480px) { .advisories li { grid-template-columns: 1fr; gap: 0; } }

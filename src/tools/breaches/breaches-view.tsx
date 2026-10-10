@@ -21,6 +21,8 @@ type Verification = "official" | "reported" | "single";
 type Item = { id: string; date: string; name: string; type: string; count: number | null; countNote: string; data: string; cause: string; note: string; verification: Verification; checkedAt: string; sources: Source[] };
 const VERIFY_KEYS = { official: "verifyOfficial", reported: "verifyReported", single: "verifySingle" } as const;
 const ITEMS = data.items as Item[];
+type Advisory = { date: string; name: string; title: string; url: string };
+const ADVISORIES = ((data as { advisories?: Advisory[] }).advisories ?? []) as Advisory[];
 const FIRST = ITEMS.reduce((min, item) => (item.date < min ? item.date : min), ITEMS[0].date);
 
 export default function BreachesView() {
@@ -88,6 +90,19 @@ export default function BreachesView() {
       </p>
       {items.length === 0 && <p className={styles.status}>{t("breaches.none")}</p>}
       {tab === "stats" && <BreachesCharts items={items} first={FIRST} until={data.asOf} />}
+      {tab === "list" && ADVISORIES.length > 0 && kind === "all" && verification === "all" && !query.trim() && (
+        <section className={styles.advisories} data-breaches="advisories" aria-label={t("breaches.advisoriesTitle")}>
+          <h2>{t("breaches.advisoriesTitle")}</h2>
+          <ul>
+            {ADVISORIES.map(advisory => (
+              <li key={advisory.url}>
+                <time dateTime={advisory.date}>{advisory.date}</time>
+                <a href={advisory.url} target="_blank" rel="noopener noreferrer" lang="ja"><strong>{advisory.name}</strong> {advisory.title}</a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
       {tab === "list" && <ul className={styles.list}>
         {items.map(item => (
           <li key={item.id} className={styles.card} data-breach={item.id}>

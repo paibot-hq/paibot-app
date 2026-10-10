@@ -52,3 +52,13 @@ test('ids are unique', () => {
   const problems = validateBreaches({ asOf: '2026-10-09', items: [entry({}), entry({})] });
   assert.ok(problems.some(p => /duplicate id/.test(p)));
 });
+
+test('the government advisories need a day that is not in the future, a name, a title and an https link', () => {
+  const advisory = { date: '2026-10-09', name: 'N', title: 'T', url: 'https://example.go.jp/a.pdf' };
+  const run = advisories => validateBreaches({ asOf: '2026-10-09', items: [entry({})], advisories });
+  assert.deepEqual(run([advisory]), []);
+  assert.match(run([{ ...advisory, date: '2026-10-10' }])[0], /not after asOf/);
+  assert.match(run([{ ...advisory, name: '' }])[0], /name and a title/);
+  assert.match(run([{ ...advisory, url: 'http://example.go.jp/a.pdf' }])[0], /https only/);
+  assert.deepEqual(validateBreaches({ asOf: '2026-10-09', items: [entry({})] }), [], 'advisories are optional');
+});
