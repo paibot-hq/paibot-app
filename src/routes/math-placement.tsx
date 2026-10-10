@@ -100,7 +100,8 @@ export default function MathPlacement({ loaderData: { pools, problems } }: Route
   return <>
     <title>{`${title} | PAIBOT`}</title>
     <meta name="robots" content="noindex" />
-    <MathSetQuiz key={pools.flat().join()} title={title} setLabel={tp('setLabel', { count: PLACEMENT_SIZE })} questions={questions} total={PLACEMENT_SIZE}
+    <MathSetQuiz key={pools.flat().join()} title={title} setLabel={tp('setLabel', { count: PLACEMENT_SIZE })} questions={questions} total={PLACEMENT_SIZE} sharePath="/math/test/placement"
+      shareText={(correct, total) => tp('shareText', { level: outcome ? (outcome.top ? tp('resultTop', { level: levelName(outcome.level) }) : tp('resultLevel', { level: levelName(outcome.level) })) : tp('resultBelow'), correct, total })}
       crumbs={crumbs} onAnswered={answered} result={result}
       onRetry={() => { setRun(null); revalidator.revalidate(); }} retryLabel={tp('retry')} />
   </>;

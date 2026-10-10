@@ -2057,7 +2057,10 @@
         "seeResult": "查看结果",
         "nextSet": "下一组练习",
         "resume": "继续",
-        "questionNumber": "第{number}题"
+        "questionNumber": "第{number}题",
+        "share": "分享结果",
+        "shareText": "数学「{title}」答对 {correct}/{total} 题",
+        "copied": "已复制分享用的文字和链接。"
       },
       "arith": {
         "formula": "算式：",
@@ -3992,6 +3995,7 @@
         "resultBelow": "从小学一年级开始",
         "takeTest": "参加{level}测试",
         "challenge": "挑战{level}测试",
+        "shareText": "数学实力测评:{level}(共{total}题答对{correct}题)",
         "retry": "重新测评",
         "entry": "实力测评",
         "entryNote": "{count}道题随答题升降学年,了解你现在的水平"

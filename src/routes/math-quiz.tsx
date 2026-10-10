@@ -47,7 +47,7 @@ export default function MathQuiz({ loaderData: { unitId, itemId, setId, kind, pu
   const nextTitle = next && t(`units.${unitId}.items.${next.item}.title`);
   return <>
     {published ? <PublicHead locale={locale} path={path} title={head} description={t(`units.${unitId}.summary`)} /> : <title>{head}</title>}
-    <MathSetQuiz key={`${path}:${version}`} version={version} current={{ unit: unitId, item: itemId, set: setId }}
+    <MathSetQuiz key={`${path}:${version}`} version={version} sharePath={path} current={{ unit: unitId, item: itemId, set: setId }}
       next={next && { set: { unit: unitId, item: next.item, set: next.set }, href: `/math/${unitId}/${next.item}/${next.set}`, label: next.several ? `${nextTitle} ${tq('practice', { number: next.set })}` : nextTitle! }}
       title={t(`units.${unitId}.title`)} setLabel={setLabel} questions={questions} crumbs={[{ label: t(`units.${unitId}.title`), href: `/math/${unitId}` }, { label: title, href: `/math/${unitId}/${itemId}` }, { label: tq('practice', { number: setId }) }]} />
   </>;

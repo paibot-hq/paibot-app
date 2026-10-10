@@ -22,9 +22,10 @@ export async function loader({ params }: Route.LoaderArgs) {
   return data({ id: test.id, kind: test.kind, key: test.key, size: testSize(test), problems: problems.map(problem => ({ ...problem, kind: findUnit(problem.unit)?.kind })) }, { headers: noStore });
 }
 
-export default function MathTest({ loaderData: { kind, key, problems } }: Route.ComponentProps) {
+export default function MathTest({ loaderData: { id, kind, key, problems } }: Route.ComponentProps) {
   const t = useTranslations('App.math') as unknown as DynamicT;
   const tt = useTranslations('App.math.test');
+  const tq = useTranslations('App.math.quiz');
   const revalidator = useRevalidator();
   const questions = useMixedMathQuestions(problems).map((question, index) => ({
     ...question, tier: problems[index].tier,
@@ -35,7 +36,7 @@ export default function MathTest({ loaderData: { kind, key, problems } }: Route.
   return <>
     <title>{`${title} | PAIBOT`}</title>
     <meta name="robots" content="noindex" />
-    <MathSetQuiz key={problems.map(problem => problem.id).join()} title={title} setLabel={tt('setLabel', { count: problems.length })} questions={questions}
+    <MathSetQuiz key={problems.map(problem => problem.id).join()} title={title} setLabel={tt('setLabel', { count: problems.length })} questions={questions} sharePath={`/math/test/${id}`} shareText={(correct, total) => tq('shareText', { title, correct, total })}
       crumbs={[{ label: tt('title'), href: '/math/test' }, { label: name }]}
       onRetry={() => revalidator.revalidate()} retryLabel={tt('retry')} />
   </>;

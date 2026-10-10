@@ -1,6 +1,6 @@
 import { useEffect, useState, type ReactNode } from 'react';
 import { useFetcher } from 'react-router';
-import { useTranslations } from 'use-intl';
+import { useLocale, useTranslations } from 'use-intl';
 import { Link } from '../i18n/navigation';
 import { markSetDone } from '../lib/math-local-done';
 import { saveResume, type MathResume } from '../lib/math-resume';
@@ -28,7 +28,7 @@ export interface MathSetQuestion {
 // A signed-in user's finished attempt is posted to the page's own route action
 // (see saveAttemptAction in lib/math-attempts.server.ts), which rescores it.
 // Made for a phone: a tap on a choice is the answer (keys 1-4 on a keyboard), and "Next" appears in the same place.
-export default function MathSetQuiz({ title, setLabel, questions, crumbs, version, current, next, onRetry, retryLabel, total: fixedTotal, onAnswered, result }: {
+export default function MathSetQuiz({ title, setLabel, questions, crumbs, version, current, next, onRetry, retryLabel, total: fixedTotal, onAnswered, result, sharePath, shareText }: {
   title: string; setLabel: string; questions: MathSetQuestion[];
   // Where the set sits: unit > learning item (linked) > the set itself (current).
   crumbs: MathCrumb[];
@@ -45,6 +45,9 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
   total?: number;
   onAnswered?: (index: number, correct: boolean) => void;
   result?: ReactNode;
+  // The page that a shared result links to (where the friend can try the same), and the words, if not "<title>: right / total".
+  sharePath: string;
+  shareText?: (correct: number, total: number) => string;
 }) {
   const t = useTranslations('App.math.quiz');
   const tm = useTranslations('App.math');
@@ -54,6 +57,8 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
   const [finished, setFinished] = useState(false);
   const { signedIn } = useFavoritesData();
   const saver = useFetcher<{ ok: boolean }>();
+  const locale = useLocale();
+  const [shared, setShared] = useState('');
 
   const question = questions[index];
   const total = fixedTotal ?? questions.length;
@@ -81,7 +86,16 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
     setIndex(index + 1);
     setSelected(null);
   }
+  // The phone's share sheet (LINE, X, messages ...), or else the words and the link copied, as the other tools do.
+  async function share() {
+    const text = `${shareText ? shareText(correctCount, total) : t('shareText', { title: setLabel, correct: correctCount, total })}\n${window.location.origin}/${locale}${sharePath}`;
+    try {
+      if (navigator.share) await navigator.share({ text });
+      else { await navigator.clipboard.writeText(text); setShared(t('copied')); }
+    } catch { /* the share sheet was closed */ }
+  }
   function restart() {
+    setShared('');
     if (onRetry) { onRetry(); return; }
     setIndex(0);
     setSelected(null);
@@ -147,6 +161,8 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
         </ol>}
         <div className={styles.resultActions}>
           {perfect ? <>{nextLink}{retryButton}</> : <>{retryButton}{nextLink}</>}
+          <button type="button" className={styles.share} onClick={share} data-math-share>{t('share')}</button>
+          <p className={styles.shared} role="status">{shared}</p>
         </div>
         {current && <p className={styles.saveStatus} role="status">
           {!signedIn ? t('signInToSave')
