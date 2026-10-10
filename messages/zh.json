@@ -634,8 +634,6 @@
         "air": "风",
         "water": "水"
       },
-      "share": "分享结果",
-      "copied": "已复制",
       "shareText": "生日占卜:{sign}・生命灵数{path}・今日运势 {stars}",
       "forget": "清除已保存的出生日期",
       "note": "占卜仅供娱乐。这是根据出生日期和日期计算的参考,并不能预言实际发生的事。星座的分界在不同年份可能相差一天。",
@@ -844,8 +842,6 @@
       "luckyColor": "幸运色",
       "luckyNumber": "幸运数字",
       "again": "再抽一次",
-      "share": "分享结果",
-      "copied": "已复制",
       "shareText": "我抽了御神签:{luck}(第{stick}签)",
       "note": "占卜仅供娱乐,请轻松看待结果。",
       "luck": {
@@ -1662,8 +1658,6 @@
       "ready": "30秒内能拿多少分?连续越多得分越高。",
       "start": "开始",
       "retry": "再来一次",
-      "share": "分享结果",
-      "copied": "已复制",
       "result": "结果",
       "points": "分",
       "newBest": "新纪录!",
@@ -2018,6 +2012,14 @@
       "example": "例如:{value}",
       "postalMark": ""
     },
+    "shareButtons": {
+      "heading": "分享结果",
+      "on": "分享到{network}",
+      "copy": "复制链接",
+      "copied": "已复制分享用的文字和链接。",
+      "copyFailed": "无法复制。",
+      "more": "更多"
+    },
     "math": {
       "title": "数学",
       "description": "从小学到大学，用四选一题练习数学。",
@@ -2057,7 +2059,8 @@
         "seeResult": "查看结果",
         "nextSet": "下一组练习",
         "resume": "继续",
-        "questionNumber": "第{number}题"
+        "questionNumber": "第{number}题",
+        "shareText": "数学「{title}」答对 {correct}/{total} 题"
       },
       "arith": {
         "formula": "算式：",
@@ -3992,6 +3995,7 @@
         "resultBelow": "从小学一年级开始",
         "takeTest": "参加{level}测试",
         "challenge": "挑战{level}测试",
+        "shareText": "数学实力测评:{level}(共{total}题答对{correct}题)",
         "retry": "重新测评",
         "entry": "实力测评",
         "entryNote": "{count}道题随答题升降学年,了解你现在的水平"

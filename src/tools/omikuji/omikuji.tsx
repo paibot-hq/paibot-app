@@ -6,6 +6,7 @@ import ToolLayout from "../../components/tool-layout";
 import controls from "../../components/tool-controls.module.css";
 import styles from "./omikuji.module.css";
 import { CATEGORIES, draw, lineKey, type Fortune } from "./fortune";
+import ShareButtons from "../../components/share-buttons";
 
 // The box is shaken, a stick comes out, and the paper opens: each step is a moment of waiting (none when motion is to be calm).
 const SHAKE_MS = 1300;
@@ -17,7 +18,6 @@ export default function Omikuji() {
   const locale = useLocale();
   const [stage, setStage] = useState<Stage>("idle");
   const [fortune, setFortune] = useState<Fortune | null>(null);
-  const [shared, setShared] = useState("");
   const timers = useRef<number[]>([]);
   const calm = useRef(false);
 
@@ -33,7 +33,6 @@ export default function Omikuji() {
     if (stage === "shaking" || stage === "stick") return;
     const result = draw(Math.random);
     setFortune(result);
-    setShared("");
     timers.current.forEach(window.clearTimeout);
     if (calm.current) { setStage("open"); return; }
     setStage("shaking");
@@ -47,17 +46,8 @@ export default function Omikuji() {
     timers.current.forEach(window.clearTimeout);
     setFortune(null);
     setStage("idle");
-    setShared("");
   }
 
-  async function share() {
-    if (!fortune) return;
-    const text = `${t("shareText", { luck: t(`luck.${fortune.luck}`), stick: fortune.stick })}\n${window.location.origin}/${locale}/omikuji`;
-    try {
-      if (navigator.share) await navigator.share({ text });
-      else { await navigator.clipboard.writeText(text); setShared(t("copied")); }
-    } catch { /* the share sheet was closed */ }
-  }
 
   // The lines are looked up by a key made at run time (lines.<category>.<tone>.<variant>).
   const line = t as unknown as (key: string) => string;
@@ -94,9 +84,8 @@ export default function Omikuji() {
           </p>
           <div className={styles.buttons}>
             <button type="button" className="auth-link" onClick={again} data-omikuji="again">{t("again")}</button>
-            <button type="button" className="auth-link" onClick={share} data-omikuji="share">{t("share")}</button>
           </div>
-          <p className={styles.note} role="status">{shared}</p>
+          <ShareButtons text={t("shareText", { luck: t(`luck.${fortune.luck}`), stick: fortune.stick })} path={`/${locale}/omikuji`} />
         </article>
       )}
       <p className={styles.note}>{t("note")}</p>

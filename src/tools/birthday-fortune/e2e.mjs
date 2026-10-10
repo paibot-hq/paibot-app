@@ -15,6 +15,10 @@ export default async function ({ page, main, go }) {
   assert.equal(await result.locator('[role="img"]').count(), 4, 'stars for four things');
   assert.equal(await result.locator('section').count(), 4, 'today, the cycle, the sign and the life path');
   assert.doesNotMatch(text, /birthdayFortune\.|sign\.|day\.\d|year\.\d/, 'the words are shown, not their keys');
+  // Shared with the sign and a link to the page.
+  const x = new URL(await main.locator('[data-share] [data-network="x"]').getAttribute('href'));
+  assert.match(x.searchParams.get('text'), /Taurus/);
+  assert.match(x.searchParams.get('url'), /\/en\/birthday-fortune$/);
   // The date is kept in this browser: after a reload the reading is back without asking.
   await page.reload();
   await main.locator('[data-fortune="result"]').waitFor();

@@ -634,8 +634,6 @@
         "air": "風",
         "water": "水"
       },
-      "share": "結果を共有",
-      "copied": "コピーしました",
       "shareText": "誕生日占い: {sign}・運命数{path}・今日の運気 {stars}",
       "forget": "保存した生年月日を消す",
       "note": "占いはお楽しみのためのものです。生年月日と日付から計算した目安で、実際の出来事を言い当てるものではありません。星座の境目は、年によって1日ほどずれることがあります。",
@@ -844,8 +842,6 @@
       "luckyColor": "ラッキーカラー",
       "luckyNumber": "ラッキーナンバー",
       "again": "もう一度引く",
-      "share": "結果を共有",
-      "copied": "コピーしました",
       "shareText": "おみくじを引きました: {luck}(第{stick}番)",
       "note": "占いはお楽しみのためのものです。結果は気楽に受け止めてください。",
       "luck": {
@@ -1662,8 +1658,6 @@
       "ready": "30秒でどれだけ稼げる? 続けてつぶすほど得点が伸びます。",
       "start": "スタート",
       "retry": "もう一度",
-      "share": "結果を共有",
-      "copied": "コピーしました",
       "result": "結果",
       "points": "点",
       "newBest": "ベスト更新!",
@@ -2018,6 +2012,14 @@
       "example": "例: {value}",
       "postalMark": "〒"
     },
+    "shareButtons": {
+      "heading": "結果を共有",
+      "on": "{network}で共有",
+      "copy": "リンクをコピー",
+      "copied": "共有用の文とリンクをコピーしました。",
+      "copyFailed": "コピーできませんでした。",
+      "more": "その他"
+    },
     "math": {
       "title": "数学",
       "description": "小学校から大学まで、4択で基礎から学べる数学の練習問題。",
@@ -2057,7 +2059,8 @@
         "seeResult": "結果を見る",
         "nextSet": "次の練習へ",
         "resume": "続きから",
-        "questionNumber": "{number}問目"
+        "questionNumber": "{number}問目",
+        "shareText": "数学「{title}」で {correct}/{total} 正解しました"
       },
       "arith": {
         "formula": "式：",
@@ -3992,6 +3995,7 @@
         "resultBelow": "小1から",
         "takeTest": "{level}のテストを受ける",
         "challenge": "{level}のテストに挑戦",
+        "shareText": "数学の実力判定: {level}（{total}問中{correct}問正解）",
         "retry": "もう一度判定する",
         "entry": "実力判定テスト",
         "entryNote": "答えに合わせて学年が上下する{count}問で、今の実力の目安がわかります"

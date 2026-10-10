@@ -8,6 +8,7 @@ import styles from "./puchi.module.css";
 import { playClear, playEnd, playGo, playMilestone, playPop, playTick } from "./audio";
 import { begin, createScene, indexAt, prepare, press, pressNext, rankFor, resize, step, TIME_LIMIT, type Phase, type Scene, type Sound } from "./engine";
 import { drawFrame } from "./render";
+import ShareButtons from "../../components/share-buttons";
 
 const MAX_SOUNDS_PER_FRAME = 6;
 const STORAGE = "puchi:v3";
@@ -42,7 +43,6 @@ export default function Puchi() {
   const [sound, setSound] = useState(true);
   const [view, setView] = useState<View>({ score: 0, combo: 0, best: 0, milestone: 0, phase: "ready", countdown: 3, timeLeft: TIME_LIMIT });
   const [result, setResult] = useState<Result | null>(null);
-  const [shared, setShared] = useState("");
   soundRef.current = sound;
 
   useEffect(() => {
@@ -139,7 +139,7 @@ export default function Puchi() {
 
   function start() {
     wake();
-    setResult(null); setShared("");
+    setResult(null);
     if (sceneRef.current.phase === "over") prepare(sceneRef.current, Math.random);
     begin(sceneRef.current);
   }
@@ -188,14 +188,6 @@ export default function Puchi() {
     save({ best: savedRef.current.best, sound: next });
   }
 
-  async function share() {
-    if (!result) return;
-    const text = `${t("shareText", { score: result.score.toLocaleString(), rank: result.rank, combo: result.combo })}\n${window.location.origin}/${locale}/puchi`;
-    try {
-      if (navigator.share) await navigator.share({ text });
-      else { await navigator.clipboard.writeText(text); setShared(t("copied")); }
-    } catch { /* the share sheet was closed */ }
-  }
 
   const overlay = view.phase !== "playing";
 
@@ -240,13 +232,13 @@ export default function Puchi() {
             <p className={styles.detail}>{t("pops")} {result.pops} · {t("maxCombo")} {result.combo}</p>
             <div className={styles.buttons}>
               <button type="button" className={`auth-link ${styles.big}`} onClick={start} data-puchi="retry" autoFocus>{t("retry")}</button>
-              <button type="button" className="auth-link" onClick={share} data-puchi="share">{t("share")}</button>
             </div>
-            <p className={styles.detail} role="status">{shared}</p>
           </div>
         )}
         <p className={styles.visuallyHidden} role="status" aria-live="polite">{view.milestone ? t("milestone", { count: view.milestone }) : ""}</p>
       </div>
+      {/* Under the board, not on it: the result on the board has no room for them. */}
+      {view.phase === "over" && result && <ShareButtons text={t("shareText", { score: result.score.toLocaleString(), rank: result.rank, combo: result.combo })} path={`/${locale}/puchi`} />}
       <ul className={styles.legend}>
         <li><span className={styles.swatch} data-kind="gold" aria-hidden="true" />{t("legendGold")}</li>
         <li><span className={styles.swatch} data-kind="rainbow" aria-hidden="true" />{t("legendRainbow")}</li>

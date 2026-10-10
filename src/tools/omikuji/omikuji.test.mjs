@@ -71,6 +71,6 @@ test('every word the page asks for is in the messages of all three languages', (
         text(key.split('.').reduce((node, part) => node?.[part], messages), `${locale} ${key}`);
       }
     }
-    for (const key of ['title', 'description', 'about', 'keywords', 'intro', 'prompt', 'shaking', 'stickOut', 'result', 'number', 'luckyColor', 'luckyNumber', 'again', 'share', 'copied', 'shareText', 'note', 'boxText', 'boxLabel']) text(messages[key], `${locale} ${key}`);
+    for (const key of ['title', 'description', 'about', 'keywords', 'intro', 'prompt', 'shaking', 'stickOut', 'result', 'number', 'luckyColor', 'luckyNumber', 'again', 'shareText', 'note', 'boxText', 'boxLabel']) text(messages[key], `${locale} ${key}`);
   }
 });

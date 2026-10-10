@@ -7,6 +7,7 @@ import ToolLayout from "../../components/tool-layout";
 import controls from "../../components/tool-controls.module.css";
 import styles from "./birthday-fortune.module.css";
 import { read, validDate, type Reading, type YMD } from "./reading";
+import ShareButtons from "../../components/share-buttons";
 
 const STORAGE = "birthday-fortune:v1";
 const STAR_ROWS = ["overall", "love", "work", "money"] as const;
@@ -35,7 +36,6 @@ export default function BirthdayFortune({ profileBirth, signedIn }: { profileBir
   const [birth, setBirth] = useState(profileBirth ?? "");
   const [shown, setShown] = useState<{ birth: YMD; today: YMD; reading: Reading } | null>(null);
   const [error, setError] = useState(false);
-  const [shared, setShared] = useState("");
   const now = today();
 
   // The date registered in the profile comes first. Without one, the date kept in this browser (if any) is used, so that the page can show today's
@@ -53,7 +53,7 @@ export default function BirthdayFortune({ profileBirth, signedIn }: { profileBir
     event.preventDefault();
     const date = parse(birth);
     if (!date || !validDate(date, today())) { setError(true); setShown(null); return; }
-    setError(false); setShared("");
+    setError(false);
     // With a date in the profile, a change here is for this visit only: the profile is the one place that writes it.
     if (!profileBirth) { try { window.localStorage.setItem(STORAGE, toText(date)); } catch { /* storage blocked */ } }
     setShown({ birth: date, today: today(), reading: read(date, today()) });
@@ -61,18 +61,9 @@ export default function BirthdayFortune({ profileBirth, signedIn }: { profileBir
 
   function forget() {
     try { window.localStorage.removeItem(STORAGE); } catch { /* storage blocked */ }
-    setBirth(""); setShown(null); setShared("");
+    setBirth(""); setShown(null);
   }
 
-  async function share() {
-    if (!shown) return;
-    const r = shown.reading;
-    const text = `${t("shareText", { sign: word(`sign.${r.sign}.name`), path: r.lifePath, stars: "★".repeat(r.stars.overall) })}\n${window.location.origin}/${locale}/birthday-fortune`;
-    try {
-      if (navigator.share) await navigator.share({ text });
-      else { await navigator.clipboard.writeText(text); setShared(t("copied")); }
-    } catch { /* the share sheet was closed */ }
-  }
 
   const r = shown?.reading;
   const note = profileBirth
@@ -120,10 +111,9 @@ export default function BirthdayFortune({ profileBirth, signedIn }: { profileBir
             <p>{word(`lifePath.${r.lifePath}.text`)}</p>
           </section>
           <div className={styles.buttons}>
-            <button type="button" className="auth-link" onClick={share} data-fortune="share">{t("share")}</button>
             {!profileBirth && <button type="button" className="auth-link" onClick={forget} data-fortune="forget">{t("forget")}</button>}
           </div>
-          <p className={styles.note} role="status">{shared}</p>
+          <ShareButtons text={t("shareText", { sign: word(`sign.${r.sign}.name`), path: r.lifePath, stars: "★".repeat(r.stars.overall) })} path={`/${locale}/birthday-fortune`} />
         </div>
       )}
       <p className={styles.note}>{t("note")}</p>

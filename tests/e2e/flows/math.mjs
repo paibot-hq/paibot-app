@@ -139,6 +139,23 @@ export default async function ({ page, main, base, go, errors }) {
   await main.getByText(/^\d \/ 5 correct$/).waitFor();
   assert.equal(await main.locator('ol li').filter({ hasText: /Question \d/ }).count(), 5, 'a mark per problem');
   assert.match(await main.getByRole('link', { name: /^Next practice/ }).getAttribute('href'), /^\/en\/math\/arith\/[a-z-]+\/\d+$/);
+  // The result can be shared on X, LINE and Facebook (new tabs), or copied: the words with the score and a link to the same set.
+  const shareText = async () => {
+    // The site's address is added once the page is in the browser.
+    await page.waitForFunction(() => document.querySelector('[data-share] [data-network="x"]')?.getAttribute('href').includes('url=http'));
+    const x = new URL(await main.locator('[data-share] [data-network="x"]').getAttribute('href'));
+    const line = new URL(await main.locator('[data-share] [data-network="line"]').getAttribute('href'));
+    const facebook = new URL(await main.locator('[data-share] [data-network="facebook"]').getAttribute('href'));
+    const both = `${x.searchParams.get('text')}\n${x.searchParams.get('url')}`;
+    assert.equal(line.searchParams.get('text'), both);
+    assert.equal(facebook.searchParams.get('u'), x.searchParams.get('url'));
+    assert.equal(await main.locator('[data-share] a[target="_blank"]').count(), 3);
+    return both;
+  };
+  assert.match(await shareText(), new RegExp(`^Math "Order of operations": \\d/5 correct\\n${base}/en/math/arith/order-of-operations/1$`));
+  await main.locator('[data-share] [data-network="copy"]').click();
+  await main.getByText('Copied the words and the link to share.').waitFor();
+  assert.equal(await page.evaluate(() => navigator.clipboard.readText()), await shareText(), 'copy puts the same words and link on the clipboard');
   // The math list offers to go on from there.
   const nextSet = await main.getByRole('link', { name: /^Next practice/ }).getAttribute('href');
   await go('math');
@@ -171,6 +188,7 @@ export default async function ({ page, main, base, go, errors }) {
   const reviewed = await main.locator('[data-math-review] a').evaluateAll(links => links.map(link => link.getAttribute('href')));
   assert.equal(reviewed.length, 10);
   assert.ok(reviewed.every(href => /^\/en\/math\/[a-z0-9-]+\/[a-z0-9-]+$/.test(href)), 'each problem links its learning item');
+  assert.match(await shareText(), new RegExp(`^Math "Junior high 1 test": \\d+/10 correct\\n${base}/en/math/test/m1$`));
   await main.getByRole('button', { name: 'Try other problems' }).click();
   await main.getByText('1 / 10', { exact: true }).waitFor();
   await go('math/test/summary-middle');
@@ -194,6 +212,7 @@ export default async function ({ page, main, base, go, errors }) {
   assert.match(placed[0], /^High 1 \(Math I & A\)・/, 'starts at High 1');
   assert.ok(new Set(placed.map(label => label.split('・')[0])).size > 1, 'the year moves with the answers');
   assert.match(await main.locator('[data-placement-result] a').first().getAttribute('href'), /^\/en\/math\/test\/[a-z0-9-]+$/);
+  assert.match(await shareText(), new RegExp(`^Math placement: .+ \\(\\d+ of 15 correct\\)\\n${base}/en/math/test/placement$`));
   await main.getByRole('button', { name: 'Take it again' }).click();
   await main.locator('[data-placement-start="middle"]').waitFor();
   assert.equal((await page.goto(`${base}/en/math/test/x9`)).status(), 404);
