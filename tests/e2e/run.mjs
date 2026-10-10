@@ -14,11 +14,16 @@ if (!names.length || unknown.length) {
   process.exit(1);
 }
 const envFile = existsSync('.dev.vars') ? ['--env-file=.dev.vars'] : [];
+// How long each check took is printed, so that in a CI log it is clear which one makes the run long.
+const took = [];
 for (const name of names) {
   console.log(`\n▶ e2e ${name}`);
+  const startedAt = performance.now();
   const result = spawnSync(process.execPath, [...envFile, new URL(`${name}.mjs`, dir).pathname], { stdio: 'inherit' });
+  took.push(`${name} ${((performance.now() - startedAt) / 1000).toFixed(1)}s`);
   if (result.status !== 0) {
-    console.error(`\n✗ e2e ${name} failed`);
+    console.error(`\n✗ e2e ${name} failed (${took.join(', ')})`);
     process.exit(result.status ?? 1);
   }
 }
+if (names.length > 1) console.log(`\ne2e took: ${took.join(', ')}`);

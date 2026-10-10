@@ -2,6 +2,8 @@
 import assert from 'node:assert/strict';
 
 export default async function ({ page, main, go }) {
+  // The page's clock is the test's, so that the shaking of the box and the stick coming out (about two seconds) are fast-forwarded.
+  await page.clock.install();
   await go('omikuji');
   // The page's clock is the test's, so that the box's shaking is fast-forwarded.
   const box = main.locator('[data-omikuji="box"]');
@@ -11,6 +13,7 @@ export default async function ({ page, main, go }) {
   assert.equal(await main.locator('[data-omikuji="stage"]').getAttribute('data-stage'), 'shaking');
   assert.equal(await box.isDisabled(), true, 'the box cannot be pulled again while it is being shaken');
   // The shaking, the stick and the opening of the paper take about two seconds.
+  await page.clock.runFor(2500);
   const paper = main.locator('[data-omikuji="paper"]');
   await paper.waitFor({ timeout: 5000 });
   assert.ok((await main.locator('[data-omikuji="luck"]').innerText()).trim().length > 0, 'a luck');
@@ -24,6 +27,7 @@ export default async function ({ page, main, go }) {
   await box.waitFor();
   assert.equal(await paper.count(), 0);
   await box.click();
+  await page.clock.runFor(2500);
   await paper.waitFor({ timeout: 5000 });
   console.log('PASS: omikuji: the box is shaken, a stick comes out, the paper opens with the luck and four lines, again');
 }

@@ -37,6 +37,9 @@ A tool is a folder, `src/tools/<slug>/`, holding everything that is only its own
 - `e2e.mjs`: one short browser flow (`export default async function ({ page, main, go, result, errors })`),
   run by `npm run e2e -- tools`. Checks every tool shares (loads in three locales,
   no uncaught errors, fits 390px) come from `e2e -- catalog` with no code.
+  Flows run three at a time (`CHECK_CONCURRENCY`), each in a context of its own, so a flow must not depend on another. The clipboard is the one thing
+  contexts share: a flow that mentions it takes turns with the others that do. Wait on the page's clock (`page.clock.install()` then `runFor`) rather
+  than in real time when a flow has to sit through an animation or a countdown.
 
 Then register it in the shared lists (these, and nothing else, change outside the folder):
 - `src/lib/app-catalog.ts`: the entry (`slug` = folder name, `href`). Routes

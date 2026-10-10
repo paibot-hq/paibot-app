@@ -20,7 +20,9 @@ try {
   await page.route('https://ipv6.icanhazip.com/**', route => route.fulfill({ body: '2001:db8::10\n', headers: { 'Access-Control-Allow-Origin': '*' } }));
   const errors = [];
   page.on('pageerror', error => errors.push(`${page.url()}: ${error.message}`));
-  for (const { href, private: isPrivate } of tools) {
+  const timings = [];
+  for (const { slug, href, private: isPrivate } of tools) {
+    const startedAt = performance.now();
     for (const locale of locales) {
       const path = `/${locale}${href}`;
       const response = await page.goto(`${base}${path}`);
@@ -44,7 +46,10 @@ try {
       assert.ok(!/\bApp\.[A-Za-z]/.test(await page.locator('body').innerText()), `${path}: untranslated message key`);
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth), `${path}: horizontal scroll at 390px`);
     }
+    timings.push([slug, performance.now() - startedAt]);
   }
+  const slowest = [...timings].sort((a, b) => b[1] - a[1]).slice(0, 5).map(([slug, ms]) => `${slug} ${(ms / 1000).toFixed(1)}s`).join(', ');
+  console.log(`${timings.length} tools took ${(timings.reduce((sum, [, ms]) => sum + ms, 0) / 1000).toFixed(1)}s; slowest: ${slowest}`);
   assert.deepEqual(errors, []);
   console.log(`PASS: ${tools.length} published tools × ${locales.length} locales load, hydrate, have a title, no untranslated keys or uncaught errors, and fit 390px`);
 } finally { await browser.close(); }
