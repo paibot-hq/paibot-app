@@ -3969,6 +3969,33 @@
         "setLabel": "{count} problems, easiest first",
         "retry": "Try other problems"
       },
+      "placement": {
+        "title": "Placement test",
+        "intro": "A right answer brings a problem from a higher school year, a wrong one from a lower year. After {count} problems you see the level you are at.",
+        "ask": "Where would you like to start?",
+        "starts": {
+          "elementary": "Elementary school",
+          "middle": "Middle school",
+          "high": "High school",
+          "adult": "University or adult",
+          "unsure": "Not sure"
+        },
+        "levels": {
+          "9": "High 1 (Math I & A)",
+          "10": "High 2 (Math II & B)",
+          "11": "High 3 (Math III & C)"
+        },
+        "setLabel": "{count} problems, the year follows your answers",
+        "resultLabel": "Your level",
+        "resultLevel": "About {level}",
+        "resultTop": "{level} or above",
+        "resultBelow": "Start from Elementary 1",
+        "takeTest": "Take the {level} test",
+        "challenge": "Try the {level} test",
+        "retry": "Take it again",
+        "entry": "Placement test",
+        "entryNote": "{count} problems that move up or down a year with your answers, to find your level"
+      },
       "unitList": {
         "filters": "Filters",
         "itemCount": "{count} items",

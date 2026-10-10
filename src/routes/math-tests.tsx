@@ -7,6 +7,7 @@ import { MATH_STAGES } from '../lib/math-catalog';
 import { stageOfGrade } from '../lib/math-curriculum-jp';
 import { KENTEI_LOCALES, KENTEI_OFFICIAL_URL } from '../lib/math-kentei';
 import { getGradeCounts } from '../lib/math-problems.server';
+import { PLACEMENT_SIZE } from '../lib/math-placement';
 import { MATH_TESTS, testSize, type TestDef } from '../lib/math-test';
 import styles from './math-tests.module.css';
 import type { Route } from './+types/math-tests';
@@ -23,6 +24,7 @@ export default function MathTests({ loaderData: { tests } }: Route.ComponentProp
   const locale = useLocale();
   const t = useTranslations('App.math') as unknown as DynamicT;
   const tt = useTranslations('App.math.test');
+  const tp = useTranslations('App.math.placement');
   const offered = MATH_TESTS.filter(test => tests.includes(test.id));
   const grades = offered.filter(test => test.kind === 'grade');
   const levels = (KENTEI_LOCALES as readonly string[]).includes(locale) ? offered.filter(test => test.kind === 'kentei').reverse() : [];
@@ -33,6 +35,10 @@ export default function MathTests({ loaderData: { tests } }: Route.ComponentProp
     <meta name="robots" content="noindex" />
     <ToolLayout title={t('title')} centerTitle compact>
       <MathHomeHeader mode="test" />
+      <Link href="/math/test/placement" className={styles.placement} data-math-placement>
+        <span className={styles.placementName}>{tp('entry')}</span>
+        <span className={styles.placementNote}>{tp('entryNote', { count: PLACEMENT_SIZE })}</span>
+      </Link>
       <p className={styles.intro}>{tt('intro')}</p>
       <section className={styles.group} aria-labelledby="math-test-grades">
         <h2 id="math-test-grades" className={styles.groupName}>{tt('byGrade')}</h2>

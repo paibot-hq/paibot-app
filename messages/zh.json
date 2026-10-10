@@ -3969,6 +3969,33 @@
         "setLabel": "{count}道题・由易到难",
         "retry": "换一组题再测"
       },
+      "placement": {
+        "title": "实力测评",
+        "intro": "答对后出更高学年的题,答错后出更低学年的题。{count}道题后给出你现在的大致水平。",
+        "ask": "从哪里开始?",
+        "starts": {
+          "elementary": "小学生",
+          "middle": "初中生",
+          "high": "高中生",
+          "adult": "大学生・成人",
+          "unsure": "不确定"
+        },
+        "levels": {
+          "9": "高一（数学I・A）",
+          "10": "高二（数学II・B）",
+          "11": "高三（数学III・C）"
+        },
+        "setLabel": "{count}道题・学年随答题变化",
+        "resultLabel": "大致水平",
+        "resultLevel": "{level}左右",
+        "resultTop": "{level}以上",
+        "resultBelow": "从小学一年级开始",
+        "takeTest": "参加{level}测试",
+        "challenge": "挑战{level}测试",
+        "retry": "重新测评",
+        "entry": "实力测评",
+        "entryNote": "{count}道题随答题升降学年,了解你现在的水平"
+      },
       "unitList": {
         "filters": "筛选",
         "itemCount": "{count}个项目",

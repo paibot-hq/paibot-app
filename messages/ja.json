@@ -3969,6 +3969,33 @@
         "setLabel": "{count}問・易しい順",
         "retry": "別の問題でもう一度"
       },
+      "placement": {
+        "title": "実力判定テスト",
+        "intro": "正解すると上の学年、まちがえると下の学年の問題が出ます。{count}問で、今の実力の目安を出します。",
+        "ask": "どこから始めますか？",
+        "starts": {
+          "elementary": "小学生",
+          "middle": "中学生",
+          "high": "高校生",
+          "adult": "大学生・大人",
+          "unsure": "わからない"
+        },
+        "levels": {
+          "9": "高1（数学I・A）",
+          "10": "高2（数学II・B）",
+          "11": "高3（数学III・C）"
+        },
+        "setLabel": "{count}問・答えで学年が変わります",
+        "resultLabel": "実力の目安",
+        "resultLevel": "{level}程度",
+        "resultTop": "{level}以上",
+        "resultBelow": "小1から",
+        "takeTest": "{level}のテストを受ける",
+        "challenge": "{level}のテストに挑戦",
+        "retry": "もう一度判定する",
+        "entry": "実力判定テスト",
+        "entryNote": "答えに合わせて学年が上下する{count}問で、今の実力の目安がわかります"
+      },
       "unitList": {
         "filters": "絞り込み",
         "itemCount": "{count}項目",

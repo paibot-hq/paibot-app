@@ -79,6 +79,10 @@ Math is organized unit → learning item → practice set, all in
   Problems are drawn anew on each visit (`src/lib/math-test-draw.ts`: a different learning item
   each where possible, 40% basic, 40% standard, 20% advanced, easiest first); the result links
   each problem's item. Not saved, not indexed; a test is offered when its years have enough problems.
+- `/math/test/placement` (`routes/math-placement.tsx`): the placement test, 15 problems whose school year
+  goes up after a right answer and down after a wrong one (`src/lib/math-placement.ts`: 14 levels, small
+  steps after each turn), then the highest level with more right than wrong answers. The page draws 8
+  problems per level on each visit and picks from them as the learner answers.
 - `/math/<unit>` (`routes/math-unit.tsx`): the unit and its learning items, each with a one-line summary.
 - `/math/<unit>/<item>` (`routes/math-item.tsx`): the item and its practice sets
   (練習1, 2, ...) with a signed-in user's latest and best score, and the crumbs

@@ -48,18 +48,20 @@ export async function getWorkedExample(unit: string, item: string): Promise<{ id
 
 // The published problems of some school years, and of some items named as "unit/item" whatever their year, without their payloads, to
 // draw a test from (see lib/math-test.ts).
-export async function getTestCandidates(grades: readonly string[], extra: readonly string[] = []): Promise<{ id: string; unit: string; item: string; tier: number }[]> {
+export async function getTestCandidates(grades: readonly string[], extra: readonly string[] = []): Promise<{ id: string; unit: string; item: string; tier: number; grade: string }[]> {
   const t = mathProblems;
   const items = extra.map(entry => entry.split('/')).map(([unit, item]) => and(eq(t.unit, unit), eq(t.item, item)));
-  return getDb().select({ id: t.id, unit: t.unit, item: t.item, tier: t.tier }).from(t).where(and(eq(t.published, true), or(inArray(t.grade, [...grades]), ...items)));
+  return getDb().select({ id: t.id, unit: t.unit, item: t.item, tier: t.tier, grade: t.grade }).from(t).where(and(eq(t.published, true), or(inArray(t.grade, [...grades]), ...items)));
 }
 
 // The drawn problems with their payloads, in the order given.
 export async function getProblemsByIds(ids: readonly string[]): Promise<{ id: string; unit: string; item: string; answerIndex: number; tier: number; payload: unknown }[]> {
   if (!ids.length) return [];
   const t = mathProblems;
-  const rows = await getDb().select({ id: t.id, unit: t.unit, item: t.item, answerIndex: t.answerIndex, tier: t.tier, payload: t.payload }).from(t)
-    .where(and(inArray(t.id, [...ids]), eq(t.published, true)));
+  // D1 takes at most 100 values in a query.
+  const chunks = Array.from({ length: Math.ceil(ids.length / 50) }, (_, i) => ids.slice(i * 50, i * 50 + 50));
+  const rows = (await Promise.all(chunks.map(chunk => getDb().select({ id: t.id, unit: t.unit, item: t.item, answerIndex: t.answerIndex, tier: t.tier, payload: t.payload }).from(t)
+    .where(and(inArray(t.id, chunk), eq(t.published, true)))))).flat();
   return ids.map(id => rows.find(row => row.id === id)).filter(row => row !== undefined);
 }
 

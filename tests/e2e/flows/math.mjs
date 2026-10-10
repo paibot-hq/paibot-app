@@ -177,6 +177,25 @@ export default async function ({ page, main, base, go, errors }) {
   await main.getByText('1 / 20', { exact: true }).waitFor();
   await go('math/test/summary-all');
   await main.getByText('1 / 20', { exact: true }).waitFor();
+  // The placement test: chosen where to start (high school: a High 1 problem first), fifteen problems whose year follows the answers,
+  // then a level with a link to its test, and each problem with its year and item.
+  await go('math/test');
+  await main.locator('[data-math-placement]').click();
+  await page.waitForURL(`${base}/en/math/test/placement`);
+  await main.locator('[data-placement-start="high"]').click();
+  for (let index = 0; index < 15; index++) {
+    await main.getByText(`${index + 1} / 15`, { exact: true }).waitFor();
+    await main.locator('[role=group] button').first().click();
+    await main.getByRole('button', { name: index < 14 ? 'Next question' : 'See results' }).click();
+  }
+  await main.locator('[data-placement-result]').waitFor();
+  const placed = await main.locator('[data-math-review] a').allTextContents();
+  assert.equal(placed.length, 15);
+  assert.match(placed[0], /^High 1 \(Math I & A\)・/, 'starts at High 1');
+  assert.ok(new Set(placed.map(label => label.split('・')[0])).size > 1, 'the year moves with the answers');
+  assert.match(await main.locator('[data-placement-result] a').first().getAttribute('href'), /^\/en\/math\/test\/[a-z0-9-]+$/);
+  await main.getByRole('button', { name: 'Take it again' }).click();
+  await main.locator('[data-placement-start="middle"]').waitFor();
   assert.equal((await page.goto(`${base}/en/math/test/x9`)).status(), 404);
   assert.equal((await page.goto(`${base}/en/math/test/kentei-3`)).status(), 404, 'Suken tests are in Japanese only');
   await page.goto(`${base}/ja/math/test/kentei-3`);

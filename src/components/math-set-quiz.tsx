@@ -28,7 +28,7 @@ export interface MathSetQuestion {
 // A signed-in user's finished attempt is posted to the page's own route action
 // (see saveAttemptAction in lib/math-attempts.server.ts), which rescores it.
 // Made for a phone: a tap on a choice is the answer (keys 1-4 on a keyboard), and "Next" appears in the same place.
-export default function MathSetQuiz({ title, setLabel, questions, crumbs, version, current, next, onRetry, retryLabel }: {
+export default function MathSetQuiz({ title, setLabel, questions, crumbs, version, current, next, onRetry, retryLabel, total: fixedTotal, onAnswered, result }: {
   title: string; setLabel: string; questions: MathSetQuestion[];
   // Where the set sits: unit > learning item (linked) > the set itself (current).
   crumbs: MathCrumb[];
@@ -40,6 +40,11 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
   // In place of starting the same questions again (a test draws new ones).
   onRetry?: () => void;
   retryLabel?: string;
+  // A quiz whose questions are chosen as it goes (the placement test): how many there will be, told of each answer before "Next" (to add
+  // the next question), and what to show at the top of the result.
+  total?: number;
+  onAnswered?: (index: number, correct: boolean) => void;
+  result?: ReactNode;
 }) {
   const t = useTranslations('App.math.quiz');
   const tm = useTranslations('App.math');
@@ -51,7 +56,7 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
   const saver = useFetcher<{ ok: boolean }>();
 
   const question = questions[index];
-  const total = questions.length;
+  const total = fixedTotal ?? questions.length;
   const revealed = selected !== null;
   const correctCount = answers.filter((answer, answerIndex) => answer === questions[answerIndex].answerIndex).length;
   const backLink = <MathBreadcrumb crumbs={crumbs} />;
@@ -62,6 +67,7 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
     if (revealed || finished) return;
     setSelected(choiceIndex);
     setAnswers(previous => [...previous, choiceIndex]);
+    onAnswered?.(index, choiceIndex === question.answerIndex);
   }
   function advance() {
     if (index + 1 >= total) {
@@ -104,7 +110,7 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
 
   // One mark per problem: right, wrong or still to come.
   const track = <ol className={styles.track} aria-hidden="true">
-    {questions.map((q, at) => <li key={q.id} data-state={at < answers.length ? (answers[at] === q.answerIndex ? 'correct' : 'incorrect') : at === index && !finished ? 'current' : undefined} />)}
+    {Array.from({ length: total }, (_, at) => <li key={at} data-state={at < answers.length ? (answers[at] === questions[at].answerIndex ? 'correct' : 'incorrect') : at === index && !finished ? 'current' : undefined} />)}
   </ol>;
 
   if (finished) {
@@ -118,6 +124,7 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
     return <ToolLayout title={title} centerTitle compact aboveTitle={backLink}>
       <div className={styles.quiz}>
         <p className={styles.setName}>{setLabel}</p>
+        {result}
         <p className={styles.score} aria-live="polite" data-perfect={perfect || undefined}>{t('resultCorrect', { correct: correctCount, total })}</p>
         <p className={styles.resultLine}>{t('resultAccuracy', { percent })}</p>
         {questions.some(q => q.source) ? <ol className={styles.review} data-math-review>
