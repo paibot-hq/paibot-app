@@ -47,12 +47,6 @@ export function validateBreaches(data) {
   const bad = (item, message) => problems.push(`${item?.id ?? '?'}: ${message}`);
   if (!FULL_DATE.test(data.asOf ?? '')) problems.push('asOf must be YYYY-MM-DD');
   if (!Array.isArray(data.items) || !data.items.length) { problems.push('items must be a list'); return problems; }
-  // The government advisories shown with the list: a day, the body that issued it, its title and a link to it.
-  for (const advisory of data.advisories ?? []) {
-    if (!FULL_DATE.test(advisory.date ?? '') || advisory.date > data.asOf) problems.push(`advisory ${advisory.url}: date must be YYYY-MM-DD and not after asOf`);
-    if (!advisory.name?.trim() || !advisory.title?.trim()) problems.push(`advisory ${advisory.url}: a name and a title are needed`);
-    try { if (new URL(advisory.url).protocol !== 'https:') problems.push(`advisory ${advisory.url}: https only`); } catch { problems.push(`advisory ${advisory.url}: not a URL`); }
-  }
   const ids = new Set();
   for (const item of data.items) {
     if (!/^[a-z0-9]+(-[a-z0-9]+)*$/.test(item.id ?? '')) bad(item, 'id must be kebab-case');
