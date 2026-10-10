@@ -31,19 +31,35 @@ export type MathProblemRow = { id: string; answerIndex: number; payload: unknown
 // (see MathKind in src/lib/math-catalog.ts). Only explanations and prompts
 // depend on the locale.
 export function useMathQuestions(kind: MathKind | undefined, problems: readonly MathProblemRow[]): MathSetQuestion[] {
+  const context = useQuestionContext();
+  return useMemo(() => buildQuestions(kind, problems, context), [kind, problems, context]);
+}
+
+// The same for problems of several units, each with its unit's kind (a school year's test).
+export function useMixedMathQuestions(problems: readonly (MathProblemRow & { kind: MathKind | undefined })[]): MathSetQuestion[] {
+  const context = useQuestionContext();
+  return useMemo(() => problems.flatMap(problem => buildQuestions(problem.kind, [problem], context)), [problems, context]);
+}
+
+type QuestionContext = ReturnType<typeof useQuestionContext>;
+function useQuestionContext() {
   const locale = useLocale() as QuizLocale;
   const ta = useTranslations('App.math.arith');
   const tf = useTranslations('App.math.factorization');
   const tp = useTranslations('App.math.pythagoras');
   const tq = useTranslations('App.math.formulaQuiz');
-  return useMemo(() => {
+  return useMemo(() => ({ locale, ta, tf, tp, tq }), [locale, ta, tf, tp, tq]);
+}
+
+function buildQuestions(kind: MathKind | undefined, problems: readonly MathProblemRow[], { locale, ta, tf, tp, tq }: QuestionContext): MathSetQuestion[] {
+  {
     switch (kind) {
       case 'expression':
         return expressionQuestions(problems as { id: string; answerIndex: number; payload: ArithPayload }[], locale, ta);
       case 'factorization':
         return (problems as { id: string; answerIndex: number; payload: FactorizationPayload }[]).map(({ id, answerIndex, payload: { p, q, choices } }) => ({
           id, answerIndex,
-          prompt: <MathTex tex={trinomialTex(p, q)} block />,
+          prompt: <><p>{tf('prompt')}</p><MathTex tex={trinomialTex(p, q)} block /></>,
           choices: choices.map(choice => <MathTex tex={factoredTex(choice)} />),
           explanation: tf('explanationTemplate', { p, q, a: p + q, b: p * q }),
         }));
@@ -71,5 +87,5 @@ export function useMathQuestions(kind: MathKind | undefined, problems: readonly 
       default:
         return [];
     }
-  }, [kind, problems, locale, ta, tf, tp, tq]);
+  }
 }

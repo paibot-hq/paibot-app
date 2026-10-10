@@ -67,10 +67,22 @@ By hand: `node scripts/govfaq-build.mjs [--if-changed]`, then `CLOUDFLARE_ACCOUN
 Math is organized unit → learning item → practice set, all in
 `src/lib/math-catalog.ts` (names under `App.math.units.<unit>.items.<item>` in
 `messages/*.json`). Pages:
-- `/math` ("Math", `routes/math.tsx` + `components/math-unit-table.tsx`):
-  every unit with its learning items, filtered in the browser by level,
-  playability and name. Each unit's name links to its page and each item to its
-  own; items with published problems in D1 are highlighted.
+- `/math` ("Math", `routes/math.tsx` + `components/math-unit-table.tsx`): two tabs
+  (`components/math-home-header.tsx`, with "Continue" to the set last opened): Practice, this
+  page, every unit folded by area, each linking to its page; a search or a filter (school
+  year, Suken level, playability, name) shows the matching learning items instead. Units and
+  items with published problems are highlighted, finished ones green.
+- `/math/test` (`routes/math-tests.tsx`), the Tests tab, and `/math/test/<id>` (`routes/math-test.tsx`):
+  a test per school year (10 problems), per Suken level (Japanese only; 7 from its years, 3 from
+  those below) and per group of years ("summary-*", 20; "summary-all" takes 4 from each stage,
+  elementary school to university, in order), all defined in `src/lib/math-test.ts`.
+  Problems are drawn anew on each visit (`src/lib/math-test-draw.ts`: a different learning item
+  each where possible, 40% basic, 40% standard, 20% advanced, easiest first); the result links
+  each problem's item. Not saved, not indexed; a test is offered when its years have enough problems.
+- `/math/test/placement` (`routes/math-placement.tsx`): the placement test, 15 problems whose school year
+  goes up after a right answer and down after a wrong one (`src/lib/math-placement.ts`: 14 levels, small
+  steps after each turn), then the highest level with more right than wrong answers. The page draws 8
+  problems per level on each visit and picks from them as the learner answers.
 - `/math/<unit>` (`routes/math-unit.tsx`): the unit and its learning items, each with a one-line summary.
 - `/math/<unit>/<item>` (`routes/math-item.tsx`): the item and its practice sets
   (練習1, 2, ...) with a signed-in user's latest and best score, and the crumbs

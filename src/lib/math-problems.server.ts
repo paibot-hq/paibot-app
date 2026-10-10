@@ -1,4 +1,4 @@
-import { and, asc, count, desc, eq } from 'drizzle-orm';
+import { and, asc, count, desc, eq, inArray, or } from 'drizzle-orm';
 import { getDb } from '../db/client.server';
 import { mathProblems } from '../db/schema';
 
@@ -44,4 +44,35 @@ export async function getWorkedExample(unit: string, item: string): Promise<{ id
     ?? rows.find(row => stepCount(row) === 0)
     ?? [...rows].sort((a, b) => stepCount(a) - stepCount(b))[0]
     ?? null;
+}
+
+// The published problems of some school years, and of some items named as "unit/item" whatever their year, without their payloads, to
+// draw a test from (see lib/math-test.ts).
+export async function getTestCandidates(grades: readonly string[], extra: readonly string[] = []): Promise<{ id: string; unit: string; item: string; tier: number; grade: string }[]> {
+  const t = mathProblems;
+  const items = extra.map(entry => entry.split('/')).map(([unit, item]) => and(eq(t.unit, unit), eq(t.item, item)));
+  return getDb().select({ id: t.id, unit: t.unit, item: t.item, tier: t.tier, grade: t.grade }).from(t).where(and(eq(t.published, true), or(inArray(t.grade, [...grades]), ...items)));
+}
+
+// The drawn problems with their payloads, in the order given.
+export async function getProblemsByIds(ids: readonly string[]): Promise<{ id: string; unit: string; item: string; answerIndex: number; tier: number; payload: unknown }[]> {
+  if (!ids.length) return [];
+  const t = mathProblems;
+  // D1 takes at most 100 values in a query.
+  const chunks = Array.from({ length: Math.ceil(ids.length / 50) }, (_, i) => ids.slice(i * 50, i * 50 + 50));
+  const rows = (await Promise.all(chunks.map(chunk => getDb().select({ id: t.id, unit: t.unit, item: t.item, answerIndex: t.answerIndex, tier: t.tier, payload: t.payload }).from(t)
+    .where(and(inArray(t.id, chunk), eq(t.published, true)))))).flat();
+  return ids.map(id => rows.find(row => row.id === id)).filter(row => row !== undefined);
+}
+
+// How many published problems and learning items each school year has, for the list of tests.
+export async function getGradeCounts(): Promise<Record<string, { problems: number; items: number }>> {
+  const t = mathProblems;
+  const rows = await getDb().select({ grade: t.grade, problems: count(), unit: t.unit, item: t.item }).from(t).where(eq(t.published, true)).groupBy(t.grade, t.unit, t.item);
+  const counts: Record<string, { problems: number; items: number }> = {};
+  for (const row of rows) {
+    const entry = counts[row.grade] ??= { problems: 0, items: 0 };
+    entry.problems += row.problems; entry.items += 1;
+  }
+  return counts;
 }

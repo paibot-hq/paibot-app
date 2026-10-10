@@ -2023,9 +2023,8 @@
       "description": "Multiple-choice math practice, from elementary school to university.",
       "about": "A multiple-choice math drill from elementary arithmetic to university mathematics, organised by unit and learning item: addition, multiplication and division, equations, factorisation, calculus, linear algebra and more.",
       "keywords": "math drills arithmetic algebra factoring quiz problem set",
-      "intro": "Every unit and problem set, grouped by area of mathematics. Highlighted sets are ready to practice.",
       "itemPage": {
-        "toPractice": "Go to practice",
+        "start": "Start practice",
         "points": "Key points",
         "example": "Worked example",
         "about": "What you learn",
@@ -2039,7 +2038,6 @@
         "backToMath": "Math",
         "breadcrumb": "Breadcrumb",
         "progress": "{current} / {total}",
-        "answer": "Answer",
         "correct": "Correct",
         "incorrect": "Incorrect",
         "next": "Next question",
@@ -2055,13 +2053,18 @@
         "chooseItem": "Choose what to practice.",
         "tierCount": "{tier} {count}",
         "tierSeparator": ", ",
-        "columnMethod": "Column method"
+        "columnMethod": "Column method",
+        "seeResult": "See results",
+        "nextSet": "Next practice",
+        "resume": "Continue",
+        "questionNumber": "Question {number}"
       },
       "arith": {
         "formula": "Expression:",
         "valueWithUnit": "{value} {unit}"
       },
       "factorization": {
+        "prompt": "Factor the expression.",
         "explanationTemplate": "The two integers that multiply to {b} and add to {a} are {p} and {q}."
       },
       "signed": {
@@ -3942,8 +3945,62 @@
         "explanationPrefix": "By the Pythagorean theorem,",
         "figureDescription": "Right triangle ABC. Angle {rightAngle} is a right angle. {first} is {firstLength} cm, {second} is {secondLength} cm, and {unknown} is x."
       },
+      "modes": {
+        "label": "Ways to use Math",
+        "practice": "Practice",
+        "test": "Tests"
+      },
+      "test": {
+        "title": "Tests",
+        "intro": "Choose a range for problems drawn from it, new ones each time; from the result, go and practise the items you missed.",
+        "byGrade": "By school year",
+        "byKentei": "By Suken level",
+        "summary": "Overall",
+        "summaries": {
+          "all": "Overall, elementary school to university",
+          "elementary": "Elementary school overall",
+          "middle": "Middle school overall",
+          "high1": "Math I & A overall",
+          "high2": "Math II, B & C overall"
+        },
+        "gradeTitle": "{grade} test",
+        "kenteiTitle": "Suken {level} range test",
+        "count": "{count} problems",
+        "setLabel": "{count} problems, easiest first",
+        "retry": "Try other problems"
+      },
+      "placement": {
+        "title": "Placement test",
+        "intro": "A right answer brings a problem from a higher school year, a wrong one from a lower year. After {count} problems you see the level you are at.",
+        "ask": "Where would you like to start?",
+        "starts": {
+          "elementary": "Elementary school",
+          "middle": "Middle school",
+          "high": "High school",
+          "adult": "University or adult",
+          "unsure": "Not sure"
+        },
+        "levels": {
+          "9": "High 1 (Math I & A)",
+          "10": "High 2 (Math II & B)",
+          "11": "High 3 (Math III & C)"
+        },
+        "setLabel": "{count} problems, the year follows your answers",
+        "resultLabel": "Your level",
+        "resultLevel": "About {level}",
+        "resultTop": "{level} or above",
+        "resultBelow": "Start from Elementary 1",
+        "takeTest": "Take the {level} test",
+        "challenge": "Try the {level} test",
+        "retry": "Take it again",
+        "entry": "Placement test",
+        "entryNote": "{count} problems that move up or down a year with your answers, to find your level"
+      },
       "unitList": {
         "filters": "Filters",
+        "itemCount": "{count} items",
+        "doneCount": "{done}/{total} done",
+        "results": "Search and filter results",
         "playableOnly": "Playable sets only",
         "search": "Search units and sets",
         "empty": "No units match these filters.",

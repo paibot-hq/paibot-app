@@ -2023,9 +2023,8 @@
       "description": "从小学到大学，用四选一题练习数学。",
       "about": "从小学计算到大学数学的四选一练习题库，按单元和学习项目整理：加减乘除、方程、因式分解、微积分、线性代数等。",
       "keywords": "数学 练习 四则运算 因式分解 测验 题库",
-      "intro": "按数学领域列出全部单元和题组。带颜色的题组现在就可以练习。",
       "itemPage": {
-        "toPractice": "前往练习",
+        "start": "开始练习",
         "points": "要点",
         "example": "例题",
         "about": "学习内容",
@@ -2039,7 +2038,6 @@
         "backToMath": "数学",
         "breadcrumb": "面包屑导航",
         "progress": "{current} / {total}",
-        "answer": "作答",
         "correct": "正确",
         "incorrect": "错误",
         "next": "下一题",
@@ -2055,13 +2053,18 @@
         "chooseItem": "请选择要练习的项目。",
         "tierCount": "{tier} {count}题",
         "tierSeparator": "・",
-        "columnMethod": "竖式"
+        "columnMethod": "竖式",
+        "seeResult": "查看结果",
+        "nextSet": "下一组练习",
+        "resume": "继续",
+        "questionNumber": "第{number}题"
       },
       "arith": {
         "formula": "算式：",
         "valueWithUnit": "{value}{unit}"
       },
       "factorization": {
+        "prompt": "将下式因式分解。",
         "explanationTemplate": "相乘为{b}、相加为{a}的两个整数是{p}和{q}。"
       },
       "signed": {
@@ -3942,8 +3945,62 @@
         "explanationPrefix": "根据勾股定理，",
         "figureDescription": "直角三角形ABC。角{rightAngle}是直角。{first}为{firstLength} cm，{second}为{secondLength} cm，{unknown}为x。"
       },
+      "modes": {
+        "label": "数学的使用方式",
+        "practice": "练习",
+        "test": "测试"
+      },
+      "test": {
+        "title": "测试",
+        "intro": "选择范围后,从中出题,每次题目都不同;可从结果直接去练习做错的项目。",
+        "byGrade": "按学年",
+        "byKentei": "按数检级别",
+        "summary": "综合",
+        "summaries": {
+          "all": "全范围综合（小学至大学）",
+          "elementary": "小学综合",
+          "middle": "初中综合",
+          "high1": "数学I・A综合",
+          "high2": "数学II・B・C综合"
+        },
+        "gradeTitle": "{grade}测试",
+        "kenteiTitle": "数检{level}范围测试",
+        "count": "{count}道题",
+        "setLabel": "{count}道题・由易到难",
+        "retry": "换一组题再测"
+      },
+      "placement": {
+        "title": "实力测评",
+        "intro": "答对后出更高学年的题,答错后出更低学年的题。{count}道题后给出你现在的大致水平。",
+        "ask": "从哪里开始?",
+        "starts": {
+          "elementary": "小学生",
+          "middle": "初中生",
+          "high": "高中生",
+          "adult": "大学生・成人",
+          "unsure": "不确定"
+        },
+        "levels": {
+          "9": "高一（数学I・A）",
+          "10": "高二（数学II・B）",
+          "11": "高三（数学III・C）"
+        },
+        "setLabel": "{count}道题・学年随答题变化",
+        "resultLabel": "大致水平",
+        "resultLevel": "{level}左右",
+        "resultTop": "{level}以上",
+        "resultBelow": "从小学一年级开始",
+        "takeTest": "参加{level}测试",
+        "challenge": "挑战{level}测试",
+        "retry": "重新测评",
+        "entry": "实力测评",
+        "entryNote": "{count}道题随答题升降学年,了解你现在的水平"
+      },
       "unitList": {
         "filters": "筛选",
+        "itemCount": "{count}个项目",
+        "doneCount": "已完成 {done}/{total}",
+        "results": "搜索和筛选结果",
         "playableOnly": "只看可练习的题组",
         "search": "搜索单元和题组",
         "empty": "没有符合条件的单元。",

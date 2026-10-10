@@ -38,3 +38,8 @@
 
 .content[data-layout="spacious"] { gap: 1.25rem; }
 .content[data-width="auto"] { width: auto; }
+
+@media (max-width: 640px) {
+  .page[data-compact] { padding-top: 1rem; gap: .6rem; }
+  .page[data-compact] .title { font-size: 1.2rem; }
+}

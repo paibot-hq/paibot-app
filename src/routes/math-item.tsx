@@ -9,6 +9,7 @@ import ToolLayout from '../components/tool-layout';
 import { Link } from '../i18n/navigation';
 import type { DynamicT } from '../lib/apps';
 import { getSetRecords } from '../lib/math-attempts.server';
+import { useDoneSets } from '../lib/math-local-done';
 import { findUnit } from '../lib/math-catalog';
 import { jpGrade } from '../lib/math-curriculum-jp';
 import { getPlayableSets, getSetTiers, getWorkedExample } from '../lib/math-problems.server';
@@ -54,6 +55,11 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
   const title = t(`${itemKey}.title`);
   const description = has(`${itemKey}.description`) ? t(`${itemKey}.description`) : t(`units.${unitId}.summary`);
   const head = `${unitTitle} - ${title} | PAIBOT`;
+  // "Start practice" goes straight into the first playable set not yet finished (or the first one), so that a phone need not scroll down to the cards.
+  // A set is finished (green) when the signed-in visitor has a record of it, or it was finished in this browser.
+  const local = useDoneSets([]);
+  const isDone = (set: (typeof sets)[number]) => Boolean(set.record) || local.includes(`${unitId}/${itemId}/${set.id}`);
+  const start = sets.find(set => set.playable && !isDone(set)) ?? sets.find(set => set.playable) ?? sets[0];
   return <>
     {published ? <PublicHead locale={locale} path={`/math/${unitId}/${itemId}`} title={head} description={description} /> : <title>{head}</title>}
     <ToolLayout title={title} centerTitle aboveTitle={<MathBreadcrumb crumbs={[{ label: unitTitle, href: `/math/${unitId}` }, { label: title }]} />}>
@@ -61,7 +67,9 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
       {grade && <p className={styles.grade}>{t('gradeLabel', { grade: t(`grades.${grade}`) })}</p>}
       <h2 className={styles.about}>{ti('about')}</h2>
       <p className={styles.description}>{description}</p>
-      <p className={styles.jump}><a href="#practice">{ti('toPractice')}</a></p>
+      {start && <Link href={`/math/${unitId}/${itemId}/${start.id}`} className={styles.start} data-math-start>
+        {ti('start')}{sets.length > 1 && <span className={styles.startSet}>{tq('practice', { number: start.id })}</span>}
+      </Link>}
       {points.length > 0 && <details className={styles.section} open>
         <summary>{ti('points')}</summary>
         <div className={styles.points}>{points.map((point, index) => <div key={index} className={styles.point}>
@@ -78,20 +86,20 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
       </details>}
       <p id="practice" className={styles.choose}>{tq('chooseSet')}</p>
       <ul className={styles.sets}>
-        {sets.map(({ id, playable, record, tiers }) => (
+        {sets.map(set => { const { id, playable, record, tiers } = set; const done = isDone(set); return (
           <li key={id}>
-            <Link href={`/math/${unitId}/${itemId}/${id}`} className={styles.card} data-playable={playable || undefined} data-done={record ? true : undefined}>
+            <Link href={`/math/${unitId}/${itemId}/${id}`} className={styles.card} data-playable={playable || undefined} data-done={done || undefined}>
               <span className={styles.cardTitle}>
                 {tq('practice', { number: id })}
                 {!playable && <span className={styles.badge}>{t('comingSoon')}</span>}
-                {record && <span className={styles.done}>{tq('done')}</span>}
+                {done && <span className={styles.done}>{tq('done')}</span>}
               </span>
               {has(`${itemKey}.sets.${id}`) && <span className={styles.note}>{t(`${itemKey}.sets.${id}`)}</span>}
               {tiers && <span className={styles.tiers}>{Object.entries(tiers).map(([tier, n]) => tq('tierCount', { tier: t(`tiers.${tier}`), count: n })).join(tq('tierSeparator'))}</span>}
               {record && <span className={styles.record}>{tq('record', { last: record.last, best: record.best, total: record.total })}</span>}
             </Link>
           </li>
-        ))}
+        ); })}
       </ul>
       {(neighbors.previous || neighbors.next) && <nav className={styles.neighbors} aria-label={ti('neighbors')}>
         {neighbors.previous ? <Link href={`/math/${unitId}/${neighbors.previous}`} rel="prev" className={styles.neighbor}>

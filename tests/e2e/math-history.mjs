@@ -31,9 +31,9 @@ async function play(page, correct) {
   for (const [index, problem] of problems.entries()) {
     await main.getByText(`${index + 1} / ${problems.length}`, { exact: true }).waitFor();
     const pick = index < correct ? problem.answerIndex : (problem.answerIndex + 1) % 4;
+    // A tap on a choice is the answer.
     await main.locator('[role=group] button').nth(pick).click();
-    await main.getByRole('button', { name: 'Answer' }).click();
-    await main.getByRole('button', { name: 'Next question' }).click();
+    await main.getByRole('button', { name: index + 1 < problems.length ? 'Next question' : 'See results' }).click();
   }
   await main.getByText(`${correct} / ${problems.length} correct`).waitFor();
   const status = main.locator('[role=status]');
@@ -65,8 +65,10 @@ try {
   await clerk.signOut({ page });
   assert.equal(await play(page, 3), 'Sign in to keep a record of your scores.');
   assert.equal(await cardRecord(page), null, 'signed-out visitors see no records');
-  assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}/${SET}"]`).getAttribute('data-done'), null, 'nothing is green for a visitor who is not signed in');
-  console.log('PASS: signed-out attempts are not saved and point to signing in');
+  assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}/${SET}"]`).getAttribute('data-done'), 'true', 'a set finished without signing in is green, from this browser');
+  console.log('PASS: signed-out attempts are not saved and point to signing in; the finished set is green in this browser');
+  // What follows checks the account's own records, without this browser's.
+  await page.evaluate(() => localStorage.removeItem('math-done:v1'));
 
   await clerk.signIn({ page, signInParams: { strategy: 'email_code', identifier: email } });
   assert.equal(await cardRecord(page), null, 'a new user starts with no records');
@@ -78,6 +80,9 @@ try {
   await page.goto(`${base}/en/math/arith`);
   assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}"]`).getAttribute('data-done'), 'true', "the unit's page shows the finished item green");
   await page.goto(`${base}/en/math`);
+  // The list shows learning items when searched for.
+  await page.waitForFunction(() => document.documentElement.dataset.theme);
+  await page.locator('main').getByRole('searchbox').fill('order of operations');
   assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}"]`).first().getAttribute('data-done'), 'true', 'the list shows the finished item green');
   assert.equal(await play(page, 5), 'Your score has been saved.');
   assert.equal(await play(page, 1), 'Your score has been saved.');

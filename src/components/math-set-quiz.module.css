@@ -3,7 +3,7 @@
 .progress { text-align: center; color: var(--muted); font-size: .85rem; font-variant-numeric: tabular-nums; margin: 0 0 .5rem; }
 .tier { margin-left: .6rem; padding: .05rem .45rem; border: 1px solid var(--line); border-radius: var(--radius); font-size: .75rem; }
 .tier[data-tier="3"] { border-color: var(--accent); color: var(--accent); }
-.question { text-align: center; font-size: clamp(1.3rem, 5vw, 1.8rem); margin: 1.2rem 0 1.6rem; }
+.question { text-align: center; font-size: clamp(1.3rem, 5vw, 1.8rem); margin: .8rem 0 1.2rem; }
 
 .choices { display: grid; grid-template-columns: minmax(0, 1fr); gap: .7rem; }
 .choice {
@@ -29,24 +29,52 @@
 .choice[data-state="correct"] { border-color: var(--success); background: color-mix(in srgb, var(--success) 16%, var(--surface)); opacity: 1; }
 .choice[data-state="incorrect"] { border-color: var(--error); background: color-mix(in srgb, var(--error) 16%, var(--surface)); opacity: 1; }
 
-.primary {
-  display: block; width: 100%; margin-top: 1.2rem;
+.primary, .secondary {
+  display: block; width: 100%; margin-top: .8rem; box-sizing: border-box; text-align: center; text-decoration: none;
   font: inherit; font-size: 1rem; font-weight: 600; cursor: pointer;
   min-height: 3rem; padding: .7rem 1rem;
   border: 1px solid var(--text); border-radius: var(--radius);
   background: var(--text); color: var(--bg);
 }
-.primary:disabled { cursor: default; opacity: .4; }
-.primary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.secondary { background: var(--surface); color: var(--text); border-color: var(--line); font-weight: 600; }
+.primary:focus-visible, .secondary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .action { text-align: center; }
-.action .verdict:not(:empty) { margin-top: .8rem; }
 .feedback { margin-top: 1.4rem; padding-top: 1rem; border-top: 1px solid var(--line); text-align: center; }
-.verdict { margin: 0; font-weight: 700; color: var(--error); }
+.verdict { margin: 0; font-weight: 700; font-size: 1.15rem; color: var(--error); }
+.verdict:not(:empty) { margin-top: .9rem; }
 .verdict[data-correct] { color: var(--success); }
 .explanation { color: var(--muted); font-size: .9rem; margin: 0 0 1rem; min-width: 0; max-width: 100%; }
 
-.resultLine { text-align: center; font-size: 1.1rem; margin: .5rem 0; }
+.resultLine { text-align: center; font-size: 1rem; color: var(--muted); margin: .2rem 0 0; }
+
+/* How far into the set: one segment per problem, green when right and red when wrong. */
+.track { list-style: none; padding: 0; margin: 0 0 .5rem; display: flex; gap: .3rem; }
+.track > li { flex: 1; height: .35rem; border-radius: 999px; background: var(--line); }
+.track > li[data-state="current"] { background: var(--accent); }
+.track > li[data-state="correct"] { background: var(--success); }
+.track > li[data-state="incorrect"] { background: var(--error); }
+
+/* The result: the score, a mark per problem, and what to do next. */
+.score { text-align: center; font-size: 2rem; font-weight: 700; margin: .8rem 0 0; font-variant-numeric: tabular-nums; }
+.score[data-perfect] { color: var(--success); }
+.marks { list-style: none; padding: 0; margin: 1rem 0 0; display: flex; justify-content: center; gap: .5rem; }
+.marks > li { width: 2.4rem; height: 2.4rem; display: grid; place-items: center; border-radius: 50%; font-size: 1.2rem; font-weight: 700;
+  color: var(--error); background: color-mix(in srgb, var(--error) 14%, var(--surface)); }
+.marks > li[data-correct] { color: var(--success); background: color-mix(in srgb, var(--success) 16%, var(--surface)); }
+.resultActions { margin-top: .8rem; }
+.nextLabel { display: block; font-size: .8rem; font-weight: 400; opacity: .8; margin-top: .1rem; }
+.srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 /* Word problems: prose instead of a displayed formula. */
 .question > p { font-size: 1.05rem; line-height: 1.7; text-align: left; margin: 0; }
 .saveStatus { text-align: center; color: var(--muted); font-size: .85rem; min-height: 1.3em; margin: .8rem 0 0; }
+
+/* A test's result: each problem's mark and its learning item, linked, the wrong ones to go and practise. */
+.review { list-style: none; padding: 0; margin: 1rem 0 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); text-align: left; }
+.review > li { display: flex; align-items: center; gap: .7rem; padding: .55rem .9rem; }
+.review > li + li { border-top: 1px solid var(--line); }
+.review a { color: var(--text); }
+.review > li:not([data-correct]) a { font-weight: 600; }
+.reviewMark { flex: none; width: 1.8rem; height: 1.8rem; display: grid; place-items: center; border-radius: 50%; font-weight: 700;
+  color: var(--error); background: color-mix(in srgb, var(--error) 14%, var(--surface)); }
+.review > li[data-correct] .reviewMark { color: var(--success); background: color-mix(in srgb, var(--success) 16%, var(--surface)); }
