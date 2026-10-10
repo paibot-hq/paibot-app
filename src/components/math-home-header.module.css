@@ -4,8 +4,8 @@
 .resume:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .resumeLabel { flex: none; font-size: .75rem; opacity: .8; }
 .resumeName { min-width: 0; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-/* Practice | Tests: two tabs, the current one filled. */
-.modes { width: min(100%, 720px); margin: .6rem auto 0; display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
+/* Practice | Tests: two tabs, the current one filled; no gap between them (the site's nav has one). */
+.modes { width: min(100%, 720px); margin: .6rem auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
 .mode { padding: .65rem; text-align: center; color: var(--text); text-decoration: none; font-weight: 600; }
 .mode + .mode { border-left: 1px solid var(--line); }
 .mode[aria-current="page"] { background: var(--accent); color: #fff; }
