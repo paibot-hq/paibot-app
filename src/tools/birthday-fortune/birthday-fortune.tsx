@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useLocale, useTranslations } from "use-intl";
+import { Link } from "../../i18n/navigation";
 import ToolLayout from "../../components/tool-layout";
 import controls from "../../components/tool-controls.module.css";
 import styles from "./birthday-fortune.module.css";
@@ -25,31 +26,36 @@ function Stars({ value, label }: { value: number; label: string }) {
   return <span className={styles.stars} role="img" aria-label={label}>{"★".repeat(value)}<span className={styles.off}>{"★".repeat(5 - value)}</span></span>;
 }
 
-export default function BirthdayFortune() {
+// `profileBirth` is the date registered in the profile (the first one used); `signedIn` says whether there is a profile to suggest.
+export default function BirthdayFortune({ profileBirth, signedIn }: { profileBirth: string | null; signedIn: boolean }) {
   const t = useTranslations("App.birthdayFortune");
   // Words looked up by a key made at run time (sign.<id>.name, lifePath.<n>.title, ...).
   const word = t as unknown as (key: string, values?: Record<string, string | number>) => string;
   const locale = useLocale();
-  const [birth, setBirth] = useState("");
+  const [birth, setBirth] = useState(profileBirth ?? "");
   const [shown, setShown] = useState<{ birth: YMD; today: YMD; reading: Reading } | null>(null);
   const [error, setError] = useState(false);
   const [shared, setShared] = useState("");
   const now = today();
 
-  // The birth date is kept in this browser only, so that the page can show today's reading at once next time.
+  // The date registered in the profile comes first. Without one, the date kept in this browser (if any) is used, so that the page can show today's
+  // reading at once. It is read after the page is shown, because "today" is the visitor's own day.
   useEffect(() => {
+    const fromProfile = profileBirth ? parse(profileBirth) : null;
+    if (fromProfile && validDate(fromProfile, today())) { setBirth(toText(fromProfile)); setShown({ birth: fromProfile, today: today(), reading: read(fromProfile, today()) }); return; }
     try {
       const saved = parse(window.localStorage.getItem(STORAGE) ?? "");
       if (saved && validDate(saved, today())) { setBirth(toText(saved)); setShown({ birth: saved, today: today(), reading: read(saved, today()) }); }
     } catch { /* storage blocked */ }
-  }, []);
+  }, [profileBirth]);
 
   function submit(event: React.FormEvent) {
     event.preventDefault();
     const date = parse(birth);
     if (!date || !validDate(date, today())) { setError(true); setShown(null); return; }
     setError(false); setShared("");
-    try { window.localStorage.setItem(STORAGE, toText(date)); } catch { /* storage blocked */ }
+    // With a date in the profile, a change here is for this visit only: the profile is the one place that writes it.
+    if (!profileBirth) { try { window.localStorage.setItem(STORAGE, toText(date)); } catch { /* storage blocked */ } }
     setShown({ birth: date, today: today(), reading: read(date, today()) });
   }
 
@@ -69,6 +75,9 @@ export default function BirthdayFortune() {
   }
 
   const r = shown?.reading;
+  const note = profileBirth
+    ? <>{t("fromProfile")} <Link href="/profile">{t("editInProfile")}</Link></>
+    : signedIn ? <>{t("suggestProfile")} <Link href="/profile">{t("editInProfile")}</Link></> : null;
   return (
     <ToolLayout title={t("title")}>
       <p className={controls.label}>{t("intro")}</p>
@@ -79,6 +88,7 @@ export default function BirthdayFortune() {
         </label>
         <button type="submit" className="auth-link" data-fortune="read">{t("read")}</button>
       </form>
+      {note && <p className={styles.note} data-fortune="profile-note">{note}</p>}
       {error && <p className={styles.error} role="alert" data-fortune="error">{t("invalid")}</p>}
       {shown && r && (
         <div className={styles.result} data-fortune="result">
@@ -111,7 +121,7 @@ export default function BirthdayFortune() {
           </section>
           <div className={styles.buttons}>
             <button type="button" className="auth-link" onClick={share} data-fortune="share">{t("share")}</button>
-            <button type="button" className="auth-link" onClick={forget} data-fortune="forget">{t("forget")}</button>
+            {!profileBirth && <button type="button" className="auth-link" onClick={forget} data-fortune="forget">{t("forget")}</button>}
           </div>
           <p className={styles.note} role="status">{shared}</p>
         </div>

@@ -92,6 +92,6 @@ test('every word the page asks for is in the messages of all three languages', (
     for (const n of [1, 2, 3, 4, 5, 6, 7, 8, 9]) for (const group of ['year', 'day']) for (const part of ['title', 'text']) text(messages[group][n][part], `${locale} ${group}.${n}.${part}`);
     for (const element of ['fire', 'earth', 'air', 'water']) text(messages.element[element], `${locale} element.${element}`);
     for (const row of ['overall', 'love', 'work', 'money']) text(messages.stars[row], `${locale} stars.${row}`);
-    for (const key of ['title', 'description', 'about', 'keywords', 'intro', 'birthDate', 'read', 'invalid', 'todayTitle', 'cycleTitle', 'yearLabel', 'monthLabel', 'dayLabel', 'signTitle', 'pathTitle', 'starsOf', 'share', 'copied', 'shareText', 'forget', 'note']) text(messages[key], `${locale} ${key}`);
+    for (const key of ['title', 'description', 'about', 'keywords', 'intro', 'fromProfile', 'editInProfile', 'suggestProfile', 'birthDate', 'read', 'invalid', 'todayTitle', 'cycleTitle', 'yearLabel', 'monthLabel', 'dayLabel', 'signTitle', 'pathTitle', 'starsOf', 'share', 'copied', 'shareText', 'forget', 'note']) text(messages[key], `${locale} ${key}`);
   }
 });
