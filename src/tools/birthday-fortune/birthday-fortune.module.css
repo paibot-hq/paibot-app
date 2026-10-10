@@ -1,0 +1,24 @@
+.form { display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: center; gap: .8rem; margin: 1rem 0; }
+.field { display: flex; flex-direction: column; gap: .3rem; }
+.date { padding: .45rem .7rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); font: inherit; font-size: 1.05rem; }
+.date:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.error { margin: 0 0 .8rem; color: var(--error); text-align: center; }
+.result { display: grid; gap: .9rem; width: min(640px, 100%); margin: 0 auto; }
+.card { padding: .9rem 1.1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.card h2 { margin: 0 0 .5rem; color: var(--muted); font-size: .85rem; font-weight: 700; letter-spacing: .04em; }
+.card p { margin: 0 0 .5rem; line-height: 1.7; }
+.theme { font-size: 1.25rem; font-weight: 800; }
+.theme small { margin-left: .6rem; color: var(--muted); font-size: .8rem; font-weight: 600; }
+.starList { display: grid; grid-template-columns: repeat(2, 1fr); gap: .4rem .9rem; margin: .5rem 0 0; }
+.starList div { display: flex; justify-content: space-between; align-items: center; gap: .5rem; }
+.starList dt { color: var(--muted); font-size: .9rem; }
+.starList dd { margin: 0; }
+.stars { color: #e0a800; letter-spacing: .1em; white-space: nowrap; }
+.off { color: color-mix(in srgb, var(--muted) 35%, transparent); }
+.cycle { display: grid; gap: .35rem; margin: 0 0 .7rem; padding: 0; list-style: none; }
+.cycle li { display: grid; grid-template-columns: 7rem 2rem 1fr; align-items: baseline; gap: .5rem; }
+.cycle li span:first-child { color: var(--muted); font-size: .85rem; }
+.cycle strong { color: var(--accent); font-size: 1.4rem; text-align: center; font-variant-numeric: tabular-nums; }
+.buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
+.note { margin: .6rem 0 0; color: var(--muted); font-size: .8rem; text-align: center; }
+@media (max-width: 480px) { .starList { grid-template-columns: 1fr; } .cycle li { grid-template-columns: 5.5rem 1.6rem 1fr; } }

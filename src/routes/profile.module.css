@@ -8,6 +8,7 @@
 .profile button.primary { background: var(--text); color: var(--bg); border-color: var(--text); }
 .profile button:disabled, .profile input:disabled, .profile select:disabled { opacity: .5; cursor: default; }
 .profile button:focus-visible, .profile input:focus-visible, .profile select:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.registered { margin: 0; font-size: .9rem; font-weight: 600; }
 .status { min-height: 1.4em; margin-top: 1rem; font-size: .85rem; color: var(--muted); }
 .status [role="alert"] { color: var(--error); }
 .empty { text-align: center; padding: 2.5rem 1rem; color: var(--muted); line-height: 1.8; }
