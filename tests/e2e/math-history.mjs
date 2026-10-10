@@ -78,6 +78,9 @@ try {
   await page.goto(`${base}/en/math/arith`);
   assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}"]`).getAttribute('data-done'), 'true', "the unit's page shows the finished item green");
   await page.goto(`${base}/en/math`);
+  // The list shows learning items when searched for.
+  await page.waitForFunction(() => document.documentElement.dataset.theme);
+  await page.locator('main').getByRole('searchbox').fill('order of operations');
   assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}"]`).first().getAttribute('data-done'), 'true', 'the list shows the finished item green');
   assert.equal(await play(page, 5), 'Your score has been saved.');
   assert.equal(await play(page, 1), 'Your score has been saved.');

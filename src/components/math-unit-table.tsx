@@ -140,9 +140,24 @@ export default function MathUnitTable({ playable, done }: { playable: readonly s
               </span>
             </button>
           </h2>
-          <ul className={styles.rows} id={`math-domain-units-${domain}`} hidden={!open}>
-            {rows.map(({ unit, title, items }) => (
-              <li key={unit.id} className={styles.row}>
+          <ul className={styles.rows} data-compact={!filtering || undefined} id={`math-domain-units-${domain}`} hidden={!open}>
+            {rows.map(({ unit, title, items }) => {
+              // Without a search or a filter an area lists only its units, one line each (the unit's page lists its items); with one, the
+              // matching items are shown, to be found.
+              if (!filtering) {
+                const unitDone = items.filter(item => item.done).length;
+                return <li key={unit.id}>
+                  <Link href={`/math/${unit.id}`} className={styles.unitLink} data-playable={items.some(item => item.playable) || undefined}>
+                    <span className={styles.unitName}>{title}</span>
+                    <span className={styles.unitMeta}>
+                      {t('unitList.itemCount', { count: items.length })}
+                      {unitDone > 0 && <> · <span className={styles.done}>{t('unitList.doneCount', { done: unitDone, total: items.length })}</span></>}
+                    </span>
+                    <span className={styles.badge}>{t(`stages.${unit.stage}`)}</span>
+                  </Link>
+                </li>;
+              }
+              return <li key={unit.id} className={styles.row}>
                 <div className={styles.rowHead}>
                   <h3 className={styles.title}><Link href={`/math/${unit.id}`}>{title}</Link></h3>
                   <span className={styles.badge}>{t(`stages.${unit.stage}`)}</span>
@@ -156,8 +171,8 @@ export default function MathUnitTable({ playable, done }: { playable: readonly s
                     </li>
                   ))}
                 </ul>
-              </li>
-            ))}
+              </li>;
+            })}
           </ul>
         </section>
       );

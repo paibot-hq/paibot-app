@@ -21,9 +21,9 @@ export default async function ({ page, main, base, go, errors }) {
   assert.equal(await openAreas(), 0, 'every area is folded at first');
   assert.equal(await areaButton('Number').getAttribute('aria-expanded'), 'false');
   assert.equal(await link('/en/math/arith').isVisible(), false);
-  // Items link to their page; those with problems are highlighted.
-  assert.equal(await link('/en/math/factorization/trinomial').getAttribute('data-playable'), 'true');
-  assert.equal(await link('/en/math/shapes/solids-basic').getAttribute('data-playable'), 'true');
+  // Without a search or a filter an area lists its units only (one line each, linking to the unit's page), highlighted when they have problems.
+  assert.equal(await link('/en/math/factorization').getAttribute('data-playable'), 'true');
+  assert.equal(await link('/en/math/factorization/trinomial').count(), 0, 'no learning items without a search');
   await main.getByRole('button', { name: 'Higher', exact: true }).click();
   assert.deepEqual(await units.allTextContents(), ['Statistics & probability', 'Sets & logic', 'Vectors & matrices', 'Calculus']);
   await main.getByRole('button', { name: 'Higher', exact: true }).click();
@@ -33,6 +33,7 @@ export default async function ({ page, main, base, go, errors }) {
   await main.getByLabel('Playable sets only').uncheck();
   await main.getByRole('searchbox').fill('solid shapes');
   assert.deepEqual(await main.locator('ul ul a').allTextContents(), ['Solid shapes']);
+  assert.equal(await link('/en/math/shapes/solids-basic').getAttribute('data-playable'), 'true', 'a found item with problems is highlighted');
   assert.ok(await link('/en/math/shapes/solids-basic').isVisible(), 'a search opens the area with the match');
   await main.getByRole('searchbox').fill('');
   // Japanese school year: only that year's items; the Suken filter is Japanese only.
@@ -81,7 +82,9 @@ export default async function ({ page, main, base, go, errors }) {
   assert.equal((await page.goto(`${base}/en/math/nothing`)).status(), 404);
   await go('math');
   // The area opened above is remembered in this browser.
-  assert.ok(await link('/en/math/arith/order-of-operations').isVisible(), 'the opened area is still open');
+  assert.ok(await link('/en/math/arith').isVisible(), 'the opened area is still open');
+  await link('/en/math/arith').click();
+  await page.waitForURL(`${base}/en/math/arith`);
   await link('/en/math/arith/order-of-operations').click();
   await page.waitForURL(`${base}/en/math/arith/order-of-operations`);
   await main.getByRole('heading', { level: 1, name: 'Order of operations' }).waitFor();
