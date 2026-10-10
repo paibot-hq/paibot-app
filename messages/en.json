@@ -634,8 +634,6 @@
         "air": "Air",
         "water": "Water"
       },
-      "share": "Share result",
-      "copied": "Copied",
       "shareText": "Birthday Fortune: {sign}, life path {path}, today's luck {stars}",
       "forget": "Forget my saved birth date",
       "note": "Fortunes are for fun. They are a guide worked out from your birth date and the date, and do not predict what will happen. Where a sign starts can differ by a day from year to year.",
@@ -844,8 +842,6 @@
       "luckyColor": "Lucky colour",
       "luckyNumber": "Lucky number",
       "again": "Draw again",
-      "share": "Share result",
-      "copied": "Copied",
       "shareText": "I drew an omikuji: {luck} (No. {stick})",
       "note": "Fortunes are for fun. Take the result lightly.",
       "luck": {
@@ -1662,8 +1658,6 @@
       "ready": "How much can you make in 30 seconds? The longer your streak, the more points.",
       "start": "Start",
       "retry": "Again",
-      "share": "Share result",
-      "copied": "Copied",
       "result": "Result",
       "points": "pts",
       "newBest": "New best!",

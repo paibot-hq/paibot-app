@@ -141,6 +141,8 @@ export default async function ({ page, main, base, go, errors }) {
   assert.match(await main.getByRole('link', { name: /^Next practice/ }).getAttribute('href'), /^\/en\/math\/arith\/[a-z-]+\/\d+$/);
   // The result can be shared on X, LINE and Facebook (new tabs), or copied: the words with the score and a link to the same set.
   const shareText = async () => {
+    // The site's address is added once the page is in the browser.
+    await page.waitForFunction(() => document.querySelector('[data-share] [data-network="x"]')?.getAttribute('href').includes('url=http'));
     const x = new URL(await main.locator('[data-share] [data-network="x"]').getAttribute('href'));
     const line = new URL(await main.locator('[data-share] [data-network="line"]').getAttribute('href'));
     const facebook = new URL(await main.locator('[data-share] [data-network="facebook"]').getAttribute('href'));

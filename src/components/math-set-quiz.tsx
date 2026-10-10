@@ -153,8 +153,8 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
         <div className={styles.resultActions}>
           {perfect ? <>{nextLink}{retryButton}</> : <>{retryButton}{nextLink}</>}
         </div>
-        {/* The link goes to the same set or test, so that a friend can try it. Only after the end, in the browser: window is there. */}
-        <ShareButtons text={shareText ? shareText(correctCount, total) : t('shareText', { title: setLabel, correct: correctCount, total })} url={`${window.location.origin}/${locale}${sharePath}`} />
+        {/* The link goes to the same set or test, so that a friend can try it. */}
+        <ShareButtons text={shareText ? shareText(correctCount, total) : t('shareText', { title: setLabel, correct: correctCount, total })} path={`/${locale}${sharePath}`} />
         {current && <p className={styles.saveStatus} role="status">
           {!signedIn ? t('signInToSave')
             : saver.state !== 'idle' ? null

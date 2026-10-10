@@ -4,11 +4,15 @@ import styles from './share-buttons.module.css';
 
 // Sharing a result on social networks: X and LINE get the words and the link, Facebook the link only (it takes no text), "Copy" puts both
 // on the clipboard, and "More" opens the device's own share sheet where there is one (phones). Each network's page opens in a new tab.
-export default function ShareButtons({ text, url }: { text: string; url: string }) {
+// `path` is the page to link to, with its locale ("/ja/puchi"); the site's address is added in the browser, so a result shown by the server
+// renders too.
+export default function ShareButtons({ text, path }: { text: string; path: string }) {
   const t = useTranslations('App.shareButtons');
   const [native, setNative] = useState(false);
+  const [origin, setOrigin] = useState('');
   const [status, setStatus] = useState('');
-  useEffect(() => { setNative(typeof navigator.share === 'function'); }, []);
+  useEffect(() => { setNative(typeof navigator.share === 'function'); setOrigin(window.location.origin); }, []);
+  const url = `${origin}${path}`;
   const both = `${text}\n${url}`;
   const networks = [
     { id: 'x', label: 'X', href: `https://x.com/intent/post?text=${encodeURIComponent(text)}&url=${encodeURIComponent(url)}` },

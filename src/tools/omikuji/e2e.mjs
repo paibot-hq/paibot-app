@@ -17,7 +17,8 @@ export default async function ({ page, main, go }) {
   assert.equal(await paper.locator('dl > div').count(), 4, 'a line for each of four things');
   assert.match(await paper.innerText(), /\d/, 'a stick number and a lucky number');
   assert.doesNotMatch(await paper.innerText(), /omikuji\.|lines\./, 'the words are shown, not their keys');
-  assert.equal(await main.locator('[data-omikuji="share"]').count(), 1);
+  const x = new URL(await main.locator('[data-share] [data-network="x"]').getAttribute('href'));
+  assert.match(x.searchParams.get('url'), /\/en\/omikuji$/, 'shared with a link to the page');
   // Again: the box is back, and a new draw gives a paper again.
   await main.locator('[data-omikuji="again"]').click();
   await box.waitFor();

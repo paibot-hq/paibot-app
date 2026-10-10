@@ -50,7 +50,10 @@ export default async function ({ page, main, go }) {
   await result.waitFor();
   assert.match(await result.innerText(), /[SABC]/);
   assert.ok(await read('best') > 0, 'the best score is kept');
-  await main.locator('[data-puchi="share"]').waitFor();
+  // Shared under the board: X with the score and a link to the game.
+  const x = new URL(await main.locator('[data-share] [data-network="x"]').getAttribute('href'));
+  assert.match(x.searchParams.get('text'), /\d/);
+  assert.match(x.searchParams.get('url'), /\/en\/puchi$/);
   await main.locator('[data-puchi="retry"]').click();
   await main.locator('[data-puchi="countdown"]').waitFor();
   assert.equal(await read('score'), 0, 'a new run starts from nothing');
