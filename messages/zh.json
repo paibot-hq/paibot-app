@@ -3957,6 +3957,7 @@
         "byKentei": "按数检级别",
         "summary": "综合",
         "summaries": {
+          "all": "全范围综合（小学至大学）",
           "elementary": "小学综合",
           "middle": "初中综合",
           "high1": "数学I・A综合",

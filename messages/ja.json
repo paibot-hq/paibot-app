@@ -3955,12 +3955,13 @@
         "intro": "範囲を選ぶと、そこから問題を出します。毎回ちがう問題が出て、結果からまちがえた項目の練習に進めます。",
         "byGrade": "学年で",
         "byKentei": "数検の級で",
-        "summary": "まとめて",
+        "summary": "総合",
         "summaries": {
-          "elementary": "小学校のまとめ",
-          "middle": "中学校のまとめ",
-          "high1": "数学I・Aのまとめ",
-          "high2": "数学II・B・Cのまとめ"
+          "all": "全範囲の総合（小学〜大学）",
+          "elementary": "小学校の総合",
+          "middle": "中学校の総合",
+          "high1": "数学I・Aの総合",
+          "high2": "数学II・B・Cの総合"
         },
         "gradeTitle": "{grade}のテスト",
         "kenteiTitle": "数検{level}の範囲のテスト",

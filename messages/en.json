@@ -3955,12 +3955,13 @@
         "intro": "Choose a range for problems drawn from it, new ones each time; from the result, go and practise the items you missed.",
         "byGrade": "By school year",
         "byKentei": "By Suken level",
-        "summary": "Several years",
+        "summary": "Overall",
         "summaries": {
-          "elementary": "Elementary school review",
-          "middle": "Middle school review",
-          "high1": "Math I & A review",
-          "high2": "Math II, B & C review"
+          "all": "Overall, elementary school to university",
+          "elementary": "Elementary school overall",
+          "middle": "Middle school overall",
+          "high1": "Math I & A overall",
+          "high2": "Math II, B & C overall"
         },
         "gradeTitle": "{grade} test",
         "kenteiTitle": "Suken {level} range test",

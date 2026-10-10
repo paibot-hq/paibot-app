@@ -33,4 +33,7 @@ const level = drawTest({ parts: [{ grades: ['own'], size: 7 }, { grades: ['below
 assert.equal(level.filter(problem => problem.unit === 'own').length, 7);
 assert.equal(level.filter(problem => problem.unit === 'below').length, 3);
 assert.deepEqual(tiers(level), [...tiers(level)].sort());
+// An overall test keeps its parts in order (elementary school first), each easiest first.
+const inOrder = drawTest({ inOrder: true, parts: [{ grades: ['own'], size: 5 }, { grades: ['below'], size: 5 }] }, part => part.grades[0] === 'own' ? own : below, seeded(6));
+assert.deepEqual(inOrder.map(problem => problem.unit), [...Array(5).fill('own'), ...Array(5).fill('below')]);
 console.log('PASS: a test draws its problems from different items, by tier, easiest first, and each part from its own years');

@@ -28,8 +28,9 @@ export function pickTest<T extends TestCandidate>(candidates: readonly T[], size
 }
 
 // A test's problems: each part drawn from its own candidates (`ofPart` gives them), without repeats, then all easiest first.
-export function drawTest<T extends TestCandidate>(test: { parts: readonly TestPart[] }, ofPart: (part: TestPart) => readonly T[], random: () => number = Math.random): T[] {
+// With `inOrder`, the parts keep their order (each easiest first): an overall test goes from elementary school up.
+export function drawTest<T extends TestCandidate>(test: { parts: readonly TestPart[]; inOrder?: boolean }, ofPart: (part: TestPart) => readonly T[], random: () => number = Math.random): T[] {
   const drawn: T[] = [];
   for (const part of test.parts) drawn.push(...pickTest(ofPart(part).filter(problem => !drawn.some(other => other.id === problem.id)), part.size, random));
-  return drawn.sort((a, b) => a.tier - b.tier);
+  return test.inOrder ? drawn : drawn.sort((a, b) => a.tier - b.tier);
 }

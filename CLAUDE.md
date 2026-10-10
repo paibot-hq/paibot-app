@@ -74,7 +74,8 @@ Math is organized unit → learning item → practice set, all in
   items with published problems are highlighted, finished ones green.
 - `/math/test` (`routes/math-tests.tsx`), the Tests tab, and `/math/test/<id>` (`routes/math-test.tsx`):
   a test per school year (10 problems), per Suken level (Japanese only; 7 from its years, 3 from
-  those below) and per group of years ("summary-*", 20), all defined in `src/lib/math-test.ts`.
+  those below) and per group of years ("summary-*", 20; "summary-all" takes 4 from each stage,
+  elementary school to university, in order), all defined in `src/lib/math-test.ts`.
   Problems are drawn anew on each visit (`src/lib/math-test-draw.ts`: a different learning item
   each where possible, 40% basic, 40% standard, 20% advanced, easiest first); the result links
   each problem's item. Not saved, not indexed; a test is offered when its years have enough problems.

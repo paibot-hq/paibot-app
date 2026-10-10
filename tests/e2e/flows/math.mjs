@@ -175,6 +175,8 @@ export default async function ({ page, main, base, go, errors }) {
   await main.getByText('1 / 10', { exact: true }).waitFor();
   await go('math/test/summary-middle');
   await main.getByText('1 / 20', { exact: true }).waitFor();
+  await go('math/test/summary-all');
+  await main.getByText('1 / 20', { exact: true }).waitFor();
   assert.equal((await page.goto(`${base}/en/math/test/x9`)).status(), 404);
   assert.equal((await page.goto(`${base}/en/math/test/kentei-3`)).status(), 404, 'Suken tests are in Japanese only');
   await page.goto(`${base}/ja/math/test/kentei-3`);
