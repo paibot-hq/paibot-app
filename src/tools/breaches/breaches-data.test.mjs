@@ -5,7 +5,7 @@ import { numbersIn, numberForms, validateBreaches } from './breaches-rules.mjs';
 
 const data = JSON.parse(readFileSync(new URL('../../data/breaches.json', import.meta.url), 'utf8'));
 const entry = overrides => ({
-  id: 'x', date: '2026-10-01', name: 'X', type: 'leak', count: 1000, countNote: '1,000件', data: '', cause: 'c', note: '', verification: 'reported', ai: 'unknown', checkedAt: '2026-10-09',
+  id: 'x', date: '2026-10-01', name: 'X', type: 'leak', count: 1000, countNote: '1,000件', data: '', cause: 'c', note: '', verification: 'reported', origin: 'attack', checkedAt: '2026-10-09',
   sources: [{ name: 'A', url: 'https://a.example/1', kind: 'press' }, { name: 'B', url: 'https://b.example/1', kind: 'press' }], ...overrides,
 });
 const check = item => validateBreaches({ asOf: '2026-10-09', items: [item] });
@@ -63,17 +63,20 @@ test('the government advisories need a day that is not in the future, a name, a 
   assert.deepEqual(validateBreaches({ asOf: '2026-10-09', items: [entry({})] }), [], 'advisories are optional');
 });
 
-test('how AI comes into it: used and unrelated need a reason, an attack is never "unrelated", and the real list has both kinds', () => {
-  assert.deepEqual(check(entry({ ai: 'unknown' })), []);
-  assert.deepEqual(check(entry({ ai: 'used', aiBasis: 'staff put data into a generative AI' })), []);
-  assert.deepEqual(check(entry({ ai: 'unrelated', aiBasis: 'a loss, not an attack' })), []);
-  assert.match(check(entry({ ai: 'used' }))[0], /needs aiBasis/);
-  assert.match(check(entry({ ai: 'unrelated', aiBasis: ' ' }))[0], /needs aiBasis/);
-  assert.match(check(entry({ ai: 'unknown', aiBasis: 'x' }))[0], /only for used and unrelated/);
-  assert.match(check(entry({ ai: 'maybe' }))[0], /not one of/);
-  assert.match(check(entry({ type: 'ransomware', ai: 'unrelated', aiBasis: 'x' }))[0], /attack/);
-  assert.match(check(entry({ type: 'fraud', ai: 'unrelated', aiBasis: 'x' }))[0], /attack/);
-  const kinds = new Set(data.items.map(item => item.ai));
-  assert.deepEqual([...kinds].sort(), ['unknown', 'unrelated', 'used']);
-  assert.ok(data.items.filter(item => item.ai === 'used').every(item => /AI/.test(item.aiBasis)), 'what is "used" says AI');
+test('where an incident came from: what is not an attack says why and names the words its sources use; an attack never does; a ransomware or a fraud is an attack', () => {
+  const mistake = { origin: 'mistake', originBasis: 'a loss, not an attack', originProof: ['紛失'] };
+  assert.deepEqual(check(entry({})), []);
+  assert.deepEqual(check(entry(mistake)), []);
+  assert.deepEqual(check(entry({ ...mistake, origin: 'insider' })), []);
+  assert.match(check(entry({ ...mistake, originBasis: ' ' }))[0], /needs originBasis/);
+  assert.match(check(entry({ ...mistake, originProof: [] }))[0], /needs originProof/);
+  assert.match(check(entry({ ...mistake, originProof: [''] }))[0], /needs originProof/);
+  assert.match(check(entry({ ...mistake, originProof: undefined }))[0], /needs originProof/);
+  assert.match(check(entry({ origin: 'attack', originBasis: 'x' }))[0], /only for what is not an attack/);
+  assert.match(check(entry({ origin: 'maybe' }))[0], /not one of/);
+  assert.match(check(entry({ ...mistake, type: 'ransomware' })).join(), /origin must be attack/);
+  assert.match(check(entry({ ...mistake, type: 'fraud' })).join(), /origin must be attack/);
+  const kinds = new Set(data.items.map(item => item.origin));
+  assert.deepEqual([...kinds].sort(), ['attack', 'insider', 'mistake']);
+  assert.ok(data.items.filter(item => item.origin !== 'attack').length >= 10, 'the non-attacks are listed');
 });

@@ -39,5 +39,4 @@
 .advisories time { color: var(--muted); font-variant-numeric: tabular-nums; }
 .advisories a { overflow-wrap: anywhere; }
 @media (max-width: 480px) { .advisories li { grid-template-columns: 1fr; gap: 0; } }
-.verify[data-ai-tag="used"] { border-color: #b45309; font-weight: 700; }
-.verify[data-ai-tag="unrelated"] { border-style: dotted; }
+.verify[data-origin-tag] { border-color: #2e7d32; font-weight: 700; }

@@ -26,7 +26,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "jgc-digital",
@@ -47,7 +47,7 @@
      "kind": "press"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "toda-corp",
@@ -68,7 +68,7 @@
      "kind": "press"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "lawson-id",
@@ -94,7 +94,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "daiichikosho",
@@ -125,7 +125,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "newspicks",
@@ -161,7 +161,7 @@
     }
    ],
    "checkedAt": "2026-10-10",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "commune",
@@ -197,7 +197,7 @@
     }
    ],
    "checkedAt": "2026-10-10",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "skyticket",
@@ -223,7 +223,7 @@
     }
    ],
    "checkedAt": "2026-10-10",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "idcf-cloud",
@@ -264,7 +264,7 @@
     }
    ],
    "checkedAt": "2026-10-10",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "nissui-logistics",
@@ -295,7 +295,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "scala-i-ask",
@@ -321,7 +321,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "citizen-watch",
@@ -347,7 +347,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "mrmax",
@@ -373,7 +373,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "rakuten-drive",
@@ -399,7 +399,7 @@
      "kind": "press"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "yakiniku-king",
@@ -430,7 +430,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "infoq",
@@ -461,7 +461,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "osaka-metropolitan-univ",
@@ -492,7 +492,7 @@
     }
    ],
    "checkedAt": "2026-10-10",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "daiwa-securities",
@@ -523,7 +523,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "nikkei",
@@ -554,7 +554,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "abahouse",
@@ -575,7 +575,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "dai-ichi-life",
@@ -606,7 +606,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "sagawa",
@@ -637,7 +637,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "voising",
@@ -663,7 +663,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "benefit-one",
@@ -689,8 +689,11 @@
      "kind": "press"
     }
    ],
-   "ai": "unrelated",
-   "aiBasis": "システム改修での設定の不備で、攻撃ではない"
+   "origin": "mistake",
+   "originBasis": "システム改修での設定の不備で、外部からの攻撃ではない",
+   "originProof": [
+    "不具合"
+   ]
   },
   {
    "id": "seicomart",
@@ -716,7 +719,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "yamato",
@@ -742,7 +745,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "unirita",
@@ -763,7 +766,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "toppan-sompo",
@@ -784,8 +787,11 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unrelated",
-   "aiBasis": "操作ミスによる誤送付で、攻撃ではない"
+   "origin": "mistake",
+   "originBasis": "操作ミスによる誤送付で、外部からの攻撃ではない",
+   "originProof": [
+    "誤送付"
+   ]
   },
   {
    "id": "japan-post-app",
@@ -806,7 +812,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "eplus",
@@ -837,7 +843,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "times-car",
@@ -868,7 +874,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "kotoura",
@@ -889,8 +895,11 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unrelated",
-   "aiBasis": "委託事業者の格納ミスで、攻撃ではない"
+   "origin": "mistake",
+   "originBasis": "委託事業者の格納ミスで、外部からの攻撃ではない",
+   "originProof": [
+    "誤格納"
+   ]
   },
   {
    "id": "temairazu",
@@ -911,7 +920,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "ozmall",
@@ -937,7 +946,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "tokyo-metro",
@@ -968,7 +977,7 @@
      "kind": "press"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "keio",
@@ -989,7 +998,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "schools-sept",
@@ -1010,7 +1019,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "nippon-rentacar",
@@ -1041,7 +1050,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "saga-univ",
@@ -1062,7 +1071,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "ryomo-systems",
@@ -1088,7 +1097,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "fines",
@@ -1109,7 +1118,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "smaregi-ec",
@@ -1135,7 +1144,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "japan-post-intl",
@@ -1161,7 +1170,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "ikegami-tsushinki",
@@ -1187,7 +1196,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "aichi-iconnavi",
@@ -1208,8 +1217,11 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unrelated",
-   "aiBasis": "職員の誤掲載で、攻撃ではない"
+   "origin": "mistake",
+   "originBasis": "職員の誤掲載で、外部からの攻撃ではない",
+   "originProof": [
+    "誤添付"
+   ]
   },
   {
    "id": "nichirei",
@@ -1240,7 +1252,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "gyazo",
@@ -1271,7 +1283,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "docomo-amazon",
@@ -1302,8 +1314,11 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unrelated",
-   "aiBasis": "契約画面の設定の誤りで、攻撃ではない"
+   "origin": "mistake",
+   "originBasis": "契約画面の設定の誤りで、外部からの攻撃ではない",
+   "originProof": [
+    "設定"
+   ]
   },
   {
    "id": "muraucchi",
@@ -1329,7 +1344,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "lean-body",
@@ -1355,7 +1370,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "odawara-engineering",
@@ -1381,7 +1396,7 @@
      "kind": "press"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "digital-agency",
@@ -1412,7 +1427,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "nihon-trex",
@@ -1438,7 +1453,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "jeei",
@@ -1464,7 +1479,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "rohto",
@@ -1495,7 +1510,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "fivefoxes",
@@ -1521,7 +1536,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "kyoto-sanga",
@@ -1547,8 +1562,11 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unrelated",
-   "aiBasis": "メールへの誤添付で、攻撃ではない"
+   "origin": "mistake",
+   "originBasis": "メールへの誤添付で、外部からの攻撃ではない",
+   "originProof": [
+    "誤送信"
+   ]
   },
   {
    "id": "musashino-univ",
@@ -1569,7 +1587,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "washington-hotel",
@@ -1590,7 +1608,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "coop-yamaguchi",
@@ -1621,7 +1639,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "rizap",
@@ -1652,8 +1670,11 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "used",
-   "aiBasis": "従業員が許可されていない外部の生成AIに、顧客のデータを入力した(公表・報道に明記)"
+   "origin": "mistake",
+   "originBasis": "従業員が許可されていない外部の生成AIにデータを入力したもので、外部からの攻撃ではない",
+   "originProof": [
+    "生成AI"
+   ]
   },
   {
    "id": "cec",
@@ -1674,7 +1695,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "tottori",
@@ -1695,7 +1716,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "hamagin-tt",
@@ -1721,7 +1742,7 @@
      "kind": "press"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "seibu-railway",
@@ -1742,8 +1763,11 @@
      "kind": "press"
     }
    ],
-   "ai": "unrelated",
-   "aiBasis": "管理画面の公開設定の不備で、攻撃ではない"
+   "origin": "mistake",
+   "originBasis": "管理画面の公開設定の不備で、外部からの攻撃ではない",
+   "originProof": [
+    "閲覧できる状態"
+   ]
   },
   {
    "id": "mitsui-fudosan",
@@ -1769,7 +1793,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "ultra-mart",
@@ -1790,7 +1814,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "applynow",
@@ -1811,7 +1835,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "ando-hazama",
@@ -1837,7 +1861,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "tk-toka",
@@ -1863,7 +1887,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "yellow-hat",
@@ -1889,7 +1913,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "corona",
@@ -1915,7 +1939,7 @@
      "kind": "press"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "mandarake",
@@ -1941,7 +1965,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "shizugin-tm",
@@ -1962,7 +1986,7 @@
      "kind": "press"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "kindal",
@@ -1993,7 +2017,7 @@
      "kind": "press"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "sanko-techno-vn",
@@ -2024,7 +2048,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "01-bank",
@@ -2050,7 +2074,7 @@
      "kind": "press"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "zurich-insurance",
@@ -2076,7 +2100,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "swagelok-fst",
@@ -2102,7 +2126,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "nittetsu-kowa",
@@ -2128,7 +2152,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "kddi-web-communications",
@@ -2159,7 +2183,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "sakura-internet",
@@ -2185,7 +2209,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "meitetsu-kyosho",
@@ -2206,7 +2230,7 @@
      "kind": "press"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "logicvein",
@@ -2232,7 +2256,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "kyoiku-software",
@@ -2258,7 +2282,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "akabu-engineering",
@@ -2284,7 +2308,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "rext",
@@ -2305,7 +2329,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "chubu-electric",
@@ -2331,7 +2355,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "shopserve",
@@ -2357,7 +2381,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "life-insurance-association",
@@ -2388,8 +2412,11 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unrelated",
-   "aiBasis": "認可設定の不備で、攻撃ではない"
+   "origin": "mistake",
+   "originBasis": "認可設定の不備で、外部からの攻撃ではない",
+   "originProof": [
+    "設定"
+   ]
   },
   {
    "id": "takara-tomy",
@@ -2415,7 +2442,11 @@
      "kind": "press"
     }
    ],
-   "ai": "unknown"
+   "origin": "mistake",
+   "originBasis": "アプリの認証機能の欠陥で、攻撃は確認されていない",
+   "originProof": [
+    "脆弱性"
+   ]
   },
   {
    "id": "fuso-dentsu",
@@ -2446,7 +2477,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "sagawa-smartclub",
@@ -2472,8 +2503,11 @@
      "kind": "press"
     }
    ],
-   "ai": "unrelated",
-   "aiBasis": "復旧作業での設定の誤りで、攻撃ではない(会社が明言)"
+   "origin": "mistake",
+   "originBasis": "復旧作業での設定の誤りで、外部からの攻撃ではない(会社が明言)",
+   "originProof": [
+    "設定"
+   ]
   },
   {
    "id": "nihon-kotsu",
@@ -2504,7 +2538,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "kaga-solnet",
@@ -2530,7 +2564,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "aflac",
@@ -2561,7 +2595,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "kddi-mail",
@@ -2587,7 +2621,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "nttpc-webarena",
@@ -2613,7 +2647,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "saga-hirakawaya",
@@ -2639,7 +2673,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "kyushu-univ-hospital",
@@ -2670,7 +2704,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "kyushu-electric",
@@ -2696,8 +2730,11 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unrelated",
-   "aiBasis": "媒体の紛失で、攻撃ではない"
+   "origin": "mistake",
+   "originBasis": "媒体の紛失で、外部からの攻撃ではない",
+   "originProof": [
+    "紛失"
+   ]
   },
   {
    "id": "hokkaido-medical-center",
@@ -2728,8 +2765,11 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unrelated",
-   "aiBasis": "廃棄の委託先の不備で、攻撃ではない"
+   "origin": "mistake",
+   "originBasis": "廃棄の委託先の不備で、外部からの攻撃ではない",
+   "originProof": [
+    "廃棄"
+   ]
   },
   {
    "id": "shin-nihon-kentei",
@@ -2760,7 +2800,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "hatena",
@@ -2791,7 +2831,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "2rinkan",
@@ -2827,7 +2867,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "moneyforward",
@@ -2853,7 +2893,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "shizuoka-police",
@@ -2874,8 +2914,11 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unrelated",
-   "aiBasis": "黒塗り処理の不備で、攻撃ではない"
+   "origin": "mistake",
+   "originBasis": "黒塗り処理の不備で、外部からの攻撃ではない",
+   "originProof": [
+    "黒塗り"
+   ]
   },
   {
    "id": "jr-tokai-takashimaya",
@@ -2901,7 +2944,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "campfire",
@@ -2927,7 +2970,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "toyota-secondees",
@@ -2953,8 +2996,11 @@
      "kind": "press"
     }
    ],
-   "ai": "unrelated",
-   "aiBasis": "出向者による内部不正で、外部からの攻撃ではない"
+   "origin": "insider",
+   "originBasis": "出向者による内部不正で、外部からの攻撃ではない",
+   "originProof": [
+    "出向"
+   ]
   },
   {
    "id": "ycc",
@@ -2985,7 +3031,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "ierabu",
@@ -3016,7 +3062,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "tokyu-resorts",
@@ -3042,8 +3088,11 @@
      "kind": "press"
     }
    ],
-   "ai": "unrelated",
-   "aiBasis": "メールの宛先の誤りで、攻撃ではない"
+   "origin": "mistake",
+   "originBasis": "メールの宛先の誤りで、外部からの攻撃ではない",
+   "originProof": [
+    "宛先"
+   ]
   },
   {
    "id": "wave",
@@ -3069,7 +3118,7 @@
      "kind": "press"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "hosokawa-micron",
@@ -3095,7 +3144,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "zetton",
@@ -3121,7 +3170,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "fukuoka-bank-metlife",
@@ -3152,8 +3201,11 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unrelated",
-   "aiBasis": "出向者による内部不正で、外部からの攻撃ではない"
+   "origin": "insider",
+   "originBasis": "出向者による内部不正で、外部からの攻撃ではない",
+   "originProof": [
+    "出向"
+   ]
   },
   {
    "id": "cota",
@@ -3179,7 +3231,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "mazda-thai",
@@ -3205,7 +3257,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "medica",
@@ -3236,7 +3288,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "murata",
@@ -3267,7 +3319,7 @@
      "kind": "press"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "tokai-univ",
@@ -3293,7 +3345,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "asahi-group",
@@ -3319,7 +3371,7 @@
      "kind": "press"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "mynavi",
@@ -3350,7 +3402,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "jex",
@@ -3376,7 +3428,7 @@
      "kind": "aggregator"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "anabuki-housing",
@@ -3402,7 +3454,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "just-curtain",
@@ -3428,7 +3480,7 @@
      "kind": "press"
     }
    ],
-   "ai": "unknown"
+   "origin": "attack"
   },
   {
    "id": "smaregi",
@@ -3454,7 +3506,7 @@
     }
    ],
    "checkedAt": "2026-10-09",
-   "ai": "unknown"
+   "origin": "attack"
   }
  ],
  "advisories": [

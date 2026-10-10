@@ -82,6 +82,12 @@ await pool(items, 5, async item => {
   const readable = pages.filter(({ page }) => page.text);
   if (!readable.length) { if (!result.fail.length) result.warn.push('no source page could be read as text (PDF, blocked or script-built); check by hand'); return; }
   if (!readable.some(({ page }) => nameTokens(item.name).some(token => page.text.includes(token)))) result.warn.push(`no readable source names "${nameToken(item.name)}"`);
+  // What is said not to be an attack: the words its sources use for it (a loss, a mistaken send, a secondee...) have to be on one of the pages.
+  if (item.origin !== 'attack') {
+    for (const word of item.originProof ?? []) {
+      if (!readable.some(({ page }) => page.text.includes(normalize(word)))) result.warn.push(`no readable source says "${word}": check by hand that this is not an attack`);
+    }
+  }
   if (item.count !== null) {
     const forms = new Set([...numberForms(item.count), ...numbersIn(item.countNote).flatMap(numberForms)].map(normalize));
     if (!readable.some(({ page }) => [...forms].some(form => page.text.includes(form)))) result.warn.push(`no readable source shows the count (${item.countNote})`);

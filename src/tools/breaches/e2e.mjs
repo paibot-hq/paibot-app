@@ -65,16 +65,18 @@ export default async function ({ page, main, go }) {
   await main.getByText('No incidents match.').waitFor();
   await main.locator('[data-breaches="query"]').fill('');
 
-  // How AI comes into it: "used" is a part of the list (RIZAP), "unrelated" is another, and each carries its reason.
-  await main.locator('button[data-ai="used"]').click();
-  assert.equal(await cards.count(), 1, 'one incident where AI was how it happened');
-  assert.match(await cards.first().innerText(), /RIZAP/);
-  assert.match(await cards.first().locator('[data-breaches="ai-basis"]').innerText(), /AI/);
-  await main.locator('button[data-ai="unrelated"]').click();
-  const unrelated = await cards.count();
-  assert.ok(unrelated >= 10 && unrelated < 40, 'incidents that are not attacks');
-  assert.equal(await cards.locator('[data-breaches="ai-basis"]').count(), unrelated, 'each says why');
-  assert.equal(await main.locator('[data-breach] [data-kind="ransomware"]').count(), 0, 'an attack is never judged unrelated');
+  // Where an incident came from: what is not an attack is a part of the list, each says why, and an attack (ransomware) is never among them.
+  await main.locator('button[data-origin="mistake"]').click();
+  const mistakes = await cards.count();
+  assert.ok(mistakes >= 10 && mistakes < 40, 'incidents that are not attacks');
+  assert.equal(await cards.locator('[data-breaches="origin-basis"]').count(), mistakes, 'each says why');
+  assert.equal(await main.locator('[data-breach] [data-kind="ransomware"]').count(), 0, 'a ransomware is never "not an attack"');
+  await main.locator('button[data-origin="insider"]').click();
+  assert.ok(await cards.count() >= 2, 'insiders');
+  assert.match(await cards.first().locator('[data-breaches="origin-basis"]').innerText(), /内部不正/);
+  await main.locator('button[data-origin="attack"]').click();
+  assert.equal(await main.locator('[data-breaches="origin-basis"]').count(), 0, 'an attack has no such note');
+  assert.ok(await cards.count() > 80, 'most incidents are attacks');
   await main.getByRole('button', { name: 'All', exact: true }).last().click();
 
   // How well an entry was checked is shown on it, and can be filtered: "official" is a part of the list, and each entry names at least one source.
