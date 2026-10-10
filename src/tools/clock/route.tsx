@@ -68,6 +68,8 @@ function ClockFace({ settings }: { settings: Route.ComponentProps['loaderData'] 
   const [timeZone, setTimeZone] = useState(settings.timeZone);
   const fetcher = useFetcher<typeof action>();
   const panel = useRef<HTMLDivElement>(null);
+  // Whether the visitor last asked for fullscreen or to leave it: the browser takes a moment to enter it.
+  const wanted = useRef(false);
   // A previously saved zone outside the curated list (an old save, or a
   // future list change) must still appear as a selectable, selected option -
   // otherwise the <select> silently falls back to its first option while
@@ -82,17 +84,26 @@ function ClockFace({ settings }: { settings: Route.ComponentProps['loaderData'] 
     return () => { clearInterval(timer); document.removeEventListener('visibilitychange', update); };
   }, []);
   useEffect(() => {
-    const sync = () => setExpanded(document.fullscreenElement === panel.current);
-    const escape = (event: KeyboardEvent) => { if (event.key === 'Escape') setExpanded(false); };
+    const sync = () => {
+      const full = document.fullscreenElement === panel.current;
+      // Fullscreen starts a moment after it is asked for. If the visitor has asked to leave again in the meantime, the late start is ended at once, so
+      // that it does not bring the page back to fullscreen after "exit".
+      if (full && !wanted.current) { void document.exitFullscreen().catch(() => {}); return; }
+      if (!full) wanted.current = false; // left by the browser (Escape)
+      setExpanded(full);
+    };
+    const escape = (event: KeyboardEvent) => { if (event.key === 'Escape') { wanted.current = false; setExpanded(false); } };
     document.addEventListener('fullscreenchange', sync);
     document.addEventListener('keydown', escape);
     return () => { document.removeEventListener('fullscreenchange', sync); document.removeEventListener('keydown', escape); };
   }, []);
   async function toggle() {
     if (expanded) {
+      wanted.current = false;
       if (document.fullscreenElement) await document.exitFullscreen().catch(() => {});
       setExpanded(false);
     } else {
+      wanted.current = true;
       setExpanded(true);
       // CSS expansion remains available when native fullscreen is unsupported.
       if (panel.current?.requestFullscreen) await panel.current.requestFullscreen().catch(() => {});
