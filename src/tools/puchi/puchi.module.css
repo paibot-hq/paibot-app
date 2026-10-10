@@ -1,0 +1,36 @@
+.hud { display: grid; grid-template-columns: repeat(3, 1fr); gap: .5rem; width: min(560px, 100%); margin: .6rem auto; text-align: center; }
+.hud div { padding: .35rem .25rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.hud dt { color: var(--muted); font-size: .72rem; }
+.hud dd { margin: 0; font-size: 1.15rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+.stage { position: relative; width: min(560px, 100%); margin: 0 auto; }
+.canvas { display: block; width: 100%; height: auto; border: 1px solid var(--line); border-radius: 14px; touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; cursor: pointer; }
+.canvas:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+/* The combo sits over the sheet's corner and does not catch the pointer, so that it never gets in the way of the popping. */
+.combo { position: absolute; top: .5rem; left: .75rem; z-index: 1; pointer-events: none; min-height: 3rem; }
+.comboNumber { display: inline-flex; align-items: baseline; gap: .3rem; color: #fff; font-size: 2.6rem; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; text-shadow: 0 2px 0 rgba(20, 60, 120, .55), 0 0 12px rgba(20, 60, 120, .45); animation: pulse .22s ease-out; }
+.comboNumber small { font-size: .9rem; font-weight: 700; }
+@keyframes pulse { from { transform: scale(1.5); } to { transform: scale(1); } }
+.buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; margin: .8rem 0 .3rem; }
+.hint { margin: 0; color: var(--muted); font-size: .8rem; text-align: center; }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+@media (prefers-reduced-motion: reduce) { .comboNumber { animation: none; } }
+
+.hud div[data-low] dd { color: var(--error); }
+.overlay { position: absolute; inset: 0; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .7rem; padding: 1rem; border-radius: 14px; background: rgba(12, 30, 60, .55); color: #fff; text-align: center; }
+.overlay p { margin: 0; text-shadow: 0 1px 6px rgba(0, 0, 0, .5); }
+.big { font-size: 1.25rem; padding: .6rem 2rem; }
+.count { font-size: 7rem; font-weight: 800; line-height: 1; text-shadow: 0 4px 0 rgba(20, 60, 120, .6); animation: pulse .5s ease-out; }
+.rank { font-size: 5rem; font-weight: 800; line-height: 1; }
+.rank[data-rank="S"] { color: #ffd54a; }
+.rank[data-rank="A"] { color: #ff9e5e; }
+.rank[data-rank="B"] { color: #8fd3f2; }
+.final { font-size: 2.4rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.final small { margin-left: .3rem; font-size: 1rem; }
+.newBest { padding: .1rem .8rem; border-radius: 999px; background: #ffd54a; color: #5a3b00 !important; font-weight: 800; text-shadow: none !important; animation: pulse .4s ease-out; }
+.detail { font-size: .85rem; }
+.legend { display: flex; flex-wrap: wrap; justify-content: center; gap: .3rem 1rem; width: min(560px, 100%); margin: .6rem auto 0; padding: 0; list-style: none; color: var(--muted); font-size: .78rem; }
+.legend li { display: inline-flex; align-items: center; gap: .35rem; }
+.swatch { width: 14px; height: 14px; border-radius: 50%; flex: none; }
+.swatch[data-kind="gold"] { background: radial-gradient(circle at 35% 30%, #fff7c9, #ffd54a 45%, #e09b00); }
+.swatch[data-kind="rainbow"] { background: conic-gradient(#f66, #fc4, #6d6, #4cf, #a6f, #f66); }
+@media (prefers-reduced-motion: reduce) { .count, .newBest { animation: none; } }
