@@ -5,6 +5,7 @@ import type { DynamicT } from '../lib/apps';
 import { MATH_CATALOG, MATH_DOMAINS, MATH_STAGES, type MathStage } from '../lib/math-catalog';
 import { JP_GRADES, jpGrade, type JpGrade } from '../lib/math-curriculum-jp';
 import { KENTEI_LEVELS, KENTEI_LOCALES, KENTEI_OFFICIAL_URL } from '../lib/math-kentei';
+import { useDoneSets } from '../lib/math-local-done';
 import { readResume, type MathResume } from '../lib/math-resume';
 import styles from './math-unit-table.module.css';
 
@@ -19,9 +20,10 @@ const VIEW_KEY = 'math-list-view:v1';
 type View = MathStage | 'areas';
 const VIEWS: readonly View[] = ['areas', ...MATH_STAGES];
 
-export default function MathUnitTable({ playable, done }: { playable: readonly string[]; done: readonly string[] }) {
+export default function MathUnitTable({ playable, done: finished }: { playable: readonly string[]; done: readonly string[] }) {
   const t = useTranslations('App.math');
   const td = t as unknown as DynamicT;
+  const done = useDoneSets(finished);
   const locale = useLocale();
   const [grade, setGrade] = useState<JpGrade | ''>('');
   const [kentei, setKentei] = useState('');
@@ -95,8 +97,9 @@ export default function MathUnitTable({ playable, done }: { playable: readonly s
   // A unit in one line: its name, how many items (and how many done), and its stage when the view is not a stage's; it links to its page.
   const unitLine = ({ unit, title, items }: (typeof sections)[number]['rows'][number], withStage: boolean) => {
     const unitDone = items.filter(item => item.done).length;
+    const playableItems = items.filter(item => item.playable).length;
     return <li key={unit.id}>
-      <Link href={`/math/${unit.id}`} className={styles.unitLink} data-playable={items.some(item => item.playable) || undefined}>
+      <Link href={`/math/${unit.id}`} className={styles.unitLink} data-playable={playableItems > 0 || undefined} data-done={(playableItems > 0 && unitDone === playableItems) || undefined}>
         <span className={styles.unitName}>{title}</span>
         <span className={styles.unitMeta}>
           {t('unitList.itemCount', { count: items.length })}
@@ -162,18 +165,19 @@ export default function MathUnitTable({ playable, done }: { playable: readonly s
     ))}
     {(filtering || view === 'areas') && sections.map(({ domain, rows }) => {
       const items = rows.flatMap(row => row.items);
-      const done = items.filter(item => item.done).length;
+      const areaDone = items.filter(item => item.done).length;
+      const areaPlayable = items.filter(item => item.playable).length;
       const open = filtering || opened.has(domain);
       return (
         <section key={domain} className={styles.domain} aria-labelledby={`math-domain-${domain}`} data-math-domain={domain} data-open={open || undefined}>
           {/* A heading with a button in it (not <summary>, which hides the heading from screen readers), and the units below, hidden while
               folded but in the page as it is sent (search engines read the links). */}
           <h2 className={styles.domainHeading} id={`math-domain-${domain}`}>
-            <button type="button" className={styles.domainButton} aria-expanded={open} aria-controls={`math-domain-units-${domain}`} onClick={() => toggle(domain, !open)}>
+            <button type="button" className={styles.domainButton} data-done={(areaPlayable > 0 && areaDone === areaPlayable) || undefined} aria-expanded={open} aria-controls={`math-domain-units-${domain}`} onClick={() => toggle(domain, !open)}>
               <span className={styles.domainName} data-math-domain-name>{t(`domains.${domain}`)}</span>
               <span className={styles.domainCount}>
                 {t('unitCount', { count: rows.length })} · {t('unitList.itemCount', { count: items.length })}
-                {done > 0 && <> · <span className={styles.done}>{t('unitList.doneCount', { done, total: items.length })}</span></>}
+                {areaDone > 0 && <> · <span className={styles.done}>{t('unitList.doneCount', { done: areaDone, total: items.length })}</span></>}
               </span>
             </button>
           </h2>

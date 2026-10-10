@@ -76,3 +76,7 @@
 .stagePanel[hidden] { display: none; }
 .stageDomain { margin: 1.2rem 0 0; font-size: .85rem; font-weight: 600; color: var(--muted); }
 .resultsHeading { width: min(100%, 720px); margin: 1.2rem auto 0; font-size: .85rem; font-weight: 600; color: var(--muted); }
+/* A unit or an area whose practice with problems is all finished is green. */
+.unitLink[data-done], .domainButton[data-done] { background: color-mix(in srgb, var(--success) 12%, var(--surface)); }
+.unitLink[data-done] .unitName::after, .domainButton[data-done] .domainName::after { content: " ✓"; color: var(--success); }
+.domainButton[data-done] { border-color: var(--success); }

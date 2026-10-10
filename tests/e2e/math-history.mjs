@@ -65,8 +65,10 @@ try {
   await clerk.signOut({ page });
   assert.equal(await play(page, 3), 'Sign in to keep a record of your scores.');
   assert.equal(await cardRecord(page), null, 'signed-out visitors see no records');
-  assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}/${SET}"]`).getAttribute('data-done'), null, 'nothing is green for a visitor who is not signed in');
-  console.log('PASS: signed-out attempts are not saved and point to signing in');
+  assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}/${SET}"]`).getAttribute('data-done'), 'true', 'a set finished without signing in is green, from this browser');
+  console.log('PASS: signed-out attempts are not saved and point to signing in; the finished set is green in this browser');
+  // What follows checks the account's own records, without this browser's.
+  await page.evaluate(() => localStorage.removeItem('math-done:v1'));
 
   await clerk.signIn({ page, signInParams: { strategy: 'email_code', identifier: email } });
   assert.equal(await cardRecord(page), null, 'a new user starts with no records');

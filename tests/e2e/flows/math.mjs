@@ -159,6 +159,12 @@ export default async function ({ page, main, base, go, errors }) {
   const nextSet = await main.getByRole('link', { name: /^Next practice/ }).getAttribute('href');
   await go('math');
   assert.equal(await main.locator('[data-math-resume]').getAttribute('href'), nextSet);
+  // A finished set turns green without signing in (kept in this browser): its card, its item on the unit's page, and the count in the list.
+  assert.match(await main.locator('[data-math-domain="number"] [data-math-domain-name] + span').innerText(), /1\/\d+ done/);
+  await go('math/arith');
+  assert.equal(await link('/en/math/arith/order-of-operations').getAttribute('data-done'), 'true');
+  await go('math/arith/order-of-operations');
+  assert.equal(await link('/en/math/arith/order-of-operations/1').last().getAttribute('data-done'), 'true');
   assert.deepEqual(errors, []);
   console.log('PASS: one tap answers; the result marks each problem and links the next set, which the math list offers to continue');
 

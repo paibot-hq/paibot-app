@@ -2,6 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { useFetcher } from 'react-router';
 import { useTranslations } from 'use-intl';
 import { Link } from '../i18n/navigation';
+import { markSetDone } from '../lib/math-local-done';
 import { saveResume, type MathResume } from '../lib/math-resume';
 import { useFavoritesData } from '../routes/locale';
 import MathBreadcrumb, { type MathCrumb } from './math-breadcrumb';
@@ -60,6 +61,7 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
   function advance() {
     if (index + 1 >= total) {
       setFinished(true);
+      markSetDone(`${current.unit}/${current.item}/${current.set}`);
       if (next) saveResume(next.set);
       if (signedIn) saver.submit({ problemIds: JSON.stringify(questions.map(q => q.id)), answers: JSON.stringify(answers), version }, { method: 'post' });
       return;
