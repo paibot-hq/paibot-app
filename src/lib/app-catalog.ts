@@ -81,6 +81,7 @@ export const APP_CATALOG = [
   { slug: "clock", href: "/clock", category: "daily", status: "published", messageKey: "clock" },
   { slug: "diary", href: "/diary", category: "daily", status: "published", messageKey: "diary", private: true },
   { slug: "breaches", href: "/breaches", category: "daily", status: "published", messageKey: "breaches" },
+  { slug: "omikuji", href: "/omikuji", category: "daily", status: "published", messageKey: "omikuji" },
   { slug: "age", href: "/age", category: "daily", status: "published", messageKey: "age" },
   { slug: "date-calc", href: "/date-calc", category: "daily", status: "published", messageKey: "dateCalc" },
   { slug: "pomodoro", href: "/pomodoro", category: "daily", status: "published", messageKey: "pomodoro" },

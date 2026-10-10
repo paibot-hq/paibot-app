@@ -589,6 +589,109 @@
       "tabList": "List",
       "tabStats": "Statistics"
     },
+    "omikuji": {
+      "title": "Omikuji",
+      "description": "Shake the box and draw an omikuji fortune. From great luck to bad luck, with a line each for wishes, love, work and money, plus a lucky colour and number.",
+      "about": "A small game of drawing an omikuji, the Japanese fortune slip: shake the box, a stick comes out, and the paper opens. You get one of great luck, good luck, fair luck, small luck, future luck or bad luck, with a line each for wishes, love, work and money, and a lucky colour and number. Draw as often as you like. It is for fun only.",
+      "keywords": "omikuji fortune slip Japanese fortune daily luck lucky colour game",
+      "intro": "Press the box to draw an omikuji. You can draw as many times as you like.",
+      "boxText": "Omikuji",
+      "boxLabel": "The omikuji box. Press it to draw",
+      "prompt": "Press the box to draw",
+      "shaking": "Shake, shake...",
+      "stickOut": "No. {n}",
+      "result": "Your omikuji",
+      "number": "No. {n}",
+      "luckyColor": "Lucky colour",
+      "luckyNumber": "Lucky number",
+      "again": "Draw again",
+      "share": "Share result",
+      "copied": "Copied",
+      "shareText": "I drew an omikuji: {luck} (No. {stick})",
+      "note": "Fortunes are for fun. Take the result lightly.",
+      "luck": {
+        "daikichi": "Great luck",
+        "kichi": "Good luck",
+        "chukichi": "Fair luck",
+        "shokichi": "Small luck",
+        "suekichi": "Future luck",
+        "kyo": "Bad luck"
+      },
+      "category": {
+        "wish": "Wishes",
+        "love": "Love",
+        "work": "Work & study",
+        "money": "Money"
+      },
+      "color": {
+        "red": "Red",
+        "orange": "Orange",
+        "yellow": "Yellow",
+        "green": "Green",
+        "blue": "Blue",
+        "purple": "Purple",
+        "white": "White",
+        "pink": "Pink"
+      },
+      "lines": {
+        "wish": {
+          "good": {
+            "a": "Your wish will come true. Go ahead without doubt.",
+            "b": "What you picture will take shape."
+          },
+          "mid": {
+            "a": "Your wish is coming closer, little by little. Do not rush.",
+            "b": "This is a time to prepare. A small step will bear fruit."
+          },
+          "bad": {
+            "a": "Let your wish rest for now. Do not hurry.",
+            "b": "Do not force things; firm up your footing."
+          }
+        },
+        "love": {
+          "good": {
+            "a": "A good meeting awaits. Your honest feelings will get through.",
+            "b": "Your feelings will be returned. Put your thanks into words."
+          },
+          "mid": {
+            "a": "A bond that grows slowly. Be considerate of the other person.",
+            "b": "Cherish the one who is near. Change comes gently."
+          },
+          "bad": {
+            "a": "Words may cross. Take a breath first.",
+            "b": "Do not rush. Settle yourself first."
+          }
+        },
+        "work": {
+          "good": {
+            "a": "Your effort will be recognised. Try something new.",
+            "b": "The wind is at your back. See your task through."
+          },
+          "mid": {
+            "a": "What you keep doing steadily will become yours.",
+            "b": "Things go well if you accept help from others."
+          },
+          "bad": {
+            "a": "Do not skip checking. Go carefully and you will get through.",
+            "b": "Do not overreach; do what is in front of you with care."
+          }
+        },
+        "money": {
+          "good": {
+            "a": "A sign of unexpected income. Be careful how you spend it.",
+            "b": "Your savings will bear fruit. Sharing brings more around."
+          },
+          "mid": {
+            "a": "Money comes and goes as usual. Watch for waste.",
+            "b": "Steady is best. Small savings help."
+          },
+          "bad": {
+            "a": "Beware of impulse buying. Keep your purse strings tight.",
+            "b": "Avoid lending and borrowing. It is a time to defend."
+          }
+        }
+      }
+    },
     "age": {
       "title": "Birth Year Lookup",
       "description": "Enter your age to find the year you were born, in both the Western and Japanese era calendars.",
