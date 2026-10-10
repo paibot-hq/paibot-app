@@ -1,4 +1,4 @@
-import { and, asc, count, desc, eq } from 'drizzle-orm';
+import { and, asc, count, desc, eq, inArray } from 'drizzle-orm';
 import { getDb } from '../db/client.server';
 import { mathProblems } from '../db/schema';
 
@@ -44,4 +44,31 @@ export async function getWorkedExample(unit: string, item: string): Promise<{ id
     ?? rows.find(row => stepCount(row) === 0)
     ?? [...rows].sort((a, b) => stepCount(a) - stepCount(b))[0]
     ?? null;
+}
+
+// A school year's published problems, without their payloads, to draw a test from (see lib/math-test.ts).
+export async function getTestCandidates(grade: string): Promise<{ id: string; unit: string; item: string; tier: number }[]> {
+  const t = mathProblems;
+  return getDb().select({ id: t.id, unit: t.unit, item: t.item, tier: t.tier }).from(t).where(and(eq(t.grade, grade), eq(t.published, true)));
+}
+
+// The drawn problems with their payloads, in the order given.
+export async function getProblemsByIds(ids: readonly string[]): Promise<{ id: string; unit: string; item: string; answerIndex: number; tier: number; payload: unknown }[]> {
+  if (!ids.length) return [];
+  const t = mathProblems;
+  const rows = await getDb().select({ id: t.id, unit: t.unit, item: t.item, answerIndex: t.answerIndex, tier: t.tier, payload: t.payload }).from(t)
+    .where(and(inArray(t.id, [...ids]), eq(t.published, true)));
+  return ids.map(id => rows.find(row => row.id === id)).filter(row => row !== undefined);
+}
+
+// How many published problems and learning items each school year has, for the list of tests.
+export async function getGradeCounts(): Promise<Record<string, { problems: number; items: number }>> {
+  const t = mathProblems;
+  const rows = await getDb().select({ grade: t.grade, problems: count(), unit: t.unit, item: t.item }).from(t).where(eq(t.published, true)).groupBy(t.grade, t.unit, t.item);
+  const counts: Record<string, { problems: number; items: number }> = {};
+  for (const row of rows) {
+    const entry = counts[row.grade] ??= { problems: 0, items: 0 };
+    entry.problems += row.problems; entry.items += 1;
+  }
+  return counts;
 }

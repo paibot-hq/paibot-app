@@ -168,6 +168,28 @@ export default async function ({ page, main, base, go, errors }) {
   assert.deepEqual(errors, []);
   console.log('PASS: one tap answers; the result marks each problem and links the next set, which the math list offers to continue');
 
+  // Tests by school year: from the list, a year's ten problems from its items, easiest first; the result links each problem's item, and
+  // "Try other problems" draws a new test.
+  await go('math');
+  await main.locator('[data-math-test-entry]').click();
+  await page.waitForURL(`${base}/en/math/test`);
+  await link('/en/math/test/m1').click();
+  await page.waitForURL(`${base}/en/math/test/m1`);
+  for (let index = 0; index < 10; index++) {
+    await main.getByText(`${index + 1} / 10`, { exact: true }).waitFor();
+    await main.locator('[role=group] button').first().click();
+    await main.getByRole('button', { name: index < 9 ? 'Next question' : 'See results' }).click();
+  }
+  await main.getByText(/^\d+ \/ 10 correct$/).waitFor();
+  const reviewed = await main.locator('[data-math-review] a').evaluateAll(links => links.map(link => link.getAttribute('href')));
+  assert.equal(reviewed.length, 10);
+  assert.ok(reviewed.every(href => /^\/en\/math\/[a-z0-9-]+\/[a-z0-9-]+$/.test(href)), 'each problem links its learning item');
+  await main.getByRole('button', { name: 'Try other problems' }).click();
+  await main.getByText('1 / 10', { exact: true }).waitFor();
+  assert.equal((await page.goto(`${base}/en/math/test/x9`)).status(), 404);
+  assert.deepEqual(errors, []);
+  console.log('PASS: a school year\'s test: ten problems, a result linking each one\'s item, and a new draw');
+
   // Every set has problems now: a set of a formerly coming-soon unit opens as any other.
   await go('math/shapes/solids-basic/1');
   await main.getByText('1 / 5', { exact: true }).waitFor();

@@ -3945,6 +3945,16 @@
         "explanationPrefix": "By the Pythagorean theorem,",
         "figureDescription": "Right triangle ABC. Angle {rightAngle} is a right angle. {first} is {firstLength} cm, {second} is {secondLength} cm, and {unknown} is x."
       },
+      "test": {
+        "title": "Tests by school year",
+        "intro": "Choose a school year for ten problems from its learning items, from basic to advanced, easiest first. Each test draws new problems.",
+        "gradeTitle": "{grade} test",
+        "itemCount": "from {count} items",
+        "setLabel": "{count} problems, easiest first",
+        "retry": "Try other problems",
+        "entry": "Tests by school year",
+        "entryNote": "Ten problems for a school year"
+      },
       "unitList": {
         "filters": "Filters",
         "itemCount": "{count} items",

@@ -73,6 +73,10 @@ Math is organized unit → learning item → practice set, all in
   page. A search or a filter (school year, Suken level, playability, name) shows the
   matching learning items of every unit instead. Units and items with published
   problems in D1 are highlighted; "Continue" goes back to the set last opened.
+- `/math/test` (`routes/math-tests.tsx`) and `/math/test/<grade>` (`routes/math-test.tsx`): a school year's
+  test, ten published problems of that grade drawn anew on each visit (`src/lib/math-test.ts`: a different
+  learning item each where possible, aiming at 4 basic, 4 standard, 2 advanced, easiest first); the result
+  links each problem's item. Not saved, not indexed; a year needs at least ten published problems.
 - `/math/<unit>` (`routes/math-unit.tsx`): the unit and its learning items, each with a one-line summary.
 - `/math/<unit>/<item>` (`routes/math-item.tsx`): the item and its practice sets
   (練習1, 2, ...) with a signed-in user's latest and best score, and the crumbs

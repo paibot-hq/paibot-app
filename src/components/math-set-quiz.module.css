@@ -68,3 +68,13 @@
 /* Word problems: prose instead of a displayed formula. */
 .question > p { font-size: 1.05rem; line-height: 1.7; text-align: left; margin: 0; }
 .saveStatus { text-align: center; color: var(--muted); font-size: .85rem; min-height: 1.3em; margin: .8rem 0 0; }
+
+/* A test's result: each problem's mark and its learning item, linked, the wrong ones to go and practise. */
+.review { list-style: none; padding: 0; margin: 1rem 0 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); text-align: left; }
+.review > li { display: flex; align-items: center; gap: .7rem; padding: .55rem .9rem; }
+.review > li + li { border-top: 1px solid var(--line); }
+.review a { color: var(--text); }
+.review > li:not([data-correct]) a { font-weight: 600; }
+.reviewMark { flex: none; width: 1.8rem; height: 1.8rem; display: grid; place-items: center; border-radius: 50%; font-weight: 700;
+  color: var(--error); background: color-mix(in srgb, var(--error) 14%, var(--surface)); }
+.review > li[data-correct] .reviewMark { color: var(--success); background: color-mix(in srgb, var(--success) 16%, var(--surface)); }

@@ -115,6 +115,10 @@ export default function MathUnitTable({ playable, done: finished }: { playable: 
       <span className={styles.resumeLabel}>{t('quiz.resume')}</span>
       <span>{resumeItem}{resumeSeveral && ` ${t('quiz.practice', { number: resume.set })}`}</span>
     </Link>}
+    <Link href="/math/test" className={styles.testEntry} data-math-test-entry>
+      <span className={styles.testName}>{t('test.entry')}</span>
+      <span className={styles.testNote}>{t('test.entryNote')}</span>
+    </Link>
     <div className={styles.views} role="group" aria-label={t('unitList.views')}>
       {VIEWS.map(v => <button key={v} type="button" className={styles.view} aria-pressed={!filtering && view === v} data-math-view={v} onClick={() => choose(v)}>
         {v === 'areas' ? t('unitList.byArea') : t(`stages.${v}`)}

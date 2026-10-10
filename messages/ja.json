@@ -3945,6 +3945,16 @@
         "explanationPrefix": "三平方の定理より、",
         "figureDescription": "直角三角形ABC。角{rightAngle}が直角。{first}は{firstLength} cm、{second}は{secondLength} cm、{unknown}はx。"
       },
+      "test": {
+        "title": "学年別テスト",
+        "intro": "学年を選ぶと、その学年の学習項目から10問を出します。基本から発展まで、易しい順に並びます。毎回ちがう問題が出ます。",
+        "gradeTitle": "{grade}のテスト",
+        "itemCount": "{count}項目から",
+        "setLabel": "{count}問・易しい順",
+        "retry": "別の問題でもう一度",
+        "entry": "学年別テスト",
+        "entryNote": "学年を選んで10問"
+      },
       "unitList": {
         "filters": "絞り込み",
         "itemCount": "{count}項目",

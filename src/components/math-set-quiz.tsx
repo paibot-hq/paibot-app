@@ -17,6 +17,8 @@ export interface MathSetQuestion {
   explanation: ReactNode;
   // 1 basic, 2 standard, 3 advanced; shown beside the progress.
   tier?: number;
+  // The learning item the problem is from, in a quiz drawn from several (a school year's test): shown with its result.
+  source?: { label: string; href: string };
 }
 
 // The four-choice quiz shared by every /math unit: a fixed, ordered set of
@@ -26,15 +28,18 @@ export interface MathSetQuestion {
 // A signed-in user's finished attempt is posted to the page's own route action
 // (see saveAttemptAction in lib/math-attempts.server.ts), which rescores it.
 // Made for a phone: a tap on a choice is the answer (keys 1-4 on a keyboard), and "Next" appears in the same place.
-export default function MathSetQuiz({ title, setLabel, questions, crumbs, version, current, next }: {
+export default function MathSetQuiz({ title, setLabel, questions, crumbs, version, current, next, onRetry, retryLabel }: {
   title: string; setLabel: string; questions: MathSetQuestion[];
   // Where the set sits: unit > learning item (linked) > the set itself (current).
   crumbs: MathCrumb[];
-  // The set's version when the page was loaded; the server refuses an attempt if it changed since.
-  version: string;
-  // This set, and the one to go on to after it (the next set of the item, or of the next items), if any.
-  current: MathResume;
-  next: { set: MathResume; href: string; label: string } | null;
+  // A practice set: its version when the page was loaded (the server refuses an attempt if it changed since), the set itself, and the one
+  // to go on to after it (the next set of the item, or of the next items), if any. A test has none of these: nothing is saved.
+  version?: string;
+  current?: MathResume;
+  next?: { set: MathResume; href: string; label: string } | null;
+  // In place of starting the same questions again (a test draws new ones).
+  onRetry?: () => void;
+  retryLabel?: string;
 }) {
   const t = useTranslations('App.math.quiz');
   const tm = useTranslations('App.math');
@@ -51,7 +56,7 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
   const correctCount = answers.filter((answer, answerIndex) => answer === questions[answerIndex].answerIndex).length;
   const backLink = <MathBreadcrumb crumbs={crumbs} />;
 
-  useEffect(() => { saveResume(current); }, [current.unit, current.item, current.set]);
+  useEffect(() => { if (current) saveResume(current); }, [current?.unit, current?.item, current?.set]);
 
   function answer(choiceIndex: number) {
     if (revealed || finished) return;
@@ -61,15 +66,17 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
   function advance() {
     if (index + 1 >= total) {
       setFinished(true);
+      if (!current) return;
       markSetDone(`${current.unit}/${current.item}/${current.set}`);
       if (next) saveResume(next.set);
-      if (signedIn) saver.submit({ problemIds: JSON.stringify(questions.map(q => q.id)), answers: JSON.stringify(answers), version }, { method: 'post' });
+      if (signedIn && version) saver.submit({ problemIds: JSON.stringify(questions.map(q => q.id)), answers: JSON.stringify(answers), version }, { method: 'post' });
       return;
     }
     setIndex(index + 1);
     setSelected(null);
   }
   function restart() {
+    if (onRetry) { onRetry(); return; }
     setIndex(0);
     setSelected(null);
     setAnswers([]);
@@ -104,7 +111,7 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
     const percent = Math.round((correctCount / total) * 100);
     const perfect = correctCount === total;
     // All right: going on is the main button; otherwise trying again is.
-    const retryButton = <button type="button" className={perfect && next ? styles.secondary : styles.primary} onClick={restart}>{t('retry')}</button>;
+    const retryButton = <button type="button" className={perfect && next ? styles.secondary : styles.primary} onClick={restart}>{retryLabel ?? t('retry')}</button>;
     const nextLink = next && <Link href={next.href} className={perfect ? styles.primary : styles.secondary}>
       <span>{t('nextSet')}</span><span className={styles.nextLabel}>{next.label}</span>
     </Link>;
@@ -113,7 +120,16 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
         <p className={styles.setName}>{setLabel}</p>
         <p className={styles.score} aria-live="polite" data-perfect={perfect || undefined}>{t('resultCorrect', { correct: correctCount, total })}</p>
         <p className={styles.resultLine}>{t('resultAccuracy', { percent })}</p>
-        <ol className={styles.marks}>
+        {questions.some(q => q.source) ? <ol className={styles.review} data-math-review>
+          {questions.map((q, at) => {
+            const right = answers[at] === q.answerIndex;
+            return <li key={q.id} data-correct={right || undefined}>
+              <span className={styles.reviewMark} aria-hidden="true">{right ? '○' : '×'}</span>
+              <span className={styles.srOnly}>{t('questionNumber', { number: at + 1 })} {right ? t('correct') : t('incorrect')}</span>
+              {q.source && <Link href={q.source.href}>{q.source.label}</Link>}
+            </li>;
+          })}
+        </ol> : <ol className={styles.marks}>
           {questions.map((q, at) => {
             const right = answers[at] === q.answerIndex;
             return <li key={q.id} data-correct={right || undefined}>
@@ -121,15 +137,15 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
               <span className={styles.srOnly}>{t('questionNumber', { number: at + 1 })} {right ? t('correct') : t('incorrect')}</span>
             </li>;
           })}
-        </ol>
+        </ol>}
         <div className={styles.resultActions}>
           {perfect ? <>{nextLink}{retryButton}</> : <>{retryButton}{nextLink}</>}
         </div>
-        <p className={styles.saveStatus} role="status">
+        {current && <p className={styles.saveStatus} role="status">
           {!signedIn ? t('signInToSave')
             : saver.state !== 'idle' ? null
               : saver.data?.ok ? t('saved') : saver.data ? t('saveFailed') : null}
-        </p>
+        </p>}
       </div>
     </ToolLayout>;
   }

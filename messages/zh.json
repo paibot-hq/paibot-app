@@ -3945,6 +3945,16 @@
         "explanationPrefix": "根据勾股定理，",
         "figureDescription": "直角三角形ABC。角{rightAngle}是直角。{first}为{firstLength} cm，{second}为{secondLength} cm，{unknown}为x。"
       },
+      "test": {
+        "title": "按学年测试",
+        "intro": "选择学年后,从该学年的学习项目中出10道题,从基础到进阶按由易到难排列。每次出的题都不同。",
+        "gradeTitle": "{grade}测试",
+        "itemCount": "来自{count}个项目",
+        "setLabel": "{count}道题・由易到难",
+        "retry": "换一组题再测",
+        "entry": "按学年测试",
+        "entryNote": "选择学年,做10道题"
+      },
       "unitList": {
         "filters": "筛选",
         "itemCount": "{count}个项目",
