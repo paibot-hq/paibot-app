@@ -8,6 +8,13 @@
 export const TYPES = ['leak', 'ransomware', 'outage', 'fraud', 'other'];
 export const VERIFICATIONS = ['official', 'reported', 'single'];
 export const SOURCE_KINDS = ['official', 'press', 'aggregator'];
+// Where the incident came from:
+//   attack  - a party outside broke in or deceived (unauthorized access, malware, ransomware, phishing, fraud, a vulnerability that was used)
+//   insider - someone inside the organization or one of its secondees took the data
+//   mistake - not an attack at all: a loss, a mistaken send, a wrong setting, a defect, staff using a tool they should not
+// An incident that is not an attack must say why (`originBasis`) and name the words (`originProof`) that its sources use for it, which the source
+// check looks for on the pages, so that "not an attack" is something that was read, not assumed. An attack (ransomware, fraud) cannot be one.
+export const ORIGINS = ['attack', 'insider', 'mistake'];
 
 const DATE = /^\d{4}-\d{2}(-\d{2})?$/;
 const FULL_DATE = /^\d{4}-\d{2}-\d{2}$/;
@@ -53,6 +60,13 @@ export function validateBreaches(data) {
     if (item.count !== null && item.countNote && !numbersIn(item.countNote).some(n => Math.abs(n - item.count) <= item.count * 0.02)) bad(item, `count ${item.count} is not found in countNote "${item.countNote}"`);
     if (typeof item.countNote !== 'string' || typeof item.data !== 'string' || typeof item.cause !== 'string' || typeof item.note !== 'string') bad(item, 'countNote, data, cause and note must be strings (may be empty)');
     if (!item.cause?.trim() && item.type !== 'fraud') bad(item, 'cause is empty');
+    if (!ORIGINS.includes(item.origin)) bad(item, `origin "${item.origin}" is not one of ${ORIGINS.join(', ')}`);
+    else if (item.origin === 'attack') { if (item.originBasis || item.originProof) bad(item, 'originBasis and originProof are only for what is not an attack'); }
+    else {
+      if (!item.originBasis?.trim()) bad(item, `origin "${item.origin}" needs originBasis, the reason`);
+      if (!Array.isArray(item.originProof) || !item.originProof.length || !item.originProof.every(word => typeof word === 'string' && word.trim())) bad(item, `origin "${item.origin}" needs originProof, the words its sources use`);
+      if (item.type === 'ransomware' || item.type === 'fraud') bad(item, `a ${item.type} is an attack, so its origin must be attack`);
+    }
     if (!VERIFICATIONS.includes(item.verification)) bad(item, `verification "${item.verification}" is not one of ${VERIFICATIONS.join(', ')}`);
     if (!FULL_DATE.test(item.checkedAt ?? '') || item.checkedAt > data.asOf) bad(item, 'checkedAt must be YYYY-MM-DD and not after asOf');
     const sources = item.sources;

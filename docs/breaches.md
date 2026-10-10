@@ -26,6 +26,16 @@ published.**
 
 A figure that only an aggregator gives (the organization's page does not state it) is kept, with the aggregator among the sources and a line in `note`.
 
+## Where it came from (`origin`)
+
+- `attack`: someone outside broke in or deceived - unauthorized access, malware, ransomware, phishing, fraud, a vulnerability that was used. Most entries.
+- `insider`: someone inside the organization, or one of its secondees, took the data.
+- `mistake`: not an attack - a loss, a mistaken send, a wrong setting, a defect, staff using a tool they should not.
+
+What is not an attack must say why (`originBasis`) and name the words its sources use for it (`originProof`, e.g. "紛失", "誤送信", "出向"). The
+source check reads the pages and warns when none of them has the word, so that "not an attack" is something that was read, not assumed. A ransomware
+or a fraud cannot be one. When unsure, call it an attack: it is the case that needs the least explaining.
+
 ## The checks
 
 1. **Rules, offline** - `src/tools/breaches/breaches-rules.mjs`, run by `npm test` on every pull request (`breaches-data.test.mjs`): ids, dates (not in

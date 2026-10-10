@@ -5,7 +5,7 @@ import { numbersIn, numberForms, validateBreaches } from './breaches-rules.mjs';
 
 const data = JSON.parse(readFileSync(new URL('../../data/breaches.json', import.meta.url), 'utf8'));
 const entry = overrides => ({
-  id: 'x', date: '2026-10-01', name: 'X', type: 'leak', count: 1000, countNote: '1,000件', data: '', cause: 'c', note: '', verification: 'reported', checkedAt: '2026-10-09',
+  id: 'x', date: '2026-10-01', name: 'X', type: 'leak', count: 1000, countNote: '1,000件', data: '', cause: 'c', note: '', verification: 'reported', origin: 'attack', checkedAt: '2026-10-09',
   sources: [{ name: 'A', url: 'https://a.example/1', kind: 'press' }, { name: 'B', url: 'https://b.example/1', kind: 'press' }], ...overrides,
 });
 const check = item => validateBreaches({ asOf: '2026-10-09', items: [item] });
@@ -51,4 +51,22 @@ test('a count has to agree with the words it was taken from', () => {
 test('ids are unique', () => {
   const problems = validateBreaches({ asOf: '2026-10-09', items: [entry({}), entry({})] });
   assert.ok(problems.some(p => /duplicate id/.test(p)));
+});
+
+test('where an incident came from: what is not an attack says why and names the words its sources use; an attack never does; a ransomware or a fraud is an attack', () => {
+  const mistake = { origin: 'mistake', originBasis: 'a loss, not an attack', originProof: ['紛失'] };
+  assert.deepEqual(check(entry({})), []);
+  assert.deepEqual(check(entry(mistake)), []);
+  assert.deepEqual(check(entry({ ...mistake, origin: 'insider' })), []);
+  assert.match(check(entry({ ...mistake, originBasis: ' ' }))[0], /needs originBasis/);
+  assert.match(check(entry({ ...mistake, originProof: [] }))[0], /needs originProof/);
+  assert.match(check(entry({ ...mistake, originProof: [''] }))[0], /needs originProof/);
+  assert.match(check(entry({ ...mistake, originProof: undefined }))[0], /needs originProof/);
+  assert.match(check(entry({ origin: 'attack', originBasis: 'x' }))[0], /only for what is not an attack/);
+  assert.match(check(entry({ origin: 'maybe' }))[0], /not one of/);
+  assert.match(check(entry({ ...mistake, type: 'ransomware' })).join(), /origin must be attack/);
+  assert.match(check(entry({ ...mistake, type: 'fraud' })).join(), /origin must be attack/);
+  const kinds = new Set(data.items.map(item => item.origin));
+  assert.deepEqual([...kinds].sort(), ['attack', 'insider', 'mistake']);
+  assert.ok(data.items.filter(item => item.origin !== 'attack').length >= 10, 'the non-attacks are listed');
 });

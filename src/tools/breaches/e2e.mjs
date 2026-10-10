@@ -14,6 +14,14 @@ export default async function ({ page, main, go }) {
   await main.getByRole('button', { name: 'Most records', exact: true }).click();
   assert.equal(await cards.first().getAttribute('data-breach'), 'gyazo', 'largest first');
 
+  // The explanations of the labels are folded away, and open on request.
+  const help = main.locator('[data-breaches="help"]');
+  assert.equal(await help.evaluate(el => el.open), false, 'folded at first');
+  await help.locator('summary').click();
+  assert.equal(await help.evaluate(el => el.open), true);
+  assert.match(await help.innerText(), /外部からの攻撃|Attack from outside/);
+  await help.locator('summary').click();
+
   // A type narrows the list to it.
   const all = await cards.count();
   await main.locator('button[data-kind="ransomware"]').click();
@@ -56,6 +64,20 @@ export default async function ({ page, main, go }) {
   await main.getByText('No incidents match.').waitFor();
   await main.locator('[data-breaches="query"]').fill('');
 
+  // Where an incident came from: what is not an attack is a part of the list, each says why, and an attack (ransomware) is never among them.
+  await main.locator('button[data-origin="mistake"]').click();
+  const mistakes = await cards.count();
+  assert.ok(mistakes >= 10 && mistakes < 40, 'incidents that are not attacks');
+  assert.equal(await cards.locator('[data-breaches="origin-basis"]').count(), mistakes, 'each says why');
+  assert.equal(await main.locator('[data-breach] [data-kind="ransomware"]').count(), 0, 'a ransomware is never "not an attack"');
+  await main.locator('button[data-origin="insider"]').click();
+  assert.ok(await cards.count() >= 2, 'insiders');
+  assert.match(await cards.first().locator('[data-breaches="origin-basis"]').innerText(), /内部不正/);
+  await main.locator('button[data-origin="attack"]').click();
+  assert.equal(await main.locator('[data-breaches="origin-basis"]').count(), 0, 'an attack has no such note');
+  assert.ok(await cards.count() > 80, 'most incidents are attacks');
+  await main.getByRole('button', { name: 'All', exact: true }).nth(1).click();
+
   // How well an entry was checked is shown on it, and can be filtered: "official" is a part of the list, and each entry names at least one source.
   const total = await cards.count();
   await main.locator('button[data-verify="official"]').click();
@@ -63,7 +85,7 @@ export default async function ({ page, main, go }) {
   assert.ok(official > 0 && official < total, 'official is a part of the list');
   assert.equal(await main.locator('[data-breach] [data-verification]:not([data-verification="official"])').count(), 0);
   assert.equal(await main.locator('[data-breach]:not(:has([data-source-kind]))').count(), 0, 'every entry shows its sources');
-  await main.getByRole('button', { name: 'All', exact: true }).last().click();
+  await main.getByRole('button', { name: 'All', exact: true }).nth(2).click();
   for (const link of await main.locator('[data-breach] a').all()) {
     assert.match(await link.getAttribute('href'), /^https:\/\//);
     assert.match(await link.getAttribute('rel'), /noopener/);
