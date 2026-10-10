@@ -2018,6 +2018,14 @@
       "example": "e.g. {value}",
       "postalMark": ""
     },
+    "shareButtons": {
+      "heading": "Share the result",
+      "on": "Share on {network}",
+      "copy": "Copy link",
+      "copied": "Copied the words and the link to share.",
+      "copyFailed": "Could not copy.",
+      "more": "More"
+    },
     "math": {
       "title": "Math",
       "description": "Multiple-choice math practice, from elementary school to university.",
@@ -2058,9 +2066,7 @@
         "nextSet": "Next practice",
         "resume": "Continue",
         "questionNumber": "Question {number}",
-        "share": "Share the result",
-        "shareText": "Math \"{title}\": {correct}/{total} correct",
-        "copied": "Copied the words and the link to share."
+        "shareText": "Math \"{title}\": {correct}/{total} correct"
       },
       "arith": {
         "formula": "Expression:",

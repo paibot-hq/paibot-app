@@ -2018,6 +2018,14 @@
       "example": "例如:{value}",
       "postalMark": ""
     },
+    "shareButtons": {
+      "heading": "分享结果",
+      "on": "分享到{network}",
+      "copy": "复制链接",
+      "copied": "已复制分享用的文字和链接。",
+      "copyFailed": "无法复制。",
+      "more": "更多"
+    },
     "math": {
       "title": "数学",
       "description": "从小学到大学，用四选一题练习数学。",
@@ -2058,9 +2066,7 @@
         "nextSet": "下一组练习",
         "resume": "继续",
         "questionNumber": "第{number}题",
-        "share": "分享结果",
-        "shareText": "数学「{title}」答对 {correct}/{total} 题",
-        "copied": "已复制分享用的文字和链接。"
+        "shareText": "数学「{title}」答对 {correct}/{total} 题"
       },
       "arith": {
         "formula": "算式：",

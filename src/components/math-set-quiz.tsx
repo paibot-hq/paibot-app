@@ -6,6 +6,7 @@ import { markSetDone } from '../lib/math-local-done';
 import { saveResume, type MathResume } from '../lib/math-resume';
 import { useFavoritesData } from '../routes/locale';
 import MathBreadcrumb, { type MathCrumb } from './math-breadcrumb';
+import ShareButtons from './share-buttons';
 import ToolLayout from './tool-layout';
 import styles from './math-set-quiz.module.css';
 
@@ -58,7 +59,6 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
   const { signedIn } = useFavoritesData();
   const saver = useFetcher<{ ok: boolean }>();
   const locale = useLocale();
-  const [shared, setShared] = useState('');
 
   const question = questions[index];
   const total = fixedTotal ?? questions.length;
@@ -86,16 +86,7 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
     setIndex(index + 1);
     setSelected(null);
   }
-  // The phone's share sheet (LINE, X, messages ...), or else the words and the link copied, as the other tools do.
-  async function share() {
-    const text = `${shareText ? shareText(correctCount, total) : t('shareText', { title: setLabel, correct: correctCount, total })}\n${window.location.origin}/${locale}${sharePath}`;
-    try {
-      if (navigator.share) await navigator.share({ text });
-      else { await navigator.clipboard.writeText(text); setShared(t('copied')); }
-    } catch { /* the share sheet was closed */ }
-  }
   function restart() {
-    setShared('');
     if (onRetry) { onRetry(); return; }
     setIndex(0);
     setSelected(null);
@@ -161,9 +152,9 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
         </ol>}
         <div className={styles.resultActions}>
           {perfect ? <>{nextLink}{retryButton}</> : <>{retryButton}{nextLink}</>}
-          <button type="button" className={styles.share} onClick={share} data-math-share>{t('share')}</button>
-          <p className={styles.shared} role="status">{shared}</p>
         </div>
+        {/* The link goes to the same set or test, so that a friend can try it. Only after the end, in the browser: window is there. */}
+        <ShareButtons text={shareText ? shareText(correctCount, total) : t('shareText', { title: setLabel, correct: correctCount, total })} url={`${window.location.origin}/${locale}${sharePath}`} />
         {current && <p className={styles.saveStatus} role="status">
           {!signedIn ? t('signInToSave')
             : saver.state !== 'idle' ? null

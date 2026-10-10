@@ -139,14 +139,21 @@ export default async function ({ page, main, base, go, errors }) {
   await main.getByText(/^\d \/ 5 correct$/).waitFor();
   assert.equal(await main.locator('ol li').filter({ hasText: /Question \d/ }).count(), 5, 'a mark per problem');
   assert.match(await main.getByRole('link', { name: /^Next practice/ }).getAttribute('href'), /^\/en\/math\/arith\/[a-z-]+\/\d+$/);
-  // The result can be shared: the words with the score and a link to the same set (the share sheet is replaced to read what it was given).
+  // The result can be shared on X, LINE and Facebook (new tabs), or copied: the words with the score and a link to the same set.
   const shareText = async () => {
-    await page.evaluate(() => { window.sharedText = null; navigator.share = async data => { window.sharedText = data.text; }; });
-    await main.locator('[data-math-share]').click();
-    await page.waitForFunction(() => window.sharedText);
-    return page.evaluate(() => window.sharedText);
+    const x = new URL(await main.locator('[data-share] [data-network="x"]').getAttribute('href'));
+    const line = new URL(await main.locator('[data-share] [data-network="line"]').getAttribute('href'));
+    const facebook = new URL(await main.locator('[data-share] [data-network="facebook"]').getAttribute('href'));
+    const both = `${x.searchParams.get('text')}\n${x.searchParams.get('url')}`;
+    assert.equal(line.searchParams.get('text'), both);
+    assert.equal(facebook.searchParams.get('u'), x.searchParams.get('url'));
+    assert.equal(await main.locator('[data-share] a[target="_blank"]').count(), 3);
+    return both;
   };
   assert.match(await shareText(), new RegExp(`^Math "Order of operations": \\d/5 correct\\n${base}/en/math/arith/order-of-operations/1$`));
+  await main.locator('[data-share] [data-network="copy"]').click();
+  await main.getByText('Copied the words and the link to share.').waitFor();
+  assert.equal(await page.evaluate(() => navigator.clipboard.readText()), await shareText(), 'copy puts the same words and link on the clipboard');
   // The math list offers to go on from there.
   const nextSet = await main.getByRole('link', { name: /^Next practice/ }).getAttribute('href');
   await go('math');

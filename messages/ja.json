@@ -2018,6 +2018,14 @@
       "example": "例: {value}",
       "postalMark": "〒"
     },
+    "shareButtons": {
+      "heading": "結果を共有",
+      "on": "{network}で共有",
+      "copy": "リンクをコピー",
+      "copied": "共有用の文とリンクをコピーしました。",
+      "copyFailed": "コピーできませんでした。",
+      "more": "その他"
+    },
     "math": {
       "title": "数学",
       "description": "小学校から大学まで、4択で基礎から学べる数学の練習問題。",
@@ -2058,9 +2066,7 @@
         "nextSet": "次の練習へ",
         "resume": "続きから",
         "questionNumber": "{number}問目",
-        "share": "結果を共有",
-        "shareText": "数学「{title}」で {correct}/{total} 正解しました",
-        "copied": "共有用の文とリンクをコピーしました。"
+        "shareText": "数学「{title}」で {correct}/{total} 正解しました"
       },
       "arith": {
         "formula": "式：",
