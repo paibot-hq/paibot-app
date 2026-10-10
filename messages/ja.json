@@ -27,6 +27,7 @@
     "lifeCalendar": {
       "fromProfile": "プロフィールに登録した生年月日です。ここでの変更は保存されません。",
       "editInProfile": "プロフィールを開く",
+      "suggestProfile": "プロフィールに生年月日を登録すると、次から自動で入ります。",
       "currentAge": "現在の年齢",
       "remainingWeeks": "{years}歳までの残り期間",
       "weeks": "{count}週",
