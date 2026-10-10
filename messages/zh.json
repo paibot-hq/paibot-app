@@ -2025,7 +2025,7 @@
       "keywords": "数学 练习 四则运算 因式分解 测验 题库",
       "intro": "展开领域即可看到单元和学习项目,也可以按学年或名称筛选。带颜色的项目可以立即练习。",
       "itemPage": {
-        "toPractice": "前往练习",
+        "start": "开始练习",
         "points": "要点",
         "example": "例题",
         "about": "学习内容",
@@ -2039,7 +2039,6 @@
         "backToMath": "数学",
         "breadcrumb": "面包屑导航",
         "progress": "{current} / {total}",
-        "answer": "作答",
         "correct": "正确",
         "incorrect": "错误",
         "next": "下一题",
@@ -2055,7 +2054,11 @@
         "chooseItem": "请选择要练习的项目。",
         "tierCount": "{tier} {count}题",
         "tierSeparator": "・",
-        "columnMethod": "竖式"
+        "columnMethod": "竖式",
+        "seeResult": "查看结果",
+        "nextSet": "下一组练习",
+        "resume": "继续",
+        "questionNumber": "第{number}题"
       },
       "arith": {
         "formula": "算式：",

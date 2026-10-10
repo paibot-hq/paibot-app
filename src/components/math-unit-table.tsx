@@ -5,6 +5,7 @@ import type { DynamicT } from '../lib/apps';
 import { MATH_CATALOG, MATH_DOMAINS, MATH_STAGES, type MathStage } from '../lib/math-catalog';
 import { JP_GRADES, jpGrade, stageOfGrade, type JpGrade } from '../lib/math-curriculum-jp';
 import { KENTEI_LEVELS, KENTEI_LOCALES, KENTEI_OFFICIAL_URL } from '../lib/math-kentei';
+import { readResume, type MathResume } from '../lib/math-resume';
 import styles from './math-unit-table.module.css';
 
 // Every unit with its learning items, grouped by area of mathematics; each
@@ -57,6 +58,15 @@ export default function MathUnitTable({ playable, done }: { playable: readonly s
     remember(next);
   };
 
+  // On a phone only the search shows at first; the other filters are behind "Filters" (always shown on a wider screen, by the CSS).
+  const [moreFilters, setMoreFilters] = useState(false);
+  const activeFilters = [stage, grade, kentei, playableOnly].filter(Boolean).length;
+  // The practice set last opened in this browser, to go back to in one tap.
+  const [resume, setResume] = useState<MathResume | null>(null);
+  useEffect(() => { setResume(readResume()); }, []);
+  const resumeItem = resume && td(`units.${resume.unit}.items.${resume.item}.title`);
+  const resumeSeveral = resume && (MATH_CATALOG.find(unit => unit.id === resume.unit)?.items.find(item => item.id === resume.item)?.sets.length ?? 0) > 1;
+
   const sections = MATH_DOMAINS.map(domain => {
     const rows = MATH_STAGES.flatMap(s => MATH_CATALOG.filter(unit => unit.domain === domain && unit.stage === s))
       .map(unit => {
@@ -74,26 +84,35 @@ export default function MathUnitTable({ playable, done }: { playable: readonly s
   }).filter(section => section.rows.length);
 
   return <>
+    {resume && <Link href={`/math/${resume.unit}/${resume.item}/${resume.set}`} className={styles.resume} data-math-resume>
+      <span className={styles.resumeLabel}>{t('quiz.resume')}</span>
+      <span>{resumeItem}{resumeSeveral && ` ${t('quiz.practice', { number: resume.set })}`}</span>
+    </Link>}
     <div className={styles.filters} role="group" aria-label={t('unitList.filters')}>
-      <ul className={styles.stages}>
-        {MATH_STAGES.map(s => (
-          <li key={s}><button type="button" className={styles.chip} aria-pressed={stage === s} onClick={() => setStage(stage === s ? '' : s)}>{t(`stages.${s}`)}</button></li>
-        ))}
-      </ul>
-      <select className={styles.select} value={grade} onChange={event => setGrade(event.target.value as JpGrade | '')} aria-label={t('unitList.grade')}>
-        <option value="">{t('unitList.grade')}</option>
-        {JP_GRADES.map(code => <option key={code} value={code}>{td(`grades.${code}`)}</option>)}
-      </select>
-      {showKentei && <select className={styles.select} value={kentei} onChange={event => setKentei(event.target.value)} aria-label={t('unitList.kentei')}>
-        <option value="">{t('unitList.kentei')}</option>
-        {[...KENTEI_LEVELS].reverse().map(level => <option key={level.id} value={level.id}>{td(`kentei.levels.${level.id}`)}</option>)}
-      </select>}
-      <label className={styles.check}>
-        <input type="checkbox" checked={playableOnly} onChange={event => setPlayableOnly(event.target.checked)} />
-        {t('unitList.playableOnly')}
-      </label>
       <input type="search" className={styles.search} value={query} onChange={event => setQuery(event.target.value)}
         placeholder={t('unitList.search')} aria-label={t('unitList.search')} />
+      <button type="button" className={styles.more} aria-expanded={moreFilters} aria-controls="math-list-filters" onClick={() => setMoreFilters(!moreFilters)}>
+        {t('unitList.filters')}{activeFilters > 0 && <span className={styles.activeCount}>{activeFilters}</span>}
+      </button>
+      <div className={styles.moreFilters} id="math-list-filters" data-open={moreFilters || undefined}>
+        <ul className={styles.stages}>
+          {MATH_STAGES.map(s => (
+            <li key={s}><button type="button" className={styles.chip} aria-pressed={stage === s} onClick={() => setStage(stage === s ? '' : s)}>{t(`stages.${s}`)}</button></li>
+          ))}
+        </ul>
+        <select className={styles.select} value={grade} onChange={event => setGrade(event.target.value as JpGrade | '')} aria-label={t('unitList.grade')}>
+          <option value="">{t('unitList.grade')}</option>
+          {JP_GRADES.map(code => <option key={code} value={code}>{td(`grades.${code}`)}</option>)}
+        </select>
+        {showKentei && <select className={styles.select} value={kentei} onChange={event => setKentei(event.target.value)} aria-label={t('unitList.kentei')}>
+          <option value="">{t('unitList.kentei')}</option>
+          {[...KENTEI_LEVELS].reverse().map(level => <option key={level.id} value={level.id}>{td(`kentei.levels.${level.id}`)}</option>)}
+        </select>}
+        <label className={styles.check}>
+          <input type="checkbox" checked={playableOnly} onChange={event => setPlayableOnly(event.target.checked)} />
+          {t('unitList.playableOnly')}
+        </label>
+      </div>
       {!filtering && (
         <button type="button" className={styles.chip} onClick={() => remember(opened.size >= MATH_DOMAINS.length ? new Set() : new Set(MATH_DOMAINS))} data-math-list="toggle-all">
           {opened.size >= MATH_DOMAINS.length ? t('unitList.closeAll') : t('unitList.openAll')}

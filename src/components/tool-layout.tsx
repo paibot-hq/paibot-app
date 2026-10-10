@@ -20,10 +20,12 @@ type ToolLayoutProps = {
   // The text about the tool and the links to other tools under the page (for search engines and for those who scroll); a tool that shows them
   // somewhere of its own (the government FAQ, in a tab) turns this off and renders <ToolAbout> itself.
   about?: boolean;
+  // Less room above and between the parts on a phone, for a page used in quick repeated steps (a math quiz).
+  compact?: boolean;
 };
 
 export default function ToolLayout({
-  title, children, layout = "stacked", contentWidth = "full", centerTitle = false, aboveTitle, about = true,
+  title, children, layout = "stacked", contentWidth = "full", centerTitle = false, aboveTitle, about = true, compact = false,
 }: ToolLayoutProps) {
   const t = useTranslations("App");
   const locale = useLocale();
@@ -35,7 +37,7 @@ export default function ToolLayout({
   const app = apps.find(candidate => candidate.href === pathname && candidate.status === "published");
 
   return (
-    <main className={styles.page}>
+    <main className={styles.page} data-compact={compact || undefined}>
       {aboveTitle}
       <h1 className={styles.title} data-centered={centerTitle || undefined}>{title}</h1>
       {app && (

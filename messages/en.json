@@ -2025,7 +2025,7 @@
       "keywords": "math drills arithmetic algebra factoring quiz problem set",
       "intro": "Open an area to see its units and learning items, or filter by school year or name. Highlighted items are ready to practice.",
       "itemPage": {
-        "toPractice": "Go to practice",
+        "start": "Start practice",
         "points": "Key points",
         "example": "Worked example",
         "about": "What you learn",
@@ -2039,7 +2039,6 @@
         "backToMath": "Math",
         "breadcrumb": "Breadcrumb",
         "progress": "{current} / {total}",
-        "answer": "Answer",
         "correct": "Correct",
         "incorrect": "Incorrect",
         "next": "Next question",
@@ -2055,7 +2054,11 @@
         "chooseItem": "Choose what to practice.",
         "tierCount": "{tier} {count}",
         "tierSeparator": ", ",
-        "columnMethod": "Column method"
+        "columnMethod": "Column method",
+        "seeResult": "See results",
+        "nextSet": "Next practice",
+        "resume": "Continue",
+        "questionNumber": "Question {number}"
       },
       "arith": {
         "formula": "Expression:",

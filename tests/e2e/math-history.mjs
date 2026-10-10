@@ -31,9 +31,9 @@ async function play(page, correct) {
   for (const [index, problem] of problems.entries()) {
     await main.getByText(`${index + 1} / ${problems.length}`, { exact: true }).waitFor();
     const pick = index < correct ? problem.answerIndex : (problem.answerIndex + 1) % 4;
+    // A tap on a choice is the answer.
     await main.locator('[role=group] button').nth(pick).click();
-    await main.getByRole('button', { name: 'Answer' }).click();
-    await main.getByRole('button', { name: 'Next question' }).click();
+    await main.getByRole('button', { name: index + 1 < problems.length ? 'Next question' : 'See results' }).click();
   }
   await main.getByText(`${correct} / ${problems.length} correct`).waitFor();
   const status = main.locator('[role=status]');

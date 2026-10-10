@@ -3,7 +3,25 @@
 .chip { font: inherit; font-size: .9rem; padding: .35rem .8rem; border: 1px solid var(--line); border-radius: 999px; background: transparent; color: var(--text); cursor: pointer; }
 .chip[aria-pressed="true"] { border-color: var(--accent); background: var(--accent); color: #fff; }
 .select, .search { font: inherit; font-size: .9rem; padding: .4rem .7rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); }
-.search { flex: 1 1 12rem; min-width: 0; }
+.search { flex: 1 1 12rem; min-width: 0; padding: .55rem .8rem; font-size: 1rem; }
+/* The filters other than the search: in the row on a wide screen, behind "Filters" on a phone. */
+.moreFilters { display: contents; }
+.more { display: none; font: inherit; font-size: .9rem; padding: .5rem .9rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); cursor: pointer; }
+.more::after { content: ""; display: inline-block; width: .4rem; height: .4rem; margin-left: .5rem; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: translateY(-.15rem) rotate(45deg); }
+.more[aria-expanded="true"]::after { transform: translateY(.05rem) rotate(-135deg); }
+.more:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.activeCount { display: inline-grid; place-items: center; min-width: 1.2rem; height: 1.2rem; margin-left: .4rem; padding: 0 .3rem; border-radius: 999px; background: var(--accent); color: #fff; font-size: .72rem; }
+@media (max-width: 640px) {
+  .more { display: inline-block; }
+  .moreFilters { display: none; }
+  .moreFilters[data-open] { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1rem; flex-basis: 100%; }
+}
+/* Back to the practice set last opened. */
+.resume { display: grid; gap: .1rem; width: min(100%, 720px); box-sizing: border-box; margin: 1rem auto 0; padding: .8rem 1rem; border-radius: var(--radius);
+  background: var(--text); color: var(--bg); text-decoration: none; font-weight: 600; text-align: left; }
+.resume:hover { opacity: .9; }
+.resume:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.resumeLabel { font-size: .75rem; font-weight: 400; opacity: .8; }
 .check { display: inline-flex; align-items: center; gap: .35rem; font-size: .9rem; }
 .chip:focus-visible, .select:focus-visible, .search:focus-visible, .set:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .note { width: min(100%, 720px); margin: .8rem auto 0; font-size: .8rem; color: var(--muted); line-height: 1.6; }

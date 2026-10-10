@@ -54,6 +54,8 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
   const title = t(`${itemKey}.title`);
   const description = has(`${itemKey}.description`) ? t(`${itemKey}.description`) : t(`units.${unitId}.summary`);
   const head = `${unitTitle} - ${title} | PAIBOT`;
+  // "Start practice" goes straight into the first playable set not yet finished (or the first one), so that a phone need not scroll down to the cards.
+  const start = sets.find(set => set.playable && !set.record) ?? sets.find(set => set.playable) ?? sets[0];
   return <>
     {published ? <PublicHead locale={locale} path={`/math/${unitId}/${itemId}`} title={head} description={description} /> : <title>{head}</title>}
     <ToolLayout title={title} centerTitle aboveTitle={<MathBreadcrumb crumbs={[{ label: unitTitle, href: `/math/${unitId}` }, { label: title }]} />}>
@@ -61,7 +63,9 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
       {grade && <p className={styles.grade}>{t('gradeLabel', { grade: t(`grades.${grade}`) })}</p>}
       <h2 className={styles.about}>{ti('about')}</h2>
       <p className={styles.description}>{description}</p>
-      <p className={styles.jump}><a href="#practice">{ti('toPractice')}</a></p>
+      {start && <Link href={`/math/${unitId}/${itemId}/${start.id}`} className={styles.start} data-math-start>
+        {ti('start')}{sets.length > 1 && <span className={styles.startSet}>{tq('practice', { number: start.id })}</span>}
+      </Link>}
       {points.length > 0 && <details className={styles.section} open>
         <summary>{ti('points')}</summary>
         <div className={styles.points}>{points.map((point, index) => <div key={index} className={styles.point}>

@@ -2025,7 +2025,7 @@
       "keywords": "数学 ドリル 算数 問題集 四則演算 因数分解 クイズ",
       "intro": "分野を開くと、単元と学習項目が出ます。学年や名前で絞り込むこともできます。色の付いた項目は今すぐ練習できます。",
       "itemPage": {
-        "toPractice": "練習へ進む",
+        "start": "練習をはじめる",
         "points": "要点",
         "example": "例題",
         "about": "学ぶこと",
@@ -2039,7 +2039,6 @@
         "backToMath": "数学",
         "breadcrumb": "パンくずリスト",
         "progress": "{current} / {total}",
-        "answer": "回答する",
         "correct": "正解",
         "incorrect": "不正解",
         "next": "次の問題",
@@ -2055,7 +2054,11 @@
         "chooseItem": "学習する項目を選んでください。",
         "tierCount": "{tier} {count}問",
         "tierSeparator": "・",
-        "columnMethod": "筆算"
+        "columnMethod": "筆算",
+        "seeResult": "結果を見る",
+        "nextSet": "次の練習へ",
+        "resume": "続きから",
+        "questionNumber": "{number}問目"
       },
       "arith": {
         "formula": "式：",

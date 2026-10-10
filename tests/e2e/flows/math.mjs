@@ -54,6 +54,15 @@ export default async function ({ page, main, base, go, errors }) {
   assert.equal(await openAreas(), 0, 'close all');
   await page.setViewportSize({ width: 390, height: 844 });
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
+  // On a phone only the search shows; the other filters are behind "Filters".
+  const moreFilters = main.getByRole('button', { name: 'Filters' });
+  assert.equal(await main.getByRole('button', { name: 'Higher', exact: true }).isVisible(), false);
+  await moreFilters.click();
+  assert.equal(await moreFilters.getAttribute('aria-expanded'), 'true');
+  await main.getByRole('button', { name: 'Higher', exact: true }).click();
+  assert.equal(await moreFilters.innerText(), 'Filters1', 'the button counts the filters that are on');
+  await main.getByRole('button', { name: 'Higher', exact: true }).click();
+  await moreFilters.click();
   assert.ok(await page.evaluate(() => document.body.scrollHeight) < 3000, 'folded, the list is short on a phone');
   await page.setViewportSize({ width: 1100, height: 900 });
   console.log('PASS: math lists units and learning items folded by area (opened by a search, a filter or open all), highlights playable ones and filters by level, playability and name');
@@ -76,6 +85,8 @@ export default async function ({ page, main, base, go, errors }) {
   await link('/en/math/arith/order-of-operations').click();
   await page.waitForURL(`${base}/en/math/arith/order-of-operations`);
   await main.getByRole('heading', { level: 1, name: 'Order of operations' }).waitFor();
+  // "Start practice" goes straight into the set, near the top of the page.
+  assert.equal(await main.locator('[data-math-start]').getAttribute('href'), '/en/math/arith/order-of-operations/1');
   assert.deepEqual(await main.locator('ul a').evaluateAll(cards => cards.map(card => card.getAttribute('href'))),
     ['/en/math/arith/order-of-operations/1']);
   assert.equal(await page.title(), 'Order of operations & word problems - Order of operations | PAIBOT');
@@ -98,7 +109,7 @@ export default async function ({ page, main, base, go, errors }) {
     ['pythagoras/sides', '1', 'Side lengths'],
   ]) {
     await go(`math/${item}`);
-    await link(`/en/math/${item}/${set}`).click();
+    await link(`/en/math/${item}/${set}`).last().click(); // the set's card (the first link is "Start practice")
     await page.waitForURL(`${base}/en/math/${item}/${set}`);
     await main.getByText(label, { exact: true }).last().waitFor();
     await main.getByText('1 / 5', { exact: true }).waitFor();
@@ -113,6 +124,26 @@ export default async function ({ page, main, base, go, errors }) {
   }
   assert.deepEqual(errors, []);
   console.log('PASS: item pages list their sets with tier counts; sets open their quiz (with each problem\'s tier) and link back to the item');
+
+  // A tap on a choice is the answer: the verdict and "Next" come at once. Keys 1-4 answer too. The result marks each problem and offers the next set.
+  await go('math/arith/order-of-operations/1');
+  const choices = main.locator('[role=group] button');
+  for (let index = 0; index < 5; index++) {
+    await main.getByText(`${index + 1} / 5`, { exact: true }).waitFor();
+    if (index % 2) await page.keyboard.press('2'); else await choices.first().click();
+    assert.equal(await choices.and(page.locator(':disabled')).count(), 4, 'answered at once');
+    assert.match(await main.locator('[aria-live]').last().innerText(), /^(Correct|Incorrect)$/);
+    await main.getByRole('button', { name: index < 4 ? 'Next question' : 'See results' }).click();
+  }
+  await main.getByText(/^\d \/ 5 correct$/).waitFor();
+  assert.equal(await main.locator('ol li').filter({ hasText: /Question \d/ }).count(), 5, 'a mark per problem');
+  assert.match(await main.getByRole('link', { name: /^Next practice/ }).getAttribute('href'), /^\/en\/math\/arith\/[a-z-]+\/\d+$/);
+  // The math list offers to go on from there.
+  const nextSet = await main.getByRole('link', { name: /^Next practice/ }).getAttribute('href');
+  await go('math');
+  assert.equal(await main.locator('[data-math-resume]').getAttribute('href'), nextSet);
+  assert.deepEqual(errors, []);
+  console.log('PASS: one tap answers; the result marks each problem and links the next set, which the math list offers to continue');
 
   // Every set has problems now: a set of a formerly coming-soon unit opens as any other.
   await go('math/shapes/solids-basic/1');
