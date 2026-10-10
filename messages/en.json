@@ -589,6 +589,229 @@
       "tabList": "List",
       "tabStats": "Statistics"
     },
+    "birthdayFortune": {
+      "title": "Birthday Fortune",
+      "description": "A reading from your date of birth: your sun sign, your numerology life path number and today's luck. Personal year, month and day show the flow of this year, this month and today. The same birth date gives the same reading, because it is worked out, not drawn.",
+      "about": "A reading from your date of birth: the twelve sun signs, the numerology life path number (including the master numbers 11, 22 and 33), and the luck of this year, this month and today (personal year, month and day). It is not a lottery: it is worked out from your birth date and today's date, so the same birth date gives the same reading on the same day, and today's luck changes when the date does. Your birth date is kept only in this browser. For fun only.",
+      "keywords": "birthday fortune horoscope sun sign numerology life path number personal year daily luck",
+      "intro": "Enter your date of birth for a reading of your sign, your life path number and today's luck. The date is kept only in this browser.",
+      "birthDate": "Date of birth",
+      "read": "Read my fortune",
+      "invalid": "Enter a real date from 1900 up to today.",
+      "todayTitle": "Today's luck ({date})",
+      "cycleTitle": "This year, this month, today",
+      "yearLabel": "{year}",
+      "monthLabel": "Month {month}",
+      "dayLabel": "Today",
+      "signTitle": "Your sun sign",
+      "pathTitle": "Your life path number",
+      "stars": {
+        "overall": "Overall",
+        "love": "Love",
+        "work": "Work",
+        "money": "Money"
+      },
+      "starsOf": "{n} out of 5",
+      "element": {
+        "fire": "Fire",
+        "earth": "Earth",
+        "air": "Air",
+        "water": "Water"
+      },
+      "share": "Share result",
+      "copied": "Copied",
+      "shareText": "Birthday Fortune: {sign}, life path {path}, today's luck {stars}",
+      "forget": "Forget my saved birth date",
+      "note": "Fortunes are for fun. They are a guide worked out from your birth date and the date, and do not predict what will happen. Where a sign starts can differ by a day from year to year.",
+      "sign": {
+        "aries": {
+          "name": "Aries",
+          "text": "Full of drive and straightforward. Good at starting things, you lead others with your passion.",
+          "range": "3/21–4/19"
+        },
+        "taurus": {
+          "name": "Taurus",
+          "text": "Calm and persistent. Rich in the senses, you value stability and comfort.",
+          "range": "4/20–5/20"
+        },
+        "gemini": {
+          "name": "Gemini",
+          "text": "Curious and light on your feet. Good with talk and information, you have many sides.",
+          "range": "5/21–6/21"
+        },
+        "cancer": {
+          "name": "Cancer",
+          "text": "Deeply caring and nurturing. You have the strength to protect those close to you.",
+          "range": "6/22–7/22"
+        },
+        "leo": {
+          "name": "Leo",
+          "text": "Bright and proud. You entertain others and, with confidence and warmth, stand at the centre of the circle.",
+          "range": "7/23–8/22"
+        },
+        "virgo": {
+          "name": "Virgo",
+          "text": "Delicate and meticulous. You notice details and are glad to be of use.",
+          "range": "8/23–9/22"
+        },
+        "libra": {
+          "name": "Libra",
+          "text": "A fine sense of balance. You like beautiful things and are fair and good with people.",
+          "range": "9/23–10/23"
+        },
+        "scorpio": {
+          "name": "Scorpio",
+          "text": "Focused, single-minded and deep. You have hidden passion and sharp insight.",
+          "range": "10/24–11/22"
+        },
+        "sagittarius": {
+          "name": "Sagittarius",
+          "text": "An optimist who loves freedom and adventure. With a wide view, you chase your ideals.",
+          "range": "11/23–12/21"
+        },
+        "capricorn": {
+          "name": "Capricorn",
+          "text": "Responsible and hard-working. You climb towards your goals one step at a time.",
+          "range": "12/22–1/19"
+        },
+        "aquarius": {
+          "name": "Aquarius",
+          "text": "Original and free. You are not bound by convention and have an eye for the future.",
+          "range": "1/20–2/18"
+        },
+        "pisces": {
+          "name": "Pisces",
+          "text": "Gentle and sensitive. You feel for others and are full of imagination.",
+          "range": "2/19–3/20"
+        }
+      },
+      "lifePath": {
+        "1": {
+          "title": "The pioneer",
+          "text": "Independent and driven, you cut your own path. You are at your best out in front."
+        },
+        "2": {
+          "title": "The peacemaker",
+          "text": "You are gentle enough to stay close to others' feelings and to bridge differences. You shine in cooperation."
+        },
+        "3": {
+          "title": "The expresser",
+          "text": "With bright ideas and a gift for expression, you delight people. Enjoying yourself is your strength."
+        },
+        "4": {
+          "title": "The steady builder",
+          "text": "You build a stable base through steady effort. You are someone people trust."
+        },
+        "5": {
+          "title": "The free adventurer",
+          "text": "You seek change and experience and move about lightly. Flexibility and curiosity are your tools."
+        },
+        "6": {
+          "title": "The carer",
+          "text": "Caring and responsible, you make harmonious places where people feel safe."
+        },
+        "7": {
+          "title": "The seeker",
+          "text": "You think deeply and look for the heart of things. Time alone grows your strength."
+        },
+        "8": {
+          "title": "The achiever",
+          "text": "You have the power to make goals real, and a talent for handling organisations and money."
+        },
+        "9": {
+          "title": "The humanitarian",
+          "text": "You give with a wide heart and bring things together. You can finish things and let go."
+        },
+        "11": {
+          "title": "The intuitive (master number)",
+          "text": "Keen sensitivity and intuition. A number that often brings a sense of a special calling to guide others by insight."
+        },
+        "22": {
+          "title": "The master builder (master number)",
+          "text": "You can turn a great ideal into reality. A number for building things on a large scale."
+        },
+        "33": {
+          "title": "The healer (master number)",
+          "text": "You heal and support others with a deep love that asks nothing back. A number that thrives in service."
+        }
+      },
+      "year": {
+        "1": {
+          "title": "A time of beginnings",
+          "text": "A flow that suits starting something new. Plant the seeds of what you have wanted to try."
+        },
+        "2": {
+          "title": "A time of nurturing",
+          "text": "A flow for cooperation and building relationships, without rushing. Waiting is also a strength."
+        },
+        "3": {
+          "title": "A time of widening",
+          "text": "A flow of enjoyment, of speaking out and of meeting people. Say it aloud when an idea comes."
+        },
+        "4": {
+          "title": "A time of laying foundations",
+          "text": "A flow for steady effort and tidying up. Putting your body and life in order makes later easier."
+        },
+        "5": {
+          "title": "A time of change",
+          "text": "A flow where turning points come easily. The more you move and gain experience, the more the way opens."
+        },
+        "6": {
+          "title": "A time of love and duty",
+          "text": "A flow in which ties with family, partners and those close to you deepen. Kindness comes back."
+        },
+        "7": {
+          "title": "A time of reflection",
+          "text": "A flow for stopping to learn and looking at yourself. Value your time alone."
+        },
+        "8": {
+          "title": "A time of harvest",
+          "text": "A flow where effort easily turns into results and money. Set a goal and push on."
+        },
+        "9": {
+          "title": "A time of letting go",
+          "text": "A flow of closing, sorting out and thanks. Finishing things prepares the next beginning."
+        }
+      },
+      "day": {
+        "1": {
+          "title": "A day to begin",
+          "text": "A day that suits a first step into something new. If in doubt, start small."
+        },
+        "2": {
+          "title": "A day to stand beside others",
+          "text": "A day for listening and cooperating. Do not hurry; matching the other person's pace carries you."
+        },
+        "3": {
+          "title": "A day to enjoy",
+          "text": "A day when talk and expression flow. Accept an invitation and you may find a happy surprise."
+        },
+        "4": {
+          "title": "A day to set things in order",
+          "text": "A day for tidying, planning and steady work. What you do bit by bit takes firm shape."
+        },
+        "5": {
+          "title": "A day to move",
+          "text": "A day to welcome the unexpected. Go out or try something new and your luck moves."
+        },
+        "6": {
+          "title": "A day of love",
+          "text": "A day when kindness to those close to you bears fruit. Care for your home and meals and your heart fills."
+        },
+        "7": {
+          "title": "A day alone",
+          "text": "A day for reflection, study and rest. Do not force it; spend it quietly and you will settle."
+        },
+        "8": {
+          "title": "A day to get results",
+          "text": "A day strong for work, money and negotiation. Good for big decisions and showdowns."
+        },
+        "9": {
+          "title": "A day to let go",
+          "text": "A day for ending, forgiving and giving way. Let go of what you do not need and you will feel clear."
+        }
+      }
+    },
     "omikuji": {
       "title": "Omikuji",
       "description": "Shake the box and draw an omikuji fortune. From great luck to bad luck, with a line each for wishes, love, work and money, plus a lucky colour and number.",
