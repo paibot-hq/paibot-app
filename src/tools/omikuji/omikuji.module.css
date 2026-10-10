@@ -1,0 +1,38 @@
+.stage { display: flex; flex-direction: column; align-items: center; gap: 1rem; margin: 1.2rem 0; position: relative; min-height: 18rem; }
+/* The box: a tall wooden one with a red band, and the hole at the top the stick comes out of. */
+.box { position: relative; width: 7.5rem; height: 11rem; border: 3px solid #6b3e1a; border-radius: .6rem .6rem .9rem .9rem; background: linear-gradient(90deg, #b9824a, #d9a566 40%, #c58f55 60%, #a8713c); box-shadow: 0 .6rem 0 rgba(0, 0, 0, .25); cursor: pointer; transform-origin: 50% 90%; font: inherit; padding: 0; }
+.box:focus-visible { outline: 3px solid var(--accent); outline-offset: 4px; }
+.box:disabled { cursor: default; }
+.band { position: absolute; left: -3px; right: -3px; top: 3.4rem; display: flex; align-items: center; justify-content: center; height: 4rem; background: #b3261e; color: #fff6dc; font-size: 1.35rem; font-weight: 800; letter-spacing: .15em; writing-mode: vertical-rl; border-block: 3px solid #7a1812; }
+.hole { position: absolute; top: -.3rem; left: 50%; width: 2.2rem; height: .55rem; border-radius: .3rem; background: #2a1608; transform: translateX(-50%); }
+.stage[data-stage="idle"] .box:hover { transform: rotate(-3deg); transition: transform .15s; }
+.stage[data-stage="shaking"] .box { animation: shake .2s linear infinite; }
+@keyframes shake { 0% { transform: rotate(-14deg) translateY(-6px); } 50% { transform: rotate(14deg) translateY(4px); } 100% { transform: rotate(-14deg) translateY(-6px); } }
+/* The stick comes up out of the hole with its number. */
+.stick { position: absolute; top: .2rem; left: 50%; z-index: 1; display: flex; align-items: flex-end; justify-content: center; width: 1.7rem; height: 7rem; padding-bottom: .6rem; box-sizing: border-box; border: 2px solid #6b3e1a; border-radius: .3rem; background: #f4e3b8; color: #5a1410; font-weight: 800; font-size: .95rem; writing-mode: vertical-rl; transform: translateX(-50%); animation: rise .8s ease-out both; }
+@keyframes rise { from { transform: translate(-50%, 6rem); } to { transform: translate(-50%, -1rem); } }
+.prompt { margin: 0; min-height: 1.5rem; color: var(--muted); text-align: center; }
+.paper { width: min(26rem, 100%); margin: 1rem auto; padding: 1.4rem 1.2rem 1rem; border: 2px solid #8a6a2a; border-radius: .5rem; background: linear-gradient(180deg, #fff9e6, #f6ebc6); color: #3a2a10; box-shadow: 0 .5rem 1.4rem rgba(0, 0, 0, .25); text-align: center; animation: unfold .6s ease-out both; transform-origin: 50% 0; }
+@keyframes unfold { from { transform: scaleY(.05); opacity: 0; } to { transform: scaleY(1); opacity: 1; } }
+.number { margin: 0; color: #7a5a1a; font-size: .85rem; letter-spacing: .1em; }
+.luck { margin: .2rem 0 .8rem; font-size: 3.6rem; font-weight: 800; line-height: 1.1; color: #b3261e; text-shadow: 0 2px 0 rgba(0, 0, 0, .08); }
+.paper[data-luck="daikichi"] .luck { color: #c8101c; font-size: 4.2rem; }
+.paper[data-luck="kyo"] .luck { color: #3a3a46; }
+.lines { display: grid; gap: .55rem; margin: 0 0 .9rem; text-align: left; }
+.lines div { display: grid; grid-template-columns: 5.5rem 1fr; gap: .6rem; padding-bottom: .5rem; border-bottom: 1px dashed #cdb67a; }
+.lines dt { color: #8a5a1a; font-weight: 700; font-size: .9rem; }
+.lines dd { margin: 0; font-size: .92rem; line-height: 1.5; }
+.lucky { display: flex; flex-wrap: wrap; justify-content: center; gap: .3rem 1.2rem; margin: 0 0 .9rem; font-size: .9rem; }
+.swatch { display: inline-block; width: .9rem; height: .9rem; margin-right: .35rem; border: 1px solid rgba(0, 0, 0, .3); border-radius: 50%; vertical-align: -.1em; }
+.swatch[data-color="red"] { background: #d63a3a; }
+.swatch[data-color="orange"] { background: #f08a24; }
+.swatch[data-color="yellow"] { background: #f2c230; }
+.swatch[data-color="green"] { background: #3f9e5a; }
+.swatch[data-color="blue"] { background: #3a74d0; }
+.swatch[data-color="purple"] { background: #8a52c4; }
+.swatch[data-color="white"] { background: #fff; }
+.swatch[data-color="pink"] { background: #f07aa8; }
+.buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
+.note { margin: .6rem 0 0; color: var(--muted); font-size: .8rem; text-align: center; }
+.paper .note { color: #7a5a1a; }
+@media (prefers-reduced-motion: reduce) { .stage[data-stage="shaking"] .box, .stick, .paper { animation: none; } }

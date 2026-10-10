@@ -320,6 +320,25 @@ function PuchiIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function BirthdayFortuneIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M12 3.5l1.6 4.4 4.4 1.6-4.4 1.6L12 15.5l-1.6-4.4L6 9.5l4.4-1.6z" />
+      <path d="M18 14.5l.8 2.2 2.2.8-2.2.8-.8 2.2-.8-2.2-2.2-.8 2.2-.8zM6 15l.6 1.6 1.6.6-1.6.6L6 19.4l-.6-1.6-1.6-.6 1.6-.6z" />
+    </svg>
+  );
+}
+
+function OmikujiIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M8 9h8l-1 11H9z" />
+      <path d="M10 9V6M12.5 9V4M15 9V6.5" />
+      <path d="M9.4 14h5.2" />
+    </svg>
+  );
+}
+
 function AgeIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -440,7 +459,7 @@ const APP_ICONS: Record<AppSlug, Icon> = {
   ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
   dice: DiceIcon, reaction: ReactionIcon, timing: TimingIcon, pinball: PinballIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "metadata": MetadataIcon, govfaq: GovFaqIcon, "approx": ApproxIcon, "warnings": WarningsIcon, "quake": QuakeIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, fireworks: FireworksIcon, puchi: PuchiIcon,
   tax: TaxIcon, split: SplitIcon, "unit-converter": UnitConverterIcon, "date-calc": DateCalcIcon, pomodoro: PomodoroIcon, roulette: RouletteIcon,
-  calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, diary: WcIcon, age: AgeIcon, breaches: BreachesIcon,
+  calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, diary: WcIcon, age: AgeIcon, breaches: BreachesIcon, omikuji: OmikujiIcon, "birthday-fortune": BirthdayFortuneIcon,
 };
 
 export const apps: AppEntry[] = APP_CATALOG.map(app => ({ ...app, icon: APP_ICONS[app.slug] }));

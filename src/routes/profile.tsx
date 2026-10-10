@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { data, useFetcher } from 'react-router';
 import { SignInButton } from '@clerk/react-router';
 import { getAuth } from '@clerk/react-router/server';
@@ -59,11 +60,16 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
   const fetcher = useFetcher<typeof action>();
   const busy = fetcher.state !== 'idle';
   const pending = fetcher.formData?.get('intent');
-  // Reflect the submitted value while it is in flight so the controls never
-  // snap back to the stored one mid-save.
+  // The date shown as registered: what was submitted while it is in flight, so that it never snaps back to the stored one mid-save.
+  const stored = profile?.birthDate ?? '';
   const birthDate = pending === 'clearBirthDate' ? ''
     : pending === 'birthDate' ? String(fetcher.formData?.get('value'))
-    : profile?.birthDate ?? '';
+    : stored;
+  // What is in the box is a draft, saved only by the button. A date field fires a change for every digit typed (the year 1990 is "0001" first), so
+  // saving on change rejected the first of them and then took the box away while the rest was being typed.
+  const [draft, setDraft] = useState(stored);
+  useEffect(() => { setDraft(stored); }, [stored]);
+  const shown = birthDate ? new Intl.DateTimeFormat(locale, { dateStyle: 'long', timeZone: 'UTC' }).format(new Date(`${birthDate}T00:00:00Z`)) : '';
   const language = pending === 'locale' ? String(fetcher.formData?.get('value')) : profile?.locale ?? '';
   const theme = pending === 'theme' ? String(fetcher.formData?.get('value')) : profile?.theme ?? '';
   const save = (intent: string, value: string) => fetcher.submit({ intent, value }, { method: 'post', action: `/${locale}/profile` });
@@ -79,12 +85,14 @@ export default function Profile({ loaderData }: Route.ComponentProps) {
       </div> : failed ? <p role="alert">{t('unavailable')}</p> : <>
         <section className={styles.field}>
           <label htmlFor="profile-birth-date">{t('birthDate')}</label>
-          <div className={styles.row}>
-            <input id="profile-birth-date" type="date" min="1900-01-01" max={localToday()} defaultValue={birthDate} key={birthDate}
-              disabled={busy} onChange={event => event.target.value && save('birthDate', event.target.value)} />
-            {birthDate && <button type="button" disabled={busy}
+          <form className={styles.row} onSubmit={event => { event.preventDefault(); if (draft) save('birthDate', draft); }}>
+            <input id="profile-birth-date" type="date" min="1900-01-01" max={localToday()} value={draft} required
+              onChange={event => setDraft(event.target.value)} />
+            <button type="submit" className={styles.primary} disabled={busy || !draft || draft === stored}>{t('save')}</button>
+            {stored && <button type="button" disabled={busy}
               onClick={() => confirm(t('confirmClear')) && save('clearBirthDate', '')}>{t('clear')}</button>}
-          </div>
+          </form>
+          <p className={styles.registered} data-profile="registered">{birthDate ? t('registered', { date: shown }) : t('notRegistered')}</p>
           <p className={styles.muted}>{t('birthDateNote')}</p>
         </section>
 
