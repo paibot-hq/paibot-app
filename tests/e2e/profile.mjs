@@ -128,9 +128,31 @@ try {
   assert.equal(await elsewhere.locator('#profile-birth-date').inputValue(), '1990-04-10', 'the tool never writes the profile');
   console.log('PASS: changing the date in a tool does not overwrite the profile');
 
+  // The birthday fortune starts from the profile too: the date is in the box and the reading is already shown, with a link to the profile; a change
+  // in the box is for that visit only, and the response is never shared.
+  await elsewhere.goto(`${base}/en/birthday-fortune`);
+  await elsewhere.locator('[data-fortune="result"]').waitFor();
+  assert.equal(await elsewhere.locator('[data-fortune="date"]').inputValue(), '1990-04-10', 'the fortune starts from the profile');
+  assert.match(await elsewhere.locator('[data-fortune="result"]').innerText(), /Aries/, '10 April is Aries');
+  assert.match(await elsewhere.locator('[data-fortune="profile-note"]').innerText(), /registered in your profile/);
+  assert.equal(await elsewhere.locator('[data-fortune="forget"]').count(), 0, 'what the profile holds is not forgotten here');
+  await elsewhere.locator('[data-fortune="date"]').fill('1985-12-31');
+  await elsewhere.locator('[data-fortune="read"]').click();
+  assert.match(await elsewhere.locator('[data-fortune="result"]').innerText(), /Capricorn/, 'another date can be tried');
+  await elsewhere.goto(`${base}/en/profile`);
+  assert.equal(await elsewhere.locator('#profile-birth-date').inputValue(), '1990-04-10', 'the fortune never writes the profile');
+  const fortuneResponse = await elsewhere.request.get(`${base}/en/birthday-fortune`);
+  assert.equal(fortuneResponse.headers()['cache-control'], 'private, no-store', 'the fortune page is never shared');
+  console.log('PASS: the birthday fortune starts from the profile and does not write it');
+
   const other = await signup();
   await other.goto(`${base}/en/profile`);
   assert.equal(await other.locator('#profile-birth-date').inputValue(), '', 'another account sees nothing');
+  await other.goto(`${base}/en/birthday-fortune`);
+  await other.locator('[data-fortune="date"]').waitFor();
+  assert.equal(await other.locator('[data-fortune="date"]').inputValue(), '', 'another account starts empty');
+  assert.match(await other.locator('[data-fortune="profile-note"]').innerText(), /Register your birth date in your profile/, 'a signed-in visitor without a date is pointed to the profile');
+  assert.doesNotMatch(await (await other.request.get(`${base}/en/birthday-fortune`)).text(), /1990-04-10/, 'no leak between accounts');
   assert.doesNotMatch(await (await other.request.get(`${base}/en/life-calendar`)).text(), /1990-04-10/, 'no leak between accounts');
   // A signed-in visitor with no date registered is told that the profile can hold it; one with a date is told it came from the profile.
   await other.goto(`${base}/en/life-calendar`);
