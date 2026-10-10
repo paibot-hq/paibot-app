@@ -12,18 +12,9 @@ export default async function ({ page, main, base, go, errors }) {
   // A missing translation renders its key (e.g. "App.math.units.arith.title").
   await go('math');
   assert.ok(!(await main.textContent()).includes('App.math.'), 'no untranslated keys on the math page');
-  // A view per school stage, elementary school at first: its units, one line each under small area headings, linking to the unit's page.
-  assert.deepEqual(await main.locator('[data-math-view]').allTextContents(), ['Foundations', 'Intermediate', 'Advanced', 'Higher', 'By area']);
-  assert.equal(await view('elementary').getAttribute('aria-pressed'), 'true');
-  assert.ok(await link('/en/math/arith').isVisible());
-  assert.equal(await link('/en/math/factorization').isVisible(), false, 'a middle-school unit is in the page but hidden');
-  assert.equal(await link('/en/math/factorization/trinomial').count(), 0, 'no learning items without a search');
-  await view('middle').click();
-  assert.ok(await link('/en/math/factorization').isVisible());
-  assert.equal(await link('/en/math/factorization').getAttribute('data-playable'), 'true', 'a unit with problems is highlighted');
-  assert.equal(await link('/en/math/arith').isVisible(), false);
-  // "By area": every unit, folded by area; "Open all" opens them all.
-  await view('areas').click();
+  // "By area" at first: every unit, folded by area; "Open all" opens them all.
+  assert.deepEqual(await main.locator('[data-math-view]').allTextContents(), ['By area', 'Foundations', 'Intermediate', 'Advanced', 'Higher']);
+  assert.equal(await view('areas').getAttribute('aria-pressed'), 'true');
   assert.deepEqual(await units.allTextContents(), [
     'Number', 'Algebra', 'Functions', 'Geometry & measurement',
     'Statistics & probability', 'Sets & logic', 'Vectors & matrices', 'Calculus',
@@ -33,10 +24,20 @@ export default async function ({ page, main, base, go, errors }) {
   assert.equal(await openAreas(), 0, 'every area is folded at first');
   assert.equal(await areaButton('Number').getAttribute('aria-expanded'), 'false');
   assert.equal(await link('/en/math/arith').isVisible(), false);
+  assert.equal(await link('/en/math/factorization/trinomial').count(), 0, 'no learning items without a search');
   await main.locator('[data-math-list="toggle-all"]').click();
   assert.equal(await openAreas(), 8, 'open all');
   await main.locator('[data-math-list="toggle-all"]').click();
   assert.equal(await openAreas(), 0, 'close all');
+  // A view per school stage: its units, one line each under small area headings, linking to the unit's page.
+  await view('elementary').click();
+  assert.ok(await link('/en/math/arith').isVisible());
+  assert.equal(await link('/en/math/factorization').isVisible(), false, 'a middle-school unit is in the page but hidden');
+  await view('middle').click();
+  assert.ok(await link('/en/math/factorization').isVisible());
+  assert.equal(await link('/en/math/factorization').getAttribute('data-playable'), 'true', 'a unit with problems is highlighted');
+  assert.equal(await link('/en/math/arith').isVisible(), false);
+  await view('areas').click();
   // A search or a filter shows the matching learning items of every unit, whatever the view.
   await main.getByLabel('Playable sets only').check();
   assert.equal(await view('areas').getAttribute('aria-pressed'), 'false');

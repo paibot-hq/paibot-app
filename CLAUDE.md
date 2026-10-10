@@ -68,8 +68,8 @@ Math is organized unit → learning item → practice set, all in
 `src/lib/math-catalog.ts` (names under `App.math.units.<unit>.items.<item>` in
 `messages/*.json`). Pages:
 - `/math` ("Math", `routes/math.tsx` + `components/math-unit-table.tsx`):
-  every unit, in views chosen by tabs: one per school stage (its units under small
-  area headings) and "By area" (every unit, folded by area). Each unit links to its
+  every unit, in views chosen by tabs: "By area" (the first: every unit, folded by
+  area) and one per school stage (its units under small area headings). Each unit links to its
   page. A search or a filter (school year, Suken level, playability, name) shows the
   matching learning items of every unit instead. Units and items with published
   problems in D1 are highlighted; "Continue" goes back to the set last opened.

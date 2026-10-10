@@ -8,16 +8,16 @@ import { KENTEI_LEVELS, KENTEI_LOCALES, KENTEI_OFFICIAL_URL } from '../lib/math-
 import { readResume, type MathResume } from '../lib/math-resume';
 import styles from './math-unit-table.module.css';
 
-// Every unit, in views: one per school stage (elementary ... university: its units, under small area headings), and "By area", every
-// unit folded by area of mathematics. Each unit links to its page, which lists its learning items. A search or a filter shows the matching
+// Every unit, in views: "By area" (the first), every unit folded by area of mathematics, and one per school stage (elementary ...
+// university: its units, under small area headings). Each unit links to its page, which lists its learning items. A search or a filter shows the matching
 // learning items of every unit instead, grouped by area. `playable` lists "unit/item/set" of the sets with published problems: a unit or
-// item with any is highlighted. The filters are client-side; the server renders every stage's units (all but one hidden), so every
-// unit's link is in the page as it is sent. Grades are Japan's school years (math-curriculum-jp.ts); the Suken filter, derived from
+// item with any is highlighted. The filters are client-side; the server renders "By area", whose folded areas hold every
+// unit's link in the page as it is sent. Grades are Japan's school years (math-curriculum-jp.ts); the Suken filter, derived from
 // them, is shown in Japanese only.
 const OPENED_KEY = 'math-list-open:v1';
 const VIEW_KEY = 'math-list-view:v1';
 type View = MathStage | 'areas';
-const VIEWS: readonly View[] = [...MATH_STAGES, 'areas'];
+const VIEWS: readonly View[] = ['areas', ...MATH_STAGES];
 
 export default function MathUnitTable({ playable, done }: { playable: readonly string[]; done: readonly string[] }) {
   const t = useTranslations('App.math');
@@ -60,16 +60,13 @@ export default function MathUnitTable({ playable, done }: { playable: readonly s
   const activeFilters = [grade, kentei, playableOnly].filter(Boolean).length;
   // The practice set last opened in this browser, to go back to in one tap.
   const [resume, setResume] = useState<MathResume | null>(null);
-  // The view chosen last in this browser; at first, the stage of the set last opened, or elementary school.
-  const [view, setView] = useState<View>('elementary');
+  // The view chosen last in this browser; at first, "By area".
+  const [view, setView] = useState<View>('areas');
   useEffect(() => {
-    const last = readResume();
-    setResume(last);
+    setResume(readResume());
     let saved: string | null = null;
     try { saved = window.localStorage.getItem(VIEW_KEY); } catch { /* storage blocked */ }
-    const lastStage = last && MATH_CATALOG.find(unit => unit.id === last.unit)?.stage;
-    const initial = (VIEWS as readonly string[]).includes(saved ?? '') ? saved as View : lastStage;
-    if (initial) setView(initial);
+    if ((VIEWS as readonly string[]).includes(saved ?? '')) setView(saved as View);
   }, []);
   // Choosing a view ends a search or a filter, whose results are shown in place of the views.
   const choose = (next: View) => {
