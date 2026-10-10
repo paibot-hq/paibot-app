@@ -8,10 +8,20 @@
 .chip:focus-visible, .select:focus-visible, .search:focus-visible, .set:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .note { width: min(100%, 720px); margin: .8rem auto 0; font-size: .8rem; color: var(--muted); line-height: 1.6; }
 
-.domain { margin: 1.6rem auto 0; width: min(100%, 720px); }
-.domainHeading { display: flex; align-items: baseline; gap: .6rem; }
-.domain h2 { margin: 0; font-size: 1.15rem; }
-.domainCount { color: var(--muted); font-size: .8rem; }
+.domain { margin: .6rem auto 0; width: min(100%, 720px); }
+.domain:first-of-type { margin-top: 1.4rem; }
+.rows[hidden] { display: none; }
+/* An area is a folded row: its name, how many units and items, and how many are done; it opens to the units. */
+.domainHeading { margin: 0; font-size: 1rem; }
+.domainButton { display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .6rem; width: 100%; padding: .8rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); font: inherit; text-align: left; cursor: pointer; }
+.domainButton::before { content: ""; align-self: center; width: .5rem; height: .5rem; margin-right: .2rem; border-right: 2px solid var(--muted); border-bottom: 2px solid var(--muted); transform: rotate(-45deg); transition: transform .15s; }
+.domainButton[aria-expanded="true"]::before { transform: rotate(45deg); }
+.domainButton:hover { border-color: var(--accent); }
+.domainButton:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.domainName { font-size: 1.1rem; font-weight: 700; }
+.domainCount { color: var(--muted); font-size: .8rem; font-weight: 400; }
+.done { color: var(--success); font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { .domainButton::before { transition: none; } }
 .rows { list-style: none; padding: 0; margin: .8rem 0 0; display: grid; gap: .6rem; }
 .row { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: .75rem 1rem; display: grid; gap: .5rem; text-align: left; }
 .rowHead { display: flex; flex-wrap: wrap; align-items: baseline; gap: .4rem; }

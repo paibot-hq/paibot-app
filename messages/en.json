@@ -2023,7 +2023,7 @@
       "description": "Multiple-choice math practice, from elementary school to university.",
       "about": "A multiple-choice math drill from elementary arithmetic to university mathematics, organised by unit and learning item: addition, multiplication and division, equations, factorisation, calculus, linear algebra and more.",
       "keywords": "math drills arithmetic algebra factoring quiz problem set",
-      "intro": "Every unit and problem set, grouped by area of mathematics. Highlighted sets are ready to practice.",
+      "intro": "Open an area to see its units and learning items, or filter by school year or name. Highlighted items are ready to practice.",
       "itemPage": {
         "toPractice": "Go to practice",
         "points": "Key points",
@@ -3944,6 +3944,10 @@
       },
       "unitList": {
         "filters": "Filters",
+        "itemCount": "{count} items",
+        "doneCount": "{done}/{total} done",
+        "openAll": "Open all",
+        "closeAll": "Close all",
         "playableOnly": "Playable sets only",
         "search": "Search units and sets",
         "empty": "No units match these filters.",
