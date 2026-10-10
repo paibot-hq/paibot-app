@@ -76,26 +76,40 @@ export default function BreachesView() {
           <button type="button" aria-pressed={sort === "count"} onClick={() => setSort("count")}>{t("breaches.sortCount")}</button>
         </div>}
       </div>
-      <div className={styles.kinds}>
-        <button type="button" aria-pressed={kind === "all"} onClick={() => setKind("all")}>{t("breaches.typeAll")}</button>
-        {KINDS.map(k => (
-          <button key={k} type="button" aria-pressed={kind === k} onClick={() => setKind(k)} data-kind={k}>{t(`breaches.${KIND_KEYS[k]}`)}</button>
-        ))}
+      <div className={styles.filters} data-breaches="filters">
+        <div className={styles.filterRow} role="group" aria-labelledby="filter-kind">
+          <span id="filter-kind" className={styles.filterLabel}>{t("breaches.kindFilter")}</span>
+          <div className={styles.kinds}>
+            <button type="button" aria-pressed={kind === "all"} onClick={() => setKind("all")}>{t("breaches.typeAll")}</button>
+            {KINDS.map(k => (
+              <button key={k} type="button" aria-pressed={kind === k} onClick={() => setKind(k)} data-kind={k}>{t(`breaches.${KIND_KEYS[k]}`)}</button>
+            ))}
+          </div>
+        </div>
+        <div className={styles.filterRow} role="group" aria-labelledby="filter-origin">
+          <span id="filter-origin" className={styles.filterLabel}>{t("breaches.originFilter")}</span>
+          <div className={styles.kinds}>
+            <button type="button" aria-pressed={origin === "all"} onClick={() => setOrigin("all")}>{t("breaches.originAll")}</button>
+            {(Object.keys(ORIGIN_KEYS) as Origin[]).map(v => (
+              <button key={v} type="button" aria-pressed={origin === v} onClick={() => setOrigin(v)} data-origin={v}>{t(`breaches.${ORIGIN_KEYS[v]}`)}</button>
+            ))}
+          </div>
+        </div>
+        <div className={styles.filterRow} role="group" aria-labelledby="filter-verify">
+          <span id="filter-verify" className={styles.filterLabel}>{t("breaches.verifyFilter")}</span>
+          <div className={styles.kinds}>
+            <button type="button" aria-pressed={verification === "all"} onClick={() => setVerification("all")}>{t("breaches.verifyAll")}</button>
+            {(Object.keys(VERIFY_KEYS) as Verification[]).map(v => (
+              <button key={v} type="button" aria-pressed={verification === v} onClick={() => setVerification(v)} data-verify={v}>{t(`breaches.${VERIFY_KEYS[v]}`)}</button>
+            ))}
+          </div>
+        </div>
+        <details className={styles.help} data-breaches="help">
+          <summary>{t("breaches.helpTitle")}</summary>
+          <p>{t("breaches.originHelp")}</p>
+          <p>{t("breaches.verifyHelp")}</p>
+        </details>
       </div>
-      <div className={styles.kinds} role="group" aria-label={t("breaches.verifyFilter")}>
-        <button type="button" aria-pressed={verification === "all"} onClick={() => setVerification("all")}>{t("breaches.verifyAll")}</button>
-        {(Object.keys(VERIFY_KEYS) as Verification[]).map(v => (
-          <button key={v} type="button" aria-pressed={verification === v} onClick={() => setVerification(v)} data-verify={v}>{t(`breaches.${VERIFY_KEYS[v]}`)}</button>
-        ))}
-      </div>
-      <p className={styles.status}>{t("breaches.verifyHelp")}</p>
-      <div className={styles.kinds} role="group" aria-label={t("breaches.originFilter")}>
-        <button type="button" aria-pressed={origin === "all"} onClick={() => setOrigin("all")}>{t("breaches.originAll")}</button>
-        {(Object.keys(ORIGIN_KEYS) as Origin[]).map(v => (
-          <button key={v} type="button" aria-pressed={origin === v} onClick={() => setOrigin(v)} data-origin={v}>{t(`breaches.${ORIGIN_KEYS[v]}`)}</button>
-        ))}
-      </div>
-      <p className={styles.status}>{t("breaches.originHelp")}</p>
       <p className={styles.status} aria-live="polite" data-breaches="status">
         {t("breaches.results", { count: items.length })} · {t("breaches.asOf", { date: data.asOf })}
       </p>

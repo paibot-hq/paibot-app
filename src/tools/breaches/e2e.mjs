@@ -22,6 +22,14 @@ export default async function ({ page, main, go }) {
     assert.match(await link.getAttribute('rel'), /noopener/);
   }
 
+  // The explanations of the labels are folded away, and open on request.
+  const help = main.locator('[data-breaches="help"]');
+  assert.equal(await help.evaluate(el => el.open), false, 'folded at first');
+  await help.locator('summary').click();
+  assert.equal(await help.evaluate(el => el.open), true);
+  assert.match(await help.innerText(), /外部からの攻撃|Attack from outside/);
+  await help.locator('summary').click();
+
   // A type narrows the list to it.
   const all = await cards.count();
   await main.locator('button[data-kind="ransomware"]').click();
@@ -77,7 +85,7 @@ export default async function ({ page, main, go }) {
   await main.locator('button[data-origin="attack"]').click();
   assert.equal(await main.locator('[data-breaches="origin-basis"]').count(), 0, 'an attack has no such note');
   assert.ok(await cards.count() > 80, 'most incidents are attacks');
-  await main.getByRole('button', { name: 'All', exact: true }).last().click();
+  await main.getByRole('button', { name: 'All', exact: true }).nth(1).click();
 
   // How well an entry was checked is shown on it, and can be filtered: "official" is a part of the list, and each entry names at least one source.
   const total = await cards.count();
@@ -86,7 +94,7 @@ export default async function ({ page, main, go }) {
   assert.ok(official > 0 && official < total, 'official is a part of the list');
   assert.equal(await main.locator('[data-breach] [data-verification]:not([data-verification="official"])').count(), 0);
   assert.equal(await main.locator('[data-breach]:not(:has([data-source-kind]))').count(), 0, 'every entry shows its sources');
-  await main.getByRole('button', { name: 'All', exact: true }).nth(1).click();
+  await main.getByRole('button', { name: 'All', exact: true }).nth(2).click();
   for (const link of await main.locator('[data-breach] a').all()) {
     assert.match(await link.getAttribute('href'), /^https:\/\//);
     assert.match(await link.getAttribute('rel'), /noopener/);

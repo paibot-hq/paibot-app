@@ -40,3 +40,12 @@
 .advisories a { overflow-wrap: anywhere; }
 @media (max-width: 480px) { .advisories li { grid-template-columns: 1fr; gap: 0; } }
 .verify[data-origin-tag] { border-color: #2e7d32; font-weight: 700; }
+/* The filters: one panel, each row with its name, and the long explanations folded away. */
+.filters { display: grid; gap: .6rem; width: min(720px, 100%); margin: 0 0 .8rem; padding: .75rem .9rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.filterRow { display: grid; grid-template-columns: 6.8rem 1fr; gap: .5rem; align-items: start; }
+.filterLabel { padding-top: .3rem; color: var(--muted); font-size: .8rem; font-weight: 700; }
+.filterRow .kinds { width: auto; margin: 0; }
+.help { font-size: .82rem; color: var(--muted); }
+.help summary { cursor: pointer; }
+.help p { margin: .45rem 0 0; line-height: 1.7; }
+@media (max-width: 480px) { .filterRow { grid-template-columns: 1fr; gap: .2rem; } .filterLabel { padding-top: 0; } }
