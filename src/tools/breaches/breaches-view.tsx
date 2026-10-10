@@ -18,7 +18,9 @@ const KIND_KEYS = { leak: "typeLeak", ransomware: "typeRansomware", outage: "typ
 
 type Source = { name: string; url: string; kind: string };
 type Verification = "official" | "reported" | "single";
-type Item = { id: string; date: string; name: string; type: string; count: number | null; countNote: string; data: string; cause: string; note: string; verification: Verification; checkedAt: string; sources: Source[] };
+type Ai = "used" | "unrelated" | "unknown";
+type Item = { id: string; date: string; name: string; type: string; count: number | null; countNote: string; data: string; cause: string; note: string; verification: Verification; ai: Ai; aiBasis?: string; checkedAt: string; sources: Source[] };
+const AI_KEYS = { used: "aiUsed", unrelated: "aiUnrelated", unknown: "aiUnknown" } as const;
 const VERIFY_KEYS = { official: "verifyOfficial", reported: "verifyReported", single: "verifySingle" } as const;
 const ITEMS = data.items as Item[];
 type Advisory = { date: string; name: string; title: string; url: string };
@@ -33,6 +35,7 @@ export default function BreachesView() {
   const [kind, setKind] = useState<Kind | "all">("all");
   const [query, setQuery] = useState("");
   const [verification, setVerification] = useState<Verification | "all">("all");
+  const [ai, setAi] = useState<Ai | "all">("all");
 
   // The tab is kept in the address (?tab=stats), so a link opens the statistics.
   useEffect(() => {
@@ -50,12 +53,13 @@ export default function BreachesView() {
     return ITEMS
       .filter(item => kind === "all" || item.type === kind)
       .filter(item => verification === "all" || item.verification === verification)
+      .filter(item => ai === "all" || item.ai === ai)
       .filter(item => {
         const text = [item.name, item.countNote, item.data, item.cause, item.note].join(" ").toLowerCase();
         return words.every(word => text.includes(word));
       })
       .sort((a, b) => (sort === "date" ? b.date.localeCompare(a.date) : (b.count ?? -1) - (a.count ?? -1)));
-  }, [sort, kind, verification, query]);
+  }, [sort, kind, verification, ai, query]);
   const max = Math.max(...ITEMS.map(item => item.count ?? 0));
 
   return (
@@ -85,12 +89,19 @@ export default function BreachesView() {
         ))}
       </div>
       <p className={styles.status}>{t("breaches.verifyHelp")}</p>
+      <div className={styles.kinds} role="group" aria-label={t("breaches.aiFilter")}>
+        <button type="button" aria-pressed={ai === "all"} onClick={() => setAi("all")}>{t("breaches.aiAll")}</button>
+        {(Object.keys(AI_KEYS) as Ai[]).map(v => (
+          <button key={v} type="button" aria-pressed={ai === v} onClick={() => setAi(v)} data-ai={v}>{t(`breaches.${AI_KEYS[v]}`)}</button>
+        ))}
+      </div>
+      <p className={styles.status}>{t("breaches.aiHelp")}</p>
       <p className={styles.status} aria-live="polite" data-breaches="status">
         {t("breaches.results", { count: items.length })} · {t("breaches.asOf", { date: data.asOf })}
       </p>
       {items.length === 0 && <p className={styles.status}>{t("breaches.none")}</p>}
       {tab === "stats" && <BreachesCharts items={items} first={FIRST} until={data.asOf} />}
-      {tab === "list" && ADVISORIES.length > 0 && kind === "all" && verification === "all" && !query.trim() && (
+      {tab === "list" && ADVISORIES.length > 0 && kind === "all" && verification === "all" && ai === "all" && !query.trim() && (
         <section className={styles.advisories} data-breaches="advisories" aria-label={t("breaches.advisoriesTitle")}>
           <h2>{t("breaches.advisoriesTitle")}</h2>
           <ul>
@@ -113,6 +124,7 @@ export default function BreachesView() {
             <div className={styles.tags}>
               <span className={styles.kind} data-kind={item.type}>{t(`breaches.${KIND_KEYS[item.type as Kind]}`)}</span>
               <span className={styles.verify} data-verification={item.verification}>{t(`breaches.${VERIFY_KEYS[item.verification]}`)}</span>
+              {item.ai !== "unknown" && <span className={styles.verify} data-ai-tag={item.ai}>{t(`breaches.${AI_KEYS[item.ai]}`)}</span>}
             </div>
             {item.count != null && <div className={styles.meter} aria-hidden="true"><span style={{ width: `${Math.max(1, (item.count / max) * 100)}%` }} /></div>}
             {item.countNote && <p className={styles.count} lang="ja">{item.countNote}</p>}
@@ -120,6 +132,7 @@ export default function BreachesView() {
               {item.data && <><dt>{t("breaches.data")}</dt><dd>{item.data}</dd></>}
               {item.cause && <><dt>{t("breaches.cause")}</dt><dd>{item.cause}</dd></>}
             </dl>
+            {item.aiBasis && <p className={styles.note} lang="ja" data-breaches="ai-basis">{t("breaches.aiBasis")}: {item.aiBasis}</p>}
             {item.note && <p className={styles.note} lang="ja">{item.note}</p>}
             <p className={styles.src}>
               {t("breaches.sourcesLabel")}:{" "}

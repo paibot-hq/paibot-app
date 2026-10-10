@@ -8,6 +8,12 @@
 export const TYPES = ['leak', 'ransomware', 'outage', 'fraud', 'other'];
 export const VERIFICATIONS = ['official', 'reported', 'single'];
 export const SOURCE_KINDS = ['official', 'press', 'aggregator'];
+// How AI comes into it:
+//   used      - the organization or the press says AI was how it happened (staff put data into a generative AI)
+//   unrelated - judged by us, from the cause, not said by the organization: a loss, a mistaken send, an insider, a setting that was wrong - not an
+//               attack, so there is nothing for an attacker's AI to have done. Needs `aiBasis`, and is never given to an attack (ransomware, fraud)
+//   unknown   - everything else: whether AI was used is not published, which is not the same as "no AI"
+export const AI_RELATIONS = ['used', 'unrelated', 'unknown'];
 
 const DATE = /^\d{4}-\d{2}(-\d{2})?$/;
 const FULL_DATE = /^\d{4}-\d{2}-\d{2}$/;
@@ -59,6 +65,10 @@ export function validateBreaches(data) {
     if (item.count !== null && item.countNote && !numbersIn(item.countNote).some(n => Math.abs(n - item.count) <= item.count * 0.02)) bad(item, `count ${item.count} is not found in countNote "${item.countNote}"`);
     if (typeof item.countNote !== 'string' || typeof item.data !== 'string' || typeof item.cause !== 'string' || typeof item.note !== 'string') bad(item, 'countNote, data, cause and note must be strings (may be empty)');
     if (!item.cause?.trim() && item.type !== 'fraud') bad(item, 'cause is empty');
+    if (!AI_RELATIONS.includes(item.ai)) bad(item, `ai "${item.ai}" is not one of ${AI_RELATIONS.join(', ')}`);
+    else if (item.ai !== 'unknown' && !item.aiBasis?.trim()) bad(item, `ai "${item.ai}" needs aiBasis, the reason`);
+    else if (item.ai === 'unknown' && item.aiBasis) bad(item, 'aiBasis is only for used and unrelated');
+    if (item.ai === 'unrelated' && (item.type === 'ransomware' || item.type === 'fraud')) bad(item, `an ${item.type} is an attack, so it cannot be judged unrelated to AI`);
     if (!VERIFICATIONS.includes(item.verification)) bad(item, `verification "${item.verification}" is not one of ${VERIFICATIONS.join(', ')}`);
     if (!FULL_DATE.test(item.checkedAt ?? '') || item.checkedAt > data.asOf) bad(item, 'checkedAt must be YYYY-MM-DD and not after asOf');
     const sources = item.sources;

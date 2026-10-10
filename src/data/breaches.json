@@ -25,7 +25,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "jgc-digital",
@@ -45,7 +46,8 @@
      "url": "https://scan.netsecurity.ne.jp/article/2026/10/09/56422.html",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "toda-corp",
@@ -65,7 +67,8 @@
      "url": "https://scan.netsecurity.ne.jp/article/2026/10/09/56425.html",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "lawson-id",
@@ -90,7 +93,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "daiichikosho",
@@ -120,7 +124,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "newspicks",
@@ -155,7 +160,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-10"
+   "checkedAt": "2026-10-10",
+   "ai": "unknown"
   },
   {
    "id": "commune",
@@ -190,7 +196,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-10"
+   "checkedAt": "2026-10-10",
+   "ai": "unknown"
   },
   {
    "id": "skyticket",
@@ -215,7 +222,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-10"
+   "checkedAt": "2026-10-10",
+   "ai": "unknown"
   },
   {
    "id": "idcf-cloud",
@@ -255,7 +263,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-10"
+   "checkedAt": "2026-10-10",
+   "ai": "unknown"
   },
   {
    "id": "nissui-logistics",
@@ -285,7 +294,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "scala-i-ask",
@@ -310,7 +320,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "citizen-watch",
@@ -335,7 +346,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "mrmax",
@@ -360,7 +372,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "rakuten-drive",
@@ -385,7 +398,8 @@
      "url": "https://coki.jp/article/column/94625/",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "yakiniku-king",
@@ -415,7 +429,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "infoq",
@@ -445,7 +460,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "osaka-metropolitan-univ",
@@ -475,7 +491,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-10"
+   "checkedAt": "2026-10-10",
+   "ai": "unknown"
   },
   {
    "id": "daiwa-securities",
@@ -505,7 +522,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "nikkei",
@@ -535,7 +553,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "abahouse",
@@ -555,7 +574,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "dai-ichi-life",
@@ -585,7 +605,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "sagawa",
@@ -615,7 +636,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "voising",
@@ -640,7 +662,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "benefit-one",
@@ -665,7 +688,9 @@
      "url": "https://innovatopia.jp/cyber-security/cyber-security-news/118411/",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unrelated",
+   "aiBasis": "システム改修での設定の不備で、攻撃ではない"
   },
   {
    "id": "seicomart",
@@ -690,7 +715,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "yamato",
@@ -715,7 +741,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "unirita",
@@ -735,7 +762,8 @@
      "kind": "official"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "toppan-sompo",
@@ -755,7 +783,9 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unrelated",
+   "aiBasis": "操作ミスによる誤送付で、攻撃ではない"
   },
   {
    "id": "japan-post-app",
@@ -775,7 +805,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "eplus",
@@ -805,7 +836,8 @@
      "url": "https://rocket-boys.co.jp/?p=41836",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "times-car",
@@ -835,7 +867,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "kotoura",
@@ -855,7 +888,9 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unrelated",
+   "aiBasis": "委託事業者の格納ミスで、攻撃ではない"
   },
   {
    "id": "temairazu",
@@ -875,7 +910,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "ozmall",
@@ -900,7 +936,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "tokyo-metro",
@@ -930,7 +967,8 @@
      "url": "https://innovatopia.jp/cyber-security/cyber-security-news/118275/",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "keio",
@@ -950,7 +988,8 @@
      "kind": "official"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "schools-sept",
@@ -970,7 +1009,8 @@
      "url": "https://rocket-boys.co.jp/?p=42022",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "nippon-rentacar",
@@ -1000,7 +1040,8 @@
      "url": "https://rocket-boys.co.jp/?p=42272",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "saga-univ",
@@ -1020,7 +1061,8 @@
      "kind": "official"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "ryomo-systems",
@@ -1045,7 +1087,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "fines",
@@ -1065,7 +1108,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "smaregi-ec",
@@ -1090,7 +1134,8 @@
      "url": "https://rocket-boys.co.jp/?p=41692",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "japan-post-intl",
@@ -1115,7 +1160,8 @@
      "url": "https://rocket-boys.co.jp/?p=41492",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "ikegami-tsushinki",
@@ -1140,7 +1186,8 @@
      "url": "https://rocket-boys.co.jp/?p=41399",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "aichi-iconnavi",
@@ -1160,7 +1207,9 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unrelated",
+   "aiBasis": "職員の誤掲載で、攻撃ではない"
   },
   {
    "id": "nichirei",
@@ -1190,7 +1239,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "gyazo",
@@ -1220,7 +1270,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "docomo-amazon",
@@ -1250,7 +1301,9 @@
      "url": "https://rocket-boys.co.jp/?p=40856",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unrelated",
+   "aiBasis": "契約画面の設定の誤りで、攻撃ではない"
   },
   {
    "id": "muraucchi",
@@ -1275,7 +1328,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "lean-body",
@@ -1300,7 +1354,8 @@
      "url": "https://rocket-boys.co.jp/?p=40986",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "odawara-engineering",
@@ -1325,7 +1380,8 @@
      "url": "https://scan.netsecurity.ne.jp/article/2026/10/07/56400.html",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "digital-agency",
@@ -1355,7 +1411,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "nihon-trex",
@@ -1380,7 +1437,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "jeei",
@@ -1405,7 +1463,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "rohto",
@@ -1435,7 +1494,8 @@
      "url": "https://rocket-boys.co.jp/?p=40675",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "fivefoxes",
@@ -1460,7 +1520,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "kyoto-sanga",
@@ -1485,7 +1546,9 @@
      "url": "https://rocket-boys.co.jp/?p=40294",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unrelated",
+   "aiBasis": "メールへの誤添付で、攻撃ではない"
   },
   {
    "id": "musashino-univ",
@@ -1505,7 +1568,8 @@
      "kind": "official"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "washington-hotel",
@@ -1525,7 +1589,8 @@
      "kind": "official"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "coop-yamaguchi",
@@ -1555,7 +1620,8 @@
      "url": "https://rocket-boys.co.jp/?p=40721",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "rizap",
@@ -1585,7 +1651,9 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "used",
+   "aiBasis": "従業員が許可されていない外部の生成AIに、顧客のデータを入力した(公表・報道に明記)"
   },
   {
    "id": "cec",
@@ -1605,7 +1673,8 @@
      "kind": "official"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "tottori",
@@ -1625,7 +1694,8 @@
      "kind": "official"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "hamagin-tt",
@@ -1650,7 +1720,8 @@
      "url": "https://scan.netsecurity.ne.jp/article/2026/09/28/56308.html",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "seibu-railway",
@@ -1670,7 +1741,9 @@
      "url": "https://scan.netsecurity.ne.jp/article/2026/09/24/56291.html",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unrelated",
+   "aiBasis": "管理画面の公開設定の不備で、攻撃ではない"
   },
   {
    "id": "mitsui-fudosan",
@@ -1695,7 +1768,8 @@
      "url": "https://rocket-boys.co.jp/?p=39743",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "ultra-mart",
@@ -1715,7 +1789,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "applynow",
@@ -1735,7 +1810,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "ando-hazama",
@@ -1760,7 +1836,8 @@
      "url": "https://rocket-boys.co.jp/?p=39688",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "tk-toka",
@@ -1785,7 +1862,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "yellow-hat",
@@ -1810,7 +1888,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "corona",
@@ -1835,7 +1914,8 @@
      "url": "https://innovatopia.jp/cyber-security/cyber-security-news/117453/",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "mandarake",
@@ -1860,7 +1940,8 @@
      "url": "https://rocket-boys.co.jp/?p=39682",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "shizugin-tm",
@@ -1880,7 +1961,8 @@
      "url": "https://scan.netsecurity.ne.jp/article/2026/09/18/56273.html",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "kindal",
@@ -1910,7 +1992,8 @@
      "url": "https://scan.netsecurity.ne.jp/article/2026/09/24/56285.html",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "sanko-techno-vn",
@@ -1940,7 +2023,8 @@
      "url": "https://rocket-boys.co.jp/?p=39535",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "01-bank",
@@ -1965,7 +2049,8 @@
      "url": "https://toyokeizai.net/articles/-/940632",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "zurich-insurance",
@@ -1990,7 +2075,8 @@
      "url": "https://rocket-boys.co.jp/security-measures-lab/zurich-z-dash-unauthorized-access-leak/",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "swagelok-fst",
@@ -2015,7 +2101,8 @@
      "url": "https://rocket-boys.co.jp/security-measures-lab/nippon-swagelok-fst-ransomware-leak/",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "nittetsu-kowa",
@@ -2040,7 +2127,8 @@
      "url": "https://rocket-boys.co.jp/?p=39385",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "kddi-web-communications",
@@ -2070,7 +2158,8 @@
      "url": "https://rocket-boys.co.jp/security-measures-lab/kddi-web-communications-unauthorized-access-leak/",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "sakura-internet",
@@ -2095,7 +2184,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "meitetsu-kyosho",
@@ -2115,7 +2205,8 @@
      "url": "https://scan.netsecurity.ne.jp/article/2026/08/18/55948.html",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "logicvein",
@@ -2140,7 +2231,8 @@
      "url": "https://rocket-boys.co.jp/security-measures-lab/logicvein-releases-second-report-on-unauthorized-access-possible-customer-data-breach/",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "kyoiku-software",
@@ -2165,7 +2257,8 @@
      "url": "https://rocket-boys.co.jp/?p=39084",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "akabu-engineering",
@@ -2190,7 +2283,8 @@
      "url": "https://rocket-boys.co.jp/?p=38696",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "rext",
@@ -2210,7 +2304,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "chubu-electric",
@@ -2235,7 +2330,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "shopserve",
@@ -2260,7 +2356,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "life-insurance-association",
@@ -2290,7 +2387,9 @@
      "url": "https://rocket-boys.co.jp/?p=40795",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unrelated",
+   "aiBasis": "認可設定の不備で、攻撃ではない"
   },
   {
    "id": "takara-tomy",
@@ -2315,7 +2414,8 @@
      "url": "https://www.issoh.co.jp/tech/details/15978/",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "fuso-dentsu",
@@ -2345,7 +2445,8 @@
      "url": "https://rocket-boys.co.jp/security-measures-lab/fuso-dentsu-security-incident-report/",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "sagawa-smartclub",
@@ -2370,7 +2471,9 @@
      "url": "https://scan.netsecurity.ne.jp/article/2026/07/22/55750.html",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unrelated",
+   "aiBasis": "復旧作業での設定の誤りで、攻撃ではない(会社が明言)"
   },
   {
    "id": "nihon-kotsu",
@@ -2400,7 +2503,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "kaga-solnet",
@@ -2425,7 +2529,8 @@
      "url": "https://rocket-boys.co.jp/security-measures-lab/kaga-solnet-academiconavi-unauthorized-access-personal-data-leak/",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "aflac",
@@ -2455,7 +2560,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "kddi-mail",
@@ -2480,7 +2586,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "nttpc-webarena",
@@ -2505,7 +2612,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "saga-hirakawaya",
@@ -2530,7 +2638,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "kyushu-univ-hospital",
@@ -2560,7 +2669,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "kyushu-electric",
@@ -2585,7 +2695,9 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unrelated",
+   "aiBasis": "媒体の紛失で、攻撃ではない"
   },
   {
    "id": "hokkaido-medical-center",
@@ -2615,7 +2727,9 @@
      "url": "https://rocket-boys.co.jp/?p=34815",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unrelated",
+   "aiBasis": "廃棄の委託先の不備で、攻撃ではない"
   },
   {
    "id": "shin-nihon-kentei",
@@ -2645,7 +2759,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "hatena",
@@ -2675,7 +2790,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "2rinkan",
@@ -2710,7 +2826,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "moneyforward",
@@ -2735,7 +2852,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "shizuoka-police",
@@ -2755,7 +2873,9 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unrelated",
+   "aiBasis": "黒塗り処理の不備で、攻撃ではない"
   },
   {
    "id": "jr-tokai-takashimaya",
@@ -2780,7 +2900,8 @@
      "url": "https://rocket-boys.co.jp/?p=37383",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "campfire",
@@ -2805,7 +2926,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "toyota-secondees",
@@ -2830,7 +2952,9 @@
      "url": "https://fptrendy.com/2026/04/24/toyota-insurers-secondment-info-management/",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unrelated",
+   "aiBasis": "出向者による内部不正で、外部からの攻撃ではない"
   },
   {
    "id": "ycc",
@@ -2860,7 +2984,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "ierabu",
@@ -2890,7 +3015,8 @@
      "url": "https://rocket-boys.co.jp/security-measures-lab/ad-works-ierabu-cloud-unauthorized-access-data-leak/",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "tokyu-resorts",
@@ -2915,7 +3041,9 @@
      "url": "https://scan.netsecurity.ne.jp/article/2026/05/19/55302.html",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unrelated",
+   "aiBasis": "メールの宛先の誤りで、攻撃ではない"
   },
   {
    "id": "wave",
@@ -2940,7 +3068,8 @@
      "url": "https://scan.netsecurity.ne.jp/article/2026/05/19/55302.html",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "hosokawa-micron",
@@ -2965,7 +3094,8 @@
      "url": "https://rocket-boys.co.jp/security-measures-lab/hosokawa-final-report-everest-cloud-data-exposure/",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "zetton",
@@ -2990,7 +3120,8 @@
      "url": "https://rocket-boys.co.jp/?p=31208",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "fukuoka-bank-metlife",
@@ -3020,7 +3151,9 @@
      "url": "https://rocket-boys.co.jp/security-measures-lab/insider-threat-fukuoka-bank-metlife-data-breach/",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unrelated",
+   "aiBasis": "出向者による内部不正で、外部からの攻撃ではない"
   },
   {
    "id": "cota",
@@ -3045,7 +3178,8 @@
      "url": "https://rocket-boys.co.jp/?p=39023",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "mazda-thai",
@@ -3070,7 +3204,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "medica",
@@ -3100,7 +3235,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "murata",
@@ -3130,7 +3266,8 @@
      "url": "https://internet.watch.impress.co.jp/docs/news/2105398.html",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "tokai-univ",
@@ -3155,7 +3292,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "asahi-group",
@@ -3180,7 +3318,8 @@
      "url": "https://english.adnkronos.com/2026/02/19/cyberattack-causes-leak-of-115000-sets-of-info-from-asahi-group",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "mynavi",
@@ -3210,7 +3349,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "jex",
@@ -3235,7 +3375,8 @@
      "url": "https://rocket-boys.co.jp/?p=39100",
      "kind": "aggregator"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "anabuki-housing",
@@ -3260,7 +3401,8 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   },
   {
    "id": "just-curtain",
@@ -3285,7 +3427,8 @@
      "url": "https://scan.netsecurity.ne.jp/article/2026/02/13/54616.html",
      "kind": "press"
     }
-   ]
+   ],
+   "ai": "unknown"
   },
   {
    "id": "smaregi",
@@ -3310,7 +3453,8 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09"
+   "checkedAt": "2026-10-09",
+   "ai": "unknown"
   }
  ],
  "advisories": [

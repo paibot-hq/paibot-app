@@ -65,6 +65,18 @@ export default async function ({ page, main, go }) {
   await main.getByText('No incidents match.').waitFor();
   await main.locator('[data-breaches="query"]').fill('');
 
+  // How AI comes into it: "used" is a part of the list (RIZAP), "unrelated" is another, and each carries its reason.
+  await main.locator('button[data-ai="used"]').click();
+  assert.equal(await cards.count(), 1, 'one incident where AI was how it happened');
+  assert.match(await cards.first().innerText(), /RIZAP/);
+  assert.match(await cards.first().locator('[data-breaches="ai-basis"]').innerText(), /AI/);
+  await main.locator('button[data-ai="unrelated"]').click();
+  const unrelated = await cards.count();
+  assert.ok(unrelated >= 10 && unrelated < 40, 'incidents that are not attacks');
+  assert.equal(await cards.locator('[data-breaches="ai-basis"]').count(), unrelated, 'each says why');
+  assert.equal(await main.locator('[data-breach] [data-kind="ransomware"]').count(), 0, 'an attack is never judged unrelated');
+  await main.getByRole('button', { name: 'All', exact: true }).last().click();
+
   // How well an entry was checked is shown on it, and can be filtered: "official" is a part of the list, and each entry names at least one source.
   const total = await cards.count();
   await main.locator('button[data-verify="official"]').click();
@@ -72,7 +84,7 @@ export default async function ({ page, main, go }) {
   assert.ok(official > 0 && official < total, 'official is a part of the list');
   assert.equal(await main.locator('[data-breach] [data-verification]:not([data-verification="official"])').count(), 0);
   assert.equal(await main.locator('[data-breach]:not(:has([data-source-kind]))').count(), 0, 'every entry shows its sources');
-  await main.getByRole('button', { name: 'All', exact: true }).last().click();
+  await main.getByRole('button', { name: 'All', exact: true }).nth(1).click();
   for (const link of await main.locator('[data-breach] a').all()) {
     assert.match(await link.getAttribute('href'), /^https:\/\//);
     assert.match(await link.getAttribute('rel'), /noopener/);
