@@ -9,11 +9,7 @@ function bubbleFill(context: CanvasRenderingContext2D, bubble: Bubble, x: number
     return gradient;
   }
   const gradient = context.createRadialGradient(x - r * 0.35, y - r * 0.4, r * 0.1, x, y, r);
-  if (bubble.kind === "ice") {
-    gradient.addColorStop(0, "#ffffff"); gradient.addColorStop(0.45, "#dff6ff"); gradient.addColorStop(1, "#8fd3f2");
-  } else if (bubble.kind === "time") {
-    gradient.addColorStop(0, "#eaffea"); gradient.addColorStop(0.45, "#7be495"); gradient.addColorStop(1, "#1fa65a");
-  } else if (bubble.kind === "gold") {
+  if (bubble.kind === "gold") {
     gradient.addColorStop(0, "#fff7c9"); gradient.addColorStop(0.4, "#ffd54a"); gradient.addColorStop(1, "#e09b00");
   } else if (bubble.kind === "rainbow") {
     gradient.addColorStop(0, "#fff"); gradient.addColorStop(1, `hsl(${(time * 120) % 360} 90% 62%)`);
@@ -21,21 +17,6 @@ function bubbleFill(context: CanvasRenderingContext2D, bubble: Bubble, x: number
     gradient.addColorStop(0, "rgba(255,255,255,.96)"); gradient.addColorStop(0.35, "rgba(214,235,255,.82)"); gradient.addColorStop(1, "rgba(128,176,236,.9)");
   }
   return gradient;
-}
-
-// The marks on the special bubbles: a crack on ice that has been tapped once, a clock on the time bubble.
-function marks(context: CanvasRenderingContext2D, bubble: Bubble, x: number, y: number, r: number) {
-  if (bubble.kind === "ice") {
-    context.strokeStyle = bubble.cracked ? "rgba(40,110,160,.9)" : "rgba(255,255,255,.7)";
-    context.lineWidth = bubble.cracked ? 2 : 1.2;
-    context.beginPath();
-    context.moveTo(x - r * 0.1, y - r * 0.7); context.lineTo(x + r * 0.15, y - r * 0.2); context.lineTo(x - r * 0.2, y + r * 0.1); context.lineTo(x + r * 0.1, y + r * 0.7);
-    if (bubble.cracked) { context.moveTo(x + r * 0.15, y - r * 0.2); context.lineTo(x + r * 0.6, y - r * 0.05); context.moveTo(x - r * 0.2, y + r * 0.1); context.lineTo(x - r * 0.65, y + r * 0.3); }
-    context.stroke();
-  } else if (bubble.kind === "time") {
-    context.strokeStyle = "#0b5a2c"; context.lineWidth = 2;
-    context.beginPath(); context.arc(x, y + r * 0.05, r * 0.45, 0, Math.PI * 2); context.moveTo(x, y + r * 0.05); context.lineTo(x, y - r * 0.25); context.moveTo(x, y + r * 0.05); context.lineTo(x + r * 0.22, y + r * 0.15); context.stroke();
-  }
 }
 
 export function drawFrame(context: CanvasRenderingContext2D, scene: Scene) {
@@ -79,7 +60,6 @@ export function drawFrame(context: CanvasRenderingContext2D, scene: Scene) {
     context.lineWidth = 1.5;
     context.strokeStyle = bubble.kind === "gold" ? "#b87400" : "rgba(70,120,200,.55)";
     context.stroke();
-    marks(context, bubble, x, y, r);
     context.beginPath();
     context.ellipse(x - r * 0.33, y - r * 0.4, r * 0.22, r * 0.13, -0.6, 0, Math.PI * 2);
     context.fillStyle = "rgba(255,255,255,.85)";
@@ -100,23 +80,6 @@ export function drawFrame(context: CanvasRenderingContext2D, scene: Scene) {
     context.arc(p.x, p.y, p.size * k, 0, Math.PI * 2);
     context.fillStyle = `hsl(${p.hue} 95% 62% / ${Math.min(1, k * 1.5)})`;
     context.fill();
-  }
-  for (const f of scene.floaters) {
-    const k = f.age / f.life;
-    context.globalAlpha = 1 - k * k;
-    context.font = "800 22px system-ui, sans-serif";
-    context.textAlign = "center";
-    context.lineWidth = 5; context.strokeStyle = "rgba(10,80,40,.7)"; context.fillStyle = "#fff";
-    context.strokeText(f.text, f.x, f.y); context.fillText(f.text, f.x, f.y);
-    context.globalAlpha = 1;
-  }
-  if (scene.fever) {
-    // The fever: a glow round the sheet that flickers faster as it runs out.
-    const left = scene.fever.until - time;
-    const flicker = left < 1.5 ? 0.5 + 0.5 * Math.sin(time * 30) : 1;
-    context.lineWidth = 8;
-    context.strokeStyle = `hsl(${(time * 240) % 360} 100% 60% / ${0.75 * flicker})`;
-    context.strokeRect(4, 4, width - 8, height - 8);
   }
   if (scene.milestone && !scene.calm) {
     const age = time - scene.milestone.at;

@@ -1,10 +1,18 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { COMBO_WINDOW, TIME_LIMIT, begin, bump, centerOf, createScene, createSheet, dailySeed, feverMult, frequency, indexAt, layoutFor, lapsed, milestoneCrossed, newCombo, pointsFor, popBubble, prepare, press, pressNext, rankFor, seededRng, semitones, step } from './engine.ts';
+import { COMBO_WINDOW, TIME_LIMIT, begin, bump, centerOf, createScene, createSheet, frequency, indexAt, layoutFor, lapsed, milestoneCrossed, newCombo, pointsFor, popBubble, prepare, press, pressNext, rankFor, semitones, step } from './engine.ts';
 
 const seeded = seed => () => { seed = (seed * 1664525 + 1013904223) % 4294967296; return seed / 4294967296; };
 const never = () => 0.99; // no gold bubbles, no rainbow
 const sheetOf = (cols, rows, rng = never) => createSheet({ cols, rows, cell: 50, ox: 0, oy: 0 }, rng, 0, false);
+// A scene that is already playing, on a sheet of plain bubbles.
+const playing = () => {
+  const scene = createScene(400, 400, never);
+  scene.phase = 'playing';
+  scene.sheet = sheetOf(8, 8); // already swollen
+  return scene;
+};
+const run = (scene, seconds, rng = seeded(9)) => { const sounds = []; for (let t = 0; t < seconds; t += 0.05) sounds.push(...step(scene, 0.05, rng)); return sounds; };
 
 test('the sheet is 8 x 8 on every screen, so that a score means the same on a phone and a desktop', () => {
   for (const width of [280, 390, 560]) {
@@ -64,7 +72,7 @@ test('a rainbow bubble pops the whole sheet in a wave', () => {
 });
 
 test('the combo goes on within the window, starts again after it, and keeps its best', () => {
-  const combo = newCombo(3);
+  const combo = newCombo();
   assert.equal(bump(combo, 0), 1);
   assert.equal(bump(combo, COMBO_WINDOW), 2);
   assert.equal(bump(combo, COMBO_WINDOW * 2), 3);
@@ -98,11 +106,9 @@ test('the pitch climbs a pentatonic scale for two octaves and stays there', () =
 });
 
 test('stepping the scene pops what is due, scores, builds the combo and asks for the sounds', () => {
-  const scene = createScene(350, 400, never);
-  scene.sheet = sheetOf(7, 8);
-  const rng = seeded(3);
+  const scene = playing();
   assert.ok(press(scene, 0)); assert.ok(press(scene, 1));
-  const sounds = step(scene, 0.016, rng);
+  const sounds = step(scene, 0.016, seeded(3));
   assert.equal(sounds.filter(s => s.type === 'pop').length, 2);
   assert.equal(scene.pops, 2);
   assert.equal(scene.score, 20);
@@ -111,8 +117,7 @@ test('stepping the scene pops what is due, scores, builds the combo and asks for
 });
 
 test('a golden bubble pops its neighbours over the next frames, each one counted', () => {
-  const scene = createScene(350, 400, never);
-  scene.sheet = sheetOf(7, 8);
+  const scene = playing();
   scene.sheet.bubbles[10].kind = 'gold';
   press(scene, 10);
   const total = scene.queue.length;
@@ -122,9 +127,8 @@ test('a golden bubble pops its neighbours over the next frames, each one counted
   assert.ok(scene.combo.best >= total, 'they follow so closely that they are one combo');
 });
 
-test('a milestone gives its sound, a flash and a shake', () => {
-  const scene = createScene(350, 400, never);
-  scene.sheet = sheetOf(7, 8);
+test('a milestone gives its sound, a flash and a shake; none of them when motion is to be calm', () => {
+  const scene = playing();
   scene.combo.count = 9; scene.combo.last = 0; scene.time = 0.1;
   press(scene, 0);
   const sounds = step(scene, 0.016, seeded(1));
@@ -133,19 +137,17 @@ test('a milestone gives its sound, a flash and a shake', () => {
   scene.calm = true;
   scene.combo.count = 24; scene.combo.last = scene.time; press(scene, 1);
   step(scene, 0.016, seeded(1));
-  assert.equal(scene.flash, 0, 'no flash when motion is to be calm');
+  assert.equal(scene.flash, 0);
   assert.equal(scene.shake, 0);
 });
 
 test('a cleared sheet gives the bonus once and is made again after a moment', () => {
-  const scene = createScene(350, 400, never);
-  scene.sheet = sheetOf(5, 4);
-  for (let i = 0; i < 20; i++) press(scene, i);
+  const scene = playing();
+  for (let i = 0; i < 64; i++) press(scene, i);
   const sounds = step(scene, 0.016, seeded(2));
   assert.equal(sounds.filter(s => s.type === 'clear').length, 1);
-  // 20 pops in one combo: 9 at 10 points, 10 at 20, the twentieth at 30, then the 100 for the sheet.
-  assert.equal(scene.score, 9 * 10 + 10 * 20 + 30 + 100);
-  assert.equal(scene.cleared, 1);
+  // 64 pops in one combo: 9 at 10 points, then 10 each at 20, 30, 40, 50 and 60, and 5 at 70 - plus 100 for the sheet.
+  assert.equal(scene.score, 9 * 10 + 10 * (20 + 30 + 40 + 50 + 60) + 5 * 70 + 100);
   step(scene, 0.5, seeded(2));
   assert.equal(scene.sheets, 1);
   step(scene, 0.6, seeded(2));
@@ -155,57 +157,15 @@ test('a cleared sheet gives the bonus once and is made again after a moment', ()
 });
 
 test('with the keyboard the next bubble in reading order is popped', () => {
-  const scene = createScene(350, 400, never);
-  scene.sheet = sheetOf(7, 8);
+  const scene = playing();
   assert.ok(pressNext(scene));
   assert.ok(scene.sheet.bubbles[0].popped);
   assert.ok(pressNext(scene));
   assert.ok(scene.sheet.bubbles[1].popped);
 });
 
-const timedScene = () => {
+test('a run waits for the start, counts down 3-2-1, runs 30 seconds and ends', () => {
   const scene = createScene(400, 400, never);
-  prepare(scene, 'timed', never);
-  return scene;
-};
-const run = (scene, seconds, rng = seeded(9)) => { const sounds = []; for (let t = 0; t < seconds; t += 0.05) sounds.push(...step(scene, 0.05, rng)); return sounds; };
-
-test('ice takes two taps: the first cracks it and keeps the streak, the second pops it; a cascade breaks it at once', () => {
-  const sheet = sheetOf(5, 1);
-  sheet.bubbles[2].kind = 'ice';
-  const first = popBubble(sheet, 2, 0);
-  assert.deepEqual(first.map(e => [e.index, e.crack]), [[2, true]]);
-  assert.equal(sheet.remaining, 5, 'still there');
-  assert.equal(popBubble(sheet, 2, 1).length, 1);
-  assert.equal(sheet.remaining, 4);
-  const near = sheetOf(5, 1);
-  near.bubbles[1].kind = 'ice'; near.bubbles[2].kind = 'gold';
-  assert.ok(popBubble(near, 2, 0).some(e => e.index === 1 && !e.crack), 'the golden one shatters the ice next to it');
-});
-
-test('a golden bubble starts a fever that doubles the points for five seconds; a rainbow one triples them for eight', () => {
-  const scene = createScene(400, 400, never);
-  scene.sheet = sheetOf(8, 8);
-  scene.sheet.bubbles[0].kind = 'gold';
-  press(scene, 0);
-  const sounds = step(scene, 0.016, seeded(1));
-  assert.ok(sounds.some(s => s.type === 'fever'));
-  assert.equal(feverMult(scene), 2);
-  const before = scene.score;
-  scene.combo.count = 0; scene.combo.last = -Infinity;
-  press(scene, 63);
-  step(scene, 0.016, seeded(1));
-  assert.equal(scene.score - before, 10 * 2, 'a plain pop is worth twice');
-  run(scene, 5.2);
-  assert.equal(feverMult(scene), 1);
-  scene.sheet.bubbles[40].kind = 'rainbow';
-  press(scene, 40);
-  step(scene, 0.016, seeded(1));
-  assert.equal(feverMult(scene), 3);
-});
-
-test('a timed run waits for the start, counts down 3-2-1, runs 30 seconds and ends with the result', () => {
-  const scene = timedScene();
   assert.equal(scene.phase, 'ready');
   assert.equal(press(scene, 0), false, 'no popping before the start');
   begin(scene);
@@ -225,59 +185,17 @@ test('a timed run waits for the start, counts down 3-2-1, runs 30 seconds and en
   assert.equal(press(scene, 5), false, 'no popping after the end');
 });
 
-test('a time bubble and a cleared sheet add seconds in a timed run, and not in the free one', () => {
-  const scene = timedScene();
+test('a new run starts from nothing, with a fresh sheet', () => {
+  const scene = createScene(400, 400, never);
   begin(scene); run(scene, 3.2);
-  scene.sheet.bubbles[10].kind = 'time';
-  const left = scene.timeLeft;
-  press(scene, 10);
-  const sounds = step(scene, 0.016, seeded(1));
-  assert.ok(sounds.some(s => s.type === 'time'));
-  assert.ok(scene.timeLeft > left + 1.9);
-  const free = createScene(400, 400, never);
-  free.sheet = sheetOf(8, 8); free.sheet.bubbles[0].kind = 'time';
-  press(free, 0);
-  assert.equal(step(free, 0.016, seeded(1)).some(s => s.type === 'time'), false);
-  const cleared = timedScene();
-  begin(cleared); run(cleared, 3.2);
-  const before = cleared.timeLeft;
-  for (let i = 0; i < 64; i++) press(cleared, i);
-  step(cleared, 0.016, seeded(1));
-  assert.ok(cleared.timeLeft > before + 2.9);
-});
-
-test('only the sheets of the timed modes have time bubbles', () => {
-  let kinds = new Set();
-  for (let seed = 1; seed < 30; seed++) createSheet(layoutFor(400, 400), seeded(seed), 0, true, { timed: false }).bubbles.forEach(b => kinds.add(b.kind));
-  assert.equal(kinds.has('time'), false);
-  assert.ok(kinds.has('ice') && kinds.has('gold'));
-  kinds = new Set();
-  for (let seed = 1; seed < 30; seed++) createSheet(layoutFor(400, 400), seeded(seed), 0, true, { timed: true }).bubbles.forEach(b => kinds.add(b.kind));
-  assert.ok(kinds.has('time'));
-});
-
-test('the daily sheet is the same for everyone on a day, and another on the next; its sheets follow one another the same way', () => {
-  const make = (seed, popFirst = false) => {
-    const scene = createScene(400, 400, seeded(5));
-    prepare(scene, 'daily', seeded(77), seed);
-    return scene;
-  };
-  const kinds = scene => scene.sheet.bubbles.map(b => b.kind).join();
-  assert.equal(kinds(make('2026-10-10')), kinds(make('2026-10-10')), 'the same day, another random source');
-  assert.notEqual(kinds(make('2026-10-10')), kinds(make('2026-10-11')));
-  const a = make('2026-10-10'), b = make('2026-10-10');
-  begin(a); begin(b); run(a, 3.2, seeded(1)); run(b, 3.2, seeded(2));
-  for (let i = 0; i < 64; i++) { press(a, i); press(b, i); }
-  run(a, 3, seeded(1)); run(b, 3, seeded(2));
-  assert.equal(a.sheets, 2); assert.equal(b.sheets, 2);
-  assert.equal(kinds(a), kinds(b), 'the second sheet is the same too');
-});
-
-test('the day changes at midnight in Japan, and a seeded generator repeats', () => {
-  assert.equal(dailySeed(new Date('2026-10-10T14:59:00Z')), '2026-10-10');
-  assert.equal(dailySeed(new Date('2026-10-10T15:00:00Z')), '2026-10-11');
-  const one = seededRng('x'), two = seededRng('x');
-  assert.deepEqual([one(), one(), one()], [two(), two(), two()]);
+  press(scene, 0); press(scene, 1);
+  run(scene, 31);
+  assert.equal(scene.phase, 'over');
+  assert.ok(scene.score > 0);
+  prepare(scene, never);
+  assert.equal(scene.phase, 'ready');
+  assert.deepEqual([scene.score, scene.pops, scene.combo.best, scene.timeLeft], [0, 0, 0, TIME_LIMIT]);
+  assert.equal(scene.sheet.remaining, 64);
 });
 
 test('ranks go from C to S by score', () => {

@@ -72,20 +72,6 @@ export function playClear(context: AudioContext) {
 }
 
 // ---- the timed modes ----
-export function playCrack(context: AudioContext) {
-  const at = context.currentTime;
-  click(context, at, 0.22);
-  tone(context, at, 2200, 0.08, 0.06, "square", 0.6);
-}
-export function playTime(context: AudioContext) {
-  const at = context.currentTime;
-  [880, 1318.5].forEach((hz, i) => tone(context, at + i * 0.07, hz, 0.14, 0.25, "triangle"));
-}
-export function playFever(context: AudioContext) {
-  const at = context.currentTime;
-  tone(context, at, 330, 0.12, 0.45, "sawtooth", 3);
-  tone(context, at + 0.05, 660, 0.08, 0.4, "triangle", 2);
-}
 export function playTick(context: AudioContext, n: number) {
   tone(context, context.currentTime, 440 + (3 - n) * 110, 0.2, 0.12, "square");
 }
