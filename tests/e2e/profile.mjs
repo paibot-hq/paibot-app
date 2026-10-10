@@ -49,8 +49,21 @@ try {
   await page.goto(`${base}/en/profile`);
   const birthInput = page.locator('#profile-birth-date');
   await birthInput.waitFor();
-  await birthInput.fill('1990-04-10');
+  assert.match(await page.locator('[data-profile="registered"]').innerText(), /Not set/);
+  // A person types the date key by key (the year 1990 is "0001" first): nothing is sent until Save is pressed, so nothing is rejected half-typed.
+  const saves = [];
+  page.on('request', request => { if (request.method() === 'POST' && request.url().includes('/profile')) saves.push(request.postData()); });
+  await birthInput.click({ position: { x: 10, y: 10 } });
+  await page.keyboard.type('04101990', { delay: 60 });
+  assert.equal(await birthInput.inputValue(), '1990-04-10', 'the typed date is in the box');
+  assert.deepEqual(saves, [], 'typing sends nothing');
+  const save = page.getByRole('button', { name: 'Save', exact: true });
+  assert.equal(await save.isEnabled(), true);
+  await save.click();
   await page.getByText('Saved', { exact: true }).waitFor();
+  assert.deepEqual(saves, ['intent=birthDate&value=1990-04-10'], 'one save, with the whole date');
+  assert.match(await page.locator('[data-profile="registered"]').innerText(), /April 10, 1990/, 'the registered date is shown');
+  assert.equal(await save.isDisabled(), true, 'nothing to save once it is saved');
 
   const stored = await page.request.get(`${base}/en/profile`);
   assert.equal(stored.headers()['cache-control'], 'private, no-store', 'profile is never shared');
