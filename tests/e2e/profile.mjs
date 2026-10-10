@@ -118,6 +118,7 @@ try {
   await elsewhere.goto(`${base}/en/life-calendar`);
   await elsewhere.waitForFunction(() => document.documentElement.dataset.theme === 'light');
   assert.equal(await elsewhere.locator('input[type="date"]').inputValue(), '1990-04-10', 'the life calendar starts from the profile');
+  assert.match(await elsewhere.locator('[data-life-note]').innerText(), /saved in your profile/, 'and says so');
   console.log('PASS: theme and birth date follow the account to a fresh session');
 
   // Editing inside the tool is for that visit only.
@@ -131,6 +132,11 @@ try {
   await other.goto(`${base}/en/profile`);
   assert.equal(await other.locator('#profile-birth-date').inputValue(), '', 'another account sees nothing');
   assert.doesNotMatch(await (await other.request.get(`${base}/en/life-calendar`)).text(), /1990-04-10/, 'no leak between accounts');
+  // A signed-in visitor with no date registered is told that the profile can hold it; one with a date is told it came from the profile.
+  await other.goto(`${base}/en/life-calendar`);
+  await other.locator('[data-life-note]').waitFor();
+  assert.match(await other.locator('[data-life-note]').innerText(), /Register your birth date in your profile/, 'the life calendar points to the profile');
+  assert.equal(await other.locator('[data-life-note] a[href="/en/profile"]').count(), 1, 'with a link to it');
   console.log('PASS: profiles are isolated between accounts');
 
   await page.reload();

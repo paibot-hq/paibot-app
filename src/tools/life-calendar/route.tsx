@@ -85,8 +85,10 @@ function Calendar({ settings }: { settings: Route.ComponentProps['loaderData'] }
             {[10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120].map(value => <option key={value} value={value}>{t('years', { count: value })}</option>)}
           </select></label>
         </div>
-        <p className={styles.note}>{settings.birthDate
+        <p className={styles.note} data-life-note>{settings.birthDate
           ? <>{t('fromProfile')} <Link href="/profile">{t('editInProfile')}</Link></>
+          // Signed in but nothing registered: say that the profile can hold the date, so that it need not be typed again.
+          : settings.userId ? <>{t('privacy')} {t('suggestProfile')} <Link href="/profile">{t('editInProfile')}</Link></>
           : t('privacy')}</p>
         {!birthday ? <p className={styles.empty}>{t('empty')}</p> : !calendar ? <p role="alert">{t('invalid')}</p> : <>
           <div className={styles.summary} aria-live="polite">

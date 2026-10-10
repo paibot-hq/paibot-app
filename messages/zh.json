@@ -30,6 +30,7 @@
     "lifeCalendar": {
       "fromProfile": "这是个人资料中保存的出生日期。在此处的修改不会被保存。",
       "editInProfile": "打开个人资料",
+      "suggestProfile": "在个人资料中登记出生日期,下次会自动填入。",
       "currentAge": "当前年龄",
       "remainingWeeks": "距{years}岁的剩余时间",
       "weeks": "{count}周",

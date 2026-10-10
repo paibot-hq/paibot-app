@@ -30,6 +30,7 @@
     "lifeCalendar": {
       "fromProfile": "This is the date of birth saved in your profile. Changes here are not saved.",
       "editInProfile": "Open your profile",
+      "suggestProfile": "Register your birth date in your profile and it will be filled in next time.",
       "currentAge": "Current age",
       "remainingWeeks": "Time until age {years}",
       "weeks": "{count} weeks",
