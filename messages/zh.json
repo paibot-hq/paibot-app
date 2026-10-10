@@ -2021,8 +2021,8 @@
       "more": "更多"
     },
     "math": {
-      "title": "数学",
-      "description": "从小学到大学，用四选一题练习数学。",
+      "title": "数学题库",
+      "description": "从小学算术到大学数学的四选一练习题库，可按单元练习，也可按学年测试。",
       "about": "从小学计算到大学数学的四选一练习题库，按单元和学习项目整理：加减乘除、方程、因式分解、微积分、线性代数等。",
       "keywords": "数学 练习 四则运算 因式分解 测验 题库",
       "itemPage": {
@@ -2037,7 +2037,7 @@
       "quiz": {
         "setComingSoon": "此题组正在准备中，请稍候。",
         "done": "已完成",
-        "backToMath": "数学",
+        "backToMath": "数学题库",
         "breadcrumb": "面包屑导航",
         "progress": "{current} / {total}",
         "correct": "正确",
@@ -2060,7 +2060,7 @@
         "nextSet": "下一组练习",
         "resume": "继续",
         "questionNumber": "第{number}题",
-        "shareText": "数学「{title}」答对 {correct}/{total} 题"
+        "shareText": "数学题库「{title}」答对 {correct}/{total} 题"
       },
       "arith": {
         "formula": "算式：",
@@ -3995,7 +3995,7 @@
         "resultBelow": "从小学一年级开始",
         "takeTest": "参加{level}测试",
         "challenge": "挑战{level}测试",
-        "shareText": "数学实力测评:{level}(共{total}题答对{correct}题)",
+        "shareText": "数学题库实力测评:{level}(共{total}题答对{correct}题)",
         "retry": "重新测评",
         "entry": "实力测评",
         "entryNote": "{count}道题随答题升降学年,了解你现在的水平"

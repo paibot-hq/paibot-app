@@ -2021,10 +2021,10 @@
       "more": "More"
     },
     "math": {
-      "title": "Math",
-      "description": "Multiple-choice math practice, from elementary school to university.",
-      "about": "A multiple-choice math drill from elementary arithmetic to university mathematics, organised by unit and learning item: addition, multiplication and division, equations, factorisation, calculus, linear algebra and more.",
-      "keywords": "math drills arithmetic algebra factoring quiz problem set",
+      "title": "Math Practice",
+      "description": "Multiple-choice math practice questions from elementary school to university, by topic, with tests by school year.",
+      "about": "A multiple-choice math question bank from elementary arithmetic to university mathematics, organised by unit and learning item: addition, multiplication and division, equations, factorisation, calculus, linear algebra and more.",
+      "keywords": "math practice questions problem set arithmetic algebra factoring quiz test",
       "itemPage": {
         "start": "Start practice",
         "points": "Key points",
@@ -2037,7 +2037,7 @@
       "quiz": {
         "setComingSoon": "This problem set is being prepared. Check back soon.",
         "done": "Done",
-        "backToMath": "Math",
+        "backToMath": "Math Practice",
         "breadcrumb": "Breadcrumb",
         "progress": "{current} / {total}",
         "correct": "Correct",
@@ -2060,7 +2060,7 @@
         "nextSet": "Next practice",
         "resume": "Continue",
         "questionNumber": "Question {number}",
-        "shareText": "Math \"{title}\": {correct}/{total} correct"
+        "shareText": "Math Practice \"{title}\": {correct}/{total} correct"
       },
       "arith": {
         "formula": "Expression:",
@@ -3995,7 +3995,7 @@
         "resultBelow": "Start from Elementary 1",
         "takeTest": "Take the {level} test",
         "challenge": "Try the {level} test",
-        "shareText": "Math placement: {level} ({correct} of {total} correct)",
+        "shareText": "Math Practice placement: {level} ({correct} of {total} correct)",
         "retry": "Take it again",
         "entry": "Placement test",
         "entryNote": "{count} problems that move up or down a year with your answers, to find your level"
