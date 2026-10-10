@@ -2021,10 +2021,10 @@
       "more": "その他"
     },
     "math": {
-      "title": "数学",
-      "description": "小学校から大学まで、4択で基礎から学べる数学の練習問題。",
-      "about": "小学校の計算から大学の数学まで、4択の練習問題を単元ごとに解けるドリルです。足し算・かけ算・割り算、方程式、因数分解、微分積分、線形代数など、学年と学習項目に分かれています。",
-      "keywords": "数学 ドリル 算数 問題集 四則演算 因数分解 クイズ",
+      "title": "数学問題集",
+      "description": "小学校の算数から大学の数学まで、4択で解ける練習問題集。単元ごとの練習と、学年別・数検の級別のテストつき。",
+      "about": "小学校の計算から大学の数学まで、4択の練習問題を単元ごとに解ける問題集です。足し算・かけ算・割り算、方程式、因数分解、微分積分、線形代数など、学年と学習項目に分かれています。",
+      "keywords": "数学 問題集 算数 練習問題 ドリル テスト 数検 四則演算 因数分解 クイズ",
       "itemPage": {
         "start": "練習をはじめる",
         "points": "要点",
@@ -2037,7 +2037,7 @@
       "quiz": {
         "setComingSoon": "この問題セットは準備中です。もうしばらくお待ちください。",
         "done": "完了",
-        "backToMath": "数学",
+        "backToMath": "数学問題集",
         "breadcrumb": "パンくずリスト",
         "progress": "{current} / {total}",
         "correct": "正解",
@@ -2060,7 +2060,7 @@
         "nextSet": "次の練習へ",
         "resume": "続きから",
         "questionNumber": "{number}問目",
-        "shareText": "数学「{title}」で {correct}/{total} 正解しました"
+        "shareText": "数学問題集「{title}」で {correct}/{total} 正解しました"
       },
       "arith": {
         "formula": "式：",
@@ -3995,7 +3995,7 @@
         "resultBelow": "小1から",
         "takeTest": "{level}のテストを受ける",
         "challenge": "{level}のテストに挑戦",
-        "shareText": "数学の実力判定: {level}（{total}問中{correct}問正解）",
+        "shareText": "数学問題集の実力判定: {level}（{total}問中{correct}問正解）",
         "retry": "もう一度判定する",
         "entry": "実力判定テスト",
         "entryNote": "答えに合わせて学年が上下する{count}問で、今の実力の目安がわかります"

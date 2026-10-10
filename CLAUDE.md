@@ -25,8 +25,8 @@ One site, one host: `paibot.app` (development: `dev.paibot.app`), with no subdom
 `app.`/`learn.`/`tools.` hosts were tried in October 2026 and dropped; see `docs/plans/domain.md`). The top page is a
 search (`src/components/search-home.tsx`, ranking in `src/lib/search.ts`) over the apps, with every app listed under the
 box as a small card; it is built from the app catalog and the messages, so a new tool is found by its `title`,
-`description` and `keywords` and shown as a card with nothing else to register. The math drills are reached through
-the "数学" app (`/math`), not searched. The former list and category pages (`/apps`, `/daily`, `/study`, `/dev` ...)
+`description` and `keywords` and shown as a card with nothing else to register. The math questions are reached through
+the "数学問題集" app (`/math`), not searched. The former list and category pages (`/apps`, `/daily`, `/study`, `/dev` ...)
 redirect to the top page. Do not add a subdomain per tool or per kind of page.
 
 ## Adding a tool
@@ -70,7 +70,7 @@ By hand: `node scripts/govfaq-build.mjs [--if-changed]`, then `CLOUDFLARE_ACCOUN
 Math is organized unit → learning item → practice set, all in
 `src/lib/math-catalog.ts` (names under `App.math.units.<unit>.items.<item>` in
 `messages/*.json`). Pages:
-- `/math` ("Math", `routes/math.tsx` + `components/math-unit-table.tsx`): two tabs
+- `/math` ("数学問題集" / "Math Practice" / "数学题库", `routes/math.tsx` + `components/math-unit-table.tsx`): two tabs
   (`components/math-home-header.tsx`, with "Continue" to the set last opened): Practice, this
   page, every unit folded by area, each linking to its page; a search or a filter (school
   year, Suken level, playability, name) shows the matching learning items instead. Units and
