@@ -2064,6 +2064,7 @@
         "valueWithUnit": "{value}{unit}"
       },
       "factorization": {
+        "prompt": "次の式を因数分解しなさい。",
         "explanationTemplate": "掛けて{b}、足して{a}になる2つの整数は{p}と{q}です。"
       },
       "signed": {
@@ -3944,22 +3945,33 @@
         "explanationPrefix": "三平方の定理より、",
         "figureDescription": "直角三角形ABC。角{rightAngle}が直角。{first}は{firstLength} cm、{second}は{secondLength} cm、{unknown}はx。"
       },
+      "modes": {
+        "label": "数学の使い方",
+        "practice": "練習",
+        "test": "テスト"
+      },
       "test": {
-        "title": "学年別テスト",
-        "intro": "学年を選ぶと、その学年の学習項目から10問を出します。基本から発展まで、易しい順に並びます。毎回ちがう問題が出ます。",
+        "title": "テスト",
+        "intro": "範囲を選ぶと、そこから問題を出します。毎回ちがう問題が出て、結果からまちがえた項目の練習に進めます。",
+        "byGrade": "学年で",
+        "byKentei": "数検の級で",
+        "summary": "まとめて",
+        "summaries": {
+          "elementary": "小学校のまとめ",
+          "middle": "中学校のまとめ",
+          "high1": "数学I・Aのまとめ",
+          "high2": "数学II・B・Cのまとめ"
+        },
         "gradeTitle": "{grade}のテスト",
-        "itemCount": "{count}項目から",
+        "kenteiTitle": "数検{level}の範囲のテスト",
+        "count": "{count}問",
         "setLabel": "{count}問・易しい順",
-        "retry": "別の問題でもう一度",
-        "entry": "学年別テスト",
-        "entryNote": "学年を選んで10問"
+        "retry": "別の問題でもう一度"
       },
       "unitList": {
         "filters": "絞り込み",
         "itemCount": "{count}項目",
         "doneCount": "完了 {done}/{total}",
-        "views": "表示",
-        "byArea": "分野別",
         "results": "検索・絞り込みの結果",
         "playableOnly": "遊べるセットだけ",
         "search": "単元・セットを検索",

@@ -26,7 +26,7 @@ export default [
     route('math/units', 'routes/math-redirect.ts', { id: 'math-redirect/units' }),
     route('math/level/:stage', 'routes/math-redirect.ts', { id: 'math-redirect/level' }),
     route('math/test', 'routes/math-tests.tsx'),
-    route('math/test/:grade', 'routes/math-test.tsx'),
+    route('math/test/:test', 'routes/math-test.tsx'),
     route('math/:unit', 'routes/math-unit.tsx'),
     route('math/:unit/:item', 'routes/math-item.tsx'),
     route('math/:unit/:item/:set', 'routes/math-quiz.tsx'),

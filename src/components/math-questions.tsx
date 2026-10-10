@@ -59,7 +59,7 @@ function buildQuestions(kind: MathKind | undefined, problems: readonly MathProbl
       case 'factorization':
         return (problems as { id: string; answerIndex: number; payload: FactorizationPayload }[]).map(({ id, answerIndex, payload: { p, q, choices } }) => ({
           id, answerIndex,
-          prompt: <MathTex tex={trinomialTex(p, q)} block />,
+          prompt: <><p>{tf('prompt')}</p><MathTex tex={trinomialTex(p, q)} block /></>,
           choices: choices.map(choice => <MathTex tex={factoredTex(choice)} />),
           explanation: tf('explanationTemplate', { p, q, a: p + q, b: p * q }),
         }));

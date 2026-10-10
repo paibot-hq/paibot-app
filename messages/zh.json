@@ -2064,6 +2064,7 @@
         "valueWithUnit": "{value}{unit}"
       },
       "factorization": {
+        "prompt": "将下式因式分解。",
         "explanationTemplate": "相乘为{b}、相加为{a}的两个整数是{p}和{q}。"
       },
       "signed": {
@@ -3944,22 +3945,33 @@
         "explanationPrefix": "根据勾股定理，",
         "figureDescription": "直角三角形ABC。角{rightAngle}是直角。{first}为{firstLength} cm，{second}为{secondLength} cm，{unknown}为x。"
       },
+      "modes": {
+        "label": "数学的使用方式",
+        "practice": "练习",
+        "test": "测试"
+      },
       "test": {
-        "title": "按学年测试",
-        "intro": "选择学年后,从该学年的学习项目中出10道题,从基础到进阶按由易到难排列。每次出的题都不同。",
+        "title": "测试",
+        "intro": "选择范围后,从中出题,每次题目都不同;可从结果直接去练习做错的项目。",
+        "byGrade": "按学年",
+        "byKentei": "按数检级别",
+        "summary": "综合",
+        "summaries": {
+          "elementary": "小学综合",
+          "middle": "初中综合",
+          "high1": "数学I・A综合",
+          "high2": "数学II・B・C综合"
+        },
         "gradeTitle": "{grade}测试",
-        "itemCount": "来自{count}个项目",
+        "kenteiTitle": "数检{level}范围测试",
+        "count": "{count}道题",
         "setLabel": "{count}道题・由易到难",
-        "retry": "换一组题再测",
-        "entry": "按学年测试",
-        "entryNote": "选择学年,做10道题"
+        "retry": "换一组题再测"
       },
       "unitList": {
         "filters": "筛选",
         "itemCount": "{count}个项目",
         "doneCount": "已完成 {done}/{total}",
-        "views": "视图",
-        "byArea": "按领域",
         "results": "搜索和筛选结果",
         "playableOnly": "只看可练习的题组",
         "search": "搜索单元和题组",

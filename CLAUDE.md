@@ -67,16 +67,17 @@ By hand: `node scripts/govfaq-build.mjs [--if-changed]`, then `CLOUDFLARE_ACCOUN
 Math is organized unit → learning item → practice set, all in
 `src/lib/math-catalog.ts` (names under `App.math.units.<unit>.items.<item>` in
 `messages/*.json`). Pages:
-- `/math` ("Math", `routes/math.tsx` + `components/math-unit-table.tsx`):
-  every unit, in views chosen by tabs: "By area" (the first: every unit, folded by
-  area) and one per school stage (its units under small area headings). Each unit links to its
-  page. A search or a filter (school year, Suken level, playability, name) shows the
-  matching learning items of every unit instead. Units and items with published
-  problems in D1 are highlighted; "Continue" goes back to the set last opened.
-- `/math/test` (`routes/math-tests.tsx`) and `/math/test/<grade>` (`routes/math-test.tsx`): a school year's
-  test, ten published problems of that grade drawn anew on each visit (`src/lib/math-test.ts`: a different
-  learning item each where possible, aiming at 4 basic, 4 standard, 2 advanced, easiest first); the result
-  links each problem's item. Not saved, not indexed; a year needs at least ten published problems.
+- `/math` ("Math", `routes/math.tsx` + `components/math-unit-table.tsx`): two tabs
+  (`components/math-home-header.tsx`, with "Continue" to the set last opened): Practice, this
+  page, every unit folded by area, each linking to its page; a search or a filter (school
+  year, Suken level, playability, name) shows the matching learning items instead. Units and
+  items with published problems are highlighted, finished ones green.
+- `/math/test` (`routes/math-tests.tsx`), the Tests tab, and `/math/test/<id>` (`routes/math-test.tsx`):
+  a test per school year (10 problems), per Suken level (Japanese only; 7 from its years, 3 from
+  those below) and per group of years ("summary-*", 20), all defined in `src/lib/math-test.ts`.
+  Problems are drawn anew on each visit (`src/lib/math-test-draw.ts`: a different learning item
+  each where possible, 40% basic, 40% standard, 20% advanced, easiest first); the result links
+  each problem's item. Not saved, not indexed; a test is offered when its years have enough problems.
 - `/math/<unit>` (`routes/math-unit.tsx`): the unit and its learning items, each with a one-line summary.
 - `/math/<unit>/<item>` (`routes/math-item.tsx`): the item and its practice sets
   (練習1, 2, ...) with a signed-in user's latest and best score, and the crumbs

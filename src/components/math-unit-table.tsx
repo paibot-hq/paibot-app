@@ -2,23 +2,17 @@ import { useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'use-intl';
 import { Link } from '../i18n/navigation';
 import type { DynamicT } from '../lib/apps';
-import { MATH_CATALOG, MATH_DOMAINS, MATH_STAGES, type MathStage } from '../lib/math-catalog';
+import { MATH_CATALOG, MATH_DOMAINS, MATH_STAGES } from '../lib/math-catalog';
 import { JP_GRADES, jpGrade, type JpGrade } from '../lib/math-curriculum-jp';
 import { KENTEI_LEVELS, KENTEI_LOCALES, KENTEI_OFFICIAL_URL } from '../lib/math-kentei';
 import { useDoneSets } from '../lib/math-local-done';
-import { readResume, type MathResume } from '../lib/math-resume';
 import styles from './math-unit-table.module.css';
 
-// Every unit, in views: "By area" (the first), every unit folded by area of mathematics, and one per school stage (elementary ...
-// university: its units, under small area headings). Each unit links to its page, which lists its learning items. A search or a filter shows the matching
-// learning items of every unit instead, grouped by area. `playable` lists "unit/item/set" of the sets with published problems: a unit or
-// item with any is highlighted. The filters are client-side; the server renders "By area", whose folded areas hold every
-// unit's link in the page as it is sent. Grades are Japan's school years (math-curriculum-jp.ts); the Suken filter, derived from
-// them, is shown in Japanese only.
+// The practice side of /math: every unit, folded by area of mathematics; each unit links to its page, which lists its learning items.
+// A search or a filter shows the matching learning items of every unit instead. `playable` lists "unit/item/set" of the sets with
+// published problems: a unit or item with any is highlighted. The filters are client-side; the server renders every unit's link (in
+// the folded areas). Grades are Japan's school years (math-curriculum-jp.ts); the Suken filter, derived from them, is shown in Japanese only.
 const OPENED_KEY = 'math-list-open:v1';
-const VIEW_KEY = 'math-list-view:v1';
-type View = MathStage | 'areas';
-const VIEWS: readonly View[] = ['areas', ...MATH_STAGES];
 
 export default function MathUnitTable({ playable, done: finished }: { playable: readonly string[]; done: readonly string[] }) {
   const t = useTranslations('App.math');
@@ -60,23 +54,6 @@ export default function MathUnitTable({ playable, done: finished }: { playable: 
   // On a phone only the search shows at first; the other filters are behind "Filters" (always shown on a wider screen, by the CSS).
   const [moreFilters, setMoreFilters] = useState(false);
   const activeFilters = [grade, kentei, playableOnly].filter(Boolean).length;
-  // The practice set last opened in this browser, to go back to in one tap.
-  const [resume, setResume] = useState<MathResume | null>(null);
-  // The view chosen last in this browser; at first, "By area".
-  const [view, setView] = useState<View>('areas');
-  useEffect(() => {
-    setResume(readResume());
-    let saved: string | null = null;
-    try { saved = window.localStorage.getItem(VIEW_KEY); } catch { /* storage blocked */ }
-    if ((VIEWS as readonly string[]).includes(saved ?? '')) setView(saved as View);
-  }, []);
-  // Choosing a view ends a search or a filter, whose results are shown in place of the views.
-  const choose = (next: View) => {
-    setView(next); setQuery(''); setGrade(''); setKentei(''); setPlayableOnly(false);
-    try { window.localStorage.setItem(VIEW_KEY, next); } catch { /* storage blocked */ }
-  };
-  const resumeItem = resume && td(`units.${resume.unit}.items.${resume.item}.title`);
-  const resumeSeveral = resume && (MATH_CATALOG.find(unit => unit.id === resume.unit)?.items.find(item => item.id === resume.item)?.sets.length ?? 0) > 1;
 
   const sections = MATH_DOMAINS.map(domain => {
     const rows = MATH_STAGES.flatMap(s => MATH_CATALOG.filter(unit => unit.domain === domain && unit.stage === s))
@@ -94,8 +71,8 @@ export default function MathUnitTable({ playable, done: finished }: { playable: 
     return { domain, rows };
   }).filter(section => section.rows.length);
 
-  // A unit in one line: its name, how many items (and how many done), and its stage when the view is not a stage's; it links to its page.
-  const unitLine = ({ unit, title, items }: (typeof sections)[number]['rows'][number], withStage: boolean) => {
+  // A unit in one line: its name, how many items (and how many done) and its stage; it links to its page.
+  const unitLine = ({ unit, title, items }: (typeof sections)[number]['rows'][number]) => {
     const unitDone = items.filter(item => item.done).length;
     const playableItems = items.filter(item => item.playable).length;
     return <li key={unit.id}>
@@ -105,28 +82,12 @@ export default function MathUnitTable({ playable, done: finished }: { playable: 
           {t('unitList.itemCount', { count: items.length })}
           {unitDone > 0 && <> · <span className={styles.done}>{t('unitList.doneCount', { done: unitDone, total: items.length })}</span></>}
         </span>
-        {withStage && <span className={styles.badge}>{t(`stages.${unit.stage}`)}</span>}
+        <span className={styles.badge}>{t(`stages.${unit.stage}`)}</span>
       </Link>
     </li>;
   };
 
   return <>
-    {/* The two ways in besides the list: back to the set last opened (once there is one), and the tests. */}
-    <div className={styles.shortcuts}>
-      {resume && <Link href={`/math/${resume.unit}/${resume.item}/${resume.set}`} className={styles.resume} data-math-resume>
-        <span className={styles.shortcutLabel}>{t('quiz.resume')}</span>
-        <span className={styles.shortcutName}>{resumeItem}{resumeSeveral && ` ${t('quiz.practice', { number: resume.set })}`}</span>
-      </Link>}
-      <Link href="/math/test" className={styles.testEntry} data-math-test-entry>
-        <span className={styles.shortcutLabel}>{t('test.entryNote')}</span>
-        <span className={styles.shortcutName}>{t('test.entry')}</span>
-      </Link>
-    </div>
-    <div className={styles.views} role="group" aria-label={t('unitList.views')}>
-      {VIEWS.map(v => <button key={v} type="button" className={styles.view} aria-pressed={!filtering && view === v} data-math-view={v} onClick={() => choose(v)}>
-        {v === 'areas' ? t('unitList.byArea') : t(`stages.${v}`)}
-      </button>)}
-    </div>
     <div className={styles.filters} role="group" aria-label={t('unitList.filters')}>
       <input type="search" className={styles.search} value={query} onChange={event => setQuery(event.target.value)}
         placeholder={t('unitList.search')} aria-label={t('unitList.search')} />
@@ -153,19 +114,7 @@ export default function MathUnitTable({ playable, done: finished }: { playable: 
       {t('kentei.note')} <a href={KENTEI_OFFICIAL_URL} rel="noopener noreferrer" target="_blank">{t('kentei.official')}</a>
     </p>}
     {filtering && sections.length === 0 && <p className={styles.note}>{t('unitList.empty')}</p>}
-    {/* Every stage's panel is in the page; only the chosen one shows. */}
-    {!filtering && view !== 'areas' && MATH_STAGES.map(s => (
-      <div key={s} className={styles.stagePanel} data-math-stage={s} hidden={view !== s}>
-        {sections.map(({ domain, rows }) => {
-          const units = rows.filter(row => row.unit.stage === s);
-          return units.length > 0 && <section key={domain} aria-labelledby={`math-${s}-${domain}`}>
-            <h2 className={styles.stageDomain} id={`math-${s}-${domain}`}>{t(`domains.${domain}`)}</h2>
-            <ul className={styles.rows} data-compact>{units.map(row => unitLine(row, false))}</ul>
-          </section>;
-        })}
-      </div>
-    ))}
-    {(filtering || view === 'areas') && sections.map(({ domain, rows }) => {
+    {sections.map(({ domain, rows }) => {
       const items = rows.flatMap(row => row.items);
       const areaDone = items.filter(item => item.done).length;
       const areaPlayable = items.filter(item => item.playable).length;
@@ -187,7 +136,7 @@ export default function MathUnitTable({ playable, done: finished }: { playable: 
             {rows.map(row => {
               // Without a search or a filter an area lists only its units, one line each (the unit's page lists its items); with one, the
               // matching items are shown, to be found.
-              if (!filtering) return unitLine(row, true);
+              if (!filtering) return unitLine(row);
               const { unit, title, items } = row;
               return <li key={unit.id} className={styles.row}>
                 <div className={styles.rowHead}>

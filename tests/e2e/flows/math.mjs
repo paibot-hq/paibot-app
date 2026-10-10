@@ -5,16 +5,15 @@ import assert from 'node:assert/strict';
 // practice sets; a set is the quiz. Works whether or not the newer sets are
 // published in the local D1 (CI imports them unpublished).
 export default async function ({ page, main, base, go, errors }) {
-  // The areas' names in the "By area" view and in the results of a search or a filter (the text about the tool under the page has its own).
+  // The areas' names in the list and in the results of a search or a filter (the text about the tool under the page has its own).
   const units = main.locator('[data-math-domain-name]');
   const link = href => main.locator(`a[href="${href}"]`);
-  const view = name => main.locator(`[data-math-view="${name}"]`);
   // A missing translation renders its key (e.g. "App.math.units.arith.title").
   await go('math');
   assert.ok(!(await main.textContent()).includes('App.math.'), 'no untranslated keys on the math page');
-  // "By area" at first: every unit, folded by area.
-  assert.deepEqual(await main.locator('[data-math-view]').allTextContents(), ['By area', 'Foundations', 'Intermediate', 'Advanced', 'Higher']);
-  assert.equal(await view('areas').getAttribute('aria-pressed'), 'true');
+  // Two tabs, Practice (this page) and Tests; Practice lists every unit, folded by area.
+  assert.deepEqual(await main.locator('[data-math-mode]').allTextContents(), ['Practice', 'Tests']);
+  assert.equal(await main.locator('[data-math-mode="practice"]').getAttribute('aria-current'), 'page');
   assert.deepEqual(await units.allTextContents(), [
     'Number', 'Algebra', 'Functions', 'Geometry & measurement',
     'Statistics & probability', 'Sets & logic', 'Vectors & matrices', 'Calculus',
@@ -25,18 +24,13 @@ export default async function ({ page, main, base, go, errors }) {
   assert.equal(await areaButton('Number').getAttribute('aria-expanded'), 'false');
   assert.equal(await link('/en/math/arith').isVisible(), false);
   assert.equal(await link('/en/math/factorization/trinomial').count(), 0, 'no learning items without a search');
-  // A view per school stage: its units, one line each under small area headings, linking to the unit's page.
-  await view('elementary').click();
-  assert.ok(await link('/en/math/arith').isVisible());
-  assert.equal(await link('/en/math/factorization').isVisible(), false, 'a middle-school unit is in the page but hidden');
-  await view('middle').click();
+  // An opened area lists its units, one line each, linking to the unit's page, highlighted when they have problems.
+  await areaButton('Algebra').click();
   assert.ok(await link('/en/math/factorization').isVisible());
-  assert.equal(await link('/en/math/factorization').getAttribute('data-playable'), 'true', 'a unit with problems is highlighted');
-  assert.equal(await link('/en/math/arith').isVisible(), false);
-  await view('areas').click();
-  // A search or a filter shows the matching learning items of every unit, whatever the view.
+  assert.equal(await link('/en/math/factorization').getAttribute('data-playable'), 'true');
+  await areaButton('Algebra').click();
+  // A search or a filter shows the matching learning items of every unit.
   await main.getByLabel('Playable sets only').check();
-  assert.equal(await view('areas').getAttribute('aria-pressed'), 'false');
   assert.ok(await main.locator('ul ul a').count() > 0);
   assert.equal(await main.locator('a[data-playable]').count(), await main.locator('ul ul a').count(), 'only playable items');
   await main.getByLabel('Playable sets only').uncheck();
@@ -44,10 +38,7 @@ export default async function ({ page, main, base, go, errors }) {
   assert.deepEqual(await main.locator('ul ul a').allTextContents(), ['Solid shapes']);
   assert.equal(await link('/en/math/shapes/solids-basic').getAttribute('data-playable'), 'true', 'a found item with problems is highlighted');
   assert.ok(await link('/en/math/shapes/solids-basic').isVisible());
-  // Choosing a view ends the search.
-  await view('high').click();
-  assert.equal(await main.getByRole('searchbox').inputValue(), '');
-  assert.ok(await link('/en/math/factoring').isVisible());
+  await main.getByRole('searchbox').fill('');
   // Japanese school year: only that year's items; the Suken filter is Japanese only.
   assert.equal(await main.getByRole('combobox').count(), 1);
   await main.getByRole('combobox', { name: 'Filter by Japanese school year' }).selectOption('m3');
@@ -71,15 +62,13 @@ export default async function ({ page, main, base, go, errors }) {
   assert.equal(await moreFilters.innerText(), 'Filters1', 'the button counts the filters that are on');
   await yearFilter.selectOption('');
   await moreFilters.click();
-  await view('elementary').click();
-  assert.ok(await page.evaluate(() => document.body.scrollHeight) < 3000, 'a stage view is short on a phone');
+  assert.ok(await page.evaluate(() => document.body.scrollHeight) < 3000, 'the folded list is short on a phone');
   await page.setViewportSize({ width: 1100, height: 900 });
-  console.log('PASS: math lists units by school stage, or all of them by area; a search or a filter shows learning items, filtered by year, playability and name');
+  console.log('PASS: math has Practice and Tests tabs; Practice lists the units by area, and a search or a filter shows learning items by year, playability and name');
 
   // An item's page lists its practice sets; a set opens its quiz, whose
   // "choose a different set" returns to the item's page.
   // A unit's page lists its learning items; the top page links to both.
-  await view('areas').click();
   await areaButton('Number').click();
   assert.equal(await areaButton('Number').getAttribute('aria-expanded'), 'true');
   assert.ok(await link('/en/math/arith').isVisible());
@@ -90,8 +79,7 @@ export default async function ({ page, main, base, go, errors }) {
   assert.equal(await page.title(), 'Order of operations & word problems | PAIBOT');
   assert.equal((await page.goto(`${base}/en/math/nothing`)).status(), 404);
   await go('math');
-  // The view and the area opened above are remembered in this browser.
-  assert.equal(await view('areas').getAttribute('aria-pressed'), 'true');
+  // The area opened above is remembered in this browser.
   assert.ok(await link('/en/math/arith').isVisible(), 'the opened area is still open');
   await link('/en/math/arith').click();
   await page.waitForURL(`${base}/en/math/arith`);
@@ -164,11 +152,14 @@ export default async function ({ page, main, base, go, errors }) {
   assert.deepEqual(errors, []);
   console.log('PASS: one tap answers; the result marks each problem and links the next set, which the math list offers to continue');
 
-  // Tests by school year: from the list, a year's ten problems from its items, easiest first; the result links each problem's item, and
-  // "Try other problems" draws a new test.
+  // Tests: the Tests tab offers a test per school year (and several years at once); a test is ten problems from the year's items,
+  // easiest first; the result links each problem's item, and "Try other problems" draws a new test.
   await go('math');
-  await main.locator('[data-math-test-entry]').click();
+  await main.locator('[data-math-mode="test"]').click();
   await page.waitForURL(`${base}/en/math/test`);
+  await main.locator('[data-math-mode="test"][aria-current="page"]').waitFor();
+  assert.equal(await main.locator('a[href^="/en/math/test/kentei-"]').count(), 0, 'Suken tests are in Japanese only');
+  assert.ok(await link('/en/math/test/summary-middle').isVisible());
   await link('/en/math/test/m1').click();
   await page.waitForURL(`${base}/en/math/test/m1`);
   for (let index = 0; index < 10; index++) {
@@ -182,9 +173,14 @@ export default async function ({ page, main, base, go, errors }) {
   assert.ok(reviewed.every(href => /^\/en\/math\/[a-z0-9-]+\/[a-z0-9-]+$/.test(href)), 'each problem links its learning item');
   await main.getByRole('button', { name: 'Try other problems' }).click();
   await main.getByText('1 / 10', { exact: true }).waitFor();
+  await go('math/test/summary-middle');
+  await main.getByText('1 / 20', { exact: true }).waitFor();
   assert.equal((await page.goto(`${base}/en/math/test/x9`)).status(), 404);
+  assert.equal((await page.goto(`${base}/en/math/test/kentei-3`)).status(), 404, 'Suken tests are in Japanese only');
+  await page.goto(`${base}/ja/math/test/kentei-3`);
+  await main.getByText('1 / 10', { exact: true }).waitFor();
   assert.deepEqual(errors, []);
-  console.log('PASS: a school year\'s test: ten problems, a result linking each one\'s item, and a new draw');
+  console.log('PASS: tests by school year, Suken level (Japanese) and several years: drawn problems, a result linking each one\'s item, and a new draw');
 
   // Every set has problems now: a set of a formerly coming-soon unit opens as any other.
   await go('math/shapes/solids-basic/1');

@@ -4,24 +4,25 @@ import { useMixedMathQuestions } from '../components/math-questions';
 import MathSetQuiz from '../components/math-set-quiz';
 import type { DynamicT } from '../lib/apps';
 import { findUnit } from '../lib/math-catalog';
-import { JP_GRADES, type JpGrade } from '../lib/math-curriculum-jp';
+import { KENTEI_LOCALES } from '../lib/math-kentei';
 import { getProblemsByIds, getTestCandidates } from '../lib/math-problems.server';
-import { pickTest, TEST_MIN_PROBLEMS } from '../lib/math-test';
+import { drawTest, findTest, testSize } from '../lib/math-test';
 import type { Route } from './+types/math-test';
 
-// A school year's test: ten problems drawn anew on every visit (see lib/math-test.ts), so the page is never cached.
+// A test (lib/math-test.ts): its problems drawn anew on every visit, so the page is never cached, nor indexed, and nothing is saved.
 const noStore = { 'Cache-Control': 'private, no-store' };
 export function headers() { return noStore; }
 export async function loader({ params }: Route.LoaderArgs) {
-  const grade = params.grade as JpGrade;
-  if (!(JP_GRADES as readonly string[]).includes(grade)) throw new Response('Not Found', { status: 404 });
-  const candidates = await getTestCandidates(grade);
-  if (candidates.length < TEST_MIN_PROBLEMS) throw new Response('Not Found', { status: 404 });
-  const problems = await getProblemsByIds(pickTest(candidates).map(problem => problem.id));
-  return data({ grade, problems: problems.map(problem => ({ ...problem, kind: findUnit(problem.unit)?.kind })) }, { headers: noStore });
+  const test = findTest(params.test);
+  if (!test || (test.kind === 'kentei' && !(KENTEI_LOCALES as readonly string[]).includes(params.locale))) throw new Response('Not Found', { status: 404 });
+  const candidates = await Promise.all(test.parts.map(part => getTestCandidates(part.grades, part.extra)));
+  if (test.parts.some((part, index) => candidates[index].length < part.size)) throw new Response('Not Found', { status: 404 });
+  const drawn = drawTest(test, part => candidates[test.parts.indexOf(part as never)]);
+  const problems = await getProblemsByIds(drawn.map(problem => problem.id));
+  return data({ id: test.id, kind: test.kind, key: test.key, size: testSize(test), problems: problems.map(problem => ({ ...problem, kind: findUnit(problem.unit)?.kind })) }, { headers: noStore });
 }
 
-export default function MathTest({ loaderData: { grade, problems } }: Route.ComponentProps) {
+export default function MathTest({ loaderData: { kind, key, problems } }: Route.ComponentProps) {
   const t = useTranslations('App.math') as unknown as DynamicT;
   const tt = useTranslations('App.math.test');
   const revalidator = useRevalidator();
@@ -29,12 +30,13 @@ export default function MathTest({ loaderData: { grade, problems } }: Route.Comp
     ...question, tier: problems[index].tier,
     source: { label: t(`units.${problems[index].unit}.items.${problems[index].item}.title`), href: `/math/${problems[index].unit}/${problems[index].item}` },
   }));
-  const title = tt('gradeTitle', { grade: t(`grades.${grade}`) });
+  const name = kind === 'grade' ? t(`grades.${key}`) : kind === 'kentei' ? t(`kentei.levels.${key}`).replace(/（.*）/, '') : tt(`summaries.${key}` as 'summaries.middle');
+  const title = kind === 'kentei' ? tt('kenteiTitle', { level: name }) : kind === 'grade' ? tt('gradeTitle', { grade: name }) : name;
   return <>
     <title>{`${title} | PAIBOT`}</title>
     <meta name="robots" content="noindex" />
     <MathSetQuiz key={problems.map(problem => problem.id).join()} title={title} setLabel={tt('setLabel', { count: problems.length })} questions={questions}
-      crumbs={[{ label: tt('title'), href: '/math/test' }, { label: t(`grades.${grade}`) }]}
+      crumbs={[{ label: tt('title'), href: '/math/test' }, { label: name }]}
       onRetry={() => revalidator.revalidate()} retryLabel={tt('retry')} />
   </>;
 }

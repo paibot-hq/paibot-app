@@ -2064,6 +2064,7 @@
         "valueWithUnit": "{value} {unit}"
       },
       "factorization": {
+        "prompt": "Factor the expression.",
         "explanationTemplate": "The two integers that multiply to {b} and add to {a} are {p} and {q}."
       },
       "signed": {
@@ -3944,22 +3945,33 @@
         "explanationPrefix": "By the Pythagorean theorem,",
         "figureDescription": "Right triangle ABC. Angle {rightAngle} is a right angle. {first} is {firstLength} cm, {second} is {secondLength} cm, and {unknown} is x."
       },
+      "modes": {
+        "label": "Ways to use Math",
+        "practice": "Practice",
+        "test": "Tests"
+      },
       "test": {
-        "title": "Tests by school year",
-        "intro": "Choose a school year for ten problems from its learning items, from basic to advanced, easiest first. Each test draws new problems.",
+        "title": "Tests",
+        "intro": "Choose a range for problems drawn from it, new ones each time; from the result, go and practise the items you missed.",
+        "byGrade": "By school year",
+        "byKentei": "By Suken level",
+        "summary": "Several years",
+        "summaries": {
+          "elementary": "Elementary school review",
+          "middle": "Middle school review",
+          "high1": "Math I & A review",
+          "high2": "Math II, B & C review"
+        },
         "gradeTitle": "{grade} test",
-        "itemCount": "from {count} items",
+        "kenteiTitle": "Suken {level} range test",
+        "count": "{count} problems",
         "setLabel": "{count} problems, easiest first",
-        "retry": "Try other problems",
-        "entry": "Tests by school year",
-        "entryNote": "Ten problems for a school year"
+        "retry": "Try other problems"
       },
       "unitList": {
         "filters": "Filters",
         "itemCount": "{count} items",
         "doneCount": "{done}/{total} done",
-        "views": "Views",
-        "byArea": "By area",
         "results": "Search and filter results",
         "playableOnly": "Playable sets only",
         "search": "Search units and sets",

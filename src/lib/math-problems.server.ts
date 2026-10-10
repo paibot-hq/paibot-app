@@ -1,4 +1,4 @@
-import { and, asc, count, desc, eq, inArray } from 'drizzle-orm';
+import { and, asc, count, desc, eq, inArray, or } from 'drizzle-orm';
 import { getDb } from '../db/client.server';
 import { mathProblems } from '../db/schema';
 
@@ -46,10 +46,12 @@ export async function getWorkedExample(unit: string, item: string): Promise<{ id
     ?? null;
 }
 
-// A school year's published problems, without their payloads, to draw a test from (see lib/math-test.ts).
-export async function getTestCandidates(grade: string): Promise<{ id: string; unit: string; item: string; tier: number }[]> {
+// The published problems of some school years, and of some items named as "unit/item" whatever their year, without their payloads, to
+// draw a test from (see lib/math-test.ts).
+export async function getTestCandidates(grades: readonly string[], extra: readonly string[] = []): Promise<{ id: string; unit: string; item: string; tier: number }[]> {
   const t = mathProblems;
-  return getDb().select({ id: t.id, unit: t.unit, item: t.item, tier: t.tier }).from(t).where(and(eq(t.grade, grade), eq(t.published, true)));
+  const items = extra.map(entry => entry.split('/')).map(([unit, item]) => and(eq(t.unit, unit), eq(t.item, item)));
+  return getDb().select({ id: t.id, unit: t.unit, item: t.item, tier: t.tier }).from(t).where(and(eq(t.published, true), or(inArray(t.grade, [...grades]), ...items)));
 }
 
 // The drawn problems with their payloads, in the order given.

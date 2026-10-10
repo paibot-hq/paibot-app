@@ -60,26 +60,8 @@
 .unitName { font-weight: 600; }
 .unitMeta { margin-left: auto; color: var(--muted); font-size: .8rem; white-space: nowrap; }
 
-/* The views: one per school stage, and every unit by area. A segmented row that fits a phone. */
-.views { width: min(100%, 720px); margin: .8rem auto 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); overflow: hidden; }
-.view { border-radius: 0; font: inherit; font-size: .88rem; padding: .6rem .2rem; border: 0; background: transparent; color: var(--text); cursor: pointer; white-space: nowrap; }
-.view + .view { border-left: 1px solid var(--line); }
-.view[aria-pressed="true"] { background: var(--accent); color: #fff; font-weight: 600; }
-.view:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
-.stagePanel { width: min(100%, 720px); margin: 0 auto; }
-.stagePanel[hidden] { display: none; }
-.stageDomain { margin: 1.2rem 0 0; font-size: .85rem; font-weight: 600; color: var(--muted); }
 .resultsHeading { width: min(100%, 720px); margin: 1.2rem auto 0; font-size: .85rem; font-weight: 600; color: var(--muted); }
 /* A unit or an area whose practice with problems is all finished is green. */
 .unitLink[data-done], .domainButton[data-done] { background: color-mix(in srgb, var(--success) 12%, var(--surface)); }
 .unitLink[data-done] .unitName::after, .domainButton[data-done] .domainName::after { content: " ✓"; color: var(--success); }
 .domainButton[data-done] { border-color: var(--success); }
-/* Back to the set last opened, and to the tests: side by side, small. */
-.shortcuts { width: min(100%, 720px); margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(0, 1fr)); gap: .5rem; }
-.resume, .testEntry { display: grid; gap: .05rem; min-width: 0; padding: .6rem .9rem; border-radius: var(--radius); text-decoration: none; text-align: left; }
-.resume { background: var(--text); color: var(--bg); }
-.testEntry { border: 1px solid var(--accent); background: var(--surface); color: var(--accent); }
-.resume:hover, .testEntry:hover { opacity: .9; }
-.resume:focus-visible, .testEntry:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
-.shortcutLabel { font-size: .72rem; opacity: .8; }
-.shortcutName { font-weight: 700; font-size: .95rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
