@@ -7,7 +7,7 @@ export default function Page() {
   const locale = useLocale() as Locale;
   const document = commerce[locale];
   // Not PublicHead: this page is noindex (workers/app.ts, root.tsx), so it has no canonical or language alternates.
-  return <><title>{`${document.title} | PAIBOT`}</title><meta name="description" content={document.description} />
+  return <><title>{`${document.title} | PAIBOT.app`}</title><meta name="description" content={document.description} />
     <CommercePage document={document} />
   </>;
 }

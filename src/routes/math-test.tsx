@@ -34,7 +34,7 @@ export default function MathTest({ loaderData: { id, kind, key, problems } }: Ro
   const name = kind === 'grade' ? t(`grades.${key}`) : kind === 'kentei' ? t(`kentei.levels.${key}`).replace(/（.*）/, '') : tt(`summaries.${key}` as 'summaries.middle');
   const title = kind === 'kentei' ? tt('kenteiTitle', { level: name }) : kind === 'grade' ? tt('gradeTitle', { grade: name }) : name;
   return <>
-    <title>{`${title} | PAIBOT`}</title>
+    <title>{`${title} | PAIBOT.app`}</title>
     <meta name="robots" content="noindex" />
     <MathSetQuiz key={problems.map(problem => problem.id).join()} title={title} setLabel={tt('setLabel', { count: problems.length })} questions={questions} sharePath={`/math/test/${id}`} shareText={(correct, total) => tq('shareText', { title, correct, total })}
       crumbs={[{ label: tt('title'), href: '/math/test' }, { label: name }]}

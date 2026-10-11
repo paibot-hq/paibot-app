@@ -4,5 +4,5 @@ import { useLocale, useTranslations } from 'use-intl';
 export default function Page() {
   const t = useTranslations('App');
   const locale = useLocale();
-  return <><PublicHead locale={locale} path="/arith" title={`${t('arith.title')} | PAIBOT`} description={t('arith.description')} /><ArithmeticPractice /></>;
+  return <><PublicHead locale={locale} path="/arith" title={`${t('arith.title')} | PAIBOT.app`} description={t('arith.description')} /><ArithmeticPractice /></>;
 }

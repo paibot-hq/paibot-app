@@ -5,5 +5,5 @@ import { useLocale, useTranslations } from 'use-intl';
 export default function Page() {
   const t = useTranslations('App');
   const locale = useLocale();
-  return <><PublicHead locale={locale} path="/split" title={`${t('split.title')} | PAIBOT`} description={t('split.description')} /><SplitCalculator /></>;
+  return <><PublicHead locale={locale} path="/split" title={`${t('split.title')} | PAIBOT.app`} description={t('split.description')} /><SplitCalculator /></>;
 }

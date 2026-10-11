@@ -74,6 +74,6 @@ export default function App({ loaderData }: Route.ComponentProps) {
 }
 export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
   const missing = isRouteErrorResponse(error) && error.status === 404;
-  return <main className="section"><title>{`${missing ? '404' : 'Error'} | PAIBOT`}</title><h1>{missing ? '404' : 'Error'}</h1>
-    <p>{missing ? 'Page not found' : 'The page could not be loaded.'}</p><a href="/ja">PAIBOT</a></main>;
+  return <main className="section"><title>{`${missing ? '404' : 'Error'} | PAIBOT.app`}</title><h1>{missing ? '404' : 'Error'}</h1>
+    <p>{missing ? 'Page not found' : 'The page could not be loaded.'}</p><a href="/ja">PAIBOT.app</a></main>;
 }

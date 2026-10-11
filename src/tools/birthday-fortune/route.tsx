@@ -21,5 +21,5 @@ export default function Page({ loaderData }: Route.ComponentProps) {
   const t = useTranslations('App');
   const locale = useLocale();
   // Rebuilt on sign-in or sign-out, so that the registered date is picked up.
-  return <><PublicHead locale={locale} path="/birthday-fortune" title={`${t('birthdayFortune.title')} | PAIBOT`} description={t('birthdayFortune.description')} /><BirthdayFortune key={loaderData.userId ?? 'guest'} signedIn={Boolean(loaderData.userId)} profileBirth={loaderData.birthDate} /></>;
+  return <><PublicHead locale={locale} path="/birthday-fortune" title={`${t('birthdayFortune.title')} | PAIBOT.app`} description={t('birthdayFortune.description')} /><BirthdayFortune key={loaderData.userId ?? 'guest'} signedIn={Boolean(loaderData.userId)} profileBirth={loaderData.birthDate} /></>;
 }

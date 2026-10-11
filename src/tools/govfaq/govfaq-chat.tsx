@@ -57,7 +57,7 @@ function Sources({ items, categories }: { items: Item[]; categories: string[] | 
   );
 }
 
-// Who is speaking, beside the message: the FAQ bot is PAIBOT's own icon; you are the signed-in user's picture, or a person drawn in lines when no one is
+// Who is speaking, beside the message: the FAQ bot is PAIBOT.app's own icon; you are the signed-in user's picture, or a person drawn in lines when no one is
 // signed in (or the picture cannot be had).
 function Avatar({ bot }: { bot: boolean }) {
   const { isSignedIn, user } = useUser();

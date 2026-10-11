@@ -69,7 +69,7 @@ export default function MathPlacement({ loaderData: { pools, problems } }: Route
   const crumbs = [{ label: tt('title'), href: '/math/test' }, { label: title }];
   if (!run) {
     return <>
-      <title>{`${title} | PAIBOT`}</title>
+      <title>{`${title} | PAIBOT.app`}</title>
       <meta name="robots" content="noindex" />
       <ToolLayout title={title} centerTitle compact aboveTitle={<MathBreadcrumb crumbs={crumbs} />}>
         <p className={styles.intro}>{tp('intro', { count: PLACEMENT_SIZE })}</p>
@@ -98,7 +98,7 @@ export default function MathPlacement({ loaderData: { pools, problems } }: Route
     </div>
   </div>;
   return <>
-    <title>{`${title} | PAIBOT`}</title>
+    <title>{`${title} | PAIBOT.app`}</title>
     <meta name="robots" content="noindex" />
     <MathSetQuiz key={pools.flat().join()} title={title} setLabel={tp('setLabel', { count: PLACEMENT_SIZE })} questions={questions} total={PLACEMENT_SIZE} sharePath="/math/test/placement"
       shareText={(correct, total) => tp('shareText', { level: outcome ? (outcome.top ? tp('resultTop', { level: levelName(outcome.level) }) : tp('resultLevel', { level: levelName(outcome.level) })) : tp('resultBelow'), correct, total })}

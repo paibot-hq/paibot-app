@@ -17,7 +17,7 @@ test('related tools: the same kind first, never itself, never private or coming 
 });
 
 test('structured data is a WebApplication with the tool facts and a category type', () => {
-  const data = toolStructuredData({ name: 'JSON', description: 'd', url: 'https://paibot.app/ja/json', locale: 'ja', category: 'dev', siteName: 'PAIBOT', siteUrl: 'https://paibot.app/ja' });
+  const data = toolStructuredData({ name: 'JSON', description: 'd', url: 'https://paibot.app/ja/json', locale: 'ja', category: 'dev', siteName: 'PAIBOT.app', siteUrl: 'https://paibot.app/ja' });
   assert.equal(data['@type'], 'WebApplication');
   assert.equal(data.applicationCategory, 'DeveloperApplication');
   assert.equal(data.url, 'https://paibot.app/ja/json');

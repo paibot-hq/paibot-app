@@ -198,8 +198,8 @@
     "signIn": "Sign in",
     "signUp": "Sign up",
     "backHome": "Back to home",
-    "title": "PAIBOT App",
-    "description": "Explore PAIBOT apps and cloud utilities. We are building tools for operations, organizing information, and automation.",
+    "title": "PAIBOT.app",
+    "description": "Explore PAIBOT.app apps and cloud utilities. We are building tools for operations, organizing information, and automation.",
     "navSites": "Sites",
     "site": { "app": "App", "learn": "Learn", "tools": "Tools", "doc": "Doc" },
     "navApps": "Apps",
@@ -229,7 +229,7 @@
       "daily": "Everyday"
     },
     "learn": {
-      "title": "PAIBOT Learn | Math drills by multiple choice",
+      "title": "PAIBOT.app Learn | Math drills by multiple choice",
       "description": "Build up from the basics with four-choice drills, from elementary school to university. Math is open; English and IT are coming.",
       "heading": "Learn",
       "lead": "Four choices, built up from the basics.",
@@ -266,7 +266,7 @@
       }
     },
     "hub": {
-      "title": "PAIBOT | Apps, Learn and Docs",
+      "title": "PAIBOT.app | Apps, Learn and Docs",
       "description": "PAIBOT LLC's small tools, four-choice drills, and technical write-ups.",
       "lead": "Small tools, learning, and things to read.",
       "sites": "Sites",
@@ -294,12 +294,12 @@
       },
       "doc": {
         "title": "Doc",
-        "text": "Technical notes and explainers on how PAIBOT is made and why."
+        "text": "Technical notes and explainers on how PAIBOT.app is made and why."
       }
     },
     "doc": {
-      "title": "PAIBOT Doc | Technical notes and explainers",
-      "description": "Technical notes and explainers on how PAIBOT is made and why.",
+      "title": "PAIBOT.app Doc | Technical notes and explainers",
+      "description": "Technical notes and explainers on how PAIBOT.app is made and why.",
       "heading": "Doc",
       "lead": "How it is made, and why.",
       "topicsHeading": "Planned",
@@ -323,7 +323,7 @@
       }
     },
       "toolsSite": {
-      "title": "PAIBOT Tools | Tools for developers",
+      "title": "PAIBOT.app Tools | Tools for developers",
       "description": "Free tools for developers: JSON formatter, Base64, URL encoding, IP lookup, domain lookup, CIDR calculator and site check.",
       "heading": "Tools",
       "lead": "Tools for developers.",
@@ -438,7 +438,7 @@
       "placeholder": "https://example.com",
       "submit": "Check",
       "loading": "Checking…",
-      "hint": "The check runs from PAIBOT's servers (Cloudflare), so some sites may block it as a bot.",
+      "hint": "The check runs from PAIBOT.app's servers (Cloudflare), so some sites may block it as a bot.",
       "ms": "{ms} ms",
       "none": "None",
       "verdict": {
@@ -474,8 +474,8 @@
     },
     "supporter": {
       "title": "Supporter plan",
-      "description": "A monthly plan that supports the development of PAIBOT. Basic features are free.",
-      "lead": "Support the development of PAIBOT. Basic features are free. Supporters receive benefits such as early access to features, higher usage limits, and exclusive features.",
+      "description": "A monthly plan that supports the development of PAIBOT.app. Basic features are free.",
+      "lead": "Support the development of PAIBOT.app. Basic features are free. Supporters receive benefits such as early access to features, higher usage limits, and exclusive features.",
       "planName": "Supporter",
       "price": "¥{price} per month (tax included)",
       "perkEarlyFeatures": "Early access to features",
@@ -4387,12 +4387,12 @@
     },
     "about": {
       "eyebrow": "About",
-      "title": "About PAIBOT",
-      "body": "PAIBOT is a collection of browser-based apps and tools for everyday tasks and learning.",
+      "title": "About PAIBOT.app",
+      "body": "PAIBOT.app is a collection of browser-based apps and tools for everyday tasks and learning.",
       "toolsTitle": "For everyday tasks and regular practice",
       "toolsBody": "Count characters, convert data, use a calendar or stopwatch, or practice arithmetic and mathematics. Browse the app list to find a tool for what you want to do.",
-      "operatorTitle": "Who runs PAIBOT",
-      "operatorBody": "PAIBOT is developed and operated by {seller}. For the conditions of use and how we handle personal information, see the Terms of Service and Privacy Policy linked at the bottom of this page.",
+      "operatorTitle": "Who runs PAIBOT.app",
+      "operatorBody": "PAIBOT.app is developed and operated by {seller}. For the conditions of use and how we handle personal information, see the Terms of Service and Privacy Policy linked at the bottom of this page.",
       "browseApps": "Browse apps"
     },
     "languageSelect": "Select language",

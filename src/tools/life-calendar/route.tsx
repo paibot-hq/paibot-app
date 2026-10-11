@@ -75,7 +75,7 @@ function Calendar({ settings }: { settings: Route.ComponentProps['loaderData'] }
             </div>)}
           </div>);
   }
-  return <><PublicHead locale={locale} path="/life-calendar" title={`${t('title')} | PAIBOT`} description={t('description')} />
+  return <><PublicHead locale={locale} path="/life-calendar" title={`${t('title')} | PAIBOT.app`} description={t('description')} />
     <ToolLayout title={t('title')}>
       <div className={styles.calendar}>
         <p className={styles.intro}>{t('intro')}</p>

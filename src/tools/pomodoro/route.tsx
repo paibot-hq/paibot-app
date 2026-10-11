@@ -5,5 +5,5 @@ import { useLocale, useTranslations } from 'use-intl';
 export default function Page() {
   const t = useTranslations('App');
   const locale = useLocale();
-  return <><PublicHead locale={locale} path="/pomodoro" title={`${t('pomodoro.title')} | PAIBOT`} description={t('pomodoro.description')} /><PomodoroTimer /></>;
+  return <><PublicHead locale={locale} path="/pomodoro" title={`${t('pomodoro.title')} | PAIBOT.app`} description={t('pomodoro.description')} /><PomodoroTimer /></>;
 }

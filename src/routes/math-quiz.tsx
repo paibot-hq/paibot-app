@@ -42,7 +42,7 @@ export default function MathQuiz({ loaderData: { unitId, itemId, setId, kind, pu
   // With one set the item's name is enough; otherwise say which practice set.
   const setLabel = several ? `${title} ${tq('practice', { number: setId })}` : title;
   const questions = useMathQuestions(kind, problems).map((question, index) => ({ ...question, tier: problems[index].tier }));
-  const head = `${t(`units.${unitId}.title`)} - ${setLabel} | PAIBOT`;
+  const head = `${t(`units.${unitId}.title`)} - ${setLabel} | PAIBOT.app`;
   const path = `/math/${unitId}/${itemId}/${setId}`;
   const nextTitle = next && t(`units.${unitId}.items.${next.item}.title`);
   return <>

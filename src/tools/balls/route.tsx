@@ -5,5 +5,5 @@ import { useLocale, useTranslations } from 'use-intl';
 export default function Page() {
   const t = useTranslations('App');
   const locale = useLocale();
-  return <><PublicHead locale={locale} path="/balls" title={`${t('balls.title')} | PAIBOT`} description={t('balls.description')} /><Balls /></>;
+  return <><PublicHead locale={locale} path="/balls" title={`${t('balls.title')} | PAIBOT.app`} description={t('balls.description')} /><Balls /></>;
 }

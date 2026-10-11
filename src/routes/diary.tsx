@@ -107,7 +107,7 @@ export default function Diary({ loaderData }: Route.ComponentProps) {
   const locale = useLocale();
   const t = useTranslations('App.diary');
   const { signedIn, entries, hasMore, page, failed, postedToday } = loaderData;
-  return <><title>{`${t('title')} | PAIBOT`}</title><ToolLayout title={t('title')}>
+  return <><title>{`${t('title')} | PAIBOT.app`}</title><ToolLayout title={t('title')}>
     <div className={styles.diary}>
       <p className={styles.muted}>{t('private')}</p>
       {!signedIn ? <div className={styles.empty}><p>{t('signInPrompt')}</p><SignInButton mode="modal" forceRedirectUrl={`/${locale}/diary`} signUpForceRedirectUrl={`/${locale}/diary`}><button className={styles.primary}>{t('signIn')}</button></SignInButton></div> :

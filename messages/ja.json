@@ -198,8 +198,8 @@
     "signIn": "ログイン",
     "signUp": "新規登録",
     "backHome": "トップへ戻る",
-    "title": "PAIBOT App",
-    "description": "PAIBOTのアプリとクラウドユーティリティをご紹介。運用、情報整理、自動化のためのツールを開発しています。",
+    "title": "PAIBOT.app",
+    "description": "PAIBOT.appのアプリとクラウドユーティリティをご紹介。運用、情報整理、自動化のためのツールを開発しています。",
     "navSites": "サイト",
     "site": { "app": "App", "learn": "Learn", "tools": "Tools", "doc": "Doc" },
     "navApps": "アプリ",
@@ -229,7 +229,7 @@
       "daily": "日常"
     },
     "learn": {
-      "title": "PAIBOT Learn | 4択で学ぶ数学ドリル",
+      "title": "PAIBOT.app Learn | 4択で学ぶ数学ドリル",
       "description": "小学校から大学まで、4択で基礎から積み上げて学べる学習サイト。数学ドリルが公開中で、英語・ITは準備中です。",
       "heading": "Learn",
       "lead": "4択で、基礎から積み上げる。",
@@ -266,7 +266,7 @@
       }
     },
     "hub": {
-      "title": "PAIBOT | アプリ・学習・ドキュメント",
+      "title": "PAIBOT.app | アプリ・学習・ドキュメント",
       "description": "PAIBOT LLC の小さなツールと、4択で学ぶドリルと、技術の解説記事。",
       "lead": "小さな道具と、学びと、読みもの。",
       "sites": "サイト",
@@ -298,8 +298,8 @@
       }
     },
     "doc": {
-      "title": "PAIBOT Doc | 技術メモと解説記事",
-      "description": "PAIBOT の作りかたや考えかたを書く、技術メモと解説記事。",
+      "title": "PAIBOT.app Doc | 技術メモと解説記事",
+      "description": "PAIBOT.app の作りかたや考えかたを書く、技術メモと解説記事。",
       "heading": "Doc",
       "lead": "作りかたと、考えかたを書いていく。",
       "topicsHeading": "書く予定のこと",
@@ -323,7 +323,7 @@
       }
     },
       "toolsSite": {
-      "title": "PAIBOT Tools | 開発者のためのツール",
+      "title": "PAIBOT.app Tools | 開発者のためのツール",
       "description": "JSON整形、Base64、URLエンコード、IP確認、ドメイン調査、CIDR計算、サイト稼働チェックなど、開発者向けの無料ツール集です。",
       "heading": "Tools",
       "lead": "開発者のための、道具。",
@@ -438,7 +438,7 @@
       "placeholder": "https://example.com",
       "submit": "確認する",
       "loading": "確認しています…",
-      "hint": "PAIBOTのサーバー(Cloudflare)からアクセスして確かめます。ボット対策で拒否されるサイトもあります。",
+      "hint": "PAIBOT.appのサーバー(Cloudflare)からアクセスして確かめます。ボット対策で拒否されるサイトもあります。",
       "ms": "{ms} ms",
       "none": "なし",
       "verdict": {
@@ -474,8 +474,8 @@
     },
     "supporter": {
       "title": "サポータープラン",
-      "description": "PAIBOT の開発を支援する月額プランです。基本機能は無料で利用できます。",
-      "lead": "PAIBOT の開発を支援するプランです。基本機能は無料。サポーターには先行機能、上限緩和、限定機能などを提供します。",
+      "description": "PAIBOT.app の開発を支援する月額プランです。基本機能は無料で利用できます。",
+      "lead": "PAIBOT.app の開発を支援するプランです。基本機能は無料。サポーターには先行機能、上限緩和、限定機能などを提供します。",
       "planName": "Supporter",
       "price": "月額{price}円（税込）",
       "perkEarlyFeatures": "先行機能の利用",
@@ -4387,12 +4387,12 @@
     },
     "about": {
       "eyebrow": "概要",
-      "title": "PAIBOT について",
-      "body": "PAIBOT は、日々の作業や学習に使える、ブラウザで動くアプリとツールのサイトです。",
+      "title": "PAIBOT.app について",
+      "body": "PAIBOT.app は、日々の作業や学習に使える、ブラウザで動くアプリとツールのサイトです。",
       "toolsTitle": "ちょっとした作業から、毎日の学習まで",
       "toolsBody": "文字数のカウントやデータの変換、カレンダーやストップウォッチ、算数・数学の問題集などを公開しています。用途に合わせて、アプリ一覧から選んで使えます。",
       "operatorTitle": "運営について",
-      "operatorBody": "PAIBOT は、{seller}が開発・運営しています。サービスの利用条件や個人情報の取り扱いについては、ページ下部の利用規約・プライバシーポリシーをご確認ください。",
+      "operatorBody": "PAIBOT.app は、{seller}が開発・運営しています。サービスの利用条件や個人情報の取り扱いについては、ページ下部の利用規約・プライバシーポリシーをご確認ください。",
       "browseApps": "アプリ一覧を見る"
     },
     "languageSelect": "言語を選択",

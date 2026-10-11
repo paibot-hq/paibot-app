@@ -31,7 +31,7 @@ export default function MathTests({ loaderData: { tests } }: Route.ComponentProp
   const summaries = offered.filter(test => test.kind === 'summary');
   const chip = (test: TestDef, label: string) => <li key={test.id}><Link href={`/math/test/${test.id}`} className={styles.chip}>{label}</Link></li>;
   return <>
-    <title>{`${tt('title')} | PAIBOT`}</title>
+    <title>{`${tt('title')} | PAIBOT.app`}</title>
     <meta name="robots" content="noindex" />
     <ToolLayout title={t('title')} centerTitle compact>
       <MathHomeHeader mode="test" />
