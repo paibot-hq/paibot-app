@@ -3064,7 +3064,7 @@
             "vertex": {
               "title": "Vertex",
               "sets": {
-                "1": "Reading the vertex from a graph"
+                "1": "Finding the vertex from the equation"
               },
               "summary": "Learn how to find the vertex of a quadratic function.",
               "description": "You will learn how to determine the vertex and axis of symmetry of a parabola by completing the square. This is crucial for sketching graphs and finding the maximum or minimum values of quadratic functions. Prior knowledge of algebraic expansion and factoring is recommended for smooth learning."
@@ -4115,6 +4115,7 @@
         "graphParabola": "Choose the equation of the parabola in the graph.",
         "graphTrig": "Choose the equation of the curve in the graph.",
         "graphVertex": "Choose the vertex of the parabola in the graph.",
+        "vertexOfQuadratic": "Find the vertex of the graph of this quadratic function.",
         "graphCircle": "Choose the equation of the circle in the graph.",
         "graphRegion": "Choose the inequality for the shaded region (a solid boundary is included, a dashed one is not).",
         "gcd": "Find the greatest common divisor.",

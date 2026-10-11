@@ -574,7 +574,10 @@ function questionTex(p: Pick<FormulaPayload, 'kind' | 'question' | 'bounds'> & {
       return `\\sum_{k=1}^{n} ${body} = ${expressionTex(f)}`;
     }
     case 'region': return inequalityTex(p.question);
-    case 'graph': case 'figure': case 'statement': return '';
+    // A vertex is found from the equation (completing the square), so the equation is the question and the graph is only in the
+    // explanation; the other graph problems are read from the graph.
+    case 'graph': return p.which === 'vertex' ? `y = ${expressionTex(p.question)}` : '';
+    case 'figure': case 'statement': return '';
     case 'inference': {
       const v = list(splitTop(p.question, ';')[0]);
       if (p.which === 'mean-interval') return `\\bar{x} = ${v[0]},\\ \\sigma = ${v[1]},\\ n = ${v[2]}`;
@@ -643,7 +646,7 @@ export function formulaInstruction(p: FormulaPayload): { key: string; tex: Recor
     case 'induction': return { key: `induction${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
     case 'inference': return { key: p.which!.replace(/-(\w)/g, (_, c: string) => c.toUpperCase()), tex: p.given ? { z: expressionTex(p.given.split('=')[1]) } : {} };
     case 'region': return { key: p.which === 'in' ? 'regionIn' : 'regionOut', tex: {} };
-    case 'graph': return { key: `graph${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
+    case 'graph': return p.which === 'vertex' ? { key: 'vertexOfQuadratic', tex: {} } : { key: `graph${p.which![0].toUpperCase()}${p.which!.slice(1)}`, tex: {} };
     case 'geometry': return { key: p.which!.replace(/-(\w)/g, (_, c: string) => c.toUpperCase()), tex: {} };
     case 'term': case 'series': {
       const kind = p.kind === 'term' ? 'Term' : 'Sum';
