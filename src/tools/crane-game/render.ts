@@ -1,4 +1,4 @@
-import { CHUTE_RIGHT, CLAW_TIP, FLOOR_Y, HEIGHT, kindOf, RAIL_Y, WALL_TOP, WIDTH, type Scene } from './engine';
+import { CHUTE_RIGHT, CLAW_TIP, clawSegments, FLOOR_Y, HEIGHT, kindOf, RAIL_Y, WALL_TOP, WIDTH, type Scene } from './engine';
 
 // Draws the machine in the world's units (360 x 480); the page scales the context to the canvas.
 export function drawFrame(context: CanvasRenderingContext2D, scene: Scene, dark: boolean) {
@@ -39,9 +39,8 @@ export function drawFrame(context: CanvasRenderingContext2D, scene: Scene, dark:
     c.restore();
   }
 
-  // The prizes (the held one last, in front).
-  const prizes = [...scene.prizes].sort((a, b) => Number(a.held) - Number(b.held));
-  for (const prize of prizes) drawPrize(c, prize.kind, prize.x, prize.y, prize.r);
+  // The prizes, turned as they have rolled.
+  for (const prize of scene.prizes) drawPrize(c, prize.kind, prize.x, prize.y, prize.r, prize.angle);
 
   // The rail, the carriage and the cable.
   const railY = RAIL_Y - 26;
@@ -52,7 +51,7 @@ export function drawFrame(context: CanvasRenderingContext2D, scene: Scene, dark:
   c.strokeStyle = dark ? '#c9d2ea' : '#4a5672';
   c.lineWidth = 2;
   c.beginPath(); c.moveTo(scene.claw.x, railY + 5); c.lineTo(scene.claw.x, scene.claw.y); c.stroke();
-  drawClaw(c, scene.claw.x, scene.claw.y, scene.claw.open, dark);
+  drawClaw(c, scene, dark);
 
   // The glass in front: a faint shine.
   const shine = c.createLinearGradient(0, 0, WIDTH, HEIGHT);
@@ -62,27 +61,21 @@ export function drawFrame(context: CanvasRenderingContext2D, scene: Scene, dark:
   c.fillRect(0, 0, WIDTH, HEIGHT);
 }
 
-// The claw: a hub and two arms that hang down and swing in as it closes, the tips CLAW_TIP below the hub.
-function drawClaw(c: CanvasRenderingContext2D, x: number, y: number, open: number, dark: boolean) {
-  const spread = 6 + 18 * open;
+// The claw: drawn from the very pieces the physics uses (engine.ts's clawSegments), so that what is seen is what touches.
+function drawClaw(c: CanvasRenderingContext2D, scene: Scene, dark: boolean) {
+  const [hub, ...arms] = clawSegments(scene.claw);
   c.strokeStyle = dark ? '#f1d27a' : '#c99a2e';
-  c.lineWidth = 4;
   c.lineCap = 'round';
-  c.lineJoin = 'round';
-  for (const side of [-1, 1]) {
-    c.beginPath();
-    c.moveTo(x + side * 6, y + 6);
-    c.lineTo(x + side * (spread + 6), y + CLAW_TIP * 0.55);
-    c.lineTo(x + side * spread, y + CLAW_TIP);
-    c.lineTo(x + side * (spread - 7), y + CLAW_TIP - 2);
-    c.stroke();
+  for (const piece of arms) {
+    c.lineWidth = piece.r * 2;
+    c.beginPath(); c.moveTo(piece.ax, piece.ay); c.lineTo(piece.bx, piece.by); c.stroke();
   }
   c.fillStyle = dark ? '#f1d27a' : '#d9a93a';
-  roundRect(c, x - 13, y - 4, 26, 13, 5); c.fill();
+  roundRect(c, hub.ax - hub.r, scene.claw.y - 4, hub.bx - hub.ax + hub.r * 2, hub.r * 2 + 4, 5); c.fill();
 }
 
 // A soft toy: a round body in its colour with a mark on it; rare ones shine.
-export function drawPrize(c: CanvasRenderingContext2D, kindId: string, x: number, y: number, r: number) {
+export function drawPrize(c: CanvasRenderingContext2D, kindId: string, x: number, y: number, r: number, angle = 0) {
   const kind = kindOf(kindId);
   if (kind.rare) {
     const glow = c.createRadialGradient(x, y, r * 0.6, x, y, r * 1.5);
@@ -99,11 +92,14 @@ export function drawPrize(c: CanvasRenderingContext2D, kindId: string, x: number
   c.strokeStyle = 'rgba(0,0,0,.18)';
   c.lineWidth = 1.5;
   c.stroke();
+  c.save();
+  c.translate(x, y); c.rotate(angle);
   c.fillStyle = '#fff';
   c.font = `700 ${Math.round(r * 1.05)}px system-ui, sans-serif`;
   c.textAlign = 'center';
   c.textBaseline = 'middle';
-  c.fillText(kind.glyph, x, y + r * 0.06);
+  c.fillText(kind.glyph, 0, r * 0.06);
+  c.restore();
 }
 
 function lighten(hex: string) {
