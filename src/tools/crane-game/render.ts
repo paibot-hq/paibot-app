@@ -1,4 +1,4 @@
-import { CHUTE_RIGHT, CLAW_TIP, clawSegments, FLOOR_Y, HEIGHT, kindOf, RAIL_Y, WALL_TOP, WIDTH, type Scene } from './engine';
+import { CHUTE_RIGHT, clawSegments, FLOOR_Y, HEIGHT, kindOf, RAIL_Y, WALL_TOP, WIDTH, type Scene } from './engine';
 
 // Draws the machine in the world's units (360 x 480); the page scales the context to the canvas.
 export function drawFrame(context: CanvasRenderingContext2D, scene: Scene, dark: boolean) {
@@ -28,16 +28,6 @@ export function drawFrame(context: CanvasRenderingContext2D, scene: Scene, dark:
   c.fillStyle = dark ? '#8a9bc4' : '#7d8db5';
   roundRect(c, CHUTE_RIGHT - 4, WALL_TOP - 4, 8, FLOOR_Y - WALL_TOP + 4, 4);
   c.fill();
-
-  // Where the claw would come down, while aiming.
-  if (scene.phase === 'moving' || scene.phase === 'aimed' || scene.phase === 'ready') {
-    c.save();
-    c.setLineDash([4, 6]);
-    c.strokeStyle = dark ? 'rgba(255,255,255,.25)' : 'rgba(40,60,110,.22)';
-    c.lineWidth = 1.5;
-    c.beginPath(); c.moveTo(scene.claw.x, scene.claw.y + CLAW_TIP); c.lineTo(scene.claw.x, FLOOR_Y); c.stroke();
-    c.restore();
-  }
 
   // The prizes, turned as they have rolled.
   for (const prize of scene.prizes) drawPrize(c, prize.kind, prize.x, prize.y, prize.r, prize.angle);
