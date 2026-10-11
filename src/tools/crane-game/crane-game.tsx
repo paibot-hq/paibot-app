@@ -58,6 +58,7 @@ export default function CraneGame() {
   const soundRef = useRef(true);
   const savedRef = useRef<Saved>({ collection: {}, sound: true });
   const shownRef = useRef('');
+  const machineRef = useRef<HTMLDivElement | null>(null);
   const [view, setView] = useState<View>({ phase: 'ready', playsLeft: PLAYS_PER_ROUND, won: [] });
   const [message, setMessage] = useState<Message>(null);
   const [collection, setCollection] = useState<Record<string, number>>({});
@@ -109,6 +110,16 @@ export default function CraneGame() {
     if (key !== shownRef.current) { shownRef.current = key; setView({ ...next, won: [...next.won] }); }
   }, []);
   const onPress = useCallback((starting: boolean) => { wake(); if (starting) setMessage(null); }, [wake]);
+  // The machine, counters to buttons, as large as the screen allows once the site's header is out of the way: on opening the page, if it
+  // does not fit below the header, the page is scrolled to it (unless the visitor has scrolled already).
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => {
+      const box = machineRef.current?.getBoundingClientRect();
+      if (!box || window.scrollY > 0 || box.bottom <= window.innerHeight) return;
+      window.scrollTo({ top: window.scrollY + (box.height <= window.innerHeight - 16 ? box.bottom - window.innerHeight + 8 : box.top - 8) });
+    });
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   function again() { setRound(round + 1); setMessage(null); }
   function toggleSound() {
@@ -129,9 +140,9 @@ export default function CraneGame() {
 
   return (
     <ToolLayout title={t('title')} compact>
-      <div className={styles.machine}>
+      <div className={styles.machine} ref={machineRef}>
         <dl className={styles.hud}>
-          <div><dt>{t('playsLeft')}</dt><dd data-crane="plays">{view.playsLeft} / {PLAYS_PER_ROUND}</dd></div>
+          <div><dt>{t('playsLeft')}</dt><dd data-crane="plays" data-left={view.playsLeft}>{t('playsCount', { count: view.playsLeft })}</dd></div>
           <div><dt>{t('thisRound')}</dt><dd data-crane="won">{view.won.length}</dd></div>
         </dl>
         <Machine2D {...machine} />

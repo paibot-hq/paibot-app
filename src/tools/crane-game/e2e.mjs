@@ -9,11 +9,14 @@ export default async function ({ page, main, go }) {
   await go('crane-game');
   const text = name => main.locator(`[data-crane="${name}"]`).innerText();
   const move = main.locator('[data-crane="move"]'), drop = main.locator('[data-crane="drop"]');
-  assert.equal(await text('plays'), '5 / 5');
+  assert.equal(await main.locator('[data-crane="plays"]').getAttribute('data-left'), '5');
   assert.equal(await text('owned'), '1 / 10');
   assert.match(await main.locator('li[data-owned]').innerText(), /Pi plush\s*×2/);
 
-  // Hold "move": the claw goes right while it is held; let go and it cannot move again, only drop.
+  // Hold "move": the claw goes right while it is held; let go and it cannot move again, only drop. (Opening the page scrolls the machine
+  // into view first.)
+  await page.clock.runFor(100);
+  await move.scrollIntoViewIfNeeded();
   const box = await move.boundingBox();
   await page.mouse.move(box.x + box.width / 2, box.y + box.height / 2);
   await page.mouse.down();
@@ -27,7 +30,7 @@ export default async function ({ page, main, go }) {
   assert.equal(await drop.isDisabled(), true, 'no buttons while the claw is on its way');
   await page.clock.runFor(15000);
   assert.match(await text('message'), /^(You won .+!|So close! It slipped…|Lifted it, but it slipped out…|Nothing caught… aim at the middle of a prize)$/);
-  assert.equal(await text('plays'), '4 / 5');
+  assert.equal(await main.locator('[data-crane="plays"]').getAttribute('data-left'), '4');
 
   // The keyboard: → held moves, ↓ drops.
   await main.locator('[data-crane="canvas"]').focus();
@@ -36,7 +39,7 @@ export default async function ({ page, main, go }) {
   await page.keyboard.up('ArrowRight');
   await page.keyboard.press('ArrowDown');
   await page.clock.runFor(15000);
-  assert.equal(await text('plays'), '3 / 5');
+  assert.equal(await main.locator('[data-crane="plays"]').getAttribute('data-left'), '3');
 
   // The rest of the round, then the result: how many were won, a new round, and sharing.
   for (let play = 0; play < 3; play++) {
@@ -51,6 +54,6 @@ export default async function ({ page, main, go }) {
   assert.match(x.searchParams.get('url'), /\/en\/crane-game$/);
   await main.locator('[data-crane="again"]').click();
   await page.clock.runFor(100);
-  assert.equal(await text('plays'), '5 / 5');
+  assert.equal(await main.locator('[data-crane="plays"]').getAttribute('data-left'), '5');
   console.log('PASS: crane-game: hold to move once, drop, the result of a play, the keyboard, five plays a round, the result shared, a new round, the collection kept');
 }

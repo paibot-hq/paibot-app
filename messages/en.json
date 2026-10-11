@@ -1653,6 +1653,7 @@
       "move": "Move",
       "drop": "Drop",
       "playsLeft": "Plays left",
+      "playsCount": "{count}",
       "thisRound": "Won this round",
       "newRound": "Play again (5 plays)",
       "won": "You won {prize}!",

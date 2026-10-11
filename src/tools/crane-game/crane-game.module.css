@@ -1,9 +1,9 @@
-/* As wide as fits the screen's height too, so that the machine and both buttons are seen at once (about 340px go to the site's header, the
-   counters, the message and the buttons). */
-.machine { width: max(240px, min(420px, 100%, calc((100svh - 340px) * .75))); margin: 0 auto; }
+/* As wide as fits the screen's height once the site's header is scrolled away (a press scrolls there): the counters, the message and the
+   buttons take about 180px; never narrower than a small phone's width allows. */
+.machine { width: max(min(300px, 100%), min(480px, 100%, calc((100svh - 180px) * .75))); margin: 0 auto; scroll-margin: 8px; }
 .intro { margin-top: .8rem; text-align: center; }
 .hud { display: grid; grid-template-columns: 1fr 1fr; gap: .5rem; margin: 0 0 .5rem; text-align: center; }
-.hud div { display: flex; justify-content: center; align-items: baseline; gap: .5rem; padding: .25rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.hud div { display: flex; justify-content: center; align-items: baseline; gap: .5rem; padding: .25rem; white-space: nowrap; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
 .hud dt { color: var(--muted); font-size: .72rem; }
 .hud dd { margin: 0; font-size: 1.15rem; font-weight: 700; font-variant-numeric: tabular-nums; }
 /* The machine's front: a thick frame around the glass. */
