@@ -102,6 +102,13 @@ try {
   assert.equal(await card.locator('.favorite-button').getAttribute('aria-pressed'), 'false', 'a post from another origin did not favorite');
   console.log('PASS: a favorite posted from another origin is refused');
 
+  // The list of the apps carries this visitor's favourites (routes/locale.tsx), in the page and in its data.
+  for (const path of ['/en', '/en.data']) {
+    const response = await page.request.get(`${base}${path}`);
+    assert.equal(response.headers()['cache-control'], 'private, no-store', `${path} is never shared`);
+  }
+  console.log('PASS: a page with the visitor\'s favourites is private, no-store');
+
   assert.deepEqual(errors, []);
   console.log('PASS: no uncaught browser errors');
 } finally {

@@ -31,6 +31,13 @@ export default {
     if (/^\/(ja|en|zh)\/(diary|clock|profile|life-calendar|math)(?:\.data|\/|$)/.test(url.pathname)) {
       secured.headers.set('Cache-Control', 'private, no-store');
     }
+    // Every page, and the data the client router fetches for it, carries who is signed in (src/root.tsx) and their
+    // favourites and theme (routes/locale.tsx), so none is kept by a shared cache or stored by the browser. Not a list of
+    // paths: a new page is covered without being named here. A response that gives its own Cache-Control keeps it.
+    const type = response.headers.get('Content-Type') ?? '';
+    if (!secured.headers.has('Cache-Control') && (type.startsWith('text/html') || url.pathname.endsWith('.data'))) {
+      secured.headers.set('Cache-Control', 'private, no-store');
+    }
     // Lets CI tell when a deploy has reached the edge (scripts/wait-for-deploy.mjs).
     secured.headers.set('X-App-Version', env.APP_VERSION);
     secured.headers.set('X-Content-Type-Options', 'nosniff');
