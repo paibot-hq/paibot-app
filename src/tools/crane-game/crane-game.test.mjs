@@ -143,7 +143,7 @@ test('every prize has its words in the three languages; two are rare', () => {
   for (const locale of ['ja', 'en', 'zh']) {
     const messages = JSON.parse(readFileSync(new URL(`../../../messages/${locale}.json`, import.meta.url), 'utf8')).App.craneGame;
     for (const kind of PRIZE_KINDS) assert.ok(messages.prizes[kind.id]?.trim(), `${locale} ${kind.id}`);
-    for (const key of ['title', 'description', 'about', 'keywords', 'intro', 'move', 'drop', 'playsLeft', 'thisRound', 'newRound', 'won', 'slipped', 'dropped', 'missed', 'roundOver', 'collection', 'shareText', 'canvasLabel', 'back', 'mode2d', 'mode3d', 'modeLabel', 'loading3d', 'intro3d', 'hint3d', 'canvasLabel3d', 'noWebgl']) assert.ok(messages[key]?.trim(), `${locale} ${key}`);
+    for (const key of ['title', 'description', 'about', 'keywords', 'intro', 'move', 'drop', 'playsLeft', 'thisRound', 'newRound', 'won', 'slipped', 'dropped', 'missed', 'roundOver', 'collection', 'shareText', 'canvasLabel']) assert.ok(messages[key]?.trim(), `${locale} ${key}`);
   }
 });
 

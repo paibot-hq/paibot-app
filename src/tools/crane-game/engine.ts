@@ -371,15 +371,3 @@ function physics(scene: Scene, h: number, clawMoved: { dx: number; dy: number } 
   // Rolling: a prize turns as it moves along (only for the drawing).
   for (const prize of scene.prizes) prize.angle += (prize.x - prize.px) / prize.r;
 }
-
-// ---------------------------------------------------------------- the 3D machine's grip
-
-// How much of the way back the 3D claw keeps hold of a prize caught `centred` (1 in the middle of the claw, 0 at the edge of its reach): the
-// way back runs from 0 at the bottom to 1 over the chute; 1.5 is all the way, and 0 means it cannot lift it. The side view no longer uses
-// this (its claw touches the prizes); the 3D machine still does.
-export function gripFor(centred: number, random: () => number) {
-  const grip = centred * 1.1 + random() * 0.5;
-  if (grip >= 1) return 1.5;
-  if (grip < 0.6) return 0;
-  return 0.1 + ((grip - 0.6) / 0.4) * 0.9;
-}

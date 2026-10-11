@@ -1,4 +1,4 @@
-import { lazy, Suspense, useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useLocale, useTranslations } from 'use-intl';
 import ShareButtons from '../../components/share-buttons';
 import ToolLayout from '../../components/tool-layout';
@@ -9,19 +9,15 @@ import Machine2D from './machine-2d';
 import { drawPrize } from './render';
 import styles from './crane-game.module.css';
 
-// The 3D machine and three.js are loaded only when the 3D view is chosen.
-const Machine3D = lazy(() => import('./machine-3d'));
-
-// The prizes ever won in this browser, by kind, the sound and the view chosen.
+// The prizes ever won in this browser, by kind, and whether the sound is on.
 const STORAGE = 'crane-game:v1';
-type Mode = '2d' | '3d';
-type Saved = { collection: Record<string, number>; sound: boolean; mode: Mode };
+type Saved = { collection: Record<string, number>; sound: boolean };
 function load(): Saved {
   try {
     const raw = JSON.parse(window.localStorage.getItem(STORAGE) ?? 'null');
     const collection = raw?.collection && typeof raw.collection === 'object' ? raw.collection : {};
-    return { collection, sound: raw?.sound !== false, mode: raw?.mode === '3d' ? '3d' : '2d' };
-  } catch { return { collection: {}, sound: true, mode: '2d' }; }
+    return { collection, sound: raw?.sound !== false };
+  } catch { return { collection: {}, sound: true }; }
 }
 function save(value: Saved) {
   try { window.localStorage.setItem(STORAGE, JSON.stringify(value)); } catch { /* private window or blocked storage */ }
@@ -45,7 +41,7 @@ function tone(audio: AudioContext, notes: [number, number][], type: OscillatorTy
 type View = { phase: string; playsLeft: number; won: string[] };
 type Message = { key: 'won' | 'slipped' | 'dropped' | 'missed'; prize?: string } | null;
 
-// What a machine (the side view or the 3D one) is given: the round to play (raised by "again"), and where to report what happened.
+// What the machine is given: the round to play (raised by "again"), and where to report what happened.
 export interface MachineProps {
   round: number;
   onEvents: (events: Event[]) => void;
@@ -60,13 +56,12 @@ export default function CraneGame() {
   const locale = useLocale();
   const audioRef = useRef<AudioContext | null>(null);
   const soundRef = useRef(true);
-  const savedRef = useRef<Saved>({ collection: {}, sound: true, mode: '2d' });
+  const savedRef = useRef<Saved>({ collection: {}, sound: true });
   const shownRef = useRef('');
   const [view, setView] = useState<View>({ phase: 'ready', playsLeft: PLAYS_PER_ROUND, won: [] });
   const [message, setMessage] = useState<Message>(null);
   const [collection, setCollection] = useState<Record<string, number>>({});
   const [sound, setSound] = useState(true);
-  const [mode, setMode] = useState<Mode>('2d');
   const [round, setRound] = useState(0);
   soundRef.current = sound;
 
@@ -75,7 +70,6 @@ export default function CraneGame() {
     savedRef.current = saved;
     setCollection(saved.collection);
     setSound(saved.sound);
-    setMode(saved.mode);
   }, []);
   useEffect(() => () => { void audioRef.current?.close(); }, []);
 
@@ -117,13 +111,6 @@ export default function CraneGame() {
   const onPress = useCallback((starting: boolean) => { wake(); if (starting) setMessage(null); }, [wake]);
 
   function again() { setRound(round + 1); setMessage(null); }
-  function choose(next: Mode) {
-    if (next === mode) return;
-    setMode(next); setMessage(null); setRound(0); shownRef.current = '';
-    setView({ phase: 'ready', playsLeft: PLAYS_PER_ROUND, won: [] });
-    savedRef.current = { ...savedRef.current, mode: next };
-    save(savedRef.current);
-  }
   function toggleSound() {
     const next = !sound;
     setSound(next);
@@ -143,17 +130,11 @@ export default function CraneGame() {
   return (
     <ToolLayout title={t('title')} compact>
       <div className={styles.machine}>
-        <div className={styles.top}>
-          <div className={styles.modes} role="group" aria-label={t('modeLabel')}>
-            {(['2d', '3d'] as const).map(m => <button key={m} type="button" aria-pressed={mode === m} onClick={() => choose(m)} data-crane-mode={m}>{m === '2d' ? t('mode2d') : t('mode3d')}</button>)}
-          </div>
-          <dl className={styles.hud}>
-            <div><dt>{t('playsLeft')}</dt><dd data-crane="plays">{view.playsLeft} / {PLAYS_PER_ROUND}</dd></div>
-            <div><dt>{t('thisRound')}</dt><dd data-crane="won">{view.won.length}</dd></div>
-          </dl>
-        </div>
-        {mode === '2d' ? <Machine2D key="2d" {...machine} />
-          : <Suspense fallback={<p className={styles.loading}>{t('loading3d')}</p>}><Machine3D key="3d" {...machine} /></Suspense>}
+        <dl className={styles.hud}>
+          <div><dt>{t('playsLeft')}</dt><dd data-crane="plays">{view.playsLeft} / {PLAYS_PER_ROUND}</dd></div>
+          <div><dt>{t('thisRound')}</dt><dd data-crane="won">{view.won.length}</dd></div>
+        </dl>
+        <Machine2D {...machine} />
         {view.phase === 'over' && <div className={styles.result} data-crane="result">
           <p className={styles.resultTitle}>{t('roundOver', { count: view.won.length, plays: PLAYS_PER_ROUND })}</p>
           {view.won.length > 0 && <ul className={styles.wonList}>
@@ -163,7 +144,7 @@ export default function CraneGame() {
         </div>}
       </div>
       {/* The how-to under the buttons, so that the machine and its buttons fit a phone's screen together. */}
-      <p className={`${controls.label} ${styles.intro}`}>{mode === '2d' ? t('intro') : t('intro3d')}</p>
+      <p className={`${controls.label} ${styles.intro}`}>{t('intro')}</p>
       {view.phase === 'over' && <ShareButtons path={`/${locale}/crane-game`}
         text={view.won.length ? t('shareText', { prize: [...new Set(view.won)].map(prizeName).join('、'), count: view.won.length, plays: PLAYS_PER_ROUND }) : t('shareTextNone', { plays: PLAYS_PER_ROUND })} />}
       <section className={styles.collection} aria-labelledby="crane-collection">
@@ -178,7 +159,7 @@ export default function CraneGame() {
       <div className={styles.buttons}>
         <button type="button" className="auth-link" aria-pressed={sound} onClick={toggleSound} data-crane="sound">{t('sound')}: {sound ? t('on') : t('off')}</button>
       </div>
-      <p className={styles.hint}>{mode === '2d' ? t('hint') : t('hint3d')}</p>
+      <p className={styles.hint}>{t('hint')}</p>
     </ToolLayout>
   );
 }
