@@ -54,7 +54,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
   const itemKey = `units.${unitId}.items.${itemId}`;
   const title = t(`${itemKey}.title`);
   const description = has(`${itemKey}.description`) ? t(`${itemKey}.description`) : t(`units.${unitId}.summary`);
-  const head = `${unitTitle} - ${title} | PAIBOT`;
+  const head = `${unitTitle} - ${title} | PAIBOT.app`;
   // "Start practice" goes straight into the first playable set not yet finished (or the first one), so that a phone need not scroll down to the cards.
   // A set is finished (green) when the signed-in visitor has a record of it, or it was finished in this browser.
   const local = useDoneSets([]);

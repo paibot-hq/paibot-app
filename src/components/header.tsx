@@ -54,7 +54,7 @@ export default function Header() {
     <header className="topbar">
       <Link className="brand" href="/">
         <img className="brand-logo" src="/icon.svg" alt="" width="24" height="24" />
-        <span className="wordmark">PAIBOT</span>
+        <span className="wordmark">PAIBOT.app</span>
       </Link>
       <div className="toolbar">
         <Show when="signed-out">

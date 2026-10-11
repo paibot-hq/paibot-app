@@ -68,7 +68,7 @@ export default function PomodoroTimer() {
   // The time in the tab's title, so it can be read from another tab.
   useEffect(() => {
     const original = document.title;
-    document.title = running ? `${clock(left)} ${t(`phase.${phase}`)} | PAIBOT` : original;
+    document.title = running ? `${clock(left)} ${t(`phase.${phase}`)} | PAIBOT.app` : original;
     return () => { document.title = original; };
   }, [left, phase, running, t]);
 

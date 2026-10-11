@@ -76,7 +76,7 @@ export default async function ({ page, main, base, go, errors }) {
   await page.waitForURL(`${base}/en/math/arith`);
   await main.getByRole('heading', { level: 1, name: 'Order of operations & word problems' }).waitFor();
   assert.ok((await main.locator('ul a').evaluateAll(cards => cards.map(card => card.getAttribute('href')))).includes('/en/math/arith/order-of-operations'));
-  assert.equal(await page.title(), 'Order of operations & word problems | PAIBOT');
+  assert.equal(await page.title(), 'Order of operations & word problems | PAIBOT.app');
   assert.equal((await page.goto(`${base}/en/math/nothing`)).status(), 404);
   await go('math');
   // The area opened above is remembered in this browser.
@@ -90,7 +90,7 @@ export default async function ({ page, main, base, go, errors }) {
   assert.equal(await main.locator('[data-math-start]').getAttribute('href'), '/en/math/arith/order-of-operations/1');
   assert.deepEqual(await main.locator('ul a').evaluateAll(cards => cards.map(card => card.getAttribute('href'))),
     ['/en/math/arith/order-of-operations/1']);
-  assert.equal(await page.title(), 'Order of operations & word problems - Order of operations | PAIBOT');
+  assert.equal(await page.title(), 'Order of operations & word problems - Order of operations | PAIBOT.app');
   await main.getByText('Japanese school year: Elementary 4', { exact: true }).waitFor();
   // The previous and next learning items of the unit are linked at the bottom (the first item has no previous).
   const neighbors = page.getByRole('navigation', { name: 'Previous and next items' });
@@ -226,7 +226,7 @@ export default async function ({ page, main, base, go, errors }) {
   await go('math/shapes/solids-basic/1');
   await main.getByText('1 / 5', { exact: true }).waitFor();
   assert.equal(await main.getByRole('status').filter({ hasText: 'being prepared' }).count(), 0);
-  assert.equal(await page.title(), 'Basic shapes - Solid shapes | PAIBOT');
+  assert.equal(await page.title(), 'Basic shapes - Solid shapes | PAIBOT.app');
   assert.equal((await page.goto(`${base}/en/math/arith/nothing`)).status(), 404);
   assert.equal((await page.goto(`${base}/en/math/arith/order-of-operations/9`)).status(), 404);
   console.log('PASS: every set opens its quiz; unknown items and sets are 404');

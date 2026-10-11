@@ -8,7 +8,7 @@ import { useSiteMeta } from "../root";
 // see https://react.dev/reference/react-dom/components/title. Only one
 // route in the tree should render this per navigation (leaf pages only,
 // never root) to avoid duplicate canonical/og tags. `title` is used verbatim
-// (not auto-suffixed) — pass "X | PAIBOT" for tool pages, or the bare
+// (not auto-suffixed) — pass "X | PAIBOT.app" for tool pages, or the bare
 // site name for home, matching the main app's src/lib/seo.ts callers.
 export default function PublicHead({ locale: rawLocale, path, title, description }: {
   locale: string;
@@ -30,7 +30,7 @@ export default function PublicHead({ locale: rawLocale, path, title, description
       ))}
       <link rel="alternate" hrefLang="x-default" href={alternates["x-default"]} />
       <meta property="og:type" content="website" />
-      <meta property="og:site_name" content="PAIBOT" />
+      <meta property="og:site_name" content="PAIBOT.app" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:url" content={url} />

@@ -20,7 +20,7 @@ export default function ToolAbout({ app }: { app: AppData }) {
     url: localizedUrl(siteOrigin, locale, app.href!),
     locale,
     category: app.category,
-    siteName: "PAIBOT",
+    siteName: "PAIBOT.app",
     siteUrl: localizedUrl(siteOrigin, locale, ""),
   });
   return (

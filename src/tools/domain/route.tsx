@@ -16,5 +16,5 @@ export async function action({ request }: Route.ActionArgs): Promise<WhoisResult
 export default function Page() {
   const t = useTranslations('App');
   const locale = useLocale();
-  return <><PublicHead locale={locale} path="/domain" title={`${t('domain.title')} | PAIBOT`} description={t('domain.description')} /><DomainLookup /></>;
+  return <><PublicHead locale={locale} path="/domain" title={`${t('domain.title')} | PAIBOT.app`} description={t('domain.description')} /><DomainLookup /></>;
 }
