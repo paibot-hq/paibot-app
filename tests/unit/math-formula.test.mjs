@@ -139,3 +139,13 @@ for (const row of stepRows('(a + b)^5 = a^5 + 5*a^4*b - b^5 = 1')) for (const pi
 for (const bad of ['sin(1, 2)', 'sum(k, 2, 1, 3)', 'log(8)', '2i']) assert.throws(() => parseExpression(bad), bad);
 for (const bad of ['2x', '__import__(1)', '1 +', '2 ** 3', 'π']) assert.throws(() => parseExpression(bad), bad);
 console.log('PASS: formula grammar renders school-style TeX and rejects anything else');
+
+// A vertex is found from the equation: the question is the equation (the graph would give the answer away), the other graph problems
+// are read from the graph.
+{
+  const vertex = { kind: 'graph', which: 'vertex', question: 'x^2 - 4*x + 1', choices: ['2, -3'] };
+  assert.equal(formulaQuestionTex(vertex), 'y = x^{2} - 4x + 1');
+  assert.equal(formulaInstruction(vertex).key, 'vertexOfQuadratic');
+  assert.equal(formulaQuestionTex({ kind: 'graph', which: 'parabola', question: 'x^2 - 4*x + 1' }), '');
+  assert.equal(formulaInstruction({ kind: 'graph', which: 'parabola', question: 'x^2' }).key, 'graphParabola');
+}

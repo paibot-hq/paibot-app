@@ -141,7 +141,9 @@ and display it uses (`components/math-questions.tsx`):
   nothing to re-derive, so its key is checked only by the blind review (`npm run math:generate` with a
   `text-*` rule, `math-prompts/_statement.md`).
   A `graph` problem draws its hidden `question` with `components/math-graph.tsx`
-  (a curve, circle or shaded region) and asks the learner to read it; the blind
+  (a curve, circle or shaded region) and asks the learner to read it (except `which: "vertex"`: the
+  vertex is found from the equation by completing the square, so the equation is the question and the
+  graph only appears in the explanation); the blind
   review is given the same readings as text (`graphReading` in math-pipeline.mjs).
 A unit without a kind cannot hold problems yet. Only sets with a `rule` (a key in
 `scripts/validate-math-<kind>.mjs`; expression uses `validate-math-arith.mjs`)
