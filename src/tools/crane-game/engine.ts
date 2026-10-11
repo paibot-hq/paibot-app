@@ -29,7 +29,7 @@ const GRAVITY = 900;
 const SUBSTEPS = 8;
 const ITERATIONS = 4;
 const FRICTION = 0.5;
-const LOOSEST = 0.32;
+const LOOSEST = 0.38;
 const SQUEEZE = 9; // the prizes are soft: an arm closes on one until it presses this far in
 
 export type ClawPhase = 'ready' | 'moving' | 'aimed' | 'dropping' | 'closing' | 'rising' | 'returning' | 'opening' | 'over';
@@ -72,6 +72,7 @@ export interface Scene {
   lifted: boolean;
   startX: number;
   stall: number; // steps in a row that the claw has been pressing on something it cannot push away
+  away: number; // steps in a row that the carried prize has been out of the claw
   closed: { left: number; right: number }; // how far each arm closed: it loosens from there
 }
 
@@ -131,7 +132,7 @@ export function fill(scene: Scene, random: () => number, count = 11) {
 export function createScene(random: () => number): Scene {
   const scene: Scene = {
     phase: 'ready', claw: { x: HOME_X, y: RAIL_Y, open: 1, left: 1, right: 1 }, prizes: [], timer: 0, playsLeft: PLAYS_PER_ROUND, won: [], nextId: 1,
-    loosen: 0.05, carried: null, closedAt: new Map(), lifted: false, startX: HOME_X, stall: 0, closed: { left: 0, right: 0 },
+    loosen: 0.05, carried: null, closedAt: new Map(), lifted: false, startX: HOME_X, stall: 0, away: 0, closed: { left: 0, right: 0 },
   };
   fill(scene, random);
   return scene;
@@ -257,21 +258,31 @@ function afterStep(scene: Scene, events: Event[]) {
     scene.stall = pressing ? scene.stall + 1 : 0;
   }
   if (scene.phase === 'rising' || scene.phase === 'returning') {
-    const tips = scene.claw.y + CLAW_TIP;
     if (scene.carried === null) {
-      // Lifted: well above where it was when the claw closed, and up among the claw's fingers.
-      const lifted = scene.prizes.find(prize => (scene.closedAt.get(prize.id) ?? prize.y) - prize.y > 14 && Math.abs(prize.x - scene.claw.x) < 40 && Math.abs(prize.y - tips) < prize.r + 24);
-      if (lifted) { scene.carried = lifted.id; scene.lifted = true; events.push({ type: 'grabbed' }); }
+      // Carried: resting in the claw (see inGrasp) and lifted with it, well above where it was when the claw closed. A neighbour the arms
+      // only bumped is not between the fingers, so it is not taken for the prize.
+      const lifted = scene.prizes.find(prize => (scene.closedAt.get(prize.id) ?? prize.y) - prize.y > 20 && inGrasp(prize, pieces));
+      if (lifted) { scene.carried = lifted.id; scene.lifted = true; scene.away = 0; events.push({ type: 'grabbed' }); }
     } else {
+      // Lost: out of the claw for a moment (not a passing wobble). "So close" if that was on the way back, near the chute.
       const prize = scene.prizes.find(candidate => candidate.id === scene.carried);
-      if (prize && (prize.y - tips > prize.r + 30 || Math.abs(prize.x - scene.claw.x) > 60)) {
-        // It fell away from the claw. "So close" if that was near the chute, on the way back.
+      scene.away = prize && !inGrasp(prize, pieces) ? scene.away + 1 : 0;
+      if (prize && scene.away > 12) {
         const way = scene.phase === 'returning' ? (scene.startX - scene.claw.x) / Math.max(1, scene.startX - HOME_X) : 0;
         events.push({ type: 'slipped', late: way >= 0.6 });
         scene.carried = null;
       }
     }
   }
+}
+
+// A prize resting in the claw: its middle between the arms (no further out than the elbows) and above the fingertips, so that the
+// fingers are under it, and below the hub.
+function inGrasp(prize: Prize, pieces: Segment[]) {
+  const [hub, leftUpper, leftFinger, rightUpper, rightFinger] = pieces;
+  const left = Math.min(leftUpper.bx, leftFinger.bx) - 2, right = Math.max(rightUpper.bx, rightFinger.bx) + 2;
+  const tips = Math.max(leftFinger.by, rightFinger.by);
+  return prize.x > left && prize.x < right && prize.y < tips + 4 && prize.y > hub.ay;
 }
 
 // Which arms stop closing: an arm that presses hard (SQUEEZE) on a prize on its inner side (between the arms, where closing pushes), and an
@@ -315,7 +326,7 @@ function floor(prize: Prize) {
   const overlap = prize.y - (FLOOR_Y - prize.r);
   prize.y = FLOOR_Y - prize.r;
   const along = prize.x - prize.px;
-  prize.x -= Math.min(Math.abs(along), overlap * FRICTION + 0.02) * Math.sign(along);
+  prize.x -= Math.min(Math.abs(along), overlap * FRICTION) * Math.sign(along);
 }
 const DIVIDER: Segment = { ax: CHUTE_RIGHT, ay: WALL_TOP, bx: CHUTE_RIGHT, by: FLOOR_Y + 80, r: 4 };
 
@@ -331,7 +342,7 @@ function collide(prize: Prize, piece: Segment, moved: { dx: number; dy: number }
   // Friction: of how the prize moved this step, relative to the piece, the part along the surface is held back.
   const rx = prize.x - prize.px - moved.dx, ry = prize.y - prize.py - moved.dy;
   const along = rx * -ny + ry * nx;
-  const hold = Math.min(Math.abs(along), overlap * FRICTION + 0.02) * Math.sign(along);
+  const hold = Math.min(Math.abs(along), overlap * FRICTION) * Math.sign(along);
   prize.x -= -ny * hold; prize.y -= nx * hold;
 }
 

@@ -109,6 +109,31 @@ test('dropped on the edge of a prize, a finger lands on top of it: nothing is li
   assert.ok(lifted <= 2, `${lifted} of 6 won`);
 });
 
+test('"slipped" is only said when the prize the claw held really fell out of it; a bumped neighbour is not taken for it', () => {
+  let slips = 0;
+  for (let seed = 1; seed <= 12; seed++) {
+    const random = seeded(seed);
+    const scene = createScene(random);
+    for (let play = 0; play < 5 && scene.phase !== 'over'; play++) {
+      const top = [...scene.prizes].sort((a, b) => a.y - b.y).slice(0, 6);
+      const target = top[Math.floor(random() * top.length)];
+      aim(scene, target.x + (random() * 2 - 1) * 12, random);
+      for (let t = 0; t < 25 && scene.phase !== 'ready' && scene.phase !== 'over'; t += 1 / 60) {
+        const held = scene.carried;
+        const events = step(scene, 1 / 60, random, false);
+        const slip = events.find(event => event.type === 'slipped');
+        if (!slip || held === null) continue;
+        slips++;
+        // Half a second later the prize it held is below the fingertips (or gone into the chute), not in the claw.
+        run(scene, 0.5, random);
+        const prize = scene.prizes.find(candidate => candidate.id === held);
+        assert.ok(!prize || prize.y > scene.claw.y + CLAW_TIP, `seed ${seed}: the prize is still in the claw`);
+      }
+    }
+  }
+  assert.ok(slips > 0, 'some plays slip, so the check was made');
+});
+
 test('over the chute there is nothing to catch: the claw comes up empty', () => {
   const random = seeded(5);
   const scene = createScene(random);
