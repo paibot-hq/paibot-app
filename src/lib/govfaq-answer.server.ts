@@ -1,4 +1,5 @@
 import { parseAnswer } from "../tools/govfaq/govfaq-search.ts";
+import { readJsonPost } from "./json-post.server.ts";
 
 // POST /api/govfaq/answer: a question and the ids of the FAQs the search found for it in, an answer written from those FAQs alone out. The browser
 // sends ids, never the texts: the texts come from the FAQ on this side, so no one can put words of their own into what the model is told is the
@@ -16,6 +17,8 @@ export type AnswerDeps = {
 // The model that writes the answer. Chosen for Japanese and for keeping to what it is given; change it here.
 export const ANSWER_MODEL = "@cf/meta/llama-3.3-70b-instruct-fp8-fast";
 export const MAX_QUESTION = 200;
+// A question of 200 characters is at most 800 bytes of UTF-8; the rest of the body is a few ids.
+const MAX_BODY_BYTES = 4096;
 export const MAX_FAQS = 5;
 // What of one FAQ's answer is given to the model (characters), so that five of them stay a reasonable size.
 export const MAX_ANSWER_CHARS = 1500;
@@ -121,9 +124,9 @@ export function finish(raw: string, given: FaqText[]): { answer: string | null; 
 }
 
 export async function handleAnswer(request: Request, deps: AnswerDeps): Promise<Response> {
-  if (request.method !== "POST") return fail(405, "POST only", { Allow: "POST" });
-  let body: unknown;
-  try { body = await request.json(); } catch { return fail(400, "Invalid JSON"); }
+  const posted = await readJsonPost(request, MAX_BODY_BYTES);
+  if (!posted.ok) return fail(posted.status, posted.error, posted.status === 405 ? { Allow: "POST" } : {});
+  const body = posted.body;
   const { q, ids } = (body ?? {}) as { q?: unknown; ids?: unknown };
   const question = typeof q === "string" ? q.trim() : "";
   if (!question || [...question].length > MAX_QUESTION) return fail(400, "A question of 1 to 200 characters is needed");

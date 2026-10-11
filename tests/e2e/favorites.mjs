@@ -91,6 +91,24 @@ try {
   await page.waitForFunction(() => document.querySelector('[data-slug="wc"]')?.getAttribute('aria-pressed') === 'false');
   console.log('PASS: the favorite star also works from the tool\'s own page');
 
+  // A post from another origin, carrying this visitor's session, writes nothing: the route itself refuses it (403),
+  // and its .data address is refused by React Router (400).
+  for (const [path, status] of [['/en/favorites', 403], ['/en/favorites.data', 400]]) {
+    const refused = await page.request.post(`${base}${path}`, { form: { appSlug: 'wc', intent: 'add' }, headers: { Origin: 'https://attacker.example' }, maxRedirects: 0 });
+    assert.equal(refused.status(), status, `${path} from another origin`);
+  }
+  await page.goto(`${base}/en`);
+  await clerk.loaded({ page });
+  assert.equal(await card.locator('.favorite-button').getAttribute('aria-pressed'), 'false', 'a post from another origin did not favorite');
+  console.log('PASS: a favorite posted from another origin is refused');
+
+  // The list of the apps carries this visitor's favourites (routes/locale.tsx), in the page and in its data.
+  for (const path of ['/en', '/en.data']) {
+    const response = await page.request.get(`${base}${path}`);
+    assert.equal(response.headers()['cache-control'], 'private, no-store', `${path} is never shared`);
+  }
+  console.log('PASS: a page with the visitor\'s favourites is private, no-store');
+
   assert.deepEqual(errors, []);
   console.log('PASS: no uncaught browser errors');
 } finally {

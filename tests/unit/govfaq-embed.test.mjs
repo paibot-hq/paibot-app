@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import { handleEmbed, restAi, MAX_QUESTION } from '../../src/lib/govfaq-embed.server.ts';
 import { MODEL, DIM, fromBase64 } from '../../src/tools/govfaq/govfaq-vectors.ts';
 
-const post = (body, headers = {}) => new Request('https://paibot.app/api/govfaq/embed', { method: 'POST', body: typeof body === 'string' ? body : JSON.stringify(body), headers });
+const post = (body, headers = {}) => new Request('https://paibot.app/api/govfaq/embed', { method: 'POST', body: typeof body === 'string' ? body : JSON.stringify(body), headers: { origin: 'https://paibot.app', 'content-type': 'application/json', ...headers } });
 const vectorOf = seed => Array.from({ length: DIM }, (_, i) => Math.sin(i * seed));
 const deps = (over = {}) => ({ within: async () => true, ai: { run: async () => ({ shape: [1, DIM], data: [vectorOf(0.1)] }) }, ...over });
 
@@ -31,6 +31,15 @@ test('only POST with a question of 1 to 200 characters is accepted', async () =>
   assert.equal((await handleEmbed(post({ q: 'あ'.repeat(MAX_QUESTION + 1) }), deps())).status, 400);
   assert.equal((await handleEmbed(post({ q: 'あ'.repeat(MAX_QUESTION) }), deps())).status, 200);
   assert.equal((await handleEmbed(post(JSON.stringify(['q'])), deps())).status, 400);
+});
+
+test('only the site\'s own pages may ask, with JSON: a page elsewhere cannot make its visitors\' browsers run the model', async () => {
+  let runs = 0;
+  const counting = deps({ ai: { run: async () => { runs++; return { data: [vectorOf(0.1)] }; } } });
+  assert.equal((await handleEmbed(post({ q: 'はい' }, { origin: 'https://elsewhere.example' }), counting)).status, 403);
+  assert.equal((await handleEmbed(post({ q: 'はい' }, { 'content-type': 'text/plain' }), counting)).status, 415);
+  assert.equal((await handleEmbed(post({ q: 'あ'.repeat(5000) }), counting)).status, 413);
+  assert.equal(runs, 0);
 });
 
 test('the limit is for each client address, and a client over it is told to wait', async () => {

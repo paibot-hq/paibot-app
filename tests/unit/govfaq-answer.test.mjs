@@ -8,7 +8,7 @@ const FAQS = [
   { id: 'C-3', question: '長い回答', answer: 'あ'.repeat(5000) },
 ];
 const lookup = async ids => ids.flatMap(id => FAQS.filter(f => f.id === id));
-const post = (body, headers = {}) => new Request('https://x.test/api/govfaq/answer', { method: 'POST', headers: { 'content-type': 'application/json', 'cf-connecting-ip': '203.0.113.9', ...headers }, body: JSON.stringify(body) });
+const post = (body, headers = {}) => new Request('https://x.test/api/govfaq/answer', { method: 'POST', headers: { origin: 'https://x.test', 'content-type': 'application/json', 'cf-connecting-ip': '203.0.113.9', ...headers }, body: JSON.stringify(body) });
 const deps = (over = {}) => ({ within: async () => true, ai: { run: async () => ({ response: '電話して停止します。[A-1]' }) }, lookup, ...over });
 
 test('the FAQs are given to the model with their ids, links written out, and long answers cut', () => {
@@ -58,12 +58,25 @@ test('when the FAQs do not answer, the answer is null', async () => {
 
 test('only POST, a question of 1 to 200 characters and 1 to 5 plain ids are accepted', async () => {
   assert.equal((await handleAnswer(new Request('https://x.test/', { method: 'GET' }), deps())).status, 405);
-  assert.equal((await handleAnswer(new Request('https://x.test/', { method: 'POST', body: 'x' }), deps())).status, 400);
+  assert.equal((await handleAnswer(new Request('https://x.test/', { method: 'POST', headers: { origin: 'https://x.test', 'content-type': 'application/json' }, body: 'x' }), deps())).status, 400);
   for (const body of [{}, { q: '', ids: ['A-1'] }, { q: 'あ'.repeat(201), ids: ['A-1'] }, { q: 'q' }, { q: 'q', ids: [] }, { q: 'q', ids: ['a', 'b', 'c', 'd', 'e', 'f'] }, { q: 'q', ids: [1] }, { q: 'q', ids: ['../x'] }, { q: 'q', ids: ['A 1'] }]) {
     assert.equal((await handleAnswer(post(body), deps())).status, 400, JSON.stringify(body).slice(0, 50));
   }
   assert.equal((await handleAnswer(post({ q: 'q', ids: ['nope'] }), deps())).status, 400, 'no such FAQ');
   assert.equal((await handleAnswer(post({ q: 'あ'.repeat(200), ids: ['A-1'] }), deps())).status, 200);
+});
+
+test('only the site\'s own pages may ask, with JSON: a page elsewhere cannot make its visitors\' browsers run the model', async () => {
+  let runs = 0;
+  const counting = deps({ ai: { run: async () => { runs++; return { response: '停止します。[A-1]' }; } } });
+  const ask = { q: 'なくした', ids: ['A-1'] };
+  assert.equal((await handleAnswer(post(ask, { origin: 'https://elsewhere.example' }), counting)).status, 403);
+  assert.equal((await handleAnswer(post(ask, { origin: '' }), counting)).status, 403);
+  assert.equal((await handleAnswer(post(ask, { 'content-type': 'text/plain' }), counting)).status, 415);
+  assert.equal((await handleAnswer(post({ ...ask, pad: 'x'.repeat(5000) }), counting)).status, 413);
+  assert.equal(runs, 0);
+  assert.equal((await handleAnswer(post(ask, { 'content-type': 'application/json; charset=utf-8' }), counting)).status, 200);
+  assert.equal(runs, 1);
 });
 
 test('the limit is for each client address, and a client over it is told to wait', async () => {
