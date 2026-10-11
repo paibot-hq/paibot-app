@@ -7,6 +7,7 @@ import type { Route } from './+types/root';
 import Providers from './components/providers';
 import Header from './components/header';
 import { isLocale } from './i18n/routing';
+import { useNonce } from './lib/csp-nonce';
 import { siteOrigin, isIndexable } from './lib/seo.server';
 import { isComingSoonMathPath } from './lib/math-catalog';
 import ja from '../messages/ja.json';
@@ -48,11 +49,12 @@ export function Layout({ children }: { children: ReactNode }) {
   const { locale } = useParams();
   const { isIndexable } = useSiteMeta();
   const { pathname } = useLocation();
+  const nonce = useNonce();
   const indexPage = isIndexable && !isComingSoonMathPath(pathname) && !/^\/(ja|en|zh)\/(sign-in|sign-up|diary|profile|legal\/commerce)(\/|$)/.test(pathname);
   return <html lang={isLocale(locale) ? locale : 'ja'}><head>
     {isIndexable && <>
-      <script async src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
-      <script dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');` }} />
+      <script async nonce={nonce} src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
+      <script nonce={nonce} dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');` }} />
     </>}
     <meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content={indexPage ? 'index, follow' : 'noindex, nofollow'} />

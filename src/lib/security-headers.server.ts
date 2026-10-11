@@ -10,13 +10,19 @@ const clerkHost = clerkFrontendApi ? `https://${clerkFrontendApi}` : "";
 
 // @clerk/react-router's clerkMiddleware() has no `contentSecurityPolicy`
 // option (unlike @clerk/nextjs), so there's no SDK-generated CSP to lean on
-// here. This hand-replicates @clerk/nextjs's non-strict default directive
-// set (see content-security-policy.js in that package — DEFAULT_DIRECTIVES,
-// no `strict`/nonce mode, since the main app doesn't use strict mode
-// either) plus this app's own additions: frame-ancestors, and the IP
-// tool's ipv4/ipv6.icanhazip.com connect-src (see ip-lookup.tsx). Re-check
-// against @clerk/nextjs's DEFAULT_DIRECTIVES if Clerk's requirements change.
-export function buildContentSecurityPolicy(): string {
+// here. This hand-replicates @clerk/nextjs's default directive set (see
+// content-security-policy.js in that package — DEFAULT_DIRECTIVES) plus this
+// app's own additions: frame-ancestors, and the IP tool's
+// ipv4/ipv6.icanhazip.com connect-src (see ip-lookup.tsx). Re-check against
+// @clerk/nextjs's DEFAULT_DIRECTIVES if Clerk's requirements change.
+//
+// Scripts: a page (src/entry.server.tsx) gets a new nonce on every request, and only the scripts its own HTML names
+// carry it (React Router's, React's, Google Analytics'). 'strict-dynamic' lets those load what they load in turn
+// (Clerk's script, its captcha, gtag's), so no host list is needed, and an inline script someone else manages to put
+// into a page does not run. 'unsafe-inline' and https: are there only for browsers that know neither nonces nor
+// 'strict-dynamic' (a browser that knows them ignores both). A response that is not a page (data, an API, robots.txt)
+// gets no nonce and runs no script but the site's own files.
+export function buildContentSecurityPolicy(nonce?: string): string {
   const directives: Record<string, string[]> = {
     "connect-src": [
       "'self'",
@@ -62,16 +68,9 @@ export function buildContentSecurityPolicy(): string {
     // violation on /sign-in, not from Clerk's docs.
     // "blob:" shows a photo the visitor chose, from the browser's own memory (the photo checker); nothing is fetched.
     "img-src": ["'self'", "https://img.clerk.com", "data:", "blob:", "https://www.googletagmanager.com", "https://*.google-analytics.com"],
-    "script-src": [
-      "'self'",
-      "'unsafe-inline'",
-      "https:",
-      "http:",
-      "https://*.js.stripe.com",
-      "https://js.stripe.com",
-      "https://maps.googleapis.com",
-      "https://*.protect.clerk.com",
-    ],
+    "script-src": nonce ? ["'self'", `'nonce-${nonce}'`, "'strict-dynamic'", "'unsafe-inline'", "https:"] : ["'self'"],
+    "base-uri": ["'self'"],
+    "object-src": ["'none'"],
     "style-src": ["'self'", "'unsafe-inline'"],
     "worker-src": ["'self'", "blob:"],
     // Not part of Clerk's default set — this app's own clickjacking guard,

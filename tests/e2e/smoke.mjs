@@ -39,6 +39,17 @@ try {
     assert.equal(head.titles.length, 1, `${path}: exactly one SSR title`);
     assert.ok(head.titles[0].trim(), `${path}: nonempty SSR title`);
   }
+  // Scripts run only by the page's nonce, a new one each time (src/entry.server.tsx): every script the HTML names carries
+  // it (JSON-LD is data, not run), and nothing inline is allowed besides.
+  function checkNonce(res, html, path) {
+    const scriptSrc = /(?:^|; )script-src ([^;]*)/.exec(res.headers.get('content-security-policy') ?? '')?.[1] ?? '';
+    const nonce = /'nonce-([A-Za-z0-9+/=]+)'/.exec(scriptSrc)?.[1];
+    assert.ok(nonce, `${path}: script-src has a nonce`);
+    assert.match(scriptSrc, /'strict-dynamic'/, `${path}: script-src 'strict-dynamic'`);
+    const scripts = [...html.matchAll(/<script\b[^>]*>/g)].map(([tag]) => tag).filter(tag => !/type="application\/ld\+json"/.test(tag));
+    assert.ok(scripts.length > 0, `${path}: scripts`);
+    for (const tag of scripts) assert.ok(tag.includes(`nonce="${nonce}"`), `${path}: ${tag} carries the nonce`);
+  }
   function checkHeaders(res, path, auth = false) {
     const csp = res.headers.get('content-security-policy') ?? '';
     assert.match(csp, /(?:^|; )default-src 'self'(?:;|$)/, `${path}: CSP`);
@@ -78,7 +89,9 @@ try {
       assert.equal(res.status, 200, pathname);
       assert.equal(new URL(res.url).pathname, pathname, `${pathname}: must land on app`);
       checkHeaders(res, pathname);
-      const head = await readHead(await res.text());
+      const html = await res.text();
+      checkNonce(res, html, pathname);
+      const head = await readHead(html);
       checkTitle(head, pathname);
       assert.equal(head.lang, locale);
       assert.equal(head.robots, indexable ? 'index, follow' : 'noindex, nofollow');
@@ -95,7 +108,9 @@ try {
       const res = await request(path);
       assert.equal(res.status, 200, path);
       checkHeaders(res, path, true);
-      const head = await readHead(await res.text());
+      const html = await res.text();
+      checkNonce(res, html, path);
+      const head = await readHead(html);
       checkTitle(head, path);
       assert.equal(head.robots, 'noindex, nofollow');
       assert.deepEqual(head.canonical, [], `${path}: no public canonical`);

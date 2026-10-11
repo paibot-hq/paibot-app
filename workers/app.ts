@@ -43,7 +43,8 @@ export default {
     secured.headers.set('X-Content-Type-Options', 'nosniff');
     secured.headers.set('X-Frame-Options', 'DENY');
     secured.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
-    secured.headers.set('Content-Security-Policy', csp);
+    // A page has its own, with the nonce of its scripts (src/entry.server.tsx); everything else gets this one.
+    if (!secured.headers.has('Content-Security-Policy')) secured.headers.set('Content-Security-Policy', csp);
     return secured;
   },
 };
