@@ -43,7 +43,7 @@ function tone(audio: AudioContext, notes: [number, number][], type: OscillatorTy
 }
 
 type View = { phase: string; playsLeft: number; won: string[] };
-type Message = { key: 'won' | 'slipped' | 'missed'; prize?: string } | null;
+type Message = { key: 'won' | 'slipped' | 'dropped' | 'missed'; prize?: string } | null;
 
 // What a machine (the side view or the 3D one) is given: the round to play (raised by "again"), and where to report what happened.
 export interface MachineProps {
@@ -100,7 +100,8 @@ export default function CraneGame() {
         if (audio) tone(audio, [[523, 0.12], [659, 0.12], [784, 0.12], [1047, 0.3]]);
         try { navigator.vibrate?.([20, 40, 20]); } catch { /* not supported */ }
       } else if (event.type === 'slipped') {
-        setMessage({ key: 'slipped' });
+        // "So close" only when it fell near the chute; dropped soon after lifting, it says so.
+        setMessage({ key: event.late ? 'slipped' : 'dropped' });
         if (audio) tone(audio, [[392, 0.12], [311, 0.25]], 'sine');
       } else if (event.type === 'missed') {
         setMessage({ key: 'missed' });

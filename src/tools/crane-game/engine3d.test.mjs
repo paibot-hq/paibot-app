@@ -95,3 +95,19 @@ test('3D: five plays a round, then over; a new round tops the pit up', () => {
   assert.equal(scene.phase, 'ready');
   assert.ok(scene.prizes.length >= 15);
 });
+
+test('3D: the balance: aimed well (within 8 across and in depth), more than half the plays win', () => {
+  const random = seeded(12);
+  let plays = 0, won = 0;
+  for (let round = 0; round < 20; round++) {
+    const scene = createScene3(random);
+    for (let play = 0; play < 5; play++) {
+      const top = [...scene.prizes].sort((a, b) => b.y - a.y).slice(0, 8);
+      const target = top[Math.floor(random() * top.length)];
+      aim(scene, target.x + (random() * 2 - 1) * 8, target.z + (random() * 2 - 1) * 8, random);
+      plays++;
+      if (run(scene, 20, random).some(event => event.type === 'won')) won++;
+    }
+  }
+  assert.ok(won / plays > 0.5, `won ${won}/${plays}`);
+});

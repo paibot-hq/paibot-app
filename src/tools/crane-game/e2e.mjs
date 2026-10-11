@@ -26,7 +26,7 @@ export default async function ({ page, main, go }) {
   await page.clock.runFor(100);
   assert.equal(await drop.isDisabled(), true, 'no buttons while the claw is on its way');
   await page.clock.runFor(15000);
-  assert.match(await text('message'), /^(You won .+!|So close! It slipped…|Nothing caught)$/);
+  assert.match(await text('message'), /^(You won .+!|So close! It slipped…|Lifted it, but it slipped out…|Nothing caught… aim at the middle of a prize)$/);
   assert.equal(await text('plays'), '4 / 5');
 
   // The keyboard: → held moves, ↓ drops.
@@ -69,7 +69,7 @@ export default async function ({ page, main, go }) {
   await page.clock.runFor(100);
   assert.equal(await back.isDisabled(), true, 'dropping');
   await page.clock.runFor(15000);
-  assert.match(await text('message'), /^(You won .+!|So close! It slipped…|Nothing caught)$/);
+  assert.match(await text('message'), /^(You won .+!|So close! It slipped…|Lifted it, but it slipped out…|Nothing caught… aim at the middle of a prize)$/);
   assert.equal(await text('plays'), '4 / 5');
   await page.reload();
   await main.locator('[data-crane="back"]').waitFor();

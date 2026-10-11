@@ -12,7 +12,7 @@ export const MAX_X = WIDTH - 34;
 export const CHUTE_RIGHT = 100; // the chute is x < this; a wall on its right keeps prizes in the pit
 export const WALL_TOP = 352; // the top of that wall: a prize has to be lifted over it
 export const FLOOR_Y = 440; // the pit's floor
-export const CLAW_REACH = 22; // how far either side of the claw's middle it can take hold
+export const CLAW_REACH = 20; // how far either side of the claw's middle it can take hold
 export const PLAYS_PER_ROUND = 5;
 const MOVE_SPEED = 95; // px/s
 const DROP_SPEED = 140;
@@ -42,7 +42,7 @@ const RARE_CHANCE = 0.08;
 
 export interface Prize { id: number; kind: string; x: number; y: number; vx: number; vy: number; r: number; held: boolean }
 
-export type Event = { type: 'won'; kind: string } | { type: 'slipped' } | { type: 'missed' } | { type: 'grabbed' } | { type: 'roundOver' };
+export type Event = { type: 'won'; kind: string } | { type: 'slipped'; late: boolean } | { type: 'missed' } | { type: 'grabbed' } | { type: 'roundOver' };
 
 export interface Scene {
   phase: ClawPhase;
@@ -124,15 +124,19 @@ export function grab(scene: Scene, random: () => number): { prize: Prize | null;
     if (dx > CLAW_REACH || prize.y - prize.r > tips + 8 || prize.y + prize.r < tips - 4) continue;
     if (!best || dx < Math.abs(best.x - scene.claw.x)) best = prize;
   }
-  if (!best) return { prize: null, holdUntil: 0 };
-  return { prize: best, holdUntil: gripFor(1 - Math.abs(best.x - scene.claw.x) / CLAW_REACH, random) };
+  const holdUntil = best ? gripFor(1 - Math.abs(best.x - scene.claw.x) / CLAW_REACH, random) : 0;
+  return { prize: holdUntil > 0 ? best : null, holdUntil };
 }
 
 // How much of the way back the claw keeps hold of a prize caught `centred` (1 in the middle of the claw, 0 at the edge of its reach): the
-// way back runs from 0 at the bottom to 1 over the chute; 1.5 is all the way. Shared by the side view and the 3D machine.
+// way back runs from 0 at the bottom to 1 over the chute; 1.5 is all the way, and 0 means the claw closes on it but cannot lift it. A weak
+// grip does not lift the prize at all (rather than lift it and drop it every time); a fair one lifts it and may lose it on the way.
+// Caught in the middle, it is kept all the way about four times in five. Shared by the side view and the 3D machine.
 export function gripFor(centred: number, random: () => number) {
-  const grip = centred * 0.75 + random() * 0.6; // over 1: kept all the way
-  return grip >= 1 ? 1.5 : Math.max(0.05, grip);
+  const grip = centred * 1.1 + random() * 0.5;
+  if (grip >= 1) return 1.5;
+  if (grip < 0.6) return 0;
+  return 0.1 + ((grip - 0.6) / 0.4) * 0.9;
 }
 
 // One frame: the claw's state machine, then the prizes. Returns what happened, for the page (sounds, messages, the collection).
@@ -197,7 +201,7 @@ export function step(scene: Scene, dt: number, random: () => number, moving: boo
 }
 
 function release(scene: Scene, progress: number, events: Event[]) {
-  if (scene.held !== null && progress >= scene.holdUntil) { letGo(scene); events.push({ type: 'slipped' }); }
+  if (scene.held !== null && progress >= scene.holdUntil) { letGo(scene); events.push({ type: 'slipped', late: progress >= 0.6 }); }
 }
 function letGo(scene: Scene) {
   const prize = scene.prizes.find(candidate => candidate.id === scene.held);

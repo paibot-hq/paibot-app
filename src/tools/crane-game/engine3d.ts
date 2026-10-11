@@ -10,7 +10,7 @@ export const WALL_H = 80; // the wall around the chute
 export const HOME = { x: 50, z: 50 }; // above the chute
 export const TOP_Y = 250; // the claw's hub when it is up
 export const CLAW_TIP = 36; // the tips below the hub
-export const REACH = 24; // how far (across) from the claw's middle it takes hold
+export const REACH = 22; // how far (across) from the claw's middle it takes hold
 const SPEED = 95, DROP = 140, RISE = 95, BACK = 110, CLOSE_TIME = 0.45, OPEN_TIME = 0.4, GRAVITY = 900;
 
 export type Phase3 = 'ready' | 'movingX' | 'aimedX' | 'movingZ' | 'dropping' | 'closing' | 'rising' | 'returning' | 'opening' | 'over';
@@ -86,15 +86,15 @@ export function grab3(scene: Scene3, random: () => number): { prize: Ball | null
     if (d > REACH || ball.y + ball.r < tips - 8 || ball.y - ball.r > tips + 4) continue;
     if (d < bestD) { best = ball; bestD = d; }
   }
-  if (!best) return { prize: null, holdUntil: 0 };
-  return { prize: best, holdUntil: gripFor(1 - bestD / REACH, random) };
+  const holdUntil = best ? gripFor(1 - bestD / REACH, random) : 0;
+  return { prize: holdUntil > 0 ? best : null, holdUntil };
 }
 
 export function step3(scene: Scene3, dt: number, random: () => number, held: { right: boolean; back: boolean }): Event[] {
   const events: Event[] = [];
   const claw = scene.claw;
   const release = (progress: number) => {
-    if (scene.held !== null && progress >= scene.holdUntil) { letGo(scene); events.push({ type: 'slipped' }); }
+    if (scene.held !== null && progress >= scene.holdUntil) { letGo(scene); events.push({ type: 'slipped', late: progress >= 0.6 }); }
   };
   switch (scene.phase) {
     case 'movingX': if (held.right) claw.x = Math.min(W - 30, claw.x + SPEED * dt); break;

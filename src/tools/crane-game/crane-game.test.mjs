@@ -136,6 +136,28 @@ test('every prize has its words in the three languages; two are rare', () => {
   for (const locale of ['ja', 'en', 'zh']) {
     const messages = JSON.parse(readFileSync(new URL(`../../../messages/${locale}.json`, import.meta.url), 'utf8')).App.craneGame;
     for (const kind of PRIZE_KINDS) assert.ok(messages.prizes[kind.id]?.trim(), `${locale} ${kind.id}`);
-    for (const key of ['title', 'description', 'about', 'keywords', 'intro', 'move', 'drop', 'playsLeft', 'thisRound', 'newRound', 'won', 'slipped', 'missed', 'roundOver', 'collection', 'shareText', 'canvasLabel', 'back', 'mode2d', 'mode3d', 'modeLabel', 'loading3d', 'intro3d', 'hint3d', 'canvasLabel3d', 'noWebgl']) assert.ok(messages[key]?.trim(), `${locale} ${key}`);
+    for (const key of ['title', 'description', 'about', 'keywords', 'intro', 'move', 'drop', 'playsLeft', 'thisRound', 'newRound', 'won', 'slipped', 'dropped', 'missed', 'roundOver', 'collection', 'shareText', 'canvasLabel', 'back', 'mode2d', 'mode3d', 'modeLabel', 'loading3d', 'intro3d', 'hint3d', 'canvasLabel3d', 'noWebgl']) assert.ok(messages[key]?.trim(), `${locale} ${key}`);
   }
+});
+
+test('the balance: aimed well (within 8px of a prize on top), more than half the plays win; "so close" is rare, not the usual end', () => {
+  const random = seeded(11);
+  let plays = 0, won = 0, late = 0;
+  for (let round = 0; round < 30; round++) {
+    const scene = createScene(random);
+    for (let play = 0; play < 5; play++) {
+      const top = [...scene.prizes].sort((a, b) => a.y - b.y).slice(0, 6);
+      const target = top[Math.floor(random() * top.length)];
+      const aim = target.x + (random() * 2 - 1) * 8;
+      holdMove(scene, true);
+      while (scene.claw.x < aim && scene.claw.x < MAX_X) step(scene, 1 / 60, random, true);
+      holdMove(scene, false); drop(scene);
+      const events = run(scene, 20, random);
+      plays++;
+      if (events.some(event => event.type === 'won')) won++;
+      else if (events.some(event => event.type === 'slipped' && event.late)) late++;
+    }
+  }
+  assert.ok(won / plays > 0.5, `won ${won}/${plays}`);
+  assert.ok(late / plays < 0.25, `so close ${late}/${plays}`);
 });
