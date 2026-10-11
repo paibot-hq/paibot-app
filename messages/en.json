@@ -1645,6 +1645,15 @@
       "soundOff": "Sound: off"
     },
     "craneGame": {
+      "back": "Back",
+      "mode2d": "2D",
+      "mode3d": "3D",
+      "modeLabel": "View",
+      "loading3d": "Loading 3D…",
+      "intro3d": "Hold \"Move\" and the claw goes right; hold \"Back\" and it goes back. Let go of \"Back\" and it drops. The pink ring on the floor shows where it will land.",
+      "hint3d": "On a keyboard, → moves right and ↑ moves back (let go to drop). While the claw goes back, the camera swings to the side to show the depth.",
+      "canvasLabel3d": "A 3D claw machine. Move the claw right and back, drop it, grab a prize and carry it to the chute at the front left",
+      "noWebgl": "3D is not available in this browser. Please play in 2D.",
       "title": "Claw Machine",
       "description": "A claw machine you play with two buttons: move the claw, grab a prize and carry it to the chute. Collect all ten plush toys. Free, no sign-up.",
       "about": "A claw machine seen from the side. Hold \"Move\" and the claw slides right; let go and it stops. \"Drop\" lowers it to grab a prize, and if it reaches the chute, it is yours. The prizes roll with physics, and a loose grip may lose them on the way. Five plays a round; the prizes you win stay in your collection.",

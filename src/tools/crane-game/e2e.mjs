@@ -5,7 +5,7 @@ export default async function ({ page, main, go }) {
   // The page's clock is the test's: the claw's trips are fast-forwarded instead of waited for.
   await page.clock.install();
   // A prize won before, in this browser: the collection shows it.
-  await page.addInitScript(() => localStorage.setItem('crane-game:v1', JSON.stringify({ collection: { pi: 2 }, sound: false })));
+  await page.addInitScript(() => { if (!localStorage.getItem('crane-game:v1')) localStorage.setItem('crane-game:v1', JSON.stringify({ collection: { pi: 2 }, sound: false })); });
   await go('crane-game');
   const text = name => main.locator(`[data-crane="${name}"]`).innerText();
   const move = main.locator('[data-crane="move"]'), drop = main.locator('[data-crane="drop"]');
@@ -52,5 +52,27 @@ export default async function ({ page, main, go }) {
   await main.locator('[data-crane="again"]').click();
   await page.clock.runFor(100);
   assert.equal(await text('plays'), '5 / 5');
-  console.log('PASS: crane-game: hold to move once, drop, the result of a play, the keyboard, five plays a round, the result shared, a new round, the collection kept');
+  // The 3D machine: loaded when chosen (and remembered); hold → then ↑ back, and letting go of back drops the claw.
+  await main.locator('[data-crane-mode="3d"]').click();
+  const back = main.locator('[data-crane="back"]');
+  await back.waitFor();
+  await page.clock.runFor(200);
+  assert.equal(await text('plays'), '5 / 5', 'a new machine, a new round');
+  const right = await move.boundingBox();
+  await page.mouse.move(right.x + right.width / 2, right.y + right.height / 2);
+  await page.mouse.down(); await page.clock.runFor(1200); await page.mouse.up();
+  await page.clock.runFor(100);
+  assert.equal(await move.isDisabled(), true, 'right once');
+  const backBox = await back.boundingBox();
+  await page.mouse.move(backBox.x + backBox.width / 2, backBox.y + backBox.height / 2);
+  await page.mouse.down(); await page.clock.runFor(1000); await page.mouse.up();
+  await page.clock.runFor(100);
+  assert.equal(await back.isDisabled(), true, 'dropping');
+  await page.clock.runFor(15000);
+  assert.match(await text('message'), /^(You won .+!|So close! It slipped…|Nothing caught)$/);
+  assert.equal(await text('plays'), '4 / 5');
+  await page.reload();
+  await main.locator('[data-crane="back"]').waitFor();
+  assert.equal(await main.locator('[data-crane-mode="3d"]').getAttribute('aria-pressed'), 'true', 'the 3D view is remembered');
+  console.log('PASS: crane-game: hold to move once, drop, the result of a play, the keyboard, five plays a round, the result shared, a new round, the collection kept; the 3D machine (right, then back to drop) and its view remembered');
 }

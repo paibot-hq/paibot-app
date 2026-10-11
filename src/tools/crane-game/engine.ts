@@ -125,9 +125,14 @@ export function grab(scene: Scene, random: () => number): { prize: Prize | null;
     if (!best || dx < Math.abs(best.x - scene.claw.x)) best = prize;
   }
   if (!best) return { prize: null, holdUntil: 0 };
-  const centred = 1 - Math.abs(best.x - scene.claw.x) / CLAW_REACH; // 1 in the middle, 0 at the edge of reach
+  return { prize: best, holdUntil: gripFor(1 - Math.abs(best.x - scene.claw.x) / CLAW_REACH, random) };
+}
+
+// How much of the way back the claw keeps hold of a prize caught `centred` (1 in the middle of the claw, 0 at the edge of its reach): the
+// way back runs from 0 at the bottom to 1 over the chute; 1.5 is all the way. Shared by the side view and the 3D machine.
+export function gripFor(centred: number, random: () => number) {
   const grip = centred * 0.75 + random() * 0.6; // over 1: kept all the way
-  return { prize: best, holdUntil: grip >= 1 ? 1.5 : Math.max(0.05, grip) };
+  return grip >= 1 ? 1.5 : Math.max(0.05, grip);
 }
 
 // One frame: the claw's state machine, then the prizes. Returns what happened, for the page (sounds, messages, the collection).
