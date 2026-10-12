@@ -1,7 +1,9 @@
 // Spinning-top battle: two tops in a dish. Pure simulation (no DOM), stepped at a fixed rate,
-// so the rules can be tested headlessly. Units: the dish has radius DISH, a top has radius TOP_R.
+// so the rules can be tested headlessly. Units: the dish has radius DISH; a top's radius, weight and so on come from its shape (shape.ts).
+import { K, PRESETS, specOf, type Profile, type Spec } from "./shape.ts";
+
 export const DISH = 100;
-export const TOP_R = 12;
+export const TOP_R = 12; // the standard top's radius
 export const STEP = 1 / 60;
 export const START_SPIN = 100;
 
@@ -24,6 +26,7 @@ export type Top = {
   spin: number; angle: number; dashCooldown: number;
   steerX: number; steerY: number; // wanted direction, length 0..1
   out: boolean;
+  spec: Spec;
 };
 
 export type Result = { winner: Side | "draw"; reason: Reason };
@@ -44,15 +47,22 @@ const SKILL: Record<Level, { steer: number; dash: number; aim: number }> = {
   hard: { steer: 1.0, dash: 1.0, aim: 1.0 },
 };
 
-const mass = (top: Top) => 0.5 + Math.max(top.spin, 0) / START_SPIN;
+// A top that has spun down is lighter on its feet, so the same shape hits softer at the end of a match.
+const mass = (top: Top) => top.spec.mass ** K.massExp * (0.5 + Math.max(top.spin, 0) / START_SPIN);
 
-function newTop(x: number, y: number): Top {
-  return { x, y, vx: 0, vy: 0, spin: START_SPIN, angle: 0, dashCooldown: 0, steerX: 0, steerY: 0, out: false };
+function newTop(x: number, y: number, profile: Profile): Top {
+  return { x, y, vx: 0, vy: 0, spin: START_SPIN, angle: 0, dashCooldown: 0, steerX: 0, steerY: 0, out: false, spec: specOf(profile) };
 }
 
-export function createKoma(level: Level = "normal", random: () => number = Math.random): Koma {
+// `autoplay` lets the computer steer both tops; it is for testing the balance of shapes, not for the page.
+export function createKoma(
+  level: Level = "normal",
+  random: () => number = Math.random,
+  shapes: [Profile, Profile] = [PRESETS.standard, PRESETS.standard],
+  autoplay = false,
+): Koma {
   const skill = SKILL[level];
-  const tops: [Top, Top] = [newTop(0, 52), newTop(0, -52)];
+  const tops: [Top, Top] = [newTop(0, 52, shapes[0]), newTop(0, -52, shapes[1])];
   let time = 0;
   let result: Result | null = null;
 
@@ -72,22 +82,23 @@ export function createKoma(level: Level = "normal", random: () => number = Math.
     return true;
   };
 
-  // The computer goes for the point just inside the player's top, so a hit pushes it toward the rim.
-  const think = () => {
-    const me = tops[1], you = tops[0];
+  // The computer goes for the point just inside the other top, so a hit pushes it toward the rim.
+  const think = (side: Side) => {
+    const me = tops[side], you = tops[side === 0 ? 1 : 0];
     if (me.out) return;
+    const reach = me.spec.radius + you.spec.radius;
     const away = Math.hypot(you.x, you.y) || 1;
-    const aimX = you.x - (you.x / away) * TOP_R * 0.6 * skill.aim + (random() - 0.5) * 10 * (1 - skill.aim);
-    const aimY = you.y - (you.y / away) * TOP_R * 0.6 * skill.aim + (random() - 0.5) * 10 * (1 - skill.aim);
+    const aimX = you.x - (you.x / away) * you.spec.radius * 0.6 * skill.aim + (random() - 0.5) * 10 * (1 - skill.aim);
+    const aimY = you.y - (you.y / away) * you.spec.radius * 0.6 * skill.aim + (random() - 0.5) * 10 * (1 - skill.aim);
     let dx = aimX - me.x, dy = aimY - me.y;
     const gap = Math.hypot(dx, dy) || 1;
     dx /= gap; dy /= gap;
     // Near the rim, come back toward the center instead of chasing.
     const rim = Math.hypot(me.x, me.y);
-    if (rim > DISH - TOP_R * 1.5) { dx = -me.x / rim; dy = -me.y / rim; }
+    if (rim > DISH - me.spec.radius * 1.5) { dx = -me.x / rim; dy = -me.y / rim; }
     me.steerX = dx * skill.steer;
     me.steerY = dy * skill.steer;
-    if (gap < 60 && gap > TOP_R * 2.2 && rim < DISH - TOP_R * 2.5 && me.spin > 30 && random() < 0.08 * skill.dash) dash(1);
+    if (gap < 60 && gap > reach * 1.1 && rim < DISH - me.spec.radius * 2.5 && me.spin > 30 && random() < 0.08 * skill.dash) dash(side);
   };
 
   const events: KomaEvent[] = [];
@@ -97,9 +108,10 @@ export function createKoma(level: Level = "normal", random: () => number = Math.
     if (a.out || b.out) return;
     const dx = b.x - a.x, dy = b.y - a.y;
     const gap = Math.hypot(dx, dy);
-    if (gap >= TOP_R * 2 || gap === 0) return;
+    const reach = a.spec.radius + b.spec.radius;
+    if (gap >= reach || gap === 0) return;
     const nx = dx / gap, ny = dy / gap;
-    const overlap = TOP_R * 2 - gap;
+    const overlap = reach - gap;
     const ma = mass(a), mb = mass(b);
     a.x -= nx * overlap * (mb / (ma + mb)); a.y -= ny * overlap * (mb / (ma + mb));
     b.x += nx * overlap * (ma / (ma + mb)); b.y += ny * overlap * (ma / (ma + mb));
@@ -109,8 +121,9 @@ export function createKoma(level: Level = "normal", random: () => number = Math.
     const speedA = Math.hypot(a.vx, a.vy), speedB = Math.hypot(b.vx, b.vy);
     const speeds = Math.max(speedA + speedB, 1), spins = Math.max(a.spin + b.spin, 1);
     const force = Math.max(approach - HIT_FREE, 0);
-    const lossA = HIT_LOSS * force * (0.5 * (speedB / speeds) + 0.5 * (b.spin / spins)) * 2;
-    const lossB = HIT_LOSS * force * (0.5 * (speedA / speeds) + 0.5 * (a.spin / spins)) * 2;
+    // How much of that a top loses depends on its shape too: a heavy, broad one shrugs a hit off.
+    const lossA = HIT_LOSS * force * (0.5 * (speedB / speeds) + 0.5 * (b.spin / spins)) * 2 * a.spec.resist;
+    const lossB = HIT_LOSS * force * (0.5 * (speedA / speeds) + 0.5 * (a.spin / spins)) * 2 * b.spec.resist;
     const impulse = (1.9 * approach) / (1 / ma + 1 / mb);
     a.vx -= (impulse / ma) * nx; a.vy -= (impulse / ma) * ny;
     b.vx += (impulse / mb) * nx; b.vy += (impulse / mb) * ny;
@@ -123,16 +136,21 @@ export function createKoma(level: Level = "normal", random: () => number = Math.
     events.length = 0;
     if (result) return [];
     time += STEP;
-    think();
+    think(1);
+    if (autoplay) think(0);
     for (const top of tops) {
       if (top.out) continue;
       const length = Math.hypot(top.steerX, top.steerY);
       const scale = length > 1 ? 1 / length : 1;
-      top.vx += (top.steerX * scale * STEER - top.x * PULL - top.vx * DRAG) * STEP;
-      top.vy += (top.steerY * scale * STEER - top.y * PULL - top.vy * DRAG) * STEP;
+      // Under its wobble point a top is shaky: it runs down faster and is pushed around at random.
+      const shaky = Math.max(0, 1 - top.spin / top.spec.wobbleAt);
+      const pushX = shaky * K.wobblePush * (random() - 0.5), pushY = shaky * K.wobblePush * (random() - 0.5);
+      const drag = DRAG * top.spec.drag;
+      top.vx += (top.steerX * scale * STEER * top.spec.steer - top.x * PULL - top.vx * drag + pushX) * STEP;
+      top.vy += (top.steerY * scale * STEER * top.spec.steer - top.y * PULL - top.vy * drag + pushY) * STEP;
       top.x += top.vx * STEP;
       top.y += top.vy * STEP;
-      top.spin -= DECAY * STEP;
+      top.spin -= DECAY * top.spec.decay * (1 + K.shaky * shaky) * STEP;
       top.dashCooldown = Math.max(0, top.dashCooldown - STEP);
       top.angle += (4 + top.spin * 0.22) * STEP;
     }

@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import { createKoma, START_SPIN, DISH } from './engine.ts';
+import { PRESETS } from './shape.ts';
 
 // A seeded random so the computer's wobble is the same every run.
 function seeded(seed) { let s = seed; return () => (s = (s * 16807) % 2147483647) / 2147483647; }
@@ -78,5 +79,32 @@ for (const level of ['easy', 'normal', 'hard']) {
   game.tops[1].x = 10; game.tops[1].y = 0; game.tops[1].vx = -100;
   game.step();
   assert.ok(Math.abs(game.tops[1].vx) > Math.abs(game.tops[0].vx), 'the lighter top is thrown harder');
+}
+// The shape of a top is felt in play: a heavy one throws a light one harder than it is thrown back.
+{
+  const game = createKoma('easy', seeded(7), [PRESETS.sharp, PRESETS.heavy], false);
+  const [light, heavy] = game.tops;
+  light.x = -14; light.y = 0; light.vx = 100;
+  heavy.x = 14; heavy.y = 0; heavy.vx = -100;
+  game.step();
+  assert.ok(Math.abs(light.vx) > Math.abs(heavy.vx), 'the light one is thrown back harder');
+}
+
+// The four starting shapes hold their own against each other (fixed seeds, the computer playing both sides): none beats another by a wall.
+{
+  const names = Object.keys(PRESETS);
+  for (let a = 0; a < names.length; a++) for (let b = a + 1; b < names.length; b++) {
+    let wins = 0;
+    const games = 60;
+    for (let i = 1; i <= games; i++) {
+      const swap = i % 2 === 1;
+      const game = createKoma('normal', seeded(i * 31 + 7), swap ? [PRESETS[names[b]], PRESETS[names[a]]] : [PRESETS[names[a]], PRESETS[names[b]]], true);
+      while (!game.result && game.time < 120) game.step();
+      const winner = game.result.winner;
+      wins += winner === 'draw' ? 0.5 : winner === (swap ? 1 : 0) ? 1 : 0;
+    }
+    const rate = wins / games;
+    assert.ok(rate > 0.15 && rate < 0.85, `${names[a]} against ${names[b]}: ${Math.round(rate * 100)}%`);
+  }
 }
 console.log('koma engine ok');

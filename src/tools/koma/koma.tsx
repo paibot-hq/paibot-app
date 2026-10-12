@@ -4,10 +4,15 @@ import ToolLayout from "../../components/tool-layout";
 import controls from "../../components/tool-controls.module.css";
 import styles from "./koma.module.css";
 import type { Scene3D } from "./render3d";
-import { DISH, START_SPIN, STEP, TOP_R, createKoma, type Koma, type Level, type Result, type Top } from "./engine";
+import { DISH, START_SPIN, STEP, createKoma, type Koma, type Level, type Result, type Top } from "./engine";
+import ShapeEditor from "./shape-editor";
+import { PRESETS, PRESET_NAMES, parseProfile, type PresetName, type Profile } from "./shape";
 
 const BEST_KEY = "paibot.koma.best";
+const SHAPE_KEY = "paibot.koma.shape";
 const LEVELS: Level[] = ["easy", "normal", "hard"];
+// The shapes the computer may bring: the weakest of them when it is easy, the strongest when it is hard (see the matrix in engine.test.mjs).
+const OPPONENTS: Record<Level, PresetName[]> = { easy: ["sharp", "standard"], normal: PRESET_NAMES, hard: ["heavy", "flat", "standard"] };
 const KEYS: Record<string, [number, number]> = {
   ArrowLeft: [-1, 0], KeyA: [-1, 0], ArrowRight: [1, 0], KeyD: [1, 0],
   ArrowUp: [0, -1], KeyW: [0, -1], ArrowDown: [0, 1], KeyS: [0, 1],
@@ -24,28 +29,36 @@ function saveBest(value: number) {
   try { localStorage.setItem(BEST_KEY, String(value)); } catch { /* storage unavailable */ }
 }
 
+function readShape(): Profile | null {
+  try { return parseProfile(JSON.parse(localStorage.getItem(SHAPE_KEY) ?? "null")); } catch { return null; }
+}
+function saveShape(profile: Profile) {
+  try { localStorage.setItem(SHAPE_KEY, JSON.stringify(profile.map(value => Math.round(value * 100) / 100))); } catch { /* storage unavailable */ }
+}
+
 function drawTop(context: CanvasRenderingContext2D, top: Top, body: string, mark: string) {
   const wobble = top.spin < 30 ? (1 - top.spin / 30) * 3 : 0;
   const x = top.x + Math.cos(top.angle * 0.7) * wobble;
   const y = top.y + Math.sin(top.angle * 0.9) * wobble;
+  const radius = top.spec.radius;
   context.save();
   context.globalAlpha = top.out ? 0.3 : 1;
   context.translate(x, y);
   context.fillStyle = body;
   context.beginPath();
-  context.arc(0, 0, TOP_R, 0, Math.PI * 2);
+  context.arc(0, 0, radius, 0, Math.PI * 2);
   context.fill();
   // Alternating wedges turn with the top, so its spin can be seen.
   context.fillStyle = mark;
   for (let i = 0; i < 4; i++) {
     context.beginPath();
     context.moveTo(0, 0);
-    context.arc(0, 0, TOP_R * 0.8, top.angle + i * Math.PI / 2, top.angle + i * Math.PI / 2 + Math.PI / 4);
+    context.arc(0, 0, radius * 0.8, top.angle + i * Math.PI / 2, top.angle + i * Math.PI / 2 + Math.PI / 4);
     context.closePath();
     context.fill();
   }
   context.beginPath();
-  context.arc(0, 0, TOP_R * 0.18, 0, Math.PI * 2);
+  context.arc(0, 0, radius * 0.18, 0, Math.PI * 2);
   context.fillStyle = body;
   context.fill();
   context.restore();
@@ -88,6 +101,9 @@ export default function KomaGame() {
   const modeRef = useRef<"pending" | "3d" | "flat">("pending");
   const pointerRef = useRef<{ x: number; y: number } | null>(null);
   const levelRef = useRef<Level>("normal");
+  const profileRef = useRef<Profile>(PRESETS.standard);
+  const opponentRef = useRef<PresetName>("standard");
+  const shapesRef = useRef<[Profile, Profile]>([PRESETS.standard, PRESETS.standard]);
   const streakRef = useRef(0);
   const bestRef = useRef(0);
   const [level, setLevel] = useState<Level>("normal");
@@ -97,13 +113,28 @@ export default function KomaGame() {
   const [result, setResult] = useState<Result | null>(null);
   const [streak, setStreak] = useState(0);
   const [best, setBest] = useState(0);
+  const [profile, setProfile] = useState<Profile>(PRESETS.standard);
+  const [opponent, setOpponent] = useState<PresetName>("standard");
 
-  useEffect(() => { bestRef.current = readBest(); setBest(bestRef.current); }, []);
+  useEffect(() => {
+    bestRef.current = readBest();
+    setBest(bestRef.current);
+    const saved = readShape();
+    if (saved) { profileRef.current = saved; setProfile(saved); newGame(levelRef.current, true); }
+  }, []);
 
   const setPhaseBoth = (next: "ready" | "playing" | "over") => { phaseRef.current = next; setPhase(next); };
 
-  const newGame = (nextLevel: Level) => {
-    gameRef.current = createKoma(nextLevel);
+  // The computer plays a different one of the preset shapes each match; editing your own top keeps the one you were going to face.
+  const newGame = (nextLevel: Level, keepOpponent = false) => {
+    if (!keepOpponent) {
+      const pool = OPPONENTS[nextLevel];
+      opponentRef.current = pool[Math.floor(Math.random() * pool.length)]!;
+      setOpponent(opponentRef.current);
+    }
+    shapesRef.current = [profileRef.current, PRESETS[opponentRef.current]];
+    gameRef.current = createKoma(nextLevel, Math.random, shapesRef.current);
+    sceneRef.current?.setShapes(shapesRef.current);
     setSpins([START_SPIN, START_SPIN]);
     setCooldown(0);
     setResult(null);
@@ -187,6 +218,7 @@ export default function KomaGame() {
         if (cancelled) return;
         try {
           sceneRef.current = createScene(canvas);
+          sceneRef.current.setShapes(shapesRef.current);
           modeRef.current = "3d";
           canvas.dataset["mode"] = "3d";
           resize();
@@ -240,6 +272,13 @@ export default function KomaGame() {
   };
   const release = () => { pointerRef.current = null; gameRef.current?.steer(0, 0); };
 
+  const editShape = (next: Profile) => {
+    profileRef.current = next;
+    setProfile(next);
+    saveShape(next);
+    if (phaseRef.current !== "playing") newGame(levelRef.current, true);
+  };
+
   const message = result
     ? result.winner === "draw" ? t("draw")
       : t(`${result.winner === 0 ? "won" : "lost"}${result.reason === "fell" ? "Fell" : "Stopped"}`)
@@ -267,10 +306,12 @@ export default function KomaGame() {
       <div className={styles["spins"]}>
         {bar(spins[0], "you")}
         {bar(spins[1], "cpu")}
+        <p className={controls.label} data-koma="opponent">{t("opponent", { shape: t(`presets.${opponent}`) })}</p>
       </div>
       <canvas
         ref={canvasRef}
         className={styles["dish"]}
+        data-koma="dish"
         role="img"
         aria-label={t("canvasLabel")}
         onPointerDown={event => { event.preventDefault(); event.currentTarget.setPointerCapture(event.pointerId); aim(event); }}
@@ -288,6 +329,7 @@ export default function KomaGame() {
         <button className="auth-link" type="button" data-koma="start" onClick={start}>{phase === "over" ? t("again") : t("start")}</button>
       )}
       <p className={controls.label}>{t("keys")}</p>
+      <ShapeEditor profile={profile} disabled={phase === "playing"} onChange={editShape} />
     </ToolLayout>
   );
 }

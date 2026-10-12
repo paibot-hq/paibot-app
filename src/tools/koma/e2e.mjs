@@ -9,7 +9,22 @@ export default async function ({ page, main, go }) {
   await go('koma');
   await message.getByText('Drag on the dish to move and press Dash to ram', { exact: true }).waitFor();
   const webgl = await page.evaluate(() => !!document.createElement('canvas').getContext('webgl2'));
-  if (webgl) await page.waitForFunction(() => document.querySelector('main canvas')?.dataset.mode === '3d');
+  if (webgl) await page.waitForFunction(() => document.querySelector('[data-koma="dish"]')?.dataset.mode === '3d');
+  // Drawing a fat, tall outline on the pad makes a heavier top than the standard one, and a preset button puts the standard one back.
+  const weight = async () => Number(await main.locator('[data-stat="weight"]').getAttribute('data-value'));
+  const standard = await weight();
+  const pad = main.locator('[data-koma="shape-pad"]');
+  await pad.scrollIntoViewIfNeeded();
+  const box = await pad.boundingBox();
+  const at = (x, y) => [box.x + box.width * x, box.y + box.height * (1 - y)];
+  await page.mouse.move(...at(0.52, 0.02));
+  await page.mouse.down();
+  for (const [x, y] of [[0.8, 0.3], [0.95, 0.5], [0.95, 0.9], [0.52, 0.95]]) await page.mouse.move(...at(x, y), { steps: 4 });
+  await page.mouse.up();
+  assert.ok(await weight() > standard + 15, 'a fat outline is a heavy top');
+  assert.ok(await page.evaluate(() => !!localStorage.getItem('paibot.koma.shape')), 'the drawing is kept');
+  await main.getByRole('button', { name: 'Standard' }).click();
+  assert.equal(await weight(), standard);
   await main.locator('[data-koma="start"]').click();
   await main.getByRole('button', { name: 'Dash' }).waitFor();
   await page.waitForFunction(() => Number(document.querySelector('[data-koma="you-spin"] [data-fill]').style.width.replace('%', '')) < 100);
@@ -23,7 +38,7 @@ export default async function ({ page, main, go }) {
   await go('koma');
   await message.getByText('Drag on the dish to move and press Dash to ram', { exact: true }).waitFor();
   await page.clock.runFor(100);
-  assert.equal(await page.locator('main canvas').getAttribute('data-mode'), null, 'no 3D without WebGL');
+  assert.equal(await page.locator('[data-koma="dish"]').getAttribute('data-mode'), null, 'no 3D without WebGL');
   await main.locator('[data-koma="start"]').click();
   await page.keyboard.down('ArrowLeft');
   await page.clock.runFor(300);

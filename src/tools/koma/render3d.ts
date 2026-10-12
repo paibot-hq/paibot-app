@@ -1,7 +1,8 @@
 // The 3D view of the match (three.js). It only draws what engine.ts simulates: the engine's x and y are the dish's x and z here.
 // Loaded on demand by koma.tsx; createScene throws when WebGL is not available, and the page falls back to the flat drawing.
 import * as THREE from "three";
-import { DISH, TOP_R, type Koma, type Top } from "./engine";
+import { DISH, type Koma, type Top } from "./engine";
+import { LEVELS, MAX_HEIGHT, PRESETS, type Profile } from "./shape";
 
 const BOWL = 16;           // how much higher the rim is than the middle of the dish
 const SPARKS = 96;
@@ -13,6 +14,8 @@ export type Scene3D = {
   // Where on the dish (engine units) a point of the page is, or null when it is off the table.
   pick(clientX: number, clientY: number): { x: number; y: number } | null;
   hit(game: Koma, speed: number): void;
+  // The tops' shapes for the next match.
+  setShapes(shapes: [Profile, Profile]): void;
   dispose(): void;
 };
 
@@ -34,31 +37,55 @@ function capTexture(body: string): THREE.CanvasTexture {
   return texture;
 }
 
-type Piece = { root: THREE.Group; tilt: THREE.Group; spinner: THREE.Group; bodyMaterial: THREE.MeshStandardMaterial; capMaterial: THREE.MeshStandardMaterial; color: string; fell: number };
+type Piece = { root: THREE.Group; tilt: THREE.Group; spinner: THREE.Group; body: THREE.MeshStandardMaterial; cap: THREE.MeshStandardMaterial; color: string; fell: number };
 
-function makeTop(): Piece {
-  const bodyMaterial = new THREE.MeshStandardMaterial({ roughness: 0.45, metalness: 0.1 });
-  const capMaterial = new THREE.MeshStandardMaterial({ roughness: 0.5 });
-  const wood = new THREE.MeshStandardMaterial({ color: "#c79a62", roughness: 0.7 });
-  const steel = new THREE.MeshStandardMaterial({ color: "#c9d1d9", roughness: 0.25, metalness: 0.9 });
+// Bands around the top (they show as it turns) and wedges on its top face.
+function bandsTexture(body: string): THREE.CanvasTexture {
+  const canvas = document.createElement("canvas");
+  canvas.width = 256;
+  canvas.height = 4;
+  const context = canvas.getContext("2d")!;
+  for (let i = 0; i < 8; i++) {
+    context.fillStyle = i % 2 ? "#f3ead8" : body;
+    context.fillRect(i * 32, 0, 32, 4);
+  }
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.wrapS = THREE.RepeatWrapping;
+  return texture;
+}
+
+function makePiece(): Piece {
   const spinner = new THREE.Group();
-  const add = (geometry: THREE.BufferGeometry, material: THREE.Material | THREE.Material[], y: number) => {
-    const mesh = new THREE.Mesh(geometry, material);
-    mesh.position.y = y;
-    mesh.castShadow = true;
-    spinner.add(mesh);
-    return mesh;
-  };
-  add(new THREE.ConeGeometry(2.2, 5, 16).rotateX(Math.PI), steel, 2.5);
-  add(new THREE.CylinderGeometry(TOP_R, 3, 8, 40), bodyMaterial, 9);
-  // The cap's top face carries the wedges, so the turning shows from above.
-  add(new THREE.CylinderGeometry(TOP_R, TOP_R, 3, 40), [bodyMaterial, capMaterial, bodyMaterial], 14.5);
-  add(new THREE.CylinderGeometry(1.7, 1.7, 9, 16), wood, 20.5);
   const tilt = new THREE.Group();
   tilt.add(spinner);
   const root = new THREE.Group();
   root.add(tilt);
-  return { root, tilt, spinner, bodyMaterial, capMaterial, color: "", fell: 0 };
+  return {
+    root, tilt, spinner, color: "", fell: 0,
+    body: new THREE.MeshStandardMaterial({ roughness: 0.45, metalness: 0.1, side: THREE.DoubleSide }),
+    cap: new THREE.MeshStandardMaterial({ roughness: 0.5 }),
+  };
+}
+
+// The solid the player drew: its outline turned around the axis, with the wedges on the highest broad face.
+function buildShape(piece: Piece, profile: Profile) {
+  for (const child of [...piece.spinner.children]) {
+    piece.spinner.remove(child);
+    (child as THREE.Mesh).geometry.dispose();
+  }
+  const points = profile.map((radius, i) => new THREE.Vector2(radius, (i / (LEVELS - 1)) * MAX_HEIGHT));
+  const body = new THREE.Mesh(new THREE.LatheGeometry(points, 56), piece.body);
+  body.castShadow = true;
+  piece.spinner.add(body);
+  let top = -1;
+  profile.forEach((radius, i) => { if (radius > 3) top = i; });
+  if (top >= 0) {
+    const cap = new THREE.Mesh(new THREE.CircleGeometry(profile[top]!, 48), piece.cap);
+    cap.rotation.x = -Math.PI / 2;
+    cap.position.y = (top / (LEVELS - 1)) * MAX_HEIGHT + 0.05;
+    piece.spinner.add(cap);
+  }
 }
 
 export function createScene(canvas: HTMLCanvasElement): Scene3D {
@@ -110,8 +137,8 @@ export function createScene(canvas: HTMLCanvasElement): Scene3D {
   shadowCatcher.receiveShadow = true;
   scene.add(shadowCatcher);
 
-  const pieces = [makeTop(), makeTop()];
-  for (const piece of pieces) scene.add(piece.root);
+  const pieces = [makePiece(), makePiece()];
+  for (const piece of pieces) { buildShape(piece, PRESETS.standard); scene.add(piece.root); }
 
   const sparkPositions = new Float32Array(SPARKS * 3).fill(-1000);
   const sparkVelocity = new Float32Array(SPARKS * 3);
@@ -135,10 +162,12 @@ export function createScene(canvas: HTMLCanvasElement): Scene3D {
       const piece = pieces[index]!;
       if (!color || piece.color === color) return;
       piece.color = color;
-      piece.bodyMaterial.color.set(color);
-      piece.capMaterial.map?.dispose();
-      piece.capMaterial.map = capTexture(color);
-      piece.capMaterial.needsUpdate = true;
+      piece.body.map?.dispose();
+      piece.body.map = bandsTexture(color);
+      piece.body.needsUpdate = true;
+      piece.cap.map?.dispose();
+      piece.cap.map = capTexture(color);
+      piece.cap.needsUpdate = true;
     });
   };
 
@@ -155,7 +184,7 @@ export function createScene(canvas: HTMLCanvasElement): Scene3D {
     piece.root.visible = lift > -400;
     piece.root.position.set(x, bowlY(x, y) + lift, y);
     // A fast top stands straight; as the spin runs out it wobbles wider and wider until it lies down.
-    const slow = Math.max(0, 1 - top.spin / 35);
+    const slow = Math.max(0, 1 - top.spin / top.spec.wobbleAt);
     const lean = 0.03 + slow ** 1.5 * 1.2 + (top.out ? piece.fell * 2 : 0);
     const phase = top.angle * 0.35;
     piece.tilt.rotation.set(lean * Math.sin(phase), 0, lean * Math.cos(phase));
@@ -197,6 +226,9 @@ export function createScene(canvas: HTMLCanvasElement): Scene3D {
       raycaster.setFromCamera(ndc, camera);
       const point = raycaster.ray.intersectPlane(floor, new THREE.Vector3());
       return point ? { x: point.x, y: point.z } : null;
+    },
+    setShapes(shapes) {
+      shapes.forEach((profile, index) => buildShape(pieces[index]!, profile));
     },
     hit(game, speed) {
       const [a, b] = game.tops;

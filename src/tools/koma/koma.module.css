@@ -98,3 +98,74 @@
   height: 4px;
   background: var(--accent);
 }
+.editor {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .6rem;
+  width: min(420px, 100%);
+}
+.editorTitle {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.1rem;
+}
+.editorHint {
+  margin: 0;
+  color: var(--muted);
+  font-size: .9rem;
+  text-align: center;
+}
+.pad {
+  display: block;
+  width: 100%;
+  aspect-ratio: 32 / 26;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: crosshair;
+}
+.pad[data-disabled] {
+  opacity: .5;
+  cursor: default;
+}
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .5rem;
+}
+.presets button {
+  padding: .4rem .8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+.presets button:disabled {
+  color: var(--muted);
+  cursor: default;
+}
+.stats {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  width: 100%;
+  margin: 0;
+}
+.stats div {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  align-items: center;
+  gap: .5rem;
+  color: var(--muted);
+  font-size: .85rem;
+}
+.stats dt, .stats dd {
+  margin: 0;
+}

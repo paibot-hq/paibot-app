@@ -2041,10 +2041,10 @@
     },
     "koma": {
       "title": "Spinning Top Battle",
-      "description": "A battle game where spinning tops collide in a dish. Drag to move, dash to ram. Stop your rival's spin or knock it out of the dish to win. Three levels and a win streak. Free, no sign-up.",
-      "about": "Your top and the computer's top spin and crash into each other in a dish. Drag (or use the arrow keys or WASD) to move and dash to ram. A hard hit costs spin, and whoever stops spinning or is knocked out of the dish loses. A dash also costs a little spin, so save it for when the rival is standing still or near the rim.",
+      "description": "A 3D battle game where spinning tops collide in a dish. You draw the cross-section of your own top, and its shape decides its weight and how long it keeps spinning. Stop your rival's spin or knock it out of the dish to win. Three levels and a win streak. Free, no sign-up.",
+      "about": "Your top and the computer's top spin and crash into each other in a dish. You draw the shape of your top, one side of its cross-section, and its weight, staying power, agility, pushing power and stability are worked out from the drawing. Drag (or use the arrow keys or WASD) to move and dash to ram. A hard hit costs spin, and whoever stops spinning or is knocked out of the dish loses.",
       "keywords": "spinning top battle game koma beyblade-like mini game free",
-      "intro": "Crash your top into the rival's in the dish. Stop its spin or knock it out of the dish to win.",
+      "intro": "Crash your top into the rival's in the dish. Stop its spin or knock it out of the dish to win. You draw the shape of your own top.",
       "canvasLabel": "A dish with your blue spinning top and the computer's red one spinning in it",
       "level": "Level",
       "easy": "Easy",
@@ -2063,7 +2063,25 @@
       "wonStopped": "You win! Its spin ran out",
       "lostFell": "You lose… you fell out of the dish",
       "lostStopped": "You lose… your spin ran out",
-      "draw": "A draw"
+      "draw": "A draw",
+      "shapeTitle": "Shape your top",
+      "shapeHint": "Draw one side of the top's cross-section with a finger or the mouse. The tip is at the bottom and the dotted line is the axis it spins on. The shape decides its weight and how long it keeps spinning.",
+      "shapeLabel": "A pad to draw the top's cross-section on. The outline you draw is mirrored around the dotted axis in the middle",
+      "presetsLabel": "Starting shapes",
+      "presets": {
+        "standard": "Standard",
+        "heavy": "Heavy",
+        "sharp": "Pointed",
+        "flat": "Flat"
+      },
+      "stats": {
+        "weight": "Weight",
+        "stamina": "Stamina",
+        "agility": "Agility",
+        "power": "Power",
+        "stable": "Stability"
+      },
+      "opponent": "CPU's top: {shape}"
     },
     "craneGame": {
       "title": "Claw Machine",
