@@ -2081,7 +2081,10 @@
         "power": "冲撞",
         "stable": "稳定"
       },
-      "opponent": "电脑的陀螺:{shape}"
+      "opponent": "电脑的陀螺:{shape}",
+      "buildIntro": "先画出你的陀螺形状。画好后选择难度,开始对战。",
+      "toBattle": "开始对战",
+      "rebuild": "重新设计陀螺"
     },
     "craneGame": {
       "title": "抓娃娃机",

@@ -100,12 +100,15 @@ export default function KomaGame() {
   const sceneRef = useRef<Scene3D | null>(null);
   const modeRef = useRef<"pending" | "3d" | "flat">("pending");
   const pointerRef = useRef<{ x: number; y: number } | null>(null);
+  const screenRef = useRef<"build" | "battle">("build");
   const levelRef = useRef<Level>("normal");
   const profileRef = useRef<Profile>(PRESETS.standard);
   const opponentRef = useRef<PresetName>("standard");
   const shapesRef = useRef<[Profile, Profile]>([PRESETS.standard, PRESETS.standard]);
   const streakRef = useRef(0);
   const bestRef = useRef(0);
+  // First the top is shaped (and the level chosen), then the battle.
+  const [screen, setScreen] = useState<"build" | "battle">("build");
   const [level, setLevel] = useState<Level>("normal");
   const [phase, setPhase] = useState<"ready" | "playing" | "over">("ready");
   const [spins, setSpins] = useState<[number, number]>([START_SPIN, START_SPIN]);
@@ -153,6 +156,19 @@ export default function KomaGame() {
     setStreak(streakRef.current);
   };
 
+  const toBattle = () => {
+    screenRef.current = "battle";
+    setScreen("battle");
+    newGame(levelRef.current);
+  };
+  const rebuild = () => {
+    if (phaseRef.current === "playing") return;
+    keysRef.current.clear();
+    pointerRef.current = null;
+    screenRef.current = "build";
+    setScreen("build");
+  };
+
   const start = () => {
     if (phaseRef.current === "playing") return;
     if (phaseRef.current === "over") newGame(levelRef.current);
@@ -187,7 +203,8 @@ export default function KomaGame() {
       pending = Math.min(pending + (now - last) / 1000, 0.25);
       last = now;
       if (game && canvas) {
-        if (phaseRef.current === "playing") {
+        if (screenRef.current !== "battle") pending = 0;
+        else if (phaseRef.current === "playing") {
           updateSteer();
           while (pending >= STEP && phaseRef.current === "playing") {
             for (const event of game.step()) {
@@ -199,7 +216,8 @@ export default function KomaGame() {
           setSpins([game.tops[0].spin, game.tops[1].spin]);
           setCooldown(game.tops[0].dashCooldown);
         } else pending = 0;
-        if (modeRef.current === "3d") sceneRef.current?.render(game);
+        if (screenRef.current !== "battle") { /* the dish is hidden while the top is being shaped */ }
+        else if (modeRef.current === "3d") sceneRef.current?.render(game);
         else if (modeRef.current === "flat") draw(canvas, game);
       }
       frame = requestAnimationFrame(loop);
@@ -207,7 +225,7 @@ export default function KomaGame() {
     frame = requestAnimationFrame(loop);
 
     const resize = () => {
-      if (!canvas) return;
+      if (!canvas || !canvas.clientWidth) return;
       canvas.width = canvas.clientWidth * window.devicePixelRatio;
       canvas.height = canvas.width;
       sceneRef.current?.resize(canvas.width, canvas.height);
@@ -235,6 +253,7 @@ export default function KomaGame() {
     const key = (pressed: boolean) => (event: KeyboardEvent) => {
       const target = event.target as HTMLElement | null;
       if (target?.closest("input, textarea, select, button, [contenteditable]")) return;
+      if (screenRef.current !== "battle") return;
       if (KEYS[event.code]) {
         if (pressed) keysRef.current.add(event.code); else keysRef.current.delete(event.code);
       } else if (DASH_KEYS.has(event.code)) {
@@ -276,7 +295,6 @@ export default function KomaGame() {
     profileRef.current = next;
     setProfile(next);
     saveShape(next);
-    if (phaseRef.current !== "playing") newGame(levelRef.current, true);
   };
 
   const message = result
@@ -291,27 +309,43 @@ export default function KomaGame() {
     </div>
   );
 
+  const scoreboard = (
+    <dl className={styles["score"]}>
+      <div><dt>{t("streak")}</dt><dd data-koma="streak">{streak}</dd></div>
+      <div><dt>{t("best")}</dt><dd>{best}</dd></div>
+    </dl>
+  );
+
   return (
     <ToolLayout title={t("title")}>
-      <p className={controls.label}>{t("intro")}</p>
-      <div className={controls.mode} role="group" aria-label={t("level")}>
-        {LEVELS.map(option => (
-          <button key={option} type="button" aria-pressed={level === option} disabled={phase === "playing"} onClick={() => setLevel(option)}>{t(option)}</button>
-        ))}
-      </div>
-      <dl className={styles["score"]}>
-        <div><dt>{t("streak")}</dt><dd data-koma="streak">{streak}</dd></div>
-        <div><dt>{t("best")}</dt><dd>{best}</dd></div>
-      </dl>
-      <div className={styles["spins"]}>
-        {bar(spins[0], "you")}
-        {bar(spins[1], "cpu")}
-        <p className={controls.label} data-koma="opponent">{t("opponent", { shape: t(`presets.${opponent}`) })}</p>
-      </div>
+      {screen === "build" ? (
+        <>
+          <p className={controls.label}>{t("buildIntro")}</p>
+          <ShapeEditor profile={profile} onChange={editShape} />
+          <div className={controls.mode} role="group" aria-label={t("level")}>
+            {LEVELS.map(option => (
+              <button key={option} type="button" aria-pressed={level === option} onClick={() => setLevel(option)}>{t(option)}</button>
+            ))}
+          </div>
+          {scoreboard}
+          <button className="auth-link" type="button" data-koma="to-battle" onClick={toBattle}>{t("toBattle")}</button>
+        </>
+      ) : (
+        <>
+          <p className={controls.label}>{t("intro")}</p>
+          {scoreboard}
+          <div className={styles["spins"]}>
+            {bar(spins[0], "you")}
+            {bar(spins[1], "cpu")}
+            <p className={controls.label} data-koma="opponent">{t("opponent", { shape: t(`presets.${opponent}`) })}</p>
+          </div>
+        </>
+      )}
       <canvas
         ref={canvasRef}
         className={styles["dish"]}
         data-koma="dish"
+        hidden={screen === "build"}
         role="img"
         aria-label={t("canvasLabel")}
         onPointerDown={event => { event.preventDefault(); event.currentTarget.setPointerCapture(event.pointerId); aim(event); }}
@@ -319,17 +353,23 @@ export default function KomaGame() {
         onPointerUp={release}
         onPointerCancel={release}
       />
-      <p className={styles["message"]} data-koma="message" aria-live="polite">{message}</p>
-      {phase === "playing" ? (
-        <button type="button" className={styles["dash"]} onClick={dash} disabled={cooldown > 0}>
-          <span>{t("dash")}</span>
-          <span className={styles["meter"]} style={{ width: `${Math.round((1 - cooldown / 1.1) * 100)}%` }} />
-        </button>
-      ) : (
-        <button className="auth-link" type="button" data-koma="start" onClick={start}>{phase === "over" ? t("again") : t("start")}</button>
+      {screen === "battle" && (
+        <>
+          <p className={styles["message"]} data-koma="message" aria-live="polite">{message}</p>
+          {phase === "playing" ? (
+            <button type="button" className={styles["dash"]} onClick={dash} disabled={cooldown > 0}>
+              <span>{t("dash")}</span>
+              <span className={styles["meter"]} style={{ width: `${Math.round((1 - cooldown / 1.1) * 100)}%` }} />
+            </button>
+          ) : (
+            <div className={styles["after"]}>
+              <button className="auth-link" type="button" data-koma="start" onClick={start}>{phase === "over" ? t("again") : t("start")}</button>
+              <button className="auth-link" type="button" data-koma="rebuild" onClick={rebuild}>{t("rebuild")}</button>
+            </div>
+          )}
+          <p className={controls.label}>{t("keys")}</p>
+        </>
       )}
-      <p className={controls.label}>{t("keys")}</p>
-      <ShapeEditor profile={profile} disabled={phase === "playing"} onChange={editShape} />
     </ToolLayout>
   );
 }

@@ -53,11 +53,27 @@ for (const level of ['easy', 'normal', 'hard']) {
   const spin = game.tops[0].spin;
   assert.equal(game.dash(0), true);
   assert.ok(game.tops[0].spin < spin - 3, 'a dash costs spin');
-  assert.ok(Math.hypot(game.tops[0].vx, game.tops[0].vy) > 100, 'a dash is fast');
+  assert.ok(Math.hypot(game.tops[0].vx, game.tops[0].vy) > 60, 'a dash is fast');
   assert.equal(game.dash(0), false, 'the dash needs time to recover');
   game.steer(-1, 0); // back toward the middle so the dash does not carry it out of the dish
   run(game, 1.2);
   assert.equal(game.dash(0), true, 'the dash comes back');
+}
+
+// A dash alone never takes a top out of the dish, wherever it is and whichever way it goes.
+{
+  for (const shape of ['standard', 'sharp', 'flat']) for (let angle = 0; angle < 360; angle += 30) {
+    const game = createKoma('easy', seeded(9), [PRESETS[shape], PRESETS.standard], false);
+    const top = game.tops[0];
+    const radius = DISH - 20; // near the rim
+    top.x = Math.cos((angle * Math.PI) / 180) * radius; top.y = Math.sin((angle * Math.PI) / 180) * radius;
+    game.tops[1].x = -top.x; game.tops[1].y = -top.y; // the other top is out of the way
+    game.steer(Math.cos((angle * Math.PI) / 180), Math.sin((angle * Math.PI) / 180)); // straight at the rim
+    assert.equal(game.dash(0), true);
+    game.steer(0, 0); // the dash alone: the hand is off the controls
+    run(game, 3);
+    assert.equal(top.out, false, `${shape} at ${angle} degrees stays in the dish after a dash`);
+  }
 }
 
 // A head-on hit costs spin on both sides and pushes them apart.

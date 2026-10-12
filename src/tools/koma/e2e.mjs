@@ -3,17 +3,17 @@ import assert from 'node:assert/strict';
 
 export default async function ({ page, main, go }) {
   const message = main.locator('[data-koma="message"]');
-  const spin = async () => Number((await main.locator('[data-koma="you-spin"] [data-fill]').evaluate(el => el.style.width)).replace('%', ''));
-
-  // With WebGL the dish is drawn in 3D (a browser without it is covered below).
-  await go('koma');
-  await message.getByText('Drag on the dish to move and press Dash to ram', { exact: true }).waitFor();
-  const webgl = await page.evaluate(() => !!document.createElement('canvas').getContext('webgl2'));
-  if (webgl) await page.waitForFunction(() => document.querySelector('[data-koma="dish"]')?.dataset.mode === '3d');
-  // Drawing a fat, tall outline on the pad makes a heavier top than the standard one, and a preset button puts the standard one back.
-  const weight = async () => Number(await main.locator('[data-stat="weight"]').getAttribute('data-value'));
-  const standard = await weight();
   const pad = main.locator('[data-koma="shape-pad"]');
+  const toBattle = main.locator('[data-koma="to-battle"]');
+  const howTo = 'Drag on the dish to move and press Dash to ram';
+  const spin = async () => Number((await main.locator('[data-koma="you-spin"] [data-fill]').evaluate(el => el.style.width)).replace('%', ''));
+  const weight = async () => Number(await main.locator('[data-stat="weight"]').getAttribute('data-value'));
+
+  // First the top is shaped: drawing a fat, tall outline on the pad makes a heavier top than the standard one, and a preset puts the standard one back.
+  await go('koma');
+  await pad.waitFor();
+  assert.equal(await main.locator('[data-koma="dish"]').isVisible(), false, 'the dish waits for the battle');
+  const standard = await weight();
   await pad.scrollIntoViewIfNeeded();
   const box = await pad.boundingBox();
   const at = (x, y) => [box.x + box.width * x, box.y + box.height * (1 - y)];
@@ -25,6 +25,12 @@ export default async function ({ page, main, go }) {
   assert.ok(await page.evaluate(() => !!localStorage.getItem('paibot.koma.shape')), 'the drawing is kept');
   await main.getByRole('button', { name: 'Standard' }).click();
   assert.equal(await weight(), standard);
+
+  // Then the battle. With WebGL the dish is drawn in 3D (a browser without it is covered below).
+  await toBattle.click();
+  await message.getByText(howTo, { exact: true }).waitFor();
+  const webgl = await page.evaluate(() => !!document.createElement('canvas').getContext('webgl2'));
+  if (webgl) await page.waitForFunction(() => document.querySelector('[data-koma="dish"]')?.dataset.mode === '3d');
   await main.locator('[data-koma="start"]').click();
   await main.getByRole('button', { name: 'Dash' }).waitFor();
   await page.waitForFunction(() => Number(document.querySelector('[data-koma="you-spin"] [data-fill]').style.width.replace('%', '')) < 100);
@@ -36,7 +42,9 @@ export default async function ({ page, main, go }) {
   });
   await page.clock.install();
   await go('koma');
-  await message.getByText('Drag on the dish to move and press Dash to ram', { exact: true }).waitFor();
+  await pad.waitFor();
+  await toBattle.click();
+  await message.getByText(howTo, { exact: true }).waitFor();
   await page.clock.runFor(100);
   assert.equal(await page.locator('[data-koma="dish"]').getAttribute('data-mode'), null, 'no 3D without WebGL');
   await main.locator('[data-koma="start"]').click();
@@ -46,11 +54,12 @@ export default async function ({ page, main, go }) {
   await main.getByRole('button', { name: 'Dash' }).waitFor();
   assert.ok(await spin() < 100, 'the player\'s spin goes down');
 
-  // Nobody can spin forever: the match ends by itself and offers another.
+  // Nobody can spin forever: the match ends by itself and offers another, or a way back to the shape.
   await page.clock.runFor(90_000);
   await main.locator('[data-koma="start"]').waitFor();
   assert.match(await message.innerText(), /You win|You lose|A draw/);
-  await main.locator('[data-koma="start"]').click();
-  await main.getByRole('button', { name: 'Dash' }).waitFor();
-  console.log(`PASS: koma starts (${webgl ? '3D' : 'no WebGL here, 3D not checked'}), falls back to the flat dish, drains spin, ends a match and starts the next (see engine.test.mjs for the rules)`);
+  await main.locator('[data-koma="rebuild"]').click();
+  await pad.waitFor();
+  assert.equal(await main.locator('[data-koma="dish"]').isVisible(), false, 'back to shaping the top');
+  console.log(`PASS: koma shapes a top, then fights (${webgl ? '3D' : 'no WebGL here, 3D not checked'}), falls back to the flat dish, drains spin, ends a match and goes back to the shape (see engine.test.mjs for the rules)`);
 }

@@ -2081,7 +2081,10 @@
         "power": "Power",
         "stable": "Stability"
       },
-      "opponent": "CPU's top: {shape}"
+      "opponent": "CPU's top: {shape}",
+      "buildIntro": "First, draw the shape of your top. When it is ready, pick a level and go to the battle.",
+      "toBattle": "To the battle",
+      "rebuild": "Reshape your top"
     },
     "craneGame": {
       "title": "Claw Machine",

@@ -14,6 +14,7 @@ const DECAY = 1.6;       // spin lost per second just by spinning
 const HIT_LOSS = 0.05;   // spin lost per unit of approach speed above HIT_FREE in a collision
 const HIT_FREE = 30;     // leaning on each other costs nothing; only a real hit does
 const DASH_SPEED = 140;
+const MIN_DASH = 30;      // the weakest a dash gets when there is no room left
 const DASH_COST = 4;
 const DASH_COOLDOWN = 1.1;
 
@@ -75,8 +76,14 @@ export function createKoma(
     if (length < 0.1) { dx = top.vx; dy = top.vy; }
     const norm = Math.hypot(dx, dy);
     if (norm < 1e-6) return false;
-    top.vx = (dx / norm) * DASH_SPEED;
-    top.vy = (dy / norm) * DASH_SPEED;
+    dx /= norm; dy /= norm;
+    // A dash alone never carries a top out of the dish: a top slides about speed / drag, so near the rim the dash is cut to what is left of the way.
+    const safe = DISH - top.spec.radius * 1.2;
+    const along = top.x * dx + top.y * dy, beyond = top.x * top.x + top.y * top.y - safe * safe;
+    const room = beyond >= 0 ? 0 : -along + Math.sqrt(along * along - beyond);
+    const speed = Math.min(DASH_SPEED, Math.max(room * DRAG * top.spec.drag * 0.85, MIN_DASH));
+    top.vx = dx * speed;
+    top.vy = dy * speed;
     top.spin -= DASH_COST;
     top.dashCooldown = DASH_COOLDOWN;
     return true;

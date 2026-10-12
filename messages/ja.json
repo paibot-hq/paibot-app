@@ -2081,7 +2081,10 @@
         "power": "押す力",
         "stable": "安定"
       },
-      "opponent": "CPUのコマ: {shape}"
+      "opponent": "CPUのコマ: {shape}",
+      "buildIntro": "まず、自分のコマの形を描きましょう。形ができたら、難易度を選んで「対決へ」。",
+      "toBattle": "対決へ",
+      "rebuild": "コマをつくり直す"
     },
     "craneGame": {
       "title": "クレーンゲーム",

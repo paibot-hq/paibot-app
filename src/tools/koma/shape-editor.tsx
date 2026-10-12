@@ -49,10 +49,10 @@ function paint(canvas: HTMLCanvasElement, profile: Profile, stroke: { x: number;
   }
 }
 
-type Props = { profile: Profile; disabled: boolean; onChange: (profile: Profile) => void };
+type Props = { profile: Profile; onChange: (profile: Profile) => void };
 
 // Draw one side of the top's cross-section: the stroke is the outline, the tip at the bottom; the other side mirrors it.
-export default function ShapeEditor({ profile, disabled, onChange }: Props) {
+export default function ShapeEditor({ profile, onChange }: Props) {
   const t = useTranslations("App.koma");
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const strokeRef = useRef<{ x: number; y: number }[] | null>(null);
@@ -97,9 +97,7 @@ export default function ShapeEditor({ profile, disabled, onChange }: Props) {
         role="img"
         aria-label={t("shapeLabel")}
         data-koma="shape-pad"
-        data-disabled={disabled || undefined}
         onPointerDown={event => {
-          if (disabled) return;
           event.preventDefault();
           event.currentTarget.setPointerCapture(event.pointerId);
           strokeRef.current = [point(event)];
@@ -110,7 +108,7 @@ export default function ShapeEditor({ profile, disabled, onChange }: Props) {
       />
       <div className={styles["presets"]} role="group" aria-label={t("presetsLabel")}>
         {PRESET_NAMES.map(name => (
-          <button key={name} type="button" disabled={disabled} onClick={() => onChange([...PRESETS[name]])}>{t(`presets.${name}`)}</button>
+          <button key={name} type="button" onClick={() => onChange([...PRESETS[name]])}>{t(`presets.${name}`)}</button>
         ))}
       </div>
       <dl className={styles["stats"]} data-koma="stats">
