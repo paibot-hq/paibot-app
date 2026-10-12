@@ -118,7 +118,7 @@ export default async function ({ page, main, go, base }) {
   // The source is credited, with a link to the Ministry's page, and the snapshot's date.
   await main.locator('[data-faq="tab-info"]').click();
   const credit = await main.locator('[data-faq="credit"]').innerText();
-  assert.match(credit, /Ministry of Internal Affairs and Communications/); assert.match(credit, /2026-10-01/);
+  assert.match(credit, /Ministry of Internal Affairs and Communications/); assert.ok(credit.includes(faq.source.updated), 'the credit shows the date of the snapshot');
   assert.equal(await main.locator('[data-faq="credit"] a').getAttribute('href'), 'https://www.soumu.go.jp/main_sosiki/hyouka/soudan_n/kyotsucb_top.html');
   // With the vectors, a question that shares no words with any FAQ is answered by meaning: the chat asks the Worker and shows the nearest FAQ,
   // and the list merges it in. Nothing is sent when the vectors are not there (above).
