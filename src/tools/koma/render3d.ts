@@ -96,18 +96,15 @@ export function createScene(canvas: HTMLCanvasElement): Scene3D {
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(38, 1, 10, 1200);
-  // The camera follows the action: it looks at the middle of the two tops and comes in as they come together, from a fairly low angle so
-  // that the shape of a top can be seen from the side. FAR is the whole dish in view.
+  // A fixed view of the whole dish from a low angle, so that the rim and the shapes of the tops can both be seen. How far the camera stands
+  // follows the shape of the view (set in resize), so that the dish fills the width whatever it is.
   const pitch = (32 * Math.PI) / 180;
-  // How far the camera stands: FAR is the whole dish across the width of the view, whatever its shape (set in resize), NEAR the closest.
-  let FAR = 334, NEAR = 157;
   const target = new THREE.Vector3(0, 4, 10);
-  let distance = FAR;
-  const aimCamera = (shakeX: number, shakeY: number) => {
-    camera.position.set(target.x + shakeX, target.y + distance * Math.sin(pitch) + shakeY, target.z + distance * Math.cos(pitch));
+  const aimCamera = (distance: number) => {
+    camera.position.set(target.x, target.y + distance * Math.sin(pitch), target.z + distance * Math.cos(pitch));
     camera.lookAt(target);
   };
-  aimCamera(0, 0);
+  aimCamera(334);
 
   scene.add(new THREE.HemisphereLight("#ffffff", "#8a7a66", 1.5));
   const sun = new THREE.DirectionalLight("#ffffff", 2.4);
@@ -157,7 +154,6 @@ export function createScene(canvas: HTMLCanvasElement): Scene3D {
   scene.add(sparks);
   let nextSpark = 0;
 
-  let shake = 0;
   let last = performance.now();
   let frames = 0;
   const raycaster = new THREE.Raycaster();
@@ -205,26 +201,6 @@ export function createScene(canvas: HTMLCanvasElement): Scene3D {
     if (frames++ % 30 === 0) refreshColors();
     pieces.forEach((piece, index) => place(piece, game.tops[index]!, dt));
 
-    shake *= Math.exp(-dt * 8);
-    // A top that is out of the match is not followed; the camera goes back to the whole dish when both are.
-    const [a, b] = game.tops;
-    const followed = [a, b].filter(top => !top.out);
-    let wantX = 0, wantZ = 10, wantDistance = FAR;
-    if (followed.length) {
-      wantX = followed.reduce((sum, top) => sum + top.x, 0) / followed.length;
-      wantZ = followed.reduce((sum, top) => sum + top.y, 0) / followed.length;
-      const apart = followed.length === 2 ? Math.hypot(a.x - b.x, a.y - b.y) : 0;
-      wantDistance = Math.min(FAR, Math.max(NEAR, NEAR + (apart - 30) * 1.6 * (FAR / 334)));
-    }
-    // Keep the middle of the view inside the dish, so the camera does not drift off the table.
-    const reach = Math.hypot(wantX, wantZ), limit = DISH * 0.75;
-    if (reach > limit) { wantX *= limit / reach; wantZ *= limit / reach; }
-    const ease = 1 - Math.exp(-dt * 3.5);
-    target.x += (wantX - target.x) * ease;
-    target.z += (wantZ - target.z) * ease;
-    distance += (wantDistance - distance) * ease;
-    aimCamera((Math.random() - 0.5) * shake, (Math.random() - 0.5) * shake);
-
     for (let i = 0; i < SPARKS; i++) {
       if (sparkLife[i]! <= 0) { sparkPositions[i * 3 + 1] = -1000; continue; }
       sparkLife[i]! -= dt;
@@ -243,8 +219,7 @@ export function createScene(canvas: HTMLCanvasElement): Scene3D {
       camera.aspect = width / Math.max(height, 1);
       camera.updateProjectionMatrix();
       const half = Math.tan((camera.fov * Math.PI) / 360) * Math.min(camera.aspect, 1.4);
-      FAR = Math.min(Math.max((DISH + 15) / half, 240), 420);
-      NEAR = FAR * 0.47;
+      aimCamera(Math.min(Math.max((DISH + 15) / half, 240), 420));
     },
     pick(clientX, clientY) {
       const rect = canvas.getBoundingClientRect();
@@ -259,7 +234,6 @@ export function createScene(canvas: HTMLCanvasElement): Scene3D {
     hit(game, speed) {
       const [a, b] = game.tops;
       const x = (a.x + b.x) / 2, z = (a.y + b.y) / 2;
-      shake = Math.min(shake + speed * 0.05, 7);
       const count = Math.min(Math.round(speed / 8), 24);
       for (let n = 0; n < count; n++) {
         const i = nextSpark++ % SPARKS;
