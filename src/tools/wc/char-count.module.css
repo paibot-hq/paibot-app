@@ -1,3 +1,10 @@
+.wc-counts {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.wc-card { min-width: 9rem; }
 .wc-input {
   width: min(720px, 100%);
   min-height: 320px;
@@ -21,3 +28,60 @@
   font-weight: 700;
   text-align: center;
 }
+.wc-count-sub { color: var(--muted); }
+.wc-limit {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1rem;
+  width: min(720px, 100%);
+  margin-top: 1rem;
+}
+.wc-field { display: flex; flex-direction: column; gap: .25rem; }
+.wc-limit-input,
+.wc-select {
+  min-height: 2.5rem;
+  padding: .4rem .6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+}
+.wc-limit-input { width: 8rem; }
+.wc-limit-input:focus-visible,
+.wc-select:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wc-limit-status {
+  min-height: 1.5rem;
+  margin: 0;
+  align-self: center;
+  color: var(--muted);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.wc-limit-status[data-state="over"] { color: var(--error); }
+.wc-limit-status[data-state="reached"] { color: var(--accent); }
+.wc-details {
+  width: min(720px, 100%);
+  margin-top: 1.25rem;
+  color: var(--muted);
+  font-size: .9rem;
+}
+.wc-details summary { cursor: pointer; }
+.wc-details summary:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.wc-dl {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: .25rem 1rem;
+  margin: .75rem 0 0;
+}
+.wc-dl dt { margin: 0; }
+.wc-dl dd {
+  margin: 0;
+  color: var(--text);
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.wc-note { margin: .75rem 0 0; }

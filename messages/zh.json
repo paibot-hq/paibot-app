@@ -523,11 +523,23 @@
     },
     "wc": {
       "title": "字符计数",
-      "description": "统计输入文本的字符数。",
-      "about": "统计输入文本的字数。适合有字数限制的报告、申请表和社交媒体发布。",
-      "keywords": "字符数 计数 文本",
+      "description": "统计输入文本的字符数。表情符号按看到的一个字符计算，还能看到不含空格和换行的字数，以及距离上限还剩多少。",
+      "about": "统计输入文本的字数。表情符号和国旗按看到的一个字符计算，同时显示不含空格和换行的字数。输入上限后，会显示剩余或超出的字数。适合有字数限制的报告、申请表和社交媒体发布。",
+      "keywords": "字符数 计数 文本 空格 换行 表情符号 字节 字数限制",
       "placeholder": "在此输入文本",
-      "countLabel": "字符数"
+      "countLabel": "字符数",
+      "noSpaceLabel": "不含空格和换行",
+      "limitLabel": "上限（可选）",
+      "limitPlaceholder": "例如 400",
+      "limitTarget": "计算对象",
+      "remaining": "还剩 {n} 个字符",
+      "reached": "刚好达到上限",
+      "over": "超出 {n} 个字符",
+      "detailsTitle": "详细的计数方式",
+      "codePoints": "码位",
+      "utf16": "UTF-16 单位（JavaScript 的 length）",
+      "utf8": "UTF-8 字节数",
+      "detailsNote": "表情符号和国旗看起来是一个字符，但内部由多个码位组成。"
     },
     "arith": {
       "title": "算术练习",
