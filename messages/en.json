@@ -523,11 +523,23 @@
     },
     "wc": {
       "title": "Character Count",
-      "description": "Count the characters in the text you enter.",
-      "about": "Counts the characters in the text you enter. Handy for reports, application forms and social posts that have a length limit.",
-      "keywords": "character count text",
+      "description": "Count the characters in the text you enter. An emoji counts as one character, and you also get the count without spaces and line breaks, and how many characters are left under a limit.",
+      "about": "Counts the characters in the text you enter. An emoji or a flag counts as one character, as you see it, and the count without spaces and line breaks is shown alongside. Enter a limit to see how many characters are left or over. Handy for reports, application forms and social posts that have a length limit.",
+      "keywords": "character count text spaces line breaks emoji bytes limit",
       "placeholder": "Type or paste text here",
-      "countLabel": "Characters"
+      "countLabel": "Characters",
+      "noSpaceLabel": "Without spaces and line breaks",
+      "limitLabel": "Limit (optional)",
+      "limitPlaceholder": "e.g. 400",
+      "limitTarget": "Count against",
+      "remaining": "{n} left",
+      "reached": "Exactly at the limit",
+      "over": "{n} over",
+      "detailsTitle": "How it is counted",
+      "codePoints": "Code points",
+      "utf16": "UTF-16 units (JavaScript length)",
+      "utf8": "UTF-8 bytes",
+      "detailsNote": "An emoji or a flag looks like one character, but is made of several code points inside."
     },
     "arith": {
       "title": "Arithmetic Practice",
