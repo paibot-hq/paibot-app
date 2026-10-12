@@ -1,0 +1,97 @@
+.score {
+  display: flex;
+  gap: 1.75rem;
+  justify-content: center;
+  margin: 0;
+}
+.score div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.score dt {
+  color: var(--muted);
+  font-size: .85rem;
+}
+.score dd {
+  margin: 0;
+  color: var(--text);
+  font-size: 1.5rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.spins {
+  display: flex;
+  flex-direction: column;
+  gap: .4rem;
+  width: min(420px, 100%);
+}
+.spin {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  align-items: center;
+  gap: .5rem;
+  color: var(--muted);
+  font-size: .85rem;
+}
+.track {
+  display: block;
+  height: .6rem;
+  border-radius: 999px;
+  background: var(--line);
+  overflow: hidden;
+}
+.fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+}
+.spin[data-side="cpu"] .fill {
+  background: var(--error);
+}
+.dish {
+  display: block;
+  width: min(420px, 100%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.message {
+  min-height: 1.5em;
+  margin: 0;
+  color: var(--text);
+  font-weight: 700;
+  text-align: center;
+}
+.dash {
+  position: relative;
+  overflow: hidden;
+  width: min(420px, 100%);
+  min-height: 3.25rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-weight: 700;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: pointer;
+}
+.dash:disabled {
+  color: var(--muted);
+  cursor: default;
+}
+.dash span:first-child {
+  position: relative;
+  z-index: 1;
+}
+.meter {
+  position: absolute;
+  inset: auto 0 0 0;
+  height: 4px;
+  background: var(--accent);
+}
