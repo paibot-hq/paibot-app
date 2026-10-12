@@ -100,15 +100,15 @@ export default function KomaGame() {
   const sceneRef = useRef<Scene3D | null>(null);
   const modeRef = useRef<"pending" | "3d" | "flat">("pending");
   const pointerRef = useRef<{ x: number; y: number } | null>(null);
-  const screenRef = useRef<"build" | "battle">("build");
+  const screenRef = useRef<"build" | "battle">("battle");
   const levelRef = useRef<Level>("normal");
   const profileRef = useRef<Profile>(PRESETS.standard);
   const opponentRef = useRef<PresetName>("standard");
   const shapesRef = useRef<[Profile, Profile]>([PRESETS.standard, PRESETS.standard]);
   const streakRef = useRef(0);
   const bestRef = useRef(0);
-  // First the top is shaped (and the level chosen), then the battle.
-  const [screen, setScreen] = useState<"build" | "battle">("build");
+  // The battle comes first; shaping the top is a side trip, there and back.
+  const [screen, setScreen] = useState<"build" | "battle">("battle");
   const [level, setLevel] = useState<Level>("normal");
   const [phase, setPhase] = useState<"ready" | "playing" | "over">("ready");
   const [spins, setSpins] = useState<[number, number]>([START_SPIN, START_SPIN]);
@@ -322,17 +322,16 @@ export default function KomaGame() {
         <>
           <p className={controls.label}>{t("buildIntro")}</p>
           <ShapeEditor profile={profile} onChange={editShape} />
-          <div className={controls.mode} role="group" aria-label={t("level")}>
-            {LEVELS.map(option => (
-              <button key={option} type="button" aria-pressed={level === option} onClick={() => setLevel(option)}>{t(option)}</button>
-            ))}
-          </div>
-          {scoreboard}
           <button className="auth-link" type="button" data-koma="to-battle" onClick={toBattle}>{t("toBattle")}</button>
         </>
       ) : (
         <>
           <p className={controls.label}>{t("intro")}</p>
+          <div className={controls.mode} role="group" aria-label={t("level")}>
+            {LEVELS.map(option => (
+              <button key={option} type="button" aria-pressed={level === option} disabled={phase === "playing"} onClick={() => setLevel(option)}>{t(option)}</button>
+            ))}
+          </div>
           {scoreboard}
           <div className={styles["spins"]}>
             {bar(spins[0], "you")}
