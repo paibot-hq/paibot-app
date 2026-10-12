@@ -42,3 +42,6 @@
 .help summary { cursor: pointer; }
 .help p { margin: .45rem 0 0; line-height: 1.7; }
 @media (max-width: 480px) { .filterRow { grid-template-columns: 1fr; gap: .2rem; } .filterLabel { padding-top: 0; } }
+/* A tab's panel keeps the page's centred column (the cards inside are 720px wide at most); `hidden` has to beat the display set here. */
+.panel { display: flex; flex-direction: column; align-items: center; width: 100%; }
+.panel[hidden] { display: none; }

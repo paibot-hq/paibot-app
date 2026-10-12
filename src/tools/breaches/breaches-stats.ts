@@ -82,3 +82,70 @@ export function compact(value: number, locale: string): string {
   if (value >= 1e3) return `${value / 1e3}K`;
   return String(value);
 }
+
+// ---- The summary at the top of the page ----
+// Everything here counts the incidents that are listed. It is a breakdown of the list, not the number or the share of incidents that happened.
+
+export type SummaryItem = StatItem & { origin: string; verification: string };
+
+export type Summary = {
+  total: number;
+  byKind: Record<Kind, number>;
+  byOrigin: Record<string, number>;
+  byVerification: Record<string, number>;
+  // How many incidents have a published number of records, and how many of those are at or above `bigCount`.
+  withCount: number;
+  big: number;
+  // Incidents published in the last `days` days up to `asOf` (a date with only the month cannot say, so it is left out).
+  recent: number;
+  largest: SummaryItem[];
+  latest: SummaryItem[];
+};
+
+// YYYY-MM-DD plus a number of days (negative for before), in UTC so that the time zone cannot move it.
+export function addDays(date: string, days: number): string {
+  const moved = new Date(Date.UTC(Number(date.slice(0, 4)), Number(date.slice(5, 7)) - 1, Number(date.slice(8, 10)) + days));
+  return moved.toISOString().slice(0, 10);
+}
+
+const tally = (values: string[]): Record<string, number> => values.reduce<Record<string, number>>((out, value) => ({ ...out, [value]: (out[value] ?? 0) + 1 }), {});
+
+export function summarize(items: SummaryItem[], asOf: string, { top = 5, bigCount = 1_000_000, days = 30 } = {}): Summary {
+  const byKind: Record<Kind, number> = { leak: 0, ransomware: 0, outage: 0, fraud: 0, other: 0 };
+  for (const item of items) if ((KINDS as readonly string[]).includes(item.type)) byKind[item.type as Kind]++;
+  const counted = items.filter((item): item is SummaryItem & { count: number } => item.count !== null);
+  const since = addDays(asOf, -(days - 1));
+  const newestFirst = (a: SummaryItem, b: SummaryItem) => b.date.localeCompare(a.date) || a.id.localeCompare(b.id);
+  return {
+    total: items.length,
+    byKind,
+    byOrigin: tally(items.map(item => item.origin)),
+    byVerification: tally(items.map(item => item.verification)),
+    withCount: counted.length,
+    big: counted.filter(item => item.count >= bigCount).length,
+    recent: items.filter(item => item.date.length === 10 && item.date >= since && item.date <= asOf).length,
+    largest: [...counted].sort((a, b) => b.count - a.count || newestFirst(a, b)).slice(0, top),
+    latest: [...items].sort(newestFirst).slice(0, top),
+  };
+}
+
+export function percent(part: number, whole: number): number {
+  return whole === 0 ? 0 : Math.round((part / whole) * 100);
+}
+
+// A number of records as a person would say it, rounded: 1078.8963万 is 1079万, 54,321 is 5.4万, 23,620,000 is 23.6M. (`compact` is for the round numbers of
+// an axis and does not round.)
+export function approximate(value: number, locale: string): string {
+  const fixed = (n: number, digits: number) => String(Number(n.toFixed(digits)));
+  if (locale === "ja" || locale === "zh") {
+    const wan = "万", yi = locale === "ja" ? "億" : "亿";
+    if (value >= 1e8) return `${fixed(value / 1e8, 1)}${yi}`;
+    if (value >= 1e6) return `${Math.round(value / 1e4).toLocaleString("en-US")}${wan}`;
+    if (value >= 1e4) return `${fixed(value / 1e4, 1)}${wan}`;
+    return value.toLocaleString("en-US");
+  }
+  if (value >= 1e9) return `${fixed(value / 1e9, 1)}B`;
+  if (value >= 1e6) return `${fixed(value / 1e6, 1)}M`;
+  if (value >= 1e4) return `${Math.round(value / 1e3)}K`;
+  return value.toLocaleString("en-US");
+}
