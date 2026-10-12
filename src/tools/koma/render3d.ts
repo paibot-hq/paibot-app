@@ -96,11 +96,16 @@ export function createScene(canvas: HTMLCanvasElement): Scene3D {
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(38, 1, 10, 1200);
-  const pitch = (52 * Math.PI) / 180, distance = 370;
-  const home = new THREE.Vector3(0, distance * Math.sin(pitch), distance * Math.cos(pitch));
-  const target = new THREE.Vector3(0, 0, 10);
-  camera.position.copy(home);
-  camera.lookAt(target);
+  // The camera follows the action: it looks at the middle of the two tops and comes in as they come together, from a fairly low angle so
+  // that the shape of a top can be seen from the side. FAR is the whole dish in view.
+  const pitch = (44 * Math.PI) / 180, FAR = 360, NEAR = 170;
+  const target = new THREE.Vector3(0, 4, 10);
+  let distance = FAR;
+  const aimCamera = (shakeX: number, shakeY: number) => {
+    camera.position.set(target.x + shakeX, target.y + distance * Math.sin(pitch) + shakeY, target.z + distance * Math.cos(pitch));
+    camera.lookAt(target);
+  };
+  aimCamera(0, 0);
 
   scene.add(new THREE.HemisphereLight("#ffffff", "#8a7a66", 1.5));
   const sun = new THREE.DirectionalLight("#ffffff", 2.4);
@@ -199,8 +204,24 @@ export function createScene(canvas: HTMLCanvasElement): Scene3D {
     pieces.forEach((piece, index) => place(piece, game.tops[index]!, dt));
 
     shake *= Math.exp(-dt * 8);
-    camera.position.set(home.x + (Math.random() - 0.5) * shake, home.y + (Math.random() - 0.5) * shake, home.z);
-    camera.lookAt(target);
+    // A top that is out of the match is not followed; the camera goes back to the whole dish when both are.
+    const [a, b] = game.tops;
+    const followed = [a, b].filter(top => !top.out);
+    let wantX = 0, wantZ = 10, wantDistance = FAR;
+    if (followed.length) {
+      wantX = followed.reduce((sum, top) => sum + top.x, 0) / followed.length;
+      wantZ = followed.reduce((sum, top) => sum + top.y, 0) / followed.length;
+      const apart = followed.length === 2 ? Math.hypot(a.x - b.x, a.y - b.y) : 0;
+      wantDistance = Math.min(FAR, Math.max(NEAR, NEAR + (apart - 30) * 1.6));
+    }
+    // Keep the middle of the view inside the dish, so the camera does not drift off the table.
+    const reach = Math.hypot(wantX, wantZ), limit = DISH * 0.75;
+    if (reach > limit) { wantX *= limit / reach; wantZ *= limit / reach; }
+    const ease = 1 - Math.exp(-dt * 3.5);
+    target.x += (wantX - target.x) * ease;
+    target.z += (wantZ - target.z) * ease;
+    distance += (wantDistance - distance) * ease;
+    aimCamera((Math.random() - 0.5) * shake, (Math.random() - 0.5) * shake);
 
     for (let i = 0; i < SPARKS; i++) {
       if (sparkLife[i]! <= 0) { sparkPositions[i * 3 + 1] = -1000; continue; }

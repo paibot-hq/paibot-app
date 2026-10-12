@@ -100,6 +100,8 @@ export default function KomaGame() {
   const sceneRef = useRef<Scene3D | null>(null);
   const modeRef = useRef<"pending" | "3d" | "flat">("pending");
   const pointerRef = useRef<{ x: number; y: number } | null>(null);
+  // Where the finger is on the page: the camera follows the tops, so the spot of the dish under it is found again each frame.
+  const clientRef = useRef<{ x: number; y: number } | null>(null);
   const screenRef = useRef<"build" | "battle">("battle");
   const levelRef = useRef<Level>("normal");
   const profileRef = useRef<Profile>(PRESETS.standard);
@@ -165,6 +167,7 @@ export default function KomaGame() {
     if (phaseRef.current === "playing") return;
     keysRef.current.clear();
     pointerRef.current = null;
+    clientRef.current = null;
     screenRef.current = "build";
     setScreen("build");
   };
@@ -182,6 +185,11 @@ export default function KomaGame() {
     if (!game) return;
     let x = 0, y = 0;
     for (const code of keysRef.current) { const v = KEYS[code]; if (v) { x += v[0]; y += v[1]; } }
+    const scene = sceneRef.current, client = clientRef.current;
+    if (scene && client) {
+      const under = scene.pick(client.x, client.y);
+      if (under) pointerRef.current = under;
+    }
     const pointer = pointerRef.current;
     if (pointer && x === 0 && y === 0) {
       const me = game.tops[0];
@@ -279,6 +287,7 @@ export default function KomaGame() {
   const aim = (event: ReactPointerEvent<HTMLCanvasElement>) => {
     const scene = sceneRef.current;
     if (scene) {
+      clientRef.current = { x: event.clientX, y: event.clientY };
       const point = scene.pick(event.clientX, event.clientY);
       if (point) pointerRef.current = point;
       return;
@@ -289,7 +298,7 @@ export default function KomaGame() {
       y: ((event.clientY - rect.top) / rect.height - 0.5) * VIEW * 2,
     };
   };
-  const release = () => { pointerRef.current = null; gameRef.current?.steer(0, 0); };
+  const release = () => { pointerRef.current = null; clientRef.current = null; gameRef.current?.steer(0, 0); };
 
   const editShape = (next: Profile) => {
     profileRef.current = next;
