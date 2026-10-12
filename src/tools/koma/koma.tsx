@@ -235,7 +235,7 @@ export default function KomaGame() {
     const resize = () => {
       if (!canvas || !canvas.clientWidth) return;
       canvas.width = canvas.clientWidth * window.devicePixelRatio;
-      canvas.height = canvas.width;
+      canvas.height = canvas.clientHeight * window.devicePixelRatio;
       sceneRef.current?.resize(canvas.width, canvas.height);
     };
     let cancelled = false;

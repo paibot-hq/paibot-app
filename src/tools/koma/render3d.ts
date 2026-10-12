@@ -98,7 +98,9 @@ export function createScene(canvas: HTMLCanvasElement): Scene3D {
   const camera = new THREE.PerspectiveCamera(38, 1, 10, 1200);
   // The camera follows the action: it looks at the middle of the two tops and comes in as they come together, from a fairly low angle so
   // that the shape of a top can be seen from the side. FAR is the whole dish in view.
-  const pitch = (44 * Math.PI) / 180, FAR = 360, NEAR = 170;
+  const pitch = (32 * Math.PI) / 180;
+  // How far the camera stands: FAR is the whole dish across the width of the view, whatever its shape (set in resize), NEAR the closest.
+  let FAR = 334, NEAR = 157;
   const target = new THREE.Vector3(0, 4, 10);
   let distance = FAR;
   const aimCamera = (shakeX: number, shakeY: number) => {
@@ -212,7 +214,7 @@ export function createScene(canvas: HTMLCanvasElement): Scene3D {
       wantX = followed.reduce((sum, top) => sum + top.x, 0) / followed.length;
       wantZ = followed.reduce((sum, top) => sum + top.y, 0) / followed.length;
       const apart = followed.length === 2 ? Math.hypot(a.x - b.x, a.y - b.y) : 0;
-      wantDistance = Math.min(FAR, Math.max(NEAR, NEAR + (apart - 30) * 1.6));
+      wantDistance = Math.min(FAR, Math.max(NEAR, NEAR + (apart - 30) * 1.6 * (FAR / 334)));
     }
     // Keep the middle of the view inside the dish, so the camera does not drift off the table.
     const reach = Math.hypot(wantX, wantZ), limit = DISH * 0.75;
@@ -240,6 +242,9 @@ export function createScene(canvas: HTMLCanvasElement): Scene3D {
       renderer.setSize(width, height, false);
       camera.aspect = width / Math.max(height, 1);
       camera.updateProjectionMatrix();
+      const half = Math.tan((camera.fov * Math.PI) / 360) * Math.min(camera.aspect, 1.4);
+      FAR = Math.min(Math.max((DISH + 15) / half, 240), 420);
+      NEAR = FAR * 0.47;
     },
     pick(clientX, clientY) {
       const rect = canvas.getBoundingClientRect();

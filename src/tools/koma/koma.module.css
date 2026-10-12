@@ -62,7 +62,14 @@
   display: none;
 }
 .dish[data-mode="3d"] {
+  width: min(760px, 100%);
+  aspect-ratio: 4 / 3;
   border-radius: 0;
+}
+@media (max-width: 600px) {
+  .dish[data-mode="3d"] {
+    aspect-ratio: 1;
+  }
 }
 .message {
   min-height: 1.5em;
