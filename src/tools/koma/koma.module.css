@@ -58,6 +58,9 @@
   user-select: none;
   -webkit-user-select: none;
 }
+.dish[data-mode="3d"] {
+  border-radius: 0;
+}
 .message {
   min-height: 1.5em;
   margin: 0;

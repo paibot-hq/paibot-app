@@ -3,6 +3,7 @@ import { useTranslations } from "use-intl";
 import ToolLayout from "../../components/tool-layout";
 import controls from "../../components/tool-controls.module.css";
 import styles from "./koma.module.css";
+import type { Scene3D } from "./render3d";
 import { DISH, START_SPIN, STEP, TOP_R, createKoma, type Koma, type Level, type Result, type Top } from "./engine";
 
 const BEST_KEY = "paibot.koma.best";
@@ -82,6 +83,9 @@ export default function KomaGame() {
   const gameRef = useRef<Koma | null>(null);
   const phaseRef = useRef<"ready" | "playing" | "over">("ready");
   const keysRef = useRef(new Set<string>());
+  // The 3D view loads on demand: "pending" until then, "flat" when WebGL is not there.
+  const sceneRef = useRef<Scene3D | null>(null);
+  const modeRef = useRef<"pending" | "3d" | "flat">("pending");
   const pointerRef = useRef<{ x: number; y: number } | null>(null);
   const levelRef = useRef<Level>("normal");
   const streakRef = useRef(0);
@@ -155,13 +159,17 @@ export default function KomaGame() {
         if (phaseRef.current === "playing") {
           updateSteer();
           while (pending >= STEP && phaseRef.current === "playing") {
-            for (const event of game.step()) if (event.type === "end") finish(event.result);
+            for (const event of game.step()) {
+              if (event.type === "end") finish(event.result);
+              else if (event.type === "hit") sceneRef.current?.hit(game, event.speed);
+            }
             pending -= STEP;
           }
           setSpins([game.tops[0].spin, game.tops[1].spin]);
           setCooldown(game.tops[0].dashCooldown);
         } else pending = 0;
-        draw(canvas, game);
+        if (modeRef.current === "3d") sceneRef.current?.render(game);
+        else if (modeRef.current === "flat") draw(canvas, game);
       }
       frame = requestAnimationFrame(loop);
     };
@@ -171,7 +179,22 @@ export default function KomaGame() {
       if (!canvas) return;
       canvas.width = canvas.clientWidth * window.devicePixelRatio;
       canvas.height = canvas.width;
+      sceneRef.current?.resize(canvas.width, canvas.height);
     };
+    let cancelled = false;
+    if (canvas) {
+      import("./render3d").then(({ createScene }) => {
+        if (cancelled) return;
+        try {
+          sceneRef.current = createScene(canvas);
+          modeRef.current = "3d";
+          canvas.dataset["mode"] = "3d";
+          resize();
+        } catch {
+          modeRef.current = "flat";
+        }
+      }, () => { modeRef.current = "flat"; });
+    }
     resize();
     const observer = new ResizeObserver(resize);
     if (canvas) observer.observe(canvas);
@@ -191,6 +214,9 @@ export default function KomaGame() {
     window.addEventListener("keydown", down);
     window.addEventListener("keyup", up);
     return () => {
+      cancelled = true;
+      sceneRef.current?.dispose();
+      sceneRef.current = null;
       cancelAnimationFrame(frame);
       observer.disconnect();
       window.removeEventListener("keydown", down);
@@ -200,6 +226,12 @@ export default function KomaGame() {
 
   // Steer toward the finger or pointer while it is down on the dish.
   const aim = (event: ReactPointerEvent<HTMLCanvasElement>) => {
+    const scene = sceneRef.current;
+    if (scene) {
+      const point = scene.pick(event.clientX, event.clientY);
+      if (point) pointerRef.current = point;
+      return;
+    }
     const rect = event.currentTarget.getBoundingClientRect();
     pointerRef.current = {
       x: ((event.clientX - rect.left) / rect.width - 0.5) * VIEW * 2,
