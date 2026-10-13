@@ -1969,16 +1969,12 @@
       }
     },
     "strings": {
-      "title": "Mandolin & Violin",
-      "description": "A mandolin and violin simulator: press the fingerboard and pluck or bow the strings. The mandolin plucks (with tremolo), the violin keeps sounding under the bow (with vibrato). Works with touch or a mouse. Free, no sign-up.",
-      "about": "A simulator of the fingerboards of a mandolin and a violin. Where you touch a string sets the pitch, lower on the left and higher on the right. The mandolin has frets and paired strings, and its sound is plucked. The violin has no frets: it sounds like a bow for as long as you touch it, and moving your finger bends the pitch smoothly. Both are tuned in fifths: G, D, A and E.",
-      "keywords": "mandolin violin instrument simulator string tremolo vibrato play free",
-      "intro": "Touch the fingerboard to play the strings. Lower notes are on the left, higher ones on the right.",
+      "title": "String Instrument Simulator",
+      "description": "A simulator of ten string instruments - mandolin, violin, guitar, ukulele, cello, banjo, shamisen and more - that you play by touching the fingerboard. Plucked and bowed sounds, tremolo, vibrato and pizzicato. Works with touch or a mouse. Free, no sign-up.",
+      "about": "A simulator of the fingerboards of the mandolin, violin, viola, cello, double bass, guitar, bass, ukulele, banjo and shamisen. Where you touch a string sets the pitch, lower on the left and higher on the right. On an instrument with frets, a touch between two frets gives the note of the fret to its right; on one without, the pitch is where your finger is. Plucked instruments sound as if struck by a finger or a pick, and bowed ones keep sounding under the bow for as long as you touch them (and can be switched to pizzicato). Each is in its standard tuning.",
+      "keywords": "string instrument simulator guitar ukulele mandolin violin cello banjo shamisen bass free",
+      "intro": "Pick an instrument and touch the fingerboard to play. Lower notes are on the left, higher ones on the right.",
       "instrument": "Instrument",
-      "mandolin": "Mandolin",
-      "violin": "Violin",
-      "mandolinLabel": "A mandolin fingerboard with four pairs of strings (E, A, D, G) and frets",
-      "violinLabel": "A violin fingerboard with four strings (E, A, D, G) and no frets",
       "hint": "Touch the fingerboard to play",
       "open": "Open strings",
       "openString": "Play the {string} string",
@@ -1986,8 +1982,24 @@
       "snap": "Snap to notes",
       "vibrato": "Vibrato",
       "volume": "Volume",
-      "mandolinKeys": "Mandolin: touch a string to pluck it. The area at the far left (behind the nut) is the open string; between two frets gives the note of the fret to its right. Drag across the strings to strum. With Tremolo on, it picks again and again while you hold. Use several fingers for chords.",
-      "violinKeys": "Violin: it sounds under the bow while you touch it. Move your finger left and right to change the pitch (with Snap to notes off it changes continuously, like a fretless fingerboard), and up and down to change string. Use several fingers for double stops."
+      "names": {
+        "mandolin": "Mandolin",
+        "violin": "Violin",
+        "viola": "Viola",
+        "cello": "Cello",
+        "doublebass": "Double bass",
+        "guitar": "Guitar",
+        "bass": "Bass",
+        "ukulele": "Ukulele",
+        "banjo": "Banjo",
+        "shamisen": "Shamisen"
+      },
+      "neckFretted": "The fingerboard of a {instrument} with {count} strings and frets",
+      "neckFretless": "The fingerboard of a {instrument} with {count} strings and no frets",
+      "pizzicato": "Pizzicato (pluck)",
+      "keysFretted": "Touch a string to pluck it. The area at the far left (behind the nut) is the open string; between two frets gives the note of the fret to its right. Drag across the strings to strum. Use several fingers for chords.",
+      "keysFretless": "Touch a string to pluck it. The pitch is where you touch (with Snap to notes off it changes continuously with the position). Drag across the strings to strum. Use several fingers for chords.",
+      "keysBow": "It sounds under the bow while you touch it. Move your finger left and right to change the pitch (with Snap to notes off it changes continuously), and up and down to change string. Use several fingers for double stops."
     },
     "pomodoro": {
       "title": "Pomodoro timer",
