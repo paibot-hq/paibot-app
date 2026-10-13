@@ -1968,6 +1968,27 @@
         "meiji": "Meiji"
       }
     },
+    "strings": {
+      "title": "Mandolin & Violin",
+      "description": "A mandolin and violin simulator: press the fingerboard and pluck or bow the strings. The mandolin plucks (with tremolo), the violin keeps sounding under the bow (with vibrato). Works with touch or a mouse. Free, no sign-up.",
+      "about": "A simulator of the fingerboards of a mandolin and a violin. Where you touch a string sets the pitch, lower on the left and higher on the right. The mandolin has frets and paired strings, and its sound is plucked. The violin has no frets: it sounds like a bow for as long as you touch it, and moving your finger bends the pitch smoothly. Both are tuned in fifths: G, D, A and E.",
+      "keywords": "mandolin violin instrument simulator string tremolo vibrato play free",
+      "intro": "Touch the fingerboard to play the strings. Lower notes are on the left, higher ones on the right.",
+      "instrument": "Instrument",
+      "mandolin": "Mandolin",
+      "violin": "Violin",
+      "mandolinLabel": "A mandolin fingerboard with four pairs of strings (E, A, D, G) and frets",
+      "violinLabel": "A violin fingerboard with four strings (E, A, D, G) and no frets",
+      "hint": "Touch the fingerboard to play",
+      "open": "Open strings",
+      "openString": "Play the {string} string",
+      "tremolo": "Tremolo",
+      "snap": "Snap to notes",
+      "vibrato": "Vibrato",
+      "volume": "Volume",
+      "mandolinKeys": "Mandolin: touch a string to pluck it. The area at the far left (behind the nut) is the open string; between two frets gives the note of the fret to its right. Drag across the strings to strum. With Tremolo on, it picks again and again while you hold. Use several fingers for chords.",
+      "violinKeys": "Violin: it sounds under the bow while you touch it. Move your finger left and right to change the pitch (with Snap to notes off it changes continuously, like a fretless fingerboard), and up and down to change string. Use several fingers for double stops."
+    },
     "pomodoro": {
       "title": "Pomodoro timer",
       "description": "A Pomodoro technique timer: 25 minutes of focus, a 5 minute break, and a long break after every fourth round. Change the lengths as you like.",
