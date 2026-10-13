@@ -2515,6 +2515,33 @@
       "keysFretless": "Touch a string to pluck it. The pitch is where you touch (with Snap to notes off it changes continuously with the position). Drag across the strings to strum. Use several fingers for chords.",
       "keysBow": "It sounds under the bow while you touch it. Move your finger left and right to change the pitch (with Snap to notes off it changes continuously), and up and down to change string. Use several fingers for double stops."
     },
+    "metronome": {
+      "title": "Metronome",
+      "description": "A metronome with an exact click: set the tempo (BPM) and the beats in a bar, tap to find a tempo, and see the beat as a light. 30 to 300 BPM. Free, no sign-up.",
+      "about": "A metronome for practicing an instrument. Pick a tempo from 30 to 300 BPM and 1 to 8 beats in a bar, press Start, and it clicks - a higher click on the first beat, a lower one on the others - while a light shows the beat. Tap the Tap tempo button along with a song a few times to measure its tempo. The clicks are scheduled on the browser's audio clock, so they stay steady.",
+      "keywords": "metronome tempo bpm beat time signature tap tempo practice music rhythm free",
+      "intro": "Set the tempo and press Start. The first beat of each bar is higher.",
+      "bpmLabel": "Tempo (BPM)",
+      "nudge": "{delta} BPM",
+      "start": "Start",
+      "stop": "Stop",
+      "beats": "Beats in a bar",
+      "tap": "Tap tempo",
+      "volume": "Volume",
+      "keys": "Keyboard: Space starts and stops, the up and down (or left and right) arrows change the tempo by 1, and by 10 with Shift. For Tap tempo, press it a few times at a steady pace along with the music (a pause of 2 seconds starts over).",
+      "tempo": {
+        "grave": "Grave (very slow)",
+        "largo": "Largo (broad, slow)",
+        "larghetto": "Larghetto (rather broad)",
+        "adagio": "Adagio (leisurely)",
+        "andante": "Andante (walking pace)",
+        "moderato": "Moderato (moderate)",
+        "allegro": "Allegro (fast)",
+        "vivace": "Vivace (lively)",
+        "presto": "Presto (very fast)",
+        "prestissimo": "Prestissimo (as fast as possible)"
+      }
+    },
     "pomodoro": {
       "title": "Pomodoro timer",
       "description": "A Pomodoro technique timer: 25 minutes of focus, a 5 minute break, and a long break after every fourth round. Change the lengths as you like.",

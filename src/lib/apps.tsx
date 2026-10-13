@@ -327,6 +327,16 @@ function StringsIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function MetronomeIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M9 3h6l3.5 18h-13L9 3z" />
+      <path d="M12 17.5L15.5 6.5" />
+      <circle cx="14.2" cy="10.2" r="1.2" />
+    </svg>
+  );
+}
+
 function PomodoroIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -593,7 +603,7 @@ const APP_ICONS: Record<AppSlug, Icon> = {
   ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
   dice: DiceIcon, reaction: ReactionIcon, "iq-test": IqTestIcon, personality: PersonalityIcon, timing: TimingIcon, pinball: PinballIcon, koma: KomaIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "metadata": MetadataIcon, govfaq: GovFaqIcon, "approx": ApproxIcon, "warnings": WarningsIcon, "quake": QuakeIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, glitch: GlitchIcon, "random-video": RandomVideoIcon, noise: NoiseIcon, fireworks: FireworksIcon, puchi: PuchiIcon, "crane-game": CraneGameIcon, "fruit-merge": FruitMergeIcon, goldfish: GoldfishIcon, typing: TypingIcon, "number-merge": NumberMergeIcon,
   tax: TaxIcon, split: SplitIcon, "unit-converter": UnitConverterIcon, "date-calc": DateCalcIcon, pomodoro: PomodoroIcon, roulette: RouletteIcon, strings: StringsIcon,
-  calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, "heart-rate": HeartRateIcon, diary: WcIcon, age: AgeIcon, breaches: BreachesIcon, omikuji: OmikujiIcon, "birthday-fortune": BirthdayFortuneIcon,
+  calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, "heart-rate": HeartRateIcon, diary: WcIcon, age: AgeIcon, breaches: BreachesIcon, omikuji: OmikujiIcon, "birthday-fortune": BirthdayFortuneIcon, metronome: MetronomeIcon,
 };
 
 export const apps: AppEntry[] = APP_CATALOG.map(app => ({ ...app, icon: APP_ICONS[app.slug] }));
