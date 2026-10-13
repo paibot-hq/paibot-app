@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-12",
+ "asOf": "2026-10-13",
  "note": "各社・各機関の公表と報道にもとづく。件数は「最大」「可能性」を含む公表値で、調査が進むと変わることがある。出典どうしで日付や件数が食い違う場合は、備考に書いた。",
  "items": [
   {
@@ -68,6 +68,115 @@
      "kind": "press"
     }
    ],
+   "origin": "attack"
+  },
+  {
+   "id": "dip-baitoru",
+   "date": "2026-10-09",
+   "name": "ディップ(バイトル・バイトルNEXT)",
+   "type": "leak",
+   "count": 3885771,
+   "countNote": "最大3,885,771件(会員登録者のメールアドレス)",
+   "data": "メールアドレスのみ。氏名、電話番号、パスワード、クレジットカード情報は含まれないとしている",
+   "cause": "Webサイトの一部機能の仕様の不備を突いた、海外からの不正アクセス(10月6日に確認)",
+   "note": "10月9日時点で、メールアドレス以外の外部流出、ネット上への流出、不正利用は確認されていないとしている。",
+   "verification": "official",
+   "sources": [
+    {
+     "name": "ディップ(お知らせとお詫び)",
+     "url": "https://www.dip-net.co.jp/news/2192",
+     "kind": "official"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=43191",
+     "kind": "aggregator"
+    }
+   ],
+   "checkedAt": "2026-10-13",
+   "origin": "attack"
+  },
+  {
+   "id": "resort-trust",
+   "date": "2026-10-09",
+   "name": "リゾートトラスト",
+   "type": "leak",
+   "count": 62000,
+   "countNote": "グループ会員 約2万6千件、ザ・カハラホテル&リゾート横浜の予約者 約3万6千件(計約62,000件)",
+   "data": "会員・予約者の個人情報(項目は未公表)。利用履歴、医療情報、クレジットカード情報、銀行口座情報、メールアドレス、本人確認書類は含まれないとしている",
+   "cause": "同社管理のウェブサイトへの不正アクセス(10月5日20時30分ごろ〜23時30分ごろに異常、6日に認知、7日に漏えいを確認)",
+   "note": "計6万2千件は2つの件数の合算で、重複を除いた人数ではない(合算は本サイトによる)。ホテルの運営への影響はない。",
+   "verification": "official",
+   "sources": [
+    {
+     "name": "リゾートトラスト(TDnet開示)",
+     "url": "https://www.release.tdnet.info/inbs/140120261009548970.pdf",
+     "kind": "official"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=43181",
+     "kind": "aggregator"
+    }
+   ],
+   "checkedAt": "2026-10-13",
+   "origin": "attack"
+  },
+  {
+   "id": "jr-east-idcf",
+   "date": "2026-10-09",
+   "name": "JR東日本(えきねっと・大人の休日倶楽部)・ビューカード",
+   "type": "leak",
+   "count": 2060000,
+   "countNote": "えきねっと 約167万件、大人の休日倶楽部 約39万件(JR東日本の2サービスの合算で約206万件)。報道ではビューカードのメールアドレス約403万件を合わせ600万件余",
+   "data": "えきねっとはメールアドレス。大人の休日倶楽部はメールアドレス、会員番号、クレジットカードの有効期限、生年月日。氏名・住所・電話番号・カード番号は含まれないとしている",
+   "cause": "委託先IDCフロンティアへのランサムウェア攻撃により、メール配信の外部サービスのメールログが閲覧・取得された可能性",
+   "note": "漏えいの確認ではなく「可能性を否定できない」との発表。2サービスの件数は報道による数字で、合算は重複を除いた人数ではない。ビューカードの件数は報道のみ。JR東日本の発表(jreast.co.jp/press/2026/20261009_ho02.pdf)は自動取得を拒否され、本文は読めていない。",
+   "verification": "reported",
+   "sources": [
+    {
+     "name": "KAB(ニュース)",
+     "url": "https://www.kab.co.jp/news/article/16953760",
+     "kind": "press"
+    },
+    {
+     "name": "NHK(JR東日本とビューカード)",
+     "url": "https://news.web.nhk/newsweb/na/nd-20261009de57177",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/security-measures-lab/jr_east_ekinet_otona_idcf_cloud_data_leak_risk/",
+     "kind": "aggregator"
+    }
+   ],
+   "checkedAt": "2026-10-13",
+   "origin": "attack"
+  },
+  {
+   "id": "jr-kyushu-idcf",
+   "date": "2026-10-09",
+   "name": "JR九州(JR九州Web会員)",
+   "type": "leak",
+   "count": 1300000,
+   "countNote": "最大約130万件(メールアドレス)",
+   "data": "メールアドレスを含むメールログデータ。氏名、住所、電話番号、クレジットカード番号、メルマガの件名・本文は含まれないとしている",
+   "cause": "委託先IDCフロンティアへのランサムウェア攻撃",
+   "note": "閲覧・取得された可能性を否定できないとの発表で、漏えいの確定ではない。JR九州自身のページは見つからず、NHKと解説記事による。",
+   "verification": "single",
+   "sources": [
+    {
+     "name": "NHK",
+     "url": "https://news.web.nhk/newsweb/na/nd-20261009de57525",
+     "kind": "press"
+    },
+    {
+     "name": "セキュリティ対策Lab",
+     "url": "https://rocket-boys.co.jp/?p=43179",
+     "kind": "aggregator"
+    }
+   ],
+   "checkedAt": "2026-10-13",
    "origin": "attack"
   },
   {
@@ -226,6 +335,32 @@
    "origin": "attack"
   },
   {
+   "id": "orix-life-scala",
+   "date": "2026-10-08",
+   "name": "オリックス生命保険(委託先スカラコミュニケーションズ)",
+   "type": "leak",
+   "count": 26500,
+   "countNote": "約26,500件(同一のお客さまによる複数回の問い合わせを含む)",
+   "data": "氏名、生年月日、住所、電話番号、メールアドレス、証券番号、お問い合わせ内容(申告された医療情報を含む)",
+   "cause": "委託先スカラコミュニケーションズのFAQシステム「i-ask」への不正アクセス",
+   "note": "同社システムへの不正アクセスは確認されていない。マイナンバーやクレジットカード番号は含まれないとしている。二次被害は確認されていない。",
+   "verification": "official",
+   "sources": [
+    {
+     "name": "オリックス生命(お知らせ)",
+     "url": "https://www.orixlife.co.jp/b3cd698c38a74ebea491976d56455ecd/77eb698f1d9543a39440e414940f9f4d/n261008.pdf",
+     "kind": "official"
+    },
+    {
+     "name": "スカラコミュニケーションズ",
+     "url": "https://scala-com.jp/news/2026/10-1/",
+     "kind": "official"
+    }
+   ],
+   "checkedAt": "2026-10-13",
+   "origin": "attack"
+  },
+  {
    "id": "sompo-japan-sr",
    "date": "2026-10-07",
    "name": "損害保険ジャパン(委託先のFAQシステム i-ask)",
@@ -353,9 +488,14 @@
    "countNote": "最大71万3,126件(問い合わせ単位の延べ件数)",
    "data": "氏名、メールアドレス、問い合わせ内容、口座番号など",
    "cause": "管理サイトへの不正ログイン(10月2日20時30分ごろ〜3日8時ごろ)",
-   "note": "最大5社の利用企業に影響。大和証券、シチズン時計も同じ原因。",
-   "verification": "single",
+   "note": "最大5社の利用企業に影響(大和証券、シチズン時計、損害保険ジャパン、オリックス生命など)。不正ログインと不正プログラムの設置は10月2日夜〜3日朝。実際の対象人数は名寄せ中。",
+   "verification": "official",
    "sources": [
+    {
+     "name": "スカラコミュニケーションズ(お詫びとお知らせ)",
+     "url": "https://scala-com.jp/news/2026/10-1/",
+     "kind": "official"
+    },
     {
      "name": "セキュリティ対策Lab",
      "url": "https://rocket-boys.co.jp/security-measures-lab/scala-communications-i-ask-cyberattack-summary/",
@@ -367,7 +507,7 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09",
+   "checkedAt": "2026-10-13",
    "origin": "attack"
   },
   {
@@ -380,8 +520,13 @@
    "data": "問い合わせフォームの氏名、住所、電話番号、メールアドレス。本文に書かれていれば口座・カード情報も",
    "cause": "委託先スカラコミュニケーションズへの不正アクセス",
    "note": "対象はシチズン、ブローバ、フレデリック・コンスタントの各ブランドサイト。",
-   "verification": "single",
+   "verification": "official",
    "sources": [
+    {
+     "name": "シチズン時計(お知らせ)",
+     "url": "https://www.citizen.co.jp/release/news/detail/2026/20261006.html",
+     "kind": "official"
+    },
     {
      "name": "ASCII.jp",
      "url": "https://ascii.jp/elem/000/004/439/4439964/",
@@ -393,7 +538,7 @@
      "kind": "aggregator"
     }
    ],
-   "checkedAt": "2026-10-09",
+   "checkedAt": "2026-10-13",
    "origin": "attack"
   },
   {
@@ -570,6 +715,27 @@
     }
    ],
    "checkedAt": "2026-10-09",
+   "origin": "attack"
+  },
+  {
+   "id": "daiki-suisan",
+   "date": "2026-10-05",
+   "name": "大起水産(大起水産公式アプリ)",
+   "type": "leak",
+   "count": 174933,
+   "countNote": "174,933人(2024年11月1日〜2026年9月15日の登録者、退会者を含む)",
+   "data": "氏名、電話番号、メールアドレス、性別、郵便番号、住所、生年月日(住所・生年月日は端末により任意登録)。パスワードは含まれない",
+   "cause": "アプリのシステムへの第三者による不正アクセス(9月15日に確認)",
+   "note": "実際に漏えいした事実や不正利用は確認されていないが、可能性を否定できないとして公表。10月6日に登録情報の説明を更新。",
+   "verification": "official",
+   "sources": [
+    {
+     "name": "大起水産(お詫びとお知らせ)",
+     "url": "https://www.daiki-suisan.co.jp/files/optionallink/00000164_file.pdf",
+     "kind": "official"
+    }
+   ],
+   "checkedAt": "2026-10-13",
    "origin": "attack"
   },
   {
