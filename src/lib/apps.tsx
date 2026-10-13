@@ -17,6 +17,15 @@ export type DynamicT = (key: string, values?: Record<string, string | number>) =
 type Icon = ComponentType<SVGProps<SVGSVGElement>>;
 export type AppEntry = AppData & { icon: Icon };
 
+function LlmMemoryIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="3" y="7" width="18" height="10" rx="1.5" />
+      <path d="M7 17v3M12 17v3M17 17v3M7 11v2M12 11v2M17 11v2" />
+    </svg>
+  );
+}
+
 function CidrIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -598,7 +607,7 @@ function MathIcon(props: SVGProps<SVGSVGElement>) {
 
 const APP_ICONS: Record<AppSlug, Icon> = {
   math: MathIcon, quiz: QuizIcon, arith: ArithIcon,
-  json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon,
+  json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon, "llm-memory": LlmMemoryIcon,
   wc: WcIcon, password: PasswordIcon, "mosaic": MosaicIcon, stopwatch: StopwatchIcon, "business-card": CardIcon,
   ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
   dice: DiceIcon, reaction: ReactionIcon, "iq-test": IqTestIcon, personality: PersonalityIcon, timing: TimingIcon, pinball: PinballIcon, koma: KomaIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "metadata": MetadataIcon, govfaq: GovFaqIcon, "approx": ApproxIcon, "warnings": WarningsIcon, "quake": QuakeIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, glitch: GlitchIcon, "random-video": RandomVideoIcon, noise: NoiseIcon, fireworks: FireworksIcon, puchi: PuchiIcon, "crane-game": CraneGameIcon, "fruit-merge": FruitMergeIcon, goldfish: GoldfishIcon, typing: TypingIcon, "number-merge": NumberMergeIcon,

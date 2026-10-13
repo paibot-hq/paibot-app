@@ -460,6 +460,35 @@
         "public": "Public"
       }
     },
+    "llmMemory": {
+      "title": "Local LLM Memory Estimator",
+      "description": "Estimate the memory a model's weights need from its parameter count and quantization bits, and check whether it fits in your memory.",
+      "about": "The first wall when you run an LLM locally is memory. Pick the parameter count and the bits per parameter to see the size of the weights (parameters × bytes per parameter) and a rough verdict on whether they fit in the memory you have. Everything is calculated in your browser.",
+      "keywords": "local LLM memory VRAM quantization parameters estimate Ollama",
+      "hint": "Estimated as parameters × bytes per parameter. Weights only; the cache that grows with the conversation and the OS are not included.",
+      "params": "Parameters (billions)",
+      "bits": "Precision (bits per parameter)",
+      "ram": "Available memory",
+      "weights": "Weights",
+      "share": "{percent}% of the available memory",
+      "verdict": {
+        "fit": "Should fit",
+        "tight": "Tight",
+        "over": "Will not fit"
+      },
+      "note": {
+        "fit": "The weights use 80% or less of the memory, leaving headroom for the cache.",
+        "tight": "The weights fit, but the cache and OS may run short.",
+        "over": "The weights alone exceed the memory. Pick a smaller model or fewer bits."
+      },
+      "rule": "The verdict is a rough guide (weights within 80% means “should fit”). Real usage depends on the tool and the conversation length.",
+      "whereTitle": "Which memory counts",
+      "where": {
+        "gpu": "With a GPU (such as NVIDIA): video memory (VRAM). If the weights fit in VRAM it runs fast. Some tools can spill the rest into main memory, but it becomes much slower.",
+        "apple": "On Apple Silicon: the CPU and GPU share one memory (unified memory). Ordinary memory serves the model too, but the OS needs a share, so not all of it is available.",
+        "cpu": "On the CPU only: main memory. It works, but is slower than on a GPU."
+      }
+    },
     "siteCheck": {
       "title": "Website Status Check",
       "description": "Enter a URL to see whether the site responds, with its status code, response time and redirect chain.",
