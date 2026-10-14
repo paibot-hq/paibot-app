@@ -1,7 +1,33 @@
 {
- "asOf": "2026-10-13",
+ "asOf": "2026-10-14",
  "note": "各社・各機関の公表と報道にもとづく。件数は「最大」「可能性」を含む公表値で、調査が進むと変わることがある。出典どうしで日付や件数が食い違う場合は、備考に書いた。",
  "items": [
+  {
+   "id": "arcadia-speecan",
+   "date": "2026-10-13",
+   "name": "アルカディア(一斉同報サービス SpeeCAN RAIDEN)",
+   "type": "leak",
+   "count": null,
+   "countNote": "件数は未公表",
+   "data": "連絡先データ、担当者、契約者情報(報道では配信履歴のメッセージ本文も)",
+   "cause": "第三者による不正アクセス(10月11日16時30分に不審な挙動を確認、12日3時ごろ侵入経路を遮断)",
+   "note": "自治体などが使う一斉同報サービス。公式発表は対象サービスと対象項目のみで、人数や侵入経路は書かれていない。配信履歴の本文は報道による。",
+   "verification": "official",
+   "checkedAt": "2026-10-14",
+   "sources": [
+    {
+     "name": "アルカディア(お知らせ)",
+     "url": "https://www.arcadia.co.jp/info/4076",
+     "kind": "official"
+    },
+    {
+     "name": "Security NEXT",
+     "url": "https://www.security-next.com/191371",
+     "kind": "press"
+    }
+   ],
+   "origin": "attack"
+  },
   {
    "id": "bookoff",
    "date": "2026-10-09",
@@ -480,6 +506,32 @@
    "origin": "attack"
   },
   {
+   "id": "asahi-kasei-therapeutics",
+   "date": "2026-10-06",
+   "name": "旭化成セラピューティクス(医療従事者向けサイト Pharma DIGITAL)",
+   "type": "leak",
+   "count": 514000,
+   "countNote": "医療従事者 最大約51万4,000名(うち約4万4,000名はメールアドレスも)、従業員 最大約700名",
+   "data": "医療従事者の氏名、所属施設名、施設住所、職種、診療科など(約4万4,000名はメールアドレスも)。従業員の氏名、メールアドレス、写真",
+   "cause": "委託先(医薬情報ネット)が運営する会員データベースへのサイバー攻撃による不正アクセス(10月2日に報告)",
+   "note": "通信社などは合計「最大約55万8,700人」と報じたが、公式発表は区分ごとの人数のみで重なりは書かれていない。クレジットカード情報と要配慮個人情報は保管していないとしている。サイトは運用停止中。",
+   "verification": "official",
+   "checkedAt": "2026-10-14",
+   "sources": [
+    {
+     "name": "旭化成セラピューティクス(プレスリリース)",
+     "url": "https://www.asahi-kasei.co.jp/pharma/oshirase_20261006.html",
+     "kind": "official"
+    },
+    {
+     "name": "Security NEXT",
+     "url": "https://www.security-next.com/191148",
+     "kind": "press"
+    }
+   ],
+   "origin": "attack"
+  },
+  {
    "id": "scala-i-ask",
    "date": "2026-10-06",
    "name": "スカラコミュニケーションズ(FAQシステム i-ask)",
@@ -913,13 +965,18 @@
    "date": "2026-09-29",
    "name": "セイコーマート(アプリ)",
    "type": "leak",
-   "count": 570000,
-   "countNote": "約57万アカウント(574,647)",
+   "count": 574647,
+   "countNote": "574,647人分(第四報、10月5日。ID数ベースの当初発表は約57万アカウント)",
    "data": "姓名、性別、生年月日、住所、電話番号、メールアドレス、クラブカードの入会・退会年月日",
    "cause": "アプリのサーバーを経由した不正アクセス(9月28日)",
-   "note": "パスワードは含まれず、クレジットカード情報は保有していないとしている。",
-   "verification": "reported",
+   "note": "パスワードは含まれず、クレジットカード情報は保有していないとしている。9月30日の第三報では572,022人分、10月5日の第四報で574,647人分に更新。9月24日までに退会した人は対象外。アプリ・WEB上での新規入会や会員情報の変更機能は終了。",
+   "verification": "official",
    "sources": [
+    {
+     "name": "セイコーマート(お詫びとお知らせ 第四報 PDF)",
+     "url": "https://www.seicomart.co.jp/images/top/pdf/202610051430.pdf",
+     "kind": "official"
+    },
     {
      "name": "ScanNetSecurity",
      "url": "https://scan.netsecurity.ne.jp/article/2026/10/02/56373.html",
@@ -931,7 +988,7 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09",
+   "checkedAt": "2026-10-14",
    "origin": "attack"
   },
   {
@@ -943,9 +1000,14 @@
    "countNote": "件数は未公表",
    "data": "氏名、住所、電話番号、メールアドレス、与信番号、請求金額、債権残高、商品明細",
    "cause": "「クロネコ代金後払いサービス」への不正アクセス",
-   "note": "9月28日22時28分にサービスを停止した。",
-   "verification": "reported",
+   "note": "9月28日22時28分にサービスを停止し、10月9日13時に再開した(第三報)。情報漏えいの可能性と範囲は専門機関と調査中で、不正利用は確認されていないとしている。支払期限は17日延長。",
+   "verification": "official",
    "sources": [
+    {
+     "name": "ヤマトホールディングス(【第3報】サービス再開のお知らせ)",
+     "url": "https://www.yamato-hd.co.jp/important/info_260929_1.html",
+     "kind": "official"
+    },
     {
      "name": "Eコマースの知識(ecnomikata)",
      "url": "https://ecnomikata.com/ecnews/51854/",
@@ -957,7 +1019,7 @@
      "kind": "press"
     }
    ],
-   "checkedAt": "2026-10-09",
+   "checkedAt": "2026-10-14",
    "origin": "attack"
   },
   {
