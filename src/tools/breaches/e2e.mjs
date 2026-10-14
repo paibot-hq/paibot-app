@@ -60,9 +60,11 @@ export default async function ({ page, main, go }) {
   await main.locator('[data-breaches="tab-list"]').click();
   assert.ok(await cards.count() >= 60, 'the incidents are listed');
   assert.equal(await main.locator('[data-chart="root"]:visible').count(), 0, 'no charts on the list tab');
-  assert.equal(await cards.first().getAttribute('data-breach'), 'bookoff', 'newest first');
+  // The first of each order is worked out from the data too, as a new incident can be the newest or the largest.
+  const firstBy = compare => [...data.items].sort(compare)[0].id;
+  assert.equal(await cards.first().getAttribute('data-breach'), firstBy((a, b) => b.date.localeCompare(a.date)), 'newest first');
   await main.getByRole('button', { name: 'Most records', exact: true }).click();
-  assert.equal(await cards.first().getAttribute('data-breach'), 'gyazo', 'largest first');
+  assert.equal(await cards.first().getAttribute('data-breach'), firstBy((a, b) => (b.count ?? -1) - (a.count ?? -1)), 'largest first');
 
   // The explanations of the labels are folded away, and open on request.
   const help = main.locator('[data-breaches="help"]');
