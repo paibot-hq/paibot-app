@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-14",
+ "asOf": "2026-10-15",
  "note": "各社・各機関の公表と報道にもとづく。件数は「最大」「可能性」を含む公表値で、調査が進むと変わることがある。出典どうしで日付や件数が食い違う場合は、備考に書いた。",
  "items": [
   {
@@ -1786,6 +1786,41 @@
     }
    ],
    "origin": "attack"
+  },
+  {
+   "id": "mol-cruises",
+   "date": "2026-09-10",
+   "name": "商船三井クルーズ(MITSUI OCEAN SAKURA)",
+   "type": "leak",
+   "count": null,
+   "countNote": "件数は未公表(本社サーバーのバックアップ約20万ファイルを調査中)",
+   "data": "顧客・乗組員の氏名、生年月日、性別、住所、電話番号、メールアドレス、旅券番号、医療・アレルギー情報(乗組員は銀行口座、評価、ワクチン接種歴、給与関係も)の可能性",
+   "cause": "にっぽん丸から就航準備中の MITSUI OCEAN SAKURA へデータを移すのに使った外部記憶媒体の一部が、船内の乗組員用の部屋で所在不明になった(2026年7月に確認)",
+   "note": "公式発表は2026年9月10日付。媒体の数や暗号化の有無、影響を受けた人数は公表されていない。個人情報保護委員会への報告と警察への届出済みで、情報の流出や不正利用は確認されていないとしている。Security NEXT は10月14日に報じた。",
+   "verification": "official",
+   "checkedAt": "2026-10-15",
+   "sources": [
+    {
+     "name": "商船三井クルーズ(お知らせ)",
+     "url": "https://www.mitsuioceancruises.com/news/20260910.html",
+     "kind": "official"
+    },
+    {
+     "name": "Security NEXT",
+     "url": "https://www.security-next.com/191197",
+     "kind": "press"
+    },
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/09/29/56328.html",
+     "kind": "press"
+    }
+   ],
+   "origin": "mistake",
+   "originBasis": "外部記憶媒体の紛失で、外部からの攻撃ではない",
+   "originProof": [
+    "紛失"
+   ]
   },
   {
    "id": "fivefoxes",
