@@ -1,0 +1,85 @@
+name: Incident list update
+
+# Keeps the incident list (src/data/breaches.json, see docs/breaches.md) current. Every day Claude Code reads the news and the organizations' own
+# pages, edits the list by the rules in .github/prompts/breaches-update.md, and this workflow opens (or updates) one pull request with the result.
+# Nothing is merged by itself: a person reads the pull request. Run it by hand from the Actions tab at any time.
+#
+# Secrets (Settings > Secrets and variables > Actions):
+#   CLAUDE_CODE_OAUTH_TOKEN: from `claude setup-token`; the run is paid out of the Claude plan's usage, not an API bill.
+#   GOVFAQ_UPDATE_TOKEN (optional but wanted): a fine-grained token with "Contents" and "Pull requests" write on this repository. Pull requests
+#   made with the built-in token do not start the checks, so without it the checks do not run on the pull request this opens.
+on:
+  schedule:
+    - cron: "10 0 * * *" # every day, 00:10 UTC (09:10 in Japan)
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: breaches-update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 45
+    env:
+      GH_TOKEN: ${{ secrets.GOVFAQ_UPDATE_TOKEN || github.token }}
+      PR_BODY_FILE: ${{ runner.temp }}/breaches-pr-body.md
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          token: ${{ secrets.GOVFAQ_UPDATE_TOKEN || github.token }}
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .tool-versions
+      # The tests and the source check use Node's own modules only; no install is needed.
+      - name: Today in Japan
+        run: echo "TODAY=$(TZ=Asia/Tokyo date +%F)" >> "$GITHUB_ENV"
+      # Claude may read the web and edit files, and run node (the tests and the source check); nothing else, so no git or gh from inside.
+      - name: Update the list
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          github_token: ${{ github.token }}
+          prompt: |
+            今日(JST)は ${{ env.TODAY }}。`.github/prompts/breaches-update.md` を読み、その手順どおりに `src/data/breaches.json` を更新してください。
+            PR の説明文は、環境変数 PR_BODY_FILE が指すファイル(${{ env.PR_BODY_FILE }})に書いてください。
+          claude_args: >-
+            --model claude-sonnet-5-5
+            --max-turns 80
+            --allowedTools "Read,Edit,Write,Glob,Grep,WebSearch,WebFetch,Bash(node:*)"
+      - name: Check what changed
+        id: diff
+        run: |
+          changed=$(git status --porcelain)
+          echo "$changed"
+          if [ -z "$changed" ]; then echo "changed=false" >> "$GITHUB_OUTPUT"; exit 0; fi
+          if [ "$(echo "$changed" | grep -vc ' src/data/breaches.json$')" != 0 ]; then
+            echo "::error::Only src/data/breaches.json may change"; exit 1
+          fi
+          if [ ! -s "$PR_BODY_FILE" ]; then echo "::error::The pull request text is missing"; exit 1; fi
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+      # The same rules a pull request must pass; a list that breaks one is never proposed.
+      - name: Rules
+        if: steps.diff.outputs.changed == 'true'
+        run: node --test "src/tools/breaches/*.test.mjs"
+      - name: Open (or update) the pull request
+        if: steps.diff.outputs.changed == 'true'
+        run: |
+          branch=automation/breaches-update
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add src/data/breaches.json
+          title="サイバー被害まとめを $TODAY 時点に更新"
+          git commit -m "$title"
+          git push --force origin "HEAD:refs/heads/$branch"
+          number=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number // empty')
+          if [ -n "$number" ]; then
+            gh pr edit "$number" --title "$title" --body-file "$PR_BODY_FILE"
+          else
+            gh pr create --head "$branch" --base main --title "$title" --body-file "$PR_BODY_FILE"
+          fi
