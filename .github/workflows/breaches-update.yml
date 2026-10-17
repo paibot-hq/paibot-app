@@ -27,7 +27,6 @@ jobs:
     timeout-minutes: 45
     env:
       GH_TOKEN: ${{ secrets.GOVFAQ_UPDATE_TOKEN || github.token }}
-      PR_BODY_FILE: ${{ runner.temp }}/breaches-pr-body.md
     steps:
       - uses: actions/checkout@v7
         with:
@@ -36,8 +35,11 @@ jobs:
         with:
           node-version-file: .tool-versions
       # The tests and the source check use Node's own modules only; no install is needed.
-      - name: Today in Japan
-        run: echo "TODAY=$(TZ=Asia/Tokyo date +%F)" >> "$GITHUB_ENV"
+      # (The runner context is not available in the job's own env, so the path is set here.)
+      - name: Today in Japan, and where the pull request text goes
+        run: |
+          echo "TODAY=$(TZ=Asia/Tokyo date +%F)" >> "$GITHUB_ENV"
+          echo "PR_BODY_FILE=$RUNNER_TEMP/breaches-pr-body.md" >> "$GITHUB_ENV"
       # Claude may read the web and edit files, and run node (the tests and the source check); nothing else, so no git or gh from inside.
       - name: Update the list
         uses: anthropics/claude-code-action@v1
