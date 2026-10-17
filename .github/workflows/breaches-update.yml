@@ -52,7 +52,17 @@ jobs:
           claude_args: >-
             --model claude-sonnet-5-5
             --max-turns 80
+            --add-dir ${{ runner.temp }}
             --allowedTools "Read,Edit,Write,Glob,Grep,WebSearch,WebFetch,Bash(node:*)"
+      # What Claude did, turn by turn (the log hides it): to find out why it denied a tool, or found nothing. Private repository, kept 14 days.
+      - name: Keep Claude's record
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: claude-execution-output
+          path: ${{ runner.temp }}/claude-execution-output.json
+          if-no-files-found: ignore
+          retention-days: 14
       - name: Check what changed
         id: diff
         run: |
