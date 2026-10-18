@@ -128,6 +128,37 @@
    "origin": "attack"
   },
   {
+   "id": "burger-king-app",
+   "date": "2026-10-15",
+   "name": "ビーケー・ジャパン(バーガーキング公式アプリ会員)",
+   "type": "leak",
+   "count": 11180000,
+   "countNote": "約1,118万件",
+   "data": "会員ID、メールアドレス、登録種別、都道府県、性別、生年月日、氏名(漢字・カナ)、電話番号、モバイルオーダー履歴の有無、メール認証の有無",
+   "cause": "会員情報を管理するシステムへの第三者による不正アクセス(10月2日〜7日。10月13日に判明し、当該通信元からのアクセスを遮断した)",
+   "note": "クレジットカード番号は保持しておらず対象外。ログインパスワードの漏えいは確認されていない。二次被害は確認されていないとしている。公式発表はPDFで、本文を読み取れなかったため、不正アクセスの期間と判明日はImpress Watchの記事による。",
+   "verification": "reported",
+   "checkedAt": "2026-10-18",
+   "sources": [
+    {
+     "name": "Impress Watch",
+     "url": "https://www.watch.impress.co.jp/docs/news/2148486.html",
+     "kind": "press"
+    },
+    {
+     "name": "日本食糧新聞",
+     "url": "https://news.nissyoku.co.jp/flash/1327772",
+     "kind": "press"
+    },
+    {
+     "name": "NHK NEWS WEB",
+     "url": "https://news.web.nhk/newsweb/na/nd-20261015de59803",
+     "kind": "press"
+    }
+   ],
+   "origin": "attack"
+  },
+  {
    "id": "kushiro-portus",
    "date": "2026-10-15",
    "name": "北海道釧路市(委託先 ポータス)",
@@ -144,6 +175,32 @@
      "name": "釧路市(お知らせ)",
      "url": "https://www.city.kushiro.lg.jp/kosodatekyouiku/kyouiku/1008303/1019759.html",
      "kind": "official"
+    }
+   ],
+   "origin": "attack"
+  },
+  {
+   "id": "rideon-ginosara",
+   "date": "2026-10-13",
+   "name": "ライドオンエクスプレスホールディングス(銀のさら・釜寅・すし上等)",
+   "type": "ransomware",
+   "count": 6500000,
+   "countNote": "最大約650万件(漏えいの可能性。確定した件数ではない)",
+   "data": "氏名、住所、電話番号、メールアドレス、性別、生年月日、パスワードのハッシュ値、注文履歴、デリポイント会員ID",
+   "cause": "同社が利用するサーバーの運営会社がランサムウェア攻撃を受けた(10月5日以降に不正アクセスを検知、7日にシステム障害)",
+   "note": "クレジットカード情報は保有しておらず対象外。公式サイト・アプリからの注文は10月8日から停止中で、再開の見通しは立っていない(電話・店頭・出前館・Uber Eatsは利用可)。運営会社名は公式には非公表。Impress Watchは同時期のIDCFクラウドへのランサムウェア攻撃に触れているが、同社の公表では関係は明記されていない。",
+   "verification": "official",
+   "checkedAt": "2026-10-18",
+   "sources": [
+    {
+     "name": "ライドオンエクスプレスホールディングス(ニュースリリース)",
+     "url": "https://www.rideonexpresshd.co.jp/news/2026/10/3-33.html",
+     "kind": "official"
+    },
+    {
+     "name": "Impress Watch",
+     "url": "https://internet.watch.impress.co.jp/docs/news/2147767.html",
+     "kind": "press"
     }
    ],
    "origin": "attack"
