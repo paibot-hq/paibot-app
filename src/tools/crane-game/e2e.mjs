@@ -9,6 +9,15 @@ export default async function ({ page, main, go }) {
   await go('crane-game');
   const text = name => main.locator(`[data-crane="${name}"]`).innerText();
   const move = main.locator('[data-crane="move"]'), drop = main.locator('[data-crane="drop"]');
+  // A play is over when the claw is back and the drop button can be pressed again (or the round's result shows): the clock goes on in steps
+  // until then, up to 15 seconds, rather than always 15 seconds (every frame of the 3D scene is drawn on the way).
+  const finishPlay = async () => {
+    for (let ms = 0; ms < 15000; ms += 500) {
+      await page.clock.runFor(500);
+      if (!(await drop.isDisabled()) || await main.locator('[data-crane="result"]').count()) return;
+    }
+    throw new Error('the claw did not come back within 15 seconds');
+  };
   assert.equal(await main.locator('[data-crane="plays"]').getAttribute('data-left'), '5');
   assert.equal(await text('owned'), '1 / 10');
   assert.match(await main.locator('li[data-owned]').innerText(), /Pi plush\s*×2/);
@@ -28,7 +37,7 @@ export default async function ({ page, main, go }) {
   await drop.click();
   await page.clock.runFor(100);
   assert.equal(await drop.isDisabled(), true, 'no buttons while the claw is on its way');
-  await page.clock.runFor(15000);
+  await finishPlay();
   assert.match(await text('message'), /^(You won .+!|So close! It slipped…|Lifted it, but it slipped out…|Nothing caught… aim at the middle of a prize)$/);
   assert.equal(await main.locator('[data-crane="plays"]').getAttribute('data-left'), '4');
 
@@ -38,13 +47,13 @@ export default async function ({ page, main, go }) {
   await page.clock.runFor(800);
   await page.keyboard.up('ArrowRight');
   await page.keyboard.press('ArrowDown');
-  await page.clock.runFor(15000);
+  await finishPlay();
   assert.equal(await main.locator('[data-crane="plays"]').getAttribute('data-left'), '3');
 
   // The rest of the round, then the result: how many were won, a new round, and sharing.
   for (let play = 0; play < 3; play++) {
     await drop.click();
-    await page.clock.runFor(15000);
+    await finishPlay();
   }
   const result = main.locator('[data-crane="result"]');
   await result.waitFor();
