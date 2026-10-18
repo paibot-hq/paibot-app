@@ -119,7 +119,7 @@ export default async function ({ page, main, base, go, errors }) {
     const crumbs = page.getByRole('navigation', { name: 'Breadcrumb' });
     assert.deepEqual(await crumbs.getByRole('link').evaluateAll(links => links.map(link => link.getAttribute('href'))),
       ['/en/math', `/en/math/${item.split('/')[0]}`, `/en/math/${item}`]);
-    assert.match(await crumbs.locator('[aria-current=page]').innerText(), /^Practice \d$/);
+    assert.match(await crumbs.locator('[aria-current=page]').textContent(), /^Practice \d$/); // textContent: innerText follows the CSS, and the global `nav` uppercases until the crumb's own CSS is applied
     await crumbs.getByRole('link').last().click();
     await page.waitForURL(`${base}/en/math/${item}`);
   }
