@@ -1628,6 +1628,43 @@
       "fade": "Fade away",
       "hint": "More segments make a finer pattern. Turn the mirror off for a softer, turning-only pattern. With \"Fade away\" on, the automatic drawing is hard to stop watching."
     },
+    "glitch": {
+      "title": "Glitch Noise",
+      "description": "Glitch art that cuts at random between TV snow, flowing colour waves, bars, a mosaic, moiré, flashes and the robot's face, with rows slipping, colours splitting and scan lines on top, and a noise sound for each scene.",
+      "about": "TV snow and video glitches as an animation whose scenes change at random, with sound. Now and then the PAIBOT robot's face shows through the static.",
+      "keywords": "glitch glitch art noise tv static snow moire mosaic scan lines noise music video art free",
+      "intro": "Snow and waves of colour cut from one to another in an order no one can predict. You can also pick one scene and stay on it.",
+      "canvasLabel": "Glitch noise animation: TV snow and colour patterns changing at random",
+      "start": "Start",
+      "stop": "Stop",
+      "soundOn": "Sound on",
+      "soundOff": "Sound off",
+      "scene": "Scene",
+      "modes": {
+        "auto": "Random",
+        "snow": "Snow",
+        "flow": "Colour waves",
+        "bars": "Bars",
+        "mosaic": "Mosaic",
+        "moire": "Moiré",
+        "flash": "Flash",
+        "signal": "Robot"
+      },
+      "glitch": "Glitches",
+      "glitches": {
+        "slip": "Slipping rows",
+        "split": "Colour split",
+        "invert": "Inversion",
+        "scan": "Scan lines"
+      },
+      "intensity": "Intensity",
+      "intensities": {
+        "mild": "Gentle",
+        "wild": "Wild"
+      },
+      "warning": "Wild includes flashing and inverting the whole picture. Take care if you are sensitive to flashing light (flashes are kept to three a second and inversions to one).",
+      "hint": "On Random, both the scenes and how long they last are left to chance. Each scene has its sound: snow hisses, colour waves swoop, the mosaic bleeps, a flash thumps, and sometimes there is silence. Inversion and scan lines are only available when wild."
+    },
     "balls": {
       "title": "Splitting Balls",
       "description": "Balls fly around inside a circle and split in two when they collide, filling it up. Tap to add a ball, turn splitting or trails on and off. Soothing to watch.",

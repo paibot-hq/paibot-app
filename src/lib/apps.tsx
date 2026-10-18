@@ -76,6 +76,15 @@ function KaleidoscopeIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function GlitchIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="3" y="4.5" width="18" height="14" rx="2" />
+      <path d="M3 9h7M13 9h8M3 13.5h4M10 13.5h11M8 21h8" />
+    </svg>
+  );
+}
+
 function LifeIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -491,7 +500,7 @@ const APP_ICONS: Record<AppSlug, Icon> = {
   json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon,
   wc: WcIcon, password: PasswordIcon, "mosaic": MosaicIcon, stopwatch: StopwatchIcon, "business-card": CardIcon,
   ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
-  dice: DiceIcon, reaction: ReactionIcon, timing: TimingIcon, pinball: PinballIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "metadata": MetadataIcon, govfaq: GovFaqIcon, "approx": ApproxIcon, "warnings": WarningsIcon, "quake": QuakeIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, fireworks: FireworksIcon, puchi: PuchiIcon, "crane-game": CraneGameIcon, "fruit-merge": FruitMergeIcon,
+  dice: DiceIcon, reaction: ReactionIcon, timing: TimingIcon, pinball: PinballIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "metadata": MetadataIcon, govfaq: GovFaqIcon, "approx": ApproxIcon, "warnings": WarningsIcon, "quake": QuakeIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, glitch: GlitchIcon, fireworks: FireworksIcon, puchi: PuchiIcon, "crane-game": CraneGameIcon, "fruit-merge": FruitMergeIcon,
   tax: TaxIcon, split: SplitIcon, "unit-converter": UnitConverterIcon, "date-calc": DateCalcIcon, pomodoro: PomodoroIcon, roulette: RouletteIcon, strings: StringsIcon,
   calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, diary: WcIcon, age: AgeIcon, breaches: BreachesIcon, omikuji: OmikujiIcon, "birthday-fortune": BirthdayFortuneIcon,
 };
