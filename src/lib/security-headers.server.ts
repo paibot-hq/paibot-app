@@ -45,10 +45,11 @@ export function buildContentSecurityPolicy(nonce?: string): string {
       "https://*.google-analytics.com",
       "https://www.googletagmanager.com",
       "https://*.google.com",
-      // Google AdSense (root.tsx ADSENSE_CLIENT): the ad-quality beacon and the ad requests.
+      // Google AdSense (root.tsx ADSENSE_CLIENT): the ad requests and the ad-quality checks. Whole domains, not the
+      // hosts seen so far: the ads pick among numbered hosts (ep1., ep2. ...), so listing hosts broke smoke twice.
       "https://*.adtrafficquality.google",
-      "https://pagead2.googlesyndication.com",
-      "https://googleads.g.doubleclick.net",
+      "https://*.googlesyndication.com",
+      "https://*.doubleclick.net",
       // The Japan Meteorological Agency's earthquake list and reports, read by the quake page (https://www.jma.go.jp allows any origin).
       "https://www.jma.go.jp",
       ...(clerkHost ? [clerkHost] : []),
@@ -64,9 +65,10 @@ export function buildContentSecurityPolicy(nonce?: string): string {
       "https://*.protect.clerk.com",
       // The TradingView widgets of the stocks page, shown in a frame only after the visitor asks for them.
       "https://www.tradingview-widget.com",
-      // Google AdSense ad frames.
-      "https://googleads.g.doubleclick.net",
-      "https://tpc.googlesyndication.com",
+      // Google AdSense ad frames and ad-quality frames (see connect-src).
+      "https://*.adtrafficquality.google",
+      "https://*.googlesyndication.com",
+      "https://*.doubleclick.net",
       "https://*.google.com",
     ],
     // "data:" is needed for a Clerk UI background asset (an inline noise
