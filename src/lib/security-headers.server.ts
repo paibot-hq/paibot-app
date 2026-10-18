@@ -45,6 +45,10 @@ export function buildContentSecurityPolicy(nonce?: string): string {
       "https://*.google-analytics.com",
       "https://www.googletagmanager.com",
       "https://*.google.com",
+      // Google AdSense (root.tsx ADSENSE_CLIENT): the ad-quality beacon and the ad requests.
+      "https://*.adtrafficquality.google",
+      "https://pagead2.googlesyndication.com",
+      "https://googleads.g.doubleclick.net",
       // The Japan Meteorological Agency's earthquake list and reports, read by the quake page (https://www.jma.go.jp allows any origin).
       "https://www.jma.go.jp",
       ...(clerkHost ? [clerkHost] : []),
@@ -60,6 +64,10 @@ export function buildContentSecurityPolicy(nonce?: string): string {
       "https://*.protect.clerk.com",
       // The TradingView widgets of the stocks page, shown in a frame only after the visitor asks for them.
       "https://www.tradingview-widget.com",
+      // Google AdSense ad frames.
+      "https://googleads.g.doubleclick.net",
+      "https://tpc.googlesyndication.com",
+      "https://*.google.com",
     ],
     // "data:" is needed for a Clerk UI background asset (an inline noise
     // SVG data URI) — Clerk's own DEFAULT_DIRECTIVES for @clerk/nextjs
@@ -67,7 +75,7 @@ export function buildContentSecurityPolicy(nonce?: string): string {
     // something specific to this hand-rolled CSP. Found via an actual CSP
     // violation on /sign-in, not from Clerk's docs.
     // "blob:" shows a photo the visitor chose, from the browser's own memory (the photo checker); nothing is fetched.
-    "img-src": ["'self'", "https://img.clerk.com", "data:", "blob:", "https://www.googletagmanager.com", "https://*.google-analytics.com"],
+    "img-src": ["'self'", "https://img.clerk.com", "data:", "blob:", "https://www.googletagmanager.com", "https://*.google-analytics.com", "https://pagead2.googlesyndication.com", "https://*.googlesyndication.com", "https://*.doubleclick.net", "https://*.google.com", "https://*.adtrafficquality.google"],
     "script-src": nonce ? ["'self'", `'nonce-${nonce}'`, "'strict-dynamic'", "'unsafe-inline'", "https:"] : ["'self'"],
     "base-uri": ["'self'"],
     "object-src": ["'none'"],
