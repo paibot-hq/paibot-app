@@ -1670,6 +1670,48 @@
       "warning": "Wild includes flashing and inverting the whole picture. Take care if you are sensitive to flashing light (flashes are kept to three a second and inversions to one).",
       "hint": "On Random, both the scenes and how long they last are left to chance. Each scene has its sound: snow hisses, colour waves swoop, the mosaic bleeps, a flash thumps, the test card beeps, data rain patters, and the scope plays the very wave it shows. Sometimes there is silence. Inversion and scan lines are only available when wild."
     },
+    "noise": {
+      "title": "Noise Generator",
+      "description": "See the noise used in graphics and games as an image: Perlin, simplex, Worley, value and white noise. Change the scale, octaves and seed to compare them, colour them as terrain or heat, and save a PNG. The same noise can also be played as a sound.",
+      "about": "A tool that draws the noise functions used for terrain, clouds and textures in graphics and games (white, value, Perlin, simplex and Worley) as images you can compare on the spot.",
+      "keywords": "noise perlin noise simplex noise worley noise cellular noise white noise fbm octaves texture terrain generator free white noise sound pink noise brown noise static",
+      "intro": "Pick a kind of noise and it is drawn straight away. The sliders below change its shape.",
+      "kind": "Kind of noise",
+      "kinds": {
+        "white": "White",
+        "value": "Value",
+        "perlin": "Perlin",
+        "simplex": "Simplex",
+        "worley": "Worley"
+      },
+      "notes": {
+        "white": "White noise: a random number for every pixel, unrelated to its neighbours. It looks like the snow on an untuned TV.",
+        "value": "Value noise: a random number at every point of a grid, joined smoothly in between. Its square grid shows a little.",
+        "perlin": "Perlin noise: a random slope at every point of a grid, joined smoothly. It gives the natural shapes used for terrain and clouds.",
+        "simplex": "Simplex noise: Perlin noise rebuilt on a grid of triangles. The grid's direction shows less, and it is quicker to compute.",
+        "worley": "Worley noise: one point in every square of a grid; the brightness is the distance to the nearest point. It looks like cells, paving stones or cracks."
+      },
+      "canvasLabel": "An image of {kind} noise",
+      "scale": "Scale",
+      "octaves": "Octaves",
+      "gain": "Gain",
+      "lacunarity": "Lacunarity",
+      "seed": "Seed",
+      "reseed": "Draw with another seed",
+      "palette": "Colour",
+      "palettes": {
+        "gray": "Grey",
+        "terrain": "Terrain",
+        "heat": "Heat"
+      },
+      "save": "Save image",
+      "hint": "More octaves layer finer noise on top, for more detail (fractal Brownian motion). Gain is how strong each finer layer is; lacunarity is how much finer each layer gets. The same seed always draws the same image. The sound is made from the noise on show: white noise hisses, Perlin and simplex rumble, Worley buzzes. A larger scale sounds higher; more octaves sound rougher.",
+      "sound": {
+        "play": "Listen",
+        "stop": "Stop",
+        "volume": "Volume"
+      }
+    },
     "balls": {
       "title": "Splitting Balls",
       "description": "Balls fly around inside a circle and split in two when they collide, filling it up. Tap to add a ball, turn splitting or trails on and off. Soothing to watch.",
