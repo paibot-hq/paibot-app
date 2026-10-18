@@ -56,6 +56,9 @@ export default function SearchHome({ year }: { year: number }) {
   }, []);
 
   function onKeyDown(event: KeyboardEvent<HTMLInputElement>) {
+    // Keys pressed while an input method is composing (Japanese, Chinese) belong to it: the Enter that confirms the
+    // conversion must not open a result. Safari sends that Enter after the composition has ended, with keyCode 229.
+    if (event.nativeEvent.isComposing || event.keyCode === 229) return;
     if (!results.length) return;
     if (event.key === "ArrowDown") { event.preventDefault(); setActive(index => Math.min(results.length - 1, index + 1)); }
     else if (event.key === "ArrowUp") { event.preventDefault(); setActive(index => Math.max(0, index - 1)); }

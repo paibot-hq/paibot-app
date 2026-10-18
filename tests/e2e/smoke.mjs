@@ -221,6 +221,13 @@ try {
   // The keyboard: arrows move through the results and Enter opens the chosen one.
   await page.getByRole('combobox').fill('json');
   await page.locator('[data-search="results"] a').first().waitFor();
+  // The Enter that confirms a Japanese or Chinese conversion is the input method's, not a choice: it opens nothing
+  // (composing, and Safari's after the composition, keyCode 229).
+  for (const init of [{ isComposing: true }, { keyCode: 229 }]) {
+    await page.getByRole('combobox').evaluate((box, init) => box.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter', bubbles: true, cancelable: true, ...init })), init);
+    await page.waitForTimeout(300);
+    assert.equal(new URL(page.url()).pathname, '/ja', `an input method's Enter (${JSON.stringify(init)}) opened a result`);
+  }
   await page.getByRole('combobox').press('Enter');
   await page.waitForURL(/\/ja\/json$/);
   // Every published app can be found by its name.
