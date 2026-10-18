@@ -1,5 +1,6 @@
 // Glitch noise, after the "noise" short video (video/harness/render.py): short scenes picked at random (TV snow, flowing
-// colour waves, bars, a mosaic, moiré, a flash, the PAIBOT robot in the static), drawn on a coarse grid of cells, with
+// colour waves, bars, a mosaic, moiré, a flash, the PAIBOT robot in the static; and, not in the video, a test card, a
+// worn tape's tracking, a tunnel, falling streaks and an oscilloscope), drawn on a coarse grid of cells, with
 // glitches on top (rows slipping sideways, the colours split, the picture inverted, scan lines) and a sound for each
 // scene. Pure functions, so they are tested without a browser or sound.
 //
@@ -8,8 +9,8 @@
 // picture is inverted at most once a second, and the gentle intensity (the default) neither flashes nor inverts. Snow
 // and static still change every frame: their fine grain keeps the screen's overall brightness the same.
 
-export type Mode = "snow" | "flow" | "bars" | "mosaic" | "moire" | "flash" | "signal";
-export const MODES: readonly Mode[] = ["snow", "flow", "bars", "mosaic", "moire", "flash", "signal"];
+export type Mode = "snow" | "flow" | "bars" | "mosaic" | "moire" | "flash" | "signal" | "testcard" | "tracking" | "tunnel" | "rain" | "scope";
+export const MODES: readonly Mode[] = ["snow", "flow", "bars", "mosaic", "moire", "flash", "signal", "testcard", "tracking", "tunnel", "rain", "scope"];
 export type Intensity = "mild" | "wild";
 
 type Rgb = readonly [number, number, number];
@@ -19,8 +20,8 @@ export const PALETTES: Record<Intensity, readonly Rgb[]> = {
 };
 // How often each scene comes up, in the order of MODES; the gentle intensity has no flash.
 const WEIGHTS: Record<Intensity, readonly number[]> = {
-  wild: [0.17, 0.2, 0.17, 0.15, 0.12, 0.08, 0.11],
-  mild: [0.14, 0.3, 0.12, 0.2, 0.1, 0, 0.14],
+  wild: [0.12, 0.13, 0.11, 0.1, 0.08, 0.05, 0.07, 0.07, 0.07, 0.07, 0.06, 0.07],
+  mild: [0.1, 0.18, 0.08, 0.12, 0.07, 0, 0.08, 0.07, 0.08, 0.08, 0.07, 0.07],
 };
 // How long a scene lasts, in seconds, and how likely each length is.
 const LENGTHS: Record<Intensity, { seconds: readonly number[]; weights: readonly number[] }> = {
@@ -134,6 +135,76 @@ export function drawCells(segment: Segment, intensity: Intensity, local: number,
     const tick = Math.floor(local * (mild ? 1 : FLASHES_PER_SECOND));
     const colour = pal[int(random(segment.seed + tick * 7919), 0, pal.length)];
     for (let i = 0; i < w * h; i++) set(i, !mild && now() < 0.02 ? [255 - colour[0], 255 - colour[1], 255 - colour[2]] : colour);
+  } else if (segment.mode === "testcard") {
+    // A TV test card: seven bars, a thin strip of them reversed, and dark blocks below (pastel when gentle).
+    const bars: Rgb[] = [[192, 192, 192], [192, 192, 0], [0, 192, 192], [0, 192, 0], [192, 0, 192], [192, 0, 0], [0, 0, 192]];
+    const tone = (c: Rgb): Rgb => (mild ? [c[0] * 0.45 + 140, c[1] * 0.45 + 140, c[2] * 0.45 + 140] : c);
+    const lows: Rgb[] = [[0, 33, 76], [255, 255, 255], [50, 0, 106], [19, 19, 19], [9, 9, 9], [19, 19, 19], [29, 29, 29]];
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        const bar = Math.min(6, Math.floor((x * 7) / w));
+        const c = y < h * 0.67 ? bars[bar] : y < h * 0.75 ? (bar % 2 ? [19, 19, 19] as Rgb : bars[6 - bar]) : lows[bar];
+        set(y * w + x, tone(c));
+      }
+    }
+  } else if (segment.mode === "tracking") {
+    // A worn video tape: a band of noise rolls down the picture, and the rows near it wobble sideways.
+    const [top, bottom] = shuffled(params, pal);
+    const band = Math.max(3, Math.round(h * uniform(params, 0.08, 0.2)));
+    const speed = uniform(params, 0.4, 1.2) * h;
+    const at = (local * speed) % (h + band * 2) - band;
+    for (let y = 0; y < h; y++) {
+      const near = Math.abs(y - at);
+      const wobble = near < band * 2 ? Math.round(Math.sin(y * 0.9 + local * 20) * (band * 2 - near) * 0.5) : 0;
+      for (let x = 0; x < w; x++) {
+        const v = (((x + wobble) % w) + w) % w / w;
+        const base: Rgb = [lerp(top[0], bottom[0], v), lerp(top[1], bottom[1], v), lerp(top[2], bottom[2], v)];
+        if (near < band / 2) { const n = int(now, 0, 256); set(y * w + x, mild ? [base[0] * 0.6 + n * 0.4, base[1] * 0.6 + n * 0.4, base[2] * 0.6 + n * 0.4] : [n, n, n]); }
+        else set(y * w + x, base);
+      }
+    }
+  } else if (segment.mode === "tunnel") {
+    // Rings of colour coming out of the middle, as if flying down a tunnel.
+    const levels = int(params, 3, 6);
+    const colours = shuffled(params, pal).slice(0, levels);
+    const speed = uniform(params, 1.5, 4) * (params() < 0.5 ? 1 : -1);
+    // A spiral, or plain rings: going once round adds 2 x twist rings, a whole number of colour cycles, so no seam shows.
+    const twist = [-1, 0, 1][int(params, 0, 3)] * levels / 2;
+    for (let y = 0; y < h; y++) {
+      for (let x = 0; x < w; x++) {
+        const dx = (x - w / 2) / h, dy = (y - h / 2) / h;
+        const depth = 0.35 / (Math.hypot(dx, dy) + 0.04) + Math.atan2(dy, dx) * twist / Math.PI;
+        set(y * w + x, colours[(((Math.floor(depth - local * speed) % levels) + levels) % levels)]);
+      }
+    }
+  } else if (segment.mode === "rain") {
+    // Streaks falling down each column at its own speed, bright at the head and fading behind.
+    const background: Rgb = mild ? [244, 240, 236] : [0, 0, 0];
+    const columns = Array.from({ length: w }, () => ({ speed: uniform(params, 0.5, 2) * h, offset: params() * h * 2, length: int(params, 4, Math.max(5, h / 2)), colour: pal[int(params, 0, pal.length)] }));
+    for (let x = 0; x < w; x++) {
+      const column = columns[x];
+      const head = (local * column.speed + column.offset) % (h + column.length);
+      for (let y = 0; y < h; y++) {
+        const behind = head - y;
+        if (behind >= 0 && behind < column.length) {
+          const fade = 1 - behind / column.length;
+          const c = behind < 1 ? (mild ? column.colour : [255, 255, 255] as Rgb) : column.colour;
+          set(y * w + x, [lerp(background[0], c[0], fade), lerp(background[1], c[1], fade), lerp(background[2], c[2], fade)]);
+        } else set(y * w + x, background);
+      }
+    }
+  } else if (segment.mode === "scope") {
+    // An oscilloscope: a dim grid and a glowing trace of two waves added together (the scene's sound is this wave).
+    const { a, b, ratio } = scopeWave(segment.seed);
+    const background: Rgb = mild ? [226, 236, 230] : [4, 18, 10];
+    const grid: Rgb = mild ? [200, 216, 208] : [18, 52, 32];
+    const trace: Rgb = mild ? [70, 150, 120] : [120, 255, 160];
+    for (let i = 0; i < w * h; i++) set(i, (i % w) % 10 === 0 || Math.floor(i / w) % 10 === 0 ? grid : background);
+    for (let x = 0; x < w; x++) {
+      const p = (x / w) * 2 * Math.PI * 2 + local * 3;
+      const y = Math.round(h / 2 - (a * Math.sin(p) + b * Math.sin(p * ratio + local * 5)) * h * 0.38);
+      for (let dy = -1; dy <= 1; dy++) if (y + dy >= 0 && y + dy < h) set((y + dy) * w + x, dy === 0 ? trace : [lerp(grid[0], trace[0], 0.5), lerp(grid[1], trace[1], 0.5), lerp(grid[2], trace[2], 0.5)]);
+    }
   } else {
     // signal: dark static, where the robot's face shows (drawn by the page on top).
     for (let i = 0; i < w * h; i++) {
@@ -142,6 +213,16 @@ export function drawCells(segment: Segment, intensity: Intensity, local: number,
     }
   }
   return out;
+}
+
+const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
+
+// The two waves an oscilloscope scene shows and sounds: their sizes (adding up to 1) and the second's pitch against the
+// first's.
+export function scopeWave(seed: number) {
+  const next = random(seed + 11);
+  const a = uniform(next, 0.5, 0.8);
+  return { a, b: 1 - a, ratio: [1.5, 2, 3, 4 / 3, 5 / 4][int(next, 0, 5)] };
 }
 
 function shuffled<T>(next: () => number, items: readonly T[]): T[] {
@@ -275,6 +356,44 @@ export function sceneSound(segment: Segment, intensity: Intensity, seconds: numb
     // A burst of noise over a low thump.
     for (let i = 0; i < length; i++) out[i] = gauss(next) * Math.exp(-at(i) * 90) + Math.sin(2 * Math.PI * 55 * at(i)) * Math.exp(-at(i) * 14) * 1.3;
     gain = 0.7;
+  } else if (segment.mode === "testcard") {
+    // The test card's tone: a steady 1 kHz.
+    for (let i = 0; i < length; i++) out[i] = Math.sin(2 * Math.PI * 1000 * at(i));
+    gain = mild ? 0.12 : 0.2;
+  } else if (segment.mode === "tracking") {
+    // A worn tape: hiss that surges as the band rolls past, over a pitch that wavers.
+    const roll = uniform(next, 0.4, 1.2), pitch = uniform(next, 80, 220);
+    for (let i = 0; i < length; i++) {
+      const x = at(i);
+      const surge = Math.max(0, Math.sin(2 * Math.PI * roll * x)) ** 4;
+      out[i] = gauss(next) * (0.15 + surge) * (mild ? 0.5 : 1) + Math.sin(2 * Math.PI * pitch * x + 3 * Math.sin(2 * Math.PI * 0.7 * x)) * 0.4;
+    }
+    gain = 0.35;
+  } else if (segment.mode === "tunnel") {
+    // Rising sweeps that start again an octave down, so they seem to climb for ever, like the rings.
+    const period = uniform(next, 0.3, 0.8);
+    let phase = 0;
+    for (let i = 0; i < length; i++) {
+      const p = (at(i) / period) % 1;
+      phase += (2 * Math.PI * 220 * 2 ** p) / rate;
+      out[i] = Math.sin(phase) * Math.sin(Math.PI * p) + Math.sin(phase * 2) * 0.4 * Math.sin(Math.PI * p);
+    }
+    gain = 0.25;
+  } else if (segment.mode === "rain") {
+    // Drops: short high blips of random pitch, falling quickly one after another.
+    const every = Math.round(rate * uniform(next, 0.04, 0.09));
+    let pitch = 0, from = 0;
+    for (let i = 0; i < length; i++) {
+      if (i % every === 0) { pitch = Math.exp(uniform(next, Math.log(900), Math.log(4000))); from = i; }
+      const x = (i - from) / rate;
+      out[i] = Math.sin(2 * Math.PI * pitch * x) * Math.exp(-x * 60);
+    }
+    gain = mild ? 0.25 : 0.35;
+  } else if (segment.mode === "scope") {
+    // What the oscilloscope shows, heard: the same two waves, the first at 110 Hz.
+    const { a, b, ratio } = scopeWave(segment.seed);
+    for (let i = 0; i < length; i++) out[i] = a * Math.sin(2 * Math.PI * 110 * at(i)) + b * Math.sin(2 * Math.PI * 110 * ratio * at(i));
+    gain = 0.3;
   } else {
     // signal: the robot appears with a small beep-beep.
     for (let i = 0; i < length; i++) {

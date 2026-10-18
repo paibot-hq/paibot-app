@@ -37,7 +37,7 @@ test('every scene fills the grid, the same frame draws the same picture', () => 
 
 test('the colour scenes use only their palette', () => {
   for (const intensity of ['mild', 'wild']) {
-    for (const mode of ['flow', 'bars', 'mosaic', 'moire']) {
+    for (const mode of ['flow', 'bars', 'mosaic', 'moire', 'tunnel']) {
       for (const c of colours(drawCells(segment(mode, 9), intensity, 0.3, 2, W, H))) assert.ok(palette(intensity).has(c), `${intensity} ${mode}: ${c}`);
     }
   }
@@ -123,4 +123,42 @@ test('each scene has its sound, the same every time, in [-1, 1]; some are silent
     }
   }
   assert.ok(silent > 20 && silent < 200, `${silent} silent`);
+});
+
+test('the oscilloscope shows the wave it sounds', () => {
+  const seg = segment('scope', 12);
+  const sound = sceneSound(seg, 'wild', 0.5, 8000) ?? sceneSound({ ...seg, seed: 13 }, 'wild', 0.5, 8000);
+  assert.ok(sound);
+  // Its trace runs across every column: in each column one cell is the bright trace colour.
+  const cells = drawCells(seg, 'wild', 0.1, 0, W, H);
+  for (let x = 0; x < W; x++) {
+    let found = false;
+    for (let y = 0; y < H; y++) { const i = (y * W + x) * 3; if (cells[i] === 120 && cells[i + 1] === 255 && cells[i + 2] === 160) found = true; }
+    assert.ok(found, `column ${x}`);
+  }
+});
+
+test('the test card keeps its bars, and the tracking band rolls down', () => {
+  const card = drawCells(segment('testcard'), 'wild', 0, 0, 70, 30);
+  assert.deepEqual([...card.subarray(0, 3)], [192, 192, 192]);
+  assert.deepEqual([...card.subarray(69 * 3, 70 * 3)], [0, 0, 192]);
+  // The noise band is the rows that crackle from one frame to the next; it moves down over time.
+  const bandRow = local => {
+    const one = drawCells(segment('tracking', 2), 'wild', local, 1, W, 60), two = drawCells(segment('tracking', 2), 'wild', local, 2, W, 60);
+    const rows = [];
+    for (let y = 0; y < 60; y++) if (one.subarray(y * W * 3, (y + 1) * W * 3).join() !== two.subarray(y * W * 3, (y + 1) * W * 3).join()) rows.push(y);
+    assert.ok(rows.length > 0);
+    return rows.reduce((a, b) => a + b, 0) / rows.length;
+  };
+  assert.ok(bandRow(0.35) > bandRow(0.3));
+});
+
+test('the tunnel has no seam where the angle wraps round', () => {
+  // Just above and just below the line left of the centre, the colours match (a seam would split them).
+  for (let seed = 0; seed < 30; seed++) {
+    const cells = drawCells(segment('tunnel', seed), 'wild', 0.2, 0, 80, 61);
+    let differ = 0;
+    for (let x = 2; x < 36; x++) if (cells.subarray((29 * 80 + x) * 3, (29 * 80 + x) * 3 + 3).join() !== cells.subarray((31 * 80 + x) * 3, (31 * 80 + x) * 3 + 3).join()) differ++;
+    assert.ok(differ <= 4, `seed ${seed}: ${differ} columns differ`);
+  }
 });

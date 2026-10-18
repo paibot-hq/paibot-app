@@ -1630,9 +1630,9 @@
     },
     "glitch": {
       "title": "Glitch Noise",
-      "description": "Glitch art that cuts at random between TV snow, flowing colour waves, bars, a mosaic, moiré, flashes and the robot's face, with rows slipping, colours splitting and scan lines on top, and a noise sound for each scene.",
+      "description": "Glitch art that cuts at random between TV snow, flowing colour waves, bars, a mosaic, moiré, flashes, a test card, a worn tape's tracking, a tunnel, falling data, an oscilloscope and the robot's face, with rows slipping, colours splitting and scan lines on top, and a noise sound for each scene.",
       "about": "TV snow and video glitches as an animation whose scenes change at random, with sound. Now and then the PAIBOT robot's face shows through the static.",
-      "keywords": "glitch glitch art noise tv static snow moire mosaic scan lines noise music video art free",
+      "keywords": "glitch glitch art noise tv static snow moire mosaic scan lines noise music video art free test card colour bars vhs tracking oscilloscope",
       "intro": "Snow and waves of colour cut from one to another in an order no one can predict. You can also pick one scene and stay on it.",
       "canvasLabel": "Glitch noise animation: TV snow and colour patterns changing at random",
       "start": "Start",
@@ -1648,7 +1648,12 @@
         "mosaic": "Mosaic",
         "moire": "Moiré",
         "flash": "Flash",
-        "signal": "Robot"
+        "signal": "Robot",
+        "testcard": "Test card",
+        "tracking": "Tracking",
+        "tunnel": "Tunnel",
+        "rain": "Data rain",
+        "scope": "Scope"
       },
       "glitch": "Glitches",
       "glitches": {
@@ -1663,7 +1668,7 @@
         "wild": "Wild"
       },
       "warning": "Wild includes flashing and inverting the whole picture. Take care if you are sensitive to flashing light (flashes are kept to three a second and inversions to one).",
-      "hint": "On Random, both the scenes and how long they last are left to chance. Each scene has its sound: snow hisses, colour waves swoop, the mosaic bleeps, a flash thumps, and sometimes there is silence. Inversion and scan lines are only available when wild."
+      "hint": "On Random, both the scenes and how long they last are left to chance. Each scene has its sound: snow hisses, colour waves swoop, the mosaic bleeps, a flash thumps, the test card beeps, data rain patters, and the scope plays the very wave it shows. Sometimes there is silence. Inversion and scan lines are only available when wild."
     },
     "balls": {
       "title": "Splitting Balls",
