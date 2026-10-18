@@ -45,6 +45,11 @@ export function useSiteMeta() {
 // traffic never pollutes real analytics data.
 const GA_MEASUREMENT_ID = "G-5WNRMDB15J";
 
+// Google AdSense publisher ID (ca-pub-...). Fill in once AdSense issues it; empty emits nothing. Then also add
+// public/ads.txt ("google.com, pub-..., DIRECT, f08c47fec0942fa0") and allow Google's ad hosts in the CSP
+// (src/lib/security-headers.server.ts: frame-src, img-src, connect-src).
+const ADSENSE_CLIENT = "ca-pub-8043848570527700";
+
 export function Layout({ children }: { children: ReactNode }) {
   const { locale } = useParams();
   const { isIndexable } = useSiteMeta();
@@ -55,6 +60,7 @@ export function Layout({ children }: { children: ReactNode }) {
     {isIndexable && <>
       <script async nonce={nonce} src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
       <script nonce={nonce} dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');` }} />
+      {ADSENSE_CLIENT && <script async nonce={nonce} crossOrigin="anonymous" src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`} />}
     </>}
     <meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content={indexPage ? 'index, follow' : 'noindex, nofollow'} />
