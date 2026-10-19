@@ -7,7 +7,7 @@ import { env } from "cloudflare:workers";
 // the site cannot be scripted into a relay that floods someone else; so are
 // tools that keep what visitors send (the reaction, IQ and personality tests'
 // shared results), so a script cannot flood them.
-export type LimitedTool = "site-check" | "domain" | "reaction" | "iq-test" | "personality";
+export type LimitedTool = "site-check" | "domain" | "reaction" | "typing" | "iq-test" | "personality";
 
 export async function withinToolLimit(request: Request, tool: LimitedTool): Promise<boolean> {
   const ip = request.headers.get("cf-connecting-ip") ?? "unknown";

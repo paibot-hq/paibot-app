@@ -121,3 +121,13 @@ export const toolViews = sqliteTable("tool_views", {
   day: text("day").notNull(),
   views: integer("views").notNull().default(0),
 }, table => [primaryKey({ columns: [table.slug, table.day] }), index("tool_views_day_idx").on(table.day)]);
+
+// The typing game's results (src/tools/typing): the score (keys typed right less the misses) and its parts, kept with no
+// name, account or address, so that a new result can be placed among everyone's (its rank and the chart).
+export const typingResults = sqliteTable("typing_results", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  score: integer("score").notNull(),
+  keys: integer("keys").notNull(),
+  misses: integer("misses").notNull(),
+  createdAt: text("created_at").notNull().default(sql`(datetime('now'))`),
+}, table => [index("typing_results_score_idx").on(table.score)]);
