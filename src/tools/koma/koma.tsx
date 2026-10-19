@@ -3,7 +3,7 @@ import { useTranslations } from "use-intl";
 import ToolLayout from "../../components/tool-layout";
 import controls from "../../components/tool-controls.module.css";
 import styles from "./koma.module.css";
-import type { Scene3D } from "./render3d";
+import type { Scene3D } from "./render3d.client";
 import { DISH, START_SPIN, STEP, createKoma, type Koma, type Level, type Result, type Top } from "./engine";
 import ShapeEditor from "./shape-editor";
 import { PRESETS, PRESET_NAMES, parseProfile, type PresetName, type Profile } from "./shape";
@@ -232,7 +232,7 @@ export default function KomaGame() {
     };
     let cancelled = false;
     if (canvas) {
-      import("./render3d").then(({ createScene }) => {
+      import("./render3d.client").then(({ createScene }) => {
         if (cancelled) return;
         try {
           sceneRef.current = createScene(canvas);
