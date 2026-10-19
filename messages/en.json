@@ -2010,6 +2010,35 @@
         "watermelon": "Watermelon"
       }
     },
+    "goldfish": {
+      "title": "Goldfish Bowl Simulator (3D)",
+      "description": "Keep goldfish in a 3D bowl: common goldfish, ryukin and black moors swim about, gather when you tap the water to feed them and dart away when you tap the glass. Drag to look from any angle, with a night light too.",
+      "about": "A simulator for watching and looking after goldfish in a 3D bowl in your browser. Each fish swims on its own, comes for food when hungry and flees when the glass is tapped. The fish and the light are kept on this device.",
+      "keywords": "goldfish bowl 3d simulator aquarium relaxing fish tank ryukin black moor feeding",
+      "intro": "Keep goldfish in a glass bowl. Feed them, tap the glass, and look at them from every side.",
+      "sceneLabel": "A 3D goldfish bowl with {count, plural, one {# goldfish} other {# goldfish}} swimming",
+      "loading": "Getting the bowl ready…",
+      "unsupported": "This browser cannot show 3D (WebGL), so the bowl cannot be shown.",
+      "count": "{count, plural, one {# goldfish} other {# goldfish}}",
+      "eaten": "{count, plural, one {# pellet} other {# pellets}} eaten",
+      "feed": "Feed",
+      "night": "Night light",
+      "day": "Daylight",
+      "resetView": "Reset view",
+      "addLabel": "Add a goldfish",
+      "add": "Add a {kind}",
+      "remove": "Scoop one out",
+      "kinds": {
+        "wakin": "common goldfish",
+        "ryukin": "ryukin",
+        "demekin": "black moor"
+      },
+      "full": "The bowl holds up to {max} goldfish.",
+      "howDrag": "Drag (or swipe on a phone) to turn the bowl and look from any angle. Scroll or pinch to come closer.",
+      "howFeed": "Tap the water's surface from above to drop food there. Hungry fish will come for it.",
+      "howTap": "Tap the glass: it rings, and the fish nearby dart away.",
+      "hint": "Each fish swims on its own and keeps from bumping into the others. A full fish stops eating, and food left over sinks to the bottom. The fish and the light are kept on this device."
+    },
     "craneGame": {
       "title": "Claw Machine",
       "description": "A claw machine you play with two buttons: move the claw, grab a prize and carry it to the chute. Collect all ten plush toys. Free, no sign-up.",
