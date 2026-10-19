@@ -92,6 +92,7 @@ export const APP_CATALOG = [
   { slug: "number-merge", href: "/number-merge", category: "game", status: "published", messageKey: "numberMerge" },
   { slug: "fireworks", href: "/fireworks", category: "game", status: "published", messageKey: "fireworks" },
   { slug: "clock", href: "/clock", category: "daily", status: "published", messageKey: "clock" },
+  { slug: "heart-rate", href: "/heart-rate", category: "daily", status: "published", messageKey: "heartRate" },
   { slug: "diary", href: "/diary", category: "daily", status: "published", messageKey: "diary", private: true },
   { slug: "breaches", href: "/breaches", category: "daily", status: "published", messageKey: "breaches" },
   { slug: "birthday-fortune", href: "/birthday-fortune", category: "daily", status: "published", messageKey: "birthdayFortune" },

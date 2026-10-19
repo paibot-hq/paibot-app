@@ -158,6 +158,15 @@ function NumberMergeIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function HeartRateIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" />
+      <path d="M3 12h4l1.5-3 3 6 1.5-3H21" />
+    </svg>
+  );
+}
+
 function LifeIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -584,7 +593,7 @@ const APP_ICONS: Record<AppSlug, Icon> = {
   ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
   dice: DiceIcon, reaction: ReactionIcon, "iq-test": IqTestIcon, personality: PersonalityIcon, timing: TimingIcon, pinball: PinballIcon, koma: KomaIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "metadata": MetadataIcon, govfaq: GovFaqIcon, "approx": ApproxIcon, "warnings": WarningsIcon, "quake": QuakeIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, glitch: GlitchIcon, "random-video": RandomVideoIcon, noise: NoiseIcon, fireworks: FireworksIcon, puchi: PuchiIcon, "crane-game": CraneGameIcon, "fruit-merge": FruitMergeIcon, goldfish: GoldfishIcon, typing: TypingIcon, "number-merge": NumberMergeIcon,
   tax: TaxIcon, split: SplitIcon, "unit-converter": UnitConverterIcon, "date-calc": DateCalcIcon, pomodoro: PomodoroIcon, roulette: RouletteIcon, strings: StringsIcon,
-  calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, diary: WcIcon, age: AgeIcon, breaches: BreachesIcon, omikuji: OmikujiIcon, "birthday-fortune": BirthdayFortuneIcon,
+  calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, "heart-rate": HeartRateIcon, diary: WcIcon, age: AgeIcon, breaches: BreachesIcon, omikuji: OmikujiIcon, "birthday-fortune": BirthdayFortuneIcon,
 };
 
 export const apps: AppEntry[] = APP_CATALOG.map(app => ({ ...app, icon: APP_ICONS[app.slug] }));
