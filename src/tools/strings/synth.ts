@@ -5,6 +5,10 @@ import type { BowSound, PluckSound } from "./instruments";
 
 export type Synth = {
   resume(): void;
+  // Starts the audio from inside a user's gesture (the end of a touch, a click, a key): see unlock below.
+  unlock(): void;
+  // Whether the audio is running (not waiting for a gesture).
+  running(): boolean;
   setVolume(volume: number): void;
   // Pluck a string (0 is the top one) at a frequency. `key` names the instrument, for its body; `short` is for a tremolo.
   pluck(key: string, course: number, frequency: number, sound: PluckSound, short?: boolean): void;
@@ -40,7 +44,15 @@ function room(audio: AudioContext) {
   return convolver;
 }
 
+// An iPhone treats Web Audio as "ambient" sound, which the ring/silent switch mutes; "playback" is a music app's
+// category, heard with the switch on (Safari 16.4+; elsewhere there is no audioSession and nothing changes).
+function playThroughSilentSwitch() {
+  const session = (navigator as Navigator & { audioSession?: { type: string } }).audioSession;
+  try { if (session) session.type = "playback"; } catch { /* an older Safari */ }
+}
+
 export function createSynth(): Synth {
+  playThroughSilentSwitch();
   const audio = new AudioContext();
   const master = audio.createGain();
   master.gain.value = 0.7;
@@ -85,6 +97,17 @@ export function createSynth(): Synth {
 
   return {
     resume() { void audio.resume(); },
+    // A phone lets audio start only in a gesture, and a touch counts when the finger lifts, not when it lands. So the
+    // audio made on the first touch waits, and this, called on the first lift (or click, or key), starts it: resume,
+    // and a moment of silence, which older iPhones need before anything is heard.
+    unlock() {
+      void audio.resume();
+      const silence = audio.createBufferSource();
+      silence.buffer = audio.createBuffer(1, 1, audio.sampleRate);
+      silence.connect(audio.destination);
+      silence.start();
+    },
+    running() { return audio.state === "running"; },
     setVolume(volume) { master.gain.setTargetAtTime(Math.max(0, Math.min(1, volume)), audio.currentTime, 0.02); },
 
     pluck(key, course, frequency, sound, short = false) {

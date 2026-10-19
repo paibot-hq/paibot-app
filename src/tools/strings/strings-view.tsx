@@ -74,6 +74,21 @@ export default function StringsView() {
     return synthRef.current;
   };
   useEffect(() => () => { synthRef.current?.dispose(); synthRef.current = null; }, []);
+  // On a phone the first touch on the neck is not yet allowed to start the audio (only the lift of a finger, a click or
+  // a key is), so the first such gesture anywhere on the page starts it; the note of that first touch then sounds.
+  useEffect(() => {
+    const events = ["pointerup", "touchend", "click", "keydown"] as const;
+    const start = () => {
+      const player = synth();
+      if (!player) return;
+      player.unlock();
+      if (player.running()) for (const name of events) document.removeEventListener(name, start, true);
+    };
+    for (const name of events) document.addEventListener(name, start, true);
+    return () => { for (const name of events) document.removeEventListener(name, start, true); };
+    // synth() reads only refs.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   // A new instrument, or a change between bow and pizzicato, lets go of everything that is sounding.
   useEffect(() => {
