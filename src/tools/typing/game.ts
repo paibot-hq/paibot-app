@@ -27,6 +27,8 @@ export function rank(points: number): "S" | "A" | "B" | "C" | "D" {
 // Keys a second, for showing.
 export const keysPerSecond = (keys: number, seconds = ROUND_S) => (seconds > 0 ? Math.round((keys / seconds) * 10) / 10 : 0);
 
+export const isMode = (mode: unknown): mode is "ja" | "en" => mode === "ja" || mode === "en";
+
 export const isKeptResult = (points: unknown, keys: unknown, misses: unknown) =>
   [points, keys, misses].every(v => Number.isInteger(v) && (v as number) >= 0)
   && (points as number) <= MAX_SCORE && (keys as number) <= MAX_SCORE && (points as number) <= (keys as number)

@@ -126,8 +126,10 @@ export const toolViews = sqliteTable("tool_views", {
 // name, account or address, so that a new result can be placed among everyone's (its rank and the chart).
 export const typingResults = sqliteTable("typing_results", {
   id: integer("id").primaryKey({ autoIncrement: true }),
+  // What was typed: "ja" (Japanese words in romaji) or "en" (English words). Ranked apart: they are not as hard as each other.
+  mode: text("mode").notNull().default("ja"),
   score: integer("score").notNull(),
   keys: integer("keys").notNull(),
   misses: integer("misses").notNull(),
   createdAt: text("created_at").notNull().default(sql`(datetime('now'))`),
-}, table => [index("typing_results_score_idx").on(table.score)]);
+}, table => [index("typing_results_mode_score_idx").on(table.mode, table.score)]);

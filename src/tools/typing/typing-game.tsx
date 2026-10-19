@@ -8,8 +8,8 @@ import ShareButtons from "../../components/share-buttons";
 import TypingChart from "./typing-chart";
 import styles from "./typing.module.css";
 import { ROUND_S, accuracy, isKeptResult, keysPerSecond, rank, score, stageOf, topPercent, type Distribution, type Round } from "./game";
-import { advance, parse, start, type Unit } from "./romaji";
-import { pool, type Word } from "./words";
+import { advance, parse, parseEnglish, start, type Unit } from "./romaji";
+import { poolFor, type Mode, type Word } from "./words";
 import type { action } from "./route";
 
 type Phase = "idle" | "playing" | "result";
@@ -23,41 +23,50 @@ function letterOf(event: KeyboardEvent): string | null {
   if (code === "Minus") return "-";
   if (code === "Comma") return ",";
   if (code === "Period") return ".";
+  if (code === "Quote") return "'";
   if (code === "Space") return " ";
   if (code === "Slash" && event.shiftKey) return "?";
   if (code === "Digit1" && event.shiftKey) return "!";
-  return event.key.length === 1 && /[-,.?! ]/.test(event.key) ? event.key : null;
+  return event.key.length === 1 && /[-,.?!' ]/.test(event.key) ? event.key : null;
 }
 
-const drawWord = (stage: number, last: string | null): Word => {
-  const words = pool(stage).filter(w => w.kana !== last);
+const drawWord = (mode: Mode, stage: number, last: string | null): Word => {
+  const words = poolFor(mode, stage).filter(w => w.kana !== last);
   return words[Math.floor(Math.random() * words.length)];
 };
+const unitsOf = (mode: Mode, word: Word) => (mode === "en" ? parseEnglish(word.kana) : parse(word.kana));
+const BEST_KEY = { ja: "paibot-app-typing-best", en: "paibot-app-typing-best-en" } as const;
 
-export default function TypingGame({ distribution }: { distribution: Distribution | null }) {
+// `distributions`: everyone's scores in each mode (null if they could not be read); `locale`: the page's language, which
+// sets the mode the game starts in (Japanese words on the Japanese page, English on the others).
+export default function TypingGame({ distributions, locale: pageLocale }: { distributions: Record<Mode, Distribution> | null; locale: string }) {
   const t = useTranslations("App.typing");
   const locale = useLocale();
   const fetcher = useFetcher<typeof action>();
   const [phase, setPhase] = useState<Phase>("idle");
+  const [mode, setMode] = useState<Mode>(pageLocale === "ja" ? "ja" : "en");
   const [word, setWord] = useState<Word | null>(null);
   const [typed, setTyped] = useState("");
   const [shown, setShown] = useState("");
   const [left, setLeft] = useState(ROUND_S);
   const [round, setRound] = useState<Round>({ keys: 0, misses: 0, words: 0 });
   const [shake, setShake] = useState(0);
-  const [best, setBest] = useState<number | null>(null);
+  const [bests, setBests] = useState<Record<Mode, number | null>>({ ja: null, en: null });
   const roundRef = useRef(round);
   const startedAt = useRef(0);
   roundRef.current = round;
-  const units: Unit[] | null = useMemo(() => (word ? parse(word.kana) : null), [word]);
+  const units: Unit[] | null = useMemo(() => (word ? unitsOf(mode, word) : null), [word, mode]);
+  const best = bests[mode];
+  const distribution = distributions?.[mode] ?? null;
 
   useEffect(() => {
-    try { const v = Number(localStorage.getItem("paibot-app-typing-best")); if (Number.isFinite(v) && v > 0) setBest(v); } catch { /* optional */ }
+    const read = (key: string) => { try { const v = Number(localStorage.getItem(key)); return Number.isFinite(v) && v > 0 ? v : null; } catch { return null; } };
+    setBests({ ja: read(BEST_KEY.ja), en: read(BEST_KEY.en) });
   }, []);
 
   function next(words: number, last: string | null) {
-    const w = drawWord(stageOf(words), last);
-    const parsed = parse(w.kana);
+    const w = drawWord(mode, stageOf(words), last);
+    const parsed = unitsOf(mode, w);
     setWord(w);
     setTyped("");
     // The way shown for the whole word, before anything is typed: the first key of the shortest way.
@@ -76,12 +85,11 @@ export default function TypingGame({ distribution }: { distribution: Distributio
     const r = roundRef.current;
     const points = score(r);
     setPhase("result");
-    setBest(prev => {
-      const value = prev === null || points > prev ? points : prev;
-      if (points > (prev ?? 0)) { try { localStorage.setItem("paibot-app-typing-best", String(points)); } catch { /* optional */ } }
-      return value;
-    });
-    if (isKeptResult(points, r.keys, r.misses)) fetcher.submit({ score: String(points), keys: String(r.keys), misses: String(r.misses) }, { method: "post" });
+    if (points > (bests[mode] ?? 0)) {
+      setBests(prev => ({ ...prev, [mode]: points }));
+      try { localStorage.setItem(BEST_KEY[mode], String(points)); } catch { /* optional */ }
+    }
+    if (isKeptResult(points, r.keys, r.misses)) fetcher.submit({ mode, score: String(points), keys: String(r.keys), misses: String(r.misses) }, { method: "post" });
   }
 
   // The clock.
@@ -125,15 +133,19 @@ export default function TypingGame({ distribution }: { distribution: Distributio
   const posted = fetcher.data && "better" in fetcher.data ? fetcher.data : null;
   const failed = fetcher.data && "error" in fetcher.data ? fetcher.data.error : null;
   const top = posted ? topPercent(posted.better, posted.same, posted.distribution.total) : null;
-  const shownChart = posted?.distribution ?? distribution;
+  // A reply is for the mode it was sent in; after switching mode on the result screen, show that mode's own chart.
+  const shownChart = posted?.distribution && phase === "result" ? posted.distribution : distribution;
   const rest = shown.slice(typed.length);
 
   return (
     <ToolLayout title={t("title")}>
       {phase === "idle" && (
         <div className={styles.intro}>
-          <p className={styles.lead}>{t("intro", { seconds: ROUND_S })}</p>
-          <ul className={styles.rules}><li>{t("rule1")}</li><li>{t("rule2")}</li><li>{t("rule3")}</li></ul>
+          <div className={styles.modes} role="group" aria-label={t("mode")}>
+            {(["ja", "en"] as const).map(m => <button key={m} type="button" className={styles.mode} aria-pressed={mode === m} onClick={() => setMode(m)} data-typing-mode={m}>{t(`modes.${m}`)}</button>)}
+          </div>
+          <p className={styles.lead}>{t(mode === "ja" ? "intro" : "introEn", { seconds: ROUND_S })}</p>
+          <ul className={styles.rules}>{mode === "ja" ? <><li>{t("rule1")}</li><li>{t("rule2")}</li><li>{t("rule3")}</li></> : <><li>{t("ruleEn1")}</li><li>{t("rule2")}</li><li>{t("ruleEn3")}</li></>}</ul>
           <button type="button" className={styles.start} onClick={begin} data-typing="start">{t("start")}</button>
           {best !== null && <p className={styles.note}>{t("best", { score: best })}</p>}
           {shownChart && shownChart.total > 0 && <TypingChart distribution={shownChart} mine={null} />}
@@ -148,11 +160,11 @@ export default function TypingGame({ distribution }: { distribution: Distributio
           </div>
           <progress className={styles.progress} max={ROUND_S} value={ROUND_S - left} aria-label={t("progressLabel")} />
           <div key={shake} className={`${styles.board} ${shake ? styles.shake : ""}`} data-typing="board">
-            <p className={styles.text} lang="ja" data-typing="text">{word.text}</p>
+            <p className={styles.text} lang={mode === "ja" ? "ja" : "en"} data-typing="text">{word.text}</p>
             {word.text !== word.kana && <p className={styles.kana} lang="ja">{word.kana}</p>}
             <p className={styles.romaji} data-typing="romaji" aria-label={t("romajiLabel")}><span className={styles.done}>{typed}</span><span className={styles.rest}>{rest}</span></p>
           </div>
-          <p className={styles.note}>{t("playHint")}</p>
+          <p className={styles.note}>{t(mode === "ja" ? "playHint" : "playHintEn")}</p>
         </div>
       )}
 
@@ -172,8 +184,11 @@ export default function TypingGame({ distribution }: { distribution: Distributio
           {failed === "limited" && <p className={styles.note}>{t("limited")}</p>}
           {failed === "failed" && <p className={styles.note}>{t("saveFailed")}</p>}
           {shownChart && shownChart.total > 0 && <TypingChart distribution={shownChart} mine={posted ? points : null} />}
+          <div className={styles.modes} role="group" aria-label={t("mode")}>
+            {(["ja", "en"] as const).map(m => <button key={m} type="button" className={styles.mode} aria-pressed={mode === m} onClick={() => setMode(m)} data-typing-mode={m}>{t(`modes.${m}`)}</button>)}
+          </div>
           <button type="button" className={styles.start} onClick={begin} data-typing="again">{t("again")}</button>
-          <ShareButtons text={top !== null ? t("shareText", { score: points, rank: rank(points), top }) : t("shareTextPlain", { score: points, rank: rank(points) })} path={`/${locale}/typing`} />
+          <ShareButtons text={top !== null ? t("shareText", { score: points, rank: rank(points), top, mode: t(`modes.${mode}`) }) : t("shareTextPlain", { score: points, rank: rank(points), mode: t(`modes.${mode}`) })} path={`/${locale}/typing`} />
         </div>
       )}
       <p className={styles.note}>{t("hint")}</p>

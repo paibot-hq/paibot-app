@@ -151,6 +151,17 @@ export function start(units: readonly Unit[]): Progress {
   return { ok: true, ...progressOf(units, "") };
 }
 
+// English text: each letter is typed as it is (capitals as their lower case, so no Shift is needed), a space as a space.
+// The same units serve, so typing is checked the same way. Null when the text has a character the game does not ask for.
+export function parseEnglish(text: string): Unit[] | null {
+  const units: Unit[] = [];
+  for (const ch of text.toLowerCase()) {
+    if (!/^[a-z .,'?!-]$/.test(ch)) return null;
+    units.push({ kind: "sound", options: [ch] });
+  }
+  return units;
+}
+
 // How many keys the shortest way of typing a word takes (what a word is worth: the typed length of the word).
 export function keyCount(word: string): number {
   const units = parse(word);

@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "96505bab-e470-47cf-8134-c8c9884f2556",
+  "id": "0af55c28-3fc7-47c3-9db2-e2a0b0b0038b",
   "prevId": "e8b9b5e3-8b79-4469-ad4a-793f72c45d54",
   "tables": {
     "clock_preferences": {
@@ -606,6 +606,14 @@
           "notNull": true,
           "autoincrement": true
         },
+        "mode": {
+          "name": "mode",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false,
+          "default": "'ja'"
+        },
         "score": {
           "name": "score",
           "type": "integer",
@@ -637,9 +645,10 @@
         }
       },
       "indexes": {
-        "typing_results_score_idx": {
-          "name": "typing_results_score_idx",
+        "typing_results_mode_score_idx": {
+          "name": "typing_results_mode_score_idx",
           "columns": [
+            "mode",
             "score"
           ],
           "isUnique": false

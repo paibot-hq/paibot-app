@@ -1,9 +1,9 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { BINS, MAX_SCORE, accuracy, binOf, distributionFrom, isKeptResult, keysPerSecond, rank, score, stageOf, topPercent } from './game.ts';
-import { LONG, MEDIUM, SHORT, pool } from './words.ts';
-import { keyCount, parse } from './romaji.ts';
+import { BINS, MAX_SCORE, accuracy, binOf, distributionFrom, isKeptResult, isMode, keysPerSecond, rank, score, stageOf, topPercent } from './game.ts';
+import { EN_LONG, EN_MEDIUM, EN_SHORT, LONG, MEDIUM, SHORT, pool, poolFor } from './words.ts';
+import { advance, keyCount, parse, parseEnglish, start } from './romaji.ts';
 
 test('the score is the keys typed right less the misses, never below 0', () => {
   assert.equal(score({ keys: 300, misses: 0, words: 40 }), 300);
@@ -64,9 +64,41 @@ test('every word can be typed, its kana really are kana, and none is long enough
 });
 
 test('every message the game shows is in all three languages', () => {
-  const keys = ['title', 'description', 'about', 'keywords', 'intro', 'rule1', 'rule2', 'rule3', 'start', 'best', 'left', 'words', 'score', 'again', 'shareText', 'shareTextPlain', 'chartTitle', 'top'];
+  const keys = ['title', 'description', 'about', 'keywords', 'intro', 'introEn', 'mode', 'ruleEn1', 'ruleEn3', 'playHintEn', 'rule1', 'rule2', 'rule3', 'start', 'best', 'left', 'words', 'score', 'again', 'shareText', 'shareTextPlain', 'chartTitle', 'top'];
   for (const locale of ['ja', 'en', 'zh']) {
     const m = JSON.parse(readFileSync(new URL(`../../../messages/${locale}.json`, import.meta.url), 'utf8')).App.typing;
     for (const key of keys) assert.ok(m[key]?.trim(), `${locale}.${key}`);
   }
+});
+
+test('the modes are Japanese and English, and nothing else is taken', () => {
+  assert.ok(isMode('ja') && isMode('en'));
+  for (const mode of ['zh', '', null, undefined, 'JA', 1]) assert.ok(!isMode(mode), String(mode));
+});
+
+test('English text is typed letter by letter, capitals as lower case, and the shown way is the text itself', () => {
+  const units = parseEnglish('The quick fox');
+  assert.ok(units);
+  let typed = '', last = { done: false };
+  for (const key of 'the quick fox') { last = advance(units, typed, key); assert.ok(last.ok, `${typed}+${key}`); typed = last.typed; }
+  assert.ok(last.done);
+  assert.equal(start(units).shown, 'the quick fox');
+  assert.ok(!advance(units, 'th', 'x').ok, 'a wrong letter is refused');
+  assert.equal(parseEnglish('caf\u00e9'), null);
+  assert.equal(parseEnglish('say "hi"'), null);
+});
+
+test('every English word can be typed with the keys the game reads, and the pools grow with the stage', () => {
+  const seen = new Set();
+  for (const word of [...EN_SHORT, ...EN_MEDIUM, ...EN_LONG]) {
+    assert.ok(parseEnglish(word.text), word.text);
+    assert.ok(/^[a-z .,'?!-]+$/.test(word.text), word.text);
+    assert.ok(word.text.length >= 4 && word.text.length <= 70, word.text);
+    assert.ok(!seen.has(word.text), `${word.text} twice`);
+    seen.add(word.text);
+  }
+  assert.ok(EN_SHORT.length >= 25 && EN_MEDIUM.length >= 25 && EN_LONG.length >= 10);
+  assert.ok(poolFor('en', 0).every(w => EN_SHORT.includes(w)));
+  assert.ok(poolFor('en', 2).every(w => EN_MEDIUM.includes(w) || EN_LONG.includes(w)));
+  assert.deepEqual(poolFor('ja', 1), pool(1));
 });

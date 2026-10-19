@@ -34,3 +34,32 @@ export const LONG: readonly Word[] = [
 export function pool(stage: number): Word[] {
   return stage <= 0 ? [...SHORT] : stage === 1 ? [...SHORT, ...MEDIUM] : [...MEDIUM, ...LONG];
 }
+
+// ---- English ----
+
+export const EN_SHORT: readonly Word[] = [
+  "apple", "river", "light", "music", "cloud", "green", "happy", "table", "water", "stone", "dream", "night", "smile", "train", "bread", "ocean",
+  "house", "plant", "story", "chair", "quick", "brave", "sunny", "paper", "heart", "world", "tiger", "lemon", "piano", "magic", "garden", "window",
+].map(w => W(w, w));
+
+export const EN_MEDIUM: readonly Word[] = [
+  "keyboard", "mountain", "elephant", "sunshine", "umbrella", "notebook", "airplane", "chocolate", "adventure", "butterfly", "telescope", "waterfall",
+  "friendship", "treasure", "lightning", "orchestra", "fireworks", "dinosaur", "pineapple", "backpack", "rainbow", "universe", "hurricane", "bookshelf",
+  "strawberry", "motorcycle", "skateboard", "lighthouse", "snowflake", "playground",
+].map(w => W(w, w));
+
+export const EN_LONG: readonly Word[] = [
+  "practice makes perfect", "a piece of cake", "better late than never", "the early bird catches the worm", "actions speak louder than words",
+  "every cloud has a silver lining", "where there is a will there is a way", "all that glitters is not gold", "the quick brown fox jumps over the lazy dog",
+  "a journey of a thousand miles begins with a single step", "do not count your chickens before they hatch", "when in rome do as the romans do",
+  "slow and steady wins the race", "honesty is the best policy", "time flies when you are having fun",
+].map(w => W(w, w));
+
+export type Mode = "ja" | "en";
+export const MODES: readonly Mode[] = ["ja", "en"];
+
+// The words for a stage of the game in a mode: 0 the shortest, 1 with the medium ones, 2 the medium and long ones.
+export function poolFor(mode: Mode, stage: number): Word[] {
+  if (mode === "ja") return pool(stage);
+  return stage <= 0 ? [...EN_SHORT] : stage === 1 ? [...EN_SHORT, ...EN_MEDIUM] : [...EN_MEDIUM, ...EN_LONG];
+}
