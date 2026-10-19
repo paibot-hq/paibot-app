@@ -4,6 +4,7 @@ import { isComingSoonMathPath } from '../src/lib/math-catalog';
 import { locales } from '../src/i18n/routing';
 import { siteOrigin, isIndexable } from '../src/lib/seo.server';
 import { buildContentSecurityPolicy } from '../src/lib/security-headers.server';
+import { dayOf, isBot, toolOf } from '../src/lib/tool-ranking';
 
 const handle = createRequestHandler(() => import('virtual:react-router/server-build'), import.meta.env.MODE);
 // Pages kept out of search results: the signed-in ones, and the notice under the Specified Commercial Transactions Act
@@ -11,8 +12,19 @@ const handle = createRequestHandler(() => import('virtual:react-router/server-bu
 const AUTH_PATH = new RegExp(`^/(${locales.join('|')})/(sign-in|sign-up|diary|profile|legal/commerce)(/|\\.data$|$)`);
 const csp = buildContentSecurityPolicy();
 
+// A view of a tool's page, for the tool ranking (src/lib/tool-ranking.ts): one more for the tool today, written after
+// the response has gone (it never holds a page up, and a failed write only loses that one view). A page loaded whole
+// and one the client router fetches (.data) both count; crawlers and headless browsers (this site's tests) do not.
+const COUNT_VIEW = 'INSERT INTO tool_views (slug, day, views) VALUES (?1, ?2, 1) ON CONFLICT (slug, day) DO UPDATE SET views = views + 1';
+function countView(request: Request, response: Response, pathname: string, ctx: ExecutionContext) {
+  if (request.method !== 'GET' || response.status !== 200 || isBot(request.headers.get('User-Agent') ?? '')) return;
+  const slug = toolOf(pathname);
+  if (!slug) return;
+  ctx.waitUntil(env.DB.prepare(COUNT_VIEW).bind(slug, dayOf(new Date())).run().catch(() => {}));
+}
+
 export default {
-  async fetch(request: Request) {
+  async fetch(request: Request, _env: unknown, ctx: ExecutionContext) {
     const url = new URL(request.url);
     let response: Response;
     if (url.pathname === '/robots.txt') {
@@ -23,6 +35,7 @@ export default {
     } else {
       response = await handle(request);
     }
+    countView(request, response, url.pathname, ctx);
     const secured = new Response(response.body, response);
     if (!isIndexable || response.status >= 400 || AUTH_PATH.test(url.pathname) || isComingSoonMathPath(url.pathname)) {
       secured.headers.set('X-Robots-Tag', 'noindex');

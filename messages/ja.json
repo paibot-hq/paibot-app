@@ -466,11 +466,21 @@
     },
     "footer": {
       "about": "概要",
+      "ranking": "人気ランキング",
       "label": "運営情報",
       "supporter": "サポーター",
       "terms": "利用規約",
       "privacy": "プライバシーポリシー",
       "commerce": "特定商取引法に基づく表記"
+    },
+    "ranking": {
+      "eyebrow": "RANKING",
+      "title": "人気のツールランキング",
+      "description": "PAIBOT.appのツールを、過去7日間に見られた回数の多い順に並べたランキングです。",
+      "intro": "過去{days}日間に、よく使われているツールの順です。",
+      "views": "{count, plural, other {{formatted}回}}",
+      "empty": "まだ集計中です。しばらくすると、よく使われているツールの順位がここに並びます。",
+      "note": "ツールのページが表示された回数(日本時間で1日ごと)を数えています。検索エンジンなどの自動アクセスは数えていません。誰が見たかは記録していません。"
     },
     "supporter": {
       "title": "サポータープラン",
@@ -1294,6 +1304,8 @@
       "retry": "もう一度"
     },
     "search": {
+      "popular": "人気のツール",
+      "ranking": "ランキングをすべて見る →",
       "onlyFavorites": "お気に入りだけ", "noFavorites": "お気に入りはまだありません。カードの星を押すと、ここに集まります。", "favorites": "お気に入り", "all": "すべてのアプリ", "label": "検索",
       "placeholder": "アプリを検索",
       "results": "検索結果",

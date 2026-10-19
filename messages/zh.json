@@ -466,11 +466,21 @@
     },
     "footer": {
       "about": "关于",
+      "ranking": "热门排行",
       "label": "运营信息",
       "supporter": "支持者",
       "terms": "使用条款",
       "privacy": "隐私政策",
       "commerce": "特定商业交易法标示"
+    },
+    "ranking": {
+      "eyebrow": "RANKING",
+      "title": "热门工具排行",
+      "description": "按过去 7 天的浏览次数排列的 PAIBOT.app 工具排行。",
+      "intro": "过去 {days} 天中最常用的工具。",
+      "views": "{count, plural, other {{formatted} 次}}",
+      "empty": "还在统计中。不久后，这里就会列出最常用的工具。",
+      "note": "统计每个工具页面被显示的次数（按日本时间每天计算）。不计入搜索引擎等自动访问，也不记录是谁浏览的。"
     },
     "supporter": {
       "title": "支持者方案",
@@ -1294,6 +1304,8 @@
       "retry": "再试一次"
     },
     "search": {
+      "popular": "热门工具",
+      "ranking": "查看完整排行 →",
       "onlyFavorites": "只看收藏", "noFavorites": "还没有收藏。点击卡片上的星标，就会收集到这里。", "favorites": "收藏", "all": "全部应用", "label": "搜索",
       "placeholder": "搜索应用",
       "results": "搜索结果",

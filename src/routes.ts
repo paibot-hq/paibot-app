@@ -40,6 +40,7 @@ export default [
     route('dev', 'routes/site-redirect.ts', { id: 'site-redirect/dev' }),
     route('network', 'routes/site-redirect.ts', { id: 'site-redirect/network' }),
     route('about', 'routes/about.tsx'),
+    route('ranking', 'routes/ranking.tsx'),
     route('supporter', 'routes/supporter.tsx'),
     route('legal/terms', 'routes/legal-terms.tsx'),
     route('legal/privacy', 'routes/legal-privacy.tsx'),
