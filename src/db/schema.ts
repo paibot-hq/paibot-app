@@ -84,3 +84,11 @@ export const mathAttempts = sqliteTable('math_attempts', {
   total: integer('total').notNull(),
   completedAt: text('completed_at').notNull(),
 }, table => [index('math_attempts_user_set_idx').on(table.userId, table.unit, table.item, table.setId, table.completedAt)]);
+
+// The reaction test's results (src/tools/reaction): the average of a round of three, in milliseconds, kept with no
+// name, account or address, so that a new result can be placed among everyone's (its rank and the chart).
+export const reactionResults = sqliteTable("reaction_results", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  ms: integer("ms").notNull(),
+  createdAt: text("created_at").notNull().default(sql`(datetime('now'))`),
+}, table => [index("reaction_results_ms_idx").on(table.ms)]);

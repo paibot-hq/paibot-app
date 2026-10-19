@@ -1,5 +1,85 @@
+/* A big round push button, as on an arcade machine: its face in the phase's colour, lit from the upper left, standing
+   on a darker edge that it sinks onto while held. */
 .reaction-box { composes: gameButton from "../../components/tool-controls.module.css"; }
-.reaction-box-idle { background: var(--muted); }
-.reaction-box-waiting { background: var(--error); }
-.reaction-box-too-early { background: var(--error); }
-.reaction-box-go { background: var(--success); }
+/* button.: the shared gameButton rule may come later in the stylesheet, so this one must outrank it. */
+button.reaction-box {
+  width: min(250px, 72vw);
+  height: auto;
+  aspect-ratio: 1;
+  margin: .4rem auto 10px;
+  padding: 1.6rem;
+  border-radius: 50%;
+  font-size: 1.15rem;
+  line-height: 1.35;
+  background: radial-gradient(circle at 35% 28%, color-mix(in srgb, var(--face) 55%, #fff) 0, var(--face) 58%, color-mix(in srgb, var(--face) 85%, #000) 100%);
+  box-shadow: 0 10px 0 color-mix(in srgb, var(--face) 58%, #000), 0 22px 30px -14px rgb(0 0 0 / .5), inset 0 -6px 12px rgb(0 0 0 / .15);
+  text-shadow: 0 1px 2px rgb(0 0 0 / .3);
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  /* Only the press moves; the colours change at once (a fading edge would pass through the wrong colours). */
+  transition: transform .06s ease-out;
+}
+button.reaction-box:hover { filter: brightness(1.05); }
+button.reaction-box:active { transform: translateY(8px); box-shadow: 0 2px 0 color-mix(in srgb, var(--face) 58%, #000), 0 6px 12px -8px rgb(0 0 0 / .5), inset 0 -4px 10px rgb(0 0 0 / .15); }
+/* The face colour of each phase (as specific as button.reaction-box, so nothing outranks it). The robot's blue (the
+   site icon) is the same in both themes: the dark theme's lighter accent is too pale for white text. */
+button.reaction-box-idle, button.reaction-box-between { --face: #3f7cb0; }
+button.reaction-box-waiting, button.reaction-box-too-early { --face: var(--error); }
+button.reaction-box-go { --face: var(--success); }
+@media (prefers-reduced-motion: reduce) { button.reaction-box { transition: none; } }
+
+.result .chart { margin: .2rem auto .4rem; }
+.result { display: grid; gap: .8rem; justify-items: center; width: 100%; }
+.times, .note, .rank {
+  margin: 0;
+  color: var(--muted);
+  font-size: .9rem;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.rank { color: var(--text); font-size: 1.05rem; font-weight: 700; }
+.note { max-width: 36rem; line-height: 1.6; }
+
+.chart { width: min(600px, 100%); margin: .5rem auto 0; }
+.chartTitle { margin-bottom: .4rem; color: var(--text); font-size: .95rem; font-weight: 700; text-align: center; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.axis { stroke: var(--line); stroke-width: 1; }
+.bar { fill: color-mix(in srgb, var(--accent) 38%, var(--surface)); }
+.barMine { fill: var(--accent); }
+.hit { fill: transparent; }
+.barGroup:hover .bar, .barGroup:hover .barMine { fill: var(--accent); }
+.barGroup:hover .hit { fill: color-mix(in srgb, var(--accent) 8%, transparent); }
+.tick { fill: var(--muted); font-size: 15px; font-variant-numeric: tabular-nums; }
+.you line { stroke: var(--text); stroke-width: 1.5; stroke-dasharray: 3 3; }
+.you text { fill: var(--text); font-size: 16px; font-weight: 700; }
+.table { margin-top: .5rem; color: var(--muted); font-size: .85rem; }
+.table summary { cursor: pointer; text-align: center; }
+.table table { margin: .5rem auto 0; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.table th, .table td { padding: .2rem .8rem; border-bottom: 1px solid var(--line); text-align: right; }
+.table tr[data-mine] td { color: var(--text); font-weight: 700; }
+
+.progress {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: .5rem;
+  width: min(420px, 100%);
+  margin: 0 auto;
+  padding: 0;
+  list-style: none;
+}
+.progress li {
+  display: grid;
+  gap: .1rem;
+  padding: .45rem .3rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.progress li[data-state="now"] { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+.progress li[data-state="later"] { opacity: .55; }
+.nth { color: var(--muted); font-size: .8rem; }
+.time { color: var(--text); font-weight: 700; }
+.sub { display: block; margin-top: .5rem; font-size: .75em; font-weight: 600; opacity: .9; }
