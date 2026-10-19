@@ -58,36 +58,6 @@ function glassThickness(colour: string, strength: number, power = 3, side: THREE
   });
 }
 
-// A wooden table top: boards of light oak with their grain, drawn once; it fades out far from the bowl (alphaMap), into
-// the room behind.
-function woodTexture(): THREE.CanvasTexture {
-  const width = 512, height = 512, canvas = document.createElement("canvas");
-  canvas.width = width; canvas.height = height;
-  const ctx = canvas.getContext("2d")!;
-  const image = ctx.createImageData(width, height);
-  const next = random(17);
-  const boards = 4, tones = Array.from({ length: boards }, () => 0.9 + next() * 0.16), shifts = Array.from({ length: boards }, () => next() * 50);
-  for (let y = 0; y < height; y++) {
-    const board = Math.floor((y / height) * boards), within = (y / height) * boards - board;
-    for (let x = 0; x < width; x++) {
-      const u = x / width;
-      // Grain along the board: lines across its width that wander slowly along it.
-      const wander = Math.sin(u * 5 + shifts[board]) * 0.35 + Math.sin(u * 17 + shifts[board] * 2) * 0.06;
-      const grain = Math.sin((within * 9 + wander) * Math.PI * 2);
-      const fine = Math.sin((within * 55 + wander * 3) * Math.PI * 2) * 0.5 + 0.5;
-      const seam = within < 0.012 || within > 0.988 ? 0.72 : 1;
-      const tone = tones[board] * (0.92 + grain * 0.04 + fine * 0.03) * seam;
-      const i = (y * width + x) * 4;
-      image.data[i] = Math.min(255, 214 * tone); image.data[i + 1] = Math.min(255, 176 * tone); image.data[i + 2] = Math.min(255, 128 * tone); image.data[i + 3] = 255;
-    }
-  }
-  ctx.putImageData(image, 0, 0);
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-  return texture;
-}
-
 // Small ripples on the water, as a normal map that tiles (whole numbers of waves across it): drawn once, then slid over
 // the surface two ways at once, so the reflections shimmer rather than slide.
 function rippleTexture(): THREE.CanvasTexture {
@@ -118,6 +88,7 @@ function rippleTexture(): THREE.CanvasTexture {
   return texture;
 }
 
+// The surface the bowl stands on fades out far from the bowl (as an alphaMap), into the wall behind: no edge, no horizon.
 function fadeTexture(): THREE.CanvasTexture {
   const canvas = document.createElement("canvas");
   canvas.width = canvas.height = 256;
@@ -200,9 +171,13 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   wall.colorSpace = THREE.SRGBColorSpace;
   scene.background = wall;
   let night = options.night;
+  // The surface the bowl stands on is plain, in the colour of the wall it runs into (as in a photographer's studio), so
+  // the bowl's shadow and the light through the water show on it.
+  let floorMaterial: THREE.MeshStandardMaterial | null = null;
   const paintWall = () => {
     const dark = document.documentElement.dataset.theme === "dark";
-    const [top, bottom] = night ? ["#1b2a44", "#070b14"] : dark ? ["#3a3f48", "#1d2026"] : ["#f3efe9", "#d9d1c4"];
+    const [top, bottom, floor] = night ? ["#1b2a44", "#0a111d", "#101a2b"] : dark ? ["#3a3f48", "#23272e", "#2c3038"] : ["#f3efe9", "#e4ddd2", "#d4cdc2"];
+    floorMaterial?.color.set(floor);
     const ctx = wallCanvas.getContext("2d")!;
     const gradient = ctx.createLinearGradient(0, 0, 0, 256);
     gradient.addColorStop(0, top);
@@ -262,10 +237,10 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   scene.add(spot, spot.target);
 
   // The table and the bowl's shadow on it.
-  const wood = woodTexture();
-  wood.repeat.set(3, 3);
   const fade = fadeTexture();
-  const table = new THREE.Mesh(new THREE.PlaneGeometry(9, 9), new THREE.MeshStandardMaterial({ map: wood, alphaMap: fade, transparent: true, roughness: 0.55, depthWrite: true }));
+  floorMaterial = new THREE.MeshStandardMaterial({ alphaMap: fade, transparent: true, roughness: 0.9, depthWrite: true });
+  const table = new THREE.Mesh(new THREE.PlaneGeometry(9, 9), floorMaterial);
+  paintWall();
   table.rotation.x = -Math.PI / 2;
   table.position.y = BASE_Y - 0.002;
   table.receiveShadow = true;
@@ -644,7 +619,6 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
       env.dispose();
       pmrem.dispose();
       caustics.dispose();
-      wood.dispose();
       ripples1.dispose();
       ripples2.dispose();
       wall.dispose();
