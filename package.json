@@ -18,6 +18,7 @@
     "db:migrate:local:production": "wrangler d1 migrations apply DB --local --env production",
     "db:migrate:dev": "wrangler d1 migrations apply DB --remote",
     "db:migrate:prod": "wrangler d1 migrations apply DB --remote --env production",
+    "goldfish:textures": "node scripts/goldfish/make-textures.mjs",
     "quiz:import:local": "node scripts/import-quiz.mjs local",
     "quiz:import:dev": "node scripts/import-quiz.mjs dev",
     "quiz:import:prod": "node scripts/import-quiz.mjs prod",

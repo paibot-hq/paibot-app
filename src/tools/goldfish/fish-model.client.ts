@@ -1,6 +1,8 @@
 // A goldfish in 3D, built from numbers rather than loaded: its body from cross-sections along its length (how high the
 // back, how deep the belly and how wide it is at each point, so that it narrows into the stalk before the tail and has a
-// head with a mouth and gill covers), eyes with a golden iris and a pupil (a demekin's on stalks), and the fins a
+// head with a mouth and gill covers), painted with its colours here (so that each red-and-white fish is patched its own
+// way) under textures baked in Blender from these same shapes (public/goldfish/, scripts/goldfish/: the scales, their
+// bumps and the shade the fins cast; the fins' rays; the irises), eyes with a golden iris and a pupil (a demekin's on stalks), and the fins a
 // goldfish has: the dorsal fin, two pectoral and two pelvic fins, the anal fin(s) and the tail, single and forked for a
 // wakin, double for a ryukin and a demekin. Each fin is a fan of rays whose skin is clearer towards its edge. The fish's
 // own units: nose towards +z, back towards +y, about 1 long. Browser only (three.js).
@@ -106,8 +108,8 @@ function bodyGeometry(shape: Shape, palette: Palette, next: () => number, patchy
       if (plate > 0) point.add(bodyNormal(shape, u, phi).multiplyScalar(0.005 * plate));
       positions.push(point.x, point.y, point.z);
       gill.push(plate);
-      // About 26 scales along the body and 22 around it (the texture holds 8 x 8).
-      uvs.push(Math.min(u, shape.gill) * 3.5, (j / AROUND) * 2.75);
+      // Along the body and around it from the back: the coordinates the baked textures are drawn in.
+      uvs.push(u, j / AROUND);
 
       if (c >= 0) colour.copy(flank).lerp(back, THREE.MathUtils.smoothstep(c, 0.15, 0.95));
       else colour.copy(flank).lerp(belly, THREE.MathUtils.smoothstep(-c, 0.05, 0.75));
@@ -285,56 +287,29 @@ function finSpecs(kind: Kind, shape: Shape): FinSpec[] {
   return specs;
 }
 
-// ---- Textures shared by every fish ----
+// ---- Textures (baked by scripts/goldfish/make-textures.mjs) ----
 
-export type FishTextures = { scales: THREE.Texture; scaleColour: THREE.Texture; fin: THREE.Texture };
+export type FishTextures = { fin: THREE.Texture; kinds: Record<Kind, { shading: THREE.Texture; normal: THREE.Texture; iris: THREE.Texture }> };
 
-export function createFishTextures(): FishTextures {
-  // Rows of overlapping scales, each a little different, with a bright rim: as a bump and as a tint.
-  const size = 128;
-  const bumpCanvas = document.createElement("canvas"), tintCanvas = document.createElement("canvas");
-  bumpCanvas.width = bumpCanvas.height = tintCanvas.width = tintCanvas.height = size;
-  const bump = bumpCanvas.getContext("2d")!, tint = tintCanvas.getContext("2d")!;
-  bump.fillStyle = "#606060";
-  bump.fillRect(0, 0, size, size);
-  tint.fillStyle = "#d8d8d8";
-  tint.fillRect(0, 0, size, size);
-  const next = random(7);
-  const rows = 8, cols = 8, w = size / cols, h = size / rows;
-  // Scales overlap like roof tiles: discs in staggered columns, drawn from the head end (u grows towards the head) so that
-  // each one's free, rounded edge lies over the next towards the tail. Raised in the middle, a groove at the edge.
-  for (let c = cols; c >= -1; c--) for (let r = -1; r <= rows; r++) {
-    const x = (c + 0.5) * w, y = (r + (c % 2 ? 1 : 0.5)) * h, radius = w * 0.68;
-    const g = bump.createRadialGradient(x + radius * 0.25, y, 1, x, y, radius);
-    g.addColorStop(0, "#d0d0d0"); g.addColorStop(0.82, "#a0a0a0"); g.addColorStop(0.92, "#d8d8d8"); g.addColorStop(1, "#303030");
-    bump.fillStyle = g;
-    bump.beginPath(); bump.arc(x, y, radius, 0, Math.PI * 2); bump.fill();
-    const shade = Math.round(200 + next() * 45);
-    const t = tint.createRadialGradient(x + radius * 0.25, y, 1, x, y, radius);
-    t.addColorStop(0, `rgb(${shade},${shade},${shade})`); t.addColorStop(0.8, `rgb(${shade},${shade},${shade})`); t.addColorStop(0.92, "#ffffff"); t.addColorStop(1, "#b8b8b8");
-    tint.fillStyle = t;
-    tint.beginPath(); tint.arc(x, y, radius, 0, Math.PI * 2); tint.fill();
-  }
-  const scales = new THREE.CanvasTexture(bumpCanvas), scaleColour = new THREE.CanvasTexture(tintCanvas);
-  for (const texture of [scales, scaleColour]) texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-  scaleColour.colorSpace = THREE.SRGBColorSpace;
-
-  // A fin's see-through: the rays (which fork towards the edge) opaque, the skin between clearer, all clearer at the edge.
-  const finCanvas = document.createElement("canvas");
-  finCanvas.width = finCanvas.height = size;
-  const finCtx = finCanvas.getContext("2d")!;
-  const image = finCtx.createImageData(size, size);
-  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) {
-    const u = x / size, v = y / size;
-    const rays = 11 * (v > 0.55 ? 2 : 1);
-    const ray = Math.max(0, Math.cos(u * Math.PI * 2 * rays)) ** 8;
-    const alpha = 0.55 - v * 0.33 + ray * (0.4 - v * 0.2);
-    const i = (y * size + x) * 4;
-    image.data[i] = image.data[i + 1] = image.data[i + 2] = Math.round(THREE.MathUtils.clamp(alpha, 0, 1) * 255);
-    image.data[i + 3] = 255;
-  }
-  finCtx.putImageData(image, 0, 0);
-  return { scales, scaleColour, fin: new THREE.CanvasTexture(finCanvas) };
+// Loads every texture before the first fish is made (so that none shows untextured for a moment).
+export async function loadFishTextures(base = "/goldfish/"): Promise<FishTextures> {
+  const loader = new THREE.TextureLoader();
+  const load = async (name: string, colour: boolean) => {
+    const texture = await loader.loadAsync(base + name);
+    // The shading, bumps and fins are numbers to multiply by, not colours; the iris is a colour.
+    texture.colorSpace = colour ? THREE.SRGBColorSpace : THREE.NoColorSpace;
+    texture.anisotropy = 4;
+    return texture;
+  };
+  const kinds = {} as FishTextures["kinds"];
+  const [fin] = await Promise.all([
+    load("fin.webp", false),
+    ...(["wakin", "ryukin", "demekin"] as const).map(async kind => {
+      const [shading, normal, iris] = await Promise.all([load(`${kind}-body.webp`, false), load(`${kind}-normal.webp`, false), load(`${kind}-iris.webp`, true)]);
+      kinds[kind] = { shading, normal, iris };
+    }),
+  ]);
+  return { fin, kinds };
 }
 
 // ---- A fish ----
@@ -355,14 +330,18 @@ export function makeFish(fish: Fish, env: THREE.Texture, textures: FishTextures)
 
   const patchy = fish.kind !== "demekin" && next() < (fish.kind === "ryukin" ? 0.65 : 0.4);
   const bodyGeo = bodyGeometry(shape, palette, next, patchy);
-  // Wet, scaled skin with a little of the rainbow sheen goldfish scales have; a demekin's is velvety.
+  // Wet, scaled skin with a little of the rainbow sheen goldfish scales have; a demekin's is velvety. The baked shading
+  // keeps 0.85 for "as painted" (so a scale's rim can be brighter): the colour makes up for it.
+  const own = textures.kinds[fish.kind];
   const bodyMaterial = new THREE.MeshPhysicalMaterial({
-    vertexColors: true, map: textures.scaleColour, roughness: 0.36, clearcoat: 0.7, clearcoatRoughness: 0.22, envMap: env, envMapIntensity: 0.5,
-    bumpMap: textures.scales, bumpScale: 0.9,
+    color: new THREE.Color(1 / 0.85, 1 / 0.85, 1 / 0.85),
+    vertexColors: true, map: own.shading, normalMap: own.normal, roughness: 0.36, clearcoat: 0.7, clearcoatRoughness: 0.22, envMap: env, envMapIntensity: 0.5,
     iridescence: fish.kind === "demekin" ? 0.15 : 0.4, iridescenceIOR: 1.35,
     sheen: fish.kind === "demekin" ? 0.8 : 0.15, sheenColor: new THREE.Color(fish.kind === "demekin" ? "#4a4a58" : "#ffd9b0"), sheenRoughness: 0.5,
   });
   const body = new THREE.Mesh(bodyGeo, bodyMaterial);
+  // Parts are named so a model made from these (scripts/goldfish/) can tell them apart.
+  body.name = "body";
   body.castShadow = body.receiveShadow = true;
   holder.add(body);
 
@@ -373,6 +352,8 @@ export function makeFish(fish: Fish, env: THREE.Texture, textures: FishTextures)
   const lips = new THREE.Mesh(new THREE.TorusGeometry(0.019, 0.009, 10, 24), new THREE.MeshPhysicalMaterial({ color: palette.lips, roughness: 0.4, clearcoat: 0.6, envMap: env, envMapIntensity: 0.4 }));
   const opening = new THREE.Mesh(new THREE.CircleGeometry(0.018, 20), new THREE.MeshStandardMaterial({ color: "#2a0d08", roughness: 0.9 }));
   opening.position.z = 0.002;
+  lips.name = "lips";
+  opening.name = "mouth";
   mouth.add(lips, opening);
   holder.add(mouth);
 
@@ -381,11 +362,12 @@ export function makeFish(fish: Fish, env: THREE.Texture, textures: FishTextures)
   for (const side of [-1, 1]) {
     const nostril = new THREE.Mesh(new THREE.SphereGeometry(0.006, 8, 6), nostrilMaterial);
     nostril.position.copy(bodyPoint(shape, 0.955, side * 0.75));
+    nostril.name = "nostril";
     holder.add(nostril);
   }
 
   // Eyes: a golden iris round a black pupil under a clear, glossy cornea, set into the head (a demekin's on stalks).
-  const irisMaterial = new THREE.MeshPhysicalMaterial({ color: palette.iris, metalness: 0.3, roughness: 0.4, envMap: env, envMapIntensity: 0.6 });
+  const irisMaterial = new THREE.MeshPhysicalMaterial({ map: own.iris, metalness: 0.25, roughness: 0.4, envMap: env, envMapIntensity: 0.6 });
   const pupilMaterial = new THREE.MeshPhysicalMaterial({ color: "#020203", roughness: 0.15, envMap: env });
   const corneaMaterial = new THREE.MeshPhysicalMaterial({ color: "#ffffff", transparent: true, opacity: 0.18, roughness: 0, clearcoat: 1, envMap: env, envMapIntensity: 2, depthWrite: false });
   const stalkMaterial = new THREE.MeshPhysicalMaterial({ color: palette.flank, roughness: 0.4, sheen: 0.8, sheenColor: new THREE.Color("#4a4a58"), envMap: env, envMapIntensity: 0.4 });
@@ -405,6 +387,7 @@ export function makeFish(fish: Fish, env: THREE.Texture, textures: FishTextures)
     const pupil = new THREE.Mesh(new THREE.SphereGeometry(r * 0.74, 20, 14), pupilMaterial);
     pupil.position.z = r * 0.36;
     const cornea = new THREE.Mesh(new THREE.SphereGeometry(r * 1.04, 24, 16), corneaMaterial);
+    iris.name = "iris"; pupil.name = "pupil"; cornea.name = "cornea";
     eye.add(iris, pupil, cornea);
     holder.add(eye);
     if (stalked) {
@@ -413,17 +396,19 @@ export function makeFish(fish: Fish, env: THREE.Texture, textures: FishTextures)
       const stalk = new THREE.Mesh(new THREE.CylinderGeometry(r * 0.88, r * 1.15, length, 24, 1, true), stalkMaterial);
       stalk.position.copy(surface.clone().addScaledVector(normal, length / 2 - r * 0.25));
       stalk.quaternion.setFromUnitVectors(vec(0, 1, 0), normal);
+      stalk.name = "stalk";
       holder.add(stalk);
     }
   }
 
   const finMaterial = new THREE.MeshPhysicalMaterial({
-    vertexColors: true, transparent: true, alphaMap: textures.fin, roughness: 0.42, side: THREE.DoubleSide, depthWrite: false,
+    vertexColors: true, transparent: true, map: textures.fin, roughness: 0.42, side: THREE.DoubleSide, depthWrite: false,
     envMap: env, envMapIntensity: 0.35, sheen: 0.3, sheenColor: new THREE.Color("#ffffff"),
   });
   const fins: FinView[] = finSpecs(fish.kind, shape).map(spec => {
     const geometry = finGeometry(spec, palette);
     const mesh = new THREE.Mesh(geometry, finMaterial);
+    mesh.name = `fin_${spec.kind}_${spec.side < 0 ? "r" : spec.side > 0 ? "l" : "c"}`;
     mesh.castShadow = true;
     mesh.renderOrder = 2;
     holder.add(mesh);
@@ -512,4 +497,13 @@ export function swimFish(view: FishView, dt: number) {
   view.group.position.set(fish.pos.x, fish.pos.y, fish.pos.z);
   // The head swings a little against the tail.
   view.group.rotation.set(view.pitch, view.yaw - Math.sin(fish.phase) * 0.025 * vigour, 0, "YXZ");
+}
+
+// A fish's parts on their own, straight and at its own size, for scripts/goldfish/make-textures.mjs (which bakes the
+// textures from them, so no textures are needed here).
+export function buildFish(kind: Kind, seed: number): THREE.Object3D {
+  const blank = new THREE.Texture();
+  const textures: FishTextures = { fin: blank, kinds: { wakin: { shading: blank, normal: blank, iris: blank }, ryukin: { shading: blank, normal: blank, iris: blank }, demekin: { shading: blank, normal: blank, iris: blank } } };
+  const fish = { id: 1, kind, pos: { x: 0, y: 0, z: 0 }, vel: { x: 0, y: 0, z: 0.15 }, size: 1, target: { x: 0, y: 0, z: 0 }, retarget: 0, fleeing: 0, fleeFrom: { x: 0, y: 0, z: 0 }, hunger: 0, eaten: 0, pace: 1, toFloor: false, pecking: 0, phase: 0, seed };
+  return makeFish(fish, blank, textures).group.children[0];
 }

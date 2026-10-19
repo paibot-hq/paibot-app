@@ -6,7 +6,8 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { BOWL_R, FLOOR_Y, MAX_FOOD, SURFACE_R, WATER_Y, addFish, createWorld, dropFood, random, removeFish, startle, step, type Kind, type World } from "./swim";
-import { createFishTextures, makeFish, swimFish, type FishView } from "./fish-model.client";
+import { makeFish, swimFish, type FishTextures, type FishView } from "./fish-model.client";
+export { loadFishTextures } from "./fish-model.client";
 
 export type Stats = { fish: number; food: number; eaten: number; kinds: Kind[] };
 export type Aquarium = {
@@ -87,7 +88,7 @@ function drawCaustics(ctx: CanvasRenderingContext2D, image: ImageData, time: num
 
 type Ripple = { x: number; z: number; born: number; strength: number };
 
-export function createAquarium(container: HTMLElement, options: { kinds: Kind[]; night: boolean; onStats: (stats: Stats) => void; seed?: number }): Aquarium {
+export function createAquarium(container: HTMLElement, options: { kinds: Kind[]; night: boolean; textures: FishTextures; onStats: (stats: Stats) => void; seed?: number }): Aquarium {
   const next = random(options.seed ?? (Math.random() * 2 ** 32) >>> 0);
   const world: World = createWorld();
   for (const kind of options.kinds) addFish(world, kind, next);
@@ -297,7 +298,7 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   scene.add(rim, rimSheen, edge, foot);
 
   // The fish.
-  const textures = createFishTextures();
+  const textures = options.textures;
   const views = new Map<number, FishView>();
   const sync = () => {
     for (const fish of world.fish) if (!views.has(fish.id)) { const view = makeFish(fish, env, textures); views.set(fish.id, view); scene.add(view.group); }
@@ -472,7 +473,8 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
       env.dispose();
       pmrem.dispose();
       caustics.dispose();
-      Object.values(textures).forEach(texture => texture.dispose());
+      textures.fin.dispose();
+      Object.values(textures.kinds).forEach(own => Object.values(own).forEach(texture => texture.dispose()));
       void audio?.close();
       renderer.dispose();
       renderer.domElement.remove();

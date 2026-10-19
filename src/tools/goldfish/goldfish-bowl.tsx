@@ -32,14 +32,15 @@ export default function GoldfishBowl() {
     let cancelled = false;
     const saved = load();
     setNight(saved.night);
-    void import("./scene.client").then(({ createAquarium, webglAvailable }) => {
+    void (async () => {
+      const { createAquarium, loadFishTextures, webglAvailable } = await import("./scene.client");
       if (cancelled || !stage.current) return;
       if (!webglAvailable()) { setStatus("unsupported"); return; }
-      try {
-        aquarium.current = createAquarium(stage.current, { kinds: saved.kinds, night: saved.night, onStats: setStats });
-        setStatus("ready");
-      } catch { setStatus("unsupported"); }
-    }).catch(() => { if (!cancelled) setStatus("unsupported"); });
+      const textures = await loadFishTextures();
+      if (cancelled || !stage.current) return;
+      aquarium.current = createAquarium(stage.current, { kinds: saved.kinds, night: saved.night, textures, onStats: setStats });
+      setStatus("ready");
+    })().catch(() => { if (!cancelled) setStatus("unsupported"); });
     return () => { cancelled = true; aquarium.current?.dispose(); aquarium.current = null; };
   }, []);
 
