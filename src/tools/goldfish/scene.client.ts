@@ -9,18 +9,11 @@ import { BOWL_R, FLOOR_Y, MAX_FOOD, SURFACE_R, WATER_Y, addFish, createWorld, dr
 import { makeFish, swimFish, type FishTextures, type FishView } from "./fish-model.client";
 import { loadFishTextures } from "./fish-model.client";
 
-// The table top: "Oak Veneer 01" by Jenelle van Heerden, Poly Haven (CC0), photographed over 1.83 m; here the bowl is
-// about 24 cm across (its radius of 1 is 12 cm), so the picture spans 15 units.
-const TABLE_TEXTURE_UNITS = 15;
-export type SceneTextures = { fish: FishTextures; table: { colour: THREE.Texture; normal: THREE.Texture } };
+export type SceneTextures = { fish: FishTextures };
 
 // Every picture the scene needs, loaded before it is first drawn.
 export async function loadTextures(base = "/goldfish/"): Promise<SceneTextures> {
-  const loader = new THREE.TextureLoader();
-  const [fish, colour, normal] = await Promise.all([loadFishTextures(base), loader.loadAsync(base + "table-oak.webp"), loader.loadAsync(base + "table-oak-normal.webp")]);
-  colour.colorSpace = THREE.SRGBColorSpace;
-  for (const texture of [colour, normal]) { texture.wrapS = texture.wrapT = THREE.RepeatWrapping; texture.anisotropy = 8; }
-  return { fish, table: { colour, normal } };
+  return { fish: await loadFishTextures(base) };
 }
 
 export type Stats = { fish: number; food: number; eaten: number; kinds: Kind[] };
@@ -230,16 +223,11 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   spot.shadow.camera.far = 7;
   scene.add(spot, spot.target);
 
-  // The table: a varnished oak top about 1.1 m by 70 cm and 2.5 cm thick, the bowl towards its front edge; and the bowl's
-  // shadow on it.
+  // The table: a plain, light top (the bowl is about 24 cm across, so this is about 1.1 m by 70 cm and 2.5 cm thick), the
+  // bowl towards its front edge; and the bowl's shadow on it.
   const TABLE_W = 9, TABLE_D = 6, TABLE_T = 0.2;
-  const { colour: oak, normal: oakNormal } = options.textures.table;
-  oak.repeat.set(TABLE_W / TABLE_TEXTURE_UNITS, TABLE_D / TABLE_TEXTURE_UNITS);
-  oakNormal.repeat.copy(oak.repeat);
-  const table = new THREE.Mesh(
-    new THREE.BoxGeometry(TABLE_W, TABLE_T, TABLE_D),
-    new THREE.MeshPhysicalMaterial({ map: oak, normalMap: oakNormal, normalScale: new THREE.Vector2(0.4, 0.4), roughness: 0.5, clearcoat: 0.3, clearcoatRoughness: 0.35, envMap: env, envMapIntensity: 0.3 }),
-  );
+  const tableMaterial = new THREE.MeshPhysicalMaterial({ color: "#e8e5df", roughness: 0.6, clearcoat: 0.15, clearcoatRoughness: 0.5, envMap: env, envMapIntensity: 0.25 });
+  const table = new THREE.Mesh(new THREE.BoxGeometry(TABLE_W, TABLE_T, TABLE_D), tableMaterial);
   table.position.set(0, BASE_Y - TABLE_T / 2 - 0.002, -TABLE_D / 2 + 1.7);
   table.receiveShadow = true;
   const shadow = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 2.4), new THREE.MeshBasicMaterial({ map: shadowTexture(), transparent: true, depthWrite: false }));
@@ -432,7 +420,9 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   const setNight = (value: boolean) => {
     night = value;
     paintWall();
-    hemisphere.intensity = night ? 0.3 : 1.0;
+    hemisphere.intensity = night ? 0.14 : 1.0;
+    // The light probe lights the table too (it is a bright room): dimmed with the room at night.
+    tableMaterial.envMapIntensity = night ? 0.03 : 0.25;
     sun.intensity = night ? 0.05 : 1.3;
     lamp.intensity = night ? 1.5 : 0;
     spot.intensity = night ? 30 : 40;
@@ -622,8 +612,6 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
       wall.dispose();
       textures.fish.fin.dispose();
       Object.values(textures.fish.kinds).forEach(own => Object.values(own).forEach(texture => texture.dispose()));
-      oak.dispose();
-      oakNormal.dispose();
       void audio?.close();
       renderer.dispose();
       renderer.domElement.remove();
