@@ -120,3 +120,14 @@ test('the same seed plays the same game', () => {
   assert.equal(play(7), play(7));
   assert.notEqual(play(7), play(8));
 });
+
+test('after a move with a merge, the tile that merged away is still there to slide in, and is dropped by the next move', () => {
+  const next = random(2);
+  const merged = move(fromRows([[2, 2, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0], [0, 0, 0, 0]]), 'left', next).state;
+  const gone = merged.tiles.filter(t => t.gone);
+  assert.equal(gone.length, 1, 'kept through the spawn');
+  assert.deepEqual([gone[0].row, gone[0].col], [0, 0]);
+  assert.equal(total(merged), 4 + merged.tiles.find(t => t.fresh).value, 'the gone tile is not counted');
+  assert.equal(emptyCells(merged.tiles).length, SIZE * SIZE - 2, 'and does not take a place');
+  assert.equal(move(merged, 'down', next).state.tiles.filter(t => t.gone).length, 0);
+});

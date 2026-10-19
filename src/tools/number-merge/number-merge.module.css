@@ -49,7 +49,7 @@
   line-height: 1;
   font-variant-numeric: tabular-nums;
   background: #eee4da;
-  transition: top .12s ease-out, left .12s ease-out;
+  transition: top .16s ease-out, left .16s ease-out;
 }
 .tile[data-value="4"] { background: #ede0c8; }
 .tile[data-value="8"] { background: #f2b179; color: #fff; }
@@ -62,12 +62,13 @@
 .tile[data-value="1024"] { background: #edc53f; color: #fff; font-size: clamp(.95rem, 5vw, 1.6rem); }
 .tile[data-value="2048"] { background: #edc22e; color: #fff; font-size: clamp(.95rem, 5vw, 1.6rem); box-shadow: 0 0 24px 6px rgb(237 194 46 / .55); }
 .tile[data-value="big"] { background: #3c3a32; color: #fff; font-size: clamp(.8rem, 4vw, 1.3rem); }
-.fresh { animation: pop .18s ease-out .1s backwards; }
-.merged { animation: bump .16s ease-out .08s; z-index: 2; }
+.fresh { animation: pop .2s ease-out .14s backwards; }
+.merged { animation: bump .18s ease-out .12s; z-index: 2; }
 .gone { z-index: 0; }
 @keyframes pop { from { transform: scale(0); } to { transform: scale(1); } }
 @keyframes bump { 0% { transform: scale(1); } 50% { transform: scale(1.18); } 100% { transform: scale(1); } }
-@media (prefers-reduced-motion: reduce) { .tile { transition: none; } .fresh, .merged { animation: none; } }
+/* Sliding shows what a move did, so it stays; the pop and the bump are only decoration. */
+@media (prefers-reduced-motion: reduce) { .fresh, .merged { animation: none; } }
 
 .overlay { position: absolute; inset: 0; z-index: 5; display: grid; align-content: center; justify-items: center; gap: .5rem; padding: 1rem; border-radius: 14px; background: color-mix(in srgb, var(--surface-strong) 86%, transparent); color: var(--text); text-align: center; }
 .overTitle { margin: 0; font-size: 2rem; font-weight: 800; }

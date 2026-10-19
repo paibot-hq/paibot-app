@@ -10,7 +10,7 @@ import { GOAL, SIZE, biggest, canMove, move, random, start, type Direction, type
 const BEST_KEY = "paibot-app-number-merge-best";
 const SWIPE_PX = 24;
 // How long a merged-away tile stays (sliding in) before it is dropped from the page.
-const SLIDE_MS = 140;
+const SLIDE_MS = 180;
 
 const KEYS: Record<string, Direction> = {
   ArrowLeft: "left", ArrowRight: "right", ArrowUp: "up", ArrowDown: "down",

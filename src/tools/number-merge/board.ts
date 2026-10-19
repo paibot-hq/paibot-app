@@ -42,7 +42,9 @@ export function spawn(state: State, next: () => number): State {
   if (!empty.length) return state;
   const [row, col] = empty[Math.floor(next() * empty.length)];
   const value = next() < 0.9 ? 2 : 4;
-  return { ...state, tiles: [...live(state.tiles).map(({ merged, fresh, ...t }) => t), { id: state.nextId, value, row, col, fresh: true }], nextId: state.nextId + 1 };
+  // The tiles that merged away stay (marked gone) so the page can show them sliding in; the next move drops them.
+  const kept = state.tiles.map(tile => (tile.gone ? tile : (({ fresh, ...t }) => t)(tile)));
+  return { ...state, tiles: [...kept, { id: state.nextId, value, row, col, fresh: true }], nextId: state.nextId + 1 };
 }
 
 export function start(next: () => number): State {
