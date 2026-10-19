@@ -3,7 +3,15 @@
 import assert from 'node:assert/strict';
 
 const VIDEOS = [['goodVideo01', 'Q11', 'First song'], ['badVideo001', 'Q12', 'Not embeddable'], ['goodVideo02', 'Q13', 'Second song'], ['badVideo002', 'Q14', 'Removed']];
-const answer = { results: { bindings: VIDEOS.map(([id, item, label]) => ({ id: { value: id }, item: { value: `http://www.wikidata.org/entity/${item}` }, itemLabel: { value: label }, itemDescription: { value: `about ${label}` } })) } };
+const JAZZ = [['jazzVideo01', 'Q21', 'Jazz one'], ['jazzVideo02', 'Q22', 'Jazz two']];
+const answerOf = videos => ({ results: { bindings: videos.map(([id, item, label]) => ({ id: { value: id }, item: { value: `http://www.wikidata.org/entity/${item}` }, itemLabel: { value: label }, itemDescription: { value: `about ${label}` } })) } });
+// Wikidata's answer: a keyword search (haswbstatement) finds the jazz videos for "jazz" and nothing for anything else;
+// a batch is the four videos.
+const answerFor = url => {
+  const query = new URL(url).searchParams.get('query');
+  if (!query.includes('haswbstatement')) return answerOf(VIDEOS);
+  return answerOf(query.includes('P1651 jazz"') ? JAZZ : []);
+};
 
 // A player with the API's shape: it shows which video it plays and how many it has loaded, says "cannot be embedded"
 // (150) for the bad ones, and window.__endVideo() ends the one playing.
@@ -17,7 +25,7 @@ window.onYouTubeIframeAPIReady();`;
 
 export default async function ({ page, main, go }) {
   let asked = 0;
-  await page.route('https://query.wikidata.org/**', route => { asked++; route.fulfill({ json: answer, headers: { 'Access-Control-Allow-Origin': '*' } }); });
+  await page.route('https://query.wikidata.org/**', route => { asked++; route.fulfill({ json: answerFor(route.request().url()), headers: { 'Access-Control-Allow-Origin': '*' } }); });
   await page.route('https://www.youtube.com/iframe_api', route => route.fulfill({ body: FAKE_API, contentType: 'text/javascript' }));
   await go('random-video');
   assert.equal(asked, 0, 'nothing is asked of Wikidata before a video is wanted');
@@ -38,14 +46,14 @@ export default async function ({ page, main, go }) {
   // "Next" and the end of a video (with "play the next" on) each go on, past the ones that cannot be played. (The list
   // comes round again, so the next video may be the same one: what counts is that another was loaded.)
   const loads = () => main.locator('[data-fake-player]').getAttribute('data-loads').then(Number);
-  const advance = async act => {
+  const advance = async (act, kind = 'good') => {
     const before = await loads();
     await act();
-    await page.waitForFunction(previous => {
+    await page.waitForFunction(([previous, prefix]) => {
       const player = document.querySelector('[data-fake-player]');
       const now = document.querySelector('[data-random-video="info"]')?.dataset.video;
-      return Number(player?.dataset.loads) > previous && now?.startsWith('good') && player.dataset.playing === now;
-    }, before);
+      return Number(player?.dataset.loads) > previous && now?.startsWith(prefix) && player.dataset.playing === now;
+    }, [before, kind]);
   };
   for (let i = 0; i < 4; i++) await advance(() => main.locator('[data-random-video="next"]').click());
   await advance(() => page.evaluate(() => window.__endVideo()));
@@ -58,5 +66,25 @@ export default async function ({ page, main, go }) {
   await page.evaluate(() => window.__endVideo());
   await page.waitForTimeout(300);
   assert.equal(await loads(), stay, 'no other video was loaded');
-  console.log('PASS: random-video: nothing asked before a press, a video with its name and links, next and the end go on past unplayable ones, auto-next off stays');
+  // A keyword narrows the videos to what Wikidata's search finds, says how many, and stays in the address.
+  const search = async word => { await main.getByLabel('Keyword').fill(word); await main.getByRole('button', { name: 'Search', exact: true }).click(); };
+  await search('jazz');
+  await main.locator('[data-random-video="found"]').waitFor();
+  assert.equal(await main.locator('[data-random-video="found"]').innerText(), 'Playing at random from 2 videos for "jazz"');
+  await page.waitForFunction(() => document.querySelector('[data-random-video="info"]')?.dataset.video?.startsWith('jazz'));
+  assert.equal(new URL(page.url()).searchParams.get('q'), 'jazz');
+  await advance(() => main.locator('[data-random-video="next"]').click(), 'jazz');
+  assert.match(await info.getAttribute('data-video'), /^jazzVideo0[12]$/, 'next stays within the keyword');
+  // Nothing found says so; an empty keyword goes back to every video.
+  await search('nothing-at-all');
+  await main.getByRole('alert').waitFor();
+  assert.match(await main.getByRole('alert').innerText(), /No videos found for "nothing-at-all"/);
+  await search('');
+  await page.waitForFunction(() => document.querySelector('[data-random-video="info"]')?.dataset.video?.startsWith('good'));
+  assert.equal(new URL(page.url()).searchParams.get('q'), null);
+  assert.equal(await main.locator('[data-random-video="found"]').count(), 0);
+  // A link with a keyword fills it in.
+  await page.goto(`${new URL(page.url()).origin}/en/random-video?q=jazz`);
+  await page.waitForFunction(() => document.querySelector('main input[type="search"]')?.value === 'jazz');
+  console.log('PASS: random-video: nothing asked before a press, a video with its name and links, next and the end go on past unplayable ones, auto-next off stays, a keyword narrows them (and stays in the address), nothing found, back to all');
 }

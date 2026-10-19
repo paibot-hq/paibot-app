@@ -39,3 +39,10 @@
 .error, .note { width: min(720px, 100%); margin: .6rem auto 0; color: var(--muted); font-size: .85rem; line-height: 1.6; text-align: center; }
 .error { color: var(--error); }
 .retry { margin-left: .3rem; padding: .2rem .6rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); font: inherit; cursor: pointer; }
+.search { display: flex; gap: .5rem; width: min(720px, 100%); margin: 1rem auto 0; }
+.search input { flex: 1 1 auto; min-width: 0; padding: .55rem .8rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); font: inherit; }
+.search input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+/* The robot's blue, as on the reaction test: the dark theme's accent is too pale for white text. */
+.search button { flex: none; padding: .55rem 1rem; border: 1px solid #3f7cb0; border-radius: var(--radius); background: #3f7cb0; color: #fff; font: inherit; font-weight: 700; cursor: pointer; }
+.search button:disabled { opacity: .6; cursor: progress; }
+.found { width: min(720px, 100%); margin: .4rem auto 0; color: var(--muted); font-size: .85rem; }

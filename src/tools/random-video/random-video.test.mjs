@@ -54,3 +54,23 @@ test('shuffling keeps every video', () => {
   assert.deepEqual([...mixed].sort((a, b) => a - b), items);
   assert.notDeepEqual(mixed, items);
 });
+
+import { MAX_KEYWORD, SEARCH_LIMIT, searchQuery, searchUrl, tidyKeyword } from './random-video.ts';
+
+test('a keyword is tidied to one short line', () => {
+  assert.equal(tidyKeyword('  jazz\n  piano\t '), 'jazz piano');
+  assert.equal(tidyKeyword('x'.repeat(100)).length, MAX_KEYWORD);
+});
+
+test('a keyword searches the items with a YouTube video ID, and cannot break out of the query', () => {
+  const query = searchQuery('ビートルズ', 'ja');
+  assert.match(query, /mwapi:srsearch "haswbstatement:P1651 ビートルズ"/);
+  assert.match(query, new RegExp(`wikibase:limit ${SEARCH_LIMIT}`));
+  assert.match(query, /\?item wdt:P1651 \?id/);
+  assert.match(query, /"ja,en,mul"/);
+  // Quotes and backslashes stay inside the string.
+  const sneaky = searchQuery('a" } ; DROP \\ "', 'en');
+  assert.match(sneaky, /srsearch "haswbstatement:P1651 a\\" } ; DROP \\\\ \\""/);
+  const url = new URL(searchUrl('cat', 'en'));
+  assert.match(url.searchParams.get('query'), /P1651 cat"/);
+});

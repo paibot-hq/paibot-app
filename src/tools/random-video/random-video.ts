@@ -54,3 +54,29 @@ export function shuffle<T>(items: readonly T[], next: () => number): T[] {
 // YouTube player errors that mean "this one cannot be played here" (bad ID, removed or private, embedding not allowed):
 // the page goes on to the next video.
 export const SKIPPED_ERRORS = new Set([2, 5, 100, 101, 150]);
+
+// A keyword narrows the videos to the items Wikidata's search finds for it (in names, descriptions and aliases, in any
+// language), among those with a YouTube video ID: up to SEARCH_LIMIT of them, all fetched at once.
+export const SEARCH_LIMIT = 500;
+export const MAX_KEYWORD = 60;
+
+// The keyword as typed, tidied: one line, spaces collapsed, at most MAX_KEYWORD characters.
+export const tidyKeyword = (keyword: string) => keyword.replace(/\s+/g, " ").trim().slice(0, MAX_KEYWORD);
+
+// A string inside the query's double quotes: backslashes and quotes escaped, so a keyword cannot end the string.
+const sparqlString = (text: string) => text.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+
+export function searchQuery(keyword: string, locale: string) {
+  const languages = LANGUAGES[locale] ?? LANGUAGES.en;
+  return `SELECT ?item ?id ?itemLabel ?itemDescription WHERE {
+  SERVICE wikibase:mwapi {
+    bd:serviceParam wikibase:endpoint "www.wikidata.org"; wikibase:api "Search"; wikibase:limit ${SEARCH_LIMIT};
+      mwapi:srsearch "haswbstatement:P1651 ${sparqlString(tidyKeyword(keyword))}"; mwapi:srlimit "max".
+    ?item wikibase:apiOutputItem mwapi:title.
+  }
+  ?item wdt:P1651 ?id .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language "${languages}". }
+}`;
+}
+
+export const searchUrl = (keyword: string, locale: string) => `${ENDPOINT}?format=json&query=${encodeURIComponent(searchQuery(keyword, locale))}`;
