@@ -99,6 +99,13 @@
       "when": 1792383039131,
       "tag": "20261019041039_add_iq_results",
       "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "6",
+      "when": 1792384583182,
+      "tag": "20261019043623_add_personality_results",
+      "breakpoints": true
     }
   ]
 }

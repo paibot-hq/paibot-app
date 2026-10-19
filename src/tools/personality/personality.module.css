@@ -1,0 +1,65 @@
+.intro, .result { display: grid; gap: 1rem; justify-items: center; width: min(600px, 100%); margin: 0 auto; }
+.lead { margin: 0; color: var(--text); line-height: 1.7; text-align: center; }
+.traitList { margin: 0; padding-left: 1.2rem; color: var(--muted); font-size: .9rem; line-height: 1.8; justify-self: stretch; }
+.traitList strong { color: var(--text); }
+/* The robot's blue, as on the reaction and IQ tests: the dark theme's accent is too pale for white text. */
+.start {
+  padding: .8rem 2.4rem;
+  border: 0;
+  border-radius: 999px;
+  background: #3f7cb0;
+  color: #fff;
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #2c5a82, 0 12px 20px -10px rgb(0 0 0 / .4);
+  transition: transform .06s ease-out;
+}
+.start:active { transform: translateY(4px); box-shadow: 0 2px 0 #2c5a82; }
+.note { width: min(600px, 100%); margin: .6rem auto 0; color: var(--muted); font-size: .85rem; line-height: 1.6; text-align: center; }
+
+.quiz { width: min(600px, 100%); margin: 0 auto; }
+.status { display: flex; align-items: center; justify-content: space-between; min-height: 2rem; color: var(--muted); font-size: .9rem; font-variant-numeric: tabular-nums; }
+.back { padding: .25rem .7rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); font: inherit; font-size: .85rem; cursor: pointer; }
+.progress { width: 100%; height: 6px; margin: .3rem 0 1.4rem; accent-color: var(--accent); }
+.item { min-height: 3.4em; margin: 0 0 1.2rem; color: var(--text); font-size: 1.25rem; font-weight: 700; line-height: 1.6; text-align: center; }
+.scale { display: grid; gap: .5rem; }
+.option {
+  display: flex;
+  align-items: center;
+  gap: .8rem;
+  padding: .75rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color .1s, transform .06s;
+}
+/* Only where there is a pointer that hovers: on a phone a tapped button stays "hovered", and the next statement would
+   seem to have an answer already. */
+@media (hover: hover) { .option:hover { border-color: var(--accent); } }
+.option:active { transform: scale(.99); }
+.option[aria-checked="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 12%, var(--surface)); }
+.option:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* A dot bigger towards either end of the scale, as on many such forms. */
+.dot { flex: none; width: 14px; height: 14px; border: 2px solid var(--accent); border-radius: 50%; }
+.dot[data-size="1"] { width: 18px; height: 18px; }
+.dot[data-size="2"] { width: 22px; height: 22px; }
+
+.animal { display: grid; justify-items: center; gap: .2rem; width: 100%; padding: 1.4rem 1rem; border: 1px solid var(--line); border-radius: 18px; background: var(--surface); text-align: center; }
+.emoji { font-size: 4rem; line-height: 1.1; }
+.animalLabel { margin: 0; color: var(--muted); font-size: .85rem; }
+.animalName { margin: 0; color: var(--text); font-size: 1.5rem; font-weight: 800; }
+.animalText { margin: .3rem 0 0; color: var(--text); line-height: 1.7; }
+.traits { display: grid; gap: 1.1rem; width: 100%; margin: 0; padding: 0; list-style: none; }
+.traitHead { display: flex; justify-content: space-between; align-items: baseline; }
+.traitName { color: var(--text); font-weight: 700; }
+.traitValue { color: var(--text); font-size: 1.1rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.track { height: 12px; margin: .3rem 0; overflow: hidden; border-radius: 999px; background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }
+.fill { display: block; height: 100%; border-radius: 999px; background: var(--accent); }
+.ends { display: flex; justify-content: space-between; color: var(--muted); font-size: .75rem; }
+.top { margin: .2rem 0 0; color: var(--muted); font-size: .8rem; }

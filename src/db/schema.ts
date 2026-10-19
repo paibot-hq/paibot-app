@@ -101,3 +101,15 @@ export const iqResults = sqliteTable("iq_results", {
   seconds: integer("seconds").notNull(),
   createdAt: text("created_at").notNull().default(sql`(datetime('now'))`),
 }, table => [index("iq_results_score_idx").on(table.score)]);
+
+// The personality test's results (src/tools/personality): the five raw trait scores (4-20) of the Mini-IPIP, kept with
+// no name, account or address, so that a new result can be placed among everyone's, trait by trait.
+export const personalityResults = sqliteTable("personality_results", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  extraversion: integer("extraversion").notNull(),
+  agreeableness: integer("agreeableness").notNull(),
+  conscientiousness: integer("conscientiousness").notNull(),
+  stability: integer("stability").notNull(),
+  openness: integer("openness").notNull(),
+  createdAt: text("created_at").notNull().default(sql`(datetime('now'))`),
+});

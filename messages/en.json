@@ -1150,6 +1150,134 @@
       "tableCount": "Tests",
       "hint": "The puzzles are made anew by a program each time (no published intelligence test's items are used). Only the number right and the time taken are kept, with no name, to build everyone's distribution."
     },
+    "personality": {
+      "title": "Personality Test (Big Five)",
+      "description": "Answer twenty statements to see your Big Five, the five traits psychology uses most (extraversion, agreeableness, conscientiousness, emotional stability, openness), where you stand among everyone, and your animal type.",
+      "about": "A personality test of the Big Five, the most widely used model of personality in psychology, with twenty items (the Mini-IPIP). See your five traits, where you stand among everyone who took it, and an animal type for fun.",
+      "keywords": "personality test big five ocean psychology quiz animal type extraversion free",
+      "intro": "Read {count} statements and say how well each describes you, on a scale of five. Think of yourself as you usually are, and go with your first answer. About three minutes.",
+      "start": "Start the test",
+      "taken": "Taken {count, plural, one {# time} other {# times}} so far",
+      "question": "{n} / {total}",
+      "back": "← Back",
+      "progress": "{done} of {total} answered",
+      "scale": {
+        "1": "Very inaccurate",
+        "2": "Moderately inaccurate",
+        "3": "Neither",
+        "4": "Moderately accurate",
+        "5": "Very accurate"
+      },
+      "youAre": "You are a…",
+      "top": "Top {top}% of {total} results",
+      "sending": "Saving your result…",
+      "limited": "Too many results sent. Please wait a moment and try again.",
+      "saveFailed": "Your result could not be saved (you can still see it here).",
+      "animalNote": "The animal type is a bit of fun, from the trait that stands out most; it is not a scientific type. The five numbers (0-100) are your levels, worked out from your twenty answers.",
+      "again": "Take it again",
+      "shareText": "My personality test result: \"{animal}\". Extraversion {extraversion}, agreeableness {agreeableness}, conscientiousness {conscientiousness}, emotional stability {stability}, openness {openness}",
+      "hint": "The statements are the twenty of the Mini-IPIP, from the IPIP (a public-domain pool of personality items). Only the five scores are kept, with no name, to compare with everyone. This is not a medical or clinical assessment.",
+      "items": {
+        "1": "Am the life of the party.",
+        "2": "Sympathize with others' feelings.",
+        "3": "Get chores done right away.",
+        "4": "Have frequent mood swings.",
+        "5": "Have a vivid imagination.",
+        "6": "Don't talk a lot.",
+        "7": "Am not interested in other people's problems.",
+        "8": "Often forget to put things back in their proper place.",
+        "9": "Am relaxed most of the time.",
+        "10": "Am not interested in abstract ideas.",
+        "11": "Talk to a lot of different people at parties.",
+        "12": "Feel others' emotions.",
+        "13": "Like order.",
+        "14": "Get upset easily.",
+        "15": "Have difficulty understanding abstract ideas.",
+        "16": "Keep in the background.",
+        "17": "Am not really interested in others.",
+        "18": "Make a mess of things.",
+        "19": "Seldom feel blue.",
+        "20": "Do not have a good imagination."
+      },
+      "traits": {
+        "extraversion": {
+          "name": "Extraversion",
+          "about": "How much you draw energy from people and lively places",
+          "low": "Likes time alone",
+          "high": "Energized by people"
+        },
+        "agreeableness": {
+          "name": "Agreeableness",
+          "about": "How much you care for others and get along with them",
+          "low": "Holds to own views",
+          "high": "Caring and cooperative"
+        },
+        "conscientiousness": {
+          "name": "Conscientiousness",
+          "about": "How planned and orderly you are in getting things done",
+          "low": "Easygoing and flexible",
+          "high": "Planned and orderly"
+        },
+        "stability": {
+          "name": "Emotional stability",
+          "about": "How calm you stay under stress",
+          "low": "Sensitive and feels deeply",
+          "high": "Calm and steady"
+        },
+        "openness": {
+          "name": "Openness",
+          "about": "How curious you are about new things and imagined worlds",
+          "low": "Practical and grounded",
+          "high": "Curious and imaginative"
+        }
+      },
+      "animals": {
+        "dolphin": {
+          "name": "Lively dolphin",
+          "text": "Energized by people, the heart of the room. You open up quickly, even with strangers, and brighten everyone around you."
+        },
+        "owl": {
+          "name": "Thoughtful owl",
+          "text": "A calm observer who recharges alone. You may say little, but you notice a lot and think things through."
+        },
+        "elephant": {
+          "name": "Caring elephant",
+          "text": "Gentle and attuned to how others feel. People rely on you, and you keep a team's mood warm."
+        },
+        "wolf": {
+          "name": "Lone wolf",
+          "text": "Independent, with your own firm views. You do not go with the crowd, and you say what needs saying."
+        },
+        "beaver": {
+          "name": "Steady beaver",
+          "text": "You plan and build step by step. You keep your promises and deadlines, and people trust you."
+        },
+        "cat": {
+          "name": "Free-spirited cat",
+          "text": "Flexible, moving as the mood takes you. Unbound by rules, you find unexpected paths."
+        },
+        "turtle": {
+          "name": "Calm turtle",
+          "text": "Steady whatever happens. When others panic, your calm puts them at ease."
+        },
+        "rabbit": {
+          "name": "Sensitive rabbit",
+          "text": "You notice the smallest changes and feel deeply. You understand others' pain with a delicate heart."
+        },
+        "fox": {
+          "name": "Curious fox",
+          "text": "Drawn to the new and the strange, full of ideas. Your imagination makes things interesting."
+        },
+        "dog": {
+          "name": "Down-to-earth dog",
+          "text": "You value familiar ways and things close to home. Practical and dependable."
+        },
+        "penguin": {
+          "name": "Balanced penguin",
+          "text": "All five traits near the middle: well balanced. You adapt naturally to whatever the moment needs."
+        }
+      }
+    },
     "timing": {
       "title": "5-Second Click",
       "description": "Click exactly 5 seconds after starting. Track your best timing accuracy.",
