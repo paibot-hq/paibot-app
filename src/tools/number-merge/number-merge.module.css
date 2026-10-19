@@ -1,16 +1,20 @@
 .lead { margin: 0; color: var(--muted); text-align: center; line-height: 1.7; }
-.scores { display: flex; justify-content: center; gap: .8rem; margin: .8rem 0; }
-.score { display: grid; min-width: 6.5rem; padding: .5rem .9rem; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); text-align: center; }
+/* The scores and the buttons share a row, so the board comes up the page: it can be played without scrolling. */
+.top { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .6rem 1.4rem; margin: .4rem 0; }
+.scores { display: flex; justify-content: center; gap: .6rem; }
+.score { display: grid; min-width: 5.5rem; padding: .3rem .8rem; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); text-align: center; }
 .score span { color: var(--muted); font-size: .75rem; }
 .score strong { color: var(--text); font-size: 1.4rem; font-variant-numeric: tabular-nums; }
-.buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin: .6rem 0; }
+.buttons { display: flex; flex-wrap: wrap; justify-content: center; gap: .6rem; margin: 0; }
+.overlay .buttons { margin: .6rem 0; }
 .button { padding: .45rem 1.1rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--text); font: inherit; cursor: pointer; }
 .button:disabled { opacity: .45; cursor: default; }
 /* The robot's blue, as on the other games: the dark theme's accent is too pale for white text. */
 .primary { padding: .5rem 1.6rem; border: 0; border-radius: 999px; background: #3f7cb0; color: #fff; font: inherit; font-weight: 700; cursor: pointer; box-shadow: 0 4px 0 #2c5a82; }
 
 /* The board is a square the size of the screen allows; a tile is placed by --row and --col, and moves smoothly. */
-.boardWrap { position: relative; width: min(440px, 100%); margin: .8rem auto; }
+/* No wider than the screen is tall, either, so the whole board shows. */
+.boardWrap { position: relative; width: min(440px, 100%, calc(100vh - 17.5rem)); min-width: 260px; margin: .6rem auto; }
 .board {
   --gap: 2.4%;
   --size: calc((100% - 5 * var(--gap)) / 4);

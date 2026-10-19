@@ -97,14 +97,15 @@ export default function NumberMerge() {
 
   return (
     <ToolLayout title={t("title")}>
-      <p className={styles.lead}>{t("intro", { goal: GOAL })}</p>
-      <div className={styles.scores}>
-        <div className={styles.score}><span>{t("score")}</span><strong data-merge="score">{score}</strong></div>
-        <div className={styles.score}><span>{t("best")}</span><strong data-merge="best">{Math.max(best, score)}</strong></div>
-      </div>
-      <div className={styles.buttons}>
-        <button type="button" className={styles.button} onClick={undo} disabled={!game?.history} data-merge="undo">{t("undo")}</button>
-        <button type="button" className={styles.button} onClick={restart} data-merge="restart">{t("restart")}</button>
+      <div className={styles.top}>
+        <div className={styles.scores}>
+          <div className={styles.score}><span>{t("score")}</span><strong data-merge="score">{score}</strong></div>
+          <div className={styles.score}><span>{t("best")}</span><strong data-merge="best">{Math.max(best, score)}</strong></div>
+        </div>
+        <div className={styles.buttons}>
+          <button type="button" className={styles.button} onClick={undo} disabled={!game?.history} data-merge="undo">{t("undo")}</button>
+          <button type="button" className={styles.button} onClick={restart} data-merge="restart">{t("restart")}</button>
+        </div>
       </div>
       <div className={styles.boardWrap}>
         <div className={styles.board} role="img" aria-label={t("boardLabel", { goal: GOAL })} onPointerDown={down} onPointerUp={up} onPointerCancel={() => { drag.current = null; }} data-merge="board" data-over={game?.over || undefined}>
@@ -133,6 +134,7 @@ export default function NumberMerge() {
           </div>
         )}
       </div>
+      <p className={styles.note}>{t("intro", { goal: GOAL })}</p>
       <p className={styles.note}>{t("controls")}</p>
       <p className={styles.note}>{t("hint")}</p>
     </ToolLayout>
