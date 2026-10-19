@@ -42,7 +42,7 @@ function disposeObject(object: THREE.Object3D) {
 //   and greener.
 function glassReflection(env: THREE.Texture, strength = 1, side: THREE.Side = THREE.FrontSide): THREE.MeshPhysicalMaterial {
   return new THREE.MeshPhysicalMaterial({
-    color: "#000000", roughness: 0.04, metalness: 0, envMap: env, envMapIntensity: 0.5 * strength, specularIntensity: 1,
+    color: "#000000", roughness: 0.14, metalness: 0, envMap: env, envMapIntensity: 0.25 * strength, specularIntensity: 0.25,
     transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, side,
   });
 }

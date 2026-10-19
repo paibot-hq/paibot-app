@@ -330,13 +330,13 @@ export function makeFish(fish: Fish, env: THREE.Texture, textures: FishTextures)
 
   const patchy = fish.kind !== "demekin" && next() < (fish.kind === "ryukin" ? 0.65 : 0.4);
   const bodyGeo = bodyGeometry(shape, palette, next, patchy);
-  // Wet, scaled skin with a little of the rainbow sheen goldfish scales have; a demekin's is velvety. The baked shading
+  // Scaled skin, more satin than gloss, with a hint of the rainbow sheen goldfish scales have; a demekin's is velvety. The baked shading
   // keeps 0.85 for "as painted" (so a scale's rim can be brighter): the colour makes up for it.
   const own = textures.kinds[fish.kind];
   const bodyMaterial = new THREE.MeshPhysicalMaterial({
     color: new THREE.Color(1 / 0.85, 1 / 0.85, 1 / 0.85),
-    vertexColors: true, map: own.shading, normalMap: own.normal, roughness: 0.36, clearcoat: 0.7, clearcoatRoughness: 0.22, envMap: env, envMapIntensity: 0.5,
-    iridescence: fish.kind === "demekin" ? 0.15 : 0.4, iridescenceIOR: 1.35,
+    vertexColors: true, map: own.shading, normalMap: own.normal, roughness: 0.55, clearcoat: 0.15, clearcoatRoughness: 0.5, envMap: env, envMapIntensity: 0.25,
+    iridescence: fish.kind === "demekin" ? 0.08 : 0.15, iridescenceIOR: 1.35,
     sheen: fish.kind === "demekin" ? 0.8 : 0.15, sheenColor: new THREE.Color(fish.kind === "demekin" ? "#4a4a58" : "#ffd9b0"), sheenRoughness: 0.5,
   });
   const body = new THREE.Mesh(bodyGeo, bodyMaterial);
@@ -349,7 +349,7 @@ export function makeFish(fish: Fish, env: THREE.Texture, textures: FishTextures)
   const tip = bodyPoint(shape, 1, 0);
   const mouth = new THREE.Group();
   mouth.position.set(0, tip.y - 0.004, tip.z - 0.006);
-  const lips = new THREE.Mesh(new THREE.TorusGeometry(0.019, 0.009, 10, 24), new THREE.MeshPhysicalMaterial({ color: palette.lips, roughness: 0.4, clearcoat: 0.6, envMap: env, envMapIntensity: 0.4 }));
+  const lips = new THREE.Mesh(new THREE.TorusGeometry(0.019, 0.009, 10, 24), new THREE.MeshPhysicalMaterial({ color: palette.lips, roughness: 0.6, envMap: env, envMapIntensity: 0.2 }));
   const opening = new THREE.Mesh(new THREE.CircleGeometry(0.018, 20), new THREE.MeshStandardMaterial({ color: "#2a0d08", roughness: 0.9 }));
   opening.position.z = 0.002;
   lips.name = "lips";
@@ -370,7 +370,7 @@ export function makeFish(fish: Fish, env: THREE.Texture, textures: FishTextures)
   const irisMaterial = new THREE.MeshPhysicalMaterial({ map: own.iris, metalness: 0.25, roughness: 0.4, envMap: env, envMapIntensity: 0.6 });
   const pupilMaterial = new THREE.MeshPhysicalMaterial({ color: "#020203", roughness: 0.15, envMap: env });
   const corneaMaterial = new THREE.MeshPhysicalMaterial({ color: "#ffffff", transparent: true, opacity: 0.18, roughness: 0, clearcoat: 1, envMap: env, envMapIntensity: 2, depthWrite: false });
-  const stalkMaterial = new THREE.MeshPhysicalMaterial({ color: palette.flank, roughness: 0.4, sheen: 0.8, sheenColor: new THREE.Color("#4a4a58"), envMap: env, envMapIntensity: 0.4 });
+  const stalkMaterial = new THREE.MeshPhysicalMaterial({ color: palette.flank, roughness: 0.6, sheen: 0.8, sheenColor: new THREE.Color("#4a4a58"), envMap: env, envMapIntensity: 0.2 });
   const { u: eu, phi: ephi, r } = shape.eye;
   for (const side of [-1, 1]) {
     const surface = bodyPoint(shape, eu, side * ephi);
@@ -403,7 +403,7 @@ export function makeFish(fish: Fish, env: THREE.Texture, textures: FishTextures)
 
   const finMaterial = new THREE.MeshPhysicalMaterial({
     vertexColors: true, transparent: true, map: textures.fin, roughness: 0.42, side: THREE.DoubleSide, depthWrite: false,
-    envMap: env, envMapIntensity: 0.35, sheen: 0.3, sheenColor: new THREE.Color("#ffffff"),
+    envMap: env, envMapIntensity: 0.2, sheen: 0.1, sheenColor: new THREE.Color("#ffffff"),
   });
   const fins: FinView[] = finSpecs(fish.kind, shape).map(spec => {
     const geometry = finGeometry(spec, palette);
