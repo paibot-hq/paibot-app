@@ -4,8 +4,10 @@ import { env } from "cloudflare:workers";
 //
 // Tools that make requests to other sites on a visitor's behalf are limited
 // per client IP (TOOL_RATE_LIMIT in wrangler.jsonc: 10 a minute per tool), so
-// the site cannot be scripted into a relay that floods someone else.
-export type LimitedTool = "site-check" | "domain";
+// the site cannot be scripted into a relay that floods someone else; so are
+// tools that keep what visitors send (the reaction test's shared results), so
+// a script cannot flood them.
+export type LimitedTool = "site-check" | "domain" | "reaction";
 
 export async function withinToolLimit(request: Request, tool: LimitedTool): Promise<boolean> {
   const ip = request.headers.get("cf-connecting-ip") ?? "unknown";

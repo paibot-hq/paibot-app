@@ -85,6 +85,13 @@
       "when": 1790761056854,
       "tag": "20260930093736_move_legacy_math_attempts",
       "breakpoints": true
+    },
+    {
+      "idx": 12,
+      "version": "6",
+      "when": 1792367524860,
+      "tag": "20261018235204_add_reaction_results",
+      "breakpoints": true
     }
   ]
 }
