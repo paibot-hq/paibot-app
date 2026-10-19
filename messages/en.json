@@ -1691,6 +1691,24 @@
       "warning": "Wild includes flashing and inverting the whole picture. Take care if you are sensitive to flashing light (flashes are kept to three a second and inversions to one).",
       "hint": "On Random, both the scenes and how long they last are left to chance. Each scene has its sound: snow hisses, colour waves swoop, the mosaic bleeps, a flash thumps, the test card beeps, data rain patters, and the scope plays the very wave it shows. Sometimes there is silence. Inversion and scan lines are only available when wild."
     },
+    "randomVideo": {
+      "title": "Random Video",
+      "description": "Each press plays a random YouTube video: songs, film trailers, TV episodes, games, talks and more, picked from about 90,000 listed on Wikidata, so you meet videos you never knew.",
+      "about": "A page that plays random YouTube videos, one at a time, from about 90,000 listed on Wikidata (a sister project of Wikipedia). Meet music and films you have never seen.",
+      "keywords": "random video youtube shuffle surprise music video discover wikidata free",
+      "intro": "Each press plays a video from somewhere. What comes up is a surprise.",
+      "start": "Play a random video",
+      "next": "Next video",
+      "loading": "Finding one…",
+      "auto": "Play the next when it ends",
+      "onYoutube": "Watch on YouTube",
+      "onWikidata": "See on Wikidata",
+      "wikidataFailed": "The list of videos could not be loaded.",
+      "playerFailed": "The YouTube player could not be loaded.",
+      "retry": "Try again",
+      "skipped": "{count, plural, one {# video} other {# videos}} that cannot be played here (removed, or not allowed to be embedded) skipped.",
+      "hint": "The videos come from the items on Wikidata that have a YouTube video ID (about 90,000), and the names and descriptions are Wikidata's. The videos themselves are on YouTube; this site has not chosen or checked them. On a phone, press play to start the first one."
+    },
     "noise": {
       "title": "Noise Generator",
       "description": "See the noise used in graphics and games as an image: Perlin, simplex, Worley, value and white noise. Change the scale, octaves and seed to compare them, colour them as terrain or heat, and save a PNG. The same noise can also be played as a sound.",
