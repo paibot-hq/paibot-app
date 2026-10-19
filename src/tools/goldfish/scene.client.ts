@@ -146,7 +146,7 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  renderer.toneMappingExposure = 1.05;
+  renderer.toneMappingExposure = 0.85;
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   container.appendChild(renderer.domElement);
@@ -166,7 +166,7 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   // A room in daylight whatever the site's theme (the bowl is a thing in a room, not part of the page), dimmed at night.
   let night = options.night;
   const paintWall = () => {
-    const [top, bottom] = night ? ["#1b2a44", "#0a111d"] : ["#f3efe9", "#ddd5c9"];
+    const [top, bottom] = night ? ["#1b2a44", "#0a111d"] : ["#dcd6cc", "#c4bcaf"];
     const ctx = wallCanvas.getContext("2d")!;
     const gradient = ctx.createLinearGradient(0, 0, 0, 256);
     gradient.addColorStop(0, top);
@@ -226,7 +226,7 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   // The table: a plain, light top (the bowl is about 24 cm across, so this is about 1.1 m by 70 cm and 2.5 cm thick), the
   // bowl towards its front edge; and the bowl's shadow on it.
   const TABLE_W = 9, TABLE_D = 6, TABLE_T = 0.2;
-  const tableMaterial = new THREE.MeshPhysicalMaterial({ color: "#e8e5df", roughness: 0.6, clearcoat: 0.15, clearcoatRoughness: 0.5, envMap: env, envMapIntensity: 0.25 });
+  const tableMaterial = new THREE.MeshPhysicalMaterial({ color: "#d8d3cb", roughness: 0.6, clearcoat: 0.15, clearcoatRoughness: 0.5, envMap: env, envMapIntensity: 0.25 });
   const table = new THREE.Mesh(new THREE.BoxGeometry(TABLE_W, TABLE_T, TABLE_D), tableMaterial);
   table.position.set(0, BASE_Y - TABLE_T / 2 - 0.002, -TABLE_D / 2 + 1.7);
   table.receiveShadow = true;
@@ -420,14 +420,14 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   const setNight = (value: boolean) => {
     night = value;
     paintWall();
-    hemisphere.intensity = night ? 0.14 : 1.0;
+    hemisphere.intensity = night ? 0.14 : 0.8;
     // The light probe lights the table too (it is a bright room): dimmed with the room at night.
     tableMaterial.envMapIntensity = night ? 0.03 : 0.25;
-    sun.intensity = night ? 0.05 : 1.3;
+    sun.intensity = night ? 0.05 : 1.0;
     lamp.intensity = night ? 1.5 : 0;
     spot.intensity = night ? 30 : 40;
     spot.color.set(night ? "#cfe6ff" : "#fff3e2");
-    renderer.toneMappingExposure = night ? 1.2 : 1.05;
+    renderer.toneMappingExposure = night ? 1.2 : 0.85;
   };
   setNight(options.night);
 
