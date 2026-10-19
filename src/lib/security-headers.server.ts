@@ -55,6 +55,8 @@ export function buildContentSecurityPolicy(nonce?: string): string {
       "https://*.googleadservices.com",
       // The Japan Meteorological Agency's earthquake list and reports, read by the quake page (https://www.jma.go.jp allows any origin).
       "https://www.jma.go.jp",
+      // Wikidata's query service, asked by the random video page for videos to play (it allows any origin).
+      "https://query.wikidata.org",
       ...(clerkHost ? [clerkHost] : []),
     ],
     "default-src": ["'self'"],
@@ -68,6 +70,9 @@ export function buildContentSecurityPolicy(nonce?: string): string {
       "https://*.protect.clerk.com",
       // The TradingView widgets of the stocks page, shown in a frame only after the visitor asks for them.
       "https://www.tradingview-widget.com",
+      // The YouTube player of the random video page (the cookie-less host), loaded only after the visitor asks for a video.
+      "https://www.youtube-nocookie.com",
+      "https://www.youtube.com",
       // Google AdSense ad frames and ad-quality frames (see connect-src).
       "https://*.adtrafficquality.google",
       "https://*.googlesyndication.com",

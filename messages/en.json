@@ -1111,6 +1111,173 @@
       "nth": "Try {n}",
       "progress": "{done} of {round} tries done"
     },
+    "iqTest": {
+      "title": "IQ Test",
+      "description": "Sixteen 3 x 3 puzzles in ten minutes, of four kinds (figures, figures inside figures, lines and dots), test how well you see the rules in patterns. Your score is placed among everyone who took it here, as an IQ estimate and a top percentage you can share.",
+      "about": "Solve sixteen 3 x 3 figure puzzles in the manner of Raven's matrices; the number right is placed among everyone's scores here as an IQ estimate and a rank. The puzzles are made anew by a program each time, so you can take it again and again.",
+      "keywords": "iq test iq intelligence test figure puzzles matrix reasoning raven free",
+      "intro": "Choose the figure that belongs in the empty bottom right square of the 3 x 3 grid. {questions} puzzles, {minutes} minutes.",
+      "rule1": "Along each row things change by a rule: the shape, number, size and fill of figures, a figure inside another, lines overlapping, dots moving.",
+      "rule2": "Later puzzles have more of them changing, so they get harder.",
+      "rule3": "Keys 1-8 choose too. Once chosen, you cannot go back.",
+      "start": "Start the test",
+      "question": "Puzzle {n} of {total}",
+      "left": "{time} left",
+      "progress": "{done} of {total} answered",
+      "matrixLabel": "A 3 x 3 figure puzzle, the bottom right square empty",
+      "ask": "Which figure goes in the bottom right?",
+      "choices": "Choices",
+      "choice": "Choice {n}",
+      "scoreOf": "{score} of {total} right",
+      "marks": "Right and wrong, puzzle by puzzle",
+      "markTitle": "Puzzle {n}",
+      "rank": "Top {top}% of {total} tests",
+      "iqNote": "The IQ is an estimate: everyone's scores here placed on the normal curve with mean 100 and standard deviation 15. It is not the IQ of a formal intelligence test.",
+      "fewTakers": "Few people have taken it yet, so the IQ estimate can still move a lot. It comes from the scores here and is not the IQ of a formal intelligence test.",
+      "sending": "Saving your result…",
+      "limited": "Too many results sent. Please wait a moment and try again.",
+      "saveFailed": "Your result could not be saved.",
+      "time": "Time taken {time}",
+      "again": "Take it again",
+      "shareText": "My IQ test result: IQ {iq} (top {top}%), {score} of {total} right",
+      "shareTextPlain": "I got {score} of {total} right on the IQ test",
+      "chartTitle": "Everyone's scores ({total})",
+      "chartLabel": "Bar chart of everyone's scores: {total} tests counted by the number right",
+      "barTitle": "{score} right: {count}",
+      "you": "You {score}",
+      "tableView": "Show as a table",
+      "tableScore": "Right",
+      "tableCount": "Tests",
+      "hint": "The puzzles are made anew by a program each time (no published intelligence test's items are used). Only the number right and the time taken are kept, with no name, to build everyone's distribution."
+    },
+    "personality": {
+      "title": "Personality Test (Big Five)",
+      "description": "Answer twenty statements to see your Big Five, the five traits psychology uses most (extraversion, agreeableness, conscientiousness, emotional stability, openness), where you stand among everyone, and your animal type.",
+      "about": "A personality test of the Big Five, the most widely used model of personality in psychology, with twenty items (the Mini-IPIP). See your five traits, where you stand among everyone who took it, and an animal type for fun.",
+      "keywords": "personality test big five ocean psychology quiz animal type extraversion free",
+      "intro": "Read {count} statements and say how well each describes you, on a scale of five. Think of yourself as you usually are, and go with your first answer. About three minutes.",
+      "start": "Start the test",
+      "taken": "Taken {count, plural, one {# time} other {# times}} so far",
+      "question": "{n} / {total}",
+      "back": "← Back",
+      "progress": "{done} of {total} answered",
+      "scale": {
+        "1": "Very inaccurate",
+        "2": "Moderately inaccurate",
+        "3": "Neither",
+        "4": "Moderately accurate",
+        "5": "Very accurate"
+      },
+      "youAre": "You are a…",
+      "top": "Top {top}% of {total} results",
+      "sending": "Saving your result…",
+      "limited": "Too many results sent. Please wait a moment and try again.",
+      "saveFailed": "Your result could not be saved (you can still see it here).",
+      "animalNote": "The animal type is a bit of fun, from the trait that stands out most; it is not a scientific type. The five numbers (0-100) are your levels, worked out from your twenty answers.",
+      "again": "Take it again",
+      "shareText": "My personality test result: \"{animal}\". Extraversion {extraversion}, agreeableness {agreeableness}, conscientiousness {conscientiousness}, emotional stability {stability}, openness {openness}",
+      "hint": "The statements are the twenty of the Mini-IPIP, from the IPIP (a public-domain pool of personality items). Only the five scores are kept, with no name, to compare with everyone. This is not a medical or clinical assessment.",
+      "items": {
+        "1": "Am the life of the party.",
+        "2": "Sympathize with others' feelings.",
+        "3": "Get chores done right away.",
+        "4": "Have frequent mood swings.",
+        "5": "Have a vivid imagination.",
+        "6": "Don't talk a lot.",
+        "7": "Am not interested in other people's problems.",
+        "8": "Often forget to put things back in their proper place.",
+        "9": "Am relaxed most of the time.",
+        "10": "Am not interested in abstract ideas.",
+        "11": "Talk to a lot of different people at parties.",
+        "12": "Feel others' emotions.",
+        "13": "Like order.",
+        "14": "Get upset easily.",
+        "15": "Have difficulty understanding abstract ideas.",
+        "16": "Keep in the background.",
+        "17": "Am not really interested in others.",
+        "18": "Make a mess of things.",
+        "19": "Seldom feel blue.",
+        "20": "Do not have a good imagination."
+      },
+      "traits": {
+        "extraversion": {
+          "name": "Extraversion",
+          "about": "How much you draw energy from people and lively places",
+          "low": "Likes time alone",
+          "high": "Energized by people"
+        },
+        "agreeableness": {
+          "name": "Agreeableness",
+          "about": "How much you care for others and get along with them",
+          "low": "Holds to own views",
+          "high": "Caring and cooperative"
+        },
+        "conscientiousness": {
+          "name": "Conscientiousness",
+          "about": "How planned and orderly you are in getting things done",
+          "low": "Easygoing and flexible",
+          "high": "Planned and orderly"
+        },
+        "stability": {
+          "name": "Emotional stability",
+          "about": "How calm you stay under stress",
+          "low": "Sensitive and feels deeply",
+          "high": "Calm and steady"
+        },
+        "openness": {
+          "name": "Openness",
+          "about": "How curious you are about new things and imagined worlds",
+          "low": "Practical and grounded",
+          "high": "Curious and imaginative"
+        }
+      },
+      "animals": {
+        "dolphin": {
+          "name": "Lively dolphin",
+          "text": "Energized by people, the heart of the room. You open up quickly, even with strangers, and brighten everyone around you."
+        },
+        "owl": {
+          "name": "Thoughtful owl",
+          "text": "A calm observer who recharges alone. You may say little, but you notice a lot and think things through."
+        },
+        "elephant": {
+          "name": "Caring elephant",
+          "text": "Gentle and attuned to how others feel. People rely on you, and you keep a team's mood warm."
+        },
+        "wolf": {
+          "name": "Lone wolf",
+          "text": "Independent, with your own firm views. You do not go with the crowd, and you say what needs saying."
+        },
+        "beaver": {
+          "name": "Steady beaver",
+          "text": "You plan and build step by step. You keep your promises and deadlines, and people trust you."
+        },
+        "cat": {
+          "name": "Free-spirited cat",
+          "text": "Flexible, moving as the mood takes you. Unbound by rules, you find unexpected paths."
+        },
+        "turtle": {
+          "name": "Calm turtle",
+          "text": "Steady whatever happens. When others panic, your calm puts them at ease."
+        },
+        "rabbit": {
+          "name": "Sensitive rabbit",
+          "text": "You notice the smallest changes and feel deeply. You understand others' pain with a delicate heart."
+        },
+        "fox": {
+          "name": "Curious fox",
+          "text": "Drawn to the new and the strange, full of ideas. Your imagination makes things interesting."
+        },
+        "dog": {
+          "name": "Down-to-earth dog",
+          "text": "You value familiar ways and things close to home. Practical and dependable."
+        },
+        "penguin": {
+          "name": "Balanced penguin",
+          "text": "All five traits near the middle: well balanced. You adapt naturally to whatever the moment needs."
+        }
+      }
+    },
     "timing": {
       "title": "5-Second Click",
       "description": "Click exactly 5 seconds after starting. Track your best timing accuracy.",
@@ -1690,6 +1857,29 @@
       },
       "warning": "Wild includes flashing and inverting the whole picture. Take care if you are sensitive to flashing light (flashes are kept to three a second and inversions to one).",
       "hint": "On Random, both the scenes and how long they last are left to chance. Each scene has its sound: snow hisses, colour waves swoop, the mosaic bleeps, a flash thumps, the test card beeps, data rain patters, and the scope plays the very wave it shows. Sometimes there is silence. Inversion and scan lines are only available when wild."
+    },
+    "randomVideo": {
+      "title": "Random Video",
+      "description": "Each press plays a random YouTube video: songs, film trailers, TV episodes, games, talks and more, picked from about 90,000 listed on Wikidata, so you meet videos you never knew.",
+      "about": "A page that plays random YouTube videos, one at a time, from about 90,000 listed on Wikidata (a sister project of Wikipedia). Meet music and films you have never seen.",
+      "keywords": "random video youtube shuffle surprise music video discover wikidata free keyword search",
+      "intro": "Each press plays a video from somewhere. What comes up is a surprise.",
+      "keyword": "Keyword",
+      "keywordPlaceholder": "Narrow by a keyword (e.g. jazz, cat, Beatles)",
+      "searchButton": "Search",
+      "found": "Playing at random from {count, plural, one {# video} other {# videos}} for \"{keyword}\"",
+      "none": "No videos found for \"{keyword}\". Try another word or another language. With the keyword empty, every video can come up.",
+      "start": "Play a random video",
+      "next": "Next video",
+      "loading": "Finding one…",
+      "auto": "Play the next when it ends",
+      "onYoutube": "Watch on YouTube",
+      "onWikidata": "See on Wikidata",
+      "wikidataFailed": "The list of videos could not be loaded.",
+      "playerFailed": "The YouTube player could not be loaded.",
+      "retry": "Try again",
+      "skipped": "{count, plural, one {# video} other {# videos}} that cannot be played here (removed, or not allowed to be embedded) skipped.",
+      "hint": "The videos come from the items on Wikidata that have a YouTube video ID (about 90,000), and the names and descriptions are Wikidata's. The videos themselves are on YouTube; this site has not chosen or checked them. On a phone, press play to start the first one."
     },
     "noise": {
       "title": "Noise Generator",

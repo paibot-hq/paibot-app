@@ -95,6 +95,39 @@ function NoiseIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function RandomVideoIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="3" y="5" width="18" height="13" rx="3" />
+      <path d="M10 9v5l4.5-2.5z" />
+      <path d="M7 21h10" />
+    </svg>
+  );
+}
+
+function IqTestIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="3" y="3" width="18" height="18" rx="2" />
+      <path d="M9 3v18M15 3v18M3 9h18M3 15h18" />
+      <circle cx="6" cy="6" r="1" />
+      <path d="M11 11h2v2h-2z" />
+    </svg>
+  );
+}
+
+
+function PersonalityIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <circle cx="12" cy="8" r="4" />
+      <path d="M4.5 20c.8-3.6 3.8-6 7.5-6s6.7 2.4 7.5 6" />
+      <path d="M17 4.5l1.5-1.5M19.5 7.5h2" />
+    </svg>
+  );
+}
+
+
 function LifeIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -510,7 +543,7 @@ const APP_ICONS: Record<AppSlug, Icon> = {
   json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon,
   wc: WcIcon, password: PasswordIcon, "mosaic": MosaicIcon, stopwatch: StopwatchIcon, "business-card": CardIcon,
   ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
-  dice: DiceIcon, reaction: ReactionIcon, timing: TimingIcon, pinball: PinballIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "metadata": MetadataIcon, govfaq: GovFaqIcon, "approx": ApproxIcon, "warnings": WarningsIcon, "quake": QuakeIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, glitch: GlitchIcon, noise: NoiseIcon, fireworks: FireworksIcon, puchi: PuchiIcon, "crane-game": CraneGameIcon, "fruit-merge": FruitMergeIcon,
+  dice: DiceIcon, reaction: ReactionIcon, "iq-test": IqTestIcon, personality: PersonalityIcon, timing: TimingIcon, pinball: PinballIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "metadata": MetadataIcon, govfaq: GovFaqIcon, "approx": ApproxIcon, "warnings": WarningsIcon, "quake": QuakeIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, glitch: GlitchIcon, "random-video": RandomVideoIcon, noise: NoiseIcon, fireworks: FireworksIcon, puchi: PuchiIcon, "crane-game": CraneGameIcon, "fruit-merge": FruitMergeIcon,
   tax: TaxIcon, split: SplitIcon, "unit-converter": UnitConverterIcon, "date-calc": DateCalcIcon, pomodoro: PomodoroIcon, roulette: RouletteIcon, strings: StringsIcon,
   calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, diary: WcIcon, age: AgeIcon, breaches: BreachesIcon, omikuji: OmikujiIcon, "birthday-fortune": BirthdayFortuneIcon,
 };
