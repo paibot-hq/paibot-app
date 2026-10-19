@@ -33,10 +33,10 @@ export default function GoldfishBowl() {
     const saved = load();
     setNight(saved.night);
     void (async () => {
-      const { createAquarium, loadFishTextures, webglAvailable } = await import("./scene.client");
+      const { createAquarium, loadTextures, webglAvailable } = await import("./scene.client");
       if (cancelled || !stage.current) return;
       if (!webglAvailable()) { setStatus("unsupported"); return; }
-      const textures = await loadFishTextures();
+      const textures = await loadTextures();
       if (cancelled || !stage.current) return;
       aquarium.current = createAquarium(stage.current, { kinds: saved.kinds, night: saved.night, textures, onStats: setStats });
       setStatus("ready");

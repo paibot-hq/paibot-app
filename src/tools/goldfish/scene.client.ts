@@ -7,7 +7,21 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
 import { BOWL_R, FLOOR_Y, MAX_FOOD, SURFACE_R, WATER_Y, addFish, createWorld, dropFood, random, removeFish, startle, step, type Kind, type World } from "./swim";
 import { makeFish, swimFish, type FishTextures, type FishView } from "./fish-model.client";
-export { loadFishTextures } from "./fish-model.client";
+import { loadFishTextures } from "./fish-model.client";
+
+// The table top: "Oak Veneer 01" by Jenelle van Heerden, Poly Haven (CC0), photographed over 1.83 m; here the bowl is
+// about 24 cm across (its radius of 1 is 12 cm), so the picture spans 15 units.
+const TABLE_TEXTURE_UNITS = 15;
+export type SceneTextures = { fish: FishTextures; table: { colour: THREE.Texture; normal: THREE.Texture } };
+
+// Every picture the scene needs, loaded before it is first drawn.
+export async function loadTextures(base = "/goldfish/"): Promise<SceneTextures> {
+  const loader = new THREE.TextureLoader();
+  const [fish, colour, normal] = await Promise.all([loadFishTextures(base), loader.loadAsync(base + "table-oak.webp"), loader.loadAsync(base + "table-oak-normal.webp")]);
+  colour.colorSpace = THREE.SRGBColorSpace;
+  for (const texture of [colour, normal]) { texture.wrapS = texture.wrapT = THREE.RepeatWrapping; texture.anisotropy = 8; }
+  return { fish, table: { colour, normal } };
+}
 
 export type Stats = { fish: number; food: number; eaten: number; kinds: Kind[] };
 export type Aquarium = {
@@ -88,20 +102,6 @@ function rippleTexture(): THREE.CanvasTexture {
   return texture;
 }
 
-// The surface the bowl stands on fades out far from the bowl (as an alphaMap), into the wall behind: no edge, no horizon.
-function fadeTexture(): THREE.CanvasTexture {
-  const canvas = document.createElement("canvas");
-  canvas.width = canvas.height = 256;
-  const ctx = canvas.getContext("2d")!;
-  const gradient = ctx.createRadialGradient(128, 128, 30, 128, 128, 128);
-  gradient.addColorStop(0, "#ffffff");
-  gradient.addColorStop(0.55, "#ffffff");
-  gradient.addColorStop(1, "#000000");
-  ctx.fillStyle = gradient;
-  ctx.fillRect(0, 0, 256, 256);
-  return new THREE.CanvasTexture(canvas);
-}
-
 const thetaAt = (y: number) => Math.acos(THREE.MathUtils.clamp(y / BOWL_R, -1, 1));
 
 // A soft round shadow under the bowl.
@@ -144,7 +144,7 @@ function drawCaustics(ctx: CanvasRenderingContext2D, image: ImageData, time: num
 // A ring spreading on the water from where something touched it, for `life` seconds (a bubble's are small and brief).
 type Ripple = { x: number; z: number; born: number; strength: number; life: number };
 
-export function createAquarium(container: HTMLElement, options: { kinds: Kind[]; night: boolean; textures: FishTextures; onStats: (stats: Stats) => void; seed?: number }): Aquarium {
+export function createAquarium(container: HTMLElement, options: { kinds: Kind[]; night: boolean; textures: SceneTextures; onStats: (stats: Stats) => void; seed?: number }): Aquarium {
   const next = random(options.seed ?? (Math.random() * 2 ** 32) >>> 0);
   const world: World = createWorld();
   for (const kind of options.kinds) addFish(world, kind, next);
@@ -170,14 +170,10 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   const wall = new THREE.CanvasTexture(wallCanvas);
   wall.colorSpace = THREE.SRGBColorSpace;
   scene.background = wall;
+  // A room in daylight whatever the site's theme (the bowl is a thing in a room, not part of the page), dimmed at night.
   let night = options.night;
-  // The surface the bowl stands on is plain, in the colour of the wall it runs into (as in a photographer's studio), so
-  // the bowl's shadow and the light through the water show on it.
-  let floorMaterial: THREE.MeshStandardMaterial | null = null;
   const paintWall = () => {
-    const dark = document.documentElement.dataset.theme === "dark";
-    const [top, bottom, floor] = night ? ["#1b2a44", "#0a111d", "#101a2b"] : dark ? ["#3a3f48", "#23272e", "#2c3038"] : ["#f3efe9", "#e4ddd2", "#d4cdc2"];
-    floorMaterial?.color.set(floor);
+    const [top, bottom] = night ? ["#1b2a44", "#0a111d"] : ["#f3efe9", "#ddd5c9"];
     const ctx = wallCanvas.getContext("2d")!;
     const gradient = ctx.createLinearGradient(0, 0, 0, 256);
     gradient.addColorStop(0, top);
@@ -187,8 +183,6 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
     wall.needsUpdate = true;
   };
   paintWall();
-  const themeWatcher = new MutationObserver(paintWall);
-  themeWatcher.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   const pmrem = new THREE.PMREMGenerator(renderer);
   const room = new RoomEnvironment();
   const env = pmrem.fromScene(room, 0.04).texture;
@@ -236,13 +230,17 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   spot.shadow.camera.far = 7;
   scene.add(spot, spot.target);
 
-  // The table and the bowl's shadow on it.
-  const fade = fadeTexture();
-  floorMaterial = new THREE.MeshStandardMaterial({ alphaMap: fade, transparent: true, roughness: 0.9, depthWrite: true });
-  const table = new THREE.Mesh(new THREE.PlaneGeometry(9, 9), floorMaterial);
-  paintWall();
-  table.rotation.x = -Math.PI / 2;
-  table.position.y = BASE_Y - 0.002;
+  // The table: a varnished oak top about 1.1 m by 70 cm and 2.5 cm thick, the bowl towards its front edge; and the bowl's
+  // shadow on it.
+  const TABLE_W = 9, TABLE_D = 6, TABLE_T = 0.2;
+  const { colour: oak, normal: oakNormal } = options.textures.table;
+  oak.repeat.set(TABLE_W / TABLE_TEXTURE_UNITS, TABLE_D / TABLE_TEXTURE_UNITS);
+  oakNormal.repeat.copy(oak.repeat);
+  const table = new THREE.Mesh(
+    new THREE.BoxGeometry(TABLE_W, TABLE_T, TABLE_D),
+    new THREE.MeshPhysicalMaterial({ map: oak, normalMap: oakNormal, normalScale: new THREE.Vector2(0.4, 0.4), roughness: 0.5, clearcoat: 0.3, clearcoatRoughness: 0.35, envMap: env, envMapIntensity: 0.3 }),
+  );
+  table.position.set(0, BASE_Y - TABLE_T / 2 - 0.002, -TABLE_D / 2 + 1.7);
   table.receiveShadow = true;
   const shadow = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 2.4), new THREE.MeshBasicMaterial({ map: shadowTexture(), transparent: true, depthWrite: false }));
   shadow.rotation.x = -Math.PI / 2;
@@ -425,7 +423,7 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   const textures = options.textures;
   const views = new Map<number, FishView>();
   const sync = () => {
-    for (const fish of world.fish) if (!views.has(fish.id)) { const view = makeFish(fish, env, textures); views.set(fish.id, view); scene.add(view.group); }
+    for (const fish of world.fish) if (!views.has(fish.id)) { const view = makeFish(fish, env, textures.fish); views.set(fish.id, view); scene.add(view.group); }
     for (const [id, view] of views) if (!world.fish.includes(view.fish)) { scene.remove(view.group); disposeObject(view.group); views.delete(id); }
   };
   sync();
@@ -434,7 +432,7 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   const setNight = (value: boolean) => {
     night = value;
     paintWall();
-    hemisphere.intensity = night ? 0.1 : 1.0;
+    hemisphere.intensity = night ? 0.3 : 1.0;
     sun.intensity = night ? 0.05 : 1.3;
     lamp.intensity = night ? 1.5 : 0;
     spot.intensity = night ? 30 : 40;
@@ -622,10 +620,10 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
       ripples1.dispose();
       ripples2.dispose();
       wall.dispose();
-      themeWatcher.disconnect();
-      fade.dispose();
-      textures.fin.dispose();
-      Object.values(textures.kinds).forEach(own => Object.values(own).forEach(texture => texture.dispose()));
+      textures.fish.fin.dispose();
+      Object.values(textures.fish.kinds).forEach(own => Object.values(own).forEach(texture => texture.dispose()));
+      oak.dispose();
+      oakNormal.dispose();
       void audio?.close();
       renderer.dispose();
       renderer.domElement.remove();
