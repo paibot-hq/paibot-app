@@ -92,3 +92,12 @@ export const reactionResults = sqliteTable("reaction_results", {
   ms: integer("ms").notNull(),
   createdAt: text("created_at").notNull().default(sql`(datetime('now'))`),
 }, table => [index("reaction_results_ms_idx").on(table.ms)]);
+
+// The IQ test's results (src/tools/iq-test): how many of the sixteen puzzles were right and in how many seconds, kept
+// with no name, account or address, so that a new score can be placed among everyone's (its IQ, rank and the chart).
+export const iqResults = sqliteTable("iq_results", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
+  score: integer("score").notNull(),
+  seconds: integer("seconds").notNull(),
+  createdAt: text("created_at").notNull().default(sql`(datetime('now'))`),
+}, table => [index("iq_results_score_idx").on(table.score)]);

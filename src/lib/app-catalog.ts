@@ -69,6 +69,7 @@ export const APP_CATALOG = [
   // ゲーム / Game
   { slug: "dice", href: "/dice", category: "game", status: "published", messageKey: "dice" },
   { slug: "reaction", href: "/reaction", category: "game", status: "published", messageKey: "reaction" },
+  { slug: "iq-test", href: "/iq-test", category: "game", status: "published", messageKey: "iqTest" },
   { slug: "timing", href: "/timing", category: "game", status: "published", messageKey: "timing" },
   { slug: "pinball", href: "/pinball", category: "game", status: "published", messageKey: "pinball" },
   { slug: "strings", href: "/strings", category: "game", status: "published", messageKey: "strings" },

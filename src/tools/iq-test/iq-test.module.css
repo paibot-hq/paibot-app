@@ -1,0 +1,80 @@
+.intro, .result { display: grid; gap: 1rem; justify-items: center; width: min(640px, 100%); margin: 0 auto; }
+.lead { margin: 0; color: var(--text); line-height: 1.7; text-align: center; }
+.rules { margin: 0; padding-left: 1.2rem; color: var(--muted); font-size: .9rem; line-height: 1.8; justify-self: stretch; }
+/* The robot's blue, as on the reaction test: the dark theme's accent is too pale for white text. */
+.start {
+  padding: .8rem 2.4rem;
+  border: 0;
+  border-radius: 999px;
+  background: #3f7cb0;
+  color: #fff;
+  font: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #2c5a82, 0 12px 20px -10px rgb(0 0 0 / .4);
+  transition: transform .06s ease-out;
+}
+.start:active { transform: translateY(4px); box-shadow: 0 2px 0 #2c5a82; }
+
+.test { width: min(560px, 100%); margin: 0 auto; }
+.status { display: flex; justify-content: space-between; color: var(--muted); font-size: .9rem; font-variant-numeric: tabular-nums; }
+.hurry { color: var(--error); font-weight: 700; }
+.progress { width: 100%; height: 6px; margin: .4rem 0 1rem; accent-color: var(--accent); }
+/* The puzzle is white in both themes, so its greys mean the same everywhere. */
+.matrix {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 4px;
+  width: min(360px, 100%);
+  margin: 0 auto;
+  padding: 4px;
+  border-radius: 10px;
+  background: #222;
+}
+.cell { display: grid; place-items: center; aspect-ratio: 1; background: #fff; border-radius: 6px; }
+.cell svg, .choice svg { display: block; width: 100%; height: 100%; }
+.missing { color: #222; font-size: 2.4rem; font-weight: 700; background: repeating-linear-gradient(45deg, #fff 0 8px, #f1f1f1 8px 16px); }
+.ask { margin: 1rem 0 .5rem; color: var(--muted); font-size: .9rem; text-align: center; }
+.choices { display: grid; grid-template-columns: repeat(4, 1fr); gap: .5rem; }
+.choice {
+  position: relative;
+  aspect-ratio: 1;
+  padding: 0;
+  border: 2px solid var(--line);
+  border-radius: 10px;
+  background: #fff;
+  cursor: pointer;
+  transition: transform .06s ease-out, border-color .1s;
+}
+.choice:hover { border-color: var(--accent); }
+.choice:active { transform: scale(.96); }
+.choice:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.number { position: absolute; top: 3px; left: 6px; color: #777; font-size: .75rem; font-weight: 700; }
+
+.score { margin: 0; color: var(--text); font-size: 1.15rem; font-weight: 700; }
+.marks { display: flex; flex-wrap: wrap; justify-content: center; gap: .25rem; margin: 0; padding: 0; list-style: none; }
+.marks li { width: 1.6rem; height: 1.6rem; display: grid; place-items: center; border-radius: 50%; background: color-mix(in srgb, var(--error) 15%, transparent); color: var(--error); font-size: .85rem; font-weight: 700; }
+.marks li[data-right] { background: color-mix(in srgb, var(--success) 15%, transparent); color: var(--success); }
+.iq { margin: .2rem 0 0; color: var(--text); font-size: 3.2rem; font-weight: 800; line-height: 1; font-variant-numeric: tabular-nums; }
+.iq span { margin-right: .3rem; color: var(--muted); font-size: 1.2rem; font-weight: 700; vertical-align: .6em; }
+.rank { margin: 0; color: var(--text); font-weight: 700; }
+.note { width: min(640px, 100%); margin: .6rem auto 0; color: var(--muted); font-size: .85rem; line-height: 1.6; text-align: center; }
+
+.chart { width: min(600px, 100%); margin: .5rem auto 0; }
+.chartTitle { margin-bottom: .4rem; color: var(--text); font-size: .95rem; font-weight: 700; text-align: center; }
+.chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+.axis { stroke: var(--line); stroke-width: 1; }
+.bar { fill: color-mix(in srgb, var(--accent) 38%, var(--surface)); }
+.barMine { fill: var(--accent); }
+.hit { fill: transparent; }
+.barGroup:hover .bar, .barGroup:hover .barMine { fill: var(--accent); }
+.barGroup:hover .hit { fill: color-mix(in srgb, var(--accent) 8%, transparent); }
+.tick { fill: var(--muted); font-size: 15px; font-variant-numeric: tabular-nums; }
+.you line { stroke: var(--text); stroke-width: 1.5; stroke-dasharray: 3 3; }
+.you text { fill: var(--text); font-size: 16px; font-weight: 700; }
+.table { margin-top: .5rem; color: var(--muted); font-size: .85rem; }
+.table summary { cursor: pointer; text-align: center; }
+.table table { margin: .5rem auto 0; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.table th, .table td { padding: .2rem .8rem; border-bottom: 1px solid var(--line); text-align: right; }
+.table tr[data-mine] td { color: var(--text); font-weight: 700; }
