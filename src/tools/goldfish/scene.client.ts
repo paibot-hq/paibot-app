@@ -170,7 +170,8 @@ function drawCaustics(ctx: CanvasRenderingContext2D, image: ImageData, time: num
   ctx.putImageData(image, 0, 0);
 }
 
-type Ripple = { x: number; z: number; born: number; strength: number };
+// A ring spreading on the water from where something touched it, for `life` seconds (a bubble's are small and brief).
+type Ripple = { x: number; z: number; born: number; strength: number; life: number };
 
 export function createAquarium(container: HTMLElement, options: { kinds: Kind[]; night: boolean; textures: FishTextures; onStats: (stats: Stats) => void; seed?: number }): Aquarium {
   const next = random(options.seed ?? (Math.random() * 2 ** 32) >>> 0);
@@ -337,7 +338,13 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   const BUBBLES = 36;
   const bubbleMesh = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 12, 8), new THREE.MeshPhysicalMaterial({ color: "#ffffff", transparent: true, opacity: 0.55, roughness: 0, envMap: env, envMapIntensity: 1.5, depthWrite: false }), BUBBLES);
   bubbleMesh.renderOrder = 3;
-  const bubbles = Array.from({ length: BUBBLES }, (_, i) => ({ y: stonePos.y + (i / BUBBLES) * (WATER_Y - stonePos.y), size: 0.007 + next() * 0.012, wobble: next() * 6, speed: 0.25 + next() * 0.2 }));
+  // A bubble rises from the stone, wobbling; at the surface it floats a moment, half out of the water and riding its
+  // waves, drifting a little, then bursts. It makes a small ring where it comes up and another where it bursts.
+  type Bubble = { x: number; y: number; z: number; size: number; wobble: number; speed: number; floating: number; drift: number };
+  const bubbles: Bubble[] = Array.from({ length: BUBBLES }, (_, i) => ({
+    x: stonePos.x, z: stonePos.z, y: stonePos.y + (i / BUBBLES) * (WATER_Y - stonePos.y),
+    size: 0.007 + next() * 0.012, wobble: next() * 6, speed: 0.25 + next() * 0.2, floating: -1, drift: next() * Math.PI * 2,
+  }));
   scene.add(bubbleMesh);
 
   // Food pellets.
@@ -492,7 +499,17 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
       }
     } catch { /* no sound */ }
   };
-  const addRipple = (x: number, z: number, strength = 1) => { ripples.push({ x, z, born: world.time, strength }); if (ripples.length > 14) ripples.shift(); };
+  const addRipple = (x: number, z: number, strength = 1, life = 4) => { ripples.push({ x, z, born: world.time, strength, life }); if (ripples.length > 32) ripples.shift(); };
+  // The height of the water at (x, z) now: gentle waves and the rings spreading on it. The surface's mesh is moved by it,
+  // and what floats (bubbles, food) rides it.
+  const surfaceHeight = (x: number, z: number, time: number) => {
+    let h = Math.sin(x * 7 + time * 1.3) * 0.0035 + Math.sin(z * 9 - time * 1.1) * 0.003;
+    for (const ripple of ripples) {
+      const age = time - ripple.born, d = Math.hypot(x - ripple.x, z - ripple.z), front = age * 0.45;
+      if (d < front + 0.05) h += Math.sin((d - front) * 45) * 0.012 * ripple.strength * Math.exp(-age * (4.8 / ripple.life)) * Math.exp(-Math.abs(d - front) * 8);
+    }
+    return WATER_Y + h;
+  };
   const feedAt = (x: number, z: number) => { dropFood(world, x, z, 3 + Math.floor(next() * 3), next); addRipple(x, z, 1); };
 
   let down: { x: number; y: number } | null = null;
@@ -555,19 +572,35 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
     }
 
     bubbles.forEach((bubble, i) => {
-      bubble.y += bubble.speed * dt;
-      if (bubble.y > WATER_Y - 0.01) { bubble.y = stonePos.y + 0.02; if (next() < 0.25) addRipple(stonePos.x, stonePos.z, 0.15); }
-      const rise = (bubble.y - stonePos.y) / (WATER_Y - stonePos.y);
-      p.set(stonePos.x + Math.sin(time * 3 + bubble.wobble) * 0.012 * (1 + rise * 2), bubble.y, stonePos.z + Math.cos(time * 2.6 + bubble.wobble) * 0.012 * (1 + rise * 2));
-      s.setScalar(bubble.size * (0.7 + rise * 0.6));
+      const top = surfaceHeight(bubble.x, bubble.z, time);
+      if (bubble.floating < 0) {
+        bubble.y += bubble.speed * dt;
+        const rise = (bubble.y - stonePos.y) / (WATER_Y - stonePos.y);
+        bubble.x = stonePos.x + Math.sin(time * 3 + bubble.wobble) * 0.012 * (1 + rise * 2);
+        bubble.z = stonePos.z + Math.cos(time * 2.6 + bubble.wobble) * 0.012 * (1 + rise * 2);
+        if (bubble.y >= top - bubble.size * 0.4) { bubble.floating = 0.6 + next() * 1.8; addRipple(bubble.x, bubble.z, 0.12, 1.2); }
+        p.set(bubble.x, bubble.y, bubble.z);
+        s.setScalar(bubble.size * (0.7 + rise * 0.6));
+      } else {
+        bubble.floating -= dt;
+        bubble.x += Math.cos(bubble.drift) * 0.015 * dt;
+        bubble.z += Math.sin(bubble.drift) * 0.015 * dt;
+        if (bubble.floating <= 0) {
+          addRipple(bubble.x, bubble.z, 0.25, 1.5);
+          Object.assign(bubble, { x: stonePos.x, z: stonePos.z, y: stonePos.y + 0.02, floating: -1, drift: next() * Math.PI * 2 });
+        }
+        // Half out of the water, a little flattened, riding the waves.
+        p.set(bubble.x, top - bubble.size * 0.25, bubble.z);
+        s.set(bubble.size * 1.3, bubble.size * 0.95, bubble.size * 1.3);
+      }
       bubbleMesh.setMatrixAt(i, bubbleMatrix.compose(p, q.identity(), s));
     });
     bubbleMesh.instanceMatrix.needsUpdate = true;
 
     foodMesh.count = world.food.length;
     world.food.forEach((food, i) => {
-      const bob = food.floatFor > 0 ? Math.sin(time * 4 + food.id) * 0.004 : 0;
-      p.set(food.pos.x, food.pos.y + bob, food.pos.z);
+      // Floating food rides the waves; sinking food is in the water.
+      p.set(food.pos.x, food.floatFor > 0 ? surfaceHeight(food.pos.x, food.pos.z, time) - 0.004 : food.pos.y, food.pos.z);
       s.setScalar(0.013);
       foodMesh.setMatrixAt(i, foodMatrix.compose(p, q.identity(), s));
     });
@@ -576,16 +609,8 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
     // The surface: gentle waves, and rings spreading from where food fell or the glass was tapped.
     const position = surfaceGeometry.getAttribute("position") as THREE.BufferAttribute;
     const array = position.array as Float32Array;
-    while (ripples.length && time - ripples[0].born > 4) ripples.shift();
-    for (let i = 0; i < position.count; i++) {
-      const x = surfaceBase[i * 3], z = surfaceBase[i * 3 + 2];
-      let h = Math.sin(x * 7 + time * 1.3) * 0.0035 + Math.sin(z * 9 - time * 1.1) * 0.003;
-      for (const ripple of ripples) {
-        const age = time - ripple.born, d = Math.hypot(x - ripple.x, z - ripple.z), front = age * 0.45;
-        if (d < front + 0.05) h += Math.sin((d - front) * 45) * 0.012 * ripple.strength * Math.exp(-age * 1.2) * Math.exp(-Math.abs(d - front) * 8);
-      }
-      array[i * 3 + 1] = WATER_Y + h;
-    }
+    for (let k = ripples.length - 1; k >= 0; k--) if (time - ripples[k].born > ripples[k].life) ripples.splice(k, 1);
+    for (let i = 0; i < position.count; i++) array[i * 3 + 1] = surfaceHeight(surfaceBase[i * 3], surfaceBase[i * 3 + 2], time);
     position.needsUpdate = true;
     surfaceGeometry.computeVertexNormals();
     if (++causticFrame % 2 === 0) { drawCaustics(causticCtx, causticImage, time); caustics.needsUpdate = true; }
