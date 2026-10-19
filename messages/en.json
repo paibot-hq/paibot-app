@@ -2133,6 +2133,27 @@
       "toBattle": "Battle with this top",
       "rebuild": "Change the shape"
     },
+    "numberMerge": {
+      "title": "Number Merge (2048-style puzzle)",
+      "description": "A number puzzle: slide the tiles and join two of the same number into one of double, 2, 4, 8 ... and aim for 2048. Arrow keys or swipes, with an undo, and your best score kept on this device.",
+      "about": "A puzzle game where matching tiles join into one of double the number, aiming for 2048. Slide every tile one way with the arrow keys or a swipe. There is an undo for the last move.",
+      "keywords": "number puzzle 2048 merge slide game free",
+      "intro": "When two tiles of the same number meet, they join into one with double the number. Make {goal}.",
+      "score": "Score",
+      "best": "Best",
+      "undo": "Undo",
+      "restart": "New game",
+      "boardLabel": "The board of number tiles. Join matching numbers to reach {goal}",
+      "won": "You made {goal}!",
+      "overWon": "You reached {goal}. Game over",
+      "over": "Game over",
+      "finalScore": "Score {score}",
+      "keepGoing": "Keep going",
+      "again": "Play again",
+      "shareText": "I scored {score} in Number Merge, with a biggest tile of {tile}",
+      "controls": "Slide every tile with the arrow keys (or W A S D) or a swipe. The game ends when no move is left.",
+      "hint": "A joined tile's number is added to your score. Keep your biggest tile in a corner and gather the small ones towards it."
+    },
     "craneGame": {
       "title": "Claw Machine",
       "description": "A claw machine you play with two buttons: move the claw, grab a prize and carry it to the chute. Collect all ten plush toys. Free, no sign-up.",
