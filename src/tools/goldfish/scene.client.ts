@@ -88,6 +88,36 @@ function woodTexture(): THREE.CanvasTexture {
   return texture;
 }
 
+// Small ripples on the water, as a normal map that tiles (whole numbers of waves across it): drawn once, then slid over
+// the surface two ways at once, so the reflections shimmer rather than slide.
+function rippleTexture(): THREE.CanvasTexture {
+  const size = 256, canvas = document.createElement("canvas");
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext("2d")!;
+  const image = ctx.createImageData(size, size);
+  const next = random(23);
+  const waves = Array.from({ length: 9 }, () => ({ fx: Math.round(next() * 10 - 5), fy: Math.round(next() * 10 - 5) || 3, phase: next() * 6.3, amp: 0.4 + next() * 0.6 }));
+  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) {
+    let dx = 0, dy = 0;
+    for (const w of waves) {
+      const a = ((w.fx * x + w.fy * y) / size) * Math.PI * 2 + w.phase;
+      const slope = Math.cos(a) * w.amp;
+      dx += slope * w.fx;
+      dy += slope * w.fy;
+    }
+    const n = new THREE.Vector3(-dx * 0.05, -dy * 0.05, 1).normalize();
+    const i = (y * size + x) * 4;
+    image.data[i] = (n.x * 0.5 + 0.5) * 255;
+    image.data[i + 1] = (n.y * 0.5 + 0.5) * 255;
+    image.data[i + 2] = (n.z * 0.5 + 0.5) * 255;
+    image.data[i + 3] = 255;
+  }
+  ctx.putImageData(image, 0, 0);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+  return texture;
+}
+
 function fadeTexture(): THREE.CanvasTexture {
   const canvas = document.createElement("canvas");
   canvas.width = canvas.height = 256;
@@ -333,16 +363,34 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   surfaceGeometry.rotateX(-Math.PI / 2);
   surfaceGeometry.translate(0, WATER_Y, 0);
   const surfaceBase = Float32Array.from(surfaceGeometry.getAttribute("position").array as Float32Array);
-  const surface = new THREE.Mesh(surfaceGeometry, new THREE.MeshPhysicalMaterial({ color: "#a9d9d3", transparent: true, opacity: 0.16, roughness: 0.04, metalness: 0, envMap: env, envMapIntensity: 0.6, side: THREE.DoubleSide, depthWrite: false }));
+  // The surface: a faint tint, and over it what the water reflects, through two sets of ripples sliding different ways.
+  // Water reflects little looked at from above (one sees through it) and much at a slant (it mirrors the room, and from
+  // below it is a mirror); the lamp glints on the ripples.
+  const surface = new THREE.Mesh(surfaceGeometry, new THREE.MeshBasicMaterial({ color: "#bfe3dd", transparent: true, opacity: 0.07, side: THREE.DoubleSide, depthWrite: false }));
   surface.renderOrder = 5;
-  const surfaceShine = new THREE.Mesh(surfaceGeometry, glassReflection(env, 0.25, THREE.DoubleSide));
-  surfaceShine.renderOrder = 5;
-  // Where the water meets the glass it climbs a little (the meniscus): a bright line round the bowl.
-  const meniscus = new THREE.Mesh(new THREE.TorusGeometry(SURFACE_R * 0.994, 0.0045, 6, 160), new THREE.MeshBasicMaterial({ color: "#ffffff", transparent: true, opacity: 0.55, depthWrite: false }));
+  const ripples1 = rippleTexture();
+  const ripples2 = ripples1.clone();
+  ripples1.repeat.set(1.6, 1.6);
+  ripples2.repeat.set(2.3, 2.3);
+  ripples2.rotation = 1.1;
+  const shine = (side: THREE.Side, strength: number) => new THREE.MeshPhysicalMaterial({
+    // The room it mirrors is a warm grey wall, not the bright white of the light probe: the reflection is tinted so.
+    color: "#000000", roughness: 0.08, metalness: 0, envMap: env, envMapIntensity: 0.32 * strength, specularIntensity: 0.25 * strength, ior: 1.33,
+    specularColor: new THREE.Color("#b4b0a6"),
+    normalMap: ripples1, normalScale: new THREE.Vector2(0.3, 0.3),
+    clearcoat: 0.25 * strength, clearcoatRoughness: 0.06, clearcoatNormalMap: ripples2, clearcoatNormalScale: new THREE.Vector2(0.25, 0.25),
+    transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, side,
+  });
+  // From below (through the glass under the water line) the surface is a dim mirror.
+  const surfaceShine = new THREE.Mesh(surfaceGeometry, shine(THREE.FrontSide, 1));
+  const surfaceUnder = new THREE.Mesh(surfaceGeometry, shine(THREE.BackSide, 0.45));
+  surfaceShine.renderOrder = surfaceUnder.renderOrder = 5;
+  // Where the water meets the glass it climbs a little (the meniscus): a thin bright line round the bowl.
+  const meniscus = new THREE.Mesh(new THREE.TorusGeometry(SURFACE_R * 0.995, 0.0025, 6, 160), new THREE.MeshBasicMaterial({ color: "#ffffff", transparent: true, opacity: 0.3, depthWrite: false }));
   meniscus.rotation.x = Math.PI / 2;
   meniscus.position.y = WATER_Y + 0.002;
   meniscus.renderOrder = 6;
-  scene.add(surface, surfaceShine, meniscus);
+  scene.add(surface, surfaceShine, surfaceUnder, meniscus);
   const ripples: Ripple[] = [];
 
   // The glass: a clear shell (its reflections, and its thickness where seen edge-on), a frilled rim of thick glass at
@@ -541,6 +589,8 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
     position.needsUpdate = true;
     surfaceGeometry.computeVertexNormals();
     if (++causticFrame % 2 === 0) { drawCaustics(causticCtx, causticImage, time); caustics.needsUpdate = true; }
+    ripples1.offset.set(time * 0.018, time * 0.011);
+    ripples2.offset.set(-time * 0.014, time * 0.017);
 
     controls.update();
     renderer.render(scene, camera);
@@ -570,6 +620,8 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
       pmrem.dispose();
       caustics.dispose();
       wood.dispose();
+      ripples1.dispose();
+      ripples2.dispose();
       wall.dispose();
       themeWatcher.disconnect();
       fade.dispose();
