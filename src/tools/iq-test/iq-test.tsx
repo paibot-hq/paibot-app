@@ -102,14 +102,14 @@ export default function IqTest({ distribution }: { distribution: Distribution | 
       )}
 
       {phase === "test" && puzzle && (
-        <div className={styles.test} data-iq="test" data-question={index + 1}>
+        <div className={styles.test} data-iq="test" data-question={index + 1} data-family={puzzle.family}>
           <div className={styles.status}>
             <span>{t("question", { n: index + 1, total: QUESTIONS })}</span>
             <span className={left <= 60 ? styles.hurry : undefined} data-iq="left">{t("left", { time: clock(left) })}</span>
           </div>
           <progress className={styles.progress} max={QUESTIONS} value={index} aria-label={t("progress", { done: index, total: QUESTIONS })} />
           <div className={styles.matrix} role="img" aria-label={t("matrixLabel")}>
-            {puzzle.cells.slice(0, 8).map((cell, i) => <div key={i} className={styles.cell}><FigurePanel figure={cell} /></div>)}
+            {puzzle.cells.slice(0, 8).map((cell, i) => <div key={i} className={styles.cell}><FigurePanel family={puzzle.family} panel={cell} /></div>)}
             <div className={`${styles.cell} ${styles.missing}`}>?</div>
           </div>
           <p className={styles.ask}>{t("ask")}</p>
@@ -117,7 +117,7 @@ export default function IqTest({ distribution }: { distribution: Distribution | 
             {puzzle.choices.map((choice, i) => (
               <button key={`${index}-${i}`} type="button" className={styles.choice} onClick={() => choose(i)} aria-label={t("choice", { n: i + 1 })} data-iq-choice={i}>
                 <span className={styles.number}>{i + 1}</span>
-                <FigurePanel figure={choice} />
+                <FigurePanel family={puzzle.family} panel={choice} />
               </button>
             ))}
           </div>

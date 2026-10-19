@@ -1113,11 +1113,11 @@
     },
     "iqTest": {
       "title": "IQ Test",
-      "description": "Sixteen 3 x 3 figure puzzles in ten minutes test how well you see the rules in patterns. Your score is placed among everyone who took it here, as an IQ estimate and a top percentage you can share.",
+      "description": "Sixteen 3 x 3 puzzles in ten minutes, of four kinds (figures, figures inside figures, lines and dots), test how well you see the rules in patterns. Your score is placed among everyone who took it here, as an IQ estimate and a top percentage you can share.",
       "about": "Solve sixteen 3 x 3 figure puzzles in the manner of Raven's matrices; the number right is placed among everyone's scores here as an IQ estimate and a rank. The puzzles are made anew by a program each time, so you can take it again and again.",
       "keywords": "iq test iq intelligence test figure puzzles matrix reasoning raven free",
       "intro": "Choose the figure that belongs in the empty bottom right square of the 3 x 3 grid. {questions} puzzles, {minutes} minutes.",
-      "rule1": "Four things change by a rule along each row: the shape, how many, the size and the fill.",
+      "rule1": "Along each row things change by a rule: the shape, number, size and fill of figures, a figure inside another, lines overlapping, dots moving.",
       "rule2": "Later puzzles have more of them changing, so they get harder.",
       "rule3": "Keys 1-8 choose too. Once chosen, you cannot go back.",
       "start": "Start the test",

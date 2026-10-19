@@ -1,84 +1,116 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { ATTRIBUTES, LEVELS, QUESTIONS, VALUES, distributionFrom, isKeptResult, makePuzzle, makeTest, probit, standing } from './matrix.ts';
+import { BITS, FAMILIES, PLAN, QUESTIONS, SPECS, distributionFrom, isKeptResult, makePuzzle, makeTest, probit, standing } from './matrix.ts';
 
-// A solver written apart from the maker: for one attribute, from the first two rows and the first two figures of the
-// third, every value the bottom right could take under some rule that both full rows obey.
-function candidates(puzzle, attribute) {
-  const v = puzzle.cells.map(cell => cell[attribute]);
+// A solver written apart from the maker: every answer a reader could arrive at, from the first two rows and the first
+// two panels of the third, under any rule both full rows obey.
+function attributeCandidates(v, sum) {
   const row = r => [v[r * 3], v[r * 3 + 1], v[r * 3 + 2]];
   const [r0, r1] = [row(0), row(1)];
   const [a, b] = [v[6], v[7]];
   const out = new Set();
-  // The same throughout.
-  if (v.slice(0, 8).every(x => x === v[0])) out.add(v[0]);
-  // A step along each row, the same step in every row.
-  const step = r0[1] - r0[0];
-  if (step !== 0 && [r0, r1].every(r => r[1] - r[0] === step && r[2] - r[1] === step) && b - a === step) out.add(b + step);
-  // The same three values in every row, in another order.
-  const set = r => [...r].sort().join();
-  if (new Set(r0).size === 3 && set(r0) === set(r1) && a !== b && r0.includes(a) && r0.includes(b)) out.add(r0.find(x => x !== a && x !== b));
-  // The third the sum of the first two (counts are 0-based: one figure is 0).
-  if (attribute === 'count' && [r0, r1].every(r => r[2] === r[0] + r[1] + 1)) out.add(a + b + 1);
+  if (v.slice(0, 8).every(x => x === v[0])) out.add(v[0]);                                   // the same throughout
+  if (r0.every(x => x === r0[0]) && r1.every(x => x === r1[0]) && a === b) out.add(a);          // the same along each row
+  for (const step of [1, -1, 2, -2]) {                                                          // a step along each row
+    if ([r0, r1].every(r => r[1] - r[0] === step && r[2] - r[1] === step) && b - a === step) out.add(b + step);
+  }
+  const key = r => [...r].sort().join();                                                        // three values taking turns
+  if (new Set(r0).size === 3 && key(r0) === key(r1) && a !== b && r0.includes(a) && r0.includes(b)) out.add(r0.find(x => x !== a && x !== b));
+  if (sum && [r0, r1].every(r => r[2] === r[0] + r[1] + 1)) out.add(a + b + 1);                // the sum (counts 0-based)
   return out;
 }
-
-test('every puzzle has exactly one answer, the one marked, whatever rule a reader finds', () => {
-  for (let seed = 1; seed <= 4000; seed++) {
-    const puzzle = makePuzzle(seed, 1 + (seed % 4));
-    const answer = puzzle.choices[puzzle.answer];
-    assert.deepEqual(answer, puzzle.cells[8], `seed ${seed}`);
-    for (const attribute of ATTRIBUTES) {
-      const found = candidates(puzzle, attribute);
-      assert.deepEqual([...found], [answer[attribute]], `seed ${seed} ${attribute}: ${[...found]} vs ${answer[attribute]}`);
+const shift = (m, dr, dc) => { let out = 0; for (let i = 0; i < 9; i++) if (m >> i & 1) out |= 1 << (((Math.floor(i / 3) + dr + 3) % 3) * 3 + (i % 3 + dc + 3) % 3); return out; };
+function maskCandidates(v, family) {
+  const rows = [[v[0], v[1], v[2]], [v[3], v[4], v[5]]];
+  const [a, b] = [v[6], v[7]];
+  const out = new Set();
+  for (const f of [(x, y) => x | y, (x, y) => x & y, (x, y) => x ^ y]) if (rows.every(r => r[2] === f(r[0], r[1]))) out.add(f(a, b));
+  if (family === 'dots') {
+    for (const [dr, dc] of [[0, 1], [0, -1], [1, 0], [-1, 0]]) {
+      const move = m => shift(m, dr, dc);
+      if (rows.every(r => r[1] === move(r[0]) && r[2] === move(r[1])) && b === move(a)) out.add(move(b));
     }
-    // Only the answer among the choices fits every attribute.
-    const fitting = puzzle.choices.filter(choice => ATTRIBUTES.every(a => candidates(puzzle, a).has(choice[a])));
-    assert.equal(fitting.length, 1, `seed ${seed}`);
   }
-});
+  return out;
+}
+const solve = puzzle => {
+  if (puzzle.family === 'lines' || puzzle.family === 'dots') return [maskCandidates(puzzle.cells.map(c => c.mask), puzzle.family)];
+  return SPECS[puzzle.family].map(a => attributeCandidates(puzzle.cells.map(c => c[a.name]), a.sum));
+};
+const keys = puzzle => (puzzle.family === 'lines' || puzzle.family === 'dots' ? ['mask'] : SPECS[puzzle.family].map(a => a.name));
+const levels = { figures: [1, 2, 3, 4], nested: [1, 2, 3, 4], lines: [2, 3, 4], dots: [1, 2, 3, 4] };
 
-test('every figure is in range, and the choices are eight different figures', () => {
-  for (let seed = 1; seed <= 2000; seed++) {
-    const puzzle = makePuzzle(seed, 4);
-    for (const figure of [...puzzle.cells, ...puzzle.choices]) for (const a of ATTRIBUTES) assert.ok(Number.isInteger(figure[a]) && figure[a] >= 0 && figure[a] < VALUES[a], `seed ${seed}: ${a}=${figure[a]}`);
-    assert.equal(new Set(puzzle.choices.map(f => ATTRIBUTES.map(a => f[a]).join())).size, 8);
-  }
-});
-
-test('comparing the choices alone gives nothing away: every varied value is in exactly half of them', () => {
-  for (let seed = 1; seed <= 2000; seed++) {
-    const puzzle = makePuzzle(seed, 1 + (seed % 4));
-    let varied = 0;
-    for (const a of ATTRIBUTES) {
-      const counts = new Map();
-      for (const choice of puzzle.choices) counts.set(choice[a], (counts.get(choice[a]) ?? 0) + 1);
-      if (counts.size === 1) continue;
-      varied++;
-      assert.deepEqual([...counts.values()].sort(), [4, 4], `seed ${seed} ${a}`);
-    }
-    assert.equal(varied, 3);
-  }
-});
-
-test('the level is how many attributes change along the rows', () => {
-  for (let seed = 1; seed <= 500; seed++) {
-    for (const level of [1, 2, 3, 4]) {
-      const puzzle = makePuzzle(seed, level);
-      assert.equal(ATTRIBUTES.filter(a => puzzle.rules[a].kind !== 'constant').length, level);
+test('every puzzle of every kind has exactly one answer, the one marked, whatever rule a reader finds', () => {
+  for (const family of FAMILIES) {
+    for (let seed = 1; seed <= 1500; seed++) {
+      const puzzle = makePuzzle(seed, family, levels[family][seed % levels[family].length]);
+      const answer = puzzle.choices[puzzle.answer];
+      assert.deepEqual(answer, puzzle.cells[8], `${family} ${seed}`);
+      const found = solve(puzzle);
+      keys(puzzle).forEach((k, i) => assert.deepEqual([...found[i]], [answer[k]], `${family} ${seed} ${k}: ${[...found[i]]} vs ${answer[k]}`));
+      // Only the answer among the choices fits.
+      const fitting = puzzle.choices.filter(choice => keys(puzzle).every((k, i) => found[i].has(choice[k])));
+      assert.equal(fitting.length, 1, `${family} ${seed}`);
     }
   }
 });
 
-test('a test is sixteen puzzles getting harder, the same for the same seed, the answer anywhere', () => {
+test('every panel is in range and shows something, and the choices are eight different panels', () => {
+  for (const family of FAMILIES) {
+    for (let seed = 1; seed <= 800; seed++) {
+      const puzzle = makePuzzle(seed, family, 4);
+      for (const panel of [...puzzle.cells, ...puzzle.choices]) {
+        if (family === 'lines' || family === 'dots') assert.ok(panel.mask > 0 && panel.mask < 1 << BITS[family], `${family} ${seed}: ${panel.mask}`);
+        else for (const a of SPECS[family]) assert.ok(Number.isInteger(panel[a.name]) && panel[a.name] >= 0 && panel[a.name] < a.values, `${family} ${seed}: ${a.name}=${panel[a.name]}`);
+      }
+      assert.equal(new Set(puzzle.choices.map(c => JSON.stringify(c))).size, 8);
+    }
+  }
+});
+
+test('comparing the choices alone gives nothing away: every changed part is in exactly half of them', () => {
+  for (const family of FAMILIES) {
+    for (let seed = 1; seed <= 800; seed++) {
+      const puzzle = makePuzzle(seed, family, 3);
+      let varied = 0;
+      const parts = family === 'lines' || family === 'dots'
+        ? Array.from({ length: BITS[family] }, (_, bit) => c => (c.mask >> bit) & 1)
+        : SPECS[family].map(a => c => c[a.name]);
+      for (const part of parts) {
+        const counts = new Map();
+        for (const choice of puzzle.choices) counts.set(part(choice), (counts.get(part(choice)) ?? 0) + 1);
+        if (counts.size === 1) continue;
+        varied++;
+        assert.deepEqual([...counts.values()].sort(), [4, 4], `${family} ${seed}`);
+      }
+      assert.equal(varied, 3);
+    }
+  }
+});
+
+test('the level is how many attributes change, for figures and nested ones', () => {
+  for (const family of ['figures', 'nested']) {
+    for (let seed = 1; seed <= 300; seed++) {
+      for (const level of [1, 2, 3, 4]) {
+        const puzzle = makePuzzle(seed, family, level);
+        assert.equal(puzzle.rules.filter(r => !r.endsWith(':constant')).length, level, `${family} ${seed} ${level}`);
+      }
+    }
+  }
+});
+
+test('a test is sixteen puzzles of all four kinds, getting harder, the same for the same seed, the answer anywhere', () => {
   const one = makeTest(42);
   assert.equal(one.length, QUESTIONS);
-  assert.deepEqual(one.map(p => p.level), LEVELS);
+  assert.deepEqual(one.map(p => [p.family, p.level]), PLAN);
+  assert.deepEqual(new Set(one.map(p => p.family)), new Set(FAMILIES));
   assert.deepEqual(one, makeTest(42));
   assert.notDeepEqual(one, makeTest(43));
-  const places = new Set();
-  for (let seed = 1; seed <= 50; seed++) for (const p of makeTest(seed)) places.add(p.answer);
+  const places = new Set(), rules = new Set();
+  for (let seed = 1; seed <= 100; seed++) for (const p of makeTest(seed)) { places.add(p.answer); for (const r of p.rules) rules.add(r.split(':').pop()); }
   assert.equal(places.size, 8);
+  // Every kind of rule comes up.
+  for (const r of ['constant', 'rowConstant', 'progression', 'distribute', 'sum', 'or', 'and', 'xor', 'right', 'down']) assert.ok(rules.has(r), r);
 });
 
 test('the inverse normal is right', () => {
