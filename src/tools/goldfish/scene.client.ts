@@ -35,16 +35,70 @@ function disposeObject(object: THREE.Object3D) {
 
 // ---- The bowl ----
 
-// A sheen on the glass that is strongest where it is seen edge-on (as real glass looks), over a nearly clear shell.
-function fresnelMaterial(colour: string, strength: number): THREE.ShaderMaterial {
+// Glass is drawn as two layers over what is behind it, neither of which clouds it:
+// - the light it reflects, added on top (so a clear pane stays clear, and the reflections grow towards its edges, as
+//   glass's do), from the room around it;
+// - the glass's own thickness, seen where the pane is edge-on: there one looks through much more glass, which is darker
+//   and greener.
+function glassReflection(env: THREE.Texture, strength = 1, side: THREE.Side = THREE.FrontSide): THREE.MeshPhysicalMaterial {
+  return new THREE.MeshPhysicalMaterial({
+    color: "#000000", roughness: 0.04, metalness: 0, envMap: env, envMapIntensity: 0.5 * strength, specularIntensity: 1,
+    transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, side,
+  });
+}
+
+function glassThickness(colour: string, strength: number, power = 3, side: THREE.Side = THREE.DoubleSide): THREE.ShaderMaterial {
   return new THREE.ShaderMaterial({
-    uniforms: { uColour: { value: new THREE.Color(colour) }, uStrength: { value: strength } },
+    uniforms: { uColour: { value: new THREE.Color(colour) }, uStrength: { value: strength }, uPower: { value: power } },
     vertexShader: `varying vec3 vNormal; varying vec3 vView;
       void main() { vec4 world = modelMatrix * vec4(position, 1.0); vNormal = normalize(mat3(modelMatrix) * normal); vView = normalize(cameraPosition - world.xyz); gl_Position = projectionMatrix * viewMatrix * world; }`,
-    fragmentShader: `uniform vec3 uColour; uniform float uStrength; varying vec3 vNormal; varying vec3 vView;
-      void main() { float f = pow(1.0 - abs(dot(normalize(vNormal), normalize(vView))), 2.5); gl_FragColor = vec4(uColour, clamp(f * uStrength, 0.0, 0.9)); }`,
-    transparent: true, depthWrite: false, side: THREE.DoubleSide,
+    fragmentShader: `uniform vec3 uColour; uniform float uStrength; uniform float uPower; varying vec3 vNormal; varying vec3 vView;
+      void main() { float f = pow(1.0 - abs(dot(normalize(vNormal), normalize(vView))), uPower); gl_FragColor = vec4(uColour, clamp(f * uStrength, 0.0, 0.85)); }`,
+    transparent: true, depthWrite: false, side,
   });
+}
+
+// A wooden table top: boards of light oak with their grain, drawn once; it fades out far from the bowl (alphaMap), into
+// the room behind.
+function woodTexture(): THREE.CanvasTexture {
+  const width = 512, height = 512, canvas = document.createElement("canvas");
+  canvas.width = width; canvas.height = height;
+  const ctx = canvas.getContext("2d")!;
+  const image = ctx.createImageData(width, height);
+  const next = random(17);
+  const boards = 4, tones = Array.from({ length: boards }, () => 0.9 + next() * 0.16), shifts = Array.from({ length: boards }, () => next() * 50);
+  for (let y = 0; y < height; y++) {
+    const board = Math.floor((y / height) * boards), within = (y / height) * boards - board;
+    for (let x = 0; x < width; x++) {
+      const u = x / width;
+      // Grain along the board: lines across its width that wander slowly along it.
+      const wander = Math.sin(u * 5 + shifts[board]) * 0.35 + Math.sin(u * 17 + shifts[board] * 2) * 0.06;
+      const grain = Math.sin((within * 9 + wander) * Math.PI * 2);
+      const fine = Math.sin((within * 55 + wander * 3) * Math.PI * 2) * 0.5 + 0.5;
+      const seam = within < 0.012 || within > 0.988 ? 0.72 : 1;
+      const tone = tones[board] * (0.92 + grain * 0.04 + fine * 0.03) * seam;
+      const i = (y * width + x) * 4;
+      image.data[i] = Math.min(255, 214 * tone); image.data[i + 1] = Math.min(255, 176 * tone); image.data[i + 2] = Math.min(255, 128 * tone); image.data[i + 3] = 255;
+    }
+  }
+  ctx.putImageData(image, 0, 0);
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+  return texture;
+}
+
+function fadeTexture(): THREE.CanvasTexture {
+  const canvas = document.createElement("canvas");
+  canvas.width = canvas.height = 256;
+  const ctx = canvas.getContext("2d")!;
+  const gradient = ctx.createRadialGradient(128, 128, 30, 128, 128, 128);
+  gradient.addColorStop(0, "#ffffff");
+  gradient.addColorStop(0.55, "#ffffff");
+  gradient.addColorStop(1, "#000000");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, 256, 256);
+  return new THREE.CanvasTexture(canvas);
 }
 
 const thetaAt = (y: number) => Math.acos(THREE.MathUtils.clamp(y / BOWL_R, -1, 1));
@@ -93,12 +147,11 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   const world: World = createWorld();
   for (const kind of options.kinds) addFish(world, kind, next);
 
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: "high-performance" });
+  const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   renderer.outputColorSpace = THREE.SRGBColorSpace;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
-  renderer.setClearColor(0x000000, 0);
   renderer.shadowMap.enabled = true;
   renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   container.appendChild(renderer.domElement);
@@ -108,6 +161,28 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   renderer.domElement.style.touchAction = "none";
 
   const scene = new THREE.Scene();
+  // The wall behind: drawn in the scene (the glass is see-through, and is only right over a picture drawn with it),
+  // light or dark with the site's theme, dark blue at night.
+  const wallCanvas = document.createElement("canvas");
+  wallCanvas.width = 4; wallCanvas.height = 256;
+  const wall = new THREE.CanvasTexture(wallCanvas);
+  wall.colorSpace = THREE.SRGBColorSpace;
+  scene.background = wall;
+  let night = options.night;
+  const paintWall = () => {
+    const dark = document.documentElement.dataset.theme === "dark";
+    const [top, bottom] = night ? ["#1b2a44", "#070b14"] : dark ? ["#3a3f48", "#1d2026"] : ["#f3efe9", "#d9d1c4"];
+    const ctx = wallCanvas.getContext("2d")!;
+    const gradient = ctx.createLinearGradient(0, 0, 0, 256);
+    gradient.addColorStop(0, top);
+    gradient.addColorStop(1, bottom);
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, 4, 256);
+    wall.needsUpdate = true;
+  };
+  paintWall();
+  const themeWatcher = new MutationObserver(paintWall);
+  themeWatcher.observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   const pmrem = new THREE.PMREMGenerator(renderer);
   const room = new RoomEnvironment();
   const env = pmrem.fromScene(room, 0.04).texture;
@@ -156,7 +231,10 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   scene.add(spot, spot.target);
 
   // The table and the bowl's shadow on it.
-  const table = new THREE.Mesh(new THREE.CircleGeometry(1.6, 64), new THREE.MeshStandardMaterial({ color: "#c79b6d", roughness: 0.7 }));
+  const wood = woodTexture();
+  wood.repeat.set(3, 3);
+  const fade = fadeTexture();
+  const table = new THREE.Mesh(new THREE.PlaneGeometry(9, 9), new THREE.MeshStandardMaterial({ map: wood, alphaMap: fade, transparent: true, roughness: 0.55, depthWrite: true }));
   table.rotation.x = -Math.PI / 2;
   table.position.y = BASE_Y - 0.002;
   table.receiveShadow = true;
@@ -241,12 +319,12 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   const thetaWater = thetaAt(WATER_Y), thetaBase = thetaAt(BASE_Y);
   const waterBack = new THREE.Mesh(
     new THREE.SphereGeometry(BOWL_R * 0.992, 72, 40, 0, Math.PI * 2, thetaWater, thetaBase - thetaWater),
-    new THREE.MeshPhysicalMaterial({ color: "#6fbfba", transparent: true, opacity: 0.32, roughness: 0.1, side: THREE.BackSide, depthWrite: false }),
+    new THREE.MeshPhysicalMaterial({ color: "#8fd3cd", transparent: true, opacity: 0.2, roughness: 0.1, side: THREE.BackSide, depthWrite: false }),
   );
   waterBack.renderOrder = 1;
   const waterFront = new THREE.Mesh(
     waterBack.geometry,
-    new THREE.MeshPhysicalMaterial({ color: "#a9dcd8", transparent: true, opacity: 0.05, roughness: 0, side: THREE.FrontSide, depthWrite: false, envMap: env, envMapIntensity: 0.4 }),
+    new THREE.MeshPhysicalMaterial({ color: "#b6e6e1", transparent: true, opacity: 0.04, roughness: 0, side: THREE.FrontSide, depthWrite: false, envMap: env, envMapIntensity: 0.4 }),
   );
   waterFront.renderOrder = 4;
   scene.add(waterBack, waterFront);
@@ -255,24 +333,37 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   surfaceGeometry.rotateX(-Math.PI / 2);
   surfaceGeometry.translate(0, WATER_Y, 0);
   const surfaceBase = Float32Array.from(surfaceGeometry.getAttribute("position").array as Float32Array);
-  const surface = new THREE.Mesh(surfaceGeometry, new THREE.MeshPhysicalMaterial({ color: "#bfe8e4", transparent: true, opacity: 0.38, roughness: 0.04, metalness: 0, envMap: env, envMapIntensity: 1.2, side: THREE.DoubleSide, depthWrite: false }));
+  const surface = new THREE.Mesh(surfaceGeometry, new THREE.MeshPhysicalMaterial({ color: "#a9d9d3", transparent: true, opacity: 0.16, roughness: 0.04, metalness: 0, envMap: env, envMapIntensity: 0.6, side: THREE.DoubleSide, depthWrite: false }));
   surface.renderOrder = 5;
-  scene.add(surface);
+  const surfaceShine = new THREE.Mesh(surfaceGeometry, glassReflection(env, 0.25, THREE.DoubleSide));
+  surfaceShine.renderOrder = 5;
+  // Where the water meets the glass it climbs a little (the meniscus): a bright line round the bowl.
+  const meniscus = new THREE.Mesh(new THREE.TorusGeometry(SURFACE_R * 0.994, 0.0045, 6, 160), new THREE.MeshBasicMaterial({ color: "#ffffff", transparent: true, opacity: 0.55, depthWrite: false }));
+  meniscus.rotation.x = Math.PI / 2;
+  meniscus.position.y = WATER_Y + 0.002;
+  meniscus.renderOrder = 6;
+  scene.add(surface, surfaceShine, meniscus);
   const ripples: Ripple[] = [];
 
-  // The glass: a clear shell with a sheen at its edges, a frilled rim at the top edged in blue (a Japanese goldfish
-  // bowl's), and a flat foot.
+  // The glass: a clear shell (its reflections, and its thickness where seen edge-on), a frilled rim of thick glass at
+  // the top (a Japanese goldfish bowl's), and a flat foot.
   const glassGeometry = new THREE.SphereGeometry(BOWL_R, 96, 56, 0, Math.PI * 2, thetaAt(OPEN_Y), thetaBase - thetaAt(OPEN_Y));
-  const glassClear = new THREE.Mesh(glassGeometry, new THREE.MeshPhysicalMaterial({ color: "#ffffff", transparent: true, opacity: 0.05, roughness: 0.02, metalness: 0, envMap: env, envMapIntensity: 2.2, side: THREE.DoubleSide, depthWrite: false, clearcoat: 1 }));
-  glassClear.renderOrder = 6;
-  const glassSheen = new THREE.Mesh(glassGeometry, fresnelMaterial("#eaf6ff", 0.75));
-  glassSheen.renderOrder = 7;
-  scene.add(glassClear, glassSheen);
+  const glassEdge = new THREE.Mesh(glassGeometry, glassThickness("#2d6b66", 0.75, 3.5, THREE.FrontSide));
+  const glassEdgeBack = new THREE.Mesh(glassGeometry, glassThickness("#2d6b66", 0.22, 4, THREE.BackSide));
+  glassEdge.renderOrder = 6;
+  glassEdgeBack.renderOrder = 2;
+  // The near side reflects the room; the far side (seen from inside) faintly.
+  const glassShine = new THREE.Mesh(glassGeometry, glassReflection(env));
+  const glassShineBack = new THREE.Mesh(glassGeometry, glassReflection(env, 0.35, THREE.BackSide));
+  glassShine.renderOrder = 7;
+  glassShineBack.renderOrder = 3;
+  scene.add(glassEdge, glassEdgeBack, glassShine, glassShineBack);
 
   const rimR = Math.sqrt(BOWL_R ** 2 - OPEN_Y ** 2);
   const frill = (theta: number, t: number) => {
-    const r = rimR + t * 0.13;
-    const y = OPEN_Y + t ** 1.4 * 0.06 + t * Math.sin(theta * 9) * 0.035;
+    // A gentle flare outwards, gently waved.
+    const r = rimR + t * 0.11;
+    const y = OPEN_Y + t ** 1.6 * 0.05 + t ** 1.5 * Math.sin(theta * 8) * 0.022;
     return new THREE.Vector3(Math.cos(theta) * r, y, Math.sin(theta) * r);
   };
   const rimPositions: number[] = [], rimIndex: number[] = [];
@@ -283,19 +374,22 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   rimGeometry.setAttribute("position", new THREE.Float32BufferAttribute(rimPositions, 3));
   rimGeometry.setIndex(rimIndex);
   rimGeometry.computeVertexNormals();
-  const rim = new THREE.Mesh(rimGeometry, new THREE.MeshPhysicalMaterial({ color: "#ffffff", transparent: true, opacity: 0.16, roughness: 0.02, envMap: env, envMapIntensity: 2, side: THREE.DoubleSide, depthWrite: false }));
+  const rim = new THREE.Mesh(rimGeometry, glassThickness("#5fa8a2", 0.3, 3));
   rim.renderOrder = 8;
-  const rimSheen = new THREE.Mesh(rimGeometry, fresnelMaterial("#eaf6ff", 0.6));
-  rimSheen.renderOrder = 8;
-  const edge = new THREE.Mesh(
-    new THREE.TubeGeometry(new THREE.CatmullRomCurve3(Array.from({ length: 360 }, (_, i) => frill((i / 360) * Math.PI * 2, 1)), true), 360, 0.011, 8, true),
-    new THREE.MeshPhysicalMaterial({ color: "#5aa9d6", roughness: 0.15, transparent: true, opacity: 0.85, envMap: env, clearcoat: 1 }),
-  );
-  edge.renderOrder = 9;
-  const foot = new THREE.Mesh(new THREE.CircleGeometry(Math.sqrt(BOWL_R ** 2 - BASE_Y ** 2), 64), new THREE.MeshPhysicalMaterial({ color: "#dff2f2", transparent: true, opacity: 0.35, roughness: 0.05, envMap: env, depthWrite: false }));
-  foot.rotation.x = -Math.PI / 2;
-  foot.position.y = BASE_Y;
-  scene.add(rim, rimSheen, edge, foot);
+  const rimShine = new THREE.Mesh(rimGeometry, glassReflection(env, 0.8, THREE.DoubleSide));
+  rimShine.renderOrder = 9;
+  // Its edges are rolled glass, thick and a little aqua: round beads along the outer edge and the opening.
+  const bead = (t: number, radius: number) => new THREE.TubeGeometry(new THREE.CatmullRomCurve3(Array.from({ length: 320 }, (_, i) => frill((i / 320) * Math.PI * 2, t)), true), 320, radius, 10, true);
+  const beadMaterial = new THREE.MeshPhysicalMaterial({ color: "#bfe6e2", roughness: 0.04, transparent: true, opacity: 0.32, envMap: env, envMapIntensity: 1, clearcoat: 1, depthWrite: false });
+  const outerBead = new THREE.Mesh(bead(1, 0.012), beadMaterial);
+  const innerBead = new THREE.Mesh(bead(0, 0.007), beadMaterial);
+  outerBead.renderOrder = innerBead.renderOrder = 10;
+  const footGeometry = new THREE.CylinderGeometry(Math.sqrt(BOWL_R ** 2 - BASE_Y ** 2) + 0.01, Math.sqrt(BOWL_R ** 2 - BASE_Y ** 2) + 0.03, 0.03, 64, 1, false);
+  const foot = new THREE.Mesh(footGeometry, glassThickness("#2d6b66", 0.9, 1.5));
+  foot.position.y = BASE_Y + 0.012;
+  const footShine = new THREE.Mesh(footGeometry, glassReflection(env));
+  footShine.position.copy(foot.position);
+  scene.add(rim, rimShine, outerBead, innerBead, foot, footShine);
 
   // The fish.
   const textures = options.textures;
@@ -307,7 +401,9 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   sync();
 
   // Night: the room dark, the bowl lit from its own lamp.
-  const setNight = (night: boolean) => {
+  const setNight = (value: boolean) => {
+    night = value;
+    paintWall();
     hemisphere.intensity = night ? 0.1 : 1.0;
     sun.intensity = night ? 0.05 : 1.3;
     lamp.intensity = night ? 1.5 : 0;
@@ -473,6 +569,10 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
       env.dispose();
       pmrem.dispose();
       caustics.dispose();
+      wood.dispose();
+      wall.dispose();
+      themeWatcher.disconnect();
+      fade.dispose();
       textures.fin.dispose();
       Object.values(textures.kinds).forEach(own => Object.values(own).forEach(texture => texture.dispose()));
       void audio?.close();
