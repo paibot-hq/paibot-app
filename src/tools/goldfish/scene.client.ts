@@ -421,6 +421,9 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
     night = value;
     paintWall();
     hemisphere.intensity = night ? 0.14 : 0.8;
+    // At night the room's light is the cool blue of the dark (a warm light, dimmed, would turn the table muddy brown).
+    hemisphere.color.set(night ? "#7f9edc" : "#fff8ec");
+    hemisphere.groundColor.set(night ? "#1a2232" : "#8a7a66");
     // The light probe lights the table too (it is a bright room): dimmed with the room at night.
     tableMaterial.envMapIntensity = night ? 0.03 : 0.25;
     sun.intensity = night ? 0.05 : 1.0;
