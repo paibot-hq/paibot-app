@@ -103,7 +103,7 @@ export function createWorld(): World {
   return { fish: [], food: [], time: 0, eaten: 0, nextId: 1 };
 }
 
-const SIZES: Record<Kind, [number, number]> = { wakin: [0.19, 0.23], ryukin: [0.17, 0.21], demekin: [0.16, 0.2] };
+const SIZES: Record<Kind, [number, number]> = { wakin: [0.22, 0.26], ryukin: [0.2, 0.24], demekin: [0.19, 0.23] };
 // How fast each kind cruises (bowl radii a second): a ryukin's round body and a demekin's eyes make them slower.
 const CRUISE: Record<Kind, number> = { wakin: 0.17, ryukin: 0.13, demekin: 0.12 };
 
