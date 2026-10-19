@@ -377,9 +377,9 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
 
   const rimR = Math.sqrt(BOWL_R ** 2 - OPEN_Y ** 2);
   const frill = (theta: number, t: number) => {
-    // A gentle flare outwards, gently waved.
-    const r = rimR + t * 0.11;
-    const y = OPEN_Y + t ** 1.6 * 0.05 + t ** 1.5 * Math.sin(theta * 8) * 0.022;
+    // A wide flare outwards, in nine deep waves.
+    const r = rimR + t * 0.13;
+    const y = OPEN_Y + t ** 1.4 * 0.06 + t * Math.sin(theta * 9) * 0.035;
     return new THREE.Vector3(Math.cos(theta) * r, y, Math.sin(theta) * r);
   };
   const rimPositions: number[] = [], rimIndex: number[] = [];
