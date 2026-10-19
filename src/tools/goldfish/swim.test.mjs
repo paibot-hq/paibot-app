@@ -125,3 +125,19 @@ test('the same seed gives the same bowl', () => {
   assert.equal(play(12), play(12));
   assert.notEqual(play(12), play(13));
 });
+
+test('now and then a fish goes down to peck at the gravel, and drifts slowly at other times', () => {
+  const { world, next } = bowl(4, 14);
+  let pecked = 0, slow = 0, samples = 0;
+  for (let i = 0; i < 60 * 180; i++) {
+    step(world, DT, next);
+    if (i % 30) continue;
+    for (const fish of world.fish) {
+      samples++;
+      if (fish.pecking > 0) { pecked++; assert.ok(fish.pos.y < FLOOR_Y + 0.25, `pecking near the gravel: ${fish.pos.y}`); }
+      if (Math.hypot(fish.vel.x, fish.vel.y, fish.vel.z) < 0.06) slow++;
+    }
+  }
+  assert.ok(pecked / samples > 0.02 && pecked / samples < 0.4, `pecking ${pecked}/${samples}`);
+  assert.ok(slow / samples > 0.05, `slow ${slow}/${samples}`);
+});

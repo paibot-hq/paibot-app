@@ -38,12 +38,13 @@ function bodyGeometry(profile: [number, number][], width: number, height: number
 // A fin as a grid (so it can bend smoothly): `s` runs along it from its root (0) to its edge (1) in the direction
 // `along`, `w` across it from `from` to `to` (as functions of s). The `s` of each vertex is kept for bending it.
 function finGeometry(segmentsS: number, segmentsW: number, shape: (s: number, w: number) => [number, number, number]): THREE.BufferGeometry {
-  const positions: number[] = [], sValues: number[] = [], indices: number[] = [];
+  const positions: number[] = [], sValues: number[] = [], uvs: number[] = [], indices: number[] = [];
   for (let i = 0; i <= segmentsS; i++) {
     for (let j = 0; j <= segmentsW; j++) {
       const s = i / segmentsS, w = j / segmentsW;
       positions.push(...shape(s, w));
       sValues.push(s);
+      uvs.push(w, s);
     }
   }
   const row = segmentsW + 1;
@@ -54,6 +55,7 @@ function finGeometry(segmentsS: number, segmentsW: number, shape: (s: number, w:
   const geometry = new THREE.BufferGeometry();
   geometry.setAttribute("position", new THREE.Float32BufferAttribute(positions, 3));
   geometry.setAttribute("fin", new THREE.Float32BufferAttribute(sValues, 1));
+  geometry.setAttribute("uv", new THREE.Float32BufferAttribute(uvs, 2));
   geometry.setIndex(indices);
   geometry.computeVertexNormals();
   return geometry;
@@ -70,8 +72,53 @@ function tailGeometry(length: number, spread: number, notch: number): THREE.Buff
   });
 }
 
-type Part = { mesh: THREE.Mesh; base: Float32Array; amplitude: number; lag: number; kind: "tail" | "dorsal" | "pectoral" };
-type FishView = { fish: Fish; group: THREE.Group; parts: Part[]; yaw: number; pitch: number };
+type Part = { mesh: THREE.Mesh; base: Float32Array; amplitude: number; lag: number; kind: "tail" | "dorsal" | "pectoral"; rootX: number; rootYaw: number };
+type FishView = { fish: Fish; group: THREE.Group; body: THREE.Mesh; bodyBase: Float32Array; parts: Part[]; yaw: number; pitch: number; bend: number };
+export type FishTextures = { scales: THREE.Texture; fin: THREE.Texture };
+
+// Scales: rows of overlapping rounded scales, as a bump map, so the body catches the light the way a goldfish does.
+function scaleTexture(): THREE.CanvasTexture {
+  const size = 128, canvas = document.createElement("canvas");
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext("2d")!;
+  ctx.fillStyle = "#808080";
+  ctx.fillRect(0, 0, size, size);
+  const rows = 8, cols = 8, w = size / cols, h = size / rows;
+  for (let r = -1; r <= rows; r++) for (let c = -1; c <= cols; c++) {
+    const x = c * w + (r % 2 ? w / 2 : 0), y = r * h;
+    const gradient = ctx.createRadialGradient(x + w / 2, y + h * 0.15, 1, x + w / 2, y + h * 0.15, w * 0.75);
+    gradient.addColorStop(0, "#d8d8d8");
+    gradient.addColorStop(0.8, "#8a8a8a");
+    gradient.addColorStop(1, "#4a4a4a");
+    ctx.fillStyle = gradient;
+    ctx.beginPath();
+    ctx.ellipse(x + w / 2, y + h * 0.15, w * 0.62, h * 0.95, 0, 0, Math.PI);
+    ctx.fill();
+  }
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+  texture.repeat.set(12, 7);
+  return texture;
+}
+
+// A fin's see-through: thin rays from the root to the edge, the skin between them clearer, and the whole clearer towards
+// the edge (u across the fin, v from root to edge).
+function finTexture(): THREE.CanvasTexture {
+  const size = 128, canvas = document.createElement("canvas");
+  canvas.width = canvas.height = size;
+  const ctx = canvas.getContext("2d")!;
+  const image = ctx.createImageData(size, size);
+  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) {
+    const u = x / size, v = y / size;
+    const ray = Math.max(0, Math.cos(u * Math.PI * 2 * 9)) ** 6;
+    const alpha = (0.62 - v * 0.38) + ray * (0.35 - v * 0.15);
+    const i = (y * size + x) * 4;
+    image.data[i] = image.data[i + 1] = image.data[i + 2] = Math.round(Math.min(1, Math.max(0, alpha)) * 255);
+    image.data[i + 3] = 255;
+  }
+  ctx.putImageData(image, 0, 0);
+  return new THREE.CanvasTexture(canvas);
+}
 
 const COLOURS: Record<Kind, { body: string; belly: string; fin: string }> = {
   wakin: { body: "#e8340a", belly: "#fff1e2", fin: "#ef4a18" },
@@ -79,7 +126,7 @@ const COLOURS: Record<Kind, { body: string; belly: string; fin: string }> = {
   demekin: { body: "#0b0b0e", belly: "#1c1b20", fin: "#121116" },
 };
 
-function makeFish(fish: Fish, env: THREE.Texture): FishView {
+function makeFish(fish: Fish, env: THREE.Texture, textures: FishTextures): FishView {
   const next = random(fish.seed);
   const colours = COLOURS[fish.kind];
   const group = new THREE.Group();
@@ -109,8 +156,16 @@ function makeFish(fish: Fish, env: THREE.Texture): FishView {
     colours3.push(colour.r, colour.g, colour.b);
   }
   body.setAttribute("color", new THREE.Float32BufferAttribute(colours3, 3));
-  const bodyMaterial = new THREE.MeshPhysicalMaterial({ vertexColors: true, roughness: 0.4, clearcoat: 0.5, clearcoatRoughness: 0.35, envMap: env, envMapIntensity: 0.35 });
-  holder.add(new THREE.Mesh(body, bodyMaterial));
+  // Wet, scaled skin with a little of the rainbow sheen goldfish scales have; a demekin's is velvety.
+  const bodyMaterial = new THREE.MeshPhysicalMaterial({
+    vertexColors: true, roughness: 0.38, clearcoat: 0.6, clearcoatRoughness: 0.25, envMap: env, envMapIntensity: 0.45,
+    bumpMap: textures.scales, bumpScale: 1.2,
+    iridescence: fish.kind === "demekin" ? 0.15 : 0.35, iridescenceIOR: 1.35,
+    sheen: fish.kind === "demekin" ? 0.8 : 0, sheenColor: new THREE.Color("#4a4a58"), sheenRoughness: 0.6,
+  });
+  const bodyMesh = new THREE.Mesh(body, bodyMaterial);
+  bodyMesh.castShadow = bodyMesh.receiveShadow = true;
+  holder.add(bodyMesh);
 
   // Eyes: big and on the sides of the head for a demekin.
   const eyeMaterial = new THREE.MeshPhysicalMaterial({ color: "#050506", roughness: 0.08, clearcoat: 1, envMap: env });
@@ -125,14 +180,15 @@ function makeFish(fish: Fish, env: THREE.Texture): FishView {
     holder.add(ring);
   }
 
-  const finMaterial = new THREE.MeshPhysicalMaterial({ color: colours.fin, transparent: true, opacity: fish.kind === "demekin" ? 0.85 : 0.72, roughness: 0.5, side: THREE.DoubleSide, depthWrite: false, envMap: env, envMapIntensity: 0.4 });
+  const finMaterial = new THREE.MeshPhysicalMaterial({ color: colours.fin, transparent: true, alphaMap: textures.fin, opacity: fish.kind === "demekin" ? 1 : 0.95, roughness: 0.45, side: THREE.DoubleSide, depthWrite: false, envMap: env, envMapIntensity: 0.4, transmission: 0 });
   const parts: Part[] = [];
   const addPart = (geometry: THREE.BufferGeometry, kind: Part["kind"], amplitude: number, lag: number, placed: (mesh: THREE.Mesh) => void) => {
     const mesh = new THREE.Mesh(geometry, finMaterial);
     mesh.renderOrder = 2;
     placed(mesh);
+    mesh.castShadow = true;
     holder.add(mesh);
-    parts.push({ mesh, base: Float32Array.from(geometry.getAttribute("position").array as Float32Array), amplitude, lag, kind });
+    parts.push({ mesh, base: Float32Array.from(geometry.getAttribute("position").array as Float32Array), amplitude, lag, kind, rootX: mesh.position.x, rootYaw: mesh.rotation.y });
   };
 
   // The tail: a single forked one for a wakin, a long double fan spread to both sides for a ryukin and a demekin.
@@ -152,48 +208,76 @@ function makeFish(fish: Fish, env: THREE.Texture): FishView {
     addPart(finGeometry(5, 4, (s, w) => [side * s * 0.16, -s * 0.06, -w * 0.12 - s * 0.05]), "pectoral", 0.5, 0, mesh => mesh.position.set(side * 0.11, -0.1, 0.16));
   }
 
-  return { fish, group, parts, yaw: Math.atan2(fish.vel.x, fish.vel.z), pitch: 0 };
+  return { fish, group, body: bodyMesh, bodyBase: Float32Array.from(body.getAttribute("position").array as Float32Array), parts, yaw: Math.atan2(fish.vel.x, fish.vel.z), pitch: 0, bend: 0 };
 }
 
-// Bends the fins with the beat: a wave that runs from the root to the edge (larger at the edge), sideways for the tail
-// and the dorsal fin; the pectoral fins row.
+// Swimming: the body bends in a wave that runs from the head to the tail (more towards the tail, and harder the faster it
+// swims), and curves into the turn when it turns; the tail and the dorsal fin follow the body and ripple from root to edge;
+// the pectoral fins row. Positions are in the fish's own units (nose at z = 0.5, tail root at about z = -0.45).
 function swimFish(view: FishView, dt: number) {
   const { fish } = view;
   const speed = Math.hypot(fish.vel.x, fish.vel.y, fish.vel.z);
-  const vigour = 0.6 + Math.min(2.2, speed * 6);
+  const vigour = 0.5 + Math.min(2.4, speed * 6);
+  const sway = (z: number) => {
+    const t = THREE.MathUtils.clamp((0.25 - z) / 0.75, 0, 1);
+    return (Math.sin(fish.phase - z * 5) * 0.045 * vigour + view.bend) * t * t;
+  };
+
+  // Facing where it swims, turning smoothly, and bending into the turn.
+  let rate = 0;
+  if (speed > 0.01) {
+    const yaw = Math.atan2(fish.vel.x, fish.vel.z);
+    let turn = yaw - view.yaw;
+    while (turn > Math.PI) turn -= Math.PI * 2;
+    while (turn < -Math.PI) turn += Math.PI * 2;
+    const step = turn * Math.min(1, dt * 6);
+    view.yaw += step;
+    rate = dt > 0 ? step / dt : 0;
+    const pitch = THREE.MathUtils.clamp(-Math.asin(fish.vel.y / speed), -0.6, 0.6);
+    view.pitch += ((fish.pecking > 0 ? 0.55 + Math.sin(fish.phase * 1.7) * 0.08 : pitch) - view.pitch) * Math.min(1, dt * 4);
+  }
+  view.bend += (THREE.MathUtils.clamp(rate * 0.06, -0.14, 0.14) - view.bend) * Math.min(1, dt * 5);
+
+  const bodyPosition = view.body.geometry.getAttribute("position") as THREE.BufferAttribute;
+  const bodyArray = bodyPosition.array as Float32Array;
+  for (let i = 0; i < bodyPosition.count; i++) bodyArray[i * 3] = view.bodyBase[i * 3] + sway(view.bodyBase[i * 3 + 2]);
+  bodyPosition.needsUpdate = true;
+  view.body.geometry.computeVertexNormals();
+
   for (const part of view.parts) {
     const geometry = part.mesh.geometry;
     const position = geometry.getAttribute("position") as THREE.BufferAttribute;
     const fin = geometry.getAttribute("fin") as THREE.BufferAttribute;
     const array = position.array as Float32Array;
+    if (part.kind === "tail") {
+      // Carried by the end of the body: moved with it and turned to its slope there.
+      const z = part.mesh.position.z;
+      part.mesh.position.x = part.rootX + sway(z);
+      part.mesh.rotation.y = part.rootYaw + (sway(z) - sway(z + 0.05)) / 0.05;
+    }
     for (let i = 0; i < position.count; i++) {
       const s = fin.getX(i);
-      const wave = Math.sin(fish.phase - s * part.lag) * part.amplitude * vigour;
+      const wave = Math.sin(fish.phase - 1.2 - s * part.lag) * part.amplitude * vigour;
       if (part.kind === "pectoral") {
         array[i * 3] = part.base[i * 3] * (0.55 + 0.45 * Math.sin(fish.phase * 0.7));
         array[i * 3 + 1] = part.base[i * 3 + 1] + s * wave * 0.05;
         array[i * 3 + 2] = part.base[i * 3 + 2];
+      } else if (part.kind === "dorsal") {
+        array[i * 3] = part.base[i * 3] + sway(part.base[i * 3 + 2]) + wave * s ** 1.5;
+        array[i * 3 + 1] = part.base[i * 3 + 1];
+        array[i * 3 + 2] = part.base[i * 3 + 2];
       } else {
         array[i * 3] = part.base[i * 3] + wave * s ** 1.5;
-        array[i * 3 + 1] = part.base[i * 3 + 1] - (part.kind === "tail" ? s * s * 0.06 : 0);
+        array[i * 3 + 1] = part.base[i * 3 + 1] - s * s * 0.06;
         array[i * 3 + 2] = part.base[i * 3 + 2];
       }
     }
     position.needsUpdate = true;
     geometry.computeVertexNormals();
   }
-  // Facing where it swims, turning smoothly; the body sways a little with the beat.
-  if (speed > 0.01) {
-    const yaw = Math.atan2(fish.vel.x, fish.vel.z);
-    let turn = yaw - view.yaw;
-    while (turn > Math.PI) turn -= Math.PI * 2;
-    while (turn < -Math.PI) turn += Math.PI * 2;
-    view.yaw += turn * Math.min(1, dt * 6);
-    const pitch = THREE.MathUtils.clamp(-Math.asin(fish.vel.y / speed), -0.6, 0.6);
-    view.pitch += (pitch - view.pitch) * Math.min(1, dt * 4);
-  }
   view.group.position.set(fish.pos.x, fish.pos.y, fish.pos.z);
-  view.group.rotation.set(view.pitch, view.yaw + Math.sin(fish.phase) * 0.07 * vigour, 0, "YXZ");
+  // The head swings a little against the tail.
+  view.group.rotation.set(view.pitch, view.yaw - Math.sin(fish.phase) * 0.025 * vigour, 0, "YXZ");
 }
 
 function disposeObject(object: THREE.Object3D) {
@@ -237,25 +321,25 @@ function shadowTexture(): THREE.Texture {
   return texture;
 }
 
-// Light rippling on the gravel, as sunlight through moving water does: a texture of bright wavy lines that drifts.
-function causticTexture(): THREE.CanvasTexture {
-  const size = 256;
-  const canvas = document.createElement("canvas");
-  canvas.width = canvas.height = size;
-  const ctx = canvas.getContext("2d")!;
-  const image = ctx.createImageData(size, size);
-  for (let y = 0; y < size; y++) for (let x = 0; x < size; x++) {
-    const u = (x / size) * Math.PI * 2, v = (y / size) * Math.PI * 2;
-    const n = Math.sin(u * 3 + Math.sin(v * 2) * 1.5) + Math.sin(v * 4 + Math.sin(u * 3) * 1.2) + Math.sin((u + v) * 2 + 1);
-    const bright = Math.max(0, 1 - Math.abs(n) * 1.6) ** 2;
-    const i = (y * size + x) * 4;
-    image.data[i] = image.data[i + 1] = image.data[i + 2] = Math.round(bright * 255);
+// Light through a moving water surface (caustics): a net of bright wavy lines that shifts with time, drawn small and
+// projected by the lamp above the bowl onto everything under it, fish included.
+const CAUSTIC_SIZE = 128;
+function drawCaustics(ctx: CanvasRenderingContext2D, image: ImageData, time: number) {
+  const k = (Math.PI * 2 * 15) / CAUSTIC_SIZE;
+  for (let y = 0; y < CAUSTIC_SIZE; y++) for (let x = 0; x < CAUSTIC_SIZE; x++) {
+    const u = x * k, v = y * k;
+    const n = Math.sin(u + Math.sin(v * 0.8 + time * 0.7) * 1.6 + time * 0.4)
+      + Math.sin(v * 1.1 + Math.sin(u * 0.9 - time * 0.6) * 1.4 - time * 0.3)
+      + Math.sin((u - v) * 0.7 + time * 0.8) * 0.8;
+    const bright = Math.max(0, 1 - Math.abs(n) * 1.5) ** 2;
+    const value = Math.min(255, Math.round((0.55 + bright * 0.9) * 170));
+    const i = (y * CAUSTIC_SIZE + x) * 4;
+    image.data[i] = value;
+    image.data[i + 1] = Math.min(255, value + 4);
+    image.data[i + 2] = Math.min(255, value + 8);
     image.data[i + 3] = 255;
   }
   ctx.putImageData(image, 0, 0);
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
-  return texture;
 }
 
 type Ripple = { x: number; z: number; born: number; strength: number };
@@ -271,6 +355,8 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
   renderer.setClearColor(0x000000, 0);
+  renderer.shadowMap.enabled = true;
+  renderer.shadowMap.type = THREE.PCFSoftShadowMap;
   container.appendChild(renderer.domElement);
   renderer.domElement.style.display = "block";
   renderer.domElement.style.width = "100%";
@@ -300,16 +386,36 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
 
   // Light: a soft sky light, a lamp above, and in the night a blue glow from below the rim.
   const hemisphere = new THREE.HemisphereLight("#fff8ec", "#8a7a66", 1.1);
-  const sun = new THREE.DirectionalLight("#fff4e0", 2.2);
+  const sun = new THREE.DirectionalLight("#fff4e0", 1.3);
   sun.position.set(1.5, 4, 2);
   const lamp = new THREE.PointLight("#bfe6ff", 0, 3, 1.5);
   lamp.position.set(0, OPEN_Y + 0.2, 0);
   scene.add(hemisphere, sun, lamp);
+  // The lamp over the bowl: its light comes through the rippling surface as moving caustics, and it casts the shadows.
+  const causticCanvas = document.createElement("canvas");
+  causticCanvas.width = causticCanvas.height = CAUSTIC_SIZE;
+  const causticCtx = causticCanvas.getContext("2d")!;
+  const causticImage = causticCtx.createImageData(CAUSTIC_SIZE, CAUSTIC_SIZE);
+  drawCaustics(causticCtx, causticImage, 0);
+  const caustics = new THREE.CanvasTexture(causticCanvas);
+  caustics.colorSpace = THREE.SRGBColorSpace;
+  const spot = new THREE.SpotLight("#fff3e2", 40, 0, 0.25, 0.45, 2);
+  spot.position.set(0.5, 4.3, 0.7);
+  spot.target.position.set(0, -0.6, 0);
+  spot.map = caustics;
+  spot.castShadow = true;
+  spot.shadow.mapSize.set(1024, 1024);
+  spot.shadow.bias = -0.0004;
+  spot.shadow.normalBias = 0.01;
+  spot.shadow.camera.near = 2;
+  spot.shadow.camera.far = 7;
+  scene.add(spot, spot.target);
 
   // The table and the bowl's shadow on it.
   const table = new THREE.Mesh(new THREE.CircleGeometry(1.6, 64), new THREE.MeshStandardMaterial({ color: "#c79b6d", roughness: 0.7 }));
   table.rotation.x = -Math.PI / 2;
   table.position.y = BASE_Y - 0.002;
+  table.receiveShadow = true;
   const shadow = new THREE.Mesh(new THREE.PlaneGeometry(2.4, 2.4), new THREE.MeshBasicMaterial({ map: shadowTexture(), transparent: true, depthWrite: false }));
   shadow.rotation.x = -Math.PI / 2;
   shadow.position.y = BASE_Y + 0.001;
@@ -317,7 +423,17 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
 
   // Gravel: small stones in the bottom of the bowl, most of them in the top layer.
   const stones = 900;
-  const gravel = new THREE.InstancedMesh(new THREE.DodecahedronGeometry(1, 0), new THREE.MeshStandardMaterial({ roughness: 0.85 }), stones);
+  // Pebbles: a rounded shape made a little lumpy (the same bump for the same point, so the faces stay joined).
+  const pebble = new THREE.IcosahedronGeometry(1, 2);
+  const pebblePosition = pebble.getAttribute("position") as THREE.BufferAttribute;
+  for (let i = 0; i < pebblePosition.count; i++) {
+    const x = pebblePosition.getX(i), y = pebblePosition.getY(i), z = pebblePosition.getZ(i);
+    const k = 1 + 0.12 * Math.sin(x * 4.1 + y * 2.3) * Math.cos(z * 3.7 - x) + 0.06 * Math.sin(y * 7 + z * 5);
+    pebblePosition.setXYZ(i, x * k, y * k * 0.8, z * k);
+  }
+  pebble.computeVertexNormals();
+  const gravel = new THREE.InstancedMesh(pebble, new THREE.MeshStandardMaterial({ roughness: 0.6 }), stones);
+  gravel.receiveShadow = true;
   const palette = ["#d9cdb8", "#bfae94", "#8f7d68", "#e9e2d4", "#6f6559", "#c9b28c", "#a4c4d8", "#e7b9a6"];
   const m = new THREE.Matrix4(), q = new THREE.Quaternion(), s = new THREE.Vector3(), p = new THREE.Vector3(), e = new THREE.Euler();
   for (let i = 0; i < stones; i++) {
@@ -334,17 +450,6 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
     gravel.setColorAt(i, new THREE.Color(palette[Math.floor(next() * (next() < 0.9 ? 6 : palette.length))]));
   }
   scene.add(gravel);
-  // Moving light on the gravel.
-  const caustics = causticTexture();
-  caustics.repeat.set(2.5, 2.5);
-  const causticDisc = new THREE.Mesh(
-    new THREE.CircleGeometry(Math.sqrt(BOWL_R ** 2 - FLOOR_Y ** 2) - 0.02, 64),
-    new THREE.MeshBasicMaterial({ map: caustics, transparent: true, opacity: 0.13, blending: THREE.AdditiveBlending, depthWrite: false }),
-  );
-  causticDisc.rotation.x = -Math.PI / 2;
-  causticDisc.position.y = FLOOR_Y + 0.008;
-  scene.add(causticDisc);
-
   // Weed: a few clumps of blades that sway.
   type Blade = { mesh: THREE.Mesh; base: Float32Array; phase: number; height: number };
   const blades: Blade[] = [];
@@ -363,6 +468,7 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
         bladePosition.setX(i, bladePosition.getX(i) * (1 - h * 0.85) + lean * h * h);
       }
       const blade = new THREE.Mesh(geometry, next() < 0.5 ? weedMaterial : weedDark);
+      blade.castShadow = blade.receiveShadow = true;
       blade.position.set(cx + (next() - 0.5) * 0.12, FLOOR_Y - 0.01, cz + (next() - 0.5) * 0.12);
       blade.rotation.y = next() * Math.PI;
       scene.add(blade);
@@ -374,6 +480,7 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   const stonePos = new THREE.Vector3(0.36, FLOOR_Y + 0.02, 0.18);
   const airStone = new THREE.Mesh(new THREE.CylinderGeometry(0.045, 0.05, 0.04, 20), new THREE.MeshStandardMaterial({ color: "#7d8a92", roughness: 0.95 }));
   airStone.position.copy(stonePos);
+  airStone.receiveShadow = true;
   scene.add(airStone);
   const BUBBLES = 36;
   const bubbleMesh = new THREE.InstancedMesh(new THREE.SphereGeometry(1, 12, 8), new THREE.MeshPhysicalMaterial({ color: "#ffffff", transparent: true, opacity: 0.55, roughness: 0, envMap: env, envMapIntensity: 1.5, depthWrite: false }), BUBBLES);
@@ -447,20 +554,22 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   scene.add(rim, rimSheen, edge, foot);
 
   // The fish.
+  const textures: FishTextures = { scales: scaleTexture(), fin: finTexture() };
   const views = new Map<number, FishView>();
   const sync = () => {
-    for (const fish of world.fish) if (!views.has(fish.id)) { const view = makeFish(fish, env); views.set(fish.id, view); scene.add(view.group); }
+    for (const fish of world.fish) if (!views.has(fish.id)) { const view = makeFish(fish, env, textures); views.set(fish.id, view); scene.add(view.group); }
     for (const [id, view] of views) if (!world.fish.includes(view.fish)) { scene.remove(view.group); disposeObject(view.group); views.delete(id); }
   };
   sync();
 
   // Night: the room dark, the bowl lit from its own lamp.
   const setNight = (night: boolean) => {
-    hemisphere.intensity = night ? 0.12 : 1.1;
-    sun.intensity = night ? 0.15 : 2.2;
-    lamp.intensity = night ? 3.5 : 0;
-    renderer.toneMappingExposure = night ? 1.25 : 1.05;
-    (causticDisc.material as THREE.MeshBasicMaterial).opacity = night ? 0.22 : 0.13;
+    hemisphere.intensity = night ? 0.1 : 1.0;
+    sun.intensity = night ? 0.05 : 1.3;
+    lamp.intensity = night ? 1.5 : 0;
+    spot.intensity = night ? 30 : 40;
+    spot.color.set(night ? "#cfe6ff" : "#fff3e2");
+    renderer.toneMappingExposure = night ? 1.2 : 1.05;
   };
   setNight(options.night);
 
@@ -533,7 +642,7 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   let visible = true;
   const watcher = new IntersectionObserver(entries => { visible = entries.some(entry => entry.isIntersecting); });
   watcher.observe(container);
-  let last = performance.now(), carry = 0, statsAt = 0, frame = 0;
+  let last = performance.now(), carry = 0, statsAt = 0, frame = 0, causticFrame = 0;
   const bubbleMatrix = new THREE.Matrix4(), foodMatrix = new THREE.Matrix4();
   const loop = (now: number) => {
     frame = requestAnimationFrame(loop);
@@ -591,7 +700,7 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
     }
     position.needsUpdate = true;
     surfaceGeometry.computeVertexNormals();
-    caustics.offset.set(Math.sin(time * 0.15) * 0.3, time * 0.03);
+    if (++causticFrame % 2 === 0) { drawCaustics(causticCtx, causticImage, time); caustics.needsUpdate = true; }
 
     controls.update();
     renderer.render(scene, camera);
@@ -620,6 +729,8 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
       env.dispose();
       pmrem.dispose();
       caustics.dispose();
+      textures.scales.dispose();
+      textures.fin.dispose();
       void audio?.close();
       renderer.dispose();
       renderer.domElement.remove();
