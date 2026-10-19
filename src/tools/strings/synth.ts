@@ -51,8 +51,26 @@ function playThroughSilentSwitch() {
   try { if (session) session.type = "playback"; } catch { /* an older Safari */ }
 }
 
+// The audioSession is not enough everywhere: in an iPhone app's browser (Chrome is one) the app owns the audio session,
+// and older iPhones have none, so Web Audio stays muted by the silent switch. An <audio> element, though, is heard as
+// music, and while one plays, so is the page's Web Audio. So on an iPhone or iPad a quarter second of
+// silence (public/silence.wav, the site's own file, which the CSP allows) loops quietly while the instrument is used,
+// and stops when the page is hidden, so that no player is left on the lock screen.
+function silentLoop() {
+  const isApple = /iPhone|iPad|iPod/.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+  if (!isApple) return null;
+  const element = new Audio("/silence.wav");
+  element.loop = true;
+  element.setAttribute("x-webkit-airplay", "deny");
+  const play = () => { void element.play().catch(() => { /* not in a gesture yet: the next one tries again */ }); };
+  const onVisibility = () => { if (document.hidden) element.pause(); else play(); };
+  document.addEventListener("visibilitychange", onVisibility);
+  return { play, stop() { document.removeEventListener("visibilitychange", onVisibility); element.pause(); element.removeAttribute("src"); element.load(); } };
+}
+
 export function createSynth(): Synth {
   playThroughSilentSwitch();
+  const loop = silentLoop();
   const audio = new AudioContext();
   const master = audio.createGain();
   master.gain.value = 0.7;
@@ -101,6 +119,7 @@ export function createSynth(): Synth {
     // audio made on the first touch waits, and this, called on the first lift (or click, or key), starts it: resume,
     // and a moment of silence, which older iPhones need before anything is heard.
     unlock() {
+      loop?.play();
       void audio.resume();
       const silence = audio.createBufferSource();
       silence.buffer = audio.createBuffer(1, 1, audio.sampleRate);
@@ -198,6 +217,6 @@ export function createSynth(): Synth {
       for (const node of [...bow.oscillators, ...bow.extra]) node.stop(now + 0.5);
     },
 
-    dispose() { void audio.close(); },
+    dispose() { loop?.stop(); void audio.close(); },
   };
 }
