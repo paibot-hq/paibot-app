@@ -1,0 +1,29 @@
+.page { display: grid; gap: 1.6rem; }
+.page header { margin: 0; }
+.intro { color: var(--muted); }
+.list { display: grid; gap: .45rem; margin: 0; padding: 0; list-style: none; }
+.list li {
+  display: grid;
+  grid-template-columns: 2rem minmax(10rem, 18rem) 1fr 6.5rem;
+  gap: .8rem;
+  align-items: center;
+  padding: .45rem .7rem;
+  border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface-strong) 60%, transparent);
+}
+.rank { color: var(--muted); font-size: 1.05rem; font-weight: 800; text-align: center; font-variant-numeric: tabular-nums; }
+.rank[data-place="1"], .rank[data-place="2"], .rank[data-place="3"] { color: #3f7cb0; font-size: 1.25rem; }
+.tool { display: flex; align-items: center; gap: .6rem; min-width: 0; color: var(--text); font-weight: 600; text-decoration: none; }
+.tool span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tool:hover span, .tool:focus-visible span { text-decoration: underline; }
+.tool svg { flex: none; box-sizing: content-box; width: 18px; height: 18px; padding: 6px; border-radius: 9px; background: color-mix(in srgb, var(--accent) 12%, transparent); fill: none; stroke: var(--accent-dark); stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.track { height: 10px; overflow: hidden; border-radius: 999px; background: color-mix(in srgb, var(--accent) 12%, var(--surface)); }
+.fill { display: block; height: 100%; border-radius: 999px; background: var(--accent); }
+.views { color: var(--text); font-size: .9rem; text-align: right; font-variant-numeric: tabular-nums; }
+.empty, .note { margin: 0; color: var(--muted); font-size: .9rem; line-height: 1.7; }
+.note { font-size: .8rem; }
+@media (max-width: 560px) {
+  .list li { grid-template-columns: 2rem 1fr auto; }
+  .track { grid-column: 2 / -1; grid-row: 2; }
+}

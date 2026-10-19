@@ -239,6 +239,12 @@ try {
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'the top page fits mobile width');
   await page.setViewportSize({ width: 1280, height: 720 });
   console.log('PASS: the top page search finds apps and topics in three locales, by keyboard, and fits mobile width');
+  // The ranking page lists every app (this run's browser is not counted, so the views may all be nought).
+  await go('/ja/ranking');
+  // Every published app is listed, each once, viewed or not.
+  const listed = await page.locator('[data-ranking="list"] li').evaluateAll(items => items.map(li => li.dataset.slug));
+  assert.deepEqual([...listed].sort(), APP_CATALOG.filter(app => app.status === 'published' && app.href && !app.private).map(app => app.slug).sort());
+  console.log('PASS: the ranking page lists every app');
   for (const locale of locales) {
     await go(`/${locale}/wc`);
     // fill auto-waits for the textarea to become enabled after hydration.

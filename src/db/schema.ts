@@ -113,3 +113,11 @@ export const personalityResults = sqliteTable("personality_results", {
   openness: integer("openness").notNull(),
   createdAt: text("created_at").notNull().default(sql`(datetime('now'))`),
 });
+
+// How often each tool's page is viewed, per day (Japan's date): the tool ranking (src/lib/tool-ranking.ts). Only a tool
+// and a number; nothing about who viewed it.
+export const toolViews = sqliteTable("tool_views", {
+  slug: text("slug").notNull(),
+  day: text("day").notNull(),
+  views: integer("views").notNull().default(0),
+}, table => [primaryKey({ columns: [table.slug, table.day] }), index("tool_views_day_idx").on(table.day)]);

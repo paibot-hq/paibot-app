@@ -20,7 +20,8 @@ function Card({ app, td, locale, signedIn, favorited }: { app: AppEntry; td: Dyn
 }
 
 // The top page: a search box that finds the apps, and every app listed under it.
-export default function SearchHome({ year }: { year: number }) {
+// `popular`: the most viewed tools of the last week (src/lib/tool-ranking.ts), most first; shown above the full list.
+export default function SearchHome({ year, popular = [] }: { year: number; popular?: { slug: string; views: number }[] }) {
   const t = useTranslations("App");
   const ts = useTranslations("App.search");
   const locale = useLocale();
@@ -45,6 +46,7 @@ export default function SearchHome({ year }: { year: number }) {
   const results = useMemo(() => search(prepared, query), [prepared, query]);
   // The signed-in visitor's favourite apps come first.
   const mine = apps.filter(app => app.status === "published" && app.href && favorites.has(app.slug));
+  const popularApps = popular.map(p => apps.find(app => app.slug === p.slug && app.status === "published" && app.href)).filter((app): app is AppEntry => Boolean(app));
   // "/" jumps to the box from anywhere on the page, as on most sites.
   useEffect(() => {
     const onKey = (event: globalThis.KeyboardEvent) => {
@@ -119,6 +121,13 @@ export default function SearchHome({ year }: { year: number }) {
                 {mine.length === 0 ? <p className={styles.empty}>{ts("noFavorites")}</p> : <ul data-search="favorites">{mine.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited />)}</ul>}
               </section>
             ) : <>
+            {popularApps.length > 0 && (
+              <section data-search="popular">
+                <h2>{ts("popular")}</h2>
+                <ol className={styles.ranked}>{popularApps.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited={favorites.has(app.slug)} />)}</ol>
+                <p className={styles.more}><Link href="/ranking">{ts("ranking")}</Link></p>
+              </section>
+            )}
             {APP_CATEGORIES.map(category => {
               const list = apps.filter(app => app.category === category && app.status === "published" && app.href);
               if (!list.length) return null;

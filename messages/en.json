@@ -466,11 +466,21 @@
     },
     "footer": {
       "about": "About",
+      "ranking": "Ranking",
       "label": "Company information",
       "supporter": "Supporter",
       "terms": "Terms of Service",
       "privacy": "Privacy Policy",
       "commerce": "Commercial transactions notice"
+    },
+    "ranking": {
+      "eyebrow": "RANKING",
+      "title": "Most popular tools",
+      "description": "PAIBOT.app's tools, ranked by how often they were viewed over the last seven days.",
+      "intro": "The tools used most over the last {days} days.",
+      "views": "{count, plural, one {# view} other {{formatted} views}}",
+      "empty": "Still counting. The most used tools will be ranked here soon.",
+      "note": "Counts how often each tool's page is shown (per day, Japan time). Search engines and other automated visits are not counted, and nothing about who viewed a page is kept."
     },
     "supporter": {
       "title": "Supporter plan",
@@ -1294,6 +1304,8 @@
       "retry": "Try again"
     },
     "search": {
+      "popular": "Popular tools",
+      "ranking": "See the full ranking →",
       "onlyFavorites": "Favorites only", "noFavorites": "No favorites yet. Press a card's star and it will be gathered here.", "favorites": "Favorites", "all": "All apps", "label": "Search",
       "placeholder": "Search apps",
       "results": "Search results",
