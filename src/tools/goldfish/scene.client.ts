@@ -408,6 +408,18 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   scene.add(rim, rimShine, outerBead, innerBead, foot, footShine);
 
   // The fish.
+  // Depth in the water: what is further away in it (fish, gravel, weed, bubbles, food) fades a little into the water's
+  // colour, as in a real bowl. Only those: the glass, the water's own layers, the table and the room are left clear.
+  const fog = new THREE.Fog("#9fc4bf", 3, 7);
+  scene.fog = fog;
+  const underwater = new Set<THREE.Object3D>([gravel, bubbleMesh, foodMesh, airStone, ...blades.map(blade => blade.mesh)]);
+  scene.traverse(object => {
+    const material = (object as THREE.Mesh).material as THREE.Material | THREE.Material[] | undefined;
+    if (!material || underwater.has(object)) return;
+    for (const m of Array.isArray(material) ? material : [material]) (m as THREE.Material & { fog?: boolean }).fog = false;
+  });
+  const BOWL_CENTRE = new THREE.Vector3(0, -0.2, 0);
+
   const textures = options.textures;
   const views = new Map<number, FishView>();
   const sync = () => {
@@ -430,58 +442,9 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
     lamp.intensity = night ? 1.5 : 0;
     spot.intensity = night ? 30 : 40;
     spot.color.set(night ? "#cfe6ff" : "#fff3e2");
-    // The beams show more against the dark.
-    shaftStrength = night ? 0.08 : 0.055;
-    shaftColour.set(night ? "#cfe2ff" : "#fff1d6");
+    fog.color.set(night ? "#1d3842" : "#9fc4bf");
     renderer.toneMappingExposure = night ? 1.2 : 0.85;
   };
-  // Shafts of light in the water: from the surface down along the lamp's light, brighter near the surface, each turned
-  // about its own line to face the camera (so it looks like a beam from anywhere), drawn only inside the water, and
-  // flickering and drifting as the surface moves. Added light, so they brighten what is behind them.
-  const shaftDown = spot.target.position.clone().sub(spot.position).normalize();
-  const shaftUp = shaftDown.clone().negate();
-  const shaftGeometry = new THREE.PlaneGeometry(1, 1);
-  shaftGeometry.translate(0, -0.5, 0);
-  const shaftColour = new THREE.Color("#fff1d6");
-  const shafts = Array.from({ length: 8 }, () => {
-    const angle = next() * Math.PI * 2, r = Math.sqrt(next()) * SURFACE_R * 0.8;
-    const material = new THREE.ShaderMaterial({
-      uniforms: { uStrength: { value: 0 }, uColour: { value: shaftColour }, uBowl: { value: BOWL_R * 0.985 }, uTop: { value: WATER_Y }, uBottom: { value: FLOOR_Y } },
-      vertexShader: `varying vec2 vUv; varying vec3 vWorld;
-        void main() { vUv = uv; vec4 world = modelMatrix * vec4(position, 1.0); vWorld = world.xyz; gl_Position = projectionMatrix * viewMatrix * world; }`,
-      fragmentShader: `uniform float uStrength; uniform vec3 uColour; uniform float uBowl; uniform float uTop; uniform float uBottom; varying vec2 vUv; varying vec3 vWorld;
-        void main() {
-          if (length(vWorld) > uBowl || vWorld.y > uTop || vWorld.y < uBottom) discard;
-          // Soft at its sides, fading out well before the gravel, and towards the glass (no edge where the glass cuts it).
-          float across = pow(sin(vUv.x * 3.14159), 3.0);
-          float along = smoothstep(0.25, 0.75, vUv.y) * smoothstep(1.0, 0.92, vUv.y + 0.0) + smoothstep(0.92, 1.0, vUv.y) * 0.9;
-          float glass = smoothstep(uBowl, uBowl - 0.18, length(vWorld));
-          gl_FragColor = vec4(uColour * across * along * glass * uStrength, 1.0);
-        }`,
-      transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide,
-    });
-    const mesh = new THREE.Mesh(shaftGeometry, material);
-    mesh.renderOrder = 3;
-    mesh.scale.set(0.06 + next() * 0.14, 1.5, 1);
-    scene.add(mesh);
-    return { mesh, material, x: Math.cos(angle) * r, z: Math.sin(angle) * r, phase: next() * 6.3, speed: 0.4 + next() * 0.8 };
-  });
-  const shaftRight = new THREE.Vector3(), shaftNormal = new THREE.Vector3(), shaftLook = new THREE.Vector3(), shaftBasis = new THREE.Matrix4();
-  let shaftStrength = 0.055;
-  const moveShafts = (time: number) => {
-    for (const shaft of shafts) {
-      const { mesh } = shaft;
-      mesh.position.set(shaft.x + Math.sin(time * 0.13 + shaft.phase) * 0.05, WATER_Y, shaft.z + Math.cos(time * 0.11 + shaft.phase) * 0.05);
-      shaftLook.copy(camera.position).sub(mesh.position);
-      shaftRight.crossVectors(shaftUp, shaftLook).normalize();
-      shaftNormal.crossVectors(shaftRight, shaftUp).normalize();
-      shaftBasis.makeBasis(shaftRight, shaftUp, shaftNormal);
-      mesh.quaternion.setFromRotationMatrix(shaftBasis);
-      const flicker = 0.5 + 0.5 * Math.sin(time * shaft.speed * 0.5 + shaft.phase) * Math.sin(time * shaft.speed * 0.19 + shaft.phase * 2);
-      shaft.material.uniforms.uStrength.value = shaftStrength * (0.5 + 0.5 * flicker);
-    }
-  };
-
   setNight(options.night);
 
   // Sizing to the container.
@@ -634,7 +597,10 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
     ripples2.offset.set(-time * 0.014, time * 0.017);
 
     controls.update();
-    moveShafts(time);
+    // The haze starts a little in front of the bowl's middle and thickens towards its far side, wherever the camera is.
+    const away = camera.position.distanceTo(BOWL_CENTRE);
+    fog.near = away - 0.5;
+    fog.far = away + 3.2;
     renderer.render(scene, camera);
 
     if (now - statsAt > 250) {
