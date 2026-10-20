@@ -431,7 +431,7 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
     spot.intensity = night ? 30 : 40;
     spot.color.set(night ? "#cfe6ff" : "#fff3e2");
     // The beams show more against the dark.
-    shaftStrength = night ? 0.17 : 0.13;
+    shaftStrength = night ? 0.08 : 0.055;
     shaftColour.set(night ? "#cfe2ff" : "#fff1d6");
     renderer.toneMappingExposure = night ? 1.2 : 0.85;
   };
@@ -443,7 +443,7 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   const shaftGeometry = new THREE.PlaneGeometry(1, 1);
   shaftGeometry.translate(0, -0.5, 0);
   const shaftColour = new THREE.Color("#fff1d6");
-  const shafts = Array.from({ length: 14 }, () => {
+  const shafts = Array.from({ length: 8 }, () => {
     const angle = next() * Math.PI * 2, r = Math.sqrt(next()) * SURFACE_R * 0.8;
     const material = new THREE.ShaderMaterial({
       uniforms: { uStrength: { value: 0 }, uColour: { value: shaftColour }, uBowl: { value: BOWL_R * 0.985 }, uTop: { value: WATER_Y }, uBottom: { value: FLOOR_Y } },
@@ -452,9 +452,11 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
       fragmentShader: `uniform float uStrength; uniform vec3 uColour; uniform float uBowl; uniform float uTop; uniform float uBottom; varying vec2 vUv; varying vec3 vWorld;
         void main() {
           if (length(vWorld) > uBowl || vWorld.y > uTop || vWorld.y < uBottom) discard;
-          float across = pow(sin(vUv.x * 3.14159), 2.0);
-          float along = smoothstep(0.0, 0.3, vUv.y) * (0.3 + 0.7 * vUv.y);
-          gl_FragColor = vec4(uColour * across * along * uStrength, 1.0);
+          // Soft at its sides, fading out well before the gravel, and towards the glass (no edge where the glass cuts it).
+          float across = pow(sin(vUv.x * 3.14159), 3.0);
+          float along = smoothstep(0.25, 0.75, vUv.y) * smoothstep(1.0, 0.92, vUv.y + 0.0) + smoothstep(0.92, 1.0, vUv.y) * 0.9;
+          float glass = smoothstep(uBowl, uBowl - 0.18, length(vWorld));
+          gl_FragColor = vec4(uColour * across * along * glass * uStrength, 1.0);
         }`,
       transparent: true, blending: THREE.AdditiveBlending, depthWrite: false, side: THREE.DoubleSide,
     });
@@ -465,7 +467,7 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
     return { mesh, material, x: Math.cos(angle) * r, z: Math.sin(angle) * r, phase: next() * 6.3, speed: 0.4 + next() * 0.8 };
   });
   const shaftRight = new THREE.Vector3(), shaftNormal = new THREE.Vector3(), shaftLook = new THREE.Vector3(), shaftBasis = new THREE.Matrix4();
-  let shaftStrength = 0.13;
+  let shaftStrength = 0.055;
   const moveShafts = (time: number) => {
     for (const shaft of shafts) {
       const { mesh } = shaft;
@@ -475,8 +477,8 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
       shaftNormal.crossVectors(shaftRight, shaftUp).normalize();
       shaftBasis.makeBasis(shaftRight, shaftUp, shaftNormal);
       mesh.quaternion.setFromRotationMatrix(shaftBasis);
-      const flicker = 0.5 + 0.5 * Math.sin(time * shaft.speed + shaft.phase) * Math.sin(time * shaft.speed * 0.37 + shaft.phase * 2);
-      shaft.material.uniforms.uStrength.value = shaftStrength * (0.25 + 0.75 * flicker);
+      const flicker = 0.5 + 0.5 * Math.sin(time * shaft.speed * 0.5 + shaft.phase) * Math.sin(time * shaft.speed * 0.19 + shaft.phase * 2);
+      shaft.material.uniforms.uStrength.value = shaftStrength * (0.5 + 0.5 * flicker);
     }
   };
 
