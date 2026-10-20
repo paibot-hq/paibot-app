@@ -530,7 +530,9 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   const bubbleMatrix = new THREE.Matrix4(), foodMatrix = new THREE.Matrix4();
   const loop = (now: number) => {
     frame = requestAnimationFrame(loop);
-    const dt = Math.min(0.1, (now - last) / 1000);
+    // The fish's time keeps up with the clock even when frames are few (a slow device draws few, and is then given
+    // more small steps a frame); only a long gap (the tab put away) is not made up.
+    const dt = Math.min(0.5, (now - last) / 1000);
     last = now;
     if (!visible) return;
     carry += dt;
