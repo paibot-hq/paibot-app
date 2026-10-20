@@ -1,6 +1,9 @@
 // Browser flow for this tool, run by tests/e2e/tools.mjs against a preview.
 import assert from 'node:assert/strict';
 
+// Runs on its own (tests/e2e/tools.mjs): the dish is drawn in 3D the whole time, which keeps the processor busy.
+export const alone = true;
+
 export default async function ({ page, main, go }) {
   const message = main.locator('[data-koma="message"]');
   const pad = main.locator('[data-koma="shape-pad"]');

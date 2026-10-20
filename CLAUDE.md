@@ -40,6 +40,7 @@ A tool is a folder, `src/tools/<slug>/`, holding everything that is only its own
   Flows run three at a time (`CHECK_CONCURRENCY`), each in a context of its own, so a flow must not depend on another. The clipboard is the one thing
   contexts share: a flow that mentions it takes turns with the others that do. Wait on the page's clock (`page.clock.install()` then `runFor`) rather
   than in real time when a flow has to sit through an animation or a countdown.
+  A flow that keeps the processor busy throughout (3D drawn in software, a live video) exports `const alone = true` and runs on its own after the others.
 
 Then register it in the shared lists (these, and nothing else, change outside the folder):
 - `src/lib/app-catalog.ts`: the entry (`slug` = folder name, `href`). Routes

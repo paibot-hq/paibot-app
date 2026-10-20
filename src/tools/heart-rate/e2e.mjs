@@ -4,6 +4,9 @@
 // twenty-five seconds.
 import assert from 'node:assert/strict';
 
+// Runs on its own (tests/e2e/tools.mjs): a live video stands in for the camera, which keeps the processor busy.
+export const alone = true;
+
 const BPM = 75;
 
 export default async function ({ page, main, go }) {

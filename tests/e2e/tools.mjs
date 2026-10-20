@@ -23,6 +23,10 @@ const concurrency = Math.max(1, Number(process.env.CHECK_CONCURRENCY ?? 3));
 // The clipboard is the one thing the contexts of a browser share, so flows that read or write it take turns (two at once would read each other's text).
 let clipboardTurn = Promise.resolve();
 const usesClipboard = file => /clipboard/.test(readFileSync(file, 'utf8'));
+// A flow that keeps the processor busy the whole time (3D drawn in software, a live video standing in for a camera) says so with
+// `export const alone = true`: it runs on its own once the others are done, as it would otherwise starve the flows beside it on CI's two cores
+// (a screenshot that never came, in a flow that was not at fault).
+const runsAlone = file => /^export const alone = true;/m.test(readFileSync(file, 'utf8'));
 async function runFlow(app, file) {
   if (!usesClipboard(file)) return runFlowNow(app, file);
   const before = clipboardTurn;
@@ -62,7 +66,8 @@ async function runFlowNow({ slug }, file) {
   } finally { await context.close(); }
 }
 try {
-  const queue = tools.map(app => [app, flowFile(app.slug)]).filter(([, file]) => file);
+  const flows = tools.map(app => [app, flowFile(app.slug)]).filter(([, file]) => file);
+  const queue = flows.filter(([, file]) => !runsAlone(file));
   let failure = null;
   await Promise.all(Array.from({ length: Math.min(concurrency, queue.length || 1) }, async () => {
     while (queue.length && !failure) {
@@ -70,6 +75,10 @@ try {
       try { await runFlow(app, file); } catch (error) { failure ??= error; }
     }
   }));
+  for (const [app, file] of flows.filter(([, file]) => runsAlone(file))) {
+    if (failure) break;
+    try { await runFlow(app, file); } catch (error) { failure ??= error; }
+  }
   if (failure) throw failure;
 } finally { await browser.close(); }
 const without = tools.filter(app => !ran.includes(app.slug)).map(app => app.slug);

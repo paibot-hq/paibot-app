@@ -3,6 +3,9 @@
 // Feeding is waited for in real time: the fish swim to the food (a few seconds).
 import assert from 'node:assert/strict';
 
+// Runs on its own (tests/e2e/tools.mjs): the bowl is drawn in 3D the whole time, which keeps the processor busy.
+export const alone = true;
+
 export default async function ({ page, main, go }) {
   await go('goldfish');
   const stage = main.locator('[data-goldfish="stage"]');
