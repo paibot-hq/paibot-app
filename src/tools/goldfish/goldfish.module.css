@@ -1,0 +1,33 @@
+.lead { margin: 0; color: var(--muted); text-align: center; line-height: 1.7; }
+/* The bowl stands in a soft room: light by day, dark blue at night. The 3D picture is drawn over it (transparent). */
+.stage {
+  position: relative;
+  width: min(760px, 100%);
+  height: min(560px, 72vh);
+  min-height: 340px;
+  margin: 1rem auto .8rem;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  background: linear-gradient(180deg, #f3efe9 0%, #e9e3da 55%, #ddd5c9 100%);
+  transition: background .6s ease;
+}
+:global([data-theme="dark"]) .stage { background: radial-gradient(120% 90% at 50% 20%, #3a3f48 0%, #2a2e35 60%, #1d2026 100%); }
+.stage.night, :global([data-theme="dark"]) .stage.night { background: radial-gradient(120% 90% at 50% 30%, #1b2a44 0%, #0e1626 60%, #070b14 100%); }
+.canvas { position: absolute; inset: 0; cursor: grab; }
+.canvas:active { cursor: grabbing; }
+.message { position: absolute; inset: 0; display: grid; place-items: center; margin: 0; padding: 1rem; color: #5b4f43; text-align: center; }
+:global([data-theme="dark"]) .message, .night .message { color: #e6ebf2; }
+.counts { position: absolute; left: .8rem; top: .7rem; display: flex; gap: .8rem; margin: 0; padding: .3rem .7rem; border-radius: 999px; background: rgb(255 255 255 / .7); color: #3d342b; font-size: .8rem; font-variant-numeric: tabular-nums; pointer-events: none; }
+:global([data-theme="dark"]) .counts, .night .counts { background: rgb(0 0 0 / .45); color: #e6ebf2; }
+.controls { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; margin: .5rem auto; }
+.button { display: inline-flex; align-items: center; gap: .4rem; padding: .45rem 1rem; border: 1px solid var(--line); border-radius: 999px; background: var(--surface); color: var(--text); font: inherit; cursor: pointer; }
+.button[aria-pressed="true"] { border-color: var(--accent); }
+.button:disabled, .primary:disabled { opacity: .45; cursor: default; }
+/* The robot's blue, as on the other tools' main buttons: the dark theme's accent is too pale for white text. */
+.primary { padding: .5rem 1.4rem; border: 0; border-radius: 999px; background: #3f7cb0; color: #fff; font: inherit; font-weight: 700; cursor: pointer; box-shadow: 0 4px 0 #2c5a82; }
+.swatch { width: .8rem; height: .8rem; border-radius: 50%; background: #e8461c; }
+.swatch[data-kind="ryukin"] { background: linear-gradient(135deg, #ef5a22 50%, #fff3e6 50%); }
+.swatch[data-kind="demekin"] { background: #18181c; box-shadow: 0 0 0 1px var(--line); }
+.howto { width: min(560px, 100%); margin: 1rem auto 0; padding-left: 1.2rem; color: var(--text); line-height: 1.8; box-sizing: border-box; }
+.note { width: min(560px, 100%); margin: .6rem auto 0; color: var(--muted); font-size: .85rem; line-height: 1.6; text-align: center; }

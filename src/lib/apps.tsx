@@ -17,6 +17,15 @@ export type DynamicT = (key: string, values?: Record<string, string | number>) =
 type Icon = ComponentType<SVGProps<SVGSVGElement>>;
 export type AppEntry = AppData & { icon: Icon };
 
+function LlmMemoryIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="3" y="7" width="18" height="10" rx="1.5" />
+      <path d="M7 17v3M12 17v3M17 17v3M7 11v2M12 11v2M17 11v2" />
+    </svg>
+  );
+}
+
 function CidrIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -127,6 +136,45 @@ function PersonalityIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+
+function GoldfishIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M5 7.5h14M6.2 7.5a8 8 0 1 0 11.6 0" />
+      <path d="M8.5 14c1.6-1.8 3.8-1.8 5.4 0-1.6 1.8-3.8 1.8-5.4 0zM13.9 14l2-1.4v2.8z" />
+    </svg>
+  );
+}
+
+function TypingIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="2.5" y="6" width="19" height="12" rx="2" />
+      <path d="M6 10h.01M10 10h.01M14 10h.01M18 10h.01M7 14h10" />
+    </svg>
+  );
+}
+
+function NumberMergeIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="3" y="3" width="8" height="8" rx="2" />
+      <rect x="13" y="3" width="8" height="8" rx="2" />
+      <rect x="3" y="13" width="8" height="8" rx="2" />
+      <rect x="13" y="13" width="8" height="8" rx="2" />
+      <path d="M7 7h.01M17 7h.01M7 17h.01M16 17h2" />
+    </svg>
+  );
+}
+
+function HeartRateIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z" />
+      <path d="M3 12h4l1.5-3 3 6 1.5-3H21" />
+    </svg>
+  );
+}
 
 function LifeIcon(props: SVGProps<SVGSVGElement>) {
   return (
@@ -288,6 +336,16 @@ function StringsIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function MetronomeIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M9 3h6l3.5 18h-13L9 3z" />
+      <path d="M12 17.5L15.5 6.5" />
+      <circle cx="14.2" cy="10.2" r="1.2" />
+    </svg>
+  );
+}
+
 function PomodoroIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -402,6 +460,15 @@ function FruitMergeIcon(props: SVGProps<SVGSVGElement>) {
       <circle cx="16" cy="17" r="2.5" />
       <circle cx="14.5" cy="10.5" r="2" />
       <path d="M14.5 8.5c.2-1.2.9-2 2-2.5" />
+    </svg>
+  );
+}
+
+function KomaIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M12 3v3M5 9h14M6 9c0 5 3 9 6 12 3-3 6-7 6-12" />
+      <path d="M8.5 13h7" />
     </svg>
   );
 }
@@ -540,12 +607,12 @@ function MathIcon(props: SVGProps<SVGSVGElement>) {
 
 const APP_ICONS: Record<AppSlug, Icon> = {
   math: MathIcon, quiz: QuizIcon, arith: ArithIcon,
-  json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon,
+  json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon, "llm-memory": LlmMemoryIcon,
   wc: WcIcon, password: PasswordIcon, "mosaic": MosaicIcon, stopwatch: StopwatchIcon, "business-card": CardIcon,
   ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
-  dice: DiceIcon, reaction: ReactionIcon, "iq-test": IqTestIcon, personality: PersonalityIcon, timing: TimingIcon, pinball: PinballIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "metadata": MetadataIcon, govfaq: GovFaqIcon, "approx": ApproxIcon, "warnings": WarningsIcon, "quake": QuakeIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, glitch: GlitchIcon, "random-video": RandomVideoIcon, noise: NoiseIcon, fireworks: FireworksIcon, puchi: PuchiIcon, "crane-game": CraneGameIcon, "fruit-merge": FruitMergeIcon,
+  dice: DiceIcon, reaction: ReactionIcon, "iq-test": IqTestIcon, personality: PersonalityIcon, timing: TimingIcon, pinball: PinballIcon, koma: KomaIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "metadata": MetadataIcon, govfaq: GovFaqIcon, "approx": ApproxIcon, "warnings": WarningsIcon, "quake": QuakeIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, glitch: GlitchIcon, "random-video": RandomVideoIcon, noise: NoiseIcon, fireworks: FireworksIcon, puchi: PuchiIcon, "crane-game": CraneGameIcon, "fruit-merge": FruitMergeIcon, goldfish: GoldfishIcon, typing: TypingIcon, "number-merge": NumberMergeIcon,
   tax: TaxIcon, split: SplitIcon, "unit-converter": UnitConverterIcon, "date-calc": DateCalcIcon, pomodoro: PomodoroIcon, roulette: RouletteIcon, strings: StringsIcon,
-  calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, diary: WcIcon, age: AgeIcon, breaches: BreachesIcon, omikuji: OmikujiIcon, "birthday-fortune": BirthdayFortuneIcon,
+  calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, "heart-rate": HeartRateIcon, diary: WcIcon, age: AgeIcon, breaches: BreachesIcon, omikuji: OmikujiIcon, "birthday-fortune": BirthdayFortuneIcon, metronome: MetronomeIcon,
 };
 
 export const apps: AppEntry[] = APP_CATALOG.map(app => ({ ...app, icon: APP_ICONS[app.slug] }));
