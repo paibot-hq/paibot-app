@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { FLOOR_Y, KINDS, MAX_FISH, MAX_FOOD, SURFACE_R, WATER_Y, addFish, clampToWater, createWorld, distance, dropFood, inWater, random, removeFish, startle, step } from './swim.ts';
+import { DIRT_PER_FISH_SECOND, FLOOR_Y, GASPING_DIRT, KINDS, LEFTOVER_DIRT, MAX_FISH, MAX_FOOD, SURFACE_R, WATER_Y, addFish, changeWater, clampToWater, createWorld, distance, dropFood, fouling, inWater, random, removeFish, startle, step } from './swim.ts';
 
 const DT = 1 / 60;
 const run = (world, seconds, next) => { for (let i = 0; i < seconds / DT; i++) step(world, DT, next); };
@@ -140,4 +140,43 @@ test('now and then a fish goes down to peck at the gravel, and drifts slowly at 
   }
   assert.ok(pecked / samples > 0.02 && pecked / samples < 0.4, `pecking ${pecked}/${samples}`);
   assert.ok(slow / samples > 0.05, `slow ${slow}/${samples}`);
+});
+
+test('the water fouls with time, faster with more fish, and with food left to rot; changing it makes it fresh', () => {
+  const one = bowl(1, 20), three = bowl(3, 20);
+  for (const b of [one, three]) for (const fish of b.world.fish) fish.hunger = 0;
+  run(one.world, 60, one.next);
+  run(three.world, 60, three.next);
+  assert.ok(Math.abs(one.world.dirt - 60 * DIRT_PER_FISH_SECOND) < 1e-6, `${one.world.dirt}`);
+  assert.ok(Math.abs(three.world.dirt - 3 * one.world.dirt) < 1e-6, 'three times as fast with three fish');
+  // A pellet nobody eats lies on the gravel, rots and fouls the water.
+  const { world, next } = bowl(0, 21);
+  dropFood(world, 0, 0, 1, next);
+  run(world, 100, next);
+  assert.equal(world.food.length, 0);
+  assert.ok(Math.abs(world.dirt - LEFTOVER_DIRT) < 1e-9, `${world.dirt}`);
+  changeWater(world);
+  assert.equal(world.dirt, 0);
+  assert.equal(fouling(3, 3600), 3600 * 3 * DIRT_PER_FISH_SECOND);
+  assert.equal(fouling(3, -5), 0);
+  assert.equal(createWorld(5).dirt, 1, 'never above fully fouled');
+});
+
+test('in foul water the fish come up to gulp at the surface', () => {
+  const nearSurface = dirt => {
+    const next = random(22);
+    const world = createWorld(dirt);
+    for (let i = 0; i < 4; i++) addFish(world, KINDS[i % 3], next);
+    for (const fish of world.fish) fish.hunger = 0;
+    let near = 0, samples = 0;
+    for (let i = 0; i < 60 * 120; i++) {
+      step(world, DT, next);
+      world.dirt = dirt;
+      if (i % 30) continue;
+      for (const fish of world.fish) { samples++; if (fish.pos.y > WATER_Y - 0.25) near++; }
+    }
+    return near / samples;
+  };
+  const clean = nearSurface(0), foul = nearSurface(GASPING_DIRT + 0.2);
+  assert.ok(foul > clean * 2 && foul > 0.5, `near the surface: ${clean.toFixed(2)} clean, ${foul.toFixed(2)} foul`);
 });

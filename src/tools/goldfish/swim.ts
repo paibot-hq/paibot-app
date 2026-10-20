@@ -40,6 +40,8 @@ export type Fish = {
   // Whether the spot it wanders to is on the gravel (to peck at it), and the seconds left of pecking there.
   toFloor: boolean;
   pecking: number;
+  // Whether it is going up to gulp at the surface (in foul water).
+  gasping: boolean;
   // The tail's beat, for drawing.
   phase: number;
   // A number of its own, for drawing its pattern.
@@ -48,7 +50,23 @@ export type Fish = {
 
 export type Food = { id: number; pos: Vec; drift: Vec; floatFor: number; sink: number; landed: number };
 
-export type World = { fish: Fish[]; food: Food[]; time: number; eaten: number; nextId: number };
+// `dirt`: how fouled the water is, 0 (fresh) to 1. It grows with every fish as time goes by, and with each pellet left
+// to rot on the gravel; changing the water makes it fresh again. Above GASPING_DIRT the fish come up to gulp at the
+// surface, as goldfish short of oxygen do.
+export type World = { fish: Fish[]; food: Food[]; time: number; eaten: number; nextId: number; dirt: number };
+
+// How fast the water fouls: so much a second for each fish (three fish take about half an hour to foul it half way),
+// and so much for a pellet left to rot.
+export const DIRT_PER_FISH_SECOND = 1 / 10800;
+export const LEFTOVER_DIRT = 0.02;
+export const GASPING_DIRT = 0.7;
+
+// How much the water fouls with so many fish in so many seconds (also for the time the page was closed).
+export const fouling = (fish: number, seconds: number) => Math.max(0, seconds) * DIRT_PER_FISH_SECOND * fish;
+
+export function changeWater(world: World) {
+  world.dirt = 0;
+}
 
 const v = (x = 0, y = 0, z = 0): Vec => ({ x, y, z });
 const add = (a: Vec, b: Vec, k = 1): Vec => ({ x: a.x + b.x * k, y: a.y + b.y * k, z: a.z + b.z * k });
@@ -99,8 +117,8 @@ function floorPoint(next: () => number): Vec {
   return v(Math.cos(angle) * r, y, Math.sin(angle) * r);
 }
 
-export function createWorld(): World {
-  return { fish: [], food: [], time: 0, eaten: 0, nextId: 1 };
+export function createWorld(dirt = 0): World {
+  return { fish: [], food: [], time: 0, eaten: 0, nextId: 1, dirt: Math.min(1, Math.max(0, dirt)) };
 }
 
 const SIZES: Record<Kind, [number, number]> = { wakin: [0.22, 0.26], ryukin: [0.2, 0.24], demekin: [0.19, 0.23] };
@@ -114,7 +132,7 @@ export function addFish(world: World, kind: Kind, next: () => number): Fish | nu
   const [lo, hi] = SIZES[kind];
   const fish: Fish = {
     id: world.nextId++, kind, pos, vel: v(Math.cos(angle) * 0.08, 0, Math.sin(angle) * 0.08),
-    size: lo + next() * (hi - lo), target: randomPoint(next), retarget: 3 + next() * 5, pace: 1, toFloor: false, pecking: 0,
+    size: lo + next() * (hi - lo), target: randomPoint(next), retarget: 3 + next() * 5, pace: 1, toFloor: false, pecking: 0, gasping: false,
     fleeing: 0, fleeFrom: v(), hunger: 0.6, eaten: 0, phase: next() * Math.PI * 2, seed: Math.floor(next() * 1e9),
   };
   world.fish.push(fish);
@@ -175,7 +193,9 @@ export function step(world: World, dt: number, next: () => number): void {
     const r = Math.hypot(food.pos.x, food.pos.z), max = Math.sqrt(Math.max(0, (BOWL_R - 0.04) ** 2 - food.pos.y ** 2));
     if (r > max) { food.pos.x *= max / r; food.pos.z *= max / r; }
   }
+  const rotted = world.food.filter(food => food.landed >= FOOD_LIFE).length;
   world.food = world.food.filter(food => food.landed < FOOD_LIFE);
+  world.dirt = Math.min(1, world.dirt + rotted * LEFTOVER_DIRT + fouling(world.fish.length, dt));
 
   for (const fish of world.fish) {
     if (fish.fleeing > 0) fish.pecking = 0;
@@ -210,8 +230,10 @@ export function step(world: World, dt: number, next: () => number): void {
         }
         if ((fish.retarget <= 0 || (!fish.toFloor && distance(fish.pos, fish.target) < 0.12)) && fish.pecking <= 0) {
           // The next stretch: mostly a swim somewhere, sometimes a slow drift, sometimes down to peck at the gravel.
-          fish.toFloor = next() < 0.18;
-          fish.target = fish.toFloor ? floorPoint(next) : randomPoint(next);
+          // In foul water they mostly come up to the surface to gulp air instead.
+          fish.gasping = world.dirt > GASPING_DIRT && next() < 0.75;
+          fish.toFloor = !fish.gasping && next() < 0.18;
+          fish.target = fish.gasping ? clampToWater({ ...randomPoint(next), y: WATER_Y }) : fish.toFloor ? floorPoint(next) : randomPoint(next);
           fish.pace = next() < 0.25 ? 0.3 + next() * 0.25 : 0.75 + next() * 0.4;
           fish.retarget = 4 + next() * 6;
         }
@@ -236,13 +258,14 @@ export function step(world: World, dt: number, next: () => number): void {
     // Back from the glass, the surface and the gravel, harder the nearer.
     const r = len(fish.pos), wall = BOWL_R - MARGIN;
     if (r > wall - SOFT) accel = add(accel, scale(norm(fish.pos), -2.5 * Math.min(1.5, (r - (wall - SOFT)) / SOFT)));
-    if (fish.pos.y > WATER_Y - MARGIN - SOFT) accel.y -= 2.5 * Math.min(1.5, (fish.pos.y - (WATER_Y - MARGIN - SOFT)) / SOFT);
+    // (Not for a fish coming up to gulp: the surface is where it wants to be.)
+    if (fish.pos.y > WATER_Y - MARGIN - SOFT && !(mode === "wander" && fish.gasping)) accel.y -= 2.5 * Math.min(1.5, (fish.pos.y - (WATER_Y - MARGIN - SOFT)) / SOFT);
     // (Not for a fish going down to peck: the gravel is where it wants to be.)
     if (fish.pos.y < FLOOR_Y + MARGIN + SOFT && !(mode === "wander" && fish.toFloor)) accel.y += 2.5 * Math.min(1.5, (FLOOR_Y + MARGIN + SOFT - fish.pos.y) / SOFT);
 
     fish.vel = limit(add(fish.vel, limit(accel, maxAccel + 2.5), dt), maxSpeed);
     // Goldfish keep mostly level when they wander.
-    if (mode === "wander" && !fish.toFloor) fish.vel.y = Math.max(-0.07, Math.min(0.07, fish.vel.y));
+    if (mode === "wander" && !fish.toFloor && !fish.gasping) fish.vel.y = Math.max(-0.07, Math.min(0.07, fish.vel.y));
     fish.pos = add(fish.pos, fish.vel, dt);
     if (!inWater(fish.pos)) {
       // Never through the glass: back inside, and the speed outwards taken away.

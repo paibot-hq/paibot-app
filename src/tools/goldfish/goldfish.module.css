@@ -31,3 +31,5 @@
 .swatch[data-kind="demekin"] { background: #18181c; box-shadow: 0 0 0 1px var(--line); }
 .howto { width: min(560px, 100%); margin: 1rem auto 0; padding-left: 1.2rem; color: var(--text); line-height: 1.8; box-sizing: border-box; }
 .note { width: min(560px, 100%); margin: .6rem auto 0; color: var(--muted); font-size: .85rem; line-height: 1.6; text-align: center; }
+.slider { display: inline-flex; align-items: center; gap: .5rem; color: var(--text); font-size: .9rem; }
+.slider input { width: 9rem; accent-color: #6b7a3c; }

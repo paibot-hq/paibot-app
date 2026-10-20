@@ -2143,7 +2143,12 @@
       "howDrag": "Drag (or swipe on a phone) to turn the bowl and look from any angle. Scroll or pinch to come closer.",
       "howFeed": "Tap the water's surface from above to drop food there. Hungry fish will come for it.",
       "howTap": "Tap the glass: it rings, and the fish nearby dart away.",
-      "hint": "Each fish swims on its own and keeps from bumping into the others. A full fish stops eating, and food left over sinks to the bottom. The fish and the light are kept on this device."
+      "hint": "Each fish swims on its own and keeps from bumping into the others. A full fish stops eating, and food left over sinks to the bottom. The fish and the light are kept on this device.",
+      "dirtLevel": "Water {percent}% fouled",
+      "changeWater": "Change the water",
+      "dirt": "Murk",
+      "foul": "The water is very foul. The fish are gulping at the surface (what goldfish do when short of oxygen). Change the water for them.",
+      "howDirt": "The water fouls little by little, faster with more fish, and more when leftover food rots on the bottom (it goes on while the page is closed). “Change the water” makes it fresh again; “Murk” sets how cloudy it is."
     },
     "koma": {
       "title": "Spinning Top Battle",
