@@ -5,7 +5,7 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
-import { BOWL_R, FLOOR_Y, MAX_FOOD, SURFACE_R, WATER_Y, addFish, changeWater, createWorld, dropFood, inWater, random, removeFish, startle, step, type Kind, type World } from "./swim";
+import { BOWL_R, FLOOR_Y, MAX_FOOD, SURFACE_R, WATER_Y, addFish, createWorld, dropFood, random, removeFish, startle, step, type Kind, type World } from "./swim";
 import { makeFish, swimFish, type FishTextures, type FishView } from "./fish-model.client";
 import { loadFishTextures } from "./fish-model.client";
 
@@ -16,15 +16,12 @@ export async function loadTextures(base = "/goldfish/"): Promise<SceneTextures> 
   return { fish: await loadFishTextures(base) };
 }
 
-export type Stats = { fish: number; food: number; eaten: number; kinds: Kind[]; dirt: number };
+export type Stats = { fish: number; food: number; eaten: number; kinds: Kind[] };
 export type Aquarium = {
   addFish(kind: Kind): boolean;
   removeFish(): boolean;
   feed(): void;
   setNight(night: boolean): void;
-  // Fresh water (it clears over a moment), or the water fouled to a given degree at once (0 to 1).
-  changeWater(): void;
-  setDirt(dirt: number): void;
   resetView(): void;
   dispose(): void;
 };
@@ -140,9 +137,9 @@ function drawCaustics(ctx: CanvasRenderingContext2D, image: ImageData, time: num
 // A ring spreading on the water from where something touched it, for `life` seconds (a bubble's are small and brief).
 type Ripple = { x: number; z: number; born: number; strength: number; life: number };
 
-export function createAquarium(container: HTMLElement, options: { kinds: Kind[]; night: boolean; dirt?: number; textures: SceneTextures; onStats: (stats: Stats) => void; seed?: number }): Aquarium {
+export function createAquarium(container: HTMLElement, options: { kinds: Kind[]; night: boolean; textures: SceneTextures; onStats: (stats: Stats) => void; seed?: number }): Aquarium {
   const next = random(options.seed ?? (Math.random() * 2 ** 32) >>> 0);
-  const world: World = createWorld(options.dirt ?? 0);
+  const world: World = createWorld();
   for (const kind of options.kinds) addFish(world, kind, next);
 
   const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: "high-performance" });
@@ -330,20 +327,6 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   waterFront.renderOrder = 4;
   scene.add(waterBack, waterFront);
 
-  // Fouled water: specks of muck drifting in it, more the fouler it is.
-  const MOTES = 260;
-  const moteMesh = new THREE.InstancedMesh(new THREE.IcosahedronGeometry(1, 0), new THREE.MeshStandardMaterial({ color: "#8f8057", roughness: 1, transparent: true, opacity: 0.75, depthWrite: false }), MOTES);
-  moteMesh.renderOrder = 2;
-  moteMesh.count = 0;
-  const waterPoint = () => {
-    for (;;) {
-      const point = { x: (next() * 2 - 1) * BOWL_R, y: FLOOR_Y + next() * (WATER_Y - FLOOR_Y), z: (next() * 2 - 1) * BOWL_R };
-      if (inWater(point, 0.04)) return point;
-    }
-  };
-  const motes = Array.from({ length: MOTES }, () => ({ at: waterPoint(), phase: next() * 6.3, size: 0.0025 + next() * 0.0045 }));
-  scene.add(moteMesh);
-
   const surfaceGeometry = new THREE.RingGeometry(0.0001, SURFACE_R * 0.992, 96, 24);
   surfaceGeometry.rotateX(-Math.PI / 2);
   surfaceGeometry.translate(0, WATER_Y, 0);
@@ -434,7 +417,6 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
   sync();
 
   // Night: the room dark, the bowl lit from its own lamp.
-  let spotBase = 40;
   const setNight = (value: boolean) => {
     night = value;
     paintWall();
@@ -446,29 +428,11 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
     tableMaterial.envMapIntensity = night ? 0.03 : 0.25;
     sun.intensity = night ? 0.05 : 1.0;
     lamp.intensity = night ? 1.5 : 0;
-    spotBase = night ? 30 : 40;
+    spot.intensity = night ? 30 : 40;
     spot.color.set(night ? "#cfe6ff" : "#fff3e2");
     renderer.toneMappingExposure = night ? 1.2 : 0.85;
   };
   setNight(options.night);
-
-  // Clear water and foul water: the tint of the water (which, in front of the fish, hazes them), of its surface, and the
-  // light that gets through it.
-  const clearBack = new THREE.Color("#8fd3cd"), foulBack = new THREE.Color("#5c6838");
-  const clearFront = new THREE.Color("#b6e6e1"), foulFront = new THREE.Color("#7a8350");
-  const clearTop = new THREE.Color("#bfe3dd"), foulTop = new THREE.Color("#8b8d59");
-  const backMaterial = waterBack.material as THREE.MeshPhysicalMaterial, frontMaterial = waterFront.material as THREE.MeshPhysicalMaterial, topMaterial = surface.material as THREE.MeshBasicMaterial;
-  const showDirt = (d: number) => {
-    backMaterial.color.copy(clearBack).lerp(foulBack, d);
-    backMaterial.opacity = 0.2 + 0.5 * d;
-    frontMaterial.color.copy(clearFront).lerp(foulFront, d);
-    frontMaterial.opacity = 0.04 + 0.62 * d ** 0.8;
-    topMaterial.color.copy(clearTop).lerp(foulTop, d);
-    topMaterial.opacity = 0.07 + 0.45 * d;
-    spot.intensity = spotBase * (1 - 0.65 * d);
-  };
-  let shownDirt = world.dirt;
-  showDirt(shownDirt);
 
   // Sizing to the container.
   const resize = () => {
@@ -608,23 +572,6 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
     });
     foodMesh.instanceMatrix.needsUpdate = true;
 
-    // How fouled the water looks follows how fouled it is, over a moment (so changed water clears, not blinks).
-    shownDirt += (world.dirt - shownDirt) * Math.min(1, dt * 1.5);
-    showDirt(shownDirt);
-    const shownMotes = Math.round(MOTES * Math.min(1, shownDirt * 1.4));
-    moteMesh.count = shownMotes;
-    for (let i = 0; i < shownMotes; i++) {
-      const mote = motes[i];
-      mote.at.x += Math.sin(time * 0.31 + mote.phase) * 0.006 * dt;
-      mote.at.z += Math.cos(time * 0.27 + mote.phase * 1.3) * 0.006 * dt;
-      mote.at.y += (Math.sin(time * 0.2 + mote.phase) * 0.004 - 0.003) * dt;
-      if (!inWater(mote.at, 0.03)) mote.at = waterPoint();
-      p.set(mote.at.x, mote.at.y, mote.at.z);
-      s.setScalar(mote.size);
-      moteMesh.setMatrixAt(i, foodMatrix.compose(p, q.identity(), s));
-    }
-    moteMesh.instanceMatrix.needsUpdate = true;
-
     // The surface: gentle waves, and rings spreading from where food fell or the glass was tapped.
     const position = surfaceGeometry.getAttribute("position") as THREE.BufferAttribute;
     const array = position.array as Float32Array;
@@ -641,7 +588,7 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
 
     if (now - statsAt > 250) {
       statsAt = now;
-      options.onStats({ fish: world.fish.length, food: world.food.length, eaten: world.eaten, kinds: world.fish.map(fish => fish.kind), dirt: world.dirt });
+      options.onStats({ fish: world.fish.length, food: world.food.length, eaten: world.eaten, kinds: world.fish.map(fish => fish.kind) });
     }
   };
   frame = requestAnimationFrame(loop);
@@ -651,8 +598,6 @@ export function createAquarium(container: HTMLElement, options: { kinds: Kind[];
     removeFish() { const removed = !!removeFish(world); sync(); return removed; },
     feed() { const angle = next() * Math.PI * 2, r = Math.sqrt(next()) * SURFACE_R * 0.6; feedAt(Math.cos(angle) * r, Math.sin(angle) * r); },
     setNight,
-    changeWater() { changeWater(world); },
-    setDirt(dirt) { world.dirt = Math.min(1, Math.max(0, dirt)); },
     resetView() { camera.position.copy(HOME); controls.target.copy(TARGET); controls.update(); },
     dispose() {
       cancelAnimationFrame(frame);

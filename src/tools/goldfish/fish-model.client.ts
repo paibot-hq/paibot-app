@@ -7,7 +7,7 @@
 // wakin, double for a ryukin and a demekin. Each fin is a fan of rays whose skin is clearer towards its edge. The fish's
 // own units: nose towards +z, back towards +y, about 1 long. Browser only (three.js).
 import * as THREE from "three";
-import { WATER_Y, random, type Fish, type Kind } from "./swim";
+import { random, type Fish, type Kind } from "./swim";
 
 type V3 = THREE.Vector3;
 const vec = (x: number, y: number, z: number) => new THREE.Vector3(x, y, z);
@@ -450,9 +450,7 @@ export function swimFish(view: FishView, dt: number) {
     view.pitch += ((fish.pecking > 0 ? 0.55 + Math.sin(fish.phase * 1.7) * 0.08 : pitch) - view.pitch) * Math.min(1, dt * 4);
   }
   view.bend += (THREE.MathUtils.clamp(rate * 0.06, -0.14, 0.14) - view.bend) * Math.min(1, dt * 5);
-  // Gulping at the surface (in foul water): the mouth opens wide and fast.
-  const gulping = fish.gasping && fish.pos.y > WATER_Y - 0.22;
-  view.breath += dt * (gulping ? 9 : 2.2 + speed * 4);
+  view.breath += dt * (2.2 + speed * 4);
   const breath = 0.5 + 0.5 * Math.sin(view.breath);
 
   const position = view.body.geometry.getAttribute("position") as THREE.BufferAttribute;
@@ -465,7 +463,7 @@ export function swimFish(view: FishView, dt: number) {
   // The shading follows the bending every other frame, the fins' every third (the most costly part, hardly seen).
   view.frame++;
   if (view.frame % 2 === 0) { view.body.geometry.computeVertexNormals(); smoothSeam(view.body.geometry, BODY_RINGS, BODY_AROUND); }
-  view.mouth.scale.set(0.85 + breath * (gulping ? 0.6 : 0.3), 0.8 + breath * (gulping ? 0.9 : 0.4), 1);
+  view.mouth.scale.set(0.85 + breath * 0.3, 0.8 + breath * 0.4, 1);
   view.mouth.position.x = sway(view.mouth.position.z);
 
   for (const fin of view.fins) {
@@ -506,6 +504,6 @@ export function swimFish(view: FishView, dt: number) {
 export function buildFish(kind: Kind, seed: number): THREE.Object3D {
   const blank = new THREE.Texture();
   const textures: FishTextures = { fin: blank, kinds: { wakin: { shading: blank, normal: blank, iris: blank }, ryukin: { shading: blank, normal: blank, iris: blank }, demekin: { shading: blank, normal: blank, iris: blank } } };
-  const fish = { id: 1, kind, pos: { x: 0, y: 0, z: 0 }, vel: { x: 0, y: 0, z: 0.15 }, size: 1, target: { x: 0, y: 0, z: 0 }, retarget: 0, fleeing: 0, fleeFrom: { x: 0, y: 0, z: 0 }, hunger: 0, eaten: 0, pace: 1, toFloor: false, pecking: 0, gasping: false, phase: 0, seed };
+  const fish = { id: 1, kind, pos: { x: 0, y: 0, z: 0 }, vel: { x: 0, y: 0, z: 0.15 }, size: 1, target: { x: 0, y: 0, z: 0 }, retarget: 0, fleeing: 0, fleeFrom: { x: 0, y: 0, z: 0 }, hunger: 0, eaten: 0, pace: 1, toFloor: false, pecking: 0, phase: 0, seed };
   return makeFish(fish, blank, textures).group.children[0];
 }

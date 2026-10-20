@@ -27,14 +27,6 @@ export default async function ({ page, main, go }) {
   await page.waitForFunction(() => Number(document.querySelector('[data-goldfish="stage"]').dataset.eaten) > 0, undefined, { timeout: 40000 });
   assert.ok(await read('eaten') > 0);
 
-  // Murky water: set by the slider, with a warning when it is foul; changing the water makes it fresh.
-  await main.locator('[data-goldfish="dirt"]').fill('80');
-  await page.waitForFunction(() => document.querySelector('[data-goldfish="stage"]').dataset.dirt === '80');
-  await main.locator('[data-goldfish="foul"]').waitFor();
-  await main.locator('[data-goldfish="change-water"]').click();
-  await page.waitForFunction(() => document.querySelector('[data-goldfish="stage"]').dataset.dirt === '0');
-  assert.equal(await main.locator('[data-goldfish="foul"]').count(), 0);
-
   await main.locator('[data-goldfish="remove"]').click();
   await page.waitForFunction(() => document.querySelector('[data-goldfish="stage"]').dataset.fish === '3');
 
@@ -51,5 +43,5 @@ export default async function ({ page, main, go }) {
   const box = await main.locator('[data-goldfish="stage"] canvas').boundingBox();
   await page.mouse.click(box.x + box.width * 0.5 + box.height * 0.27, box.y + box.height * 0.55);
   await page.waitForTimeout(300);
-  console.log('PASS: goldfish: the 3D bowl drawn with three fish, one put in, fed and the food eaten, one scooped out, murky water and a change of water, the night light, kept after a reload, the glass tapped');
+  console.log('PASS: goldfish: the 3D bowl drawn with three fish, one put in, fed and the food eaten, one scooped out, the night light, kept after a reload, the glass tapped');
 }
