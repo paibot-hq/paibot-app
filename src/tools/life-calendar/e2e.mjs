@@ -21,7 +21,6 @@ export default async function ({ page, main, go, errors }) {
   await main.getByRole('combobox', { name: /Display range/ }).selectOption('90');
   await page.locator('[data-life-grid]').waitFor();
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
-  await page.screenshot({ path: '/tmp/paibot-life-calendar-mobile.png', fullPage: true });
   assert.deepEqual(errors, []);
   await main.getByRole('combobox', { name: /Display range/ }).selectOption('120');
   assert.equal(await page.getByRole('dialog').count(), 0);
@@ -36,6 +35,5 @@ export default async function ({ page, main, go, errors }) {
     assert.ok(await calendarGrid.evaluate(grid => grid.scrollHeight <= grid.clientHeight + 2), 'all rows fit inside compact grid');
   }
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.screenshot({ path: '/tmp/paibot-life-inline.png', fullPage: true });
   console.log('PASS: life calendar shows every week inline without an overview button');
 }

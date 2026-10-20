@@ -24,7 +24,6 @@ export default async function ({ page, go, errors }) {
   await phone.goto(page.url());
   await phone.waitForFunction(() => document.querySelector('[data-clock-time]')?.textContent);
   assert.ok(await phone.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
-  await phone.screenshot({ path: '/tmp/paibot-clock-mobile.png', fullPage: true });
   assert.deepEqual(errors, []);
   console.log('PASS: clock, local date rollover, fullscreen and mobile width');
 }
