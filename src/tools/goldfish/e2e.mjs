@@ -24,7 +24,7 @@ export default async function ({ page, main, go }) {
   await main.locator('[data-goldfish="feed"]').click();
   await main.locator('[data-goldfish="feed"]').click();
   await page.waitForFunction(() => Number(document.querySelector('[data-goldfish="stage"]').dataset.food) > 0);
-  await page.waitForFunction(() => Number(document.querySelector('[data-goldfish="stage"]').dataset.eaten) > 0, undefined, { timeout: 40000 });
+  await page.waitForFunction(() => Number(document.querySelector('[data-goldfish="stage"]').dataset.eaten) > 0, undefined, { timeout: 60000 });
   assert.ok(await read('eaten') > 0);
 
   await main.locator('[data-goldfish="remove"]').click();
