@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-19",
+ "asOf": "2026-10-20",
  "note": "各社・各機関の公表と報道にもとづく。件数は「最大」「可能性」を含む公表値で、調査が進むと変わることがある。出典どうしで日付や件数が食い違う場合は、備考に書いた。",
  "items": [
   {
@@ -80,6 +80,32 @@
     {
      "name": "日経BP(お知らせ)",
      "url": "https://www.nikkeibp.co.jp/atcl/newsrelease/corp/20261017/",
+     "kind": "press"
+    }
+   ],
+   "origin": "attack"
+  },
+  {
+   "id": "golfdigest-online",
+   "date": "2026-10-16",
+   "name": "ゴルフダイジェスト・オンライン",
+   "type": "leak",
+   "count": 1844,
+   "countNote": "従業員・退職者・委託先等の情報の流出1,789件、顧客情報の照会の可能性55件(識別子IDのみ51件、個人情報を含む4件)、合計1,844件(10月16日時点)",
+   "data": "従業員等:氏名(一部フリガナ)と社用メールアドレス。顧客:識別子ID、4件は氏名・性別・生年月日・電話番号・メールアドレス・住所・ログインID・保有ポイントなどを含む可能性",
+   "cause": "管理サーバへの第三者による不正アクセス(10月13日7時9分頃に検知、通信を遮断)。別のサーバ1台も侵害され、そこを経由して会員情報が照会された",
+   "note": "パスワードと決済情報は現時点で確認されていない。件数は今後変わる可能性がある。侵入経路と二次被害は調査中。個人情報保護委員会に報告済み(日時は未記載)。",
+   "verification": "official",
+   "checkedAt": "2026-10-20",
+   "sources": [
+    {
+     "name": "ゴルフダイジェスト・オンライン(プレスリリース)",
+     "url": "https://company.golfdigest.co.jp/corp/pr/2026101601.html",
+     "kind": "official"
+    },
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/20/56514.html",
      "kind": "press"
     }
    ],
@@ -200,6 +226,32 @@
     {
      "name": "INTERNET Watch",
      "url": "https://internet.watch.impress.co.jp/docs/news/2148459.html",
+     "kind": "press"
+    }
+   ],
+   "origin": "attack"
+  },
+  {
+   "id": "comic-cmoa",
+   "date": "2026-10-15",
+   "name": "NTTソルマーレ(電子書籍ストア コミックシーモア)",
+   "type": "leak",
+   "count": null,
+   "countNote": "対象の件数は精査中(第3報、10月18日時点で未公表)",
+   "data": "メールアドレス、ハッシュ化されたパスワード、生年月日、性別、ニックネーム。一部のシステムログも閲覧・取得され、会員情報を含むか精査中",
+   "cause": "外部からの不正アクセス。第3報で原因(侵入経路と攻撃手法)は特定されたとするが、詳細は未記載",
+   "note": "クレジットカード情報は対象のシステムにないため漏えいしていない。購入履歴とMY本棚の漏えいは確認されていない。最初の公表日は報道(ScanNetSecurity)の記載による。サービス再開日は未定。",
+   "verification": "official",
+   "checkedAt": "2026-10-20",
+   "sources": [
+    {
+     "name": "NTTソルマーレ(会員情報の流出に関するご報告 第3報)",
+     "url": "https://www.nttsolmare.com/press/2026/1016-1.html",
+     "kind": "official"
+    },
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/20/56512.html",
      "kind": "press"
     }
    ],
@@ -1129,6 +1181,32 @@
    "origin": "attack"
   },
   {
+   "id": "lashinbang",
+   "date": "2026-10-01",
+   "name": "らしんばん(らしんばん運営サービス)",
+   "type": "leak",
+   "count": null,
+   "countNote": "対象者数は未公表(個別にメールを送った顧客が対象の可能性)",
+   "data": "氏名、住所、連絡先、生年月日、性別、職業、本人確認書類の種別と番号、会員番号、買取・注文の明細と金額、買取申込み時の銀行口座情報、配送先情報、買取同意書の画像など",
+   "cause": "第三者による不正アクセス(9月14日〜16日)。原因と影響範囲は調査中",
+   "note": "10月9日の追記で、クレジットカード情報、パスワード、本人確認書類の画像は漏えいしていないとした。マイナンバーは取得・保管していない。警察に相談し、個人情報保護委員会に報告済み。ScanNetSecurityの掲載は10月20日。",
+   "verification": "official",
+   "checkedAt": "2026-10-20",
+   "sources": [
+    {
+     "name": "らしんばん(不正アクセスによる個人情報漏えい可能性に関するお知らせとお詫び)",
+     "url": "https://www.lashinbang.com/info/26357",
+     "kind": "official"
+    },
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/20/56510.html",
+     "kind": "press"
+    }
+   ],
+   "origin": "attack"
+  },
+  {
    "id": "sagawa",
    "date": "2026-09-30",
    "name": "佐川急便(お荷物問い合わせサービス)",
@@ -1214,6 +1292,32 @@
    "originProof": [
     "不具合"
    ]
+  },
+  {
+   "id": "g-plan-gpoint",
+   "date": "2026-09-30",
+   "name": "ジー・プラン(「Gポイント」システム)",
+   "type": "leak",
+   "count": 70000,
+   "countNote": "最大約7万件(会員識別子)",
+   "data": "会員識別子のみ(パスワード等の認証情報には記載がない)",
+   "cause": "外部からの不正アクセス。9月25日にシステムの異常を検知し、システムを停止して遮断した。原因と影響範囲は調査中",
+   "note": "Gポイント関連サービスは停止中で再開時期は未定。ScanNetSecurityの掲載は10月20日。",
+   "verification": "official",
+   "checkedAt": "2026-10-20",
+   "sources": [
+    {
+     "name": "ジー・プラン(お知らせ)",
+     "url": "https://www.g-plan.net/news/details/20260930.html",
+     "kind": "official"
+    },
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/20/56506.html",
+     "kind": "press"
+    }
+   ],
+   "origin": "attack"
   },
   {
    "id": "seicomart",
