@@ -1,7 +1,80 @@
 {
- "asOf": "2026-10-20",
+ "asOf": "2026-10-22",
  "note": "各社・各機関の公表と報道にもとづく。件数は「最大」「可能性」を含む公表値で、調査が進むと変わることがある。出典どうしで日付や件数が食い違う場合は、備考に書いた。",
  "items": [
+  {
+   "id": "aeon-group-sites",
+   "date": "2026-10-21",
+   "name": "イオン(グループ13社の42サイト)",
+   "type": "other",
+   "count": null,
+   "countNote": "対象は13社の計42サイト(報道)。個人情報の流出の有無は調査中",
+   "data": "個人情報の流出の有無は調査中(10月21日時点で確認されていない)",
+   "cause": "グループ会社のサイトで、システムの不具合を調べたところ第三者による不正アクセスを確認(10月20日)。調査のため対象サイトへのアクセスを止めている。原因は調査中",
+   "note": "営業に関するシステムや電子商取引(EC)サイトには影響はないと説明されている。イオンリテール、イオンビッグ、マックスバリュ北陸などが含まれると報じられた。42サイトの数と検知日(20日)は報道による。イオンの発表PDF(aeon.info)は本文を読み取れず、内容は報道で確かめた。報道によりサイト数の記載の有無が異なる。",
+   "verification": "reported",
+   "checkedAt": "2026-10-22",
+   "sources": [
+    {
+     "name": "朝日新聞(Yahoo!ニュース)",
+     "url": "https://news.yahoo.co.jp/articles/4bccd0c5112ed5d2dd3bafc8165dd69fcec96544",
+     "kind": "press"
+    },
+    {
+     "name": "デイリースポーツ(共同通信)",
+     "url": "https://www.daily.co.jp/society/economics/2026/10/21/0020952787.shtml",
+     "kind": "press"
+    }
+   ],
+   "origin": "attack"
+  },
+  {
+   "id": "digitalarts-cloud",
+   "date": "2026-10-21",
+   "name": "デジタルアーツ(i-FILTER@Cloud など6つのクラウドサービス)",
+   "type": "leak",
+   "count": null,
+   "countNote": "対象のお客様数は非公表(「一部のお客様」)",
+   "data": "対象6サービス(i-FILTER@Cloud、m-FILTER@Cloud(Modern Edition)、m-FILTER MailAdviser Microsoft 365 対応版、FINAL CODE@Cloud、z-FILTER、Desk)の一部のお客様の情報が閲覧された可能性",
+   "cause": "クラウドサービスの運用に使う認証情報が第三者に不正に取得され、それを使って運用環境に侵入された。取得の経路は非公表。10月9日のAIによる全体点検で発見した",
+   "note": "痕跡は2025年7月頃にさかのぼるものを含む。10月21日正午時点で、お客様情報が外部に持ち出されたことや、悪用・二次被害の報告は確認されていない。全利用者に管理者用・利用者用のパスワード変更を求めている。お客様環境に導入するソフトウェア版は対象外。",
+   "verification": "official",
+   "checkedAt": "2026-10-22",
+   "sources": [
+    {
+     "name": "デジタルアーツ(お知らせ)",
+     "url": "https://www.daj.jp/webtopics/1354/",
+     "kind": "official"
+    }
+   ],
+   "origin": "attack"
+  },
+  {
+   "id": "nifty-line-application",
+   "date": "2026-10-19",
+   "name": "ニフティ(光回線の申込・受付管理システム)",
+   "type": "leak",
+   "count": 542513,
+   "countNote": "最大542,513件(漏えいの可能性。実際の件数は調査中)",
+   "data": "会員ID、氏名、性別、生年月日、住所、電話番号、メールアドレス(実際に漏えいした項目は調査中)。口座・クレジットカード情報はこのシステムに保有していない",
+   "cause": "社内用の回線申込・受付管理システムへの外部からの不正アクセス(10月19日10時20分ごろ確認)。侵入の経路や開始時期は非公表。該当の通信元からのアクセスは遮断済み",
+   "note": "2019年以降に、ニフティのWebサイト以外から「@nifty光」「@nifty MAX光」「@nifty auひかりプラス」を申し込んだ人が対象。個人情報保護委員会への報告手続き中。ニフティの発表ページ(nifty.co.jp)は取得できず(403)、内容は2つの報道で確かめた。6月のKDDIのメールシステムの件とは別。",
+   "verification": "reported",
+   "checkedAt": "2026-10-22",
+   "sources": [
+    {
+     "name": "ITmedia NEWS",
+     "url": "https://www.itmedia.co.jp/news/article/2610/19/2000002399/",
+     "kind": "press"
+    },
+    {
+     "name": "Impress Watch",
+     "url": "https://www.watch.impress.co.jp/docs/news/2149561.html",
+     "kind": "press"
+    }
+   ],
+   "origin": "attack"
+  },
   {
    "id": "fancl-attenir",
    "date": "2026-10-16",
