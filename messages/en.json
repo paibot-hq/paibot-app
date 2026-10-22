@@ -1,5 +1,33 @@
 {
   "App": {
+    "colorTrick": {
+      "title": "Color Trick",
+      "description": "The word lies. The ink tells the truth. Pick the ink color in this 30-second brain game and build a streak.",
+      "about": "Choose the ink color, ignoring what the word says. Each round lasts 30 seconds. Correct answers earn 10 points, with a multiplier increasing every five consecutive correct answers up to 4×. A mistake resets the streak. Your personal best stays in this browser.",
+      "keywords": "color stroop brain game focus reflex",
+      "tagline": "Don’t trust the word.",
+      "intro": "Easy to read. Surprisingly hard to get right.",
+      "best": "PERSONAL BEST",
+      "score": "SCORE",
+      "time": "TIME LEFT",
+      "combo": "MULTIPLIER",
+      "finished": "TIME UP / NICE WORK",
+      "accuracy": "{correct} correct out of {total}",
+      "question": "WHAT COLOR IS THE INK?",
+      "example": "FOR EXAMPLE…",
+      "exampleHint": "It says BLUE. The answer is PINK!",
+      "streak": "{count} in a row",
+      "pink": "Pink",
+      "blue": "Blue",
+      "green": "Green",
+      "orange": "Orange",
+      "right": "Correct! +{points}",
+      "wrong": "Oops! Did the word trick you?",
+      "go": "Focus on the ink!",
+      "start": "Start 30-second challenge",
+      "again": "Play again",
+      "rules": "Every 5 in a row boosts your multiplier. Up to 4×!"
+    },
     "profile": {
       "menu": "Profile",
       "title": "Profile",

@@ -28,6 +28,7 @@ export type AppData = {
 };
 
 export const APP_CATALOG = [
+  { slug: "color-trick", href: "/color-trick", category: "game", status: "published", messageKey: "colorTrick" },
   // 学習 / Study
   { slug: "math", href: "/math", category: "study", status: "published", messageKey: "math" },
   { slug: "quiz", href: "/quiz", category: "game", status: "published", messageKey: "quiz" },

@@ -605,7 +605,12 @@ function MathIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function ColorTrickIcon(props: SVGProps<SVGSVGElement>) {
+  return <svg viewBox="0 0 24 24" {...props}><circle cx="9" cy="9" r="5" /><circle cx="15" cy="9" r="5" /><circle cx="12" cy="15" r="5" /></svg>;
+}
+
 const APP_ICONS: Record<AppSlug, Icon> = {
+  "color-trick": ColorTrickIcon,
   math: MathIcon, quiz: QuizIcon, arith: ArithIcon,
   json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon, "llm-memory": LlmMemoryIcon,
   wc: WcIcon, password: PasswordIcon, "mosaic": MosaicIcon, stopwatch: StopwatchIcon, "business-card": CardIcon,
