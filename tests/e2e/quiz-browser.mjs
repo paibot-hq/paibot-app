@@ -27,7 +27,7 @@ try {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   await page.goto(`${base}/en`);
-  await page.locator('a[href="/en/quiz"]').click();
+  await page.locator('a[href="/en/quiz"]').first().click();
   await page.waitForURL(`${base}/en/quiz`);
   await page.getByRole('button', { name: 'Start quiz', exact: true }).click();
   const seen = new Set();
