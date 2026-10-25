@@ -122,6 +122,19 @@ export const toolViews = sqliteTable("tool_views", {
   views: integer("views").notNull().default(0),
 }, table => [primaryKey({ columns: [table.slug, table.day] }), index("tool_views_day_idx").on(table.day)]);
 
+// How many times each practice set was finished with each score, per day (Japan's date), whether or not the player was
+// signed in (src/lib/math-attempts.server.ts): the sets' difficulty and how far people get. Only a set, a score and a
+// number; nothing about who played.
+export const mathSetResults = sqliteTable("math_set_results", {
+  unit: text("unit").notNull(),
+  item: text("item").notNull(),
+  setId: text("set_id").notNull(),
+  day: text("day").notNull(),
+  correct: integer("correct").notNull(),
+  total: integer("total").notNull(),
+  count: integer("count").notNull().default(0),
+}, table => [primaryKey({ columns: [table.unit, table.item, table.setId, table.day, table.correct, table.total] }), index("math_set_results_day_idx").on(table.day)]);
+
 // The typing game's results (src/tools/typing): the score (keys typed right less the misses) and its parts, kept with no
 // name, account or address, so that a new result can be placed among everyone's (its rank and the chart).
 export const typingResults = sqliteTable("typing_results", {
