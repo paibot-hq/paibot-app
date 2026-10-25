@@ -395,6 +395,15 @@ function CardIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function ResignationIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="4.5" y="3" width="15" height="18" rx="2" />
+      <path d="M15.5 6.5v11M12 7.5v9M8.5 8.5v5" />
+    </svg>
+  );
+}
+
 function WcIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -613,7 +622,7 @@ const APP_ICONS: Record<AppSlug, Icon> = {
   "color-trick": ColorTrickIcon,
   math: MathIcon, quiz: QuizIcon, arith: ArithIcon,
   json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon, "llm-memory": LlmMemoryIcon,
-  wc: WcIcon, password: PasswordIcon, "mosaic": MosaicIcon, stopwatch: StopwatchIcon, "business-card": CardIcon,
+  wc: WcIcon, password: PasswordIcon, "mosaic": MosaicIcon, stopwatch: StopwatchIcon, "business-card": CardIcon, resignation: ResignationIcon,
   ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
   dice: DiceIcon, reaction: ReactionIcon, "iq-test": IqTestIcon, personality: PersonalityIcon, timing: TimingIcon, pinball: PinballIcon, koma: KomaIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "metadata": MetadataIcon, govfaq: GovFaqIcon, "approx": ApproxIcon, "warnings": WarningsIcon, "quake": QuakeIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, glitch: GlitchIcon, "random-video": RandomVideoIcon, noise: NoiseIcon, fireworks: FireworksIcon, puchi: PuchiIcon, "crane-game": CraneGameIcon, "fruit-merge": FruitMergeIcon, goldfish: GoldfishIcon, typing: TypingIcon, "number-merge": NumberMergeIcon,
   tax: TaxIcon, split: SplitIcon, "unit-converter": UnitConverterIcon, "date-calc": DateCalcIcon, pomodoro: PomodoroIcon, roulette: RouletteIcon, strings: StringsIcon,
