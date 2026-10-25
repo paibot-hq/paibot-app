@@ -2747,6 +2747,12 @@
         "byGrade": "級で",
         "count": "各{count}問"
       },
+      "allGrades": "すべて",
+      "gradeFilter": "級で絞り込む",
+      "placement": {
+        "entry": "実力判定テスト",
+        "entryNote": "答えに合わせて級が上下する{count}問で、今の実力の目安がわかります"
+      },
       "grades": {
         "e5": "5級",
         "e4": "4級",

@@ -2746,6 +2746,12 @@
         "byGrade": "By level",
         "count": "{count} questions each"
       },
+      "allGrades": "All",
+      "gradeFilter": "Filter by level",
+      "placement": {
+        "entry": "Placement test",
+        "entryNote": "{count} questions that move up or down a level with each answer, to find your current level"
+      },
       "grades": {
         "e5": "Grade 5",
         "e4": "Grade 4",

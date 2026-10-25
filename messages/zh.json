@@ -2746,6 +2746,12 @@
         "byGrade": "按级别",
         "count": "每次{count}题"
       },
+      "allGrades": "全部",
+      "gradeFilter": "按级别筛选",
+      "placement": {
+        "entry": "水平测试",
+        "entryNote": "共{count}题，级别随答题结果升降，测出你目前的大致水平"
+      },
       "grades": {
         "e5": "5级",
         "e4": "4级",

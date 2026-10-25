@@ -14,6 +14,10 @@ export const ENGLISH_UNITS: readonly EnglishUnit[] = ['grammar', 'vocab'];
 
 // A level's test: this many problems drawn from its items (as math's test per school year).
 export const ENGLISH_TEST_SIZE = 10;
+// The placement test (実力判定テスト): this many problems, the level going up after a right answer and down after a wrong one, as
+// math's (src/lib/math-placement.ts). It is offered once every level has ENGLISH_PLACEMENT_POOL published problems to draw from.
+export const ENGLISH_PLACEMENT_SIZE = 15;
+export const ENGLISH_PLACEMENT_POOL = 8;
 
 // Every item has two five-problem sets to begin with.
 const sets = [{ id: '1' }, { id: '2' }] as const;
