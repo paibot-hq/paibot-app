@@ -22,6 +22,9 @@
       "point": {
         "ja": "主語 I には am"
       },
+      "translation": {
+        "ja": "私は学生です。"
+      },
       "review": {
         "agy": {
           "ok": true,
@@ -51,6 +54,9 @@
       },
       "point": {
         "ja": "3人称単数の主語には is"
+      },
+      "translation": {
+        "ja": "私の兄(弟)は10歳です。"
       },
       "review": {
         "agy": {
@@ -82,6 +88,9 @@
       "point": {
         "ja": "you の疑問文は Are you ...?"
       },
+      "translation": {
+        "ja": "あなたはカナダ出身ですか。"
+      },
       "review": {
         "agy": {
           "ok": true,
@@ -111,6 +120,9 @@
       },
       "point": {
         "ja": "A and B の主語は複数で are"
+      },
+      "translation": {
+        "ja": "ケンと私は仲のよい友だちです。"
       },
       "review": {
         "agy": {
@@ -142,6 +154,9 @@
       "point": {
         "ja": "this には is、否定は is not"
       },
+      "translation": {
+        "ja": "これは私のかばんではありません。"
+      },
       "review": {
         "agy": {
           "ok": true,
@@ -171,6 +186,9 @@
       },
       "point": {
         "ja": "Is ...? には Yes, ... is. で答える"
+      },
+      "translation": {
+        "ja": "A: あなたのお母さんは先生ですか。 B: はい、そうです。"
       },
       "review": {
         "agy": {
@@ -202,6 +220,9 @@
       "point": {
         "ja": "this の疑問文は Is this ...?"
       },
+      "translation": {
+        "ja": "これはあなたのえんぴつですか。— いいえ、ちがいます。"
+      },
       "review": {
         "agy": {
           "ok": true,
@@ -231,6 +252,9 @@
       },
       "point": {
         "ja": "we には are、「いる」の否定も be動詞"
+      },
+      "translation": {
+        "ja": "私たちは今、教室にいません。"
       },
       "review": {
         "agy": {
@@ -262,6 +286,9 @@
       "point": {
         "ja": "複数の主語の疑問文は Where are ...?"
       },
+      "translation": {
+        "ja": "あなたの両親はどこにいますか。"
+      },
       "review": {
         "agy": {
           "ok": true,
@@ -291,6 +318,9 @@
       },
       "point": {
         "ja": "主語の中心の名詞で be動詞を決める"
+      },
+      "translation": {
+        "ja": "机の上の本は私のものです。"
       },
       "review": {
         "agy": {

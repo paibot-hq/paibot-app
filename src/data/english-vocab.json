@@ -22,6 +22,9 @@
       "point": {
         "ja": "breakfast = 朝食"
       },
+      "translation": {
+        "ja": "私は毎朝、朝食を食べます。"
+      },
       "review": {
         "agy": {
           "ok": true,
@@ -51,6 +54,9 @@
       },
       "point": {
         "ja": "window = 窓"
+      },
+      "translation": {
+        "ja": "窓を開けてください。この部屋は暑いです。"
       },
       "review": {
         "agy": {
@@ -82,6 +88,9 @@
       "point": {
         "ja": "bed = ベッド"
       },
+      "translation": {
+        "ja": "私は夜、自分のベッドで寝ます。"
+      },
       "review": {
         "agy": {
           "ok": true,
@@ -111,6 +120,9 @@
       },
       "point": {
         "ja": "play the piano = ピアノをひく"
+      },
+      "translation": {
+        "ja": "私の姉(妹)はピアノをとても上手にひきます。"
       },
       "review": {
         "agy": {
@@ -142,6 +154,9 @@
       "point": {
         "ja": "hand = 手(複数形 hands)"
       },
+      "translation": {
+        "ja": "私は夕食の前に手を洗います。"
+      },
       "review": {
         "agy": {
           "ok": true,
@@ -171,6 +186,9 @@
       },
       "point": {
         "ja": "coat = コート"
+      },
+      "translation": {
+        "ja": "今日は寒いです。コートを着なさい。"
       },
       "review": {
         "agy": {
@@ -202,6 +220,9 @@
       "point": {
         "ja": "milk = 牛乳"
       },
+      "translation": {
+        "ja": "私は毎朝、コップ1杯の牛乳を飲みます。"
+      },
       "review": {
         "agy": {
           "ok": true,
@@ -231,6 +252,9 @@
       },
       "point": {
         "ja": "park = 公園"
+      },
+      "translation": {
+        "ja": "私たちは放課後、公園でサッカーをします。"
       },
       "review": {
         "agy": {
@@ -262,6 +286,9 @@
       "point": {
         "ja": "by bus = バスで"
       },
+      "translation": {
+        "ja": "私はバスで学校に行きます。バスは家の近くに止まります。"
+      },
       "review": {
         "agy": {
           "ok": true,
@@ -291,6 +318,9 @@
       },
       "point": {
         "ja": "father = 父、He で男性とわかる"
+      },
+      "translation": {
+        "ja": "私の父は医者です。彼は病院で働いています。"
       },
       "review": {
         "agy": {

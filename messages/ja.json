@@ -2754,6 +2754,7 @@
         "entryNote": "答えに合わせて級が上下する{count}問で、今の実力の目安がわかります"
       },
       "quiz": {
+        "translation": "訳",
         "listen": "英文を読み上げる",
         "choices": "選択肢",
         "correct": "正解",

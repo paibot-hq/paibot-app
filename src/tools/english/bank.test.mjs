@@ -9,7 +9,7 @@ test('every English problem bank passes its checks', () => {
 const problem = (changes = {}) => ({
   id: 'grammar-001', item: 'be-verb', setId: '1', position: 1, tier: 1, published: false, reviewedAt: '',
   stem: 'I ___ a student.', choices: ['am', 'is', 'are', 'be'], answerIndex: 0,
-  explanation: { ja: '主語が I なので am。' }, point: { ja: 'I には am' }, ...changes,
+  explanation: { ja: '主語が I なので am。' }, point: { ja: 'I には am' }, translation: { ja: '私は学生です。' }, ...changes,
 });
 const check = changes => () => validateBank('grammar', { problems: [problem(changes)] });
 
@@ -23,6 +23,7 @@ test('the checks catch malformed problems', () => {
   assert.throws(check({ item: 'present-perfect-x' }), /no item/);
   assert.throws(check({ setId: '9' }), /no set/);
   assert.throws(check({ id: 'vocab-001' }), /id/);
+  assert.throws(check({ translation: undefined }), /translation/);
 });
 
 test('a problem is published only when both reviewers passed it', () => {

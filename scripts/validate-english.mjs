@@ -42,6 +42,7 @@ export function validateBank(unit, bank) {
     assert.ok(Number.isInteger(p.answerIndex) && p.answerIndex >= 0 && p.answerIndex < 4, `${at}: answerIndex`);
     assert.ok(typeof p.explanation?.ja === 'string' && p.explanation.ja.trim() && p.explanation.ja.length <= 300, `${at}: explanation.ja`);
     assert.ok(typeof p.point?.ja === 'string' && p.point.ja.trim() && p.point.ja.length <= 40, `${at}: point.ja`);
+    assert.ok(typeof p.translation?.ja === 'string' && p.translation.ja.trim() && p.translation.ja.length <= 200, `${at}: translation.ja`);
     // The recording (scripts/english-audio.mjs) must be of the sentence as it is now, in the current voice.
     if (p.audio !== undefined) {
       assert.equal(p.audio, audioHash(p), `${at}: the recording is of another sentence or voice (npm run english:audio)`);
