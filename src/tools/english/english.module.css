@@ -40,3 +40,9 @@ p.stem { text-align: center; font-size: clamp(1.15rem, 4.6vw, 1.45rem); line-hei
 .blank { display: inline-block; min-width: 4.5rem; padding: 0 .3rem; border-bottom: 2px solid var(--accent); text-align: center; }
 .blank[data-filled] { color: var(--accent); font-weight: 700; }
 .point { margin: 0 0 .5rem; font-weight: 700; color: var(--text); }
+/* Read aloud: a round button beside the sentence, once answered. */
+.stemRow { display: flex; align-items: center; justify-content: center; gap: .5rem; }
+.speak { flex: none; width: 2.4rem; height: 2.4rem; display: grid; place-items: center; padding: 0; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--accent); }
+.speak:hover { border-color: var(--accent); }
+.speak:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }

@@ -2753,6 +2753,7 @@
         "entryNote": "{count} questions that move up or down a level with each answer, to find your current level"
       },
       "quiz": {
+        "listen": "Read the sentence aloud",
         "choices": "Choices",
         "correct": "Correct",
         "incorrect": "Incorrect",

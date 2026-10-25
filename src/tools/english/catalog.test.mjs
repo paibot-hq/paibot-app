@@ -52,3 +52,10 @@ test('every /english page, .data included, is kept out of search results; other 
   for (const path of ['/ja/english', '/en/english.data', '/zh/english/grammar/be-verb', '/ja/english/grammar/be-verb/1.data']) assert.ok(isUnpublishedEnglishPath(path), path);
   for (const path of ['/ja/math', '/ja/englishx', '/english', '/ja/quiz']) assert.ok(!isUnpublishedEnglishPath(path), path);
 });
+
+test('the sentence read aloud has its blank filled and no dialogue labels', async () => {
+  const { spokenText } = await import('./spoken.ts');
+  assert.equal(spokenText('I ___ a student.', 'am'), 'I am a student.');
+  assert.equal(spokenText('A: Is your mother a teacher? B: Yes, she ___.', 'is'), 'Is your mother a teacher? Yes, she is.');
+  assert.equal(spokenText('___ this your pencil? — No, it isn\'t.', 'Is'), 'Is this your pencil? No, it isn\'t.');
+});

@@ -5,6 +5,8 @@ import ToolLayout from '../../components/tool-layout';
 import { Link } from '../../i18n/navigation';
 import EnglishBreadcrumb, { type EnglishCrumb } from './breadcrumb';
 import type { EnglishPayload } from './payload';
+import SpeakButton from './speak';
+import { spokenText } from './spoken';
 import styles from '../../components/math-set-quiz.module.css';
 import own from './english.module.css';
 
@@ -17,7 +19,7 @@ function Stem({ stem, filled }: { stem: string; filled: string | null }) {
 }
 
 // A five-problem, four-choice English set, as math's quiz (components/math-set-quiz.tsx): a tap on a choice is the answer (keys 1-4
-// on a keyboard), the verdict, the point and the explanation follow, then the score. The finished answers are posted to the page's
+// on a keyboard), the verdict, the sentence read aloud on request, the point and the explanation follow, then the score. The finished answers are posted to the page's
 // own action, which rescores them and counts the result for the set (no one's record is kept).
 export default function EnglishQuiz({ title, setLabel, questions, crumbs, next }: {
   title: string; setLabel: string; questions: EnglishQuestion[]; crumbs: EnglishCrumb[];
@@ -97,7 +99,13 @@ export default function EnglishQuiz({ title, setLabel, questions, crumbs, next }
         {questions.map((q, at) => <li key={q.id} data-state={at < answers.length ? (answers[at] === q.answerIndex ? 'correct' : 'incorrect') : at === index ? 'current' : undefined} />)}
       </ol>
       <p className={styles.progress} aria-live="polite">{t('quiz.progress', { current: index + 1, total })}</p>
-      <div className={styles.question}><Stem stem={payload.stem} filled={revealed ? payload.choices[question.answerIndex] : null} /></div>
+      <div className={styles.question}>
+        <div className={own.stemRow}>
+          <Stem stem={payload.stem} filled={revealed ? payload.choices[question.answerIndex] : null} />
+          {/* Only once answered: reading the sentence before would give the answer away. */}
+          {revealed && <SpeakButton text={spokenText(payload.stem, payload.choices[question.answerIndex])} label={t('quiz.listen')} />}
+        </div>
+      </div>
       <div className={styles.choices} role="group" aria-label={t('quiz.choices')}>
         {payload.choices.map((choice, choiceIndex) => {
           const state = !revealed ? undefined : choiceIndex === question.answerIndex ? 'correct' : choiceIndex === selected ? 'incorrect' : undefined;
