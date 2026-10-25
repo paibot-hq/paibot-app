@@ -18,7 +18,7 @@ function Stem({ stem, filled }: { stem: string; filled: string | null }) {
 }
 
 // A five-problem, four-choice English set, as math's quiz (components/math-set-quiz.tsx): a tap on a choice is the answer (keys 1-4
-// on a keyboard), the verdict, the point, the translation and the explanation follow (the sentence read aloud too, where it has a recording), then the score. The finished answers are posted to the page's
+// on a keyboard), the verdict, the translation under the sentence, the point and the explanation follow (the sentence read aloud too, where it has a recording), then the score. The finished answers are posted to the page's
 // own action, which rescores them and counts the result for the set (no one's record is kept).
 export default function EnglishQuiz({ title, setLabel, questions, crumbs, next }: {
   title: string; setLabel: string; questions: EnglishQuestion[]; crumbs: EnglishCrumb[];
@@ -104,6 +104,8 @@ export default function EnglishQuiz({ title, setLabel, questions, crumbs, next }
           {/* Only once answered: reading the sentence before would give the answer away. */}
           {revealed && payload.audio && <ListenButton src={`/english-audio/${question.id}.mp3?v=${payload.audio}`} label={t('quiz.listen')} />}
         </div>
+        {/* The translation, right under the sentence, once answered (before, it would give the answer away). */}
+        {revealed && <p className={own.translation}><span className={own.translationLabel}>{t('quiz.translation')}</span>{payload.translation.ja}</p>}
       </div>
       <div className={styles.choices} role="group" aria-label={t('quiz.choices')}>
         {payload.choices.map((choice, choiceIndex) => {
@@ -122,7 +124,6 @@ export default function EnglishQuiz({ title, setLabel, questions, crumbs, next }
       </div>
       {revealed && <div className={styles.feedback}>
         <p className={own.point}>{payload.point.ja}</p>
-        <p className={own.translation}><span className={own.translationLabel}>{t('quiz.translation')}</span>{payload.translation.ja}</p>
         <p className={styles.explanation}>{payload.explanation.ja}</p>
       </div>}
     </div>
