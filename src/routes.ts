@@ -31,6 +31,11 @@ export default [
     route('math/:unit', 'routes/math-unit.tsx'),
     route('math/:unit/:item', 'routes/math-item.tsx'),
     route('math/:unit/:item/:set', 'routes/math-quiz.tsx'),
+    // English practice is not in the app catalog yet (src/tools/english/catalog.ts), so its top page is routed here too;
+    // move it to the catalog (and drop this line) when its first sets are published.
+    route('english', 'tools/english/route.tsx'),
+    route('english/:unit/:item', 'tools/english/item.tsx'),
+    route('english/:unit/:item/:set', 'tools/english/set.tsx'),
     route('favorites', 'routes/favorites.ts'),
     route('apps', 'routes/site-redirect.ts', { id: 'site-redirect/apps' }),
     route('daily', 'routes/site-redirect.ts', { id: 'site-redirect/daily' }),

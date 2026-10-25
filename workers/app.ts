@@ -1,6 +1,7 @@
 import { env } from 'cloudflare:workers';
 import { createRequestHandler } from 'react-router';
 import { isComingSoonMathPath } from '../src/lib/math-catalog';
+import { isUnpublishedEnglishPath } from '../src/tools/english/catalog';
 import { locales } from '../src/i18n/routing';
 import { siteOrigin, isIndexable } from '../src/lib/seo.server';
 import { buildContentSecurityPolicy } from '../src/lib/security-headers.server';
@@ -37,7 +38,7 @@ export default {
     }
     countView(request, response, url.pathname, ctx);
     const secured = new Response(response.body, response);
-    if (!isIndexable || response.status >= 400 || AUTH_PATH.test(url.pathname) || isComingSoonMathPath(url.pathname)) {
+    if (!isIndexable || response.status >= 400 || AUTH_PATH.test(url.pathname) || isComingSoonMathPath(url.pathname) || isUnpublishedEnglishPath(url.pathname)) {
       secured.headers.set('X-Robots-Tag', 'noindex');
     }
     // Math pages carry a signed-in user's scores (the set list) or save them (set pages).

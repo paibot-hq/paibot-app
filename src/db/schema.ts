@@ -3,6 +3,7 @@ import { index, integer, primaryKey, sqliteTable, text } from "drizzle-orm/sqlit
 import type { ArithPayload } from '../lib/math-arith';
 import type { PythagorasPayload } from '../lib/math-pythagoras';
 import type { FactorizationPayload } from '../lib/math-factorization';
+import type { EnglishPayload } from '../tools/english/payload';
 import type { FormulaPayload } from '../lib/math-formula';
 import type { QuizLocale, QuizTranslation } from '../lib/quiz';
 
@@ -121,6 +122,37 @@ export const toolViews = sqliteTable("tool_views", {
   day: text("day").notNull(),
   views: integer("views").notNull().default(0),
 }, table => [primaryKey({ columns: [table.slug, table.day] }), index("tool_views_day_idx").on(table.day)]);
+
+// English practice's problems (src/tools/english): the same columns as math_problems, kept apart so that math's lists and
+// tests, which read every row of math_problems, never see them. `grade` is the level (e5 ... e1, src/tools/english/catalog.ts).
+export const englishProblems = sqliteTable('english_problems', {
+  id: text('id').primaryKey().notNull(),
+  unit: text('unit').notNull(),
+  item: text('item').notNull(),
+  setId: text('set_id').notNull(),
+  position: integer('position').notNull(),
+  published: integer('published', { mode: 'boolean' }).notNull(),
+  answerIndex: integer('answer_index').notNull(),
+  payload: text('payload', { mode: 'json' }).$type<EnglishPayload>().notNull(),
+  grade: text('grade').notNull(),
+  tier: integer('tier').notNull().default(2),
+  reviewedAt: text('reviewed_at').notNull(),
+}, table => [
+  index('english_problems_set_idx').on(table.unit, table.item, table.setId, table.published, table.position),
+  index('english_problems_grade_tier_idx').on(table.grade, table.tier, table.published),
+]);
+
+// How many times each English practice set was finished with each score, per day (Japan's date), as math_set_results.
+// Only a set, a score and a number; nothing about who played.
+export const englishSetResults = sqliteTable("english_set_results", {
+  unit: text("unit").notNull(),
+  item: text("item").notNull(),
+  setId: text("set_id").notNull(),
+  day: text("day").notNull(),
+  correct: integer("correct").notNull(),
+  total: integer("total").notNull(),
+  count: integer("count").notNull().default(0),
+}, table => [primaryKey({ columns: [table.unit, table.item, table.setId, table.day, table.correct, table.total] }), index("english_set_results_day_idx").on(table.day)]);
 
 // The typing game's results (src/tools/typing): the score (keys typed right less the misses) and its parts, kept with no
 // name, account or address, so that a new result can be placed among everyone's (its rank and the chart).

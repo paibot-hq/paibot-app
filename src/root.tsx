@@ -10,6 +10,7 @@ import { isLocale } from './i18n/routing';
 import { useNonce } from './lib/csp-nonce';
 import { siteOrigin, isIndexable } from './lib/seo.server';
 import { isComingSoonMathPath } from './lib/math-catalog';
+import { isUnpublishedEnglishPath } from './tools/english/catalog';
 import ja from '../messages/ja.json';
 import en from '../messages/en.json';
 import zh from '../messages/zh.json';
@@ -55,7 +56,7 @@ export function Layout({ children }: { children: ReactNode }) {
   const { isIndexable } = useSiteMeta();
   const { pathname } = useLocation();
   const nonce = useNonce();
-  const indexPage = isIndexable && !isComingSoonMathPath(pathname) && !/^\/(ja|en|zh)\/(sign-in|sign-up|diary|profile|legal\/commerce)(\/|$)/.test(pathname);
+  const indexPage = isIndexable && !isComingSoonMathPath(pathname) && !isUnpublishedEnglishPath(pathname) && !/^\/(ja|en|zh)\/(sign-in|sign-up|diary|profile|legal\/commerce)(\/|$)/.test(pathname);
   return <html lang={isLocale(locale) ? locale : 'ja'}><head>
     {isIndexable && <>
       <script async nonce={nonce} src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
