@@ -2709,6 +2709,44 @@
       "example": "例如:{value}",
       "postalMark": ""
     },
+    "resignation": {
+      "title": "辞职信生成器",
+      "description": "填入日期和姓名,即可生成竖排的日式辞职信(退職届/退職願),可用A4打印或保存为PDF。",
+      "about": "输入离职日、提交日、部门、姓名和收件人,即可生成竖排的日式辞职信(退職届)或辞职申请(退職願)。日期可选日本年号或公历,离职理由可修改,可用A4打印或保存为PDF。",
+      "keywords": "辞职信 日本 退職届 退職願 模板 竖排 打印 pdf",
+      "intro": "输入内容后会立即生成竖排的日文辞职信。可以用A4打印,或保存为PDF。",
+      "kind": "文书类型",
+      "kindHint": {
+        "notice": "退職届是已决定离职、向公司提交的通知书。",
+        "request": "退職願是向公司提出离职请求的文书。公司同意之前,通常可以撤回。"
+      },
+      "retireDate": "离职日",
+      "submitDate": "提交日",
+      "calendar": "年份写法",
+      "calendars": {
+        "era": "日本年号(令和)",
+        "western": "公历"
+      },
+      "details": "文书内容",
+      "fields": {
+        "reason": "离职理由",
+        "department": "部门",
+        "name": "姓名",
+        "company": "公司名",
+        "recipientTitle": "收件人职务",
+        "recipientName": "收件人姓名"
+      },
+      "reasonExample": "留空则为「一身上の都合」(个人原因)",
+      "example": "例:{value}",
+      "clear": "清空",
+      "seal": "印",
+      "previewLabel": "辞职信预览",
+      "sampleHint": "填写部门、姓名和收件人后,示例会变成您的文书。",
+      "print": "打印 / 保存为PDF",
+      "printHint": "在打印窗口中将目标选为“另存为PDF”即可得到PDF。输出为A4,无页边距。",
+      "handwriting": "有的公司要求手写或使用指定格式。如有疑问,请查看公司规章或询问上司。打印后请在姓名旁盖章。",
+      "privacy": "输入的内容不会发送到服务器,只会保存在这台设备的浏览器中,供下次打开时使用。"
+    },
     "shareButtons": {
       "heading": "分享结果",
       "on": "分享到{network}",

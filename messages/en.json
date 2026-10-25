@@ -2709,6 +2709,44 @@
       "example": "e.g. {value}",
       "postalMark": ""
     },
+    "resignation": {
+      "title": "Resignation Letter Maker",
+      "description": "Make a vertically written Japanese resignation letter (taishoku-todoke or taishoku-negai) by entering dates and names, then print it on A4 or save it as a PDF.",
+      "about": "Enter the last day of work, the date of submission, your department and name, and the addressee, and get a vertically written Japanese resignation letter (taishoku-todoke) or request (taishoku-negai). Dates can be in the Japanese era or the Western calendar, the reason can be changed, and the letter prints on A4 or saves as a PDF.",
+      "keywords": "resignation letter japanese taishoku todoke negai template vertical print pdf",
+      "intro": "The letter is laid out as you type, written vertically in Japanese. Print it on A4 or save it as a PDF.",
+      "kind": "Kind of letter",
+      "kindHint": {
+        "notice": "Taishoku-todoke (退職届) is a notice: the decision to leave is made and you report it to the company.",
+        "request": "Taishoku-negai (退職願) is a request to leave. Until the company agrees, it can often be withdrawn."
+      },
+      "retireDate": "Last day of work",
+      "submitDate": "Date of submission",
+      "calendar": "Years",
+      "calendars": {
+        "era": "Japanese era (Reiwa)",
+        "western": "Western"
+      },
+      "details": "What goes in the letter",
+      "fields": {
+        "reason": "Reason",
+        "department": "Department",
+        "name": "Name",
+        "company": "Company",
+        "recipientTitle": "Addressee's title",
+        "recipientName": "Addressee's name"
+      },
+      "reasonExample": "Left empty: 一身上の都合 (personal reasons)",
+      "example": "e.g. {value}",
+      "clear": "Clear",
+      "seal": "印",
+      "previewLabel": "Preview of the letter",
+      "sampleHint": "Enter your department, name and addressee, and the sample becomes your letter.",
+      "print": "Print / save as PDF",
+      "printHint": "In the print dialog, choose \"Save as PDF\" as the destination to get a PDF. It comes out on A4 with no margins.",
+      "handwriting": "Some companies ask for a handwritten letter or their own form. If in doubt, check your employment rules or ask your manager. Put your seal next to your name after printing.",
+      "privacy": "What you enter is not sent to a server. It is kept only in this browser on this device, for the next time you open it."
+    },
     "shareButtons": {
       "heading": "Share the result",
       "on": "Share on {network}",

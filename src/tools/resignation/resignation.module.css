@@ -1,0 +1,184 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: min(560px, 100%);
+}
+
+.preview {
+  width: 100%;
+  filter: drop-shadow(0 2px 8px rgb(0 0 0 / .15));
+}
+/* The sample shown before anything is typed. */
+.preview[data-empty] {
+  opacity: .55;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  justify-content: center;
+}
+
+.group {
+  display: flex;
+  flex-direction: column;
+  gap: .75rem;
+  width: 100%;
+  margin: 0;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+}
+.group legend {
+  padding: 0 .35rem;
+  color: var(--muted);
+  font-size: .9rem;
+}
+
+.choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+.choice {
+  padding: .4rem .8rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+.choice[aria-checked="true"] {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+  font-weight: 700;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+  color: var(--muted);
+  font-size: .9rem;
+}
+.field input {
+  padding: .5rem .65rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: 1rem;
+}
+.field input:focus-visible,
+.choice:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.secondary {
+  align-self: center;
+  padding: .45rem .9rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+
+/* The A4 sheet. Sizes are in cqw (a hundredth of the sheet's width), so the
+   preview and the printed page lay out the same at any size. It is white
+   with dark ink whatever the theme, as paper is. */
+.paper {
+  container-type: inline-size;
+  position: relative;
+  width: 100%;
+  aspect-ratio: 210 / 297;
+  overflow: hidden;
+  background: #fff;
+  color: #1a1a1a;
+  border-radius: 2px;
+}
+.sheet {
+  position: absolute;
+  inset: 9cqw 11cqw 9cqw 11cqw;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+  font-family: "Hiragino Mincho ProN", "Hiragino Mincho Pro", "Yu Mincho", YuMincho, "Noto Serif JP", "BIZ UDMincho", serif;
+  font-size: 2.9cqw;
+  line-height: 1.9;
+}
+.sheet p {
+  margin: 0;
+  white-space: pre-wrap;
+}
+/* "inline-start" is the top of the page, "block-start" the right. */
+.title {
+  padding-inline-start: 0;
+  font-size: 5.2cqw;
+  line-height: 1.5;
+  letter-spacing: .6em;
+  text-align: center;
+  margin-block-end: 3cqw;
+}
+.body {
+  padding-inline-start: 1em;
+}
+.body[data-first] {
+  padding-inline-start: 0;
+  margin-block-start: 2cqw;
+}
+.date {
+  margin-block-start: 5cqw;
+  padding-inline-start: 24cqw;
+}
+.writer {
+  padding-inline-start: 36cqw;
+}
+.writer[data-name] {
+  margin-block-start: 0;
+}
+.seal {
+  margin-block-start: .4em;
+  display: inline-block;
+  color: #b3452c;
+  opacity: .55;
+  font-size: .8em;
+}
+.to {
+  padding-inline-start: 0;
+}
+.to[data-first] {
+  margin-block-start: 6cqw;
+}
+
+/* The printed copy exists only for printing. */
+.printRoot {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 0;
+  }
+  :global(body) > :not([data-print-root]) {
+    display: none !important;
+  }
+  :global(html),
+  :global(body) {
+    background: #fff !important;
+  }
+  .printRoot {
+    display: block;
+    width: 210mm;
+  }
+  .printRoot .paper {
+    border-radius: 0;
+  }
+}
