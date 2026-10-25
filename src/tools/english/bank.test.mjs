@@ -30,7 +30,7 @@ test('a problem is published only when both reviewers passed it', () => {
   assert.throws(check({ published: true }), /both reviews/);
   assert.throws(check({ published: true, review: { codex: ok } }), /both reviews/);
   assert.throws(check({ published: true, review: { codex: ok, agy: { ok: false, issues: ['x'] } } }), /both reviews/);
-  assert.doesNotThrow(check({ published: true, review: { codex: ok, agy: ok } }));
+  assert.throws(check({ published: true, review: { codex: ok, agy: ok } }), /without a recording/);
   assert.ok(reviewPassed(problem({ review: { codex: ok, agy: ok } })));
 });
 
@@ -38,4 +38,8 @@ test('the answers of a set are spread over the choices', () => {
   const set = [1, 2, 3, 4, 5].map(position => problem({ id: `grammar-00${position}`, position }));
   assert.throws(() => validateBank('grammar', { problems: set }), /spread/);
   assert.ok(banks.grammar.problems.length && banks.vocab.problems.length);
+});
+
+test('a recording must be of the sentence as it is now', () => {
+  assert.throws(check({ audio: '000000000000' }), /another sentence or voice/);
 });

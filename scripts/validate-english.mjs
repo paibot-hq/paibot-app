@@ -1,6 +1,7 @@
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { existsSync, readFileSync } from 'node:fs';
 import { ENGLISH_CATALOG, ENGLISH_UNITS, findEnglishItem } from '../src/tools/english/catalog.ts';
+import { audioHash, audioPath } from './english-voice.mjs';
 
 // English practice's problem banks (src/data/english-<unit>.json) and the checks every problem must pass before it is imported.
 // There is no machine check of the answer (math re-derives its answers with SymPy); that is the blind review's job
@@ -41,7 +42,15 @@ export function validateBank(unit, bank) {
     assert.ok(Number.isInteger(p.answerIndex) && p.answerIndex >= 0 && p.answerIndex < 4, `${at}: answerIndex`);
     assert.ok(typeof p.explanation?.ja === 'string' && p.explanation.ja.trim() && p.explanation.ja.length <= 300, `${at}: explanation.ja`);
     assert.ok(typeof p.point?.ja === 'string' && p.point.ja.trim() && p.point.ja.length <= 40, `${at}: point.ja`);
-    if (p.published) assert.ok(reviewPassed(p), `${at}: published without both reviews passing`);
+    // The recording (scripts/english-audio.mjs) must be of the sentence as it is now, in the current voice.
+    if (p.audio !== undefined) {
+      assert.equal(p.audio, audioHash(p), `${at}: the recording is of another sentence or voice (npm run english:audio)`);
+      assert.ok(existsSync(audioPath(p.id)), `${at}: no recording at public/english-audio/${p.id}.mp3 (npm run english:audio)`);
+    }
+    if (p.published) {
+      assert.ok(reviewPassed(p), `${at}: published without both reviews passing`);
+      assert.ok(p.audio, `${at}: published without a recording (npm run english:audio)`);
+    }
   }
   for (const [key, list] of positions) {
     assert.ok(list.length <= MAX_SET_PROBLEMS, `${unit} ${key}: at most ${MAX_SET_PROBLEMS} problems`);

@@ -15,7 +15,7 @@ if (!Object.hasOwn(targets, target) || flags.some(flag => flag !== '--drafts') |
 validateAll();
 const quote = value => `'${String(value).replaceAll("'", "''")}'`;
 const statements = ENGLISH_UNITS.flatMap(unit => banks[unit].problems.map(p => {
-  const payload = { stem: p.stem, choices: p.choices, explanation: p.explanation, point: p.point };
+  const payload = { stem: p.stem, choices: p.choices, explanation: p.explanation, point: p.point, ...(p.audio && { audio: p.audio }) };
   const values = [p.id, unit, p.item, p.setId, p.position, Number(p.published || drafts), p.answerIndex, JSON.stringify(payload), findEnglishItem(unit, p.item).level, p.tier, p.reviewedAt].map(quote).join(',');
   return `INSERT INTO english_problems (id, unit, item, set_id, position, published, answer_index, payload, grade, tier, reviewed_at) VALUES (${values}) ON CONFLICT(id) DO UPDATE SET unit=excluded.unit, item=excluded.item, set_id=excluded.set_id, position=excluded.position, published=excluded.published, answer_index=excluded.answer_index, payload=excluded.payload, grade=excluded.grade, tier=excluded.tier, reviewed_at=excluded.reviewed_at;`;
 }));

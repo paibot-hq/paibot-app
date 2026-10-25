@@ -46,3 +46,4 @@ p.stem { text-align: center; font-size: clamp(1.15rem, 4.6vw, 1.45rem); line-hei
   border: 1px solid var(--line); border-radius: 50%; background: var(--surface); color: var(--accent); }
 .speak:hover { border-color: var(--accent); }
 .speak:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.speak[data-playing] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 14%, var(--surface)); }

@@ -30,6 +30,7 @@
     "math:import:dev": "node scripts/import-math.mjs dev",
     "math:import:prod": "node scripts/import-math.mjs prod",
     "english:review": "node scripts/english-review.mjs",
+    "english:audio": "node scripts/english-audio.mjs",
     "english:import:local": "node scripts/import-english.mjs local",
     "english:import:dev": "node scripts/import-english.mjs dev",
     "english:import:prod": "node scripts/import-english.mjs prod",

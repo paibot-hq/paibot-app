@@ -6,4 +6,6 @@ export interface EnglishPayload {
   choices: [string, string, string, string];
   explanation: { ja: string };
   point: { ja: string };
+  // The recording of the answered sentence (scripts/english-audio.mjs): served at /english-audio/<id>.mp3?v=<audio>.
+  audio?: string;
 }

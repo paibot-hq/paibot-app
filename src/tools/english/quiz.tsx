@@ -5,8 +5,7 @@ import ToolLayout from '../../components/tool-layout';
 import { Link } from '../../i18n/navigation';
 import EnglishBreadcrumb, { type EnglishCrumb } from './breadcrumb';
 import type { EnglishPayload } from './payload';
-import SpeakButton from './speak';
-import { spokenText } from './spoken';
+import ListenButton from './listen';
 import styles from '../../components/math-set-quiz.module.css';
 import own from './english.module.css';
 
@@ -103,7 +102,7 @@ export default function EnglishQuiz({ title, setLabel, questions, crumbs, next }
         <div className={own.stemRow}>
           <Stem stem={payload.stem} filled={revealed ? payload.choices[question.answerIndex] : null} />
           {/* Only once answered: reading the sentence before would give the answer away. */}
-          {revealed && <SpeakButton text={spokenText(payload.stem, payload.choices[question.answerIndex])} label={t('quiz.listen')} />}
+          {revealed && payload.audio && <ListenButton src={`/english-audio/${question.id}.mp3?v=${payload.audio}`} label={t('quiz.listen')} />}
         </div>
       </div>
       <div className={styles.choices} role="group" aria-label={t('quiz.choices')}>
