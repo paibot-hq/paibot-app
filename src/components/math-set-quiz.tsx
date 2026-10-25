@@ -26,8 +26,8 @@ export interface MathSetQuestion {
 // questions, one verdict and explanation per answer, then a score. Units only
 // turn their locale-neutral problem data into prompts/choices/explanations.
 // Render with key={setId} so moving between sets starts a fresh quiz.
-// A signed-in user's finished attempt is posted to the page's own route action
-// (see saveAttemptAction in lib/math-attempts.server.ts), which rescores it.
+// A finished attempt is posted to the page's own route action (see saveAttemptAction in
+// lib/math-attempts.server.ts), which rescores it: kept as the user's if signed in, and counted for the set either way.
 // Made for a phone: a tap on a choice is the answer (keys 1-4 on a keyboard), and "Next" appears in the same place.
 export default function MathSetQuiz({ title, setLabel, questions, crumbs, version, current, next, onRetry, retryLabel, total: fixedTotal, onAnswered, result, sharePath, shareText }: {
   title: string; setLabel: string; questions: MathSetQuestion[];
@@ -80,7 +80,7 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
       if (!current) return;
       markSetDone(`${current.unit}/${current.item}/${current.set}`);
       if (next) saveResume(next.set);
-      if (signedIn && version) saver.submit({ problemIds: JSON.stringify(questions.map(q => q.id)), answers: JSON.stringify(answers), version }, { method: 'post' });
+      if (version) saver.submit({ problemIds: JSON.stringify(questions.map(q => q.id)), answers: JSON.stringify(answers), version }, { method: 'post' });
       return;
     }
     setIndex(index + 1);

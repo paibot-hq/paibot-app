@@ -2,7 +2,8 @@ import { data } from 'react-router';
 import { getAuth } from '@clerk/react-router/server';
 import { and, eq, sql } from 'drizzle-orm';
 import { getDb } from '../db/client.server';
-import { mathAttempts } from '../db/schema';
+import { mathAttempts, mathSetResults } from '../db/schema';
+import { dayOf, isBot } from './tool-ranking';
 import { MAX_SET_PROBLEMS, type MathSetRecord } from './math-attempts';
 
 // A fingerprint of the problems as served (ids, answers, payloads): a change in any of them is a new version.
@@ -19,18 +20,20 @@ type RouteArgs = Parameters<typeof getAuth>[0];
 // are trusted from the client: the problems are reloaded and the score is
 // recounted here, and an attempt at a set that changed since it was loaded
 // (its `version` no longer matches: other ids, choices or answers) is refused
-// rather than scored against the new answers.
+// rather than scored against the new answers. A signed-in user's attempt is kept
+// as theirs (math_attempts); every finished set, signed in or not, also adds one
+// to the set's count for the score and day (math_set_results), which holds nothing
+// about who played.
 export async function saveAttemptAction(
   args: RouteArgs,
   set: { unit: string; item: string; setId: string },
   loadSet: () => Promise<{ id: string; answerIndex: number }[]>,
 ) {
   const { unit, item, setId } = set;
-  const fail = (error: 'signedOut' | 'invalid' | 'stale' | 'unavailable', status: number) =>
+  const fail = (error: 'invalid' | 'stale' | 'unavailable', status: number) =>
     data({ ok: false as const, error }, { status, headers: privateHeaders });
   if (args.request.method !== 'POST') return fail('invalid', 405);
   const { userId } = await getAuth(args);
-  if (!userId) return fail('signedOut', 401);
   if (args.request.headers.get('Origin') !== new URL(args.request.url).origin) return fail('invalid', 403);
   let problemIds: unknown;
   let answers: unknown;
@@ -49,11 +52,19 @@ export async function saveAttemptAction(
     const current = await mathSetVersion(problems);
     if (version !== current || problems.length !== problemIds.length || problems.some((problem, index) => problem.id !== problemIds[index])) return fail('stale', 409);
     const correct = problems.filter((problem, index) => problem.answerIndex === answers[index]).length;
-    await getDb().insert(mathAttempts).values({
-      id: crypto.randomUUID(), userId, unit, item, setId, setVersion: current,
-      problemIds: problems.map(problem => problem.id), answers: answers as number[],
-      correct, total: problems.length, completedAt: new Date().toISOString(),
-    }).run();
+    if (userId) {
+      await getDb().insert(mathAttempts).values({
+        id: crypto.randomUUID(), userId, unit, item, setId, setVersion: current,
+        problemIds: problems.map(problem => problem.id), answers: answers as number[],
+        correct, total: problems.length, completedAt: new Date().toISOString(),
+      }).run();
+    }
+    // Crawlers and headless browsers are not counted, as for the tool ranking; a failed count never fails the attempt.
+    if (!isBot(args.request.headers.get('User-Agent') ?? '')) {
+      await getDb().insert(mathSetResults).values({ unit, item, setId, day: dayOf(new Date()), correct, total: problems.length, count: 1 })
+        .onConflictDoUpdate({ target: [mathSetResults.unit, mathSetResults.item, mathSetResults.setId, mathSetResults.day, mathSetResults.correct, mathSetResults.total], set: { count: sql`${mathSetResults.count} + 1` } })
+        .run().catch(() => {});
+    }
     return data({ ok: true as const, error: null }, { headers: privateHeaders });
   } catch { return fail('unavailable', 503); }
 }
