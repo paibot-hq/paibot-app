@@ -63,9 +63,15 @@ jobs:
         run: npm run build
       - if: steps.needed.outputs.run == 'true'
         run: npm run e2e -- access environments whois site-check
+  # The tools are split between three jobs (CHECK_SHARD), as one job took nine minutes.
   browser:
+    name: browser (${{ matrix.shard }}/3)
     runs-on: ubuntu-24.04
     timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [1, 2, 3]
     steps:
       - uses: actions/checkout@v7
         with:
@@ -107,7 +113,10 @@ jobs:
             export CHECK_TOOLS="$(node scripts/affected-tools.mjs "origin/${{ github.base_ref }}")"
             echo "Affected tools: ${CHECK_TOOLS:-none}"
           fi
-          CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run e2e -- smoke catalog tools quiz-browser
+          export CHECK_SHARD="${{ matrix.shard }}/3"
+          # The checks that are not per tool run once, in the first shard.
+          if [ "${{ matrix.shard }}" = 1 ]; then checks="smoke catalog tools quiz-browser"; else checks="catalog tools"; fi
+          CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run e2e -- $checks
   # SymPy re-derives every math answer (CPU only, no browser), so it runs beside
   # the other checks instead of before them. deploy-dev needs all of them, so only SymPy-verified
   # banks are imported and the deploy jobs do not need Python themselves.
