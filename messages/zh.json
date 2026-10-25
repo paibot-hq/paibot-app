@@ -2752,6 +2752,18 @@
         "entry": "水平测试",
         "entryNote": "共{count}题，级别随答题结果升降，测出你目前的大致水平"
       },
+      "quiz": {
+        "choices": "选项",
+        "correct": "正确",
+        "incorrect": "错误",
+        "next": "下一题",
+        "seeResult": "查看结果",
+        "retry": "再来一次",
+        "nextSet": "下一组练习",
+        "resultCorrect": "答对 {correct} / {total}",
+        "progress": "{current} / {total}",
+        "questionNumber": "第{number}题"
+      },
       "grades": {
         "e5": "5级",
         "e4": "4级",

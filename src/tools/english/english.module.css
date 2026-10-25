@@ -35,3 +35,8 @@ a.placement:focus-visible { outline: 2px solid var(--accent); outline-offset: 2p
 .placementName { font-size: 1.1rem; font-weight: 800; display: flex; align-items: baseline; gap: .5rem; }
 .placementNote { font-size: .82rem; opacity: .9; line-height: 1.5; }
 .testNote { margin: 0; font-size: .8rem; color: var(--muted); }
+/* The quiz: the sentence, its blank a line that the right word fills once answered. */
+p.stem { text-align: center; font-size: clamp(1.15rem, 4.6vw, 1.45rem); line-height: 1.7; margin: 0; overflow-wrap: anywhere; }
+.blank { display: inline-block; min-width: 4.5rem; padding: 0 .3rem; border-bottom: 2px solid var(--accent); text-align: center; }
+.blank[data-filled] { color: var(--accent); font-weight: 700; }
+.point { margin: 0 0 .5rem; font-weight: 700; color: var(--text); }

@@ -1,0 +1,304 @@
+{
+  "problems": [
+    {
+      "id": "vocab-001",
+      "item": "everyday-nouns",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "",
+      "stem": "I eat ___ every morning.",
+      "choices": [
+        "desk",
+        "breakfast",
+        "window",
+        "shoes"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "ja": "eat(食べる)のあとに来るのは食べ物です。breakfast は「朝食」。desk は「机」、window は「窓」、shoes は「くつ」です。"
+      },
+      "point": {
+        "ja": "breakfast = 朝食"
+      },
+      "review": {
+        "agy": {
+          "ok": true,
+          "issues": [],
+          "at": "2026-10-25"
+        }
+      }
+    },
+    {
+      "id": "vocab-002",
+      "item": "everyday-nouns",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "",
+      "stem": "Please open the ___. It's hot in here.",
+      "choices": [
+        "pencil",
+        "apple",
+        "window",
+        "chair"
+      ],
+      "answerIndex": 2,
+      "explanation": {
+        "ja": "部屋が暑いので開けるのは window(窓)です。pencil は「えんぴつ」、apple は「りんご」、chair は「いす」です。"
+      },
+      "point": {
+        "ja": "window = 窓"
+      },
+      "review": {
+        "agy": {
+          "ok": true,
+          "issues": [],
+          "at": "2026-10-25"
+        }
+      }
+    },
+    {
+      "id": "vocab-003",
+      "item": "everyday-nouns",
+      "setId": "1",
+      "position": 3,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "",
+      "stem": "I sleep in my ___ at night.",
+      "choices": [
+        "bed",
+        "desk",
+        "bag",
+        "box"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "ja": "夜に寝る場所は bed(ベッド)です。desk は「机」、bag は「かばん」、box は「箱」です。"
+      },
+      "point": {
+        "ja": "bed = ベッド"
+      },
+      "review": {
+        "agy": {
+          "ok": true,
+          "issues": [],
+          "at": "2026-10-25"
+        }
+      }
+    },
+    {
+      "id": "vocab-004",
+      "item": "everyday-nouns",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "",
+      "stem": "My sister plays the ___ very well.",
+      "choices": [
+        "bus",
+        "milk",
+        "bed",
+        "piano"
+      ],
+      "answerIndex": 3,
+      "explanation": {
+        "ja": "play the ... で「(楽器)をひく」という意味になります。楽器は piano(ピアノ)です。"
+      },
+      "point": {
+        "ja": "play the piano = ピアノをひく"
+      },
+      "review": {
+        "agy": {
+          "ok": true,
+          "issues": [],
+          "at": "2026-10-25"
+        }
+      }
+    },
+    {
+      "id": "vocab-005",
+      "item": "everyday-nouns",
+      "setId": "1",
+      "position": 5,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "",
+      "stem": "I wash my ___ before dinner.",
+      "choices": [
+        "trees",
+        "hands",
+        "clocks",
+        "books"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "ja": "夕食の前に洗うのは hands(手)です。trees は「木」、clocks は「時計」、books は「本」です。"
+      },
+      "point": {
+        "ja": "hand = 手(複数形 hands)"
+      },
+      "review": {
+        "agy": {
+          "ok": true,
+          "issues": [],
+          "at": "2026-10-25"
+        }
+      }
+    },
+    {
+      "id": "vocab-006",
+      "item": "everyday-nouns",
+      "setId": "2",
+      "position": 1,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "",
+      "stem": "It's cold today. Wear your ___.",
+      "choices": [
+        "egg",
+        "cup",
+        "coat",
+        "book"
+      ],
+      "answerIndex": 2,
+      "explanation": {
+        "ja": "寒い日に着る(wear)ものは coat(コート)です。egg は「たまご」、cup は「カップ」、book は「本」です。"
+      },
+      "point": {
+        "ja": "coat = コート"
+      },
+      "review": {
+        "agy": {
+          "ok": true,
+          "issues": [],
+          "at": "2026-10-25"
+        }
+      }
+    },
+    {
+      "id": "vocab-007",
+      "item": "everyday-nouns",
+      "setId": "2",
+      "position": 2,
+      "tier": 1,
+      "published": false,
+      "reviewedAt": "",
+      "stem": "I drink a glass of ___ every morning.",
+      "choices": [
+        "milk",
+        "bread",
+        "rice",
+        "cake"
+      ],
+      "answerIndex": 0,
+      "explanation": {
+        "ja": "drink(飲む)ものなので milk(牛乳)です。bread は「パン」、rice は「ごはん」、cake は「ケーキ」で、どれも食べるものです。"
+      },
+      "point": {
+        "ja": "milk = 牛乳"
+      },
+      "review": {
+        "agy": {
+          "ok": true,
+          "issues": [],
+          "at": "2026-10-25"
+        }
+      }
+    },
+    {
+      "id": "vocab-008",
+      "item": "everyday-nouns",
+      "setId": "2",
+      "position": 3,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "",
+      "stem": "We play soccer in the ___ after school.",
+      "choices": [
+        "bath",
+        "kitchen",
+        "bed",
+        "park"
+      ],
+      "answerIndex": 3,
+      "explanation": {
+        "ja": "サッカーをする場所は park(公園)です。bath は「おふろ」、kitchen は「台所」、bed は「ベッド」です。"
+      },
+      "point": {
+        "ja": "park = 公園"
+      },
+      "review": {
+        "agy": {
+          "ok": true,
+          "issues": [],
+          "at": "2026-10-25"
+        }
+      }
+    },
+    {
+      "id": "vocab-009",
+      "item": "everyday-nouns",
+      "setId": "2",
+      "position": 4,
+      "tier": 2,
+      "published": false,
+      "reviewedAt": "",
+      "stem": "I go to school by ___. It stops near my house.",
+      "choices": [
+        "desk",
+        "bus",
+        "cap",
+        "lunch"
+      ],
+      "answerIndex": 1,
+      "explanation": {
+        "ja": "by ... で「(乗り物)で」という意味です。家の近くに止まる(stops)乗り物は bus(バス)です。"
+      },
+      "point": {
+        "ja": "by bus = バスで"
+      },
+      "review": {
+        "agy": {
+          "ok": true,
+          "issues": [],
+          "at": "2026-10-25"
+        }
+      }
+    },
+    {
+      "id": "vocab-010",
+      "item": "everyday-nouns",
+      "setId": "2",
+      "position": 5,
+      "tier": 3,
+      "published": false,
+      "reviewedAt": "",
+      "stem": "My ___ is a doctor. He works at a hospital.",
+      "choices": [
+        "sister",
+        "mother",
+        "father",
+        "aunt"
+      ],
+      "answerIndex": 2,
+      "explanation": {
+        "ja": "次の文で He(彼)と言っているので、男性の father(父)です。sister(姉・妹)、mother(母)、aunt(おば)はどれも女性です。"
+      },
+      "point": {
+        "ja": "father = 父、He で男性とわかる"
+      },
+      "review": {
+        "agy": {
+          "ok": true,
+          "issues": [],
+          "at": "2026-10-25"
+        }
+      }
+    }
+  ]
+}

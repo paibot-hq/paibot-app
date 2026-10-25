@@ -1,6 +1,14 @@
-import { count, eq } from 'drizzle-orm';
+import { and, asc, count, eq } from 'drizzle-orm';
 import { getDb } from '../../db/client.server';
 import { englishProblems } from '../../db/schema';
+import type { EnglishPayload } from './payload';
+
+// A set's published problems, served whole and in order, so every visitor gets the same quiz.
+export async function getEnglishSet(unit: string, item: string, setId: string): Promise<{ id: string; answerIndex: number; payload: EnglishPayload }[]> {
+  const t = englishProblems;
+  return getDb().select({ id: t.id, answerIndex: t.answerIndex, payload: t.payload }).from(t)
+    .where(and(eq(t.unit, unit), eq(t.item, item), eq(t.setId, setId), eq(t.published, true))).orderBy(asc(t.position));
+}
 
 // "unit/item/set" of every set with published problems, i.e. every set a visitor can play; the rest are shown as
 // being prepared. Empty when the database cannot be read: the pages work without it.

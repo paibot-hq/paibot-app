@@ -2752,6 +2752,18 @@
         "entry": "Placement test",
         "entryNote": "{count} questions that move up or down a level with each answer, to find your current level"
       },
+      "quiz": {
+        "choices": "Choices",
+        "correct": "Correct",
+        "incorrect": "Incorrect",
+        "next": "Next question",
+        "seeResult": "See results",
+        "retry": "Try again",
+        "nextSet": "Next practice",
+        "resultCorrect": "{correct} / {total} correct",
+        "progress": "{current} / {total}",
+        "questionNumber": "Question {number}"
+      },
       "grades": {
         "e5": "Grade 5",
         "e4": "Grade 4",
