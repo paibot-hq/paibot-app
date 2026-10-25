@@ -2733,8 +2733,8 @@
       "preparing": "The questions for this set are being prepared.",
       "chooseSet": "Choose a practice set",
       "setLabel": "Practice {n}",
-      "gradeLabel": "{grade} level",
-      "levelNote": "The levels are a guide to the Eiken grades and this site's own classification. These are not official Eiken questions or the official scope of the test.",
+      "levelLine": "Eiken {grade} level · CEFR {level}",
+      "levelNote": "Levels are this site's own classification on CEFR-J (the CEFR split more finely for learners in Japan); the Eiken grades are a guide. These are not official Eiken questions or the official scope of the test.",
       "modes": {
         "label": "Ways to use English Practice",
         "practice": "Practice",

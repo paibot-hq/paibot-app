@@ -2733,8 +2733,8 @@
       "preparing": "本组题目正在准备中。",
       "chooseSet": "请选择练习",
       "setLabel": "练习{n}",
-      "gradeLabel": "{grade}水平",
-      "levelNote": "级别是对应英检各级的参考，是本站自己的分类，并非日本英语检定协会的官方题目或考试范围。",
+      "levelLine": "英检{grade}水平・CEFR {level}",
+      "levelNote": "级别是本站基于 CEFR-J(为日本学习者细分的 CEFR)的分类，英检级别仅供参考，并非日本英语检定协会的官方题目或考试范围。",
       "modes": {
         "label": "英语题库的使用方式",
         "practice": "练习",

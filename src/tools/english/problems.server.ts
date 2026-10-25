@@ -14,8 +14,9 @@ export async function getPlayableEnglishSets(): Promise<string[]> {
   }
 }
 
-// How many published problems each level has ({ e5: 20, ... }): a level's test is offered once it has enough.
-export async function getGradeProblemCounts(): Promise<Record<string, number>> {
+// How many published problems each CEFR-J level has ({ "pre-a1": 20, ... }; the level is stored in the grade column): a grade's test
+// is offered once its levels have enough.
+export async function getLevelProblemCounts(): Promise<Record<string, number>> {
   try {
     const t = englishProblems;
     const rows = await getDb().select({ grade: t.grade, n: count() }).from(t).where(eq(t.published, true)).groupBy(t.grade);

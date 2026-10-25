@@ -124,7 +124,8 @@ export const toolViews = sqliteTable("tool_views", {
 }, table => [primaryKey({ columns: [table.slug, table.day] }), index("tool_views_day_idx").on(table.day)]);
 
 // English practice's problems (src/tools/english): the same columns as math_problems, kept apart so that math's lists and
-// tests, which read every row of math_problems, never see them. `grade` is the level (e5 ... e1, src/tools/english/catalog.ts).
+// tests, which read every row of math_problems, never see them. `grade` is the item's CEFR-J level (pre-a1 ... c2, src/tools/english/catalog.ts), the
+// counterpart of math's school year.
 export const englishProblems = sqliteTable('english_problems', {
   id: text('id').primaryKey().notNull(),
   unit: text('unit').notNull(),

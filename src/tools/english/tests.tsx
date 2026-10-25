@@ -2,9 +2,9 @@ import { useTranslations } from 'use-intl';
 import ToolLayout from '../../components/tool-layout';
 import { Link } from '../../i18n/navigation';
 import type { DynamicT } from '../../lib/apps';
-import { ENGLISH_GRADES, ENGLISH_PLACEMENT_POOL, ENGLISH_PLACEMENT_SIZE, ENGLISH_TEST_SIZE } from './catalog';
+import { ENGLISH_GRADES, ENGLISH_PLACEMENT_POOL, ENGLISH_PLACEMENT_SIZE, ENGLISH_TEST_SIZE, levelsOfGrade } from './catalog';
 import EnglishHomeHeader from './home-header';
-import { getGradeProblemCounts } from './problems.server';
+import { getLevelProblemCounts } from './problems.server';
 import styles from './english.module.css';
 import type { Route } from './+types/tests';
 
@@ -12,7 +12,8 @@ import type { Route } from './+types/tests';
 // offered once there are enough published problems (see catalog.ts); until then it is shown as coming soon. The test pages
 // (/english/test/placement, /english/test/<level>) come with the first problems.
 export async function loader() {
-  const counts = await getGradeProblemCounts();
+  const byLevel = await getLevelProblemCounts();
+  const counts = Object.fromEntries(ENGLISH_GRADES.map(grade => [grade, levelsOfGrade(grade).reduce((sum, level) => sum + (byLevel[level] ?? 0), 0)]));
   return {
     offered: ENGLISH_GRADES.filter(grade => (counts[grade] ?? 0) >= ENGLISH_TEST_SIZE),
     placement: ENGLISH_GRADES.every(grade => (counts[grade] ?? 0) >= ENGLISH_PLACEMENT_POOL),

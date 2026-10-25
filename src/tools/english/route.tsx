@@ -2,14 +2,14 @@ import { useTranslations } from 'use-intl';
 import ToolLayout from '../../components/tool-layout';
 import { Link } from '../../i18n/navigation';
 import type { DynamicT } from '../../lib/apps';
-import { ENGLISH_CATALOG, ENGLISH_GRADES, ENGLISH_UNITS, type EnglishGrade } from './catalog';
+import { ENGLISH_CATALOG, ENGLISH_GRADES, ENGLISH_UNITS, gradeOfLevel, levelLabel, levelsOfGrade, type EnglishGrade } from './catalog';
 import EnglishHomeHeader from './home-header';
 import { getPlayableEnglishSets } from './problems.server';
 import styles from './english.module.css';
 import type { Route } from './+types/route';
 
 // /english, the practice tab (the tests are /english/test): every learning item by unit, grammar then vocabulary, easiest first,
-// each linking to its page and labelled with its level. ?grade=e3 shows one level's items only (links, so it works before the
+// each linking to its page and labelled with its Eiken grade and CEFR-J level. ?grade=e3 shows one grade's items only (links, so it works before the
 // page's script has loaded). Items with published problems are highlighted. Not yet in the app catalog: noindex, so no
 // PublicHead (see catalog.ts).
 export async function loader({ request }: Route.LoaderArgs) {
@@ -39,7 +39,7 @@ export default function English({ loaderData: { grade, playable } }: Route.Compo
         </ul>
       </nav>
       {ENGLISH_UNITS.map(unit => {
-        const items = ENGLISH_CATALOG[unit].filter(item => !grade || item.grade === grade);
+        const items = ENGLISH_CATALOG[unit].filter(item => !grade || levelsOfGrade(grade).includes(item.level));
         return items.length > 0 && <section key={unit} className={styles.unit} aria-labelledby={`unit-${unit}`}>
           <h2 id={`unit-${unit}`} className={styles.unitTitle}>{t(`units.${unit}.title`)}</h2>
           <ul className={styles.items}>
@@ -51,7 +51,7 @@ export default function English({ loaderData: { grade, playable } }: Route.Compo
                     {t(`units.${unit}.items.${item.id}`)}
                     {!ready && <span className={styles.badge}>{t('comingSoon')}</span>}
                   </span>
-                  <span className={styles.level}>{t('gradeLabel', { grade: t(`grades.${item.grade}`) })}</span>
+                  <span className={styles.level}>{t('levelLine', { grade: t(`grades.${gradeOfLevel(item.level)}`), level: levelLabel(item.level) })}</span>
                 </Link>
               </li>;
             })}

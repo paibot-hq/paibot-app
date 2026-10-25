@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { ENGLISH_CATALOG, ENGLISH_GRADES, ENGLISH_UNITS, findEnglishItem, isUnpublishedEnglishPath } from './catalog.ts';
+import { EIKEN_GRADES, ENGLISH_CATALOG, ENGLISH_GRADES, ENGLISH_LEVELS, ENGLISH_UNITS, findEnglishItem, gradeOfLevel, isUnpublishedEnglishPath, levelLabel } from './catalog.ts';
 
 const messages = Object.fromEntries(['ja', 'en', 'zh'].map(locale => [locale, JSON.parse(readFileSync(new URL(`../../../messages/${locale}.json`, import.meta.url), 'utf8')).App.english]));
 
@@ -13,10 +13,20 @@ test('item ids are unique within each unit and every set id within each item', (
   }
 });
 
-test('every level from grade 5 to grade 1 has items, and items are listed easiest first', () => {
-  for (const grade of ENGLISH_GRADES) assert.ok(ENGLISH_UNITS.some(unit => ENGLISH_CATALOG[unit].some(item => item.grade === grade)), grade);
+test('the Eiken grades cover every CEFR-J level once, in order', () => {
+  assert.deepEqual(EIKEN_GRADES.flatMap(grade => grade.levels), ENGLISH_LEVELS);
+  assert.equal(gradeOfLevel('pre-a1'), 'e5');
+  assert.equal(gradeOfLevel('a1.3'), 'e3');
+  assert.equal(gradeOfLevel('c2'), 'e1');
+  assert.equal(levelLabel('pre-a1'), 'Pre-A1');
+  assert.equal(levelLabel('b2.1'), 'B2.1');
+});
+
+test('every grade from 5 to 1 has items, and items are listed easiest first', () => {
+  for (const grade of ENGLISH_GRADES) assert.ok(ENGLISH_UNITS.some(unit => ENGLISH_CATALOG[unit].some(item => gradeOfLevel(item.level) === grade)), grade);
   for (const unit of ENGLISH_UNITS) {
-    const order = ENGLISH_CATALOG[unit].map(item => ENGLISH_GRADES.indexOf(item.grade));
+    const order = ENGLISH_CATALOG[unit].map(item => ENGLISH_LEVELS.indexOf(item.level));
+    assert.ok(order.every(index => index >= 0), unit);
     assert.deepEqual(order, [...order].sort((a, b) => a - b), unit);
   }
 });
@@ -33,7 +43,7 @@ test('every unit, item and level has a name in all three languages', () => {
 });
 
 test('items are found by unit and id only', () => {
-  assert.equal(findEnglishItem('grammar', 'be-verb')?.grade, 'e5');
+  assert.equal(findEnglishItem('grammar', 'be-verb')?.level, 'pre-a1');
   assert.equal(findEnglishItem('vocab', 'be-verb'), undefined);
   assert.equal(findEnglishItem('math', 'be-verb'), undefined);
 });
