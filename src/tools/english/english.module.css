@@ -39,9 +39,9 @@ a.placement:focus-visible { outline: 2px solid var(--accent); outline-offset: 2p
 p.stem { text-align: center; font-size: clamp(1.15rem, 4.6vw, 1.45rem); line-height: 1.7; margin: 0; overflow-wrap: anywhere; }
 .blank { display: inline-block; min-width: 4.5rem; padding: 0 .3rem; border-bottom: 2px solid var(--accent); text-align: center; }
 .blank[data-filled] { color: var(--accent); font-weight: 700; }
+.sentence { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); }
+.translation { margin: .2rem 0 .9rem; color: var(--text); }
 .point { margin: 0 0 .5rem; font-weight: 700; color: var(--text); }
-p.translation { margin: .4rem 0 0; text-align: center; color: var(--muted); font-size: .95rem; line-height: 1.6; }
-.translationLabel { margin-right: .5rem; padding: .05rem .45rem; border: 1px solid var(--line); border-radius: var(--radius); font-size: .75rem; color: var(--muted); }
 /* Read aloud: a round button beside the sentence, once answered. */
 .stemRow { display: flex; align-items: center; justify-content: center; gap: .5rem; }
 .speak { flex: none; width: 2.4rem; height: 2.4rem; display: grid; place-items: center; padding: 0; cursor: pointer;
