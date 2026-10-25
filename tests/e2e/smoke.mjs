@@ -185,7 +185,9 @@ try {
   const cspViolations = [];
   page.on('pageerror', error => pageErrors.push(error.message));
   page.on('console', message => {
-    if (message.type() === 'error') consoleErrors.push(message.text());
+    // Chrome reports Google's own report-only CSP when Clerk frames google.com on the sign-in pages; it is not this site's policy
+    // (that one is enforced, and a violation of it is caught by cspViolations below).
+    if (message.type() === 'error' && !/^Framing 'https:\/\/www\.google\.com\/' violates the following report-only Content Security Policy/.test(message.text())) consoleErrors.push(message.text());
   });
   await page.exposeFunction('reportCspViolation', violation => cspViolations.push(violation));
   await page.addInitScript(() => {
