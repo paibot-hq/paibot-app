@@ -2735,6 +2735,17 @@
       "setLabel": "Practice {n}",
       "gradeLabel": "{grade} level",
       "levelNote": "The levels are a guide to the Eiken grades and this site's own classification. These are not official Eiken questions or the official scope of the test.",
+      "modes": {
+        "label": "Ways to use English Practice",
+        "practice": "Practice",
+        "test": "Tests"
+      },
+      "test": {
+        "title": "Tests",
+        "intro": "Choose a level and get questions from its items, different each time.",
+        "byGrade": "By level",
+        "count": "{count} questions each"
+      },
       "grades": {
         "e5": "Grade 5",
         "e4": "Grade 4",

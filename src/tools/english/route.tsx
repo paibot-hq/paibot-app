@@ -3,11 +3,12 @@ import ToolLayout from '../../components/tool-layout';
 import { Link } from '../../i18n/navigation';
 import type { DynamicT } from '../../lib/apps';
 import { ENGLISH_CATALOG, ENGLISH_GRADES, ENGLISH_UNITS } from './catalog';
+import EnglishHomeHeader from './home-header';
 import { getPlayableEnglishSets } from './problems.server';
 import styles from './english.module.css';
 import type { Route } from './+types/route';
 
-// /english: every learning item by level (5 to 1), grammar then vocabulary, each linking to its page. Items with
+// /english, the practice tab (the tests are /english/test): every learning item by level (5 to 1), grammar then vocabulary, each linking to its page. Items with
 // published problems are highlighted. Not yet in the app catalog: noindex, so no PublicHead (see catalog.ts).
 export async function loader() {
   return { playable: await getPlayableEnglishSets() };
@@ -17,7 +18,8 @@ export default function English({ loaderData: { playable } }: Route.ComponentPro
   const t = useTranslations('App.english') as unknown as DynamicT;
   return <>
     <title>{`${t('title')} | PAIBOT.app`}</title>
-    <ToolLayout title={t('title')} centerTitle>
+    <ToolLayout title={t('title')} centerTitle compact>
+      <EnglishHomeHeader mode="practice" />
       <p className={styles.description}>{t('description')}</p>
       {ENGLISH_GRADES.map(grade => {
         const units = ENGLISH_UNITS.map(unit => ({ unit, items: ENGLISH_CATALOG[unit].filter(item => item.grade === grade) })).filter(({ items }) => items.length);

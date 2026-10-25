@@ -34,6 +34,7 @@ export default [
     // English practice is not in the app catalog yet (src/tools/english/catalog.ts), so its top page is routed here too;
     // move it to the catalog (and drop this line) when its first sets are published.
     route('english', 'tools/english/route.tsx'),
+    route('english/test', 'tools/english/tests.tsx'),
     route('english/:unit/:item', 'tools/english/item.tsx'),
     route('english/:unit/:item/:set', 'tools/english/set.tsx'),
     route('favorites', 'routes/favorites.ts'),

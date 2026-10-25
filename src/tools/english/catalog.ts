@@ -12,6 +12,9 @@ export interface EnglishItem { id: string; grade: EnglishGrade; sets: readonly E
 export const ENGLISH_GRADES: readonly EnglishGrade[] = ['e5', 'e4', 'e3', 'ep2', 'e2', 'ep1', 'e1'];
 export const ENGLISH_UNITS: readonly EnglishUnit[] = ['grammar', 'vocab'];
 
+// A level's test: this many problems drawn from its items (as math's test per school year).
+export const ENGLISH_TEST_SIZE = 10;
+
 // Every item has two five-problem sets to begin with.
 const sets = [{ id: '1' }, { id: '2' }] as const;
 const items = (grade: EnglishGrade, ids: string[]): EnglishItem[] => ids.map(id => ({ id, grade, sets }));
