@@ -25,9 +25,9 @@ const BLIND = `あなたは英語教材の校閲者です。中学生〜大人�
 - issues: 問題文や選択肢の不自然さ、誤り、あいまいさなど、気になる点(日本語の文字列の配列。なければ [])
 出力は {"reviews": [{"id": "...", "choiceIndex": 0, "alsoCorrect": [], "levelOk": true, "issues": []}, ...]} の JSON だけにしてください。`;
 
-const EXPLAINED = `あなたは英語教材の校閲者です。中学生〜大人の日本人学習者向けの4択の英語問題について、正解(answer)と、日本語の解説(explanation)、要点(point)、正解を入れた英文の日本語訳(translation)を点検します。
+const EXPLAINED = `あなたは英語教材の校閲者です。中学生〜大人の日本人学習者向けの4択の英語問題について、正解(answer)と、解説(explanation)、要点(point)、正解を入れた英文の訳(translation)を点検します。解説と要点は日本語(ja)・英語(en)・中国語簡体字(zh)、訳は日本語と中国語です。すべての言語を見てください。
 解説・要点・訳に、英語の事実の誤り、正解と合わない説明、誤答の選択肢についての誤った説明、学習者に誤解を与える書き方、英文の意味と合わない訳がないかを見てください。
-各問題について {"id": "...", "ok": true/false, "issues": [日本語の文字列]} を返し、全体を {"reviews": [...]} の JSON だけで出力してください。ok は問題がなければ true。`;
+各問題について {"id": "...", "ok": true/false, "issues": [日本語の文字列。どの言語の指摘かを書く]} を返し、全体を {"reviews": [...]} の JSON だけで出力してください。ok は問題がなければ true。`;
 
 function ask(reviewer, prompt, temp) {
   if (reviewer === 'agy') return run('agy', ['--sandbox', '--print-timeout', '10m', '-p', prompt], temp);
@@ -59,7 +59,7 @@ try {
   assert.ok(problems.length, 'No problems to review');
   temp = mkdtempSync(join(tmpdir(), 'english-review-'));
   const blind = problems.map(p => ({ id: p.id, level: levelOf(unit, p), stem: p.stem, choices: p.choices }));
-  const explained = problems.map(p => ({ id: p.id, stem: p.stem, choices: p.choices, answer: p.choices[p.answerIndex], explanation: p.explanation.ja, point: p.point.ja, translation: p.translation.ja }));
+  const explained = problems.map(p => ({ id: p.id, stem: p.stem, choices: p.choices, answer: p.choices[p.answerIndex], explanation: p.explanation, point: p.point, translation: p.translation }));
   const today = new Date().toISOString().slice(0, 10);
   for (const reviewer of reviewers) {
     const solved = parse(reviewer, ask(reviewer, `${BLIND}\n問題:\n${JSON.stringify(blind, null, 2)}`, temp), problems);

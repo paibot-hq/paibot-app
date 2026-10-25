@@ -9,7 +9,7 @@ test('every English problem bank passes its checks', () => {
 const problem = (changes = {}) => ({
   id: 'grammar-001', item: 'be-verb', setId: '1', position: 1, tier: 1, published: false, reviewedAt: '',
   stem: 'I ___ a student.', choices: ['am', 'is', 'are', 'be'], answerIndex: 0,
-  explanation: { ja: '主語が I なので am。' }, point: { ja: 'I には am' }, translation: { ja: '私は学生です。' }, ...changes,
+  explanation: { ja: '主語が I なので am。', en: 'I takes am.', zh: '主语 I 用 am。' }, point: { ja: 'I には am', en: 'I: am', zh: 'I 用 am' }, translation: { ja: '私は学生です。', zh: '我是学生。' }, ...changes,
 });
 const check = changes => () => validateBank('grammar', { problems: [problem(changes)] });
 
@@ -24,6 +24,9 @@ test('the checks catch malformed problems', () => {
   assert.throws(check({ setId: '9' }), /no set/);
   assert.throws(check({ id: 'vocab-001' }), /id/);
   assert.throws(check({ translation: undefined }), /translation/);
+  assert.throws(check({ translation: { ja: '私は学生です。' } }), /translation\.zh/);
+  assert.throws(check({ explanation: { ja: 'a', en: 'b' } }), /explanation\.zh/);
+  assert.throws(check({ point: { ja: 'a', zh: 'c' } }), /point\.en/);
 });
 
 test('a problem is published only when both reviewers passed it', () => {

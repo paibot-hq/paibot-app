@@ -17,13 +17,18 @@
       ],
       "answerIndex": 0,
       "explanation": {
-        "ja": "主語が I のときの be動詞は am です。is は he・she・it など、are は you や複数の主語に使います。be は原形で、このままでは文になりません。"
+        "ja": "主語が I のときの be動詞は am です。is は he・she・it など、are は you や複数の主語に使います。be は原形で、このままでは文になりません。",
+        "en": "With the subject I, the be verb is am. Is goes with he, she, it and singular nouns; are goes with you and plural subjects. Be is the base form and cannot stand alone here.",
+        "zh": "主语是 I 时，be动词用 am。is 用于 he、she、it 等，are 用于 you 和复数主语。be 是原形，这里不能单独使用。"
       },
       "point": {
-        "ja": "主語 I には am"
+        "ja": "主語 I には am",
+        "en": "Use am with I",
+        "zh": "主语 I 用 am"
       },
       "translation": {
-        "ja": "私は学生です。"
+        "ja": "私は学生です。",
+        "zh": "我是学生。"
       },
       "review": {
         "agy": {
@@ -50,13 +55,18 @@
       ],
       "answerIndex": 2,
       "explanation": {
-        "ja": "My brother(私の兄・弟)は1人なので、he と同じく is を使います。"
+        "ja": "My brother(私の兄・弟)は1人なので、he と同じく is を使います。",
+        "en": "My brother is one person, like he, so the verb is is.",
+        "zh": "My brother（我的哥哥/弟弟）是一个人，和 he 一样用 is。"
       },
       "point": {
-        "ja": "3人称単数の主語には is"
+        "ja": "3人称単数の主語には is",
+        "en": "Use is with a singular third-person subject",
+        "zh": "第三人称单数主语用 is"
       },
       "translation": {
-        "ja": "私の兄(弟)は10歳です。"
+        "ja": "私の兄(弟)は10歳です。",
+        "zh": "我的哥哥（弟弟）十岁了。"
       },
       "review": {
         "agy": {
@@ -83,13 +93,18 @@
       ],
       "answerIndex": 0,
       "explanation": {
-        "ja": "be動詞の疑問文は、be動詞を主語の前に出します。主語が you なので Are を使います。"
+        "ja": "be動詞の疑問文は、be動詞を主語の前に出します。主語が you なので Are を使います。",
+        "en": "To make a question with be, put the be verb before the subject. The subject is you, so use Are.",
+        "zh": "be动词的疑问句要把 be动词放到主语前面。主语是 you，所以用 Are。"
       },
       "point": {
-        "ja": "you の疑問文は Are you ...?"
+        "ja": "you の疑問文は Are you ...?",
+        "en": "Questions with you: Are you ...?",
+        "zh": "you 的疑问句用 Are you ...?"
       },
       "translation": {
-        "ja": "あなたはカナダ出身ですか。"
+        "ja": "あなたはカナダ出身ですか。",
+        "zh": "你来自加拿大吗？"
       },
       "review": {
         "agy": {
@@ -116,13 +131,18 @@
       ],
       "answerIndex": 3,
       "explanation": {
-        "ja": "Ken and I(ケンと私)は2人なので、複数の主語として are を使います。I の直後でも am にはなりません。"
+        "ja": "Ken and I(ケンと私)は2人なので、複数の主語として are を使います。I の直後でも am にはなりません。",
+        "en": "Ken and I are two people, so the subject is plural and takes are. It is not am, even though I comes just before the blank.",
+        "zh": "Ken and I（肯和我）是两个人，作为复数主语用 are。即使紧挨着 I，也不能用 am。"
       },
       "point": {
-        "ja": "A and B の主語は複数で are"
+        "ja": "A and B の主語は複数で are",
+        "en": "A and B is a plural subject: are",
+        "zh": "A and B 作主语是复数，用 are"
       },
       "translation": {
-        "ja": "ケンと私は仲のよい友だちです。"
+        "ja": "ケンと私は仲のよい友だちです。",
+        "zh": "肯和我是好朋友。"
       },
       "review": {
         "agy": {
@@ -149,13 +169,18 @@
       ],
       "answerIndex": 1,
       "explanation": {
-        "ja": "This(これ)は1つのものを指すので is を使います。否定文は be動詞のあとに not を置きます。"
+        "ja": "This(これ)は1つのものを指すので is を使います。否定文は be動詞のあとに not を置きます。",
+        "en": "This points to one thing, so use is. In a negative sentence, not comes after the be verb.",
+        "zh": "This（这个）指一样东西，所以用 is。否定句把 not 放在 be动词后面。"
       },
       "point": {
-        "ja": "this には is、否定は is not"
+        "ja": "this には is、否定は is not",
+        "en": "This takes is; the negative is is not",
+        "zh": "this 用 is，否定是 is not"
       },
       "translation": {
-        "ja": "これは私のかばんではありません。"
+        "ja": "これは私のかばんではありません。",
+        "zh": "这不是我的包。"
       },
       "review": {
         "agy": {
@@ -182,13 +207,18 @@
       ],
       "answerIndex": 1,
       "explanation": {
-        "ja": "Is ...? と聞かれたら、答えも be動詞を使います。主語が she なので Yes, she is. です。does は一般動詞の疑問文への答えに使います。"
+        "ja": "Is ...? と聞かれたら、答えも be動詞を使います。主語が she なので Yes, she is. です。does は一般動詞の疑問文への答えに使います。",
+        "en": "A question with Is is answered with the be verb too. The subject is she, so the answer is Yes, she is. Does is used to answer questions with ordinary verbs.",
+        "zh": "用 Is 提问时，回答也用 be动词。主语是 she，所以答 Yes, she is.。does 用于回答实义动词的疑问句。"
       },
       "point": {
-        "ja": "Is ...? には Yes, ... is. で答える"
+        "ja": "Is ...? には Yes, ... is. で答える",
+        "en": "Answer Is ...? with Yes, ... is.",
+        "zh": "用 Yes, ... is. 回答 Is ...?"
       },
       "translation": {
-        "ja": "A: あなたのお母さんは先生ですか。 B: はい、そうです。"
+        "ja": "A: あなたのお母さんは先生ですか。 B: はい、そうです。",
+        "zh": "A：你妈妈是老师吗？ B：是的，她是。"
       },
       "review": {
         "agy": {
@@ -215,13 +245,18 @@
       ],
       "answerIndex": 2,
       "explanation": {
-        "ja": "主語の this は1つのものなので、疑問文は Is this ...? になります。答えの it isn't からも is の疑問文だとわかります。"
+        "ja": "主語の this は1つのものなので、疑問文は Is this ...? になります。答えの it isn't からも is の疑問文だとわかります。",
+        "en": "The subject this is one thing, so the question is Is this ...? The answer it isn't also shows that the question uses is.",
+        "zh": "主语 this 指一样东西，所以疑问句是 Is this ...?。从回答 it isn't 也能看出是用 is 提问的。"
       },
       "point": {
-        "ja": "this の疑問文は Is this ...?"
+        "ja": "this の疑問文は Is this ...?",
+        "en": "Questions with this: Is this ...?",
+        "zh": "this 的疑问句用 Is this ...?"
       },
       "translation": {
-        "ja": "これはあなたのえんぴつですか。— いいえ、ちがいます。"
+        "ja": "これはあなたのえんぴつですか。— いいえ、ちがいます。",
+        "zh": "这是你的铅笔吗？——不，不是。"
       },
       "review": {
         "agy": {
@@ -248,13 +283,18 @@
       ],
       "answerIndex": 3,
       "explanation": {
-        "ja": "主語の We は複数なので are を使います。「〜にいない」は be動詞の否定文で、do は使いません。"
+        "ja": "主語の We は複数なので are を使います。「〜にいない」は be動詞の否定文で、do は使いません。",
+        "en": "The subject We is plural, so use are. Saying someone is not in a place uses a negative be sentence, not do.",
+        "zh": "主语 We 是复数，所以用 are。“不在某处”用 be动词的否定句，不用 do。"
       },
       "point": {
-        "ja": "we には are、「いる」の否定も be動詞"
+        "ja": "we には are、「いる」の否定も be動詞",
+        "en": "We takes are; not being somewhere uses be",
+        "zh": "we 用 are，“不在”也用 be动词"
       },
       "translation": {
-        "ja": "私たちは今、教室にいません。"
+        "ja": "私たちは今、教室にいません。",
+        "zh": "我们现在不在教室里。"
       },
       "review": {
         "agy": {
@@ -281,13 +321,18 @@
       ],
       "answerIndex": 0,
       "explanation": {
-        "ja": "your parents(あなたの両親)は2人なので are を使います。「どこにいますか」は be動詞で表し、Where do your parents? では文が完成しません。"
+        "ja": "your parents(あなたの両親)は2人なので are を使います。「どこにいますか」は be動詞で表し、Where do your parents? では文が完成しません。",
+        "en": "Your parents are two people, so use are. Asking where someone is uses the be verb; Where do your parents? is not a complete sentence.",
+        "zh": "your parents（你的父母）是两个人，所以用 are。问“在哪里”用 be动词，Where do your parents? 不是完整的句子。"
       },
       "point": {
-        "ja": "複数の主語の疑問文は Where are ...?"
+        "ja": "複数の主語の疑問文は Where are ...?",
+        "en": "A plural subject in a question: Where are ...?",
+        "zh": "复数主语的疑问句用 Where are ...?"
       },
       "translation": {
-        "ja": "あなたの両親はどこにいますか。"
+        "ja": "あなたの両親はどこにいますか。",
+        "zh": "你的父母在哪里？"
       },
       "review": {
         "agy": {
@@ -314,13 +359,18 @@
       ],
       "answerIndex": 2,
       "explanation": {
-        "ja": "主語は The books(本)で複数です。直前の the desk につられて is にしないように注意します。"
+        "ja": "主語は The books(本)で複数です。直前の the desk につられて is にしないように注意します。",
+        "en": "The subject is The books, which is plural. Do not let the desk, just before the blank, make you choose is.",
+        "zh": "主语是 The books（书），是复数。不要被紧挨着的 the desk 影响而选 is。"
       },
       "point": {
-        "ja": "主語の中心の名詞で be動詞を決める"
+        "ja": "主語の中心の名詞で be動詞を決める",
+        "en": "Match the verb to the main noun of the subject",
+        "zh": "根据主语的中心名词选择 be动词"
       },
       "translation": {
-        "ja": "机の上の本は私のものです。"
+        "ja": "机の上の本は私のものです。",
+        "zh": "桌子上的书是我的。"
       },
       "review": {
         "agy": {

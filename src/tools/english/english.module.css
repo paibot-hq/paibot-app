@@ -40,8 +40,9 @@ p.stem { text-align: center; font-size: clamp(1.15rem, 4.6vw, 1.45rem); line-hei
 .blank { display: inline-block; min-width: 4.5rem; padding: 0 .3rem; border-bottom: 2px solid var(--accent); text-align: center; }
 .blank[data-filled] { color: var(--accent); font-weight: 700; }
 .sentence { margin: 0; font-size: 1.05rem; font-weight: 600; color: var(--text); }
-.translation { margin: .2rem 0 .9rem; color: var(--text); }
-.point { margin: 0 0 .5rem; font-weight: 700; color: var(--text); }
+.translation { margin: .2rem 0 0; color: var(--text); }
+/* Its own gap above, so it stands apart from the sentence on the English page too, where there is no translation. */
+.point { margin: .9rem 0 .5rem; font-weight: 700; color: var(--text); }
 /* Read aloud: a round button beside the sentence, once answered. */
 .stemRow { display: flex; align-items: center; justify-content: center; gap: .5rem; }
 .speak { flex: none; width: 2.4rem; height: 2.4rem; display: grid; place-items: center; padding: 0; cursor: pointer;

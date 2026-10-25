@@ -17,13 +17,18 @@
       ],
       "answerIndex": 1,
       "explanation": {
-        "ja": "eat(食べる)のあとに来るのは食べ物です。breakfast は「朝食」。desk は「机」、window は「窓」、shoes は「くつ」です。"
+        "ja": "eat(食べる)のあとに来るのは食べ物です。breakfast は「朝食」。desk は「机」、window は「窓」、shoes は「くつ」です。",
+        "en": "After eat comes something to eat. Breakfast is the meal you have in the morning. A desk is a table for working, a window is an opening in a wall, and shoes are worn on your feet.",
+        "zh": "eat（吃）后面要接食物。breakfast 是“早饭”。desk 是“书桌”，window 是“窗户”，shoes 是“鞋”。"
       },
       "point": {
-        "ja": "breakfast = 朝食"
+        "ja": "breakfast = 朝食",
+        "en": "breakfast = the morning meal",
+        "zh": "breakfast = 早饭"
       },
       "translation": {
-        "ja": "私は毎朝、朝食を食べます。"
+        "ja": "私は毎朝、朝食を食べます。",
+        "zh": "我每天早上吃早饭。"
       },
       "review": {
         "agy": {
@@ -50,13 +55,18 @@
       ],
       "answerIndex": 2,
       "explanation": {
-        "ja": "部屋が暑いので開けるのは window(窓)です。pencil は「えんぴつ」、apple は「りんご」、chair は「いす」です。"
+        "ja": "部屋が暑いので開けるのは window(窓)です。pencil は「えんぴつ」、apple は「りんご」、chair は「いす」です。",
+        "en": "The room is hot, so you open the window. A pencil is for writing, an apple is a fruit, and a chair is for sitting on.",
+        "zh": "房间很热，所以要打开 window（窗户）。pencil 是“铅笔”，apple 是“苹果”，chair 是“椅子”。"
       },
       "point": {
-        "ja": "window = 窓"
+        "ja": "window = 窓",
+        "en": "window: opened to let air in",
+        "zh": "window = 窗户"
       },
       "translation": {
-        "ja": "窓を開けてください。この部屋は暑いです。"
+        "ja": "窓を開けてください。この部屋は暑いです。",
+        "zh": "请打开窗户。这里很热。"
       },
       "review": {
         "agy": {
@@ -83,13 +93,18 @@
       ],
       "answerIndex": 0,
       "explanation": {
-        "ja": "夜に寝る場所は bed(ベッド)です。desk は「机」、bag は「かばん」、box は「箱」です。"
+        "ja": "夜に寝る場所は bed(ベッド)です。desk は「机」、bag は「かばん」、box は「箱」です。",
+        "en": "You sleep in a bed at night. A desk is for working, a bag is for carrying things, and a box is a container.",
+        "zh": "晚上睡觉的地方是 bed（床）。desk 是“书桌”，bag 是“包”，box 是“箱子”。"
       },
       "point": {
-        "ja": "bed = ベッド"
+        "ja": "bed = ベッド",
+        "en": "bed = where you sleep",
+        "zh": "bed = 床"
       },
       "translation": {
-        "ja": "私は夜、自分のベッドで寝ます。"
+        "ja": "私は夜、自分のベッドで寝ます。",
+        "zh": "我晚上睡在自己的床上。"
       },
       "review": {
         "agy": {
@@ -116,13 +131,18 @@
       ],
       "answerIndex": 3,
       "explanation": {
-        "ja": "play the ... で「(楽器)をひく」という意味になります。楽器は piano(ピアノ)です。"
+        "ja": "play the ... で「(楽器)をひく」という意味になります。楽器は piano(ピアノ)です。",
+        "en": "Play the ... means to play a musical instrument. The instrument here is the piano.",
+        "zh": "play the ... 表示“演奏（乐器）”。乐器是 piano（钢琴）。"
       },
       "point": {
-        "ja": "play the piano = ピアノをひく"
+        "ja": "play the piano = ピアノをひく",
+        "en": "play the piano = make music on a piano",
+        "zh": "play the piano = 弹钢琴"
       },
       "translation": {
-        "ja": "私の姉(妹)はピアノをとても上手にひきます。"
+        "ja": "私の姉(妹)はピアノをとても上手にひきます。",
+        "zh": "我的姐姐（妹妹）钢琴弹得很好。"
       },
       "review": {
         "agy": {
@@ -149,13 +169,18 @@
       ],
       "answerIndex": 1,
       "explanation": {
-        "ja": "夕食の前に洗うのは hands(手)です。trees は「木」、clocks は「時計」、books は「本」です。"
+        "ja": "夕食の前に洗うのは hands(手)です。trees は「木」、clocks は「時計」、books は「本」です。",
+        "en": "Before dinner you wash your hands. Trees grow outside, clocks tell the time, and books are for reading.",
+        "zh": "晚饭前要洗的是 hands（手）。trees 是“树”，clocks 是“钟”，books 是“书”。"
       },
       "point": {
-        "ja": "hand = 手(複数形 hands)"
+        "ja": "hand = 手(複数形 hands)",
+        "en": "hands: washed before eating",
+        "zh": "hand = 手（复数 hands）"
       },
       "translation": {
-        "ja": "私は夕食の前に手を洗います。"
+        "ja": "私は夕食の前に手を洗います。",
+        "zh": "我晚饭前洗手。"
       },
       "review": {
         "agy": {
@@ -182,13 +207,18 @@
       ],
       "answerIndex": 2,
       "explanation": {
-        "ja": "寒い日に着る(wear)ものは coat(コート)です。egg は「たまご」、cup は「カップ」、book は「本」です。"
+        "ja": "寒い日に着る(wear)ものは coat(コート)です。egg は「たまご」、cup は「カップ」、book は「本」です。",
+        "en": "On a cold day you wear a coat. An egg is food, a cup is for drinking from, and a book is for reading; you do not wear them.",
+        "zh": "天冷时穿（wear）的是 coat（外套）。egg 是“鸡蛋”，cup 是“杯子”，book 是“书”。"
       },
       "point": {
-        "ja": "coat = コート"
+        "ja": "coat = コート",
+        "en": "coat = warm clothes for outside",
+        "zh": "coat = 外套"
       },
       "translation": {
-        "ja": "今日は寒いです。コートを着なさい。"
+        "ja": "今日は寒いです。コートを着なさい。",
+        "zh": "今天很冷。穿上你的外套。"
       },
       "review": {
         "agy": {
@@ -215,13 +245,18 @@
       ],
       "answerIndex": 0,
       "explanation": {
-        "ja": "drink(飲む)ものなので milk(牛乳)です。bread は「パン」、rice は「ごはん」、cake は「ケーキ」で、どれも食べるものです。"
+        "ja": "drink(飲む)ものなので milk(牛乳)です。bread は「パン」、rice は「ごはん」、cake は「ケーキ」で、どれも食べるものです。",
+        "en": "You drink milk. Bread, rice and cake are things you eat, not drink.",
+        "zh": "drink（喝）的东西是 milk（牛奶）。bread 是“面包”，rice 是“米饭”，cake 是“蛋糕”，都是吃的东西。"
       },
       "point": {
-        "ja": "milk = 牛乳"
+        "ja": "milk = 牛乳",
+        "en": "milk: something you drink",
+        "zh": "milk = 牛奶"
       },
       "translation": {
-        "ja": "私は毎朝、コップ1杯の牛乳を飲みます。"
+        "ja": "私は毎朝、コップ1杯の牛乳を飲みます。",
+        "zh": "我每天早上喝一杯牛奶。"
       },
       "review": {
         "agy": {
@@ -248,13 +283,18 @@
       ],
       "answerIndex": 3,
       "explanation": {
-        "ja": "サッカーをする場所は park(公園)です。bath は「おふろ」、kitchen は「台所」、bed は「ベッド」です。"
+        "ja": "サッカーをする場所は park(公園)です。bath は「おふろ」、kitchen は「台所」、bed は「ベッド」です。",
+        "en": "You play soccer outside, in a park. A bath is for washing, a kitchen is for cooking, and a bed is for sleeping.",
+        "zh": "踢足球的地方是 park（公园）。bath 是“浴缸”，kitchen 是“厨房”，bed 是“床”。"
       },
       "point": {
-        "ja": "park = 公園"
+        "ja": "park = 公園",
+        "en": "park = an outdoor place to play",
+        "zh": "park = 公园"
       },
       "translation": {
-        "ja": "私たちは放課後、公園でサッカーをします。"
+        "ja": "私たちは放課後、公園でサッカーをします。",
+        "zh": "我们放学后在公园踢足球。"
       },
       "review": {
         "agy": {
@@ -281,13 +321,18 @@
       ],
       "answerIndex": 1,
       "explanation": {
-        "ja": "by ... で「(乗り物)で」という意味です。家の近くに止まる(stops)乗り物は bus(バス)です。"
+        "ja": "by ... で「(乗り物)で」という意味です。家の近くに止まる(stops)乗り物は bus(バス)です。",
+        "en": "By ... tells how you travel. The vehicle that stops near the house is a bus.",
+        "zh": "by ... 表示“乘坐（交通工具）”。在家附近停靠（stops）的交通工具是 bus（公交车）。"
       },
       "point": {
-        "ja": "by bus = バスで"
+        "ja": "by bus = バスで",
+        "en": "by bus = on a bus",
+        "zh": "by bus = 乘公交车"
       },
       "translation": {
-        "ja": "私はバスで学校に行きます。バスは家の近くに止まります。"
+        "ja": "私はバスで学校に行きます。バスは家の近くに止まります。",
+        "zh": "我坐公交车上学。公交车停在我家附近。"
       },
       "review": {
         "agy": {
@@ -314,13 +359,18 @@
       ],
       "answerIndex": 2,
       "explanation": {
-        "ja": "次の文で He(彼)と言っているので、男性の father(父)です。sister(姉・妹)、mother(母)、aunt(おば)はどれも女性です。"
+        "ja": "次の文で He(彼)と言っているので、男性の father(父)です。sister(姉・妹)、mother(母)、aunt(おば)はどれも女性です。",
+        "en": "The next sentence says He, so the person is a man: father. Sister, mother and aunt are all women.",
+        "zh": "下一句说的是 He（他），所以是男性 father（父亲）。sister（姐妹）、mother（母亲）、aunt（阿姨）都是女性。"
       },
       "point": {
-        "ja": "father = 父、He で男性とわかる"
+        "ja": "father = 父、He で男性とわかる",
+        "en": "father: He shows it is a man",
+        "zh": "father = 父亲，由 He 可知是男性"
       },
       "translation": {
-        "ja": "私の父は医者です。彼は病院で働いています。"
+        "ja": "私の父は医者です。彼は病院で働いています。",
+        "zh": "我的父亲是医生。他在医院工作。"
       },
       "review": {
         "agy": {

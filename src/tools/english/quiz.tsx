@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useFetcher } from 'react-router';
-import { useTranslations } from 'use-intl';
+import { useLocale, useTranslations } from 'use-intl';
 import ToolLayout from '../../components/tool-layout';
 import { Link } from '../../i18n/navigation';
 import EnglishBreadcrumb, { type EnglishCrumb } from './breadcrumb';
@@ -25,6 +25,7 @@ export default function EnglishQuiz({ title, setLabel, questions, crumbs, next }
   next: { href: string; label: string } | null;
 }) {
   const t = useTranslations('App.english');
+  const locale = useLocale() as 'ja' | 'en' | 'zh';
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [answers, setAnswers] = useState<number[]>([]);
@@ -121,11 +122,11 @@ export default function EnglishQuiz({ title, setLabel, questions, crumbs, next }
         {revealed && <button type="button" className={styles.primary} onClick={advance} autoFocus>{index + 1 >= total ? t('quiz.seeResult') : t('quiz.next')}</button>}
       </div>
       {revealed && <div className={styles.feedback}>
-        {/* The answered sentence and its translation, then the point and the explanation. */}
+        {/* The answered sentence and its translation (none on the English page), then the point and the explanation, in the page's language. */}
         <p className={own.sentence}>{payload.stem.replace('___', payload.choices[question.answerIndex])}</p>
-        <p className={own.translation}>{payload.translation.ja}</p>
-        <p className={own.point}>{payload.point.ja}</p>
-        <p className={styles.explanation}>{payload.explanation.ja}</p>
+        {locale !== 'en' && <p className={own.translation}>{payload.translation[locale]}</p>}
+        <p className={own.point}>{payload.point[locale]}</p>
+        <p className={styles.explanation}>{payload.explanation[locale]}</p>
       </div>}
     </div>
   </ToolLayout>;

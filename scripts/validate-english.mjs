@@ -12,6 +12,10 @@ export const bankPath = unit => new URL(`../src/data/english-${unit}.json`, impo
 export const banks = Object.fromEntries(ENGLISH_UNITS.map(unit => [unit, JSON.parse(readFileSync(bankPath(unit), 'utf8'))]));
 
 const normalize = text => text.trim().toLowerCase().replace(/\s+/g, ' ');
+const text = (value, max) => typeof value === 'string' && value.trim() !== '' && value.length <= max;
+export const LOCALES = ['ja', 'en', 'zh'];
+// The languages the answered sentence is translated into: not English, the sentence's own.
+export const TRANSLATED = ['ja', 'zh'];
 
 // Both reviewers chose the key, found no other choice that also works, and raised nothing.
 export const reviewPassed = problem => REVIEWERS.every(reviewer => problem.review?.[reviewer]?.ok === true);
@@ -40,9 +44,12 @@ export function validateBank(unit, bank) {
     assert.ok(p.choices.every(choice => typeof choice === 'string' && choice.trim() && choice.length <= 40), `${at}: choices`);
     assert.equal(new Set(p.choices.map(normalize)).size, 4, `${at}: the choices differ`);
     assert.ok(Number.isInteger(p.answerIndex) && p.answerIndex >= 0 && p.answerIndex < 4, `${at}: answerIndex`);
-    assert.ok(typeof p.explanation?.ja === 'string' && p.explanation.ja.trim() && p.explanation.ja.length <= 300, `${at}: explanation.ja`);
-    assert.ok(typeof p.point?.ja === 'string' && p.point.ja.trim() && p.point.ja.length <= 40, `${at}: point.ja`);
-    assert.ok(typeof p.translation?.ja === 'string' && p.translation.ja.trim() && p.translation.ja.length <= 200, `${at}: translation.ja`);
+    // In every language of the site; the translation only where it helps (the English page shows the sentence alone).
+    for (const locale of LOCALES) {
+      assert.ok(text(p.explanation?.[locale], 400), `${at}: explanation.${locale}`);
+      assert.ok(text(p.point?.[locale], 60), `${at}: point.${locale}`);
+    }
+    for (const locale of TRANSLATED) assert.ok(text(p.translation?.[locale], 200), `${at}: translation.${locale}`);
     // The recording (scripts/english-audio.mjs) must be of the sentence as it is now, in the current voice.
     if (p.audio !== undefined) {
       assert.equal(p.audio, audioHash(p), `${at}: the recording is of another sentence or voice (npm run english:audio)`);
