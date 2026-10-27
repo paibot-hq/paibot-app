@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-25",
+ "asOf": "2026-10-27",
  "note": "各社・各機関の公表と報道にもとづく。件数は「最大」「可能性」を含む公表値で、調査が進むと変わることがある。出典どうしで日付や件数が食い違う場合は、備考に書いた。",
  "items": [
   {
@@ -545,27 +545,6 @@
    "origin": "attack"
   },
   {
-   "id": "toda-corp",
-   "date": "2026-10-09",
-   "name": "戸田建設",
-   "type": "leak",
-   "count": null,
-   "countNote": "件数は未公表",
-   "data": "取引先に関する情報",
-   "cause": "不正アクセス",
-   "note": "詳細は調査中。",
-   "verification": "single",
-   "checkedAt": "2026-10-09",
-   "sources": [
-    {
-     "name": "ScanNetSecurity",
-     "url": "https://scan.netsecurity.ne.jp/article/2026/10/09/56425.html",
-     "kind": "press"
-    }
-   ],
-   "origin": "attack"
-  },
-  {
    "id": "dip-baitoru",
    "date": "2026-10-09",
    "name": "ディップ(バイトル・バイトルNEXT)",
@@ -980,6 +959,32 @@
    "origin": "attack"
   },
   {
+   "id": "toda-corp",
+   "date": "2026-10-07",
+   "name": "戸田建設",
+   "type": "leak",
+   "count": 4778,
+   "countNote": "従業員4,778名分、取引先担当者のメールアドレス最大7,200件、取引データ最大6,000件",
+   "data": "従業員の氏名・住所・電話番号・メールアドレス・所属部署(4,778名分)。取引先担当者のメールアドレス(最大7,200件)と取引データ(最大6,000件)",
+   "cause": "取引先への支払いを管理するシステム等への外部からの不正アクセス。10月5日に検知し、情報漏えいの形跡を確認。侵入経路は非公表",
+   "note": "漏えい期間は10月1日〜5日。該当システムをネットワークから隔離。10月7日に個人情報保護委員会へ報告済み。漏えいした情報が公開・悪用された事実は確認されていない(10月7日時点)。当初はScanNetSecurityの10月9日の記事のみで確認していたが、10月7日付の同社発表を読んで日付と件数を改めた。",
+   "verification": "official",
+   "checkedAt": "2026-10-27",
+   "sources": [
+    {
+     "name": "戸田建設 個人情報漏洩に関するお知らせとお詫び",
+     "url": "https://www.toda.co.jp/news/2026/20261007_006350.html",
+     "kind": "official"
+    },
+    {
+     "name": "ScanNetSecurity",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/09/56425.html",
+     "kind": "press"
+    }
+   ],
+   "origin": "attack"
+  },
+  {
    "id": "asahi-kasei-therapeutics",
    "date": "2026-10-06",
    "name": "旭化成セラピューティクス(医療従事者向けサイト Pharma DIGITAL)",
@@ -1115,6 +1120,37 @@
      "name": "coki",
      "url": "https://coki.jp/article/column/94625/",
      "kind": "press"
+    }
+   ],
+   "origin": "attack"
+  },
+  {
+   "id": "nimoca-history-lookup",
+   "date": "2026-10-06",
+   "name": "ニモカ・西日本鉄道(nimoca 利用履歴照会サービス)",
+   "type": "leak",
+   "count": 521,
+   "countNote": "521件(innovatopia の報道による。ニモカの10月6日付PDFは本文を読み取れず、数字は確かめられていない)",
+   "data": "カード番号、生年月日、登録メールアドレスの3項目(氏名・住所・電話番号・性別・利用履歴は漏えいが確認されていないと報じられた)",
+   "cause": "利用履歴照会サービスへの第三者による不正アクセス。利用者から身に覚えのないメールを受け取ったとの連絡があり、10月4日にサービスを一時停止した",
+   "note": "ニモカの10月4日付お知らせは、原因調査中でサービスを一時停止したとのみ記し、件数や情報の種類は書いていない。漏えいの公表は10月6日(NHK、innovatopia)。NHKは件数を伝えず「一部の顧客」とのみ報じた。521件と3項目はaggregatorであるinnovatopiaのみが伝える。",
+   "verification": "official",
+   "checkedAt": "2026-10-27",
+   "sources": [
+    {
+     "name": "nimoca お知らせ(利用履歴照会システムの一時停止)",
+     "url": "https://www.nimoca.jp/news/detail/106",
+     "kind": "official"
+    },
+    {
+     "name": "NHK",
+     "url": "https://news.web.nhk/newsweb/na/nd-20261006de55188",
+     "kind": "press"
+    },
+    {
+     "name": "innovatopia",
+     "url": "https://innovatopia.jp/cyber-security/cyber-security-news/118706/",
+     "kind": "aggregator"
     }
    ],
    "origin": "attack"
