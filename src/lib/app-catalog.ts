@@ -85,6 +85,7 @@ export const APP_CATALOG = [
   { slug: "kaleidoscope", href: "/kaleidoscope", category: "game", status: "published", messageKey: "kaleidoscope" },
   { slug: "glitch", href: "/glitch", category: "game", status: "published", messageKey: "glitch" },
   { slug: "random-video", href: "/random-video", category: "game", status: "published", messageKey: "randomVideo" },
+  { slug: "circle", href: "/circle", category: "game", status: "published", messageKey: "circle" },
 
   // 日常 / Daily
   { slug: "calendar", href: "/calendar", category: "daily", status: "published", messageKey: "calendar" },

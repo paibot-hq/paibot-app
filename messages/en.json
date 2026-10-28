@@ -2309,6 +2309,32 @@
       "off": "off",
       "hint": "Holding Space or Enter pops them too. Clearing a whole sheet gives a bonus."
     },
+    "circle": {
+      "title": "Draw a Circle",
+      "description": "A mini game: draw a circle in one stroke with your finger or mouse and get a score out of 100 for how round it is. Colours show where it strays; with a rank and sharing.",
+      "about": "A game that judges how close a freehand circle is to a true one. It finds the circle that best fits your stroke and scores out of 100 from how far the stroke strays from it and from the gap left between its ends. The stroke is shown green where it is on the circle and red where it strays.",
+      "keywords": "circle perfect circle draw freehand roundness score judge mini game drawing",
+      "intro": "Draw a circle in the box in one stroke. When you lift your finger or the mouse button, it is scored for how round it is.",
+      "canvasLabel": "The box to draw in. Draw a circle in one stroke with your finger or mouse",
+      "prompt": "Draw a circle here",
+      "points": "pts",
+      "newBest": "New best!",
+      "best": "Best",
+      "clear": "Clear",
+      "shareText": "Draw a Circle: {score} pts (rank {rank})",
+      "hint": "The dashed line is the circle that best fits your stroke, the dot its centre. The greener the stroke, the closer it is to the circle; the redder, the further off.",
+      "commentS": "Almost a perfect circle!",
+      "commentA": "A very round circle.",
+      "commentB": "A pretty good circle.",
+      "commentC": "Nearly there.",
+      "commentD": "Try drawing slowly, at an even speed.",
+      "problem": {
+        "short": "That stroke is too short. Draw a circle again.",
+        "small": "That circle is too small. Draw a bigger one.",
+        "open": "The circle is not closed. Go all the way round to where you started.",
+        "laps": "Go round just once."
+      }
+    },
     "fireworks": {
       "title": "Fireworks",
       "description": "A fireworks simulator. Tap the night sky to launch shells, and choose the kind, size, colour, wind and viewing distance. Watch a whole festival with a starmine, a Niagara and a finale.",
