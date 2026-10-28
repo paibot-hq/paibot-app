@@ -21,8 +21,17 @@ const own = await listen((req, res) => {
   res.writeHead(302, { Location: req.url === '/start' ? '/redirect' : external.origin });
   res.end();
 });
+// Drops the first connection without an answer, then answers.
+let drops = 0;
+const flaky = await listen((req, res) => {
+  if (drops++ === 0) { req.socket.destroy(); return; }
+  res.end('second try');
+});
 let browser;
 try {
+  assert.equal(await (await appFetch(flaky.origin, '/')).text(), 'second try', 'a dropped connection is tried again');
+  drops = 0;
+  await assert.rejects(appFetch(flaky.origin, '/', { method: 'POST' }), /fetch failed/, 'a POST is not repeated');
   await assert.rejects(appFetch(own.origin, '/start'), /outside its origin/);
   assert.equal(externalRequests.length, 0, 'Node fetch must stop before external hop');
   browser = await chromium.launch();
@@ -43,7 +52,7 @@ try {
   console.log('PASS: Access headers stay on the app origin across redirects');
 } finally {
   await browser?.close();
-  for (const { server } of [own, external]) {
+  for (const { server } of [own, external, flaky]) {
     server.closeAllConnections();
     await new Promise(resolve => server.close(resolve));
   }
