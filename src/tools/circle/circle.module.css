@@ -1,0 +1,17 @@
+.intro { margin: 0 auto .6rem; max-width: 560px; color: var(--muted); font-size: .9rem; text-align: center; }
+.stage { position: relative; width: min(560px, 100%); margin: 0 auto; }
+.canvas { display: block; width: 100%; aspect-ratio: 1; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-strong); touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent; cursor: crosshair; }
+/* Over the board but not catching the pointer, so that a stroke can start right on it. */
+.prompt { position: absolute; left: 0; right: 0; bottom: 1rem; margin: 0; pointer-events: none; color: var(--muted); font-size: .9rem; text-align: center; }
+.result { display: flex; flex-direction: column; align-items: center; gap: .2rem; min-height: 7.5rem; margin-top: .8rem; text-align: center; }
+.result p { margin: 0; }
+.rank { font-size: 3rem; font-weight: 800; line-height: 1; color: var(--muted); }
+.rank[data-rank="S"] { color: #e0a800; }
+.rank[data-rank="A"] { color: #ef7d3c; }
+.rank[data-rank="B"] { color: var(--accent); }
+.score { font-size: 2.2rem; font-weight: 800; font-variant-numeric: tabular-nums; }
+.score small { margin-left: .25rem; font-size: 1rem; font-weight: 600; }
+.comment { color: var(--muted); font-size: .9rem; }
+.problem { padding-top: 1rem; color: var(--error); font-weight: 600; }
+.buttons { display: flex; justify-content: center; gap: .5rem; margin: .4rem 0; }
+.hint { margin: .6rem 0 0; color: var(--muted); font-size: .8rem; text-align: center; }
