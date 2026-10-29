@@ -7,7 +7,7 @@ name: Incident list update
 #
 # Secrets (Settings > Secrets and variables > Actions):
 #   CLAUDE_CODE_OAUTH_TOKEN: from `claude setup-token`; the run is paid out of the Claude plan's usage, not an API bill.
-#   GOVFAQ_UPDATE_TOKEN (needed for the merge): a fine-grained token with "Contents" and "Pull requests" write on this repository. What the
+#   AUTOMATION_TOKEN (needed for the merge): a fine-grained token with "Contents" and "Pull requests" write on this repository. What the
 #   built-in token pushes starts no workflow, so without it the checks do not run on the pull request, nothing is merged and dev is not deployed.
 on:
   schedule:
@@ -30,11 +30,11 @@ jobs:
       pr: ${{ steps.pr.outputs.number }}
       sha: ${{ steps.pr.outputs.sha }}
     env:
-      GH_TOKEN: ${{ secrets.GOVFAQ_UPDATE_TOKEN || github.token }}
+      GH_TOKEN: ${{ secrets.AUTOMATION_TOKEN || github.token }}
     steps:
       - uses: actions/checkout@v7
         with:
-          token: ${{ secrets.GOVFAQ_UPDATE_TOKEN || github.token }}
+          token: ${{ secrets.AUTOMATION_TOKEN || github.token }}
       - uses: actions/setup-node@v7
         with:
           node-version-file: .tool-versions
@@ -122,14 +122,14 @@ jobs:
       GH_REPO: ${{ github.repository }}
       PR: ${{ needs.update.outputs.pr }}
       SHA: ${{ needs.update.outputs.sha }}
-      MERGE_TOKEN: ${{ secrets.GOVFAQ_UPDATE_TOKEN }}
+      MERGE_TOKEN: ${{ secrets.AUTOMATION_TOKEN }}
     steps:
       - name: Wait for the checks, then merge
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
           if [ -z "$MERGE_TOKEN" ]; then
-            echo "::warning::GOVFAQ_UPDATE_TOKEN is not set: no checks run on #$PR, so it is left for a person to merge."
+            echo "::warning::AUTOMATION_TOKEN is not set: no checks run on #$PR, so it is left for a person to merge."
             exit 0
           fi
           # The checks take a little while to be registered after the push.

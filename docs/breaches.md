@@ -62,7 +62,7 @@ development run, but only when the release would carry the update and nothing el
 list alone, it is still the head of main, and production serves the commit just before it (`X-App-Version`). When any of these fails it says why
 in a notice and the release is left to a person, as for any other change; a pull request whose checks fail stays open.
 
-The merge needs the `GOVFAQ_UPDATE_TOKEN` secret (a fine-grained token with "Contents" and "Pull requests" write): what the built-in token pushes
+The merge needs the `AUTOMATION_TOKEN` secret (a fine-grained token with "Contents" and "Pull requests" write): what the built-in token pushes
 starts no workflow, so without it no check runs, nothing is merged and dev is not deployed.
 
 ## The charts
