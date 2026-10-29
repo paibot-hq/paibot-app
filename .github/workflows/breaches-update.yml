@@ -118,6 +118,8 @@ jobs:
       pull-requests: read
       checks: read
       statuses: read
+      # `gh pr checks` reads which workflow run each check belongs to; without this every read fails and nothing is ever merged.
+      actions: read
     env:
       GH_REPO: ${{ github.repository }}
       PR: ${{ needs.update.outputs.pr }}
@@ -134,7 +136,7 @@ jobs:
           fi
           # The checks take a little while to be registered after the push.
           for _ in $(seq 1 20); do
-            [ "$(gh pr view "$PR" --json statusCheckRollup --jq '.statusCheckRollup | length')" -gt 0 ] && break
+            [ "$(gh pr view "$PR" --json statusCheckRollup --jq '.statusCheckRollup | length' || echo 0)" -gt 0 ] && break
             sleep 15
           done
           if ! gh pr checks "$PR" --watch --fail-fast --interval 30; then
