@@ -1,5 +1,5 @@
 {
- "asOf": "2026-10-28",
+ "asOf": "2026-10-30",
  "note": "各社・各機関の公表と報道にもとづく。件数は「最大」「可能性」を含む公表値で、調査が進むと変わることがある。出典どうしで日付や件数が食い違う場合は、備考に書いた。",
  "items": [
   {
@@ -24,6 +24,32 @@
      "name": "ロケットボーイズ",
      "url": "https://rocket-boys.co.jp/?p=44973",
      "kind": "aggregator"
+    }
+   ],
+   "origin": "attack"
+  },
+  {
+   "id": "netprotections-np-atobarai",
+   "date": "2026-10-22",
+   "name": "ネットプロテクションズ(BtoC通販向け後払い決済「NP後払い」の請求書再発行システム)",
+   "type": "leak",
+   "count": 28884,
+   "countNote": "28,884件",
+   "data": "氏名と住所(法人利用の場合は会社名と部署名も)。住所は購入時の登録情報で、実際の住所と異なることがある",
+   "cause": "請求書再発行システムに対し、第三者から通常想定されない方法で機械的かつ連続的なリクエストが行われた。10月14日に判明。原因の詳細は調査中",
+   "note": "公式ページは「NP後払い」のサービス提供には影響がなく、現時点で情報の不正利用は確認されていないと説明。個人情報保護委員会とJIPDECへ報告済み。安全が確認でき次第、該当システムを再開する予定。",
+   "verification": "official",
+   "checkedAt": "2026-10-30",
+   "sources": [
+    {
+     "name": "ネットプロテクションズ(お知らせ)",
+     "url": "https://corp.netprotections.com/news/info/corporate/20261022/",
+     "kind": "official"
+    },
+    {
+     "name": "ScanNetSecurity(「NP後払い」に不正アクセス)",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/29/56616.html",
+     "kind": "press"
     }
    ],
    "origin": "attack"
@@ -471,6 +497,63 @@
     {
      "name": "ScanNetSecurity",
      "url": "https://scan.netsecurity.ne.jp/article/2026/10/20/56512.html",
+     "kind": "press"
+    }
+   ],
+   "origin": "attack"
+  },
+  {
+   "id": "beautygarage-ec",
+   "date": "2026-10-15",
+   "name": "ビューティガレージ(ECサイト「ビューティガレージ」「アイラッシュガレージ」)",
+   "type": "leak",
+   "count": 775725,
+   "countNote": "775,725件(2026年10月10日23時55分時点でECシステムに保存されていた情報。ブランド別の内訳は第1報にない)",
+   "data": "会社名、サロン名、お客様名、営業形態、サロンURL、電話番号、メールアドレス、パスワードのハッシュ値、パスワード再設定用の質問・回答のハッシュ値。住所・配送先、購入履歴、クレジットカード情報などの決済情報の漏えいは確認されていないとしている",
+   "cause": "ECサイトのサーバーへの不正アクセス(10月10日〜12日)。10月13日に検知し、同日中に侵入経路を遮断。具体的な手口は書かれていない",
+   "note": "10月20日の第2報では、ECサイトは通常どおり利用でき、個人情報保護委員会へ報告済みと説明。報道(ScanNetSecurity)はアイラッシュガレージのECサイトの顧客情報を4万9,191件としており、775,725件との関係(内訳か)は公式ページからは読み取れなかった。",
+   "verification": "official",
+   "checkedAt": "2026-10-30",
+   "sources": [
+    {
+     "name": "ビューティガレージ(不正アクセスによるお客様情報漏洩に関するお詫びとお知らせ)",
+     "url": "https://www.beautygarage.jp/topics/news_unauthorizedaccess2026",
+     "kind": "official"
+    },
+    {
+     "name": "ビューティガレージ(第2報)",
+     "url": "https://www.beautygarage.jp/topics/news_unauthorizedaccess2026-2",
+     "kind": "official"
+    },
+    {
+     "name": "ScanNetSecurity(アイラッシュガレージ ECサイトに不正アクセス)",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/28/56603.html",
+     "kind": "press"
+    }
+   ],
+   "origin": "attack"
+  },
+  {
+   "id": "maruki-medical-core-system",
+   "date": "2026-10-15",
+   "name": "丸木医科器械(基幹システム)",
+   "type": "outage",
+   "count": null,
+   "countNote": "件数の公表なし",
+   "data": "情報漏えいの有無は公式ページに書かれていない。発注・仕入・入出庫管理の基幹システムが全面的にダウンし、注文受付と出荷を一時停止",
+   "cause": "10月15日10時頃からサーバーが不審なアクセス(サイバー攻撃)を受けた。外部の専門調査機関と連携して原因を調査中",
+   "note": "復旧までの注文は各支店・営業所へのFAXで受け付け。出荷、納期回答、在庫確認に遅れが出ている。",
+   "verification": "official",
+   "checkedAt": "2026-10-30",
+   "sources": [
+    {
+     "name": "丸木医科器械(お知らせ)",
+     "url": "https://maruki-ms.co.jp/archives/8405",
+     "kind": "official"
+    },
+    {
+     "name": "ScanNetSecurity(丸木医科器械へのサイバー攻撃で基幹システムがダウン)",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/29/56614.html",
      "kind": "press"
     }
    ],
