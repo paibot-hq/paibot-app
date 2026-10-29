@@ -53,6 +53,18 @@ or a fraud cannot be one. When unsure, call it an attack: it is the case that ne
 Dates and counts change as an investigation goes on (first report, second report, final). The date is the first announcement; the latest figure goes
 in `countNote`, with the earlier one in `note`.
 
+## Releasing
+
+The daily update (`.github/workflows/breaches-update.yml`) opens one pull request, from `automation/breaches-update`, that may change
+`src/data/breaches.json` and nothing else. Its `merge` job waits for the pull request's checks and merges it when all of them pass, on the commit
+they passed on; that deploys dev. Then `.github/workflows/breaches-release.yml` starts App (production), whose own gate still asks for a successful
+development run, but only when the release would carry the update and nothing else: the commit is the merge of that pull request, it changes the
+list alone, it is still the head of main, and production serves the commit just before it (`X-App-Version`). When any of these fails it says why
+in a notice and the release is left to a person, as for any other change; a pull request whose checks fail stays open.
+
+The merge needs the `AUTOMATION_TOKEN` secret (a fine-grained token with "Contents" and "Pull requests" write): what the built-in token pushes
+starts no workflow, so without it no check runs, nothing is merged and dev is not deployed.
+
 ## The charts
 
 Above the list, for the entries the filters leave: incidents per month by type (stacked columns) and the size of each incident with a published

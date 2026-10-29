@@ -1,0 +1,54 @@
+name: Incident list release
+
+# Releases an incident list update (breaches-update.yml) to production by itself, once App (development) has passed and deployed it to dev. It only
+# starts App (production), which has its own gate (a successful development run for the commit), and only when that releases the update and nothing
+# else: the commit is the merge of the automation's pull request, it changes src/data/breaches.json alone, it is still the head of main, and
+# production serves the commit just before it (X-App-Version). Otherwise it says why in a notice and leaves the release to a person, as before.
+on:
+  workflow_run:
+    workflows: ["App (development)"]
+    types: [completed]
+    branches: [main]
+
+permissions:
+  contents: read
+  # Reading the pull request a commit came from, and starting App (production).
+  pull-requests: read
+  actions: write
+
+concurrency:
+  group: breaches-release
+  cancel-in-progress: false
+
+jobs:
+  release:
+    if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+      SHA: ${{ github.event.workflow_run.head_sha }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+          fetch-depth: 50
+      - name: Is it an incident list update and nothing else?
+        id: check
+        run: |
+          skip() { echo "::notice::Not released by itself: $1"; exit 0; }
+          [ "$(git rev-parse HEAD)" = "$SHA" ] || skip "main has moved on from $SHA"
+          head=$(gh api "repos/$GH_REPO/commits/$SHA/pulls" --jq '.[0].head.ref // empty')
+          [ "$head" = "automation/breaches-update" ] || skip "$SHA is not the merge of the incident list pull request"
+          parent=$(git rev-parse "$SHA^1")
+          files=$(git diff --name-only "$parent" "$SHA")
+          [ "$files" = "src/data/breaches.json" ] || skip "$SHA changes more than src/data/breaches.json: $files"
+          served=$(curl -fsSI "https://paibot.app/robots.txt?release-check=$(date +%s)" | tr -d '\r' | awk 'tolower($1)=="x-app-version:" {print $2}')
+          [ "$served" = "$parent" ] || skip "production serves ${served:-an unknown version}, not $parent, so other changes would go out too"
+          echo "release=true" >> "$GITHUB_OUTPUT"
+      - name: Start App (production)
+        if: steps.check.outputs.release == 'true'
+        run: |
+          gh workflow run app-production.yml --ref main
+          echo "::notice::Started App (production) for $SHA"

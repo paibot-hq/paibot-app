@@ -13,4 +13,4 @@ Read `README.md` and `docs/plans/react-router-cutover.md` before changing deploy
 - A tool is a folder `src/tools/<slug>/` (route, components, logic, `*.test.mjs`, `e2e.mjs` flow) plus its catalog entry, icon and messages; see CLAUDE.md "Adding a tool". `e2e -- catalog` covers every published tool with no test code. `CHECK_TOOLS=slug,slug` limits `catalog`/`tools` to some tools.
 - Work in a worktree (`git worktree add ../worktrees/<branch>` from `app/`); leave the `app/` checkout on `main` and untouched.
 - Use a separate port for verification. Do not stop another person's dev server.
-- Production deployment is manual. Keep rollback support for old vinext release refs.
+- Production deployment is manual, except the incident list update (`docs/breaches.md`, "Releasing"). Keep rollback support for old vinext release refs.

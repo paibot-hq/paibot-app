@@ -2,12 +2,13 @@ name: Incident list update
 
 # Keeps the incident list (src/data/breaches.json, see docs/breaches.md) current. Every day Claude Code reads the news and the organizations' own
 # pages, edits the list by the rules in .github/prompts/breaches-update.md, and this workflow opens (or updates) one pull request with the result.
-# Nothing is merged by itself: a person reads the pull request. Run it by hand from the Actions tab at any time.
+# When every check on the pull request passes, it is merged (job `merge`), which deploys dev; breaches-release.yml then releases it to production
+# when nothing else is waiting to go out. A pull request whose checks fail stays open for a person. Run it by hand from the Actions tab at any time.
 #
 # Secrets (Settings > Secrets and variables > Actions):
 #   CLAUDE_CODE_OAUTH_TOKEN: from `claude setup-token`; the run is paid out of the Claude plan's usage, not an API bill.
-#   GOVFAQ_UPDATE_TOKEN (optional but wanted): a fine-grained token with "Contents" and "Pull requests" write on this repository. Pull requests
-#   made with the built-in token do not start the checks, so without it the checks do not run on the pull request this opens.
+#   AUTOMATION_TOKEN (needed for the merge): a fine-grained token with "Contents" and "Pull requests" write on this repository. What the
+#   built-in token pushes starts no workflow, so without it the checks do not run on the pull request, nothing is merged and dev is not deployed.
 on:
   schedule:
     - cron: "10 0 * * *" # every day, 00:10 UTC (09:10 in Japan)
@@ -25,12 +26,15 @@ jobs:
   update:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
+    outputs:
+      pr: ${{ steps.pr.outputs.number }}
+      sha: ${{ steps.pr.outputs.sha }}
     env:
-      GH_TOKEN: ${{ secrets.GOVFAQ_UPDATE_TOKEN || github.token }}
+      GH_TOKEN: ${{ secrets.AUTOMATION_TOKEN || github.token }}
     steps:
       - uses: actions/checkout@v7
         with:
-          token: ${{ secrets.GOVFAQ_UPDATE_TOKEN || github.token }}
+          token: ${{ secrets.AUTOMATION_TOKEN || github.token }}
       - uses: actions/setup-node@v7
         with:
           node-version-file: .tool-versions
@@ -79,6 +83,7 @@ jobs:
         if: steps.diff.outputs.changed == 'true'
         run: node --test "src/tools/breaches/*.test.mjs"
       - name: Open (or update) the pull request
+        id: pr
         if: steps.diff.outputs.changed == 'true'
         run: |
           branch=automation/breaches-update
@@ -92,6 +97,48 @@ jobs:
           number=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number // empty')
           if [ -n "$number" ]; then
             gh pr edit "$number" --title "$title" --body-file "$PR_BODY_FILE"
+            # One opened as a draft before the merge was automatic.
+            gh pr ready "$number" || true
           else
-            gh pr create --draft --head "$branch" --base main --title "$title" --body-file "$PR_BODY_FILE"
+            gh pr create --head "$branch" --base main --title "$title" --body-file "$PR_BODY_FILE"
+            number=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')
           fi
+          echo "number=$number" >> "$GITHUB_OUTPUT"
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+  # Waits for the pull request's checks (App (development) on a pull request: the unit tests, the rules above among them, types, the builds and the
+  # browser checks) and merges it when all of them pass, the commit they passed on and no other.
+  merge:
+    needs: update
+    if: needs.update.outputs.pr != ''
+    runs-on: ubuntu-24.04
+    timeout-minutes: 40
+    permissions:
+      contents: read
+      pull-requests: read
+      checks: read
+      statuses: read
+    env:
+      GH_REPO: ${{ github.repository }}
+      PR: ${{ needs.update.outputs.pr }}
+      SHA: ${{ needs.update.outputs.sha }}
+      MERGE_TOKEN: ${{ secrets.AUTOMATION_TOKEN }}
+    steps:
+      - name: Wait for the checks, then merge
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ -z "$MERGE_TOKEN" ]; then
+            echo "::warning::AUTOMATION_TOKEN is not set: no checks run on #$PR, so it is left for a person to merge."
+            exit 0
+          fi
+          # The checks take a little while to be registered after the push.
+          for _ in $(seq 1 20); do
+            [ "$(gh pr view "$PR" --json statusCheckRollup --jq '.statusCheckRollup | length')" -gt 0 ] && break
+            sleep 15
+          done
+          if ! gh pr checks "$PR" --watch --fail-fast --interval 30; then
+            echo "::error::A check failed (or none started) on #$PR; it stays open for a person."
+            exit 1
+          fi
+          GH_TOKEN="$MERGE_TOKEN" gh pr merge "$PR" --merge --delete-branch --match-head-commit "$SHA"

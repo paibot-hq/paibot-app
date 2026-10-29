@@ -8,7 +8,7 @@ name: FAQ data update
 # Secrets (Settings > Secrets and variables > Actions):
 #   CLOUDFLARE_ACCOUNT_ID (already there) and CLOUDFLARE_API_TOKEN_WORKERS_AI: a token that may use Workers AI and nothing else, used only by the
 #   vectors step. (CLOUDFLARE_API_TOKEN is the one that deploys; it is not used here.)
-#   GOVFAQ_UPDATE_TOKEN (optional but wanted): a fine-grained token with "Contents" and "Pull requests" write on this repository. Pushes and pull
+#   AUTOMATION_TOKEN (optional but wanted): a fine-grained token with "Contents" and "Pull requests" write on this repository. Pushes and pull
 #   requests made with the built-in token do not start other workflows, so without it the checks (and the deploy to dev after a merge) do not run
 #   on the pull request this opens.
 on:
@@ -29,11 +29,11 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 30
     env:
-      GH_TOKEN: ${{ secrets.GOVFAQ_UPDATE_TOKEN || github.token }}
+      GH_TOKEN: ${{ secrets.AUTOMATION_TOKEN || github.token }}
     steps:
       - uses: actions/checkout@v7
         with:
-          token: ${{ secrets.GOVFAQ_UPDATE_TOKEN || github.token }}
+          token: ${{ secrets.AUTOMATION_TOKEN || github.token }}
       - uses: actions/setup-node@v7
         with:
           node-version-file: .tool-versions
