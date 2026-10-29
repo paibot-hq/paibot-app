@@ -26,7 +26,8 @@ try {
   await configureAccess(page, base);
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.goto(`${base}/en`);
+  // The top page shows only the most viewed and featured tools; the list of every tool links the quiz.
+  await page.goto(`${base}/en/apps`);
   await page.locator('a[href="/en/quiz"]').first().click();
   await page.waitForURL(`${base}/en/quiz`);
   await page.getByRole('button', { name: 'Start quiz', exact: true }).click();

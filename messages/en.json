@@ -278,6 +278,20 @@
       "allApps": "All apps",
       "categoryNavigation": "App categories"
     },
+    "appList": {
+      "eyebrow": "TOOLS",
+      "title": "All tools",
+      "description": "Every tool on PAIBOT.app, grouped by kind: daily life, games, utilities, study, development and networking.",
+      "intro": "Every tool on PAIBOT.app, grouped by kind. All of them work in your browser without signing up. If you know a tool's name, the search on the top page finds it fastest."
+    },
+    "categoryDescriptions": {
+      "daily": "Tools for things you look up or check in daily life: earthquakes and weather warnings, days between dates, ages, calendars and more.",
+      "game": "Games you can play right away in the browser, and simulations that let you watch mathematics and physics in motion.",
+      "utility": "Tools to get tasks done quickly: counting characters, making passwords, hiding parts of photos, removing metadata, working out consumption tax and more.",
+      "study": "Tools for learning, including math practice from elementary arithmetic to university mathematics.",
+      "dev": "Tools for programming and checking data: formatting JSON, converting Base64 and URL encoding, and more.",
+      "network": "Tools for setting up and investigating networks: IP addresses, domains, subnet calculations and more."
+    },
     "categories": {
       "study": "Study",
       "dev": "Dev Tools",
@@ -552,6 +566,7 @@
       }
     },
     "footer": {
+      "apps": "All tools",
       "about": "About",
       "ranking": "Ranking",
       "label": "Company information",
@@ -1438,6 +1453,8 @@
       "retry": "Try again"
     },
     "search": {
+      "featured": "Featured tools",
+      "allApps": "See all tools ({count}) →",
       "popular": "Popular tools",
       "ranking": "See the full ranking →",
       "onlyFavorites": "Favorites only", "noFavorites": "No favorites yet. Press a card's star and it will be gathered here.", "favorites": "Favorites", "all": "All apps", "label": "Search",

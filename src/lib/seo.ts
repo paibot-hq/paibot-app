@@ -12,7 +12,7 @@ import { MATH_CATALOG } from "./math-catalog.ts";
 // Every published, non-private app in the catalog is public, so a new tool
 // needs no edit here; add only pages outside the catalog below.
 // (/legal/commerce is not here: it is noindex, so it is not in the sitemap either.)
-const sitePaths = ["", "/about", "/ranking", "/supporter", "/legal/terms", "/legal/privacy"];
+const sitePaths = ["", "/apps", "/about", "/ranking", "/supporter", "/legal/terms", "/legal/privacy"];
 // The math drills' public pages: each published unit and each of its learning items (a coming-soon unit stays out;
 // practice sets are not listed, they are reached from the item).
 const mathSetPaths = MATH_CATALOG.filter(unit => unit.status === "published").flatMap(unit => [`/math/${unit.id}`, ...unit.items.map(item => `/math/${unit.id}/${item.id}`)]);

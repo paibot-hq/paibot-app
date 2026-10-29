@@ -9,6 +9,7 @@ export default function SiteFooter({ year }: { year: number }) {
   return <footer>
     <span>PAIBOT.app</span>
     <nav className="footer-links" aria-label={t('label')}>
+      <Link href="/apps">{t('apps')}</Link>
       <Link href="/about">{t('about')}</Link>
       <Link href="/ranking">{t('ranking')}</Link>
       <Link href="/supporter">{t('supporter')}</Link>

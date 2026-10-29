@@ -32,7 +32,7 @@ export default [
     route('math/:unit/:item', 'routes/math-item.tsx'),
     route('math/:unit/:item/:set', 'routes/math-quiz.tsx'),
     route('favorites', 'routes/favorites.ts'),
-    route('apps', 'routes/site-redirect.ts', { id: 'site-redirect/apps' }),
+    route('apps', 'routes/apps.tsx'),
     route('daily', 'routes/site-redirect.ts', { id: 'site-redirect/daily' }),
     route('game', 'routes/site-redirect.ts', { id: 'site-redirect/game' }),
     route('utility', 'routes/site-redirect.ts', { id: 'site-redirect/utility' }),

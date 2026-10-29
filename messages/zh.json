@@ -278,6 +278,20 @@
       "allApps": "全部应用",
       "categoryNavigation": "应用分类"
     },
+    "appList": {
+      "eyebrow": "TOOLS",
+      "title": "工具一览",
+      "description": "按日常、游戏、实用工具、学习、开发、网络分类整理的 PAIBOT.app 全部工具。",
+      "intro": "按类别列出 PAIBOT.app 的全部工具。所有工具都无需注册，在浏览器中即可使用。知道工具名称时，用首页的搜索能最快找到。"
+    },
+    "categoryDescriptions": {
+      "daily": "用于日常生活中查询和确认的工具，例如地震与气象警报、日期间隔和年龄计算、日历等。",
+      "game": "在浏览器中即可畅玩的游戏，以及能直观观察数学和物理运动的模拟。",
+      "utility": "帮助快速完成工作的工具，例如字数统计、生成密码、照片打码、删除元数据、计算消费税等。",
+      "study": "用于学习的工具，包括从小学算术到大学数学的题库。",
+      "dev": "用于编程和检查数据的工具，例如 JSON 格式化、Base64 与 URL 编码转换等。",
+      "network": "用于网络设置和调查的工具，例如 IP 地址、域名、子网计算等。"
+    },
     "categories": {
       "study": "学习",
       "dev": "开发工具",
@@ -552,6 +566,7 @@
       }
     },
     "footer": {
+      "apps": "工具一览",
       "about": "关于",
       "ranking": "热门排行",
       "label": "运营信息",
@@ -1438,6 +1453,8 @@
       "retry": "再试一次"
     },
     "search": {
+      "featured": "推荐工具",
+      "allApps": "查看全部工具（{count}） →",
       "popular": "热门工具",
       "ranking": "查看完整排行 →",
       "onlyFavorites": "只看收藏", "noFavorites": "还没有收藏。点击卡片上的星标，就会收集到这里。", "favorites": "收藏", "all": "全部应用", "label": "搜索",

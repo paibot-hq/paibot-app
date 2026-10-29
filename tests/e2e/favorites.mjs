@@ -49,7 +49,7 @@ try {
   await clerk.loaded({ page });
 
   // "wc" (character count) is a stable, always-published tool to key the test on.
-  // A favourite is listed twice (first among the favourites, then in its category): the first one is the one checked.
+  // wc is one of the featured tools on the top page (FEATURED_SLUGS), and may also be among the most viewed: the first card is the one checked.
   const card = page.locator('.app-card-wrap').filter({ has: page.locator('a[href="/en/wc"]') }).first();
   const star = card.locator('.favorite-button');
   await star.waitFor();
@@ -64,7 +64,7 @@ try {
   await page.locator('[data-search="only-favorites"]').click();
   assert.deepEqual(await page.locator('[data-search="favorites"] a').evaluateAll(links => links.map(link => link.getAttribute('href'))), ['/en/wc']);
   await page.locator('[data-search="only-favorites"]').click();
-  await page.locator('#search-results, nav a[href="/en/json"]').first().waitFor();
+  await page.locator('[data-search="featured"]').waitFor();
   console.log('PASS: favoriting an app persists across reload');
 
   await card.locator('.favorite-button').click();
