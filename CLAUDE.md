@@ -23,11 +23,13 @@ Do not print secret keys. Runtime Clerk keys must be synced to Workers Secrets;
 
 One site, one host: `paibot.app` (development: `dev.paibot.app`), with no subdomains (`paibot.dev` and its
 `app.`/`learn.`/`tools.` hosts were tried in October 2026 and dropped; see `docs/plans/domain.md`). The top page is a
-search (`src/components/search-home.tsx`, ranking in `src/lib/search.ts`) over the apps, with every app listed under the
-box as a small card; it is built from the app catalog and the messages, so a new tool is found by its `title`,
-`description` and `keywords` and shown as a card with nothing else to register. The math questions are reached through
-the "数学問題集" app (`/math`), not searched. The former list and category pages (`/apps`, `/daily`, `/study`, `/dev` ...)
-redirect to the top page. Do not add a subdomain per tool or per kind of page.
+search (`src/components/search-home.tsx`, ranking in `src/lib/search.ts`) over every app, with only a few shown under the
+box as small cards: the week's most viewed and the featured ones (`FEATURED_SLUGS` in `src/lib/app-catalog.ts`), then a
+link to `/apps` (`src/components/app-list.tsx`), every app by category with a line on each category
+(`App.categoryDescriptions`). Both are built from the app catalog and the messages, so a new tool is found by its `title`,
+`description` and `keywords` and listed on `/apps` with nothing else to register. The math questions are reached through
+the "数学問題集" app (`/math`), not searched. The former category pages (`/daily`, `/study`, `/dev` ...) redirect to the
+top page. Do not add a subdomain per tool or per kind of page.
 
 ## Adding a tool
 

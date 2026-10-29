@@ -254,3 +254,7 @@
 .more { margin: .7rem 0 0; font-size: .85rem; text-align: right; }
 .more a { display: inline; padding: 0; border: 0; background: none; color: var(--accent); text-decoration: underline; }
 .more a:hover, .more a:focus-visible { background: none; }
+/* The list of every app (/apps): the same cards as the top page, under a heading and a line per category. */
+.list { width: min(900px, calc(100% - 2rem)); margin-inline: auto; }
+.intro { color: var(--muted); line-height: 1.8; }
+.categoryText { margin: -.4rem 0 .9rem; color: var(--muted); font-size: .88rem; line-height: 1.7; }

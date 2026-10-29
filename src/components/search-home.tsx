@@ -1,26 +1,16 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { useLocale, useTranslations } from "use-intl";
 import { Link } from "../i18n/navigation";
-import { apps, APP_CATEGORIES, type AppEntry, type DynamicT } from "../lib/apps";
+import { apps, type AppEntry, type DynamicT } from "../lib/apps";
+import { FEATURED_SLUGS } from "../lib/app-catalog";
 import { prepare, search, type Entry } from "../lib/search";
-import FavoriteButton from "./favorite-button";
+import Card from "./app-card";
 import SiteFooter from "./site-footer";
 import { useFavoritesData } from "../routes/locale";
 import styles from "./search-home.module.css";
 
-// A card: the app's link, and the favourite star beside it (a button cannot sit inside a link). Defined here, not
-// inside SearchHome: a component made inside another is a new component on every render, and React would rebuild every card.
-function Card({ app, td, locale, signedIn, favorited }: { app: AppEntry; td: DynamicT; locale: string; signedIn: boolean; favorited: boolean }) {
-  return (
-    <li className="app-card-wrap">
-      <Link href={app.href!}><app.icon aria-hidden="true" /><span className={styles.name}>{td(`${app.messageKey}.title`)}<span className={styles.about}>{td(`${app.messageKey}.description`)}</span></span></Link>
-      <FavoriteButton actionPath={`/${locale}/favorites`} slug={app.slug} signedIn={signedIn} favorited={favorited} addLabel={td("apps.favorite")} removeLabel={td("apps.unfavorite")} />
-    </li>
-  );
-}
-
-// The top page: a search box that finds the apps, and every app listed under it.
-// `popular`: the most viewed tools of the last week (src/lib/tool-ranking.ts), most first; shown above the full list.
+// The top page: a search box that finds every app, and under it only a few: the most viewed and the featured ones, then a link to the
+// list of every app (/apps). `popular`: the most viewed tools of the last week (src/lib/tool-ranking.ts), most first.
 export default function SearchHome({ year, popular = [] }: { year: number; popular?: { slug: string; views: number }[] }) {
   const t = useTranslations("App");
   const ts = useTranslations("App.search");
@@ -47,6 +37,9 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
   // The signed-in visitor's favourite apps come first.
   const mine = apps.filter(app => app.status === "published" && app.href && favorites.has(app.slug));
   const popularApps = popular.map(p => apps.find(app => app.slug === p.slug && app.status === "published" && app.href)).filter((app): app is AppEntry => Boolean(app));
+  const featuredApps = FEATURED_SLUGS.map(slug => apps.find(app => app.slug === slug && app.status === "published" && app.href))
+    .filter((app): app is AppEntry => Boolean(app) && !popularApps.includes(app!));
+  const total = apps.filter(app => app.status === "published" && app.href && !app.private).length;
   // "/" jumps to the box from anywhere on the page, as on most sites.
   useEffect(() => {
     const onKey = (event: globalThis.KeyboardEvent) => {
@@ -128,16 +121,11 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
                 <p className={styles.more}><Link href="/ranking">{ts("ranking")}</Link></p>
               </section>
             )}
-            {APP_CATEGORIES.map(category => {
-              const list = apps.filter(app => app.category === category && app.status === "published" && app.href);
-              if (!list.length) return null;
-              return (
-                <section key={category}>
-                  <h2>{td(`categories.${category}`)}</h2>
-                  <ul>{list.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited={favorites.has(app.slug)} />)}</ul>
-                </section>
-              );
-            })}
+            <section data-search="featured">
+              <h2>{ts("featured")}</h2>
+              <ul>{featuredApps.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited={favorites.has(app.slug)} />)}</ul>
+              <p className={styles.more}><Link href="/apps" data-search="all-apps">{ts("allApps", { count: total })}</Link></p>
+            </section>
             </>}
           </nav>
         )}

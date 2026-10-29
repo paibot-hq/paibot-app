@@ -110,6 +110,10 @@ export const APP_CATALOG = [
 
 export type AppSlug = (typeof APP_CATALOG)[number]["slug"];
 
+// Shown on the top page under the most viewed tools, in this order (those already among the most viewed are not repeated):
+// the tools people search for and the ones found nowhere else. Every other tool is found by the search box or on /apps.
+export const FEATURED_SLUGS: readonly AppSlug[] = ["math", "breaches", "date-calc", "wc", "tax", "password", "metadata", "mosaic"];
+
 // The tools to go to from a tool's page: those of the same kind first, then the others, up to six, so that every page links onwards.
 export function relatedApps(app: AppData, list: readonly AppData[] = APP_CATALOG, limit = 6): AppData[] {
   const published = list.filter(other => other.status === "published" && other.href && !other.private && other.slug !== app.slug);
