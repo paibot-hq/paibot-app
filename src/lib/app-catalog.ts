@@ -94,6 +94,7 @@ export const APP_CATALOG = [
   { slug: "crane-game", href: "/crane-game", category: "game", status: "published", messageKey: "craneGame" },
   { slug: "fruit-merge", href: "/fruit-merge", category: "game", status: "published", messageKey: "fruitMerge" },
   { slug: "goldfish", href: "/goldfish", category: "game", status: "published", messageKey: "goldfish" },
+  { slug: "goldfish-escape", href: "/goldfish-escape", category: "game", status: "published", messageKey: "goldfishEscape" },
   { slug: "number-merge", href: "/number-merge", category: "game", status: "published", messageKey: "numberMerge" },
   { slug: "fireworks", href: "/fireworks", category: "game", status: "published", messageKey: "fireworks" },
   { slug: "clock", href: "/clock", category: "daily", status: "published", messageKey: "clock" },

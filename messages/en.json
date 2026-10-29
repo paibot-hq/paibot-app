@@ -2161,6 +2161,32 @@
         "watermelon": "Watermelon"
       }
     },
+    "goldfishEscape": {
+      "title": "Goldfish Getaway",
+      "description": "A one-tap game of escaping the paper scoops at a goldfish-scooping stall. Each tap is a stroke of the tail; left alone the fish slowly sinks. Dodge the scoops as they dip in; paper that stays in the water too long tears and can catch nothing. Eat food to grow and score more, but a bigger fish is easier to catch. Free, no sign-up.",
+      "about": "A goldfish at a scooping stall tries to stay out of the paper scoops (poi) for as long as it can. Every tap is a stroke of its tail that lifts it; left alone it sinks slowly through the water. The scoops come in from the right and dip towards where the fish was, so keep moving. Paper does not last in water: a scoop that stays under too long tears and can no longer catch anything. Eat the food that drifts by and the fish grows, so each scoop dodged is worth more, but a bigger fish is easier to catch. Choose a wakin, a ryukin or a demekin.",
+      "keywords": "goldfish scooping poi one tap game dodge escape free browser game",
+      "intro": "Tap (or press Space) and the goldfish swims up a little. Keep swimming and stay out of the scoops.",
+      "score": "Score",
+      "passed": "Dodged",
+      "best": "Best",
+      "tankLabel": "A goldfish-scooping tank. Tap to make the fish swim up; left alone it sinks. Touching a scoop coming from the right means it is caught",
+      "start": "Tap to start",
+      "caught": "Scooped!",
+      "tore": "The paper tore!",
+      "grew": "It grew! More points",
+      "again": "Play again",
+      "shareText": "{score} points in Goldfish Getaway! Dodged {passed} scoops",
+      "keys": "Keyboard: Space, ↑ or Enter to swim. On a phone, tap the tank.",
+      "kindLabel": "Kind of goldfish",
+      "kinds": {
+        "wakin": "Wakin",
+        "ryukin": "Ryukin",
+        "demekin": "Demekin"
+      },
+      "soundOn": "Sound: on",
+      "soundOff": "Sound: off"
+    },
     "goldfish": {
       "title": "Goldfish Bowl Simulator (3D)",
       "description": "Keep goldfish in a 3D bowl: common goldfish, ryukin and black moors swim about, gather when you tap the water to feed them and dart away when you tap the glass. Drag to look from any angle, with a night light too.",
