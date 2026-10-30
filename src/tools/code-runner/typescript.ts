@@ -1,16 +1,11 @@
-"use client";
-
-import { useMemo } from "react";
-import { useLocale, useTranslations } from "use-intl";
-import CodePlayground from "../../components/code-playground";
-import { jsRunner, type Compile } from "../../lib/js-runner";
-import { EXAMPLES } from "./examples";
+import type { Compile } from "../../lib/js-runner";
 import { createTsWorker } from "./worker.client";
 
 type Checked = { type: "checked"; problems: { line?: number; text: string }[]; js: string };
 
-// The compiler's worker, loaded once; a stopped run only ends the program's own worker, unless it was still checking.
-function compiler(locale: string) {
+// The TypeScript compiler's worker (ts.worker.ts), loaded once; a stopped run only ends the program's own worker, unless
+// it was still being checked.
+export function compiler(locale: string) {
   let worker: Worker | null = null;
   let ready: Promise<void> | null = null;
   let pending: ((data: Checked | null) => void) | null = null;
@@ -45,24 +40,4 @@ function compiler(locale: string) {
     done(null);
   };
   return { prepare, compile, stop };
-}
-
-export default function TypeScriptRunner() {
-  const t = useTranslations("App.typescript");
-  const locale = useLocale();
-  const runner = useMemo(() => jsRunner(compiler(locale)), [locale]);
-  return (
-    <CodePlayground
-      title={t("title")}
-      intro={t("intro")}
-      language="TypeScript"
-      storageKey="typescript"
-      examples={EXAMPLES.map(example => ({ ...example, label: t(`examples.${example.id}`) }))}
-      runner={runner}
-      indent="  "
-      opensBlock={/[{[(]$/}
-      stdin
-      hint={t("hint")}
-    />
-  );
 }

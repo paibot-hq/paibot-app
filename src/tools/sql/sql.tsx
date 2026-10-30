@@ -20,26 +20,29 @@ export default function SqlRunner() {
     <CodePlayground
       title={t("title")}
       intro={t("intro")}
-      language="SQLite"
       storageKey="sql"
-      examples={EXAMPLES.map(example => ({ ...example, label: t(`examples.${example.id}`) }))}
-      runner={runner}
-      indent="  "
-      opensBlock={/\($/}
-      aside={
-        <details className={styles.tables} open>
-          <summary>{t("tablesTitle")}</summary>
-          <ul>
-            {TABLES.map(table => (
-              <li key={table.name}>
-                <code className={styles.table}>{table.name}</code> <span className={styles.note}>{t(`tables.${table.name}`)}</span>
-                <div className={styles.columns}>{table.columns.map(column => <code key={column}>{column}</code>)}</div>
-              </li>
-            ))}
-          </ul>
-        </details>
-      }
-      hint={t("hint")}
+      languages={[{
+        id: "sql",
+        name: "SQLite",
+        runner,
+        examples: EXAMPLES.map(example => ({ ...example, label: t(`examples.${example.id}`) })),
+        indent: "  ",
+        opensBlock: /\($/,
+        aside: (
+          <details className={styles.tables} open>
+            <summary>{t("tablesTitle")}</summary>
+            <ul>
+              {TABLES.map(table => (
+                <li key={table.name}>
+                  <code className={styles.table}>{table.name}</code> <span className={styles.note}>{t(`tables.${table.name}`)}</span>
+                  <div className={styles.columns}>{table.columns.map(column => <code key={column}>{column}</code>)}</div>
+                </li>
+              ))}
+            </ul>
+          </details>
+        ),
+        hint: t("hint"),
+      }]}
     />
   );
 }

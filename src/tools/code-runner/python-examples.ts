@@ -1,4 +1,4 @@
-// The examples offered on the page; their names are App.python.examples.<id> in messages/*.json.
+// The Python examples; their names are App.codeRunner.examples.python.<id> in messages/*.json.
 export const EXAMPLES = [
   {
     id: "hello",

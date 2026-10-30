@@ -503,6 +503,7 @@
       }
     },
     "codePlayground": {
+      "languages": "语言",
       "run": "运行",
       "stop": "停止",
       "examples": "打开示例",
@@ -525,55 +526,45 @@
       "rowsShown": "共 {total} 行，显示前 {count} 行",
       "keys": "按 Ctrl+Enter（Mac 上是 ⌘+Enter）运行。Tab 缩进，Shift+Tab 取消缩进（先按 Esc 再按 Tab 可移到下一栏）。代码保存在本浏览器中，不会发送到服务器。"
     },
-    "python": {
-      "title": "在线运行 Python",
-      "description": "在浏览器中编写并运行 Python 代码，无需安装、无需注册、免费。支持 input() 的标准输入、标出出错的行，import 时还能加载 numpy 和 pandas。代码在你的浏览器中运行，不会发送到服务器。",
-      "about": "在浏览器中运行真正的 Python（Pyodide，把 CPython 编译成 WebAssembly）。print 的结果会立即显示，input() 和 sys.stdin 可以读取标准输入栏的内容，也适合练习编程题。可以使用全部标准库，numpy、pandas、sympy、scipy 等包在第一次 import 时自动下载。出错时会显示回溯信息，并在编辑器中把出错的行标成红色。代码保存在本浏览器中，不会发送到服务器，也可以做成链接分享。",
-      "keywords": "Python 在线运行 浏览器 在线编译器 编辑器 免安装 免费 标准输入 numpy pandas Pyodide 编程 练习",
-      "intro": "写好代码后按“▶ 运行”，Python 就会在浏览器中运行。",
+    "codeRunner": {
+      "title": "在线运行代码（Python、JavaScript、TypeScript）",
+      "description": "在浏览器中编写并运行 Python、JavaScript、TypeScript 代码，无需安装、无需注册、免费。支持标准输入、标出出错的行、TypeScript 类型检查（中文错误信息）以及 Python 的 numpy 和 pandas。代码在你的浏览器中运行，不会发送到服务器。",
+      "about": "在一个页面上用标签切换并运行 Python、JavaScript、TypeScript 三种语言。Python 是真正的 Python 3.14（Pyodide，把 CPython 编译成 WebAssembly），可以使用全部标准库，numpy、pandas、sympy 等包在第一次 import 时自动下载。JavaScript 会像 Node.js 一样清晰地显示 console.log 的结果，也可以使用 await 和 setTimeout。TypeScript 先由编译器（5.9）以 strict 模式做类型检查再运行，并按行用中文显示类型错误。每种语言都可以用 input() 读取标准输入栏，适合练习编程题。出错时编辑器中的该行会标成红色，死循环可以用“停止”停下。代码按语言保存在本浏览器中，不会发送到服务器，也可以做成链接分享。",
+      "keywords": "在线运行代码 浏览器 Python JavaScript TypeScript 在线编译器 编辑器 类型检查 免安装 免费 标准输入 numpy pandas Pyodide 编程 练习",
+      "intro": "选择语言并写好代码后按“▶ 运行”，代码就会在浏览器中运行。",
       "examples": {
-        "hello": "第一个 Python 程序",
-        "fizzbuzz": "FizzBuzz",
-        "input": "读取标准输入",
-        "collections": "列表、字典和 Counter",
-        "classes": "类和 dataclass",
-        "recursion": "递归（斐波那契、汉诺塔）",
-        "numpy": "使用 numpy",
-        "error": "错误的显示"
+        "python": {
+          "hello": "第一个 Python 程序",
+          "fizzbuzz": "FizzBuzz",
+          "input": "读取标准输入",
+          "collections": "列表、字典和 Counter",
+          "classes": "类和 dataclass",
+          "recursion": "递归（斐波那契、汉诺塔）",
+          "numpy": "使用 numpy",
+          "error": "错误的显示"
+        },
+        "javascript": {
+          "hello": "第一个 JavaScript 程序",
+          "fizzbuzz": "FizzBuzz",
+          "input": "读取标准输入",
+          "arrays": "数组和对象",
+          "classes": "类",
+          "async": "async / await",
+          "primes": "素数（埃拉托斯特尼筛法）"
+        },
+        "typescript": {
+          "hello": "第一个 TypeScript 程序",
+          "typeError": "查看类型错误",
+          "unions": "联合类型与类型收窄",
+          "generics": "泛型",
+          "input": "读取标准输入"
+        }
       },
-      "hint": "可以使用 Python 3.14 的全部标准库。numpy、pandas 等包在第一次 import 时从网上下载（需要几秒或更久）。不支持读写文件、网络通信和用 time.sleep 等待。程序停不下来时，可以按“■ 停止”（下次运行会重新加载 Python）。"
-    },
-    "javascript": {
-      "title": "在线运行 JavaScript",
-      "description": "在浏览器中编写并运行 JavaScript。清晰显示 console.log 的结果，支持标准输入、async/await，并标出出错的行。无需安装、无需注册、免费，代码不会发送到服务器。",
-      "about": "你写的 JavaScript 在浏览器中的独立环境（Web Worker）里运行。console.log 会像 Node.js 一样清晰地显示对象、数组和 Map。input() 可以逐行读取标准输入栏，也支持 require(\"fs\").readFileSync(\"/dev/stdin\") 的写法，适合练习编程题。可以使用顶层 await 和 setTimeout，计时器全部结束后运行才会结束。出错时，编辑器中出错的行会标成红色。代码保存在本浏览器中，也可以做成链接分享。",
-      "keywords": "JavaScript 在线运行 浏览器 编辑器 console.log 标准输入 Node.js 免安装 免费 编程 练习",
-      "intro": "写好代码后按“▶ 运行”，JavaScript 就会在浏览器中运行。",
-      "examples": {
-        "hello": "第一个 JavaScript 程序",
-        "fizzbuzz": "FizzBuzz",
-        "input": "读取标准输入",
-        "arrays": "数组和对象",
-        "classes": "类",
-        "async": "async / await",
-        "primes": "素数（埃拉托斯特尼筛法）"
-      },
-      "hint": "可以使用最新的 JavaScript（到 ES2024）。不能操作页面（DOM），也不能用 import 加载外部模块。死循环可以用“■ 停止”停下。想写类型时，请使用“在线运行 TypeScript”。"
-    },
-    "typescript": {
-      "title": "在线运行 TypeScript",
-      "description": "在浏览器中对 TypeScript 代码做类型检查并运行。按行用中文显示类型错误，同时也能看到运行结果。无需安装、无需注册、免费，代码不会发送到服务器。",
-      "about": "在浏览器中运行 TypeScript 编译器（5.9），先对代码做类型检查，再转换成 JavaScript 运行。类型错误会用中文说明第几行有什么问题，并在编辑器中把该行标成红色。和 TypeScript Playground 一样，即使有类型错误也会运行，便于对比类型与实际行为。使用 strict 模式，可以使用到 ES2023 的标准库类型。console.log 的显示和标准输入（input()）与“在线运行 JavaScript”相同。",
-      "keywords": "TypeScript 在线运行 类型检查 浏览器 Playground 编辑器 编译器 免安装 免费 类型错误",
-      "intro": "写好代码后按“▶ 运行”，会先做类型检查，再在浏览器中运行。",
-      "examples": {
-        "hello": "第一个 TypeScript 程序",
-        "typeError": "查看类型错误",
-        "unions": "联合类型与类型收窄",
-        "generics": "泛型",
-        "input": "读取标准输入"
-      },
-      "hint": "类型检查使用 strict 模式。即使有类型错误，也会运行转换后的 JavaScript。不能用 import 加载外部模块或 @types。第一次需要一点时间加载编译器（几 MB）。"
+      "hints": {
+        "python": "可以使用 Python 3.14 的全部标准库。numpy、pandas 等包在第一次 import 时从网上下载（需要几秒或更久）。不支持读写文件、网络通信和用 time.sleep 等待。程序停不下来时，可以按“■ 停止”（下次运行会重新加载 Python）。",
+        "javascript": "可以使用最新的 JavaScript（到 ES2024）。不能操作页面（DOM），也不能用 import 加载外部模块。死循环可以用“■ 停止”停下。想写类型时，请使用 TypeScript 标签。",
+        "typescript": "类型检查使用 strict 模式。即使有类型错误，也会运行转换后的 JavaScript。不能用 import 加载外部模块或 @types。第一次需要一点时间加载编译器（几 MB）。"
+      }
     },
     "sql": {
       "title": "SQL 练习（在线运行 SQLite）",

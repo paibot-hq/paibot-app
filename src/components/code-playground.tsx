@@ -7,23 +7,29 @@ import controls from "./tool-controls.module.css";
 import styles from "./code-playground.module.css";
 import { decodeCode, encodeCode, type OutputItem, type Runner } from "../lib/code-runner";
 
-// The page of a code runner (Python, JavaScript, TypeScript, SQL): an editor, standard input, a run button and the
-// output. What runs the code is the tool's Runner (src/lib/code-runner.ts); everything on the page is shared.
+// The page of a code runner (the code runner's Python, JavaScript and TypeScript; SQL): an editor, standard input, a run
+// button and the output. What runs the code is each language's Runner (src/lib/code-runner.ts); everything on the page
+// is shared. With several languages, tabs switch between them; each keeps its own code, and only the chosen one loads.
 
 export type PlaygroundExample = { id: string; label: string; code: string; stdin?: string };
 
-type Props = {
-  title: string;
-  intro: string;
-  language: string; // the language's name, for "getting Python ready"
-  storageKey: string; // where the code last written is kept in this browser
-  examples: PlaygroundExample[];
+export type PlaygroundLanguage = {
+  id: string;
+  name: string; // shown on its tab and in "getting Python ready"
   runner: Runner;
+  examples: PlaygroundExample[];
   indent: string; // what Tab inserts
   opensBlock: RegExp; // a line ending like this indents the next one (":" in Python, "{" in JavaScript)
   stdin?: boolean;
   aside?: ReactNode; // shown beside the output (the SQL tables)
   hint?: ReactNode;
+};
+
+type Props = {
+  title: string;
+  intro: string;
+  storageKey: string; // where the code last written in each language is kept in this browser
+  languages: PlaygroundLanguage[];
 };
 
 type Status = "preparing" | "failedToLoad" | "idle" | "running" | "done" | "error" | "stopped";
@@ -35,12 +41,13 @@ function save(key: string, value: string) {
   try { localStorage.setItem(key, value); } catch { /* storage unavailable */ }
 }
 
-export default function CodePlayground({ title, intro, language, storageKey, examples, runner, indent, opensBlock, stdin: hasStdin = false, aside, hint }: Props) {
+export default function CodePlayground({ title, intro, storageKey, languages }: Props) {
   const t = useTranslations("App.codePlayground");
-  const [code, setCode] = useState(examples[0].code);
-  const [stdin, setStdin] = useState(examples[0].stdin ?? "");
+  const [languageId, setLanguageId] = useState(languages[0].id);
+  const [codes, setCodes] = useState<Record<string, string>>({});
+  const [inputs, setInputs] = useState<Record<string, string>>({});
   const [output, setOutput] = useState<OutputItem[]>([]);
-  const [status, setStatus] = useState<Status>(runner.prepare ? "preparing" : "idle");
+  const [status, setStatus] = useState<Status>("idle");
   const [elapsed, setElapsed] = useState(0);
   const [errorLine, setErrorLine] = useState<number | null>(null);
   const [copied, setCopied] = useState(false);
@@ -48,30 +55,58 @@ export default function CodePlayground({ title, intro, language, storageKey, exa
   const gutterRef = useRef<HTMLDivElement | null>(null);
   const stoppedRef = useRef(false);
   const tabLeaves = useRef(false);
+  const loaded = useRef(new Set<string>());
 
-  // The code from a shared link first, then what was last written here, else the first example.
+  const language = languages.find(l => l.id === languageId) ?? languages[0];
+  const { runner, examples, indent, opensBlock } = language;
+  const code = codes[language.id] ?? examples[0].code;
+  const stdin = inputs[language.id] ?? examples[0].stdin ?? "";
+
+  // The code from a shared link first (#lang=python&code=...), then what was last written here, else the first example.
   useEffect(() => {
-    const shared = /^#code=([\w-]+)$/.exec(location.hash)?.[1];
-    if (shared) decodeCode(shared).then(setCode).catch(() => { /* a broken link keeps the example */ });
-    else {
-      const saved = load(`${storageKey}:code`);
-      if (saved !== null) setCode(saved);
-      const savedInput = load(`${storageKey}:stdin`);
-      if (savedInput !== null) setStdin(savedInput);
+    const saved: Record<string, string> = {}, savedInputs: Record<string, string> = {};
+    for (const l of languages) {
+      const text = load(`${storageKey}:${l.id}:code`), input = load(`${storageKey}:${l.id}:stdin`);
+      if (text !== null) saved[l.id] = text;
+      if (input !== null) savedInputs[l.id] = input;
     }
-    if (runner.prepare) runner.prepare().then(() => setStatus(current => (current === "preparing" ? "idle" : current)), () => setStatus("failedToLoad"));
-    return () => runner.stop();
+    setCodes(saved);
+    setInputs(savedInputs);
+    const hash = new URLSearchParams(location.hash.slice(1));
+    const chosen = languages.find(l => l.id === (hash.get("lang") ?? load(`${storageKey}:language`)))?.id ?? languages[0].id;
+    choose(chosen);
+    const shared = hash.get("code");
+    if (shared && /^[\w-]+$/.test(shared)) decodeCode(shared).then(text => setCodes(all => ({ ...all, [chosen]: text }))).catch(() => { /* a broken link keeps the example */ });
+    return () => languages.forEach(l => l.runner.stop());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  function edit(value: string) {
-    setCode(value);
+  // Switching languages stops a run in progress and gets the new one ready (Python loads only when it is chosen, and
+  // stays loaded when another tab is opened).
+  function choose(id: string) {
+    const next = languages.find(l => l.id === id);
+    if (!next) return;
+    if (status === "running") stop();
+    setLanguageId(id);
+    save(`${storageKey}:language`, id);
+    setOutput([]);
     setErrorLine(null);
-    save(`${storageKey}:code`, value);
+    if (!next.runner.prepare || loaded.current.has(id)) { setStatus("idle"); return; }
+    setStatus("preparing");
+    next.runner.prepare().then(
+      () => { loaded.current.add(id); setStatus(current => (current === "preparing" ? "idle" : current)); },
+      () => setStatus("failedToLoad"),
+    );
+  }
+
+  function edit(value: string) {
+    setCodes(all => ({ ...all, [language.id]: value }));
+    setErrorLine(null);
+    save(`${storageKey}:${language.id}:code`, value);
   }
   function editInput(value: string) {
-    setStdin(value);
-    save(`${storageKey}:stdin`, value);
+    setInputs(all => ({ ...all, [language.id]: value }));
+    save(`${storageKey}:${language.id}:stdin`, value);
   }
 
   async function run() {
@@ -93,6 +128,8 @@ export default function CodePlayground({ title, intro, language, storageKey, exa
   function stop() {
     stoppedRef.current = true;
     runner.stop();
+    // A stopped runner that loads something (Python) loads it again for the next run.
+    loaded.current.delete(language.id);
   }
 
   function open(id: string) {
@@ -105,7 +142,8 @@ export default function CodePlayground({ title, intro, language, storageKey, exa
   }
 
   async function copyLink() {
-    const url = `${location.origin}${location.pathname}#code=${await encodeCode(code)}`;
+    const params = languages.length > 1 ? `lang=${language.id}&` : "";
+    const url = `${location.origin}${location.pathname}#${params}code=${await encodeCode(code)}`;
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
@@ -160,6 +198,11 @@ export default function CodePlayground({ title, intro, language, storageKey, exa
   return (
     <ToolLayout title={title}>
       <p className={controls.label}>{intro}</p>
+      {languages.length > 1 && (
+        <div className={styles.tabs} role="group" aria-label={t("languages")}>
+          {languages.map(l => <button key={l.id} type="button" className={styles.tab} aria-pressed={l.id === language.id} onClick={() => choose(l.id)}>{l.name}</button>)}
+        </div>
+      )}
       <div className={styles.toolbar}>
         {busy
           ? <button type="button" className={styles.run} onClick={stop}>■ {t("stop")}</button>
@@ -194,8 +237,8 @@ export default function CodePlayground({ title, intro, language, storageKey, exa
           />
         </div>
         <div className={styles.side}>
-          {aside}
-          {hasStdin && (
+          {language.aside}
+          {language.stdin && (
             <label className={styles.stdin}>
               <span className={styles.heading}>{t("stdin")}</span>
               <textarea value={stdin} onChange={event => editInput(event.target.value)} spellCheck={false} wrap="off" rows={3} aria-label={t("stdin")} placeholder={t("stdinPlaceholder")} />
@@ -205,8 +248,8 @@ export default function CodePlayground({ title, intro, language, storageKey, exa
             <div className={styles.outputHead}>
               <span className={styles.heading}>{t("output")}</span>
               <span className={styles.status} role="status" data-playground="status" data-state={status}>
-                {status === "preparing" ? t("preparing", { language })
-                  : status === "failedToLoad" ? t("failedToLoad", { language })
+                {status === "preparing" ? t("preparing", { language: language.name })
+                  : status === "failedToLoad" ? t("failedToLoad", { language: language.name })
                   : status === "running" ? t("running")
                   : status === "done" ? t("done", { ms: elapsed })
                   : status === "error" ? t("error", { ms: elapsed })
@@ -227,7 +270,7 @@ export default function CodePlayground({ title, intro, language, storageKey, exa
         </div>
       </div>
       <p className={controls.label}>{t("keys")}</p>
-      {hint && <div className={styles.hint}>{hint}</div>}
+      {language.hint && <div className={styles.hint}>{language.hint}</div>}
     </ToolLayout>
   );
 }

@@ -1,3 +1,15 @@
+.tabs { display: flex; flex-wrap: wrap; justify-content: center; gap: .4rem; margin-top: .6rem; }
+.tab {
+  padding: .45rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+.tab[aria-pressed="true"] { border-color: var(--accent); color: var(--text); background: color-mix(in srgb, var(--accent) 16%, transparent); }
 .toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: 1rem 0 .6rem; }
 .run {
   min-width: 6.5rem;

@@ -1,4 +1,4 @@
-// The examples offered on the page; their names are App.typescript.examples.<id> in messages/*.json.
+// The TypeScript examples; their names are App.codeRunner.examples.typescript.<id> in messages/*.json.
 export const EXAMPLES = [
   {
     id: "hello",
