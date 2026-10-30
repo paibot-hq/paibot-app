@@ -578,6 +578,36 @@ function Base64Icon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+// The code runners: a prompt and the language's mark in letters, or a database for SQL.
+function PythonIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M12 3c-3 0-4.5 1-4.5 3v2.5H13M16.5 21c3 0 4.5-1 4.5-3v-2.5H11" />
+      <path d="M7.5 8.5H5c-2 0-2.5 1.5-2.5 3.5S3 15.5 5 15.5h2.5V13c0-1.5 1-2 2.5-2h4c1.5 0 2.5-.5 2.5-2V6c0-2-1.5-3-4.5-3M16.5 15.5H19c2 0 2.5-1.5 2.5-3.5S21 8.5 19 8.5h-2.5V11c0 1.5-1 2-2.5 2h-4c-1.5 0-2.5.5-2.5 2v3c0 2 1.5 3 4.5 3" />
+    </svg>
+  );
+}
+
+function CodeLettersIcon({ letters, ...props }: SVGProps<SVGSVGElement> & { letters: string }) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="3" y="3" width="18" height="18" rx="3" />
+      <text x="19" y="18.5" textAnchor="end" fontSize="8.5" fontWeight="700" fill="currentColor" stroke="none" fontFamily="system-ui, sans-serif">{letters}</text>
+    </svg>
+  );
+}
+const JavaScriptIcon = (props: SVGProps<SVGSVGElement>) => <CodeLettersIcon letters="JS" {...props} />;
+const TypeScriptIcon = (props: SVGProps<SVGSVGElement>) => <CodeLettersIcon letters="TS" {...props} />;
+
+function SqlIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <ellipse cx="12" cy="5.5" rx="7.5" ry="2.5" />
+      <path d="M4.5 5.5v13c0 1.4 3.4 2.5 7.5 2.5s7.5-1.1 7.5-2.5v-13M4.5 12c0 1.4 3.4 2.5 7.5 2.5s7.5-1.1 7.5-2.5" />
+    </svg>
+  );
+}
+
 function JsonIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -652,7 +682,7 @@ function ColorTrickIcon(props: SVGProps<SVGSVGElement>) {
 const APP_ICONS: Record<AppSlug, Icon> = {
   "color-trick": ColorTrickIcon,
   math: MathIcon, quiz: QuizIcon, arith: ArithIcon,
-  json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon, "llm-memory": LlmMemoryIcon,
+  json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon, "llm-memory": LlmMemoryIcon, python: PythonIcon, javascript: JavaScriptIcon, typescript: TypeScriptIcon, sql: SqlIcon,
   wc: WcIcon, password: PasswordIcon, "mosaic": MosaicIcon, stopwatch: StopwatchIcon, "business-card": CardIcon, resignation: ResignationIcon,
   ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
   dice: DiceIcon, reaction: ReactionIcon, "iq-test": IqTestIcon, personality: PersonalityIcon, timing: TimingIcon, pinball: PinballIcon, koma: KomaIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "metadata": MetadataIcon, govfaq: GovFaqIcon, "approx": ApproxIcon, collector: CollectorIcon, "warnings": WarningsIcon, "quake": QuakeIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, glitch: GlitchIcon, "random-video": RandomVideoIcon, noise: NoiseIcon, fireworks: FireworksIcon, puchi: PuchiIcon, circle: CircleIcon, "crane-game": CraneGameIcon, "fruit-merge": FruitMergeIcon, goldfish: GoldfishIcon, "goldfish-escape": GoldfishEscapeIcon, typing: TypingIcon, "number-merge": NumberMergeIcon,

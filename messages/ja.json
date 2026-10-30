@@ -502,6 +502,103 @@
         "public": "グローバル"
       }
     },
+    "codePlayground": {
+      "run": "実行",
+      "stop": "停止",
+      "examples": "サンプルを開く",
+      "copyLink": "リンクをコピー",
+      "copied": "コピーしました",
+      "editorLabel": "コード",
+      "stdin": "標準入力",
+      "stdinPlaceholder": "プログラムに渡す入力(なくてもかまいません)",
+      "output": "実行結果",
+      "empty": "「▶ 実行」を押すと、ここに結果が出ます。",
+      "preparing": "{language} を準備しています…(初回は少し時間がかかります)",
+      "failedToLoad": "{language} を読み込めませんでした。ページを再読み込みしてください。",
+      "running": "実行中…",
+      "done": "完了({ms} ms)",
+      "error": "エラーで終了({ms} ms)",
+      "stopped": "停止しました",
+      "changed": "{count} 行を変更しました。",
+      "limit": "出力が多すぎるため、ここから先は省略しました。",
+      "rows": "{count} 行",
+      "rowsShown": "{total} 行のうち、最初の {count} 行を表示",
+      "keys": "Ctrl+Enter(Mac は ⌘+Enter)で実行。Tab でインデント、Shift+Tab で戻します(Esc を押してから Tab で次の欄へ)。コードはこのブラウザに保存され、サーバーには送られません。"
+    },
+    "python": {
+      "title": "Python オンライン実行",
+      "description": "ブラウザだけで Python のコードを書いて実行できます。インストール不要・登録不要・無料。input() の標準入力、エラー行の表示、numpy や pandas の読み込みにも対応。コードはサーバーに送られず、あなたのブラウザの中で動きます。",
+      "about": "本物の Python(CPython を WebAssembly にした Pyodide)を、ブラウザの中で動かします。print の結果がすぐに表示され、input() や sys.stdin で標準入力欄の内容を読めるので、paiza や AtCoder の練習にも使えます。標準ライブラリはすべて使え、numpy・pandas・sympy・scipy などのパッケージも、import すると初回だけ自動で読み込まれます。エラーのときは、トレースバックと一緒に、エディタの該当行が赤く表示されます。コードはサーバーには送られず、このブラウザに保存されます。書いたコードは、リンクにして共有することもできます。",
+      "keywords": "Python オンライン 実行 ブラウザ コンパイラ エディタ インストール不要 無料 標準入力 numpy pandas Pyodide プログラミング 練習 paiza AtCoder",
+      "intro": "コードを書いて「▶ 実行」を押すと、ブラウザの中で Python が動きます。",
+      "examples": {
+        "hello": "はじめての Python",
+        "fizzbuzz": "FizzBuzz",
+        "input": "標準入力を読む",
+        "collections": "リスト・辞書・Counter",
+        "classes": "クラスと dataclass",
+        "recursion": "再帰(フィボナッチ・ハノイの塔)",
+        "numpy": "numpy を使う",
+        "error": "エラーの表示"
+      },
+      "hint": "Python 3.14 の標準ライブラリがすべて使えます。numpy や pandas などのパッケージは、import すると初回だけインターネットから読み込みます(数秒〜十数秒)。ファイルの読み書きやネットワーク通信、time.sleep での待ち合わせなどには対応していません。止まらなくなったときは「■ 停止」で止められます(次の実行は Python の読み込みからやり直します)。"
+    },
+    "javascript": {
+      "title": "JavaScript オンライン実行",
+      "description": "ブラウザだけで JavaScript のコードを書いて実行できます。console.log の結果を見やすく表示し、標準入力・async/await・エラー行の表示にも対応。インストール不要・登録不要・無料で、コードはサーバーに送られません。",
+      "about": "書いた JavaScript を、ブラウザの中の独立した環境(Web Worker)で実行します。console.log はオブジェクトや配列、Map も Node.js のように見やすく表示します。input() で標準入力欄を1行ずつ読め、require(\"fs\").readFileSync(\"/dev/stdin\") の書き方も使えるので、paiza や AtCoder の練習にも向いています。トップレベルの await や setTimeout も使え、タイマーが終わるまで待ってから実行を終えます。エラーのときは、エディタの該当行が赤く表示されます。コードはこのブラウザに保存され、リンクにして共有もできます。",
+      "keywords": "JavaScript オンライン 実行 ブラウザ エディタ console.log 標準入力 Node.js インストール不要 無料 プログラミング 練習 paiza AtCoder",
+      "intro": "コードを書いて「▶ 実行」を押すと、ブラウザの中で JavaScript が動きます。",
+      "examples": {
+        "hello": "はじめての JavaScript",
+        "fizzbuzz": "FizzBuzz",
+        "input": "標準入力を読む",
+        "arrays": "配列とオブジェクト",
+        "classes": "クラス",
+        "async": "async / await",
+        "primes": "素数(エラトステネスのふるい)"
+      },
+      "hint": "最新の JavaScript(ES2024 まで)が使えます。画面(DOM)を操作したり、import で外部のモジュールを読み込んだりはできません。無限ループになっても「■ 停止」で止められます。型をつけて書きたいときは TypeScript オンライン実行を使ってください。"
+    },
+    "typescript": {
+      "title": "TypeScript オンライン実行",
+      "description": "ブラウザだけで TypeScript のコードを型チェックして実行できます。型エラーを日本語で行ごとに表示し、そのまま実行結果も確認できます。インストール不要・登録不要・無料で、コードはサーバーに送られません。",
+      "about": "TypeScript のコンパイラ(5.9)をブラウザの中で動かし、書いたコードを型チェックしてから JavaScript に変換して実行します。型エラーは、何行目で何がおかしいかを日本語で表示し、エディタの該当行を赤く示します。TypeScript Playground と同じように、型エラーがあっても実行はするので、型と実際の動きを見比べられます。strict モードで、ES2023 までの標準ライブラリの型が使えます。console.log の表示や標準入力(input())は JavaScript オンライン実行と同じです。",
+      "keywords": "TypeScript オンライン 実行 型チェック ブラウザ Playground エディタ コンパイラ インストール不要 無料 型エラー 日本語",
+      "intro": "コードを書いて「▶ 実行」を押すと、型チェックをしてから、ブラウザの中で実行します。",
+      "examples": {
+        "hello": "はじめての TypeScript",
+        "typeError": "型エラーを見る",
+        "unions": "ユニオン型と絞り込み",
+        "generics": "ジェネリクス",
+        "input": "標準入力を読む"
+      },
+      "hint": "型チェックは strict モードで行います。型エラーがあっても、変換した JavaScript は実行します。import で外部のモジュールや @types を読み込むことはできません。初回はコンパイラ(数MB)の読み込みに少し時間がかかります。"
+    },
+    "sql": {
+      "title": "SQL 練習(SQLite オンライン実行)",
+      "description": "ブラウザだけで SQL を書いて実行できる練習場。商品・顧客・注文のサンプルの表に、SELECT・JOIN・GROUP BY・ウィンドウ関数などを試せます。結果は表で表示。SQLite で動き、インストール不要・登録不要・無料です。",
+      "about": "SQLite(sql.js)をブラウザの中で動かす、SQL の練習用ページです。小さなお店のデータとして、商品(products)・顧客(customers)・注文(orders)の3つの表が最初から入っているので、すぐに SELECT を試せます。WHERE での絞り込み、ORDER BY での並べ替え、GROUP BY での集計、JOIN での表の結合、サブクエリ、WITH 句、ウィンドウ関数のサンプルも用意しました。CREATE TABLE や INSERT・UPDATE・DELETE も自由に実行でき、実行するたびにサンプルの状態からやり直すので、データを壊す心配はありません。",
+      "keywords": "SQL 練習 オンライン 実行 SQLite ブラウザ SELECT JOIN GROUP BY ウィンドウ関数 データベース 入門 無料 インストール不要",
+      "intro": "SQL を書いて「▶ 実行」を押すと、サンプルの表に対して実行し、結果を表で表示します。",
+      "tablesTitle": "サンプルの表",
+      "tables": {
+        "products": "商品(10件)",
+        "customers": "顧客(6人)",
+        "orders": "注文(20件)"
+      },
+      "examples": {
+        "select": "すべての行を見る(SELECT)",
+        "where": "絞り込みと並べ替え(WHERE・ORDER BY)",
+        "group": "集計(GROUP BY)",
+        "join": "表をつなぐ(JOIN)",
+        "leftJoin": "注文のない顧客も(LEFT JOIN)",
+        "subquery": "サブクエリ",
+        "window": "月ごとの売上と累計(ウィンドウ関数)",
+        "create": "表を作る・変える(CREATE・INSERT・UPDATE)"
+      },
+      "hint": "SQLite の文法で動きます(日付は '2026-01-05' のような文字列、strftime で扱います)。実行するたびにサンプルの表を作り直すので、DELETE や DROP TABLE をしても次の実行では元に戻ります。複数の文を ; で区切って書くと、SELECT ごとに結果の表が出ます。"
+    },
     "llmMemory": {
       "title": "ローカルLLMのメモリ見積もり",
       "description": "モデルのパラメータ数と量子化のビット数から、重みに必要なメモリを見積もり、手元のメモリに収まるか確かめます。",

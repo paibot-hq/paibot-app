@@ -1,0 +1,112 @@
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem; margin: 1rem 0 .6rem; }
+.run {
+  min-width: 6.5rem;
+  padding: .5rem 1.2rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--bg);
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.run:disabled { opacity: .55; cursor: progress; }
+.secondary, .examples select {
+  padding: .4rem .9rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: .9rem;
+  cursor: pointer;
+}
+.examples { min-width: 0; max-width: 100%; }
+.examples select { width: 15rem; max-width: 100%; text-overflow: ellipsis; }
+.visuallyHidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
+
+.workspace { display: grid; gap: 1rem; align-items: stretch; width: 100%; }
+@media (min-width: 900px) {
+  .workspace { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); }
+}
+.side { display: flex; flex-direction: column; gap: .8rem; min-width: 0; }
+
+.editor {
+  display: flex;
+  min-height: 22rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-strong);
+  overflow: hidden;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.editor:focus-within { border-color: var(--accent); }
+.gutter {
+  flex: none;
+  min-width: 2.8rem;
+  padding: .7rem .5rem .7rem 0;
+  overflow: hidden;
+  text-align: right;
+  color: var(--muted);
+  background: color-mix(in srgb, var(--line) 35%, transparent);
+  user-select: none;
+  font-variant-numeric: tabular-nums;
+}
+.gutter div[data-error] { color: var(--error); font-weight: 700; background: color-mix(in srgb, var(--error) 18%, transparent); }
+.code {
+  flex: 1;
+  min-width: 0;
+  padding: .7rem .8rem;
+  border: 0;
+  outline: none;
+  resize: none;
+  background: transparent;
+  color: var(--text);
+  font: inherit;
+  line-height: inherit;
+  tab-size: 4;
+}
+
+.heading { font-size: .85rem; font-weight: 700; color: var(--muted); }
+.stdin { display: flex; flex-direction: column; gap: .3rem; }
+.stdin textarea {
+  padding: .5rem .7rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface-strong);
+  color: var(--text);
+  font: 14px/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  resize: vertical;
+}
+
+.output { display: flex; flex-direction: column; gap: .3rem; flex: 1; min-height: 12rem; }
+.outputHead { display: flex; justify-content: space-between; align-items: baseline; gap: .6rem; }
+.status { color: var(--muted); font-size: .85rem; text-align: right; font-variant-numeric: tabular-nums; }
+.status[data-state="error"], .status[data-state="failedToLoad"] { color: var(--error); }
+.status[data-state="done"] { color: var(--success); }
+.result {
+  flex: 1;
+  max-height: 32rem;
+  padding: .6rem .8rem;
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: #0b1020;
+  color: #e2e8f0;
+}
+.empty { margin: 0; color: #94a3b8; font-size: .9rem; }
+.text { margin: 0; font: 13.5px/1.55 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; white-space: pre-wrap; overflow-wrap: anywhere; }
+.text[data-kind="stderr"], .text[data-kind="error"] { color: #fca5a5; }
+.text[data-kind="info"] { color: #94a3b8; }
+.note { margin: .2rem 0 .6rem; color: #94a3b8; font-size: .82rem; }
+
+.tableWrap { overflow-x: auto; margin-bottom: .2rem; }
+.table { border-collapse: collapse; font: 13px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+.table th, .table td { padding: .25rem .6rem; border: 1px solid #334155; text-align: left; white-space: nowrap; }
+.table th { background: #1e293b; color: #f8fafc; }
+.table td[data-null] { color: #64748b; font-style: italic; }
+
+.hint { margin: 1rem auto 0; max-width: 52rem; color: var(--muted); font-size: .92rem; line-height: 1.7; }
+.hint code { padding: .05rem .35rem; border-radius: 5px; background: color-mix(in srgb, var(--line) 45%, transparent); color: var(--text); }

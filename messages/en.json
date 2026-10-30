@@ -502,6 +502,103 @@
         "public": "Public"
       }
     },
+    "codePlayground": {
+      "run": "Run",
+      "stop": "Stop",
+      "examples": "Open an example",
+      "copyLink": "Copy link",
+      "copied": "Copied",
+      "editorLabel": "Code",
+      "stdin": "Standard input",
+      "stdinPlaceholder": "Input for the program (optional)",
+      "output": "Output",
+      "empty": "Press \"▶ Run\" and the output appears here.",
+      "preparing": "Getting {language} ready… (the first time takes a moment)",
+      "failedToLoad": "{language} could not be loaded. Please reload the page.",
+      "running": "Running…",
+      "done": "Finished ({ms} ms)",
+      "error": "Ended with an error ({ms} ms)",
+      "stopped": "Stopped",
+      "changed": "{count, plural, one {# row} other {# rows}} changed.",
+      "limit": "Too much output: the rest was left out.",
+      "rows": "{count, plural, one {# row} other {# rows}}",
+      "rowsShown": "First {count} of {total} rows",
+      "keys": "Ctrl+Enter (⌘+Enter on a Mac) runs the code. Tab indents and Shift+Tab unindents (press Esc, then Tab, to move on). The code is kept in this browser and never sent to a server."
+    },
+    "python": {
+      "title": "Run Python Online",
+      "description": "Write and run Python code in your browser: no install, no sign-up, free. Standard input for input(), the line of an error marked, and numpy or pandas on import. Your code runs inside your browser and is never sent to a server.",
+      "about": "Real Python (Pyodide, CPython compiled to WebAssembly) runs inside your browser. What print writes appears at once, and input() or sys.stdin reads the standard input box, so it suits practice for coding tests and contests too. The whole standard library is there, and packages such as numpy, pandas, sympy and scipy are downloaded the first time they are imported. On an error, the traceback is shown and the line is marked in red in the editor. Your code is kept in this browser, never sent to a server, and can be shared as a link.",
+      "keywords": "python online run python in browser online compiler editor no install free stdin numpy pandas pyodide programming practice",
+      "intro": "Write code and press \"▶ Run\": Python runs right in your browser.",
+      "examples": {
+        "hello": "First Python",
+        "fizzbuzz": "FizzBuzz",
+        "input": "Read standard input",
+        "collections": "Lists, dicts and Counter",
+        "classes": "Classes and dataclasses",
+        "recursion": "Recursion (Fibonacci, Tower of Hanoi)",
+        "numpy": "Use numpy",
+        "error": "How errors look"
+      },
+      "hint": "The whole Python 3.14 standard library is available. Packages such as numpy and pandas are downloaded from the internet the first time they are imported (a few seconds or more). Files, network access and waiting with time.sleep are not supported. A program that does not stop can be stopped with \"■ Stop\" (the next run loads Python again)."
+    },
+    "javascript": {
+      "title": "Run JavaScript Online",
+      "description": "Write and run JavaScript in your browser. console.log output shown clearly, standard input, async/await and the line of an error marked. No install, no sign-up, free, and your code is never sent to a server.",
+      "about": "Your JavaScript runs in a separate environment inside the browser (a Web Worker). console.log shows objects, arrays and Maps the way Node.js does. input() reads the standard input box one line at a time, and require(\"fs\").readFileSync(\"/dev/stdin\") works too, so it suits practice for coding tests. Top-level await and setTimeout work, and a run ends when its timers are done. On an error, the line is marked in red in the editor. Your code is kept in this browser and can be shared as a link.",
+      "keywords": "javascript online run javascript in browser editor console.log stdin node.js no install free programming practice",
+      "intro": "Write code and press \"▶ Run\": JavaScript runs right in your browser.",
+      "examples": {
+        "hello": "First JavaScript",
+        "fizzbuzz": "FizzBuzz",
+        "input": "Read standard input",
+        "arrays": "Arrays and objects",
+        "classes": "Classes",
+        "async": "async / await",
+        "primes": "Primes (sieve of Eratosthenes)"
+      },
+      "hint": "Modern JavaScript (up to ES2024) is available. The page (DOM) cannot be changed, and modules cannot be imported. An endless loop can be stopped with \"■ Stop\". For types, use Run TypeScript Online."
+    },
+    "typescript": {
+      "title": "Run TypeScript Online",
+      "description": "Type-check and run TypeScript in your browser. Type errors are listed line by line, and you see the output too. No install, no sign-up, free, and your code is never sent to a server.",
+      "about": "The TypeScript compiler (5.9) runs inside your browser: your code is type-checked, turned into JavaScript and run. Type errors say what is wrong on which line, and the line is marked in red in the editor. As in the TypeScript Playground, the code runs even with type errors, so you can compare the types with what really happens. Checking is strict, with the standard library types up to ES2023. console.log output and standard input (input()) work as in Run JavaScript Online.",
+      "keywords": "typescript online run typescript type check browser playground editor compiler no install free type errors",
+      "intro": "Write code and press \"▶ Run\": it is type-checked, then run in your browser.",
+      "examples": {
+        "hello": "First TypeScript",
+        "typeError": "See a type error",
+        "unions": "Union types and narrowing",
+        "generics": "Generics",
+        "input": "Read standard input"
+      },
+      "hint": "Checking uses strict mode. The JavaScript is run even when there are type errors. Modules and @types cannot be imported. The first run takes a moment to load the compiler (a few MB)."
+    },
+    "sql": {
+      "title": "SQL Practice (Run SQLite Online)",
+      "description": "A place to write and run SQL in your browser. Try SELECT, JOIN, GROUP BY, window functions and more on sample tables of products, customers and orders, with the results shown as tables. Runs on SQLite; no install, no sign-up, free.",
+      "about": "SQLite (sql.js) runs inside your browser for practising SQL. Three tables of a small shop are there from the start, products, customers and orders, so you can try SELECT straight away. Examples cover filtering with WHERE, sorting with ORDER BY, totals with GROUP BY, joining tables, subqueries, WITH and window functions. CREATE TABLE, INSERT, UPDATE and DELETE work too, and every run starts again from the sample data, so nothing can be broken.",
+      "keywords": "sql practice online run sql sqlite browser select join group by window functions database beginner free no install",
+      "intro": "Write SQL and press \"▶ Run\": it runs on the sample tables and the results are shown as tables.",
+      "tablesTitle": "Sample tables",
+      "tables": {
+        "products": "products (10)",
+        "customers": "customers (6)",
+        "orders": "orders (20)"
+      },
+      "examples": {
+        "select": "See every row (SELECT)",
+        "where": "Filter and sort (WHERE, ORDER BY)",
+        "group": "Totals (GROUP BY)",
+        "join": "Join tables (JOIN)",
+        "leftJoin": "Customers without orders too (LEFT JOIN)",
+        "subquery": "Subqueries",
+        "window": "Monthly sales and running total (window functions)",
+        "create": "Create and change tables (CREATE, INSERT, UPDATE)"
+      },
+      "hint": "The SQL is SQLite's (dates are text like '2026-01-05', handled with strftime). The sample tables are made again for every run, so after a DELETE or DROP TABLE the next run starts as before. Several statements separated by ; each show their own table of results."
+    },
     "llmMemory": {
       "title": "Local LLM Memory Estimator",
       "description": "Estimate the memory a model's weights need from its parameter count and quantization bits, and check whether it fits in your memory.",
