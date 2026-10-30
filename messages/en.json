@@ -2226,6 +2226,115 @@
         "watermelon": "Watermelon"
       }
     },
+    "codeDraw": {
+      "title": "Code Drawing",
+      "description": "Write a few lines of code and a robot draws a picture: a first taste of programming. Combine forward, right and repeat to draw stars, flowers and spirals. Drag the numbers with sliders and the picture changes on the spot, or take on the challenges. Free, no sign-up.",
+      "about": "Write a short program and a robot draws it. \"forward 100\" moves ahead drawing a line, \"right 90\" turns right. When something happens again and again, \"repeat 4 [ … ]\" says it once, so a few lines draw a star, a flower or a spiral. Every number in the code has a slider, so you can see a small change of angle turn the picture into a completely different one. In the challenges, draw the same picture as the faint one to clear it, then look for a shorter way to write it. Commands can be written in English, Japanese or Chinese.",
+      "keywords": "programming coding for kids beginner turtle graphics robot drawing loop repeat variables free browser",
+      "intro": "Write code and press \"▶ Run\": the robot moves exactly as told and draws a picture.",
+      "modeLabel": "Mode",
+      "modes": {
+        "free": "Free drawing",
+        "challenge": "Challenges"
+      },
+      "examples": "Examples",
+      "exampleNames": {
+        "start": "First square",
+        "star": "Star",
+        "flower": "Flower",
+        "spiral": "Spiral",
+        "rings": "Ring of stars",
+        "snow": "Snowflake"
+      },
+      "starterComment": "Press ▶ Run. Then change 4 to 36 and 90 to 170…",
+      "stagesLabel": "Challenges",
+      "stageHeading": "Challenge {n}: {name}",
+      "stages": {
+        "square": {
+          "name": "Square",
+          "goal": "Trace the faint square. Doing the same thing 4 times? That is what repeat is for."
+        },
+        "triangle": {
+          "name": "Triangle",
+          "goal": "Each side is 120. How far must the robot turn so that 3 turns bring it back to where it faced?"
+        },
+        "dashes": {
+          "name": "Dashed line",
+          "goal": "After penup the robot moves without drawing. Draw 15, skip 15, five times."
+        },
+        "stairs": {
+          "name": "Stairs",
+          "goal": "Up, right, up, right… Each step is 30 high and 30 wide."
+        },
+        "circle": {
+          "name": "Circle",
+          "goal": "Go straight a little and turn a little, many times, and you get a circle. Each step is 10."
+        },
+        "star": {
+          "name": "Star",
+          "goal": "A star made of 5 lines, each 150 long. How far does the robot turn each time?"
+        },
+        "flower": {
+          "name": "Hexagon flower",
+          "goal": "Six hexagons with sides of 40, turned a little each time. A repeat can go inside a repeat."
+        },
+        "spiral": {
+          "name": "Square spiral",
+          "goal": "The lines get longer and longer. Inside repeat, i is the round number (1, 2, 3…). The first line is 8, the second 16…"
+        }
+      },
+      "placeholder": "Write code here (e.g. forward 100)",
+      "editorLabel": "Code",
+      "paletteLabel": "Insert a command",
+      "run": "Run",
+      "finish": "Skip to end",
+      "speedLabel": "Speed",
+      "speeds": {
+        "slow": "Slow",
+        "normal": "Normal",
+        "fast": "Fast",
+        "instant": "Instant"
+      },
+      "canvasLabel": "The picture drawn by the robot",
+      "running": "Running… (line {line})",
+      "cleared": "Cleared in {lines} lines!",
+      "shorter": "It can be done in {best}. Can you make it shorter?",
+      "shortest": "That is the shortest way!",
+      "notYet": "Not the same shape yet. Compare it with the faint lines.",
+      "done": "Done! The robot made {steps} moves.",
+      "ready": "Press \"▶ Run\" to start drawing.",
+      "next": "Next challenge",
+      "knobsLabel": "Numbers in the code",
+      "knobsTitle": "Try moving the numbers",
+      "knobName": "Line {line} {command}",
+      "helpTitle": "Commands",
+      "help": {
+        "forward": "move forward (drawing a line)",
+        "back": "move back",
+        "right": "turn right (degrees)",
+        "left": "turn left (degrees)",
+        "repeat": "do what is inside [ ] this many times",
+        "penup": "lift the pen (move without drawing)",
+        "pendown": "put the pen down (draw again)",
+        "color": "change the color (0 to 360 around the color wheel, or a name such as red or blue)",
+        "width": "line width",
+        "i": "inside repeat, the round number (1, 2, 3…)",
+        "variables": "give a number a name (a variable); change it with x = x + 5",
+        "comment": "everything after # is a note (not run)"
+      },
+      "errors": {
+        "badChar": "Line {line}: \"{text}\" cannot be used here.",
+        "unknownWord": "Line {line}: there is no command \"{text}\".",
+        "needNumber": "Line {line}: \"{text}\" needs a number after it.",
+        "needOpen": "Line {line}: repeat needs a [ after the count.",
+        "unclosed": "Line {line}: the repeat is missing its ].",
+        "strayClose": "Line {line}: there is a ] without a matching [.",
+        "unknownVariable": "Line {line}: \"{text}\" has not been given a value. i can be used inside repeat.",
+        "badNumber": "Line {line}: this cannot be calculated (division by 0?).",
+        "tooMany": "Line {line}: stopped, too many moves. Try repeating fewer times."
+      },
+      "hint": "With repeat, a little code draws a big picture: that is the fun of programming. Ctrl+Enter (⌘+Enter on a Mac) also runs the code. Commands work in English, Japanese or Chinese."
+    },
     "goldfishEscape": {
       "title": "Goldfish Getaway",
       "description": "A one-tap game of escaping the paper scoops at a goldfish-scooping stall. Each tap is a stroke of the tail; left alone the fish slowly sinks. Dodge the scoops as they dip in; paper that stays in the water too long tears and can catch nothing. Eat food to grow and score more, but a bigger fish is easier to catch. Free, no sign-up.",
