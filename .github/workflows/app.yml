@@ -173,6 +173,7 @@ jobs:
           npm run db:migrate:dev
           npm run quiz:import:dev
           npm run math:import:dev
+          npm run breaches:import:dev
       - name: Sync runtime Clerk keys and deploy dev
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}

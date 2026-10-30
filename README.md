@@ -13,6 +13,7 @@ cp .dev.vars.example .dev.vars # only when no local file exists
 # Set development Clerk keys (pk_test_ / sk_test_).
 npm run db:migrate:local       # creates/updates local D1 tables
 npm run quiz:import:local      # imports the reviewed quiz bank
+npm run breaches:import:local  # copies the incident list (/breaches reads it from D1)
 npm run dev
 ```
 

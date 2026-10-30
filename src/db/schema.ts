@@ -146,3 +146,19 @@ export const typingResults = sqliteTable("typing_results", {
   misses: integer("misses").notNull(),
   createdAt: text("created_at").notNull().default(sql`(datetime('now'))`),
 }, table => [index("typing_results_mode_score_idx").on(table.mode, table.score)]);
+
+// The incident list (src/tools/breaches, docs/breaches.md). src/data/breaches.json in git is its source: reviewed in a pull request and copied here
+// by scripts/import-breaches.mjs, so that a change to the list reaches production without a release of the app. One row per incident, the entry
+// as it is in the file; `position` is its place in the file (0 is the newest).
+export const breachIncidents = sqliteTable("breach_incidents", {
+  id: text("id").primaryKey(),
+  position: integer("position").notNull(),
+  entry: text("entry", { mode: "json" }).$type<Record<string, unknown>>().notNull(),
+}, table => [index("breach_incidents_position_idx").on(table.position)]);
+
+// The list's own fields: the day it was last brought up to date (asOf) and the note under it. One row, id "current".
+export const breachList = sqliteTable("breach_list", {
+  id: text("id").primaryKey(),
+  asOf: text("as_of").notNull(),
+  note: text("note").notNull(),
+});

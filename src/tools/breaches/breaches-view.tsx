@@ -3,7 +3,6 @@
 import BreachesCharts from "./breaches-charts";
 import BreachesDashboard, { type Pick } from "./breaches-dashboard";
 import ToolLayout from "../../components/tool-layout";
-import data from "../../data/breaches.json";
 
 import styles from "./breaches.module.css";
 
@@ -20,13 +19,15 @@ const KIND_KEYS = { leak: "typeLeak", ransomware: "typeRansomware", outage: "typ
 type Source = { name: string; url: string; kind: string };
 type Verification = "official" | "reported" | "single";
 type Origin = "attack" | "insider" | "mistake";
-type Item = { id: string; date: string; name: string; type: string; count: number | null; countNote: string; data: string; cause: string; note: string; verification: Verification; origin: Origin; originBasis?: string; checkedAt: string; sources: Source[] };
+export type Item = { id: string; date: string; name: string; type: string; count: number | null; countNote: string; data: string; cause: string; note: string; verification: Verification; origin: Origin; originBasis?: string; checkedAt: string; sources: Source[] };
 const ORIGIN_KEYS = { attack: "originAttack", insider: "originInsider", mistake: "originMistake" } as const;
 const VERIFY_KEYS = { official: "verifyOfficial", reported: "verifyReported", single: "verifySingle" } as const;
-const ITEMS = data.items as Item[];
-const FIRST = ITEMS.reduce((min, item) => (item.date < min ? item.date : min), ITEMS[0].date);
+// The list, as the route's loader reads it from D1 (src/data/breaches.json is its source; see docs/breaches.md).
+export type Breaches = { asOf: string; note: string; items: Item[] };
 
-export default function BreachesView() {
+export default function BreachesView({ list }: { list: Breaches }) {
+  const entries = list.items;
+  const first = useMemo(() => entries.reduce((min, item) => (item.date < min ? item.date : min), entries[0].date), [entries]);
   const t = useTranslations("App");
   const locale = useLocale();
   const [tab, setTab] = useState<Tab>("dashboard");
@@ -60,7 +61,7 @@ export default function BreachesView() {
 
   const items = useMemo(() => {
     const words = query.trim().toLowerCase().split(/\s+/).filter(Boolean);
-    return ITEMS
+    return entries
       .filter(item => kind === "all" || item.type === kind)
       .filter(item => verification === "all" || item.verification === verification)
       .filter(item => origin === "all" || item.origin === origin)
@@ -69,8 +70,8 @@ export default function BreachesView() {
         return words.every(word => text.includes(word));
       })
       .sort((a, b) => (sort === "date" ? b.date.localeCompare(a.date) : (b.count ?? -1) - (a.count ?? -1)));
-  }, [sort, kind, verification, origin, query]);
-  const max = Math.max(...ITEMS.map(item => item.count ?? 0));
+  }, [entries, sort, kind, verification, origin, query]);
+  const max = Math.max(...entries.map(item => item.count ?? 0));
 
   return (
     <ToolLayout title={t("breaches.title")}>
@@ -81,8 +82,8 @@ export default function BreachesView() {
       </div>
       {/* Both panels are always in the page (the one not shown is hidden), so the text of the list is there for search engines whichever tab opens. */}
       <div role="tabpanel" className={styles.panel} id="breaches-panel-dashboard" aria-labelledby="breaches-tab-dashboard" hidden={tab !== "dashboard"} data-breaches="panel-dashboard">
-        <BreachesDashboard items={ITEMS} asOf={data.asOf} onPick={showList} />
-        <BreachesCharts items={ITEMS} first={FIRST} until={data.asOf} />
+        <BreachesDashboard items={entries} asOf={list.asOf} onPick={showList} />
+        <BreachesCharts items={entries} first={first} until={list.asOf} />
       </div>
       <div role="tabpanel" className={styles.panel} id="breaches-panel-list" aria-labelledby="breaches-tab-list" hidden={tab !== "list"} data-breaches="panel-list">
         <div className={styles.bar}>
@@ -127,7 +128,7 @@ export default function BreachesView() {
           </details>
         </div>
         <p className={styles.status} aria-live="polite" data-breaches="status" ref={statusRef}>
-          {t("breaches.results", { count: items.length })} · {t("breaches.asOf", { date: data.asOf })}
+          {t("breaches.results", { count: items.length })} · {t("breaches.asOf", { date: list.asOf })}
         </p>
         {items.length === 0 && <p className={styles.status}>{t("breaches.none")}</p>}
         <ul className={styles.list}>
@@ -164,7 +165,7 @@ export default function BreachesView() {
           ))}
         </ul>
       </div>
-      <p className={styles.footnote}>{data.note}{locale !== "ja" && ` ${t("breaches.jaOnly")}`}</p>
+      <p className={styles.footnote}>{list.note}{locale !== "ja" && ` ${t("breaches.jaOnly")}`}</p>
       <p className={styles.footnote}>{t("breaches.tail")}</p>
       <p className={styles.footnote}>{t("breaches.advice")}</p>
     </ToolLayout>

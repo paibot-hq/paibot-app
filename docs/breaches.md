@@ -1,7 +1,10 @@
 # Incident list (`/breaches`)
 
 The page lists cyber incidents announced in Japan: data breaches, ransomware, outages, fraud. The data is one file, `src/data/breaches.json`
-(newest first); the page, `src/tools/breaches/`, only shows it. Real organizations are named, so **an entry that cannot be backed by a source is not
+(newest first), reviewed in git like code; the page, `src/tools/breaches/`, only shows it. The page reads it from D1 (`breach_incidents`, one row
+per entry, and `breach_list`, the `asOf` and the note), where `npm run breaches:import:local|dev|prod` (`scripts/import-breaches.mjs`) copies the
+file after checking the rules below; it is not built into the app. Locally, run `npm run breaches:import:local` after `db:migrate:local`, or the
+page answers 503. Real organizations are named, so **an entry that cannot be backed by a source is not
 published.**
 
 ## What an entry must have
@@ -57,13 +60,19 @@ in `countNote`, with the earlier one in `note`.
 
 The daily update (`.github/workflows/breaches-update.yml`) opens one pull request, from `automation/breaches-update`, that may change
 `src/data/breaches.json` and nothing else. Its `merge` job waits for the pull request's checks and merges it when all of them pass, on the commit
-they passed on; that deploys dev. Then `.github/workflows/breaches-release.yml` starts App (production), whose own gate still asks for a successful
-development run, but only when the release would carry the update and nothing else: the commit is the merge of that pull request, it changes the
-list alone, it is still the head of main, and production serves the commit just before it (`X-App-Version`). When any of these fails it says why
-in a notice and the release is left to a person, as for any other change; a pull request whose checks fail stays open.
+they passed on. The push to main runs App (development), whose deploy copies the list into dev's database (`breaches:import:dev`) with the
+migrations and the quiz. When it has passed, `.github/workflows/breaches-release.yml` copies the list into production's (`breaches:import:prod`,
+the `production` environment), without a release of the app: other changes waiting to go out stay waiting. It does so for the head of main only,
+so an older run never puts back an older list. A change to the list made by hand in a pull request goes out the same way once it is merged.
 
-The merge needs the `AUTOMATION_TOKEN` secret (a fine-grained token with "Contents" and "Pull requests" write): what the built-in token pushes
-starts no workflow, so without it no check runs, nothing is merged and dev is not deployed.
+Production gets the tables with the first release that has their migration; until then the copy does nothing and says so in a notice, and that
+release fills the list (`--if-empty`). A release does not touch a list that is already there, so a rollback does not take it back.
+
+The page shows what the rows hold, so a change to the shape of an entry (a field removed or renamed) must reach production's code before the list
+that uses it: release the code first, keeping the old field, then change the list.
+
+A pull request whose checks fail stays open. The merge needs the `AUTOMATION_TOKEN` secret (a fine-grained token with "Contents" and "Pull
+requests" write): what the built-in token pushes starts no workflow, so without it no check runs, nothing is merged and nothing is copied.
 
 ## The charts
 

@@ -97,6 +97,9 @@ jobs:
       # never touches the real production database).
       - if: steps.framework.outputs.react_router == 'true'
         run: npm run db:migrate:local:production
+      # /breaches reads its list from D1 and answers 503 without it.
+      - if: steps.framework.outputs.react_router == 'true' && hashFiles('scripts/import-breaches.mjs') != ''
+        run: npm run breaches:import:local:production
       # Called by file, not an npm script: a rollback can deploy a ref from
       # before the tests moved to tests/ (scripts/check-*.mjs until 2026-09).
       - if: steps.framework.outputs.react_router == 'true'
@@ -132,6 +135,14 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
         run: npm run math:import:prod
+      # Only when production has no list yet (the first release with its tables): after that breaches-release.yml keeps it current, and a
+      # rollback to an older commit must not take the list back to that commit's.
+      - name: Fill the incident list (production)
+        if: steps.framework.outputs.react_router == 'true' && hashFiles('scripts/import-breaches.mjs') != ''
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm run breaches:import:prod -- --if-empty
       - name: Deploy production
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
