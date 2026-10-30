@@ -5,7 +5,7 @@ import { defineConfig, type Plugin } from 'vite';
 import { reactRouter } from '@react-router/dev/vite';
 import { cloudflare } from '@cloudflare/vite-plugin';
 
-// Python in the browser (src/tools/python): Pyodide's own files, served from this site at /pyodide/<version>/ rather than a CDN.
+// Python in the browser (src/tools/code-runner): Pyodide's own files, served from this site at /pyodide/<version>/ rather than a CDN.
 // The page's worker loads them at run time, so they are copied as they are, not bundled.
 const pyodideDir = dirname(createRequire(import.meta.url).resolve('pyodide/package.json'));
 const pyodideVersion: string = JSON.parse(readFileSync(join(pyodideDir, 'package.json'), 'utf8')).version;
