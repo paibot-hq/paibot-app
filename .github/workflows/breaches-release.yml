@@ -1,9 +1,9 @@
 name: Incident list release
 
-# Releases an incident list update (breaches-update.yml) to production by itself, once App (development) has passed and deployed it to dev. It only
-# starts App (production), which has its own gate (a successful development run for the commit), and only when that releases the update and nothing
-# else: the commit is the merge of the automation's pull request, it changes src/data/breaches.json alone, it is still the head of main, and
-# production serves the commit just before it (X-App-Version). Otherwise it says why in a notice and leaves the release to a person, as before.
+# Copies the incident list (src/data/breaches.json) into the production database once App (development) has passed and copied it into dev's. The
+# page reads the list from D1 (docs/breaches.md), so a merged update reaches production without a release of the app, whatever else is waiting to
+# go out. It runs after every successful push to main (the import is the same rows again when the list has not changed) and only for the head of
+# main, so that an older run never puts back an older list. Before the release that adds the tables it does nothing and says so in a notice.
 on:
   workflow_run:
     workflows: ["App (development)"]
@@ -12,9 +12,6 @@ on:
 
 permissions:
   contents: read
-  # Reading the pull request a commit came from, and starting App (production).
-  pull-requests: read
-  actions: write
 
 concurrency:
   group: breaches-release
@@ -24,31 +21,31 @@ jobs:
   release:
     if: github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push'
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
-    env:
-      GH_TOKEN: ${{ github.token }}
-      GH_REPO: ${{ github.repository }}
-      SHA: ${{ github.event.workflow_run.head_sha }}
+    timeout-minutes: 10
+    # The production database: the same environment as App (production), so the same branch rule applies.
+    environment: production
     steps:
       - uses: actions/checkout@v7
         with:
-          ref: main
-          fetch-depth: 50
-      - name: Is it an incident list update and nothing else?
-        id: check
+          ref: ${{ github.event.workflow_run.head_sha }}
+      - name: Is it still the head of main?
+        id: head
+        env:
+          SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
-          skip() { echo "::notice::Not released by itself: $1"; exit 0; }
-          [ "$(git rev-parse HEAD)" = "$SHA" ] || skip "main has moved on from $SHA"
-          head=$(gh api "repos/$GH_REPO/commits/$SHA/pulls" --jq '.[0].head.ref // empty')
-          [ "$head" = "automation/breaches-update" ] || skip "$SHA is not the merge of the incident list pull request"
-          parent=$(git rev-parse "$SHA^1")
-          files=$(git diff --name-only "$parent" "$SHA")
-          [ "$files" = "src/data/breaches.json" ] || skip "$SHA changes more than src/data/breaches.json: $files"
-          served=$(curl -fsSI "https://paibot.app/robots.txt?release-check=$(date +%s)" | tr -d '\r' | awk 'tolower($1)=="x-app-version:" {print $2}')
-          [ "$served" = "$parent" ] || skip "production serves ${served:-an unknown version}, not $parent, so other changes would go out too"
-          echo "release=true" >> "$GITHUB_OUTPUT"
-      - name: Start App (production)
-        if: steps.check.outputs.release == 'true'
-        run: |
-          gh workflow run app-production.yml --ref main
-          echo "::notice::Started App (production) for $SHA"
+          head=$(git ls-remote origin refs/heads/main | cut -f1)
+          if [ "$head" != "$SHA" ]; then echo "::notice::main has moved on from $SHA; its own run copies the list."; exit 0; fi
+          echo "current=true" >> "$GITHUB_OUTPUT"
+      - if: steps.head.outputs.current == 'true'
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .tool-versions
+          cache: npm
+      - if: steps.head.outputs.current == 'true'
+        run: npm ci
+      - name: Copy the list into production
+        if: steps.head.outputs.current == 'true'
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm run breaches:import:prod -- --if-ready

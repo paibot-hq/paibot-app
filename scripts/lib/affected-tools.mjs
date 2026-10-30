@@ -22,6 +22,8 @@ export function affectedTools(change, catalog) {
       hit.add('math');
     } else if (file === 'src/data/quiz.json') {
       hit.add('quiz');
+    } else if (file === 'src/data/breaches.json') {
+      hit.add('breaches');
     } else if (/^messages\/[a-z]+\.json$/.test(file)) {
       const { before, after } = change.json(file);
       const keys = new Set([...Object.keys(before ?? {}), ...Object.keys(after ?? {})]);

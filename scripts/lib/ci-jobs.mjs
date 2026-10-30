@@ -6,7 +6,7 @@
 //   browser: the preview checks (smoke, catalog, tools, quiz-browser) and the local D1 imports they use
 export const SERVER_TOOLS = ['domain', 'site-check'];
 // Libraries the checks import that affected-tools.mjs treats as tooling.
-const SHARED = /^scripts\/(lib\/access\.mjs|import-math\.mjs|import-quiz\.mjs|validate-.*)$/;
+const SHARED = /^scripts\/(lib\/access\.mjs|import-math\.mjs|import-quiz\.mjs|import-breaches\.mjs|validate-.*)$/;
 
 export function jobsNeeded({ affected, files }) {
   const slugs = affected === 'all' ? [] : affected.split(',').filter(Boolean);

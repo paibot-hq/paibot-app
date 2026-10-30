@@ -30,6 +30,7 @@ runs:
         npm run db:migrate:local
         npm run quiz:import:local
         npm run math:import:local
+        npm run breaches:import:local
     # Only the browser download is cached; install still runs so the OS
     # packages it needs land on the fresh runner either way.
     - if: inputs.browser == 'true'

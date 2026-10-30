@@ -23,6 +23,7 @@ test('a change nothing in a browser can see skips both', () => {
 test('a library the checks import runs both even though affected-tools calls it tooling', () => {
   assert.deepEqual(jobsNeeded({ affected: '', files: ['scripts/lib/access.mjs'] }), { e2e: true, browser: true });
   assert.deepEqual(jobsNeeded({ affected: '', files: ['scripts/validate-math-arith.mjs'] }), { e2e: true, browser: true });
+  assert.deepEqual(jobsNeeded({ affected: '', files: ['scripts/import-breaches.mjs'] }), { e2e: true, browser: true });
 });
 
 test('a pipeline script that no check imports skips both', () => {

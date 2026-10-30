@@ -5,6 +5,7 @@ const catalog = [
   { slug: 'json', href: '/json', status: 'published', messageKey: 'json' },
   { slug: 'business-card', href: '/business-card', status: 'published', messageKey: 'businessCard' },
   { slug: 'math', href: '/math', status: 'published', messageKey: 'math' },
+  { slug: 'breaches', href: '/breaches', status: 'published', messageKey: 'breaches' },
   { slug: 'soon', status: 'comingSoon', messageKey: 'soon' },
 ];
 const run = (files, { added = {}, json = {} } = {}) => {
@@ -14,6 +15,8 @@ const run = (files, { added = {}, json = {} } = {}) => {
 
 assert.deepEqual(run(['src/tools/json/json-tool.tsx', 'src/tools/json/e2e.mjs']), ['json']);
 assert.deepEqual(run(['tests/e2e/flows/math.mjs', 'src/data/math-arith.json']), ['math']);
+// The incident list's daily update: only the page that shows it.
+assert.deepEqual(run(['src/data/breaches.json']), ['breaches']);
 assert.deepEqual(run(['README.md', 'docs/x.md', 'tests/unit/cidr.test.mjs', 'scripts/import-math.mjs']), []);
 assert.equal(run(['src/components/tool-layout.tsx']), 'all');
 assert.equal(run(['package-lock.json']), 'all');

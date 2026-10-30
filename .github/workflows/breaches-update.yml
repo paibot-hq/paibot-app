@@ -2,8 +2,8 @@ name: Incident list update
 
 # Keeps the incident list (src/data/breaches.json, see docs/breaches.md) current. Every day Claude Code reads the news and the organizations' own
 # pages, edits the list by the rules in .github/prompts/breaches-update.md, and this workflow opens (or updates) one pull request with the result.
-# When every check on the pull request passes, it is merged (job `merge`), which deploys dev; breaches-release.yml then releases it to production
-# when nothing else is waiting to go out. A pull request whose checks fail stays open for a person. Run it by hand from the Actions tab at any time.
+# When every check on the pull request passes, it is merged (job `merge`), which copies the list into dev's database; breaches-release.yml then
+# copies it into production's. A pull request whose checks fail stays open for a person. Run it by hand from the Actions tab at any time.
 #
 # Secrets (Settings > Secrets and variables > Actions):
 #   CLAUDE_CODE_OAUTH_TOKEN: from `claude setup-token`; the run is paid out of the Claude plan's usage, not an API bill.
