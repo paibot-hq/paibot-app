@@ -573,6 +573,28 @@
       "keywords": "SQL 练习 在线运行 SQLite 浏览器 SELECT JOIN GROUP BY 窗口函数 数据库 入门 免费 免安装",
       "intro": "写好 SQL 后按“▶ 运行”，会在示例表上执行，并以表格显示结果。",
       "tablesTitle": "示例表",
+      "tablesNote": "列名是英文。每次运行都会恢复成这些数据。",
+      "columns": {
+        "products": {
+          "id": "商品编号",
+          "name": "商品名",
+          "category": "分类",
+          "price": "价格"
+        },
+        "customers": {
+          "id": "顾客编号",
+          "name": "姓",
+          "city": "所在城市",
+          "joined_on": "注册日期"
+        },
+        "orders": {
+          "id": "订单编号",
+          "customer_id": "购买的顾客编号",
+          "product_id": "购买的商品编号",
+          "quantity": "数量",
+          "ordered_on": "下单日期"
+        }
+      },
       "tables": {
         "products": "商品（10 条）",
         "customers": "顾客（6 人）",

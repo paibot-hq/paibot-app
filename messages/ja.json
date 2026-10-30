@@ -573,6 +573,28 @@
       "keywords": "SQL 練習 オンライン 実行 SQLite ブラウザ SELECT JOIN GROUP BY ウィンドウ関数 データベース 入門 無料 インストール不要",
       "intro": "SQL を書いて「▶ 実行」を押すと、サンプルの表に対して実行し、結果を表で表示します。",
       "tablesTitle": "サンプルの表",
+      "tablesNote": "列名は英語です。実行するたびに、この内容に戻ります。",
+      "columns": {
+        "products": {
+          "id": "商品番号",
+          "name": "商品名",
+          "category": "分類",
+          "price": "価格(円)"
+        },
+        "customers": {
+          "id": "顧客番号",
+          "name": "名前",
+          "city": "住んでいる都市",
+          "joined_on": "登録日"
+        },
+        "orders": {
+          "id": "注文番号",
+          "customer_id": "買った顧客の番号",
+          "product_id": "買った商品の番号",
+          "quantity": "個数",
+          "ordered_on": "注文日"
+        }
+      },
       "tables": {
         "products": "商品(10件)",
         "customers": "顧客(6人)",

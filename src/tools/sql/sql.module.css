@@ -1,7 +1,24 @@
-.tables { padding: .6rem .8rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); font-size: .88rem; }
-.tables summary { cursor: pointer; font-weight: 700; color: var(--muted); }
-.tables ul { margin: .5rem 0 0; padding: 0; list-style: none; display: grid; gap: .45rem; }
-.table { font-weight: 700; color: var(--text); }
-.note { color: var(--muted); }
-.columns { display: flex; flex-wrap: wrap; gap: .25rem; margin-top: .2rem; }
-.columns code { padding: .05rem .35rem; border-radius: 5px; background: color-mix(in srgb, var(--line) 45%, transparent); color: var(--text); font-size: .8rem; }
+.tables { display: flex; flex-direction: column; gap: .4rem; padding: .6rem .7rem; border: 1px solid var(--line); border-radius: 10px; background: var(--surface); }
+.head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .4rem; }
+.title { font-size: .85rem; font-weight: 700; color: var(--muted); }
+.switch { display: flex; flex-wrap: wrap; gap: .3rem; }
+.switch button {
+  padding: .2rem .6rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: 600 .82rem ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  cursor: pointer;
+}
+.switch button[aria-pressed="true"] { border-color: var(--accent); color: var(--text); background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.count { font: 400 .75rem system-ui, sans-serif; }
+.scroll { max-height: 15rem; overflow: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-strong); }
+.data { width: 100%; border-collapse: collapse; font-size: .82rem; }
+.data th, .data td { padding: .2rem .55rem; border-bottom: 1px solid var(--line); text-align: left; white-space: nowrap; }
+.data th { position: sticky; top: 0; background: var(--surface-strong); vertical-align: bottom; }
+.data th code { display: block; color: var(--text); font-weight: 700; }
+.data th span { display: block; color: var(--muted); font-size: .72rem; font-weight: 400; }
+.data td { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; color: var(--text); }
+.data td[data-number] { text-align: right; }
+.note { margin: 0; color: var(--muted); font-size: .78rem; }

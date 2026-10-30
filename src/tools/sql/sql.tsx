@@ -6,8 +6,8 @@ import CodePlayground from "../../components/code-playground";
 import { workerRunner } from "../../lib/code-runner";
 import { EXAMPLES } from "./examples";
 import { createSqlWorker } from "./worker.client";
-import { sampleSql, TABLES, type Locale } from "./sample";
-import styles from "./sql.module.css";
+import SampleTables from "./sample-tables";
+import { sampleSql, type Locale } from "./sample";
 
 export default function SqlRunner() {
   const t = useTranslations("App.sql");
@@ -28,19 +28,7 @@ export default function SqlRunner() {
         examples: EXAMPLES.map(example => ({ ...example, label: t(`examples.${example.id}`) })),
         indent: "  ",
         opensBlock: /\($/,
-        aside: (
-          <details className={styles.tables} open>
-            <summary>{t("tablesTitle")}</summary>
-            <ul>
-              {TABLES.map(table => (
-                <li key={table.name}>
-                  <code className={styles.table}>{table.name}</code> <span className={styles.note}>{t(`tables.${table.name}`)}</span>
-                  <div className={styles.columns}>{table.columns.map(column => <code key={column}>{column}</code>)}</div>
-                </li>
-              ))}
-            </ul>
-          </details>
-        ),
+        aside: <SampleTables locale={locale} />,
         hint: t("hint"),
       }]}
     />

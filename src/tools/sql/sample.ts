@@ -9,6 +9,7 @@ export const TABLES = [
   { name: "customers", columns: ["id INTEGER", "name TEXT", "city TEXT", "joined_on TEXT"] },
   { name: "orders", columns: ["id INTEGER", "customer_id INTEGER", "product_id INTEGER", "quantity INTEGER", "ordered_on TEXT"] },
 ] as const;
+export type TableName = (typeof TABLES)[number]["name"];
 
 const PRODUCTS: Record<Locale, [string, string][]> = {
   ja: [["りんご", "果物"], ["バナナ", "果物"], ["みかん", "果物"], ["牛乳", "飲み物"], ["緑茶", "飲み物"], ["コーヒー", "飲み物"], ["食パン", "パン"], ["クロワッサン", "パン"], ["チョコレート", "お菓子"], ["ポテトチップス", "お菓子"]],
@@ -32,16 +33,21 @@ const ORDERS: [number, number, number, string][] = [
   [2, 5, 1, "2026-03-18"], [5, 2, 3, "2026-03-22"], [1, 9, 1, "2026-03-30"], [3, 3, 6, "2026-04-02"], [4, 4, 2, "2026-04-06"],
 ];
 
-const quote = (text: string) => `'${text.replace(/'/g, "''")}'`;
+// The rows of each table, as the page shows them under "Sample tables" and as the SQL below inserts them.
+export function sampleRows(locale: Locale): Record<TableName, (string | number)[][]> {
+  return {
+    products: PRODUCTS[locale].map(([name, category], i) => [i + 1, name, category, PRICES[i]]),
+    customers: CUSTOMERS[locale].map(([name, city], i) => [i + 1, name, city, JOINED[i]]),
+    orders: ORDERS.map(([customer, product, quantity, date], i) => [i + 1, customer, product, quantity, date]),
+  };
+}
+
+const literal = (value: string | number) => (typeof value === "number" ? String(value) : `'${value.replace(/'/g, "''")}'`);
 
 export function sampleSql(locale: Locale) {
-  const products = PRODUCTS[locale].map(([name, category], i) => `(${i + 1}, ${quote(name)}, ${quote(category)}, ${PRICES[i]})`);
-  const customers = CUSTOMERS[locale].map(([name, city], i) => `(${i + 1}, ${quote(name)}, ${quote(city)}, ${quote(JOINED[i])})`);
-  const orders = ORDERS.map(([customer, product, quantity, date], i) => `(${i + 1}, ${customer}, ${product}, ${quantity}, ${quote(date)})`);
+  const rows = sampleRows(locale);
   return [
     ...TABLES.map(table => `CREATE TABLE ${table.name} (${table.columns.map((column, i) => (i === 0 ? `${column} PRIMARY KEY` : column)).join(", ")});`),
-    `INSERT INTO products VALUES ${products.join(", ")};`,
-    `INSERT INTO customers VALUES ${customers.join(", ")};`,
-    `INSERT INTO orders VALUES ${orders.join(", ")};`,
+    ...TABLES.map(table => `INSERT INTO ${table.name} VALUES ${rows[table.name].map(row => `(${row.map(literal).join(", ")})`).join(", ")};`),
   ].join("\n");
 }

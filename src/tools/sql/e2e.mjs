@@ -17,7 +17,13 @@ export default async function ({ page, main, go }) {
   assert.deepEqual(await table.locator('th').allTextContents(), ['id', 'name', 'category', 'price']);
   assert.equal(await table.locator('tbody tr').count(), 10);
   assert.match(await output.textContent(), /10 rows$/);
-  assert.match(await main.textContent(), /Sample tables/);
+  // The sample tables show every row, one table at a time, with what each column means.
+  const tables = main.locator('[data-sql="tables"]');
+  assert.equal(await tables.locator('tbody tr').count(), 10);
+  assert.match(await tables.locator('tbody tr').first().textContent(), /^1AppleFruit150$/);
+  await tables.getByRole('button', { name: /^orders/ }).click();
+  assert.equal(await tables.locator('tbody tr').count(), 20);
+  assert.match(await tables.locator('thead').textContent(), /customer_idcustomer who bought/);
 
   // A join of the three tables.
   await main.getByLabel('Open an example').selectOption({ label: 'Customers without orders too (LEFT JOIN)' });
@@ -40,5 +46,5 @@ export default async function ({ page, main, go }) {
   assert.match(await status.textContent(), /Ended with an error/);
   assert.match(await output.textContent(), /near "SELEC": syntax error \(line 3\)/);
   assert.equal(await main.locator('[data-error]').textContent(), '3');
-  console.log('PASS: sql: the sample tables, a LEFT JOIN, counted changes on a fresh database each run, and an error line');
+  console.log('PASS: sql: the sample tables and their rows, a LEFT JOIN, counted changes on a fresh database each run, and an error line');
 }

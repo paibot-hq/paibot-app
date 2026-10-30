@@ -573,6 +573,28 @@
       "keywords": "sql practice online run sql sqlite browser select join group by window functions database beginner free no install",
       "intro": "Write SQL and press \"▶ Run\": it runs on the sample tables and the results are shown as tables.",
       "tablesTitle": "Sample tables",
+      "tablesNote": "Every run starts again from these rows.",
+      "columns": {
+        "products": {
+          "id": "product number",
+          "name": "name",
+          "category": "category",
+          "price": "price"
+        },
+        "customers": {
+          "id": "customer number",
+          "name": "name",
+          "city": "city",
+          "joined_on": "joined"
+        },
+        "orders": {
+          "id": "order number",
+          "customer_id": "customer who bought",
+          "product_id": "product bought",
+          "quantity": "how many",
+          "ordered_on": "order date"
+        }
+      },
       "tables": {
         "products": "products (10)",
         "customers": "customers (6)",
