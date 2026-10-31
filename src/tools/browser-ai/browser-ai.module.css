@@ -58,6 +58,21 @@
 .bar { height: 100%; background: var(--accent); transition: width .2s; }
 .ready { margin: 0; font-weight: 700; color: var(--success, #2f7d57); }
 .note { margin: 0 auto; max-width: 40rem; color: var(--muted); font-size: .8rem; text-align: center; line-height: 1.6; }
+.stored { display: flex; flex-direction: column; align-items: center; gap: .5rem; width: min(640px, 100%); margin: 0 auto 1rem; }
+.storedTitle { margin: 0; font-size: .9rem; color: var(--muted); }
+.storedList { display: flex; flex-direction: column; gap: .35rem; width: 100%; margin: 0; padding: 0; list-style: none; }
+.storedList li {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  padding: .4rem .5rem .4rem .9rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--surface);
+  font-size: .9rem;
+}
+.storedList li > span:first-child { flex: 1; min-width: 0; }
+.storedSize { color: var(--muted); font-variant-numeric: tabular-nums; }
 .error { margin: 0 auto 1rem; max-width: 40rem; color: var(--error); font-size: .9rem; text-align: center; overflow-wrap: anywhere; }
 
 .chat {

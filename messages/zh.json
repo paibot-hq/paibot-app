@@ -549,7 +549,7 @@
       "downloading": "正在下载 {done} / {total} MB",
       "preparing": "正在准备…",
       "ready": "{name} 已准备好",
-      "cacheNote": "模型会保存在浏览器里，之后不会重复下载。使用移动网络时请注意流量。",
+      "cacheNote": "模型会保存在浏览器里，之后不会重复下载；不再需要时可以在页面底部的列表中删除。使用移动网络时请注意流量。",
       "error": "出错了：{message}",
       "empty": "请先加载模型。",
       "emptyReady": "随便说点什么吧。",
@@ -562,6 +562,14 @@
       "noAnswer": "(没有得到回答，请再问一次。)",
       "speed": "{speed} 词元/秒",
       "caution": "这是小型模型，经常会出现事实错误或不自然的表达。重要的事情请自行核实。",
+      "storedTitle": "保存在此浏览器中的模型",
+      "storedNone": "没有保存的模型。",
+      "storedOther": "其他(已不再提供的模型等)",
+      "delete": "删除",
+      "deleteOne": "删除 {name}",
+      "deleteAll": "全部删除(共 {size})",
+      "confirmDelete": "要删除 {name}({size})吗？再次使用时需要重新下载。",
+      "confirmDeleteAll": "要删除所有保存的模型(共 {size})吗？再次使用时需要重新下载。",
       "systemPrompt": "你是一个乐于助人的助手。请用简体中文简洁地回答。"
     },
     "siteCheck": {

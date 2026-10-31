@@ -24,9 +24,31 @@ export default async function ({ page, main, go, errors }) {
   assert.ok(await main.getByLabel('Message', { exact: true }).isDisabled());
   assert.ok(await main.getByRole('button', { name: 'Send' }).isDisabled());
   assert.match(await page.locator('[data-ai="log"]').textContent(), /Load a model first/);
+  // Saved models: none yet; files put in the engines' caches show up by model, and can be deleted one by one or all at once.
+  const stored = page.locator('[data-ai="stored"]');
+  await stored.getByText('No models are saved.').waitFor();
+  await page.evaluate(async () => {
+    const put = async (name, url, bytes) => (await caches.open(name)).put(url, new Response('x', { headers: { 'content-length': String(bytes) } }));
+    await put('webllm/model', 'https://huggingface.co/mlc-ai/Qwen3-4B-q4f16_1-MLC/resolve/main/params_shard_0.bin', 2.2e9);
+    await put('webllm/wasm', 'https://raw.githubusercontent.com/mlc-ai/binary-mlc-llm-libs/main/web-llm-models/v0_2_87/base/Qwen3-4B-q4f16_1_cs1k-webgpu.wasm', 6e6);
+    await put('transformers-cache', 'https://huggingface.co/onnx-community/Qwen2.5-1.5B-Instruct/resolve/main/onnx/model_q4f16.onnx', 1.2e9);
+  });
+  await go('browser-ai');
+  await stored.getByRole('listitem').nth(1).waitFor();
+  assert.deepEqual(await stored.getByRole('listitem').allTextContents(), ['Qwen3 4B2.2 GBDelete', 'Other (models no longer offered, etc.)1.2 GBDelete']);
+  page.once('dialog', dialog => dialog.accept());
+  await stored.getByRole('button', { name: 'Delete Qwen3 4B' }).click();
+  await page.waitForFunction(() => document.querySelectorAll('[data-ai="stored"] li').length === 1);
+  page.once('dialog', dialog => dialog.dismiss());
+  await stored.getByRole('button', { name: 'Delete all (1.2 GB in total)' }).click();
+  assert.equal(await stored.getByRole('listitem').count(), 1);
+  page.once('dialog', dialog => dialog.accept());
+  await stored.getByRole('button', { name: 'Delete all (1.2 GB in total)' }).click();
+  await stored.getByText('No models are saved.').waitFor();
+  assert.deepEqual(await page.evaluate(() => caches.keys()), []);
   await page.setViewportSize({ width: 390, height: 844 });
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   await page.setViewportSize({ width: 1100, height: 900 });
   assert.deepEqual(errors, []);
-  console.log('PASS: browser-ai: device found, model choice with its size, the GPU-only model, input waits for a model, mobile width');
+  console.log('PASS: browser-ai: device found, model choice with its size, the GPU-only model, input waits for a model, saved models listed and deleted, mobile width');
 }

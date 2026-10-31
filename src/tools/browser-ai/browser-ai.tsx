@@ -6,6 +6,8 @@ import ToolLayout from "../../components/tool-layout";
 import styles from "./browser-ai.module.css";
 import { MODELS, overall, plan, visibleText, type FileProgress, type Gpu, type ModelId } from "./models";
 import type { ChatMessage, WorkerRequest, WorkerResponse } from "./llm.worker";
+import { deleteStored, scanStored, type Stored } from "./storage";
+import StoredModels from "./stored-models";
 import { createLlmWorker } from "./worker.client";
 
 type Phase = "checking" | "idle" | "loading" | "ready" | "answering" | "failed";
@@ -38,14 +40,20 @@ export default function BrowserAi() {
   const [turns, setTurns] = useState<Turn[]>([]);
   const [draft, setDraft] = useState("");
   const [error, setError] = useState("");
+  // What the browser has saved (undefined until it has been looked at), and whether a deletion is under way.
+  const [stored, setStored] = useState<Stored>();
+  const [deleting, setDeleting] = useState(false);
   const worker = useRef<Worker>(null);
   const log = useRef<HTMLDivElement>(null);
   const model = MODELS.find(m => m.id === modelId)!;
   const planFor = (m: typeof model) => gpu === undefined ? undefined : plan(m, gpu);
   const chosen = planFor(model);
 
+  const refreshStored = () => scanStored().then(setStored, () => setStored({}));
+
   useEffect(() => {
     let alive = true;
+    refreshStored();
     detectGpu().then(found => {
       if (!alive) return;
       setGpu(found);
@@ -71,6 +79,7 @@ export default function BrowserAi() {
     else if (message.type === "ready") {
       setLoadedId(loadingId.current!);
       setPhase("ready");
+      refreshStored();
     }
     else if (message.type === "token") setTurns(current => [...current.slice(0, -1), { ...current.at(-1)!, content: current.at(-1)!.content + message.text }]);
     else if (message.type === "done") {
@@ -79,6 +88,7 @@ export default function BrowserAi() {
     } else {
       setError(message.message);
       setPhase(current => current === "answering" ? "ready" : "failed");
+      refreshStored();
     }
   };
 
@@ -95,6 +105,23 @@ export default function BrowserAi() {
     setError("");
     setPhase("loading");
     send({ type: "load", load: chosen.load });
+  };
+
+  // Deleting the model in use stops it too: the worker would otherwise go on with what it read.
+  const remove = async (owner?: ModelId | "other") => {
+    if (owner === undefined || owner === loadedId) {
+      worker.current?.terminate();
+      worker.current = null;
+      setLoadedId(undefined);
+      setPhase("idle");
+    }
+    setDeleting(true);
+    try {
+      await deleteStored(owner);
+    } finally {
+      await refreshStored();
+      setDeleting(false);
+    }
   };
 
   const ask = (event?: FormEvent) => {
@@ -188,6 +215,7 @@ export default function BrowserAi() {
         </form>
       </div>
       <p className={styles.note}>{t("caution")}</p>
+      <StoredModels stored={stored} disabled={deleting || phase === "loading" || phase === "answering"} onDelete={remove} />
     </ToolLayout>
   );
 }

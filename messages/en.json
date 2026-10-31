@@ -549,7 +549,7 @@
       "downloading": "Downloading {done} / {total} MB",
       "preparing": "Getting ready…",
       "ready": "{name} is ready",
-      "cacheNote": "The model is kept by the browser and not downloaded again. Mind your data plan on a mobile connection.",
+      "cacheNote": "The model is kept by the browser and not downloaded again; delete it from the list at the bottom of the page when you no longer need it. Mind your data plan on a mobile connection.",
       "error": "Something went wrong: {message}",
       "empty": "Load a model first.",
       "emptyReady": "Say something.",
@@ -562,6 +562,14 @@
       "noAnswer": "(No answer came. Try asking again.)",
       "speed": "{speed} tokens/s",
       "caution": "It is a small model: wrong facts and odd wording are common. Check anything that matters.",
+      "storedTitle": "Models saved in this browser",
+      "storedNone": "No models are saved.",
+      "storedOther": "Other (models no longer offered, etc.)",
+      "delete": "Delete",
+      "deleteOne": "Delete {name}",
+      "deleteAll": "Delete all ({size} in total)",
+      "confirmDelete": "Delete {name} ({size})? Using it again will download it again.",
+      "confirmDeleteAll": "Delete every saved model ({size} in total)? Using one again will download it again.",
       "systemPrompt": "You are a helpful assistant. Answer in English, briefly."
     },
     "siteCheck": {
