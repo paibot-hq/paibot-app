@@ -22,7 +22,8 @@ export default defineConfig({
     cloudflare({ viteEnvironment: { name: 'ssr' }, remoteBindings: process.env.REMOTE_BINDINGS === '1' }),
     reactRouter(),
   ],
-  worker: { plugins: () => [ortWasmFromCdn] },
+  // ES modules, so the worker can import each engine only when it is used.
+  worker: { format: 'es', plugins: () => [ortWasmFromCdn] },
   // Small fonts (KaTeX's) would otherwise be inlined as data: URLs, which the
   // CSP's default-src 'self' blocks; emit them as same-origin files instead.
   build: { assetsInlineLimit: file => /\.(woff2?|ttf)$/.test(file) ? false : undefined },

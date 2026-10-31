@@ -534,8 +534,8 @@
     "browserAi": {
       "title": "AI Chat in Your Browser",
       "description": "A chat with a small language model (LLM) downloaded into your browser and run on your own device. Nothing you type is sent anywhere.",
-      "about": "Runs small language models such as Qwen inside the browser, on the GPU through WebGPU or on the CPU through WebAssembly. The model's weights (600 to 800 MB) are downloaded the first time and kept by the browser, so later visits start right away. Questions and answers stay on your device and are never sent to a server. It makes more mistakes than large AI services; use it to see how an LLM runs on your own machine.",
-      "keywords": "local LLM browser AI chat WebGPU WebAssembly Transformers.js Qwen offline",
+      "about": "Runs small language models such as Qwen inside the browser, on the GPU through WebGPU or on the CPU through WebAssembly. The model's weights (600 MB to 2.3 GB) are downloaded the first time and kept by the browser, so later visits start right away. Questions and answers stay on your device and are never sent to a server. It makes more mistakes than large AI services; use it to see how an LLM runs on your own machine.",
+      "keywords": "local LLM browser AI chat WebGPU WebAssembly Transformers.js WebLLM Qwen Gemma offline",
       "intro": "Download a language model into this browser and run it on your own device. Your messages are not sent anywhere.",
       "modelLabel": "Model",
       "device": {
@@ -559,6 +559,7 @@
       "send": "Send",
       "stop": "Stop",
       "clear": "Clear chat",
+      "noAnswer": "(No answer came. Try asking again.)",
       "speed": "{speed} tokens/s",
       "caution": "It is a small model: wrong facts and odd wording are common. Check anything that matters.",
       "systemPrompt": "You are a helpful assistant. Answer in English, briefly."

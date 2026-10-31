@@ -4,43 +4,51 @@ import { useEffect, useRef, useState, type FormEvent, type KeyboardEvent } from 
 import { useTranslations } from "use-intl";
 import ToolLayout from "../../components/tool-layout";
 import styles from "./browser-ai.module.css";
-import { MODELS, overall, runsOn, visibleText, type Device, type FileProgress, type ModelId } from "./models";
+import { MODELS, overall, plan, visibleText, type FileProgress, type Gpu, type ModelId } from "./models";
 import type { ChatMessage, WorkerRequest, WorkerResponse } from "./llm.worker";
 import { createLlmWorker } from "./worker.client";
 
 type Phase = "checking" | "idle" | "loading" | "ready" | "answering" | "failed";
-type Turn = { role: "user" | "assistant"; content: string; speed?: number };
+type Turn = { role: "user" | "assistant"; content: string; speed?: number; done?: boolean };
 
-// WebGPU when the browser has a usable adapter, else the CPU through WebAssembly.
-async function detectDevice(): Promise<Device> {
-  const gpu = (navigator as Navigator & { gpu?: { requestAdapter(): Promise<unknown> } }).gpu;
+// The models write Markdown; **bold** is the part that shows most, so it is drawn and the rest is left as text.
+const withBold = (text: string) => text.split(/\*\*(.+?)\*\*/g).map((part, index) => index % 2 ? <strong key={index}>{part}</strong> : part);
+
+// WebGPU when the browser has a usable adapter, else (null) the CPU through WebAssembly.
+async function detectGpu(): Promise<Gpu> {
+  const gpu = (navigator as Navigator & { gpu?: { requestAdapter(): Promise<{ features: ReadonlySet<string> } | null> } }).gpu;
   try {
-    if (gpu && await gpu.requestAdapter()) return "webgpu";
+    const adapter = await gpu?.requestAdapter();
+    if (adapter) return { f16: adapter.features.has("shader-f16") };
   } catch { /* falls back to the CPU */ }
-  return "wasm";
+  return null;
 }
 
 export default function BrowserAi() {
   const t = useTranslations("App.browserAi");
-  const [device, setDevice] = useState<Device>();
+  // undefined while it is being checked.
+  const [gpu, setGpu] = useState<Gpu>();
   const [modelId, setModelId] = useState<ModelId>("qwen3-0.6b");
   // The model in the worker, which the chat goes on using after another one is picked until that one is loaded.
   const [loadedId, setLoadedId] = useState<ModelId>();
   const loadingId = useRef<ModelId>(null);
   const [phase, setPhase] = useState<Phase>("checking");
   const [files, setFiles] = useState<Record<string, FileProgress>>({});
+  const [ratio, setRatio] = useState<number>();
   const [turns, setTurns] = useState<Turn[]>([]);
   const [draft, setDraft] = useState("");
   const [error, setError] = useState("");
   const worker = useRef<Worker>(null);
   const log = useRef<HTMLDivElement>(null);
   const model = MODELS.find(m => m.id === modelId)!;
+  const planFor = (m: typeof model) => gpu === undefined ? undefined : plan(m, gpu);
+  const chosen = planFor(model);
 
   useEffect(() => {
     let alive = true;
-    detectDevice().then(found => {
+    detectGpu().then(found => {
       if (!alive) return;
-      setDevice(found);
+      setGpu(found);
       setPhase("idle");
     });
     return () => {
@@ -58,14 +66,15 @@ export default function BrowserAi() {
 
   const onMessage = (event: MessageEvent<WorkerResponse>) => {
     const message = event.data;
-    if (message.type === "progress") setFiles(current => ({ ...current, [message.file]: { loaded: message.loaded, total: message.total } }));
+    if (message.type === "ratio") setRatio(message.ratio);
+    else if (message.type === "progress") setFiles(current => ({ ...current, [message.file]: { loaded: message.loaded, total: message.total } }));
     else if (message.type === "ready") {
       setLoadedId(loadingId.current!);
       setPhase("ready");
     }
     else if (message.type === "token") setTurns(current => [...current.slice(0, -1), { ...current.at(-1)!, content: current.at(-1)!.content + message.text }]);
     else if (message.type === "done") {
-      setTurns(current => [...current.slice(0, -1), { ...current.at(-1)!, speed: message.seconds > 0 ? message.tokens / message.seconds : undefined }]);
+      setTurns(current => [...current.slice(0, -1), { ...current.at(-1)!, done: true, speed: message.seconds > 0 ? message.tokens / message.seconds : undefined }]);
       setPhase("ready");
     } else {
       setError(message.message);
@@ -74,17 +83,18 @@ export default function BrowserAi() {
   };
 
   const load = () => {
-    if (!device || !runsOn(model, device)) return;
+    if (!chosen) return;
     worker.current?.terminate();
     worker.current = createLlmWorker();
     worker.current.addEventListener("message", onMessage);
     loadingId.current = model.id;
     setLoadedId(undefined);
     setFiles({});
+    setRatio(undefined);
     setTurns([]);
     setError("");
     setPhase("loading");
-    send({ type: "load", repo: model.repo, dtype: model.dtype[device]!, device });
+    send({ type: "load", load: chosen.load });
   };
 
   const ask = (event?: FormEvent) => {
@@ -107,7 +117,8 @@ export default function BrowserAi() {
     if (event.key === "Enter" && !event.shiftKey && !event.nativeEvent.isComposing) ask(event);
   };
 
-  const progress = overall(files);
+  // WebLLM gives only a share of the whole, which the known size turns into megabytes.
+  const progress = ratio === undefined ? overall(files) : { ratio, loaded: ratio * (chosen?.sizeMB ?? 0) * 1e6, total: (chosen?.sizeMB ?? 0) * 1e6 };
   const loaded = phase === "ready" || phase === "answering";
   const loadedModel = MODELS.find(m => m.id === loadedId);
 
@@ -117,22 +128,22 @@ export default function BrowserAi() {
 
       <section className={styles.setup} aria-label={t("modelLabel")}>
         <p className={styles.device} data-ai="device">
-          {device ? t(`device.${device}`) : t("device.checking")}
+          {gpu === undefined ? t("device.checking") : t(`device.${gpu ? "webgpu" : "wasm"}`)}
         </p>
         <div className={styles.models} role="group" aria-label={t("modelLabel")}>
           {MODELS.map(m => {
-            const usable = !device || runsOn(m, device);
+            const usable = gpu === undefined ? undefined : planFor(m);
             return (
-              <button key={m.id} type="button" className={styles.model} aria-pressed={m.id === modelId} disabled={!usable || phase === "loading" || phase === "answering"} onClick={() => setModelId(m.id)}>
+              <button key={m.id} type="button" className={styles.model} aria-pressed={m.id === modelId} disabled={usable === undefined && gpu !== undefined || phase === "loading" || phase === "answering"} onClick={() => setModelId(m.id)}>
                 <strong>{m.name}</strong>
-                <span>{usable && device ? t("size", { mb: m.sizeMB[device]! }) : t("gpuOnly")}</span>
+                <span>{gpu === undefined ? "" : usable ? t("size", { mb: usable.sizeMB }) : t("gpuOnly")}</span>
               </button>
             );
           })}
         </div>
         {phase !== "loading" && modelId !== loadedId && (
-          <button type="button" className={styles.load} disabled={phase === "checking" || phase === "answering"} onClick={load}>
-            {t("load", { mb: device ? model.sizeMB[device] ?? 0 : 0 })}
+          <button type="button" className={styles.load} disabled={!chosen || phase === "answering"} onClick={load}>
+            {t("load", { mb: chosen?.sizeMB ?? 0 })}
           </button>
         )}
         {phase === "loading" && (
@@ -152,7 +163,7 @@ export default function BrowserAi() {
           {turns.length === 0 && <p className={styles.empty}>{loaded ? t("emptyReady") : t("empty")}</p>}
           {turns.map((turn, index) => (
             <div key={index} className={styles.turn} data-role={turn.role}>
-              <p className={styles.bubble}>{turn.role === "assistant" ? visibleText(turn.content) || "…" : turn.content}</p>
+              <p className={styles.bubble}>{turn.role === "user" ? turn.content : visibleText(turn.content) ? withBold(visibleText(turn.content)) : turn.done ? t("noAnswer") : "…"}</p>
               {turn.speed !== undefined && <span className={styles.speed}>{t("speed", { speed: turn.speed.toFixed(1) })}</span>}
             </div>
           ))}
