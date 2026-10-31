@@ -26,6 +26,15 @@ function LlmMemoryIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function BrowserAiIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="3" y="4" width="18" height="14" rx="2" />
+      <path d="M3 8h18M8 13h.01M12 13h.01M16 13h.01M9 18l-1 3M15 18l1 3" />
+    </svg>
+  );
+}
+
 function CidrIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -680,7 +689,7 @@ function ColorTrickIcon(props: SVGProps<SVGSVGElement>) {
 const APP_ICONS: Record<AppSlug, Icon> = {
   "color-trick": ColorTrickIcon,
   math: MathIcon, quiz: QuizIcon, arith: ArithIcon,
-  json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon, "llm-memory": LlmMemoryIcon, "code-runner": CodeRunnerIcon, sql: SqlIcon,
+  json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon, "llm-memory": LlmMemoryIcon, "code-runner": CodeRunnerIcon, sql: SqlIcon, "browser-ai": BrowserAiIcon,
   wc: WcIcon, password: PasswordIcon, "mosaic": MosaicIcon, stopwatch: StopwatchIcon, "business-card": CardIcon, resignation: ResignationIcon,
   ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
   dice: DiceIcon, reaction: ReactionIcon, "iq-test": IqTestIcon, personality: PersonalityIcon, timing: TimingIcon, pinball: PinballIcon, koma: KomaIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "metadata": MetadataIcon, govfaq: GovFaqIcon, "approx": ApproxIcon, collector: CollectorIcon, "warnings": WarningsIcon, "quake": QuakeIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, glitch: GlitchIcon, "random-video": RandomVideoIcon, noise: NoiseIcon, fireworks: FireworksIcon, puchi: PuchiIcon, circle: CircleIcon, "crane-game": CraneGameIcon, "fruit-merge": FruitMergeIcon, goldfish: GoldfishIcon, "goldfish-escape": GoldfishEscapeIcon, "code-draw": CodeDrawIcon, typing: TypingIcon, "number-merge": NumberMergeIcon,

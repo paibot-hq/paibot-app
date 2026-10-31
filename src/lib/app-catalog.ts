@@ -41,6 +41,7 @@ export const APP_CATALOG = [
   { slug: "llm-memory", href: "/llm-memory", category: "dev", status: "published", messageKey: "llmMemory" },
   { slug: "code-runner", href: "/code-runner", category: "dev", status: "published", messageKey: "codeRunner" },
   { slug: "sql", href: "/sql", category: "dev", status: "published", messageKey: "sql" },
+  { slug: "browser-ai", href: "/browser-ai", category: "dev", status: "published", messageKey: "browserAi" },
 
   // ユーティリティ / Utility
   { slug: "wc", href: "/wc", category: "utility", status: "published", messageKey: "wc" },
