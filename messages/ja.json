@@ -531,6 +531,38 @@
         "cpu": "CPUだけで動かす場合：メインメモリです。動きますが、GPUより遅くなります。"
       }
     },
+    "browserAi": {
+      "title": "ブラウザで動くAIチャット",
+      "description": "小さな言語モデル(LLM)をブラウザにダウンロードして、自分の端末だけで動かすAIチャットです。入力はどこにも送られません。",
+      "about": "Qwen などの小さな言語モデルを、WebGPU(GPU)か WebAssembly(CPU)を使ってブラウザの中で動かします。最初にモデルの重み(600〜800MBほど)をダウンロードしますが、ブラウザに保存されるので2回目からはすぐ使えます。質問も答えも端末の中だけで処理され、サーバーには送られません。大きなAIに比べると間違いも多いので、手元でLLMが動く仕組みを体験するためのものとして使ってください。",
+      "keywords": "ローカルLLM ブラウザ AI チャット WebGPU WebAssembly Transformers.js Qwen オフライン",
+      "intro": "言語モデルをこのブラウザにダウンロードして、あなたの端末の中だけで動かします。質問はどこにも送られません。",
+      "modelLabel": "モデル",
+      "device": {
+        "checking": "この端末を調べています…",
+        "webgpu": "GPU(WebGPU)で動かします",
+        "wasm": "WebGPUが使えないので、CPU(WebAssembly)で動かします。遅めです"
+      },
+      "size": "約{mb}MB",
+      "gpuOnly": "GPUが必要",
+      "load": "モデルを読み込む(約{mb}MB)",
+      "downloading": "ダウンロード中 {done} / {total} MB",
+      "preparing": "準備しています…",
+      "ready": "{name} の準備ができました",
+      "cacheNote": "モデルはブラウザに保存され、2回目からはダウンロードしません。モバイル回線では通信量に注意してください。",
+      "error": "エラーが起きました: {message}",
+      "empty": "まずモデルを読み込んでください。",
+      "emptyReady": "何か話しかけてみてください。",
+      "inputLabel": "メッセージ",
+      "placeholder": "メッセージを入力(Enterで送信、Shift+Enterで改行)",
+      "placeholderWait": "モデルを読み込むと入力できます",
+      "send": "送信",
+      "stop": "止める",
+      "clear": "会話を消す",
+      "speed": "{speed} トークン/秒",
+      "caution": "小さなモデルなので、事実の間違いや不自然な日本語がよくあります。大事なことは確かめてください。",
+      "systemPrompt": "あなたは親切なアシスタントです。日本語で、簡潔に答えてください。"
+    },
     "siteCheck": {
       "title": "Webサイト稼働チェック",
       "description": "URLを入れると、サイトが応答しているか、ステータスコード・応答時間・リダイレクトの経路を確認できます。",

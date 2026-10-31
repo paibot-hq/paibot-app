@@ -39,6 +39,7 @@ export const APP_CATALOG = [
   { slug: "base64", href: "/base64", category: "dev", status: "published", messageKey: "base64" },
   { slug: "urlencode", href: "/urlencode", category: "dev", status: "published", messageKey: "urlencode" },
   { slug: "llm-memory", href: "/llm-memory", category: "dev", status: "published", messageKey: "llmMemory" },
+  { slug: "browser-ai", href: "/browser-ai", category: "dev", status: "published", messageKey: "browserAi" },
 
   // ユーティリティ / Utility
   { slug: "wc", href: "/wc", category: "utility", status: "published", messageKey: "wc" },

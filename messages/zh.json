@@ -531,6 +531,38 @@
         "cpu": "仅用CPU时：指主内存。可以运行，但比GPU慢。"
       }
     },
+    "browserAi": {
+      "title": "浏览器里的AI聊天",
+      "description": "把小型语言模型(LLM)下载到浏览器里，只在你自己的设备上运行的AI聊天。输入的内容不会发送到任何地方。",
+      "about": "在浏览器中通过 WebGPU(GPU)或 WebAssembly(CPU)运行 Qwen 等小型语言模型。第一次会下载模型权重(约600〜800MB)，之后保存在浏览器里，下次可以直接使用。问题和回答只在你的设备上处理，不会发送到服务器。它比大型AI更容易出错，适合用来体验LLM如何在自己的设备上运行。",
+      "keywords": "本地LLM 浏览器 AI 聊天 WebGPU WebAssembly Transformers.js Qwen 离线",
+      "intro": "把语言模型下载到这个浏览器里，只在你的设备上运行。你的消息不会发送到任何地方。",
+      "modelLabel": "模型",
+      "device": {
+        "checking": "正在检查这台设备…",
+        "webgpu": "在GPU(WebGPU)上运行",
+        "wasm": "无法使用WebGPU，改在CPU(WebAssembly)上运行，速度较慢"
+      },
+      "size": "约{mb}MB",
+      "gpuOnly": "需要GPU",
+      "load": "加载模型(约{mb}MB)",
+      "downloading": "正在下载 {done} / {total} MB",
+      "preparing": "正在准备…",
+      "ready": "{name} 已准备好",
+      "cacheNote": "模型会保存在浏览器里，之后不会重复下载。使用移动网络时请注意流量。",
+      "error": "出错了：{message}",
+      "empty": "请先加载模型。",
+      "emptyReady": "随便说点什么吧。",
+      "inputLabel": "消息",
+      "placeholder": "输入消息(Enter发送，Shift+Enter换行)",
+      "placeholderWait": "加载模型后即可输入",
+      "send": "发送",
+      "stop": "停止",
+      "clear": "清空对话",
+      "speed": "{speed} 词元/秒",
+      "caution": "这是小型模型，经常会出现事实错误或不自然的表达。重要的事情请自行核实。",
+      "systemPrompt": "你是一个乐于助人的助手。请用简体中文简洁地回答。"
+    },
     "siteCheck": {
       "title": "网站状态检测",
       "description": "输入网址,即可查看网站是否有响应,以及状态码、响应时间和重定向路径。",
