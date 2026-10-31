@@ -31,6 +31,22 @@
 .model span { font-size: .78rem; color: var(--muted); }
 .model[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface)); }
 .model:disabled { opacity: .5; cursor: not-allowed; }
+.more { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .5rem; max-width: 100%; font-size: .85rem; color: var(--muted); }
+.more select {
+  min-width: 0;
+  width: 18rem;
+  max-width: 100%;
+  padding: .4rem .7rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  text-overflow: ellipsis;
+}
+.modelInfo { margin: 0; font-size: .82rem; color: var(--muted); text-align: center; }
+.heavy { margin: 0; font-size: .82rem; color: var(--warn, #a8690f); text-align: center; }
+.thinking { color: var(--muted); font-style: italic; }
 .load, .send {
   padding: .55rem 1.3rem;
   border: 0;

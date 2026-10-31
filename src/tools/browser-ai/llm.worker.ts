@@ -64,7 +64,7 @@ async function transformers(repo: string, dtype: string, device: "webgpu" | "was
   };
 }
 
-async function webllm(model: string, thinks: boolean): Promise<Engine> {
+async function webllm(model: string, thinks: boolean, reasons: boolean): Promise<Engine> {
   const { CreateMLCEngine } = await import("@mlc-ai/web-llm");
   // Its progress starts again from 0 for each step after the download (onto the GPU, the shaders): those count as done.
   const initProgressCallback = (report: { progress: number; text: string }) => post({ type: "ratio", ratio: report.text.startsWith("Fetching") ? report.progress : 1 });
@@ -75,7 +75,8 @@ async function webllm(model: string, thinks: boolean): Promise<Engine> {
         messages,
         stream: true,
         stream_options: { include_usage: true },
-        max_tokens: 1024,
+        // A model that reasons first needs room for that before its answer.
+        max_tokens: reasons ? 4096 : 1024,
         ...SAMPLING,
         // Only for a model that thinks (Qwen3): WebLLM otherwise still puts an empty <think></think> before the answer.
         ...thinks ? { extra_body: { enable_thinking: false } } : {},
@@ -102,7 +103,7 @@ self.addEventListener("message", async (event: MessageEvent<WorkerRequest>) => {
   try {
     if (request.type === "load") {
       const load = request.load;
-      engine = load.engine === "webllm" ? await webllm(load.model, load.thinks) : await transformers(load.repo, load.dtype, load.device);
+      engine = load.engine === "webllm" ? await webllm(load.model, load.thinks, load.reasons) : await transformers(load.repo, load.dtype, load.device);
       post({ type: "ready" });
     } else {
       if (!engine) throw new Error("The model is not loaded");

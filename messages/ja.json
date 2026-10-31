@@ -533,9 +533,9 @@
     },
     "browserAi": {
       "title": "ブラウザで動くAIチャット",
-      "description": "小さな言語モデル(LLM)をブラウザにダウンロードして、自分の端末だけで動かすAIチャットです。入力はどこにも送られません。",
-      "about": "Qwen などの小さな言語モデルを、WebGPU(GPU)か WebAssembly(CPU)を使ってブラウザの中で動かします。最初にモデルの重み(600MB〜2.3GBほど)をダウンロードしますが、ブラウザに保存されるので2回目からはすぐ使えます。質問も答えも端末の中だけで処理され、サーバーには送られません。大きなAIに比べると間違いも多いので、手元でLLMが動く仕組みを体験するためのものとして使ってください。",
-      "keywords": "ローカルLLM ブラウザ AI チャット WebGPU WebAssembly Transformers.js WebLLM Qwen Gemma オフライン",
+      "description": "Qwen・Gemma・Llama など30以上の言語モデル(LLM)から選んでブラウザにダウンロードし、自分の端末だけで動かすAIチャットです。入力はどこにも送られません。",
+      "about": "Qwen・Gemma・Llama・Phi・Mistral・DeepSeek など30以上の言語モデルを、WebGPU(GPU)か WebAssembly(CPU)を使ってブラウザの中で動かします。最初にモデルの重み(200MB〜5GBほど)をダウンロードしますが、ブラウザに保存されるので2回目からはすぐ使えます。質問も答えも端末の中だけで処理され、サーバーには送られません。大きなAIに比べると間違いも多いので、手元でLLMが動く仕組みを体験するためのものとして使ってください。",
+      "keywords": "ローカルLLM ブラウザ AI チャット WebGPU WebAssembly Transformers.js WebLLM Qwen Gemma Llama Phi Mistral DeepSeek オフライン",
       "intro": "言語モデルをこのブラウザにダウンロードして、あなたの端末の中だけで動かします。質問はどこにも送られません。",
       "modelLabel": "モデル",
       "device": {
@@ -570,6 +570,14 @@
       "deleteAll": "すべて削除(合計 {size})",
       "confirmDelete": "{name}({size})を削除しますか？また使うときは、もう一度ダウンロードします。",
       "confirmDeleteAll": "保存したモデルをすべて(合計 {size})削除しますか？また使うときは、もう一度ダウンロードします。",
+      "moreModels": "ほかのモデル({count}種類)",
+      "pickModel": "モデルを選ぶ…",
+      "modelInfo": "{name}({maker})",
+      "gpuMemory": "GPUメモリ 約{gb}GB",
+      "reasonsNote": "答える前に考えるモデルです(時間がかかります)",
+      "heavy": "大きなモデルです。メモリが16GB以上あるパソコン向けで、足りないと読み込みに失敗したりブラウザが落ちたりします。",
+      "thinking": "考えています…",
+      "englishNote": "英語向けのモデルで、日本語の答えは崩れやすいです",
       "systemPrompt": "あなたは親切なアシスタントです。日本語で、簡潔に答えてください。"
     },
     "siteCheck": {

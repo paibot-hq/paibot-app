@@ -533,9 +533,9 @@
     },
     "browserAi": {
       "title": "浏览器里的AI聊天",
-      "description": "把小型语言模型(LLM)下载到浏览器里，只在你自己的设备上运行的AI聊天。输入的内容不会发送到任何地方。",
-      "about": "在浏览器中通过 WebGPU(GPU)或 WebAssembly(CPU)运行 Qwen 等小型语言模型。第一次会下载模型权重(约600MB〜2.3GB)，之后保存在浏览器里，下次可以直接使用。问题和回答只在你的设备上处理，不会发送到服务器。它比大型AI更容易出错，适合用来体验LLM如何在自己的设备上运行。",
-      "keywords": "本地LLM 浏览器 AI 聊天 WebGPU WebAssembly Transformers.js WebLLM Qwen Gemma 离线",
+      "description": "从 Qwen、Gemma、Llama 等30多种语言模型(LLM)中选择一个下载到浏览器里，只在你自己的设备上运行的AI聊天。输入的内容不会发送到任何地方。",
+      "about": "在浏览器中通过 WebGPU(GPU)或 WebAssembly(CPU)运行 Qwen、Gemma、Llama、Phi、Mistral、DeepSeek 等30多种语言模型。第一次会下载模型权重(约200MB〜5GB)，之后保存在浏览器里，下次可以直接使用。问题和回答只在你的设备上处理，不会发送到服务器。它比大型AI更容易出错，适合用来体验LLM如何在自己的设备上运行。",
+      "keywords": "本地LLM 浏览器 AI 聊天 WebGPU WebAssembly Transformers.js WebLLM Qwen Gemma Llama Phi Mistral DeepSeek 离线",
       "intro": "把语言模型下载到这个浏览器里，只在你的设备上运行。你的消息不会发送到任何地方。",
       "modelLabel": "模型",
       "device": {
@@ -570,6 +570,14 @@
       "deleteAll": "全部删除(共 {size})",
       "confirmDelete": "要删除 {name}({size})吗？再次使用时需要重新下载。",
       "confirmDeleteAll": "要删除所有保存的模型(共 {size})吗？再次使用时需要重新下载。",
+      "moreModels": "更多模型({count}种)",
+      "pickModel": "选择模型…",
+      "modelInfo": "{name}({maker})",
+      "gpuMemory": "GPU内存 约{gb}GB",
+      "reasonsNote": "回答前会先思考(需要较长时间)",
+      "heavy": "这是大型模型，适合内存16GB以上的电脑；内存不足时可能加载失败或导致浏览器崩溃。",
+      "thinking": "正在思考…",
+      "englishNote": "面向英语的模型，中文回答容易出错",
       "systemPrompt": "你是一个乐于助人的助手。请用简体中文简洁地回答。"
     },
     "siteCheck": {

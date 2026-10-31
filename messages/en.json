@@ -533,9 +533,9 @@
     },
     "browserAi": {
       "title": "AI Chat in Your Browser",
-      "description": "A chat with a small language model (LLM) downloaded into your browser and run on your own device. Nothing you type is sent anywhere.",
-      "about": "Runs small language models such as Qwen inside the browser, on the GPU through WebGPU or on the CPU through WebAssembly. The model's weights (600 MB to 2.3 GB) are downloaded the first time and kept by the browser, so later visits start right away. Questions and answers stay on your device and are never sent to a server. It makes more mistakes than large AI services; use it to see how an LLM runs on your own machine.",
-      "keywords": "local LLM browser AI chat WebGPU WebAssembly Transformers.js WebLLM Qwen Gemma offline",
+      "description": "A chat with a language model (LLM) of your choice, from over 30 such as Qwen, Gemma and Llama, downloaded into your browser and run on your own device. Nothing you type is sent anywhere.",
+      "about": "Runs over 30 language models, such as Qwen, Gemma, Llama, Phi, Mistral and DeepSeek, inside the browser, on the GPU through WebGPU or on the CPU through WebAssembly. The model's weights (200 MB to 5 GB) are downloaded the first time and kept by the browser, so later visits start right away. Questions and answers stay on your device and are never sent to a server. It makes more mistakes than large AI services; use it to see how an LLM runs on your own machine.",
+      "keywords": "local LLM browser AI chat WebGPU WebAssembly Transformers.js WebLLM Qwen Gemma Llama Phi Mistral DeepSeek offline",
       "intro": "Download a language model into this browser and run it on your own device. Your messages are not sent anywhere.",
       "modelLabel": "Model",
       "device": {
@@ -570,6 +570,14 @@
       "deleteAll": "Delete all ({size} in total)",
       "confirmDelete": "Delete {name} ({size})? Using it again will download it again.",
       "confirmDeleteAll": "Delete every saved model ({size} in total)? Using one again will download it again.",
+      "moreModels": "More models ({count})",
+      "pickModel": "Pick a model…",
+      "modelInfo": "{name} ({maker})",
+      "gpuMemory": "GPU memory about {gb} GB",
+      "reasonsNote": "Thinks before answering (takes longer)",
+      "heavy": "A large model, for computers with 16 GB of memory or more; with less, loading may fail or the browser may crash.",
+      "thinking": "Thinking…",
+      "englishNote": "Made for English",
       "systemPrompt": "You are a helpful assistant. Answer in English, briefly."
     },
     "siteCheck": {
