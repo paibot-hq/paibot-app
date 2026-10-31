@@ -502,6 +502,116 @@
         "public": "Public"
       }
     },
+    "codePlayground": {
+      "languages": "Language",
+      "run": "Run",
+      "stop": "Stop",
+      "examples": "Open an example",
+      "copyLink": "Copy link",
+      "copied": "Copied",
+      "editorLabel": "Code",
+      "stdin": "Standard input",
+      "stdinPlaceholder": "Input for the program (optional)",
+      "output": "Output",
+      "empty": "Press \"▶ Run\" and the output appears here.",
+      "preparing": "Getting {language} ready… (the first time takes a moment)",
+      "failedToLoad": "{language} could not be loaded. Please reload the page.",
+      "running": "Running…",
+      "done": "Finished ({ms} ms)",
+      "error": "Ended with an error ({ms} ms)",
+      "stopped": "Stopped",
+      "changed": "{count, plural, one {# row} other {# rows}} changed.",
+      "limit": "Too much output: the rest was left out.",
+      "rows": "{count, plural, one {# row} other {# rows}}",
+      "rowsShown": "First {count} of {total} rows",
+      "keys": "Ctrl+Enter (⌘+Enter on a Mac) runs the code. Tab indents and Shift+Tab unindents (press Esc, then Tab, to move on). The code is kept in this browser and never sent to a server."
+    },
+    "codeRunner": {
+      "title": "Run Code Online (Python, JavaScript, TypeScript)",
+      "description": "Write and run Python, JavaScript and TypeScript in your browser: no install, no sign-up, free. Standard input, the line of an error marked, TypeScript type checking, and numpy or pandas for Python. Your code runs inside your browser and is never sent to a server.",
+      "about": "Three languages on one page, a tab each: Python, JavaScript and TypeScript. Python is real Python 3.14 (Pyodide, CPython compiled to WebAssembly) with the whole standard library, and packages such as numpy, pandas and sympy are downloaded the first time they are imported. JavaScript shows console.log output the way Node.js does, with await and setTimeout. TypeScript is type-checked in strict mode by the compiler (5.9) before it runs, with each type error listed by line. In every language input() reads the standard input box, so it suits practice for coding tests and contests. On an error the line is marked in red in the editor, and an endless loop can be stopped. Your code is kept in this browser for each language, never sent to a server, and can be shared as a link.",
+      "keywords": "run code online browser python javascript typescript online compiler editor type check no install free stdin numpy pandas pyodide programming practice",
+      "intro": "Choose a language, write code and press \"▶ Run\": it runs right in your browser.",
+      "examples": {
+        "python": {
+          "hello": "First Python",
+          "fizzbuzz": "FizzBuzz",
+          "input": "Read standard input",
+          "collections": "Lists, dicts and Counter",
+          "classes": "Classes and dataclasses",
+          "recursion": "Recursion (Fibonacci, Tower of Hanoi)",
+          "numpy": "Use numpy",
+          "error": "How errors look"
+        },
+        "javascript": {
+          "hello": "First JavaScript",
+          "fizzbuzz": "FizzBuzz",
+          "input": "Read standard input",
+          "arrays": "Arrays and objects",
+          "classes": "Classes",
+          "async": "async / await",
+          "primes": "Primes (sieve of Eratosthenes)"
+        },
+        "typescript": {
+          "hello": "First TypeScript",
+          "typeError": "See a type error",
+          "unions": "Union types and narrowing",
+          "generics": "Generics",
+          "input": "Read standard input"
+        }
+      },
+      "hints": {
+        "python": "The whole Python 3.14 standard library is available. Packages such as numpy and pandas are downloaded from the internet the first time they are imported (a few seconds or more). Files, network access and waiting with time.sleep are not supported. A program that does not stop can be stopped with \"■ Stop\" (the next run loads Python again).",
+        "javascript": "Modern JavaScript (up to ES2024) is available. The page (DOM) cannot be changed, and modules cannot be imported. An endless loop can be stopped with \"■ Stop\". For types, use the TypeScript tab.",
+        "typescript": "Checking uses strict mode. The JavaScript is run even when there are type errors. Modules and @types cannot be imported. The first run takes a moment to load the compiler (a few MB)."
+      }
+    },
+    "sql": {
+      "title": "SQL Practice (Run SQLite Online)",
+      "description": "A place to write and run SQL in your browser. Try SELECT, JOIN, GROUP BY, window functions and more on sample tables of products, customers and orders, with the results shown as tables. Runs on SQLite; no install, no sign-up, free.",
+      "about": "SQLite (sql.js) runs inside your browser for practising SQL. Three tables of a small shop are there from the start, products, customers and orders, so you can try SELECT straight away. Examples cover filtering with WHERE, sorting with ORDER BY, totals with GROUP BY, joining tables, subqueries, WITH and window functions. CREATE TABLE, INSERT, UPDATE and DELETE work too, and every run starts again from the sample data, so nothing can be broken.",
+      "keywords": "sql practice online run sql sqlite browser select join group by window functions database beginner free no install",
+      "intro": "Write SQL and press \"▶ Run\": it runs on the sample tables and the results are shown as tables.",
+      "tablesTitle": "Sample tables",
+      "tablesNote": "Every run starts again from these rows.",
+      "columns": {
+        "products": {
+          "id": "product number",
+          "name": "name",
+          "category": "category",
+          "price": "price"
+        },
+        "customers": {
+          "id": "customer number",
+          "name": "name",
+          "city": "city",
+          "joined_on": "joined"
+        },
+        "orders": {
+          "id": "order number",
+          "customer_id": "customer who bought",
+          "product_id": "product bought",
+          "quantity": "how many",
+          "ordered_on": "order date"
+        }
+      },
+      "tables": {
+        "products": "products (10)",
+        "customers": "customers (6)",
+        "orders": "orders (20)"
+      },
+      "examples": {
+        "select": "See every row (SELECT)",
+        "where": "Filter and sort (WHERE, ORDER BY)",
+        "group": "Totals (GROUP BY)",
+        "join": "Join tables (JOIN)",
+        "leftJoin": "Customers without orders too (LEFT JOIN)",
+        "subquery": "Subqueries",
+        "window": "Monthly sales and running total (window functions)",
+        "create": "Create and change tables (CREATE, INSERT, UPDATE)"
+      },
+      "hint": "The SQL is SQLite's (dates are text like '2026-01-05', handled with strftime). The sample tables are made again for every run, so after a DELETE or DROP TABLE the next run starts as before. Several statements separated by ; each show their own table of results."
+    },
     "llmMemory": {
       "title": "Local LLM Memory Estimator",
       "description": "Estimate the memory a model's weights need from its parameter count and quantization bits, and check whether it fits in your memory.",

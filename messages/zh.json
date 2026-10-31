@@ -502,6 +502,116 @@
         "public": "公网"
       }
     },
+    "codePlayground": {
+      "languages": "语言",
+      "run": "运行",
+      "stop": "停止",
+      "examples": "打开示例",
+      "copyLink": "复制链接",
+      "copied": "已复制",
+      "editorLabel": "代码",
+      "stdin": "标准输入",
+      "stdinPlaceholder": "传给程序的输入（可以为空）",
+      "output": "运行结果",
+      "empty": "按“▶ 运行”，结果会显示在这里。",
+      "preparing": "正在准备 {language}…（第一次需要一点时间）",
+      "failedToLoad": "无法加载 {language}，请重新加载页面。",
+      "running": "运行中…",
+      "done": "完成（{ms} ms）",
+      "error": "因错误结束（{ms} ms）",
+      "stopped": "已停止",
+      "changed": "修改了 {count} 行。",
+      "limit": "输出太多，后面的内容已省略。",
+      "rows": "{count} 行",
+      "rowsShown": "共 {total} 行，显示前 {count} 行",
+      "keys": "按 Ctrl+Enter（Mac 上是 ⌘+Enter）运行。Tab 缩进，Shift+Tab 取消缩进（先按 Esc 再按 Tab 可移到下一栏）。代码保存在本浏览器中，不会发送到服务器。"
+    },
+    "codeRunner": {
+      "title": "在线运行代码（Python、JavaScript、TypeScript）",
+      "description": "在浏览器中编写并运行 Python、JavaScript、TypeScript 代码，无需安装、无需注册、免费。支持标准输入、标出出错的行、TypeScript 类型检查（中文错误信息）以及 Python 的 numpy 和 pandas。代码在你的浏览器中运行，不会发送到服务器。",
+      "about": "在一个页面上用标签切换并运行 Python、JavaScript、TypeScript 三种语言。Python 是真正的 Python 3.14（Pyodide，把 CPython 编译成 WebAssembly），可以使用全部标准库，numpy、pandas、sympy 等包在第一次 import 时自动下载。JavaScript 会像 Node.js 一样清晰地显示 console.log 的结果，也可以使用 await 和 setTimeout。TypeScript 先由编译器（5.9）以 strict 模式做类型检查再运行，并按行用中文显示类型错误。每种语言都可以用 input() 读取标准输入栏，适合练习编程题。出错时编辑器中的该行会标成红色，死循环可以用“停止”停下。代码按语言保存在本浏览器中，不会发送到服务器，也可以做成链接分享。",
+      "keywords": "在线运行代码 浏览器 Python JavaScript TypeScript 在线编译器 编辑器 类型检查 免安装 免费 标准输入 numpy pandas Pyodide 编程 练习",
+      "intro": "选择语言并写好代码后按“▶ 运行”，代码就会在浏览器中运行。",
+      "examples": {
+        "python": {
+          "hello": "第一个 Python 程序",
+          "fizzbuzz": "FizzBuzz",
+          "input": "读取标准输入",
+          "collections": "列表、字典和 Counter",
+          "classes": "类和 dataclass",
+          "recursion": "递归（斐波那契、汉诺塔）",
+          "numpy": "使用 numpy",
+          "error": "错误的显示"
+        },
+        "javascript": {
+          "hello": "第一个 JavaScript 程序",
+          "fizzbuzz": "FizzBuzz",
+          "input": "读取标准输入",
+          "arrays": "数组和对象",
+          "classes": "类",
+          "async": "async / await",
+          "primes": "素数（埃拉托斯特尼筛法）"
+        },
+        "typescript": {
+          "hello": "第一个 TypeScript 程序",
+          "typeError": "查看类型错误",
+          "unions": "联合类型与类型收窄",
+          "generics": "泛型",
+          "input": "读取标准输入"
+        }
+      },
+      "hints": {
+        "python": "可以使用 Python 3.14 的全部标准库。numpy、pandas 等包在第一次 import 时从网上下载（需要几秒或更久）。不支持读写文件、网络通信和用 time.sleep 等待。程序停不下来时，可以按“■ 停止”（下次运行会重新加载 Python）。",
+        "javascript": "可以使用最新的 JavaScript（到 ES2024）。不能操作页面（DOM），也不能用 import 加载外部模块。死循环可以用“■ 停止”停下。想写类型时，请使用 TypeScript 标签。",
+        "typescript": "类型检查使用 strict 模式。即使有类型错误，也会运行转换后的 JavaScript。不能用 import 加载外部模块或 @types。第一次需要一点时间加载编译器（几 MB）。"
+      }
+    },
+    "sql": {
+      "title": "SQL 练习（在线运行 SQLite）",
+      "description": "在浏览器中编写并运行 SQL 的练习场。可以在商品、顾客、订单的示例表上尝试 SELECT、JOIN、GROUP BY、窗口函数等，结果以表格显示。基于 SQLite，无需安装、无需注册、免费。",
+      "about": "在浏览器中运行 SQLite（sql.js）的 SQL 练习页面。一开始就有一家小店的三张表：商品（products）、顾客（customers）和订单（orders），可以马上试 SELECT。还准备了用 WHERE 筛选、ORDER BY 排序、GROUP BY 汇总、JOIN 连接表、子查询、WITH 子句和窗口函数的示例。也可以自由执行 CREATE TABLE、INSERT、UPDATE、DELETE，每次运行都会从示例数据重新开始，不用担心把数据弄坏。",
+      "keywords": "SQL 练习 在线运行 SQLite 浏览器 SELECT JOIN GROUP BY 窗口函数 数据库 入门 免费 免安装",
+      "intro": "写好 SQL 后按“▶ 运行”，会在示例表上执行，并以表格显示结果。",
+      "tablesTitle": "示例表",
+      "tablesNote": "列名是英文。每次运行都会恢复成这些数据。",
+      "columns": {
+        "products": {
+          "id": "商品编号",
+          "name": "商品名",
+          "category": "分类",
+          "price": "价格"
+        },
+        "customers": {
+          "id": "顾客编号",
+          "name": "姓",
+          "city": "所在城市",
+          "joined_on": "注册日期"
+        },
+        "orders": {
+          "id": "订单编号",
+          "customer_id": "购买的顾客编号",
+          "product_id": "购买的商品编号",
+          "quantity": "数量",
+          "ordered_on": "下单日期"
+        }
+      },
+      "tables": {
+        "products": "商品（10 条）",
+        "customers": "顾客（6 人）",
+        "orders": "订单（20 条）"
+      },
+      "examples": {
+        "select": "查看所有行（SELECT）",
+        "where": "筛选和排序（WHERE、ORDER BY）",
+        "group": "汇总（GROUP BY）",
+        "join": "连接表（JOIN）",
+        "leftJoin": "包括没有订单的顾客（LEFT JOIN）",
+        "subquery": "子查询",
+        "window": "每月销售额和累计（窗口函数）",
+        "create": "创建和修改表（CREATE、INSERT、UPDATE）"
+      },
+      "hint": "使用 SQLite 的语法（日期是 '2026-01-05' 这样的文本，用 strftime 处理）。每次运行都会重新创建示例表，所以即使执行了 DELETE 或 DROP TABLE，下次运行也会恢复。用 ; 分隔多条语句时，每条 SELECT 都会显示自己的结果表。"
+    },
     "llmMemory": {
       "title": "本地LLM内存估算",
       "description": "根据模型的参数量和量化位数，估算权重所需的内存，并检查能否放进你的内存。",
