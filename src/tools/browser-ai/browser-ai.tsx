@@ -177,6 +177,7 @@ export default function BrowserAi() {
               <button key={m.id} type="button" className={styles.model} aria-pressed={m.id === modelId} disabled={gpu !== undefined && !usable || picking} onClick={() => setModelId(m.id)}>
                 <strong>{m.name}</strong>
                 <span>{gpu === undefined ? "" : usable ? t("size", { mb: usable.sizeMB }) : t("gpuOnly")}</span>
+                <em className={styles.engine} data-engine={m.engine}>{t(`engine.${m.engine}`)}</em>
               </button>
             );
           })}
@@ -201,6 +202,7 @@ export default function BrowserAi() {
           {reasons(model) && <> · {t("reasonsNote")}</>}
           {model.engine === "webllm" && model.english && locale !== "en" && <> · {t("englishNote")}</>}
         </p>
+        <p className={styles.modelInfo} data-ai="engine">{t(`engineInfo.${model.engine}`)}</p>
         {model.engine === "webllm" && model.vramMB > HEAVY_MB && <p className={styles.heavy}>{t("heavy")}</p>}
         {phase !== "loading" && modelId !== loadedId && (
           <button type="button" className={styles.load} disabled={!chosen || phase === "answering"} onClick={load}>

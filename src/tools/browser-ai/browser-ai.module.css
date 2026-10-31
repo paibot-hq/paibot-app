@@ -29,6 +29,10 @@
   cursor: pointer;
 }
 .model span { font-size: .78rem; color: var(--muted); }
+/* Which engine runs the model: a small tag, tinted differently so the two can be told apart at a glance (text in the theme's colour). */
+.engine { margin-top: .15rem; padding: 0 .45rem; border-radius: 999px; font-size: .7rem; font-style: normal; color: var(--text); }
+.engine[data-engine="transformers"] { background: color-mix(in srgb, #1fa37f 22%, transparent); }
+.engine[data-engine="webllm"] { background: color-mix(in srgb, #7b6cf0 26%, transparent); }
 .model[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface)); }
 .model:disabled { opacity: .5; cursor: not-allowed; }
 .more { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: .5rem; max-width: 100%; font-size: .85rem; color: var(--muted); }

@@ -682,6 +682,11 @@
       "confirmDeleteAll": "要删除所有保存的模型(共 {size})吗？再次使用时需要重新下载。",
       "moreModels": "更多模型({count}种)",
       "pickModel": "选择模型…",
+      "engine": { "transformers": "Transformers.js", "webllm": "WebLLM" },
+      "engineInfo": {
+        "transformers": "引擎:Transformers.js(ONNX格式的模型，没有GPU时也能在CPU上运行)",
+        "webllm": "引擎:WebLLM(MLC格式的模型，只能在GPU上运行，较大的模型也很快)"
+      },
       "modelInfo": "{name}({maker})",
       "gpuMemory": "GPU内存 约{gb}GB",
       "reasonsNote": "回答前会先思考(需要较长时间)",

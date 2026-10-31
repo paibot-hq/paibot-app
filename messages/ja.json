@@ -682,6 +682,11 @@
       "confirmDeleteAll": "保存したモデルをすべて(合計 {size})削除しますか？また使うときは、もう一度ダウンロードします。",
       "moreModels": "ほかのモデル({count}種類)",
       "pickModel": "モデルを選ぶ…",
+      "engine": { "transformers": "Transformers.js", "webllm": "WebLLM" },
+      "engineInfo": {
+        "transformers": "エンジン: Transformers.js(ONNX形式のモデル。GPUがなくてもCPUで動きます)",
+        "webllm": "エンジン: WebLLM(MLC形式のモデル。GPU専用で、大きいモデルも速く動きます)"
+      },
       "modelInfo": "{name}({maker})",
       "gpuMemory": "GPUメモリ 約{gb}GB",
       "reasonsNote": "答える前に考えるモデルです(時間がかかります)",

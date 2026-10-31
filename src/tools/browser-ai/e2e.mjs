@@ -11,6 +11,10 @@ export default async function ({ page, main, go, errors }) {
   const small = main.getByRole('button', { name: /Qwen3 0\.6B/ });
   const large = main.getByRole('button', { name: /Qwen3 4B/ });
   assert.equal(await small.getAttribute('aria-pressed'), 'true');
+  // Each model says which engine runs it: Transformers.js for the small one, WebLLM for the rest.
+  assert.match(await small.textContent(), /Transformers\.js$/);
+  assert.match(await large.textContent(), /WebLLM$/);
+  assert.match(await page.locator('[data-ai="engine"]').textContent(), /^Engine: Transformers\.js/);
   if (/WebAssembly/.test(device)) {
     // The larger models need a GPU and cannot be picked.
     assert.ok(await large.isDisabled());
@@ -24,6 +28,7 @@ export default async function ({ page, main, go, errors }) {
     assert.equal(await large.getAttribute('aria-pressed'), 'false');
     assert.equal(await page.locator('[data-ai="model-info"]').textContent(), 'DeepSeek R1 Distill Qwen 7B (DeepSeek) · GPU memory about 5.1 GB · Thinks before answering (takes longer)');
     await main.getByText(/A large model, for computers with 16 GB/).waitFor();
+    assert.match(await page.locator('[data-ai="engine"]').textContent(), /^Engine: WebLLM/);
     await main.getByRole('button', { name: 'Load the model (about 4284 MB)' }).waitFor();
   }
   if (/WebAssembly/.test(device)) assert.ok(await page.locator('option', { hasText: 'Gemma 3 1B' }).evaluate(option => option.disabled));
