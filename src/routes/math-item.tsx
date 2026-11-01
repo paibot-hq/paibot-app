@@ -14,7 +14,7 @@ import { findUnit } from '../lib/math-catalog';
 import { jpGrade } from '../lib/math-curriculum-jp';
 import { getPlayableSets, getSetTiers, getWorkedExample } from '../lib/math-problems.server';
 import { keyPoints } from '../lib/math-key-points';
-import { expressionTex, stepRows } from '../lib/math-formula';
+import { stepRows } from '../lib/math-formula';
 import { lesson as itemLesson, type Localized } from '../lib/math-lessons';
 import { catalogEntry } from '../lib/math-routes.server';
 import styles from './math-item.module.css';
@@ -99,7 +99,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
         <h2 className={styles.lessonHeading}>{ti('examples')}</h2>
         {lesson.examples.map((item, index) => <div key={index} className={styles.lessonExample}>
           <p className={styles.exampleLabel}>{ti('exampleNumber', { number: index + 1 })}</p>
-          <div className={styles.exampleQuestion}><MathTex tex={expressionTex(item.question)} block /></div>
+          <div className={styles.exampleQuestion}>{lineTex(item.question).map(tex => <MathTex key={tex} tex={tex} block />)}</div>
           <Steps lines={item.steps} />
           <p className={styles.exampleNote}><MathText text={text(item.note)} /></p>
         </div>)}
@@ -107,6 +107,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
       {lesson && lesson.mistakes.length > 0 && <section className={styles.lesson}>
         <h2 className={styles.lessonHeading}>{ti('mistakes')}</h2>
         {lesson.mistakes.map((item, index) => <div key={index} className={styles.mistake}>
+          {item.question && <div className={styles.exampleQuestion}>{lineTex(item.question).map(tex => <MathTex key={tex} tex={tex} block />)}</div>}
           <p className={styles.wrong}><span className={styles.mark}>{ti('wrong')}</span><MathTex tex={stepTex(item.wrong)} /></p>
           <p className={styles.right}><span className={styles.mark}>{ti('right')}</span><MathTex tex={stepTex(item.right)} /></p>
           <p className={styles.exampleNote}><MathText text={text(item.note)} /></p>
@@ -152,3 +153,5 @@ function Steps({ lines }: { lines: string[] }) {
 
 // A one-line equation (a mistake and its correction) as a single piece of TeX.
 const stepTex = (line: string) => stepRows(line).flat().join(' ');
+// A question as TeX, one line per equation of a system.
+const lineTex = (line: string) => stepRows(line).map(row => row.join(' ').replace(/^= /, ''));

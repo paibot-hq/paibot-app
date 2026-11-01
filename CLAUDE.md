@@ -96,9 +96,12 @@ Math is organized unit → learning item → practice set, all in
   (練習1, 2, ...) with a signed-in user's latest and best score, and the crumbs
   back to the unit. Top to bottom: what you learn (`description`), the lesson if the item has one
   (`src/data/item-lessons.json` via `src/lib/math-lessons.ts`: textbook sections of ja/en/zh prose with $...$ TeX and
-  display formulas, then after the key points 2-3 worked examples and common mistakes in the formula grammar, which
-  `scripts/verify_lessons.py` checks with SymPy in `test:sympy`; the prose gets a blind review; an item with a lesson
-  shows its examples instead of the one from its problems; so far only the `factorization` items have one), key points
+  display formulas, then after the key points 2-3 worked examples (`value`, `factor` or `solve`) and common mistakes in
+  the formula grammar, which `scripts/verify_lessons.py` checks with SymPy in `test:sympy`; an item with a lesson shows
+  its examples instead of the one from its problems). `npm run math:lessons -- <unit|unit/item> ...` has Claude write
+  them, checks the format (`scripts/lib/math-lesson-check.mjs`) and the math, then Codex and Antigravity review each
+  independently (`scripts/math-prompts/_lesson*.md`), sending what fails back to Claude; only a lesson both passed gets
+  `reviewedAt`, and the page shows nothing else (`--review` reviews without writing, `--rewrite` writes again), key points
   (`src/data/item-formulas.json`: per item 2-5 entries, a well-known formula as TeX,
   general forms preferred, and/or a note, each explained in ja/en/zh; written by an LLM
   with no verification beyond KaTeX rendering; `npm run math:formulas`, `-- --rewrite` rewrites

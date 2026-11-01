@@ -1,8 +1,170 @@
 {
+  "linear-equation/basic": {
+    "sections": [
+      {
+        "heading": {
+          "ja": "方程式を解くとは",
+          "en": "What solving an equation means",
+          "zh": "什么是解方程"
+        },
+        "paragraphs": [
+          {
+            "ja": "$x + 5 = 12$ のように、わからない数 $x$ をふくむ等式を方程式といいます。方程式を成り立たせる $x$ の値を解といい、解を求めることを方程式を解くといいます。",
+            "en": "An equality that contains an unknown number $x$, such as $x + 5 = 12$, is called an equation. A value of $x$ that makes it true is a solution, and finding it is called solving the equation.",
+            "zh": "像 $x + 5 = 12$ 这样含有未知数 $x$ 的等式叫做方程。使方程成立的 $x$ 的值叫做方程的解，求出解的过程叫做解方程。"
+          },
+          {
+            "ja": "これまでに学んだ等式の性質を使えば、どんな一次方程式も解けます。ここでは、その作業を速く確実にする「移項」という方法を学びます。",
+            "en": "The properties of equalities you have already learned let you solve any linear equation. Here you will learn transposition, a method that makes this work quicker and more reliable.",
+            "zh": "利用已经学过的等式的性质，就能解任何一元一次方程。这里我们学习一种能让解题更快、更准确的方法——移项。"
+          }
+        ]
+      },
+      {
+        "heading": {
+          "ja": "等式の性質から移項へ",
+          "en": "From the properties of equalities to transposition",
+          "zh": "从等式的性质到移项"
+        },
+        "paragraphs": [
+          {
+            "ja": "$x + 5 = 12$ を解くには、左辺の $+5$ を消したいので、両辺から 5 を引きます。等式の両辺から同じ数を引いても、等式は成り立ちます。",
+            "en": "To solve $x + 5 = 12$, we want to remove the $+5$ on the left, so we subtract 5 from both sides. Subtracting the same number from both sides keeps the equality true.",
+            "zh": "解 $x + 5 = 12$ 时，想消去左边的 $+5$，就在两边同时减去 5。等式两边减去同一个数，等式仍然成立。"
+          }
+        ],
+        "formulas": [
+          "x + 5 = 12",
+          "x + 5 - 5 = 12 - 5",
+          "x = 12 - 5"
+        ],
+        "after": [
+          {
+            "ja": "1行目と3行目を比べると、左辺の $+5$ が右辺に移って $-5$ になっています。このように、項の符号を変えてもう一方の辺に移すことを移項といいます。",
+            "en": "Compare the first and last lines: the $+5$ on the left has moved to the right as $-5$. Moving a term to the other side while changing its sign is called transposition.",
+            "zh": "比较第一行和第三行，左边的 $+5$ 移到右边变成了 $-5$。像这样把一项改变符号后移到等号另一边，叫做移项。"
+          },
+          {
+            "ja": "引かれている項も同じです。$x - 4 = 3$ では両辺に 4 を足すので、$-4$ が右辺に移って $+4$ になり、$x = 3 + 4$ です。移項は等式の性質を短く書いたものなのです。",
+            "en": "The same works for a term being subtracted. In $x - 4 = 3$ we add 4 to both sides, so $-4$ moves to the right as $+4$, giving $x = 3 + 4$. Transposition is just a shortcut for the properties of equalities.",
+            "zh": "被减去的项也一样。在 $x - 4 = 3$ 中两边同时加 4，$-4$ 移到右边变成 $+4$，得到 $x = 3 + 4$。移项其实就是等式性质的简便写法。"
+          }
+        ]
+      },
+      {
+        "heading": {
+          "ja": "一次方程式を解く手順",
+          "en": "Steps for solving a linear equation",
+          "zh": "解一元一次方程的步骤"
+        },
+        "paragraphs": [
+          {
+            "ja": "両辺に $x$ の項があるときは、$x$ をふくむ項を左辺に、数だけの項を右辺に移項します。$x$ の項を移すときも、符号を必ず変えます。",
+            "en": "When both sides have $x$ terms, transpose the terms with $x$ to the left and the number terms to the right. Remember to change the sign of $x$ terms you move, too.",
+            "zh": "两边都有含 $x$ 的项时，把含 $x$ 的项移到左边，把常数项移到右边。移动含 $x$ 的项时，也一定要改变符号。"
+          },
+          {
+            "ja": "次に、左辺と右辺をそれぞれ計算して $ax = b$ の形にします。最後に両辺を $x$ の係数 $a$ で割ります。",
+            "en": "Next, simplify each side to get the form $ax = b$. Finally, divide both sides by the coefficient $a$ of $x$.",
+            "zh": "接着，分别合并左右两边，化成 $ax = b$ 的形式。最后，两边同时除以 $x$ 的系数 $a$。"
+          }
+        ],
+        "formulas": [
+          "ax = b \\implies x = \\frac{b}{a} \\quad (a \\neq 0)"
+        ],
+        "after": [
+          {
+            "ja": "係数で割るのは移項ではありません。$3x = 12$ の 3 は掛けられている数なので、引くのではなく両辺を 3 で割ります。求めた解をもとの方程式に代入して、両辺が等しくなるか確かめましょう。",
+            "en": "Dividing by the coefficient is not transposition. In $3x = 12$, the 3 is multiplied, so divide both sides by 3 instead of subtracting it. Then substitute your answer into the original equation to check that both sides match.",
+            "zh": "除以系数不是移项。$3x = 12$ 中的 3 是乘数，所以要两边同时除以 3，而不是减去 3。求出解后，代入原方程检验两边是否相等。"
+          }
+        ]
+      }
+    ],
+    "examples": [
+      {
+        "kind": "solve",
+        "question": "x + 5 = 12",
+        "steps": [
+          "x = 12 - 5",
+          "x = 7"
+        ],
+        "note": {
+          "ja": "左辺の $+5$ を右辺に移項すると $-5$ になります。",
+          "en": "Transposing $+5$ from the left to the right turns it into $-5$.",
+          "zh": "把左边的 $+5$ 移到右边，变成 $-5$。"
+        }
+      },
+      {
+        "kind": "solve",
+        "question": "5*x - 3 = 2*x + 9",
+        "steps": [
+          "5*x - 2*x = 9 + 3",
+          "3*x = 12",
+          "x = 4"
+        ],
+        "note": {
+          "ja": "$2x$ を左辺に移して $-2x$、$-3$ を右辺に移して $+3$ にします。$3x = 12$ の両辺を 3 で割ります。",
+          "en": "Move $2x$ to the left as $-2x$ and $-3$ to the right as $+3$. Then divide both sides of $3x = 12$ by 3.",
+          "zh": "把 $2x$ 移到左边变成 $-2x$，把 $-3$ 移到右边变成 $+3$。再把 $3x = 12$ 两边同时除以 3。"
+        }
+      },
+      {
+        "kind": "solve",
+        "question": "2*x + 7 = 5*x - 8",
+        "steps": [
+          "2*x - 5*x = -8 - 7",
+          "-3*x = -15",
+          "x = 5"
+        ],
+        "note": {
+          "ja": "まとめると $x$ の係数が $-3$ になります。両辺を $-3$ で割ると、負の数どうしの割り算なので解は正の 5 です。",
+          "en": "After combining, the coefficient of $x$ is $-3$. Dividing both sides by $-3$ divides a negative by a negative, so the solution is positive 5.",
+          "zh": "合并后 $x$ 的系数是 $-3$。两边同时除以 $-3$，负数除以负数，所以解是正数 5。"
+        }
+      }
+    ],
+    "mistakes": [
+      {
+        "question": "x + 4 = 10",
+        "wrong": "x = 14",
+        "right": "x = 6",
+        "note": {
+          "ja": "$+4$ をそのまま右辺に移して $10 + 4$ としています。移項では符号を変えるので $x = 10 - 4$ です。",
+          "en": "Here $+4$ was moved without changing its sign, giving $10 + 4$. Transposing changes the sign, so $x = 10 - 4$.",
+          "zh": "这里把 $+4$ 直接移到右边算成了 $10 + 4$。移项要变号，所以应是 $x = 10 - 4$。"
+        }
+      },
+      {
+        "question": "3*x + 2 = x + 10",
+        "wrong": "x = 2",
+        "right": "x = 4",
+        "note": {
+          "ja": "$x$ を左辺に移すとき符号を変えず $3x + x$ としたための誤りです。正しくは $3x - x = 10 - 2$ で $2x = 8$ です。",
+          "en": "The $x$ term was moved without changing its sign, giving $3x + x$. Correctly, $3x - x = 10 - 2$, so $2x = 8$.",
+          "zh": "把 $x$ 移到左边时没有变号，算成了 $3x + x$。正确的是 $3x - x = 10 - 2$，即 $2x = 8$。"
+        }
+      },
+      {
+        "question": "3*x = 12",
+        "wrong": "x = 9",
+        "right": "x = 4",
+        "note": {
+          "ja": "係数の 3 を移項のつもりで引いています。3 は $x$ に掛けられているので、両辺を 3 で割って $x = \\frac{12}{3}$ とします。",
+          "en": "The coefficient 3 was subtracted as if it were transposed. Since 3 multiplies $x$, divide both sides by 3 to get $x = \\frac{12}{3}$.",
+          "zh": "把系数 3 当作移项减掉了。3 是与 $x$ 相乘的数，应两边同时除以 3，得 $x = \\frac{12}{3}$。"
+        }
+      }
+    ]
+  },
   "factorization/trinomial": {
     "sections": [
       {
-        "heading": { "ja": "因数分解とは", "en": "What factoring is", "zh": "什么是因式分解" },
+        "heading": {
+          "ja": "因数分解とは",
+          "en": "What factoring is",
+          "zh": "什么是因式分解"
+        },
         "paragraphs": [
           {
             "ja": "因数分解は、展開の逆の作業です。$(x + 2)(x + 3)$ を展開すると $x^2 + 5x + 6$ になりますが、因数分解では反対に、$x^2 + 5x + 6$ を $(x + 2)(x + 3)$ のような積の形に直します。",
@@ -17,7 +179,11 @@
         ]
       },
       {
-        "heading": { "ja": "和と積に注目する", "en": "Look at the sum and the product", "zh": "关注和与积" },
+        "heading": {
+          "ja": "和と積に注目する",
+          "en": "Look at the sum and the product",
+          "zh": "关注和与积"
+        },
         "paragraphs": [
           {
             "ja": "$(x + a)(x + b)$ を展開すると、次のようになります。",
@@ -25,7 +191,9 @@
             "zh": "把 $(x + a)(x + b)$ 展开，得到："
           }
         ],
-        "formulas": ["(x + a)(x + b) = x^2 + (a + b)x + ab"],
+        "formulas": [
+          "(x + a)(x + b) = x^2 + (a + b)x + ab"
+        ],
         "after": [
           {
             "ja": "つまり、$x$ の係数は2数の和 $a + b$、定数項は2数の積 $ab$ です。因数分解するときはこれを逆にたどり、「足すと $x$ の係数、掛けると定数項」になる2つの整数を探します。",
@@ -35,7 +203,11 @@
         ]
       },
       {
-        "heading": { "ja": "2数の見つけ方", "en": "Finding the two numbers", "zh": "怎样找这两个数" },
+        "heading": {
+          "ja": "2数の見つけ方",
+          "en": "Finding the two numbers",
+          "zh": "怎样找这两个数"
+        },
         "paragraphs": [
           {
             "ja": "積から考えると、候補が少なくて済みます。$x^2 + 7x + 12$ なら、掛けて 12 になる正の整数の組は 1 と 12、2 と 6、3 と 4 です。この中で足して 7 になるのは 3 と 4 なので、$(x + 3)(x + 4)$ になります。",
@@ -57,8 +229,11 @@
     ],
     "examples": [
       {
+        "kind": "factor",
         "question": "x^2 + 7*x + 12",
-        "steps": ["x^2 + 7*x + 12 = (x + 3)*(x + 4)"],
+        "steps": [
+          "x^2 + 7*x + 12 = (x + 3)*(x + 4)"
+        ],
         "note": {
           "ja": "掛けて 12、足して 7 になる2数は 3 と 4 です。",
           "en": "The two numbers with product 12 and sum 7 are 3 and 4.",
@@ -66,8 +241,11 @@
         }
       },
       {
+        "kind": "factor",
         "question": "x^2 - 8*x + 15",
-        "steps": ["x^2 - 8*x + 15 = (x - 3)*(x - 5)"],
+        "steps": [
+          "x^2 - 8*x + 15 = (x - 3)*(x - 5)"
+        ],
         "note": {
           "ja": "定数項が正で $x$ の係数が負なので、2数はどちらも負です。掛けて 15、足して $-8$ になるのは $-3$ と $-5$ です。",
           "en": "The constant term is positive and the coefficient of $x$ is negative, so both numbers are negative. The ones with product 15 and sum $-8$ are $-3$ and $-5$.",
@@ -75,8 +253,11 @@
         }
       },
       {
+        "kind": "factor",
         "question": "x^2 + 2*x - 24",
-        "steps": ["x^2 + 2*x - 24 = (x - 4)*(x + 6)"],
+        "steps": [
+          "x^2 + 2*x - 24 = (x - 4)*(x + 6)"
+        ],
         "note": {
           "ja": "定数項が負なので、2数は正と負が1つずつです。掛けて $-24$、足して 2 になるのは $-4$ と 6 です。",
           "en": "The constant term is negative, so one number is positive and one negative. The ones with product $-24$ and sum 2 are $-4$ and 6.",
@@ -108,7 +289,11 @@
   "factorization/perfect-square": {
     "sections": [
       {
-        "heading": { "ja": "平方の形になる式", "en": "Expressions that are squares", "zh": "能写成平方的式子" },
+        "heading": {
+          "ja": "平方の形になる式",
+          "en": "Expressions that are squares",
+          "zh": "能写成平方的式子"
+        },
         "paragraphs": [
           {
             "ja": "$(x + 3)^2$ を展開すると $x^2 + 6x + 9$ になります。このように、ある式の2乗（平方）になっている式は、次の公式で一度に因数分解できます。",
@@ -116,7 +301,10 @@
             "zh": "把 $(x + 3)^2$ 展开得到 $x^2 + 6x + 9$。像这样本身是某个式子的平方的式子，可以用下面的公式一步分解。"
           }
         ],
-        "formulas": ["a^2 + 2ab + b^2 = (a + b)^2", "a^2 - 2ab + b^2 = (a - b)^2"],
+        "formulas": [
+          "a^2 + 2ab + b^2 = (a + b)^2",
+          "a^2 - 2ab + b^2 = (a - b)^2"
+        ],
         "after": [
           {
             "ja": "真ん中の項の符号が $+$ なら和の平方 $(a + b)^2$、$-$ なら差の平方 $(a - b)^2$ です。",
@@ -126,7 +314,11 @@
         ]
       },
       {
-        "heading": { "ja": "見分け方", "en": "How to recognize one", "zh": "怎样识别" },
+        "heading": {
+          "ja": "見分け方",
+          "en": "How to recognize one",
+          "zh": "怎样识别"
+        },
         "paragraphs": [
           {
             "ja": "まず、両端の項がそれぞれ何かの2乗になっているかを見ます。$x^2 + 6x + 9$ なら $x^2$ と $9 = 3^2$ です。",
@@ -148,8 +340,11 @@
     ],
     "examples": [
       {
+        "kind": "factor",
         "question": "x^2 + 10*x + 25",
-        "steps": ["x^2 + 10*x + 25 = (x + 5)^2"],
+        "steps": [
+          "x^2 + 10*x + 25 = (x + 5)^2"
+        ],
         "note": {
           "ja": "$25 = 5^2$ で、$2 \\times x \\times 5 = 10x$ なので和の平方です。",
           "en": "$25 = 5^2$ and $2 \\times x \\times 5 = 10x$, so it is the square of a sum.",
@@ -157,8 +352,11 @@
         }
       },
       {
+        "kind": "factor",
         "question": "x^2 - 14*x + 49",
-        "steps": ["x^2 - 14*x + 49 = (x - 7)^2"],
+        "steps": [
+          "x^2 - 14*x + 49 = (x - 7)^2"
+        ],
         "note": {
           "ja": "$49 = 7^2$ で、真ん中が $-2 \\times x \\times 7 = -14x$ なので差の平方です。",
           "en": "$49 = 7^2$ and the middle term is $-2 \\times x \\times 7 = -14x$, so it is the square of a difference.",
@@ -166,8 +364,11 @@
         }
       },
       {
+        "kind": "factor",
         "question": "4*x^2 + 12*x + 9",
-        "steps": ["4*x^2 + 12*x + 9 = (2*x + 3)^2"],
+        "steps": [
+          "4*x^2 + 12*x + 9 = (2*x + 3)^2"
+        ],
         "note": {
           "ja": "$4x^2 = (2x)^2$、$9 = 3^2$ で、$2 \\times 2x \\times 3 = 12x$ です。",
           "en": "$4x^2 = (2x)^2$, $9 = 3^2$ and $2 \\times 2x \\times 3 = 12x$.",
@@ -180,9 +381,9 @@
         "wrong": "x^2 + 8*x + 16 = (x + 8)^2",
         "right": "x^2 + 8*x + 16 = (x + 4)^2",
         "note": {
-          "ja": "かっこの中に入るのは、真ん中の係数を 2 で割った数です。$8 \\div 2 = 4$ で、$4^2 = 16$ とも合います。",
-          "en": "The number inside the brackets is half the middle coefficient: $8 \\div 2 = 4$, which also matches $4^2 = 16$.",
-          "zh": "括号里的数是中间项系数的一半：$8 \\div 2 = 4$，也与 $4^2 = 16$ 相符。"
+          "ja": "かっこの中に入るのは、2乗して 16、2倍して 8 になる数の 4 です（$16 = 4^2$、$2 \\times x \\times 4 = 8x$）。$x^2$ の係数が 1 のときは、真ん中の係数を 2 で割った数になります。",
+          "en": "The number in the brackets is 4, whose square is 16 and whose double is 8 ($16 = 4^2$, $2 \\times x \\times 4 = 8x$). When the coefficient of $x^2$ is 1, it is half the middle coefficient.",
+          "zh": "括号里的数是 4：它的平方是 16，它的 2 倍是 8（$16 = 4^2$，$2 \\times x \\times 4 = 8x$）。当 $x^2$ 的系数是 1 时，它等于中间项系数的一半。"
         }
       },
       {
@@ -199,7 +400,11 @@
   "factorization/difference-of-squares": {
     "sections": [
       {
-        "heading": { "ja": "2乗から2乗をひく形", "en": "A square minus a square", "zh": "平方减平方" },
+        "heading": {
+          "ja": "2乗から2乗をひく形",
+          "en": "A square minus a square",
+          "zh": "平方减平方"
+        },
         "paragraphs": [
           {
             "ja": "$(x + 3)(x - 3)$ を展開すると、$3x$ と $-3x$ が打ち消し合って、$x^2 - 9$ だけが残ります。",
@@ -212,10 +417,16 @@
             "zh": "反过来，“平方减平方”形式的式子，可以分解为和与差的乘积。"
           }
         ],
-        "formulas": ["a^2 - b^2 = (a + b)(a - b)"]
+        "formulas": [
+          "a^2 - b^2 = (a + b)(a - b)"
+        ]
       },
       {
-        "heading": { "ja": "見分け方", "en": "How to recognize one", "zh": "怎样识别" },
+        "heading": {
+          "ja": "見分け方",
+          "en": "How to recognize one",
+          "zh": "怎样识别"
+        },
         "paragraphs": [
           {
             "ja": "項が2つで、間が引き算になっていて、どちらの項も何かの2乗であることを確かめます。$x^2 - 16$ は $x^2 - 4^2$、$9x^2 - 25$ は $(3x)^2 - 5^2$ です。",
@@ -237,8 +448,11 @@
     ],
     "examples": [
       {
+        "kind": "factor",
         "question": "x^2 - 36",
-        "steps": ["x^2 - 36 = (x + 6)*(x - 6)"],
+        "steps": [
+          "x^2 - 36 = (x + 6)*(x - 6)"
+        ],
         "note": {
           "ja": "$36 = 6^2$ なので、$x^2 - 6^2$ です。",
           "en": "$36 = 6^2$, so this is $x^2 - 6^2$.",
@@ -246,8 +460,11 @@
         }
       },
       {
+        "kind": "factor",
         "question": "9*x^2 - 25",
-        "steps": ["9*x^2 - 25 = (3*x + 5)*(3*x - 5)"],
+        "steps": [
+          "9*x^2 - 25 = (3*x + 5)*(3*x - 5)"
+        ],
         "note": {
           "ja": "$9x^2 = (3x)^2$、$25 = 5^2$ です。",
           "en": "$9x^2 = (3x)^2$ and $25 = 5^2$.",
@@ -255,8 +472,11 @@
         }
       },
       {
+        "kind": "factor",
         "question": "2*x^2 - 50",
-        "steps": ["2*x^2 - 50 = 2*(x^2 - 25) = 2*(x + 5)*(x - 5)"],
+        "steps": [
+          "2*x^2 - 50 = 2*(x^2 - 25) = 2*(x + 5)*(x - 5)"
+        ],
         "note": {
           "ja": "まず共通な因数 2 をくくり出すと、かっこの中が $x^2 - 5^2$ になります。",
           "en": "Taking out the common factor 2 first leaves $x^2 - 5^2$ in the brackets.",

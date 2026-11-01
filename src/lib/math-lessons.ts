@@ -4,14 +4,18 @@ import lessonData from '../data/item-lessons.json' with { type: 'json' };
 // (with $...$ for inline TeX) and display formulas, worked examples and common
 // mistakes. Examples and mistakes are written in the formula grammar
 // (math-formula.ts) so that scripts/verify_lessons.py can check them with SymPy;
-// the prose gets a blind review before it is published. Items without one show
-// the worked example from their problems instead.
+// the prose is checked by two models other than the one that wrote it
+// (scripts/math-lessons.mjs --review). Only a lesson both passed (reviewedAt) is
+// shown; items without one show the worked example from their problems instead.
 export interface Localized { ja: string; en: string; zh: string }
 export interface LessonSection { heading: Localized; paragraphs: Localized[]; formulas?: string[]; after?: Localized[] }
-export interface LessonExample { question: string; steps: string[]; note: Localized }
-export interface LessonMistake { wrong: string; right: string; note: Localized }
-export interface Lesson { sections: LessonSection[]; examples: LessonExample[]; mistakes: LessonMistake[] }
+// value: a chain equal to the question; factor: the same, ending fully factored; solve: equations with the question's solutions.
+export interface LessonExample { kind: 'value' | 'factor' | 'solve'; question: string; steps: string[]; note: Localized }
+// An identity that is wrong and its correction, or (with a question, an equation) wrong and right solutions.
+export interface LessonMistake { question?: string; wrong: string; right: string; note: Localized }
+export interface Lesson { sections: LessonSection[]; examples: LessonExample[]; mistakes: LessonMistake[]; reviewedAt?: string }
 
 export function lesson(unit: string, item: string): Lesson | null {
-  return (lessonData as Record<string, Lesson>)[`${unit}/${item}`] ?? null;
+  const found = (lessonData as unknown as Record<string, Lesson>)[`${unit}/${item}`];
+  return found?.reviewedAt ? found : null;
 }
