@@ -9,6 +9,10 @@ concurrency:
   group: app-${{ github.workflow }}-${{ github.ref }}
   # Superseded PR runs can stop; a main run may be mid-migration or mid-deploy.
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+permissions:
+  contents: read
+  # .github/actions/ci-changes reads the run history to find the last commit on main that passed.
+  actions: read
 jobs:
   # The checks run as three jobs side by side (plus `sympy`), each doing its own
   # setup; deploy-dev needs all of them. The three rebuild the app because the
@@ -38,20 +42,17 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          fetch-depth: ${{ github.event_name == 'pull_request' && '0' || '1' }}
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
           node-version-file: .tool-versions
           cache: npm
-      # A PR skips this job when nothing it checks can have changed (scripts/ci-changes.mjs);
-      # main always runs it.
-      - name: Is this job needed?
-        id: needed
-        env:
-          BASE_REF: ${{ github.base_ref }}
-        run: |
-          git fetch --no-tags origin "$BASE_REF:refs/remotes/origin/$BASE_REF" 2>/dev/null || true
-          node scripts/ci-changes.mjs e2e >> "$GITHUB_OUTPUT"
+      # Skipped when nothing it checks can have changed (scripts/ci-changes.mjs): since the base branch on a PR,
+      # since the last commit that passed on main.
+      - id: needed
+        uses: ./.github/actions/ci-changes
+        with:
+          job: e2e
       - if: steps.needed.outputs.run == 'true'
         uses: ./.github/actions/verify-setup
         with:
@@ -75,22 +76,18 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          # PRs compare against the base branch to pick the affected tools. (A string:
-          # `cond && 0 || 1` is always 1, because 0 is falsy.)
-          fetch-depth: ${{ github.event_name == 'pull_request' && '0' || '1' }}
+          # The affected tools are found from the history (see e2e).
+          fetch-depth: 0
       - uses: actions/setup-node@v7
         with:
           node-version-file: .tool-versions
           cache: npm
-      # A PR skips this job when nothing it checks can have changed (scripts/ci-changes.mjs);
-      # main always runs it.
-      - name: Is this job needed?
-        id: needed
-        env:
-          BASE_REF: ${{ github.base_ref }}
-        run: |
-          git fetch --no-tags origin "$BASE_REF:refs/remotes/origin/$BASE_REF" 2>/dev/null || true
-          node scripts/ci-changes.mjs browser >> "$GITHUB_OUTPUT"
+      # Skipped when no tool can have changed, or when this share of the tools is empty (a few all go to the first).
+      - id: needed
+        uses: ./.github/actions/ci-changes
+        with:
+          job: browser
+          shard: ${{ matrix.shard }}/3
       - if: steps.needed.outputs.run == 'true'
         uses: ./.github/actions/verify-setup
         with:
@@ -107,12 +104,9 @@ jobs:
           preview_pid=$!
           trap 'kill "$preview_pid" 2>/dev/null || true' EXIT
           for i in $(seq 1 60); do curl -sf http://localhost:3003/robots.txt > /dev/null && break; sleep 1; done
-          # PRs run the per-tool checks only for the tools they can affect
-          # (scripts/affected-tools.mjs); main runs every tool.
-          if [ "${{ github.event_name }}" = pull_request ]; then
-            export CHECK_TOOLS="$(node scripts/affected-tools.mjs "origin/${{ github.base_ref }}")"
-            echo "Affected tools: ${CHECK_TOOLS:-none}"
-          fi
+          # The per-tool checks run only for the tools the change can affect (scripts/affected-tools.mjs).
+          export CHECK_TOOLS="${{ steps.needed.outputs.tools }}"
+          echo "Affected tools: ${CHECK_TOOLS:-none}"
           export CHECK_SHARD="${{ matrix.shard }}/3"
           # The checks that are not per tool run once, in the first shard.
           if [ "${{ matrix.shard }}" = 1 ]; then checks="smoke catalog tools quiz-browser"; else checks="catalog tools"; fi
@@ -126,22 +120,17 @@ jobs:
     steps:
       - uses: actions/checkout@v7
         with:
-          fetch-depth: ${{ github.event_name == 'pull_request' && '0' || '1' }}
-      # main always checks (the deploy depends on it); a PR checks only when it
-      # touches what the check reads, and otherwise this job passes at once.
-      - name: Does this change affect the SymPy check?
-        id: affected
-        run: |
-          if [ "${{ github.event_name }}" != pull_request ]; then echo "run=true" >> "$GITHUB_OUTPUT"; exit 0; fi
-          git fetch --no-tags origin "${{ github.base_ref }}:refs/remotes/origin/${{ github.base_ref }}" || { echo "run=true" >> "$GITHUB_OUTPUT"; exit 0; }
-          # If the diff cannot be taken, check anyway.
-          changed=$(git diff --name-only "origin/${{ github.base_ref }}...HEAD") || { echo "run=true" >> "$GITHUB_OUTPUT"; exit 0; }
-          if echo "$changed" | grep -qE '^(src/data/math-[^/]*\.json|scripts/verify_math\.py|tests/unit/test_verify_math\.py|pyproject\.toml|uv\.lock|\.python-version|\.github/workflows/app\.yml)$'; then
-            echo "run=true" >> "$GITHUB_OUTPUT"
-          else
-            echo "run=false" >> "$GITHUB_OUTPUT"
-            echo "No math bank, verifier or Python dependency changed; skipping the SymPy check on this PR."
-          fi
+          fetch-depth: 0
+      # For scripts/ci-changes.mjs only (no install).
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .tool-versions
+      # Checks only when the change touches what the check reads (since the base branch on a PR, since the last
+      # commit that passed on main, so every bank deployed has been checked), and otherwise this job passes at once.
+      - id: affected
+        uses: ./.github/actions/ci-changes
+        with:
+          job: sympy
       # setup-uv publishes no major-version tags after v7, so pin the release.
       - if: steps.affected.outputs.run == 'true'
         uses: astral-sh/setup-uv@v10.2.0

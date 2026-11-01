@@ -4,13 +4,12 @@
 // a fresh browser context, so flows are independent and can run in any order
 // or subset (CHECK_TOOLS). Checks every tool shares are in catalog.mjs.
 import assert from 'node:assert/strict';
-import { existsSync, readFileSync } from 'node:fs';
+import { readFileSync } from 'node:fs';
 import { chromium } from 'playwright';
 import { configureAccess } from '../../scripts/lib/access.mjs';
-import { selectedTools } from './lib/selected-tools.mjs';
+import { flowFile, runsAlone, selectedTools } from './lib/selected-tools.mjs';
 
 const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002').origin;
-const flowFile = slug => [new URL(`../../src/tools/${slug}/e2e.mjs`, import.meta.url), new URL(`./flows/${slug}.mjs`, import.meta.url)].find(existsSync);
 const tools = selectedTools();
 const browser = await chromium.launch();
 const ran = [];
@@ -23,10 +22,8 @@ const concurrency = Math.max(1, Number(process.env.CHECK_CONCURRENCY ?? 3));
 // The clipboard is the one thing the contexts of a browser share, so flows that read or write it take turns (two at once would read each other's text).
 let clipboardTurn = Promise.resolve();
 const usesClipboard = file => /clipboard/.test(readFileSync(file, 'utf8'));
-// A flow that keeps the processor busy the whole time (3D drawn in software, a live video standing in for a camera) says so with
-// `export const alone = true`: it runs on its own once the others are done, as it would otherwise starve the flows beside it on CI's two cores
-// (a screenshot that never came, in a flow that was not at fault).
-const runsAlone = file => /^export const alone = true;/m.test(readFileSync(file, 'utf8'));
+// A flow that keeps the processor busy the whole time (runsAlone) runs on its own once the others are done, as it would otherwise starve the
+// flows beside it on CI's two cores (a screenshot that never came, in a flow that was not at fault).
 async function runFlow(app, file) {
   if (!usesClipboard(file)) return runFlowNow(app, file);
   const before = clipboardTurn;

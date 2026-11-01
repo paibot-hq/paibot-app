@@ -502,6 +502,116 @@
         "public": "公网"
       }
     },
+    "codePlayground": {
+      "languages": "语言",
+      "run": "运行",
+      "stop": "停止",
+      "examples": "打开示例",
+      "copyLink": "复制链接",
+      "copied": "已复制",
+      "editorLabel": "代码",
+      "stdin": "标准输入",
+      "stdinPlaceholder": "传给程序的输入（可以为空）",
+      "output": "运行结果",
+      "empty": "按“▶ 运行”，结果会显示在这里。",
+      "preparing": "正在准备 {language}…（第一次需要一点时间）",
+      "failedToLoad": "无法加载 {language}，请重新加载页面。",
+      "running": "运行中…",
+      "done": "完成（{ms} ms）",
+      "error": "因错误结束（{ms} ms）",
+      "stopped": "已停止",
+      "changed": "修改了 {count} 行。",
+      "limit": "输出太多，后面的内容已省略。",
+      "rows": "{count} 行",
+      "rowsShown": "共 {total} 行，显示前 {count} 行",
+      "keys": "按 Ctrl+Enter（Mac 上是 ⌘+Enter）运行。Tab 缩进，Shift+Tab 取消缩进（先按 Esc 再按 Tab 可移到下一栏）。代码保存在本浏览器中，不会发送到服务器。"
+    },
+    "codeRunner": {
+      "title": "在线运行代码（Python、JavaScript、TypeScript）",
+      "description": "在浏览器中编写并运行 Python、JavaScript、TypeScript 代码，无需安装、无需注册、免费。支持标准输入、标出出错的行、TypeScript 类型检查（中文错误信息）以及 Python 的 numpy 和 pandas。代码在你的浏览器中运行，不会发送到服务器。",
+      "about": "在一个页面上用标签切换并运行 Python、JavaScript、TypeScript 三种语言。Python 是真正的 Python 3.14（Pyodide，把 CPython 编译成 WebAssembly），可以使用全部标准库，numpy、pandas、sympy 等包在第一次 import 时自动下载。JavaScript 会像 Node.js 一样清晰地显示 console.log 的结果，也可以使用 await 和 setTimeout。TypeScript 先由编译器（5.9）以 strict 模式做类型检查再运行，并按行用中文显示类型错误。每种语言都可以用 input() 读取标准输入栏，适合练习编程题。出错时编辑器中的该行会标成红色，死循环可以用“停止”停下。代码按语言保存在本浏览器中，不会发送到服务器，也可以做成链接分享。",
+      "keywords": "在线运行代码 浏览器 Python JavaScript TypeScript 在线编译器 编辑器 类型检查 免安装 免费 标准输入 numpy pandas Pyodide 编程 练习",
+      "intro": "选择语言并写好代码后按“▶ 运行”，代码就会在浏览器中运行。",
+      "examples": {
+        "python": {
+          "hello": "第一个 Python 程序",
+          "fizzbuzz": "FizzBuzz",
+          "input": "读取标准输入",
+          "collections": "列表、字典和 Counter",
+          "classes": "类和 dataclass",
+          "recursion": "递归（斐波那契、汉诺塔）",
+          "numpy": "使用 numpy",
+          "error": "错误的显示"
+        },
+        "javascript": {
+          "hello": "第一个 JavaScript 程序",
+          "fizzbuzz": "FizzBuzz",
+          "input": "读取标准输入",
+          "arrays": "数组和对象",
+          "classes": "类",
+          "async": "async / await",
+          "primes": "素数（埃拉托斯特尼筛法）"
+        },
+        "typescript": {
+          "hello": "第一个 TypeScript 程序",
+          "typeError": "查看类型错误",
+          "unions": "联合类型与类型收窄",
+          "generics": "泛型",
+          "input": "读取标准输入"
+        }
+      },
+      "hints": {
+        "python": "可以使用 Python 3.14 的全部标准库。numpy、pandas 等包在第一次 import 时从网上下载（需要几秒或更久）。不支持读写文件、网络通信和用 time.sleep 等待。程序停不下来时，可以按“■ 停止”（下次运行会重新加载 Python）。",
+        "javascript": "可以使用最新的 JavaScript（到 ES2024）。不能操作页面（DOM），也不能用 import 加载外部模块。死循环可以用“■ 停止”停下。想写类型时，请使用 TypeScript 标签。",
+        "typescript": "类型检查使用 strict 模式。即使有类型错误，也会运行转换后的 JavaScript。不能用 import 加载外部模块或 @types。第一次需要一点时间加载编译器（几 MB）。"
+      }
+    },
+    "sql": {
+      "title": "SQL 练习（在线运行 SQLite）",
+      "description": "在浏览器中编写并运行 SQL 的练习场。可以在商品、顾客、订单的示例表上尝试 SELECT、JOIN、GROUP BY、窗口函数等，结果以表格显示。基于 SQLite，无需安装、无需注册、免费。",
+      "about": "在浏览器中运行 SQLite（sql.js）的 SQL 练习页面。一开始就有一家小店的三张表：商品（products）、顾客（customers）和订单（orders），可以马上试 SELECT。还准备了用 WHERE 筛选、ORDER BY 排序、GROUP BY 汇总、JOIN 连接表、子查询、WITH 子句和窗口函数的示例。也可以自由执行 CREATE TABLE、INSERT、UPDATE、DELETE，每次运行都会从示例数据重新开始，不用担心把数据弄坏。",
+      "keywords": "SQL 练习 在线运行 SQLite 浏览器 SELECT JOIN GROUP BY 窗口函数 数据库 入门 免费 免安装",
+      "intro": "写好 SQL 后按“▶ 运行”，会在示例表上执行，并以表格显示结果。",
+      "tablesTitle": "示例表",
+      "tablesNote": "列名是英文。每次运行都会恢复成这些数据。",
+      "columns": {
+        "products": {
+          "id": "商品编号",
+          "name": "商品名",
+          "category": "分类",
+          "price": "价格"
+        },
+        "customers": {
+          "id": "顾客编号",
+          "name": "姓",
+          "city": "所在城市",
+          "joined_on": "注册日期"
+        },
+        "orders": {
+          "id": "订单编号",
+          "customer_id": "购买的顾客编号",
+          "product_id": "购买的商品编号",
+          "quantity": "数量",
+          "ordered_on": "下单日期"
+        }
+      },
+      "tables": {
+        "products": "商品（10 条）",
+        "customers": "顾客（6 人）",
+        "orders": "订单（20 条）"
+      },
+      "examples": {
+        "select": "查看所有行（SELECT）",
+        "where": "筛选和排序（WHERE、ORDER BY）",
+        "group": "汇总（GROUP BY）",
+        "join": "连接表（JOIN）",
+        "leftJoin": "包括没有订单的顾客（LEFT JOIN）",
+        "subquery": "子查询",
+        "window": "每月销售额和累计（窗口函数）",
+        "create": "创建和修改表（CREATE、INSERT、UPDATE）"
+      },
+      "hint": "使用 SQLite 的语法（日期是 '2026-01-05' 这样的文本，用 strftime 处理）。每次运行都会重新创建示例表，所以即使执行了 DELETE 或 DROP TABLE，下次运行也会恢复。用 ; 分隔多条语句时，每条 SELECT 都会显示自己的结果表。"
+    },
     "llmMemory": {
       "title": "本地LLM内存估算",
       "description": "根据模型的参数量和量化位数，估算权重所需的内存，并检查能否放进你的内存。",
@@ -530,6 +640,60 @@
         "apple": "Apple Silicon：CPU和GPU共用同一块内存（统一内存）。普通内存也用于模型，但操作系统要占一部分，不能全部使用。",
         "cpu": "仅用CPU时：指主内存。可以运行，但比GPU慢。"
       }
+    },
+    "browserAi": {
+      "title": "浏览器里的AI聊天",
+      "description": "从 Qwen、Gemma、Llama 等30多种语言模型(LLM)中选择一个下载到浏览器里，只在你自己的设备上运行的AI聊天。输入的内容不会发送到任何地方。",
+      "about": "在浏览器中通过 WebGPU(GPU)或 WebAssembly(CPU)运行 Qwen、Gemma、Llama、Phi、Mistral、DeepSeek 等30多种语言模型。第一次会下载模型权重(约200MB〜5GB)，之后保存在浏览器里，下次可以直接使用。问题和回答只在你的设备上处理，不会发送到服务器。它比大型AI更容易出错，适合用来体验LLM如何在自己的设备上运行。",
+      "keywords": "本地LLM 浏览器 AI 聊天 WebGPU WebAssembly Transformers.js WebLLM Qwen Gemma Llama Phi Mistral DeepSeek 离线",
+      "intro": "把语言模型下载到这个浏览器里，只在你的设备上运行。你的消息不会发送到任何地方。",
+      "modelLabel": "模型",
+      "device": {
+        "checking": "正在检查这台设备…",
+        "webgpu": "在GPU(WebGPU)上运行",
+        "wasm": "无法使用WebGPU，改在CPU(WebAssembly)上运行，速度较慢"
+      },
+      "size": "约{mb}MB",
+      "gpuOnly": "需要GPU",
+      "load": "加载模型(约{mb}MB)",
+      "downloading": "正在下载 {done} / {total} MB",
+      "preparing": "正在准备…",
+      "ready": "{name} 已准备好",
+      "cacheNote": "模型会保存在浏览器里，之后不会重复下载；不再需要时可以在页面底部的列表中删除。使用移动网络时请注意流量。",
+      "error": "出错了：{message}",
+      "empty": "请先加载模型。",
+      "emptyReady": "随便说点什么吧。",
+      "inputLabel": "消息",
+      "placeholder": "输入消息(Enter发送，Shift+Enter换行)",
+      "placeholderWait": "加载模型后即可输入",
+      "send": "发送",
+      "stop": "停止",
+      "clear": "清空对话",
+      "noAnswer": "(没有得到回答，请再问一次。)",
+      "speed": "{speed} 词元/秒",
+      "caution": "这是小型模型，经常会出现事实错误或不自然的表达。重要的事情请自行核实。",
+      "storedTitle": "保存在此浏览器中的模型",
+      "storedNone": "没有保存的模型。",
+      "storedOther": "其他(已不再提供的模型等)",
+      "delete": "删除",
+      "deleteOne": "删除 {name}",
+      "deleteAll": "全部删除(共 {size})",
+      "confirmDelete": "要删除 {name}({size})吗？再次使用时需要重新下载。",
+      "confirmDeleteAll": "要删除所有保存的模型(共 {size})吗？再次使用时需要重新下载。",
+      "moreModels": "更多模型({count}种)",
+      "pickModel": "选择模型…",
+      "engine": { "transformers": "Transformers.js", "webllm": "WebLLM" },
+      "engineInfo": {
+        "transformers": "引擎:Transformers.js(ONNX格式的模型，没有GPU时也能在CPU上运行)",
+        "webllm": "引擎:WebLLM(MLC格式的模型，只能在GPU上运行，较大的模型也很快)"
+      },
+      "modelInfo": "{name}({maker})",
+      "gpuMemory": "GPU内存 约{gb}GB",
+      "reasonsNote": "回答前会先思考(需要较长时间)",
+      "heavy": "这是大型模型，适合内存16GB以上的电脑；内存不足时可能加载失败或导致浏览器崩溃。",
+      "thinking": "正在思考…",
+      "englishNote": "面向英语的模型，中文回答容易出错",
+      "systemPrompt": "你是一个乐于助人的助手。请用简体中文简洁地回答。"
     },
     "siteCheck": {
       "title": "网站状态检测",
@@ -2225,6 +2389,115 @@
         "melon": "哈密瓜",
         "watermelon": "西瓜"
       }
+    },
+    "codeDraw": {
+      "title": "用代码画画",
+      "description": "写几行程序，让机器人画出图画的编程入门应用。只要组合“前进”“右转”“重复”，就能画出星星、花朵和螺旋。用滑块拖动数字，图画会立刻改变，还可以挑战关卡。免费，无需注册。",
+      "about": "写一段简短的程序，让机器人画画。“前进 100”向前走并画线，“右转 90”向右转。同样的事情要做很多次时，可以用“重复 4 [ … ]”一次写完，所以只要几行就能画出星星、花朵或螺旋这样的大图。代码中的每个数字都可以用滑块调整，能当场看到角度稍微一变，图画就变成完全不同的形状。在挑战模式中，画出与淡色图形相同的图就能过关，还可以寻找更短的写法。命令可以用中文、日语或英语书写。",
+      "keywords": "编程 入门 少儿编程 海龟绘图 机器人 画画 循环 重复 变量 免费 浏览器",
+      "intro": "写好代码后按“▶ 运行”，机器人就会按代码移动并画出图画。",
+      "modeLabel": "玩法",
+      "modes": {
+        "free": "自由绘画",
+        "challenge": "挑战关卡"
+      },
+      "examples": "示例",
+      "exampleNames": {
+        "start": "第一个正方形",
+        "star": "星星",
+        "flower": "花朵",
+        "spiral": "螺旋",
+        "rings": "星环",
+        "snow": "雪花"
+      },
+      "starterComment": "按 ▶ 运行 试试。再把 4 改成 36，把 90 改成 170…",
+      "stagesLabel": "关卡",
+      "stageHeading": "关卡 {n}：{name}",
+      "stages": {
+        "square": {
+          "name": "正方形",
+          "goal": "描出淡色的正方形。同样的事做 4 次？可以用“重复”。"
+        },
+        "triangle": {
+          "name": "正三角形",
+          "goal": "每条边长 120。每次转多少度，转 3 次才能回到原来的方向？"
+        },
+        "dashes": {
+          "name": "虚线",
+          "goal": "“抬笔”后移动不会画线。画 15、空 15，重复 5 次。"
+        },
+        "stairs": {
+          "name": "台阶",
+          "goal": "向上、向右、向上、向右…… 每级台阶高 30、宽 30。"
+        },
+        "circle": {
+          "name": "圆",
+          "goal": "直走一点再转一点，重复很多次，就变成圆了。每步是 10。"
+        },
+        "star": {
+          "name": "星星",
+          "goal": "由 5 条长 150 的线组成的星星。每次要转多少度？"
+        },
+        "flower": {
+          "name": "六边形花",
+          "goal": "画 6 个边长 40 的六边形，每次换个方向。“重复”里面还可以再放“重复”。"
+        },
+        "spiral": {
+          "name": "方形螺旋",
+          "goal": "线越来越长。在“重复”里，i 表示现在是第几次（1、2、3…）。第一条是 8，第二条是 16……"
+        }
+      },
+      "placeholder": "在这里写代码（例如：前进 100）",
+      "editorLabel": "代码",
+      "paletteLabel": "插入命令",
+      "run": "运行",
+      "finish": "直接完成",
+      "speedLabel": "速度",
+      "speeds": {
+        "slow": "慢",
+        "normal": "普通",
+        "fast": "快",
+        "instant": "瞬间"
+      },
+      "canvasLabel": "机器人画的图",
+      "running": "运行中…（第 {line} 行）",
+      "cleared": "过关！用 {lines} 行画出来了。",
+      "shorter": "其实 {best} 行就能画出来。能写得更短吗？",
+      "shortest": "这是最短的写法！",
+      "notYet": "形状还不一样。和淡色的线比较一下吧。",
+      "done": "完成！机器人移动了 {steps} 次。",
+      "ready": "按“▶ 运行”开始画画。",
+      "next": "下一关",
+      "knobsLabel": "代码中的数字",
+      "knobsTitle": "拖动数字试试",
+      "knobName": "第 {line} 行 {command}",
+      "helpTitle": "可用的命令",
+      "help": {
+        "forward": "向前走（画线）",
+        "back": "向后退",
+        "right": "向右转（角度）",
+        "left": "向左转（角度）",
+        "repeat": "把 [ ] 里的内容重复这么多次",
+        "penup": "抬起笔（移动但不画线）",
+        "pendown": "放下笔（重新画线）",
+        "color": "换颜色（色环上的 0 到 360，也可以用 红、蓝 等名称）",
+        "width": "线的粗细",
+        "i": "在“重复”里，表示第几次（1、2、3…）",
+        "variables": "给数字起名字（变量），可以写 x = x + 5 来改变它",
+        "comment": "# 后面是备注（不会执行）"
+      },
+      "errors": {
+        "badChar": "第 {line} 行：不能使用“{text}”这个字符。",
+        "unknownWord": "第 {line} 行：没有“{text}”这个命令。",
+        "needNumber": "第 {line} 行：“{text}”后面需要一个数。",
+        "needOpen": "第 {line} 行：重复 的次数后面需要 [。",
+        "unclosed": "第 {line} 行的 重复 缺少 ]。",
+        "strayClose": "第 {line} 行：有一个没有对应 [ 的 ]。",
+        "unknownVariable": "第 {line} 行：“{text}”还没有赋值。i 可以在 重复 里使用。",
+        "badNumber": "第 {line} 行：无法计算（是不是除以了 0？）。",
+        "tooMany": "第 {line} 行：动作太多，已停止。试着减少重复次数。"
+      },
+      "hint": "用“重复”，很少的代码就能画出很大的图，这就是编程的乐趣。也可以按 Ctrl+Enter（Mac 上是 ⌘+Enter）运行。命令用中文、日语或英语都可以。"
     },
     "goldfishEscape": {
       "title": "金鱼快逃",

@@ -502,6 +502,116 @@
         "public": "グローバル"
       }
     },
+    "codePlayground": {
+      "languages": "言語",
+      "run": "実行",
+      "stop": "停止",
+      "examples": "サンプルを開く",
+      "copyLink": "リンクをコピー",
+      "copied": "コピーしました",
+      "editorLabel": "コード",
+      "stdin": "標準入力",
+      "stdinPlaceholder": "プログラムに渡す入力(なくてもかまいません)",
+      "output": "実行結果",
+      "empty": "「▶ 実行」を押すと、ここに結果が出ます。",
+      "preparing": "{language} を準備しています…(初回は少し時間がかかります)",
+      "failedToLoad": "{language} を読み込めませんでした。ページを再読み込みしてください。",
+      "running": "実行中…",
+      "done": "完了({ms} ms)",
+      "error": "エラーで終了({ms} ms)",
+      "stopped": "停止しました",
+      "changed": "{count} 行を変更しました。",
+      "limit": "出力が多すぎるため、ここから先は省略しました。",
+      "rows": "{count} 行",
+      "rowsShown": "{total} 行のうち、最初の {count} 行を表示",
+      "keys": "Ctrl+Enter(Mac は ⌘+Enter)で実行。Tab でインデント、Shift+Tab で戻します(Esc を押してから Tab で次の欄へ)。コードはこのブラウザに保存され、サーバーには送られません。"
+    },
+    "codeRunner": {
+      "title": "コード実行(Python・JavaScript・TypeScript)",
+      "description": "Python・JavaScript・TypeScript のコードを、ブラウザだけで書いて実行できます。インストール不要・登録不要・無料。標準入力、エラー行の表示、TypeScript の型チェック(日本語のエラー)、Python の numpy・pandas にも対応。コードはサーバーに送られず、あなたのブラウザの中で動きます。",
+      "about": "Python・JavaScript・TypeScript の3つの言語を、タブで切り替えて実行できるページです。Python は本物の Python 3.14(CPython を WebAssembly にした Pyodide)で、標準ライブラリがすべて使え、numpy・pandas・sympy などのパッケージも import すると初回だけ自動で読み込まれます。JavaScript は console.log の結果を Node.js のように見やすく表示し、await や setTimeout も使えます。TypeScript はコンパイラ(5.9)で strict の型チェックをしてから実行し、型エラーを日本語で行ごとに表示します。どの言語も input() で標準入力欄を読めるので、paiza や AtCoder の練習にも使えます。エラーのときはエディタの該当行が赤く表示され、無限ループは「停止」で止められます。コードは言語ごとにこのブラウザに保存され、サーバーには送られません。リンクにして共有することもできます。",
+      "keywords": "コード 実行 オンライン ブラウザ Python JavaScript TypeScript コンパイラ エディタ 型チェック インストール不要 無料 標準入力 numpy pandas Pyodide プログラミング 練習 paiza AtCoder",
+      "intro": "言語を選んでコードを書き、「▶ 実行」を押すと、ブラウザの中で動きます。",
+      "examples": {
+        "python": {
+          "hello": "はじめての Python",
+          "fizzbuzz": "FizzBuzz",
+          "input": "標準入力を読む",
+          "collections": "リスト・辞書・Counter",
+          "classes": "クラスと dataclass",
+          "recursion": "再帰(フィボナッチ・ハノイの塔)",
+          "numpy": "numpy を使う",
+          "error": "エラーの表示"
+        },
+        "javascript": {
+          "hello": "はじめての JavaScript",
+          "fizzbuzz": "FizzBuzz",
+          "input": "標準入力を読む",
+          "arrays": "配列とオブジェクト",
+          "classes": "クラス",
+          "async": "async / await",
+          "primes": "素数(エラトステネスのふるい)"
+        },
+        "typescript": {
+          "hello": "はじめての TypeScript",
+          "typeError": "型エラーを見る",
+          "unions": "ユニオン型と絞り込み",
+          "generics": "ジェネリクス",
+          "input": "標準入力を読む"
+        }
+      },
+      "hints": {
+        "python": "Python 3.14 の標準ライブラリがすべて使えます。numpy や pandas などのパッケージは、import すると初回だけインターネットから読み込みます(数秒〜十数秒)。ファイルの読み書きやネットワーク通信、time.sleep での待ち合わせなどには対応していません。止まらなくなったときは「■ 停止」で止められます(次の実行は Python の読み込みからやり直します)。",
+        "javascript": "最新の JavaScript(ES2024 まで)が使えます。画面(DOM)を操作したり、import で外部のモジュールを読み込んだりはできません。無限ループになっても「■ 停止」で止められます。型をつけて書きたいときは TypeScript タブを使ってください。",
+        "typescript": "型チェックは strict モードで行います。型エラーがあっても、変換した JavaScript は実行します。import で外部のモジュールや @types を読み込むことはできません。初回はコンパイラ(数MB)の読み込みに少し時間がかかります。"
+      }
+    },
+    "sql": {
+      "title": "SQL 練習(SQLite オンライン実行)",
+      "description": "ブラウザだけで SQL を書いて実行できる練習場。商品・顧客・注文のサンプルの表に、SELECT・JOIN・GROUP BY・ウィンドウ関数などを試せます。結果は表で表示。SQLite で動き、インストール不要・登録不要・無料です。",
+      "about": "SQLite(sql.js)をブラウザの中で動かす、SQL の練習用ページです。小さなお店のデータとして、商品(products)・顧客(customers)・注文(orders)の3つの表が最初から入っているので、すぐに SELECT を試せます。WHERE での絞り込み、ORDER BY での並べ替え、GROUP BY での集計、JOIN での表の結合、サブクエリ、WITH 句、ウィンドウ関数のサンプルも用意しました。CREATE TABLE や INSERT・UPDATE・DELETE も自由に実行でき、実行するたびにサンプルの状態からやり直すので、データを壊す心配はありません。",
+      "keywords": "SQL 練習 オンライン 実行 SQLite ブラウザ SELECT JOIN GROUP BY ウィンドウ関数 データベース 入門 無料 インストール不要",
+      "intro": "SQL を書いて「▶ 実行」を押すと、サンプルの表に対して実行し、結果を表で表示します。",
+      "tablesTitle": "サンプルの表",
+      "tablesNote": "列名は英語です。実行するたびに、この内容に戻ります。",
+      "columns": {
+        "products": {
+          "id": "商品番号",
+          "name": "商品名",
+          "category": "分類",
+          "price": "価格(円)"
+        },
+        "customers": {
+          "id": "顧客番号",
+          "name": "名前",
+          "city": "住んでいる都市",
+          "joined_on": "登録日"
+        },
+        "orders": {
+          "id": "注文番号",
+          "customer_id": "買った顧客の番号",
+          "product_id": "買った商品の番号",
+          "quantity": "個数",
+          "ordered_on": "注文日"
+        }
+      },
+      "tables": {
+        "products": "商品(10件)",
+        "customers": "顧客(6人)",
+        "orders": "注文(20件)"
+      },
+      "examples": {
+        "select": "すべての行を見る(SELECT)",
+        "where": "絞り込みと並べ替え(WHERE・ORDER BY)",
+        "group": "集計(GROUP BY)",
+        "join": "表をつなぐ(JOIN)",
+        "leftJoin": "注文のない顧客も(LEFT JOIN)",
+        "subquery": "サブクエリ",
+        "window": "月ごとの売上と累計(ウィンドウ関数)",
+        "create": "表を作る・変える(CREATE・INSERT・UPDATE)"
+      },
+      "hint": "SQLite の文法で動きます(日付は '2026-01-05' のような文字列、strftime で扱います)。実行するたびにサンプルの表を作り直すので、DELETE や DROP TABLE をしても次の実行では元に戻ります。複数の文を ; で区切って書くと、SELECT ごとに結果の表が出ます。"
+    },
     "llmMemory": {
       "title": "ローカルLLMのメモリ見積もり",
       "description": "モデルのパラメータ数と量子化のビット数から、重みに必要なメモリを見積もり、手元のメモリに収まるか確かめます。",
@@ -530,6 +640,60 @@
         "apple": "Apple Siliconの場合：CPUとGPUが同じメモリ（ユニファイドメモリ）を共有します。普通のメモリがモデルにも使われますが、OSなどの分があるので全部は使えません。",
         "cpu": "CPUだけで動かす場合：メインメモリです。動きますが、GPUより遅くなります。"
       }
+    },
+    "browserAi": {
+      "title": "ブラウザで動くAIチャット",
+      "description": "Qwen・Gemma・Llama など30以上の言語モデル(LLM)から選んでブラウザにダウンロードし、自分の端末だけで動かすAIチャットです。入力はどこにも送られません。",
+      "about": "Qwen・Gemma・Llama・Phi・Mistral・DeepSeek など30以上の言語モデルを、WebGPU(GPU)か WebAssembly(CPU)を使ってブラウザの中で動かします。最初にモデルの重み(200MB〜5GBほど)をダウンロードしますが、ブラウザに保存されるので2回目からはすぐ使えます。質問も答えも端末の中だけで処理され、サーバーには送られません。大きなAIに比べると間違いも多いので、手元でLLMが動く仕組みを体験するためのものとして使ってください。",
+      "keywords": "ローカルLLM ブラウザ AI チャット WebGPU WebAssembly Transformers.js WebLLM Qwen Gemma Llama Phi Mistral DeepSeek オフライン",
+      "intro": "言語モデルをこのブラウザにダウンロードして、あなたの端末の中だけで動かします。質問はどこにも送られません。",
+      "modelLabel": "モデル",
+      "device": {
+        "checking": "この端末を調べています…",
+        "webgpu": "GPU(WebGPU)で動かします",
+        "wasm": "WebGPUが使えないので、CPU(WebAssembly)で動かします。遅めです"
+      },
+      "size": "約{mb}MB",
+      "gpuOnly": "GPUが必要",
+      "load": "モデルを読み込む(約{mb}MB)",
+      "downloading": "ダウンロード中 {done} / {total} MB",
+      "preparing": "準備しています…",
+      "ready": "{name} の準備ができました",
+      "cacheNote": "モデルはブラウザに保存され、2回目からはダウンロードしません。いらなくなったらページの下の一覧から削除できます。モバイル回線では通信量に注意してください。",
+      "error": "エラーが起きました: {message}",
+      "empty": "まずモデルを読み込んでください。",
+      "emptyReady": "何か話しかけてみてください。",
+      "inputLabel": "メッセージ",
+      "placeholder": "メッセージを入力(Enterで送信、Shift+Enterで改行)",
+      "placeholderWait": "モデルを読み込むと入力できます",
+      "send": "送信",
+      "stop": "止める",
+      "clear": "会話を消す",
+      "noAnswer": "(返事がありませんでした。もう一度聞いてみてください)",
+      "speed": "{speed} トークン/秒",
+      "caution": "小さなモデルなので、事実の間違いや不自然な日本語がよくあります。大事なことは確かめてください。",
+      "storedTitle": "このブラウザに保存したモデル",
+      "storedNone": "保存しているモデルはありません。",
+      "storedOther": "その他(今は使っていないモデルなど)",
+      "delete": "削除",
+      "deleteOne": "{name} を削除",
+      "deleteAll": "すべて削除(合計 {size})",
+      "confirmDelete": "{name}({size})を削除しますか？また使うときは、もう一度ダウンロードします。",
+      "confirmDeleteAll": "保存したモデルをすべて(合計 {size})削除しますか？また使うときは、もう一度ダウンロードします。",
+      "moreModels": "ほかのモデル({count}種類)",
+      "pickModel": "モデルを選ぶ…",
+      "engine": { "transformers": "Transformers.js", "webllm": "WebLLM" },
+      "engineInfo": {
+        "transformers": "エンジン: Transformers.js(ONNX形式のモデル。GPUがなくてもCPUで動きます)",
+        "webllm": "エンジン: WebLLM(MLC形式のモデル。GPU専用で、大きいモデルも速く動きます)"
+      },
+      "modelInfo": "{name}({maker})",
+      "gpuMemory": "GPUメモリ 約{gb}GB",
+      "reasonsNote": "答える前に考えるモデルです(時間がかかります)",
+      "heavy": "大きなモデルです。メモリが16GB以上あるパソコン向けで、足りないと読み込みに失敗したりブラウザが落ちたりします。",
+      "thinking": "考えています…",
+      "englishNote": "英語向けのモデルで、日本語の答えは崩れやすいです",
+      "systemPrompt": "あなたは親切なアシスタントです。日本語で、簡潔に答えてください。"
     },
     "siteCheck": {
       "title": "Webサイト稼働チェック",
@@ -2225,6 +2389,115 @@
         "melon": "メロン",
         "watermelon": "スイカ"
       }
+    },
+    "codeDraw": {
+      "title": "コードでお絵かき",
+      "description": "数行のプログラムでロボットを動かして絵を描く、プログラミング入門アプリ。「すすむ」「みぎ」「くりかえす」を組み合わせるだけで、星や花、うずまきが描けます。数字をスライダーで動かすと絵がその場で変わり、お題に挑戦もできます。無料・登録不要。",
+      "about": "短いプログラムを書いて、ロボットに絵を描かせるアプリです。「すすむ 100」で前へ進んで線を引き、「みぎ 90」で右へ曲がります。同じことを何度もするときは「くりかえす 4 [ … ]」とまとめて書けるので、たった数行で星や花、うずまきのような大きな絵が描けます。書いた数字はスライダーで動かせて、角度を少し変えるだけで絵がまったく違う形になる様子を、その場で確かめられます。お題モードでは、うすく表示された形と同じ絵を描くと「クリア」になり、より短い書き方も探せます。命令は日本語・英語・中国語のどれで書いても動き、全角の数字やかっこもそのまま使えます。",
+      "keywords": "プログラミング 入門 子ども 小学生 タートルグラフィックス ロボット お絵かき くりかえし ループ 変数 無料 ブラウザ",
+      "intro": "コードを書いて「▶ 実行」を押すと、ロボットがその通りに動いて絵を描きます。",
+      "modeLabel": "遊び方",
+      "modes": {
+        "free": "自由にかく",
+        "challenge": "お題に挑戦"
+      },
+      "examples": "お手本",
+      "exampleNames": {
+        "start": "はじめの四角",
+        "star": "星",
+        "flower": "花",
+        "spiral": "うずまき",
+        "rings": "星の輪",
+        "snow": "雪の結晶"
+      },
+      "starterComment": "▶ 実行 を押してみよう。4 を 36 に、90 を 170 に変えると…?",
+      "stagesLabel": "お題",
+      "stageHeading": "お題 {n}: {name}",
+      "stages": {
+        "square": {
+          "name": "正方形",
+          "goal": "うすく見えている正方形をなぞりましょう。同じことを4回するなら「くりかえす」が使えます。"
+        },
+        "triangle": {
+          "name": "正三角形",
+          "goal": "辺の長さはどれも 120。1回に何度曲がれば、3回で元の向きに戻るでしょう?"
+        },
+        "dashes": {
+          "name": "点線",
+          "goal": "「ペンをあげる」と、線を引かずに進めます。15 かいて 15 あける、を5回。"
+        },
+        "stairs": {
+          "name": "階段",
+          "goal": "上へ、右へ、上へ、右へ…。1段の高さと幅は 30 です。"
+        },
+        "circle": {
+          "name": "円",
+          "goal": "まっすぐ進んで少し曲がる、をたくさんくりかえすと、まるになります。1歩は 10 です。"
+        },
+        "star": {
+          "name": "星",
+          "goal": "長さ 150 の線5本でできた星です。1回に何度曲がればいいでしょう?"
+        },
+        "flower": {
+          "name": "六角形の花",
+          "goal": "1辺 40 の六角形を、向きを変えながら6つ描きます。くりかえすの中に、くりかえすを入れられます。"
+        },
+        "spiral": {
+          "name": "四角いうずまき",
+          "goal": "線がだんだん長くなります。くりかえすの中では、i が「今何回目か」を表します(1, 2, 3…)。1本目は 8、2本目は 16…"
+        }
+      },
+      "placeholder": "ここにコードを書きます(例: すすむ 100)",
+      "editorLabel": "コード",
+      "paletteLabel": "命令を入れる",
+      "run": "実行",
+      "finish": "最後まで",
+      "speedLabel": "速さ",
+      "speeds": {
+        "slow": "ゆっくり",
+        "normal": "ふつう",
+        "fast": "はやい",
+        "instant": "一瞬"
+      },
+      "canvasLabel": "ロボットが描いた絵",
+      "running": "実行中…({line} 行目)",
+      "cleared": "クリア! {lines} 行で描けました。",
+      "shorter": "{best} 行でも描けます。もっと短くできるかな?",
+      "shortest": "いちばん短い書き方です!",
+      "notYet": "まだお題の形と違います。うすい線と見比べてみましょう。",
+      "done": "完成! ロボットは {steps} 回動きました。",
+      "ready": "「▶ 実行」を押すと描き始めます。",
+      "next": "次のお題へ",
+      "knobsLabel": "コードの中の数字",
+      "knobsTitle": "数字を動かしてみよう",
+      "knobName": "{line} 行目 {command}",
+      "helpTitle": "使える命令",
+      "help": {
+        "forward": "前に進む(線を引く)",
+        "back": "後ろに下がる",
+        "right": "右に回る(角度)",
+        "left": "左に回る(角度)",
+        "repeat": "[ ] の中を、その回数くりかえす",
+        "penup": "ペンをあげる(線を引かずに動く)",
+        "pendown": "ペンをおろす(また線を引く)",
+        "color": "色を変える(0〜360 の色の輪。あか・あお・きいろ などの名前も使えます)",
+        "width": "線の太さ",
+        "i": "くりかえすの中で、今何回目か(1, 2, 3…)",
+        "variables": "数に名前をつけて覚えておく(変数)。x = x + 5 のように変えられます",
+        "comment": "# から後ろはメモ(実行されません)"
+      },
+      "errors": {
+        "badChar": "{line} 行目: 「{text}」は使えない文字です。",
+        "unknownWord": "{line} 行目: 「{text}」という命令はありません。",
+        "needNumber": "{line} 行目: 「{text}」の後に数が必要です。",
+        "needOpen": "{line} 行目: くりかえす の回数の後に [ が必要です。",
+        "unclosed": "{line} 行目の くりかえす の ] がありません。",
+        "strayClose": "{line} 行目: 対応する [ のない ] があります。",
+        "unknownVariable": "{line} 行目: 「{text}」はまだ決まっていない名前です。i は くりかえす の中で使えます。",
+        "badNumber": "{line} 行目: 0 で割るなど、計算できない式です。",
+        "tooMany": "{line} 行目: 動きが多すぎるので止めました。くりかえす回数を減らしてみましょう。"
+      },
+      "hint": "「くりかえす」を使うと、短いコードで大きな絵が描けます。これがプログラミングのおもしろいところです。Ctrl+Enter(Mac は ⌘+Enter)でも実行できます。命令は日本語・英語・中国語のどれで書いても動きます。"
     },
     "goldfishEscape": {
       "title": "逃げろ金魚",

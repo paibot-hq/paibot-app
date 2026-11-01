@@ -502,6 +502,116 @@
         "public": "Public"
       }
     },
+    "codePlayground": {
+      "languages": "Language",
+      "run": "Run",
+      "stop": "Stop",
+      "examples": "Open an example",
+      "copyLink": "Copy link",
+      "copied": "Copied",
+      "editorLabel": "Code",
+      "stdin": "Standard input",
+      "stdinPlaceholder": "Input for the program (optional)",
+      "output": "Output",
+      "empty": "Press \"▶ Run\" and the output appears here.",
+      "preparing": "Getting {language} ready… (the first time takes a moment)",
+      "failedToLoad": "{language} could not be loaded. Please reload the page.",
+      "running": "Running…",
+      "done": "Finished ({ms} ms)",
+      "error": "Ended with an error ({ms} ms)",
+      "stopped": "Stopped",
+      "changed": "{count, plural, one {# row} other {# rows}} changed.",
+      "limit": "Too much output: the rest was left out.",
+      "rows": "{count, plural, one {# row} other {# rows}}",
+      "rowsShown": "First {count} of {total} rows",
+      "keys": "Ctrl+Enter (⌘+Enter on a Mac) runs the code. Tab indents and Shift+Tab unindents (press Esc, then Tab, to move on). The code is kept in this browser and never sent to a server."
+    },
+    "codeRunner": {
+      "title": "Run Code Online (Python, JavaScript, TypeScript)",
+      "description": "Write and run Python, JavaScript and TypeScript in your browser: no install, no sign-up, free. Standard input, the line of an error marked, TypeScript type checking, and numpy or pandas for Python. Your code runs inside your browser and is never sent to a server.",
+      "about": "Three languages on one page, a tab each: Python, JavaScript and TypeScript. Python is real Python 3.14 (Pyodide, CPython compiled to WebAssembly) with the whole standard library, and packages such as numpy, pandas and sympy are downloaded the first time they are imported. JavaScript shows console.log output the way Node.js does, with await and setTimeout. TypeScript is type-checked in strict mode by the compiler (5.9) before it runs, with each type error listed by line. In every language input() reads the standard input box, so it suits practice for coding tests and contests. On an error the line is marked in red in the editor, and an endless loop can be stopped. Your code is kept in this browser for each language, never sent to a server, and can be shared as a link.",
+      "keywords": "run code online browser python javascript typescript online compiler editor type check no install free stdin numpy pandas pyodide programming practice",
+      "intro": "Choose a language, write code and press \"▶ Run\": it runs right in your browser.",
+      "examples": {
+        "python": {
+          "hello": "First Python",
+          "fizzbuzz": "FizzBuzz",
+          "input": "Read standard input",
+          "collections": "Lists, dicts and Counter",
+          "classes": "Classes and dataclasses",
+          "recursion": "Recursion (Fibonacci, Tower of Hanoi)",
+          "numpy": "Use numpy",
+          "error": "How errors look"
+        },
+        "javascript": {
+          "hello": "First JavaScript",
+          "fizzbuzz": "FizzBuzz",
+          "input": "Read standard input",
+          "arrays": "Arrays and objects",
+          "classes": "Classes",
+          "async": "async / await",
+          "primes": "Primes (sieve of Eratosthenes)"
+        },
+        "typescript": {
+          "hello": "First TypeScript",
+          "typeError": "See a type error",
+          "unions": "Union types and narrowing",
+          "generics": "Generics",
+          "input": "Read standard input"
+        }
+      },
+      "hints": {
+        "python": "The whole Python 3.14 standard library is available. Packages such as numpy and pandas are downloaded from the internet the first time they are imported (a few seconds or more). Files, network access and waiting with time.sleep are not supported. A program that does not stop can be stopped with \"■ Stop\" (the next run loads Python again).",
+        "javascript": "Modern JavaScript (up to ES2024) is available. The page (DOM) cannot be changed, and modules cannot be imported. An endless loop can be stopped with \"■ Stop\". For types, use the TypeScript tab.",
+        "typescript": "Checking uses strict mode. The JavaScript is run even when there are type errors. Modules and @types cannot be imported. The first run takes a moment to load the compiler (a few MB)."
+      }
+    },
+    "sql": {
+      "title": "SQL Practice (Run SQLite Online)",
+      "description": "A place to write and run SQL in your browser. Try SELECT, JOIN, GROUP BY, window functions and more on sample tables of products, customers and orders, with the results shown as tables. Runs on SQLite; no install, no sign-up, free.",
+      "about": "SQLite (sql.js) runs inside your browser for practising SQL. Three tables of a small shop are there from the start, products, customers and orders, so you can try SELECT straight away. Examples cover filtering with WHERE, sorting with ORDER BY, totals with GROUP BY, joining tables, subqueries, WITH and window functions. CREATE TABLE, INSERT, UPDATE and DELETE work too, and every run starts again from the sample data, so nothing can be broken.",
+      "keywords": "sql practice online run sql sqlite browser select join group by window functions database beginner free no install",
+      "intro": "Write SQL and press \"▶ Run\": it runs on the sample tables and the results are shown as tables.",
+      "tablesTitle": "Sample tables",
+      "tablesNote": "Every run starts again from these rows.",
+      "columns": {
+        "products": {
+          "id": "product number",
+          "name": "name",
+          "category": "category",
+          "price": "price"
+        },
+        "customers": {
+          "id": "customer number",
+          "name": "name",
+          "city": "city",
+          "joined_on": "joined"
+        },
+        "orders": {
+          "id": "order number",
+          "customer_id": "customer who bought",
+          "product_id": "product bought",
+          "quantity": "how many",
+          "ordered_on": "order date"
+        }
+      },
+      "tables": {
+        "products": "products (10)",
+        "customers": "customers (6)",
+        "orders": "orders (20)"
+      },
+      "examples": {
+        "select": "See every row (SELECT)",
+        "where": "Filter and sort (WHERE, ORDER BY)",
+        "group": "Totals (GROUP BY)",
+        "join": "Join tables (JOIN)",
+        "leftJoin": "Customers without orders too (LEFT JOIN)",
+        "subquery": "Subqueries",
+        "window": "Monthly sales and running total (window functions)",
+        "create": "Create and change tables (CREATE, INSERT, UPDATE)"
+      },
+      "hint": "The SQL is SQLite's (dates are text like '2026-01-05', handled with strftime). The sample tables are made again for every run, so after a DELETE or DROP TABLE the next run starts as before. Several statements separated by ; each show their own table of results."
+    },
     "llmMemory": {
       "title": "Local LLM Memory Estimator",
       "description": "Estimate the memory a model's weights need from its parameter count and quantization bits, and check whether it fits in your memory.",
@@ -530,6 +640,60 @@
         "apple": "On Apple Silicon: the CPU and GPU share one memory (unified memory). Ordinary memory serves the model too, but the OS needs a share, so not all of it is available.",
         "cpu": "On the CPU only: main memory. It works, but is slower than on a GPU."
       }
+    },
+    "browserAi": {
+      "title": "AI Chat in Your Browser",
+      "description": "A chat with a language model (LLM) of your choice, from over 30 such as Qwen, Gemma and Llama, downloaded into your browser and run on your own device. Nothing you type is sent anywhere.",
+      "about": "Runs over 30 language models, such as Qwen, Gemma, Llama, Phi, Mistral and DeepSeek, inside the browser, on the GPU through WebGPU or on the CPU through WebAssembly. The model's weights (200 MB to 5 GB) are downloaded the first time and kept by the browser, so later visits start right away. Questions and answers stay on your device and are never sent to a server. It makes more mistakes than large AI services; use it to see how an LLM runs on your own machine.",
+      "keywords": "local LLM browser AI chat WebGPU WebAssembly Transformers.js WebLLM Qwen Gemma Llama Phi Mistral DeepSeek offline",
+      "intro": "Download a language model into this browser and run it on your own device. Your messages are not sent anywhere.",
+      "modelLabel": "Model",
+      "device": {
+        "checking": "Checking this device…",
+        "webgpu": "Runs on the GPU (WebGPU)",
+        "wasm": "WebGPU is not available, so it runs on the CPU (WebAssembly). Slower"
+      },
+      "size": "about {mb} MB",
+      "gpuOnly": "Needs a GPU",
+      "load": "Load the model (about {mb} MB)",
+      "downloading": "Downloading {done} / {total} MB",
+      "preparing": "Getting ready…",
+      "ready": "{name} is ready",
+      "cacheNote": "The model is kept by the browser and not downloaded again; delete it from the list at the bottom of the page when you no longer need it. Mind your data plan on a mobile connection.",
+      "error": "Something went wrong: {message}",
+      "empty": "Load a model first.",
+      "emptyReady": "Say something.",
+      "inputLabel": "Message",
+      "placeholder": "Type a message (Enter to send, Shift+Enter for a new line)",
+      "placeholderWait": "Load a model to start typing",
+      "send": "Send",
+      "stop": "Stop",
+      "clear": "Clear chat",
+      "noAnswer": "(No answer came. Try asking again.)",
+      "speed": "{speed} tokens/s",
+      "caution": "It is a small model: wrong facts and odd wording are common. Check anything that matters.",
+      "storedTitle": "Models saved in this browser",
+      "storedNone": "No models are saved.",
+      "storedOther": "Other (models no longer offered, etc.)",
+      "delete": "Delete",
+      "deleteOne": "Delete {name}",
+      "deleteAll": "Delete all ({size} in total)",
+      "confirmDelete": "Delete {name} ({size})? Using it again will download it again.",
+      "confirmDeleteAll": "Delete every saved model ({size} in total)? Using one again will download it again.",
+      "moreModels": "More models ({count})",
+      "pickModel": "Pick a model…",
+      "engine": { "transformers": "Transformers.js", "webllm": "WebLLM" },
+      "engineInfo": {
+        "transformers": "Engine: Transformers.js (an ONNX model; runs on the CPU too when there is no GPU)",
+        "webllm": "Engine: WebLLM (an MLC model; GPU only, and fast even with larger models)"
+      },
+      "modelInfo": "{name} ({maker})",
+      "gpuMemory": "GPU memory about {gb} GB",
+      "reasonsNote": "Thinks before answering (takes longer)",
+      "heavy": "A large model, for computers with 16 GB of memory or more; with less, loading may fail or the browser may crash.",
+      "thinking": "Thinking…",
+      "englishNote": "Made for English",
+      "systemPrompt": "You are a helpful assistant. Answer in English, briefly."
     },
     "siteCheck": {
       "title": "Website Status Check",
@@ -2225,6 +2389,115 @@
         "melon": "Melon",
         "watermelon": "Watermelon"
       }
+    },
+    "codeDraw": {
+      "title": "Code Drawing",
+      "description": "Write a few lines of code and a robot draws a picture: a first taste of programming. Combine forward, right and repeat to draw stars, flowers and spirals. Drag the numbers with sliders and the picture changes on the spot, or take on the challenges. Free, no sign-up.",
+      "about": "Write a short program and a robot draws it. \"forward 100\" moves ahead drawing a line, \"right 90\" turns right. When something happens again and again, \"repeat 4 [ … ]\" says it once, so a few lines draw a star, a flower or a spiral. Every number in the code has a slider, so you can see a small change of angle turn the picture into a completely different one. In the challenges, draw the same picture as the faint one to clear it, then look for a shorter way to write it. Commands can be written in English, Japanese or Chinese.",
+      "keywords": "programming coding for kids beginner turtle graphics robot drawing loop repeat variables free browser",
+      "intro": "Write code and press \"▶ Run\": the robot moves exactly as told and draws a picture.",
+      "modeLabel": "Mode",
+      "modes": {
+        "free": "Free drawing",
+        "challenge": "Challenges"
+      },
+      "examples": "Examples",
+      "exampleNames": {
+        "start": "First square",
+        "star": "Star",
+        "flower": "Flower",
+        "spiral": "Spiral",
+        "rings": "Ring of stars",
+        "snow": "Snowflake"
+      },
+      "starterComment": "Press ▶ Run. Then change 4 to 36 and 90 to 170…",
+      "stagesLabel": "Challenges",
+      "stageHeading": "Challenge {n}: {name}",
+      "stages": {
+        "square": {
+          "name": "Square",
+          "goal": "Trace the faint square. Doing the same thing 4 times? That is what repeat is for."
+        },
+        "triangle": {
+          "name": "Triangle",
+          "goal": "Each side is 120. How far must the robot turn so that 3 turns bring it back to where it faced?"
+        },
+        "dashes": {
+          "name": "Dashed line",
+          "goal": "After penup the robot moves without drawing. Draw 15, skip 15, five times."
+        },
+        "stairs": {
+          "name": "Stairs",
+          "goal": "Up, right, up, right… Each step is 30 high and 30 wide."
+        },
+        "circle": {
+          "name": "Circle",
+          "goal": "Go straight a little and turn a little, many times, and you get a circle. Each step is 10."
+        },
+        "star": {
+          "name": "Star",
+          "goal": "A star made of 5 lines, each 150 long. How far does the robot turn each time?"
+        },
+        "flower": {
+          "name": "Hexagon flower",
+          "goal": "Six hexagons with sides of 40, turned a little each time. A repeat can go inside a repeat."
+        },
+        "spiral": {
+          "name": "Square spiral",
+          "goal": "The lines get longer and longer. Inside repeat, i is the round number (1, 2, 3…). The first line is 8, the second 16…"
+        }
+      },
+      "placeholder": "Write code here (e.g. forward 100)",
+      "editorLabel": "Code",
+      "paletteLabel": "Insert a command",
+      "run": "Run",
+      "finish": "Skip to end",
+      "speedLabel": "Speed",
+      "speeds": {
+        "slow": "Slow",
+        "normal": "Normal",
+        "fast": "Fast",
+        "instant": "Instant"
+      },
+      "canvasLabel": "The picture drawn by the robot",
+      "running": "Running… (line {line})",
+      "cleared": "Cleared in {lines} lines!",
+      "shorter": "It can be done in {best}. Can you make it shorter?",
+      "shortest": "That is the shortest way!",
+      "notYet": "Not the same shape yet. Compare it with the faint lines.",
+      "done": "Done! The robot made {steps} moves.",
+      "ready": "Press \"▶ Run\" to start drawing.",
+      "next": "Next challenge",
+      "knobsLabel": "Numbers in the code",
+      "knobsTitle": "Try moving the numbers",
+      "knobName": "Line {line} {command}",
+      "helpTitle": "Commands",
+      "help": {
+        "forward": "move forward (drawing a line)",
+        "back": "move back",
+        "right": "turn right (degrees)",
+        "left": "turn left (degrees)",
+        "repeat": "do what is inside [ ] this many times",
+        "penup": "lift the pen (move without drawing)",
+        "pendown": "put the pen down (draw again)",
+        "color": "change the color (0 to 360 around the color wheel, or a name such as red or blue)",
+        "width": "line width",
+        "i": "inside repeat, the round number (1, 2, 3…)",
+        "variables": "give a number a name (a variable); change it with x = x + 5",
+        "comment": "everything after # is a note (not run)"
+      },
+      "errors": {
+        "badChar": "Line {line}: \"{text}\" cannot be used here.",
+        "unknownWord": "Line {line}: there is no command \"{text}\".",
+        "needNumber": "Line {line}: \"{text}\" needs a number after it.",
+        "needOpen": "Line {line}: repeat needs a [ after the count.",
+        "unclosed": "Line {line}: the repeat is missing its ].",
+        "strayClose": "Line {line}: there is a ] without a matching [.",
+        "unknownVariable": "Line {line}: \"{text}\" has not been given a value. i can be used inside repeat.",
+        "badNumber": "Line {line}: this cannot be calculated (division by 0?).",
+        "tooMany": "Line {line}: stopped, too many moves. Try repeating fewer times."
+      },
+      "hint": "With repeat, a little code draws a big picture: that is the fun of programming. Ctrl+Enter (⌘+Enter on a Mac) also runs the code. Commands work in English, Japanese or Chinese."
     },
     "goldfishEscape": {
       "title": "Goldfish Getaway",

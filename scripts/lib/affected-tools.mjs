@@ -52,3 +52,24 @@ export function affectedTools(change, catalog) {
   }
   return hit;
 }
+
+// git diff's options for addedText: words are names (letters, digits, _, $, -) or any other one character, so a comma put after the last entry
+// of a line is an addition too.
+export const WORD_DIFF = ['--word-diff=porcelain', '--word-diff-regex=[A-Za-z0-9_$-]+|[^[:space:]]'];
+
+// The text a word diff (WORD_DIFF) adds, line by line, or null when it also removes some. Porcelain lists each run of added (+) or removed (-)
+// text on a row of its own, and ends each line of the file with "~"; the added runs of one line are joined back into it.
+export function addedText(diff) {
+  const rows = diff.split('\n');
+  const lines = [];
+  let line = '';
+  for (const row of rows.slice(Math.max(0, rows.findIndex(row => row.startsWith('@@'))))) {
+    if (row.startsWith('-')) return null;
+    if (row.startsWith('+')) line += row.slice(1);
+    else if (row === '~') {
+      if (line) lines.push(line);
+      line = '';
+    }
+  }
+  return lines;
+}
