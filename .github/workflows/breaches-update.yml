@@ -1,22 +1,20 @@
 name: Incident list update
 
-# Keeps the incident list (src/data/breaches.json, see docs/breaches.md) current. Every day Claude Code reads the news and the organizations' own
-# pages, edits the list by the rules in .github/prompts/breaches-update.md, and this workflow opens (or updates) one pull request with the result.
-# When every check on the pull request passes, it is merged (job `merge`), which copies the list into dev's database; breaches-release.yml then
-# copies it into production's. A pull request whose checks fail stays open for a person. Run it by hand from the Actions tab at any time.
+# Keeps the incident list (docs/breaches.md) current. The list lives in D1, where the page reads it. Every day this workflow takes the list out of the
+# database, Claude Code reads the news and the organizations' own pages and edits it by the rules in .github/prompts/breaches-update.md, and, when
+# the rules pass, the list is written into dev's database and production's. No pull request and no release: the list before and after, and Claude's
+# report, are kept as the run's artifact (90 days) and the report is the run's summary. Run it by hand from the Actions tab at any time.
 #
 # Secrets (Settings > Secrets and variables > Actions):
 #   CLAUDE_CODE_OAUTH_TOKEN: from `claude setup-token`; the run is paid out of the Claude plan's usage, not an API bill.
-#   AUTOMATION_TOKEN (needed for the merge): a fine-grained token with "Contents" and "Pull requests" write on this repository. What the
-#   built-in token pushes starts no workflow, so without it the checks do not run on the pull request, nothing is merged and dev is not deployed.
+#   CLOUDFLARE_API_TOKEN, CLOUDFLARE_API_TOKEN_PRODUCTION: the same as the deploys use, for dev's and production's databases.
 on:
   schedule:
     - cron: "10 0 * * *" # every day, 00:10 UTC (09:10 in Japan)
   workflow_dispatch:
 
 permissions:
-  contents: write
-  pull-requests: write
+  contents: read
 
 concurrency:
   group: breaches-update
@@ -27,24 +25,42 @@ jobs:
     runs-on: ubuntu-24.04
     timeout-minutes: 45
     outputs:
-      pr: ${{ steps.pr.outputs.number }}
-      sha: ${{ steps.pr.outputs.sha }}
-    env:
-      GH_TOKEN: ${{ secrets.AUTOMATION_TOKEN || github.token }}
+      changed: ${{ steps.diff.outputs.changed }}
     steps:
       - uses: actions/checkout@v7
-        with:
-          token: ${{ secrets.AUTOMATION_TOKEN || github.token }}
       - uses: actions/setup-node@v7
         with:
           node-version-file: .tool-versions
-      # The tests and the source check use Node's own modules only; no install is needed.
-      # (The runner context is not available in the job's own env, so the path is set here.)
-      - name: Today in Japan, and where the pull request text goes
+          cache: npm
+      # For wrangler, which reads the database.
+      - run: npm ci
+      - name: Today in Japan, and where the list and the report go
         run: |
           echo "TODAY=$(TZ=Asia/Tokyo date +%F)" >> "$GITHUB_ENV"
-          echo "PR_BODY_FILE=$RUNNER_TEMP/breaches-pr-body.md" >> "$GITHUB_ENV"
-      # Claude may read the web and edit files, and run node (the tests and the source check); nothing else, so no git or gh from inside.
+          mkdir -p "$RUNNER_TEMP/breaches"
+          echo "BREACHES_DIR=$RUNNER_TEMP/breaches" >> "$GITHUB_ENV"
+          echo "REPORT_FILE=$RUNNER_TEMP/breaches/report.md" >> "$GITHUB_ENV"
+      # The newer of the two databases' lists (production's on a tie): production has none before the release that adds its tables, and that
+      # release fills it from the copy in git, which may be older than dev's until this workflow next writes both.
+      - name: Take the list out of the database
+        env:
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+          DEV_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          PROD_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
+        run: |
+          export_list() { CLOUDFLARE_API_TOKEN="$2" node scripts/export-breaches.mjs "$1" "$BREACHES_DIR/$1.json" || [ $? = 2 ]; }
+          export_list prod "$PROD_TOKEN"
+          export_list dev "$DEV_TOKEN"
+          as_of() { [ -f "$1" ] && node -p "require('$1').asOf" || echo none; }
+          prod=$(as_of "$BREACHES_DIR/prod.json")
+          dev=$(as_of "$BREACHES_DIR/dev.json")
+          echo "production's list: $prod, dev's: $dev"
+          if [ "$prod" = none ] && [ "$dev" = none ]; then echo "::error::Neither database has the list"; exit 1; fi
+          if [ "$prod" = none ] || [[ "$dev" > "$prod" ]]; then from=dev; else from=prod; fi
+          echo "Starting from $from's"
+          cp "$BREACHES_DIR/$from.json" "$BREACHES_DIR/before.json"
+          cp "$BREACHES_DIR/$from.json" src/data/breaches.json
+      # Claude may read the web and edit files, and run node (the tests and the source check); nothing else, so no git, gh or wrangler from inside.
       - name: Update the list
         uses: anthropics/claude-code-action@v1
         with:
@@ -52,7 +68,7 @@ jobs:
           github_token: ${{ github.token }}
           prompt: |
             今日(JST)は ${{ env.TODAY }}。`.github/prompts/breaches-update.md` を読み、その手順どおりに `src/data/breaches.json` を更新してください。
-            PR の説明文は、環境変数 PR_BODY_FILE が指すファイル(${{ env.PR_BODY_FILE }})に書いてください。
+            報告は、環境変数 REPORT_FILE が指すファイル(${{ env.REPORT_FILE }})に書いてください。
           claude_args: >-
             --model claude-sonnet-5-5
             --max-turns 150
@@ -70,77 +86,58 @@ jobs:
       - name: Check what changed
         id: diff
         run: |
-          changed=$(git status --porcelain)
-          echo "$changed"
-          if [ -z "$changed" ]; then echo "changed=false" >> "$GITHUB_OUTPUT"; exit 0; fi
-          if [ "$(echo "$changed" | grep -vc ' src/data/breaches.json$')" != 0 ]; then
-            echo "::error::Only src/data/breaches.json may change"; exit 1
-          fi
-          if [ ! -s "$PR_BODY_FILE" ]; then echo "::error::The pull request text is missing"; exit 1; fi
+          # Only the list may change in the checkout (it was the database's list before Claude started).
+          others=$(git status --porcelain | grep -v ' src/data/breaches.json$' || true)
+          if [ -n "$others" ]; then echo "$others"; echo "::error::Only src/data/breaches.json may change"; exit 1; fi
+          [ -s "$REPORT_FILE" ] && cat "$REPORT_FILE" >> "$GITHUB_STEP_SUMMARY"
+          if cmp -s "$BREACHES_DIR/before.json" src/data/breaches.json; then echo "No change."; echo "changed=false" >> "$GITHUB_OUTPUT"; exit 0; fi
+          if [ ! -s "$REPORT_FILE" ]; then echo "::error::The report is missing"; exit 1; fi
+          cp src/data/breaches.json "$BREACHES_DIR/after.json"
           echo "changed=true" >> "$GITHUB_OUTPUT"
-      # The same rules a pull request must pass; a list that breaks one is never proposed.
+      # The rules every list must pass; a list that breaks one is never written (import-breaches.mjs checks them again).
       - name: Rules
         if: steps.diff.outputs.changed == 'true'
         run: node --test "src/tools/breaches/*.test.mjs"
-      - name: Open (or update) the pull request
-        id: pr
+      - name: Keep the list before and after, and the report
         if: steps.diff.outputs.changed == 'true'
-        run: |
-          branch=automation/breaches-update
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git checkout -b "$branch"
-          git add src/data/breaches.json
-          title="サイバー被害まとめを $TODAY 時点に更新"
-          git commit -m "$title"
-          git push --force origin "HEAD:refs/heads/$branch"
-          number=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number // empty')
-          if [ -n "$number" ]; then
-            gh pr edit "$number" --title "$title" --body-file "$PR_BODY_FILE"
-            # One opened as a draft before the merge was automatic.
-            gh pr ready "$number" || true
-          else
-            gh pr create --head "$branch" --base main --title "$title" --body-file "$PR_BODY_FILE"
-            number=$(gh pr list --head "$branch" --state open --json number --jq '.[0].number')
-          fi
-          echo "number=$number" >> "$GITHUB_OUTPUT"
-          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+        uses: actions/upload-artifact@v7
+        with:
+          name: breaches-${{ env.TODAY }}
+          path: |
+            ${{ runner.temp }}/breaches/before.json
+            ${{ runner.temp }}/breaches/after.json
+            ${{ runner.temp }}/breaches/report.md
+          retention-days: 90
 
-  # Waits for the pull request's checks (App (development) on a pull request: the unit tests, the rules above among them, types, the builds and the
-  # browser checks) and merges it when all of them pass, the commit they passed on and no other.
-  merge:
+  # Writes the new list into dev's database, then production's. A job of its own, so Claude's job never holds the tokens that write.
+  publish:
     needs: update
-    if: needs.update.outputs.pr != ''
+    if: needs.update.outputs.changed == 'true'
     runs-on: ubuntu-24.04
-    timeout-minutes: 40
-    permissions:
-      contents: read
-      pull-requests: read
-      checks: read
-      statuses: read
-      # `gh pr checks` reads which workflow run each check belongs to; without this every read fails and nothing is ever merged.
-      actions: read
-    env:
-      GH_REPO: ${{ github.repository }}
-      PR: ${{ needs.update.outputs.pr }}
-      SHA: ${{ needs.update.outputs.sha }}
-      MERGE_TOKEN: ${{ secrets.AUTOMATION_TOKEN }}
+    timeout-minutes: 10
+    # The production database: the same environment as App (production), so the same branch rule applies.
+    environment: production
     steps:
-      - name: Wait for the checks, then merge
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .tool-versions
+          cache: npm
+      - run: npm ci
+      - uses: actions/download-artifact@v8
+        with:
+          pattern: breaches-*
+          merge-multiple: true
+          path: ${{ runner.temp }}/breaches
+      - run: cp "$RUNNER_TEMP/breaches/after.json" src/data/breaches.json
+      - name: Write the list into dev
         env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          if [ -z "$MERGE_TOKEN" ]; then
-            echo "::warning::AUTOMATION_TOKEN is not set: no checks run on #$PR, so it is left for a person to merge."
-            exit 0
-          fi
-          # The checks take a little while to be registered after the push.
-          for _ in $(seq 1 20); do
-            [ "$(gh pr view "$PR" --json statusCheckRollup --jq '.statusCheckRollup | length' || echo 0)" -gt 0 ] && break
-            sleep 15
-          done
-          if ! gh pr checks "$PR" --watch --fail-fast --interval 30; then
-            echo "::error::A check failed (or none started) on #$PR; it stays open for a person."
-            exit 1
-          fi
-          GH_TOKEN="$MERGE_TOKEN" gh pr merge "$PR" --merge --delete-branch --match-head-commit "$SHA"
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm run breaches:import:dev
+      # Before the release that adds production's tables this does nothing and says so in a notice.
+      - name: Write the list into production
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
+        run: npm run breaches:import:prod -- --if-ready

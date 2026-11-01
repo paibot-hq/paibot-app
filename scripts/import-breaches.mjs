@@ -2,12 +2,13 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
 import { validateBreaches } from '../src/tools/breaches/breaches-rules.mjs';
 
-// Copies the incident list (src/data/breaches.json, reviewed in git) into D1, where the page reads it (docs/breaches.md). Explicit target only;
-// importing never creates the tables (the migrations do). Every entry is written over its row, then the rows of entries no longer in the file
-// are removed: the page never sees an empty list, at most a moment with both the old and the new rows.
+// Writes the incident list in src/data/breaches.json into D1, where the page reads it (docs/breaches.md): the daily update's new list, or the copy
+// in git into an empty database. Explicit target only; importing never creates the tables (the migrations do). Every entry is written over its
+// row, then the rows of entries no longer in the file are removed: the page never sees an empty list, at most a moment with both the old and the
+// new rows.
 //   --if-ready  does nothing when the tables are not there yet (production before the release that adds them).
-//   --if-empty  does nothing when the list is already there: a release fills it the first time, and a rollback to an older commit does not take
-//               the list back to that commit's.
+//   --if-empty  does nothing when the list is already there: a deploy fills it the first time, and never puts the copy in git over the daily
+//               update's list.
 // local-production is the local copy of production's database, which App (production) checks the production build against.
 const targets = { local: ['--local'], 'local-production': ['--local', '--env', 'production'], dev: ['--remote'], prod: ['--remote', '--env', 'production'] };
 const [target, ...flags] = process.argv.slice(2);
@@ -32,7 +33,7 @@ if (flags.length) {
   }
 }
 const data = JSON.parse(readFileSync(new URL('../src/data/breaches.json', import.meta.url), 'utf8'));
-// The same rules a pull request must pass: a list that breaks one is never written.
+// The rules every list must pass (npm test checks the copy in git with them): a list that breaks one is never written.
 const problems = validateBreaches(data);
 if (problems.length) throw new Error(`src/data/breaches.json breaks the rules:\n${problems.join('\n')}`);
 const quote = value => `'${String(value).replaceAll("'", "''")}'`;
