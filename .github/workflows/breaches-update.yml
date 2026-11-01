@@ -60,6 +60,15 @@ jobs:
           echo "Starting from $from's"
           cp "$BREACHES_DIR/$from.json" "$BREACHES_DIR/before.json"
           cp "$BREACHES_DIR/$from.json" src/data/breaches.json
+      # Which links of the list are dead (404/410, no answer), for Claude to replace: the entries marked FAIL and their dead links. A blocked page
+      # (403) is only a warning and not passed on; whether a page still says what the entry says is not read here (`--no-content`).
+      - name: Find the dead links
+        run: |
+          node scripts/check-breaches.mjs --no-content > "$BREACHES_DIR/links.txt" || true
+          awk '/^FAIL /{show=1; print; next} /^(ok|WARN) /{show=0} show && /^ +FAIL /' "$BREACHES_DIR/links.txt" > "$BREACHES_DIR/dead-links.txt"
+          echo "DEAD_LINKS_FILE=$BREACHES_DIR/dead-links.txt" >> "$GITHUB_ENV"
+          tail -n 1 "$BREACHES_DIR/links.txt"
+          cat "$BREACHES_DIR/dead-links.txt"
       # Claude may read the web and edit files, and run node (the tests and the source check); nothing else, so no git, gh or wrangler from inside.
       - name: Update the list
         uses: anthropics/claude-code-action@v1
@@ -69,6 +78,7 @@ jobs:
           prompt: |
             今日(JST)は ${{ env.TODAY }}。`.github/prompts/breaches-update.md` を読み、その手順どおりに `src/data/breaches.json` を更新してください。
             報告は、環境変数 REPORT_FILE が指すファイル(${{ env.REPORT_FILE }})に書いてください。
+            今のリストのリンク切れは、環境変数 DEAD_LINKS_FILE が指すファイル(${{ env.DEAD_LINKS_FILE }})にあります(空ならありません)。
           claude_args: >-
             --model claude-sonnet-5-5
             --max-turns 150
@@ -98,6 +108,13 @@ jobs:
       - name: Rules
         if: steps.diff.outputs.changed == 'true'
         run: node --test "src/tools/breaches/*.test.mjs"
+      # A dead link Claude could not replace is said in the summary for a person, but does not hold the rest of the update back.
+      - name: Dead links left
+        run: |
+          if node scripts/check-breaches.mjs --no-content > "$BREACHES_DIR/links-after.txt"; then tail -n 1 "$BREACHES_DIR/links-after.txt"; exit 0; fi
+          grep -E '^FAIL |^ +FAIL ' "$BREACHES_DIR/links-after.txt" || true
+          echo "::warning::Dead links are left in the incident list; see the summary."
+          { echo; echo "## 残ったリンク切れ"; echo '```'; grep -E '^FAIL |^ +FAIL ' "$BREACHES_DIR/links-after.txt"; echo '```'; } >> "$GITHUB_STEP_SUMMARY"
       - name: Keep the list before and after, and the report
         if: steps.diff.outputs.changed == 'true'
         uses: actions/upload-artifact@v7
