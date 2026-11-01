@@ -135,7 +135,7 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
         run: npm run math:import:prod
-      # Only when production has no list yet (the first release with its tables): after that breaches-release.yml keeps it current, and a
+      # Only when production has no list yet (the first release with its tables): after that the daily update (breaches-update.yml) keeps it current, and a
       # rollback to an older commit must not take the list back to that commit's.
       - name: Fill the incident list (production)
         if: steps.framework.outputs.react_router == 'true' && hashFiles('scripts/import-breaches.mjs') != ''

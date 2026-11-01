@@ -33,6 +33,8 @@
     "breaches:import:local:production": "node scripts/import-breaches.mjs local-production",
     "breaches:import:dev": "node scripts/import-breaches.mjs dev",
     "breaches:import:prod": "node scripts/import-breaches.mjs prod",
+    "breaches:export:dev": "node scripts/export-breaches.mjs dev",
+    "breaches:export:prod": "node scripts/export-breaches.mjs prod",
     "math:generate": "node scripts/math-generate.mjs",
     "math:review": "node scripts/math-review.mjs",
     "govfaq:build": "node scripts/govfaq-build.mjs",

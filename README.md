@@ -127,8 +127,8 @@ and build output are ignored and must not be committed.
 
 The development workflow verifies then deploys on main. Production deployment is
 manual (`App (production)`), with post-deploy smoke tests and release tagging.
-The one exception is the daily incident list update, merged and released by itself
-when it is the only change waiting to go out ([docs/breaches.md](docs/breaches.md#releasing)).
+The one exception is the daily incident list update, which writes the list into dev's
+and production's databases with no release ([docs/breaches.md](docs/breaches.md#releasing)).
 The production workflow also supports rollback refs from the old vinext app.
 See [cutover checklist](docs/plans/react-router-cutover.md) before releasing.
 

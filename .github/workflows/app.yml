@@ -162,7 +162,8 @@ jobs:
           npm run db:migrate:dev
           npm run quiz:import:dev
           npm run math:import:dev
-          npm run breaches:import:dev
+          # Only when dev has no list yet: the daily update (breaches-update.yml) keeps it current, not the copy in git.
+          npm run breaches:import:dev -- --if-empty
       - name: Sync runtime Clerk keys and deploy dev
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
