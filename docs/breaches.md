@@ -51,8 +51,8 @@ or a fraud cannot be one. When unsure, call it an attack: it is the case that ne
      sources that were about another company when the list was first checked.)
    - `WARN` for a block (403/429), a page that does not name the organization, or a page that does not show the count. Open it: the page may load its
      text by script or write the number differently, or the entry may be wrong.
-   The weekly workflow `.github/workflows/breaches-check.yml` runs it on the list in the database (production's, or dev's before production has
-   one) and fails on a dead link, so it shows up in the Actions tab.
+   The daily update runs it (`--no-content`) on the list it took out of the database and gives Claude the dead links to replace (below); a dead
+   link left after that is a warning in the run's summary.
 3. **By eye, when adding or changing an entry**: read the sources; copy the figure and the date as written; if two sources disagree, say so in `note`
    rather than choosing silently; set `checkedAt`. Do not add an entry from a roundup alone without opening the page it points to.
 
@@ -63,7 +63,9 @@ in `countNote`, with the earlier one in `note`.
 
 The daily update (`.github/workflows/breaches-update.yml`, 09:10 in Japan, or by hand from the Actions tab) takes the list out of the database,
 production's or dev's, whichever is newer (`asOf`; production's on a tie). Claude Code edits it by `.github/prompts/breaches-update.md` and writes a
-report. If the list changed and the rules pass, a second job writes it into dev's database, then production's.
+report. Before Claude starts, the source check finds the list's dead links; Claude replaces each with another source that says the same (the
+article's new address, the outlet that first ran it, the organization's own page), or removes it and lowers `verification` when what is left no
+longer meets it. If the list changed and the rules pass, a second job writes it into dev's database, then production's.
 
 There is no pull request and no merge, so no token beyond the deploys' Cloudflare ones. Each run with a change keeps an artifact, `breaches-<date>`,
 for 90 days: the list before and after, and the report. The report is also the run's summary. To undo a day, put its `before.json` at
