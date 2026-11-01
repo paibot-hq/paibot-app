@@ -391,11 +391,6 @@
      "kind": "press"
     },
     {
-     "name": "日本食糧新聞",
-     "url": "https://news.nissyoku.co.jp/flash/1327772",
-     "kind": "press"
-    },
-    {
      "name": "NHK NEWS WEB",
      "url": "https://news.web.nhk/newsweb/na/nd-20261015de59803",
      "kind": "press"
@@ -439,7 +434,7 @@
    "sources": [
     {
      "name": "メドレー(アットリンクへの不正アクセスおよびサービスの一時停止に関する最新情報)",
-     "url": "https://www.medley.jp/notice/20161015.html",
+     "url": "https://www.medley.jp/notice/20261015.html",
      "kind": "official"
     },
     {
@@ -657,17 +652,17 @@
    "countNote": "えきねっと 約167万件、大人の休日倶楽部 約39万件(JR東日本の2サービスの合算で約206万件)。報道ではビューカードのメールアドレス約403万件を合わせ600万件余",
    "data": "えきねっとはメールアドレス。大人の休日倶楽部はメールアドレス、会員番号、クレジットカードの有効期限、生年月日。氏名・住所・電話番号・カード番号は含まれないとしている",
    "cause": "委託先IDCフロンティアへのランサムウェア攻撃により、メール配信の外部サービスのメールログが閲覧・取得された可能性",
-   "note": "漏えいの確認ではなく「可能性を否定できない」との発表。2サービスの件数は報道による数字で、合算は重複を除いた人数ではない。ビューカードの件数は報道のみ。JR東日本の発表(jreast.co.jp/press/2026/20261009_ho02.pdf)は自動取得を拒否され、本文は読めていない。",
+   "note": "漏えいの確認ではなく「可能性を否定できない」との発表。2サービスの件数は報道による数字で、合算は重複を除いた人数ではない。ビューカードの件数は報道のみ。JR東日本の発表(jreast.co.jp/press/2026/20261009_ho02.pdf)は自動取得を拒否され、本文は読めていない。 10月15日の更新で、メール配信の外部サービス会社から「個人情報の漏えいがなかったと判断した」との報告を受けたと公表した(ScanNetSecurity の見出しとまとめ記事による)。",
    "verification": "reported",
    "sources": [
     {
-     "name": "KAB(ニュース)",
-     "url": "https://www.kab.co.jp/news/article/16953760",
+     "name": "NHK(JR東日本とビューカード)",
+     "url": "https://news.web.nhk/newsweb/na/nd-20261009de57177",
      "kind": "press"
     },
     {
-     "name": "NHK(JR東日本とビューカード)",
-     "url": "https://news.web.nhk/newsweb/na/nd-20261009de57177",
+     "name": "ScanNetSecurity(漏えいはなかったと判断)",
+     "url": "https://scan.netsecurity.ne.jp/article/2026/10/19/56496.html",
      "kind": "press"
     },
     {
@@ -987,23 +982,33 @@
    "count": null,
    "countNote": "約1,200社分の入出荷が停止",
    "data": "",
-   "cause": "委託先IDCFクラウドのデータセンターへの不正アクセスとみられる",
-   "note": "10月7日午前4時50分ごろに発生。情報流出は調査中。",
-   "verification": "reported",
+   "cause": "委託先IDCフロンティアが第三者による不正アクセスを受けたことに伴うシステム障害",
+   "note": "10月7日午前4時50分ごろに発生。10月9日に一部の入出荷を再開し、被害を受けたサーバーにニッスイグループが管理する個人情報や顧客情報は含まれないことを確認したとした。10月20日に全17拠点で通常の入出荷業務に移行。約1,200社は共同通信の報道による。",
+   "verification": "official",
    "sources": [
+    {
+     "name": "ニッスイ(日水物流株式会社におけるシステム障害について 第1報)",
+     "url": "https://www.nissui.co.jp/news/2026100702.html",
+     "kind": "official"
+    },
+    {
+     "name": "ニッスイ(同 第2報)",
+     "url": "https://www.nissui.co.jp/news/20261009.html",
+     "kind": "official"
+    },
+    {
+     "name": "ニッスイ(同 第4報)",
+     "url": "https://www.nissui.co.jp/news/20261020.html",
+     "kind": "official"
+    },
     {
      "name": "ITmedia NEWS(Infoseek)",
      "url": "https://news.infoseek.co.jp/article/itmedia_news_202610082000002113/",
      "kind": "press"
     },
     {
-     "name": "朝日新聞(Yahoo!ニュース)",
-     "url": "https://news.yahoo.co.jp/articles/55836a02461a597f2c647155b11a594b7f0dae0b",
-     "kind": "press"
-    },
-    {
-     "name": "時事通信(Yahoo!ニュース)",
-     "url": "https://news.yahoo.co.jp/articles/2caf3bdec3128855b226c6338305dd1a00a48764",
+     "name": "熊本日日新聞(共同通信)",
+     "url": "https://kumanichi.com/articles/2048495",
      "kind": "press"
     }
    ],
