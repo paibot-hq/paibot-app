@@ -10,8 +10,9 @@ import { blindProblem, context, extractJSON, promptFile, saveWork } from './math
 
 // Writes the learning items' lessons (src/data/item-lessons.json, shown on the item page) and has them checked:
 // Claude writes one; the format (lib/math-lesson-check.mjs) and the math (verify_lessons.py, SymPy) are checked and
-// what fails goes back to Claude; then Codex and Antigravity review it independently, each listing what must be
-// fixed, and what they find goes back too. A lesson both pass gets reviewedAt, and only then does the page show it.
+// what fails goes back to Claude; then Antigravity reviews it, listing what must be fixed, and what it finds goes back
+// too (MATH_LESSON_REVIEWERS=agy,codex adds Codex as a second reviewer). A lesson every reviewer passes gets reviewedAt,
+// and only then does the page show it.
 //   node scripts/math-lessons.mjs <unit|unit/item> ...   write the items that have no lesson, then review them
 //   --review     only review the lessons not yet passed (none are written)
 //   --rewrite    write the named items again even if they have a lesson
@@ -26,6 +27,7 @@ const FILE = new URL('../src/data/item-lessons.json', import.meta.url);
 const messages = JSON.parse(readFileSync(new URL('../messages/ja.json', import.meta.url), 'utf8')).App.math;
 const CLAUDE = process.env.CLAUDE_BIN ?? join(homedir(), '.claude/local/claude');
 const today = new Date().toISOString().slice(0, 10);
+const REVIEWERS = (process.env.MATH_LESSON_REVIEWERS ?? 'agy').split(',');
 
 const read = () => JSON.parse(readFileSync(FILE, 'utf8'));
 // Read and write in one go, so that items finishing at once do not overwrite each other.
@@ -102,7 +104,7 @@ async function review(key) {
   const { grade, summary } = describe(key);
   const { reviewedAt, ...lesson } = read()[key];
   const prompt = promptFile('_lesson-review').replace('{{grade}}', grade).replace('{{item}}', JSON.stringify(summary)).replace('{{lesson}}', JSON.stringify(lesson, null, 2));
-  const results = await Promise.all(['codex', 'agy'].map(async model => {
+  const results = await Promise.all(REVIEWERS.map(async model => {
     try { return (await askJSON(model, prompt, 'issues', key)).issues.map(issue => ({ ...issue, reviewer: model })); }
     catch (error) { return [{ reviewer: model, failed: true, problem: `${model} could not review: ${(error.message.match(/"message":"([^"]+)/)?.[1] ?? error.message).slice(0, 300)}` }]; }
   }));
@@ -133,7 +135,7 @@ async function work(key) {
     if (failed.length) { log(failed.map(issue => issue.problem).join(' / ')); return { key, status: 'review failed' }; }
     if (!issues.length) {
       update(key, lessons => { lessons[key].reviewedAt = today; });
-      log('passed both reviews');
+      log(`passed review (${REVIEWERS.join(', ')})`);
       return { key, status: 'passed' };
     }
     feedback = issues.map(issue => `- [${issue.where}] ${issue.problem}${issue.fix ? `（直し方: ${issue.fix}）` : ''}`).join('\n');

@@ -155,7 +155,8 @@
           "zh": "把系数 3 当作移项减掉了。3 是与 $x$ 相乘的数，应两边同时除以 3，得 $x = \\frac{12}{3}$。"
         }
       }
-    ]
+    ],
+    "reviewedAt": "2026-11-01"
   },
   "factorization/trinomial": {
     "sections": [
@@ -284,7 +285,8 @@
           "zh": "符号放反了，$x$ 的系数符号也会反过来。$-3 + 4 = 1$，展开后是 $x^2 + x - 12$。和为 $-1$ 的是 3 和 $-4$。"
         }
       }
-    ]
+    ],
+    "reviewedAt": "2026-11-01"
   },
   "factorization/perfect-square": {
     "sections": [
@@ -395,7 +397,8 @@
           "zh": "中间项是 $-6x$，所以是差的平方。$(x + 3)^2$ 展开后是 $x^2 + 6x + 9$。"
         }
       }
-    ]
+    ],
+    "reviewedAt": "2026-11-01"
   },
   "factorization/difference-of-squares": {
     "sections": [
@@ -503,6 +506,7 @@
           "zh": "$4x^2$ 是 $(2x)^2$。括号里放的是平方之前的 $2x$。"
         }
       }
-    ]
+    ],
+    "reviewedAt": "2026-11-01"
   }
 }

@@ -4,8 +4,8 @@ import lessonData from '../data/item-lessons.json' with { type: 'json' };
 // (with $...$ for inline TeX) and display formulas, worked examples and common
 // mistakes. Examples and mistakes are written in the formula grammar
 // (math-formula.ts) so that scripts/verify_lessons.py can check them with SymPy;
-// the prose is checked by two models other than the one that wrote it
-// (scripts/math-lessons.mjs --review). Only a lesson both passed (reviewedAt) is
+// the prose is reviewed by a model other than the one that wrote it
+// (scripts/math-lessons.mjs). Only a lesson that passed (reviewedAt) is
 // shown; items without one show the worked example from their problems instead.
 export interface Localized { ja: string; en: string; zh: string }
 export interface LessonSection { heading: Localized; paragraphs: Localized[]; formulas?: string[]; after?: Localized[] }
