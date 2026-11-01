@@ -184,8 +184,15 @@ try {
   const consoleErrors = [];
   const cspViolations = [];
   page.on('pageerror', error => pageErrors.push(error.message));
+  // Errors of our own pages only. Production loads ads, whose frames (www.google.com and others) log their own messages, such as the
+  // report-only notice "Framing 'https://www.google.com/' violates ... frame-ancestors 'self'": nothing on our side to fix. A violation of our
+  // own policy is caught below (securitypolicyviolation), not from the console.
   page.on('console', message => {
-    if (message.type() === 'error') consoleErrors.push(message.text());
+    if (message.type() !== 'error') return;
+    let origin = base;
+    try { origin = new URL(message.location().url).origin; } catch { /* no location: count it */ }
+    if (origin !== base || /violates the following report-only Content Security Policy directive/.test(message.text())) return;
+    consoleErrors.push(message.text());
   });
   await page.exposeFunction('reportCspViolation', violation => cspViolations.push(violation));
   await page.addInitScript(() => {
