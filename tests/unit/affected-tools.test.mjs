@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { affectedTools } from '../../scripts/lib/affected-tools.mjs';
+import { addedText, affectedTools } from '../../scripts/lib/affected-tools.mjs';
 
 const catalog = [
   { slug: 'json', href: '/json', status: 'published', messageKey: 'json' },
@@ -32,4 +32,19 @@ assert.deepEqual(run(['src/lib/app-catalog.ts', 'src/lib/apps.tsx'], { added: {
   'src/lib/apps.tsx': ['function CardIcon() {}', '  "business-card": CardIcon,'],
 } }), ['business-card']);
 assert.equal(run(['src/lib/app-catalog.ts']), 'all', 'an edit that removes lines may affect any tool');
+// A word diff (git diff --word-diff=porcelain): an icon put at the end of an existing line is an addition, not a removed line.
+assert.deepEqual(addedText([
+  'diff --git a/src/lib/apps.tsx b/src/lib/apps.tsx',
+  '--- a/src/lib/apps.tsx',
+  '+++ b/src/lib/apps.tsx',
+  '@@ -10,0 +11,3 @@',
+  '+function CardIcon() {}',
+  '~',
+  '@@ -20 +23 @@',
+  '   wc: WcIcon,',
+  '+ "business-card": CardIcon,',
+  '~',
+].join('\n')), ['function CardIcon() {}', ' "business-card": CardIcon,']);
+assert.equal(addedText(['@@ -20 +20 @@', ' wc:', '-WcIcon', '+OtherIcon', '~'].join('\n')), null, 'a word replaced is a removal');
+assert.deepEqual(addedText(''), []);
 console.log('PASS: affected tools from tool folders, flows, data, messages and registry additions; shared code means all');

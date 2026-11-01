@@ -2,7 +2,7 @@ import { asc, eq } from "drizzle-orm";
 import { getDb } from "../../db/client.server";
 import { breachIncidents, breachList } from "../../db/schema";
 
-// Server-only: the incident list as scripts/import-breaches.mjs copied it into D1 from src/data/breaches.json (docs/breaches.md), newest first.
+// Server-only: the incident list as the daily update last wrote it into D1 (docs/breaches.md), newest first.
 export async function getBreaches() {
   const db = getDb();
   const [lists, rows] = await Promise.all([

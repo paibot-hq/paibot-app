@@ -92,7 +92,7 @@ npm run build && npm run e2e -- access environments whois site-check
 npm run preview                # port 3003; keep running in another terminal
 CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run e2e -- smoke catalog tools quiz-browser
 CHECK_TOOLS=cidr,json CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run e2e -- catalog tools
-node scripts/affected-tools.mjs   # tools this branch can affect (what PR CI passes as CHECK_TOOLS)
+node scripts/affected-tools.mjs   # tools this branch can affect (what CI passes as CHECK_TOOLS)
 # The tool flows (`tools`) and the catalog checks run three at a time; CHECK_CONCURRENCY=1 runs them one by one (to look into a flow that fails only in a crowd).
 # `tools` and `catalog` print how long each flow took (the slowest five), and `npm run e2e -- a b c` how long each check took.
 CHECK_CONCURRENCY=1 CHECK_TOOLS=cidr,json CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run e2e -- tools
@@ -127,8 +127,8 @@ and build output are ignored and must not be committed.
 
 The development workflow verifies then deploys on main. Production deployment is
 manual (`App (production)`), with post-deploy smoke tests and release tagging.
-The one exception is the daily incident list update, merged and released by itself
-when it is the only change waiting to go out ([docs/breaches.md](docs/breaches.md#releasing)).
+The one exception is the daily incident list update, which writes the list into dev's
+and production's databases with no release ([docs/breaches.md](docs/breaches.md#releasing)).
 The production workflow also supports rollback refs from the old vinext app.
 See [cutover checklist](docs/plans/react-router-cutover.md) before releasing.
 

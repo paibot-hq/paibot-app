@@ -501,7 +501,7 @@
    "checkedAt": "2026-11-02",
    "sources": [
     {
-     "name": "メドレー(最新情報)",
+     "name": "メドレー(アットリンクへの不正アクセスおよびサービスの一時停止に関する最新情報)",
      "url": "https://www.medley.jp/notice/20261015.html",
      "kind": "official"
     },
@@ -1040,19 +1040,34 @@
    "count": null,
    "countNote": "入出荷業務が停止したが、10月20日に全17拠点で通常業務へ移行",
    "data": "",
-   "cause": "委託先IDCフロンティアへの第三者による不正アクセスに伴うシステム障害",
-   "note": "10月7日に入出荷の停止を公表。10月20日の第4報で全17拠点の通常業務移行を公表。第1報では個人情報や顧客データの流出を確認中としており、第4報に漏えいの有無の結論は記載されていない。",
+   "cause": "委託先IDCフロンティアが第三者による不正アクセスを受けたことに伴うシステム障害",
+   "note": "10月7日午前4時50分ごろに発生。10月9日に一部の入出荷を再開し、被害を受けたサーバーにニッスイグループが管理する個人情報や顧客情報は含まれないことを確認したとした。10月20日に全17拠点で通常の入出荷業務に移行。約1,200社は共同通信の報道による。",
    "verification": "official",
    "sources": [
     {
-     "name": "日水物流(10月7日第1報)",
-     "url": "https://www.nissui-logistics.jp/assets_newsrelease/images/20261007/newsrelease_20261007.pdf",
+     "name": "ニッスイ(日水物流株式会社におけるシステム障害について 第1報)",
+     "url": "https://www.nissui.co.jp/news/2026100702.html",
      "kind": "official"
     },
     {
-     "name": "日水物流(10月20日第4報)",
-     "url": "https://www.nissui-logistics.jp/assets_newsrelease/images/20261020/newsrelease_20261020.pdf",
+     "name": "ニッスイ(同 第2報)",
+     "url": "https://www.nissui.co.jp/news/20261009.html",
      "kind": "official"
+    },
+    {
+     "name": "ニッスイ(同 第4報)",
+     "url": "https://www.nissui.co.jp/news/20261020.html",
+     "kind": "official"
+    },
+    {
+     "name": "ITmedia NEWS(Infoseek)",
+     "url": "https://news.infoseek.co.jp/article/itmedia_news_202610082000002113/",
+     "kind": "press"
+    },
+    {
+     "name": "熊本日日新聞(共同通信)",
+     "url": "https://kumanichi.com/articles/2048495",
+     "kind": "press"
     }
    ],
    "checkedAt": "2026-11-02",

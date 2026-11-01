@@ -39,6 +39,9 @@ export const APP_CATALOG = [
   { slug: "base64", href: "/base64", category: "dev", status: "published", messageKey: "base64" },
   { slug: "urlencode", href: "/urlencode", category: "dev", status: "published", messageKey: "urlencode" },
   { slug: "llm-memory", href: "/llm-memory", category: "dev", status: "published", messageKey: "llmMemory" },
+  { slug: "code-runner", href: "/code-runner", category: "dev", status: "published", messageKey: "codeRunner" },
+  { slug: "sql", href: "/sql", category: "dev", status: "published", messageKey: "sql" },
+  { slug: "browser-ai", href: "/browser-ai", category: "dev", status: "published", messageKey: "browserAi" },
 
   // ユーティリティ / Utility
   { slug: "wc", href: "/wc", category: "utility", status: "published", messageKey: "wc" },
@@ -96,6 +99,7 @@ export const APP_CATALOG = [
   { slug: "fruit-merge", href: "/fruit-merge", category: "game", status: "published", messageKey: "fruitMerge" },
   { slug: "goldfish", href: "/goldfish", category: "game", status: "published", messageKey: "goldfish" },
   { slug: "goldfish-escape", href: "/goldfish-escape", category: "game", status: "published", messageKey: "goldfishEscape" },
+  { slug: "code-draw", href: "/code-draw", category: "game", status: "published", messageKey: "codeDraw" },
   { slug: "number-merge", href: "/number-merge", category: "game", status: "published", messageKey: "numberMerge" },
   { slug: "fireworks", href: "/fireworks", category: "game", status: "published", messageKey: "fireworks" },
   { slug: "clock", href: "/clock", category: "daily", status: "published", messageKey: "clock" },

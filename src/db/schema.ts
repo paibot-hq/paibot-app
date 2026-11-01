@@ -147,9 +147,9 @@ export const typingResults = sqliteTable("typing_results", {
   createdAt: text("created_at").notNull().default(sql`(datetime('now'))`),
 }, table => [index("typing_results_mode_score_idx").on(table.mode, table.score)]);
 
-// The incident list (src/tools/breaches, docs/breaches.md). src/data/breaches.json in git is its source: reviewed in a pull request and copied here
-// by scripts/import-breaches.mjs, so that a change to the list reaches production without a release of the app. One row per incident, the entry
-// as it is in the file; `position` is its place in the file (0 is the newest).
+// The incident list (src/tools/breaches, docs/breaches.md). The list lives here: the daily update writes it (scripts/import-breaches.mjs), with no
+// release of the app; src/data/breaches.json in git is a copy that fills an empty database. One row per incident, the entry as it is in the file;
+// `position` is its place in the file (0 is the newest).
 export const breachIncidents = sqliteTable("breach_incidents", {
   id: text("id").primaryKey(),
   position: integer("position").notNull(),

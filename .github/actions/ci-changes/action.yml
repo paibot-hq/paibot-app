@@ -1,0 +1,44 @@
+name: CI changes
+description: Whether a job of App (development) is needed for this change, and which tools its browser checks cover (scripts/ci-changes.mjs). Needs the whole history (checkout with fetch-depth 0) and actions read.
+inputs:
+  job:
+    description: e2e, browser or sympy
+    required: true
+  shard:
+    description: The browser job's share, i/n (CHECK_SHARD)
+    default: ''
+outputs:
+  run:
+    description: "'true' when the job is needed"
+    value: ${{ steps.changes.outputs.run }}
+  tools:
+    description: The tools to check (CHECK_TOOLS), "all" or comma-separated slugs
+    value: ${{ steps.changes.outputs.tools }}
+runs:
+  using: composite
+  steps:
+    # A pull request is compared with its base branch; a push to main with the last commit on main whose run passed (every check up to it
+    # was run), found from the run history. With neither, every check runs.
+    - name: What to compare with
+      id: base
+      shell: bash
+      env:
+        GH_TOKEN: ${{ github.token }}
+        GH_REPO: ${{ github.repository }}
+        BASE_REF: ${{ github.base_ref }}
+      run: |
+        if [ "$GITHUB_EVENT_NAME" = pull_request ]; then
+          git fetch --no-tags origin "$BASE_REF:refs/remotes/origin/$BASE_REF" 2>/dev/null || true
+        else
+          sha=$(gh run list --workflow app.yml --branch main --event push --status success --limit 1 --json headSha --jq '.[0].headSha // empty' || true)
+          echo "Last commit on main that passed: ${sha:-none}"
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+        fi
+    - name: Is this job needed?
+      id: changes
+      shell: bash
+      env:
+        BASE_REF: ${{ github.base_ref }}
+        BASE_SHA: ${{ steps.base.outputs.sha }}
+        CHECK_SHARD: ${{ inputs.shard }}
+      run: node scripts/ci-changes.mjs "${{ inputs.job }}" >> "$GITHUB_OUTPUT"

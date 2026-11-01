@@ -26,6 +26,15 @@ function LlmMemoryIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function BrowserAiIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="3" y="4" width="18" height="14" rx="2" />
+      <path d="M3 8h18M8 13h.01M12 13h.01M16 13h.01M9 18l-1 3M15 18l1 3" />
+    </svg>
+  );
+}
+
 function CidrIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -152,6 +161,15 @@ function GoldfishEscapeIcon(props: SVGProps<SVGSVGElement>) {
     <svg viewBox="0 0 24 24" {...props}>
       <circle cx="9" cy="8" r="5" />
       <path d="M12.5 4.5L17 1M7.5 18c1.4-1.6 3.4-1.6 4.8 0-1.4 1.6-3.4 1.6-4.8 0zM12.3 18l1.8-1.3v2.6z" />
+    </svg>
+  );
+}
+
+function CodeDrawIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M7 5L3 9l4 4M11 5l4 4-4 4" />
+      <path d="M13 20l3.5-6 3.5 6z" />
     </svg>
   );
 }
@@ -578,6 +596,25 @@ function Base64Icon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+// The code runner: a terminal's prompt; SQL: a database.
+function CodeRunnerIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="2.5" y="4" width="19" height="16" rx="2.5" />
+      <path d="M6.5 9.5l3 2.5-3 2.5M12 15h5" />
+    </svg>
+  );
+}
+
+function SqlIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <ellipse cx="12" cy="5.5" rx="7.5" ry="2.5" />
+      <path d="M4.5 5.5v13c0 1.4 3.4 2.5 7.5 2.5s7.5-1.1 7.5-2.5v-13M4.5 12c0 1.4 3.4 2.5 7.5 2.5s7.5-1.1 7.5-2.5" />
+    </svg>
+  );
+}
+
 function JsonIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -652,10 +689,10 @@ function ColorTrickIcon(props: SVGProps<SVGSVGElement>) {
 const APP_ICONS: Record<AppSlug, Icon> = {
   "color-trick": ColorTrickIcon,
   math: MathIcon, quiz: QuizIcon, arith: ArithIcon,
-  json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon, "llm-memory": LlmMemoryIcon,
+  json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon, "llm-memory": LlmMemoryIcon, "code-runner": CodeRunnerIcon, sql: SqlIcon, "browser-ai": BrowserAiIcon,
   wc: WcIcon, password: PasswordIcon, "mosaic": MosaicIcon, stopwatch: StopwatchIcon, "business-card": CardIcon, resignation: ResignationIcon,
   ip: IpIcon, domain: DomainIcon, cidr: CidrIcon, "site-check": PulseIcon,
-  dice: DiceIcon, reaction: ReactionIcon, "iq-test": IqTestIcon, personality: PersonalityIcon, timing: TimingIcon, pinball: PinballIcon, koma: KomaIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "metadata": MetadataIcon, govfaq: GovFaqIcon, "approx": ApproxIcon, collector: CollectorIcon, "warnings": WarningsIcon, "quake": QuakeIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, glitch: GlitchIcon, "random-video": RandomVideoIcon, noise: NoiseIcon, fireworks: FireworksIcon, puchi: PuchiIcon, circle: CircleIcon, "crane-game": CraneGameIcon, "fruit-merge": FruitMergeIcon, goldfish: GoldfishIcon, "goldfish-escape": GoldfishEscapeIcon, typing: TypingIcon, "number-merge": NumberMergeIcon,
+  dice: DiceIcon, reaction: ReactionIcon, "iq-test": IqTestIcon, personality: PersonalityIcon, timing: TimingIcon, pinball: PinballIcon, koma: KomaIcon, polyhedra: PolyhedraIcon, grapher: GrapherIcon, "metadata": MetadataIcon, govfaq: GovFaqIcon, "approx": ApproxIcon, collector: CollectorIcon, "warnings": WarningsIcon, "quake": QuakeIcon, "stocks": StocksIcon, "series": SeriesIcon, "fourier": FourierIcon, "pendulum": PendulumIcon, "life": LifeIcon, balls: BallsIcon, kaleidoscope: KaleidoscopeIcon, glitch: GlitchIcon, "random-video": RandomVideoIcon, noise: NoiseIcon, fireworks: FireworksIcon, puchi: PuchiIcon, circle: CircleIcon, "crane-game": CraneGameIcon, "fruit-merge": FruitMergeIcon, goldfish: GoldfishIcon, "goldfish-escape": GoldfishEscapeIcon, "code-draw": CodeDrawIcon, typing: TypingIcon, "number-merge": NumberMergeIcon,
   tax: TaxIcon, split: SplitIcon, "unit-converter": UnitConverterIcon, "date-calc": DateCalcIcon, pomodoro: PomodoroIcon, roulette: RouletteIcon, strings: StringsIcon,
   calendar: CalendarIcon, "life-calendar": AgeIcon, clock: TimingIcon, "heart-rate": HeartRateIcon, diary: WcIcon, age: AgeIcon, breaches: BreachesIcon, omikuji: OmikujiIcon, "birthday-fortune": BirthdayFortuneIcon, metronome: MetronomeIcon,
 };

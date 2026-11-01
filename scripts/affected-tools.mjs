@@ -1,6 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { APP_CATALOG } from '../src/lib/app-catalog.ts';
-import { affectedTools } from './lib/affected-tools.mjs';
+import { WORD_DIFF, addedText, affectedTools } from './lib/affected-tools.mjs';
 
 // Prints the tools a branch can affect compared with <base> (default
 // origin/main): "all", or comma-separated slugs (empty for none). CI passes
@@ -19,10 +19,8 @@ const files = git('diff', '--name-only', '--no-renames', mergeBase, 'HEAD').spli
 const show = (rev, file) => { try { return JSON.parse(git('show', `${rev}:${file}`)); } catch { return null; } };
 const result = affectedTools({
   files,
-  addedLines(file) {
-    const lines = git('diff', '-U0', mergeBase, 'HEAD', '--', file).split('\n').filter(line => /^[+-](?![+-]{2} )/.test(line));
-    return lines.some(line => line.startsWith('-')) ? null : lines.map(line => line.slice(1));
-  },
+  // Compared word by word, so that an entry added at the end of an existing line (APP_ICONS keeps several on a line) is an addition.
+  addedLines: file => addedText(git('diff', '-U0', ...WORD_DIFF, mergeBase, 'HEAD', '--', file)),
   json: file => ({ before: show(mergeBase, file), after: show('HEAD', file) }),
 }, APP_CATALOG);
 console.log(result === 'all' ? 'all' : [...result].sort().join(','));
