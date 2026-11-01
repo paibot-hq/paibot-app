@@ -680,8 +680,8 @@
       "deleteAll": "全部删除(共 {size})",
       "confirmDelete": "要删除 {name}({size})吗？再次使用时需要重新下载。",
       "confirmDeleteAll": "要删除所有保存的模型(共 {size})吗？再次使用时需要重新下载。",
+      "featured": "推荐",
       "moreModels": "更多模型({count}种)",
-      "pickModel": "选择模型…",
       "engine": { "transformers": "Transformers.js", "webllm": "WebLLM" },
       "engineInfo": {
         "transformers": "引擎:Transformers.js(ONNX格式的模型，没有GPU时也能在CPU上运行)",

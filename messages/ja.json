@@ -680,8 +680,8 @@
       "deleteAll": "すべて削除(合計 {size})",
       "confirmDelete": "{name}({size})を削除しますか？また使うときは、もう一度ダウンロードします。",
       "confirmDeleteAll": "保存したモデルをすべて(合計 {size})削除しますか？また使うときは、もう一度ダウンロードします。",
+      "featured": "おすすめ",
       "moreModels": "ほかのモデル({count}種類)",
-      "pickModel": "モデルを選ぶ…",
       "engine": { "transformers": "Transformers.js", "webllm": "WebLLM" },
       "engineInfo": {
         "transformers": "エンジン: Transformers.js(ONNX形式のモデル。GPUがなくてもCPUで動きます)",
