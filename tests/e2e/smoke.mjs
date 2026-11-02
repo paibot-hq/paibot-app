@@ -243,6 +243,7 @@ try {
     }
     await start.locator(`a[href="/${locale}/wc"]`).click();
     await page.waitForURL(`**/${locale}/wc`);
+    await page.locator('[data-tool-example]').waitFor();
     assert.equal(await page.locator('[data-tool-example]').count(), 1);
     await page.locator('[data-tool-about] a[href$="/about#contact"]').click();
     await page.waitForURL(`**/${locale}/about#contact`);
