@@ -87,7 +87,11 @@
       "themeLight": "Light",
       "themeDark": "Dark",
       "unset": "Not set",
-      "languages": { "ja": "日本語", "en": "English", "zh": "简体中文" },
+      "languages": {
+        "ja": "日本語",
+        "en": "English",
+        "zh": "简体中文"
+      },
       "clear": "Remove",
       "confirmClear": "Remove your date of birth?",
       "saving": "Saving…",
@@ -302,7 +306,12 @@
     "title": "PAIBOT.app",
     "description": "Check photos before sharing, count characters, run SQL and practise maths. PAIBOT.app offers browser tools for everyday tasks and learning.",
     "navSites": "Sites",
-    "site": { "app": "App", "learn": "Learn", "tools": "Tools", "doc": "Doc" },
+    "site": {
+      "app": "App",
+      "learn": "Learn",
+      "tools": "Tools",
+      "doc": "Doc"
+    },
     "navApps": "Apps",
     "navAbout": "About",
     "lead": "That's all you need.",
@@ -319,7 +328,8 @@
       "about": "About this tool",
       "related": "More tools",
       "allApps": "All apps",
-      "categoryNavigation": "App categories"
+      "categoryNavigation": "App categories",
+      "faq": "Frequently asked questions"
     },
     "appList": {
       "eyebrow": "TOOLS",
@@ -437,7 +447,7 @@
         }
       }
     },
-      "toolsSite": {
+    "toolsSite": {
       "title": "PAIBOT.app Tools | Tools for developers",
       "description": "Free tools for developers: JSON formatter, Base64, URL encoding, IP lookup, domain lookup, CIDR calculator and site check.",
       "heading": "Tools",
@@ -543,7 +553,44 @@
         "reserved": "Reserved",
         "unspecified": "Unspecified",
         "public": "Public"
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to use it",
+          "paragraphs": [
+            "Enter an IPv4 address with a prefix length, such as \"192.168.1.10/24\", or with a subnet mask, such as \"192.168.1.10 255.255.255.0\". The tool shows the network address, broadcast address, first and last usable addresses, number of hosts, subnet mask, wildcard mask and the kind of address (private, public and so on).",
+            "Use it to check ranges when configuring servers and routers, designing cloud VPCs and subnets, or writing firewall rules. Everything is calculated in your browser."
+          ]
+        },
+        {
+          "heading": "Reading CIDR notation",
+          "paragraphs": [
+            "An IPv4 address is a 32-bit number, and \"/24\" means the first 24 bits identify the network. The remaining 8 bits identify devices in it: 2 to the 8th power, 256 addresses. The first (network address) and last (broadcast address) cannot be given to a device, so 254 are usable.",
+            "Each step up in prefix length halves the number of addresses, each step down doubles it: /16 has 65,536 addresses, /28 has 16 (14 usable)."
+          ]
+        },
+        {
+          "heading": "Special ranges",
+          "paragraphs": [
+            "10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16 are private addresses, free to use in homes and offices. 100.64.0.0/10 is shared address space for carrier-grade NAT, 127.0.0.0/8 is loopback (the machine itself), and 169.254.0.0/16 is link-local, used when no address was assigned by DHCP. The tool tells you which one your address belongs to.",
+            "A /31 is meant for a link between two devices, and under RFC 3021 both addresses are usable. A /32 is a single host."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does it handle IPv6?",
+          "a": "No, it is for IPv4 only."
+        },
+        {
+          "q": "What is the network address of 192.168.1.10/24?",
+          "a": "192.168.1.0: the host part (the last 8 bits) set to 0. Set to 1, it gives the broadcast address, 192.168.1.255."
+        },
+        {
+          "q": "Why does my cloud subnet have fewer usable addresses?",
+          "a": "Providers such as AWS reserve a few more addresses for their router and DNS. Check the provider's documentation for the exact number."
+        }
+      ]
     },
     "codePlayground": {
       "languages": "Language",
@@ -735,7 +782,10 @@
       "confirmDelete": "Delete {name} ({size})? Using it again will download it again.",
       "confirmDeleteAll": "Delete every saved model ({size} in total)? Using one again will download it again.",
       "featured": "Recommended",
-      "engine": { "transformers": "Transformers.js", "webllm": "WebLLM" },
+      "engine": {
+        "transformers": "Transformers.js",
+        "webllm": "WebLLM"
+      },
       "engineInfo": {
         "transformers": "Engine: Transformers.js (an ONNX model; runs on the CPU too when there is no GPU)",
         "webllm": "Engine: WebLLM (an MLC model; GPU only, and fast even with larger models)"
@@ -878,7 +928,44 @@
         ],
         "result": "There are 4 visible characters, or 3 without spaces. With a limit of 4, there are no characters left.",
         "note": "A form that limits UTF-16 length or bytes may count differently. Check the destination’s counting rules before submitting."
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to use it",
+          "paragraphs": [
+            "Type or paste your text and the number of characters, with and without spaces and line breaks, appears at once. Enter a limit to see how many characters you have left or how far over you are; you can choose whether the limit applies to the count with or without spaces.",
+            "It is handy while writing anything with a length rule: essays and reports, application forms, social media posts, ad headlines."
+          ]
+        },
+        {
+          "heading": "What counts as one character",
+          "paragraphs": [
+            "The tool counts what a person sees as one character (a grapheme cluster). A family emoji \"👨‍👩‍👧\" or a flag \"🇯🇵\" is built from several code points, but counts as 1 here, as does a letter with a combining accent.",
+            "Programs sometimes need other counts. Open \"How it is counted\" to see the number of code points, the number of UTF-16 units (what JavaScript's length returns) and the size in UTF-8 bytes, useful for database column limits or fields limited in bytes."
+          ]
+        },
+        {
+          "heading": "Good to know",
+          "paragraphs": [
+            "Word processors and some sites count differently (by words, or with their own rules for spaces), so treat the number as a guide when a specific tool's count is required.",
+            "Your text is counted inside the browser and never sent to a server, so drafts and confidential text can be pasted safely."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does it match X (Twitter)'s count?",
+          "a": "Not exactly. X counts some characters, such as Japanese, as 2 and treats every link as a fixed length. This tool counts each visible character as 1."
+        },
+        {
+          "q": "Do line breaks count?",
+          "a": "Yes, in the main count. Look at the count without spaces and line breaks if they should not count."
+        },
+        {
+          "q": "Can it count words?",
+          "a": "It counts characters, not words."
+        }
+      ]
     },
     "arith": {
       "title": "Arithmetic Practice",
@@ -965,7 +1052,44 @@
       "dashLatest": "Latest incidents",
       "dashCount": "{value} records",
       "dashNote": "These numbers are a breakdown of the incidents listed here, not the real number or share of incidents that happened. How deeply each month was researched differs: recent months include smaller incidents, so their counts look higher. The numbers of records are published figures, which include \"up to\" and \"possibly\".",
-      "tabDashboard": "Dashboard"
+      "tabDashboard": "Dashboard",
+      "guide": [
+        {
+          "heading": "About this summary",
+          "paragraphs": [
+            "It lists the cyber incidents made public in Japan in 2026, including personal data leaks, ransomware, system outages and fraud, each with its date, scale, cause, the data involved and sources. The dashboard at the top shows the overall trend, such as incidents by month and by kind.",
+            "The list can be filtered by kind, cause and how well the incident is confirmed, searched by organisation name or content, and sorted by date or by size. Incident descriptions are in Japanese."
+          ]
+        },
+        {
+          "heading": "How the information is gathered and checked",
+          "paragraphs": [
+            "Each incident is based on the organisation's own announcement and on news reports. How well it is confirmed is shown in three levels — confirmed by an official announcement, confirmed by several reports, or a single report only — and every incident links to its sources.",
+            "Causes are classified from what the sources say: an outside attack, an insider, or not an attack (loss, misdirected email, misconfiguration and the like). When the number of records or scale has not been published, it is not guessed and no bar is drawn. The data is reviewed regularly and the date of the last check is shown at the top."
+          ]
+        },
+        {
+          "heading": "If you may be affected",
+          "paragraphs": [
+            "If a service you use appears here, first read the company's email or the notice on its official site. Fake emails pretending to be about an incident also circulate, so open the official site yourself rather than following links in an email.",
+            "If your password may have leaked, change it on that service and on any other service where you used the same one, and turn on two-step verification where you can. If card details were involved, contact your card company and check your statements."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "How often is it updated?",
+          "a": "New announcements are checked and added regularly; the date of the last check is shown at the top."
+        },
+        {
+          "q": "Are incidents abroad included?",
+          "a": "It covers incidents made public in Japan. Incidents abroad are included only when they concern Japanese organisations or users and were announced in Japan."
+        },
+        {
+          "q": "I found a mistake.",
+          "a": "Please check the incident's sources and let us know at the contact address on the About page."
+        }
+      ]
     },
     "birthdayFortune": {
       "title": "Birthday Fortune",
@@ -1325,7 +1449,44 @@
       "regenerate": "Regenerate",
       "copy": "Copy",
       "copied": "Copied",
-      "emptyWarning": "Select at least one character type"
+      "emptyWarning": "Select at least one character type",
+      "guide": [
+        {
+          "heading": "How to use it",
+          "paragraphs": [
+            "Choose a length between 8 and 64 characters and tick the kinds of characters to use (lowercase, uppercase, digits, symbols); a password is made at once. Press \"Regenerate\" for a different one, and \"Copy\" to put it on the clipboard, ready to paste into a sign-up form or a password manager.",
+            "Some services do not accept symbols or limit the length. In that case, untick symbols or shorten the password to fit the rules of the site you are signing up for."
+          ]
+        },
+        {
+          "heading": "How it is made",
+          "paragraphs": [
+            "The randomness comes from the browser's cryptographic random number generator (crypto.getRandomValues in the Web Crypto API), not from Math.random, whose next values can be predicted. At least one character of every kind you ticked is included; the rest are drawn at random from all of them, and the order is then shuffled.",
+            "The password is made inside your browser and never sent to a server. PAIBOT.app never learns the passwords this page makes."
+          ]
+        },
+        {
+          "heading": "What makes a password strong",
+          "paragraphs": [
+            "Strength comes mainly from length and from how many different characters may appear. Sixteen characters drawn from all four kinds (about 90 characters) give roughly 10 to the 31st power combinations, far beyond what can be guessed by trying them all. At least 12 characters, and preferably 16 or more, is the usual advice.",
+            "Even a strong password is unsafe when it is reused: once one service leaks it, attackers try it on others (credential stuffing). Make a different password for every service and let a password manager remember them."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is the password stored anywhere?",
+          "a": "No. It is made and shown in your browser only, never sent or recorded. It disappears when you close the page, so save the ones you need in a password manager."
+        },
+        {
+          "q": "How long should it be?",
+          "a": "16 characters or more, where the service allows it. If you must leave out a kind of character, make the password longer to keep it as strong."
+        },
+        {
+          "q": "A service rejects passwords with symbols.",
+          "a": "Some services accept only certain symbols. Untick symbols and make the password longer instead."
+        }
+      ]
     },
     "base64": {
       "title": "Base64 Converter",
@@ -1339,7 +1500,44 @@
       "resultLabel": "Result",
       "copy": "Copy",
       "copied": "Copied",
-      "invalidError": "That isn't a valid Base64 string"
+      "invalidError": "That isn't a valid Base64 string",
+      "guide": [
+        {
+          "heading": "How to use it",
+          "paragraphs": [
+            "Choose \"Text → Base64\" and type to get the Base64 string; choose \"Base64 → Text\" and paste Base64 to get the original text back. Japanese, Chinese and emoji are handled correctly as UTF-8.",
+            "A string that is not valid Base64 (characters it cannot contain, or the wrong length) shows an error."
+          ]
+        },
+        {
+          "heading": "What Base64 is",
+          "paragraphs": [
+            "Base64 writes any data with 64 characters: uppercase and lowercase letters, digits, \"+\" and \"/\". Every 3 bytes become 4 characters of 6 bits each, so the result is about 4/3 as long, padded with \"=\" at the end.",
+            "It carries data through places that accept only text: email attachments, data URLs that embed images in web pages, HTTP Basic authentication headers, tokens such as JWTs, and certificates in configuration files."
+          ]
+        },
+        {
+          "heading": "Good to know",
+          "paragraphs": [
+            "Base64 is not encryption. Anyone can decode it, so it cannot hide passwords or secrets.",
+            "URL-safe Base64 uses \"-\" and \"_\" instead of \"+\" and \"/\" and often drops the \"=\". This tool reads standard Base64: replace \"-\" with \"+\" and \"_\" with \"/\" before decoding a URL-safe string."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can it encode image files?",
+          "a": "This tool converts text; it does not read files."
+        },
+        {
+          "q": "The decoded text is garbled.",
+          "a": "The data was probably in another encoding (such as Shift_JIS) or was not text at all (an image, for example). The tool shows decoded data as UTF-8 text."
+        },
+        {
+          "q": "Is what I type sent anywhere?",
+          "a": "No. The conversion happens in your browser."
+        }
+      ]
     },
     "json": {
       "title": "JSON Formatter",
@@ -1362,7 +1560,44 @@
         "result": "Formatting preserves the name string and count number. Removing the comma between them produces a syntax error.",
         "note": "JSON keys and strings need double quotes. Valid syntax does not establish that a setting’s values are appropriate for its purpose.",
         "code": "{\"name\":\"PAIBOT\",\"count\":2}"
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to use it",
+          "paragraphs": [
+            "Paste JSON and choose \"Format\" or \"Minify\". Format indents each level by two spaces and puts each entry on its own line; minify removes every space and line break. Copy the result with \"Copy\".",
+            "If the JSON has a syntax error, the tool says it is not valid JSON, so formatting also tells you whether the text is valid."
+          ]
+        },
+        {
+          "heading": "Common syntax errors",
+          "paragraphs": [
+            "JSON looks like JavaScript objects but is stricter. The usual mistakes are a comma after the last item, single quotes (JSON allows only double quotes), keys without quotes, and comments (// or /* */).",
+            "true, false and null must be lowercase; numbers with a leading zero such as 012, NaN and Infinity are not allowed. Checking these in turn usually finds the problem."
+          ]
+        },
+        {
+          "heading": "When it helps",
+          "paragraphs": [
+            "Use it to read a long one-line API response or log entry, to make a configuration file easy to edit, or to shrink data before sending it.",
+            "Everything runs in your browser; nothing you paste is sent to a server, so data containing keys or personal details never leaves your device."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does the key order change?",
+          "a": "Ordinary keys stay in the order you gave. Keys made only of digits, such as \"1\" or \"2\", move to the front in ascending order, as JavaScript arranges them."
+        },
+        {
+          "q": "Are very large numbers kept exactly?",
+          "a": "Numbers are read as JavaScript numbers, so integers beyond about 9007199254740991 and very long decimals may be rounded. Keep large IDs as strings."
+        },
+        {
+          "q": "Does it accept JSON with comments (JSONC)?",
+          "a": "No. Standard JSON has no comments; remove them before pasting."
+        }
+      ]
     },
     "urlencode": {
       "title": "URL Encoder",
@@ -1376,7 +1611,44 @@
       "resultLabel": "Result",
       "copy": "Copy",
       "copied": "Copied",
-      "invalidError": "That isn't a valid URL-encoded string"
+      "invalidError": "That isn't a valid URL-encoded string",
+      "guide": [
+        {
+          "heading": "How to use it",
+          "paragraphs": [
+            "Choose \"Text → Encoded\" and type to get the percent-encoded form: \"café & tea\" becomes \"caf%C3%A9%20%26%20tea\". Choose \"Encoded → Text\" to turn %XX sequences back into characters.",
+            "It helps when building links with search terms, reading an unreadable URL in a log, or assembling parameters for an API."
+          ]
+        },
+        {
+          "heading": "How percent-encoding works",
+          "paragraphs": [
+            "Only some characters may appear in a URL as they are. Others, including non-English letters, spaces and characters with a special meaning in URLs such as \"?\", \"&\", \"=\" and \"/\", are turned into UTF-8 bytes and each byte is written as \"%\" plus two hexadecimal digits. A Japanese character usually takes 3 bytes, so it becomes three %XX groups.",
+            "The tool follows the same rules as JavaScript's encodeURIComponent: everything except letters, digits and - _ . ! ~ * ' ( ) is encoded, so the result can be used safely as a query parameter value."
+          ]
+        },
+        {
+          "heading": "Good to know",
+          "paragraphs": [
+            "Encoding a whole URL also encodes the \":\" and \"/\" of \"https://\", and the link stops working. Encode only the parts that need it, such as parameter values.",
+            "HTML forms sometimes write spaces as \"+\". This tool writes them as \"%20\" and does not read \"+\" as a space when decoding; replace \"+\" with \"%20\" first if needed."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "It says the text is not valid URL-encoding.",
+          "a": "A \"%\" is not followed by two hexadecimal digits, or the bytes are not valid UTF-8. Strings encoded in another character set, such as Shift_JIS, cannot be decoded."
+        },
+        {
+          "q": "Can it decode text encoded twice?",
+          "a": "\"%25\" is a sign of double encoding. Decode the result once more."
+        },
+        {
+          "q": "Is what I type sent anywhere?",
+          "a": "No. The conversion happens in your browser."
+        }
+      ]
     },
     "mosaic": {
       "title": "Photo Mosaic & Blur",
@@ -1421,7 +1693,44 @@
         ],
         "result": "Save an image with the selected area covered. Keep the original separately and check which file you are sharing.",
         "note": "Mosaic and blur do not guarantee that text or faces cannot be inferred. Use a solid black patch for confidential text and inspect the whole image before publishing."
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to use it",
+          "paragraphs": [
+            "Drop a photo, paste it or choose it. Pick a shape (rectangle, ellipse or pen) and an effect (mosaic, blur or black box), then draw over what you want to hide. Add as many areas as you like; \"Undo\" (Ctrl+Z) takes the last one back.",
+            "When you are done, press \"Save\". Use it before posting photos on social media, blogs or marketplaces to hide faces, license plates, name plates, shipping labels or text on documents."
+          ]
+        },
+        {
+          "heading": "Making it impossible to undo",
+          "paragraphs": [
+            "A fine mosaic or a light blur can sometimes be reversed by image processing to guess the text or face beneath. This tool sets the size of the mosaic cells from the size of the area: the shorter side is split into roughly 3 to 8 cells depending on the level, so larger areas get larger cells.",
+            "For text that must never be read (addresses, phone numbers, card numbers), a black box is safest. The saved file contains none of the original pixels of the hidden parts, so they cannot be recovered."
+          ]
+        },
+        {
+          "heading": "Privacy",
+          "paragraphs": [
+            "Photos are processed in your browser only and never sent to a server. The saved image is rebuilt from the full-size photo, so it carries no metadata such as GPS location, date taken or camera model.",
+            "The screen shows a reduced photo, but the areas are recorded in the photo's own pixels, so they line up exactly in the saved file."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does it work on a phone?",
+          "a": "Yes. Draw the areas with your finger."
+        },
+        {
+          "q": "Does the saved photo lose quality?",
+          "a": "It is saved at full size. Depending on the format it is compressed again, which can change the quality slightly."
+        },
+        {
+          "q": "Can it blur videos?",
+          "a": "No, it is for still photos only."
+        }
+      ]
     },
     "dice": {
       "title": "Dice Roller",
@@ -1861,7 +2170,44 @@
         "square": "A bump stays at the corner (the jump). However many terms there are, the highest value stays about 1.179 (the Gibbs phenomenon). The bump only gets narrower; it does not go away.",
         "sawtooth": "The sawtooth also keeps a bump at its jump. More terms make it narrower but not lower (the Gibbs phenomenon).",
         "triangle": "The triangle wave has corners but no jump, so there is no bump, and a few terms fit well."
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to use it",
+          "paragraphs": [
+            "Pick a function to approach, from Taylor series (sin x, cos x, eˣ, ln(1+x), 1/(1−x), arctan x) or Fourier series (square, sawtooth and triangle waves). Add terms and the sum (red) gradually lies over the original function (white); press \"Add terms by itself\" to add them automatically.",
+            "Below the graph, the number of terms and the average gap from the original function show in numbers how the error shrinks as terms are added."
+          ]
+        },
+        {
+          "heading": "Taylor series",
+          "paragraphs": [
+            "A Taylor series writes a function as a sum of powers x, x², x³, …; for example sin x = x − x³/3! + x⁵/5! − …. Near x = 0 a few terms already fit well, and each new term widens the range where it fits.",
+            "For ln(1+x), 1/(1−x) and arctan x you can see that beyond |x| = 1 adding terms never helps: the series diverges. This is the radius of convergence, the limit of where a power series can be used."
+          ]
+        },
+        {
+          "heading": "Fourier series and the Gibbs phenomenon",
+          "paragraphs": [
+            "A Fourier series builds a periodic wave from sin x, sin 2x, sin 3x, …. A square wave is the odd sines weighted 1, 1/3, 1/5, …. The same idea underlies sound synthesis and the compression of images and audio (JPEG, MP3).",
+            "Where the wave jumps, as at the corners of a square wave, an overshoot of about 9% remains just past the jump however many terms are added. It moves closer to the corner but does not get lower; the peak value shown under the graph lets you check."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What is the number of terms?",
+          "a": "How many nonzero terms are added, from the first. Three terms of sin x are x − x³/3! + x⁵/5!."
+        },
+        {
+          "q": "How does this differ from the Approximation Showdown?",
+          "a": "This page shows one method adding terms. The Showdown compares Taylor series, Fourier series and a neural network using the same number of values."
+        },
+        {
+          "q": "What level is this?",
+          "a": "Taylor and Fourier series are usually taught in the first two years of university, but high school students can follow the idea of approaching a function with polynomials or waves by watching the graph."
+        }
+      ]
     },
     "stocks": {
       "title": "World Stock Prices",
@@ -1920,7 +2266,44 @@
       "note": "This shows what the Japan Meteorological Agency has announced, as it is; it is not a prediction. It can be late or stop updating. For decisions that affect your safety, use official sources such as TV, radio and the Agency. Seismic intensity (the shaking at a place) and magnitude (the size of the earthquake) are different things.",
       "credit": "Source: ",
       "creditLink": "Japan Meteorological Agency website, \"Earthquake Information\"",
-      "creditEnd": " (processed by us)"
+      "creditEnd": " (processed by us)",
+      "guide": [
+        {
+          "heading": "Reading the page",
+          "paragraphs": [
+            "Each circle on the map marks an epicentre: its colour is the strongest seismic intensity observed, its size the magnitude. Newer earthquakes are darker, older ones fainter. Press a circle or a list item to see the areas by intensity and whether a tsunami is expected.",
+            "At the top are the number of earthquakes in the past 24 hours, how many reached intensity 3 or more, and the strongest. Filter by intensity to see only stronger ones, and choose to include large earthquakes abroad."
+          ]
+        },
+        {
+          "heading": "About the data",
+          "paragraphs": [
+            "The information is the earthquake information published by the Japan Meteorological Agency (JMA). While the page is open it fetches new information every minute. It lists JMA's reports as they are; it is not a forecast or our own analysis.",
+            "Right after an earthquake JMA first reports intensities, then the epicentre and magnitude, and may revise them. The page can lag behind JMA, so make life-or-death decisions from official sources: TV, radio, JMA and local governments."
+          ]
+        },
+        {
+          "heading": "Intensity versus magnitude",
+          "paragraphs": [
+            "Magnitude is the energy of the earthquake itself, one value per earthquake; one step up means about 32 times the energy. Seismic intensity is how strongly the ground shakes at each place, and varies with distance and ground conditions.",
+            "Japan's intensity scale has 10 levels: 0, 1, 2, 3, 4, 5 lower, 5 upper, 6 lower, 6 upper and 7. A deep earthquake can have a large magnitude yet shake the surface only weakly."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does it show Earthquake Early Warnings?",
+          "a": "No. This page gathers the information JMA publishes after the shaking. Receive early warnings through TV or your phone's alerts."
+        },
+        {
+          "q": "Why do some earthquakes have no intensity?",
+          "a": "No intensity of 1 or more was observed, or the earthquake was abroad."
+        },
+        {
+          "q": "How far back does it go?",
+          "a": "It shows the recent earthquakes in JMA's published list. For older ones, use JMA's seismic intensity database."
+        }
+      ]
     },
     "warnings": {
       "title": "Weather Warnings Across Japan",
@@ -1931,7 +2314,7 @@
       "summary": "Prefectures with a warning or advisory",
       "levels": {
         "special": "Emergency warning",
-          "urgent": "Urgent warning",
+        "urgent": "Urgent warning",
         "warning": "Warning",
         "advisory": "Advisory",
         "none": "None",
@@ -1956,7 +2339,44 @@
       "note": "This shows the warnings and advisories that the Japan Meteorological Agency has issued, as they are; it is not a forecast. It can be late or stop updating. For decisions such as evacuating, use official sources such as TV, radio, your local government and the Agency.",
       "credit": "Source: ",
       "creditLink": "Japan Meteorological Agency website, \"Warnings and Advisories\"",
-      "creditEnd": " (processed by us)"
+      "creditEnd": " (processed by us)",
+      "guide": [
+        {
+          "heading": "Reading the page",
+          "paragraphs": [
+            "Each prefecture tile is coloured by the strongest warning or advisory in force anywhere in it, and the list is sorted from the most severe. Press a tile or list item to see which warnings apply to each municipality or area.",
+            "Use \"What to show\" to show, for example, only emergency warnings or only warnings and above. The top of the page shows how many prefectures have warnings or advisories."
+          ]
+        },
+        {
+          "heading": "Kinds of warnings",
+          "paragraphs": [
+            "Advisories are issued when a disaster may occur, warnings when a serious disaster may occur. Emergency warnings, the strongest call, are issued when the danger of a serious disaster is extremely high, as with once-in-decades heavy rain.",
+            "Since 28 May 2026, JMA has added \"urgent warnings\" between warnings and emergency warnings for heavy rain, landslides, storm surges and more. The page follows the new levels."
+          ]
+        },
+        {
+          "heading": "Data and caveats",
+          "paragraphs": [
+            "The information is the warnings and advisories published by the Japan Meteorological Agency, checked every minute while the page is open. If JMA's data has not been updated for a while, the page says so.",
+            "The page is for seeing the whole country at a glance and can lag or fail to update. Decide on evacuation from your local government's evacuation information and from JMA, TV and radio."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "My prefecture is coloured. Is my area affected?",
+          "a": "A tile is coloured if any one area in the prefecture has a warning. Press the tile to see each area."
+        },
+        {
+          "q": "Does it show weather forecasts?",
+          "a": "No, only warnings and advisories. See JMA and similar sites for forecasts."
+        },
+        {
+          "q": "How often is it updated?",
+          "a": "It checks JMA's data every minute while the page is open, so new announcements appear at the next check."
+        }
+      ]
     },
     "collector": {
       "title": "Coupon Collector",
@@ -2083,30 +2503,30 @@
       "keywords": "government faq japan my number pension child allowance tax return procedures ministry govbot search",
       "intro": "Find frequently asked questions about government procedures in Japan, such as My Number, pensions, child-rearing and taxes. Write what you want to know in plain words (the FAQ is in Japanese).",
       "mode": "View",
-        "tabChat": "Chat",
-        "tabList": "Browse",
-        "tabInfo": "Source & notes",
-        "botGenerated": "This answer was written by an AI from the FAQ. It can be wrong, so please check the original FAQ below as well.",
-        "sources": "FAQ it is based on",
-        "moreSources": "Show {n} more",
-        "answering": "Writing an answer from the FAQ…",
-        "chatLabel": "FAQ chat",
-        "you": "You",
-        "bot": "FAQ bot",
-        "botHello": "Hello. Ask what you want to know about government procedures in plain sentences (the FAQ is in Japanese). I will look for the nearest question in the FAQ and show you its answer.",
-        "botSure": "I think this answer is close to your question.",
-        "botUnsure": "I could not find an exact question. Here is what I think comes closest.",
-        "botNone": "I could not find a question that fits. Try asking in other words.",
-        "others": "Other candidates (press one to see its answer)",
-        "chatPlaceholder": "Write what you want to know",
-        "chatInput": "Your question",
-        "send": "Send",
-        "reset": "Start over",
-        "more": "Read more",
-        "less": "Show less",
-        "semanticOn": "Questions close in meaning are found too. The text of your question (and of the FAQ found for it) is sent through the server to an AI model, to be converted and to write the answer.",
-        "thinking": "Looking…",
-        "searchLabel": "What do you want to know",
+      "tabChat": "Chat",
+      "tabList": "Browse",
+      "tabInfo": "Source & notes",
+      "botGenerated": "This answer was written by an AI from the FAQ. It can be wrong, so please check the original FAQ below as well.",
+      "sources": "FAQ it is based on",
+      "moreSources": "Show {n} more",
+      "answering": "Writing an answer from the FAQ…",
+      "chatLabel": "FAQ chat",
+      "you": "You",
+      "bot": "FAQ bot",
+      "botHello": "Hello. Ask what you want to know about government procedures in plain sentences (the FAQ is in Japanese). I will look for the nearest question in the FAQ and show you its answer.",
+      "botSure": "I think this answer is close to your question.",
+      "botUnsure": "I could not find an exact question. Here is what I think comes closest.",
+      "botNone": "I could not find a question that fits. Try asking in other words.",
+      "others": "Other candidates (press one to see its answer)",
+      "chatPlaceholder": "Write what you want to know",
+      "chatInput": "Your question",
+      "send": "Send",
+      "reset": "Start over",
+      "more": "Read more",
+      "less": "Show less",
+      "semanticOn": "Questions close in meaning are found too. The text of your question (and of the FAQ found for it) is sent through the server to an AI model, to be converted and to write the answer.",
+      "thinking": "Looking…",
+      "searchLabel": "What do you want to know",
       "placeholder": "e.g. マイナンバーカードをなくした",
       "category": "Filter by field",
       "allCategories": "All fields",
@@ -2259,7 +2679,44 @@
         ],
         "result": "Compare the original file with the saved copy, and choose the cleaned copy when sharing.",
         "note": "Removing metadata does not remove an address visible in the picture. It also does not guarantee the absence of undetected information. Inspect the image itself too."
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to use it",
+          "paragraphs": [
+            "Drop or choose a photo (JPEG, PNG and others) or a Word, Excel or PowerPoint file (docx, xlsx, pptx). The tool lists what in it could identify you: the place and time a photo was taken, the camera, the author, the company and more.",
+            "Press \"Remove the metadata and save\" to save a copy without them. The saved copy is checked again and the number of items left is shown, so you can confirm they are gone."
+          ]
+        },
+        {
+          "heading": "What files carry",
+          "paragraphs": [
+            "Photos taken on a phone often record, as EXIF data, the latitude and longitude where they were taken, the time and the camera model. Posting a photo taken at home as it is can reveal your address.",
+            "Office files record the author and the last person who saved them, the company, the software, the creation and modification times, a thumbnail of the first page, and the names of those who left comments or tracked changes. A quote or form sent outside often still carries someone else's name or an old company name."
+          ]
+        },
+        {
+          "heading": "How it removes them",
+          "paragraphs": [
+            "JPEG and PNG files have only the metadata removed, without re-encoding the picture, so the quality does not change; the orientation is kept so the photo is not turned sideways. Office files keep their text and formatting while the document properties and similar parts are removed, and the names on comments and changes can be replaced with \"Author\".",
+            "Names written in the body or text visible in a picture are content, not metadata, and are not removed. Files are processed in your browser only and never sent to a server."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Don't social networks remove the location anyway?",
+          "a": "Many large ones do when you post, but not every service does, and email, chat, blogs and cloud sharing often keep it. Checking before you send is the sure way."
+        },
+        {
+          "q": "Does it handle PDF?",
+          "a": "Not at present; it handles photos and Word, Excel and PowerPoint files."
+        },
+        {
+          "q": "Is the location sent anywhere when I open the map?",
+          "a": "Only when you press \"Open on a map\" are the coordinates passed to the map site (OpenStreetMap). Otherwise nothing is sent."
+        }
+      ]
     },
     "grapher": {
       "title": "Graphing Calculator",
@@ -2297,7 +2754,44 @@
       "readout3d": "x, y: −{half} to {half} · z: {min} to {max}",
       "readoutEmpty3d": "Type a formula.",
       "hint3d": "Type a formula in x and y (e.g. x^2 + y^2, sin(x)cos(y)). The colour is the height: blue is low, red is high. Where the formula has no value or runs off to infinity there is a hole.",
-      "hint": "How to write: 2x, x^2, sqrt(x), abs(x), sin(x), cos(x), tan(x), ln(x) (natural log), log(x) (common log), log(x, 2), exp(x), pi, e. Angles are in radians. A leading y = is fine."
+      "hint": "How to write: 2x, x^2, sqrt(x), abs(x), sin(x), cos(x), tan(x), ln(x) (natural log), log(x) (common log), log(x, 2), exp(x), pi, e. Angles are in radians. A leading y = is fine.",
+      "guide": [
+        {
+          "heading": "How to use it",
+          "paragraphs": [
+            "Type an expression in x and its graph is drawn at once; a leading \"y =\" is optional. Add as many expressions as you like with \"Add a formula\", and press the coloured circle beside each to show or hide it. Drag to move the graph and zoom with the mouse wheel or two fingers; hover over the graph to read the value there.",
+            "Switch the view to \"3D surface\" to draw an expression in x and y, such as sin(x)cos(y), as a surface you can turn by dragging."
+          ]
+        },
+        {
+          "heading": "Writing expressions",
+          "paragraphs": [
+            "Multiplication signs can be left out (2x, 3(x + 1)). Use ^ for powers, sqrt(x), abs(x), sin, cos, tan, ln(x) for the natural log, log(x) for base 10, log(x, 2) for another base and exp(x). pi and e are the constants. Angles are in radians, not degrees.",
+            "Where a value is undefined (ln(x) for x ≤ 0) nothing is drawn, and where it jumps to infinity, as in tan(x), the line is not joined across."
+          ]
+        },
+        {
+          "heading": "Using it to learn",
+          "paragraphs": [
+            "Change the coefficients of a quadratic step by step and watch the vertex and axis move, or overlay sin(x), sin(2x) and sin(x) + 1 to compare period and shift. Drawing y = x, y = e^x and y = ln(x) together shows how inverse functions mirror each other.",
+            "You can also count the solutions of an equation as the crossing points of two graphs. All calculation happens in your browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can it draw a vertical line such as x = 2?",
+          "a": "It draws graphs of y as an expression in x, so vertical lines and equations such as x^2 + y^2 = 1 cannot be drawn. A circle can be drawn as two halves: y = sqrt(1 - x^2) and y = -sqrt(1 - x^2)."
+        },
+        {
+          "q": "Can I enter angles in degrees?",
+          "a": "Angles are in radians. To think in degrees, write sin(x * pi / 180)."
+        },
+        {
+          "q": "How do I get back to the original view?",
+          "a": "Press \"Reset view\", or the 0 key."
+        }
+      ]
     },
     "polyhedra": {
       "title": "Polyhedra",
@@ -2308,13 +2802,26 @@
       "canvasLabel": "3D view of the {name}. Drag to turn it",
       "stats": "{name}: {v} vertices · {e} edges · {f} faces (V − E + F = {v} − {e} + {f} = 2)",
       "choose": "Choose a solid",
-      "solids": {"tetra": "Tetrahedron", "cube": "Cube", "octa": "Octahedron", "dodeca": "Dodecahedron", "icosa": "Icosahedron", "prism": "Prism", "pyramid": "Pyramid", "geodesic": "Geodesic sphere"},
+      "solids": {
+        "tetra": "Tetrahedron",
+        "cube": "Cube",
+        "octa": "Octahedron",
+        "dodeca": "Dodecahedron",
+        "icosa": "Icosahedron",
+        "prism": "Prism",
+        "pyramid": "Pyramid",
+        "geodesic": "Geodesic sphere"
+      },
       "autoOn": "Spinning",
       "autoOff": "Spin by itself",
       "solid": "Solid",
       "wire": "Wireframe",
       "hint": "For every one of them, vertices − edges + faces is 2 (Euler's polyhedron formula). Change the corners or the frequency and see that it stays 2 however many faces there are. In wireframe the edges at the back show faintly.",
-      "names": {"prism": "{n}-gonal prism", "pyramid": "{n}-gonal pyramid", "geodesic": "Geodesic polyhedron (frequency {n})"},
+      "names": {
+        "prism": "{n}-gonal prism",
+        "pyramid": "{n}-gonal pyramid",
+        "geodesic": "Geodesic polyhedron (frequency {n})"
+      },
       "corners": "Corners",
       "frequency": "Frequency"
     },
@@ -2866,12 +3373,30 @@
       "niagara": "Niagara",
       "finale": "Finale",
       "kindLabel": "Kind",
-      "kinds": { "random": "Surprise me", "peony": "Peony", "chrysanthemum": "Chrysanthemum", "willow": "Willow", "core": "Core (two colours)", "heart": "Heart", "star": "Star", "ring": "Ring" },
+      "kinds": {
+        "random": "Surprise me",
+        "peony": "Peony",
+        "chrysanthemum": "Chrysanthemum",
+        "willow": "Willow",
+        "core": "Core (two colours)",
+        "heart": "Heart",
+        "star": "Star",
+        "ring": "Ring"
+      },
       "sizeLabel": "Size",
       "size": "No. {n}",
       "sizeNote": "Opens to about {meters} m across",
       "paletteLabel": "Colour",
-      "palettes": { "auto": "Surprise me", "red": "Red", "orange": "Orange", "gold": "Gold", "green": "Green", "blue": "Blue", "purple": "Purple", "white": "White" },
+      "palettes": {
+        "auto": "Surprise me",
+        "red": "Red",
+        "orange": "Orange",
+        "gold": "Gold",
+        "green": "Green",
+        "blue": "Blue",
+        "purple": "Purple",
+        "white": "White"
+      },
       "windLabel": "Wind",
       "windNone": "None",
       "windLeft": "To the left {n}",
@@ -2915,7 +3440,44 @@
       "excluded": "Without tax",
       "tax": "Tax ({rate}%)",
       "included": "With tax",
-      "note": "Shops choose how they round (the law allows these three ways). The result is a guide."
+      "note": "Shops choose how they round (the law allows these three ways). The result is a guide.",
+      "guide": [
+        {
+          "heading": "How to use it",
+          "paragraphs": [
+            "This calculator is for Japan's consumption tax. Choose \"Without tax → with tax\" or \"With tax → without tax\", enter an amount in yen, and pick the rate: 10% (standard), 8% (reduced) or your own. After choosing how to round fractions of a yen (down, to nearest, or up), you see the tax and the prices with and without it.",
+            "Discounts can be given in percent and in yen: the percentage comes off first, then the yen amount, and the tax is figured last. Use it to check sale prices, quotes and invoices."
+          ]
+        },
+        {
+          "heading": "How it calculates",
+          "paragraphs": [
+            "From a price without tax, the tax is price × rate, rounded, then added. From a price with tax, the price without it is price × 100 ÷ (100 + rate), and the tax is the difference. For example, ¥1,100 including 10% tax is ¥1,000 plus ¥100 tax.",
+            "All arithmetic is done in whole yen with integers, so the tiny errors of decimal floating point (0.1 + 0.2 giving 0.30000000000000004) never shift a result by a yen."
+          ]
+        },
+        {
+          "heading": "The reduced rate and rounding rules",
+          "paragraphs": [
+            "The reduced 8% rate applies to food and drink other than alcohol and eating out, and to newspaper subscriptions published at least twice a week. The same meal is 10% eaten in and 8% taken away.",
+            "Japanese law lets each shop round fractions down, to the nearest yen or up. Under the invoice system, rounding is done once per invoice for each tax rate, so the total can differ by a yen from adding item-by-item amounts."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "How is tax handled on a discount from a tax-inclusive price?",
+          "a": "Choose \"With tax → without tax\" and enter the discount: the price without tax and the tax are worked out from the discounted price."
+        },
+        {
+          "q": "My receipt differs by one yen.",
+          "a": "Shops round differently and may figure tax per item or on the total. Try the other rounding options."
+        },
+        {
+          "q": "Can it handle a purchase mixing 10% and 8%?",
+          "a": "One calculation uses one rate. Calculate each rate separately and add them."
+        }
+      ]
     },
     "split": {
       "title": "Bill splitter",
@@ -3088,7 +3650,44 @@
         ],
         "result": "The difference is 2 days. Counting October 1, 2 and 3 inclusively gives 3 days.",
         "note": "Weekdays count Monday to Friday without excluding public holidays. For business deadlines, check the recipient’s holidays and counting rules."
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to use it",
+          "paragraphs": [
+            "\"Days between\" gives the number of days between two dates, as weeks and days, as years, months and days, and how many of them are weekdays (Monday to Friday). Tick \"Count the first day as day 1\" to include both ends, as for the length of a trip.",
+            "\"Add or subtract\" finds dates such as 90 days later, 3 months before or 2 years later. \"Weekday & era\" shows a date's day of the week, Japanese era year, day of the year, whether it is a leap year, and how far it is from today."
+          ]
+        },
+        {
+          "heading": "Rules it follows",
+          "paragraphs": [
+            "Adding months keeps the day of the month; when the target month is shorter, the result is its last day. One month after January 31 is February 28 (29 in a leap year).",
+            "Japanese era years change on the day of each era change: Reiwa from 1 May 2019, Heisei from 8 January 1989, Showa from 25 December 1926, Taisho from 30 July 1912. No era is shown before Meiji (23 October 1868)."
+          ]
+        },
+        {
+          "heading": "When it helps",
+          "paragraphs": [
+            "Deadlines for contracts and cancellations, payment due dates, days left until an exam or anniversary, and rough estimates of working days for a project.",
+            "Public holidays and year-end closures are not taken out of the weekday count; subtract them for business days. Legal periods often have their own rules (for example, not counting the first day), so confirm official deadlines with the contract or the office concerned."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What date is 100 days from today?",
+          "a": "In \"Add or subtract\", set the date to today, the number to 100, the unit to days and the direction to later."
+        },
+        {
+          "q": "Can it work out someone's age?",
+          "a": "In \"Days between\", enter the birth date and today: the years, months and days give the age."
+        },
+        {
+          "q": "How are leap years decided?",
+          "a": "By the Gregorian rule: years divisible by 4 are leap years, except those divisible by 100, unless they are also divisible by 400."
+        }
+      ]
     },
     "strings": {
       "title": "String Instrument Simulator",
@@ -5648,7 +6247,30 @@
       "mathBody": "AI is used to create maths questions, and computable answers are also checked by software. This does not guarantee that all wording or explanations are correct. Please report mistakes or unclear explanations with a link to the page.",
       "contactTitle": "Contact us or report a correction",
       "contactBody": "For tool problems, incorrect information or questions about using the site, email the operator, PAIBOT LLC.",
-      "contactDetails": "Include the page URL, a sample input, the expected result and what happened instead. Do not send passwords, personal information or confidential files."
+      "contactDetails": "Include the page URL, a sample input, the expected result and what happened instead. Do not send passwords, personal information or confidential files.",
+      "sections": [
+        {
+          "heading": "How the tools are made",
+          "paragraphs": [
+            "Each tool starts from a real need. The character counter counts an emoji or a flag as the single character it looks like; the photo mosaic makes its cells coarse enough, for the size of the area, that what is hidden cannot be recovered. The aim is to remove the everyday inconveniences and risks that simpler tools leave.",
+            "Most tools that handle photos, files or text work entirely in your browser and send nothing to a server. How each one works, and what to watch out for, is explained under \"About this tool\" at the bottom of its page."
+          ]
+        },
+        {
+          "heading": "Sources and checking",
+          "paragraphs": [
+            "The earthquake information and the nationwide weather warnings use data published by the Japan Meteorological Agency, and the government FAQ search uses the FAQ published by the Ministry of Internal Affairs and Communications, with the sources stated. They are shown as published, without forecasts of our own.",
+            "The summary of cyber incidents in Japan checks each incident against the organisation's announcement and news reports, and shows for each how well it is confirmed and where it comes from. Every math practice problem has its answer recalculated by a computer algebra system (SymPy), and word problems are also reviewed by a second AI before they are published."
+          ]
+        },
+        {
+          "heading": "Updates and improvements",
+          "paragraphs": [
+            "Tools keep being improved after they are published: bugs are fixed, features are added, and pages built on data are brought up to date regularly.",
+            "If you find a mistake or have a request, please write to the address below. Every message is read and used to improve the site."
+          ]
+        }
+      ]
     },
     "languageSelect": "Select language",
     "themeToLight": "Switch to light mode",
