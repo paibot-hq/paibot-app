@@ -46,6 +46,7 @@
     "@clerk/shared": "^4.34.0",
     "@huggingface/transformers": "^4.3.2",
     "@mlc-ai/web-llm": "^0.2.87",
+    "@xterm/xterm": "6.0.0",
     "drizzle-orm": "0.45.3",
     "isbot": "^5",
     "katex": "^0.18.7",
@@ -57,7 +58,8 @@
     "sql.js": "^1.15.2",
     "three": "^0.186.1",
     "typescript5": "npm:typescript@^5.9.3",
-    "use-intl": "^4.14.4"
+    "use-intl": "^4.14.4",
+    "v86": "0.5.473"
   },
   "devDependencies": {
     "@clerk/backend": "^3.20.0",
