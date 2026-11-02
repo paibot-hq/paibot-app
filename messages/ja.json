@@ -567,11 +567,11 @@
       }
     },
     "sql": {
-      "title": "SQL 練習(SQLite オンライン実行)",
-      "description": "ブラウザだけで SQL を書いて実行できる練習場。商品・顧客・注文のサンプルの表に、SELECT・JOIN・GROUP BY・ウィンドウ関数などを試せます。結果は表で表示。SQLite で動き、インストール不要・登録不要・無料です。",
-      "about": "SQLite(sql.js)をブラウザの中で動かす、SQL の練習用ページです。小さなお店のデータとして、商品(products)・顧客(customers)・注文(orders)の3つの表が最初から入っているので、すぐに SELECT を試せます。WHERE での絞り込み、ORDER BY での並べ替え、GROUP BY での集計、JOIN での表の結合、サブクエリ、WITH 句、ウィンドウ関数のサンプルも用意しました。CREATE TABLE や INSERT・UPDATE・DELETE も自由に実行でき、実行するたびにサンプルの状態からやり直すので、データを壊す心配はありません。",
-      "keywords": "SQL 練習 オンライン 実行 SQLite ブラウザ SELECT JOIN GROUP BY ウィンドウ関数 データベース 入門 無料 インストール不要",
-      "intro": "SQL を書いて「▶ 実行」を押すと、サンプルの表に対して実行し、結果を表で表示します。",
+      "title": "SQL練習（SQLite / PostgreSQL）",
+      "description": "ブラウザでSQLiteとPostgreSQLを切り替えてSQLを実行。商品・顧客・注文のサンプルでSELECT、JOIN、GROUP BY、ウィンドウ関数を練習できます。インストール・登録不要。",
+      "about": "SQLite（sql.js）とPostgreSQL（PGlite）をブラウザ内で動かすSQL練習ツールです。同じ商品・顧客・注文のサンプルを使って、検索、結合、集計、サブクエリ、ウィンドウ関数を試せます。テーブルの作成やデータの変更も可能です。毎回新しいサンプルDBから始まり、SQLは端末内で実行されます。外部のDBサーバーには接続しません。",
+      "keywords": "SQL 練習 実行 SQLite PostgreSQL Postgres PGlite ブラウザ SELECT JOIN GROUP BY ウィンドウ関数 データベース 初心者 無料",
+      "intro": "SQLiteかPostgreSQLを選び、SQLを書いて「▶ 実行」。書いたSQLはDBごとに残ります。",
       "tablesTitle": "サンプルの表",
       "tablesNote": "列名は英語です。実行するたびに、この内容に戻ります。",
       "columns": {
@@ -610,7 +610,8 @@
         "window": "月ごとの売上と累計(ウィンドウ関数)",
         "create": "表を作る・変える(CREATE・INSERT・UPDATE)"
       },
-      "hint": "SQLite の文法で動きます(日付は '2026-01-05' のような文字列、strftime で扱います)。実行するたびにサンプルの表を作り直すので、DELETE や DROP TABLE をしても次の実行では元に戻ります。複数の文を ; で区切って書くと、SELECT ごとに結果の表が出ます。"
+      "hint": "SQLite の文法で動きます(日付は '2026-01-05' のような文字列、strftime で扱います)。実行するたびにサンプルの表を作り直すので、DELETE や DROP TABLE をしても次の実行では元に戻ります。複数の文を ; で区切って書くと、SELECT ごとに結果の表が出ます。",
+      "postgresHint": "PostgreSQLはPGliteで端末内実行します。サンプルの日付は文字列なので、::dateで日付に変換し、to_charで整形できます。実行ごとに新しいサンプルDBから始まります。複数の文は ; で区切れます。PostgreSQLは選んだときだけ読み込み、初回は少し時間がかかります。"
     },
     "llmMemory": {
       "title": "ローカルLLMのメモリ見積もり",

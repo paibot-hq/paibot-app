@@ -24,3 +24,9 @@ export const EXAMPLES = [
     code: "-- Each run starts again from the sample tables, so feel free to change them.\nCREATE TABLE reviews (\n  product_id INTEGER,\n  stars INTEGER CHECK (stars BETWEEN 1 AND 5)\n);\n\nINSERT INTO reviews VALUES (1, 5), (1, 4), (4, 3), (6, 5), (6, 4), (6, 2);\nUPDATE products SET price = price + 20 WHERE category = (SELECT category FROM products WHERE id = 6);\n\nSELECT p.name, p.price, ROUND(AVG(r.stars), 2) AS stars, COUNT(*) AS reviews\nFROM reviews AS r JOIN products AS p ON p.id = r.product_id\nGROUP BY p.id;\n",
   },
 ] as const;
+
+// PostgreSQL stores the same sample dates as text; cast them for its date formatter.
+export const POSTGRES_EXAMPLES = EXAMPLES.map(example => ({
+  ...example,
+  code: example.code.replace("strftime('%Y-%m', o.ordered_on)", "to_char(o.ordered_on::date, 'YYYY-MM')"),
+}));

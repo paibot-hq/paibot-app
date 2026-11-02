@@ -567,11 +567,11 @@
       }
     },
     "sql": {
-      "title": "SQL 练习（在线运行 SQLite）",
-      "description": "在浏览器中编写并运行 SQL 的练习场。可以在商品、顾客、订单的示例表上尝试 SELECT、JOIN、GROUP BY、窗口函数等，结果以表格显示。基于 SQLite，无需安装、无需注册、免费。",
-      "about": "在浏览器中运行 SQLite（sql.js）的 SQL 练习页面。一开始就有一家小店的三张表：商品（products）、顾客（customers）和订单（orders），可以马上试 SELECT。还准备了用 WHERE 筛选、ORDER BY 排序、GROUP BY 汇总、JOIN 连接表、子查询、WITH 子句和窗口函数的示例。也可以自由执行 CREATE TABLE、INSERT、UPDATE、DELETE，每次运行都会从示例数据重新开始，不用担心把数据弄坏。",
-      "keywords": "SQL 练习 在线运行 SQLite 浏览器 SELECT JOIN GROUP BY 窗口函数 数据库 入门 免费 免安装",
-      "intro": "写好 SQL 后按“▶ 运行”，会在示例表上执行，并以表格显示结果。",
+      "title": "SQL 练习（SQLite / PostgreSQL）",
+      "description": "在浏览器中切换 SQLite 和 PostgreSQL 并执行 SQL。使用商品、顾客和订单示例练习 SELECT、JOIN、GROUP BY 和窗口函数。无需安装或注册。",
+      "about": "使用 SQLite（sql.js）或 PostgreSQL（PGlite）在浏览器内练习 SQL。两者提供相同的商品、顾客和订单数据，可练习查询、连接、聚合、子查询和窗口函数，也可以创建和修改表。每次执行都从全新的示例数据库开始。SQL 在设备内运行，不连接外部数据库服务器。",
+      "keywords": "SQL 练习 在线 执行 SQLite PostgreSQL Postgres PGlite 浏览器 SELECT JOIN GROUP BY 窗口函数 数据库 入门 免费",
+      "intro": "选择 SQLite 或 PostgreSQL，编写 SQL 后点击“▶ 运行”。两种数据库分别保留代码。",
       "tablesTitle": "示例表",
       "tablesNote": "列名是英文。每次运行都会恢复成这些数据。",
       "columns": {
@@ -610,7 +610,8 @@
         "window": "每月销售额和累计（窗口函数）",
         "create": "创建和修改表（CREATE、INSERT、UPDATE）"
       },
-      "hint": "使用 SQLite 的语法（日期是 '2026-01-05' 这样的文本，用 strftime 处理）。每次运行都会重新创建示例表，所以即使执行了 DELETE 或 DROP TABLE，下次运行也会恢复。用 ; 分隔多条语句时，每条 SELECT 都会显示自己的结果表。"
+      "hint": "使用 SQLite 的语法（日期是 '2026-01-05' 这样的文本，用 strftime 处理）。每次运行都会重新创建示例表，所以即使执行了 DELETE 或 DROP TABLE，下次运行也会恢复。用 ; 分隔多条语句时，每条 SELECT 都会显示自己的结果表。",
+      "postgresHint": "PostgreSQL 通过 PGlite 在本地运行。示例日期为文本，可用 ::date 转为日期，再用 to_char 格式化。每次运行都重建示例数据库，多条语句用 ; 分隔。仅在选择 PostgreSQL 时加载，首次可能需要稍等。"
     },
     "llmMemory": {
       "title": "本地LLM内存估算",

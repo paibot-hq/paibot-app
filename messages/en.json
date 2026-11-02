@@ -567,11 +567,11 @@
       }
     },
     "sql": {
-      "title": "SQL Practice (Run SQLite Online)",
-      "description": "A place to write and run SQL in your browser. Try SELECT, JOIN, GROUP BY, window functions and more on sample tables of products, customers and orders, with the results shown as tables. Runs on SQLite; no install, no sign-up, free.",
-      "about": "SQLite (sql.js) runs inside your browser for practising SQL. Three tables of a small shop are there from the start, products, customers and orders, so you can try SELECT straight away. Examples cover filtering with WHERE, sorting with ORDER BY, totals with GROUP BY, joining tables, subqueries, WITH and window functions. CREATE TABLE, INSERT, UPDATE and DELETE work too, and every run starts again from the sample data, so nothing can be broken.",
-      "keywords": "sql practice online run sql sqlite browser select join group by window functions database beginner free no install",
-      "intro": "Write SQL and press \"▶ Run\": it runs on the sample tables and the results are shown as tables.",
+      "title": "SQL Practice (SQLite / PostgreSQL)",
+      "description": "Write and run SQLite or PostgreSQL in your browser. Switch databases and try SELECT, JOIN, GROUP BY and window functions on sample shop tables. No install or sign-up.",
+      "about": "Practice SQL in your browser with SQLite (sql.js) or PostgreSQL (PGlite). Both start with the same products, customers and orders. Try filtering, joins, aggregates, subqueries and window functions, or create and change tables yourself. Each run starts with a fresh sample database. Your SQL runs on your device, with no database server connection.",
+      "keywords": "sql practice online run sql sqlite postgresql postgres pglite browser select join group by window functions database beginner free no install",
+      "intro": "Choose SQLite or PostgreSQL, write SQL and press \"▶ Run\". Each database keeps its own code.",
       "tablesTitle": "Sample tables",
       "tablesNote": "Every run starts again from these rows.",
       "columns": {
@@ -610,7 +610,8 @@
         "window": "Monthly sales and running total (window functions)",
         "create": "Create and change tables (CREATE, INSERT, UPDATE)"
       },
-      "hint": "The SQL is SQLite's (dates are text like '2026-01-05', handled with strftime). The sample tables are made again for every run, so after a DELETE or DROP TABLE the next run starts as before. Several statements separated by ; each show their own table of results."
+      "hint": "The SQL is SQLite's (dates are text like '2026-01-05', handled with strftime). The sample tables are made again for every run, so after a DELETE or DROP TABLE the next run starts as before. Several statements separated by ; each show their own table of results.",
+      "postgresHint": "PostgreSQL runs locally with PGlite. Sample dates are text: cast them with ::date, and use to_char for formatting. Every run starts with a fresh sample database. Separate statements with ;. PostgreSQL loads only when selected; the first load may take a moment."
     },
     "llmMemory": {
       "title": "Local LLM Memory Estimator",
