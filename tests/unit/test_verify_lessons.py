@@ -40,4 +40,31 @@ rejects(lambda l: l['examples'][1].update(steps=['x = 3']), 'does not have the s
 rejects(lambda l: l['examples'][2].update(steps=['x = 2, y = 3']), 'does not have the solutions', 'x')
 rejects(lambda l: l['mistakes'].append({'question': 'x^2 = 9', 'wrong': 'x = 3, x = -3', 'right': 'x = 3, x = -3'}), 'is not wrong', 'x')
 rejects(lambda l: l['mistakes'].append({'question': 'x^2 = 9', 'wrong': 'x = 3', 'right': 'x = 9, x = -9'}), 'is not right', 'x')
-print('PASS: verify_lessons.py rejects broken examples, equations and mistakes')
+
+# Graphs: points on their curves, labels equal to the curves.
+def caption(text):
+    return {'ja': text, 'en': text, 'zh': text}
+
+
+graph = {'sections': [{'heading': caption('g'), 'paragraphs': [caption('p')], 'figures': [{'caption': caption('c'), 'graph': {
+    'view': {'x': [-4, 4], 'y': [-4, 8]},
+    'curves': [{'y': 'x^2 - 2*x', 'label': 'y = x² − 2x'}, {'y': 'x - 2', 'label': 'y = x − 2'}, {'implicit': 'x^2/9 + y^2/4 = 1', 'label': '4x² + 9y² = 36'}],
+    'points': [{'x': 1, 'y': -1, 'label': '(1, −1)', 'on': [0]}, {'x': 2, 'y': 0, 'label': 'A(2, 0)', 'on': [0, 1]}, {'x': 0, 'y': 2, 'on': [2]}],
+}}]}], 'examples': [], 'mistakes': []}
+assert verify_lesson('graph', graph) == [], verify_lesson('graph', graph)
+
+
+def breaks(mutate, expected):
+    broken = copy.deepcopy(graph)
+    mutate(broken['sections'][0]['figures'][0]['graph'])
+    errors = verify_lesson('graph', broken)
+    assert errors and expected in errors[0], f'expected "{expected}", got {errors}'
+
+
+breaks(lambda g: g['points'][0].update(y=0), 'is not on curves[0]')
+breaks(lambda g: g['points'][1].update(on=[1, 2]), 'is not on curves[2]')
+breaks(lambda g: g['curves'][0].update(label='y = x² + 2x'), 'is not the equation of curves[0]')
+breaks(lambda g: g['curves'][1].update(label='y = 2x − 1'), 'is not the equation of curves[1]')
+breaks(lambda g: g['curves'][2].update(label='x² + y² = 4'), 'is not the equation of curves[2]')
+breaks(lambda g: g['points'][1].update(label='A(2, 1)'), 'is not at (2, 0)')
+print('PASS: verify_lessons.py rejects broken examples, equations, mistakes and graphs')

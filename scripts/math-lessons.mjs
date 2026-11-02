@@ -5,7 +5,7 @@ import { join } from 'node:path';
 import { MATH_CATALOG } from '../src/lib/math-catalog.ts';
 import { jpGrade } from '../src/lib/math-curriculum-jp.ts';
 import { keyPoints } from '../src/lib/math-key-points.ts';
-import { lessonProblems } from './lib/math-lesson-check.mjs';
+import { lessonProblems, withReadings } from './lib/math-lesson-check.mjs';
 import { blindProblem, context, extractJSON, promptFile, saveWork } from './math-pipeline.mjs';
 
 // Writes the learning items' lessons (src/data/item-lessons.json, shown on the item page) and has them checked:
@@ -16,13 +16,15 @@ import { blindProblem, context, extractJSON, promptFile, saveWork } from './math
 //   node scripts/math-lessons.mjs <unit|unit/item> ...   write the items that have no lesson, then review them
 //   --review     only review the lessons not yet passed (none are written)
 //   --rewrite    write the named items again even if they have a lesson
+//   --figures    add figures (shapes, graphs) to the lessons the named items already have: Claude adds them where they
+//                help, and the lesson is checked and reviewed again; if it does not pass, the lesson as it was is kept
 //   --jobs N     items worked on at once (default 3)
 const args = process.argv.slice(2);
 const flag = name => args.includes(name);
 const jobsAt = args.indexOf('--jobs');
 const jobs = jobsAt >= 0 ? Number(args[jobsAt + 1]) : 3;
 const wanted = args.filter((arg, index) => !arg.startsWith('--') && (jobsAt < 0 || index !== jobsAt + 1));
-const ROUNDS = 3;
+const ROUNDS = Number(process.env.MATH_LESSON_ROUNDS ?? 3);
 const FILE = new URL('../src/data/item-lessons.json', import.meta.url);
 const messages = JSON.parse(readFileSync(new URL('../messages/ja.json', import.meta.url), 'utf8')).App.math;
 const CLAUDE = process.env.CLAUDE_BIN ?? join(homedir(), '.claude/local/claude');
@@ -98,7 +100,7 @@ function describe(key) {
 const fill = (template, values) => template.replace(/\{\{(\w+)\}\}/g, (match, name) => values[name] ?? match);
 const grammar = promptFile('_formula').split('\n問題の形式')[0];
 const exampleLesson = () => { const { reviewedAt, ...lesson } = read()['factorization/trinomial']; return JSON.stringify(lesson); };
-const writePrompt = (key, extra) => `${fill(promptFile('_lesson'), { grammar, example: exampleLesson() })}
+const writePrompt = (key, extra) => `${fill(promptFile('_lesson'), { grammar, figures: promptFile('_lesson-figures'), example: exampleLesson() })}
 
 学習項目:
 ${JSON.stringify(describe(key).summary, null, 2)}${extra}`;
@@ -112,7 +114,7 @@ async function verify(key) {
 
 async function review(key) {
   const { grade, summary } = describe(key);
-  const { reviewedAt, ...lesson } = read()[key];
+  const { reviewedAt, ...lesson } = withReadings(read()[key]);
   const prompt = fill(promptFile('_lesson-review'), { grade, item: JSON.stringify(summary), lesson: JSON.stringify(lesson, null, 2) });
   const results = await Promise.all(REVIEWERS.map(async model => {
     try { return (await askJSON(model, prompt, 'issues', key)).issues.map(issue => ({ ...issue, reviewer: model })); }
@@ -121,10 +123,20 @@ async function review(key) {
   return results.flat();
 }
 
+const countFigures = lesson => lesson.sections.reduce((n, section) => n + (section.figures?.length ?? 0), 0) + lesson.examples.filter(example => example.figure).length;
+const body = lesson => ({ sections: lesson.sections, examples: lesson.examples, mistakes: lesson.mistakes ?? [] });
+
 async function work(key) {
   const log = message => console.log(`${key}: ${message}`);
   const exists = Boolean(read()[key]);
-  if (!flag('--review') && (!exists || flag('--rewrite'))) {
+  const backup = exists ? structuredClone(read()[key]) : null;
+  if (flag('--figures')) {
+    if (!exists) return { key, status: 'no lesson' };
+    const added = await askJSON('claude', writePrompt(key, `\n\n次の本文は完成しているが、図がない、または足りない。図があると分かりやすくなる説明に図を足した本文全体を、同じ形式で出力する。図が要らない項目は、本文をそのまま出力する。図を足すこと以外では文章や式を変えない（図の数値と本文の数値が食い違うときだけ直す）。\n\n現在の本文:\n${JSON.stringify(body(backup))}`), 'sections', key);
+    if (countFigures(added) <= countFigures(backup)) return { key, status: 'no figure needed' };
+    update(key, lessons => { lessons[key] = body(added); });
+    log(`figures added (${countFigures(added)})`);
+  } else if (!flag('--review') && (!exists || flag('--rewrite'))) {
     const lesson = await askJSON('claude', writePrompt(key, ''), 'sections', key);
     update(key, lessons => { lessons[key] = { sections: lesson.sections, examples: lesson.examples, mistakes: lesson.mistakes ?? [] }; });
     log('written');
@@ -142,7 +154,11 @@ async function work(key) {
     const issues = await review(key);
     // A reviewer that could not answer is not a finding: stop rather than have the lesson rewritten for nothing.
     const failed = issues.filter(issue => issue.failed);
-    if (failed.length) { log(failed.map(issue => issue.problem).join(' / ')); return { key, status: 'review failed' }; }
+    if (failed.length) {
+      log(failed.map(issue => issue.problem).join(' / '));
+      if (flag('--figures') && backup) update(key, lessons => { lessons[key] = backup; });
+      return { key, status: 'review failed' };
+    }
     if (!issues.length) {
       update(key, lessons => { lessons[key].reviewedAt = today; });
       log(`passed review (${REVIEWERS.join(', ')})`);
@@ -151,6 +167,8 @@ async function work(key) {
     feedback = issues.map(issue => `- [${issue.where}] ${issue.problem}${issue.fix ? `（直し方: ${issue.fix}）` : ''}`).join('\n');
     log(`review found ${issues.length}: ${saveWork(`lesson-review-${key.replace('/', '-')}`, JSON.stringify(issues, null, 2))}`);
   }
+  // Figures that did not pass take the lesson back to what it was, so that a lesson that was shown stays shown.
+  if (flag('--figures') && backup) update(key, lessons => { lessons[key] = backup; });
   return { key, status: 'not passed', feedback };
 }
 
@@ -167,4 +185,4 @@ await Promise.all(Array.from({ length: Math.max(1, jobs) }, async () => {
 }));
 console.table(results.map(({ key, status }) => ({ key, status })));
 for (const result of results.filter(result => result.feedback)) console.log(`\n${result.key} (last findings):\n${result.feedback}`);
-process.exitCode = results.every(result => ['passed', 'already reviewed'].includes(result.status)) ? 0 : 1;
+process.exitCode = results.every(result => ['passed', 'already reviewed', 'no figure needed'].includes(result.status)) ? 0 : 1;

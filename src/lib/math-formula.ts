@@ -758,6 +758,8 @@ export function evalExpression(text: string, vars: Record<string, number> = {}):
           case 'cos': return Math.cos(a);
           case 'tan': return Math.tan(a);
           case 'abs': return Math.abs(a);
+          case 'exp': return Math.exp(a);
+          case 'ln': return Math.log(a);
           case 'log': return Math.log(a) / Math.log(b);
           default: return NaN;
         }

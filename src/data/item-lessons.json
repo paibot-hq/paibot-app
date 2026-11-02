@@ -6305,6 +6305,17 @@
             "en": "Here $S$ is the area, $a$ is the height and $b$ is the width. If lengths are in cm, the area is in $\\text{cm}^2$. The two lengths you multiply must be in the same unit.",
             "zh": "这里 $S$ 是面积，$a$ 是长，$b$ 是宽。长度单位是 cm 时，面积单位就是 $\\text{cm}^2$。相乘的两个长度必须用同一个单位。"
           }
+        ],
+        "figures": [
+          {
+            "shape": "rect-area",
+            "numbers": "4, 3",
+            "caption": {
+              "ja": "横 4 cm、たて 3 cm の長方形です。1 cm の正方形が横に 4 個、たてに 3 列ならぶので、面積は $4 \\times 3 = 12 \\text{ cm}^2$ です。",
+              "en": "A rectangle 4 cm wide and 3 cm tall. Unit squares of 1 cm fit 4 across and 3 rows down, so the area is $4 \\times 3 = 12 \\text{ cm}^2$.",
+              "zh": "长 4 cm、宽 3 cm 的长方形。边长 1 cm 的小正方形每行 4 个、共 3 行，所以面积是 $4 \\times 3 = 12 \\text{ cm}^2$。"
+            }
+          }
         ]
       },
       {
@@ -8907,6 +8918,15 @@
           "ja": "三角形の3つの角の和は $180^\\circ$ です。わかっている2つの角の和 $110^\\circ$ を $180^\\circ$ からひきます。",
           "en": "The three angles of a triangle add up to $180^\\circ$. Subtract the known total, $110^\\circ$, from $180^\\circ$.",
           "zh": "三角形三个角的和是 $180^\\circ$。用 $180^\\circ$ 减去已知两角的和 $110^\\circ$。"
+        },
+        "figure": {
+          "shape": "angle-triangle",
+          "numbers": "50, 60",
+          "caption": {
+            "ja": "2つの角が 50° と 60° の三角形です。残りの角を $x$ とします。",
+            "en": "A triangle with two angles of 50° and 60°. Call the remaining angle $x$.",
+            "zh": "有两个角分别是 50° 和 60° 的三角形。把剩下的角记作 $x$。"
+          }
         }
       },
       {
@@ -8933,6 +8953,15 @@
           "ja": "四角形の4つの角の和は $360^\\circ$ です。3つの角の和 $230^\\circ$ を $360^\\circ$ からひきます。",
           "en": "The four angles of a quadrilateral add up to $360^\\circ$. Subtract the total of the three known angles, $230^\\circ$, from $360^\\circ$.",
           "zh": "四边形四个角的和是 $360^\\circ$。用 $360^\\circ$ 减去已知三个角的和 $230^\\circ$。"
+        },
+        "figure": {
+          "shape": "angle-quad",
+          "numbers": "90, 70, 70",
+          "caption": {
+            "ja": "3つの角が 90°、70°、70° の四角形です。残りの角を $x$ とします。",
+            "en": "A quadrilateral with three angles of 90°, 70° and 70°. Call the remaining angle $x$.",
+            "zh": "有三个角分别是 90°、70°、70° 的四边形。把剩下的角记作 $x$。"
+          }
         }
       }
     ],
@@ -13510,6 +13539,52 @@
             "en": "If $a > 0$, the line goes up to the right; if $a < 0$, it goes down to the right. The larger the absolute value of $a$, the steeper the line. For example, $y = -3x + 2$ has slope $-3$, so it goes down to the right.",
             "zh": "$a > 0$ 时直线从左往右上升，$a < 0$ 时从左往右下降。$a$ 的绝对值越大，直线越陡。例如 $y = -3x + 2$ 的斜率是 $-3$，是一条下降的直线。"
           }
+        ],
+        "figures": [
+          {
+            "graph": {
+              "view": {
+                "x": [
+                  -3,
+                  4
+                ],
+                "y": [
+                  -6,
+                  8
+                ]
+              },
+              "curves": [
+                {
+                  "y": "-3*x + 2",
+                  "label": "y = −3x + 2",
+                  "labelAt": -1.6
+                }
+              ],
+              "points": [
+                {
+                  "x": 0,
+                  "y": 2,
+                  "label": "(0, 2)",
+                  "on": [
+                    0
+                  ]
+                },
+                {
+                  "x": 1,
+                  "y": -1,
+                  "label": "(1, −1)",
+                  "on": [
+                    0
+                  ]
+                }
+              ]
+            },
+            "caption": {
+              "ja": "$y = -3x + 2$ のグラフです。$x$ が 0 から 1 に 1 増えると、$y$ は 2 から $-1$ へ 3 減ります。傾きが $-3$ なので右下がりです。",
+              "en": "The graph of $y = -3x + 2$. When $x$ rises by 1, from 0 to 1, $y$ falls by 3, from 2 to $-1$. The slope is $-3$, so the line goes down to the right.",
+              "zh": "$y = -3x + 2$ 的图象。$x$ 从 0 增加到 1，$y$ 从 2 减少到 $-1$，减少了 3。斜率是 $-3$，所以直线向右下方倾斜。"
+            }
+          }
         ]
       },
       {
@@ -13662,6 +13737,52 @@
             "ja": "$x$ 座標が等しいと分母が 0 になり、傾きが求められません。分子と分母では、同じ点を先に引きます。たとえば2点 $(2, 1)$、$(4, 7)$ なら、傾きは $\\frac{7 - 1}{4 - 2} = \\frac{6}{2} = 3$ です。座標に負の数があるときは、かっこを付けて引き算しましょう。",
             "en": "If the $x$-coordinates are equal, the denominator is 0 and there is no slope. Subtract in the same order on top and bottom. For $(2, 1)$ and $(4, 7)$, the slope is $\\frac{7 - 1}{4 - 2} = \\frac{6}{2} = 3$. When a coordinate is negative, put it in parentheses before subtracting.",
             "zh": "如果两点的 $x$ 坐标相等，分母为 0，就求不出斜率。分子和分母要按相同的顺序相减。例如两点 $(2, 1)$、$(4, 7)$，斜率是 $\\frac{7 - 1}{4 - 2} = \\frac{6}{2} = 3$。坐标中有负数时，要加上括号再相减。"
+          }
+        ],
+        "figures": [
+          {
+            "graph": {
+              "view": {
+                "x": [
+                  -1,
+                  6
+                ],
+                "y": [
+                  -7,
+                  9
+                ]
+              },
+              "curves": [
+                {
+                  "y": "3*x - 5",
+                  "label": "y = 3x − 5",
+                  "labelAt": 0.2
+                }
+              ],
+              "points": [
+                {
+                  "x": 2,
+                  "y": 1,
+                  "label": "A(2, 1)",
+                  "on": [
+                    0
+                  ]
+                },
+                {
+                  "x": 4,
+                  "y": 7,
+                  "label": "B(4, 7)",
+                  "on": [
+                    0
+                  ]
+                }
+              ]
+            },
+            "caption": {
+              "ja": "2点 A(2, 1)、B(4, 7) を通る直線です。$x$ が 2 増えるあいだに $y$ は 6 増えるので、傾きは $6 \\div 2 = 3$ です。",
+              "en": "The line through A(2, 1) and B(4, 7). While $x$ rises by 2, $y$ rises by 6, so the slope is $6 \\div 2 = 3$.",
+              "zh": "经过 A(2, 1)、B(4, 7) 两点的直线。$x$ 增加 2 时 $y$ 增加 6，所以斜率是 $6 \\div 2 = 3$。"
+            }
           }
         ]
       },
@@ -13999,6 +14120,73 @@
         ],
         "formulas": [
           "a(-x)^2 = ax^2"
+        ],
+        "figures": [
+          {
+            "graph": {
+              "view": {
+                "x": [
+                  -3,
+                  3
+                ],
+                "y": [
+                  -1,
+                  9
+                ]
+              },
+              "curves": [
+                {
+                  "y": "x^2",
+                  "label": "y = x²",
+                  "labelAt": 2.5
+                }
+              ],
+              "points": [
+                {
+                  "x": -2,
+                  "y": 4,
+                  "label": "(−2, 4)",
+                  "on": [
+                    0
+                  ]
+                },
+                {
+                  "x": -1,
+                  "y": 1,
+                  "on": [
+                    0
+                  ]
+                },
+                {
+                  "x": 0,
+                  "y": 0,
+                  "on": [
+                    0
+                  ]
+                },
+                {
+                  "x": 1,
+                  "y": 1,
+                  "on": [
+                    0
+                  ]
+                },
+                {
+                  "x": 2,
+                  "y": 4,
+                  "label": "(2, 4)",
+                  "on": [
+                    0
+                  ]
+                }
+              ]
+            },
+            "caption": {
+              "ja": "$y = x^2$ のグラフです。$x = -2$ と $x = 2$ では $y$ の値が同じ 4 で、$y$ 軸を対称の軸として左右対称です。",
+              "en": "The graph of $y = x^2$. At $x = -2$ and $x = 2$ the value of $y$ is the same, 4, so the graph is symmetric about the $y$ axis.",
+              "zh": "$y = x^2$ 的图象。$x = -2$ 与 $x = 2$ 时 $y$ 的值相同，都是 4，所以图象关于 $y$ 轴对称。"
+            }
+          }
         ]
       },
       {
@@ -14017,6 +14205,49 @@
             "ja": "$a$ の絶対値が大きいほど、$x$ が変わったときの $y$ の値の変化が急になるので、グラフの開き方は狭くなります。たとえば $y = 2x^2$ は $y = x^2$ より細く、$y = \\frac{1}{2}x^2$ は $y = x^2$ より広く開きます。",
             "en": "The larger the absolute value of $a$, the more rapidly $y$ changes as $x$ changes, so the parabola is narrower. For example, $y = 2x^2$ is narrower than $y = x^2$, and $y = \\frac{1}{2}x^2$ is wider than $y = x^2$.",
             "zh": "$a$ 的绝对值越大，$x$ 变化时 $y$ 的变化就越快，抛物线的开口就越窄。例如，$y = 2x^2$ 比 $y = x^2$ 窄，$y = \\frac{1}{2}x^2$ 比 $y = x^2$ 宽。"
+          }
+        ],
+        "figures": [
+          {
+            "graph": {
+              "view": {
+                "x": [
+                  -3,
+                  3
+                ],
+                "y": [
+                  -6,
+                  9
+                ]
+              },
+              "curves": [
+                {
+                  "y": "2*x^2",
+                  "label": "y = 2x²",
+                  "labelAt": 2.1
+                },
+                {
+                  "y": "x^2",
+                  "label": "y = x²",
+                  "labelAt": -2.6
+                },
+                {
+                  "y": "x^2/2",
+                  "label": "y = x²/2",
+                  "labelAt": 2.6
+                },
+                {
+                  "y": "-x^2",
+                  "label": "y = −x²",
+                  "labelAt": 2.3
+                }
+              ]
+            },
+            "caption": {
+              "ja": "$a$ が違う4つのグラフです。$a$ が正なら上に開き、負なら下に開きます。$a$ の絶対値が大きいほど、開き方が狭くなります。",
+              "en": "Four graphs with different values of $a$. A positive $a$ opens upward and a negative one downward. The larger the absolute value of $a$, the narrower the graph.",
+              "zh": "$a$ 不同的四个图象。$a$ 为正时开口向上，为负时开口向下。$a$ 的绝对值越大，开口越窄。"
+            }
           }
         ]
       },

@@ -2,6 +2,7 @@ import { redirect } from 'react-router';
 import { useLocale, useTranslations } from 'use-intl';
 import { useMathQuestions } from '../components/math-questions';
 import MathText from '../components/math-text';
+import LessonFigureView from '../components/math-lesson-figure';
 import { MathTex } from '../components/math-tex';
 import PublicHead from '../components/public-head';
 import MathBreadcrumb from '../components/math-breadcrumb';
@@ -79,6 +80,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
         <h2 className={styles.lessonHeading}>{text(section.heading)}</h2>
         {section.paragraphs.map((paragraph, at) => <p key={at}><MathText text={text(paragraph)} /></p>)}
         {section.formulas?.map(formula => <div key={formula} className={styles.formula}><MathTex tex={formula} block /></div>)}
+        {section.figures?.map((figure, at) => <LessonFigureView key={at} figure={figure} />)}
         {section.after?.map((paragraph, at) => <p key={at}><MathText text={text(paragraph)} /></p>)}
       </section>)}
       {points.length > 0 && <details className={styles.section} open>
@@ -100,6 +102,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
         {lesson.examples.map((item, index) => <div key={index} className={styles.lessonExample}>
           <p className={styles.exampleLabel}>{ti('exampleNumber', { number: index + 1 })}</p>
           <div className={styles.exampleQuestion}>{lineTex(item.question).map(tex => <MathTex key={tex} tex={tex} block />)}</div>
+          {item.figure && <LessonFigureView figure={item.figure} />}
           <Steps lines={item.steps} />
           <p className={styles.exampleNote}><MathText text={text(item.note)} /></p>
         </div>)}

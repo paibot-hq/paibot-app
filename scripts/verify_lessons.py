@@ -11,12 +11,16 @@ A worked example is one of three kinds:
   same solutions as the question.
 A common mistake's wrong line must be false and its right line true: an identity
 "a = b", or, when the mistake has a question (an equation), its solutions.
+A graph in a figure: every point's `on` curves must pass through it, an equation
+written as a curve's label ("y = x² − 2x") must be the curve's equation, and a point
+labelled with coordinates ("A(1, 3)") must be at them.
 The prose is not checked here (independent review, scripts/math-lessons.mjs)."""
 import json
+import re
 import sys
 from pathlib import Path
 
-from sympy import Eq, Mul, Poly, expand, simplify, solve
+from sympy import Eq, Mul, Poly, Rational, Symbol, expand, simplify, solve
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from verify_math import ROOT, parse_formula  # noqa: E402
@@ -110,8 +114,79 @@ def verify_mistake(key, mistake):
     return errors
 
 
-def verify_lesson(key, lesson):
+def plain(text):
+    """A label as written for readers ("y = 2x + 1", "x² + y² = 4") in the formula grammar."""
+    text = text.replace('−', '-').replace('×', '*').replace('·', '*').replace('÷', '/').replace('π', 'pi')
+    for sup, power in {'²': '^2', '³': '^3', '⁴': '^4'}.items():
+        text = text.replace(sup, power)
+    text = re.sub(r'√\s*\(', 'sqrt(', text)
+    text = re.sub(r'√\s*([A-Za-z0-9]+)', r'sqrt(\1)', text)
+    text = re.sub(r'(\d)\s*([A-Za-z(])', r'\1*\2', text)
+    text = re.sub(r'\)\s*([A-Za-z0-9(])', r')*\1', text)
+    return text
+
+
+def number(value):
+    return Rational(str(value))
+
+
+def curve_residual(curve, x, y):
+    """How far a point is from a curve: 0 when it lies on it."""
+    if 'y' in curve:
+        return simplify(parse_formula(curve['y']).subs(Symbol('x'), x) - y)
+    if 'x' in curve:
+        return simplify(parse_formula(curve['x']) - x)
+    left, right = curve['implicit'].split('=')
+    return simplify((parse_formula(left) - parse_formula(right)).subs({Symbol('x'): x, Symbol('y'): y}))
+
+
+def verify_graph(key, where, graph):
     errors = []
+    curves, points = graph.get('curves', []), graph.get('points', [])
+    for index, curve in enumerate(curves):
+        label = curve.get('label', '')
+        if '=' not in label:
+            continue
+        left, right = (plain(part) for part in label.split('=', 1))
+        if 'y' in curve and left.strip() == 'y':
+            same = equal(right, curve['y'])
+        elif 'x' in curve and left.strip() == 'x':
+            same = equal(right, curve['x'])
+        elif 'implicit' in curve:
+            # The same curve, whatever the scale of the equation ("x²/9 + y²/4 = 1" and "4x² + 9y² = 36").
+            own_left, own_right = curve['implicit'].split('=')
+            ratio = simplify((parse_formula(left) - parse_formula(right)) / (parse_formula(own_left) - parse_formula(own_right)))
+            same = ratio.is_number and ratio != 0
+        else:
+            continue
+        if not same:
+            errors.append(f'{key} {where}: the label {label!r} is not the equation of curves[{index}]')
+    for index, point in enumerate(points):
+        x, y = number(point['x']), number(point['y'])
+        for on in point.get('on', []):
+            if curve_residual(curves[on], x, y) != 0:
+                errors.append(f'{key} {where}: points[{index}] ({point["x"]}, {point["y"]}) is not on curves[{on}]')
+        match = re.fullmatch(r'[A-Za-z]?\s*\(\s*([^,()]+?)\s*,\s*([^,()]+?)\s*\)', point.get('label', ''))
+        if match and not (equal(plain(match.group(1)), str(x)) and equal(plain(match.group(2)), str(y))):
+            errors.append(f'{key} {where}: the label {point["label"]!r} is not at ({point["x"]}, {point["y"]})')
+    return errors
+
+
+def verify_figures(key, lesson):
+    errors = []
+    figures = [(f'sections[{i}].figures[{j}]', figure) for i, section in enumerate(lesson['sections']) for j, figure in enumerate(section.get('figures', []))]
+    figures += [(f'examples[{i}].figure', example['figure']) for i, example in enumerate(lesson['examples']) if 'figure' in example]
+    for where, figure in figures:
+        if 'graph' in figure:
+            try:
+                errors += verify_graph(key, where, figure['graph'])
+            except Exception as error:  # noqa: BLE001
+                errors.append(f'{key} {where}: {error}')
+    return errors
+
+
+def verify_lesson(key, lesson):
+    errors = verify_figures(key, lesson)
     for example in lesson['examples']:
         try:
             errors += verify_example(key, example)

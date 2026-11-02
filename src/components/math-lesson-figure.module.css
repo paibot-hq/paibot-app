@@ -1,0 +1,23 @@
+.figure { margin: .9rem 0 0; padding: .7rem .6rem .6rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); text-align: center; }
+.figure svg { display: block; width: min(100%, 360px); height: auto; margin: 0 auto; }
+.caption { margin-top: .5rem; color: var(--muted); font-size: .88rem; line-height: 1.6; text-align: center; }
+.caption > span { font-size: 1em; }
+
+.graph { overflow: visible; }
+.grid { stroke: var(--line); stroke-width: 1; }
+.axis { stroke: var(--muted); stroke-width: 1.4; }
+.tick { fill: var(--muted); font-size: 10px; }
+.axisName { fill: var(--muted); font-size: 12px; font-style: italic; }
+.region { fill: color-mix(in srgb, var(--accent) 24%, var(--surface)); stroke: color-mix(in srgb, var(--accent) 24%, var(--surface)); stroke-width: .8; }
+/* Curves differ in colour and, for a second and fourth one, in how they are drawn, so that they stay apart without colour. */
+.curve { fill: none; stroke: var(--accent); stroke-width: 2.4; stroke-linecap: round; stroke-linejoin: round; }
+.curve[data-n="1"] { stroke: var(--success); }
+.curve[data-n="2"] { stroke: var(--error); }
+.curve[data-n="3"] { stroke: var(--text); }
+.curve[data-dashed] { stroke-dasharray: 6 5; }
+.point { fill: var(--text); stroke: var(--bg); stroke-width: 1.5; }
+.point[data-hollow] { fill: var(--bg); stroke: var(--text); stroke-width: 2; }
+.name { fill: var(--text); font-size: 12px; paint-order: stroke; stroke: var(--bg); stroke-width: 3px; stroke-linejoin: round; }
+.name[data-n="0"] { fill: var(--accent-dark); }
+.name[data-n="1"] { fill: var(--success); }
+.name[data-n="2"] { fill: var(--error); }

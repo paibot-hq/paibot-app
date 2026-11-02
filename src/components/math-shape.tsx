@@ -308,9 +308,10 @@ function build(which: string, nums: number[]): ReactNode {
   }
 }
 
-export default function MathShape({ which, question }: { which: string; question: string }) {
+// `label` is the description read out for the figure; a lesson passes its caption (a problem's is generic, so as not to name what it asks).
+export default function MathShape({ which, question, label }: { which: string; question: string; label?: string }) {
   const t = useTranslations('App.math.formulaQuiz');
   const nums = splitTop(question, ',').map(part => evalExpression(part));
   const content = build(which, nums);
-  return content === null ? null : <svg className={styles.shape} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={t('shapeDescription')}>{content}</svg>;
+  return content === null ? null : <svg className={styles.shape} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={label ?? t('shapeDescription')}>{content}</svg>;
 }

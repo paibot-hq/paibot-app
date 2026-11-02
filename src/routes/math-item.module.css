@@ -64,3 +64,5 @@
 .mark { flex: none; padding: .05rem .5rem; border-radius: 999px; font-size: .72rem; font-weight: 600; }
 .wrong .mark { background: color-mix(in srgb, var(--error) 18%, transparent); color: var(--error); }
 .right .mark { background: color-mix(in srgb, var(--success) 20%, transparent); color: var(--success); }
+/* A figure under an example's question sits in the example's own card, without a card of its own. */
+.lessonExample figure { border: 0; background: none; padding: 0; margin: .2rem 0 .8rem; }

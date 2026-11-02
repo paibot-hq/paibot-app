@@ -102,7 +102,14 @@ Math is organized unit → learning item → practice set, all in
   them, checks the format (`scripts/lib/math-lesson-check.mjs`) and the math, then Antigravity reviews each
   (`scripts/math-prompts/_lesson*.md`; `MATH_LESSON_REVIEWERS=agy,codex` adds Codex), sending what fails back to Claude;
   only a lesson that passed gets
-  `reviewedAt`, and the page shows nothing else (`--review` reviews without writing, `--rewrite` writes again), key points
+  `reviewedAt`, and the page shows nothing else (`--review` reviews without writing, `--rewrite` writes again,
+  `--figures` adds figures to lessons that have none, keeping the old lesson if the new one does not pass). A lesson can
+  hold figures (`sections[].figures`, `examples[].figure`, each with a ja/en/zh caption): a `shape` from the quiz
+  problems' drawings (`components/math-shape.tsx`, by the same `which` and numbers as a `figure` problem), or a `graph`
+  (curves, points, a shaded region on a coordinate plane, `src/lib/math-lesson-graph.ts`, drawn by
+  `components/math-lesson-figure.tsx`). `verify_lessons.py` checks with SymPy that a point lies on the curves it names
+  and that an equation or coordinates written as a label are the curve's or point's own; the reviewer gets each
+  figure in words (`reading`, `scripts/lib/math-lesson-check.mjs`), key points
   (`src/data/item-formulas.json`: per item 2-5 entries, a well-known formula as TeX,
   general forms preferred, and/or a note, each explained in ja/en/zh; written by an LLM
   with no verification beyond KaTeX rendering; `npm run math:formulas`, `-- --rewrite` rewrites
