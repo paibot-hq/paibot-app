@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { dayOf, firstDay, isBot, toolOf } from '../../src/lib/tool-ranking.ts';
+import { dayOf, firstDay, isBot, isEntrance, toolOf } from '../../src/lib/tool-ranking.ts';
 
 test('a view is counted for the tool whose page it is, in any language, loaded whole or by the client router', () => {
   const cases = {
@@ -19,6 +19,25 @@ test('the top page, site pages, private pages, files, the API and other language
 test('crawlers, previews, headless browsers and scripts are not counted; people are', () => {
   for (const ua of ['Mozilla/5.0 (compatible; Googlebot/2.1)', 'Twitterbot/1.0', 'Mozilla/5.0 HeadlessChrome/140.0', 'curl/8.4', 'python-requests/2', 'undici', 'node', 'Wget/1.21', '']) assert.ok(isBot(ua), ua);
   for (const ua of ['Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Version/18.0 Mobile Safari/604.1', 'Mozilla/5.0 (Windows NT 10.0) Chrome/141.0 Safari/537.36']) assert.ok(!isBot(ua), ua);
+});
+
+test('a visit is counted at its entrance from outside the site, not on the pages it moves through', () => {
+  const origin = 'https://paibot.app';
+  const navigate = (site, referer) => new Headers({ 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Site': site, ...(referer ? { Referer: referer } : {}) });
+  // a search result, a link on another site, a bookmark, a typed address
+  assert.equal(isEntrance('/ja/math/addition/carry', navigate('cross-site', 'https://www.google.com/'), origin), true);
+  assert.equal(isEntrance('/ja/clock', navigate('none'), origin), true);
+  assert.equal(isEntrance('/ja/json', navigate('cross-site', 'https://paibot.dev/ja/git-worktree/'), origin), true);
+  // the client router's fetch, an in-site link, and a reload are the same visit
+  assert.equal(isEntrance('/ja/math/arith.data', new Headers({ 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Site': 'same-origin' }), origin), false);
+  assert.equal(isEntrance('/ja/math/arith', navigate('same-origin', 'https://paibot.app/ja/apps'), origin), false);
+  assert.equal(isEntrance('/ja/math/arith', navigate('same-site', 'https://www.paibot.app/'), origin), false);
+  // a script's fetch is not a page, even from outside
+  assert.equal(isEntrance('/ja/json', new Headers({ 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Site': 'none' }), origin), false);
+  // older browsers send no Sec-Fetch-*: the referrer decides
+  assert.equal(isEntrance('/ja/json', new Headers(), origin), true);
+  assert.equal(isEntrance('/ja/json', new Headers({ Referer: 'https://paibot.app/ja' }), origin), false);
+  assert.equal(isEntrance('/ja/json', new Headers({ Referer: 'https://example.com/' }), origin), true);
 });
 
 test('a day is the date in Japan, and the last seven days include today', () => {

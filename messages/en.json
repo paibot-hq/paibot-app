@@ -742,11 +742,11 @@
     "ranking": {
       "eyebrow": "RANKING",
       "title": "Most popular tools",
-      "description": "PAIBOT.app's tools, ranked by how often they were viewed over the last seven days.",
-      "intro": "The tools used most over the last {days} days.",
+      "description": "PAIBOT.app's tools, ranked by how often people came to them from outside the site over the last seven days.",
+      "intro": "The tools people came to most from outside the site over the last {days} days.",
       "views": "{count, plural, one {# view} other {{formatted} views}}",
-      "empty": "Still counting. The most used tools will be ranked here soon.",
-      "note": "Counts how often each tool's page is shown (per day, Japan time). Search engines and other automated visits are not counted, and nothing about who viewed a page is kept."
+      "empty": "Still counting. The tools people come to most from outside the site will be ranked here soon.",
+      "note": "Counts how often a tool is entered from outside the site (per day, Japan time). Moving between pages within a tool, and search engines and other automated visits, are not counted; nothing about who visited is kept."
     },
     "supporter": {
       "title": "Supporter plan",
