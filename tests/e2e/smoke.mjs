@@ -26,6 +26,9 @@ try {
         titles: [...doc.head.querySelectorAll('title')].map(el => el.textContent),
         canonical: [...doc.querySelectorAll('link[rel="canonical"]')].map(el => el.getAttribute('href')),
         alternates: [...doc.querySelectorAll('link[rel="alternate"][hreflang]')].map(el => [el.getAttribute('hreflang'), el.getAttribute('href')]),
+        robotsTags: [...doc.querySelectorAll('meta[name="robots"]')].map(el => el.content),
+        adsenseAccount: doc.querySelector('meta[name="google-adsense-account"]')?.content,
+        adScripts: [...doc.querySelectorAll('script[src]')].filter(el => el.src.includes('adsbygoogle.js')).length,
         robots: doc.querySelector('meta[name="robots"]')?.content,
         description: doc.querySelector('meta[name="description"]')?.content,
         ogTitle: doc.querySelector('meta[property="og:title"]')?.content,
@@ -34,6 +37,11 @@ try {
         twitterTitle: doc.querySelector('meta[name="twitter:title"]')?.content,
       };
     }, html);
+  }
+  function checkReviewHead(head, path) {
+    assert.equal(head.robotsTags.length, 1, `${path}: one unambiguous robots directive`);
+    assert.equal(head.adScripts, 0, `${path}: no global ad serving while awaiting approval`);
+    assert.equal(head.adsenseAccount, indexable ? 'ca-pub-8043848570527700' : undefined, `${path}: production ownership verification`);
   }
   function checkTitle(head, path) {
     assert.equal(head.titles.length, 1, `${path}: exactly one SSR title`);
@@ -93,6 +101,7 @@ try {
       checkNonce(res, html, pathname);
       const head = await readHead(html);
       checkTitle(head, pathname);
+      checkReviewHead(head, pathname);
       assert.equal(head.lang, locale);
       assert.equal(head.robots, indexable ? 'index, follow' : 'noindex, nofollow');
       assert.deepEqual(head.canonical, [`${siteOrigin}${pathname}`]);
@@ -112,6 +121,7 @@ try {
       checkNonce(res, html, path);
       const head = await readHead(html);
       checkTitle(head, path);
+      checkReviewHead(head, path);
       assert.equal(head.robots, 'noindex, nofollow');
       assert.deepEqual(head.canonical, [], `${path}: no public canonical`);
     }
@@ -144,7 +154,17 @@ try {
   for (const path of ['/invalid/wc', '/ja/missing', '/api/missing', '/missing']) {
     const res = await request(path, { redirect: 'manual' });
     assert.equal(res.status, 404, path);
-    checkTitle(await readHead(await res.text()), path);
+    const head = await readHead(await res.text());
+    checkTitle(head, path);
+    assert.deepEqual(head.robotsTags, ['noindex, nofollow'], `${path}: errors are not indexable`);
+    assert.equal(head.adScripts, 0);
+  }
+  for (const path of ['/ja/math/test', '/en/math/test/placement']) {
+    const res = await request(path);
+    assert.equal(res.status, 200, path);
+    const head = await readHead(await res.text());
+    checkReviewHead(head, path);
+    assert.deepEqual(head.robotsTags, ['noindex, nofollow'], `${path}: practice tests have only a noindex directive`);
   }
   for (const path of ['/icon.svg', '/apple-icon.png', '/opengraph-image.png']) {
     const asset = await request(path);
@@ -212,6 +232,21 @@ try {
     await page.waitForFunction(() => ['light', 'dark'].includes(document.documentElement.dataset.theme));
     assert.equal(await page.locator('title').count(), 1, `${path}: hydrated title`);
     assert.ok((await page.title()).trim());
+  }
+  // New visitors can choose a task without entering a search or using hover.
+  for (const locale of locales) {
+    await go(`/${locale}`);
+    const start = page.locator('[data-search="start"]');
+    assert.equal(await start.locator('article').count(), 4);
+    for (const target of ['/metadata', '/mosaic', '/wc', '/date-calc', '/sql', '/json', '/math/arith/order-of-operations', '/math']) {
+      await start.locator(`a[href="/${locale}${target}"]`).waitFor();
+    }
+    await start.locator(`a[href="/${locale}/wc"]`).click();
+    await page.waitForURL(`**/${locale}/wc`);
+    assert.equal(await page.locator('[data-tool-example]').count(), 1);
+    await page.locator('[data-tool-about] a[href$="/about#contact"]').click();
+    await page.waitForURL(`**/${locale}/about#contact`);
+    await page.locator('#contact a[href="mailto:support@paibot.app"]').waitFor();
   }
   // The top page is a search: it finds an app by its name or keywords, and says so when nothing matches.
   for (const [locale, query, href] of [['ja', 'json', '/ja/json'], ['en', 'json', '/en/json'], ['zh', 'json', '/zh/json'], ['ja', '文字数', '/ja/wc'], ['en', 'password', '/en/password']]) {

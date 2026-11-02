@@ -19,6 +19,7 @@ import type { Route } from './+types/math-placement';
 const PER_LEVEL = 8;
 const noStore = { 'Cache-Control': 'private, no-store' };
 export function headers() { return noStore; }
+export const handle = { noindex: true };
 export async function loader() {
   const candidates = await getTestCandidates(PLACEMENT_LEVELS.flat());
   const pools = PLACEMENT_LEVELS.map(grades => pickTest(candidates.filter(problem => grades.includes(problem.grade)), PER_LEVEL).map(problem => problem.id));
@@ -70,7 +71,6 @@ export default function MathPlacement({ loaderData: { pools, problems } }: Route
   if (!run) {
     return <>
       <title>{`${title} | PAIBOT.app`}</title>
-      <meta name="robots" content="noindex" />
       <ToolLayout title={title} centerTitle compact aboveTitle={<MathBreadcrumb crumbs={crumbs} />}>
         <p className={styles.intro}>{tp('intro', { count: PLACEMENT_SIZE })}</p>
         <h2 className={styles.ask}>{tp('ask')}</h2>
@@ -99,7 +99,6 @@ export default function MathPlacement({ loaderData: { pools, problems } }: Route
   </div>;
   return <>
     <title>{`${title} | PAIBOT.app`}</title>
-    <meta name="robots" content="noindex" />
     <MathSetQuiz key={pools.flat().join()} title={title} setLabel={tp('setLabel', { count: PLACEMENT_SIZE })} questions={questions} total={PLACEMENT_SIZE} sharePath="/math/test/placement"
       shareText={(correct, total) => tp('shareText', { level: outcome ? (outcome.top ? tp('resultTop', { level: levelName(outcome.level) }) : tp('resultLevel', { level: levelName(outcome.level) })) : tp('resultBelow'), correct, total })}
       crumbs={crumbs} onAnswered={answered} result={result}

@@ -1,4 +1,4 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useParams, useRouteLoaderData, useLocation } from 'react-router';
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, useParams, useRouteLoaderData, useLocation, useMatches, useRouteError } from 'react-router';
 import { clerkMiddleware, rootAuthLoader } from '@clerk/react-router/server';
 import { env } from 'cloudflare:workers';
 import { IntlProvider } from 'use-intl';
@@ -45,9 +45,9 @@ export function useSiteMeta() {
 // traffic never pollutes real analytics data.
 const GA_MEASUREMENT_ID = "G-5WNRMDB15J";
 
-// Google AdSense publisher ID (ca-pub-...). Fill in once AdSense issues it; empty emits nothing. Then also add
-// public/ads.txt ("google.com, pub-..., DIRECT, f08c47fec0942fa0") and allow Google's ad hosts in the CSP
-// (src/lib/security-headers.server.ts: frame-src, img-src, connect-src).
+// Ownership verification while the site is awaiting approval. Keep ads.txt too.
+// Do not load Auto ads globally: account, error and unfinished pages are not ad inventory.
+// https://support.google.com/adsense/answer/7584263
 const ADSENSE_CLIENT = "ca-pub-8043848570527700";
 
 export function Layout({ children }: { children: ReactNode }) {
@@ -55,12 +55,16 @@ export function Layout({ children }: { children: ReactNode }) {
   const { isIndexable } = useSiteMeta();
   const { pathname } = useLocation();
   const nonce = useNonce();
-  const indexPage = isIndexable && !isComingSoonMathPath(pathname) && !/^\/(ja|en|zh)\/(sign-in|sign-up|diary|profile|legal\/commerce)(\/|$)/.test(pathname);
+  const matches = useMatches();
+  const error = useRouteError();
+  const excluded = matches.some(match => (match.handle as { noindex?: boolean } | undefined)?.noindex
+    || (match.loaderData as { pageIndexable?: boolean } | undefined)?.pageIndexable === false);
+  const indexPage = isIndexable && !error && !excluded && !isComingSoonMathPath(pathname) && !/^\/(ja|en|zh)\/(sign-in|sign-up|diary|profile|legal\/commerce)(\/|$)/.test(pathname);
   return <html lang={isLocale(locale) ? locale : 'ja'}><head>
     {isIndexable && <>
       <script async nonce={nonce} src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />
       <script nonce={nonce} dangerouslySetInnerHTML={{ __html: `window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_MEASUREMENT_ID}');` }} />
-      {ADSENSE_CLIENT && <script async nonce={nonce} crossOrigin="anonymous" src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`} />}
+      {ADSENSE_CLIENT && <meta name="google-adsense-account" content={ADSENSE_CLIENT} />}
     </>}
     <meta charSet="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content={indexPage ? 'index, follow' : 'noindex, nofollow'} />

@@ -300,7 +300,7 @@
     "signUp": "Sign up",
     "backHome": "Back to home",
     "title": "PAIBOT.app",
-    "description": "Explore PAIBOT.app apps and cloud utilities. We are building tools for operations, organizing information, and automation.",
+    "description": "Check photos before sharing, count characters, run SQL and practise maths. PAIBOT.app offers browser tools for everyday tasks and learning.",
     "navSites": "Sites",
     "site": { "app": "App", "learn": "Learn", "tools": "Tools", "doc": "Doc" },
     "navApps": "Apps",
@@ -654,7 +654,17 @@
         "create": "Create and change tables (CREATE, INSERT, UPDATE)"
       },
       "hint": "The SQL is SQLite's (dates are text like '2026-01-05', handled with strftime). The sample tables are made again for every run, so after a DELETE or DROP TABLE the next run starts as before. Several statements separated by ; each show their own table of results.",
-      "postgresHint": "PostgreSQL runs locally with PGlite. Sample dates are text: cast them with ::date, and use to_char for formatting. Every run starts with a fresh sample database. Separate statements with ;. PostgreSQL loads only when selected; the first load may take a moment."
+      "postgresHint": "PostgreSQL runs locally with PGlite. Sample dates are text: cast them with ::date, and use to_char for formatting. Every run starts with a fresh sample database. Separate statements with ;. PostgreSQL loads only when selected; the first load may take a moment.",
+      "workedExample": {
+        "title": "Example: products priced at 100 yen or less",
+        "steps": [
+          "Select SQLite or PostgreSQL and enter this SQL in the editor.",
+          "Run it and check the prices and row count."
+        ],
+        "result": "The sample returns Orange (80 yen) and Banana (100 yen), in that order. Changing 100 to 150 includes more products.",
+        "note": "WHERE filters rows; ORDER BY sorts them. The sample database resets on every run, so put related changes in the same run as multiple SQL statements.",
+        "code": "SELECT name, price\nFROM products\nWHERE price <= 100\nORDER BY price;"
+      }
     },
     "llmMemory": {
       "title": "Local LLM Memory Estimator",
@@ -780,7 +790,8 @@
       "supporter": "Supporter",
       "terms": "Terms of Service",
       "privacy": "Privacy Policy",
-      "commerce": "Commercial transactions notice"
+      "commerce": "Commercial transactions notice",
+      "contact": "Contact"
     },
     "ranking": {
       "eyebrow": "RANKING",
@@ -858,7 +869,16 @@
       "codePoints": "Code points",
       "utf16": "UTF-16 units (JavaScript length)",
       "utf8": "UTF-8 bytes",
-      "detailsNote": "An emoji or a flag looks like one character, but is made of several code points inside."
+      "detailsNote": "An emoji or a flag looks like one character, but is made of several code points inside.",
+      "workedExample": {
+        "title": "Example: counting text with an emoji",
+        "steps": [
+          "Enter “A😊 B”, with one space after the emoji.",
+          "Set the character limit to 4."
+        ],
+        "result": "There are 4 visible characters, or 3 without spaces. With a limit of 4, there are no characters left.",
+        "note": "A form that limits UTF-16 length or bytes may count differently. Check the destination’s counting rules before submitting."
+      }
     },
     "arith": {
       "title": "Arithmetic Practice",
@@ -1332,7 +1352,17 @@
       "resultLabel": "Result",
       "copy": "Copy",
       "copied": "Copied",
-      "invalidError": "That isn't valid JSON"
+      "invalidError": "That isn't valid JSON",
+      "workedExample": {
+        "title": "Example: make a setting easier to read",
+        "steps": [
+          "Enter this JSON and inspect the formatted result.",
+          "Switch to minify to remove indentation and line breaks."
+        ],
+        "result": "Formatting preserves the name string and count number. Removing the comma between them produces a syntax error.",
+        "note": "JSON keys and strings need double quotes. Valid syntax does not establish that a setting’s values are appropriate for its purpose.",
+        "code": "{\"name\":\"PAIBOT\",\"count\":2}"
+      }
     },
     "urlencode": {
       "title": "URL Encoder",
@@ -1350,8 +1380,8 @@
     },
     "mosaic": {
       "title": "Photo Mosaic & Blur",
-      "description": "Hide faces, number plates, addresses and the like in a photo with a mosaic, a blur or a black patch, and save it. The mosaic is made coarse enough that it cannot be undone, and the photo is handled in your browser only, never uploaded.",
-      "about": "Before you post a photo on social media, a blog or a marketplace, hide the faces, car number plates, name plates or document text that got into it. Pick an area with a rectangle, an ellipse or the pen and it is covered with a mosaic, a blur or black. The mosaic is made as coarse as the area is large, so that it cannot be undone afterwards. The saved photo is made again from the full-size picture, so it carries no metadata such as position. The photo is handled in this browser only and is never uploaded.",
+      "description": "Cover faces, number plates and addresses with mosaic, blur or black patches, then save the photo. Images are processed in your browser and never uploaded.",
+      "about": "Before sharing a photo on social media, a blog or a marketplace, cover visible faces, number plates, addresses or document text. Select an area with a rectangle, ellipse or pen, then choose mosaic, blur or black. Mosaic coarseness adjusts to the selected area, but hidden information may still be inferred. Use solid black patches for confidential text. Saved images are redrawn at the original size without copying the source file’s metadata. Photos are processed in your browser only.",
       "keywords": "mosaic blur photo image face number plate privacy hide redact censor pixelate",
       "drop": "Drop a photo here, paste it, or choose a file",
       "choose": "Choose a photo",
@@ -1372,7 +1402,7 @@
       "level": "Coarseness",
       "penSize": "Pen size",
       "canvasLabel": "The photo. What you draw over is hidden.",
-      "hint": "Draw over the photo to hide that part. The larger the area, the coarser the mosaic is made, so that it cannot be undone. Ctrl+Z undoes one step.",
+      "hint": "Draw over the photo to cover an area. Larger areas use coarser mosaic cells. To cover text fully, choose Black and check that no edges are left visible. Ctrl+Z undoes one step.",
       "undo": "Undo",
       "redo": "Redo",
       "clearAll": "Clear all",
@@ -1382,7 +1412,16 @@
       "saved": "Saved the photo with the areas hidden.",
       "saveFailed": "The photo could not be saved. The picture may be too large.",
       "another": "Choose another photo",
-      "note": "The saved photo is made again from the full-size picture, so it carries no metadata such as position. Once saved, the hidden parts cannot be brought back (what you are editing here is lost when you close the page)."
+      "note": "Saved images are redrawn at the original size without copying source metadata. Information may still be inferred from mosaic or blur. Inspect the saved image before sharing. Closing this page discards the editing state.",
+      "workedExample": {
+        "title": "Example: cover an address in a photo",
+        "steps": [
+          "Choose the image, select Black and cover the entire address with some margin around it.",
+          "Open the saved image and zoom in to check the edges of the text and other visible information."
+        ],
+        "result": "Save an image with the selected area covered. Keep the original separately and check which file you are sharing.",
+        "note": "Mosaic and blur do not guarantee that text or faces cannot be inferred. Use a solid black patch for confidential text and inspect the whole image before publishing."
+      }
     },
     "dice": {
       "title": "Dice Roller",
@@ -1664,7 +1703,11 @@
       "allApps": "See all tools ({count}) →",
       "popular": "Popular tools",
       "ranking": "See the full ranking →",
-      "onlyFavorites": "Favorites only", "noFavorites": "No favorites yet. Press a card's star and it will be gathered here.", "favorites": "Favorites", "all": "All apps", "label": "Search",
+      "onlyFavorites": "Favorites only",
+      "noFavorites": "No favorites yet. Press a card's star and it will be gathered here.",
+      "favorites": "Favorites",
+      "all": "All apps",
+      "label": "Search",
       "placeholder": "Search apps",
       "results": "Search results",
       "none": "Nothing found for \"{query}\"",
@@ -1672,6 +1715,46 @@
         "app": "App",
         "unit": "Unit",
         "item": "Topic"
+      },
+      "tagline": "Everyday tasks and learning, in your browser.",
+      "introduction": "Check photos before sharing, prepare text and data, or practise maths and code. Choose what you want to do and try a tool here.",
+      "startTitle": "Start with a task",
+      "startIntro": "New here? These examples show where to begin.",
+      "siteNote": "Some tools process photos or code on your device; others fetch external information. Each page explains its data handling and limits.",
+      "aboutLink": "About us and contact",
+      "tasks": {
+        "photo": {
+          "title": "Check a photo before sharing it",
+          "body": "An address visible in a picture and a location stored in its file are different kinds of information. Check both before sharing.",
+          "first": "Inspect the metadata for location and capture time, remove unwanted information and save a copy.",
+          "second": "Cover visible addresses or faces with the mosaic tool, then open and check the saved image.",
+          "firstLink": "Inspect metadata",
+          "secondLink": "Hide parts of a photo"
+        },
+        "writing": {
+          "title": "Check a word limit and a date",
+          "body": "Before submitting an application or report, check how characters are counted and confirm the deadline date.",
+          "first": "Paste your text and set a limit. Compare the counts with and without spaces and line breaks.",
+          "second": "Choose the start and end dates in the date calculator. Check whether both endpoints are included.",
+          "firstLink": "Count characters",
+          "secondLink": "Calculate days"
+        },
+        "data": {
+          "title": "Try SQL with sample data",
+          "body": "Products, customers and orders are ready to query. You can search and aggregate data without setting up a database.",
+          "first": "Open a SQL example, run it and compare the code with the resulting table.",
+          "second": "Change a WHERE condition or ORDER BY and run again. Each run starts from the original sample data.",
+          "firstLink": "Run SQL",
+          "secondLink": "Format JSON"
+        },
+        "math": {
+          "title": "Read an example, then practise maths",
+          "body": "Each learning topic introduces key points and an example before its published practice sets. You can also browse by school year or unit.",
+          "first": "Start with Order of operations to review parentheses, multiplication and division.",
+          "second": "Try the practice questions and use the answers and explanations to check your work.",
+          "firstLink": "Try order of operations",
+          "secondLink": "Browse maths topics"
+        }
       }
     },
     "life": {
@@ -2167,7 +2250,16 @@
       "cleanFailed": "A copy without the metadata could not be made.",
       "another": "Check another file",
       "anonymize": "Also replace the names on comments and tracked changes with \"Author\"",
-      "cleanOffice": "The text, layout and charts are kept; the properties (author, company and the like) are emptied and the small picture of the first page is left out. Photos inside lose their position and the like. Open the saved file in Word, Excel or PowerPoint to check it."
+      "cleanOffice": "The text, layout and charts are kept; the properties (author, company and the like) are emptied and the small picture of the first page is left out. Photos inside lose their position and the like. Open the saved file in Word, Excel or PowerPoint to check it.",
+      "workedExample": {
+        "title": "Example: check a photo’s capture information",
+        "steps": [
+          "Choose a JPEG or PNG you plan to share and inspect the reported capture time and GPS information.",
+          "Save the cleaned file, then select that file again to inspect the information detected in it."
+        ],
+        "result": "Compare the original file with the saved copy, and choose the cleaned copy when sharing.",
+        "note": "Removing metadata does not remove an address visible in the picture. It also does not guarantee the absence of undetected information. Inspect the image itself too."
+      }
     },
     "grapher": {
       "title": "Graphing Calculator",
@@ -2987,6 +3079,15 @@
         "showa": "Showa",
         "taisho": "Taisho",
         "meiji": "Meiji"
+      },
+      "workedExample": {
+        "title": "Example: two days or three?",
+        "steps": [
+          "Set the start date to 2026-10-01 and the end date to 2026-10-03.",
+          "Compare the results with Include both dates on and off."
+        ],
+        "result": "The difference is 2 days. Counting October 1, 2 and 3 inclusively gives 3 days.",
+        "note": "Weekdays count Monday to Friday without excluding public holidays. For business deadlines, check the recipient’s holidays and counting rules."
       }
     },
     "strings": {
@@ -5538,7 +5639,16 @@
       "toolsBody": "Count characters, convert data, use a calendar or stopwatch, or practice arithmetic and mathematics. Browse the app list to find a tool for what you want to do.",
       "operatorTitle": "Who runs PAIBOT.app",
       "operatorBody": "PAIBOT.app is developed and operated by {seller}. For the conditions of use and how we handle personal information, see the Terms of Service and Privacy Policy linked at the bottom of this page.",
-      "browseApps": "Browse apps"
+      "browseApps": "Browse apps",
+      "dataTitle": "What happens to your input",
+      "dataBody": "Tools such as character counting, photo metadata removal and SQL execution process your input in the browser. Other features query external services or save information when you sign in. Not every feature works offline. Read each tool’s explanation and the privacy policy for details.",
+      "privacyLink": "Read the privacy policy",
+      "contentTitle": "Information and practice questions",
+      "contentBody": "The cyber incident list includes announcement dates, the information available at the time and source links. Counts and the scope of an incident may change during an investigation. Check the linked source for subsequent updates.",
+      "mathBody": "AI is used to create maths questions, and computable answers are also checked by software. This does not guarantee that all wording or explanations are correct. Please report mistakes or unclear explanations with a link to the page.",
+      "contactTitle": "Contact us or report a correction",
+      "contactBody": "For tool problems, incorrect information or questions about using the site, email the operator, PAIBOT LLC.",
+      "contactDetails": "Include the page URL, a sample input, the expected result and what happened instead. Do not send passwords, personal information or confidential files."
     },
     "languageSelect": "Select language",
     "themeToLight": "Switch to light mode",
