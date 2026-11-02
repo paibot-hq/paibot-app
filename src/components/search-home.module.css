@@ -1,7 +1,7 @@
 .page {
   width: min(900px, 100%);
   margin: 0 auto;
-  padding: clamp(2.5rem, 14vh, 7rem) 1rem 3rem;
+  padding: clamp(2rem, 6vh, 4rem) 1rem 3rem;
   box-sizing: border-box;
 }
 .brand {
@@ -9,7 +9,7 @@
   align-items: center;
   justify-content: center;
   gap: .6rem;
-  margin: 0 0 1.6rem;
+  margin: 0 0 1rem;
   font-size: clamp(1.8rem, 6vw, 2.4rem);
   letter-spacing: .14em;
 }
@@ -70,7 +70,7 @@
 .all {
   display: grid;
   gap: 2.6rem;
-  margin-top: 3.5rem;
+  margin-top: 2rem;
 }
 .all section {
   padding-top: 1.1rem;
@@ -258,3 +258,22 @@
 .list { width: min(900px, calc(100% - 2rem)); margin-inline: auto; }
 .intro { color: var(--muted); line-height: 1.8; }
 .categoryText { margin: -.4rem 0 .9rem; color: var(--muted); font-size: .88rem; line-height: 1.7; }
+
+.tagline { margin: 0; text-align: center; font-size: clamp(1.15rem, 3.8vw, 1.5rem); font-weight: 650; line-height: 1.6; }
+.introduction { max-width: 42rem; margin: .7rem auto 1.5rem; color: var(--muted); line-height: 1.8; text-align: center; }
+.tasks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.task { min-width: 0; padding: 1.2rem; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-strong); }
+.task h3 { margin: 0 0 .6rem; font-size: 1.05rem; line-height: 1.5; }
+.task p, .task li { font-size: .9rem; line-height: 1.75; color: var(--muted); }
+.task p { margin: 0 0 .8rem; }
+.all .task ol { display: block; list-style: decimal; padding-left: 1.3rem; }
+.task li + li { margin-top: .4rem; }
+.taskLinks { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin: .8rem 0; }
+.all .taskLinks a { display: inline; height: auto; padding: .2rem 0; border: 0; border-radius: 0; background: none; color: var(--accent); font-size: .9rem; text-decoration: underline; text-underline-offset: .2em; }
+.siteNote { margin: 2rem 0 0; color: var(--muted); font-size: .85rem; line-height: 1.8; }
+.siteNote a { color: var(--accent); }
+@media (max-width: 600px) { .tasks { grid-template-columns: 1fr; } }
+
+.browse { margin: 1rem 0 0; text-align: center; font-size: .9rem; }
+.browse a { color: var(--accent); text-underline-offset: .2em; }
+@media (max-width: 600px) { .page { padding-top: 1.5rem; } .introduction { font-size: .9rem; } }

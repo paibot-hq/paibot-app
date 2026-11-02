@@ -22,6 +22,7 @@ export async function loader({ params }: Route.LoaderArgs) {
   const { unit, item, set } = catalogEntry(params);
   const [problems, playable] = await Promise.all([unit.kind ? getMathSet(unit.id, item.id, set!.id) : [], getPlayableSets()]);
   return {
+    pageIndexable: unit.status === 'published' && problems.length > 0,
     next: nextPlayableSet(unit, item.id, set!.id, playable),
     unitId: unit.id, itemId: item.id, setId: set!.id, kind: unit.kind, published: unit.status === 'published',
     several: item.sets.length > 1, problems, version: await mathSetVersion(problems),
@@ -46,7 +47,7 @@ export default function MathQuiz({ loaderData: { unitId, itemId, setId, kind, pu
   const path = `/math/${unitId}/${itemId}/${setId}`;
   const nextTitle = next && t(`units.${unitId}.items.${next.item}.title`);
   return <>
-    {published ? <PublicHead locale={locale} path={path} title={head} description={t(`units.${unitId}.summary`)} /> : <title>{head}</title>}
+    {published && problems.length > 0 ? <PublicHead locale={locale} path={path} title={head} description={t(`units.${unitId}.summary`)} /> : <title>{head}</title>}
     <MathSetQuiz key={`${path}:${version}`} version={version} sharePath={path} current={{ unit: unitId, item: itemId, set: setId }}
       next={next && { set: { unit: unitId, item: next.item, set: next.set }, href: `/math/${unitId}/${next.item}/${next.set}`, label: next.several ? `${nextTitle} ${tq('practice', { number: next.set })}` : nextTitle! }}
       title={t(`units.${unitId}.title`)} setLabel={setLabel} questions={questions} crumbs={[{ label: t(`units.${unitId}.title`), href: `/math/${unitId}` }, { label: title, href: `/math/${unitId}/${itemId}` }, { label: tq('practice', { number: setId }) }]} />

@@ -12,6 +12,7 @@ import type { Route } from './+types/math-test';
 // A test (lib/math-test.ts): its problems drawn anew on every visit, so the page is never cached, nor indexed, and nothing is saved.
 const noStore = { 'Cache-Control': 'private, no-store' };
 export function headers() { return noStore; }
+export const handle = { noindex: true };
 export async function loader({ params }: Route.LoaderArgs) {
   const test = findTest(params.test);
   if (!test || (test.kind === 'kentei' && !(KENTEI_LOCALES as readonly string[]).includes(params.locale))) throw new Response('Not Found', { status: 404 });
@@ -35,7 +36,6 @@ export default function MathTest({ loaderData: { id, kind, key, problems } }: Ro
   const title = kind === 'kentei' ? tt('kenteiTitle', { level: name }) : kind === 'grade' ? tt('gradeTitle', { grade: name }) : name;
   return <>
     <title>{`${title} | PAIBOT.app`}</title>
-    <meta name="robots" content="noindex" />
     <MathSetQuiz key={problems.map(problem => problem.id).join()} title={title} setLabel={tt('setLabel', { count: problems.length })} questions={questions} sharePath={`/math/test/${id}`} shareText={(correct, total) => tq('shareText', { title, correct, total })}
       crumbs={[{ label: tt('title'), href: '/math/test' }, { label: name }]}
       onRetry={() => revalidator.revalidate()} retryLabel={tt('retry')} />

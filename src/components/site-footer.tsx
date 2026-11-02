@@ -11,6 +11,7 @@ export default function SiteFooter({ year }: { year: number }) {
     <nav className="footer-links" aria-label={t('label')}>
       <Link href="/apps">{t('apps')}</Link>
       <Link href="/about">{t('about')}</Link>
+      <Link href="/about#contact">{t('contact')}</Link>
       <Link href="/ranking">{t('ranking')}</Link>
       <Link href="/supporter">{t('supporter')}</Link>
       <Link href="/legal/terms">{t('terms')}</Link>
