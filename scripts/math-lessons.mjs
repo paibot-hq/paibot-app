@@ -50,7 +50,15 @@ function exec(command, commandArgs, cwd) {
     child.on('close', code => { clearTimeout(timer); code === 0 ? resolve(out) : reject(new Error(`${command} failed (${code}): ${err.slice(-2000)}\n${out.slice(-4000)}`)); });
   });
 }
+// A model that fails (a usage limit, a dropped connection) is asked again after a pause: 1, 4, then 10 minutes.
 async function ask(model, prompt) {
+  for (const minutes of [1, 4, 10]) {
+    try { return await askOnce(model, prompt); }
+    catch (error) { console.error(`${model} failed, again in ${minutes} min: ${error.message.slice(0, 200).replace(/\s+/g, ' ')}`); await new Promise(resolve => setTimeout(resolve, minutes * 60_000)); }
+  }
+  return askOnce(model, prompt);
+}
+async function askOnce(model, prompt) {
   const temp = mkdtempSync(join(tmpdir(), 'math-lessons-'));
   try {
     if (model === 'claude') return await exec(CLAUDE, ['-p', prompt, '--tools', '', '--output-format', 'text'], temp);
