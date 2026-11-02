@@ -114,6 +114,24 @@ For deployed smoke tests (`npm run e2e -- smoke`) set `CHECK_BROWSER_BASE_URL`, 
 `CF_ACCESS_CLIENT_ID` and `CF_ACCESS_CLIENT_SECRET`. Headers are scoped to the app
 origin and never automatically forwarded across an external redirect.
 
+Production Clerk uses **Google only** for sign-in and sign-up. Email sign-in,
+email sign-up, password sign-up and adding a password are disabled in the
+production Clerk Dashboard; Google is the only SSO connection. These settings
+take effect without a Worker deployment and are not rolled back by releasing an
+older app commit. Keep the development instance's email authentication enabled
+for the isolated test users above. Smoke checks select Google-only authentication
+for `https://paibot.app` and email for other origins; use
+`CHECK_AUTH_MODE=google-only` or `CHECK_AUTH_MODE=email` to explicitly select the
+expected instance configuration. Google-only checks verify both pages offer
+Google and contain no alternative provider or credential input.
+
+Instance snapshots are tracked in [`config/clerk/production.json`](config/clerk/production.json)
+and [`config/clerk/development.json`](config/clerk/development.json). Refresh the
+appropriate snapshot with `clerk config pull --instance prod --output config/clerk/production.json`
+(use `dev` and `development.json` for development). Check that OAuth secrets remain
+redacted before committing. These files record the instance settings; the app and
+deployment workflows do not automatically apply them to Clerk.
+
 ## Environments and releases
 
 | Build | Worker | Domain | Indexing |
