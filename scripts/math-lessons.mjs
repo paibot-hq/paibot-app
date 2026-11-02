@@ -1,5 +1,5 @@
 import { spawn } from 'node:child_process';
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { closeSync, existsSync, mkdtempSync, openSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
 import { homedir, tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { MATH_CATALOG } from '../src/lib/math-catalog.ts';
@@ -17,6 +17,8 @@ import { blindProblem, context, extractJSON, promptFile, saveWork } from './math
 //   --review     only review the lessons not yet passed (none are written)
 //   --rewrite    write the named items again even if they have a lesson
 //   --jobs N     items worked on at once (default 3)
+//   --drafts     take in hand-written lessons from .math-work/drafts/<unit>__<item>.json, check and review them once
+//   --brief      print what the writer is told about each named item (no model is called)
 const args = process.argv.slice(2);
 const flag = name => args.includes(name);
 const jobsAt = args.indexOf('--jobs');
@@ -28,13 +30,28 @@ const messages = JSON.parse(readFileSync(new URL('../messages/ja.json', import.m
 const CLAUDE = process.env.CLAUDE_BIN ?? join(homedir(), '.claude/local/claude');
 const today = new Date().toISOString().slice(0, 10);
 const REVIEWERS = (process.env.MATH_LESSON_REVIEWERS ?? 'agy').split(',');
+const draftPath = key => new URL(`../.math-work/drafts/${key.replace('/', '__')}.json`, import.meta.url).pathname;
+const withoutReview = ({ reviewedAt, ...lesson }) => ({ sections: lesson.sections, examples: lesson.examples, mistakes: lesson.mistakes ?? [] });
 
 const read = () => JSON.parse(readFileSync(FILE, 'utf8'));
 // Read and write in one go, so that items finishing at once do not overwrite each other.
+// A lock file keeps several runs of this script (one per writer) from overwriting each other's items.
+const LOCK = `${FILE.pathname}.lock`;
 const update = (key, change) => {
-  const lessons = read();
-  change(lessons, key);
-  writeFileSync(FILE, JSON.stringify(Object.fromEntries(Object.entries(lessons).sort(([a], [b]) => order(a) - order(b))), null, 2) + '\n');
+  const started = Date.now();
+  for (;;) {
+    try { closeSync(openSync(LOCK, 'wx')); break; }
+    catch (error) {
+      if (error.code !== 'EEXIST') throw error;
+      if (Date.now() - started > 30_000) { rmSync(LOCK, { force: true }); continue; } // left by a crashed run
+      Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 50);
+    }
+  }
+  try {
+    const lessons = read();
+    change(lessons, key);
+    writeFileSync(FILE, JSON.stringify(Object.fromEntries(Object.entries(lessons).sort(([a], [b]) => order(a) - order(b))), null, 2) + '\n');
+  } finally { rmSync(LOCK, { force: true }); }
 };
 const allItems = MATH_CATALOG.flatMap(unit => unit.items.map(item => `${unit.id}/${item.id}`));
 const order = key => allItems.indexOf(key);
@@ -115,14 +132,24 @@ async function review(key) {
 
 async function work(key) {
   const log = message => console.log(`${key}: ${message}`);
+  // --drafts: the lesson was written by hand (or by an agent) in .math-work/drafts/<unit>__<item>.json; it is taken
+  // in as it is, checked and reviewed once, and what is found is reported instead of being sent to Claude.
+  if (flag('--drafts')) {
+    const path = draftPath(key);
+    if (!existsSync(path)) return { key, status: 'no draft' };
+    const draft = JSON.parse(readFileSync(path, 'utf8'));
+    if (read()[key]?.reviewedAt && JSON.stringify(withoutReview(read()[key])) === JSON.stringify(withoutReview(draft))) return { key, status: 'already reviewed' };
+    update(key, lessons => { lessons[key] = { sections: draft.sections, examples: draft.examples, mistakes: draft.mistakes ?? [] }; });
+  }
   const exists = Boolean(read()[key]);
-  if (!flag('--review') && (!exists || flag('--rewrite'))) {
+  if (flag('--drafts')) { /* taken in above */ } else if (!flag('--review') && (!exists || flag('--rewrite'))) {
     const lesson = await askJSON('claude', writePrompt(key, ''), 'sections', key);
     update(key, lessons => { lessons[key] = { sections: lesson.sections, examples: lesson.examples, mistakes: lesson.mistakes ?? [] }; });
     log('written');
   } else if (!exists || read()[key].reviewedAt) return { key, status: exists ? 'already reviewed' : 'no lesson' };
   let feedback = '';
   for (let round = 1; round <= ROUNDS; round++) {
+    if (feedback && flag('--drafts')) break;
     if (feedback) {
       const current = read()[key];
       const fixed = await askJSON('claude', writePrompt(key, `\n\n次の本文には直すべき点がある。指摘をすべて直した本文全体を、同じ形式で出力する。\n指摘:\n${feedback}\n\n現在の本文:\n${JSON.stringify({ sections: current.sections, examples: current.examples, mistakes: current.mistakes })}`), 'sections', key);
@@ -148,7 +175,8 @@ async function work(key) {
 
 const keys = wanted.flatMap(name => name.includes('/') ? [name] : allItems.filter(key => key.startsWith(`${name}/`)));
 for (const key of keys) if (!allItems.includes(key)) { console.error(`Unknown item: ${key}`); process.exit(1); }
-if (!keys.length) { console.error('Usage: npm run math:lessons -- <unit|unit/item> ... [--review] [--rewrite] [--jobs N]'); process.exit(1); }
+if (!keys.length) { console.error('Usage: npm run math:lessons -- <unit|unit/item> ... [--review] [--rewrite] [--drafts] [--brief] [--jobs N]'); process.exit(1); }
+if (flag('--brief')) { for (const key of keys) console.log(`=== ${key}\n${writePrompt(key, '')}\n`); process.exit(0); }
 const results = [];
 const queue = [...keys];
 await Promise.all(Array.from({ length: Math.max(1, jobs) }, async () => {

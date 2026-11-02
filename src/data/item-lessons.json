@@ -176,9 +176,9 @@
             "zh": "应用题就是用故事里出现的数来求答案的题目。故事讲的都是身边常见的事，比如得到糖果、用掉弹珠等。"
           },
           {
-            "ja": "これまでに学んだたし算・ひき算・かけ算（九九）を使えば、どの問題も解けます。大切なのは、おはなしを読んで「どの計算を使えばよいか」を見つけることです。",
-            "en": "You can solve every problem with the addition, subtraction and multiplication (times tables) you have already learned. The important part is reading the story and deciding which calculation to use.",
-            "zh": "只要用学过的加法、减法和乘法（乘法口诀），每道题都能解出来。关键是读懂故事，判断该用哪一种计算。"
+            "ja": "これまでに学んだたし算・ひき算・かけ算（九九）を使って解きます。大切なのは、おはなしを読んで「どの計算を使えばよいか」を見つけることです。",
+            "en": "You solve them with the addition, subtraction and multiplication (times tables) you have learned. The important part is reading the story and deciding which calculation to use.",
+            "zh": "用学过的加法、减法和乘法（乘法口诀）来解。关键是读懂故事，判断该用哪一种计算。"
           }
         ]
       },
@@ -224,9 +224,14 @@
         ],
         "after": [
           {
-            "ja": "$3 + 5$ としてしまうと、ふくろの数とおかしの数をたしてしまうことになります。「ずつ」という言葉があったら、かけ算を考えましょう。",
-            "en": "Writing $3 + 5$ would add the number of bags to the number of sweets, which makes no sense. When you see \"each\" or \"in every\", think of multiplication.",
-            "zh": "如果写成 $3 + 5$，就把袋数和糖果数加在一起了。看到“每”这样的词，就要想到乘法。"
+            "ja": "$3 + 5$ としてしまうと、ふくろの数とおかしの数をたしてしまうことになります。言葉だけで決めずに、「1つ分の数」と「いくつ分」がわかっていて、ぜんぶの数をもとめるときにかけ算を使います。",
+            "en": "Writing $3 + 5$ would add the number of bags to the number of sweets. Do not decide from one word alone: multiply when you know the number in one group and the number of groups, and want the total.",
+            "zh": "如果写成 $3 + 5$，就把袋数和糖果数加在一起了。不要只看某个词来决定：知道每份的数和份数、要求总数时，才用乘法。"
+          },
+          {
+            "ja": "「36本の花を4つの花びんに同じ数ずつ分ける」のように、ぜんぶの数といくつ分がわかっていて1つ分をもとめる問題もあります。このときは、□ × 4 = 36 の □ にあてはまる数を九九でさがします。$9 \\times 4 = 36$ なので、1つ分は9本です。",
+            "en": "Some problems give the total and the number of groups and ask for one group, like sharing 36 flowers equally among 4 vases. Use the times tables to find the number for □ in □ × 4 = 36. Since $9 \\times 4 = 36$, each vase gets 9 flowers.",
+            "zh": "也有知道总数和份数、求每份是多少的题，比如“把 36 枝花平均插进 4 个花瓶”。这时用乘法口诀找出 □ × 4 = 36 中 □ 的数。因为 $9 \\times 4 = 36$，所以每个花瓶插 9 枝。"
           }
         ]
       },
@@ -271,7 +276,7 @@
         ],
         "note": {
           "ja": "「1ふくろに3こずつ、5ふくろでは何こ？」1つ分が3こで5つ分なので $3 \\times 5$ です。答えは15こです。",
-          "en": "\"Each bag holds 3. How many in 5 bags?\" There are 5 groups of 3, so it is $3 \\times 5$. The answer is 15.",
+          "en": "\"Each bag holds 3 sweets. How many sweets in 5 bags?\" There are 5 groups of 3, so it is $3 \\times 5$. The answer is 15 sweets.",
           "zh": "“每袋 3 个，5 袋一共多少个？”每份 3 个，有 5 份，所以是 $3 \\times 5$，答案是 15 个。"
         }
       },
@@ -293,18 +298,18 @@
         "wrong": "6 * 4 = 10",
         "right": "6 * 4 = 24",
         "note": {
-          "ja": "「6本ずつ4はこ」を $6 + 4$ とたしてしまう間違いです。同じ数がいくつ分かあるのでかけ算で、$6 \\times 4 = 24$ 本です。",
-          "en": "This comes from adding $6 + 4$ for \"6 in each box, 4 boxes\". There are equal groups, so multiply: $6 \\times 4 = 24$ pencils.",
-          "zh": "这是把“每盒 6 支，4 盒”算成 $6 + 4$ 的错误。有几个同样多的份数，要用乘法：$6 \\times 4 = 24$ 支。"
+          "ja": "「6本ずつ4はこ」で式は $6 \\times 4$ と書けたのに、$6 + 4$ とたし算をして10にしてしまう間違いです。かけ算は九九で計算して、$6 \\times 4 = 24$ 本です。",
+          "en": "For \"6 pencils in each box, 4 boxes\", the expression $6 \\times 4$ is right, but it was worked out as $6 + 4 = 10$. Use the times tables: $6 \\times 4 = 24$ pencils.",
+          "zh": "“每盒 6 支，4 盒”列出 $6 \\times 4$ 是对的，却算成了 $6 + 4 = 10$。乘法要用乘法口诀：$6 \\times 4 = 24$ 支。"
         }
       },
       {
         "wrong": "40 + 15 - 20 = 55",
         "right": "40 + 15 - 20 = 35",
         "note": {
-          "ja": "「40円もっていて15円もらい、20円使った」のに、1回目の計算 $40 + 15 = 55$ で止めています。きかれているのは のこりなので、さらに20をひいて35円です。",
-          "en": "\"You had 40 yen, got 15 yen, then spent 20 yen.\" Stopping at $40 + 15 = 55$ is wrong. The question asks what is left, so subtract 20 as well: 35 yen.",
-          "zh": "“有 40 元，又得到 15 元，然后花了 20 元。”只算到 $40 + 15 = 55$ 就停下是错的。问的是剩下多少，还要再减去 20，答案是 35 元。"
+          "ja": "「40円もっていて15円もらい、20円使った」で、式には $- 20$ まで書いたのに、はじめの $40 + 15 = 55$ だけを計算して答えにしています。20をひくのをわすれずに、のこりは35円です。",
+          "en": "\"You had 40 yen, got 15 yen, then spent 20 yen.\" The expression includes $- 20$, but only $40 + 15 = 55$ was worked out and given as the answer. Do not forget to subtract 20: 35 yen are left.",
+          "zh": "“有 40 元，又得到 15 元，然后花了 20 元。”算式里写了 $- 20$，却只算了 $40 + 15 = 55$ 就当作答案。别忘了减去 20，剩下 35 元。"
         }
       },
       {
@@ -316,7 +321,8 @@
           "zh": "个位上错算成用大数减小数 $8 - 2$。2 减 8 不够减，要从十位退 1：$12 - 8 = 4$，十位是 $4 - 1 = 3$。"
         }
       }
-    ]
+    ],
+    "reviewedAt": "2026-11-02"
   },
   "signed/four-operations": {
     "sections": [
