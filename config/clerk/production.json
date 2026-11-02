@@ -21,18 +21,19 @@
       "max_attempts": 10
     }
   },
+  "auth_biometric": {
+    "enrollment_prompt_after_sign_in": false,
+    "enrollment_prompt_after_sign_up": false,
+    "used_for_sign_in": false
+  },
   "auth_email": {
     "immutable": false,
-    "required_for_sign_up": true,
-    "sign_in_strategies": [
-      "email_code"
-    ],
-    "used_for_sign_in": true,
-    "used_for_sign_up": true,
-    "verification_strategies": [
-      "email_code"
-    ],
-    "verify_at_sign_up": true
+    "required_for_sign_up": false,
+    "sign_in_strategies": [],
+    "used_for_sign_in": false,
+    "used_for_sign_up": false,
+    "verification_strategies": [],
+    "verify_at_sign_up": false
   },
   "auth_multi_factor": {
     "authenticator_app": {
@@ -47,16 +48,17 @@
   "auth_passkey": {
     "allow_autofill": true,
     "satisfies_second_factor": true,
+    "second_factor_on_web": false,
     "show_sign_in_button": true,
     "used_for_sign_in": false
   },
   "auth_password": {
     "device_trust": {
-      "enabled": true
+      "enabled": false
     },
     "disable_hibp": false,
     "disable_password_reverification": false,
-    "enabled": true,
+    "enabled": false,
     "enforce_hibp_on_sign_in": true,
     "max_length": 0,
     "min_length": 15,
@@ -65,7 +67,7 @@
     "require_numbers": false,
     "require_special_char": false,
     "require_uppercase": false,
-    "required": true,
+    "required": false,
     "show_zxcvbn": false
   },
   "auth_phone": {
@@ -116,7 +118,7 @@
       "terms_of_service_url": null
     }
   },
-  "config_version": "v1_84f1e44d",
+  "config_version": "v1_dab0a6b0",
   "connection_oauth_agentid": {
     "authenticatable": true,
     "block_email_subaddresses": false,
@@ -322,6 +324,10 @@
     "enabled": false
   },
   "connections_oauth_custom": {},
+  "native_app_minimum_versions": {
+    "android": {},
+    "ios": {}
+  },
   "organization_settings": {
     "admin_delete_enabled": true,
     "creator_role": "org:admin",

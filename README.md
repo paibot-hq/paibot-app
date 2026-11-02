@@ -125,6 +125,13 @@ for `https://paibot.app` and email for other origins; use
 expected instance configuration. Google-only checks verify both pages offer
 Google and contain no alternative provider or credential input.
 
+Instance snapshots are tracked in [`config/clerk/production.json`](config/clerk/production.json)
+and [`config/clerk/development.json`](config/clerk/development.json). Refresh the
+appropriate snapshot with `clerk config pull --instance prod --output config/clerk/production.json`
+(use `dev` and `development.json` for development). Check that OAuth secrets remain
+redacted before committing. These files record the instance settings; the app and
+deployment workflows do not automatically apply them to Clerk.
+
 ## Environments and releases
 
 | Build | Worker | Domain | Indexing |
