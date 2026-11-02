@@ -48,8 +48,6 @@ export default function BrowserAi() {
   // What the browser has saved (undefined until it has been looked at), and whether a deletion is under way.
   const [stored, setStored] = useState<Stored>();
   const [deleting, setDeleting] = useState(false);
-  // Whether the models beyond the featured ones are shown.
-  const [showAll, setShowAll] = useState(false);
   const worker = useRef<Worker>(null);
   const log = useRef<HTMLDivElement>(null);
   const model = MODELS.find(m => m.id === modelId)!;
@@ -164,13 +162,12 @@ export default function BrowserAi() {
   const loaded = phase === "ready" || phase === "answering";
   const picking = phase === "loading" || phase === "answering";
 
-  // The featured models as cards, the rest as rows in the same shape (name, size or why it cannot run here, engine), so every model is picked
-  // the same way.
-  const modelButton = (m: ModelInfo, className: string) => {
+  // Every model in the same shape: name (and whether it is recommended), size or why it cannot run here, engine.
+  const modelButton = (m: ModelInfo) => {
     const usable = planFor(m);
     return (
-      <button key={m.id} type="button" className={className} aria-pressed={m.id === modelId} disabled={gpu !== undefined && !usable || picking} onClick={() => setModelId(m.id)}>
-        <strong>{m.name}</strong>
+      <button key={m.id} type="button" className={styles.row} aria-pressed={m.id === modelId} disabled={gpu !== undefined && !usable || picking} onClick={() => setModelId(m.id)}>
+        <strong>{m.name}{FEATURED.includes(m.id) && <small className={styles.featured}>{t("featured")}</small>}</strong>
         <span>{gpu === undefined ? "" : usable ? t("size", { mb: usable.sizeMB }) : t("gpuOnly")}</span>
         <em className={styles.engine} data-engine={m.engine}>{t(`engine.${m.engine}`)}</em>
       </button>
@@ -185,21 +182,14 @@ export default function BrowserAi() {
         <p className={styles.device} data-ai="device">
           {gpu === undefined ? t("device.checking") : t(`device.${gpu ? "webgpu" : "wasm"}`)}
         </p>
-        <div className={styles.models} role="group" aria-label={t("featured")}>
-          {FEATURED.map(id => MODELS.find(m => m.id === id)!).map(m => modelButton(m, styles.model))}
+        <div className={styles.models}>
+          {makers().map(maker => (
+            <div key={maker} className={styles.maker} role="group" aria-label={maker}>
+              <h3>{maker}</h3>
+              <div className={styles.rows}>{MODELS.filter(m => m.maker === maker).map(modelButton)}</div>
+            </div>
+          ))}
         </div>
-        <details className={styles.more} open={showAll} onToggle={event => setShowAll(event.currentTarget.open)}>
-          <summary>{t("moreModels", { count: MODELS.length - FEATURED.length })}</summary>
-          {makers().map(maker => {
-            const others = MODELS.filter(m => m.maker === maker && !FEATURED.includes(m.id));
-            return others.length > 0 && (
-              <div key={maker} className={styles.maker} role="group" aria-label={maker}>
-                <h3>{maker}</h3>
-                <div className={styles.rows}>{others.map(m => modelButton(m, styles.row))}</div>
-              </div>
-            );
-          })}
-        </details>
         <p className={styles.modelInfo} data-ai="model-info">
           {t("modelInfo", { name: model.name, maker: model.maker })}
           {model.engine === "webllm" && <> · {t("gpuMemory", { gb: (model.vramMB / 1000).toFixed(1) })}</>}

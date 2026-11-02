@@ -13,32 +13,12 @@
   background: var(--surface);
 }
 .device { margin: 0; font-size: .85rem; font-weight: 700; color: var(--muted); }
-.models { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; }
-.model {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: .1rem;
-  min-width: 8rem;
-  padding: .5rem 1rem;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--surface);
-  color: var(--text);
-  font: inherit;
-  cursor: pointer;
-}
-.model span { font-size: .78rem; color: var(--muted); }
+.models { width: 100%; }
 /* Which engine runs the model: a small tag, tinted differently so the two can be told apart at a glance (text in the theme's colour). */
 .engine { margin-top: .15rem; padding: 0 .45rem; border-radius: 999px; font-size: .7rem; font-style: normal; color: var(--text); }
 .engine[data-engine="transformers"] { background: color-mix(in srgb, #1fa37f 22%, transparent); }
 .engine[data-engine="webllm"] { background: color-mix(in srgb, #7b6cf0 26%, transparent); }
-.model[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface)); }
-.model:disabled { opacity: .5; cursor: not-allowed; }
-.more { width: 100%; font-size: .85rem; color: var(--muted); }
-.more summary { width: fit-content; margin: 0 auto; padding: .3rem .8rem; border-radius: 999px; cursor: pointer; }
-.more summary:hover { background: var(--surface-strong); }
-.maker { margin-top: .7rem; }
+.maker + .maker { margin-top: .7rem; }
 .maker h3 { margin: 0 0 .35rem; font-size: .78rem; font-weight: 700; color: var(--muted); }
 .rows { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 17rem), 1fr)); gap: .35rem; }
 .row {
@@ -57,6 +37,7 @@
   cursor: pointer;
 }
 .row strong { flex: 1; min-width: 0; overflow-wrap: anywhere; font-weight: 600; }
+.featured { margin-left: .4rem; padding: 0 .4rem; border: 1px solid var(--accent); border-radius: 999px; font-size: .68rem; font-weight: 700; color: var(--accent); white-space: nowrap; vertical-align: .1em; }
 .row span { font-size: .75rem; color: var(--muted); white-space: nowrap; }
 .row .engine { margin-top: 0; white-space: nowrap; }
 .row[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, var(--surface)); }

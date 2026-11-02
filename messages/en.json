@@ -681,7 +681,6 @@
       "confirmDelete": "Delete {name} ({size})? Using it again will download it again.",
       "confirmDeleteAll": "Delete every saved model ({size} in total)? Using one again will download it again.",
       "featured": "Recommended",
-      "moreModels": "More models ({count})",
       "engine": { "transformers": "Transformers.js", "webllm": "WebLLM" },
       "engineInfo": {
         "transformers": "Engine: Transformers.js (an ONNX model; runs on the CPU too when there is no GPU)",
