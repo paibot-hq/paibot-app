@@ -1,5 +1,48 @@
 {
   "App": {
+    "linux": {
+      "title": "Linux 终端",
+      "description": "在浏览器中启动真正的 Linux。练习命令和文件操作，随时重新开始。",
+      "about": "通过 v86 和 WebAssembly，在浏览器内运行小型 Linux。使用示例文件练习文件操作、文本搜索和管道。Linux 不连接外部网络。文件为临时文件，重置、停止或离开页面后更改将丢失。",
+      "intro": "启动真正的 Linux，动手试试命令、文件操作和日志搜索。",
+      "status": {
+        "idle": "尚未启动",
+        "loading": "正在启动 Linux…",
+        "ready": "运行中",
+        "stopped": "已停止",
+        "error": "启动失败"
+      },
+      "start": "启动 Linux",
+      "stop": "停止",
+      "reset": "重置",
+      "resetConfirm": "丢弃此会话的文件并重新启动 Linux？",
+      "resetNow": "重置并重新启动",
+      "cancel": "取消",
+      "terminal": "Linux 终端",
+      "bootMessage": "正在启动 Linux。首次需下载约 12 MB…",
+      "loadError": "无法加载 Linux。请检查网络后重试。",
+      "timeout": "Linux 启动超时，请重试。",
+      "errorHint": "点击“启动 Linux”重试。",
+      "empty": "点击“启动 Linux”打开终端。",
+      "specialKeys": "终端特殊按键",
+      "previous": "↑ 上一条",
+      "next": "↓ 下一条",
+      "command": "命令",
+      "send": "发送",
+      "sessionNote": "文件仅临时保存。重置、停止或离开页面会丢弃更改。Linux 内无法访问互联网。窄屏可横向滚动终端，或使用下方命令栏。",
+      "tryTitle": "试试这些命令",
+      "tryIntro": "示例文件位于 /root/practice。选择示例后，点击“发送”执行。",
+      "credits": "鸣谢与镜像来源",
+      "keywords": "Linux terminal shell bash command grep ls cd cat wasm v86 BusyBox",
+      "examples": {
+        "0": "显示当前文件夹",
+        "1": "列出文件（包括隐藏文件）",
+        "2": "读取文本文件",
+        "3": "搜索日志中的错误",
+        "4": "查看 Linux 版本",
+        "5": "用管道组合命令"
+      }
+    },
     "colorTrick": {
       "title": "颜色骗局",
       "description": "文字和颜色不一样！在30秒内选出墨水的颜色，连续答对获得更高分。",

@@ -35,6 +35,7 @@ export const APP_CATALOG = [
   { slug: "arith", href: "/arith", category: "study", status: "published", messageKey: "arith" },
 
   // 開発 / Dev
+  { slug: "linux", href: "/linux", category: "dev", status: "published", messageKey: "linux" },
   { slug: "json", href: "/json", category: "dev", status: "published", messageKey: "json" },
   { slug: "base64", href: "/base64", category: "dev", status: "published", messageKey: "base64" },
   { slug: "urlencode", href: "/urlencode", category: "dev", status: "published", messageKey: "urlencode" },

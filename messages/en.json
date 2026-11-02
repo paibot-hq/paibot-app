@@ -1,5 +1,48 @@
 {
   "App": {
+    "linux": {
+      "title": "Linux Terminal",
+      "description": "Boot real Linux in your browser. Practice shell commands, explore files and start over whenever you like.",
+      "about": "A small Linux system runs entirely in your browser using v86 and WebAssembly. Practice file operations, text searches and shell pipelines on sample files. The system has no external network connection. Files are temporary and are discarded when you reset, stop or leave this page.",
+      "intro": "A real Linux shell, ready to explore. Start the machine, try a command, and learn by doing.",
+      "status": {
+        "idle": "Not started",
+        "loading": "Booting Linux…",
+        "ready": "Running",
+        "stopped": "Stopped",
+        "error": "Could not start"
+      },
+      "start": "Start Linux",
+      "stop": "Stop",
+      "reset": "Reset",
+      "resetConfirm": "Discard this session’s files and start a fresh Linux machine?",
+      "resetNow": "Reset and restart",
+      "cancel": "Cancel",
+      "terminal": "Linux terminal",
+      "bootMessage": "Starting Linux. The first download is about 12 MB…",
+      "loadError": "Linux could not load. Check your connection and try again.",
+      "timeout": "Linux took too long to start. Try starting it again.",
+      "errorHint": "Start Linux again to retry.",
+      "empty": "Press Start Linux to open the terminal.",
+      "specialKeys": "Terminal keys",
+      "previous": "↑ History",
+      "next": "↓ History",
+      "command": "Command",
+      "send": "Send",
+      "sessionNote": "Files are temporary. Reset, Stop or leaving this page discards changes. No internet access inside Linux. On a narrow screen, scroll the terminal sideways or use the command field below.",
+      "tryTitle": "Try your first commands",
+      "tryIntro": "Sample files are in /root/practice. Select an example to put it in the command field, then press Send.",
+      "credits": "Credits and image sources",
+      "keywords": "Linux terminal shell bash command grep ls cd cat wasm v86 BusyBox",
+      "examples": {
+        "0": "Show the current folder",
+        "1": "List files, including hidden files",
+        "2": "Read a text file",
+        "3": "Find errors in a log",
+        "4": "Show the Linux version",
+        "5": "Combine commands with a pipe"
+      }
+    },
     "colorTrick": {
       "title": "Color Trick",
       "description": "The word lies. The ink tells the truth. Pick the ink color in this 30-second brain game and build a streak.",
