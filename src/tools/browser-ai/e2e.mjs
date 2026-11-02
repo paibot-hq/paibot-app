@@ -23,16 +23,27 @@ export default async function ({ page, main, go, errors }) {
   } else {
     await large.click();
     await main.getByRole('button', { name: 'Load the model (about 2263 MB)' }).waitFor();
-    // The others are in a list by maker, each with what it needs.
-    await main.getByLabel(/More models/).selectOption({ label: 'DeepSeek R1 Distill Qwen 7B · about 4284 MB' });
+    // Every model is visible, grouped by maker, with its requirements and engine.
+    const deepseek = main.getByRole('button', { name: /^DeepSeek R1 Distill Qwen 7B/ });
+    assert.match(await deepseek.textContent(), /about 4284 MB.*WebLLM$/);
+    await deepseek.click();
+    assert.equal(await deepseek.getAttribute('aria-pressed'), 'true');
     assert.equal(await large.getAttribute('aria-pressed'), 'false');
     assert.equal(await page.locator('[data-ai="model-info"]').textContent(), 'DeepSeek R1 Distill Qwen 7B (DeepSeek) · GPU memory about 5.1 GB · Thinks before answering (takes longer)');
     await main.getByText(/A large model, for computers with 16 GB/).waitFor();
     assert.match(await page.locator('[data-ai="engine"]').textContent(), /^Engine: WebLLM/);
     await main.getByRole('button', { name: 'Load the model (about 4284 MB)' }).waitFor();
   }
-  if (/WebAssembly/.test(device)) assert.ok(await page.locator('option', { hasText: 'Gemma 3 1B' }).evaluate(option => option.disabled));
-  assert.equal(await page.locator('optgroup').count(), 10);
+  if (/WebAssembly/.test(device)) {
+    assert.ok(await main.getByRole('button', { name: /^Gemma 3 1B/ }).isDisabled());
+  }
+  // One group per maker, and no list box: every model is a button.
+  const picker = main.getByRole('region', { name: 'Model', exact: true });
+  assert.equal(await picker.getByRole('group').count(), 10);
+  assert.equal(await picker.locator('button[aria-pressed]').count(), 36);
+  assert.equal(await picker.locator('button small').filter({ hasText: 'Recommended' }).count(), 4);
+  assert.equal(await picker.locator('details').count(), 0);
+  assert.equal(await page.locator('select').count(), 0);
   // Nothing to type into until a model is loaded.
   assert.ok(await main.getByLabel('Message', { exact: true }).isDisabled());
   assert.ok(await main.getByRole('button', { name: 'Send' }).isDisabled());
@@ -63,5 +74,5 @@ export default async function ({ page, main, go, errors }) {
   assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth));
   await page.setViewportSize({ width: 1100, height: 900 });
   assert.deepEqual(errors, []);
-  console.log('PASS: browser-ai: device found, model choice with its size, the list by maker, the GPU-only models, input waits for a model, saved models listed and deleted, mobile width');
+  console.log('PASS: browser-ai: device found, model choice with its size, all models visible by maker with recommended labels, the GPU-only models, input waits for a model, saved models listed and deleted, mobile width');
 }
