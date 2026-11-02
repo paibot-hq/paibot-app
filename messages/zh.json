@@ -572,7 +572,7 @@
     "codeRunner": {
       "title": "在线运行代码（Python、JavaScript、TypeScript）",
       "description": "在浏览器中编写并运行 Python、JavaScript、TypeScript 代码，无需安装、无需注册、免费。支持标准输入、标出出错的行、TypeScript 类型检查（中文错误信息）以及 Python 的 numpy 和 pandas。代码在你的浏览器中运行，不会发送到服务器。",
-      "about": "在一个页面上用标签切换并运行 Python、JavaScript、TypeScript 三种语言。Python 是真正的 Python 3.14（Pyodide，把 CPython 编译成 WebAssembly），可以使用全部标准库，numpy、pandas、sympy 等包在第一次 import 时自动下载。JavaScript 会像 Node.js 一样清晰地显示 console.log 的结果，也可以使用 await 和 setTimeout。TypeScript 先由编译器（5.9）以 strict 模式做类型检查再运行，并按行用中文显示类型错误。每种语言都可以用 input() 读取标准输入栏，适合练习编程题。出错时编辑器中的该行会标成红色，死循环可以用“停止”停下。代码按语言保存在本浏览器中，不会发送到服务器，也可以做成链接分享。",
+      "about": "在一个页面上用标签切换并运行 Python、JavaScript、TypeScript 三种语言。Python 是真正的 Python 3.14（Pyodide，把 CPython 编译成 WebAssembly），可使用大部分标准库，但依赖操作系统的功能及部分模块有限制。numpy、pandas、sympy 等包在第一次 import 时自动下载。JavaScript 会像 Node.js 一样清晰地显示 console.log 的结果，也可以使用 await 和 setTimeout。TypeScript 先由编译器（5.9）以 strict 模式做类型检查再运行，并按行用中文显示类型错误。每种语言都可以用 input() 读取标准输入栏，适合练习编程题。出错时编辑器中的该行会标成红色，死循环可以用“停止”停下。代码按语言保存在本浏览器中，不会发送到服务器，也可以做成链接分享。",
       "keywords": "在线运行代码 浏览器 Python JavaScript TypeScript 在线编译器 编辑器 类型检查 免安装 免费 标准输入 numpy pandas Pyodide 编程 练习",
       "intro": "选择语言并写好代码后按“▶ 运行”，代码就会在浏览器中运行。",
       "examples": {
@@ -604,7 +604,7 @@
         }
       },
       "hints": {
-        "python": "可以使用 Python 3.14 的全部标准库。numpy、pandas 等包在第一次 import 时从网上下载（需要几秒或更久）。不支持读写文件、网络通信和用 time.sleep 等待。程序停不下来时，可以按“■ 停止”（下次运行会重新加载 Python）。",
+        "python": "可以使用Python 3.14的大部分标准库，但依赖操作系统的功能及部分模块有限制。numpy、pandas等受支持的包会按需从网上下载。文件操作使用浏览器内的虚拟文件系统，并非任意读写设备上的文件。网络请求受浏览器限制。停止Python后会重新加载运行环境，虚拟文件等状态也会丢失。",
         "javascript": "可以使用最新的 JavaScript（到 ES2024）。不能操作页面（DOM），也不能用 import 加载外部模块。死循环可以用“■ 停止”停下。想写类型时，请使用 TypeScript 标签。",
         "typescript": "类型检查使用 strict 模式。即使有类型错误，也会运行转换后的 JavaScript。不能用 import 加载外部模块或 @types。第一次需要一点时间加载编译器（几 MB）。"
       }
