@@ -6883,6 +6883,17 @@
         "formulas": [
           "\\text{円の面積} = \\text{半径} \\times \\text{半径} \\times \\text{円周率}(3.14)"
         ],
+        "figures": [
+          {
+            "shape": "circle-area",
+            "numbers": "4, 3.14",
+            "caption": {
+              "ja": "半径 4 cm の円です。面積は $4 \\times 4 \\times 3.14$ で求めます。",
+              "en": "A circle with radius 4 cm. Its area is found with $4 \\times 4 \\times 3.14$.",
+              "zh": "半径为 4 cm 的圆。面积用 $4 \\times 4 \\times 3.14$ 来求。"
+            }
+          }
+        ],
         "after": [
           {
             "ja": "つまり、円の面積は「半径を2回かけて、円周率をかける」ことで求められます。たとえば半径が 4 cm なら、$4 \\times 4 = 16$ であり、$4 \\times 2 = 8$ や $4 + 4 = 8$ ではありません。直径がわかっているときは、先に 2 で割って半径にします。",
@@ -6918,6 +6929,15 @@
         "steps": [
           "3*3*3.14 = 9*3.14 = 28.26"
         ],
+        "figure": {
+          "shape": "circle-area",
+          "numbers": "3, 3.14",
+          "caption": {
+            "ja": "半径 3 cm の円です。面積は $3 \\times 3 \\times 3.14 = 28.26$ ($\\text{cm}^2$) です。",
+            "en": "A circle with radius 3 cm. Its area is $3 \\times 3 \\times 3.14 = 28.26$ ($\\text{cm}^2$).",
+            "zh": "半径为 3 cm 的圆。面积是 $3 \\times 3 \\times 3.14 = 28.26$ ($\\text{cm}^2$)。"
+          }
+        },
         "note": {
           "ja": "半径 3 cm の円の面積です。半径×半径を先に計算してから 3.14 をかけます。答えは 28.26 cm² です。",
           "en": "This is the area of a circle with radius 3 cm. Calculate radius × radius first, then multiply by 3.14. The answer is 28.26 cm².",
@@ -7553,6 +7573,17 @@
             "en": "Try folding a paper isosceles triangle exactly in half. The two sides match up perfectly, which shows that the two bottom corners are the same size.",
             "zh": "把纸做的等腰三角形恰好对折一下，左右两边完全重合，就能看出下面的两个角一样大。"
           }
+        ],
+        "figures": [
+          {
+            "shape": "triangle-type",
+            "numbers": "4, 4, 2",
+            "caption": {
+              "ja": "辺の長さが 4 cm、4 cm、2 cm の二等辺三角形です。",
+              "en": "An isosceles triangle with sides of 4 cm, 4 cm and 2 cm.",
+              "zh": "三条边分别为 4 cm、4 cm、2 cm 的等腰三角形。"
+            }
+          }
         ]
       },
       {
@@ -7571,6 +7602,17 @@
             "ja": "まわりの長さは、3つの辺をたした長さです。正三角形は3つの辺が同じなので、たし算のかわりに、1辺の長さを3倍すれば求まります。",
             "en": "The perimeter is the total length of the three sides. Because all three sides of an equilateral triangle are equal, you can multiply one side by 3 instead of adding.",
             "zh": "周长就是三条边的长度之和。等边三角形的三条边相等，所以不必连加，只要把一条边的长度乘以 3 就行。"
+          }
+        ],
+        "figures": [
+          {
+            "shape": "triangle-type",
+            "numbers": "4, 4, 4",
+            "caption": {
+              "ja": "3つの辺がすべて 4 cm の正三角形です。",
+              "en": "An equilateral triangle whose three sides are all 4 cm.",
+              "zh": "三条边都是 4 cm 的等边三角形。"
+            }
           }
         ]
       },
@@ -13556,8 +13598,7 @@
               "curves": [
                 {
                   "y": "-3*x + 2",
-                  "label": "y = −3x + 2",
-                  "labelAt": -1.6
+                  "label": "y = −3x + 2"
                 }
               ],
               "points": [
@@ -13755,8 +13796,7 @@
               "curves": [
                 {
                   "y": "3*x - 5",
-                  "label": "y = 3x − 5",
-                  "labelAt": 0.2
+                  "label": "y = 3x − 5"
                 }
               ],
               "points": [
@@ -13915,13 +13955,66 @@
         "paragraphs": [
           {
             "ja": "$2x + y = 4$ のように文字が2つある一次方程式を、二元一次方程式といいます。これを成り立たせる $x$ と $y$ の組は1つではなく、$(0, 4)$、$(1, 2)$、$(2, 0)$ など、たくさんあります。",
-            "en": "An equation with two variables, such as $2x + y = 4$, is called a linear equation in two variables. Many pairs of $x$ and $y$ make it true, not just one: $(0, 4)$, $(1, 2)$, $(2, 0)$, and so on.",
+            "en": "A first-degree equation with two variables, such as $2x + y = 4$, is called a linear equation in two variables. Many pairs of $x$ and $y$ make it true, not just one: $(0, 4)$, $(1, 2)$, $(2, 0)$, and so on.",
             "zh": "像 $2x + y = 4$ 这样含有两个未知数的一次方程叫作二元一次方程。使它成立的 $x$ 和 $y$ 的组合不止一组，例如 $(0, 4)$、$(1, 2)$、$(2, 0)$ 等，有很多组。"
           },
           {
             "ja": "この組を座標とみて点をとると、すべて1本の直線の上に並びます。この節では、方程式を一次関数の直線として見る方法と、連立方程式の解を2直線の交点として読む方法を学びます。",
             "en": "If you plot these pairs as points, they all lie on one straight line. In this lesson you will learn to see such an equation as the line of a linear function, and to read the solution of a system as the point where two lines meet.",
             "zh": "把这些组合看作坐标并描点，它们都落在同一条直线上。本节将学习把方程看作一次函数的直线，并把方程组的解看作两条直线的交点。"
+          }
+        ],
+        "figures": [
+          {
+            "graph": {
+              "view": {
+                "x": [
+                  -1,
+                  3
+                ],
+                "y": [
+                  -2,
+                  6
+                ]
+              },
+              "curves": [
+                {
+                  "y": "-2*x + 4",
+                  "label": "2x + y = 4"
+                }
+              ],
+              "points": [
+                {
+                  "x": 0,
+                  "y": 4,
+                  "label": "(0, 4)",
+                  "on": [
+                    0
+                  ]
+                },
+                {
+                  "x": 1,
+                  "y": 2,
+                  "label": "(1, 2)",
+                  "on": [
+                    0
+                  ]
+                },
+                {
+                  "x": 2,
+                  "y": 0,
+                  "label": "(2, 0)",
+                  "on": [
+                    0
+                  ]
+                }
+              ]
+            },
+            "caption": {
+              "ja": "$2x + y = 4$ を成り立たせる点 $(0, 4)$、$(1, 2)$、$(2, 0)$ は、すべて1本の直線の上に並びます。",
+              "en": "The points $(0, 4)$, $(1, 2)$ and $(2, 0)$, which satisfy $2x + y = 4$, all lie on one straight line.",
+              "zh": "满足 $2x + y = 4$ 的点 $(0, 4)$、$(1, 2)$、$(2, 0)$ 都落在同一条直线上。"
+            }
           }
         ]
       },
@@ -13997,6 +14090,48 @@
             "ja": "答えは $(x, y)$ の順に書きます。最後に、求めた点を両方の式に代入して確かめましょう。",
             "en": "Write the answer in the order $(x, y)$. Finally, substitute the point into both equations to check.",
             "zh": "答案按 $(x, y)$ 的顺序写。最后把求出的点代入两个式子检验。"
+          }
+        ],
+        "figures": [
+          {
+            "graph": {
+              "view": {
+                "x": [
+                  -1,
+                  4
+                ],
+                "y": [
+                  -3,
+                  7
+                ]
+              },
+              "curves": [
+                {
+                  "y": "2*x - 1",
+                  "label": "y = 2x − 1"
+                },
+                {
+                  "y": "-x + 5",
+                  "label": "y = −x + 5"
+                }
+              ],
+              "points": [
+                {
+                  "x": 2,
+                  "y": 3,
+                  "label": "(2, 3)",
+                  "on": [
+                    0,
+                    1
+                  ]
+                }
+              ]
+            },
+            "caption": {
+              "ja": "$y = 2x - 1$ と $y = -x + 5$ の2直線は点 $(2, 3)$ で交わります。この点の座標が連立方程式の解です。",
+              "en": "The lines $y = 2x - 1$ and $y = -x + 5$ meet at the point $(2, 3)$. Its coordinates are the solution of the system.",
+              "zh": "直线 $y = 2x - 1$ 与 $y = -x + 5$ 相交于点 $(2, 3)$。这个点的坐标就是方程组的解。"
+            }
           }
         ]
       }
@@ -14137,8 +14272,7 @@
               "curves": [
                 {
                   "y": "x^2",
-                  "label": "y = x²",
-                  "labelAt": 2.5
+                  "label": "y = x²"
                 }
               ],
               "points": [
@@ -14223,23 +14357,19 @@
               "curves": [
                 {
                   "y": "2*x^2",
-                  "label": "y = 2x²",
-                  "labelAt": 2.1
+                  "label": "y = 2x²"
                 },
                 {
                   "y": "x^2",
-                  "label": "y = x²",
-                  "labelAt": -2.6
+                  "label": "y = x²"
                 },
                 {
                   "y": "x^2/2",
-                  "label": "y = x²/2",
-                  "labelAt": 2.6
+                  "label": "y = x²/2"
                 },
                 {
                   "y": "-x^2",
-                  "label": "y = −x²",
-                  "labelAt": 2.3
+                  "label": "y = −x²"
                 }
               ]
             },
@@ -19596,6 +19726,15 @@
           "ja": "半径 6、中心角 $60^\\circ$ の弧の長さです。円周 $12\\pi$ に、$\\frac{60}{360} = \\frac{1}{6}$ を掛けます。",
           "en": "This is the arc length for radius 6 and central angle $60^\\circ$. Multiply the circumference $12\\pi$ by $\\frac{60}{360} = \\frac{1}{6}$.",
           "zh": "这是半径为 6、圆心角为 $60^\\circ$ 的扇形弧长。用圆周长 $12\\pi$ 乘以 $\\frac{60}{360} = \\frac{1}{6}$。"
+        },
+        "figure": {
+          "shape": "sector-area",
+          "numbers": "6, 60",
+          "caption": {
+            "ja": "半径 6 cm、中心角 $60^\\circ$ のおうぎ形です。",
+            "en": "A sector with radius 6 cm and central angle $60^\\circ$.",
+            "zh": "半径为 6 cm、圆心角为 $60^\\circ$ 的扇形。"
+          }
         }
       },
       {
@@ -19608,6 +19747,15 @@
           "ja": "半径 4、中心角 $150^\\circ$ の面積です。$\\frac{150}{360}$ は $\\frac{5}{12}$ に約分でき、$16\\pi \\times \\frac{5}{12}$ をさらに約分して $\\frac{20}{3}\\pi$ になります。",
           "en": "This is the area for radius 4 and central angle $150^\\circ$. $\\frac{150}{360}$ simplifies to $\\frac{5}{12}$, and $16\\pi \\times \\frac{5}{12}$ simplifies further to $\\frac{20}{3}\\pi$.",
           "zh": "这是半径为 4、圆心角为 $150^\\circ$ 的扇形面积。$\\frac{150}{360}$ 约分为 $\\frac{5}{12}$，$16\\pi \\times \\frac{5}{12}$ 再约分得 $\\frac{20}{3}\\pi$。"
+        },
+        "figure": {
+          "shape": "sector-area",
+          "numbers": "4, 150",
+          "caption": {
+            "ja": "半径 4 cm、中心角 $150^\\circ$ のおうぎ形です。",
+            "en": "A sector with radius 4 cm and central angle $150^\\circ$.",
+            "zh": "半径为 4 cm、圆心角为 $150^\\circ$ 的扇形。"
+          }
         }
       },
       {

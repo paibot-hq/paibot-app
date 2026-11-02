@@ -39,7 +39,8 @@ const piLabel = (halves: number) => {
   const sign = halves < 0 ? '−' : '', n = Math.abs(halves);
   return n === 2 ? `${sign}π` : n % 2 === 0 ? `${sign}${n / 2}π` : n === 1 ? `${sign}π/2` : `${sign}${n}π/2`;
 };
-const niceStep = (span: number) => { const raw = span / 8; const base = 10 ** Math.floor(Math.log10(raw)); return [1, 2, 5, 10].map(m => m * base).find(step => step >= raw) ?? raw; };
+// A step of 1, 2, 5, 10, ... that leaves about 8 ticks, never finer than 1.
+const niceStep = (span: number) => { const raw = Math.max(1, span / 8); const base = 10 ** Math.floor(Math.log10(raw)); return [1, 2, 5, 10].map(m => m * base).find(step => step >= raw) ?? raw; };
 
 // Splits "lhs = rhs" of an implicit curve into one expression, lhs - rhs.
 export const implicitParts = (text: string): [string, string] => {
@@ -68,23 +69,49 @@ export function layoutGraph(graph: LessonGraph): Layout {
   const ticksY = range(yMin, yMax, stepY).filter(k => k !== 0).map(k => ({ value: k * stepY, at: sy(k * stepY), label: minus(String(Math.round(k * stepY * 1e6) / 1e6)) }));
 
   const inView = (x: number, y: number) => x >= xMin - 1e-9 && x <= xMax + 1e-9 && y >= yMin - 1e-9 && y <= yMax + 1e-9;
-  const anchorFor = (px: number): 'start' | 'end' => (px > PAD + inner * 0.68 ? 'end' : 'start');
-  const labelAt = (curve: LessonCurve, point: [number, number] | undefined) => {
-    if (!curve.label || !point) return undefined;
-    const px = sx(point[0]), py = sy(point[1]), anchor = anchorFor(px);
-    return { x: px + (anchor === 'start' ? 6 : -6), y: py - 8, text: curve.label, anchor };
+
+  // Names go beside what they name and clear of the tick labels, the points, the curves and each other: of a few
+  // positions around the spot (right of it, left of it, above, below), the first that touches none of them is used.
+  type Box = [number, number, number, number];
+  const hit = (a: Box, b: Box) => a[0] < b[2] && b[0] < a[2] && a[1] < b[3] && b[1] < a[3];
+  const textWidth = (text: string) => [...text].reduce((sum, char) => sum + ((char.codePointAt(0) ?? 0) > 0x2e80 ? 12 : 6.4), 0);
+  const obstacles: Box[] = [];
+  const tickAxisY = axisY ?? PAD + innerH, tickAxisX = axisX ?? PAD;
+  for (const tick of ticksX) { const w = textWidth(tick.label); obstacles.push([tick.at - w / 2, tickAxisY + 3, tick.at + w / 2, tickAxisY + 16]); }
+  for (const tick of ticksY) { const w = textWidth(tick.label); obstacles.push([tickAxisX - 5 - w, tick.at - 6, tickAxisX - 3, tick.at + 4]); }
+  if (axisX !== null && axisY !== null) obstacles.push([axisX - 14, axisY + 2, axisX - 2, axisY + 16]);
+  if (axisY !== null) obstacles.push([PAD + inner + 2, axisY - 8, PAD + inner + 12, axisY + 6]);
+  if (axisX !== null) obstacles.push([axisX + 2, PAD - 20, axisX + 14, PAD - 6]);
+  const sample = (px: number, py: number) => { if (px >= PAD && px <= PAD + inner && py >= PAD && py <= PAD + innerH) obstacles.push([px - 2.5, py - 2.5, px + 2.5, py + 2.5]); };
+  const place = (px: number, py: number, text: string): { x: number; y: number; anchor: 'start' | 'end'; box: Box } => {
+    const w = textWidth(text), right = px > PAD + inner * 0.68;
+    const spots = [[7, -7, 'start'], [-7, -7, 'end'], [7, 16, 'start'], [-7, 16, 'end'], [9, 4, 'start'], [-9, 4, 'end'], [-w / 2, -10, 'start'], [-w / 2, 20, 'start']] as const;
+    const candidates = (right ? [1, 0, 3, 2, 5, 4, 6, 7] : [0, 1, 2, 3, 4, 5, 6, 7]).map(index => {
+      const [dx, dy, anchor] = spots[index];
+      const x = px + dx, y = Math.max(12, py + dy);
+      const box: Box = anchor === 'start' ? [x, y - 10, x + w, y + 3] : [x - w, y - 10, x, y + 3];
+      return { x, y, anchor, box, inside: box[0] >= 2 && box[2] <= width - 2 && box[3] <= height - 2 };
+    });
+    const chosen = candidates.find(spot => spot.inside && !obstacles.some(other => hit(spot.box, other))) ?? candidates.find(spot => spot.inside) ?? candidates[0];
+    obstacles.push(chosen.box);
+    return chosen;
   };
 
-  const curves: LaidCurve[] = (graph.curves ?? []).map(curve => {
+  // Phase 1: every curve's path, and where its name would go if nothing were in the way.
+  const spots: ([number, number] | undefined)[] = [];
+  const curves: LaidCurve[] = (graph.curves ?? []).map((curve, index) => {
+    const dashed = Boolean(curve.dashed), given = Array.isArray(curve.labelAt) ? curve.labelAt : undefined;
     if (curve.x !== undefined) {
       const x = evalExpression(curve.x);
-      return { d: `M${fmt(sx(x))} ${fmt(PAD)}V${fmt(PAD + innerH)}`, dashed: Boolean(curve.dashed), label: labelAt(curve, Array.isArray(curve.labelAt) ? curve.labelAt : [x, yMax - ySpan * 0.08]) };
+      for (let y = PAD; y <= PAD + innerH; y += 6) sample(sx(x), y);
+      spots[index] = given ?? [x, yMax - ySpan * 0.08];
+      return { d: `M${fmt(sx(x))} ${fmt(PAD)}V${fmt(PAD + innerH)}`, dashed };
     }
     if (curve.implicit !== undefined) {
       const [lhs, rhs] = implicitParts(curve.implicit);
       const n = 160, value = (i: number, j: number) => evalExpression(lhs, { x: xMin + (xSpan * i) / n, y: yMin + (ySpan * j) / n }) - evalExpression(rhs, { x: xMin + (xSpan * i) / n, y: yMin + (ySpan * j) / n });
       const grid = Array.from({ length: n + 1 }, (_, i) => Array.from({ length: n + 1 }, (_, j) => value(i, j)));
-      let d = '';
+      let d = '', count = 0;
       for (let i = 0; i < n; i++) for (let j = 0; j < n; j++) {
         // Where the curve crosses the cell's four edges (linear in between), joined in pairs.
         const corners = [grid[i][j], grid[i + 1][j], grid[i + 1][j + 1], grid[i][j + 1]], at = [[i, j], [i + 1, j], [i + 1, j + 1], [i, j + 1]];
@@ -95,9 +122,13 @@ export function layoutGraph(graph: LessonGraph): Layout {
           const t = a / (a - b), [ai, aj] = at[k], [bi, bj] = at[(k + 1) % 4];
           crossings.push([xMin + (xSpan * (ai + (bi - ai) * t)) / n, yMin + (ySpan * (aj + (bj - aj) * t)) / n]);
         }
-        for (let k = 0; k + 1 < crossings.length; k += 2) d += `M${fmt(sx(crossings[k][0]))} ${fmt(sy(crossings[k][1]))}L${fmt(sx(crossings[k + 1][0]))} ${fmt(sy(crossings[k + 1][1]))}`;
+        for (let k = 0; k + 1 < crossings.length; k += 2) {
+          d += `M${fmt(sx(crossings[k][0]))} ${fmt(sy(crossings[k][1]))}L${fmt(sx(crossings[k + 1][0]))} ${fmt(sy(crossings[k + 1][1]))}`;
+          if (count++ % 2 === 0) sample(sx(crossings[k][0]), sy(crossings[k][1]));
+        }
       }
-      return { d, dashed: Boolean(curve.dashed), label: labelAt(curve, Array.isArray(curve.labelAt) ? curve.labelAt : undefined) };
+      spots[index] = given;
+      return { d, dashed };
     }
     const f = (x: number) => evalExpression(curve.y!, { x });
     const steps = 600;
@@ -105,19 +136,27 @@ export function layoutGraph(graph: LessonGraph): Layout {
     for (let i = 0; i <= steps; i++) {
       const x = xMin + (xSpan * i) / steps, y = f(x);
       const visible = Number.isFinite(y) && y >= yMin - ySpan * 0.5 && y <= yMax + ySpan * 0.5 && !(drawing && Math.abs(y - last) > ySpan * 1.5);
-      if (visible) { d += `${drawing ? 'L' : 'M'}${fmt(sx(x))} ${fmt(sy(y))}`; drawing = true; last = y; } else { drawing = false; last = NaN; }
+      if (visible) { d += `${drawing ? 'L' : 'M'}${fmt(sx(x))} ${fmt(sy(y))}`; drawing = true; last = y; if (i % 4 === 0) sample(sx(x), sy(y)); } else { drawing = false; last = NaN; }
     }
-    // The label goes near the right end of the part that is in the window (or at labelAt).
+    // The name goes near the right end of the part that is in the window (or at labelAt).
     let at: [number, number] | undefined;
     if (typeof curve.labelAt === 'number') at = [curve.labelAt, f(curve.labelAt)];
-    else if (Array.isArray(curve.labelAt)) at = curve.labelAt;
+    else if (given) at = given;
     else for (let i = steps - Math.round(steps * 0.06); i >= 0 && !at; i--) { const x = xMin + (xSpan * i) / steps, y = f(x); if (Number.isFinite(y) && inView(x, y)) at = [x, y]; }
-    return { d, dashed: Boolean(curve.dashed), label: labelAt(curve, at) };
+    spots[index] = at;
+    return { d, dashed };
   });
 
+  // Phase 2: the points' dots are obstacles too; then the names of the curves, then of the points.
+  for (const point of graph.points ?? []) obstacles.push([sx(point.x) - 6, sy(point.y) - 6, sx(point.x) + 6, sy(point.y) + 6]);
+  (graph.curves ?? []).forEach((curve, index) => {
+    const spot = spots[index];
+    if (curve.label && spot) { const { x, y, anchor } = place(sx(spot[0]), sy(spot[1]), curve.label); curves[index].label = { x, y, anchor, text: curve.label }; }
+  });
   const points: LaidPoint[] = (graph.points ?? []).map(point => {
-    const px = sx(point.x), py = sy(point.y), anchor = anchorFor(px);
-    return { x: px, y: py, hollow: Boolean(point.hollow), label: point.label ? { x: px + (anchor === 'start' ? 8 : -8), y: py - 8, text: point.label, anchor } : undefined };
+    const px = sx(point.x), py = sy(point.y);
+    const label = point.label ? (({ x, y, anchor }) => ({ x, y, anchor, text: point.label! }))(place(px, py, point.label)) : undefined;
+    return { x: px, y: py, hollow: Boolean(point.hollow), label };
   });
 
   let region = '';

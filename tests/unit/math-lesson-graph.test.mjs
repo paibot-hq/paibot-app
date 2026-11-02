@@ -72,3 +72,28 @@ test('what a figure shows is told to the reviewer in words', () => {
   const text = figureText(graph({ curves: [{ y: 'x^2', label: 'y = x²' }, { implicit: 'x^2 + y^2 = 4', dashed: true }], points: [{ x: 1, y: 1, label: 'A(1, 1)', on: [0] }], region: { lhs: 'y', op: '>=', rhs: 'x' } }));
   for (const part of ['y = x^2', '図中の名前「y = x²」', 'x^2 + y^2 = 4（破線）', '点 (1, 1)', '曲線 0 の上', 'y >= x']) assert.ok(text.includes(part), `${part} in ${text}`);
 });
+
+test('names are put clear of each other', () => {
+  const layout = layoutGraph({
+    view: { x: [-3, 3], y: [-6, 9] },
+    curves: [{ y: '2*x^2', label: 'y = 2x²' }, { y: 'x^2', label: 'y = x²' }, { y: 'x^2/2', label: 'y = x²/2' }, { y: '-x^2', label: 'y = −x²' }],
+    points: [{ x: 1, y: 1, label: '(1, 1)' }],
+  });
+  const width = text => [...text].length * 6.4;
+  const boxes = [...layout.curves.map(curve => curve.label), ...layout.points.map(point => point.label)].map(label => {
+    assert.ok(label, 'every name is placed');
+    const left = label.anchor === 'start' ? label.x : label.x - width(label.text);
+    return { text: label.text, box: [left, label.y - 10, left + width(label.text), label.y + 3] };
+  });
+  for (let i = 0; i < boxes.length; i++) for (let j = i + 1; j < boxes.length; j++) {
+    const [a, b] = [boxes[i].box, boxes[j].box];
+    assert.ok(!(a[0] < b[2] && b[0] < a[2] && a[1] < b[3] && b[1] < a[3]), `${boxes[i].text} and ${boxes[j].text} overlap`);
+  }
+  for (const { text, box } of boxes) assert.ok(box[0] >= 0 && box[2] <= layout.width, `${text} stays in the figure`);
+});
+
+test('ticks are whole numbers even in a small window', () => {
+  const layout = layoutGraph({ view: { x: [-1, 3], y: [-2, 6] }, curves: [{ y: '-2*x + 4' }] });
+  assert.deepEqual(layout.ticksX.map(tick => tick.label), ['−1', '1', '2', '3']);
+  assert.deepEqual(layout.ticksY.map(tick => tick.label), ['−2', '−1', '1', '2', '3', '4', '5', '6']);
+});
