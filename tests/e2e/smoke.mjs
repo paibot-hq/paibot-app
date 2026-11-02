@@ -13,6 +13,10 @@ const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app
 const MATH_SAMPLE = ['/math', '/math/arith', '/math/signed', '/math/factorization', '/math/pythagoras', '/math/arith/order-of-operations', '/math/signed/four-operations', '/math/factorization/trinomial', '/math/pythagoras/sides'];
 const paths = publicPaths.filter(path => !path.startsWith('/math/') || MATH_SAMPLE.includes(path));
 const indexable = process.env.CHECK_SITE_INDEXABLE === 'true';
+// Clerk settings are independent of Worker releases. Production uses Google only;
+// the development instance retains email authentication for isolated test users.
+const authMode = process.env.CHECK_AUTH_MODE ?? (base === 'https://paibot.app' ? 'google-only' : 'email');
+assert.ok(['google-only', 'email'].includes(authMode), 'CHECK_AUTH_MODE must be google-only or email');
 const authPaths = ['sign-in', 'sign-up', 'diary', 'profile', 'legal/commerce'];
 const browser = await chromium.launch();
 try {
@@ -313,8 +317,16 @@ try {
   console.log('PASS: client-side locale navigation and persisted theme');
   for (const auth of ['sign-in', 'sign-up']) {
     await go(`/ja/${auth}`);
-    const field = auth === 'sign-in' ? 'identifier' : 'emailAddress';
-    await page.locator(`input[name="${field}"]`).waitFor({ timeout: 20000 });
+    if (authMode === 'google-only') {
+      const google = page.getByRole('button', { name: 'Googleで続ける', exact: true });
+      await google.waitFor({ timeout: 20000 });
+      assert.equal(await google.isEnabled(), true, `${auth}: Google authentication is available`);
+      assert.equal(await page.locator('.cl-socialButtonsBlockButton').count(), 1, `${auth}: Google is the only social provider`);
+      assert.equal(await page.locator('input:not([type="hidden"])').count(), 0, `${auth}: no email, password, phone or username form`);
+    } else {
+      const field = auth === 'sign-in' ? 'identifier' : 'emailAddress';
+      await page.locator(`input[name="${field}"]`).waitFor({ timeout: 20000 });
+    }
   }
   assert.deepEqual(pageErrors, [], 'uncaught browser errors');
   assert.deepEqual(consoleErrors, [], 'browser console errors');
