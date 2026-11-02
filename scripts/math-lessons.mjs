@@ -86,9 +86,11 @@ function describe(key) {
     },
   };
 }
+// A function as the replacement, so that "$'" and "$&" in a lesson's text are kept as written.
+const fill = (template, values) => template.replace(/\{\{(\w+)\}\}/g, (match, name) => values[name] ?? match);
 const grammar = promptFile('_formula').split('\n問題の形式')[0];
 const exampleLesson = () => { const { reviewedAt, ...lesson } = read()['factorization/trinomial']; return JSON.stringify(lesson); };
-const writePrompt = (key, extra) => `${promptFile('_lesson').replace('{{grammar}}', grammar).replace('{{example}}', exampleLesson())}
+const writePrompt = (key, extra) => `${fill(promptFile('_lesson'), { grammar, example: exampleLesson() })}
 
 学習項目:
 ${JSON.stringify(describe(key).summary, null, 2)}${extra}`;
@@ -103,7 +105,7 @@ async function verify(key) {
 async function review(key) {
   const { grade, summary } = describe(key);
   const { reviewedAt, ...lesson } = read()[key];
-  const prompt = promptFile('_lesson-review').replace('{{grade}}', grade).replace('{{item}}', JSON.stringify(summary)).replace('{{lesson}}', JSON.stringify(lesson, null, 2));
+  const prompt = fill(promptFile('_lesson-review'), { grade, item: JSON.stringify(summary), lesson: JSON.stringify(lesson, null, 2) });
   const results = await Promise.all(REVIEWERS.map(async model => {
     try { return (await askJSON(model, prompt, 'issues', key)).issues.map(issue => ({ ...issue, reviewer: model })); }
     catch (error) { return [{ reviewer: model, failed: true, problem: `${model} could not review: ${(error.message.match(/"message":"([^"]+)/)?.[1] ?? error.message).slice(0, 300)}` }]; }
