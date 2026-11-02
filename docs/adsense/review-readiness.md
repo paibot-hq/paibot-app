@@ -29,3 +29,21 @@ review. The AdSense account UI and review submission are not changed by this PR.
 Follow the existing production workflow after the development checks pass. Merging
 this change alone does not deploy it to production. Do not bypass the development
 release gate using the rollback ref input.
+
+## Final content audit
+
+The privacy policy now identifies Google Analytics and its data collection, explains
+cookies and conditional AdSense ad serving, and links to Google's data-use policy,
+privacy policy, ad controls and Analytics opt-out. Advertising remains disabled;
+this disclosure does not replace any consent configuration needed before ads are
+subsequently enabled. The operator must review applicable audience/region settings
+when enabling ads. No AdSense account settings were changed.
+
+Sources checked:
+- https://support.google.com/adsense/answer/1348695
+- https://policies.google.com/technologies/partner-sites
+- https://pyodide.org/en/stable/usage/wasm-constraints.html
+
+The Python tool no longer claims the entire standard library is supported or that
+virtual file operations are unavailable. Its description now reflects Pyodide's
+browser and OS limitations. These corrections are in all three languages.

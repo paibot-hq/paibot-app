@@ -572,7 +572,7 @@
     "codeRunner": {
       "title": "コード実行(Python・JavaScript・TypeScript)",
       "description": "Python・JavaScript・TypeScript のコードを、ブラウザだけで書いて実行できます。インストール不要・登録不要・無料。標準入力、エラー行の表示、TypeScript の型チェック(日本語のエラー)、Python の numpy・pandas にも対応。コードはサーバーに送られず、あなたのブラウザの中で動きます。",
-      "about": "Python・JavaScript・TypeScript の3つの言語を、タブで切り替えて実行できるページです。Python は本物の Python 3.14(CPython を WebAssembly にした Pyodide)で、標準ライブラリがすべて使え、numpy・pandas・sympy などのパッケージも import すると初回だけ自動で読み込まれます。JavaScript は console.log の結果を Node.js のように見やすく表示し、await や setTimeout も使えます。TypeScript はコンパイラ(5.9)で strict の型チェックをしてから実行し、型エラーを日本語で行ごとに表示します。どの言語も input() で標準入力欄を読めるので、paiza や AtCoder の練習にも使えます。エラーのときはエディタの該当行が赤く表示され、無限ループは「停止」で止められます。コードは言語ごとにこのブラウザに保存され、サーバーには送られません。リンクにして共有することもできます。",
+      "about": "Python・JavaScript・TypeScript の3つの言語を、タブで切り替えて実行できるページです。Python は本物の Python 3.14(CPython を WebAssembly にした Pyodide)で、標準ライブラリの多くを使えますが、OS依存の機能などには制限があります。numpy・pandas・sympy などのパッケージも import すると初回だけ自動で読み込まれます。JavaScript は console.log の結果を Node.js のように見やすく表示し、await や setTimeout も使えます。TypeScript はコンパイラ(5.9)で strict の型チェックをしてから実行し、型エラーを日本語で行ごとに表示します。どの言語も input() で標準入力欄を読めるので、paiza や AtCoder の練習にも使えます。エラーのときはエディタの該当行が赤く表示され、無限ループは「停止」で止められます。コードは言語ごとにこのブラウザに保存され、サーバーには送られません。リンクにして共有することもできます。",
       "keywords": "コード 実行 オンライン ブラウザ Python JavaScript TypeScript コンパイラ エディタ 型チェック インストール不要 無料 標準入力 numpy pandas Pyodide プログラミング 練習 paiza AtCoder",
       "intro": "言語を選んでコードを書き、「▶ 実行」を押すと、ブラウザの中で動きます。",
       "examples": {
@@ -604,7 +604,7 @@
         }
       },
       "hints": {
-        "python": "Python 3.14 の標準ライブラリがすべて使えます。numpy や pandas などのパッケージは、import すると初回だけインターネットから読み込みます(数秒〜十数秒)。ファイルの読み書きやネットワーク通信、time.sleep での待ち合わせなどには対応していません。止まらなくなったときは「■ 停止」で止められます(次の実行は Python の読み込みからやり直します)。",
+        "python": "Python 3.14の標準ライブラリの多くが使えますが、OS依存の機能や一部のモジュールには制限があります。numpyやpandasなど対応するパッケージは、必要に応じてインターネットから読み込みます。ファイル操作はブラウザ内の仮想ファイルシステムを使い、端末のファイルを自由に読み書きする機能ではありません。通信はブラウザの制限に従います。停止するとPythonを読み込み直し、仮想ファイルなどの状態も失われます。",
         "javascript": "最新の JavaScript(ES2024 まで)が使えます。画面(DOM)を操作したり、import で外部のモジュールを読み込んだりはできません。無限ループになっても「■ 停止」で止められます。型をつけて書きたいときは TypeScript タブを使ってください。",
         "typescript": "型チェックは strict モードで行います。型エラーがあっても、変換した JavaScript は実行します。import で外部のモジュールや @types を読み込むことはできません。初回はコンパイラ(数MB)の読み込みに少し時間がかかります。"
       }
