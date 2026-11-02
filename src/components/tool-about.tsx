@@ -36,7 +36,7 @@ export default function ToolAbout({ app }: { app: AppData }) {
         <p className={styles.text}>{example.result}</p>
         <p className={styles.text}>{example.note}</p>
       </section>}
-      <p className={styles.feedback}><Link href="/about#contact">{t("about.contactTitle")}</Link></p>
+      <p className={styles.feedback}><Link href="/about#contact">{t("about.contactTitle")}</Link>{" · "}<Link href="/legal/privacy">{t("footer.privacy")}</Link></p>
       {related.length > 0 && (
         <nav aria-label={t("apps.related")}>
           <h3 className={styles.sub}>{t("apps.related")}</h3>
