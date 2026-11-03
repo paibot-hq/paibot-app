@@ -34,6 +34,11 @@ pass. Claude writing and Opus review share the Claude subscription's quota.
 Changing providers is an explicit environment setting; a failed provider is not
 silently replaced. Review with the same model in separate calls offers less
 independence than review with a different model.
+Use `codex/<model-id>` to select an account-supported Codex model separately for
+each role. For example, `MATH_LESSON_WRITER=codex/gpt-6-luna` and
+`MATH_LESSON_REVIEWERS=codex/gpt-6-sol` keep the writer and reviewer in separate
+calls and different models. Plain `codex` uses `MATH_CODEX_MODEL` when set, or the
+CLI's configured default otherwise. No user-wide model setting is changed.
 
 OpenCode can run both roles with different models. For example, the following
 uses the separately available free models when the OpenCode Go quota is exhausted:

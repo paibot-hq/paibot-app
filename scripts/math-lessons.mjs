@@ -107,7 +107,8 @@ async function askOnce(model, prompt) {
       return await exec(OPENCODE, ['run', '--title', `Math lesson ${model}`, '--print-logs', '--log-level', 'ERROR', '-m', model === 'opencode' ? (process.env.MATH_OPENCODE_MODEL ?? 'opencode/deepseek-v4.1-flash-free') : model, prompt], temp);
     }
     const output = join(temp, 'answer.txt');
-    await exec('codex', ['exec', '--sandbox', 'read-only', '--skip-git-repo-check', '-o', output, prompt], temp);
+    const codexModel = model.startsWith('codex/') ? model.slice('codex/'.length) : process.env.MATH_CODEX_MODEL;
+    await exec('codex', ['exec', ...(codexModel ? ['--model', codexModel] : []), '--sandbox', 'read-only', '--skip-git-repo-check', '-o', output, prompt], temp);
     return readFileSync(output, 'utf8');
   } finally { rmSync(temp, { recursive: true, force: true }); }
 }
