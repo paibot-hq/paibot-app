@@ -73,7 +73,10 @@ export function lessonProblems(key, lesson) {
     });
     else problems.push(`${key} ${where}: a figure has a shape (with numbers) or a graph`);
   };
-  const line = (where, text) => check(where, () => { for (const row of stepRows(text)) for (const piece of row) render(`{}${piece}`); });
+  const line = (where, text, style) => check(where, () => { for (const row of stepRows(text, style)) for (const piece of row) render(`{}${piece}`); });
+  const style = (where, value) => {
+    if (value !== undefined && !['times', 'box', 'ratio', 'mixed'].includes(value)) problems.push(`${key} ${where}: unknown formula style`);
+  };
   if (!Array.isArray(lesson?.sections) || !lesson.sections.length) problems.push(`${key}: needs sections`);
   if (!Array.isArray(lesson?.examples) || !lesson.examples.length) problems.push(`${key}: needs examples`);
   if (!Array.isArray(lesson?.mistakes)) problems.push(`${key}: needs mistakes (may be empty)`);
@@ -89,16 +92,19 @@ export function lessonProblems(key, lesson) {
   lesson.examples.forEach((example, index) => {
     const where = `examples[${index}]`;
     if (!KINDS.includes(example.kind)) problems.push(`${key} ${where}: kind must be one of ${KINDS.join(', ')}`);
-    line(`${where}.question`, example.question);
-    (example.steps ?? []).forEach((step, at) => line(`${where}.steps[${at}]`, step));
+    style(`${where}.style`, example.style);
+    if (example.prompt !== undefined) prose(`${where}.prompt`, example.prompt);
+    line(`${where}.question`, example.question, example.style);
+    (example.steps ?? []).forEach((step, at) => line(`${where}.steps[${at}]`, step, example.style));
     prose(`${where}.note`, example.note);
     if (example.figure) figure(`${where}.figure`, example.figure);
   });
   lesson.mistakes.forEach((mistake, index) => {
     const where = `mistakes[${index}]`;
-    if (mistake.question !== undefined) line(`${where}.question`, mistake.question);
-    line(`${where}.wrong`, mistake.wrong);
-    line(`${where}.right`, mistake.right);
+    style(`${where}.style`, mistake.style);
+    if (mistake.question !== undefined) line(`${where}.question`, mistake.question, mistake.style);
+    line(`${where}.wrong`, mistake.wrong, mistake.style);
+    line(`${where}.right`, mistake.right, mistake.style);
     prose(`${where}.note`, mistake.note);
   });
   return problems;

@@ -16,6 +16,7 @@ written as a curve's label ("y = x² − 2x") must be the curve's equation, and 
 labelled with coordinates ("A(1, 3)") must be at them.
 The prose is not checked here (independent review, scripts/math-lessons.mjs)."""
 import json
+import argparse
 import re
 import sys
 from pathlib import Path
@@ -200,8 +201,8 @@ def verify_lesson(key, lesson):
     return errors
 
 
-def main(keys):
-    lessons = json.loads(LESSONS.read_text(encoding='utf-8'))
+def main(keys, file=LESSONS):
+    lessons = json.loads(Path(file).read_text(encoding='utf-8'))
     wanted = {key: lesson for key, lesson in lessons.items() if not keys or key in keys}
     errors = [error for key, lesson in wanted.items() for error in verify_lesson(key, lesson)]
     for error in errors:
@@ -212,4 +213,8 @@ def main(keys):
 
 
 if __name__ == '__main__':
-    main(sys.argv[1:])
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--file', type=Path, default=LESSONS, help='Check candidate lessons without changing published data')
+    parser.add_argument('keys', nargs='*')
+    args = parser.parse_args()
+    main(args.keys, args.file)

@@ -12,9 +12,19 @@ lessons = json.loads(LESSONS.read_text(encoding='utf-8'))
 for key, lesson in lessons.items():
     assert verify_lesson(key, lesson) == [], key
 
+# Checker regressions must not depend on examples an editor may rewrite.
+factor = {'sections': [], 'examples': [
+    {'kind': 'factor', 'question': 'x^2 + 7*x + 12', 'steps': ['x^2 + 7*x + 12 = (x + 3)*(x + 4)']},
+    {'kind': 'factor', 'question': 'x^2 - 9', 'steps': ['x^2 - 9 = (x - 3)*(x + 3)']},
+    {'kind': 'factor', 'question': '2*x^2 - 50', 'steps': ['2*x^2 - 50 = 2*(x - 5)*(x + 5)']},
+], 'mistakes': [
+    {'wrong': 'x^2 + 5*x + 6 = (x + 1)*(x + 6)', 'right': 'x^2 + 5*x + 6 = (x + 2)*(x + 3)'},
+]}
+assert verify_lesson('factor', factor) == []
+
 
 def rejects(mutate, expected, key='factorization/trinomial'):
-    broken = copy.deepcopy(solve if key == 'x' else lessons[key])
+    broken = copy.deepcopy(solve if key == 'x' else factor)
     mutate(broken)
     errors = verify_lesson(key, broken)
     assert errors and expected in errors[0], f'expected "{expected}", got {errors}'

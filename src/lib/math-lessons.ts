@@ -1,5 +1,6 @@
 import lessonData from '../data/item-lessons.json' with { type: 'json' };
 import type { LessonGraph } from './math-lesson-graph.ts';
+import type { FormulaStyle } from './math-formula';
 
 // A learning item's lesson, the textbook part of its page: sections of prose
 // (with $...$ for inline TeX) and display formulas, worked examples and common
@@ -15,9 +16,9 @@ export interface Localized { ja: string; en: string; zh: string }
 export type LessonFigure = { caption: Localized } & ({ shape: string; numbers: string } | { graph: LessonGraph });
 export interface LessonSection { heading: Localized; paragraphs: Localized[]; formulas?: string[]; figures?: LessonFigure[]; after?: Localized[] }
 // value: a chain equal to the question; factor: the same, ending fully factored; solve: equations with the question's solutions.
-export interface LessonExample { kind: 'value' | 'factor' | 'solve'; question: string; steps: string[]; note: Localized; figure?: LessonFigure }
+export interface LessonExample { kind: 'value' | 'factor' | 'solve'; prompt?: Localized; question: string; steps: string[]; note: Localized; figure?: LessonFigure; style?: FormulaStyle }
 // An identity that is wrong and its correction, or (with a question, an equation) wrong and right solutions.
-export interface LessonMistake { question?: string; wrong: string; right: string; note: Localized }
+export interface LessonMistake { question?: string; wrong: string; right: string; note: Localized; style?: FormulaStyle }
 export interface Lesson { sections: LessonSection[]; examples: LessonExample[]; mistakes: LessonMistake[]; reviewedAt?: string }
 
 export function lesson(unit: string, item: string): Lesson | null {

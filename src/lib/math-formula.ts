@@ -353,8 +353,8 @@ export function toTex(node: Node): string {
         return toTex({ type: 'bin', op: '/', left: { type: 'bin', op: '*', left: node.left, right: node.right.left }, right: node.right.right });
       }
       if (node.op === '*' && node.right.type === 'pow' && node.right.base.type === 'num' && node.right.exp.type !== 'num') return `${left} \\cdot ${right}`;
-      if (node.op === '*' && node.left.type === 'num' && node.left.value === '1' && drawStyle !== 'times') return toTex(node.right);
-      if (node.op === '*' && (node.right.type === 'neg' || drawStyle === 'times')) return `${left} \\times ${right}`;
+      if (node.op === '*' && node.left.type === 'num' && node.left.value === '1' && drawStyle !== 'times' && drawStyle !== 'box') return toTex(node.right);
+      if (node.op === '*' && (node.right.type === 'neg' || drawStyle === 'times' || drawStyle === 'box')) return `${left} \\times ${right}`;
       if (node.op === '*') return startsWithNumber(node.right) ? `${left} \\times ${right}` : `${left}${right}`;
       return `${left} ${node.op} ${right}`;
     }

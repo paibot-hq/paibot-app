@@ -15,7 +15,7 @@ import { findUnit } from '../lib/math-catalog';
 import { jpGrade } from '../lib/math-curriculum-jp';
 import { getPlayableSets, getSetTiers, getWorkedExample } from '../lib/math-problems.server';
 import { keyPoints } from '../lib/math-key-points';
-import { stepRows } from '../lib/math-formula';
+import { stepRows, type FormulaStyle } from '../lib/math-formula';
 import { lesson as itemLesson, type Localized } from '../lib/math-lessons';
 import { catalogEntry } from '../lib/math-routes.server';
 import styles from './math-item.module.css';
@@ -101,18 +101,19 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
         <h2 className={styles.lessonHeading}>{ti('examples')}</h2>
         {lesson.examples.map((item, index) => <div key={index} className={styles.lessonExample}>
           <p className={styles.exampleLabel}>{ti('exampleNumber', { number: index + 1 })}</p>
-          <div className={styles.exampleQuestion}>{lineTex(item.question).map(tex => <MathTex key={tex} tex={tex} block />)}</div>
+          {item.prompt && <p className={styles.exampleNote}><MathText text={text(item.prompt)} /></p>}
+          <div className={styles.exampleQuestion}>{lineTex(item.question, item.style).map(tex => <MathTex key={tex} tex={tex} block />)}</div>
           {item.figure && <LessonFigureView figure={item.figure} />}
-          <Steps lines={item.steps} />
+          <Steps lines={item.steps} style={item.style} />
           <p className={styles.exampleNote}><MathText text={text(item.note)} /></p>
         </div>)}
       </section>}
       {lesson && lesson.mistakes.length > 0 && <section className={styles.lesson}>
         <h2 className={styles.lessonHeading}>{ti('mistakes')}</h2>
         {lesson.mistakes.map((item, index) => <div key={index} className={styles.mistake}>
-          {item.question && <div className={styles.exampleQuestion}>{lineTex(item.question).map(tex => <MathTex key={tex} tex={tex} block />)}</div>}
-          <p className={styles.wrong}><span className={styles.mark}>{ti('wrong')}</span><MathTex tex={stepTex(item.wrong)} /></p>
-          <p className={styles.right}><span className={styles.mark}>{ti('right')}</span><MathTex tex={stepTex(item.right)} /></p>
+          {item.question && <div className={styles.exampleQuestion}>{lineTex(item.question, item.style).map(tex => <MathTex key={tex} tex={tex} block />)}</div>}
+          <p className={styles.wrong}><span className={styles.mark}>{ti('wrong')}</span><MathTex tex={stepTex(item.wrong, item.style)} /></p>
+          <p className={styles.right}><span className={styles.mark}>{ti('right')}</span><MathTex tex={stepTex(item.right, item.style)} /></p>
           <p className={styles.exampleNote}><MathText text={text(item.note)} /></p>
         </div>)}
       </section>}
@@ -148,13 +149,13 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
 }
 
 // Worked steps, each row of TeX pieces wrapping between pieces when too wide (as under a quiz answer).
-function Steps({ lines }: { lines: string[] }) {
-  return <div className={styles.steps}>{lines.flatMap(line => stepRows(line)).map((row, index) => <div key={index} className={styles.row}>
+function Steps({ lines, style }: { lines: string[]; style?: FormulaStyle }) {
+  return <div className={styles.steps}>{lines.flatMap(line => stepRows(line, style)).map((row, index) => <div key={index} className={styles.row}>
     {row.map((piece, at) => <MathTex key={at} tex={`{{}${piece}}`} />)}
   </div>)}</div>;
 }
 
 // A one-line equation (a mistake and its correction) as a single piece of TeX.
-const stepTex = (line: string) => stepRows(line).flat().join(' ');
+const stepTex = (line: string, style?: FormulaStyle) => stepRows(line, style).flat().join(' ');
 // A question as TeX, one line per equation of a system.
-const lineTex = (line: string) => stepRows(line).map(row => row.join(' ').replace(/^= /, ''));
+const lineTex = (line: string, style?: FormulaStyle) => stepRows(line, style).map(row => row.join(' ').replace(/^= /, ''));
