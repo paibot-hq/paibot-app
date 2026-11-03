@@ -8,6 +8,7 @@ import { jpGrade } from '../src/lib/math-curriculum-jp.ts';
 import { keyPoints } from '../src/lib/math-key-points.ts';
 import { lessonProblems, withReadings } from './lib/math-lesson-check.mjs';
 import { lessonStore } from './lib/math-lesson-store.mjs';
+import { applyLessonEdits } from './lib/math-lesson-edits.mjs';
 import { blindProblem, context, extractJSON, promptFile, saveWork } from './math-pipeline.mjs';
 
 // Writes the learning items' lessons (src/data/item-lessons.json, shown on the item page) and has them checked:
@@ -103,7 +104,7 @@ async function askOnce(model, prompt) {
     if (model === 'agy') return await exec('agy', ['--sandbox', '--print-timeout', '10m', '-p', prompt], temp);
     if (model === 'deepseek') return await askDeepSeek(prompt);
     if (model === 'opencode' || model.startsWith('opencode/') || model.startsWith('opencode-go/')) {
-      return await exec(OPENCODE, ['run', '--print-logs', '--log-level', 'ERROR', '-m', model === 'opencode' ? (process.env.MATH_OPENCODE_MODEL ?? 'opencode/deepseek-v4.1-flash-free') : model, prompt], temp);
+      return await exec(OPENCODE, ['run', '--title', `Math lesson ${model}`, '--print-logs', '--log-level', 'ERROR', '-m', model === 'opencode' ? (process.env.MATH_OPENCODE_MODEL ?? 'opencode/deepseek-v4.1-flash-free') : model, prompt], temp);
     }
     const output = join(temp, 'answer.txt');
     await exec('codex', ['exec', '--sandbox', 'read-only', '--skip-git-repo-check', '-o', output, prompt], temp);
@@ -144,6 +145,18 @@ const writePrompt = (key, extra) => `${fill(promptFile('_lesson'), { grammar, fi
 
 学習項目:
 ${JSON.stringify(describe(key).summary, null, 2)}${extra}`;
+
+async function fixLesson(key, candidate, feedback) {
+  const rules = fill(promptFile('_lesson'), { grammar, figures: promptFile('_lesson-figures'), example: '' }).split('\n出力形式（')[0];
+  const prompt = fill(promptFile('_lesson-fix'), { rules, item: JSON.stringify(describe(key).summary), feedback, lesson: JSON.stringify(candidate, null, 2) });
+  let invalid = '';
+  for (let attempt = 0; attempt < 2; attempt++) {
+    const answer = await askJSON(WRITER, `${prompt}${invalid}`, 'edits', key);
+    try { return applyLessonEdits(candidate, answer.edits); }
+    catch (error) { invalid = `\n前の編集操作を適用できませんでした: ${error.message}。パスと操作を直して、編集操作だけを返してください。`; }
+  }
+  throw new Error(`${key}: writer returned invalid lesson edits`);
+}
 
 async function verify(key, lesson) {
   const format = lessonProblems(key, lesson);
@@ -193,8 +206,7 @@ async function work(key) {
   store.stage(key, candidate, feedback);
   for (let round = 1; round <= ROUNDS; round++) {
     if (feedback) {
-      const current = candidate;
-      const fixed = await askJSON(WRITER, writePrompt(key, `\n\n次の本文には直すべき点がある。指摘をすべて直した本文全体を、同じ形式で出力する。\n指摘:\n${feedback}\n\n現在の本文:\n${JSON.stringify({ sections: current.sections, examples: current.examples, mistakes: current.mistakes })}`), 'sections', key);
+      const fixed = await fixLesson(key, candidate, feedback);
       candidate = body(fixed);
       feedback = '';
       store.stage(key, candidate);

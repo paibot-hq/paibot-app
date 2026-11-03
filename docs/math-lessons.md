@@ -16,6 +16,9 @@ npm run math:lessons -- <unit|unit/item> ... --review
 useful. `--review` resumes a saved draft, including its last review findings;
 otherwise it reviews an existing unreviewed lesson. It skips an already reviewed
 lesson that has no saved draft. `--jobs N` controls concurrency (default 3).
+Review findings are repaired with small JSON Patch edits, preserving unrelated
+text, figures, and examples. The entire resulting candidate still passes the
+same checks and independent review before publication.
 
 Drafts and their feedback are stored in the ignored
 `.math-work/lesson-drafts.json`. The displayed data stays unchanged while a draft
