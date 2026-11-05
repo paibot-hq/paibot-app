@@ -25,7 +25,7 @@ export default function AppList({ year }: { year: number }) {
             const list = apps.filter(app => app.category === category && app.status === "published" && app.href && !app.private);
             if (!list.length) return null;
             return (
-              <section key={category} aria-labelledby={`category-${category}`}>
+              <section key={category} data-category={category} aria-labelledby={`category-${category}`}>
                 <h2 id={`category-${category}`}>{td(`categories.${category}`)}</h2>
                 <p className={styles.categoryText}>{td(`categoryDescriptions.${category}`)}</p>
                 <ul>{list.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited={favoriteSlugs.includes(app.slug)} />)}</ul>
