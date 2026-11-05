@@ -324,24 +324,29 @@
     "appList": {
       "eyebrow": "APPS",
       "title": "All apps",
-      "description": "Every app on PAIBOT.app, grouped by kind: daily life, games, utilities, study, development and networking.",
-      "intro": "Every app on PAIBOT.app, grouped by kind. All of them work in your browser without signing up. If you know an app's name, the search on the top page finds it fastest."
+      "description": "Every app on PAIBOT.app, with tags such as games, learning, calculators and development to narrow the list.",
+      "intro": "Every app on PAIBOT.app. All of them work in your browser without signing up. Narrow the list by tag, or use the search on the top page if you know an app's name.",
+      "filter": "Filter by tag",
+      "all": "All"
     },
-    "categoryDescriptions": {
-      "daily": "Apps for things you look up or check in daily life: earthquakes and weather warnings, days between dates, ages, calendars and more.",
-      "game": "Games you can play right away in the browser, and simulations that let you watch mathematics and physics in motion.",
-      "utility": "Apps to get tasks done quickly: counting characters, making passwords, hiding parts of photos, removing metadata, working out consumption tax and more.",
-      "study": "Apps for learning, including math practice from elementary arithmetic to university mathematics.",
-      "dev": "Apps for programming and checking data: formatting JSON, converting Base64 and URL encoding, and more.",
-      "network": "Apps for setting up and investigating networks: IP addresses, domains, subnet calculations and more."
-    },
-    "categories": {
-      "study": "Study",
-      "dev": "Dev Tools",
-      "utility": "Utilities",
-      "network": "Network",
+    "tags": {
       "game": "Games",
-      "daily": "Everyday"
+      "learn": "Learning",
+      "math": "Math",
+      "science": "Science",
+      "art": "Art",
+      "fortune": "Fortune & tests",
+      "text": "Text",
+      "photo": "Photos",
+      "calc": "Calculators",
+      "time": "Time",
+      "sound": "Sound",
+      "info": "Information",
+      "security": "Security",
+      "document": "Documents",
+      "ai": "AI",
+      "dev": "Development",
+      "network": "Networking"
     },
     "learn": {
       "title": "PAIBOT.app Learn | Math drills by multiple choice",
@@ -448,40 +453,6 @@
       "monitor": {
         "title": "Monitoring",
         "text": "Watch a site's uptime and the expiry of a domain or certificate, and get notified of changes. Coming soon."
-      }
-    },
-    "home": {
-      "stats": {
-        "categories": "Categories",
-        "tools": "Tools",
-        "units": "Math units",
-        "items": "Math topics",
-        "languages": "Languages"
-      },
-      "tryIt": "Give one a try.",
-      "study": {
-        "description": "Practice calculations and individual topics with arithmetic drills and math problem sets.",
-        "summary": "Calculations and math topics"
-      },
-      "utility": {
-        "description": "Count characters, measure time, and generate passwords with tools for small tasks.",
-        "summary": "Character counts and passwords"
-      },
-      "game": {
-        "description": "Quick games and small apps to play with, from quizzes and reaction tests to fireworks, a kaleidoscope and dice.",
-        "summary": "Games, fireworks, kaleidoscope and more"
-      },
-      "daily": {
-        "description": "Calendars, clocks, a diary, and other apps for everyday life.",
-        "summary": "Calendars, clocks, and a diary"
-      },
-      "dev": {
-        "description": "Format JSON and work with Base64 and URL encoding using tools for development.",
-        "summary": "JSON formatting and data conversion"
-      },
-      "network": {
-        "description": "Check IP addresses, look up domains, and calculate CIDR subnets.",
-        "summary": "IP, domain, and subnet tools"
       }
     },
     "ip": {

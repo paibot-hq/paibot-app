@@ -40,7 +40,7 @@ export function affectedTools(change, catalog) {
     } else if (file === 'src/lib/app-catalog.ts' || file === 'src/lib/apps.tsx') {
       // The registries every tool is added to: a pure addition affects only
       // the tools it names (plus the lists that show every tool: the
-      // category pages are covered by the smoke check, which always runs).
+      // list of every app is covered by the smoke check, which always runs).
       const added = change.addedLines(file);
       if (added === null) return 'all';
       for (const line of added) for (const slug of slugs) {

@@ -263,8 +263,18 @@
 .more { margin: .7rem 0 0; font-size: .85rem; text-align: right; }
 .more a { display: inline; padding: 0; border: 0; background: none; box-shadow: none; color: var(--accent); font-weight: 600; text-decoration: none; }
 .more a:hover, .more a:focus-visible { background: none; box-shadow: none; transform: none; text-decoration: underline; text-underline-offset: .2em; }
-/* The list of every app (/apps): the same cards as the top page, under a heading and a line per category. */
+/* The list of every app (/apps): the same cards as the top page, under a row of tags that narrow it. */
 .list { width: min(900px, calc(100% - 2rem)); margin-inline: auto; }
+.tags { display: flex; flex-wrap: wrap; gap: .45rem; margin: 0 0 1.4rem; }
+.tags .chip { padding: .35rem .8rem; }
+.tags .chip:hover, .tags .chip:focus-visible { border-color: var(--cat, var(--accent)); }
+.tags .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tags .chip[aria-pressed="true"] {
+  border-color: var(--cat, var(--accent));
+  background: color-mix(in srgb, var(--cat, var(--accent)) 14%, transparent);
+  color: var(--text);
+  font-weight: 650;
+}
 .intro { color: var(--muted); line-height: 1.8; }
 .categoryText { margin: -.4rem 0 .9rem; color: var(--muted); font-size: .88rem; line-height: 1.7; }
 
@@ -293,13 +303,13 @@
 .browse a:hover, .browse a:focus-visible { text-decoration: underline; text-underline-offset: .2em; }
 @media (max-width: 600px) { .page { padding-top: 1.5rem; } .introduction { font-size: .9rem; } }
 
-/* Each category has a colour of its own, used by its cards' icons and its heading's bar. */
-[data-category="daily"] { --cat: light-dark(#0a8f6a, #3fd3a2); }
-[data-category="game"] { --cat: light-dark(#d1366f, #f585ad); }
-[data-category="utility"] { --cat: light-dark(#2563d6, #74a9ff); }
-[data-category="study"] { --cat: light-dark(#6d47e0, #a98eff); }
-[data-category="dev"] { --cat: light-dark(#c25e00, #ffb057); }
-[data-category="network"] { --cat: light-dark(#0b7f94, #3fc6dc); }
+/* A card takes its colour from its app's first tag (data-tag), and so does that tag's chip on /apps; related tags share one. */
+[data-tag="game"], [data-tag="fortune"] { --cat: light-dark(#d1366f, #f585ad); }
+[data-tag="learn"], [data-tag="math"], [data-tag="science"] { --cat: light-dark(#6d47e0, #a98eff); }
+[data-tag="art"], [data-tag="sound"] { --cat: light-dark(#0b7f94, #3fc6dc); }
+[data-tag="text"], [data-tag="photo"], [data-tag="calc"], [data-tag="document"], [data-tag="security"] { --cat: light-dark(#2563d6, #74a9ff); }
+[data-tag="time"], [data-tag="info"] { --cat: light-dark(#0a8f6a, #3fd3a2); }
+[data-tag="dev"], [data-tag="network"], [data-tag="ai"] { --cat: light-dark(#c25e00, #ffb057); }
 @media (prefers-reduced-motion: reduce) { .all a { transition: none; } .all a:hover { transform: none; } }
 
 /* The top of the page: a light panel with a soft wash of blue, violet and peach and a faint dot grid (deep blue in the dark

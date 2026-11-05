@@ -27,7 +27,7 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
     const entries: Entry[] = [];
     for (const app of apps) {
       if (app.status !== "published" || !app.href) continue;
-      entries.push({ key: `app:${app.slug}`, kind: "app", href: app.href, title: td(`${app.messageKey}.title`), text: td(`${app.messageKey}.description`), keywords: td(`${app.messageKey}.keywords`), context: td(`categories.${app.category}`) });
+      entries.push({ key: `app:${app.slug}`, kind: "app", href: app.href, title: td(`${app.messageKey}.title`), text: td(`${app.messageKey}.description`), keywords: td(`${app.messageKey}.keywords`), context: app.tags.map(tag => td(`tags.${tag}`)).join(" · ") });
     }
     return prepare(entries);
     // The texts depend on the language only.
