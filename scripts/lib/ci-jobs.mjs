@@ -20,3 +20,16 @@ export function jobsNeeded({ affected, files }) {
     sympy: files.some(file => SYMPY.test(file)),
   };
 }
+
+// What the browser job covers (CHECK_TOOLS for each check): `catalog`, the checks every tool shares (it loads in three locales, has no
+// uncaught errors and fits 390px), and `flows`, each tool's own flow (tools.mjs), which take most of the job's time. A change to shared code
+// ("all") reaches every page, so every tool gets the shared checks, but the flows run only for the tools it names: a shared component
+// that breaks a tool's page shows in the shared checks. Every flow still runs when the checks themselves or the dependencies change,
+// and when a library the checks import does (`affected` is then empty although the browser job is needed).
+const CHECKS = /^(tests\/e2e\/(?!flows\/)|\.github\/|scripts\/(ci-changes|affected-tools)\.mjs$|scripts\/lib\/(affected-tools|ci-jobs)\.mjs$|package(-lock)?\.json$)/;
+
+export function browserScope({ affected, files }) {
+  if (affected === 'all') return { catalog: 'all', flows: files.some(file => CHECKS.test(file)) ? 'all' : '' };
+  if (!affected && jobsNeeded({ affected, files }).browser) return { catalog: 'all', flows: 'all' };
+  return { catalog: affected, flows: affected };
+}
