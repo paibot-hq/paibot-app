@@ -28,7 +28,7 @@ assert.equal(run(['messages/en.json'], { json: { 'messages/en.json': { before, a
 assert.equal(run(['messages/en.json'], { json: { 'messages/en.json': { before, after: { ...before, Other: 2 } } } }), 'all');
 // Registries: a pure addition affects only the tools it names.
 assert.deepEqual(run(['src/lib/app-catalog.ts', 'src/lib/apps.tsx'], { added: {
-  'src/lib/app-catalog.ts': ['  { slug: "business-card", href: "/business-card", category: "utility", status: "published", messageKey: "businessCard" },'],
+  'src/lib/app-catalog.ts': ['  { slug: "business-card", href: "/business-card", tags: ["document"], status: "published", messageKey: "businessCard" },'],
   'src/lib/apps.tsx': ['function CardIcon() {}', '  "business-card": CardIcon,'],
 } }), ['business-card']);
 assert.equal(run(['src/lib/app-catalog.ts']), 'all', 'an edit that removes lines may affect any tool');

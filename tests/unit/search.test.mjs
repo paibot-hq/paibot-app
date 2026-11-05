@@ -14,7 +14,7 @@ const found = (query, limit) => search(prepare(entries), query, limit).map(entry
 
 test('text is compared without regard to width, case or kana', () => {
   assert.equal(normalize('ＪＳＯＮ'), 'json');
-  assert.equal(normalize('ポモドーロ'), 'ぽもどーろ');
+  assert.equal(normalize('ポモドーロ'), 'ぽもどろ');
   assert.equal(normalize('Ｈｅｌｌｏ　Ｗｏｒｌｄ'), 'hello world');
   assert.deepEqual(tokens('  消費税　 計算 '), ['消費税', '計算']);
   assert.deepEqual(tokens('   '), []);
@@ -56,4 +56,32 @@ test('an empty query finds nothing, a query nobody has finds nothing, and the nu
   assert.equal(found('数学', 1).length, 1);
   const many = Array.from({ length: 100 }, (_, index) => ({ key: `k${index}`, kind: 'item', href: '/x', title: `項目${index}`, text: '', keywords: '', context: '' }));
   assert.equal(search(prepare(many), '項目').length, 30);
+});
+
+test('the long vowel mark does not matter', () => {
+  assert.deepEqual(found('ぽもどろ'), ['pomodoro']);
+  assert.deepEqual(found('ﾎﾟﾓﾄﾞｰﾛ'), ['pomodoro']);
+});
+
+test('a word nobody has as typed is tried as romaji', () => {
+  assert.deepEqual(found('pomodoro'), ['pomodoro']);
+  assert.deepEqual(found('pomodoro benkyou'), [], 'romaji reaches kana, not kanji (勉強)');
+  assert.deepEqual(found('pomodoro 勉強'), ['pomodoro']);
+  assert.deepEqual(found('shouhizei'), [], 'nor 消費税');
+});
+
+test('a latin word nobody has is allowed one typo', () => {
+  assert.deepEqual(found('jsno'), ['json']);
+  assert.deepEqual(found('JOSN'), ['json']);
+  assert.deepEqual(found('jsn'), [], 'too short to guess');
+});
+
+test('a word that is there as typed is not also read as romaji', () => {
+  const words = [
+    { key: 'en', kind: 'app', href: '/en', title: 'Name generator', text: '', keywords: '', context: '' },
+    { key: 'ja', kind: 'app', href: '/ja', title: 'なめらか', text: '', keywords: '', context: '' },
+  ];
+  assert.deepEqual(search(prepare(words), 'name').map(entry => entry.key), ['en']);
+  assert.deepEqual(search(prepare(words), 'nameraka').map(entry => entry.key), ['ja']);
+  assert.deepEqual(search(prepare(words.slice(1)), 'name').map(entry => entry.key), [], 'two kana are too short to guess');
 });

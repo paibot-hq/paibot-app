@@ -27,7 +27,7 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
     const entries: Entry[] = [];
     for (const app of apps) {
       if (app.status !== "published" || !app.href) continue;
-      entries.push({ key: `app:${app.slug}`, kind: "app", href: app.href, title: td(`${app.messageKey}.title`), text: td(`${app.messageKey}.description`), keywords: td(`${app.messageKey}.keywords`), context: td(`categories.${app.category}`) });
+      entries.push({ key: `app:${app.slug}`, kind: "app", href: app.href, title: td(`${app.messageKey}.title`), text: td(`${app.messageKey}.description`), keywords: td(`${app.messageKey}.keywords`), context: app.tags.map(tag => td(`tags.${tag}`)).join(" · ") });
     }
     return prepare(entries);
     // The texts depend on the language only.
@@ -63,8 +63,8 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
   return (
     <>
       <main className={styles.page}>
-        <h1 className={styles.brand}><img className={styles.mark} src="/icon.svg" alt="" width="40" height="40" /><span>PAIBOT.app</span></h1>
-        <p className={styles.tagline}>{ts("tagline")}</p>
+        <section className={styles.hero} aria-labelledby="home-brand">
+        <h1 id="home-brand" className={styles.brand}><img className={styles.mark} src="/icon.svg" alt="" width="40" height="40" /><span>PAIBOT.app</span></h1>
         <p className={styles.introduction}>{ts("introduction")}</p>
         <div className={styles.box}>
           <input
@@ -94,6 +94,7 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
             </button>
           </p>
         )}
+        </section>
         {query.trim() && (
           <ul id="search-results" className={styles.results} role="listbox" aria-label={ts("results")} data-search="results">
             {results.length === 0 && <li className={styles.none} role="presentation">{ts("none", { query: query.trim() })}</li>}
@@ -118,7 +119,6 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
             ) : <>
             <section aria-labelledby="home-start" data-search="start">
               <h2 id="home-start">{ts("startTitle")}</h2>
-              <p className={styles.categoryText}>{ts("startIntro")}</p>
               <div className={styles.tasks}>
                 {([
                   ["photo", "/metadata", "/mosaic"],

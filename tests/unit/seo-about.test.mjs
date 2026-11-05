@@ -1,29 +1,56 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { APP_CATALOG, relatedApps } from '../../src/lib/app-catalog.ts';
+import { APP_CATALOG, APP_TAGS, relatedApps } from '../../src/lib/app-catalog.ts';
 import { toolStructuredData } from '../../src/lib/seo.ts';
 
-test('related tools: the same kind first, never itself, never private or coming soon, at most six', () => {
+test('related apps: those sharing the most tags first, never itself, never private or coming soon, at most six', () => {
   for (const app of APP_CATALOG.filter(a => a.status === 'published' && a.href)) {
     const related = relatedApps(app);
     assert.ok(related.length > 0 && related.length <= 6, app.slug);
     assert.ok(!related.some(r => r.slug === app.slug || r.private || r.status !== 'published' || !r.href), app.slug);
     assert.equal(new Set(related.map(r => r.slug)).size, related.length);
-    const sameKind = related.map(r => r.category === app.category);
-    assert.deepEqual(sameKind, [...sameKind].sort((a, b) => Number(b) - Number(a)), `${app.slug}: the same kind comes first`);
+    const shared = related.map(r => r.tags.filter(tag => app.tags.includes(tag)).length);
+    assert.deepEqual(shared, [...shared].sort((a, b) => b - a), `${app.slug}: more shared tags come first`);
   }
-  const list = [{ slug: 'a', href: '/a', category: 'dev', status: 'published', messageKey: 'a' }, { slug: 'b', href: '/b', category: 'game', status: 'published', messageKey: 'b' }, { slug: 'c', category: 'dev', status: 'comingSoon', messageKey: 'c' }];
-  assert.deepEqual(relatedApps(list[0], list).map(a => a.slug), ['b'], 'a coming-soon tool is not linked; the other kind fills up');
+  const list = [
+    { slug: 'a', href: '/a', tags: ['dev', 'text'], status: 'published', messageKey: 'a' },
+    { slug: 'b', href: '/b', tags: ['game'], status: 'published', messageKey: 'b' },
+    { slug: 'c', href: '/c', tags: ['text'], status: 'published', messageKey: 'c' },
+    { slug: 'd', href: '/d', tags: ['text', 'dev'], status: 'published', messageKey: 'd' },
+    { slug: 'e', tags: ['dev'], status: 'comingSoon', messageKey: 'e' },
+  ];
+  assert.deepEqual(relatedApps(list[0], list).map(a => a.slug), ['d', 'c', 'b'], 'two shared tags, then one, then none; a coming-soon app is not linked');
 });
 
-test('structured data is a WebApplication with the tool facts and a category type', () => {
-  const data = toolStructuredData({ name: 'JSON', description: 'd', url: 'https://paibot.app/ja/json', locale: 'ja', category: 'dev', siteName: 'PAIBOT.app', siteUrl: 'https://paibot.app/ja' });
+test('every app has one to three known tags, none twice', () => {
+  for (const app of APP_CATALOG) {
+    assert.ok(app.tags.length >= 1 && app.tags.length <= 3, app.slug);
+    assert.equal(new Set(app.tags).size, app.tags.length, app.slug);
+    for (const tag of app.tags) assert.ok(APP_TAGS.includes(tag), `${app.slug}: ${tag}`);
+  }
+});
+
+test('every tag has a name in all three languages and is used by a published app', async () => {
+  const { readFileSync } = await import('node:fs');
+  for (const locale of ['ja', 'en', 'zh']) {
+    const { App } = JSON.parse(readFileSync(`messages/${locale}.json`, 'utf8'));
+    assert.deepEqual(Object.keys(App.tags).sort(), [...APP_TAGS].sort(), locale);
+    for (const tag of APP_TAGS) assert.ok(App.tags[tag]?.trim(), `${locale} tags.${tag}`);
+  }
+  for (const tag of APP_TAGS) assert.ok(APP_CATALOG.some(app => app.status === 'published' && app.tags.includes(tag)), tag);
+});
+
+test('structured data is a WebApplication with the tool facts and a type from its tags', () => {
+  const data = toolStructuredData({ name: 'JSON', description: 'd', url: 'https://paibot.app/ja/json', locale: 'ja', tags: ['dev', 'text'], siteName: 'PAIBOT.app', siteUrl: 'https://paibot.app/ja' });
   assert.equal(data['@type'], 'WebApplication');
   assert.equal(data.applicationCategory, 'DeveloperApplication');
   assert.equal(data.url, 'https://paibot.app/ja/json');
   assert.equal(data.inLanguage, 'ja');
-  assert.equal(toolStructuredData({ ...data, category: 'game', siteName: 'P', siteUrl: 'u', locale: 'en' }).applicationCategory, 'GameApplication');
-  assert.equal(toolStructuredData({ ...data, category: 'daily', siteName: 'P', siteUrl: 'u', locale: 'en' }).applicationCategory, 'UtilitiesApplication');
+  const type = tags => toolStructuredData({ ...data, tags, siteName: 'P', siteUrl: 'u', locale: 'en' }).applicationCategory;
+  assert.equal(type(['game', 'math']), 'GameApplication');
+  assert.equal(type(['math', 'art']), 'EducationalApplication');
+  assert.equal(type(['ai', 'calc']), 'DeveloperApplication');
+  assert.equal(type(['time']), 'UtilitiesApplication');
 });
 
 test('every public tool has its text about it, and how to use it, in all three languages', async () => {

@@ -304,7 +304,7 @@
     "signUp": "Sign up",
     "backHome": "Back to home",
     "title": "PAIBOT.app",
-    "description": "Check photos before sharing, count characters, run SQL and practise maths. PAIBOT.app offers browser tools for everyday tasks and learning.",
+    "description": "Check photos before sharing, count characters, run SQL and practise maths. PAIBOT.app offers browser apps for everyday tasks and learning.",
     "navSites": "Sites",
     "site": {
       "app": "App",
@@ -325,33 +325,38 @@
       "comingSoon": "Coming soon",
       "favorite": "Add to favorites",
       "unfavorite": "Remove from favorites",
-      "about": "About this tool",
-      "related": "More tools",
+      "about": "About this app",
+      "related": "More apps",
       "allApps": "All apps",
       "categoryNavigation": "App categories",
       "faq": "Frequently asked questions"
     },
     "appList": {
-      "eyebrow": "TOOLS",
-      "title": "All tools",
-      "description": "Every tool on PAIBOT.app, grouped by kind: daily life, games, utilities, study, development and networking.",
-      "intro": "Every tool on PAIBOT.app, grouped by kind. All of them work in your browser without signing up. If you know a tool's name, the search on the top page finds it fastest."
+      "eyebrow": "APPS",
+      "title": "All apps",
+      "description": "Every app on PAIBOT.app, with tags such as games, learning, calculators and development to narrow the list.",
+      "intro": "Every app on PAIBOT.app. All of them work in your browser without signing up. Narrow the list by tag, or use the search on the top page if you know an app's name.",
+      "filter": "Filter by tag",
+      "all": "All"
     },
-    "categoryDescriptions": {
-      "daily": "Tools for things you look up or check in daily life: earthquakes and weather warnings, days between dates, ages, calendars and more.",
-      "game": "Games you can play right away in the browser, and simulations that let you watch mathematics and physics in motion.",
-      "utility": "Tools to get tasks done quickly: counting characters, making passwords, hiding parts of photos, removing metadata, working out consumption tax and more.",
-      "study": "Tools for learning, including math practice from elementary arithmetic to university mathematics.",
-      "dev": "Tools for programming and checking data: formatting JSON, converting Base64 and URL encoding, and more.",
-      "network": "Tools for setting up and investigating networks: IP addresses, domains, subnet calculations and more."
-    },
-    "categories": {
-      "study": "Study",
-      "dev": "Dev Tools",
-      "utility": "Utilities",
-      "network": "Network",
+    "tags": {
       "game": "Games",
-      "daily": "Everyday"
+      "learn": "Learning",
+      "math": "Math",
+      "science": "Science",
+      "art": "Art",
+      "fortune": "Fortune & tests",
+      "text": "Text",
+      "photo": "Photos",
+      "calc": "Calculators",
+      "time": "Time",
+      "sound": "Sound",
+      "info": "Information",
+      "security": "Security",
+      "document": "Documents",
+      "ai": "AI",
+      "dev": "Development",
+      "network": "Networking"
     },
     "learn": {
       "title": "PAIBOT.app Learn | Math drills by multiple choice",
@@ -460,40 +465,6 @@
         "text": "Watch a site's uptime and the expiry of a domain or certificate, and get notified of changes. Coming soon."
       }
     },
-    "home": {
-      "stats": {
-        "categories": "Categories",
-        "tools": "Tools",
-        "units": "Math units",
-        "items": "Math topics",
-        "languages": "Languages"
-      },
-      "tryIt": "Give one a try.",
-      "study": {
-        "description": "Practice calculations and individual topics with arithmetic drills and math problem sets.",
-        "summary": "Calculations and math topics"
-      },
-      "utility": {
-        "description": "Count characters, measure time, and generate passwords with tools for small tasks.",
-        "summary": "Character counts and passwords"
-      },
-      "game": {
-        "description": "Quick games and small apps to play with, from quizzes and reaction tests to fireworks, a kaleidoscope and dice.",
-        "summary": "Games, fireworks, kaleidoscope and more"
-      },
-      "daily": {
-        "description": "Calendars, clocks, a diary, and other apps for everyday life.",
-        "summary": "Calendars, clocks, and a diary"
-      },
-      "dev": {
-        "description": "Format JSON and work with Base64 and URL encoding using tools for development.",
-        "summary": "JSON formatting and data conversion"
-      },
-      "network": {
-        "description": "Check IP addresses, look up domains, and calculate CIDR subnets.",
-        "summary": "IP, domain, and subnet tools"
-      }
-    },
     "ip": {
       "title": "IP Address Check",
       "description": "Check the IPv4 and IPv6 addresses your browser is using now, plus connection details this site can see, such as the network provider and estimated location.",
@@ -558,7 +529,7 @@
         {
           "heading": "How to use it",
           "paragraphs": [
-            "Enter an IPv4 address with a prefix length, such as \"192.168.1.10/24\", or with a subnet mask, such as \"192.168.1.10 255.255.255.0\". The tool shows the network address, broadcast address, first and last usable addresses, number of hosts, subnet mask, wildcard mask and the kind of address (private, public and so on).",
+            "Enter an IPv4 address with a prefix length, such as \"192.168.1.10/24\", or with a subnet mask, such as \"192.168.1.10 255.255.255.0\". The app shows the network address, broadcast address, first and last usable addresses, number of hosts, subnet mask, wildcard mask and the kind of address (private, public and so on).",
             "Use it to check ranges when configuring servers and routers, designing cloud VPCs and subnets, or writing firewall rules. Everything is calculated in your browser."
           ]
         },
@@ -572,7 +543,7 @@
         {
           "heading": "Special ranges",
           "paragraphs": [
-            "10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16 are private addresses, free to use in homes and offices. 100.64.0.0/10 is shared address space for carrier-grade NAT, 127.0.0.0/8 is loopback (the machine itself), and 169.254.0.0/16 is link-local, used when no address was assigned by DHCP. The tool tells you which one your address belongs to.",
+            "10.0.0.0/8, 172.16.0.0/12 and 192.168.0.0/16 are private addresses, free to use in homes and offices. 100.64.0.0/10 is shared address space for carrier-grade NAT, 127.0.0.0/8 is loopback (the machine itself), and 169.254.0.0/16 is link-local, used when no address was assigned by DHCP. The app tells you which one your address belongs to.",
             "A /31 is meant for a link between two devices, and under RFC 3021 both addresses are usable. A /32 is a single host."
           ]
         }
@@ -833,7 +804,7 @@
       }
     },
     "footer": {
-      "apps": "All tools",
+      "apps": "All apps",
       "about": "About",
       "ranking": "Ranking",
       "label": "Company information",
@@ -845,12 +816,12 @@
     },
     "ranking": {
       "eyebrow": "RANKING",
-      "title": "Most popular tools",
-      "description": "PAIBOT.app's tools, ranked by how often people came to them from outside the site over the last seven days.",
-      "intro": "The tools people came to most from outside the site over the last {days} days.",
+      "title": "Most popular apps",
+      "description": "PAIBOT.app's apps, ranked by how often people came to them from outside the site over the last seven days.",
+      "intro": "The apps people came to most from outside the site over the last {days} days.",
       "views": "{count, plural, one {# view} other {{formatted} views}}",
-      "empty": "Still counting. The tools people come to most from outside the site will be ranked here soon.",
-      "note": "Counts how often a tool is entered from outside the site (per day, Japan time). Moving between pages within a tool, and search engines and other automated visits, are not counted; nothing about who visited is kept."
+      "empty": "Still counting. The apps people come to most from outside the site will be ranked here soon.",
+      "note": "Counts how often an app is entered from outside the site (per day, Japan time). Moving between pages within an app, and search engines and other automated visits, are not counted; nothing about who visited is kept."
     },
     "supporter": {
       "title": "Supporter plan",
@@ -940,7 +911,7 @@
         {
           "heading": "What counts as one character",
           "paragraphs": [
-            "The tool counts what a person sees as one character (a grapheme cluster). A family emoji \"👨‍👩‍👧\" or a flag \"🇯🇵\" is built from several code points, but counts as 1 here, as does a letter with a combining accent.",
+            "The app counts what a person sees as one character (a grapheme cluster). A family emoji \"👨‍👩‍👧\" or a flag \"🇯🇵\" is built from several code points, but counts as 1 here, as does a letter with a combining accent.",
             "Programs sometimes need other counts. Open \"How it is counted\" to see the number of code points, the number of UTF-16 units (what JavaScript's length returns) and the size in UTF-8 bytes, useful for database column limits or fields limited in bytes."
           ]
         },
@@ -955,7 +926,7 @@
       "faq": [
         {
           "q": "Does it match X (Twitter)'s count?",
-          "a": "Not exactly. X counts some characters, such as Japanese, as 2 and treats every link as a fixed length. This tool counts each visible character as 1."
+          "a": "Not exactly. X counts some characters, such as Japanese, as 2 and treats every link as a fixed length. This app counts each visible character as 1."
         },
         {
           "q": "Do line breaks count?",
@@ -1520,18 +1491,18 @@
           "heading": "Good to know",
           "paragraphs": [
             "Base64 is not encryption. Anyone can decode it, so it cannot hide passwords or secrets.",
-            "URL-safe Base64 uses \"-\" and \"_\" instead of \"+\" and \"/\" and often drops the \"=\". This tool reads standard Base64: replace \"-\" with \"+\" and \"_\" with \"/\" before decoding a URL-safe string."
+            "URL-safe Base64 uses \"-\" and \"_\" instead of \"+\" and \"/\" and often drops the \"=\". This app reads standard Base64: replace \"-\" with \"+\" and \"_\" with \"/\" before decoding a URL-safe string."
           ]
         }
       ],
       "faq": [
         {
           "q": "Can it encode image files?",
-          "a": "This tool converts text; it does not read files."
+          "a": "This app converts text; it does not read files."
         },
         {
           "q": "The decoded text is garbled.",
-          "a": "The data was probably in another encoding (such as Shift_JIS) or was not text at all (an image, for example). The tool shows decoded data as UTF-8 text."
+          "a": "The data was probably in another encoding (such as Shift_JIS) or was not text at all (an image, for example). The app shows decoded data as UTF-8 text."
         },
         {
           "q": "Is what I type sent anywhere?",
@@ -1566,7 +1537,7 @@
           "heading": "How to use it",
           "paragraphs": [
             "Paste JSON and choose \"Format\" or \"Minify\". Format indents each level by two spaces and puts each entry on its own line; minify removes every space and line break. Copy the result with \"Copy\".",
-            "If the JSON has a syntax error, the tool says it is not valid JSON, so formatting also tells you whether the text is valid."
+            "If the JSON has a syntax error, the app says it is not valid JSON, so formatting also tells you whether the text is valid."
           ]
         },
         {
@@ -1624,14 +1595,14 @@
           "heading": "How percent-encoding works",
           "paragraphs": [
             "Only some characters may appear in a URL as they are. Others, including non-English letters, spaces and characters with a special meaning in URLs such as \"?\", \"&\", \"=\" and \"/\", are turned into UTF-8 bytes and each byte is written as \"%\" plus two hexadecimal digits. A Japanese character usually takes 3 bytes, so it becomes three %XX groups.",
-            "The tool follows the same rules as JavaScript's encodeURIComponent: everything except letters, digits and - _ . ! ~ * ' ( ) is encoded, so the result can be used safely as a query parameter value."
+            "The app follows the same rules as JavaScript's encodeURIComponent: everything except letters, digits and - _ . ! ~ * ' ( ) is encoded, so the result can be used safely as a query parameter value."
           ]
         },
         {
           "heading": "Good to know",
           "paragraphs": [
             "Encoding a whole URL also encodes the \":\" and \"/\" of \"https://\", and the link stops working. Encode only the parts that need it, such as parameter values.",
-            "HTML forms sometimes write spaces as \"+\". This tool writes them as \"%20\" and does not read \"+\" as a space when decoding; replace \"+\" with \"%20\" first if needed."
+            "HTML forms sometimes write spaces as \"+\". This app writes them as \"%20\" and does not read \"+\" as a space when decoding; replace \"+\" with \"%20\" first if needed."
           ]
         }
       ],
@@ -1705,7 +1676,7 @@
         {
           "heading": "Making it impossible to undo",
           "paragraphs": [
-            "A fine mosaic or a light blur can sometimes be reversed by image processing to guess the text or face beneath. This tool sets the size of the mosaic cells from the size of the area: the shorter side is split into roughly 3 to 8 cells depending on the level, so larger areas get larger cells.",
+            "A fine mosaic or a light blur can sometimes be reversed by image processing to guess the text or face beneath. This app sets the size of the mosaic cells from the size of the area: the shorter side is split into roughly 3 to 8 cells depending on the level, so larger areas get larger cells.",
             "For text that must never be read (addresses, phone numbers, card numbers), a black box is safest. The saved file contains none of the original pixels of the hidden parts, so they cannot be recovered."
           ]
         },
@@ -2008,9 +1979,9 @@
       "retry": "Try again"
     },
     "search": {
-      "featured": "Featured tools",
-      "allApps": "See all tools ({count}) →",
-      "popular": "Popular tools",
+      "featured": "Featured apps",
+      "allApps": "See all apps ({count}) →",
+      "popular": "Popular apps",
       "ranking": "See the full ranking →",
       "onlyFavorites": "Favorites only",
       "noFavorites": "No favorites yet. Press a card's star and it will be gathered here.",
@@ -2025,18 +1996,16 @@
         "unit": "Unit",
         "item": "Topic"
       },
-      "tagline": "Everyday tasks and learning, in your browser.",
-      "introduction": "Check photos before sharing, prepare text and data, or practise maths and code. Choose what you want to do and try a tool here.",
-      "startTitle": "Start with a task",
-      "startIntro": "New here? These examples show where to begin.",
-      "siteNote": "Some tools process photos or code on your device; others fetch external information. Each page explains its data handling and limits.",
+      "introduction": "Check photos before sharing, prepare text and data, or practise maths and code. Choose what you want to do and try an app here.",
+      "startTitle": "When you need to…",
+      "siteNote": "Some apps process photos or code on your device; others fetch external information. Each page explains its data handling and limits.",
       "aboutLink": "About us and contact",
       "tasks": {
         "photo": {
           "title": "Check a photo before sharing it",
           "body": "An address visible in a picture and a location stored in its file are different kinds of information. Check both before sharing.",
           "first": "Inspect the metadata for location and capture time, remove unwanted information and save a copy.",
-          "second": "Cover visible addresses or faces with the mosaic tool, then open and check the saved image.",
+          "second": "Cover visible addresses or faces with the mosaic app, then open and check the saved image.",
           "firstLink": "Inspect metadata",
           "secondLink": "Hide parts of a photo"
         },
@@ -2684,7 +2653,7 @@
         {
           "heading": "How to use it",
           "paragraphs": [
-            "Drop or choose a photo (JPEG, PNG and others) or a Word, Excel or PowerPoint file (docx, xlsx, pptx). The tool lists what in it could identify you: the place and time a photo was taken, the camera, the author, the company and more.",
+            "Drop or choose a photo (JPEG, PNG and others) or a Word, Excel or PowerPoint file (docx, xlsx, pptx). The app lists what in it could identify you: the place and time a photo was taken, the camera, the author, the company and more.",
             "Press \"Remove the metadata and save\" to save a copy without them. The saved copy is checked again and the number of items left is shown, so you can confirm they are gone."
           ]
         },
@@ -6233,27 +6202,27 @@
     "about": {
       "eyebrow": "About",
       "title": "About PAIBOT.app",
-      "body": "PAIBOT.app is a collection of browser-based apps and tools for everyday tasks and learning.",
+      "body": "PAIBOT.app is a collection of browser-based apps for everyday tasks and learning.",
       "toolsTitle": "For everyday tasks and regular practice",
-      "toolsBody": "Count characters, convert data, use a calendar or stopwatch, or practice arithmetic and mathematics. Browse the app list to find a tool for what you want to do.",
+      "toolsBody": "Count characters, convert data, use a calendar or stopwatch, or practice arithmetic and mathematics. Browse all apps to find one for what you want to do.",
       "operatorTitle": "Who runs PAIBOT.app",
       "operatorBody": "PAIBOT.app is developed and operated by {seller}. For the conditions of use and how we handle personal information, see the Terms of Service and Privacy Policy linked at the bottom of this page.",
-      "browseApps": "Browse apps",
+      "browseApps": "See all apps",
       "dataTitle": "What happens to your input",
-      "dataBody": "Tools such as character counting, photo metadata removal and SQL execution process your input in the browser. Other features query external services or save information when you sign in. Not every feature works offline. Read each tool’s explanation and the privacy policy for details.",
+      "dataBody": "Apps such as character counting, photo metadata removal and SQL execution process your input in the browser. Other features query external services or save information when you sign in. Not every feature works offline. Read each app’s explanation and the privacy policy for details.",
       "privacyLink": "Read the privacy policy",
       "contentTitle": "Information and practice questions",
       "contentBody": "The cyber incident list includes announcement dates, the information available at the time and source links. Counts and the scope of an incident may change during an investigation. Check the linked source for subsequent updates.",
       "mathBody": "AI is used to create maths questions, and computable answers are also checked by software. This does not guarantee that all wording or explanations are correct. Please report mistakes or unclear explanations with a link to the page.",
       "contactTitle": "Contact us or report a correction",
-      "contactBody": "For tool problems, incorrect information or questions about using the site, email the operator, PAIBOT LLC.",
+      "contactBody": "For problems with an app, incorrect information or questions about using the site, email the operator, PAIBOT LLC.",
       "contactDetails": "Include the page URL, a sample input, the expected result and what happened instead. Do not send passwords, personal information or confidential files.",
       "sections": [
         {
-          "heading": "How the tools are made",
+          "heading": "How the apps are made",
           "paragraphs": [
-            "Each tool starts from a real need. The character counter counts an emoji or a flag as the single character it looks like; the photo mosaic makes its cells coarse enough, for the size of the area, that what is hidden cannot be recovered. The aim is to remove the everyday inconveniences and risks that simpler tools leave.",
-            "Most tools that handle photos, files or text work entirely in your browser and send nothing to a server. How each one works, and what to watch out for, is explained under \"About this tool\" at the bottom of its page."
+            "Each app starts from a real need. The character counter counts an emoji or a flag as the single character it looks like; the photo mosaic makes its cells coarse enough, for the size of the area, that what is hidden cannot be recovered. The aim is to remove the everyday inconveniences and risks that simpler apps leave.",
+            "Most apps that handle photos, files or text work entirely in your browser and send nothing to a server. How each one works, and what to watch out for, is explained under \"About this app\" at the bottom of its page."
           ]
         },
         {
@@ -6266,7 +6235,7 @@
         {
           "heading": "Updates and improvements",
           "paragraphs": [
-            "Tools keep being improved after they are published: bugs are fixed, features are added, and pages built on data are brought up to date regularly.",
+            "Apps keep being improved after they are published: bugs are fixed, features are added, and pages built on data are brought up to date regularly.",
             "If you find a mistake or have a request, please write to the address below. Every message is read and used to improve the site."
           ]
         }

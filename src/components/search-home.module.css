@@ -1,5 +1,5 @@
 .page {
-  width: min(900px, 100%);
+  width: min(1000px, 100%);
   margin: 0 auto;
   padding: clamp(2rem, 6vh, 4rem) 1rem 3rem;
   box-sizing: border-box;
@@ -10,12 +10,13 @@
   justify-content: center;
   gap: .6rem;
   margin: 0 0 1rem;
-  font-size: clamp(1.8rem, 6vw, 2.4rem);
-  letter-spacing: .14em;
+  font-size: clamp(1.6rem, 5vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: .02em;
 }
 .mark {
-  width: 1.15em;
-  height: 1.15em;
+  width: 1.6em;
+  height: 1.6em;
 }
 .box { position: relative; width: min(680px, 100%); margin: 0 auto; }
 .input {
@@ -27,11 +28,13 @@
   background: var(--surface-strong);
   color: var(--text);
   font: inherit;
-  font-size: 1.15rem;
-  box-shadow: 0 6px 24px -14px var(--shadow);
+  font-size: 1.1rem;
+  box-shadow: 0 1px 2px var(--shadow), 0 12px 32px -16px var(--shadow);
+  transition: border-color .15s ease, box-shadow .15s ease;
 }
+.input:hover { border-color: color-mix(in srgb, var(--accent) 35%, var(--line)); }
 .input::placeholder { color: var(--muted); }
-.input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.input:focus-visible { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 18%, transparent), 0 12px 32px -16px var(--shadow); }
 .results {
   width: min(680px, 100%);
   margin-inline: auto;
@@ -67,31 +70,33 @@
   overflow: hidden;
 }
 .none { padding: 1rem; color: var(--muted); text-align: center; }
+/* A <nav>: undo the header nav's small uppercase letters (shell.css), which would turn English text into capitals. */
 .all {
+  text-transform: none;
+  letter-spacing: normal;
   display: grid;
-  gap: 2.6rem;
-  margin-top: 2rem;
+  gap: 3.5rem;
+  margin-top: 3.5rem;
 }
 .all section {
-  padding-top: 1.1rem;
-  border-top: 1px solid var(--line);
+  padding-top: 0;
 }
 .all h2 {
-  margin: 0 0 .9rem;
+  margin: 0 0 .6rem;
   color: var(--text);
-  font-size: .9rem;
-  font-weight: 700;
-  letter-spacing: .06em;
+  font-size: clamp(1.25rem, 3.4vw, 1.5rem);
+  font-weight: 800;
+  letter-spacing: .02em;
 }
 .all h2::before {
   content: "";
   display: inline-block;
   width: .3rem;
-  height: .9em;
+  height: .95em;
   margin-right: .55rem;
   border-radius: 2px;
-  background: var(--accent);
-  vertical-align: -.08em;
+  background: var(--cat, var(--accent));
+  vertical-align: -.12em;
 }
 .all ul, .all ol {
   display: grid;
@@ -107,31 +112,34 @@
   gap: .8rem;
   height: 100%;
   box-sizing: border-box;
-  padding: .6rem 2.8rem .6rem .7rem;
-  border: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
-  border-radius: 12px;
-  background: color-mix(in srgb, var(--surface-strong) 60%, transparent);
+  padding: .7rem 2.8rem .7rem .75rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface-strong);
+  box-shadow: 0 1px 2px var(--shadow);
   color: var(--text);
   text-decoration: none;
-  transition: background .15s ease, border-color .15s ease;
+  transition: background .15s ease, border-color .15s ease, box-shadow .15s ease, transform .15s ease;
 }
 .all a:hover, .all a:focus-visible {
   /* The accent tinted over the card colour: visible in the light and in the dark theme (--surface is nearly the page's own colour in the dark one). */
-  background: color-mix(in srgb, var(--accent) 13%, var(--surface-strong));
-  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  background: color-mix(in srgb, var(--cat, var(--accent)) 6%, var(--surface-strong));
+  border-color: color-mix(in srgb, var(--cat, var(--accent)) 45%, var(--line));
+  box-shadow: 0 8px 20px -12px var(--shadow);
+  transform: translateY(-1px);
   outline: none;
 }
 .all a:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
 .all a svg {
   flex: none;
   box-sizing: content-box;
-  width: 18px;
-  height: 18px;
-  padding: 8px;
-  border-radius: 11px;
-  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  width: 20px;
+  height: 20px;
+  padding: 9px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--cat, var(--accent)) 14%, transparent);
   fill: none;
-  stroke: var(--accent-dark);
+  stroke: var(--cat, var(--accent-dark));
   stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
@@ -141,8 +149,9 @@
   gap: .1rem;
   min-width: 0;
   font-size: .95rem;
-  font-weight: 600;
-  line-height: 1.35;
+  font-weight: 650;
+  line-height: 1.4;
+  font-feature-settings: "palt" 1;
 }
 .all li { position: relative; }
 /* The description: a note under the card while it is hovered or focused; read by screen readers all the time. Where
@@ -245,35 +254,109 @@
   width: 1.4rem;
   height: 1.4rem;
   border-radius: 50%;
-  background: #3f7cb0;
+  background: var(--accent);
   color: #fff;
   font-size: .75rem;
   font-weight: 800;
   pointer-events: none;
 }
 .more { margin: .7rem 0 0; font-size: .85rem; text-align: right; }
-.more a { display: inline; padding: 0; border: 0; background: none; color: var(--accent); text-decoration: underline; }
-.more a:hover, .more a:focus-visible { background: none; }
-/* The list of every app (/apps): the same cards as the top page, under a heading and a line per category. */
+.more a { display: inline; padding: 0; border: 0; background: none; box-shadow: none; color: var(--accent); font-weight: 600; text-decoration: none; }
+.more a:hover, .more a:focus-visible { background: none; box-shadow: none; transform: none; text-decoration: underline; text-underline-offset: .2em; }
+/* The list of every app (/apps): the same cards as the top page, under a row of tags that narrow it. */
 .list { width: min(900px, calc(100% - 2rem)); margin-inline: auto; }
+.tags { display: flex; flex-wrap: wrap; gap: .45rem; margin: 0 0 1.4rem; }
+.tags .chip { padding: .35rem .8rem; }
+.tags .chip:hover, .tags .chip:focus-visible { border-color: var(--cat, var(--accent)); }
+.tags .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tags .chip[aria-pressed="true"] {
+  border-color: var(--cat, var(--accent));
+  background: color-mix(in srgb, var(--cat, var(--accent)) 14%, transparent);
+  color: var(--text);
+  font-weight: 650;
+}
 .intro { color: var(--muted); line-height: 1.8; }
-.categoryText { margin: -.4rem 0 .9rem; color: var(--muted); font-size: .88rem; line-height: 1.7; }
 
-.tagline { margin: 0; text-align: center; font-size: clamp(1.15rem, 3.8vw, 1.5rem); font-weight: 650; line-height: 1.6; }
-.introduction { max-width: 42rem; margin: .7rem auto 1.5rem; color: var(--muted); line-height: 1.8; text-align: center; }
+.introduction { max-width: 40rem; margin: 0 auto 1.6rem; color: var(--muted); line-height: 1.8; text-align: center; }
 .tasks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-.task { min-width: 0; padding: 1.2rem; border: 1px solid var(--line); border-radius: 14px; background: var(--surface-strong); }
-.task h3 { margin: 0 0 .6rem; font-size: 1.05rem; line-height: 1.5; }
+.task { position: relative; min-width: 0; padding: 1.6rem 1.5rem 1.4rem; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--surface-strong); box-shadow: 0 1px 2px var(--shadow), 0 16px 32px -24px var(--shadow); }
+.task::before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--tone, var(--accent)); }
+.task:nth-child(1) { --tone: light-dark(#2563d6, #6aa6ff); }
+.task:nth-child(2) { --tone: light-dark(#0a8f6a, #3fd3a2); }
+.task:nth-child(3) { --tone: light-dark(#c25e00, #ffb057); }
+.task:nth-child(4) { --tone: light-dark(#6d47e0, #a98eff); }
+.task h3 { margin: 0 0 .5rem; color: var(--text); font-size: 1.2rem; font-weight: 800; line-height: 1.45; }
 .task p, .task li { font-size: .9rem; line-height: 1.75; color: var(--muted); }
 .task p { margin: 0 0 .8rem; }
 .all .task ol { display: block; list-style: decimal; padding-left: 1.3rem; }
 .task li + li { margin-top: .4rem; }
-.taskLinks { display: flex; flex-wrap: wrap; gap: .5rem 1rem; margin: .8rem 0; }
-.all .taskLinks a { display: inline; height: auto; padding: .2rem 0; border: 0; border-radius: 0; background: none; color: var(--accent); font-size: .9rem; text-decoration: underline; text-underline-offset: .2em; }
+.taskLinks { display: flex; flex-wrap: wrap; gap: .5rem; margin: .9rem 0; }
+.all .taskLinks a { display: inline-flex; height: auto; padding: .35rem .85rem; border: 0; border-radius: 999px; background: color-mix(in srgb, var(--accent) 11%, transparent); box-shadow: none; color: var(--accent-dark); font-size: .85rem; font-weight: 650; text-decoration: none; }
+.all .taskLinks a:hover, .all .taskLinks a:focus-visible { background: color-mix(in srgb, var(--accent) 20%, transparent); transform: none; box-shadow: none; }
 .siteNote { margin: 2rem 0 0; color: var(--muted); font-size: .85rem; line-height: 1.8; }
 .siteNote a { color: var(--accent); }
 @media (max-width: 600px) { .tasks { grid-template-columns: 1fr; } }
 
 .browse { margin: 1rem 0 0; text-align: center; font-size: .9rem; }
-.browse a { color: var(--accent); text-underline-offset: .2em; }
+.browse a { color: var(--accent); font-weight: 600; text-decoration: none; }
+.browse a:hover, .browse a:focus-visible { text-decoration: underline; text-underline-offset: .2em; }
 @media (max-width: 600px) { .page { padding-top: 1.5rem; } .introduction { font-size: .9rem; } }
+
+/* A card takes its colour from its app's first tag (data-tag), and so does that tag's chip on /apps; related tags share one. */
+[data-tag="game"], [data-tag="fortune"] { --cat: light-dark(#d1366f, #f585ad); }
+[data-tag="learn"], [data-tag="math"], [data-tag="science"] { --cat: light-dark(#6d47e0, #a98eff); }
+[data-tag="art"], [data-tag="sound"] { --cat: light-dark(#0b7f94, #3fc6dc); }
+[data-tag="text"], [data-tag="photo"], [data-tag="calc"], [data-tag="document"], [data-tag="security"] { --cat: light-dark(#2563d6, #74a9ff); }
+[data-tag="time"], [data-tag="info"] { --cat: light-dark(#0a8f6a, #3fd3a2); }
+[data-tag="dev"], [data-tag="network"], [data-tag="ai"] { --cat: light-dark(#c25e00, #ffb057); }
+@media (prefers-reduced-motion: reduce) { .all a { transition: none; } .all a:hover { transform: none; } }
+
+/* The top of the page: a light panel with a soft wash of blue, violet and peach and a faint dot grid (deep blue in the dark
+   theme); the name, a line on what the site is, and the search box, the one solid thing on it. */
+.hero {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(2rem, 5vw, 3rem) clamp(1.1rem, 5vw, 3.5rem) clamp(1.75rem, 4vw, 2.5rem);
+  border: 1px solid var(--line);
+  border-radius: clamp(20px, 3vw, 28px);
+  background:
+    radial-gradient(50% 60% at 12% 0%, light-dark(rgba(37, 99, 214, .16), rgba(80, 140, 255, .22)), transparent 70%),
+    radial-gradient(45% 55% at 90% 10%, light-dark(rgba(139, 92, 246, .14), rgba(150, 110, 255, .2)), transparent 70%),
+    radial-gradient(50% 50% at 75% 100%, light-dark(rgba(251, 146, 60, .12), rgba(255, 150, 90, .08)), transparent 70%),
+    var(--surface-strong);
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image: radial-gradient(circle, light-dark(rgba(15, 23, 42, .09), rgba(255, 255, 255, .08)) 1px, transparent 1.5px);
+  background-size: 22px 22px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 65% at 50% 45%, #000 15%, transparent 80%);
+  mask-image: radial-gradient(ellipse 70% 65% at 50% 45%, #000 15%, transparent 80%);
+}
+.hero .brand { margin-bottom: .5rem; color: var(--text); }
+.hero .introduction { word-break: auto-phrase; text-wrap: pretty; }
+.hero .input {
+  padding-left: 3rem;
+  border-color: color-mix(in srgb, var(--text) 14%, var(--line));
+  background: var(--surface-strong) no-repeat 1.1rem 50% / 1.2rem;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23808a99' stroke-width='2.2' stroke-linecap='round'%3E%3Ccircle cx='10.5' cy='10.5' r='6.5'/%3E%3Cpath d='M15.5 15.5 21 21'/%3E%3C/svg%3E");
+  box-shadow: 0 1px 2px var(--shadow), 0 18px 40px -20px light-dark(rgba(37, 99, 214, .35), rgba(0, 0, 0, .7));
+}
+.hero .browse { margin-top: 1.4rem; }
+.hero .browse a {
+  display: inline-flex;
+  align-items: center;
+  padding: .55rem 1.1rem;
+  border-radius: 999px;
+  background: var(--text);
+  color: var(--bg);
+  font-size: .88rem;
+  font-weight: 650;
+  text-decoration: none;
+  transition: opacity .15s ease;
+}
+.hero .browse a:hover, .hero .browse a:focus-visible { opacity: .85; text-decoration: none; }
+@media (max-width: 600px) { .page { padding-top: .5rem; } }

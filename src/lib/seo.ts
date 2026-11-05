@@ -60,7 +60,9 @@ export function pathWithoutLocale(pathname: string): string {
 }
 
 // The facts of a tool as schema.org structured data (WebApplication), for search engines. Plain data, no env.
-export function toolStructuredData(tool: { name: string; description: string; url: string; locale: Locale; category: string; siteName: string; siteUrl: string }) {
+// Its applicationCategory comes from the app's tags: a game, something to learn with, a developer's tool, or otherwise a utility.
+export function toolStructuredData(tool: { name: string; description: string; url: string; locale: Locale; tags: readonly string[]; siteName: string; siteUrl: string }) {
+  const has = (...tags: string[]) => tags.some(tag => tool.tags.includes(tag));
   return {
     "@context": "https://schema.org",
     "@type": "WebApplication",
@@ -68,7 +70,7 @@ export function toolStructuredData(tool: { name: string; description: string; ur
     description: tool.description,
     url: tool.url,
     inLanguage: tool.locale,
-    applicationCategory: tool.category === "game" ? "GameApplication" : tool.category === "study" ? "EducationalApplication" : tool.category === "dev" ? "DeveloperApplication" : "UtilitiesApplication",
+    applicationCategory: has("game") ? "GameApplication" : has("learn", "math") ? "EducationalApplication" : has("dev", "network", "ai") ? "DeveloperApplication" : "UtilitiesApplication",
     operatingSystem: "Any",
     browserRequirements: "Requires JavaScript",
     isAccessibleForFree: true,
