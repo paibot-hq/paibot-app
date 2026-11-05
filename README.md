@@ -143,7 +143,7 @@ Select the environment at **build time**; deploy `build/server/wrangler.json`
 without another `--env`. Runtime keys live in Workers Secrets. Local `.dev.vars`
 and build output are ignored and must not be committed.
 
-The development workflow verifies then deploys on main. Production deployment is
+The development workflow verifies then deploys on main (the browser checks run beside the deploy, not before it). Production deployment is
 manual (`App (production)`), with post-deploy smoke tests and release tagging.
 The one exception is the daily incident list update, which writes the list into dev's
 and production's databases with no release ([docs/breaches.md](docs/breaches.md#releasing)).

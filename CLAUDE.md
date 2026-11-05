@@ -54,7 +54,9 @@ Then register it in the shared lists (these, and nothing else, change outside th
 Code shared by several tools stays in `src/components/`, `src/lib/` and `src/styles/`.
 CI runs per-tool browser checks only for the tools a change can affect
 (`scripts/affected-tools.mjs`: the tool's folder, its messages, registry additions);
-a change to shared code runs every tool. A pull request is compared with its base, a push to `main` with the last
+a change to shared code runs the checks every tool shares (`catalog`) on every tool but the tools' own flows only for those it names,
+unless the checks, the CI or the dependencies change (`browserScope` in `scripts/lib/ci-jobs.mjs`). The browser checks do not hold back
+the deploy to dev, which waits for `static`, `e2e` and `sympy` only. A pull request is compared with its base, a push to `main` with the last
 commit on `main` whose run passed (`scripts/ci-changes.mjs`, which also skips the server checks and SymPy when
 nothing they read changed). A few tools are checked in one job; more are split by weight (`alone` flows apart).
 - Authenticate/authorize in each protected loader/action using Clerk's server API;
