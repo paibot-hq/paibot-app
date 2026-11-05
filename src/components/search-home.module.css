@@ -263,10 +263,19 @@
 .more { margin: .7rem 0 0; font-size: .85rem; text-align: right; }
 .more a { display: inline; padding: 0; border: 0; background: none; box-shadow: none; color: var(--accent); font-weight: 600; text-decoration: none; }
 .more a:hover, .more a:focus-visible { background: none; box-shadow: none; transform: none; text-decoration: underline; text-underline-offset: .2em; }
-/* The list of every app (/apps): the same cards as the top page, under a heading and a line per category. */
+/* The list of every app (/apps): the same cards as the top page, under a row of tags that narrow it. */
 .list { width: min(900px, calc(100% - 2rem)); margin-inline: auto; }
+.tags { display: flex; flex-wrap: wrap; gap: .45rem; margin: 0 0 1.4rem; }
+.tags .chip { padding: .35rem .8rem; }
+.tags .chip:hover, .tags .chip:focus-visible { border-color: var(--cat, var(--accent)); }
+.tags .chip:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.tags .chip[aria-pressed="true"] {
+  border-color: var(--cat, var(--accent));
+  background: color-mix(in srgb, var(--cat, var(--accent)) 14%, transparent);
+  color: var(--text);
+  font-weight: 650;
+}
 .intro { color: var(--muted); line-height: 1.8; }
-.categoryText { margin: -.4rem 0 .9rem; color: var(--muted); font-size: .88rem; line-height: 1.7; }
 
 .introduction { max-width: 40rem; margin: 0 auto 1.6rem; color: var(--muted); line-height: 1.8; text-align: center; }
 .tasks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
@@ -293,13 +302,13 @@
 .browse a:hover, .browse a:focus-visible { text-decoration: underline; text-underline-offset: .2em; }
 @media (max-width: 600px) { .page { padding-top: 1.5rem; } .introduction { font-size: .9rem; } }
 
-/* Each category has a colour of its own, used by its cards' icons and its heading's bar. */
-[data-category="daily"] { --cat: light-dark(#0a8f6a, #3fd3a2); }
-[data-category="game"] { --cat: light-dark(#d1366f, #f585ad); }
-[data-category="utility"] { --cat: light-dark(#2563d6, #74a9ff); }
-[data-category="study"] { --cat: light-dark(#6d47e0, #a98eff); }
-[data-category="dev"] { --cat: light-dark(#c25e00, #ffb057); }
-[data-category="network"] { --cat: light-dark(#0b7f94, #3fc6dc); }
+/* A card takes its colour from its app's first tag (data-tag), and so does that tag's chip on /apps; related tags share one. */
+[data-tag="game"], [data-tag="fortune"] { --cat: light-dark(#d1366f, #f585ad); }
+[data-tag="learn"], [data-tag="math"], [data-tag="science"] { --cat: light-dark(#6d47e0, #a98eff); }
+[data-tag="art"], [data-tag="sound"] { --cat: light-dark(#0b7f94, #3fc6dc); }
+[data-tag="text"], [data-tag="photo"], [data-tag="calc"], [data-tag="document"], [data-tag="security"] { --cat: light-dark(#2563d6, #74a9ff); }
+[data-tag="time"], [data-tag="info"] { --cat: light-dark(#0a8f6a, #3fd3a2); }
+[data-tag="dev"], [data-tag="network"], [data-tag="ai"] { --cat: light-dark(#c25e00, #ffb057); }
 @media (prefers-reduced-motion: reduce) { .all a { transition: none; } .all a:hover { transform: none; } }
 
 /* The top of the page: a light panel with a soft wash of blue, violet and peach and a faint dot grid (deep blue in the dark
@@ -351,22 +360,3 @@
 }
 .hero .browse a:hover, .hero .browse a:focus-visible { opacity: .85; text-decoration: none; }
 @media (max-width: 600px) { .page { padding-top: .5rem; } }
-
-/* Numbers under the search box: how many tools, categories and published math problems; the tool count links to the list
-   of every tool, the problem count to the math practice. */
-.stats {
-  display: grid;
-  grid-auto-columns: minmax(0, 1fr);
-  grid-auto-flow: column;
-  width: min(460px, 100%);
-  margin: 1.75rem auto 0;
-}
-.stats > div { display: flex; flex-direction: column-reverse; align-items: center; gap: .15rem; min-width: 0; padding: 0 .5rem; }
-.stats > div + div { border-left: 1px solid var(--line); }
-.stats dt { color: var(--muted); font-size: .78rem; font-weight: 600; letter-spacing: .04em; }
-.stats dd { margin: 0; color: var(--text); font-size: clamp(1.35rem, 4vw, 1.75rem); font-weight: 800; line-height: 1.15; font-variant-numeric: tabular-nums; }
-.stats dd a { display: inline-flex; align-items: baseline; gap: .2rem; color: var(--accent); text-decoration: none; }
-.stats dd a span { font-size: .6em; transition: transform .15s ease; }
-.stats dd a:hover span, .stats dd a:focus-visible span { transform: translateX(3px); }
-.stats dd a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 6px; }
-@media (max-width: 420px) { .stats > div { padding: 0 .25rem; } .stats dt { font-size: .72rem; } }

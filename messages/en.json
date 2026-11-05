@@ -300,7 +300,7 @@
     "signUp": "Sign up",
     "backHome": "Back to home",
     "title": "PAIBOT.app",
-    "description": "Check photos before sharing, count characters, run SQL and practise maths. PAIBOT.app offers browser tools for everyday tasks and learning.",
+    "description": "Check photos before sharing, count characters, run SQL and practise maths. PAIBOT.app offers browser apps for everyday tasks and learning.",
     "navSites": "Sites",
     "site": { "app": "App", "learn": "Learn", "tools": "Tools", "doc": "Doc" },
     "navApps": "Apps",
@@ -316,32 +316,37 @@
       "comingSoon": "Coming soon",
       "favorite": "Add to favorites",
       "unfavorite": "Remove from favorites",
-      "about": "About this tool",
-      "related": "More tools",
+      "about": "About this app",
+      "related": "More apps",
       "allApps": "All apps",
       "categoryNavigation": "App categories"
     },
     "appList": {
-      "eyebrow": "TOOLS",
-      "title": "All tools",
-      "description": "Every tool on PAIBOT.app, grouped by kind: daily life, games, utilities, study, development and networking.",
-      "intro": "Every tool on PAIBOT.app, grouped by kind. All of them work in your browser without signing up. If you know a tool's name, the search on the top page finds it fastest."
+      "eyebrow": "APPS",
+      "title": "All apps",
+      "description": "Every app on PAIBOT.app, with tags such as games, learning, calculators and development to narrow the list.",
+      "intro": "Every app on PAIBOT.app. All of them work in your browser without signing up. Narrow the list by tag, or use the search on the top page if you know an app's name.",
+      "filter": "Filter by tag",
+      "all": "All"
     },
-    "categoryDescriptions": {
-      "daily": "Tools for things you look up or check in daily life: earthquakes and weather warnings, days between dates, ages, calendars and more.",
-      "game": "Games you can play right away in the browser, and simulations that let you watch mathematics and physics in motion.",
-      "utility": "Tools to get tasks done quickly: counting characters, making passwords, hiding parts of photos, removing metadata, working out consumption tax and more.",
-      "study": "Tools for learning, including math practice from elementary arithmetic to university mathematics.",
-      "dev": "Tools for programming and checking data: formatting JSON, converting Base64 and URL encoding, and more.",
-      "network": "Tools for setting up and investigating networks: IP addresses, domains, subnet calculations and more."
-    },
-    "categories": {
-      "study": "Study",
-      "dev": "Dev Tools",
-      "utility": "Utilities",
-      "network": "Network",
+    "tags": {
       "game": "Games",
-      "daily": "Everyday"
+      "learn": "Learning",
+      "math": "Math",
+      "science": "Science",
+      "art": "Art",
+      "fortune": "Fortune & tests",
+      "text": "Text",
+      "photo": "Photos",
+      "calc": "Calculators",
+      "time": "Time",
+      "sound": "Sound",
+      "info": "Information",
+      "security": "Security",
+      "document": "Documents",
+      "ai": "AI",
+      "dev": "Development",
+      "network": "Networking"
     },
     "learn": {
       "title": "PAIBOT.app Learn | Math drills by multiple choice",
@@ -448,40 +453,6 @@
       "monitor": {
         "title": "Monitoring",
         "text": "Watch a site's uptime and the expiry of a domain or certificate, and get notified of changes. Coming soon."
-      }
-    },
-    "home": {
-      "stats": {
-        "categories": "Categories",
-        "tools": "Tools",
-        "units": "Math units",
-        "items": "Math topics",
-        "languages": "Languages"
-      },
-      "tryIt": "Give one a try.",
-      "study": {
-        "description": "Practice calculations and individual topics with arithmetic drills and math problem sets.",
-        "summary": "Calculations and math topics"
-      },
-      "utility": {
-        "description": "Count characters, measure time, and generate passwords with tools for small tasks.",
-        "summary": "Character counts and passwords"
-      },
-      "game": {
-        "description": "Quick games and small apps to play with, from quizzes and reaction tests to fireworks, a kaleidoscope and dice.",
-        "summary": "Games, fireworks, kaleidoscope and more"
-      },
-      "daily": {
-        "description": "Calendars, clocks, a diary, and other apps for everyday life.",
-        "summary": "Calendars, clocks, and a diary"
-      },
-      "dev": {
-        "description": "Format JSON and work with Base64 and URL encoding using tools for development.",
-        "summary": "JSON formatting and data conversion"
-      },
-      "network": {
-        "description": "Check IP addresses, look up domains, and calculate CIDR subnets.",
-        "summary": "IP, domain, and subnet tools"
       }
     },
     "ip": {
@@ -783,7 +754,7 @@
       }
     },
     "footer": {
-      "apps": "All tools",
+      "apps": "All apps",
       "about": "About",
       "ranking": "Ranking",
       "label": "Company information",
@@ -795,12 +766,12 @@
     },
     "ranking": {
       "eyebrow": "RANKING",
-      "title": "Most popular tools",
-      "description": "PAIBOT.app's tools, ranked by how often people came to them from outside the site over the last seven days.",
-      "intro": "The tools people came to most from outside the site over the last {days} days.",
+      "title": "Most popular apps",
+      "description": "PAIBOT.app's apps, ranked by how often people came to them from outside the site over the last seven days.",
+      "intro": "The apps people came to most from outside the site over the last {days} days.",
       "views": "{count, plural, one {# view} other {{formatted} views}}",
-      "empty": "Still counting. The tools people come to most from outside the site will be ranked here soon.",
-      "note": "Counts how often a tool is entered from outside the site (per day, Japan time). Moving between pages within a tool, and search engines and other automated visits, are not counted; nothing about who visited is kept."
+      "empty": "Still counting. The apps people come to most from outside the site will be ranked here soon.",
+      "note": "Counts how often an app is entered from outside the site (per day, Japan time). Moving between pages within an app, and search engines and other automated visits, are not counted; nothing about who visited is kept."
     },
     "supporter": {
       "title": "Supporter plan",
@@ -1699,14 +1670,9 @@
       "retry": "Try again"
     },
     "search": {
-      "featured": "Featured tools",
-      "stats": {
-        "tools": "Tools",
-        "categories": "Categories",
-        "problems": "Maths problems"
-      },
-      "allApps": "See all tools ({count}) →",
-      "popular": "Popular tools",
+      "featured": "Featured apps",
+      "allApps": "See all apps ({count}) →",
+      "popular": "Popular apps",
       "ranking": "See the full ranking →",
       "onlyFavorites": "Favorites only",
       "noFavorites": "No favorites yet. Press a card's star and it will be gathered here.",
@@ -1721,17 +1687,16 @@
         "unit": "Unit",
         "item": "Topic"
       },
-      "introduction": "Check photos before sharing, prepare text and data, or practise maths and code. Choose what you want to do and try a tool here.",
-      "startTitle": "Start with a task",
-      "startIntro": "New here? These examples show where to begin.",
-      "siteNote": "Some tools process photos or code on your device; others fetch external information. Each page explains its data handling and limits.",
+      "introduction": "Check photos before sharing, prepare text and data, or practise maths and code. Choose what you want to do and try an app here.",
+      "startTitle": "When you need to…",
+      "siteNote": "Some apps process photos or code on your device; others fetch external information. Each page explains its data handling and limits.",
       "aboutLink": "About us and contact",
       "tasks": {
         "photo": {
           "title": "Check a photo before sharing it",
           "body": "An address visible in a picture and a location stored in its file are different kinds of information. Check both before sharing.",
           "first": "Inspect the metadata for location and capture time, remove unwanted information and save a copy.",
-          "second": "Cover visible addresses or faces with the mosaic tool, then open and check the saved image.",
+          "second": "Cover visible addresses or faces with the mosaic app, then open and check the saved image.",
           "firstLink": "Inspect metadata",
           "secondLink": "Hide parts of a photo"
         },
@@ -5638,20 +5603,20 @@
     "about": {
       "eyebrow": "About",
       "title": "About PAIBOT.app",
-      "body": "PAIBOT.app is a collection of browser-based apps and tools for everyday tasks and learning.",
+      "body": "PAIBOT.app is a collection of browser-based apps for everyday tasks and learning.",
       "toolsTitle": "For everyday tasks and regular practice",
-      "toolsBody": "Count characters, convert data, use a calendar or stopwatch, or practice arithmetic and mathematics. Browse the app list to find a tool for what you want to do.",
+      "toolsBody": "Count characters, convert data, use a calendar or stopwatch, or practice arithmetic and mathematics. Browse all apps to find one for what you want to do.",
       "operatorTitle": "Who runs PAIBOT.app",
       "operatorBody": "PAIBOT.app is developed and operated by {seller}. For the conditions of use and how we handle personal information, see the Terms of Service and Privacy Policy linked at the bottom of this page.",
-      "browseApps": "Browse apps",
+      "browseApps": "See all apps",
       "dataTitle": "What happens to your input",
-      "dataBody": "Tools such as character counting, photo metadata removal and SQL execution process your input in the browser. Other features query external services or save information when you sign in. Not every feature works offline. Read each tool’s explanation and the privacy policy for details.",
+      "dataBody": "Apps such as character counting, photo metadata removal and SQL execution process your input in the browser. Other features query external services or save information when you sign in. Not every feature works offline. Read each app’s explanation and the privacy policy for details.",
       "privacyLink": "Read the privacy policy",
       "contentTitle": "Information and practice questions",
       "contentBody": "The cyber incident list includes announcement dates, the information available at the time and source links. Counts and the scope of an incident may change during an investigation. Check the linked source for subsequent updates.",
       "mathBody": "AI is used to create maths questions, and computable answers are also checked by software. This does not guarantee that all wording or explanations are correct. Please report mistakes or unclear explanations with a link to the page.",
       "contactTitle": "Contact us or report a correction",
-      "contactBody": "For tool problems, incorrect information or questions about using the site, email the operator, PAIBOT LLC.",
+      "contactBody": "For problems with an app, incorrect information or questions about using the site, email the operator, PAIBOT LLC.",
       "contactDetails": "Include the page URL, a sample input, the expected result and what happened instead. Do not send passwords, personal information or confidential files."
     },
     "languageSelect": "Select language",

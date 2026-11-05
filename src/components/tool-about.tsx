@@ -21,7 +21,7 @@ export default function ToolAbout({ app }: { app: AppData }) {
     description: dynamic(`${app.messageKey}.description`),
     url: localizedUrl(siteOrigin, locale, app.href!),
     locale,
-    category: app.category,
+    tags: app.tags,
     siteName: "PAIBOT.app",
     siteUrl: localizedUrl(siteOrigin, locale, ""),
   });

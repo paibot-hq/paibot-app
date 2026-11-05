@@ -4,13 +4,13 @@
 // it to APP_CATALOG and give it an icon in APP_ICONS (TypeScript requires
 // one per slug), plus its messages. See CLAUDE.md's "Adding a tool".
 import type { ComponentType, SVGProps } from "react";
-import { APP_CATALOG, type AppCategory, type AppData, type AppSlug } from "./app-catalog";
+import { APP_CATALOG, type AppData, type AppSlug } from "./app-catalog";
 
-export { APP_CATEGORIES, APP_SITE_CATEGORIES, type AppCategory } from "./app-catalog";
+export { APP_TAGS, type AppTag } from "./app-catalog";
 
 // use-intl types `t()` against ja.json's literal key paths (see
-// src/i18n/types.d.ts), but category/app keys are only known at runtime
-// here (and in src/components/cover.tsx's category chips) — cast `t` to
+// src/i18n/types.d.ts), but tag and app keys are only known at runtime
+// — cast `t` to
 // this once at each call site instead of losing type-checking everywhere.
 export type DynamicT = (key: string, values?: Record<string, string | number>) => string;
 
@@ -698,48 +698,3 @@ const APP_ICONS: Record<AppSlug, Icon> = {
 };
 
 export const apps: AppEntry[] = APP_CATALOG.map(app => ({ ...app, icon: APP_ICONS[app.slug] }));
-
-function StudyIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" {...props}>
-      <path d="M4 5c3 0 5 1 8 1s5-1 8-1v14c-3 0-5 1-8 1s-5-1-8-1V5Z" />
-      <path d="M12 6v14" />
-    </svg>
-  );
-}
-
-function UtilityIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" {...props}>
-      <path d="M4 7h10M18 7h2M4 17h2M8 17h12" />
-      <circle cx="16" cy="7" r="2" />
-      <circle cx="6" cy="17" r="2" />
-    </svg>
-  );
-}
-
-function GameIcon(props: SVGProps<SVGSVGElement>) {
-  return (
-    <svg viewBox="0 0 24 24" {...props}>
-      <rect x="3" y="8" width="18" height="9" rx="4" />
-      <path d="M8 10.5v4M6 12.5h4" />
-      <path d="M16 11.5h.01M18 13.5h.01" />
-    </svg>
-  );
-}
-
-export type HomeCategoryTile = {
-  category: AppCategory;
-  // Key under `App.home` holding this tile's one-line `description`
-  // (the title itself reuses `categories.<category>`, no separate copy).
-  messageKey: string;
-  icon: ComponentType<SVGProps<SVGSVGElement>>;
-};
-
-// The app's categories, each with its own landing page linked from the app's cover; learn, developer and network
-// tools are on their own sites.
-export const HOME_CATEGORY_TILES: HomeCategoryTile[] = [
-  { category: "daily", messageKey: "daily", icon: AgeIcon },
-  { category: "game", messageKey: "game", icon: GameIcon },
-  { category: "utility", messageKey: "utility", icon: UtilityIcon },
-];
