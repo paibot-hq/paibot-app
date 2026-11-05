@@ -276,7 +276,6 @@
   font-weight: 650;
 }
 .intro { color: var(--muted); line-height: 1.8; }
-.categoryText { margin: -.4rem 0 .9rem; color: var(--muted); font-size: .88rem; line-height: 1.7; }
 
 .introduction { max-width: 40rem; margin: 0 auto 1.6rem; color: var(--muted); line-height: 1.8; text-align: center; }
 .tasks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }

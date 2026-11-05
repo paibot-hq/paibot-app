@@ -1688,8 +1688,7 @@
         "item": "Topic"
       },
       "introduction": "Check photos before sharing, prepare text and data, or practise maths and code. Choose what you want to do and try an app here.",
-      "startTitle": "Start with a task",
-      "startIntro": "New here? These examples show where to begin.",
+      "startTitle": "When you need to…",
       "siteNote": "Some apps process photos or code on your device; others fetch external information. Each page explains its data handling and limits.",
       "aboutLink": "About us and contact",
       "tasks": {

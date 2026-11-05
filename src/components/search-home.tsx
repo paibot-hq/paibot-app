@@ -119,7 +119,6 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
             ) : <>
             <section aria-labelledby="home-start" data-search="start">
               <h2 id="home-start">{ts("startTitle")}</h2>
-              <p className={styles.categoryText}>{ts("startIntro")}</p>
               <div className={styles.tasks}>
                 {([
                   ["photo", "/metadata", "/mosaic"],
