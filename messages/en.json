@@ -1703,9 +1703,7 @@
       "stats": {
         "tools": "Tools",
         "categories": "Categories",
-        "languages": "Languages",
-        "signUp": "Sign-up",
-        "signUpValue": "None"
+        "problems": "Maths problems"
       },
       "allApps": "See all tools ({count}) →",
       "popular": "Popular tools",

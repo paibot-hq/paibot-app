@@ -1703,9 +1703,7 @@
       "stats": {
         "tools": "工具",
         "categories": "类别",
-        "languages": "语言",
-        "signUp": "注册",
-        "signUpValue": "无需"
+        "problems": "数学题"
       },
       "allApps": "查看全部工具（{count}） →",
       "popular": "热门工具",

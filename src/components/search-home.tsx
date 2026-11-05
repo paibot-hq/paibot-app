@@ -2,7 +2,6 @@ import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react"
 import { useLocale, useTranslations } from "use-intl";
 import { Link } from "../i18n/navigation";
 import { apps, APP_CATEGORIES, type AppEntry, type DynamicT } from "../lib/apps";
-import { locales } from "../i18n/routing";
 import { FEATURED_SLUGS } from "../lib/app-catalog";
 import { prepare, search, type Entry } from "../lib/search";
 import Card from "./app-card";
@@ -11,8 +10,8 @@ import { useFavoritesData } from "../routes/locale";
 import styles from "./search-home.module.css";
 
 // The top page: a search box that finds every app, and under it only a few: the most viewed and the featured ones, then a link to the
-// list of every app (/apps). `popular`: the most viewed tools of the last week (src/lib/tool-ranking.ts), most first.
-export default function SearchHome({ year, popular = [] }: { year: number; popular?: { slug: string; views: number }[] }) {
+// list of every app (/apps). `popular`: the most viewed tools of the last week (src/lib/tool-ranking.ts), most first; `problemCount`: the published math problems, left out when unknown.
+export default function SearchHome({ year, popular = [], problemCount = null }: { year: number; popular?: { slug: string; views: number }[]; problemCount?: number | null }) {
   const t = useTranslations("App");
   const ts = useTranslations("App.search");
   const locale = useLocale();
@@ -91,8 +90,7 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
           <dl className={styles.stats} data-search="stats">
             <div><dt>{ts("stats.tools")}</dt><dd><Link href="/apps" aria-label={ts("allApps", { count: total }).replace(/\s*→$/, "")}>{total}<span aria-hidden="true">→</span></Link></dd></div>
             <div><dt>{ts("stats.categories")}</dt><dd>{categoryCount}</dd></div>
-            <div><dt>{ts("stats.languages")}</dt><dd>{locales.length}</dd></div>
-            <div><dt>{ts("stats.signUp")}</dt><dd>{ts("stats.signUpValue")}</dd></div>
+            {problemCount ? <div><dt>{ts("stats.problems")}</dt><dd><Link href="/math" aria-label={`${ts("stats.problems")} ${problemCount.toLocaleString(locale)}`}>{problemCount.toLocaleString(locale)}<span aria-hidden="true">→</span></Link></dd></div> : null}
           </dl>
         )}
         {signedIn && !query.trim() && (

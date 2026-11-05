@@ -1703,9 +1703,7 @@
       "stats": {
         "tools": "ツール",
         "categories": "ジャンル",
-        "languages": "対応言語",
-        "signUp": "会員登録",
-        "signUpValue": "不要"
+        "problems": "数学の問題"
       },
       "allApps": "すべてのツールを見る（{count}） →",
       "popular": "人気のツール",

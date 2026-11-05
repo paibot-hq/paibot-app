@@ -19,6 +19,17 @@ export async function getPlayableSets(): Promise<string[]> {
   return rows.map(row => `${row.unit}/${row.item}/${row.setId}`);
 }
 
+// How many problems are published in all (the figure on the top page); null when the database cannot be read, so the page
+// still opens without it.
+export async function getPublishedProblemCount(): Promise<number | null> {
+  try {
+    const [row] = await getDb().select({ n: count() }).from(mathProblems).where(eq(mathProblems.published, true));
+    return row?.n ?? 0;
+  } catch {
+    return null;
+  }
+}
+
 // How many published problems of each tier (1 basic, 2 standard, 3 advanced)
 // each of an item's sets has: { "1": { 1: 2, 2: 3 } }.
 export async function getSetTiers(unit: string, item: string): Promise<Record<string, Record<number, number>>> {
