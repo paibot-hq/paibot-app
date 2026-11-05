@@ -4,18 +4,21 @@
     gap: 1.5rem 1rem;
   }
 
+  /* The brand and the buttons stay on one row; a site switcher, when there is one, drops below them. */
   .topbar {
-    grid-template-columns: 1fr;
-    justify-items: start;
+    grid-template-columns: auto 1fr;
+    gap: .75rem;
+    padding: .9rem 0;
   }
 
   .topbar > .toolbar {
-    justify-self: start;
+    justify-self: end;
+    gap: .25rem;
   }
 
-  .toolbar {
-    width: 100%;
-  }
+  .topbar > nav { grid-column: 1 / -1; grid-row: 2; }
+
+  .toolbar .auth-link { padding: .4rem .6rem; font-size: .8rem; }
 
   .hero {
     grid-template-columns: minmax(0, 1fr);

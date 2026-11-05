@@ -1700,6 +1700,11 @@
     },
     "search": {
       "featured": "推荐工具",
+      "stats": {
+        "tools": "工具",
+        "categories": "类别",
+        "problems": "数学题"
+      },
       "allApps": "查看全部工具（{count}） →",
       "popular": "热门工具",
       "ranking": "查看完整排行 →",
@@ -1716,7 +1721,6 @@
         "unit": "单元",
         "item": "知识点"
       },
-      "tagline": "日常任务与学习，在浏览器中完成。",
       "introduction": "分享前检查照片，整理文字和数据，练习数学或代码。从想做的事情出发，选择工具并立即试用。",
       "startTitle": "从具体任务开始",
       "startIntro": "第一次使用？可以参考下面的使用场景。",

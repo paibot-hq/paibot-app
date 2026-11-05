@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react";
 import { useLocale, useTranslations } from "use-intl";
 import { Link } from "../i18n/navigation";
-import { apps, type AppEntry, type DynamicT } from "../lib/apps";
+import { apps, APP_CATEGORIES, type AppEntry, type DynamicT } from "../lib/apps";
 import { FEATURED_SLUGS } from "../lib/app-catalog";
 import { prepare, search, type Entry } from "../lib/search";
 import Card from "./app-card";
@@ -10,8 +10,8 @@ import { useFavoritesData } from "../routes/locale";
 import styles from "./search-home.module.css";
 
 // The top page: a search box that finds every app, and under it only a few: the most viewed and the featured ones, then a link to the
-// list of every app (/apps). `popular`: the most viewed tools of the last week (src/lib/tool-ranking.ts), most first.
-export default function SearchHome({ year, popular = [] }: { year: number; popular?: { slug: string; views: number }[] }) {
+// list of every app (/apps). `popular`: the most viewed tools of the last week (src/lib/tool-ranking.ts), most first; `problemCount`: the published math problems, left out when unknown.
+export default function SearchHome({ year, popular = [], problemCount = null }: { year: number; popular?: { slug: string; views: number }[]; problemCount?: number | null }) {
   const t = useTranslations("App");
   const ts = useTranslations("App.search");
   const locale = useLocale();
@@ -40,6 +40,7 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
   const featuredApps = FEATURED_SLUGS.map(slug => apps.find(app => app.slug === slug && app.status === "published" && app.href))
     .filter((app): app is AppEntry => Boolean(app) && !popularApps.includes(app!));
   const total = apps.filter(app => app.status === "published" && app.href && !app.private).length;
+  const categoryCount = APP_CATEGORIES.filter(category => apps.some(app => app.category === category && app.status === "published" && app.href && !app.private)).length;
   // "/" jumps to the box from anywhere on the page, as on most sites.
   useEffect(() => {
     const onKey = (event: globalThis.KeyboardEvent) => {
@@ -63,8 +64,8 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
   return (
     <>
       <main className={styles.page}>
-        <h1 className={styles.brand}><img className={styles.mark} src="/icon.svg" alt="" width="40" height="40" /><span>PAIBOT.app</span></h1>
-        <p className={styles.tagline}>{ts("tagline")}</p>
+        <section className={styles.hero} aria-labelledby="home-brand">
+        <h1 id="home-brand" className={styles.brand}><img className={styles.mark} src="/icon.svg" alt="" width="40" height="40" /><span>PAIBOT.app</span></h1>
         <p className={styles.introduction}>{ts("introduction")}</p>
         <div className={styles.box}>
           <input
@@ -85,7 +86,13 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
             data-search="input"
           />
         </div>
-        {!query.trim() && <p className={styles.browse}><Link href="/apps">{ts("allApps", { count: total })}</Link></p>}
+        {!query.trim() && (
+          <dl className={styles.stats} data-search="stats">
+            <div><dt>{ts("stats.tools")}</dt><dd><Link href="/apps" aria-label={ts("allApps", { count: total }).replace(/\s*→$/, "")}>{total}<span aria-hidden="true">→</span></Link></dd></div>
+            <div><dt>{ts("stats.categories")}</dt><dd>{categoryCount}</dd></div>
+            {problemCount ? <div><dt>{ts("stats.problems")}</dt><dd><Link href="/math" aria-label={`${ts("stats.problems")} ${problemCount.toLocaleString(locale)}`}>{problemCount.toLocaleString(locale)}<span aria-hidden="true">→</span></Link></dd></div> : null}
+          </dl>
+        )}
         {signedIn && !query.trim() && (
           <p className={styles.filter}>
             <button type="button" className={styles.chip} aria-pressed={onlyMine} onClick={() => setOnlyMine(on => !on)} data-search="only-favorites">
@@ -94,6 +101,7 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
             </button>
           </p>
         )}
+        </section>
         {query.trim() && (
           <ul id="search-results" className={styles.results} role="listbox" aria-label={ts("results")} data-search="results">
             {results.length === 0 && <li className={styles.none} role="presentation">{ts("none", { query: query.trim() })}</li>}

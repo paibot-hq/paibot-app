@@ -1700,6 +1700,11 @@
     },
     "search": {
       "featured": "Featured tools",
+      "stats": {
+        "tools": "Tools",
+        "categories": "Categories",
+        "problems": "Maths problems"
+      },
       "allApps": "See all tools ({count}) →",
       "popular": "Popular tools",
       "ranking": "See the full ranking →",
@@ -1716,7 +1721,6 @@
         "unit": "Unit",
         "item": "Topic"
       },
-      "tagline": "Everyday tasks and learning, in your browser.",
       "introduction": "Check photos before sharing, prepare text and data, or practise maths and code. Choose what you want to do and try a tool here.",
       "startTitle": "Start with a task",
       "startIntro": "New here? These examples show where to begin.",
