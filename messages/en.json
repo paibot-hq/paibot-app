@@ -322,10 +322,10 @@
       "categoryNavigation": "App categories"
     },
     "appList": {
-      "eyebrow": "TOOLS",
-      "title": "All tools",
-      "description": "Every tool on PAIBOT.app, grouped by kind: daily life, games, utilities, study, development and networking.",
-      "intro": "Every tool on PAIBOT.app, grouped by kind. All of them work in your browser without signing up. If you know a tool's name, the search on the top page finds it fastest."
+      "eyebrow": "APPS",
+      "title": "All apps",
+      "description": "Every app on PAIBOT.app, grouped by kind: daily life, games, utilities, study, development and networking.",
+      "intro": "Every app on PAIBOT.app, grouped by kind. All of them work in your browser without signing up. If you know an app's name, the search on the top page finds it fastest."
     },
     "categoryDescriptions": {
       "daily": "Tools for things you look up or check in daily life: earthquakes and weather warnings, days between dates, ages, calendars and more.",
@@ -783,7 +783,7 @@
       }
     },
     "footer": {
-      "apps": "All tools",
+      "apps": "All apps",
       "about": "About",
       "ranking": "Ranking",
       "label": "Company information",
@@ -1700,12 +1700,7 @@
     },
     "search": {
       "featured": "Featured tools",
-      "stats": {
-        "tools": "Tools",
-        "categories": "Categories",
-        "problems": "Maths problems"
-      },
-      "allApps": "See all tools ({count}) →",
+      "allApps": "See all apps ({count}) →",
       "popular": "Popular tools",
       "ranking": "See the full ranking →",
       "onlyFavorites": "Favorites only",

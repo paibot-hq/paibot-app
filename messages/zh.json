@@ -322,10 +322,10 @@
       "categoryNavigation": "应用分类"
     },
     "appList": {
-      "eyebrow": "TOOLS",
-      "title": "工具一览",
-      "description": "按日常、游戏、实用工具、学习、开发、网络分类整理的 PAIBOT.app 全部工具。",
-      "intro": "按类别列出 PAIBOT.app 的全部工具。所有工具都无需注册，在浏览器中即可使用。知道工具名称时，用首页的搜索能最快找到。"
+      "eyebrow": "APPS",
+      "title": "应用一览",
+      "description": "按日常、游戏、实用工具、学习、开发、网络分类整理的 PAIBOT.app 全部应用。",
+      "intro": "按类别列出 PAIBOT.app 的全部应用。所有应用都无需注册，在浏览器中即可使用。知道应用名称时，用首页的搜索能最快找到。"
     },
     "categoryDescriptions": {
       "daily": "用于日常生活中查询和确认的工具，例如地震与气象警报、日期间隔和年龄计算、日历等。",
@@ -783,7 +783,7 @@
       }
     },
     "footer": {
-      "apps": "工具一览",
+      "apps": "应用一览",
       "about": "关于",
       "ranking": "热门排行",
       "label": "运营信息",
@@ -1700,12 +1700,7 @@
     },
     "search": {
       "featured": "推荐工具",
-      "stats": {
-        "tools": "工具",
-        "categories": "类别",
-        "problems": "数学题"
-      },
-      "allApps": "查看全部工具（{count}） →",
+      "allApps": "查看全部应用（{count}） →",
       "popular": "热门工具",
       "ranking": "查看完整排行 →",
       "onlyFavorites": "只看收藏",
