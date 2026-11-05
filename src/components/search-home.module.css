@@ -1,5 +1,5 @@
 .page {
-  width: min(900px, 100%);
+  width: min(1000px, 100%);
   margin: 0 auto;
   padding: clamp(2rem, 6vh, 4rem) 1rem 3rem;
   box-sizing: border-box;
@@ -10,13 +10,13 @@
   justify-content: center;
   gap: .6rem;
   margin: 0 0 1rem;
-  font-size: clamp(1.8rem, 6vw, 2.5rem);
+  font-size: clamp(1rem, 3vw, 1.15rem);
   font-weight: 800;
-  letter-spacing: .03em;
+  letter-spacing: .06em;
 }
 .mark {
-  width: 1.15em;
-  height: 1.15em;
+  width: 1.6em;
+  height: 1.6em;
 }
 .box { position: relative; width: min(680px, 100%); margin: 0 auto; }
 .input {
@@ -70,27 +70,29 @@
   overflow: hidden;
 }
 .none { padding: 1rem; color: var(--muted); text-align: center; }
+/* A <nav>: undo the header nav's small uppercase letters (shell.css), which would turn English text into capitals. */
 .all {
+  text-transform: none;
+  letter-spacing: normal;
   display: grid;
-  gap: 2.6rem;
-  margin-top: 2rem;
+  gap: 3.5rem;
+  margin-top: 3.5rem;
 }
 .all section {
-  padding-top: 1.1rem;
-  border-top: 1px solid var(--line);
+  padding-top: 0;
 }
 .all h2 {
-  margin: 0 0 .9rem;
+  margin: 0 0 .6rem;
   color: var(--text);
-  font-size: 1rem;
-  font-weight: 700;
+  font-size: clamp(1.25rem, 3.4vw, 1.5rem);
+  font-weight: 800;
   letter-spacing: .02em;
 }
 .all h2::before {
   content: "";
   display: inline-block;
-  width: .25rem;
-  height: 1em;
+  width: .3rem;
+  height: .95em;
   margin-right: .55rem;
   border-radius: 2px;
   background: var(--cat, var(--accent));
@@ -266,11 +268,26 @@
 .intro { color: var(--muted); line-height: 1.8; }
 .categoryText { margin: -.4rem 0 .9rem; color: var(--muted); font-size: .88rem; line-height: 1.7; }
 
-.tagline { margin: 0; text-align: center; font-size: clamp(1.3rem, 4.4vw, 1.9rem); font-weight: 800; line-height: 1.45; font-feature-settings: "palt" 1; letter-spacing: .02em; }
-.introduction { max-width: 42rem; margin: .7rem auto 1.5rem; color: var(--muted); line-height: 1.8; text-align: center; }
+.tagline {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(1.9rem, 6.4vw, 3.6rem);
+  font-weight: 900;
+  line-height: 1.25;
+  font-feature-settings: "palt" 1;
+  letter-spacing: -.01em;
+  text-wrap: balance;
+  word-break: auto-phrase;
+  background: linear-gradient(100deg, #ffffff 30%, #9cc3ff 70%, #c7aaff);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.introduction { max-width: 40rem; margin: 1.1rem auto 2rem; color: var(--muted); line-height: 1.8; text-align: center; }
 .tasks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
-.task { min-width: 0; padding: 1.35rem 1.4rem; border: 1px solid var(--line); border-radius: 16px; background: var(--surface-strong); box-shadow: 0 1px 2px var(--shadow); }
-.task h3 { margin: 0 0 .5rem; color: var(--text); font-size: 1.1rem; font-weight: 700; line-height: 1.5; }
+.task { position: relative; min-width: 0; padding: 1.6rem 1.5rem 1.4rem; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--surface-strong); box-shadow: 0 1px 2px var(--shadow), 0 16px 32px -24px var(--shadow); }
+.task::before { content: ""; position: absolute; inset: 0 0 auto; height: 4px; background: linear-gradient(90deg, var(--accent), #8b5cf6); }
+.task h3 { margin: 0 0 .5rem; color: var(--text); font-size: 1.2rem; font-weight: 800; line-height: 1.45; }
 .task p, .task li { font-size: .9rem; line-height: 1.75; color: var(--muted); }
 .task p { margin: 0 0 .8rem; }
 .all .task ol { display: block; list-style: decimal; padding-left: 1.3rem; }
@@ -295,3 +312,49 @@
 [data-category="dev"] { --cat: light-dark(#c25e00, #ffb057); }
 [data-category="network"] { --cat: light-dark(#0b7f94, #3fc6dc); }
 @media (prefers-reduced-motion: reduce) { .all a { transition: none; } .all a:hover { transform: none; } }
+
+/* The top of the page: a dark panel in both themes, the tagline large on a faint grid and a glow of the accent. */
+.hero {
+  --text: #f5f7fb;
+  --muted: #a9b4c4;
+  --line: rgba(255, 255, 255, .16);
+  --surface: rgba(255, 255, 255, .06);
+  --surface-strong: #121a2b;
+  --accent: #8ab8ff;
+  --accent-dark: #b9d3ff;
+  --shadow: rgba(0, 0, 0, .5);
+  color-scheme: dark;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(2.5rem, 8vw, 5rem) clamp(1.1rem, 5vw, 3.5rem) clamp(2.25rem, 6vw, 3.5rem);
+  border-radius: clamp(20px, 3vw, 32px);
+  background:
+    radial-gradient(60% 70% at 85% 0%, rgba(124, 92, 255, .38), transparent 70%),
+    radial-gradient(55% 65% at 10% 100%, rgba(37, 99, 214, .45), transparent 70%),
+    #0a0f1c;
+  color: var(--text);
+  border: 1px solid rgba(255, 255, 255, .1);
+  box-shadow: 0 30px 60px -30px rgba(10, 15, 28, .55);
+}
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, .06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, .06) 1px, transparent 1px);
+  background-size: 36px 36px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 80%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 80%);
+}
+.hero .brand { margin-bottom: 1.4rem; color: var(--text); }
+.hero .introduction { color: var(--muted); word-break: auto-phrase; text-wrap: pretty; }
+.hero .input { border-color: rgba(255, 255, 255, .22); background: rgba(255, 255, 255, .96); color: #0f172a; box-shadow: 0 20px 40px -18px rgba(0, 0, 0, .6); }
+.hero .input::placeholder { color: #6b7485; }
+.hero .input:focus-visible { border-color: #8ab8ff; box-shadow: 0 0 0 5px rgba(138, 184, 255, .35), 0 20px 40px -18px rgba(0, 0, 0, .6); }
+.hero .browse { margin-top: 1.25rem; }
+.hero .browse a { color: #fff; opacity: .85; }
+.hero .browse a:hover, .hero .browse a:focus-visible { opacity: 1; }
+@media (max-width: 600px) { .page { padding-top: .5rem; } .hero { margin-inline: -.25rem; } }

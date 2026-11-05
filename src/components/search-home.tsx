@@ -63,7 +63,8 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
   return (
     <>
       <main className={styles.page}>
-        <h1 className={styles.brand}><img className={styles.mark} src="/icon.svg" alt="" width="40" height="40" /><span>PAIBOT.app</span></h1>
+        <section className={styles.hero} aria-labelledby="home-brand">
+        <h1 id="home-brand" className={styles.brand}><img className={styles.mark} src="/icon.svg" alt="" width="40" height="40" /><span>PAIBOT.app</span></h1>
         <p className={styles.tagline}>{ts("tagline")}</p>
         <p className={styles.introduction}>{ts("introduction")}</p>
         <div className={styles.box}>
@@ -94,6 +95,7 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
             </button>
           </p>
         )}
+        </section>
         {query.trim() && (
           <ul id="search-results" className={styles.results} role="listbox" aria-label={ts("results")} data-search="results">
             {results.length === 0 && <li className={styles.none} role="presentation">{ts("none", { query: query.trim() })}</li>}
