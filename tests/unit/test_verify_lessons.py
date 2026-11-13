@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[2] / 'scripts'))
-from verify_lessons import LESSONS, verify_lesson  # noqa: E402
+from verify_lessons import LESSONS, equal, verify_lesson  # noqa: E402
 
 lessons = json.loads(LESSONS.read_text(encoding='utf-8'))
 for key, lesson in lessons.items():
@@ -21,6 +21,15 @@ factor = {'sections': [], 'examples': [
     {'wrong': 'x^2 + 5*x + 6 = (x + 1)*(x + 6)', 'right': 'x^2 + 5*x + 6 = (x + 2)*(x + 3)'},
 ]}
 assert verify_lesson('factor', factor) == []
+assert equal('inv([[1,1],[2,3]])', '[[3,-1],[-2,1]]')
+assert not equal('inv([[1,1],[2,3]])', '[[3,1],[-2,1]]')
+
+# Prose proofs need independent review, and cannot smuggle unverified numeric
+# fields into a reason example. The JavaScript checker validates their locales.
+reason = {'sections': [], 'mistakes': [], 'examples': [{'kind': 'reason'}]}
+assert verify_lesson('reason', reason) == []
+reason['examples'][0]['question'] = '1 + 1'
+assert 'unchecked formula' in verify_lesson('reason', reason)[0]
 
 
 def rejects(mutate, expected, key='factorization/trinomial'):

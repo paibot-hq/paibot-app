@@ -64,6 +64,14 @@ displayed before its formula. An example or mistake with `style: "box"` keeps
 formula renderer. The review prompt explains this representation. Literal TeX
 such as `\\square` belongs in prose, not the formula grammar.
 
+Proof, logic, and reasoning examples use `kind: "reason"`, a localized `prompt`,
+1–6 localized `reasoning` steps, and a localized `note`. Reasoning mistakes use
+localized `wrong`, `right`, and `note` fields with the same kind. These are
+explicitly prose examples: their TeX and translations are format-checked, but
+their claims require independent review and are not certified by SymPy. Numeric
+examples retain their existing checks; a reason example cannot also contain an
+unchecked numeric `question` or `steps` field.
+
 Weekly/quota exhaustion stops the batch instead of retrying every item. Temporary
 failures retain the 1-, 4-, and 10-minute retry delays. Resolve the quota/provider
 issue and rerun the remaining items with `--review` to resume their drafts.

@@ -37,4 +37,17 @@ delete boxed.examples[0].prompt.zh;
 assert.ok(lessonProblems('boxed', boxed).some(problem => problem.includes('prompt.zh')));
 boxed.examples[0].style = 'unsupported';
 assert.ok(lessonProblems('boxed', boxed).some(problem => problem.includes('unknown formula style')));
+const reasoning = structuredClone(sample);
+reasoning.examples[0] = {
+  kind: 'reason',
+  prompt: { ja: '対応する3辺が等しい2つの三角形は合同ですか。', en: 'Are two triangles congruent if their three corresponding sides are equal?', zh: '两个三角形的三组对应边相等，它们全等吗？' },
+  reasoning: [{ ja: '3組の辺がそれぞれ等しいので、三辺相等の合同条件を満たします。', en: 'The three pairs of corresponding sides are equal, so the SSS congruence condition applies.', zh: '三组对应边分别相等，满足边边边全等条件。' }],
+  note: { ja: 'したがって合同です。', en: 'Therefore the triangles are congruent.', zh: '因此两个三角形全等。' },
+};
+assert.deepEqual(lessonProblems('reasoning', reasoning), []);
+reasoning.examples[0].question = '1 + 1';
+assert.ok(lessonProblems('reasoning', reasoning).some(problem => problem.includes('not formula question/steps')));
+delete reasoning.examples[0].question;
+delete reasoning.examples[0].reasoning[0].en;
+assert.ok(lessonProblems('reasoning', reasoning).some(problem => problem.includes('reasoning[0].en')));
 console.log(`PASS: ${Object.keys(lessons).length} lessons are written in ja, en and zh and their math renders`);

@@ -21,7 +21,7 @@ import re
 import sys
 from pathlib import Path
 
-from sympy import Eq, Mul, Poly, Rational, Symbol, expand, simplify, solve
+from sympy import Eq, MatrixBase, Mul, Poly, Rational, Symbol, expand, simplify, solve
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from verify_math import ROOT, parse_formula  # noqa: E402
@@ -31,7 +31,8 @@ KINDS = ('value', 'factor', 'solve')
 
 
 def equal(a, b):
-    return simplify(expand(parse_formula(a) - parse_formula(b))) == 0
+    difference = simplify(expand(parse_formula(a) - parse_formula(b)))
+    return difference.is_zero_matrix is True if isinstance(difference, MatrixBase) else difference == 0
 
 
 def fully_factored(text):
@@ -70,6 +71,10 @@ def symbols_of(line):
 
 
 def verify_example(key, example):
+    if example.get('kind') == 'reason':
+        if 'question' in example or 'steps' in example:
+            return [f'{key}: reason examples must not contain unchecked formula question/steps']
+        return []  # Prose proofs are checked by the independent reviewer, not by SymPy.
     question, steps, kind = example['question'], example['steps'], example.get('kind', 'value')
     if kind not in KINDS:
         return [f'{key}: unknown example kind {kind!r}']
@@ -96,6 +101,10 @@ def verify_example(key, example):
 
 
 def verify_mistake(key, mistake):
+    if mistake.get('kind') == 'reason':
+        if 'question' in mistake or not all(isinstance(mistake.get(field), dict) for field in ('wrong', 'right', 'note')):
+            return [f'{key}: reason mistakes need localized prose without a formula question']
+        return []  # This claim and its correction require prose review.
     errors = []
     if 'question' in mistake:
         symbols = symbols_of(mistake['question'])
@@ -192,7 +201,7 @@ def verify_lesson(key, lesson):
         try:
             errors += verify_example(key, example)
         except Exception as error:  # noqa: BLE001 - a line the grammar cannot read is reported, not fatal
-            errors.append(f'{key}: {example["question"]!r}: {error}')
+            errors.append(f'{key}: {example.get("question", example.get("kind"))!r}: {error}')
     for mistake in lesson['mistakes']:
         try:
             errors += verify_mistake(key, mistake)
@@ -209,7 +218,7 @@ def main(keys, file=LESSONS):
         print(f'FAIL: {error}')
     if errors:
         sys.exit(1)
-    print(f'PASS: the examples and mistakes of {len(wanted)} lessons check out')
+    print(f'PASS: the numeric examples, mistakes and graphs of {len(wanted)} lessons check out (prose requires independent review)')
 
 
 if __name__ == '__main__':

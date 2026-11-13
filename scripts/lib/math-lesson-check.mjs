@@ -7,7 +7,7 @@ import { figureReading } from '../math-pipeline.mjs';
 // math in the prose inside $...$ and rendering, display formulas rendering, examples and mistakes in the formula
 // grammar. Returns the problems found (empty when there are none); scripts/verify_lessons.py checks the math itself.
 const LOCALES = ['ja', 'en', 'zh'];
-const KINDS = ['value', 'factor', 'solve'];
+const KINDS = ['value', 'factor', 'solve', 'reason'];
 
 // What a figure shows, in words: the blind review reads this in place of the drawing (a shape's is the one the quiz
 // problems' reviewer gets), and the label of every curve and point is there to be compared with the text around it.
@@ -92,15 +92,29 @@ export function lessonProblems(key, lesson) {
   lesson.examples.forEach((example, index) => {
     const where = `examples[${index}]`;
     if (!KINDS.includes(example.kind)) problems.push(`${key} ${where}: kind must be one of ${KINDS.join(', ')}`);
-    style(`${where}.style`, example.style);
-    if (example.prompt !== undefined) prose(`${where}.prompt`, example.prompt);
-    line(`${where}.question`, example.question, example.style);
-    (example.steps ?? []).forEach((step, at) => line(`${where}.steps[${at}]`, step, example.style));
+    if (example.kind === 'reason') {
+      prose(`${where}.prompt`, example.prompt);
+      if (!Array.isArray(example.reasoning) || !example.reasoning.length || example.reasoning.length > 6) problems.push(`${key} ${where}: needs 1 to 6 reasoning steps`);
+      else example.reasoning.forEach((step, at) => prose(`${where}.reasoning[${at}]`, step));
+      if (example.question !== undefined || example.steps !== undefined) problems.push(`${key} ${where}: reason examples use prompt and reasoning, not formula question/steps`);
+    } else {
+      style(`${where}.style`, example.style);
+      if (example.prompt !== undefined) prose(`${where}.prompt`, example.prompt);
+      line(`${where}.question`, example.question, example.style);
+      (example.steps ?? []).forEach((step, at) => line(`${where}.steps[${at}]`, step, example.style));
+    }
     prose(`${where}.note`, example.note);
     if (example.figure) figure(`${where}.figure`, example.figure);
   });
   lesson.mistakes.forEach((mistake, index) => {
     const where = `mistakes[${index}]`;
+    if (mistake.kind === 'reason') {
+      prose(`${where}.wrong`, mistake.wrong);
+      prose(`${where}.right`, mistake.right);
+      prose(`${where}.note`, mistake.note);
+      if (mistake.question !== undefined) problems.push(`${key} ${where}: reason mistakes do not use a formula question`);
+      return;
+    }
     style(`${where}.style`, mistake.style);
     if (mistake.question !== undefined) line(`${where}.question`, mistake.question, mistake.style);
     line(`${where}.wrong`, mistake.wrong, mistake.style);

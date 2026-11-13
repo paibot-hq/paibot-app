@@ -26,8 +26,8 @@
 
 | 領域 | 学習項目 | 状態 | キー |
 | --- | --- | --- | --- |
-| 数と計算 | たし算・ひき算 / 10までのたし算・ひき算 | ✅ | `addition/within-10` |
-| 数と計算 | たし算・ひき算 / 1桁のくり上がり・くり下がり | ✅ | `addition/carry` |
+| 数と計算 | 足し算・引き算 / 10までの足し算・引き算 | ✅ | `addition/within-10` |
+| 数と計算 | 足し算・引き算 / 1桁のくり上がり・くり下がり | ✅ | `addition/carry` |
 | 数と計算 | 大きな数 / 100までの数 | ✅ | `place-value/to-100` |
 | 図形と測定 | 時刻と時間 / 時計の読み方 | ✅ | `time/reading` |
 | 図形と測定 | 図形の基本 / 立体のかたち | ✅ | `shapes/solids-basic` |
@@ -36,8 +36,8 @@
 
 | 領域 | 学習項目 | 状態 | キー |
 | --- | --- | --- | --- |
-| 数と計算 | たし算・ひき算 / 2桁のたし算・ひき算 | ✅ | `addition/two-digit` |
-| 数と計算 | かけ算 / 九九 | ✅ | `multiplication/times-table` |
+| 数と計算 | 足し算・引き算 / 2桁の足し算・引き算 | ✅ | `addition/two-digit` |
+| 数と計算 | 掛け算 / 九九 | ✅ | `multiplication/times-table` |
 | 数と計算 | 計算の順序と文章題 / かんたん文章題 | ✅ | `arith/simple-word-problems` |
 | 数と計算 | 大きな数 / 10000までの数 | ✅ | `place-value/to-10000` |
 | 数と計算 | 分数 / 分数の意味（1/2・1/4） | ✅ | `fraction/unit-fractions` |
@@ -50,11 +50,11 @@
 
 | 領域 | 学習項目 | 状態 | キー |
 | --- | --- | --- | --- |
-| 数と計算 | たし算・ひき算 / 3〜4桁の筆算 | ✅ | `addition/column` |
-| 数と計算 | かけ算 / 2〜3桁×1桁 | ✅ | `multiplication/by-one-digit` |
-| 数と計算 | かけ算 / 2〜3桁×2桁 | ✅ | `multiplication/by-two-digit` |
-| 数と計算 | わり算 / 九九を使うわり算 | ✅ | `division/basic` |
-| 数と計算 | あまりのあるわり算 / あまりのあるわり算 | ✅ | `division-remainder/remainder` |
+| 数と計算 | 足し算・引き算 / 3〜4桁の筆算 | ✅ | `addition/column` |
+| 数と計算 | 掛け算 / 2〜3桁×1桁 | ✅ | `multiplication/by-one-digit` |
+| 数と計算 | 掛け算 / 2〜3桁×2桁 | ✅ | `multiplication/by-two-digit` |
+| 数と計算 | 割り算 / 九九を使うわり算 | ✅ | `division/basic` |
+| 数と計算 | あまりのあるわり算 / あまりのある割り算 | ✅ | `division-remainder/remainder` |
 | 数と計算 | 大きな数 / 万の位の数 | ✅ | `place-value/ten-thousands` |
 | 数と計算 | 小数 / 小数のたし算・ひき算（1/10の位） | ✅ | `decimal/add-sub-tenths` |
 | 数と計算 | 分数 / 分数の大きさ | ✅ | `fraction/meaning` |
@@ -73,7 +73,7 @@
 
 | 領域 | 学習項目 | 状態 | キー |
 | --- | --- | --- | --- |
-| 数と計算 | わり算 / 2桁でわるわり算 | ✅ | `division/by-two-digit` |
+| 数と計算 | 割り算 / 2桁でわるわり算 | ✅ | `division/by-two-digit` |
 | 数と計算 | 計算の順序と文章題 / 計算の順序 | ✅ | `arith/order-of-operations` |
 | 数と計算 | 計算の順序と文章題 / 計算のきまり | ✅ | `arith/rules` |
 | 数と計算 | 計算の順序と文章題 / 少し長い文章題 | ✅ | `arith/word-problems` |
