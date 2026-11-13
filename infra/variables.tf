@@ -3,7 +3,7 @@
 variable "cloudflare_account_id" {
   description = "Cloudflare account ID that owns all resources in this configuration."
   type        = string
-  default     = "b041431380f52e0bf2bb47b174e95b6a" # Admin@paibot.co.jp's Account
+  default     = "b041431380f52e0bf2bb47b174e95b6a" # paibot's Cloudflare account
 }
 
 variable "root_domain" {

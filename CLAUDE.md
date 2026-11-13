@@ -19,7 +19,7 @@ Terraform in `infra/` owns account-level resources (Access, DNS, D1, R2).
 `void.config.ts` owns Worker code, bindings and custom domains (Void deploys it; database commands run Wrangler through
 `scripts/wrangler.mjs`); give every resource ID there so Void creates nothing, and never manage the same
 resource with both. The Terraform state R2 bucket must not become an app binding.
-Existing AWS/GCP and Cloudflare account notes are in `docs/infra/`.
+AWS/GCP and Cloudflare account notes are kept outside this repository (operators' private notes).
 Do not print secret keys. Runtime Clerk keys must be synced to Workers Secrets;
 `.env` only configures local execution and does not provision remote secrets.
 

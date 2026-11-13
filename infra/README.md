@@ -11,7 +11,7 @@
 ## 現在の管理範囲(意図的に小さい)
 
 1. **`paibot.app`ゾーンの読み取り専用データソース参照**(`infra/data.tf`)。このゾーンはTerraformが作ったものではなく(Cloudflare APIで確認済み、ステータス`active`)、`resource`ブロックを持たないので、Terraformが削除・再作成を提案することは原理的にありません。
-2. **devのWorker(`paibot-app-dev`)を守るCloudflare Accessアプリケーション**(`infra/access.tf`)。`sanofc@gmail.com`と`admin@paibot.co.jp`のログインと、GitHub Actions用のService Tokenの両方を許可。この2つは**別々のポリシー**にしてある(`sanofc@gmail.com`用は`decision = "allow"`、Service Token用は`decision = "non_identity"`、ダッシュボード上の表示名は「Service Auth」)。1つの`allow`ポリシーの`include`にemailとservice_tokenを両方並べる書き方は誤り — service tokenにはそもそも検証できるアイデンティティが無いため、`allow`ポリシーはservice tokenだけのリクエストでもIdPログイン画面へのリダイレクトを止めない(実際のトラフィックで確認済み: 最初はこの誤った書き方でapplyし、`smoke-test-dev`のリクエストがCloudflareのログイン画面に静かにリダイレクトされ続ける不具合が発生した)。セッションは24時間。
+2. **devのWorker(`paibot-app-dev`)を守るCloudflare Accessアプリケーション**(`infra/access.tf`)。所有者2人のメールアドレスでのログインと、GitHub Actions用のService Tokenの両方を許可。この2つは**別々のポリシー**にしてある(メールアドレス用は`decision = "allow"`、Service Token用は`decision = "non_identity"`、ダッシュボード上の表示名は「Service Auth」)。1つの`allow`ポリシーの`include`にemailとservice_tokenを両方並べる書き方は誤り — service tokenにはそもそも検証できるアイデンティティが無いため、`allow`ポリシーはservice tokenだけのリクエストでもIdPログイン画面へのリダイレクトを止めない(実際のトラフィックで確認済み: 最初はこの誤った書き方でapplyし、`smoke-test-dev`のリクエストがCloudflareのログイン画面に静かにリダイレクトされ続ける不具合が発生した)。セッションは24時間。
    - 対象は`destinations`の`type = "worker"`(Worker単位)なので、カスタムドメイン(`dev.paibot.app`)・workers.dev・プレビューURLのすべてに掛かる。
    - Accessを`wrangler.jsonc`ではなくTerraformで持つ理由: Wranglerの`access`ブロックは`wrangler dev`でのID模擬用で、本番のAccess設定はできないため。
    - `worker_id`はWorkerの内部ID(名前ではない)。Workerを削除して作り直すと変わるので、その場合は`access.tf`の値を更新すること。取得方法は`access.tf`のコメントを参照。
@@ -47,7 +47,7 @@ Cloudflareの認証情報には**性質の異なる2種類**が関わります�
 
 | 変数名 | 値 |
 | --- | --- |
-| `CLOUDFLARE_ACCOUNT_ID` | `b041431380f52e0bf2bb47b174e95b6a`(Admin@paibot.co.jp's Account。非機密、`npx wrangler whoami`でも見える値) |
+| `CLOUDFLARE_ACCOUNT_ID` | `b041431380f52e0bf2bb47b174e95b6a`(paibotのCloudflareアカウント。非機密、`npx wrangler whoami`でも見える値) |
 | `TF_STATE_BUCKET` | state用バケット作成後の名前(案: `paibot-app-terraform-state`) |
 
 ## ブートストラップ: state用バケットの作成(一度だけ・手動・通常のapplyフローとは別)
@@ -128,5 +128,5 @@ aws s3api copy-object --endpoint-url "https://<account_id>.r2.cloudflarestorage.
 - 本物のR2バケットに対する`init`/`plan`/`apply`: 成功(stateの保存、ロックの取得・解放を確認)
 - `access.tf`: `Infra Apply`で1件作成(`Resources: 1 added, 0 changed, 0 destroyed`)。
   - 未ログインで`https://dev.paibot.app`を開くと、Cloudflare Accessのログイン画面に転送されることを確認。
-  - `sanofc@gmail.com`でログインして入れることを、手動で確認。
+  - 許可したメールアドレスでログインして入れることを、手動で確認。
 - 未検証: 同時applyによるロック競合(上記)、`infra-apply`環境の承認者、planファイルのR2経由の受け渡し(2026-11-13にartifactから切り替え。次の`Infra Apply`で確認する)。
