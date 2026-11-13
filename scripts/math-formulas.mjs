@@ -4,7 +4,7 @@ import { join } from 'node:path';
 import katex from 'katex';
 import { MATH_CATALOG } from '../src/lib/math-catalog.ts';
 import { jpGrade } from '../src/lib/math-curriculum-jp.ts';
-import { extractJSON, run, saveWork } from './math-pipeline.mjs';
+import { extractJSON, write, saveWork } from './math-pipeline.mjs';
 
 // Writes src/data/item-formulas.json: for each learning item, the key points worth
 // knowing (shown under "要点" on the item page): a well-known formula or rule as TeX
@@ -47,7 +47,7 @@ try {
       const prompt = `数学ドリルの要点の説明文（日本語 ja・英語 en・中国語 zh）。文章の中の数式・文字式・指数・数と文字の組（x^2、X=x^2、10a、f(x)、a^2 - b^2 など）を、TeX にして $...$ で囲む。ふつうの言葉や、数だけの言い回し（2桁、3つ）はそのまま。文章の意味・言い回しは変えない。すでに $...$ の部分はそのまま。コマンドやツールは使わず JSON だけを出力する: {"notes":[{"id":0,"ja":"","en":"","zh":""}]}
 ${JSON.stringify(group.map(({ point }, id) => ({ id, ja: point.ja, en: point.en, zh: point.zh })), null, 2)}`;
       let result;
-      for (let attempt = 0; attempt < 3 && !result; attempt++) { try { result = extractJSON(run('agy', ['--sandbox', '--print-timeout', '10m', '-p', prompt], temp), 'notes'); } catch { /* ask again */ } }
+      for (let attempt = 0; attempt < 3 && !result; attempt++) { try { result = extractJSON(write(prompt, temp), 'notes'); } catch { /* ask again */ } }
       if (!result) throw new Error(`typeset batch ${start / 25 + 1}: no usable answer`);
       for (const note of result.notes) {
         const target = group[note.id]?.point;
@@ -80,7 +80,7 @@ ${STYLE}
 ${JSON.stringify(group.map(row => ({ unit: row.unit, item: row.item, 単元: row.unitTitle, 項目: row.title, 学年: row.grade, 説明: row.description, 現在の式: row.current })), null, 2)}`;
     let result;
     for (let attempt = 0; attempt < 3 && !result; attempt++) {
-      const raw = run('agy', ['--sandbox', '--print-timeout', '10m', '-p', prompt], temp);
+      const raw = write(prompt, temp);
       try { result = extractJSON(raw, 'points'); } catch { if (attempt === 2) throw new Error(`No usable answer: ${saveWork('formulas-raw', raw, 'txt')}`); }
     }
     for (const entry of result.points) {
