@@ -84,9 +84,11 @@ jobs:
             --max-turns 150
             --add-dir ${{ runner.temp }}
             --allowedTools "Read,Edit,Write,Glob,Grep,WebSearch,WebFetch,Bash(node:*)"
-      # What Claude did, turn by turn (the log hides it): to find out why it denied a tool, or found nothing. Private repository, kept 14 days.
+      # What Claude did, turn by turn (the log hides it): to find out why it denied a tool, or found nothing. Kept 14 days, and only
+      # while the repository is private: the record holds every page Claude read and every command's output, and a public
+      # repository's artifacts can be downloaded by anyone signed in to GitHub. A public repository keeps the report (the summary).
       - name: Keep Claude's record
-        if: always()
+        if: always() && github.event.repository.private
         uses: actions/upload-artifact@v7
         with:
           name: claude-execution-output
