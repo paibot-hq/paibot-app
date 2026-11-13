@@ -49,6 +49,7 @@ Cloudflareの認証情報には**性質の異なる2種類**が関わります�
 | --- | --- |
 | `CLOUDFLARE_ACCOUNT_ID` | `b041431380f52e0bf2bb47b174e95b6a`(paibotのCloudflareアカウント。非機密、`npx wrangler whoami`でも見える値) |
 | `TF_STATE_BUCKET` | state用バケット作成後の名前(案: `paibot-app-terraform-state`) |
+| `DEV_ACCESS_EMAILS` | devサイトにログインできるメールアドレスのJSON配列(`["a@example.com","b@example.com"]`)。Terraform変数`dev_access_emails`になる。公開リポジトリに書かないためにコードの外に置いている。順番を変えるとplanに差分が出るので、今の順番を保つ |
 
 ## ブートストラップ: state用バケットの作成(一度だけ・手動・通常のapplyフローとは別)
 
@@ -61,15 +62,16 @@ Cloudflareの認証情報には**性質の異なる2種類**が関わります�
    ```
 3. そのバケットだけに限定したR2 APIトークンを作る(R2ダッシュボード→R2 APIトークンの管理→Object Read & Write、バケット限定)。アクセスキーIDとシークレットアクセスキーはこの時にしか表示されないので、すぐに控えてください。
 4. Terraform専用のCloudflare APIトークンを作る(上の表を参照)。
-5. 上記4つのsecretと2つのvariableを登録する:
+5. 上記のsecretとvariableを登録する:
    ```sh
    gh secret set CLOUDFLARE_API_TOKEN_TERRAFORM --repo paibot-hq/paibot-app
    gh secret set TF_STATE_R2_ACCESS_KEY_ID --repo paibot-hq/paibot-app
    gh secret set TF_STATE_R2_SECRET_ACCESS_KEY --repo paibot-hq/paibot-app
    gh variable set CLOUDFLARE_ACCOUNT_ID --repo paibot-hq/paibot-app --body "b041431380f52e0bf2bb47b174e95b6a"
    gh variable set TF_STATE_BUCKET --repo paibot-hq/paibot-app --body "paibot-app-terraform-state"
+   gh variable set DEV_ACCESS_EMAILS --repo paibot-hq/paibot-app --body '["<所有者のアドレス>", "<もう1つのアドレス>"]'
    ```
-6. ローカルで`cd infra`し、ワークフロー(`.github/workflows/infra-plan.yml`参照)と同じ`terraform init -backend-config=...`コマンドを、実際のバケット名・アカウントIDに置き換えて実行する。`AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY`は、R2トークンの値をシェルにexportしておく。その後一度ローカルで`terraform plan`を実行し、本番のバックエンドに対する最初の`plan`を自分の目で確認してから、CIに任せるようにしてください。
+6. ローカルで`cd infra`し、ワークフロー(`.github/workflows/infra-plan.yml`参照)と同じ`terraform init -backend-config=...`コマンドを、実際のバケット名・アカウントIDに置き換えて実行する。`dev_access_emails`は`*.tfvars`(gitの対象外)か`TF_VAR_dev_access_emails`で渡す。`AWS_ACCESS_KEY_ID`/`AWS_SECRET_ACCESS_KEY`は、R2トークンの値をシェルにexportしておく。その後一度ローカルで`terraform plan`を実行し、本番のバックエンドに対する最初の`plan`を自分の目で確認してから、CIに任せるようにしてください。
 
 ## 日常運用: リソースの追加・変更
 
