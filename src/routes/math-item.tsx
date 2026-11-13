@@ -66,6 +66,8 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
   const isDone = (set: (typeof sets)[number]) => Boolean(set.record) || local.includes(`${unitId}/${itemId}/${set.id}`);
   const start = sets.find(set => set.playable && !isDone(set)) ?? sets.find(set => set.playable);
   const text = (localized: Localized) => localized[locale as keyof Localized] ?? localized.en;
+  // Elementary school always writes the multiplication sign: 4(1/4) would read as the mixed number 4 1/4.
+  const shown = (style?: FormulaStyle) => style ?? (grade?.startsWith('e') ? 'times' : undefined);
   return <>
     {published ? <PublicHead locale={locale} path={`/math/${unitId}/${itemId}`} title={head} description={description} /> : <title>{head}</title>}
     <ToolLayout title={title} centerTitle aboveTitle={<MathBreadcrumb crumbs={[{ label: unitTitle, href: `/math/${unitId}` }, { label: title }]} />}>
@@ -102,20 +104,20 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
         {lesson.examples.map((item, index) => <div key={index} className={styles.lessonExample}>
           <p className={styles.exampleLabel}>{ti('exampleNumber', { number: index + 1 })}</p>
           {item.prompt && <p className={styles.exampleNote}><MathText text={text(item.prompt)} /></p>}
-          {item.kind !== 'reason' && <div className={styles.exampleQuestion}>{lineTex(item.question, item.style).map(tex => <MathTex key={tex} tex={tex} block />)}</div>}
+          {item.kind !== 'reason' && <div className={styles.exampleQuestion}>{lineTex(item.question, shown(item.style)).map(tex => <MathTex key={tex} tex={tex} block />)}</div>}
           {item.figure && <LessonFigureView figure={item.figure} />}
           {item.kind === 'reason'
             ? <ol>{item.reasoning.map((step, at) => <li key={at}><MathText text={text(step)} /></li>)}</ol>
-            : <Steps lines={item.steps} style={item.style} />}
+            : <Steps lines={item.steps} style={shown(item.style)} />}
           <p className={styles.exampleNote}><span className={styles.noteLabel}>{ti('explanation')}</span><MathText text={text(item.note)} /></p>
         </div>)}
       </section>}
       {lesson && lesson.mistakes.length > 0 && <section className={styles.lesson}>
         <h2 className={styles.lessonHeading}>{ti('mistakes')}</h2>
         {lesson.mistakes.map((item, index) => <div key={index} className={styles.mistake}>
-          {item.kind !== 'reason' && item.question && <div className={styles.exampleQuestion}>{lineTex(item.question, item.style).map(tex => <MathTex key={tex} tex={tex} block />)}</div>}
-          <p className={styles.wrong}><span className={styles.mark}>{ti('wrong')}</span>{item.kind === 'reason' ? <MathText text={text(item.wrong)} /> : <MathTex tex={stepTex(item.wrong, item.style)} />}</p>
-          <p className={styles.right}><span className={styles.mark}>{ti('right')}</span>{item.kind === 'reason' ? <MathText text={text(item.right)} /> : <MathTex tex={stepTex(item.right, item.style)} />}</p>
+          {item.kind !== 'reason' && item.question && <div className={styles.exampleQuestion}>{lineTex(item.question, shown(item.style)).map(tex => <MathTex key={tex} tex={tex} block />)}</div>}
+          <p className={styles.wrong}><span className={styles.mark}>{ti('wrong')}</span>{item.kind === 'reason' ? <MathText text={text(item.wrong)} /> : <MathTex tex={stepTex(item.wrong, shown(item.style))} />}</p>
+          <p className={styles.right}><span className={styles.mark}>{ti('right')}</span>{item.kind === 'reason' ? <MathText text={text(item.right)} /> : <MathTex tex={stepTex(item.right, shown(item.style))} />}</p>
           <p className={styles.exampleNote}><MathText text={text(item.note)} /></p>
         </div>)}
       </section>}
