@@ -60,7 +60,7 @@ function ClockFace({ settings }: { settings: Route.ComponentProps['loaderData'] 
   const locale = useLocale();
   const t = useTranslations('App.clock');
   // Region group keys (ZONE_GROUPS) are only known at runtime, like
-  // src/lib/apps.tsx's category keys - cast once here, same reasoning.
+  // src/lib/apps.tsx's tag and app keys - cast once here, same reasoning.
   const td = t as unknown as DynamicT;
   // The server cannot know the visitor's time zone. Start after hydration.
   const [now, setNow] = useState<Date | null>(null);

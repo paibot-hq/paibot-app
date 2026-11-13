@@ -11,8 +11,11 @@ outputs:
   run:
     description: "'true' when the job is needed"
     value: ${{ steps.changes.outputs.run }}
+  catalog:
+    description: The tools the checks every tool shares cover (CHECK_TOOLS for catalog), "all" or comma-separated slugs
+    value: ${{ steps.changes.outputs.catalog }}
   tools:
-    description: The tools to check (CHECK_TOOLS), "all" or comma-separated slugs
+    description: The tools whose own flows run (CHECK_TOOLS for tools), "all", comma-separated slugs or empty
     value: ${{ steps.changes.outputs.tools }}
 runs:
   using: composite

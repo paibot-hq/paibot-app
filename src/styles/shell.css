@@ -7,24 +7,8 @@ body {
   flex-direction: column;
   min-height: 100vh;
   margin: 0;
-  background: linear-gradient(180deg, #0f1720, #111c28 52%, #0f1720);
+  background: var(--bg);
   color: var(--text);
-}
-
-html[data-theme="light"] body {
-  background: linear-gradient(180deg, var(--bg), #eaf2f8 52%, var(--bg));
-}
-
-@media (prefers-color-scheme: light) {
-  body {
-    background: linear-gradient(180deg, var(--bg), #eaf2f8 52%, var(--bg));
-  }
-}
-
-@media (prefers-color-scheme: light) {
-  html[data-theme="dark"] body {
-    background: linear-gradient(180deg, #0f1720, #111c28 52%, #0f1720);
-  }
 }
 
 a {
@@ -62,7 +46,7 @@ a {
   gap: .16em;
   color: var(--text);
   font-size: .95rem;
-  font-weight: 600;
+  font-weight: 700;
   letter-spacing: 0;
   text-decoration: none;
 }
@@ -82,8 +66,8 @@ a {
 
 .wordmark {
   font-family: "Avenir Next", "Helvetica Neue", Arial, sans-serif;
-  font-weight: 600;
-  letter-spacing: .11em;
+  font-weight: 700;
+  letter-spacing: .04em;
 }
 
 .brand-suffix {
@@ -134,6 +118,9 @@ button {
 
 .language-toggle,
 .theme-toggle {
+  border-color: transparent;
+  background: transparent;
+  color: var(--muted);
   display: grid;
   place-items: center;
   width: 2rem;
@@ -222,3 +209,5 @@ main {
   flex: 1 0 auto;
 }
 
+
+.language-toggle:hover, .theme-toggle:hover { background: var(--surface-strong); border-color: var(--line); color: var(--text); }

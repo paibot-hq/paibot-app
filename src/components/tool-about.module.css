@@ -1,4 +1,5 @@
 .about {
+  box-sizing: border-box;
   width: 100%;
   max-width: 40rem;
   margin: 0 auto;
@@ -8,6 +9,18 @@
 }
 .heading { margin: 0 0 .5rem; font-size: 1rem; font-weight: 700; }
 .text { margin: 0 0 1rem; line-height: 1.8; overflow-wrap: anywhere; }
+.section { margin: 0 0 1.25rem; }
 .sub { margin: 0 0 .4rem; font-size: .875rem; font-weight: 700; }
 .list { display: flex; flex-wrap: wrap; gap: .4rem .9rem; margin: 0; padding: 0; list-style: none; font-size: .875rem; }
 .list a { color: var(--accent); }
+.faq { margin: 0; }
+.faq div { margin: 0 0 .9rem; }
+.faq dt { font-weight: 700; line-height: 1.7; }
+.faq dd { margin: .2rem 0 0; line-height: 1.8; overflow-wrap: anywhere; }
+
+.example { margin: 1.5rem 0; }
+.steps { padding-left: 1.4rem; line-height: 1.8; }
+.steps li + li { margin-top: .4rem; }
+.code { overflow-x: auto; padding: 1rem; border: 1px solid var(--line); border-radius: 8px; background: var(--surface-strong); color: var(--text); line-height: 1.6; }
+.feedback { font-size: .85rem; margin: 1rem 0; }
+.feedback a { color: var(--accent); }

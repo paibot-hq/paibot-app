@@ -29,7 +29,7 @@
 - **本番(`paibot.app`)向けのWorkerにはAccessを付けていない**(`access.tf`の対象は`paibot-app-dev`だけ)。本番公開の設計は`docs/plans/production-deploy.md`。
 - **`use_lockfile`の同時実行(競合)は実証していません。** 前提となる「R2がPutObjectの条件付き書き込みをサポートしている」は、Cloudflare公式のS3 API互換性ドキュメント(https://developers.cloudflare.com/r2/api/s3/api/ — PutObjectの行にIf-Match/If-Modified-Since/If-None-Match/If-Unmodified-Sinceがすべて対応と明記)で確認したものです。実際に同時applyを起こして競合を検証したわけではないので、実証済みとは扱わないでください。ロックの取得・解放そのものは、本物のバケットでplan/applyを実行して確認済みです。GitHub Actionsの`concurrency`でも直列化しています。
 - R2には**ネイティブなオブジェクトバージョニング機能がありません**(確認済み)。下記のバックアップ方式は、バージョニングに頼らない単純なオブジェクトコピーによるものです。
-- `infra-apply`環境の承認者(Required reviewers)は設定していません(GitHubのプラン制限で使えない可能性あり)。今のapplyは、手動実行(`workflow_dispatch`)すること自体が確認の代わりです。
+- `infra-apply`環境には、必須レビュアー(Required reviewers)と、デプロイ元を`main`に限るブランチ制限を設定する(下の「`infra-apply`環境の設定」)。privateリポジトリのままではGitHubのプラン(Team)で必須レビュアーを使えない可能性があり、その間は手動実行(`workflow_dispatch`)すること自体が確認の代わりです。
 - 消えると困るリソース(DNSレコード、D1など)を管理し始める時点で、planに削除・作り直しが含まれたらapplyを失敗させるガードを入れる。
 
 ## 認証情報の置き場所
@@ -76,9 +76,26 @@ Cloudflareの認証情報には**性質の異なる2種類**が関わります�
 1. ブランチを切って`.tf`ファイルを編集、`terraform fmt`、PRを作成。
 2. `infra/`を触るPRでは`infra-plan.yml`が`fmt -check`+`validate`を実行(誰のPRでも)、さらに**フォークからのPRを除いて**認証付き`plan`を実行し、その出力がジョブのログ/サマリーに出る。マージ前に必ず読むこと。
 3. plan結果に問題なければ`main`にマージ。
-4. 実際に反映したくなったら: **Actions → Infra Apply → Run workflow**で、`ref`にデプロイしたいコミット(通常は`main`の最新)を指定して実行する。これはそのコミットに対して改めて`plan`を実行し、plan結果を短期間だけ保存されるartifactとしてアップロードしたうえで、`infra-apply`というGitHub Environmentによる承認ゲートで止まり、レビュアーが承認するまで`apply`ジョブが始まらない。**この承認ゲートを機能させるには、リポジトリのSettings→Environmentsで`infra-apply`環境に必須レビュアーを設定しておく必要があります。** 特に削除・再作成(destroy/replace)が含まれていないか、承認前に必ず確認すること。
-5. `apply`ジョブは、手順4で生成した**まさにそのplanファイル**を`terraform apply tfplan`で適用する(その場で改めてplanし直すのではない)。これにより、レビューした内容と実際に適用される内容がずれることがない。
+4. 実際に反映したくなったら: **Actions → Infra Apply → Run workflow**で、`ref`にデプロイしたいコミット(通常は`main`の最新)を指定して実行する。`ref`が`main`に入っていないコミットなら、ここで止まる(ワークフロー自体も`main`から実行したときだけ動く)。これはそのコミットに対して改めて`plan`を実行し、planファイルをstate用のR2バケット(`paibot-app/plans/<run id>-<attempt>.tfplan`)に置いたうえで、`infra-apply`というGitHub Environmentによる承認ゲートで止まり、レビュアーが承認するまで`apply`ジョブが始まらない。**この承認ゲートを機能させるには、リポジトリのSettings→Environmentsで`infra-apply`環境に必須レビュアーを設定しておく必要があります。** 特に削除・再作成(destroy/replace)が含まれていないか、承認前に必ず確認すること。
+5. `apply`ジョブは、手順4で生成した**まさにそのplanファイル**をR2から取り出し、SHA-256がplanジョブのものと一致することを確かめてから`terraform apply tfplan`で適用する(その場で改めてplanし直すのではない)。これにより、レビューした内容と実際に適用される内容がずれることがない。適用後は(失敗しても)R2のplanファイルを消す。
 6. plan結果でWorkerがバインドすべき何か(D1データベースなど)ができていたら、`terraform output`から該当IDを`wrangler.jsonc`へ手で転記し、それ自体を別のPRにする。
+
+planファイルはActionsのartifactにしない。planファイルには`sensitive`な属性(Access Service Tokenの`client_secret`など)の値がそのまま入っており、`terraform show`の伏せ字は画面表示だけの話だから。公開リポジトリのartifactはGitHubにサインインした誰でもダウンロードできる。承認されずに終わった実行のplanファイルはR2に残るので、時々`aws s3 ls s3://<バケット>/paibot-app/plans/ --endpoint-url ...`で確かめて消すこと(R2のライフサイクルルールで`paibot-app/plans/`に数日の期限を付けてもよい)。
+
+なお、planの**表示**(`terraform show`の出力)はジョブのログとサマリーに出る。公開リポジトリではこれも誰でも読めるので、`sensitive`でない属性に公開したくない値を持たせないこと。
+
+### `infra-apply`環境の設定
+
+Settings→Environments→`infra-apply`、またはAPIで:
+
+```sh
+# 必須レビュアー(自分のrunも承認できるようprevent_self_reviewはfalse)と、mainだけを許すブランチ制限
+gh api -X PUT repos/paibot-hq/paibot-app/environments/infra-apply --input - <<'JSON'
+{"prevent_self_review": false, "reviewers": [{"type": "User", "id": 131654}],
+ "deployment_branch_policy": {"protected_branches": false, "custom_branch_policies": true}}
+JSON
+gh api -X POST repos/paibot-hq/paibot-app/environments/infra-apply/deployment-branch-policies -f name=main -f type=branch
+```
 
 **planに「既にあったものを削除・再作成する」という提案が出た場合、それを承認せず、まず理由を調べてください。** これは設定が間違っているか、Terraformが認識しているリソースの状態が実際とズレている(ドリット)サインです。そのまま押し切って回避するようなものではありません。
 
@@ -112,4 +129,4 @@ aws s3api copy-object --endpoint-url "https://<account_id>.r2.cloudflarestorage.
 - `access.tf`: `Infra Apply`で1件作成(`Resources: 1 added, 0 changed, 0 destroyed`)。
   - 未ログインで`https://dev.paibot.app`を開くと、Cloudflare Accessのログイン画面に転送されることを確認。
   - `sanofc@gmail.com`でログインして入れることを、手動で確認。
-- 未検証: 同時applyによるロック競合(上記)、`infra-apply`環境の承認者。
+- 未検証: 同時applyによるロック競合(上記)、`infra-apply`環境の承認者、planファイルのR2経由の受け渡し(2026-11-13にartifactから切り替え。次の`Infra Apply`で確認する)。

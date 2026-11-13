@@ -13,6 +13,10 @@ const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app
 const MATH_SAMPLE = ['/math', '/math/arith', '/math/signed', '/math/factorization', '/math/pythagoras', '/math/arith/order-of-operations', '/math/signed/four-operations', '/math/factorization/trinomial', '/math/pythagoras/sides'];
 const paths = publicPaths.filter(path => !path.startsWith('/math/') || MATH_SAMPLE.includes(path));
 const indexable = process.env.CHECK_SITE_INDEXABLE === 'true';
+// Clerk settings are independent of Worker releases. Production uses Google only;
+// the development instance retains email authentication for isolated test users.
+const authMode = process.env.CHECK_AUTH_MODE ?? (base === 'https://paibot.app' ? 'google-only' : 'email');
+assert.ok(['google-only', 'email'].includes(authMode), 'CHECK_AUTH_MODE must be google-only or email');
 const authPaths = ['sign-in', 'sign-up', 'diary', 'profile', 'legal/commerce'];
 const browser = await chromium.launch();
 try {
@@ -26,6 +30,9 @@ try {
         titles: [...doc.head.querySelectorAll('title')].map(el => el.textContent),
         canonical: [...doc.querySelectorAll('link[rel="canonical"]')].map(el => el.getAttribute('href')),
         alternates: [...doc.querySelectorAll('link[rel="alternate"][hreflang]')].map(el => [el.getAttribute('hreflang'), el.getAttribute('href')]),
+        robotsTags: [...doc.querySelectorAll('meta[name="robots"]')].map(el => el.content),
+        adsenseAccount: doc.querySelector('meta[name="google-adsense-account"]')?.content,
+        adScripts: [...doc.querySelectorAll('script[src]')].filter(el => el.src.includes('adsbygoogle.js')).length,
         robots: doc.querySelector('meta[name="robots"]')?.content,
         description: doc.querySelector('meta[name="description"]')?.content,
         ogTitle: doc.querySelector('meta[property="og:title"]')?.content,
@@ -34,6 +41,11 @@ try {
         twitterTitle: doc.querySelector('meta[name="twitter:title"]')?.content,
       };
     }, html);
+  }
+  function checkReviewHead(head, path) {
+    assert.equal(head.robotsTags.length, 1, `${path}: one unambiguous robots directive`);
+    assert.equal(head.adScripts, 0, `${path}: no global ad serving while awaiting approval`);
+    assert.equal(head.adsenseAccount, indexable ? 'ca-pub-8043848570527700' : undefined, `${path}: production ownership verification`);
   }
   function checkTitle(head, path) {
     assert.equal(head.titles.length, 1, `${path}: exactly one SSR title`);
@@ -93,6 +105,7 @@ try {
       checkNonce(res, html, pathname);
       const head = await readHead(html);
       checkTitle(head, pathname);
+      checkReviewHead(head, pathname);
       assert.equal(head.lang, locale);
       assert.equal(head.robots, indexable ? 'index, follow' : 'noindex, nofollow');
       assert.deepEqual(head.canonical, [`${siteOrigin}${pathname}`]);
@@ -112,6 +125,7 @@ try {
       checkNonce(res, html, path);
       const head = await readHead(html);
       checkTitle(head, path);
+      checkReviewHead(head, path);
       assert.equal(head.robots, 'noindex, nofollow');
       assert.deepEqual(head.canonical, [], `${path}: no public canonical`);
     }
@@ -144,7 +158,17 @@ try {
   for (const path of ['/invalid/wc', '/ja/missing', '/api/missing', '/missing']) {
     const res = await request(path, { redirect: 'manual' });
     assert.equal(res.status, 404, path);
-    checkTitle(await readHead(await res.text()), path);
+    const head = await readHead(await res.text());
+    checkTitle(head, path);
+    assert.deepEqual(head.robotsTags, ['noindex, nofollow'], `${path}: errors are not indexable`);
+    assert.equal(head.adScripts, 0);
+  }
+  for (const path of ['/ja/math/test', '/en/math/test/placement']) {
+    const res = await request(path);
+    assert.equal(res.status, 200, path);
+    const head = await readHead(await res.text());
+    checkReviewHead(head, path);
+    assert.deepEqual(head.robotsTags, ['noindex, nofollow'], `${path}: practice tests have only a noindex directive`);
   }
   for (const path of ['/icon.svg', '/apple-icon.png', '/opengraph-image.png']) {
     const asset = await request(path);
@@ -213,6 +237,22 @@ try {
     assert.equal(await page.locator('title').count(), 1, `${path}: hydrated title`);
     assert.ok((await page.title()).trim());
   }
+  // New visitors can choose a task without entering a search or using hover.
+  for (const locale of locales) {
+    await go(`/${locale}`);
+    const start = page.locator('[data-search="start"]');
+    assert.equal(await start.locator('article').count(), 4);
+    for (const target of ['/metadata', '/mosaic', '/wc', '/date-calc', '/sql', '/json', '/math/arith/order-of-operations', '/math']) {
+      await start.locator(`a[href="/${locale}${target}"]`).waitFor();
+    }
+    await start.locator(`a[href="/${locale}/wc"]`).click();
+    await page.waitForURL(`**/${locale}/wc`);
+    await page.locator('[data-tool-example]').waitFor();
+    assert.equal(await page.locator('[data-tool-example]').count(), 1);
+    await page.locator('[data-tool-about] a[href$="/about#contact"]').click();
+    await page.waitForURL(`**/${locale}/about#contact`);
+    await page.locator('#contact a[href="mailto:support@paibot.app"]').waitFor();
+  }
   // The top page is a search: it finds an app by its name or keywords, and says so when nothing matches.
   for (const [locale, query, href] of [['ja', 'json', '/ja/json'], ['en', 'json', '/en/json'], ['zh', 'json', '/zh/json'], ['ja', '文字数', '/ja/wc'], ['en', 'password', '/en/password']]) {
     await go(`/${locale}`);
@@ -277,8 +317,16 @@ try {
   console.log('PASS: client-side locale navigation and persisted theme');
   for (const auth of ['sign-in', 'sign-up']) {
     await go(`/ja/${auth}`);
-    const field = auth === 'sign-in' ? 'identifier' : 'emailAddress';
-    await page.locator(`input[name="${field}"]`).waitFor({ timeout: 20000 });
+    if (authMode === 'google-only') {
+      const google = page.getByRole('button', { name: 'Googleで続ける', exact: true });
+      await google.waitFor({ timeout: 20000 });
+      assert.equal(await google.isEnabled(), true, `${auth}: Google authentication is available`);
+      assert.equal(await page.locator('.cl-socialButtonsBlockButton').count(), 1, `${auth}: Google is the only social provider`);
+      assert.equal(await page.locator('input:not([type="hidden"])').count(), 0, `${auth}: no email, password, phone or username form`);
+    } else {
+      const field = auth === 'sign-in' ? 'identifier' : 'emailAddress';
+      await page.locator(`input[name="${field}"]`).waitFor({ timeout: 20000 });
+    }
   }
   assert.deepEqual(pageErrors, [], 'uncaught browser errors');
   assert.deepEqual(consoleErrors, [], 'browser console errors');

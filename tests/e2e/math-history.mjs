@@ -36,14 +36,17 @@ async function play(page, correct) {
     await main.getByRole('button', { name: index + 1 < problems.length ? 'Next question' : 'See results' }).click();
   }
   await main.getByText(`${correct} / ${problems.length} correct`).waitFor();
-  const status = main.locator('[role=status]');
-  await page.waitForFunction(() => document.querySelector('main [role=status]')?.textContent?.trim());
+  // The save line has its own marker: the share buttons above it have a role=status of their own, empty until used.
+  const status = main.locator('[data-math-save]');
+  await page.waitForFunction(() => document.querySelector('main [data-math-save]')?.textContent?.trim());
   return (await status.textContent()).trim();
 }
-// The set's card on its learning item's page shows the latest and best score.
+// The set's card on its learning item's page shows the latest and best score. The page's "start" link can go to the
+// same set, so the card is picked by data-playable, which only the set cards carry.
+const CARD = `main a[data-playable][href="/en/math/arith/${ITEM}/${SET}"]`;
 async function cardRecord(page) {
   await page.goto(`${base}/en/math/arith/${ITEM}`);
-  const card = page.locator(`main a[href="/en/math/arith/${ITEM}/${SET}"]`);
+  const card = page.locator(CARD);
   await card.waitFor();
   return (await card.textContent()).match(/Last .*$/)?.[0] ?? null;
 }
@@ -65,18 +68,18 @@ try {
   await clerk.signOut({ page });
   assert.equal(await play(page, 3), 'Sign in to keep a record of your scores.');
   assert.equal(await cardRecord(page), null, 'signed-out visitors see no records');
-  assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}/${SET}"]`).getAttribute('data-done'), 'true', 'a set finished without signing in is green, from this browser');
+  assert.equal(await page.locator(CARD).getAttribute('data-done'), 'true', 'a set finished without signing in is green, from this browser');
   console.log('PASS: signed-out attempts are not saved and point to signing in; the finished set is green in this browser');
   // What follows checks the account's own records, without this browser's.
   await page.evaluate(() => localStorage.removeItem('math-done:v1'));
 
   await clerk.signIn({ page, signInParams: { strategy: 'email_code', identifier: email } });
   assert.equal(await cardRecord(page), null, 'a new user starts with no records');
-  assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}/${SET}"]`).getAttribute('data-done'), null, 'a new user has nothing green');
+  assert.equal(await page.locator(CARD).getAttribute('data-done'), null, 'a new user has nothing green');
   assert.equal(await play(page, 4), 'Your score has been saved.');
   assert.equal(await cardRecord(page), 'Last 4 / 5 · Best 4 / 5');
   // A finished practice card is green on its item's page, and so is the item in the unit's page and in the list.
-  assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}/${SET}"]`).getAttribute('data-done'), 'true');
+  assert.equal(await page.locator(CARD).getAttribute('data-done'), 'true');
   await page.goto(`${base}/en/math/arith`);
   assert.equal(await page.locator(`main a[href="/en/math/arith/${ITEM}"]`).getAttribute('data-done'), 'true', "the unit's page shows the finished item green");
   await page.goto(`${base}/en/math`);

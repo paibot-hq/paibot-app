@@ -20,6 +20,7 @@ export function LegalPage({ document }: { document: LegalDocument }) {
           <h2>{section.heading}</h2>
           {section.paragraphs?.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
           {section.items && <ul>{section.items.map(item => <li key={item}>{item}</li>)}</ul>}
+          {section.links && <ul>{section.links.map(link => <li key={link.href}><a href={link.href}>{link.label}</a></li>)}</ul>}
         </section>
       ))}
     </article>

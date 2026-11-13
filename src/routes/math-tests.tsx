@@ -14,6 +14,7 @@ import type { Route } from './+types/math-tests';
 
 // The tests side of /math: by school year, by Suken level (Japanese only) and several years at once. Only the tests whose every part
 // has enough published problems are offered.
+export const handle = { noindex: true };
 export async function loader() {
   const counts = await getGradeCounts();
   const offered = (test: TestDef) => test.parts.every(part => part.grades.reduce((sum, grade) => sum + (counts[grade]?.problems ?? 0), 0) >= part.size);
@@ -32,7 +33,6 @@ export default function MathTests({ loaderData: { tests } }: Route.ComponentProp
   const chip = (test: TestDef, label: string) => <li key={test.id}><Link href={`/math/test/${test.id}`} className={styles.chip}>{label}</Link></li>;
   return <>
     <title>{`${tt('title')} | PAIBOT.app`}</title>
-    <meta name="robots" content="noindex" />
     <ToolLayout title={t('title')} centerTitle compact>
       <MathHomeHeader mode="test" />
       <Link href="/math/test/placement" className={styles.placement} data-math-placement>

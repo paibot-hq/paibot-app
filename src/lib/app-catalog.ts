@@ -2,13 +2,10 @@
 // Node scripts such as tests/e2e/smoke.mjs can import it and derive their
 // expectations instead of repeating the list.
 
-export type AppCategory = "study" | "dev" | "utility" | "network" | "game" | "daily";
-
-// Display order for category sections on /apps.
-export const APP_CATEGORIES: AppCategory[] = ["daily", "game", "utility", "study", "dev", "network"];
-
-// The categories listed on the top page's search as apps; study is the math drills, dev and network the developer tools.
-export const APP_SITE_CATEGORIES: AppCategory[] = ["daily", "game", "utility"];
+// What an app is for or about. An app has one to three; its first gives its card its colour and its place on /apps, where
+// the tags (names under App.tags in messages/*.json) narrow the list, in this order.
+export const APP_TAGS = ["game", "learn", "math", "science", "art", "fortune", "text", "photo", "calc", "time", "sound", "info", "security", "document", "ai", "dev", "network"] as const;
+export type AppTag = (typeof APP_TAGS)[number];
 
 export type AppData = {
   // Unique, stable id. Matches the route slug for published apps; for a
@@ -17,7 +14,7 @@ export type AppData = {
   // Omitted for apps that don't have a page yet — rendered as a
   // non-interactive card instead of a link.
   href?: string;
-  category: AppCategory;
+  tags: readonly [AppTag, ...AppTag[]];
   status: "published" | "comingSoon";
   // Key under the `App` namespace in messages/*.json holding this app's
   // `title`/`description`/`keywords` (e.g. "json" → App.json.title).
@@ -28,90 +25,91 @@ export type AppData = {
 };
 
 export const APP_CATALOG = [
-  { slug: "color-trick", href: "/color-trick", category: "game", status: "published", messageKey: "colorTrick" },
+  { slug: "color-trick", href: "/color-trick", tags: ["game"], status: "published", messageKey: "colorTrick" },
   // 学習 / Study
-  { slug: "math", href: "/math", category: "study", status: "published", messageKey: "math" },
-  { slug: "quiz", href: "/quiz", category: "game", status: "published", messageKey: "quiz" },
-  { slug: "arith", href: "/arith", category: "study", status: "published", messageKey: "arith" },
+  { slug: "math", href: "/math", tags: ["learn", "math"], status: "published", messageKey: "math" },
+  { slug: "quiz", href: "/quiz", tags: ["game", "learn"], status: "published", messageKey: "quiz" },
+  { slug: "arith", href: "/arith", tags: ["learn", "math"], status: "published", messageKey: "arith" },
 
   // 開発 / Dev
-  { slug: "json", href: "/json", category: "dev", status: "published", messageKey: "json" },
-  { slug: "base64", href: "/base64", category: "dev", status: "published", messageKey: "base64" },
-  { slug: "urlencode", href: "/urlencode", category: "dev", status: "published", messageKey: "urlencode" },
-  { slug: "llm-memory", href: "/llm-memory", category: "dev", status: "published", messageKey: "llmMemory" },
-  { slug: "code-runner", href: "/code-runner", category: "dev", status: "published", messageKey: "codeRunner" },
-  { slug: "sql", href: "/sql", category: "dev", status: "published", messageKey: "sql" },
-  { slug: "browser-ai", href: "/browser-ai", category: "dev", status: "published", messageKey: "browserAi" },
+  { slug: "linux", href: "/linux", tags: ["dev", "learn"], status: "published", messageKey: "linux" },
+  { slug: "json", href: "/json", tags: ["dev", "text"], status: "published", messageKey: "json" },
+  { slug: "base64", href: "/base64", tags: ["dev", "text"], status: "published", messageKey: "base64" },
+  { slug: "urlencode", href: "/urlencode", tags: ["dev", "text"], status: "published", messageKey: "urlencode" },
+  { slug: "llm-memory", href: "/llm-memory", tags: ["ai", "calc"], status: "published", messageKey: "llmMemory" },
+  { slug: "code-runner", href: "/code-runner", tags: ["dev", "learn"], status: "published", messageKey: "codeRunner" },
+  { slug: "sql", href: "/sql", tags: ["dev", "learn"], status: "published", messageKey: "sql" },
+  { slug: "browser-ai", href: "/browser-ai", tags: ["ai"], status: "published", messageKey: "browserAi" },
 
   // ユーティリティ / Utility
-  { slug: "wc", href: "/wc", category: "utility", status: "published", messageKey: "wc" },
-  { slug: "mosaic", href: "/mosaic", category: "utility", status: "published", messageKey: "mosaic" },
-  { slug: "password", href: "/password", category: "utility", status: "published", messageKey: "password" },
-  { slug: "life", href: "/life", category: "game", status: "published", messageKey: "life" },
-  { slug: "pendulum", href: "/pendulum", category: "game", status: "published", messageKey: "pendulum" },
-  { slug: "fourier", href: "/fourier", category: "game", status: "published", messageKey: "fourier" },
-  { slug: "series", href: "/series", category: "game", status: "published", messageKey: "series" },
-  { slug: "stocks", href: "/stocks", category: "utility", status: "published", messageKey: "stocks" },
-  { slug: "quake", href: "/quake", category: "daily", status: "published", messageKey: "quake" },
-  { slug: "warnings", href: "/warnings", category: "daily", status: "published", messageKey: "warnings" },
-  { slug: "approx", href: "/approx", category: "game", status: "published", messageKey: "approx" },
-  { slug: "collector", href: "/collector", category: "game", status: "published", messageKey: "collector" },
-  { slug: "govfaq", href: "/govfaq", category: "daily", status: "published", messageKey: "govfaq" },
-  { slug: "metadata", href: "/metadata", category: "utility", status: "published", messageKey: "metadata" },
-  { slug: "grapher", href: "/grapher", category: "utility", status: "published", messageKey: "grapher" },
-  { slug: "noise", href: "/noise", category: "utility", status: "published", messageKey: "noise" },
-  { slug: "stopwatch", href: "/stopwatch", category: "utility", status: "published", messageKey: "stopwatch" },
-  { slug: "metronome", href: "/metronome", category: "utility", status: "published", messageKey: "metronome" },
-  { slug: "business-card", href: "/business-card", category: "utility", status: "published", messageKey: "businessCard" },
-  { slug: "resignation", href: "/resignation", category: "utility", status: "published", messageKey: "resignation" },
-  { slug: "tax", href: "/tax", category: "utility", status: "published", messageKey: "tax" },
-  { slug: "split", href: "/split", category: "utility", status: "published", messageKey: "split" },
-  { slug: "unit-converter", href: "/unit-converter", category: "utility", status: "published", messageKey: "unitConverter" },
+  { slug: "wc", href: "/wc", tags: ["text"], status: "published", messageKey: "wc" },
+  { slug: "mosaic", href: "/mosaic", tags: ["photo", "security"], status: "published", messageKey: "mosaic" },
+  { slug: "password", href: "/password", tags: ["security"], status: "published", messageKey: "password" },
+  { slug: "life", href: "/life", tags: ["science", "math"], status: "published", messageKey: "life" },
+  { slug: "pendulum", href: "/pendulum", tags: ["science"], status: "published", messageKey: "pendulum" },
+  { slug: "fourier", href: "/fourier", tags: ["math", "art"], status: "published", messageKey: "fourier" },
+  { slug: "series", href: "/series", tags: ["math"], status: "published", messageKey: "series" },
+  { slug: "stocks", href: "/stocks", tags: ["info"], status: "published", messageKey: "stocks" },
+  { slug: "quake", href: "/quake", tags: ["info"], status: "published", messageKey: "quake" },
+  { slug: "warnings", href: "/warnings", tags: ["info"], status: "published", messageKey: "warnings" },
+  { slug: "approx", href: "/approx", tags: ["math", "game"], status: "published", messageKey: "approx" },
+  { slug: "collector", href: "/collector", tags: ["math"], status: "published", messageKey: "collector" },
+  { slug: "govfaq", href: "/govfaq", tags: ["info"], status: "published", messageKey: "govfaq" },
+  { slug: "metadata", href: "/metadata", tags: ["photo", "security"], status: "published", messageKey: "metadata" },
+  { slug: "grapher", href: "/grapher", tags: ["math", "calc"], status: "published", messageKey: "grapher" },
+  { slug: "noise", href: "/noise", tags: ["sound"], status: "published", messageKey: "noise" },
+  { slug: "stopwatch", href: "/stopwatch", tags: ["time"], status: "published", messageKey: "stopwatch" },
+  { slug: "metronome", href: "/metronome", tags: ["sound", "time"], status: "published", messageKey: "metronome" },
+  { slug: "business-card", href: "/business-card", tags: ["document"], status: "published", messageKey: "businessCard" },
+  { slug: "resignation", href: "/resignation", tags: ["document"], status: "published", messageKey: "resignation" },
+  { slug: "tax", href: "/tax", tags: ["calc"], status: "published", messageKey: "tax" },
+  { slug: "split", href: "/split", tags: ["calc"], status: "published", messageKey: "split" },
+  { slug: "unit-converter", href: "/unit-converter", tags: ["calc"], status: "published", messageKey: "unitConverter" },
 
   // ネットワーク / Network
-  { slug: "ip", href: "/ip", category: "network", status: "published", messageKey: "ip" },
-  { slug: "domain", href: "/domain", category: "network", status: "published", messageKey: "domain" },
-  { slug: "cidr", href: "/cidr", category: "network", status: "published", messageKey: "cidr" },
-  { slug: "site-check", href: "/site-check", category: "network", status: "published", messageKey: "siteCheck" },
+  { slug: "ip", href: "/ip", tags: ["network"], status: "published", messageKey: "ip" },
+  { slug: "domain", href: "/domain", tags: ["network"], status: "published", messageKey: "domain" },
+  { slug: "cidr", href: "/cidr", tags: ["network", "calc"], status: "published", messageKey: "cidr" },
+  { slug: "site-check", href: "/site-check", tags: ["network"], status: "published", messageKey: "siteCheck" },
 
   // ゲーム / Game
-  { slug: "dice", href: "/dice", category: "game", status: "published", messageKey: "dice" },
-  { slug: "reaction", href: "/reaction", category: "game", status: "published", messageKey: "reaction" },
-  { slug: "typing", href: "/typing", category: "game", status: "published", messageKey: "typing" },
-  { slug: "iq-test", href: "/iq-test", category: "game", status: "published", messageKey: "iqTest" },
-  { slug: "personality", href: "/personality", category: "game", status: "published", messageKey: "personality" },
-  { slug: "timing", href: "/timing", category: "game", status: "published", messageKey: "timing" },
-  { slug: "pinball", href: "/pinball", category: "game", status: "published", messageKey: "pinball" },
-  { slug: "strings", href: "/strings", category: "game", status: "published", messageKey: "strings" },
-  { slug: "koma", href: "/koma", category: "game", status: "published", messageKey: "koma" },
-  { slug: "polyhedra", href: "/polyhedra", category: "game", status: "published", messageKey: "polyhedra" },
-  { slug: "balls", href: "/balls", category: "game", status: "published", messageKey: "balls" },
-  { slug: "kaleidoscope", href: "/kaleidoscope", category: "game", status: "published", messageKey: "kaleidoscope" },
-  { slug: "glitch", href: "/glitch", category: "game", status: "published", messageKey: "glitch" },
-  { slug: "random-video", href: "/random-video", category: "game", status: "published", messageKey: "randomVideo" },
-  { slug: "circle", href: "/circle", category: "game", status: "published", messageKey: "circle" },
+  { slug: "dice", href: "/dice", tags: ["game"], status: "published", messageKey: "dice" },
+  { slug: "reaction", href: "/reaction", tags: ["game"], status: "published", messageKey: "reaction" },
+  { slug: "typing", href: "/typing", tags: ["game", "text"], status: "published", messageKey: "typing" },
+  { slug: "iq-test", href: "/iq-test", tags: ["fortune"], status: "published", messageKey: "iqTest" },
+  { slug: "personality", href: "/personality", tags: ["fortune"], status: "published", messageKey: "personality" },
+  { slug: "timing", href: "/timing", tags: ["game", "time"], status: "published", messageKey: "timing" },
+  { slug: "pinball", href: "/pinball", tags: ["game", "science"], status: "published", messageKey: "pinball" },
+  { slug: "strings", href: "/strings", tags: ["sound", "science"], status: "published", messageKey: "strings" },
+  { slug: "koma", href: "/koma", tags: ["game", "science"], status: "published", messageKey: "koma" },
+  { slug: "polyhedra", href: "/polyhedra", tags: ["math", "art"], status: "published", messageKey: "polyhedra" },
+  { slug: "balls", href: "/balls", tags: ["game"], status: "published", messageKey: "balls" },
+  { slug: "kaleidoscope", href: "/kaleidoscope", tags: ["art"], status: "published", messageKey: "kaleidoscope" },
+  { slug: "glitch", href: "/glitch", tags: ["art"], status: "published", messageKey: "glitch" },
+  { slug: "random-video", href: "/random-video", tags: ["art"], status: "published", messageKey: "randomVideo" },
+  { slug: "circle", href: "/circle", tags: ["game"], status: "published", messageKey: "circle" },
 
   // 日常 / Daily
-  { slug: "calendar", href: "/calendar", category: "daily", status: "published", messageKey: "calendar" },
-  { slug: "life-calendar", href: "/life-calendar", category: "daily", status: "published", messageKey: "lifeCalendar" },
-  { slug: "puchi", href: "/puchi", category: "game", status: "published", messageKey: "puchi" },
-  { slug: "crane-game", href: "/crane-game", category: "game", status: "published", messageKey: "craneGame" },
-  { slug: "fruit-merge", href: "/fruit-merge", category: "game", status: "published", messageKey: "fruitMerge" },
-  { slug: "goldfish", href: "/goldfish", category: "game", status: "published", messageKey: "goldfish" },
-  { slug: "goldfish-escape", href: "/goldfish-escape", category: "game", status: "published", messageKey: "goldfishEscape" },
-  { slug: "code-draw", href: "/code-draw", category: "game", status: "published", messageKey: "codeDraw" },
-  { slug: "number-merge", href: "/number-merge", category: "game", status: "published", messageKey: "numberMerge" },
-  { slug: "fireworks", href: "/fireworks", category: "game", status: "published", messageKey: "fireworks" },
-  { slug: "clock", href: "/clock", category: "daily", status: "published", messageKey: "clock" },
-  { slug: "heart-rate", href: "/heart-rate", category: "daily", status: "published", messageKey: "heartRate" },
-  { slug: "diary", href: "/diary", category: "daily", status: "published", messageKey: "diary", private: true },
-  { slug: "breaches", href: "/breaches", category: "daily", status: "published", messageKey: "breaches" },
-  { slug: "birthday-fortune", href: "/birthday-fortune", category: "daily", status: "published", messageKey: "birthdayFortune" },
-  { slug: "omikuji", href: "/omikuji", category: "daily", status: "published", messageKey: "omikuji" },
-  { slug: "age", href: "/age", category: "daily", status: "published", messageKey: "age" },
-  { slug: "date-calc", href: "/date-calc", category: "daily", status: "published", messageKey: "dateCalc" },
-  { slug: "pomodoro", href: "/pomodoro", category: "daily", status: "published", messageKey: "pomodoro" },
-  { slug: "roulette", href: "/roulette", category: "game", status: "published", messageKey: "roulette" },
+  { slug: "calendar", href: "/calendar", tags: ["time"], status: "published", messageKey: "calendar" },
+  { slug: "life-calendar", href: "/life-calendar", tags: ["time"], status: "published", messageKey: "lifeCalendar" },
+  { slug: "puchi", href: "/puchi", tags: ["game"], status: "published", messageKey: "puchi" },
+  { slug: "crane-game", href: "/crane-game", tags: ["game"], status: "published", messageKey: "craneGame" },
+  { slug: "fruit-merge", href: "/fruit-merge", tags: ["game"], status: "published", messageKey: "fruitMerge" },
+  { slug: "goldfish", href: "/goldfish", tags: ["art", "science"], status: "published", messageKey: "goldfish" },
+  { slug: "goldfish-escape", href: "/goldfish-escape", tags: ["game"], status: "published", messageKey: "goldfishEscape" },
+  { slug: "code-draw", href: "/code-draw", tags: ["art", "learn"], status: "published", messageKey: "codeDraw" },
+  { slug: "number-merge", href: "/number-merge", tags: ["game", "math"], status: "published", messageKey: "numberMerge" },
+  { slug: "fireworks", href: "/fireworks", tags: ["art"], status: "published", messageKey: "fireworks" },
+  { slug: "clock", href: "/clock", tags: ["time"], status: "published", messageKey: "clock" },
+  { slug: "heart-rate", href: "/heart-rate", tags: ["science"], status: "published", messageKey: "heartRate" },
+  { slug: "diary", href: "/diary", tags: ["text", "time"], status: "published", messageKey: "diary", private: true },
+  { slug: "breaches", href: "/breaches", tags: ["info", "security"], status: "published", messageKey: "breaches" },
+  { slug: "birthday-fortune", href: "/birthday-fortune", tags: ["fortune"], status: "published", messageKey: "birthdayFortune" },
+  { slug: "omikuji", href: "/omikuji", tags: ["fortune"], status: "published", messageKey: "omikuji" },
+  { slug: "age", href: "/age", tags: ["time", "calc"], status: "published", messageKey: "age" },
+  { slug: "date-calc", href: "/date-calc", tags: ["time", "calc"], status: "published", messageKey: "dateCalc" },
+  { slug: "pomodoro", href: "/pomodoro", tags: ["time"], status: "published", messageKey: "pomodoro" },
+  { slug: "roulette", href: "/roulette", tags: ["game"], status: "published", messageKey: "roulette" },
 ] as const satisfies readonly AppData[];
 
 export type AppSlug = (typeof APP_CATALOG)[number]["slug"];
@@ -120,8 +118,10 @@ export type AppSlug = (typeof APP_CATALOG)[number]["slug"];
 // the tools people search for and the ones found nowhere else. Every other tool is found by the search box or on /apps.
 export const FEATURED_SLUGS: readonly AppSlug[] = ["math", "breaches", "date-calc", "wc", "tax", "password", "metadata", "mosaic"];
 
-// The tools to go to from a tool's page: those of the same kind first, then the others, up to six, so that every page links onwards.
+// The apps to go to from an app's page: those sharing the most tags first (in catalog order among equals), up to six, so that
+// every page links onwards.
 export function relatedApps(app: AppData, list: readonly AppData[] = APP_CATALOG, limit = 6): AppData[] {
   const published = list.filter(other => other.status === "published" && other.href && !other.private && other.slug !== app.slug);
-  return [...published.filter(other => other.category === app.category), ...published.filter(other => other.category !== app.category)].slice(0, limit);
+  const shared = (other: AppData) => other.tags.filter(tag => app.tags.includes(tag)).length;
+  return published.map((other, index) => ({ other, index, n: shared(other) })).sort((a, b) => b.n - a.n || a.index - b.index).slice(0, limit).map(entry => entry.other);
 }

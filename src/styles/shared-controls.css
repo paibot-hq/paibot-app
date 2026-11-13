@@ -15,6 +15,11 @@
 }
 
 .auth-link:hover { border-color: var(--accent); }
+.toolbar .auth-link { padding: .45rem .75rem; border-radius: 999px; font-weight: 600; }
+.toolbar .auth-link[href*="/sign-in"] { border-color: transparent; background: transparent; }
+.toolbar .auth-link[href*="/sign-in"]:hover { background: var(--surface-strong); border-color: var(--line); }
+.toolbar .auth-link[href*="/sign-up"] { border-color: var(--accent); background: var(--accent); color: light-dark(#fff, #0d1117); }
+.toolbar .auth-link[href*="/sign-up"]:hover { filter: brightness(1.08); }
 .auth-link:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
 .topbar, .toolbar { flex-wrap: wrap; }
 .auth-page { display: grid; place-items: start center; padding: 3rem 1rem; min-height: 70vh; }

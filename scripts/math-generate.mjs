@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { context, root, promptFile, extractJSON, additions, formatBank, saveWork, run, blindProblem, isFormulaUnit } from './math-pipeline.mjs';
+import { context, root, promptFile, extractJSON, additions, formatBank, saveWork, run, write, blindProblem, isFormulaUnit } from './math-pipeline.mjs';
 
 let temp;
 try {
@@ -26,7 +26,7 @@ try {
     `${count}問作ること。追加先の position は ${position} から。問題順の条件は追加先の position に合わせること。id・setId・position・published・reviewedAt は出力しない。`].join('\n\n');
   temp = mkdtempSync(join(tmpdir(), 'math-generate-'));
   let raw;
-  try { raw = run('agy', ['--sandbox', '--print-timeout', '10m', '-p', prompt], temp); }
+  try { raw = write(prompt, temp); }
   catch (error) { const saved = saveWork(`generate-${unit}-error`, error.message, 'txt'); throw new Error(`${error.message}\nSaved: ${saved}`); }
   let newProblems;
   try { newProblems = additions(unit, item, setId, bank, extractJSON(raw, 'problems'), count, undefined, tier); }

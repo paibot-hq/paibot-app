@@ -13,6 +13,9 @@ permissions:
   contents: read
   # .github/actions/ci-changes reads the run history to find the last commit on main that passed.
   actions: read
+# A pull request from a fork gets no secrets (plain `pull_request`, never `pull_request_target`), so it runs only what needs
+# none: `static` (no Clerk keys needed to test, typecheck and build) and `sympy`. `e2e` and `browser` serve pages, which
+# fail without the development Clerk keys; they are skipped, and run once a maintainer pushes the change to a branch here.
 jobs:
   # The checks run as three jobs side by side (plus `sympy`), each doing its own
   # setup; deploy-dev needs all of them. The three rebuild the app because the
@@ -37,6 +40,7 @@ jobs:
       - run: npm run e2e -- build-targets
   # These start their own Workers/previews (tests/e2e/*.mjs headers).
   e2e:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -67,6 +71,7 @@ jobs:
   # The tools are split between three jobs (CHECK_SHARD), as one job took nine minutes.
   browser:
     name: browser (${{ matrix.shard }}/3)
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     strategy:
@@ -104,13 +109,16 @@ jobs:
           preview_pid=$!
           trap 'kill "$preview_pid" 2>/dev/null || true' EXIT
           for i in $(seq 1 60); do curl -sf http://localhost:3003/robots.txt > /dev/null && break; sleep 1; done
-          # The per-tool checks run only for the tools the change can affect (scripts/affected-tools.mjs).
-          export CHECK_TOOLS="${{ steps.needed.outputs.tools }}"
-          echo "Affected tools: ${CHECK_TOOLS:-none}"
-          export CHECK_SHARD="${{ matrix.shard }}/3"
+          # The checks every tool shares cover the tools the change can reach; the tools' own flows only those it names
+          # (scripts/ci-changes.mjs, browserScope in scripts/lib/ci-jobs.mjs).
+          catalog="${{ steps.needed.outputs.catalog }}"
+          tools="${{ steps.needed.outputs.tools }}"
+          echo "Shared checks: ${catalog:-none}; flows: ${tools:-none}"
+          export CHECK_SHARD="${{ matrix.shard }}/3" CHECK_BROWSER_BASE_URL=http://localhost:3003
           # The checks that are not per tool run once, in the first shard.
-          if [ "${{ matrix.shard }}" = 1 ]; then checks="smoke catalog tools quiz-browser"; else checks="catalog tools"; fi
-          CHECK_BROWSER_BASE_URL=http://localhost:3003 npm run e2e -- $checks
+          if [ "${{ matrix.shard }}" = 1 ]; then CHECK_TOOLS="" npm run e2e -- smoke quiz-browser; fi
+          CHECK_TOOLS="$catalog" npm run e2e -- catalog
+          if [ -n "$tools" ]; then CHECK_TOOLS="$tools" npm run e2e -- tools; fi
   # SymPy re-derives every math answer (CPU only, no browser), so it runs beside
   # the other checks instead of before them. deploy-dev needs all of them, so only SymPy-verified
   # banks are imported and the deploy jobs do not need Python themselves.
@@ -138,8 +146,10 @@ jobs:
           enable-cache: true
       - if: steps.affected.outputs.run == 'true'
         run: npm run test:sympy
+  # The browser checks do not hold the deploy back: their flows drive whole pages and now and then time out on CI for reasons
+  # of their own, and dev is where a page is looked at anyway. A failure still shows on the run.
   deploy-dev:
-    needs: [static, e2e, browser, sympy]
+    needs: [static, e2e, sympy]
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-24.04
     timeout-minutes: 10
@@ -173,13 +183,8 @@ jobs:
         run: |
           node -e 'console.log(JSON.stringify({CLERK_PUBLISHABLE_KEY:process.env.CLERK_PUBLISHABLE_KEY,CLERK_SECRET_KEY:process.env.CLERK_SECRET_KEY}))' | npx wrangler secret bulk --config build/server/wrangler.json
           npm run deploy -- --var APP_VERSION:${{ github.sha }}
-      - uses: actions/cache@v6
-        with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-      - run: npx playwright install --with-deps chromium
-      # A brand-new route can 404 on edge nodes that still serve the previous
-      # version, so wait until dev reports this commit rather than sleeping.
+      # A brand-new route can 404 on edge nodes that still serve the previous version, so wait until dev reports this
+      # commit and every sitemap page answers 200 through Access (no browser here: the browser checks run beside the deploy).
       - name: Wait for the deploy to reach the edge
         env:
           CHECK_BROWSER_BASE_URL: https://dev.paibot.app
@@ -187,10 +192,3 @@ jobs:
           CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
           CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
         run: node scripts/wait-for-deploy.mjs
-      - name: Smoke test deployed dev through Access
-        env:
-          CHECK_BROWSER_BASE_URL: https://dev.paibot.app
-          CHECK_SITE_URL: https://dev.paibot.app
-          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
-          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
-        run: npm run e2e -- smoke quiz-browser

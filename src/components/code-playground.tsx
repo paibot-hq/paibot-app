@@ -56,6 +56,7 @@ export default function CodePlayground({ title, intro, storageKey, languages }: 
   const stoppedRef = useRef(false);
   const tabLeaves = useRef(false);
   const loaded = useRef(new Set<string>());
+  const selection = useRef(0);
 
   const language = languages.find(l => l.id === languageId) ?? languages[0];
   const { runner, examples, indent, opensBlock } = language;
@@ -73,11 +74,11 @@ export default function CodePlayground({ title, intro, storageKey, languages }: 
     setCodes(saved);
     setInputs(savedInputs);
     const hash = new URLSearchParams(location.hash.slice(1));
-    const chosen = languages.find(l => l.id === (hash.get("lang") ?? load(`${storageKey}:language`)))?.id ?? languages[0].id;
+    const chosen = languages.find(l => l.id === (hash.get("lang") ?? (hash.has("code") ? languages[0].id : load(`${storageKey}:language`))))?.id ?? languages[0].id;
     choose(chosen);
     const shared = hash.get("code");
     if (shared && /^[\w-]+$/.test(shared)) decodeCode(shared).then(text => setCodes(all => ({ ...all, [chosen]: text }))).catch(() => { /* a broken link keeps the example */ });
-    return () => languages.forEach(l => l.runner.stop());
+    return () => { selection.current++; languages.forEach(l => l.runner.stop()); };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -86,6 +87,7 @@ export default function CodePlayground({ title, intro, storageKey, languages }: 
   function choose(id: string) {
     const next = languages.find(l => l.id === id);
     if (!next) return;
+    const turn = ++selection.current;
     if (status === "running") stop();
     setLanguageId(id);
     save(`${storageKey}:language`, id);
@@ -94,8 +96,8 @@ export default function CodePlayground({ title, intro, storageKey, languages }: 
     if (!next.runner.prepare || loaded.current.has(id)) { setStatus("idle"); return; }
     setStatus("preparing");
     next.runner.prepare().then(
-      () => { loaded.current.add(id); setStatus(current => (current === "preparing" ? "idle" : current)); },
-      () => setStatus("failedToLoad"),
+      () => { loaded.current.add(id); if (selection.current === turn) setStatus(current => current === "preparing" ? "idle" : current); },
+      () => { if (selection.current === turn) setStatus("failedToLoad"); },
     );
   }
 
@@ -115,14 +117,16 @@ export default function CodePlayground({ title, intro, storageKey, languages }: 
     setOutput([]);
     setErrorLine(null);
     setStatus("running");
+    const turn = selection.current;
     const started = performance.now();
     try {
-      const result = await runner.run(code, stdin, item => setOutput(list => [...list, item]));
+      const result = await runner.run(code, stdin, item => { if (selection.current === turn) setOutput(list => [...list, item]); });
+      if (selection.current !== turn) return;
       setElapsed(Math.round(performance.now() - started));
       setErrorLine(result.line ?? null);
       setStatus(stoppedRef.current ? "stopped" : result.ok ? "done" : "error");
     } catch {
-      setStatus("failedToLoad");
+      if (selection.current === turn) setStatus("failedToLoad");
     }
   }
   function stop() {

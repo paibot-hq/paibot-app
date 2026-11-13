@@ -2,7 +2,7 @@ import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import initSqlJs from 'sql.js';
 import { sampleSql, TABLES } from './sample.ts';
-import { EXAMPLES } from './examples.ts';
+import { EXAMPLES, POSTGRES_EXAMPLES } from './examples.ts';
 
 const SQL = await initSqlJs();
 const open = locale => { const db = new SQL.Database(); db.exec(sampleSql(locale)); return db; };
@@ -30,4 +30,24 @@ test('every example runs on the sample and returns rows', () => {
     const results = db.exec(example.code);
     assert.ok(results.length > 0 && results.every(r => r.values.length > 0), example.id);
   }
+});
+
+
+test('PostgreSQL supports the localized shop and every dialect-specific example', async () => {
+  const { PGlite } = await import('@electric-sql/pglite');
+  const db = await PGlite.create();
+  try {
+    for (const locale of ['ja', 'en', 'zh']) {
+      await db.exec('DROP SCHEMA public CASCADE; CREATE SCHEMA public;');
+      await db.exec(sampleSql(locale));
+      assert.deepEqual((await db.query('SELECT COUNT(*) AS n FROM products UNION ALL SELECT COUNT(*) FROM customers UNION ALL SELECT COUNT(*) FROM orders')).rows.map(r => Number(r.n)), [10, 6, 20]);
+    }
+    for (const example of POSTGRES_EXAMPLES) {
+      await db.exec('DROP SCHEMA public CASCADE; CREATE SCHEMA public;');
+      await db.exec(sampleSql('en'));
+      const results = await db.exec(example.code);
+      assert.ok(results.some(r => r.fields.length && r.rows.length), example.id);
+      if (example.id === 'window') assert.deepEqual(results[0].rows.map(r => r.month), ['2026-01', '2026-02', '2026-03', '2026-04']);
+    }
+  } finally { await db.close(); }
 });

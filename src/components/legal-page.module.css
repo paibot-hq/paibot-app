@@ -11,3 +11,5 @@
 .rows dt { color: var(--muted); font-size: .9rem; }
 .rows dd { margin: 0; overflow-wrap: anywhere; }
 @media (max-width: 480px) { .rows > div { grid-template-columns: 1fr; gap: .2rem; } }
+
+.document a { color: var(--accent); text-underline-offset: .2em; overflow-wrap: anywhere; }

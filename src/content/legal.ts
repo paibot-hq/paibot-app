@@ -5,14 +5,14 @@ import { CONTACT_EMAIL, SELLER, SUPPORTER_PLAN } from '../lib/plans.ts';
 // translations (each document says so). Record<Locale, ...> makes a missing
 // translation a type error rather than a blank page.
 
-export interface LegalSection { heading: string; paragraphs?: string[]; items?: string[] }
+export interface LegalSection { heading: string; paragraphs?: string[]; items?: string[]; links?: { label: string; href: string }[] }
 export interface LegalDocument { title: string; description: string; updated: string; notice?: string; sections: LegalSection[] }
 export interface CommerceDocument { title: string; description: string; updated: string; notice?: string; rows: [label: string, value: string][] }
 
 const price = { ja: `月額${SUPPORTER_PLAN.priceYen}円（税込）`, en: `¥${SUPPORTER_PLAN.priceYen} per month (tax included)`, zh: `每月${SUPPORTER_PLAN.priceYen}日元（含税）` };
 const updated = { ja: '2026年9月28日 制定', en: 'Established September 28, 2026', zh: '2026年9月28日制定' };
-// The privacy policy was revised when the stock prices page (TradingView widgets) was added; the other documents were not.
-const privacyUpdated = { ja: '2026年9月28日 制定、2026年10月6日 改定', en: 'Established September 28, 2026; revised October 6, 2026', zh: '2026年9月28日制定，2026年10月6日修订' };
+// Privacy disclosures follow the services actually loaded by the app; other documents keep their own dates.
+const privacyUpdated = { ja: '2026年9月28日 制定、2026年11月2日 改定', en: 'Established September 28, 2026; revised November 2, 2026', zh: '2026年9月28日制定，2026年11月2日修订' };
 const referenceNotice = {
   en: 'This is a reference translation. If it differs from the Japanese version, the Japanese version prevails.',
   zh: '本文为参考译文。如与日文版有出入，以日文版为准。',
@@ -213,6 +213,33 @@ export const privacy: Record<Locale, LegalDocument> = {
         'TradingView Inc.（「世界の株価」の株価の表示。利用者が「株価を表示する」を押したときだけ、お使いのブラウザが TradingView に直接接続し、IPアドレスやブラウザの情報、Cookie などが同社に送られます。同社のプライバシーポリシーに従って取り扱われます）',
         'Cloudflare, Inc.の Workers AI（「行政FAQ検索」の意味の検索と、回答の作成。利用者が入力した質問の文章と、見つかった FAQ の本文が、ベクトルへの変換と回答の作成のために送られます。氏名やアカウントの情報は送りません。処理のあとは保存しません）',
       ] },
+      {
+        "heading": "4-2. Cookie・アクセス解析・広告",
+        "paragraphs": [
+          "本サービスでは、ログインの維持や設定の保存にCookieやブラウザのストレージを利用します。ブラウザの設定で削除・制限できますが、ログインや保存した設定など一部の機能が使えなくなる場合があります。",
+          "本番サイトでは、利用状況を把握してサービスを改善するため、Google LLCのGoogle Analyticsを使用しています。Cookieなどの識別子、閲覧したページ、参照元、ブラウザや端末に関する情報などがGoogleに送信され、処理されます。対応するブラウザでは、Googleが提供するオプトアウトアドオンでGoogle Analyticsによるデータの使用を無効にできます。",
+          "Google AdSenseによる広告配信は現在停止しています。配信する場合、Googleを含む第三者配信事業者がCookie、ウェブビーコン、IPアドレスなどを使って情報を収集することがあります。Googleとそのパートナーは、本サイトや他のサイトへの過去のアクセス情報に基づいて広告を表示する場合があります。パーソナライズ広告はGoogleの広告設定などで無効にできます。この設定は、アクセス解析の無効化とは異なります。",
+          "Googleによるデータの利用、プライバシーポリシー、広告設定、Google Analyticsのオプトアウトについては、以下をご確認ください。"
+        ],
+        "links": [
+          {
+            "label": "Googleによるサイト・アプリの情報の利用",
+            "href": "https://policies.google.com/technologies/partner-sites"
+          },
+          {
+            "label": "Googleのプライバシーポリシー",
+            "href": "https://policies.google.com/privacy"
+          },
+          {
+            "label": "Googleの広告設定",
+            "href": "https://adssettings.google.com/"
+          },
+          {
+            "label": "Google Analyticsオプトアウトアドオン",
+            "href": "https://tools.google.com/dlpage/gaoptout"
+          }
+        ]
+      },
       { heading: '5. 安全管理', paragraphs: ['当社は、個人情報の漏えい・滅失・毀損を防ぐため、アクセスの制限など必要かつ適切な安全管理措置を講じます。'] },
       { heading: '6. 開示・訂正・削除などの請求', paragraphs: ['本人から個人情報の開示・訂正・利用停止・削除などの請求があった場合は、本人であることを確認したうえで、法令に従って対応します。日記やプロフィールなど、本サービスの画面から削除できる情報もあります。'] },
       { heading: '7. 未成年の利用者', paragraphs: ['未成年の利用者は、保護者の同意を得たうえで本サービスを利用してください。'] },
@@ -251,6 +278,33 @@ export const privacy: Record<Locale, LegalDocument> = {
         'TradingView Inc. (the display of prices on "World Stock Prices"; only when you press "Show stock prices", your browser connects to TradingView directly, and your IP address, browser information, cookies and similar are sent to it and handled under its privacy policy)',
         'Cloudflare, Inc.\'s Workers AI (the search by meaning and the writing of answers in "Government FAQ Search"; the text of the question you write and the text of the FAQ found for it are sent, to be turned into a vector and to write the answer; no name or account information is sent, and nothing is stored after processing)',
       ] },
+      {
+        "heading": "4-2. Cookies, analytics and advertising",
+        "paragraphs": [
+          "We use cookies and browser storage to maintain sign-in and remember settings. You can delete or restrict them in your browser, but this may prevent sign-in or remove saved preferences.",
+          "The production site uses Google Analytics, provided by Google LLC, to understand usage and improve the Service. Identifiers such as cookies, pages viewed, referral information, and browser and device information are sent to and processed by Google. On supported browsers, Google’s opt-out add-on can disable the use of data by Google Analytics.",
+          "Google AdSense ad serving is currently disabled. When ads are served, third-party vendors, including Google, may collect information using cookies, web beacons, IP addresses and similar technologies. Google and its partners may serve ads based on prior visits to this site or other websites. You can opt out of personalized advertising through Google’s Ads Settings. This is separate from opting out of analytics.",
+          "The following links explain Google’s data use, privacy policy, ad controls and Google Analytics opt-out."
+        ],
+        "links": [
+          {
+            "label": "How Google uses information from sites and apps",
+            "href": "https://policies.google.com/technologies/partner-sites"
+          },
+          {
+            "label": "Google Privacy Policy",
+            "href": "https://policies.google.com/privacy"
+          },
+          {
+            "label": "Google Ads Settings",
+            "href": "https://adssettings.google.com/"
+          },
+          {
+            "label": "Google Analytics opt-out add-on",
+            "href": "https://tools.google.com/dlpage/gaoptout"
+          }
+        ]
+      },
       { heading: '5. Security', paragraphs: ['We take necessary and appropriate measures, such as access restrictions, to prevent the leakage, loss or damage of personal information.'] },
       { heading: '6. Requests about your information', paragraphs: ['When you ask us to disclose, correct, stop using or delete your personal information, we respond in accordance with the law after confirming your identity. Some information, such as diary entries and profile details, can also be deleted from the Service itself.'] },
       { heading: '7. Minors', paragraphs: ['Minors should use the Service with the consent of a parent or guardian.'] },
@@ -289,6 +343,33 @@ export const privacy: Record<Locale, LegalDocument> = {
         'TradingView Inc.（用于“全球股价”页面的价格显示。仅当你点击“显示股价”时，你的浏览器才会直接连接到 TradingView，IP 地址、浏览器信息和 Cookie 等会发送给该公司，并按其隐私政策处理）',
         'Cloudflare, Inc. 的 Workers AI（用于“行政FAQ检索”的语义检索和回答撰写。会发送你输入的问题文字以及找到的 FAQ 正文，用于转换为向量和撰写回答；不发送姓名或账户信息，处理后不保存）',
       ] },
+      {
+        "heading": "4-2. Cookie、访问分析与广告",
+        "paragraphs": [
+          "本服务使用Cookie和浏览器存储来维持登录和保存设置。你可以通过浏览器删除或限制这些数据，但登录、已保存的偏好等功能可能因此受到影响。",
+          "正式站点使用Google LLC提供的Google Analytics了解使用情况并改进服务。Cookie等标识符、浏览页面、来源信息以及浏览器和设备信息等会发送给Google并由其处理。在支持的浏览器中，可以使用Google提供的停用插件，停用Google Analytics对数据的使用。",
+          "目前已停止投放Google AdSense广告。投放广告时，Google及其他第三方广告服务商可能使用Cookie、网络信标、IP地址等收集信息。Google及其合作伙伴可能根据用户此前访问本站或其他网站的信息展示广告。你可以通过Google广告设置关闭个性化广告。该设置与停用访问分析不同。",
+          "有关Google的数据使用、隐私政策、广告设置与Google Analytics停用方式，请参阅以下链接。"
+        ],
+        "links": [
+          {
+            "label": "Google如何使用来自网站和应用的信息",
+            "href": "https://policies.google.com/technologies/partner-sites"
+          },
+          {
+            "label": "Google隐私政策",
+            "href": "https://policies.google.com/privacy"
+          },
+          {
+            "label": "Google广告设置",
+            "href": "https://adssettings.google.com/"
+          },
+          {
+            "label": "Google Analytics停用插件",
+            "href": "https://tools.google.com/dlpage/gaoptout"
+          }
+        ]
+      },
       { heading: '5. 安全管理', paragraphs: ['本公司采取访问限制等必要且适当的安全管理措施，防止个人信息泄露、丢失或损毁。'] },
       { heading: '6. 查询、更正、删除等请求', paragraphs: ['本人提出查询、更正、停止使用或删除个人信息等请求时，本公司将在确认本人身份后依法处理。日记和个人资料等部分信息也可在本服务的页面上直接删除。'] },
       { heading: '7. 未成年用户', paragraphs: ['未成年用户请在取得监护人同意后使用本服务。'] },

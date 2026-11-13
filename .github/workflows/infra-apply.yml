@@ -12,9 +12,24 @@ concurrency:
   group: infra-apply
   cancel-in-progress: false
 
+permissions:
+  contents: read
+
+# Where the saved plan waits between the two jobs: the Terraform state bucket (R2), which only the state's own
+# credentials can read. A plan file holds the values of sensitive attributes (the Access service token's secret, for
+# one), so it is never an Actions artifact: in a public repository anyone signed in to GitHub can download those.
+env:
+  PLAN_KEY: paibot-app/plans/${{ github.run_id }}-${{ github.run_attempt }}.tfplan
+
 jobs:
   plan:
+    # Run from main only, so the workflow that holds the infra secrets is the reviewed one (the infra-apply
+    # environment's branch rule says the same for the apply job).
+    if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-24.04
+    outputs:
+      sha: ${{ steps.commit.outputs.sha }}
+      plan-sha256: ${{ steps.save.outputs.sha256 }}
     defaults:
       run:
         working-directory: infra
@@ -22,10 +37,22 @@ jobs:
       - uses: actions/checkout@v7
         with:
           ref: ${{ inputs.ref }}
+          fetch-depth: 0
 
-      - name: Record which commit this run resolved to
+      # Only a commit already on main is applied: a branch or a SHA that never went through a pull request is refused.
+      - name: Check the commit is on main
+        id: commit
+        env:
+          REQUESTED_REF: ${{ inputs.ref }}
         run: |
-          echo "Applying commit: \`$(git rev-parse HEAD)\` (requested ref: \`${{ inputs.ref }}\`)" >> "$GITHUB_STEP_SUMMARY"
+          sha=$(git rev-parse HEAD)
+          git fetch --no-tags origin main
+          if ! git merge-base --is-ancestor "$sha" origin/main; then
+            echo "::error::$sha (requested ref: $REQUESTED_REF) is not on main"
+            exit 1
+          fi
+          echo "sha=$sha" >> "$GITHUB_OUTPUT"
+          echo "Applying commit: \`$sha\` (requested ref: \`$REQUESTED_REF\`)" >> "$GITHUB_STEP_SUMMARY"
 
       - uses: hashicorp/setup-terraform@v4
         with:
@@ -49,23 +76,29 @@ jobs:
           terraform plan -input=false -out=tfplan
           terraform show -no-color tfplan | tee "$GITHUB_STEP_SUMMARY"
 
-      # The plan file can contain sensitive values (resource attributes marked
-      # sensitive still show up in the binary plan file even if redacted in
-      # `terraform show` output). Keep retention short and let the repo's
-      # default artifact visibility (same permissions as repo access) apply —
-      # do not make this a public/wider-shared artifact.
-      - uses: actions/upload-artifact@v7
-        with:
-          name: tfplan
-          path: infra/tfplan
-          retention-days: 3
+      # The plan file holds sensitive values in the clear (`terraform show` only hides them on screen), so it goes to
+      # the state bucket, not to an artifact (see PLAN_KEY above). The apply job checks it gets the same bytes.
+      - name: Save the plan in the state bucket
+        id: save
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          # Newer AWS CLIs add checksums R2 does not take on every call; only where the API requires one.
+          AWS_REQUEST_CHECKSUM_CALCULATION: when_required
+          AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
+        run: |
+          aws s3api put-object --endpoint-url "https://${{ vars.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com" \
+            --bucket "${{ vars.TF_STATE_BUCKET }}" --key "$PLAN_KEY" --body tfplan > /dev/null
+          echo "sha256=$(sha256sum tfplan | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+          rm tfplan
 
-  # Gated by the "infra-apply" GitHub Environment: configure required reviewers
-  # for it in repo Settings → Environments so a human looks at the `plan` job's
-  # summary (particularly for any destroy/replace) before this job is allowed
-  # to start. This is the actual "review the plan, then apply that exact plan"
-  # checkpoint — `apply` below runs the saved tfplan artifact verbatim, so what
-  # gets approved and what gets applied can't drift apart.
+  # Gated by the "infra-apply" GitHub Environment: its required reviewers make a
+  # human look at the `plan` job's summary (particularly for any destroy/replace)
+  # before this job is allowed to start, and its branch rule allows main only
+  # (the settings are in infra/README.md). This is the actual "review the plan,
+  # then apply that exact plan" checkpoint — `apply` below runs the saved plan
+  # verbatim, so what gets approved and what gets applied can't drift apart.
   apply:
     needs: plan
     runs-on: ubuntu-24.04
@@ -74,9 +107,10 @@ jobs:
       run:
         working-directory: infra
     steps:
+      # The commit the plan job checked and planned, not the ref again (a branch may have moved since).
       - uses: actions/checkout@v7
         with:
-          ref: ${{ inputs.ref }}
+          ref: ${{ needs.plan.outputs.sha }}
 
       - uses: hashicorp/setup-terraform@v4
         with:
@@ -91,10 +125,18 @@ jobs:
             -backend-config="bucket=${{ vars.TF_STATE_BUCKET }}" \
             -backend-config="endpoints={s3=\"https://${{ vars.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com\"}"
 
-      - uses: actions/download-artifact@v8
-        with:
-          name: tfplan
-          path: infra/
+      - name: Fetch the saved plan
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          AWS_REQUEST_CHECKSUM_CALCULATION: when_required
+          AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
+          PLAN_SHA256: ${{ needs.plan.outputs.plan-sha256 }}
+        run: |
+          aws s3api get-object --endpoint-url "https://${{ vars.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com" \
+            --bucket "${{ vars.TF_STATE_BUCKET }}" --key "$PLAN_KEY" tfplan > /dev/null
+          echo "$PLAN_SHA256  tfplan" | sha256sum -c -
 
       # R2 has no native object versioning (confirmed — not assumed — against
       # Cloudflare's own docs/community feedback), so back up the live state
@@ -133,3 +175,18 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_R2_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_R2_SECRET_ACCESS_KEY }}
         run: terraform apply -input=false tfplan
+
+      # The plan is not kept once the job ends, applied or not. A plan never approved stays in the bucket; see
+      # infra/README.md for removing those.
+      - name: Remove the saved plan
+        if: always()
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.TF_STATE_R2_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.TF_STATE_R2_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: auto
+          AWS_REQUEST_CHECKSUM_CALCULATION: when_required
+          AWS_RESPONSE_CHECKSUM_VALIDATION: when_required
+        run: |
+          rm -f tfplan
+          aws s3api delete-object --endpoint-url "https://${{ vars.CLOUDFLARE_ACCOUNT_ID }}.r2.cloudflarestorage.com" \
+            --bucket "${{ vars.TF_STATE_BUCKET }}" --key "$PLAN_KEY" > /dev/null

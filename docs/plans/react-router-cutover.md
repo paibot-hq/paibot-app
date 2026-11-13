@@ -25,7 +25,8 @@ This change prepares the release; editing these files does not deploy them.
 5. Record the current successful production release tag or deployment version.
    Dispatch `App (production)` manually. It checks production Worker name,
    canonical origin and indexability before uploading; then runs deployed smoke.
-6. Verify Google/email login and logout on production after switching. A failing
+6. Verify Google login and logout on production after switching (production is
+   Google-only; email authentication remains in development for test users). A failing
    post-deploy smoke marks the workflow failed; it does not automatically roll back.
 
 ## Runtime configuration

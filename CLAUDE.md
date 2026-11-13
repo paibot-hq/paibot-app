@@ -25,9 +25,10 @@ One site, one host: `paibot.app` (development: `dev.paibot.app`), with no subdom
 `app.`/`learn.`/`tools.` hosts were tried in October 2026 and dropped; see `docs/plans/domain.md`). The top page is a
 search (`src/components/search-home.tsx`, ranking in `src/lib/search.ts`) over every app, with only a few shown under the
 box as small cards: the week's most viewed and the featured ones (`FEATURED_SLUGS` in `src/lib/app-catalog.ts`), then a
-link to `/apps` (`src/components/app-list.tsx`), every app by category with a line on each category
-(`App.categoryDescriptions`). Both are built from the app catalog and the messages, so a new tool is found by its `title`,
-`description` and `keywords` and listed on `/apps` with nothing else to register. The math questions are reached through
+link to `/apps` (`src/components/app-list.tsx`), every app, narrowed by a tag (`?tag=game`). Each app has one to three
+`tags` in the catalog (`APP_TAGS`, names under `App.tags`); the first gives its card its colour and its place in the list,
+and shared tags pick the "more apps" on its page. Both are built from the app catalog and the messages, so a new tool is
+found by its `title`, `description`, `keywords` and tags and listed on `/apps` with nothing else to register. The math questions are reached through
 the "数学問題集" app (`/math`), not searched. The former category pages (`/daily`, `/study`, `/dev` ...) redirect to the
 top page. Do not add a subdomain per tool or per kind of page.
 
@@ -45,7 +46,7 @@ A tool is a folder, `src/tools/<slug>/`, holding everything that is only its own
   A flow that keeps the processor busy throughout (3D drawn in software, a live video) exports `const alone = true` and runs on its own after the others.
 
 Then register it in the shared lists (these, and nothing else, change outside the folder):
-- `src/lib/app-catalog.ts`: the entry (`slug` = folder name, `href`). Routes
+- `src/lib/app-catalog.ts`: the entry (`slug` = folder name, `href`, one to three `tags` from `APP_TAGS`, the main one first). Routes
   (`src/routes.ts`) and public SEO paths (`src/lib/seo.ts`) are derived from it;
   `private: true` keeps a signed-in page out of the sitemap. Coming-soon entries have no page.
 - `APP_ICONS` in `src/lib/apps.tsx`, and `App.<messageKey>` in all three `messages/*.json`.
@@ -53,7 +54,9 @@ Then register it in the shared lists (these, and nothing else, change outside th
 Code shared by several tools stays in `src/components/`, `src/lib/` and `src/styles/`.
 CI runs per-tool browser checks only for the tools a change can affect
 (`scripts/affected-tools.mjs`: the tool's folder, its messages, registry additions);
-a change to shared code runs every tool. A pull request is compared with its base, a push to `main` with the last
+a change to shared code runs the checks every tool shares (`catalog`) on every tool but the tools' own flows only for those it names,
+unless the checks, the CI or the dependencies change (`browserScope` in `scripts/lib/ci-jobs.mjs`). The browser checks do not hold back
+the deploy to dev, which waits for `static`, `e2e` and `sympy` only. A pull request is compared with its base, a push to `main` with the last
 commit on `main` whose run passed (`scripts/ci-changes.mjs`, which also skips the server checks and SymPy when
 nothing they read changed). A few tools are checked in one job; more are split by weight (`alone` flows apart).
 - Authenticate/authorize in each protected loader/action using Clerk's server API;

@@ -162,6 +162,18 @@ export default function BrowserAi() {
   const loaded = phase === "ready" || phase === "answering";
   const picking = phase === "loading" || phase === "answering";
 
+  // Every model in the same shape: name (and whether it is recommended), size or why it cannot run here, engine.
+  const modelButton = (m: ModelInfo) => {
+    const usable = planFor(m);
+    return (
+      <button key={m.id} type="button" className={styles.row} aria-pressed={m.id === modelId} disabled={gpu !== undefined && !usable || picking} onClick={() => setModelId(m.id)}>
+        <strong>{m.name}{FEATURED.includes(m.id) && <small className={styles.featured}>{t("featured")}</small>}</strong>
+        <span>{gpu === undefined ? "" : usable ? t("size", { mb: usable.sizeMB }) : t("gpuOnly")}</span>
+        <em className={styles.engine} data-engine={m.engine}>{t(`engine.${m.engine}`)}</em>
+      </button>
+    );
+  };
+
   return (
     <ToolLayout title={t("title")}>
       <p className={styles.intro}>{t("intro")}</p>
@@ -170,32 +182,14 @@ export default function BrowserAi() {
         <p className={styles.device} data-ai="device">
           {gpu === undefined ? t("device.checking") : t(`device.${gpu ? "webgpu" : "wasm"}`)}
         </p>
-        <div className={styles.models} role="group" aria-label={t("modelLabel")}>
-          {FEATURED.map(id => MODELS.find(m => m.id === id)!).map(m => {
-            const usable = planFor(m);
-            return (
-              <button key={m.id} type="button" className={styles.model} aria-pressed={m.id === modelId} disabled={gpu !== undefined && !usable || picking} onClick={() => setModelId(m.id)}>
-                <strong>{m.name}</strong>
-                <span>{gpu === undefined ? "" : usable ? t("size", { mb: usable.sizeMB }) : t("gpuOnly")}</span>
-                <em className={styles.engine} data-engine={m.engine}>{t(`engine.${m.engine}`)}</em>
-              </button>
-            );
-          })}
+        <div className={styles.models}>
+          {makers().map(maker => (
+            <div key={maker} className={styles.maker} role="group" aria-label={maker}>
+              <h3>{maker}</h3>
+              <div className={styles.rows}>{MODELS.filter(m => m.maker === maker).map(modelButton)}</div>
+            </div>
+          ))}
         </div>
-        <label className={styles.more}>
-          <span>{t("moreModels", { count: MODELS.length - FEATURED.length })}</span>
-          <select value={FEATURED.includes(modelId) ? "" : modelId} disabled={picking} onChange={event => event.target.value && setModelId(event.target.value)}>
-            <option value="">{t("pickModel")}</option>
-            {makers().map(maker => (
-              <optgroup key={maker} label={maker}>
-                {MODELS.filter(m => m.maker === maker && !FEATURED.includes(m.id)).map(m => {
-                  const usable = planFor(m);
-                  return <option key={m.id} value={m.id} disabled={gpu !== undefined && !usable}>{m.name} · {usable ? t("size", { mb: usable.sizeMB }) : gpu === undefined ? "" : t("gpuOnly")}</option>;
-                })}
-              </optgroup>
-            ))}
-          </select>
-        </label>
         <p className={styles.modelInfo} data-ai="model-info">
           {t("modelInfo", { name: model.name, maker: model.maker })}
           {model.engine === "webllm" && <> · {t("gpuMemory", { gb: (model.vramMB / 1000).toFixed(1) })}</>}

@@ -51,6 +51,7 @@ const ortWasmFromCdn: Plugin = {
   },
 };
 export default defineConfig({
+  optimizeDeps: { exclude: ["@electric-sql/pglite"] },
   // The day of the build: the sitemap's <lastmod> (a page can only have changed in a new release).
   define: { __BUILD_DATE__: JSON.stringify(new Date().toISOString().slice(0, 10)), __PYODIDE_VERSION__: JSON.stringify(pyodideVersion) },
   plugins: [

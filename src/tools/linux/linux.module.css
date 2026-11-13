@@ -1,0 +1,32 @@
+.intro { margin: 0; color: var(--muted); line-height: 1.8; }
+.workspace { width: 100%; max-width: 900px; min-width: 0; overflow: hidden; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: .75rem; padding: .8rem 1rem; }
+.status { display: flex; align-items: center; gap: .5rem; font-size: .9rem; }
+.status > span { width: .55rem; height: .55rem; border-radius: 50%; background: var(--muted); }
+.status > span[data-active] { background: #21844c; }
+.actions, .keys { display: flex; flex-wrap: wrap; gap: .5rem; }
+.workspace button, .examples button { font: inherit; cursor: pointer; padding: .45rem .8rem; border: 1px solid var(--line); border-radius: .4rem; color: var(--text); background: var(--surface); }
+.workspace button:hover, .examples button:hover { border-color: var(--accent); }
+.workspace button.primary { color: #fff; background: #236245; border-color: #236245; }
+.workspace button:focus-visible, .examples button:focus-visible, .command input:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.viewport { overflow-x: auto; background: #101820; padding: .8rem; min-height: 350px; }
+.terminal { width: 640px; max-width: none; }
+.placeholder { color: #a7bac8; padding: 1rem 0; font-family: ui-monospace, monospace; }
+.keys { padding: .7rem 1rem 0; }
+.keys button { font-family: ui-monospace, monospace; font-size: .8rem; }
+.command { padding: .8rem 1rem 1rem; }
+.command label { display: block; margin-bottom: .35rem; font-size: .85rem; }
+.command > div { display: flex; gap: .5rem; }
+.command input { min-width: 0; flex: 1; padding: .5rem; font: inherit; font-family: ui-monospace, monospace; color: var(--text); background: var(--bg); border: 1px solid var(--line); border-radius: .35rem; }
+.note, .credits { color: var(--muted); font-size: .85rem; line-height: 1.7; margin: 0; }
+.confirm { padding: .8rem 1rem; border-top: 1px solid var(--line); }
+.confirm p { margin: 0 0 .6rem; }
+.confirm button { margin-right: .5rem; }
+.error { color: var(--text); border-left: 3px solid #c44747; padding-left: .8rem; overflow-wrap: anywhere; }
+.examples h2 { font-size: 1.1rem; margin: 0 0 .5rem; }
+.examples p { color: var(--muted); margin: 0 0 .8rem; line-height: 1.7; }
+.examples > div { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: .6rem; }
+.examples button { display: flex; flex-direction: column; align-items: flex-start; gap: .3rem; text-align: left; }
+.examples button span { font-size: .8rem; color: var(--muted); }
+.examples button:disabled { opacity: .6; cursor: default; }
+.credits a { color: inherit; text-decoration: underline; }

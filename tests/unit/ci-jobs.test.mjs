@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { jobsNeeded } from '../../scripts/lib/ci-jobs.mjs';
+import { browserScope, jobsNeeded } from '../../scripts/lib/ci-jobs.mjs';
 
 test('anything that can reach every tool runs both jobs', () => {
   assert.deepEqual(jobsNeeded({ affected: 'all', files: ['workers/app.ts'] }), { e2e: true, browser: true, sympy: false });
@@ -37,4 +37,20 @@ test('SymPy runs only for what it reads: the banks, the lessons, the verifiers a
   for (const file of ['src/data/quiz.json', 'src/data/item-formulas.json', 'src/lib/math-formula.ts', 'scripts/math-pipeline.mjs']) {
     assert.equal(jobsNeeded({ affected: 'all', files: [file] }).sympy, false, file);
   }
+});
+
+test('shared code: every tool gets the shared checks, but only the named tools run their own flows', () => {
+  assert.deepEqual(browserScope({ affected: 'all', files: ['src/components/search-home.tsx', 'messages/ja.json'] }), { catalog: 'all', flows: '' });
+});
+
+test('a change to the checks, the CI or the dependencies runs every flow', () => {
+  for (const file of ['tests/e2e/tools.mjs', 'tests/e2e/lib/selected-tools.mjs', '.github/workflows/app.yml', 'scripts/ci-changes.mjs', 'scripts/lib/ci-jobs.mjs', 'package-lock.json']) {
+    assert.deepEqual(browserScope({ affected: 'all', files: ['src/lib/apps.tsx', file] }), { catalog: 'all', flows: 'all' }, file);
+  }
+  assert.deepEqual(browserScope({ affected: '', files: ['scripts/import-math.mjs'] }), { catalog: 'all', flows: 'all' }, 'a library the checks import');
+});
+
+test('a change that names tools checks just those, both ways; one that reaches none checks nothing', () => {
+  assert.deepEqual(browserScope({ affected: 'json,math', files: ['src/tools/json/route.tsx', 'tests/e2e/flows/math.mjs'] }), { catalog: 'json,math', flows: 'json,math' });
+  assert.deepEqual(browserScope({ affected: '', files: ['docs/plans/x.md'] }), { catalog: '', flows: '' });
 });

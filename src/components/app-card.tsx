@@ -8,7 +8,7 @@ import styles from "./search-home.module.css";
 // one made inside a page: that would be a new component on every render, and React would rebuild every card.
 export default function Card({ app, td, locale, signedIn, favorited }: { app: AppEntry; td: DynamicT; locale: string; signedIn: boolean; favorited: boolean }) {
   return (
-    <li className="app-card-wrap">
+    <li className="app-card-wrap" data-tag={app.tags[0]}>
       <Link href={app.href!}><app.icon aria-hidden="true" /><span className={styles.name}>{td(`${app.messageKey}.title`)}<span className={styles.about}>{td(`${app.messageKey}.description`)}</span></span></Link>
       <FavoriteButton actionPath={`/${locale}/favorites`} slug={app.slug} signedIn={signedIn} favorited={favorited} addLabel={td("apps.favorite")} removeLabel={td("apps.unfavorite")} />
     </li>

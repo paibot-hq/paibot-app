@@ -64,7 +64,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
   // A set is finished (green) when the signed-in visitor has a record of it, or it was finished in this browser.
   const local = useDoneSets([]);
   const isDone = (set: (typeof sets)[number]) => Boolean(set.record) || local.includes(`${unitId}/${itemId}/${set.id}`);
-  const start = sets.find(set => set.playable && !isDone(set)) ?? sets.find(set => set.playable) ?? sets[0];
+  const start = sets.find(set => set.playable && !isDone(set)) ?? sets.find(set => set.playable);
   const text = (localized: Localized) => localized[locale as keyof Localized] ?? localized.en;
   return <>
     {published ? <PublicHead locale={locale} path={`/math/${unitId}/${itemId}`} title={head} description={description} /> : <title>{head}</title>}
