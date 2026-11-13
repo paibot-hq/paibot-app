@@ -4,7 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { MATH_CATALOG } from '../src/lib/math-catalog.ts';
 import { jpGrade } from '../src/lib/math-curriculum-jp.ts';
-import { extractJSON, run, saveWork } from './math-pipeline.mjs';
+import { extractJSON, run, saveWork, write } from './math-pipeline.mjs';
 
 // Writes each learning item's `summary` (one line, shown on the unit page) and
 // `description` (2-3 sentences, shown on the item page) in ja, en and zh into
@@ -39,7 +39,7 @@ const chunk = (list, size) => Array.from({ length: Math.ceil(list.length / size)
 let temp = mkdtempSync(join(tmpdir(), 'math-describe-'));
 const ask = (tool, prompt) => {
   let raw = '';
-  for (let attempt = 0; attempt < 3 && !raw.trim(); attempt++) raw = tool === 'agy' ? run('agy', ['--sandbox', '--print-timeout', '10m', '-p', prompt], temp) : run('codex', ['exec', '--sandbox', 'read-only', '--skip-git-repo-check', prompt], temp);
+  for (let attempt = 0; attempt < 3 && !raw.trim(); attempt++) raw = tool === 'claude' ? write(prompt, temp) : run('codex', ['exec', '--sandbox', 'read-only', '--skip-git-repo-check', prompt], temp);
   return raw;
 };
 try {
@@ -53,7 +53,7 @@ try {
 項目と指摘:
 ${JSON.stringify(group.map(issue => ({ unit: issue.unit, item: issue.item, 指摘: issue.problem, 現在: Object.fromEntries(LOCALES.map(locale => [locale, { summary: messages[locale].App.math.units[issue.unit].items[issue.item].summary, description: messages[locale].App.math.units[issue.unit].items[issue.item].description }])) })), null, 2)}`;
       let result;
-      for (let attempt = 0; attempt < 3 && !result; attempt++) { try { result = extractJSON(ask('agy', prompt), 'items'); } catch { /* ask again */ } }
+      for (let attempt = 0; attempt < 3 && !result; attempt++) { try { result = extractJSON(ask('claude', prompt), 'items'); } catch { /* ask again */ } }
       assert.ok(result, `batch ${index + 1}: no usable answer`);
       for (const entry of result.items) {
         for (const locale of LOCALES) {
@@ -86,7 +86,7 @@ ${JSON.stringify(group.map(issue => ({ unit: issue.unit, item: issue.item, 指�
 - コマンドやツールは使わず JSON だけを出力する: {"items":[{"unit":"","item":"","ja":{"summary":"","description":""},"en":{...},"zh":{...}}]}
 項目:
 ${JSON.stringify(group.map(row => ({ unit: row.unit, item: row.item, 単元: row.unitTitle, 単元の概要: row.unitSummary, 項目: row.title, 学年: row.grade, 既存の説明: row.ja.description ?? null })), null, 2)}`;
-      const raw = ask('agy', prompt);
+      const raw = ask('claude', prompt);
       let result;
       try { result = extractJSON(raw, 'items'); } catch (error) { throw new Error(`${error.message}\nRaw: ${saveWork('describe-raw', raw, 'txt')}`); }
       for (const entry of result.items) {

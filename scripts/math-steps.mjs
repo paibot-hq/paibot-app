@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import { mkdtempSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { context, root, promptFile, extractJSON, formatBank, saveWork, run, isFormulaUnit } from './math-pipeline.mjs';
+import { context, root, promptFile, extractJSON, formatBank, saveWork, run, write, isFormulaUnit } from './math-pipeline.mjs';
 
 // Writes the worked solution (`steps`) of formula problems that have none: an
 // LLM proposes the lines, verify_math.py checks each one with SymPy, and lines
@@ -25,9 +25,9 @@ try {
     for (let start = 0; start < todo.length; start += 12) {
       const batch = todo.slice(start, start + 12);
       const prompt = [promptFile('_formula'), promptFile('_steps'), `次の問題それぞれに steps を付ける。\n${JSON.stringify(batch.map(shown), null, 2)}`].join('\n\n');
-      // agy sometimes returns nothing; ask again before giving up.
+      // The model sometimes returns nothing; ask again before giving up.
       let raw = '';
-      for (let attempt = 0; attempt < 3 && !raw.trim(); attempt++) raw = run('agy', ['--sandbox', '--print-timeout', '10m', '-p', prompt], temp);
+      for (let attempt = 0; attempt < 3 && !raw.trim(); attempt++) raw = write(prompt, temp);
       let parsed;
       try { parsed = extractJSON(raw, 'steps'); } catch (error) { throw new Error(`${error.message}\nRaw output: ${saveWork(`steps-${unit}-raw`, raw, 'txt')}`); }
       for (const entry of parsed.steps) if (typeof entry.id === 'string' && Array.isArray(entry.steps)) found.set(entry.id, entry.steps);

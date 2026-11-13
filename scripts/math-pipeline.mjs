@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
-import { readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, readFileSync, mkdirSync, writeFileSync } from 'node:fs';
+import { homedir } from 'node:os';
+import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { spawnSync } from 'node:child_process';
 import { findUnit, unitSets } from '../src/lib/math-catalog.ts';
@@ -201,6 +203,12 @@ export function run(command, args, cwd, env = process.env) {
     throw new Error(`${command} failed (${result.status ?? result.signal}): ${result.error?.message ?? ''}\n${result.stderr ?? ''}\n${result.stdout ?? ''}`);
   }
   return result.stdout;
+}
+// The writer model: Claude Code in print mode with no tools, answering from the prompt alone.
+// Antigravity (agy) is not called from scripts: its terms for personal plans may not allow running it from other programs.
+export function write(prompt, cwd) {
+  const local = join(homedir(), '.claude/local/claude');
+  return run(process.env.CLAUDE_BIN ?? (existsSync(local) ? local : 'claude'), ['-p', prompt, '--tools', '', '--strict-mcp-config', '--output-format', 'text'], cwd);
 }
 const signedTerm = n => `${n < 0 ? '-' : '+'} ${Math.abs(n)}`;
 export const factorChoice = ([p, q]) => `(x ${signedTerm(p)})(x ${signedTerm(q)})`;
