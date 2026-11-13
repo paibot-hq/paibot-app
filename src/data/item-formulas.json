@@ -255,9 +255,9 @@
   "unknowns/box": [
     {
       "tex": "\\square + a = b \\iff \\square = b - a",
-      "ja": "たす数がわからないときは、たした答え b から分かっている数 a をひくと □ が求まります。",
-      "en": "When an added number is unknown, subtract the known number a from the sum b to find □.",
-      "zh": "当加数不知道时，用相加的结果 b 减去已知的加数 a，就能算出 □。"
+      "ja": "たされる数がわからないときは、たした答え b から分かっている数 a をひくと □ が求まります。",
+      "en": "When the number being added to is unknown, subtract the known number a from the sum b to find □.",
+      "zh": "当被加数不知道时，用相加的结果 b 减去已知的加数 a，就能算出 □。"
     },
     {
       "tex": "a - \\square = b \\iff \\square = a - b",
@@ -267,9 +267,9 @@
     },
     {
       "tex": "\\square \\times a = b \\iff \\square = b \\div a \\quad (a \\neq 0)",
-      "ja": "かける数がわからないときは、かけ算の答え b を分かっている数 a でわると □ が求まります。",
-      "en": "When a factor is unknown, divide the product b by the known number a to find □.",
-      "zh": "当乘数不知道时，用相乘的结果 b 除以已知的乘数 a，就能算出 □。"
+      "ja": "かけられる数がわからないときは、かけ算の答え b を分かっている数 a でわると □ が求まります。",
+      "en": "When the number being multiplied is unknown, divide the product b by the known number a to find □.",
+      "zh": "当被乘数不知道时，用相乘的结果 b 除以已知的乘数 a，就能算出 □。"
     },
     {
       "tex": "a \\div \\square = b \\iff \\square = a \\div b \\quad (b \\neq 0)",

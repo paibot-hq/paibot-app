@@ -30,11 +30,11 @@ test('a pipeline script that no check imports skips both', () => {
   assert.deepEqual(jobsNeeded({ affected: '', files: ['scripts/math-pipeline.mjs'] }), { e2e: false, browser: false, sympy: false });
 });
 
-test('SymPy runs only for what it reads: the banks, the verifier and its Python setup (and this workflow)', () => {
-  for (const file of ['src/data/math-arith.json', 'scripts/verify_math.py', 'uv.lock', '.github/workflows/app.yml']) {
+test('SymPy runs only for what it reads: the banks, the lessons, the verifiers and their Python setup (and this workflow)', () => {
+  for (const file of ['src/data/math-arith.json', 'scripts/verify_math.py', 'src/data/item-lessons.json', 'scripts/verify_lessons.py', 'uv.lock', '.github/workflows/app.yml']) {
     assert.equal(jobsNeeded({ affected: '', files: [file] }).sympy, true, file);
   }
-  for (const file of ['src/data/quiz.json', 'src/lib/math-formula.ts', 'scripts/math-pipeline.mjs']) {
+  for (const file of ['src/data/quiz.json', 'src/data/item-formulas.json', 'src/lib/math-formula.ts', 'scripts/math-pipeline.mjs']) {
     assert.equal(jobsNeeded({ affected: 'all', files: [file] }).sympy, false, file);
   }
 });

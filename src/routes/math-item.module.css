@@ -43,3 +43,27 @@
 .point:first-child { border-top: 0; }
 .pointNote { margin: 0; text-align: left; color: var(--text); font-size: 1.05rem; line-height: 1.75; }
 .pointNote > span { font-size: 1em; }
+
+/* The lesson: textbook prose, display formulas, worked examples and common mistakes. */
+.lesson { width: min(100%, 480px); margin: 1.6rem auto 0; line-height: 1.8; }
+.lesson > p { margin: .6rem 0 0; }
+/* Inline math in the prose is the size of the words around it (MathTex alone is larger). */
+.lesson p > span { font-size: 1.05em; }
+.lessonHeading { font-size: 1.1rem; margin: 0; padding-bottom: .3rem; border-bottom: 1px solid var(--line); }
+.formula { margin: .6rem 0 0; padding: .4rem .8rem; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); overflow-x: auto; text-align: center; }
+.lessonExample, .mistake { margin: .9rem 0 0; padding: .7rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.exampleLabel { margin: 0; font-size: .8rem; font-weight: 600; color: var(--accent); }
+.lessonExample .exampleQuestion { margin: .2rem 0 .4rem; overflow-x: auto; }
+.steps { display: grid; grid-template-columns: minmax(0, 1fr); gap: .35rem; justify-items: center; }
+.row { display: flex; flex-wrap: wrap; justify-content: center; align-items: baseline; column-gap: .3em; row-gap: .1em; }
+.row > span { font-size: 1.1rem; }
+.exampleNote { margin: .5rem 0 0; color: var(--muted); font-size: .92rem; line-height: 1.7; }
+.noteLabel { margin-right: .4rem; font-weight: 600; color: var(--text); }
+.wrong, .right { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .6rem; overflow-x: auto; }
+.wrong > span:last-child, .right > span:last-child { font-size: 1.1rem; }
+.right { margin-top: .3rem; }
+.mark { flex: none; padding: .05rem .5rem; border-radius: 999px; font-size: .72rem; font-weight: 600; }
+.wrong .mark { background: color-mix(in srgb, var(--error) 18%, transparent); color: var(--error); }
+.right .mark { background: color-mix(in srgb, var(--success) 20%, transparent); color: var(--success); }
+/* A figure under an example's question sits in the example's own card, without a card of its own. */
+.lessonExample figure { border: 0; background: none; padding: 0; margin: .2rem 0 .8rem; }

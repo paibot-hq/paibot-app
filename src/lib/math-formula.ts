@@ -353,8 +353,8 @@ export function toTex(node: Node): string {
         return toTex({ type: 'bin', op: '/', left: { type: 'bin', op: '*', left: node.left, right: node.right.left }, right: node.right.right });
       }
       if (node.op === '*' && node.right.type === 'pow' && node.right.base.type === 'num' && node.right.exp.type !== 'num') return `${left} \\cdot ${right}`;
-      if (node.op === '*' && node.left.type === 'num' && node.left.value === '1' && drawStyle !== 'times') return toTex(node.right);
-      if (node.op === '*' && (node.right.type === 'neg' || drawStyle === 'times')) return `${left} \\times ${right}`;
+      if (node.op === '*' && node.left.type === 'num' && node.left.value === '1' && drawStyle !== 'times' && drawStyle !== 'box') return toTex(node.right);
+      if (node.op === '*' && (node.right.type === 'neg' || drawStyle === 'times' || drawStyle === 'box')) return `${left} \\times ${right}`;
       if (node.op === '*') return startsWithNumber(node.right) ? `${left} \\times ${right}` : `${left}${right}`;
       return `${left} ${node.op} ${right}`;
     }
@@ -758,6 +758,8 @@ export function evalExpression(text: string, vars: Record<string, number> = {}):
           case 'cos': return Math.cos(a);
           case 'tan': return Math.tan(a);
           case 'abs': return Math.abs(a);
+          case 'exp': return Math.exp(a);
+          case 'ln': return Math.log(a);
           case 'log': return Math.log(a) / Math.log(b);
           default: return NaN;
         }
