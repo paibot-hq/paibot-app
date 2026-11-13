@@ -155,7 +155,7 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
         </div>
         {/* The link goes to the same set or test, so that a friend can try it. */}
         <ShareButtons text={shareText ? shareText(correctCount, total) : t('shareText', { title: setLabel, correct: correctCount, total })} path={`/${locale}${sharePath}`} />
-        {current && <p className={styles.saveStatus} role="status">
+        {current && <p className={styles.saveStatus} role="status" data-math-save>
           {!signedIn ? t('signInToSave')
             : saver.state !== 'idle' ? null
               : saver.data?.ok ? t('saved') : saver.data ? t('saveFailed') : null}

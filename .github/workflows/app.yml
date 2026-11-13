@@ -13,6 +13,9 @@ permissions:
   contents: read
   # .github/actions/ci-changes reads the run history to find the last commit on main that passed.
   actions: read
+# A pull request from a fork gets no secrets (plain `pull_request`, never `pull_request_target`), so it runs only what needs
+# none: `static` (no Clerk keys needed to test, typecheck and build) and `sympy`. `e2e` and `browser` serve pages, which
+# fail without the development Clerk keys; they are skipped, and run once a maintainer pushes the change to a branch here.
 jobs:
   # The checks run as three jobs side by side (plus `sympy`), each doing its own
   # setup; deploy-dev needs all of them. The three rebuild the app because the
@@ -37,6 +40,7 @@ jobs:
       - run: npm run e2e -- build-targets
   # These start their own Workers/previews (tests/e2e/*.mjs headers).
   e2e:
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     timeout-minutes: 10
     steps:
@@ -67,6 +71,7 @@ jobs:
   # The tools are split between three jobs (CHECK_SHARD), as one job took nine minutes.
   browser:
     name: browser (${{ matrix.shard }}/3)
+    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-24.04
     timeout-minutes: 15
     strategy:
