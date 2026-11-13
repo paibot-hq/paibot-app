@@ -14,8 +14,9 @@ import { blindProblem, context, extractJSON, promptFile, saveWork } from './math
 // Writes the learning items' lessons (src/data/item-lessons.json, shown on the item page) and has them checked:
 // the writer (Claude by default; MATH_LESSON_WRITER=deepseek uses the DeepSeek API) writes one; the format
 // (lib/math-lesson-check.mjs) and the math (verify_lessons.py, SymPy) are checked and what fails goes back to it; then
-// Antigravity reviews it, listing what must be fixed, and what it finds goes back too (MATH_LESSON_REVIEWERS=agy,codex
-// adds Codex as a second reviewer). A lesson every reviewer passes gets reviewedAt, and only then does the page show it.
+// Codex reviews it, listing what must be fixed, and what it finds goes back too (MATH_LESSON_REVIEWERS=codex,opus
+// adds Claude Opus as a second reviewer). Antigravity (agy) is not called: its terms for personal plans may not allow
+// running it from other programs. A lesson every reviewer passes gets reviewedAt, and only then does the page show it.
 //   node scripts/math-lessons.mjs <unit|unit/item> ...   write the items that have no lesson, then review them
 //   --review     only review the lessons not yet passed (none are written)
 //   --rewrite    write the named items again even if they have a lesson
@@ -36,7 +37,7 @@ const CLAUDE = process.env.CLAUDE_BIN ?? join(homedir(), '.claude/local/claude')
 const OPENCODE = process.env.OPENCODE_BIN ?? 'opencode';
 const today = new Date().toISOString().slice(0, 10);
 const WRITER = process.env.MATH_LESSON_WRITER ?? 'claude';
-const REVIEWERS = (process.env.MATH_LESSON_REVIEWERS ?? 'agy').split(',');
+const REVIEWERS = (process.env.MATH_LESSON_REVIEWERS ?? 'codex').split(',');
 
 const allItems = MATH_CATALOG.flatMap(unit => unit.items.map(item => `${unit.id}/${item.id}`));
 const order = key => allItems.indexOf(key);
@@ -99,13 +100,13 @@ async function askOnce(model, prompt) {
   const temp = mkdtempSync(join(tmpdir(), 'math-lessons-'));
   try {
     if (model === 'claude') return await exec(CLAUDE, ['-p', prompt, '--tools', '', '--output-format', 'text'], temp);
-    // Claude Opus as a reviewer: a separate call with a model other than the writer's, for when Antigravity's quota is used up.
+    // Claude Opus as a reviewer: a separate call with a model other than the writer's, for when Codex is unavailable.
     if (model === 'opus') return await exec(CLAUDE, ['-p', prompt, '--tools', '', '--model', 'opus', '--output-format', 'text'], temp);
-    if (model === 'agy') return await exec('agy', ['--sandbox', '--print-timeout', '10m', '-p', prompt], temp);
     if (model === 'deepseek') return await askDeepSeek(prompt);
     if (model === 'opencode' || model.startsWith('opencode/') || model.startsWith('opencode-go/')) {
       return await exec(OPENCODE, ['run', '--title', `Math lesson ${model}`, '--print-logs', '--log-level', 'ERROR', '-m', model === 'opencode' ? (process.env.MATH_OPENCODE_MODEL ?? 'opencode/deepseek-v4.1-flash-free') : model, prompt], temp);
     }
+    if (model !== 'codex' && !model.startsWith('codex/')) throw new Error(`Unknown model: ${model}`);
     const output = join(temp, 'answer.txt');
     const codexModel = model.startsWith('codex/') ? model.slice('codex/'.length) : process.env.MATH_CODEX_MODEL;
     await exec('codex', ['exec', ...(codexModel ? ['--model', codexModel] : []), '--sandbox', 'read-only', '--skip-git-repo-check', '-o', output, prompt], temp);

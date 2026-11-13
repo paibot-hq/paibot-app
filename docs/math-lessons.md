@@ -28,8 +28,9 @@ updates the displayed lesson and removes its draft. Back up `.math-work` along
 with the working tree when moving unfinished work to another machine.
 
 The writer defaults to Claude (`MATH_LESSON_WRITER=claude`). The reviewer defaults
-to Antigravity (`MATH_LESSON_REVIEWERS=agy`); `opus` uses a separate Claude Opus
-call, and `codex` uses a separate Codex call. Comma-separated reviewers must all
+to Codex (`MATH_LESSON_REVIEWERS=codex`); `opus` uses a separate Claude Opus
+call. Antigravity (`agy`) is not used: its terms for personal plans may not allow
+running it from other programs. Comma-separated reviewers must all
 pass. Claude writing and Opus review share the Claude subscription's quota.
 Changing providers is an explicit environment setting; a failed provider is not
 silently replaced. Review with the same model in separate calls offers less

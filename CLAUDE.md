@@ -102,8 +102,8 @@ Math is organized unit → learning item → practice set, all in
   display formulas, then after the key points 2-3 worked examples (`value`, `factor` or `solve`) and common mistakes in
   the formula grammar, which `scripts/verify_lessons.py` checks with SymPy in `test:sympy`; an item with a lesson shows
   its examples instead of the one from its problems). `npm run math:lessons -- <unit|unit/item> ...` has Claude write
-  them, checks the format (`scripts/lib/math-lesson-check.mjs`) and the math, then Antigravity reviews each
-  (`scripts/math-prompts/_lesson*.md`; `MATH_LESSON_REVIEWERS=agy,codex` adds Codex), sending what fails back to Claude;
+  them, checks the format (`scripts/lib/math-lesson-check.mjs`) and the math, then Codex reviews each
+  (`scripts/math-prompts/_lesson*.md`; `MATH_LESSON_REVIEWERS=codex,opus` adds Claude Opus), sending what fails back to Claude;
   only a lesson that passed gets
   `reviewedAt`, and the page shows nothing else (`--review` reviews without writing, `--rewrite` writes again,
   `--figures` adds figures to lessons that have none, keeping the old lesson if the new one does not pass). A lesson can
