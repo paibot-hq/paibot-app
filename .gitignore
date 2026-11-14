@@ -41,5 +41,6 @@ clerk-*.zone
 /worker-configuration.d.ts
 
 .math-work/
+.ai-ds-work/
 __pycache__/
 .venv/

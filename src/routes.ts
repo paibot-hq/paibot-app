@@ -31,6 +31,15 @@ export default [
     route('math/:unit', 'routes/math-unit.tsx'),
     route('math/:unit/:item', 'routes/math-item.tsx'),
     route('math/:unit/:item/:set', 'routes/math-quiz.tsx'),
+    // AI and data science practice is not in the app catalog yet (src/tools/ai-ds/catalog.ts), so its top page is routed here too;
+    // drop that line when it is registered in src/lib/app-catalog.ts.
+    route('ai-ds', 'tools/ai-ds/route.tsx'),
+    route('ai-ds/:unit/:item', 'tools/ai-ds/item.tsx'),
+    route('ai-ds/:unit/:item/:set', 'tools/ai-ds/set.tsx'),
+    // Computer science practice, the same (src/tools/cs/catalog.ts).
+    route('cs', 'tools/cs/route.tsx'),
+    route('cs/:unit/:item', 'tools/cs/item.tsx'),
+    route('cs/:unit/:item/:set', 'tools/cs/set.tsx'),
     route('favorites', 'routes/favorites.ts'),
     route('apps', 'routes/apps.tsx'),
     route('daily', 'routes/site-redirect.ts', { id: 'site-redirect/daily' }),

@@ -6249,6 +6249,918 @@
     "languageSelect": "选择语言",
     "themeToLight": "切换为浅色模式",
     "themeToDark": "切换为深色模式",
-    "notFound": "页面未找到"
+    "notFound": "页面未找到",
+    "aiDs": {
+      "title": "AI・数据科学题库",
+      "description": "参考DS检定（素养级别）・G检定・E资格的考试范围编写的AI・数据科学学习项目讲解、例题和四选一练习题。计算题和例题的答案均通过程序重新计算，题目经另一个AI在隐藏答案的情况下解答验证，讲解也经另一个AI检查后才收录。",
+      "exams": {
+        "ds": "DS检定",
+        "g": "G检定",
+        "e": "E资格"
+      },
+      "problemsInJapanese": "讲解、例题和题目为日语。",
+      "examNote": "题目与各考试的对应关系，是本网站参照各考试公开的出题范围（DS检定为技能检查清单 ver.6 和示范课程，G检定为2024版考纲，E资格为2026版考纲）所标注的参考，并非各考试的官方习题集。DS检定是数据科学家协会的商标，G检定・E资格是日本深度学习协会的商标。",
+      "checks": {
+        "calc": "计算",
+        "knowledge": "知识",
+        "sql": "SQL"
+      },
+      "units": {
+        "stats": {
+          "title": "统计与概率",
+          "items": {
+            "descriptive": {
+              "title": "集中趋势与离散程度",
+              "topics": "均值・中位数・众数、方差・标准差、频数分布、离群值、箱线图"
+            },
+            "correlation": {
+              "title": "相关与因果",
+              "topics": "协方差・相关系数、偏相关、伪相关・混杂、因果推断的思路"
+            },
+            "probability": {
+              "title": "概率基础",
+              "topics": "随机变量、联合概率・条件概率・边缘概率、期望・方差"
+            },
+            "bayes": {
+              "title": "贝叶斯定理",
+              "topics": "贝叶斯法则、先验概率与后验概率、朴素贝叶斯"
+            },
+            "distributions": {
+              "title": "概率分布",
+              "topics": "伯努利・二项・泊松・正态・t 分布、中心极限定理、高斯混合分布"
+            },
+            "sampling": {
+              "title": "样本与估计",
+              "topics": "总体与样本、抽样方法、点估计・区间估计、标准误"
+            },
+            "testing": {
+              "title": "假设检验",
+              "topics": "原假设・备择假设、p 值、显著性水平、第一类・第二类错误、A/B 测试"
+            },
+            "estimation": {
+              "title": "参数估计",
+              "topics": "最大似然估计、对数似然、MAP 估计、贝叶斯估计"
+            },
+            "time-series": {
+              "title": "时间序列",
+              "topics": "移动平均、趋势与季节性、自回归（AR・VAR）的思路"
+            }
+          }
+        },
+        "linalg": {
+          "title": "线性代数与微分",
+          "items": {
+            "matrices": {
+              "title": "向量与矩阵运算",
+              "topics": "内积、范数、矩阵・张量乘法、哈达玛积、秩"
+            },
+            "eigen": {
+              "title": "特征值与奇异值",
+              "topics": "特征值・特征向量、对角化、奇异值分解"
+            },
+            "gradients": {
+              "title": "微分与梯度",
+              "topics": "偏导数、梯度、链式法则"
+            },
+            "distances": {
+              "title": "距离与相似度",
+              "topics": "欧氏・曼哈顿・Lp・马氏距离、余弦相似度"
+            }
+          }
+        },
+        "info": {
+          "title": "信息论",
+          "items": {
+            "entropy": {
+              "title": "信息量与熵",
+              "topics": "自信息、熵、联合熵・条件熵"
+            },
+            "cross-entropy": {
+              "title": "交叉熵与散度",
+              "topics": "交叉熵、KL 散度、JS 散度"
+            },
+            "mutual-information": {
+              "title": "互信息",
+              "topics": "互信息、与熵的关系"
+            }
+          }
+        },
+        "data": {
+          "title": "数据准备与可视化",
+          "items": {
+            "data-types": {
+              "title": "数据类型",
+              "topics": "结构化・非结构化数据、一手・二手数据、开放数据、数据标注"
+            },
+            "preprocessing": {
+              "title": "预处理",
+              "topics": "缺失值・离群值的处理、归一化・标准化、类别变量的转换"
+            },
+            "features": {
+              "title": "特征工程",
+              "topics": "特征的构造与选择、维度灾难"
+            },
+            "bias": {
+              "title": "数据偏差",
+              "topics": "抽样偏差、数据偏差"
+            },
+            "visualization": {
+              "title": "可视化",
+              "topics": "图表的选用、不恰当的图表表达"
+            }
+          }
+        },
+        "dataeng": {
+          "title": "SQL 与数据基础设施",
+          "items": {
+            "sql-basics": {
+              "title": "SQL 基础",
+              "topics": "SELECT・WHERE・ORDER BY"
+            },
+            "sql-aggregation": {
+              "title": "聚合",
+              "topics": "GROUP BY・聚合函数・HAVING"
+            },
+            "sql-joins": {
+              "title": "连接",
+              "topics": "INNER JOIN・LEFT JOIN"
+            },
+            "table-design": {
+              "title": "表的设计",
+              "topics": "主键、规范化、表定义"
+            },
+            "platforms": {
+              "title": "数据基础设施",
+              "topics": "数据仓库（DWH）、分布式处理、云、数据采集与集成"
+            },
+            "security": {
+              "title": "安全基础",
+              "topics": "机密性・完整性・可用性、加密、认证与访问控制、匿名加工信息"
+            }
+          }
+        },
+        "ml": {
+          "title": "机器学习基础",
+          "items": {
+            "learning-types": {
+              "title": "机器学习的分类",
+              "topics": "监督・无监督・半监督・强化学习、回归与分类"
+            },
+            "linear-regression": {
+              "title": "线性回归与正则化",
+              "topics": "最小二乘法、多元回归、多重共线性、Lasso・Ridge（L1・L2 正则化）"
+            },
+            "logistic-regression": {
+              "title": "逻辑回归",
+              "topics": "Sigmoid 函数・Logit、Softmax 函数、优势比"
+            },
+            "svm": {
+              "title": "支持向量机",
+              "topics": "间隔最大化、硬间隔・软间隔、核方法"
+            },
+            "trees-ensembles": {
+              "title": "决策树与集成学习",
+              "topics": "分类树・回归树、基尼指数、Bagging・Boosting、随机森林"
+            },
+            "knn": {
+              "title": "k 近邻法",
+              "topics": "k 近邻法、基于距离的分类、近似最近邻"
+            },
+            "clustering": {
+              "title": "聚类",
+              "topics": "k-means、层次聚类（Ward 法・组平均法）、树状图"
+            },
+            "dimensionality-reduction": {
+              "title": "降维",
+              "topics": "主成分分析・贡献率、奇异值分解、t-SNE"
+            },
+            "recommendation": {
+              "title": "推荐",
+              "topics": "协同过滤、基于内容的过滤、冷启动问题"
+            },
+            "reinforcement-learning": {
+              "title": "强化学习基础",
+              "topics": "马尔可夫决策过程、折扣因子与价值函数、Q 学习、策略梯度法、多臂老虎机问题"
+            }
+          }
+        },
+        "eval": {
+          "title": "模型评估",
+          "items": {
+            "validation": {
+              "title": "验证方法",
+              "topics": "训练・验证・测试数据、留出法、k 折交叉验证"
+            },
+            "classification-metrics": {
+              "title": "分类指标",
+              "topics": "混淆矩阵、准确率・精确率・召回率・F 值、微平均・宏平均"
+            },
+            "roc-auc": {
+              "title": "ROC 曲线与 AUC",
+              "topics": "真正例率・假正例率、ROC 曲线、AUC、阈值"
+            },
+            "regression-metrics": {
+              "title": "回归指标",
+              "topics": "MSE・RMSE・MAE"
+            },
+            "overfitting": {
+              "title": "过拟合与模型选择",
+              "topics": "过拟合・欠拟合、偏差与方差、AIC・BIC"
+            },
+            "task-metrics": {
+              "title": "目标检测・语言模型的指标",
+              "topics": "IoU、mAP、困惑度"
+            }
+          }
+        },
+        "nn": {
+          "title": "神经网络",
+          "items": {
+            "perceptron": {
+              "title": "感知机与全连接层",
+              "topics": "单层・多层感知机、权重与偏置、参数量"
+            },
+            "activations": {
+              "title": "激活函数",
+              "topics": "Sigmoid、tanh、ReLU、Leaky ReLU、GELU、梯度消失"
+            },
+            "losses": {
+              "title": "损失函数",
+              "topics": "均方误差、交叉熵（二分类・多分类）、Contrastive loss・Triplet loss"
+            },
+            "backpropagation": {
+              "title": "误差反向传播",
+              "topics": "链式法则、计算图、梯度消失・梯度爆炸"
+            },
+            "optimizers": {
+              "title": "优化",
+              "topics": "梯度下降法、SGD、小批量、动量、AdaGrad・RMSProp・Adam"
+            },
+            "initialization": {
+              "title": "权重初始化",
+              "topics": "Xavier（Glorot）初始化、He（Kaiming）初始化"
+            },
+            "regularization": {
+              "title": "正则化",
+              "topics": "L1・L2 正则化、权重衰减、Dropout、早停"
+            },
+            "normalization": {
+              "title": "归一化",
+              "topics": "批归一化、层归一化、实例归一化、组归一化"
+            },
+            "hyperparameters": {
+              "title": "超参数",
+              "topics": "学习率・批大小等、网格搜索・随机搜索、贝叶斯优化"
+            },
+            "hardware": {
+              "title": "计算资源",
+              "topics": "CPU・GPU・TPU 的区别"
+            }
+          }
+        },
+        "arch": {
+          "title": "CNN・RNN・Transformer",
+          "items": {
+            "convolution": {
+              "title": "卷积",
+              "topics": "卷积核・步幅・填充・通道、输出尺寸与参数量"
+            },
+            "pooling": {
+              "title": "池化",
+              "topics": "最大池化・平均池化、全局平均池化"
+            },
+            "skip-connections": {
+              "title": "跳跃连接",
+              "topics": "ResNet、残差连接"
+            },
+            "rnn": {
+              "title": "RNN",
+              "topics": "前向传播、BPTT、双向 RNN"
+            },
+            "lstm-gru": {
+              "title": "LSTM 与 GRU",
+              "topics": "门控机制、梯度消失的应对"
+            },
+            "attention": {
+              "title": "序列转换与 Attention",
+              "topics": "编码器・解码器、seq2seq、Attention"
+            },
+            "transformer": {
+              "title": "Transformer",
+              "topics": "Self-Attention、Scaled Dot-Product Attention、Multi-Head Attention、位置编码"
+            },
+            "augmentation": {
+              "title": "数据增强",
+              "topics": "图像・文本・语音的数据增强、MixUp"
+            }
+          }
+        },
+        "apps": {
+          "title": "深度学习的应用",
+          "items": {
+            "image-recognition": {
+              "title": "图像识别",
+              "topics": "图像分类模型的发展脉络、Vision Transformer"
+            },
+            "detection-segmentation": {
+              "title": "目标检测与图像分割",
+              "topics": "Faster R-CNN・YOLO・SSD、FCN・U-Net"
+            },
+            "nlp": {
+              "title": "自然语言处理",
+              "topics": "词嵌入、BERT・GPT、大语言模型、RAG"
+            },
+            "speech": {
+              "title": "语音处理",
+              "topics": "采样、短时傅里叶变换、梅尔刻度、CTC"
+            },
+            "generative-models": {
+              "title": "生成模型",
+              "topics": "自编码器、VAE、GAN、扩散模型"
+            },
+            "deep-rl": {
+              "title": "深度强化学习",
+              "topics": "DQN、经验回放"
+            },
+            "learning-methods": {
+              "title": "各种学习方法",
+              "topics": "迁移学习・微调、自监督学习、主动学习、度量学习、元学习"
+            },
+            "multimodal": {
+              "title": "多模态",
+              "topics": "图像与语言的结合"
+            },
+            "explainability": {
+              "title": "可解释性",
+              "topics": "XAI、Grad-CAM、Integrated Gradients"
+            },
+            "efficiency": {
+              "title": "轻量化与分布式",
+              "topics": "蒸馏・量化・剪枝、数据并行・模型并行、联邦学习"
+            }
+          }
+        },
+        "history": {
+          "title": "AI 的历史与思想",
+          "items": {
+            "what-is-ai": {
+              "title": "什么是人工智能",
+              "topics": "AI 的定义与级别、AI 效应"
+            },
+            "debates": {
+              "title": "关于 AI 的争论",
+              "topics": "图灵测试、中文房间、框架问题、符号接地问题"
+            },
+            "search": {
+              "title": "搜索与推理",
+              "topics": "广度优先搜索・深度优先搜索、Mini-Max 算法・αβ 剪枝、蒙特卡洛方法"
+            },
+            "knowledge-representation": {
+              "title": "知识表示",
+              "topics": "专家系统、语义网络、本体"
+            },
+            "deep-learning-history": {
+              "title": "深度学习的历史",
+              "topics": "新认知机、ILSVRC、AlphaGo、大语言模型"
+            }
+          }
+        },
+        "practice": {
+          "title": "AI 的社会落地",
+          "items": {
+            "projects": {
+              "title": "AI 项目的推进方法",
+              "topics": "从问题定义到运维、PoC"
+            },
+            "data-pipeline": {
+              "title": "数据采集与训练",
+              "topics": "数据的收集・加工・分析・训练流程"
+            },
+            "operations": {
+              "title": "运维",
+              "topics": "MLOps、AutoML、模型监控"
+            }
+          }
+        },
+        "ethics": {
+          "title": "法律与伦理",
+          "items": {
+            "privacy-law": {
+              "title": "个人信息保护",
+              "topics": "个人信息保护法、匿名加工信息、GDPR"
+            },
+            "intellectual-property": {
+              "title": "知识产权",
+              "topics": "著作权法、专利法、反不正当竞争法"
+            },
+            "contracts": {
+              "title": "合同",
+              "topics": "AI 开发委托合同、AI 服务提供合同"
+            },
+            "guidelines": {
+              "title": "AI 指南",
+              "topics": "国内外 AI 原则・指南、AI 治理"
+            },
+            "fairness-safety": {
+              "title": "公平性・隐私・安全性",
+              "topics": "算法偏见、透明度・问责、安全、滥用"
+            },
+            "generative-ai-risks": {
+              "title": "生成式 AI 的注意事项",
+              "topics": "幻觉、虚假信息、著作权・隐私问题"
+            }
+          }
+        },
+        "business": {
+          "title": "商业与数据应用",
+          "items": {
+            "problem-definition": {
+              "title": "问题定义",
+              "topics": "逻辑思维（MECE・结构化）、用语言表述问题与假设、KPI"
+            },
+            "analysis-design": {
+              "title": "分析设计",
+              "topics": "分析的目的与问题、条件一致的比较、A/B 测试的设计"
+            },
+            "use-cases": {
+              "title": "数据・AI 的应用案例",
+              "topics": "各行业的应用、新型商业模式"
+            },
+            "value-creation": {
+              "title": "价值创造",
+              "topics": "业务・数据应用的设计、效果评估与改进"
+            }
+          }
+        }
+      }
+    },
+    "practice": {
+      "allExams": "全部",
+      "examFilter": "按考试筛选",
+      "comingSoon": "准备中",
+      "preparing": "该练习正在准备中。",
+      "chooseSet": "请选择要练习的题组。",
+      "setLabel": "练习{n}",
+      "breadcrumb": "当前位置",
+      "quiz": {
+        "progress": "{current} / {total}题",
+        "choices": "选项",
+        "correct": "正确",
+        "incorrect": "错误",
+        "next": "下一题",
+        "seeResult": "查看结果",
+        "resultCorrect": "{total}题中答对{correct}题",
+        "questionNumber": "第{number}题",
+        "retry": "再试一次",
+        "nextSet": "下一组练习",
+        "explanation": "解析"
+      },
+      "itemPage": {
+        "about": "学习内容",
+        "pageNavigation": "本页内容",
+        "explanation": "讲解",
+        "examples": "例题",
+        "exampleNumber": "例题{number}",
+        "steps": "思路",
+        "answer": "答案",
+        "practice": "练习",
+        "start": "开始练习",
+        "neighbors": "前后的学习项目",
+        "previous": "上一项",
+        "next": "下一项"
+      }
+    },
+    "cs": {
+      "title": "计算机科学题库",
+      "description": "参考日本IT护照考试、基本信息技术者考试、应用信息技术者考试以及大学信息类标准课程的范围编写的计算机科学学习项目讲解、例题和四选一练习题。计算题的答案会重新计算，算法题会实际运行伪代码程序加以验证后再收录。",
+      "exams": {
+        "ip": "IT护照",
+        "fe": "基本信息",
+        "ap": "应用信息",
+        "univ": "大学"
+      },
+      "checks": {
+        "calc": "计算",
+        "run": "程序",
+        "sql": "SQL",
+        "machine": "自动机",
+        "knowledge": "知识"
+      },
+      "problemsInJapanese": "讲解、例题和题目为日语。",
+      "examNote": "题目与各考试及大学课程的对应关系，是本网站参照公开的出题范围（IT护照考试考纲 Ver.6.5、基本信息技术者考试考纲 Ver.9.2、应用信息技术者考试考纲 Ver.7.2、日本信息处理学会课程标准 J17 计算机科学领域的必修范围）所标注的参考，并非各考试的官方习题集，也未使用历年真题。",
+      "units": {
+        "discrete": {
+          "title": "离散数学与数的表示",
+          "items": {
+            "bases": {
+              "title": "进制转换",
+              "topics": "二进制・八进制・十六进制、进制转换、小数的进制转换"
+            },
+            "integers": {
+              "title": "整数的表示",
+              "topics": "无符号整数、二进制补码、溢出、移位运算"
+            },
+            "reals": {
+              "title": "实数的表示",
+              "topics": "定点数、浮点数（IEEE 754）、误差（舍入、相消、大数吃小数）"
+            },
+            "logic": {
+              "title": "逻辑运算",
+              "topics": "真值表、逻辑式化简、德摩根定律、卡诺图"
+            },
+            "sets": {
+              "title": "集合与关系",
+              "topics": "集合运算、维恩图、关系（自反、对称、传递）、函数"
+            },
+            "proofs": {
+              "title": "命题与证明",
+              "topics": "命题逻辑・谓词逻辑、必要条件与充分条件、数学归纳法・反证法"
+            },
+            "counting": {
+              "title": "计数与概率",
+              "topics": "排列・组合、容斥原理、离散概率、期望值"
+            },
+            "graphs": {
+              "title": "图与树",
+              "topics": "图的术语、树、度、欧拉路径、邻接矩阵"
+            }
+          }
+        },
+        "data-structures": {
+          "title": "数据结构",
+          "items": {
+            "lists": {
+              "title": "数组与链表",
+              "topics": "数组、链表（单向、双向、循环）、插入与删除的开销"
+            },
+            "stacks-queues": {
+              "title": "栈与队列",
+              "topics": "LIFO・FIFO、push・pop、enqueue・dequeue、逆波兰表示法"
+            },
+            "trees": {
+              "title": "树结构",
+              "topics": "二叉树、遍历（先序、中序、后序）、二叉搜索树"
+            },
+            "heaps": {
+              "title": "堆与优先队列",
+              "topics": "堆的性质、元素的插入与取出、用数组表示"
+            },
+            "hashing": {
+              "title": "哈希",
+              "topics": "哈希函数、冲突、开放地址法・链地址法"
+            },
+            "graph-representation": {
+              "title": "图的表示",
+              "topics": "邻接矩阵・邻接表、有向・无向、带权图"
+            }
+          }
+        },
+        "algorithms": {
+          "title": "算法",
+          "items": {
+            "complexity": {
+              "title": "复杂度",
+              "topics": "大O记号、最坏与平均情况、时间复杂度・空间复杂度"
+            },
+            "searching": {
+              "title": "查找",
+              "topics": "线性查找、二分查找、哨兵"
+            },
+            "sorting": {
+              "title": "排序",
+              "topics": "选择・插入・冒泡・快速・归并・堆排序、稳定性"
+            },
+            "recursion": {
+              "title": "递归",
+              "topics": "递归调用、阶乘・斐波那契、汉诺塔、调用次数"
+            },
+            "strings": {
+              "title": "字符串处理",
+              "topics": "字符串匹配（朴素法、BM算法的思路）、字符计数"
+            },
+            "design": {
+              "title": "算法设计方法",
+              "topics": "分治法、贪心法、动态规划、回溯法"
+            },
+            "graph-algorithms": {
+              "title": "图算法",
+              "topics": "广度优先・深度优先搜索、最短路径（Dijkstra算法）、最小生成树"
+            },
+            "numeric": {
+              "title": "数值计算",
+              "topics": "欧几里得算法、素数判定、牛顿法、误差处理"
+            }
+          }
+        },
+        "programming": {
+          "title": "程序设计与语言",
+          "items": {
+            "pseudocode": {
+              "title": "伪代码的阅读",
+              "topics": "伪代码的写法、变量・数组・控制结构、跟踪执行"
+            },
+            "functions": {
+              "title": "函数与参数",
+              "topics": "值传递・引用传递、作用域、可重入・递归・可重用"
+            },
+            "oop": {
+              "title": "面向对象",
+              "topics": "类・实例、封装、继承、多态、UML类图"
+            },
+            "functional": {
+              "title": "函数式编程",
+              "topics": "高阶函数、副作用、不可变性、map・filter・reduce"
+            },
+            "types": {
+              "title": "类型",
+              "topics": "静态类型・动态类型、类型检查、类型转换、泛型"
+            },
+            "translation": {
+              "title": "语言处理系统",
+              "topics": "编译器・解释器、词法分析・语法分析・优化、链接器"
+            },
+            "grammars": {
+              "title": "形式语言与文法",
+              "topics": "BNF、语法图、正则表达式"
+            }
+          }
+        },
+        "theory": {
+          "title": "计算理论",
+          "items": {
+            "automata": {
+              "title": "有限自动机",
+              "topics": "状态转移图・状态转移表、DFA・NFA、接受的字符串"
+            },
+            "languages": {
+              "title": "正则语言与上下文无关语言",
+              "topics": "正则表达式与自动机的关系、上下文无关文法、下推自动机的思路"
+            },
+            "computability": {
+              "title": "可计算性",
+              "topics": "图灵机、停机问题、不可判定性"
+            },
+            "complexity-classes": {
+              "title": "复杂度类",
+              "topics": "P・NP、NP完全、归约的思路"
+            },
+            "coding": {
+              "title": "信息与编码",
+              "topics": "信息量、哈夫曼编码、游程编码、检错与纠错（奇偶校验、汉明码、CRC）"
+            }
+          }
+        },
+        "architecture": {
+          "title": "计算机组成",
+          "items": {
+            "circuits": {
+              "title": "逻辑电路",
+              "topics": "AND・OR・NOT・NAND・XOR、半加器・全加器、触发器"
+            },
+            "instructions": {
+              "title": "指令的执行",
+              "topics": "指令格式、寻址方式、指令执行流程、机器语言与汇编"
+            },
+            "performance": {
+              "title": "处理器性能",
+              "topics": "时钟、CPI、MIPS、流水线、超标量、多核"
+            },
+            "memory": {
+              "title": "存储层次",
+              "topics": "寄存器・缓存・主存・辅存、有效访问时间、命中率、写直达・写回"
+            },
+            "io": {
+              "title": "输入输出与总线",
+              "topics": "总线、DMA、中断、输入输出接口"
+            },
+            "storage": {
+              "title": "辅助存储",
+              "topics": "HDD的访问时间、SSD、RAID"
+            }
+          }
+        },
+        "os": {
+          "title": "操作系统",
+          "items": {
+            "basics": {
+              "title": "操作系统的作用",
+              "topics": "内核、系统调用、用户态・内核态"
+            },
+            "processes": {
+              "title": "进程与线程",
+              "topics": "进程的状态转换、上下文切换、线程"
+            },
+            "scheduling": {
+              "title": "调度",
+              "topics": "先来先服务・时间片轮转・优先级调度、周转时间"
+            },
+            "concurrency": {
+              "title": "并发与互斥",
+              "topics": "竞态条件、信号量、死锁的条件与避免"
+            },
+            "memory-management": {
+              "title": "存储管理",
+              "topics": "虚拟内存、分页、页面置换（FIFO・LRU）、缺页"
+            },
+            "files": {
+              "title": "文件系统",
+              "topics": "目录、绝对路径・相对路径、访问权限、备份"
+            }
+          }
+        },
+        "systems": {
+          "title": "系统构成与评价",
+          "items": {
+            "configurations": {
+              "title": "系统形态",
+              "topics": "集中・分布、客户端服务器、Web系统、虚拟化・容器・云"
+            },
+            "reliability": {
+              "title": "可靠性",
+              "topics": "MTBF・MTTR、可用率（串联・并联）、容错"
+            },
+            "evaluation": {
+              "title": "性能评价",
+              "topics": "响应时间・吞吐量、排队论（M/M/1）"
+            },
+            "parallel": {
+              "title": "并行与分布式",
+              "topics": "并行化的效果（阿姆达尔定律）、分布式系统的一致性"
+            }
+          }
+        },
+        "databases": {
+          "title": "数据库",
+          "items": {
+            "relational": {
+              "title": "关系模型",
+              "topics": "表・元组・属性、主键・外键、关系运算"
+            },
+            "normalization": {
+              "title": "数据模型与规范化",
+              "topics": "E-R图、函数依赖、第一至第三范式"
+            },
+            "sql-queries": {
+              "title": "SQL（查询）",
+              "topics": "SELECT、连接、GROUP BY・HAVING、子查询"
+            },
+            "sql-definitions": {
+              "title": "SQL（定义与更新）",
+              "topics": "CREATE・INSERT・UPDATE・DELETE、视图、约束"
+            },
+            "transactions": {
+              "title": "事务",
+              "topics": "ACID特性、并发控制（锁）、死锁"
+            },
+            "recovery": {
+              "title": "故障恢复与索引",
+              "topics": "日志、回滚・前滚、索引（B+树）"
+            }
+          }
+        },
+        "networks": {
+          "title": "网络",
+          "items": {
+            "layers": {
+              "title": "分层模型",
+              "topics": "OSI参考模型、TCP/IP的四层、封装"
+            },
+            "addressing": {
+              "title": "IP地址",
+              "topics": "IPv4・IPv6、子网掩码、CIDR、主机数、NAT"
+            },
+            "transport": {
+              "title": "传输层",
+              "topics": "TCP与UDP、端口号、重传・流量控制、拥塞控制"
+            },
+            "routing-lan": {
+              "title": "路由与局域网",
+              "topics": "路由、以太网、交换机、无线局域网"
+            },
+            "applications": {
+              "title": "应用层",
+              "topics": "DNS、HTTP、邮件（SMTP・POP・IMAP）、DHCP"
+            },
+            "transmission": {
+              "title": "传输时间",
+              "topics": "传输速度、传输效率、由数据量求传输时间"
+            }
+          }
+        },
+        "security": {
+          "title": "安全",
+          "items": {
+            "fundamentals": {
+              "title": "安全基础",
+              "topics": "机密性・完整性・可用性、威胁与漏洞、风险"
+            },
+            "cryptography": {
+              "title": "密码",
+              "topics": "对称密码・公钥密码、密钥数量、哈希函数"
+            },
+            "authentication": {
+              "title": "认证与PKI",
+              "topics": "密码、多因素认证、数字签名、公钥证书"
+            },
+            "attacks": {
+              "title": "攻击手段",
+              "topics": "恶意软件、网络钓鱼、SQL注入、XSS、DoS"
+            },
+            "defenses": {
+              "title": "对策与安全设计",
+              "topics": "防火墙、WAF、最小权限、输入检查、安全编程"
+            },
+            "management": {
+              "title": "安全管理",
+              "topics": "ISMS、风险评估、事件响应"
+            }
+          }
+        },
+        "software-engineering": {
+          "title": "软件开发",
+          "items": {
+            "processes": {
+              "title": "开发过程",
+              "topics": "瀑布模型、敏捷（Scrum・XP）、DevOps"
+            },
+            "design": {
+              "title": "需求与设计",
+              "topics": "需求定义、UML、模块的内聚与耦合、设计模式的思路"
+            },
+            "testing": {
+              "title": "测试",
+              "topics": "黑盒（等价类划分・边界值）、白盒（语句覆盖・判定覆盖）、测试阶段"
+            },
+            "maintenance": {
+              "title": "维护与配置管理",
+              "topics": "版本控制、重构、维护的种类"
+            },
+            "estimation": {
+              "title": "规模与估算",
+              "topics": "功能点分析法、工作量计算"
+            }
+          }
+        },
+        "media": {
+          "title": "信息表示与UI",
+          "items": {
+            "characters": {
+              "title": "字符编码",
+              "topics": "ASCII・Unicode・UTF-8、乱码"
+            },
+            "digitization": {
+              "title": "图像・声音的数字化",
+              "topics": "采样・量化、分辨率・颜色数与数据量、压缩（无损・有损）"
+            },
+            "ui": {
+              "title": "UI与可用性",
+              "topics": "可用性、无障碍、UX设计"
+            },
+            "graphics": {
+              "title": "图形学基础",
+              "topics": "坐标变换、栅格与矢量、渲染的思路"
+            }
+          }
+        },
+        "management": {
+          "title": "管理",
+          "items": {
+            "projects": {
+              "title": "项目管理",
+              "topics": "WBS、箭线图（关键路径）、EVM"
+            },
+            "services": {
+              "title": "服务管理",
+              "topics": "SLA、事件管理・问题管理、ITIL的思路"
+            },
+            "audit": {
+              "title": "系统审计与内部控制",
+              "topics": "审计流程、审计证据、内部控制"
+            }
+          }
+        },
+        "strategy": {
+          "title": "战略",
+          "items": {
+            "accounting": {
+              "title": "企业活动与会计",
+              "topics": "盈亏平衡点、财务报表的阅读、库存・订货计算"
+            },
+            "business-strategy": {
+              "title": "经营战略与系统战略",
+              "topics": "SWOT、PPM、BPR、需求定义与采购"
+            },
+            "law": {
+              "title": "法务",
+              "topics": "知识产权、安全相关法规、劳动・交易相关法规"
+            },
+            "ethics": {
+              "title": "工程伦理与社会",
+              "topics": "工程伦理、隐私、信息社会的课题"
+            }
+          }
+        }
+      }
+    }
   }
 }

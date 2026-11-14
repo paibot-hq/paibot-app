@@ -6249,6 +6249,918 @@
     "languageSelect": "Select language",
     "themeToLight": "Switch to light mode",
     "themeToDark": "Switch to dark mode",
-    "notFound": "Page not found"
+    "notFound": "Page not found",
+    "aiDs": {
+      "title": "AI & Data Science Practice",
+      "description": "Explanations, worked examples and four-choice practice problems for each learning item of AI and data science, based on the exam scopes of the DS Certificate (DS検定) (Literacy Level), G Certificate (G検定) and E Certificate (E資格). The answers of calculation problems and examples are recomputed with a program; every problem is solved by a separate AI with the answer hidden, and every explanation is checked by a separate AI, before it is published.",
+      "exams": {
+        "ds": "DS Certificate (DS検定)",
+        "g": "G Certificate (G検定)",
+        "e": "E Certificate (E資格)"
+      },
+      "problemsInJapanese": "The explanations, worked examples and problems are in Japanese.",
+      "examNote": "Exam mappings are approximate guides assigned by this site based on each exam's published scope (for the DS Certificate (DS検定), the Skill Checklist ver.6 and Model Curriculum; for the G Certificate (G検定), the 2024 Syllabus; for the E Certificate (E資格), the 2026 Syllabus). These are not official problem sets for any exam. DS検定 is a trademark of the Data Scientist Society of Japan, and G検定 and E資格 are trademarks of the Japan Deep Learning Association.",
+      "checks": {
+        "calc": "Calculation",
+        "knowledge": "Knowledge",
+        "sql": "SQL"
+      },
+      "units": {
+        "stats": {
+          "title": "Statistics and Probability",
+          "items": {
+            "descriptive": {
+              "title": "Central Tendency and Dispersion",
+              "topics": "Mean, median, mode, variance, standard deviation, frequency distributions, outliers, box plots"
+            },
+            "correlation": {
+              "title": "Correlation and Causation",
+              "topics": "Covariance, correlation coefficient, partial correlation, spurious correlation and confounding, causal inference concepts"
+            },
+            "probability": {
+              "title": "Probability Basics",
+              "topics": "Random variables, joint, conditional, and marginal probability, expected value and variance"
+            },
+            "bayes": {
+              "title": "Bayes' Theorem",
+              "topics": "Bayes' rule, prior and posterior probability, Naive Bayes"
+            },
+            "distributions": {
+              "title": "Probability Distributions",
+              "topics": "Bernoulli, binomial, Poisson, normal, and t-distributions, central limit theorem, Gaussian mixture models"
+            },
+            "sampling": {
+              "title": "Sampling and Estimation",
+              "topics": "Population and sample, sampling methods, point estimation and interval estimation, standard error"
+            },
+            "testing": {
+              "title": "Hypothesis Testing",
+              "topics": "Null and alternative hypotheses, p-values, significance level, Type I and Type II errors, A/B testing"
+            },
+            "estimation": {
+              "title": "Parameter Estimation",
+              "topics": "Maximum likelihood estimation, log-likelihood, MAP estimation, Bayesian estimation"
+            },
+            "time-series": {
+              "title": "Time Series",
+              "topics": "Moving averages, trend and seasonality, autoregressive models (AR, VAR) concepts"
+            }
+          }
+        },
+        "linalg": {
+          "title": "Linear Algebra and Calculus",
+          "items": {
+            "matrices": {
+              "title": "Vector and Matrix Operations",
+              "topics": "Inner product, norms, matrix and tensor products, Hadamard product, rank"
+            },
+            "eigen": {
+              "title": "Eigenvalues and Singular Values",
+              "topics": "Eigenvalues and eigenvectors, diagonalization, singular value decomposition"
+            },
+            "gradients": {
+              "title": "Derivatives and Gradients",
+              "topics": "Partial derivatives, gradients, chain rule"
+            },
+            "distances": {
+              "title": "Distance and Similarity",
+              "topics": "Euclidean, Manhattan, Lp, and Mahalanobis distances, cosine similarity"
+            }
+          }
+        },
+        "info": {
+          "title": "Information Theory",
+          "items": {
+            "entropy": {
+              "title": "Information and Entropy",
+              "topics": "Self-information, entropy, joint entropy and conditional entropy"
+            },
+            "cross-entropy": {
+              "title": "Cross-Entropy and Divergence",
+              "topics": "Cross-entropy, KL divergence, JS divergence"
+            },
+            "mutual-information": {
+              "title": "Mutual Information",
+              "topics": "Mutual information, relationship to entropy"
+            }
+          }
+        },
+        "data": {
+          "title": "Data Preparation and Visualization",
+          "items": {
+            "data-types": {
+              "title": "Types of Data",
+              "topics": "Structured and unstructured data, primary and secondary data, open data, annotation"
+            },
+            "preprocessing": {
+              "title": "Preprocessing",
+              "topics": "Handling missing values and outliers, normalization and standardization, encoding categorical variables"
+            },
+            "features": {
+              "title": "Feature Engineering",
+              "topics": "Creating and selecting features, curse of dimensionality"
+            },
+            "bias": {
+              "title": "Data Bias",
+              "topics": "Sampling bias, data bias"
+            },
+            "visualization": {
+              "title": "Visualization",
+              "topics": "Choosing the right chart, misleading chart representations"
+            }
+          }
+        },
+        "dataeng": {
+          "title": "SQL and Data Infrastructure",
+          "items": {
+            "sql-basics": {
+              "title": "SQL Basics",
+              "topics": "SELECT, WHERE, ORDER BY"
+            },
+            "sql-aggregation": {
+              "title": "Aggregation",
+              "topics": "GROUP BY, aggregate functions, HAVING"
+            },
+            "sql-joins": {
+              "title": "Joins",
+              "topics": "INNER JOIN, LEFT JOIN"
+            },
+            "table-design": {
+              "title": "Table Design",
+              "topics": "Primary keys, normalization, table definitions"
+            },
+            "platforms": {
+              "title": "Data Infrastructure",
+              "topics": "Data warehouses (DWH), distributed processing, cloud, data collection and integration"
+            },
+            "security": {
+              "title": "Security Basics",
+              "topics": "Confidentiality, integrity, and availability, encryption, authentication and access control, anonymized information"
+            }
+          }
+        },
+        "ml": {
+          "title": "Machine Learning Fundamentals",
+          "items": {
+            "learning-types": {
+              "title": "Types of Machine Learning",
+              "topics": "Supervised, unsupervised, semi-supervised, and reinforcement learning, regression and classification"
+            },
+            "linear-regression": {
+              "title": "Linear Regression and Regularization",
+              "topics": "Least squares, multiple regression, multicollinearity, Lasso and Ridge (L1 and L2 regularization)"
+            },
+            "logistic-regression": {
+              "title": "Logistic Regression",
+              "topics": "Sigmoid function and logit, softmax function, odds ratio"
+            },
+            "svm": {
+              "title": "Support Vector Machines",
+              "topics": "Margin maximization, hard margin and soft margin, kernel methods"
+            },
+            "trees-ensembles": {
+              "title": "Decision Trees and Ensembles",
+              "topics": "Classification and regression trees, Gini impurity, bagging and boosting, random forests"
+            },
+            "knn": {
+              "title": "k-Nearest Neighbors",
+              "topics": "k-nearest neighbors, distance-based classification, approximate nearest neighbors"
+            },
+            "clustering": {
+              "title": "Clustering",
+              "topics": "k-means, hierarchical clustering (Ward's method, group average method), dendrograms"
+            },
+            "dimensionality-reduction": {
+              "title": "Dimensionality Reduction",
+              "topics": "Principal component analysis and explained variance ratio, singular value decomposition, t-SNE"
+            },
+            "recommendation": {
+              "title": "Recommendation",
+              "topics": "Collaborative filtering, content-based filtering, cold start problem"
+            },
+            "reinforcement-learning": {
+              "title": "Reinforcement Learning Basics",
+              "topics": "Markov decision processes, discount factor and value functions, Q-learning, policy gradient methods, bandit problems"
+            }
+          }
+        },
+        "eval": {
+          "title": "Model Evaluation",
+          "items": {
+            "validation": {
+              "title": "Validation Methods",
+              "topics": "Training, validation, and test data, holdout method, k-fold cross-validation"
+            },
+            "classification-metrics": {
+              "title": "Classification Metrics",
+              "topics": "Confusion matrix, accuracy, precision, recall, F1 score, micro-average and macro-average"
+            },
+            "roc-auc": {
+              "title": "ROC Curve and AUC",
+              "topics": "True positive rate and false positive rate, ROC curve, AUC, thresholds"
+            },
+            "regression-metrics": {
+              "title": "Regression Metrics",
+              "topics": "MSE, RMSE, MAE"
+            },
+            "overfitting": {
+              "title": "Overfitting and Model Selection",
+              "topics": "Overfitting and underfitting, bias and variance, AIC and BIC"
+            },
+            "task-metrics": {
+              "title": "Object Detection and Language Model Metrics",
+              "topics": "IoU, mAP, perplexity"
+            }
+          }
+        },
+        "nn": {
+          "title": "Neural Networks",
+          "items": {
+            "perceptron": {
+              "title": "Perceptrons and Fully Connected Layers",
+              "topics": "Simple and multilayer perceptrons, weights and biases, number of parameters"
+            },
+            "activations": {
+              "title": "Activation Functions",
+              "topics": "Sigmoid, tanh, ReLU, Leaky ReLU, GELU, vanishing gradients"
+            },
+            "losses": {
+              "title": "Loss Functions",
+              "topics": "Mean squared error, cross-entropy (binary and multi-class), contrastive loss and triplet loss"
+            },
+            "backpropagation": {
+              "title": "Backpropagation",
+              "topics": "Chain rule, computational graphs, vanishing and exploding gradients"
+            },
+            "optimizers": {
+              "title": "Optimization",
+              "topics": "Gradient descent, SGD, mini-batches, momentum, AdaGrad, RMSProp, Adam"
+            },
+            "initialization": {
+              "title": "Weight Initialization",
+              "topics": "Xavier (Glorot) initialization, He (Kaiming) initialization"
+            },
+            "regularization": {
+              "title": "Regularization",
+              "topics": "L1 and L2 regularization, weight decay, dropout, early stopping"
+            },
+            "normalization": {
+              "title": "Normalization",
+              "topics": "Batch normalization, layer normalization, instance normalization, group normalization"
+            },
+            "hyperparameters": {
+              "title": "Hyperparameters",
+              "topics": "Learning rate, batch size, etc., grid search and random search, Bayesian optimization"
+            },
+            "hardware": {
+              "title": "Computing Resources",
+              "topics": "Differences between CPUs, GPUs, and TPUs"
+            }
+          }
+        },
+        "arch": {
+          "title": "CNNs, RNNs, and Transformers",
+          "items": {
+            "convolution": {
+              "title": "Convolution",
+              "topics": "Filters, stride, padding, and channels, output size and number of parameters"
+            },
+            "pooling": {
+              "title": "Pooling",
+              "topics": "Max pooling and average pooling, global average pooling"
+            },
+            "skip-connections": {
+              "title": "Skip Connections",
+              "topics": "ResNet, residual connections"
+            },
+            "rnn": {
+              "title": "RNNs",
+              "topics": "Forward propagation, BPTT, bidirectional RNNs"
+            },
+            "lstm-gru": {
+              "title": "LSTM and GRU",
+              "topics": "Gating mechanisms, addressing vanishing gradients"
+            },
+            "attention": {
+              "title": "Sequence-to-Sequence Models and Attention",
+              "topics": "Encoder-decoder, seq2seq, attention"
+            },
+            "transformer": {
+              "title": "Transformer",
+              "topics": "Self-attention, scaled dot-product attention, multi-head attention, positional encoding"
+            },
+            "augmentation": {
+              "title": "Data Augmentation",
+              "topics": "Data augmentation for images, text, and audio, MixUp"
+            }
+          }
+        },
+        "apps": {
+          "title": "Applications of Deep Learning",
+          "items": {
+            "image-recognition": {
+              "title": "Image Recognition",
+              "topics": "Evolution of image classification models, Vision Transformer"
+            },
+            "detection-segmentation": {
+              "title": "Object Detection and Segmentation",
+              "topics": "Faster R-CNN, YOLO, SSD, FCN, U-Net"
+            },
+            "nlp": {
+              "title": "Natural Language Processing",
+              "topics": "Word embeddings, BERT and GPT, large language models, RAG"
+            },
+            "speech": {
+              "title": "Speech Processing",
+              "topics": "Sampling, short-time Fourier transform, mel scale, CTC"
+            },
+            "generative-models": {
+              "title": "Generative Models",
+              "topics": "Autoencoders, VAE, GAN, diffusion models"
+            },
+            "deep-rl": {
+              "title": "Deep Reinforcement Learning",
+              "topics": "DQN, experience replay"
+            },
+            "learning-methods": {
+              "title": "Learning Paradigms",
+              "topics": "Transfer learning and fine-tuning, self-supervised learning, active learning, metric learning, meta-learning"
+            },
+            "multimodal": {
+              "title": "Multimodal",
+              "topics": "Combining images and language"
+            },
+            "explainability": {
+              "title": "Explainability",
+              "topics": "XAI, Grad-CAM, Integrated Gradients"
+            },
+            "efficiency": {
+              "title": "Model Compression and Distributed Training",
+              "topics": "Distillation, quantization, and pruning, data parallelism and model parallelism, federated learning"
+            }
+          }
+        },
+        "history": {
+          "title": "History and Concepts of AI",
+          "items": {
+            "what-is-ai": {
+              "title": "What Is AI?",
+              "topics": "Definitions and levels of AI, the AI effect"
+            },
+            "debates": {
+              "title": "Debates Around AI",
+              "topics": "Turing test, Chinese Room, frame problem, symbol grounding problem"
+            },
+            "search": {
+              "title": "Search and Inference",
+              "topics": "Breadth-first and depth-first search, minimax and alpha-beta pruning, Monte Carlo methods"
+            },
+            "knowledge-representation": {
+              "title": "Knowledge Representation",
+              "topics": "Expert systems, semantic networks, ontologies"
+            },
+            "deep-learning-history": {
+              "title": "History of Deep Learning",
+              "topics": "Neocognitron, ILSVRC, AlphaGo, large language models"
+            }
+          }
+        },
+        "practice": {
+          "title": "Deploying AI in Society",
+          "items": {
+            "projects": {
+              "title": "Running AI Projects",
+              "topics": "From problem definition to operation, PoC"
+            },
+            "data-pipeline": {
+              "title": "Data Collection and Training",
+              "topics": "Workflow of data collection, processing, analysis, and training"
+            },
+            "operations": {
+              "title": "Operations",
+              "topics": "MLOps, AutoML, model monitoring"
+            }
+          }
+        },
+        "ethics": {
+          "title": "Law and Ethics",
+          "items": {
+            "privacy-law": {
+              "title": "Personal Information Protection",
+              "topics": "Act on the Protection of Personal Information, anonymized information, GDPR"
+            },
+            "intellectual-property": {
+              "title": "Intellectual Property",
+              "topics": "Copyright Act, Patent Act, Unfair Competition Prevention Act"
+            },
+            "contracts": {
+              "title": "Contracts",
+              "topics": "AI development outsourcing contracts, AI service provision contracts"
+            },
+            "guidelines": {
+              "title": "AI Guidelines",
+              "topics": "Domestic and international AI principles and guidelines, AI governance"
+            },
+            "fairness-safety": {
+              "title": "Fairness, Privacy, and Safety",
+              "topics": "Algorithmic bias, transparency and accountability, security, misuse"
+            },
+            "generative-ai-risks": {
+              "title": "Generative AI Considerations",
+              "topics": "Hallucinations, misinformation, copyright and privacy issues"
+            }
+          }
+        },
+        "business": {
+          "title": "Business and Data Utilization",
+          "items": {
+            "problem-definition": {
+              "title": "Problem Definition",
+              "topics": "Logical thinking (MECE, structuring), articulating problems and hypotheses, KPIs"
+            },
+            "analysis-design": {
+              "title": "Analysis Design",
+              "topics": "Analysis objectives and questions, comparisons under controlled conditions, A/B test design"
+            },
+            "use-cases": {
+              "title": "Data and AI Use Cases",
+              "topics": "Applications by industry, new business models"
+            },
+            "value-creation": {
+              "title": "Value Creation",
+              "topics": "Designing businesses and data utilization, measuring and improving impact"
+            }
+          }
+        }
+      }
+    },
+    "practice": {
+      "allExams": "All",
+      "examFilter": "Filter by exam",
+      "comingSoon": "Coming soon",
+      "preparing": "This practice set is in preparation.",
+      "chooseSet": "Choose a problem set to practice.",
+      "setLabel": "Practice {n}",
+      "breadcrumb": "You are here",
+      "quiz": {
+        "progress": "Question {current} / {total}",
+        "choices": "Choices",
+        "correct": "Correct",
+        "incorrect": "Incorrect",
+        "next": "Next question",
+        "seeResult": "See results",
+        "resultCorrect": "{correct} of {total} correct",
+        "questionNumber": "Question {number}",
+        "retry": "Try again",
+        "nextSet": "Next practice",
+        "explanation": "Explanation"
+      },
+      "itemPage": {
+        "about": "What you learn",
+        "pageNavigation": "On this page",
+        "explanation": "Explanation",
+        "examples": "Worked examples",
+        "exampleNumber": "Example {number}",
+        "steps": "How to think",
+        "answer": "Answer",
+        "practice": "Practice",
+        "start": "Start practice",
+        "neighbors": "Previous and next items",
+        "previous": "Previous",
+        "next": "Next"
+      }
+    },
+    "cs": {
+      "title": "Computer Science Practice",
+      "description": "Explanations, worked examples and four-choice practice problems for each learning item of computer science, based on the scopes of Japan's IT Passport, Fundamental Information Technology Engineer and Applied Information Technology Engineer examinations and the standard university computing curriculum. Calculated answers are recomputed, and algorithm problems are checked by actually running their pseudocode, before they are published.",
+      "exams": {
+        "ip": "IT Passport",
+        "fe": "FE",
+        "ap": "AP",
+        "univ": "University"
+      },
+      "checks": {
+        "calc": "Calculation",
+        "run": "Program",
+        "sql": "SQL",
+        "machine": "Automaton",
+        "knowledge": "Knowledge"
+      },
+      "problemsInJapanese": "The explanations, worked examples and problems are in Japanese.",
+      "examNote": "The mappings to exams and university courses are approximate guides assigned by this site from the published scopes (the syllabi of the IT Passport Examination Ver.6.5, the Fundamental Information Technology Engineer Examination Ver.9.2 and the Applied Information Technology Engineer Examination Ver.7.2, and the core of the Information Processing Society of Japan's curriculum standard J17, computer science). These are not official problem sets for any exam, and no past exam questions are used.",
+      "units": {
+        "discrete": {
+          "title": "Discrete Math and Number Representation",
+          "items": {
+            "bases": {
+              "title": "Number bases",
+              "topics": "Binary, octal and hexadecimal, base conversion, converting fractions"
+            },
+            "integers": {
+              "title": "Representing integers",
+              "topics": "Unsigned integers, two's complement, overflow, shift operations"
+            },
+            "reals": {
+              "title": "Representing real numbers",
+              "topics": "Fixed point, floating point (IEEE 754), errors (rounding, cancellation, absorption)"
+            },
+            "logic": {
+              "title": "Logic operations",
+              "topics": "Truth tables, simplifying logical expressions, De Morgan's laws, Karnaugh maps"
+            },
+            "sets": {
+              "title": "Sets and relations",
+              "topics": "Set operations, Venn diagrams, relations (reflexive, symmetric, transitive), functions"
+            },
+            "proofs": {
+              "title": "Propositions and proofs",
+              "topics": "Propositional and predicate logic, necessary and sufficient conditions, induction, proof by contradiction"
+            },
+            "counting": {
+              "title": "Counting and probability",
+              "topics": "Permutations and combinations, inclusion-exclusion, discrete probability, expected value"
+            },
+            "graphs": {
+              "title": "Graphs and trees",
+              "topics": "Graph terms, trees, degree, Euler paths, adjacency matrices"
+            }
+          }
+        },
+        "data-structures": {
+          "title": "Data Structures",
+          "items": {
+            "lists": {
+              "title": "Arrays and lists",
+              "topics": "Arrays, linked lists (singly, doubly, circular), the cost of insertion and deletion"
+            },
+            "stacks-queues": {
+              "title": "Stacks and queues",
+              "topics": "LIFO and FIFO, push and pop, enqueue and dequeue, reverse Polish notation"
+            },
+            "trees": {
+              "title": "Trees",
+              "topics": "Binary trees, traversal (preorder, inorder, postorder), binary search trees"
+            },
+            "heaps": {
+              "title": "Heaps and priority queues",
+              "topics": "The heap property, inserting and removing elements, storing a heap in an array"
+            },
+            "hashing": {
+              "title": "Hashing",
+              "topics": "Hash functions, collisions, open addressing and chaining"
+            },
+            "graph-representation": {
+              "title": "Representing graphs",
+              "topics": "Adjacency matrices and lists, directed and undirected, weighted graphs"
+            }
+          }
+        },
+        "algorithms": {
+          "title": "Algorithms",
+          "items": {
+            "complexity": {
+              "title": "Complexity",
+              "topics": "Big O notation, worst and average cases, time and space complexity"
+            },
+            "searching": {
+              "title": "Searching",
+              "topics": "Linear search, binary search, sentinels"
+            },
+            "sorting": {
+              "title": "Sorting",
+              "topics": "Selection, insertion, bubble, quick, merge and heap sort, stability"
+            },
+            "recursion": {
+              "title": "Recursion",
+              "topics": "Recursive calls, factorial and Fibonacci, the Tower of Hanoi, counting calls"
+            },
+            "strings": {
+              "title": "String processing",
+              "topics": "String matching (naive, the idea of Boyer-Moore), counting characters"
+            },
+            "design": {
+              "title": "Algorithm design",
+              "topics": "Divide and conquer, greedy algorithms, dynamic programming, backtracking"
+            },
+            "graph-algorithms": {
+              "title": "Graph algorithms",
+              "topics": "Breadth- and depth-first search, shortest paths (Dijkstra's algorithm), minimum spanning trees"
+            },
+            "numeric": {
+              "title": "Numerical algorithms",
+              "topics": "Euclid's algorithm, primality tests, Newton's method, handling errors"
+            }
+          }
+        },
+        "programming": {
+          "title": "Programming and Languages",
+          "items": {
+            "pseudocode": {
+              "title": "Reading pseudocode",
+              "topics": "How the pseudocode is written, variables, arrays and control structures, tracing"
+            },
+            "functions": {
+              "title": "Functions and arguments",
+              "topics": "Pass by value and by reference, scope, reentrant, recursive and reusable code"
+            },
+            "oop": {
+              "title": "Object-oriented programming",
+              "topics": "Classes and instances, encapsulation, inheritance, polymorphism, UML class diagrams"
+            },
+            "functional": {
+              "title": "Functional programming",
+              "topics": "Higher-order functions, side effects, immutability, map, filter and reduce"
+            },
+            "types": {
+              "title": "Types",
+              "topics": "Static and dynamic typing, type checking, type conversion, generics"
+            },
+            "translation": {
+              "title": "Language processors",
+              "topics": "Compilers and interpreters, lexical and syntax analysis, optimisation, linkers"
+            },
+            "grammars": {
+              "title": "Formal languages and grammars",
+              "topics": "BNF, syntax diagrams, regular expressions"
+            }
+          }
+        },
+        "theory": {
+          "title": "Theory of Computation",
+          "items": {
+            "automata": {
+              "title": "Finite automata",
+              "topics": "State transition diagrams and tables, DFAs and NFAs, accepted strings"
+            },
+            "languages": {
+              "title": "Regular and context-free languages",
+              "topics": "Regular expressions and automata, context-free grammars, the idea of pushdown automata"
+            },
+            "computability": {
+              "title": "Computability",
+              "topics": "Turing machines, the halting problem, undecidability"
+            },
+            "complexity-classes": {
+              "title": "Complexity classes",
+              "topics": "P and NP, NP-completeness, the idea of reductions"
+            },
+            "coding": {
+              "title": "Information and codes",
+              "topics": "Information content, Huffman codes, run-length encoding, error detection and correction (parity, Hamming codes, CRC)"
+            }
+          }
+        },
+        "architecture": {
+          "title": "Computer Architecture",
+          "items": {
+            "circuits": {
+              "title": "Logic circuits",
+              "topics": "AND, OR, NOT, NAND and XOR, half and full adders, flip-flops"
+            },
+            "instructions": {
+              "title": "Executing instructions",
+              "topics": "Instruction formats, addressing modes, the instruction cycle, machine code and assembly"
+            },
+            "performance": {
+              "title": "Processor performance",
+              "topics": "Clock, CPI, MIPS, pipelining, superscalar, multicore"
+            },
+            "memory": {
+              "title": "The memory hierarchy",
+              "topics": "Registers, cache, main memory and storage, effective access time, hit rate, write-through and write-back"
+            },
+            "io": {
+              "title": "Input, output and buses",
+              "topics": "Buses, DMA, interrupts, I/O interfaces"
+            },
+            "storage": {
+              "title": "Storage",
+              "topics": "HDD access time, SSDs, RAID"
+            }
+          }
+        },
+        "os": {
+          "title": "Operating Systems",
+          "items": {
+            "basics": {
+              "title": "What an OS does",
+              "topics": "The kernel, system calls, user and kernel mode"
+            },
+            "processes": {
+              "title": "Processes and threads",
+              "topics": "Process states, context switches, threads"
+            },
+            "scheduling": {
+              "title": "Scheduling",
+              "topics": "First come first served, round robin, priority scheduling, turnaround time"
+            },
+            "concurrency": {
+              "title": "Concurrency and mutual exclusion",
+              "topics": "Race conditions, semaphores, the conditions for deadlock and avoiding it"
+            },
+            "memory-management": {
+              "title": "Memory management",
+              "topics": "Virtual memory, paging, page replacement (FIFO, LRU), page faults"
+            },
+            "files": {
+              "title": "File systems",
+              "topics": "Directories, absolute and relative paths, permissions, backups"
+            }
+          }
+        },
+        "systems": {
+          "title": "System Configuration and Evaluation",
+          "items": {
+            "configurations": {
+              "title": "System configurations",
+              "topics": "Centralised and distributed, client-server, web systems, virtualisation, containers and the cloud"
+            },
+            "reliability": {
+              "title": "Reliability",
+              "topics": "MTBF and MTTR, availability (in series and in parallel), fault tolerance"
+            },
+            "evaluation": {
+              "title": "Performance evaluation",
+              "topics": "Response time and throughput, queueing (M/M/1)"
+            },
+            "parallel": {
+              "title": "Parallel and distributed systems",
+              "topics": "The gain from parallelism (Amdahl's law), consistency in distributed systems"
+            }
+          }
+        },
+        "databases": {
+          "title": "Databases",
+          "items": {
+            "relational": {
+              "title": "The relational model",
+              "topics": "Tables, tuples and attributes, primary and foreign keys, relational operations"
+            },
+            "normalization": {
+              "title": "Data modelling and normalisation",
+              "topics": "E-R diagrams, functional dependencies, first to third normal form"
+            },
+            "sql-queries": {
+              "title": "SQL queries",
+              "topics": "SELECT, joins, GROUP BY and HAVING, subqueries"
+            },
+            "sql-definitions": {
+              "title": "SQL definitions and updates",
+              "topics": "CREATE, INSERT, UPDATE and DELETE, views, constraints"
+            },
+            "transactions": {
+              "title": "Transactions",
+              "topics": "ACID properties, concurrency control (locking), deadlock"
+            },
+            "recovery": {
+              "title": "Recovery and indexes",
+              "topics": "Logs, rollback and rollforward, indexes (B+ trees)"
+            }
+          }
+        },
+        "networks": {
+          "title": "Networks",
+          "items": {
+            "layers": {
+              "title": "Layered models",
+              "topics": "The OSI reference model, the four layers of TCP/IP, encapsulation"
+            },
+            "addressing": {
+              "title": "IP addresses",
+              "topics": "IPv4 and IPv6, subnet masks, CIDR, number of hosts, NAT"
+            },
+            "transport": {
+              "title": "The transport layer",
+              "topics": "TCP and UDP, port numbers, retransmission and flow control, congestion control"
+            },
+            "routing-lan": {
+              "title": "Routing and LANs",
+              "topics": "Routing, Ethernet, switches, wireless LANs"
+            },
+            "applications": {
+              "title": "The application layer",
+              "topics": "DNS, HTTP, email (SMTP, POP, IMAP), DHCP"
+            },
+            "transmission": {
+              "title": "Transmission time",
+              "topics": "Transmission speed, efficiency, transmission time from the amount of data"
+            }
+          }
+        },
+        "security": {
+          "title": "Security",
+          "items": {
+            "fundamentals": {
+              "title": "Security fundamentals",
+              "topics": "Confidentiality, integrity and availability, threats and vulnerabilities, risk"
+            },
+            "cryptography": {
+              "title": "Cryptography",
+              "topics": "Symmetric and public-key encryption, the number of keys, hash functions"
+            },
+            "authentication": {
+              "title": "Authentication and PKI",
+              "topics": "Passwords, multi-factor authentication, digital signatures, public-key certificates"
+            },
+            "attacks": {
+              "title": "Attacks",
+              "topics": "Malware, phishing, SQL injection, XSS, DoS"
+            },
+            "defenses": {
+              "title": "Defences and secure design",
+              "topics": "Firewalls, WAFs, least privilege, input validation, secure programming"
+            },
+            "management": {
+              "title": "Security management",
+              "topics": "ISMS, risk assessment, incident response"
+            }
+          }
+        },
+        "software-engineering": {
+          "title": "Software Engineering",
+          "items": {
+            "processes": {
+              "title": "Development processes",
+              "topics": "Waterfall, agile (Scrum, XP), DevOps"
+            },
+            "design": {
+              "title": "Requirements and design",
+              "topics": "Requirements, UML, module cohesion and coupling, the idea of design patterns"
+            },
+            "testing": {
+              "title": "Testing",
+              "topics": "Black-box (equivalence partitioning, boundary values), white-box (statement and branch coverage), test levels"
+            },
+            "maintenance": {
+              "title": "Maintenance and configuration management",
+              "topics": "Version control, refactoring, kinds of maintenance"
+            },
+            "estimation": {
+              "title": "Size and estimation",
+              "topics": "Function point analysis, calculating effort"
+            }
+          }
+        },
+        "media": {
+          "title": "Information Representation and UI",
+          "items": {
+            "characters": {
+              "title": "Character encodings",
+              "topics": "ASCII, Unicode and UTF-8, garbled text"
+            },
+            "digitization": {
+              "title": "Digitising images and sound",
+              "topics": "Sampling and quantisation, resolution, colours and data size, lossless and lossy compression"
+            },
+            "ui": {
+              "title": "UI and usability",
+              "topics": "Usability, accessibility, UX design"
+            },
+            "graphics": {
+              "title": "Graphics basics",
+              "topics": "Coordinate transformations, raster and vector, the idea of rendering"
+            }
+          }
+        },
+        "management": {
+          "title": "Management",
+          "items": {
+            "projects": {
+              "title": "Project management",
+              "topics": "WBS, arrow diagrams (the critical path), EVM"
+            },
+            "services": {
+              "title": "Service management",
+              "topics": "SLAs, incident and problem management, the ideas of ITIL"
+            },
+            "audit": {
+              "title": "System audit and internal control",
+              "topics": "The audit process, audit evidence, internal control"
+            }
+          }
+        },
+        "strategy": {
+          "title": "Strategy",
+          "items": {
+            "accounting": {
+              "title": "Business and accounting",
+              "topics": "Break-even point, reading financial statements, inventory and ordering calculations"
+            },
+            "business-strategy": {
+              "title": "Business and IT strategy",
+              "topics": "SWOT, PPM, BPR, requirements and procurement"
+            },
+            "law": {
+              "title": "Law",
+              "topics": "Intellectual property, security laws, labour and trade laws"
+            },
+            "ethics": {
+              "title": "Ethics and society",
+              "topics": "Engineering ethics, privacy, issues of the information society"
+            }
+          }
+        }
+      }
+    }
   }
 }

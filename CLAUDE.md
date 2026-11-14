@@ -73,6 +73,32 @@ By hand: `node scripts/govfaq-build.mjs [--if-changed]`, then `CLOUDFLARE_ACCOUN
 (a token that may use Workers AI; never print it). The answers written from the FAQ (`src/lib/govfaq-answer.server.ts`) keep the prompt in
 `SYSTEM_PROMPT`; locally, `LOCAL_AI_ACCOUNT_ID` and `LOCAL_AI_TOKEN` in `.dev.vars` let the site reach Workers AI by its REST address.
 
+## AI and data science practice
+
+`/ai-ds` ("AI・データサイエンス問題集", `src/tools/ai-ds/`; plan: `docs/plans/ai-ds-practice.md`): four-choice problems for the
+scopes of three Japanese exams (DS検定 リテラシーレベル, G検定, E資格), one catalog for all three (`catalog.ts`: unit → item →
+set, each item tagged with its exams and how its problems are checked). Not in the app catalog yet: routed explicitly in
+`src/routes.ts` and kept out of search results (`isUnpublishedAiDsPath`, in `root.tsx` and the Worker). Problems are in
+Japanese, bundled with the page from `src/tools/ai-ds/data/<unit>.json` (no database), and served only when `published`.
+`npm run ai-ds:generate -- <unit|unit/item> ...` has Claude write a set; `scripts/verify_ds.py` (in `test:sympy`) recomputes every
+calculation's answer from its `check` (an expression over a fixed list of functions) and checks each choice shows its value; Codex
+then solves the set without the answers, and what it gets wrong or flags goes back to Claude, twice at most. Only problems that
+pass are published. Knowledge problems have no check and rest on that blind review. Antigravity (agy) is not called from scripts.
+An item page (`item.tsx`) is laid out as math's (`routes/math-item.tsx`, whose CSS module it uses): what you learn (the topics),
+links within the page, the lesson, the practice sets, the previous and next items. Lessons are in Japanese in
+`src/tools/ai-ds/lessons.json` (`sections` of prose with $...$ TeX and display formulas, then 2-3 worked `examples`: a situation,
+steps, an answer and, for a number, a `check` that `verify_ds.py` recomputes and finds in the answer). `npm run ai-ds:lessons --
+<unit|unit/item> ...` has Claude write one for each item with published problems, checks it, then Codex reviews it and what it
+finds goes back to Claude, three rounds at most; only a lesson that passes is saved (with `reviewedAt`), the rest stay in
+`.ai-ds-work/lesson-drafts.json`. The models are called through `scripts/lib/ai-ds-models.mjs`.
+
+The pages are shared with computer science practice (`/cs`, `src/tools/cs/`; plan: `docs/plans/cs-practice.md`), the same kind of
+book over the IPA exams (ITパスポート, 基本情報, 応用情報) and the J17-CS university curriculum: `src/lib/practice.ts` (types, the
+loaders, banks, lessons, the noindex check) and `src/components/practice/` (top page with the exam filter, item page, quiz). A book
+is its folder (catalog with a `PracticeBook`, `data/<unit>.json`, `lessons.json`, three thin route files), its routes in
+`src/routes.ts`, its noindex check in `root.tsx` and the Worker, and its names under `App.<book>`; what every book says is under
+`App.practice`. `/cs` has its catalog (15 units, 84 items) but no problems or lessons yet.
+
 ## Math project
 
 Math is organized unit → learning item → practice set, all in
