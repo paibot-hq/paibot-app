@@ -5786,7 +5786,7 @@
           "summary": "割り切れないときの商とあまりを求める練習です。",
           "items": {
             "remainder": {
-          "title": "あまりのある割り算",
+              "title": "あまりのある割り算",
               "summary": "割り切れずにあまりが出るわり算の計算を学びます。",
               "description": "割り切れないときに商とあまりを求める計算と、あまりはわる数より小さくなる決まりを学びます。物を袋分けして余りを出す場面などで役立ちます。九九を使ったわり算と1桁のひき算の知識があるとスムーズに解けます。"
             }
@@ -6250,6 +6250,470 @@
     "languageSelect": "言語を選択",
     "themeToLight": "ライトモードに切り替え",
     "themeToDark": "ダークモードに切り替え",
-    "notFound": "ページが見つかりません"
+    "notFound": "ページが見つかりません",
+    "aiDs": {
+      "title": "AI・データサイエンス問題集",
+      "description": "DS検定（リテラシーレベル）・G検定・E資格の試験範囲を参考にした、AI・データサイエンスの4択問題集です。計算の問題は答えをプログラムで計算し直し、すべての問題を別のAIが答えを伏せて解いて確かめてから載せています。",
+      "allExams": "すべて",
+      "exams": {
+        "ds": "DS検定",
+        "g": "G検定",
+        "e": "E資格"
+      },
+      "examFilter": "試験で絞り込む",
+      "comingSoon": "準備中",
+      "preparing": "この練習は準備中です。",
+      "chooseSet": "練習する問題セットを選んでください。",
+      "setLabel": "練習{n}",
+      "breadcrumb": "現在の位置",
+      "problemsInJapanese": "問題と解説は日本語です。",
+      "examNote": "試験との対応は、各試験の公開されている出題範囲（DS検定はスキルチェックリスト ver.6 とモデルカリキュラム、G検定はシラバス2024、E資格はシラバス2026）を本サイトが読んで付けた目安です。各試験の公式の問題集ではありません。DS検定はデータサイエンティスト協会、G検定・E資格は日本ディープラーニング協会の商標です。",
+      "checks": {
+        "calc": "計算",
+        "knowledge": "知識",
+        "sql": "SQL"
+      },
+      "quiz": {
+        "progress": "{current} / {total}問",
+        "choices": "選択肢",
+        "correct": "正解",
+        "incorrect": "不正解",
+        "next": "次の問題",
+        "seeResult": "結果を見る",
+        "resultCorrect": "{total}問中 {correct}問正解",
+        "questionNumber": "{number}問目",
+        "retry": "もう一度",
+        "nextSet": "次の練習",
+        "explanation": "解説"
+      },
+      "units": {
+        "stats": {
+          "title": "統計と確率",
+          "items": {
+            "descriptive": {
+              "title": "代表値とばらつき",
+              "topics": "平均・中央値・最頻値、分散・標準偏差、度数分布、外れ値、箱ひげ図"
+            },
+            "correlation": {
+              "title": "相関と因果",
+              "topics": "共分散・相関係数、偏相関、擬似相関・交絡、因果推論の考え方"
+            },
+            "probability": {
+              "title": "確率の基礎",
+              "topics": "確率変数、同時確率・条件付き確率・周辺確率、期待値・分散"
+            },
+            "bayes": {
+              "title": "ベイズの定理",
+              "topics": "ベイズ則、事前確率と事後確率、ナイーブベイズ"
+            },
+            "distributions": {
+              "title": "確率分布",
+              "topics": "ベルヌーイ・二項・ポアソン・正規・t 分布、中心極限定理、混合ガウス分布"
+            },
+            "sampling": {
+              "title": "標本と推定",
+              "topics": "母集団と標本、標本抽出の方法、点推定・区間推定、標準誤差"
+            },
+            "testing": {
+              "title": "仮説検定",
+              "topics": "帰無仮説・対立仮説、p 値、有意水準、第1種・第2種の誤り、A/B テスト"
+            },
+            "estimation": {
+              "title": "パラメータ推定",
+              "topics": "最尤推定、対数尤度、MAP 推定、ベイズ推定"
+            },
+            "time-series": {
+              "title": "時系列",
+              "topics": "移動平均、トレンドと季節性、自己回帰（AR・VAR）の考え方"
+            }
+          }
+        },
+        "linalg": {
+          "title": "線形代数と微分",
+          "items": {
+            "matrices": {
+              "title": "ベクトルと行列の計算",
+              "topics": "内積、ノルム、行列・テンソルの積、アダマール積、ランク"
+            },
+            "eigen": {
+              "title": "固有値と特異値",
+              "topics": "固有値・固有ベクトル、対角化、特異値分解"
+            },
+            "gradients": {
+              "title": "微分と勾配",
+              "topics": "偏微分、勾配、連鎖律"
+            },
+            "distances": {
+              "title": "距離と類似度",
+              "topics": "ユークリッド・マンハッタン・Lp・マハラノビス距離、コサイン類似度"
+            }
+          }
+        },
+        "info": {
+          "title": "情報理論",
+          "items": {
+            "entropy": {
+              "title": "情報量とエントロピー",
+              "topics": "自己情報量、エントロピー、結合エントロピー・条件付きエントロピー"
+            },
+            "cross-entropy": {
+              "title": "交差エントロピーとダイバージェンス",
+              "topics": "交差エントロピー、KL ダイバージェンス、JS ダイバージェンス"
+            },
+            "mutual-information": {
+              "title": "相互情報量",
+              "topics": "相互情報量、エントロピーとの関係"
+            }
+          }
+        },
+        "data": {
+          "title": "データの準備と可視化",
+          "items": {
+            "data-types": {
+              "title": "データの種類",
+              "topics": "構造化・非構造化データ、1次・2次データ、オープンデータ、アノテーション"
+            },
+            "preprocessing": {
+              "title": "前処理",
+              "topics": "欠損値・外れ値の扱い、正規化・標準化、カテゴリ変数の変換"
+            },
+            "features": {
+              "title": "特徴量エンジニアリング",
+              "topics": "特徴量の作り方と選び方、次元の呪い"
+            },
+            "bias": {
+              "title": "データの偏り",
+              "topics": "サンプリング・バイアス、データバイアス"
+            },
+            "visualization": {
+              "title": "可視化",
+              "topics": "グラフの使い分け、不適切なグラフ表現"
+            }
+          }
+        },
+        "dataeng": {
+          "title": "SQL とデータ基盤",
+          "items": {
+            "sql-basics": {
+              "title": "SQL の基本",
+              "topics": "SELECT・WHERE・ORDER BY"
+            },
+            "sql-aggregation": {
+              "title": "集計",
+              "topics": "GROUP BY・集計関数・HAVING"
+            },
+            "sql-joins": {
+              "title": "結合",
+              "topics": "INNER JOIN・LEFT JOIN"
+            },
+            "table-design": {
+              "title": "テーブルの設計",
+              "topics": "主キー、正規化、テーブル定義"
+            },
+            "platforms": {
+              "title": "データ基盤",
+              "topics": "DWH、分散処理、クラウド、データの収集と連携"
+            },
+            "security": {
+              "title": "セキュリティの基礎",
+              "topics": "機密性・完全性・可用性、暗号化、認証とアクセス制御、匿名加工情報"
+            }
+          }
+        },
+        "ml": {
+          "title": "機械学習の基礎",
+          "items": {
+            "learning-types": {
+              "title": "機械学習の分類",
+              "topics": "教師あり・教師なし・半教師あり・強化学習、回帰と分類"
+            },
+            "linear-regression": {
+              "title": "線形回帰と正則化",
+              "topics": "最小二乗法、重回帰、多重共線性、Lasso・Ridge（L1・L2 正則化）"
+            },
+            "logistic-regression": {
+              "title": "ロジスティック回帰",
+              "topics": "シグモイド関数・ロジット、ソフトマックス関数、オッズ比"
+            },
+            "svm": {
+              "title": "サポートベクターマシン",
+              "topics": "マージン最大化、ハードマージン・ソフトマージン、カーネル法"
+            },
+            "trees-ensembles": {
+              "title": "決定木とアンサンブル",
+              "topics": "分類木・回帰木、ジニ係数、バギング・ブースティング、ランダムフォレスト"
+            },
+            "knn": {
+              "title": "k 近傍法",
+              "topics": "k 近傍法、距離による分類、近似最近傍"
+            },
+            "clustering": {
+              "title": "クラスタリング",
+              "topics": "k-means、階層的クラスタリング（ウォード法・群平均法）、デンドログラム"
+            },
+            "dimensionality-reduction": {
+              "title": "次元削減",
+              "topics": "主成分分析・寄与率、特異値分解、t-SNE"
+            },
+            "recommendation": {
+              "title": "レコメンド",
+              "topics": "協調フィルタリング、コンテンツベースフィルタリング、コールドスタート問題"
+            },
+            "reinforcement-learning": {
+              "title": "強化学習の基礎",
+              "topics": "マルコフ決定過程、割引率と価値関数、Q 学習、方策勾配法、バンディット問題"
+            }
+          }
+        },
+        "eval": {
+          "title": "モデルの評価",
+          "items": {
+            "validation": {
+              "title": "検証の方法",
+              "topics": "訓練・検証・テストデータ、ホールドアウト法、k 分割交差検証"
+            },
+            "classification-metrics": {
+              "title": "分類の指標",
+              "topics": "混同行列、正解率・適合率・再現率・F 値、マイクロ平均・マクロ平均"
+            },
+            "roc-auc": {
+              "title": "ROC 曲線と AUC",
+              "topics": "真陽性率・偽陽性率、ROC 曲線、AUC、しきい値"
+            },
+            "regression-metrics": {
+              "title": "回帰の指標",
+              "topics": "MSE・RMSE・MAE"
+            },
+            "overfitting": {
+              "title": "過学習とモデル選択",
+              "topics": "過学習・未学習、バイアスとバリアンス、AIC・BIC"
+            },
+            "task-metrics": {
+              "title": "物体検出・言語モデルの指標",
+              "topics": "IoU、mAP、パープレキシティ"
+            }
+          }
+        },
+        "nn": {
+          "title": "ニューラルネットワーク",
+          "items": {
+            "perceptron": {
+              "title": "パーセプトロンと全結合層",
+              "topics": "単純・多層パーセプトロン、重みとバイアス、パラメータ数"
+            },
+            "activations": {
+              "title": "活性化関数",
+              "topics": "シグモイド、tanh、ReLU、Leaky ReLU、GELU、勾配消失"
+            },
+            "losses": {
+              "title": "損失関数",
+              "topics": "平均二乗誤差、交差エントロピー（2値・多クラス）、Contrastive loss・Triplet loss"
+            },
+            "backpropagation": {
+              "title": "誤差逆伝播法",
+              "topics": "連鎖律、計算グラフ、勾配消失・勾配爆発"
+            },
+            "optimizers": {
+              "title": "最適化",
+              "topics": "勾配降下法、SGD、ミニバッチ、モメンタム、AdaGrad・RMSProp・Adam"
+            },
+            "initialization": {
+              "title": "重みの初期化",
+              "topics": "Xavier（Glorot）の初期化、He（Kaiming）の初期化"
+            },
+            "regularization": {
+              "title": "正則化",
+              "topics": "L1・L2 正則化、weight decay、ドロップアウト、早期終了"
+            },
+            "normalization": {
+              "title": "正規化",
+              "topics": "バッチ正規化、レイヤー正規化、インスタンス正規化、グループ正規化"
+            },
+            "hyperparameters": {
+              "title": "ハイパーパラメータ",
+              "topics": "学習率・バッチサイズなど、グリッドサーチ・ランダムサーチ、ベイズ最適化"
+            },
+            "hardware": {
+              "title": "計算資源",
+              "topics": "CPU・GPU・TPU の違い"
+            }
+          }
+        },
+        "arch": {
+          "title": "CNN・RNN・Transformer",
+          "items": {
+            "convolution": {
+              "title": "畳み込み",
+              "topics": "フィルタ・ストライド・パディング・チャネル、出力サイズとパラメータ数"
+            },
+            "pooling": {
+              "title": "プーリング",
+              "topics": "最大値プーリング・平均値プーリング、グローバルアベレージプーリング"
+            },
+            "skip-connections": {
+              "title": "スキップ結合",
+              "topics": "ResNet、残差接続"
+            },
+            "rnn": {
+              "title": "RNN",
+              "topics": "順伝播、BPTT、双方向 RNN"
+            },
+            "lstm-gru": {
+              "title": "LSTM と GRU",
+              "topics": "ゲート機構、勾配消失への対策"
+            },
+            "attention": {
+              "title": "系列変換と Attention",
+              "topics": "エンコーダ・デコーダ、seq2seq、Attention"
+            },
+            "transformer": {
+              "title": "Transformer",
+              "topics": "Self-Attention、Scaled Dot-Product Attention、Multi-Head Attention、位置エンコーディング"
+            },
+            "augmentation": {
+              "title": "データ拡張",
+              "topics": "画像・言語・音声のデータ拡張、MixUp"
+            }
+          }
+        },
+        "apps": {
+          "title": "深層学習の応用",
+          "items": {
+            "image-recognition": {
+              "title": "画像認識",
+              "topics": "画像分類のモデルの流れ、Vision Transformer"
+            },
+            "detection-segmentation": {
+              "title": "物体検出とセグメンテーション",
+              "topics": "Faster R-CNN・YOLO・SSD、FCN・U-Net"
+            },
+            "nlp": {
+              "title": "自然言語処理",
+              "topics": "単語埋め込み、BERT・GPT、大規模言語モデル、RAG"
+            },
+            "speech": {
+              "title": "音声処理",
+              "topics": "サンプリング、短時間フーリエ変換、メル尺度、CTC"
+            },
+            "generative-models": {
+              "title": "生成モデル",
+              "topics": "オートエンコーダ、VAE、GAN、拡散モデル"
+            },
+            "deep-rl": {
+              "title": "深層強化学習",
+              "topics": "DQN、経験再生"
+            },
+            "learning-methods": {
+              "title": "いろいろな学習方法",
+              "topics": "転移学習・ファインチューニング、自己教師あり学習、能動学習、距離学習、メタ学習"
+            },
+            "multimodal": {
+              "title": "マルチモーダル",
+              "topics": "画像と言語の組み合わせ"
+            },
+            "explainability": {
+              "title": "説明性",
+              "topics": "XAI、Grad-CAM、Integrated Gradients"
+            },
+            "efficiency": {
+              "title": "軽量化と分散",
+              "topics": "蒸留・量子化・枝刈り、データ並列・モデル並列、連合学習"
+            }
+          }
+        },
+        "history": {
+          "title": "AI の歴史と考え方",
+          "items": {
+            "what-is-ai": {
+              "title": "人工知能とは",
+              "topics": "AI の定義とレベル、AI 効果"
+            },
+            "debates": {
+              "title": "AI をめぐる議論",
+              "topics": "チューリングテスト、中国語の部屋、フレーム問題、シンボルグラウンディング問題"
+            },
+            "search": {
+              "title": "探索と推論",
+              "topics": "幅優先探索・深さ優先探索、Mini-Max 法・αβ 法、モンテカルロ法"
+            },
+            "knowledge-representation": {
+              "title": "知識表現",
+              "topics": "エキスパートシステム、意味ネットワーク、オントロジー"
+            },
+            "deep-learning-history": {
+              "title": "深層学習の歴史",
+              "topics": "ネオコグニトロン、ILSVRC、AlphaGo、大規模言語モデル"
+            }
+          }
+        },
+        "practice": {
+          "title": "AI の社会実装",
+          "items": {
+            "projects": {
+              "title": "AI プロジェクトの進め方",
+              "topics": "課題の定義から運用まで、PoC"
+            },
+            "data-pipeline": {
+              "title": "データの収集と学習",
+              "topics": "データの集め方・加工・分析・学習の流れ"
+            },
+            "operations": {
+              "title": "運用",
+              "topics": "MLOps、AutoML、モデルの監視"
+            }
+          }
+        },
+        "ethics": {
+          "title": "法律と倫理",
+          "items": {
+            "privacy-law": {
+              "title": "個人情報保護",
+              "topics": "個人情報保護法、匿名加工情報、GDPR"
+            },
+            "intellectual-property": {
+              "title": "知的財産",
+              "topics": "著作権法、特許法、不正競争防止法"
+            },
+            "contracts": {
+              "title": "契約",
+              "topics": "AI 開発委託契約、AI サービス提供契約"
+            },
+            "guidelines": {
+              "title": "AI のガイドライン",
+              "topics": "国内外の AI 原則・ガイドライン、AI ガバナンス"
+            },
+            "fairness-safety": {
+              "title": "公平性・プライバシー・安全性",
+              "topics": "アルゴリズムバイアス、透明性・説明責任、セキュリティ、悪用"
+            },
+            "generative-ai-risks": {
+              "title": "生成 AI の注意点",
+              "topics": "ハルシネーション、偽情報、著作権・プライバシーの論点"
+            }
+          }
+        },
+        "business": {
+          "title": "ビジネスとデータ活用",
+          "items": {
+            "problem-definition": {
+              "title": "課題の定義",
+              "topics": "論理的思考（MECE・構造化）、課題と仮説の言語化、KPI"
+            },
+            "analysis-design": {
+              "title": "分析の設計",
+              "topics": "分析の目的と問い、条件をそろえた比較、A/B テストの設計"
+            },
+            "use-cases": {
+              "title": "データ・AI の活用事例",
+              "topics": "業種ごとの活用、新しいビジネスモデル"
+            },
+            "value-creation": {
+              "title": "価値創造",
+              "topics": "事業・データ活用の設計、効果測定と改善"
+            }
+          }
+        }
+      }
+    }
   }
 }

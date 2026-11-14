@@ -73,6 +73,18 @@ By hand: `node scripts/govfaq-build.mjs [--if-changed]`, then `CLOUDFLARE_ACCOUN
 (a token that may use Workers AI; never print it). The answers written from the FAQ (`src/lib/govfaq-answer.server.ts`) keep the prompt in
 `SYSTEM_PROMPT`; locally, `LOCAL_AI_ACCOUNT_ID` and `LOCAL_AI_TOKEN` in `.dev.vars` let the site reach Workers AI by its REST address.
 
+## AI and data science practice
+
+`/ai-ds` ("AI・データサイエンス問題集", `src/tools/ai-ds/`; plan: `docs/plans/ai-ds-practice.md`): four-choice problems for the
+scopes of three Japanese exams (DS検定 リテラシーレベル, G検定, E資格), one catalog for all three (`catalog.ts`: unit → item →
+set, each item tagged with its exams and how its problems are checked). Not in the app catalog yet: routed explicitly in
+`src/routes.ts` and kept out of search results (`isUnpublishedAiDsPath`, in `root.tsx` and the Worker). Problems are in
+Japanese, bundled with the page from `src/tools/ai-ds/data/<unit>.json` (no database), and served only when `published`.
+`npm run ai-ds:generate -- <unit|unit/item> ...` has Claude write a set; `scripts/verify_ds.py` (in `test:sympy`) recomputes every
+calculation's answer from its `check` (an expression over a fixed list of functions) and checks each choice shows its value; Codex
+then solves the set without the answers, and what it gets wrong or flags goes back to Claude, twice at most. Only problems that
+pass are published. Knowledge problems have no check and rest on that blind review. Antigravity (agy) is not called from scripts.
+
 ## Math project
 
 Math is organized unit → learning item → practice set, all in

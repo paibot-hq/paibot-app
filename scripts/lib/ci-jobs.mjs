@@ -4,11 +4,12 @@
 //   e2e:     the server checks (routing, environments, Access) and the two tools whose flows start their own server
 //            (domain, site-check), tests/e2e/{access,environments,whois,site-check}.mjs
 //   browser: the preview checks (smoke, catalog, tools, quiz-browser) and the local D1 imports they use
-//   sympy:   SymPy re-deriving every math answer (scripts/verify_math.py) and the lessons' math (verify_lessons.py), which read only the banks, the lessons, themselves and their Python setup
+//   sympy:   SymPy re-deriving every math answer (scripts/verify_math.py) and the lessons' math (verify_lessons.py), and the AI and data
+//            science answers recomputed (verify_ds.py), which read only the banks, the lessons, the ai-ds catalog, themselves and their Python setup
 export const SERVER_TOOLS = ['domain', 'site-check'];
 // Libraries the checks import that affected-tools.mjs treats as tooling.
 const SHARED = /^scripts\/(lib\/access\.mjs|import-math\.mjs|import-quiz\.mjs|import-breaches\.mjs|validate-.*)$/;
-const SYMPY = /^(src\/data\/(math-[^/]*|item-lessons)\.json|scripts\/verify_(math|lessons)\.py|tests\/unit\/test_verify_(math|lessons)\.py|pyproject\.toml|uv\.lock|\.python-version|\.github\/workflows\/app\.yml)$/;
+const SYMPY = /^(src\/data\/(math-[^/]*|item-lessons)\.json|src\/tools\/ai-ds\/(data\/[^/]*\.json|catalog\.ts)|scripts\/verify_(math|lessons|ds)\.py|tests\/unit\/test_verify_(math|lessons|ds)\.py|pyproject\.toml|uv\.lock|\.python-version|\.github\/workflows\/app\.yml)$/;
 
 export function jobsNeeded({ affected, files }) {
   const slugs = affected === 'all' ? [] : affected.split(',').filter(Boolean);

@@ -6250,6 +6250,470 @@
     "languageSelect": "Select language",
     "themeToLight": "Switch to light mode",
     "themeToDark": "Switch to dark mode",
-    "notFound": "Page not found"
+    "notFound": "Page not found",
+    "aiDs": {
+      "title": "AI & Data Science Practice",
+      "description": "Multiple-choice (4-option) problem sets on AI and data science, based on the exam scopes of the DS Certificate (DS検定) (Literacy Level), G Certificate (G検定), and E Certificate (E資格). For calculation problems, the answers are recomputed with a program, and every problem is verified by having a separate AI solve it with the answer hidden before it is published.",
+      "allExams": "All",
+      "exams": {
+        "ds": "DS Certificate (DS検定)",
+        "g": "G Certificate (G検定)",
+        "e": "E Certificate (E資格)"
+      },
+      "examFilter": "Filter by exam",
+      "comingSoon": "Coming soon",
+      "preparing": "This practice set is in preparation.",
+      "chooseSet": "Choose a problem set to practice.",
+      "setLabel": "Practice {n}",
+      "breadcrumb": "You are here",
+      "problemsInJapanese": "Problems and explanations are in Japanese.",
+      "examNote": "Exam mappings are approximate guides assigned by this site based on each exam's published scope (for the DS Certificate (DS検定), the Skill Checklist ver.6 and Model Curriculum; for the G Certificate (G検定), the 2024 Syllabus; for the E Certificate (E資格), the 2026 Syllabus). These are not official problem sets for any exam. DS検定 is a trademark of the Data Scientist Society of Japan, and G検定 and E資格 are trademarks of the Japan Deep Learning Association.",
+      "checks": {
+        "calc": "Calculation",
+        "knowledge": "Knowledge",
+        "sql": "SQL"
+      },
+      "quiz": {
+        "progress": "Question {current} / {total}",
+        "choices": "Choices",
+        "correct": "Correct",
+        "incorrect": "Incorrect",
+        "next": "Next question",
+        "seeResult": "See results",
+        "resultCorrect": "{correct} of {total} correct",
+        "questionNumber": "Question {number}",
+        "retry": "Try again",
+        "nextSet": "Next practice",
+        "explanation": "Explanation"
+      },
+      "units": {
+        "stats": {
+          "title": "Statistics and Probability",
+          "items": {
+            "descriptive": {
+              "title": "Central Tendency and Dispersion",
+              "topics": "Mean, median, mode, variance, standard deviation, frequency distributions, outliers, box plots"
+            },
+            "correlation": {
+              "title": "Correlation and Causation",
+              "topics": "Covariance, correlation coefficient, partial correlation, spurious correlation and confounding, causal inference concepts"
+            },
+            "probability": {
+              "title": "Probability Basics",
+              "topics": "Random variables, joint, conditional, and marginal probability, expected value and variance"
+            },
+            "bayes": {
+              "title": "Bayes' Theorem",
+              "topics": "Bayes' rule, prior and posterior probability, Naive Bayes"
+            },
+            "distributions": {
+              "title": "Probability Distributions",
+              "topics": "Bernoulli, binomial, Poisson, normal, and t-distributions, central limit theorem, Gaussian mixture models"
+            },
+            "sampling": {
+              "title": "Sampling and Estimation",
+              "topics": "Population and sample, sampling methods, point estimation and interval estimation, standard error"
+            },
+            "testing": {
+              "title": "Hypothesis Testing",
+              "topics": "Null and alternative hypotheses, p-values, significance level, Type I and Type II errors, A/B testing"
+            },
+            "estimation": {
+              "title": "Parameter Estimation",
+              "topics": "Maximum likelihood estimation, log-likelihood, MAP estimation, Bayesian estimation"
+            },
+            "time-series": {
+              "title": "Time Series",
+              "topics": "Moving averages, trend and seasonality, autoregressive models (AR, VAR) concepts"
+            }
+          }
+        },
+        "linalg": {
+          "title": "Linear Algebra and Calculus",
+          "items": {
+            "matrices": {
+              "title": "Vector and Matrix Operations",
+              "topics": "Inner product, norms, matrix and tensor products, Hadamard product, rank"
+            },
+            "eigen": {
+              "title": "Eigenvalues and Singular Values",
+              "topics": "Eigenvalues and eigenvectors, diagonalization, singular value decomposition"
+            },
+            "gradients": {
+              "title": "Derivatives and Gradients",
+              "topics": "Partial derivatives, gradients, chain rule"
+            },
+            "distances": {
+              "title": "Distance and Similarity",
+              "topics": "Euclidean, Manhattan, Lp, and Mahalanobis distances, cosine similarity"
+            }
+          }
+        },
+        "info": {
+          "title": "Information Theory",
+          "items": {
+            "entropy": {
+              "title": "Information and Entropy",
+              "topics": "Self-information, entropy, joint entropy and conditional entropy"
+            },
+            "cross-entropy": {
+              "title": "Cross-Entropy and Divergence",
+              "topics": "Cross-entropy, KL divergence, JS divergence"
+            },
+            "mutual-information": {
+              "title": "Mutual Information",
+              "topics": "Mutual information, relationship to entropy"
+            }
+          }
+        },
+        "data": {
+          "title": "Data Preparation and Visualization",
+          "items": {
+            "data-types": {
+              "title": "Types of Data",
+              "topics": "Structured and unstructured data, primary and secondary data, open data, annotation"
+            },
+            "preprocessing": {
+              "title": "Preprocessing",
+              "topics": "Handling missing values and outliers, normalization and standardization, encoding categorical variables"
+            },
+            "features": {
+              "title": "Feature Engineering",
+              "topics": "Creating and selecting features, curse of dimensionality"
+            },
+            "bias": {
+              "title": "Data Bias",
+              "topics": "Sampling bias, data bias"
+            },
+            "visualization": {
+              "title": "Visualization",
+              "topics": "Choosing the right chart, misleading chart representations"
+            }
+          }
+        },
+        "dataeng": {
+          "title": "SQL and Data Infrastructure",
+          "items": {
+            "sql-basics": {
+              "title": "SQL Basics",
+              "topics": "SELECT, WHERE, ORDER BY"
+            },
+            "sql-aggregation": {
+              "title": "Aggregation",
+              "topics": "GROUP BY, aggregate functions, HAVING"
+            },
+            "sql-joins": {
+              "title": "Joins",
+              "topics": "INNER JOIN, LEFT JOIN"
+            },
+            "table-design": {
+              "title": "Table Design",
+              "topics": "Primary keys, normalization, table definitions"
+            },
+            "platforms": {
+              "title": "Data Infrastructure",
+              "topics": "Data warehouses (DWH), distributed processing, cloud, data collection and integration"
+            },
+            "security": {
+              "title": "Security Basics",
+              "topics": "Confidentiality, integrity, and availability, encryption, authentication and access control, anonymized information"
+            }
+          }
+        },
+        "ml": {
+          "title": "Machine Learning Fundamentals",
+          "items": {
+            "learning-types": {
+              "title": "Types of Machine Learning",
+              "topics": "Supervised, unsupervised, semi-supervised, and reinforcement learning, regression and classification"
+            },
+            "linear-regression": {
+              "title": "Linear Regression and Regularization",
+              "topics": "Least squares, multiple regression, multicollinearity, Lasso and Ridge (L1 and L2 regularization)"
+            },
+            "logistic-regression": {
+              "title": "Logistic Regression",
+              "topics": "Sigmoid function and logit, softmax function, odds ratio"
+            },
+            "svm": {
+              "title": "Support Vector Machines",
+              "topics": "Margin maximization, hard margin and soft margin, kernel methods"
+            },
+            "trees-ensembles": {
+              "title": "Decision Trees and Ensembles",
+              "topics": "Classification and regression trees, Gini impurity, bagging and boosting, random forests"
+            },
+            "knn": {
+              "title": "k-Nearest Neighbors",
+              "topics": "k-nearest neighbors, distance-based classification, approximate nearest neighbors"
+            },
+            "clustering": {
+              "title": "Clustering",
+              "topics": "k-means, hierarchical clustering (Ward's method, group average method), dendrograms"
+            },
+            "dimensionality-reduction": {
+              "title": "Dimensionality Reduction",
+              "topics": "Principal component analysis and explained variance ratio, singular value decomposition, t-SNE"
+            },
+            "recommendation": {
+              "title": "Recommendation",
+              "topics": "Collaborative filtering, content-based filtering, cold start problem"
+            },
+            "reinforcement-learning": {
+              "title": "Reinforcement Learning Basics",
+              "topics": "Markov decision processes, discount factor and value functions, Q-learning, policy gradient methods, bandit problems"
+            }
+          }
+        },
+        "eval": {
+          "title": "Model Evaluation",
+          "items": {
+            "validation": {
+              "title": "Validation Methods",
+              "topics": "Training, validation, and test data, holdout method, k-fold cross-validation"
+            },
+            "classification-metrics": {
+              "title": "Classification Metrics",
+              "topics": "Confusion matrix, accuracy, precision, recall, F1 score, micro-average and macro-average"
+            },
+            "roc-auc": {
+              "title": "ROC Curve and AUC",
+              "topics": "True positive rate and false positive rate, ROC curve, AUC, thresholds"
+            },
+            "regression-metrics": {
+              "title": "Regression Metrics",
+              "topics": "MSE, RMSE, MAE"
+            },
+            "overfitting": {
+              "title": "Overfitting and Model Selection",
+              "topics": "Overfitting and underfitting, bias and variance, AIC and BIC"
+            },
+            "task-metrics": {
+              "title": "Object Detection and Language Model Metrics",
+              "topics": "IoU, mAP, perplexity"
+            }
+          }
+        },
+        "nn": {
+          "title": "Neural Networks",
+          "items": {
+            "perceptron": {
+              "title": "Perceptrons and Fully Connected Layers",
+              "topics": "Simple and multilayer perceptrons, weights and biases, number of parameters"
+            },
+            "activations": {
+              "title": "Activation Functions",
+              "topics": "Sigmoid, tanh, ReLU, Leaky ReLU, GELU, vanishing gradients"
+            },
+            "losses": {
+              "title": "Loss Functions",
+              "topics": "Mean squared error, cross-entropy (binary and multi-class), contrastive loss and triplet loss"
+            },
+            "backpropagation": {
+              "title": "Backpropagation",
+              "topics": "Chain rule, computational graphs, vanishing and exploding gradients"
+            },
+            "optimizers": {
+              "title": "Optimization",
+              "topics": "Gradient descent, SGD, mini-batches, momentum, AdaGrad, RMSProp, Adam"
+            },
+            "initialization": {
+              "title": "Weight Initialization",
+              "topics": "Xavier (Glorot) initialization, He (Kaiming) initialization"
+            },
+            "regularization": {
+              "title": "Regularization",
+              "topics": "L1 and L2 regularization, weight decay, dropout, early stopping"
+            },
+            "normalization": {
+              "title": "Normalization",
+              "topics": "Batch normalization, layer normalization, instance normalization, group normalization"
+            },
+            "hyperparameters": {
+              "title": "Hyperparameters",
+              "topics": "Learning rate, batch size, etc., grid search and random search, Bayesian optimization"
+            },
+            "hardware": {
+              "title": "Computing Resources",
+              "topics": "Differences between CPUs, GPUs, and TPUs"
+            }
+          }
+        },
+        "arch": {
+          "title": "CNNs, RNNs, and Transformers",
+          "items": {
+            "convolution": {
+              "title": "Convolution",
+              "topics": "Filters, stride, padding, and channels, output size and number of parameters"
+            },
+            "pooling": {
+              "title": "Pooling",
+              "topics": "Max pooling and average pooling, global average pooling"
+            },
+            "skip-connections": {
+              "title": "Skip Connections",
+              "topics": "ResNet, residual connections"
+            },
+            "rnn": {
+              "title": "RNNs",
+              "topics": "Forward propagation, BPTT, bidirectional RNNs"
+            },
+            "lstm-gru": {
+              "title": "LSTM and GRU",
+              "topics": "Gating mechanisms, addressing vanishing gradients"
+            },
+            "attention": {
+              "title": "Sequence-to-Sequence Models and Attention",
+              "topics": "Encoder-decoder, seq2seq, attention"
+            },
+            "transformer": {
+              "title": "Transformer",
+              "topics": "Self-attention, scaled dot-product attention, multi-head attention, positional encoding"
+            },
+            "augmentation": {
+              "title": "Data Augmentation",
+              "topics": "Data augmentation for images, text, and audio, MixUp"
+            }
+          }
+        },
+        "apps": {
+          "title": "Applications of Deep Learning",
+          "items": {
+            "image-recognition": {
+              "title": "Image Recognition",
+              "topics": "Evolution of image classification models, Vision Transformer"
+            },
+            "detection-segmentation": {
+              "title": "Object Detection and Segmentation",
+              "topics": "Faster R-CNN, YOLO, SSD, FCN, U-Net"
+            },
+            "nlp": {
+              "title": "Natural Language Processing",
+              "topics": "Word embeddings, BERT and GPT, large language models, RAG"
+            },
+            "speech": {
+              "title": "Speech Processing",
+              "topics": "Sampling, short-time Fourier transform, mel scale, CTC"
+            },
+            "generative-models": {
+              "title": "Generative Models",
+              "topics": "Autoencoders, VAE, GAN, diffusion models"
+            },
+            "deep-rl": {
+              "title": "Deep Reinforcement Learning",
+              "topics": "DQN, experience replay"
+            },
+            "learning-methods": {
+              "title": "Learning Paradigms",
+              "topics": "Transfer learning and fine-tuning, self-supervised learning, active learning, metric learning, meta-learning"
+            },
+            "multimodal": {
+              "title": "Multimodal",
+              "topics": "Combining images and language"
+            },
+            "explainability": {
+              "title": "Explainability",
+              "topics": "XAI, Grad-CAM, Integrated Gradients"
+            },
+            "efficiency": {
+              "title": "Model Compression and Distributed Training",
+              "topics": "Distillation, quantization, and pruning, data parallelism and model parallelism, federated learning"
+            }
+          }
+        },
+        "history": {
+          "title": "History and Concepts of AI",
+          "items": {
+            "what-is-ai": {
+              "title": "What Is AI?",
+              "topics": "Definitions and levels of AI, the AI effect"
+            },
+            "debates": {
+              "title": "Debates Around AI",
+              "topics": "Turing test, Chinese Room, frame problem, symbol grounding problem"
+            },
+            "search": {
+              "title": "Search and Inference",
+              "topics": "Breadth-first and depth-first search, minimax and alpha-beta pruning, Monte Carlo methods"
+            },
+            "knowledge-representation": {
+              "title": "Knowledge Representation",
+              "topics": "Expert systems, semantic networks, ontologies"
+            },
+            "deep-learning-history": {
+              "title": "History of Deep Learning",
+              "topics": "Neocognitron, ILSVRC, AlphaGo, large language models"
+            }
+          }
+        },
+        "practice": {
+          "title": "Deploying AI in Society",
+          "items": {
+            "projects": {
+              "title": "Running AI Projects",
+              "topics": "From problem definition to operation, PoC"
+            },
+            "data-pipeline": {
+              "title": "Data Collection and Training",
+              "topics": "Workflow of data collection, processing, analysis, and training"
+            },
+            "operations": {
+              "title": "Operations",
+              "topics": "MLOps, AutoML, model monitoring"
+            }
+          }
+        },
+        "ethics": {
+          "title": "Law and Ethics",
+          "items": {
+            "privacy-law": {
+              "title": "Personal Information Protection",
+              "topics": "Act on the Protection of Personal Information, anonymized information, GDPR"
+            },
+            "intellectual-property": {
+              "title": "Intellectual Property",
+              "topics": "Copyright Act, Patent Act, Unfair Competition Prevention Act"
+            },
+            "contracts": {
+              "title": "Contracts",
+              "topics": "AI development outsourcing contracts, AI service provision contracts"
+            },
+            "guidelines": {
+              "title": "AI Guidelines",
+              "topics": "Domestic and international AI principles and guidelines, AI governance"
+            },
+            "fairness-safety": {
+              "title": "Fairness, Privacy, and Safety",
+              "topics": "Algorithmic bias, transparency and accountability, security, misuse"
+            },
+            "generative-ai-risks": {
+              "title": "Generative AI Considerations",
+              "topics": "Hallucinations, misinformation, copyright and privacy issues"
+            }
+          }
+        },
+        "business": {
+          "title": "Business and Data Utilization",
+          "items": {
+            "problem-definition": {
+              "title": "Problem Definition",
+              "topics": "Logical thinking (MECE, structuring), articulating problems and hypotheses, KPIs"
+            },
+            "analysis-design": {
+              "title": "Analysis Design",
+              "topics": "Analysis objectives and questions, comparisons under controlled conditions, A/B test design"
+            },
+            "use-cases": {
+              "title": "Data and AI Use Cases",
+              "topics": "Applications by industry, new business models"
+            },
+            "value-creation": {
+              "title": "Value Creation",
+              "topics": "Designing businesses and data utilization, measuring and improving impact"
+            }
+          }
+        }
+      }
+    }
   }
 }
