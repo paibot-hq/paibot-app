@@ -1,20 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useTranslations } from 'use-intl';
-import ToolLayout from '../../components/tool-layout';
-import MathText from '../../components/math-text';
+import ToolLayout from '../tool-layout';
+import MathText from '../math-text';
 import { Link } from '../../i18n/navigation';
-import AiDsBreadcrumb, { type AiDsCrumb } from './breadcrumb';
-import type { AiDsQuestion } from './problems';
-import styles from '../../components/math-set-quiz.module.css';
-import own from './ai-ds.module.css';
+import type { PracticeBook, PracticeQuestion } from '../../lib/practice';
+import PracticeBreadcrumb, { type PracticeCrumb } from './breadcrumb';
+import styles from '../math-set-quiz.module.css';
+import own from './practice.module.css';
 
 // A five-problem, four-choice set, as math's quiz (components/math-set-quiz.tsx): a tap on a choice is the answer (keys 1-4 on a
 // keyboard), the verdict and the explanation follow, then the score. Nothing is saved.
-export default function AiDsQuiz({ title, setLabel, questions, crumbs, next }: {
-  title: string; setLabel: string; questions: AiDsQuestion[]; crumbs: AiDsCrumb[];
+export default function PracticeQuiz({ book, title, setLabel, questions, crumbs, next }: {
+  book: PracticeBook; title: string; setLabel: string; questions: PracticeQuestion[]; crumbs: PracticeCrumb[];
   next: { href: string; label: string } | null;
 }) {
-  const t = useTranslations('App.aiDs');
+  const t = useTranslations('App.practice');
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [answers, setAnswers] = useState<number[]>([]);
@@ -23,7 +23,7 @@ export default function AiDsQuiz({ title, setLabel, questions, crumbs, next }: {
   const total = questions.length;
   const revealed = selected !== null;
   const correctCount = answers.filter((answer, at) => answer === questions[at].answerIndex).length;
-  const backLink = <AiDsBreadcrumb crumbs={crumbs} />;
+  const backLink = <PracticeBreadcrumb book={book} crumbs={crumbs} />;
 
   function answer(choiceIndex: number) {
     if (revealed || finished) return;

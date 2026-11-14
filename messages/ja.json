@@ -6253,37 +6253,17 @@
     "aiDs": {
       "title": "AI・データサイエンス問題集",
       "description": "DS検定（リテラシーレベル）・G検定・E資格の試験範囲を参考にした、AI・データサイエンスの学習項目ごとの解説・例題と4択の練習問題です。計算の問題と例題は答えをプログラムで計算し直し、問題は別のAIが答えを伏せて解き、解説は別のAIが確かめてから載せています。",
-      "allExams": "すべて",
       "exams": {
         "ds": "DS検定",
         "g": "G検定",
         "e": "E資格"
       },
-      "examFilter": "試験で絞り込む",
-      "comingSoon": "準備中",
-      "preparing": "この練習は準備中です。",
-      "chooseSet": "練習する問題セットを選んでください。",
-      "setLabel": "練習{n}",
-      "breadcrumb": "現在の位置",
       "problemsInJapanese": "解説・例題・問題は日本語です。",
       "examNote": "試験との対応は、各試験の公開されている出題範囲（DS検定はスキルチェックリスト ver.6 とモデルカリキュラム、G検定はシラバス2024、E資格はシラバス2026）を本サイトが読んで付けた目安です。各試験の公式の問題集ではありません。DS検定はデータサイエンティスト協会、G検定・E資格は日本ディープラーニング協会の商標です。",
       "checks": {
         "calc": "計算",
         "knowledge": "知識",
         "sql": "SQL"
-      },
-      "quiz": {
-        "progress": "{current} / {total}問",
-        "choices": "選択肢",
-        "correct": "正解",
-        "incorrect": "不正解",
-        "next": "次の問題",
-        "seeResult": "結果を見る",
-        "resultCorrect": "{total}問中 {correct}問正解",
-        "questionNumber": "{number}問目",
-        "retry": "もう一度",
-        "nextSet": "次の練習",
-        "explanation": "解説"
       },
       "units": {
         "stats": {
@@ -6712,6 +6692,28 @@
             }
           }
         }
+      }
+    },
+    "practice": {
+      "allExams": "すべて",
+      "examFilter": "試験で絞り込む",
+      "comingSoon": "準備中",
+      "preparing": "この練習は準備中です。",
+      "chooseSet": "練習する問題セットを選んでください。",
+      "setLabel": "練習{n}",
+      "breadcrumb": "現在の位置",
+      "quiz": {
+        "progress": "{current} / {total}問",
+        "choices": "選択肢",
+        "correct": "正解",
+        "incorrect": "不正解",
+        "next": "次の問題",
+        "seeResult": "結果を見る",
+        "resultCorrect": "{total}問中 {correct}問正解",
+        "questionNumber": "{number}問目",
+        "retry": "もう一度",
+        "nextSet": "次の練習",
+        "explanation": "解説"
       },
       "itemPage": {
         "about": "学ぶこと",
@@ -6726,6 +6728,438 @@
         "neighbors": "前後の学習項目",
         "previous": "前の項目",
         "next": "次の項目"
+      }
+    },
+    "cs": {
+      "title": "コンピュータサイエンス問題集",
+      "description": "ITパスポート・基本情報技術者・応用情報技術者の各試験と、大学の情報系の標準カリキュラムの範囲を参考にした、コンピュータサイエンスの学習項目ごとの解説・例題と4択の練習問題です。計算の答えは計算し直し、アルゴリズムの問題は擬似言語のプログラムを実際に動かして確かめてから載せます。",
+      "exams": {
+        "ip": "ITパスポート",
+        "fe": "基本情報",
+        "ap": "応用情報",
+        "univ": "大学"
+      },
+      "checks": {
+        "calc": "計算",
+        "run": "プログラム",
+        "sql": "SQL",
+        "machine": "オートマトン",
+        "knowledge": "知識"
+      },
+      "problemsInJapanese": "解説・例題・問題は日本語です。",
+      "examNote": "試験・大学との対応は、公開されている出題範囲（ITパスポート試験 シラバス Ver.6.5、基本情報技術者試験 シラバス Ver.9.2、応用情報技術者試験 シラバス Ver.7.2、情報処理学会 カリキュラム標準 J17 コンピュータ科学領域の必修の範囲）を本サイトが読んで付けた目安です。各試験の公式の問題集ではなく、過去問題は使っていません。",
+      "units": {
+        "discrete": {
+          "title": "離散数学と数の表現",
+          "items": {
+            "bases": {
+              "title": "基数変換",
+              "topics": "2進・8進・16進、基数変換、小数の基数変換"
+            },
+            "integers": {
+              "title": "整数の表現",
+              "topics": "符号なし整数、2の補数、オーバーフロー、シフト演算"
+            },
+            "reals": {
+              "title": "実数の表現",
+              "topics": "固定小数点、浮動小数点（IEEE 754）、誤差（丸め・桁落ち・情報落ち）"
+            },
+            "logic": {
+              "title": "論理演算",
+              "topics": "真理値表、論理式の簡単化、ド・モルガンの法則、カルノー図"
+            },
+            "sets": {
+              "title": "集合と関係",
+              "topics": "集合演算、ベン図、関係（反射・対称・推移）、関数"
+            },
+            "proofs": {
+              "title": "命題と証明",
+              "topics": "命題論理・述語論理、必要条件と十分条件、数学的帰納法・背理法"
+            },
+            "counting": {
+              "title": "数え上げと確率",
+              "topics": "順列・組合せ、包除原理、離散確率、期待値"
+            },
+            "graphs": {
+              "title": "グラフと木",
+              "topics": "グラフの用語、木、次数、オイラー路、隣接行列"
+            }
+          }
+        },
+        "data-structures": {
+          "title": "データ構造",
+          "items": {
+            "lists": {
+              "title": "配列とリスト",
+              "topics": "配列、連結リスト（単方向・双方向・循環）、挿入・削除の手間"
+            },
+            "stacks-queues": {
+              "title": "スタックとキュー",
+              "topics": "LIFO・FIFO、push・pop、enqueue・dequeue、逆ポーランド記法"
+            },
+            "trees": {
+              "title": "木構造",
+              "topics": "二分木、走査（先行・中間・後行）、二分探索木"
+            },
+            "heaps": {
+              "title": "ヒープと優先度付きキュー",
+              "topics": "ヒープの性質、要素の追加・取出し、配列での表現"
+            },
+            "hashing": {
+              "title": "ハッシュ",
+              "topics": "ハッシュ関数、衝突、オープンアドレス法・チェイン法"
+            },
+            "graph-representation": {
+              "title": "グラフの表し方",
+              "topics": "隣接行列・隣接リスト、有向・無向、重み付き"
+            }
+          }
+        },
+        "algorithms": {
+          "title": "アルゴリズム",
+          "items": {
+            "complexity": {
+              "title": "計算量",
+              "topics": "O 記法、最悪・平均、時間計算量・領域計算量"
+            },
+            "searching": {
+              "title": "探索",
+              "topics": "線形探索、2分探索、番兵"
+            },
+            "sorting": {
+              "title": "整列",
+              "topics": "選択・挿入・バブル・クイック・マージ・ヒープソート、安定性"
+            },
+            "recursion": {
+              "title": "再帰",
+              "topics": "再帰呼出し、階乗・フィボナッチ、ハノイの塔、呼出し回数"
+            },
+            "strings": {
+              "title": "文字列処理",
+              "topics": "文字列照合（素朴法・BM 法の考え方）、文字の数え上げ"
+            },
+            "design": {
+              "title": "アルゴリズムの設計法",
+              "topics": "分割統治、貪欲法、動的計画法、バックトラック"
+            },
+            "graph-algorithms": {
+              "title": "グラフのアルゴリズム",
+              "topics": "幅優先・深さ優先探索、最短経路（ダイクストラ法）、最小全域木"
+            },
+            "numeric": {
+              "title": "数値計算",
+              "topics": "ユークリッドの互除法、素数判定、ニュートン法、誤差の扱い"
+            }
+          }
+        },
+        "programming": {
+          "title": "プログラミングと言語",
+          "items": {
+            "pseudocode": {
+              "title": "擬似言語の読み方",
+              "topics": "擬似言語の書き方、変数・配列・制御構造、トレース"
+            },
+            "functions": {
+              "title": "関数と引数",
+              "topics": "値渡し・参照渡し、スコープ、再入可能・再帰的・再使用可能"
+            },
+            "oop": {
+              "title": "オブジェクト指向",
+              "topics": "クラス・インスタンス、カプセル化、継承、多態性、UML クラス図"
+            },
+            "functional": {
+              "title": "関数型プログラミング",
+              "topics": "高階関数、副作用、不変性、map・filter・reduce"
+            },
+            "types": {
+              "title": "型",
+              "topics": "静的型・動的型、型検査、型変換、ジェネリクス"
+            },
+            "translation": {
+              "title": "言語処理系",
+              "topics": "コンパイラ・インタプリタ、字句解析・構文解析・最適化、リンカ"
+            },
+            "grammars": {
+              "title": "形式言語と文法",
+              "topics": "BNF、構文図、正規表現"
+            }
+          }
+        },
+        "theory": {
+          "title": "計算の理論",
+          "items": {
+            "automata": {
+              "title": "有限オートマトン",
+              "topics": "状態遷移図・状態遷移表、DFA・NFA、受理する文字列"
+            },
+            "languages": {
+              "title": "正規言語と文脈自由言語",
+              "topics": "正規表現とオートマトンの関係、文脈自由文法、プッシュダウンオートマトンの考え方"
+            },
+            "computability": {
+              "title": "計算可能性",
+              "topics": "チューリング機械、停止問題、決定不能"
+            },
+            "complexity-classes": {
+              "title": "計算量クラス",
+              "topics": "P・NP、NP 完全、帰着の考え方"
+            },
+            "coding": {
+              "title": "情報と符号",
+              "topics": "情報量、ハフマン符号、ランレングス、誤り検出・訂正（パリティ・ハミング符号・CRC）"
+            }
+          }
+        },
+        "architecture": {
+          "title": "コンピュータの構成",
+          "items": {
+            "circuits": {
+              "title": "論理回路",
+              "topics": "AND・OR・NOT・NAND・XOR、半加算器・全加算器、フリップフロップ"
+            },
+            "instructions": {
+              "title": "命令の実行",
+              "topics": "命令の形式、アドレス指定方式、命令実行の流れ、機械語とアセンブリ"
+            },
+            "performance": {
+              "title": "プロセッサの性能",
+              "topics": "クロック、CPI、MIPS、パイプライン、スーパスカラ、マルチコア"
+            },
+            "memory": {
+              "title": "メモリ階層",
+              "topics": "レジスタ・キャッシュ・主記憶・補助記憶、実効アクセス時間、ヒット率、ライトスルー・ライトバック"
+            },
+            "io": {
+              "title": "入出力とバス",
+              "topics": "バス、DMA、割込み、入出力インタフェース"
+            },
+            "storage": {
+              "title": "補助記憶",
+              "topics": "HDD のアクセス時間、SSD、RAID"
+            }
+          }
+        },
+        "os": {
+          "title": "オペレーティングシステム",
+          "items": {
+            "basics": {
+              "title": "OS の役割",
+              "topics": "カーネル、システムコール、ユーザーモード・カーネルモード"
+            },
+            "processes": {
+              "title": "プロセスとスレッド",
+              "topics": "プロセスの状態遷移、コンテキスト切替え、スレッド"
+            },
+            "scheduling": {
+              "title": "スケジューリング",
+              "topics": "到着順・ラウンドロビン・優先度順、ターンアラウンドタイム"
+            },
+            "concurrency": {
+              "title": "並行処理と排他制御",
+              "topics": "競合状態、セマフォ、デッドロックの条件と回避"
+            },
+            "memory-management": {
+              "title": "記憶管理",
+              "topics": "仮想記憶、ページング、ページ置換（FIFO・LRU）、ページフォールト"
+            },
+            "files": {
+              "title": "ファイルシステム",
+              "topics": "ディレクトリ、絶対パス・相対パス、アクセス権、バックアップ"
+            }
+          }
+        },
+        "systems": {
+          "title": "システムの構成と評価",
+          "items": {
+            "configurations": {
+              "title": "システムの形態",
+              "topics": "集中・分散、クライアントサーバ、Web システム、仮想化・コンテナ・クラウド"
+            },
+            "reliability": {
+              "title": "信頼性",
+              "topics": "MTBF・MTTR、稼働率（直列・並列）、フォールトトレランス"
+            },
+            "evaluation": {
+              "title": "性能評価",
+              "topics": "レスポンスタイム・スループット、待ち行列（M/M/1）"
+            },
+            "parallel": {
+              "title": "並列と分散",
+              "topics": "並列化の効果（アムダールの法則）、分散システムの一貫性"
+            }
+          }
+        },
+        "databases": {
+          "title": "データベース",
+          "items": {
+            "relational": {
+              "title": "関係モデル",
+              "topics": "表・タプル・属性、主キー・外部キー、関係演算"
+            },
+            "normalization": {
+              "title": "データモデルと正規化",
+              "topics": "E-R 図、関数従属、第1〜第3正規形"
+            },
+            "sql-queries": {
+              "title": "SQL（問合せ）",
+              "topics": "SELECT、結合、GROUP BY・HAVING、副問合せ"
+            },
+            "sql-definitions": {
+              "title": "SQL（定義と更新）",
+              "topics": "CREATE・INSERT・UPDATE・DELETE、ビュー、制約"
+            },
+            "transactions": {
+              "title": "トランザクション",
+              "topics": "ACID 特性、同時実行制御（ロック）、デッドロック"
+            },
+            "recovery": {
+              "title": "障害回復とインデックス",
+              "topics": "ログ、ロールバック・ロールフォワード、インデックス（B+ 木）"
+            }
+          }
+        },
+        "networks": {
+          "title": "ネットワーク",
+          "items": {
+            "layers": {
+              "title": "階層モデル",
+              "topics": "OSI 参照モデル、TCP/IP の4階層、カプセル化"
+            },
+            "addressing": {
+              "title": "IP アドレス",
+              "topics": "IPv4・IPv6、サブネットマスク、CIDR、ホスト数、NAT"
+            },
+            "transport": {
+              "title": "トランスポート層",
+              "topics": "TCP と UDP、ポート番号、再送・フロー制御、輻輳制御"
+            },
+            "routing-lan": {
+              "title": "経路制御と LAN",
+              "topics": "ルーティング、イーサネット、スイッチ、無線 LAN"
+            },
+            "applications": {
+              "title": "アプリケーション層",
+              "topics": "DNS、HTTP、メール（SMTP・POP・IMAP）、DHCP"
+            },
+            "transmission": {
+              "title": "伝送時間",
+              "topics": "伝送速度、伝送効率、データ量からの伝送時間"
+            }
+          }
+        },
+        "security": {
+          "title": "セキュリティ",
+          "items": {
+            "fundamentals": {
+              "title": "セキュリティの基本",
+              "topics": "機密性・完全性・可用性、脅威と脆弱性、リスク"
+            },
+            "cryptography": {
+              "title": "暗号",
+              "topics": "共通鍵暗号・公開鍵暗号、鍵の数、ハッシュ関数"
+            },
+            "authentication": {
+              "title": "認証と PKI",
+              "topics": "パスワード、多要素認証、デジタル署名、公開鍵証明書"
+            },
+            "attacks": {
+              "title": "攻撃の手口",
+              "topics": "マルウェア、フィッシング、SQL インジェクション、XSS、DoS"
+            },
+            "defenses": {
+              "title": "対策と安全な設計",
+              "topics": "ファイアウォール、WAF、最小権限、入力の検査、安全なプログラミング"
+            },
+            "management": {
+              "title": "セキュリティ管理",
+              "topics": "ISMS、リスクアセスメント、インシデント対応"
+            }
+          }
+        },
+        "software-engineering": {
+          "title": "ソフトウェア開発",
+          "items": {
+            "processes": {
+              "title": "開発プロセス",
+              "topics": "ウォーターフォール、アジャイル（スクラム・XP）、DevOps"
+            },
+            "design": {
+              "title": "要求と設計",
+              "topics": "要件定義、UML、モジュールの強度と結合度、デザインパターンの考え方"
+            },
+            "testing": {
+              "title": "テスト",
+              "topics": "ブラックボックス（同値分割・境界値）、ホワイトボックス（命令網羅・判定網羅）、テストの段階"
+            },
+            "maintenance": {
+              "title": "保守と構成管理",
+              "topics": "バージョン管理、リファクタリング、保守の種類"
+            },
+            "estimation": {
+              "title": "規模と見積り",
+              "topics": "ファンクションポイント法、工数の計算"
+            }
+          }
+        },
+        "media": {
+          "title": "情報の表現と UI",
+          "items": {
+            "characters": {
+              "title": "文字コード",
+              "topics": "ASCII・Unicode・UTF-8、文字化け"
+            },
+            "digitization": {
+              "title": "画像・音声のデジタル化",
+              "topics": "標本化・量子化、解像度・色数とデータ量、圧縮（可逆・非可逆）"
+            },
+            "ui": {
+              "title": "UI とユーザビリティ",
+              "topics": "ユーザビリティ、アクセシビリティ、UX デザイン"
+            },
+            "graphics": {
+              "title": "グラフィックスの基礎",
+              "topics": "座標変換、ラスタとベクタ、レンダリングの考え方"
+            }
+          }
+        },
+        "management": {
+          "title": "マネジメント",
+          "items": {
+            "projects": {
+              "title": "プロジェクトマネジメント",
+              "topics": "WBS、アローダイアグラム（クリティカルパス）、EVM"
+            },
+            "services": {
+              "title": "サービスマネジメント",
+              "topics": "SLA、インシデント管理・問題管理、ITIL の考え方"
+            },
+            "audit": {
+              "title": "システム監査と内部統制",
+              "topics": "監査の流れ、監査証拠、内部統制"
+            }
+          }
+        },
+        "strategy": {
+          "title": "ストラテジ",
+          "items": {
+            "accounting": {
+              "title": "企業活動と会計",
+              "topics": "損益分岐点、財務諸表の読み方、在庫・発注の計算"
+            },
+            "business-strategy": {
+              "title": "経営戦略とシステム戦略",
+              "topics": "SWOT、PPM、BPR、要件定義と調達"
+            },
+            "law": {
+              "title": "法務",
+              "topics": "知的財産権、セキュリティ関連法規、労働・取引関連法規"
+            },
+            "ethics": {
+              "title": "技術者倫理と社会",
+              "topics": "技術者倫理、プライバシー、情報社会の課題"
+            }
+          }
+        }
       }
     }
   }

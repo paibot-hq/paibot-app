@@ -6253,37 +6253,17 @@
     "aiDs": {
       "title": "AI & Data Science Practice",
       "description": "Explanations, worked examples and four-choice practice problems for each learning item of AI and data science, based on the exam scopes of the DS Certificate (DS検定) (Literacy Level), G Certificate (G検定) and E Certificate (E資格). The answers of calculation problems and examples are recomputed with a program; every problem is solved by a separate AI with the answer hidden, and every explanation is checked by a separate AI, before it is published.",
-      "allExams": "All",
       "exams": {
         "ds": "DS Certificate (DS検定)",
         "g": "G Certificate (G検定)",
         "e": "E Certificate (E資格)"
       },
-      "examFilter": "Filter by exam",
-      "comingSoon": "Coming soon",
-      "preparing": "This practice set is in preparation.",
-      "chooseSet": "Choose a problem set to practice.",
-      "setLabel": "Practice {n}",
-      "breadcrumb": "You are here",
       "problemsInJapanese": "The explanations, worked examples and problems are in Japanese.",
       "examNote": "Exam mappings are approximate guides assigned by this site based on each exam's published scope (for the DS Certificate (DS検定), the Skill Checklist ver.6 and Model Curriculum; for the G Certificate (G検定), the 2024 Syllabus; for the E Certificate (E資格), the 2026 Syllabus). These are not official problem sets for any exam. DS検定 is a trademark of the Data Scientist Society of Japan, and G検定 and E資格 are trademarks of the Japan Deep Learning Association.",
       "checks": {
         "calc": "Calculation",
         "knowledge": "Knowledge",
         "sql": "SQL"
-      },
-      "quiz": {
-        "progress": "Question {current} / {total}",
-        "choices": "Choices",
-        "correct": "Correct",
-        "incorrect": "Incorrect",
-        "next": "Next question",
-        "seeResult": "See results",
-        "resultCorrect": "{correct} of {total} correct",
-        "questionNumber": "Question {number}",
-        "retry": "Try again",
-        "nextSet": "Next practice",
-        "explanation": "Explanation"
       },
       "units": {
         "stats": {
@@ -6712,6 +6692,28 @@
             }
           }
         }
+      }
+    },
+    "practice": {
+      "allExams": "All",
+      "examFilter": "Filter by exam",
+      "comingSoon": "Coming soon",
+      "preparing": "This practice set is in preparation.",
+      "chooseSet": "Choose a problem set to practice.",
+      "setLabel": "Practice {n}",
+      "breadcrumb": "You are here",
+      "quiz": {
+        "progress": "Question {current} / {total}",
+        "choices": "Choices",
+        "correct": "Correct",
+        "incorrect": "Incorrect",
+        "next": "Next question",
+        "seeResult": "See results",
+        "resultCorrect": "{correct} of {total} correct",
+        "questionNumber": "Question {number}",
+        "retry": "Try again",
+        "nextSet": "Next practice",
+        "explanation": "Explanation"
       },
       "itemPage": {
         "about": "What you learn",
@@ -6726,6 +6728,438 @@
         "neighbors": "Previous and next items",
         "previous": "Previous",
         "next": "Next"
+      }
+    },
+    "cs": {
+      "title": "Computer Science Practice",
+      "description": "Explanations, worked examples and four-choice practice problems for each learning item of computer science, based on the scopes of Japan's IT Passport, Fundamental Information Technology Engineer and Applied Information Technology Engineer examinations and the standard university computing curriculum. Calculated answers are recomputed, and algorithm problems are checked by actually running their pseudocode, before they are published.",
+      "exams": {
+        "ip": "IT Passport",
+        "fe": "FE",
+        "ap": "AP",
+        "univ": "University"
+      },
+      "checks": {
+        "calc": "Calculation",
+        "run": "Program",
+        "sql": "SQL",
+        "machine": "Automaton",
+        "knowledge": "Knowledge"
+      },
+      "problemsInJapanese": "The explanations, worked examples and problems are in Japanese.",
+      "examNote": "The mappings to exams and university courses are approximate guides assigned by this site from the published scopes (the syllabi of the IT Passport Examination Ver.6.5, the Fundamental Information Technology Engineer Examination Ver.9.2 and the Applied Information Technology Engineer Examination Ver.7.2, and the core of the Information Processing Society of Japan's curriculum standard J17, computer science). These are not official problem sets for any exam, and no past exam questions are used.",
+      "units": {
+        "discrete": {
+          "title": "Discrete Math and Number Representation",
+          "items": {
+            "bases": {
+              "title": "Number bases",
+              "topics": "Binary, octal and hexadecimal, base conversion, converting fractions"
+            },
+            "integers": {
+              "title": "Representing integers",
+              "topics": "Unsigned integers, two's complement, overflow, shift operations"
+            },
+            "reals": {
+              "title": "Representing real numbers",
+              "topics": "Fixed point, floating point (IEEE 754), errors (rounding, cancellation, absorption)"
+            },
+            "logic": {
+              "title": "Logic operations",
+              "topics": "Truth tables, simplifying logical expressions, De Morgan's laws, Karnaugh maps"
+            },
+            "sets": {
+              "title": "Sets and relations",
+              "topics": "Set operations, Venn diagrams, relations (reflexive, symmetric, transitive), functions"
+            },
+            "proofs": {
+              "title": "Propositions and proofs",
+              "topics": "Propositional and predicate logic, necessary and sufficient conditions, induction, proof by contradiction"
+            },
+            "counting": {
+              "title": "Counting and probability",
+              "topics": "Permutations and combinations, inclusion-exclusion, discrete probability, expected value"
+            },
+            "graphs": {
+              "title": "Graphs and trees",
+              "topics": "Graph terms, trees, degree, Euler paths, adjacency matrices"
+            }
+          }
+        },
+        "data-structures": {
+          "title": "Data Structures",
+          "items": {
+            "lists": {
+              "title": "Arrays and lists",
+              "topics": "Arrays, linked lists (singly, doubly, circular), the cost of insertion and deletion"
+            },
+            "stacks-queues": {
+              "title": "Stacks and queues",
+              "topics": "LIFO and FIFO, push and pop, enqueue and dequeue, reverse Polish notation"
+            },
+            "trees": {
+              "title": "Trees",
+              "topics": "Binary trees, traversal (preorder, inorder, postorder), binary search trees"
+            },
+            "heaps": {
+              "title": "Heaps and priority queues",
+              "topics": "The heap property, inserting and removing elements, storing a heap in an array"
+            },
+            "hashing": {
+              "title": "Hashing",
+              "topics": "Hash functions, collisions, open addressing and chaining"
+            },
+            "graph-representation": {
+              "title": "Representing graphs",
+              "topics": "Adjacency matrices and lists, directed and undirected, weighted graphs"
+            }
+          }
+        },
+        "algorithms": {
+          "title": "Algorithms",
+          "items": {
+            "complexity": {
+              "title": "Complexity",
+              "topics": "Big O notation, worst and average cases, time and space complexity"
+            },
+            "searching": {
+              "title": "Searching",
+              "topics": "Linear search, binary search, sentinels"
+            },
+            "sorting": {
+              "title": "Sorting",
+              "topics": "Selection, insertion, bubble, quick, merge and heap sort, stability"
+            },
+            "recursion": {
+              "title": "Recursion",
+              "topics": "Recursive calls, factorial and Fibonacci, the Tower of Hanoi, counting calls"
+            },
+            "strings": {
+              "title": "String processing",
+              "topics": "String matching (naive, the idea of Boyer-Moore), counting characters"
+            },
+            "design": {
+              "title": "Algorithm design",
+              "topics": "Divide and conquer, greedy algorithms, dynamic programming, backtracking"
+            },
+            "graph-algorithms": {
+              "title": "Graph algorithms",
+              "topics": "Breadth- and depth-first search, shortest paths (Dijkstra's algorithm), minimum spanning trees"
+            },
+            "numeric": {
+              "title": "Numerical algorithms",
+              "topics": "Euclid's algorithm, primality tests, Newton's method, handling errors"
+            }
+          }
+        },
+        "programming": {
+          "title": "Programming and Languages",
+          "items": {
+            "pseudocode": {
+              "title": "Reading pseudocode",
+              "topics": "How the pseudocode is written, variables, arrays and control structures, tracing"
+            },
+            "functions": {
+              "title": "Functions and arguments",
+              "topics": "Pass by value and by reference, scope, reentrant, recursive and reusable code"
+            },
+            "oop": {
+              "title": "Object-oriented programming",
+              "topics": "Classes and instances, encapsulation, inheritance, polymorphism, UML class diagrams"
+            },
+            "functional": {
+              "title": "Functional programming",
+              "topics": "Higher-order functions, side effects, immutability, map, filter and reduce"
+            },
+            "types": {
+              "title": "Types",
+              "topics": "Static and dynamic typing, type checking, type conversion, generics"
+            },
+            "translation": {
+              "title": "Language processors",
+              "topics": "Compilers and interpreters, lexical and syntax analysis, optimisation, linkers"
+            },
+            "grammars": {
+              "title": "Formal languages and grammars",
+              "topics": "BNF, syntax diagrams, regular expressions"
+            }
+          }
+        },
+        "theory": {
+          "title": "Theory of Computation",
+          "items": {
+            "automata": {
+              "title": "Finite automata",
+              "topics": "State transition diagrams and tables, DFAs and NFAs, accepted strings"
+            },
+            "languages": {
+              "title": "Regular and context-free languages",
+              "topics": "Regular expressions and automata, context-free grammars, the idea of pushdown automata"
+            },
+            "computability": {
+              "title": "Computability",
+              "topics": "Turing machines, the halting problem, undecidability"
+            },
+            "complexity-classes": {
+              "title": "Complexity classes",
+              "topics": "P and NP, NP-completeness, the idea of reductions"
+            },
+            "coding": {
+              "title": "Information and codes",
+              "topics": "Information content, Huffman codes, run-length encoding, error detection and correction (parity, Hamming codes, CRC)"
+            }
+          }
+        },
+        "architecture": {
+          "title": "Computer Architecture",
+          "items": {
+            "circuits": {
+              "title": "Logic circuits",
+              "topics": "AND, OR, NOT, NAND and XOR, half and full adders, flip-flops"
+            },
+            "instructions": {
+              "title": "Executing instructions",
+              "topics": "Instruction formats, addressing modes, the instruction cycle, machine code and assembly"
+            },
+            "performance": {
+              "title": "Processor performance",
+              "topics": "Clock, CPI, MIPS, pipelining, superscalar, multicore"
+            },
+            "memory": {
+              "title": "The memory hierarchy",
+              "topics": "Registers, cache, main memory and storage, effective access time, hit rate, write-through and write-back"
+            },
+            "io": {
+              "title": "Input, output and buses",
+              "topics": "Buses, DMA, interrupts, I/O interfaces"
+            },
+            "storage": {
+              "title": "Storage",
+              "topics": "HDD access time, SSDs, RAID"
+            }
+          }
+        },
+        "os": {
+          "title": "Operating Systems",
+          "items": {
+            "basics": {
+              "title": "What an OS does",
+              "topics": "The kernel, system calls, user and kernel mode"
+            },
+            "processes": {
+              "title": "Processes and threads",
+              "topics": "Process states, context switches, threads"
+            },
+            "scheduling": {
+              "title": "Scheduling",
+              "topics": "First come first served, round robin, priority scheduling, turnaround time"
+            },
+            "concurrency": {
+              "title": "Concurrency and mutual exclusion",
+              "topics": "Race conditions, semaphores, the conditions for deadlock and avoiding it"
+            },
+            "memory-management": {
+              "title": "Memory management",
+              "topics": "Virtual memory, paging, page replacement (FIFO, LRU), page faults"
+            },
+            "files": {
+              "title": "File systems",
+              "topics": "Directories, absolute and relative paths, permissions, backups"
+            }
+          }
+        },
+        "systems": {
+          "title": "System Configuration and Evaluation",
+          "items": {
+            "configurations": {
+              "title": "System configurations",
+              "topics": "Centralised and distributed, client-server, web systems, virtualisation, containers and the cloud"
+            },
+            "reliability": {
+              "title": "Reliability",
+              "topics": "MTBF and MTTR, availability (in series and in parallel), fault tolerance"
+            },
+            "evaluation": {
+              "title": "Performance evaluation",
+              "topics": "Response time and throughput, queueing (M/M/1)"
+            },
+            "parallel": {
+              "title": "Parallel and distributed systems",
+              "topics": "The gain from parallelism (Amdahl's law), consistency in distributed systems"
+            }
+          }
+        },
+        "databases": {
+          "title": "Databases",
+          "items": {
+            "relational": {
+              "title": "The relational model",
+              "topics": "Tables, tuples and attributes, primary and foreign keys, relational operations"
+            },
+            "normalization": {
+              "title": "Data modelling and normalisation",
+              "topics": "E-R diagrams, functional dependencies, first to third normal form"
+            },
+            "sql-queries": {
+              "title": "SQL queries",
+              "topics": "SELECT, joins, GROUP BY and HAVING, subqueries"
+            },
+            "sql-definitions": {
+              "title": "SQL definitions and updates",
+              "topics": "CREATE, INSERT, UPDATE and DELETE, views, constraints"
+            },
+            "transactions": {
+              "title": "Transactions",
+              "topics": "ACID properties, concurrency control (locking), deadlock"
+            },
+            "recovery": {
+              "title": "Recovery and indexes",
+              "topics": "Logs, rollback and rollforward, indexes (B+ trees)"
+            }
+          }
+        },
+        "networks": {
+          "title": "Networks",
+          "items": {
+            "layers": {
+              "title": "Layered models",
+              "topics": "The OSI reference model, the four layers of TCP/IP, encapsulation"
+            },
+            "addressing": {
+              "title": "IP addresses",
+              "topics": "IPv4 and IPv6, subnet masks, CIDR, number of hosts, NAT"
+            },
+            "transport": {
+              "title": "The transport layer",
+              "topics": "TCP and UDP, port numbers, retransmission and flow control, congestion control"
+            },
+            "routing-lan": {
+              "title": "Routing and LANs",
+              "topics": "Routing, Ethernet, switches, wireless LANs"
+            },
+            "applications": {
+              "title": "The application layer",
+              "topics": "DNS, HTTP, email (SMTP, POP, IMAP), DHCP"
+            },
+            "transmission": {
+              "title": "Transmission time",
+              "topics": "Transmission speed, efficiency, transmission time from the amount of data"
+            }
+          }
+        },
+        "security": {
+          "title": "Security",
+          "items": {
+            "fundamentals": {
+              "title": "Security fundamentals",
+              "topics": "Confidentiality, integrity and availability, threats and vulnerabilities, risk"
+            },
+            "cryptography": {
+              "title": "Cryptography",
+              "topics": "Symmetric and public-key encryption, the number of keys, hash functions"
+            },
+            "authentication": {
+              "title": "Authentication and PKI",
+              "topics": "Passwords, multi-factor authentication, digital signatures, public-key certificates"
+            },
+            "attacks": {
+              "title": "Attacks",
+              "topics": "Malware, phishing, SQL injection, XSS, DoS"
+            },
+            "defenses": {
+              "title": "Defences and secure design",
+              "topics": "Firewalls, WAFs, least privilege, input validation, secure programming"
+            },
+            "management": {
+              "title": "Security management",
+              "topics": "ISMS, risk assessment, incident response"
+            }
+          }
+        },
+        "software-engineering": {
+          "title": "Software Engineering",
+          "items": {
+            "processes": {
+              "title": "Development processes",
+              "topics": "Waterfall, agile (Scrum, XP), DevOps"
+            },
+            "design": {
+              "title": "Requirements and design",
+              "topics": "Requirements, UML, module cohesion and coupling, the idea of design patterns"
+            },
+            "testing": {
+              "title": "Testing",
+              "topics": "Black-box (equivalence partitioning, boundary values), white-box (statement and branch coverage), test levels"
+            },
+            "maintenance": {
+              "title": "Maintenance and configuration management",
+              "topics": "Version control, refactoring, kinds of maintenance"
+            },
+            "estimation": {
+              "title": "Size and estimation",
+              "topics": "Function point analysis, calculating effort"
+            }
+          }
+        },
+        "media": {
+          "title": "Information Representation and UI",
+          "items": {
+            "characters": {
+              "title": "Character encodings",
+              "topics": "ASCII, Unicode and UTF-8, garbled text"
+            },
+            "digitization": {
+              "title": "Digitising images and sound",
+              "topics": "Sampling and quantisation, resolution, colours and data size, lossless and lossy compression"
+            },
+            "ui": {
+              "title": "UI and usability",
+              "topics": "Usability, accessibility, UX design"
+            },
+            "graphics": {
+              "title": "Graphics basics",
+              "topics": "Coordinate transformations, raster and vector, the idea of rendering"
+            }
+          }
+        },
+        "management": {
+          "title": "Management",
+          "items": {
+            "projects": {
+              "title": "Project management",
+              "topics": "WBS, arrow diagrams (the critical path), EVM"
+            },
+            "services": {
+              "title": "Service management",
+              "topics": "SLAs, incident and problem management, the ideas of ITIL"
+            },
+            "audit": {
+              "title": "System audit and internal control",
+              "topics": "The audit process, audit evidence, internal control"
+            }
+          }
+        },
+        "strategy": {
+          "title": "Strategy",
+          "items": {
+            "accounting": {
+              "title": "Business and accounting",
+              "topics": "Break-even point, reading financial statements, inventory and ordering calculations"
+            },
+            "business-strategy": {
+              "title": "Business and IT strategy",
+              "topics": "SWOT, PPM, BPR, requirements and procurement"
+            },
+            "law": {
+              "title": "Law",
+              "topics": "Intellectual property, security laws, labour and trade laws"
+            },
+            "ethics": {
+              "title": "Ethics and society",
+              "topics": "Engineering ethics, privacy, issues of the information society"
+            }
+          }
+        }
       }
     }
   }

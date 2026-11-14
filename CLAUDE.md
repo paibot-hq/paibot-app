@@ -92,6 +92,13 @@ steps, an answer and, for a number, a `check` that `verify_ds.py` recomputes and
 finds goes back to Claude, three rounds at most; only a lesson that passes is saved (with `reviewedAt`), the rest stay in
 `.ai-ds-work/lesson-drafts.json`. The models are called through `scripts/lib/ai-ds-models.mjs`.
 
+The pages are shared with computer science practice (`/cs`, `src/tools/cs/`; plan: `docs/plans/cs-practice.md`), the same kind of
+book over the IPA exams (ITパスポート, 基本情報, 応用情報) and the J17-CS university curriculum: `src/lib/practice.ts` (types, the
+loaders, banks, lessons, the noindex check) and `src/components/practice/` (top page with the exam filter, item page, quiz). A book
+is its folder (catalog with a `PracticeBook`, `data/<unit>.json`, `lessons.json`, three thin route files), its routes in
+`src/routes.ts`, its noindex check in `root.tsx` and the Worker, and its names under `App.<book>`; what every book says is under
+`App.practice`. `/cs` has its catalog (15 units, 84 items) but no problems or lessons yet.
+
 ## Math project
 
 Math is organized unit → learning item → practice set, all in

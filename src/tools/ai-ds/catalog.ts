@@ -5,11 +5,12 @@
 // scripts/verify_ds.py, `knowledge` ones only by the blind review (docs/plans/ai-ds-practice.md §4).
 // Display order and stable IDs only; names live under App.aiDs in messages/*.json, problems in ./data/<unit>.json.
 
+import { findPracticeItem, unpublishedPath, type PracticeBook, type PracticeItem, type PracticeUnit } from '../../lib/practice.ts';
+
 export type AiDsExam = 'ds' | 'g' | 'e';
 export type AiDsCheck = 'calc' | 'knowledge' | 'sql';
-export interface AiDsSet { id: string }
-export interface AiDsItem { id: string; exams: readonly AiDsExam[]; check: AiDsCheck; sets: readonly AiDsSet[] }
-export interface AiDsUnit { id: string; items: readonly AiDsItem[] }
+export interface AiDsItem extends PracticeItem<AiDsExam> { check: AiDsCheck }
+export interface AiDsUnit extends PracticeUnit<AiDsExam> { items: readonly AiDsItem[] }
 
 export const AI_DS_EXAMS: readonly AiDsExam[] = ['ds', 'g', 'e'];
 
@@ -137,12 +138,11 @@ export const AI_DS_CATALOG: readonly AiDsUnit[] = [
   ] },
 ];
 
-export function findAiDsItem(unit: string | undefined, item: string | undefined): AiDsItem | undefined {
-  return AI_DS_CATALOG.find(entry => entry.id === unit)?.items.find(entry => entry.id === item);
-}
+export const findAiDsItem = (unit: string | undefined, item: string | undefined) => findPracticeItem(AI_DS_CATALOG, unit, item) as AiDsItem | undefined;
+
+// What the shared pages (components/practice/) need of this book.
+export const AI_DS_BOOK: PracticeBook<AiDsExam> = { base: '/ai-ds', messages: 'aiDs', exams: AI_DS_EXAMS, catalog: AI_DS_CATALOG };
 
 // Not yet in the app catalog, the top page or the sitemap: every /ai-ds page is kept out of search results (the HTML robots tag in
 // root.tsx and the Worker's X-Robots-Tag, .data requests included) until it is registered in src/lib/app-catalog.ts.
-export function isUnpublishedAiDsPath(pathname: string): boolean {
-  return /^\/(?:ja|en|zh)\/ai-ds(?:\.data|\/|$)/.test(pathname);
-}
+export const isUnpublishedAiDsPath = unpublishedPath('ai-ds');

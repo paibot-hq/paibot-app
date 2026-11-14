@@ -9,7 +9,7 @@
 export const SERVER_TOOLS = ['domain', 'site-check'];
 // Libraries the checks import that affected-tools.mjs treats as tooling.
 const SHARED = /^scripts\/(lib\/access\.mjs|import-math\.mjs|import-quiz\.mjs|import-breaches\.mjs|validate-.*)$/;
-const SYMPY = /^(src\/data\/(math-[^/]*|item-lessons)\.json|src\/tools\/ai-ds\/(data\/[^/]*\.json|catalog\.ts)|scripts\/verify_(math|lessons|ds)\.py|tests\/unit\/test_verify_(math|lessons|ds)\.py|pyproject\.toml|uv\.lock|\.python-version|\.github\/workflows\/app\.yml)$/;
+const SYMPY = /^(src\/data\/(math-[^/]*|item-lessons)\.json|src\/tools\/ai-ds\/(data\/[^/]*\.json|lessons\.json|catalog\.ts)|scripts\/verify_(math|lessons|ds)\.py|tests\/unit\/test_verify_(math|lessons|ds)\.py|pyproject\.toml|uv\.lock|\.python-version|\.github\/workflows\/app\.yml)$/;
 
 export function jobsNeeded({ affected, files }) {
   const slugs = affected === 'all' ? [] : affected.split(',').filter(Boolean);
