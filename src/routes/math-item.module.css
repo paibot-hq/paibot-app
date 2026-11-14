@@ -2,9 +2,9 @@
 .unit a { color: inherit; text-decoration: none; }
 .unit a:hover, .unit a:focus-visible { text-decoration: underline; }
 .grade { text-align: center; color: var(--muted); font-size: .8rem; margin: .2rem 0 0; }
-.description { width: min(100%, 480px); margin: .8rem auto 0; line-height: 1.7; }
-.choose { width: min(100%, 480px); margin: 1.2rem auto 0; color: var(--muted); font-size: .9rem; }
-.sets { list-style: none; padding: 0; margin: .6rem auto 0; display: grid; gap: .7rem; width: min(100%, 480px); }
+.description { width: min(100%, 720px); margin: .8rem auto 0; line-height: 1.7; }
+.choose { width: min(100%, 720px); margin: 1.2rem auto 0; color: var(--muted); font-size: .9rem; font-weight: 600; }
+.sets { list-style: none; padding: 0; margin: .6rem auto 0; display: grid; gap: .7rem; width: min(100%, 720px); }
 .card { display: grid; gap: .3rem; text-align: left; text-decoration: none; color: var(--text); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: .9rem 1.2rem; }
 .card[data-playable] { border-color: var(--accent); }
 /* A practice set that has been finished is green. */
@@ -18,12 +18,12 @@
 .record { font-size: .8rem; color: var(--accent); font-variant-numeric: tabular-nums; }
 .tiers { font-size: .8rem; color: var(--muted); }
 
-.start { display: flex; justify-content: center; align-items: baseline; gap: .5rem; width: min(100%, 480px); box-sizing: border-box; margin: 1rem auto 0; min-height: 3rem; padding: .8rem 1rem;
+.start { display: flex; justify-content: center; align-items: baseline; gap: .5rem; width: min(100%, 720px); box-sizing: border-box; margin: 1rem auto 0; min-height: 3rem; padding: .8rem 1rem;
   border-radius: var(--radius); background: var(--text); color: var(--bg); font-weight: 600; text-decoration: none; }
 .start:hover { opacity: .9; }
 .start:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .startSet { font-size: .8rem; font-weight: 400; opacity: .8; }
-.section { width: min(100%, 480px); margin: 1.2rem auto 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: .2rem 1rem .8rem; }
+.section { width: min(100%, 720px); margin: 1.2rem auto 0; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: .2rem 1rem .8rem; }
 .section > summary { cursor: pointer; font-weight: 600; padding: .6rem 0; }
 .points { display: grid; grid-template-columns: minmax(0, 1fr); gap: .3rem; text-align: center; overflow-x: auto; }
 .example { display: grid; grid-template-columns: minmax(0, 1fr); gap: .8rem; }
@@ -32,7 +32,7 @@
 .about { text-align: center; font-size: .9rem; color: var(--muted); font-weight: 600; margin: 1rem 0 0; }
 .about + .description { margin-top: .3rem; }
 
-.neighbors { width: min(100%, 480px); margin: 1.6rem auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+.neighbors { width: min(100%, 720px); margin: 1.6rem auto 0; display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
 .neighbor { display: grid; gap: .2rem; text-decoration: none; color: var(--text); border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); padding: .7rem 1rem; font-weight: 600; min-width: 0; }
 .neighbor:hover, .neighbor:focus-visible { border-color: var(--accent); }
 .next { text-align: right; }
@@ -44,14 +44,14 @@
 .pointNote { margin: 0; text-align: left; color: var(--text); font-size: 1.05rem; line-height: 1.75; }
 .pointNote > span { font-size: 1em; }
 
-/* The lesson: textbook prose, display formulas, worked examples and common mistakes. */
-.lesson { width: min(100%, 480px); margin: 1.6rem auto 0; line-height: 1.8; }
+/* The lesson: textbook prose, display formulas, worked examples. */
+.lesson { width: min(100%, 720px); margin: 1.6rem auto 0; line-height: 1.8; }
 .lesson > p { margin: .6rem 0 0; }
 /* Inline math in the prose is the size of the words around it (MathTex alone is larger). */
 .lesson p > span { font-size: 1.05em; }
 .lessonHeading { font-size: 1.1rem; margin: 0; padding-bottom: .3rem; border-bottom: 1px solid var(--line); }
 .formula { margin: .6rem 0 0; padding: .4rem .8rem; border-radius: var(--radius); background: var(--surface); border: 1px solid var(--line); overflow-x: auto; text-align: center; }
-.lessonExample, .mistake { margin: .9rem 0 0; padding: .7rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.lessonExample { margin: .9rem 0 0; padding: .7rem 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
 .exampleLabel { margin: 0; font-size: .8rem; font-weight: 600; color: var(--accent); }
 .lessonExample .exampleQuestion { margin: .2rem 0 .4rem; overflow-x: auto; }
 .steps { display: grid; grid-template-columns: minmax(0, 1fr); gap: .35rem; justify-items: center; }
@@ -59,11 +59,11 @@
 .row > span { font-size: 1.1rem; }
 .exampleNote { margin: .5rem 0 0; color: var(--muted); font-size: .92rem; line-height: 1.7; }
 .noteLabel { margin-right: .4rem; font-weight: 600; color: var(--text); }
-.wrong, .right { margin: 0; display: flex; flex-wrap: wrap; align-items: baseline; gap: .2rem .6rem; overflow-x: auto; }
-.wrong > span:last-child, .right > span:last-child { font-size: 1.1rem; }
-.right { margin-top: .3rem; }
-.mark { flex: none; padding: .05rem .5rem; border-radius: 999px; font-size: .72rem; font-weight: 600; }
-.wrong .mark { background: color-mix(in srgb, var(--error) 18%, transparent); color: var(--error); }
-.right .mark { background: color-mix(in srgb, var(--success) 20%, transparent); color: var(--success); }
 /* A figure under an example's question sits in the example's own card, without a card of its own. */
 .lessonExample figure { border: 0; background: none; padding: 0; margin: .2rem 0 .8rem; }
+
+.lessonNav { display: flex; flex-wrap: wrap; justify-content: center; gap: .5rem; width: min(100%, 720px); margin: .7rem auto 0; }
+.lessonNav a { color: var(--text); text-decoration: none; padding: .65rem 1.2rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.lessonNav a:hover { border-color: var(--accent); color: var(--accent); }
+.lessonNav a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.lesson, .section, .choose { scroll-margin-top: 1.5rem; }

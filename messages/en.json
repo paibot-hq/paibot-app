@@ -3875,16 +3875,15 @@
       "more": "More"
     },
     "math": {
-      "title": "Math Practice",
-      "description": "Multiple-choice math practice questions from elementary school to university, by topic, with tests by school year.",
-      "about": "A multiple-choice math question bank from elementary arithmetic to university mathematics, organised by unit and learning item: addition, multiplication and division, equations, factorisation, calculus, linear algebra and more.",
-      "keywords": "math practice questions problem set arithmetic algebra factoring quiz test",
+      "title": "Math Foundations",
+      "description": "Learn the ideas behind mathematics, from elementary arithmetic to university topics, through explanations, worked examples and practice. Includes topic practice and tests by school year.",
+      "about": "Build an understanding of mathematics from elementary arithmetic to university topics. Learn how ideas work through explanations, follow worked examples, and check your understanding with practice questions. Topics include arithmetic, equations, factorisation, calculus and linear algebra, organised by unit and learning item.",
+      "keywords": "math foundations mathematics explanations worked examples arithmetic algebra calculus practice quiz test",
       "itemPage": {
+        "pageNavigation": "On this page",
+        "practice": "Practice",
         "examples": "Worked examples",
         "exampleNumber": "Example {number}",
-        "mistakes": "Common mistakes",
-        "wrong": "Wrong",
-        "right": "Right",
         "start": "Start practice",
         "points": "Key points",
         "example": "Worked example",
@@ -3897,7 +3896,7 @@
       "quiz": {
         "setComingSoon": "This problem set is being prepared. Check back soon.",
         "done": "Done",
-        "backToMath": "Math Practice",
+        "backToMath": "Math Foundations",
         "breadcrumb": "Breadcrumb",
         "progress": "{current} / {total}",
         "correct": "Correct",
@@ -3920,7 +3919,7 @@
         "nextSet": "Next practice",
         "resume": "Continue",
         "questionNumber": "Question {number}",
-        "shareText": "Math Practice \"{title}\": {correct}/{total} correct"
+        "shareText": "Math Foundations \"{title}\": {correct}/{total} correct"
       },
       "arith": {
         "formula": "Expression:",
@@ -5855,7 +5854,7 @@
         "resultBelow": "Start from Elementary 1",
         "takeTest": "Take the {level} test",
         "challenge": "Try the {level} test",
-        "shareText": "Math Practice placement: {level} ({correct} of {total} correct)",
+        "shareText": "Math Foundations placement: {level} ({correct} of {total} correct)",
         "retry": "Take it again",
         "entry": "Placement test",
         "entryNote": "{count} problems that move up or down a year with your answers, to find your level"
