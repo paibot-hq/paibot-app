@@ -50,6 +50,16 @@ test('every unit has a bank, and every problem belongs to a set of the catalog',
   }
 });
 
+test('every lesson belongs to an item and is shown only once reviewed', () => {
+  const lessons = JSON.parse(readFileSync(new URL('./lessons.json', import.meta.url), 'utf8'));
+  for (const [key, lesson] of Object.entries(lessons)) {
+    const [unit, item] = key.split('/');
+    assert.ok(findAiDsItem(unit, item), `${key}: no such item`);
+    assert.match(lesson.reviewedAt ?? '', /^\d{4}-\d{2}-\d{2}$/, `${key}: only reviewed lessons are kept`);
+    assert.ok(lesson.sections.length >= 2 && lesson.examples.length >= 2, `${key}: sections and examples`);
+  }
+});
+
 test('the pages stay out of search results until the tool is registered', () => {
   assert.ok(isUnpublishedAiDsPath('/ja/ai-ds'));
   assert.ok(isUnpublishedAiDsPath('/en/ai-ds/stats/descriptive/1'));

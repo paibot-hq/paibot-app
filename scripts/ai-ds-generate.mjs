@@ -5,62 +5,18 @@
 // Claude with what Codex found, twice at most, and stay unpublished if they still do not pass.
 //   node scripts/ai-ds-generate.mjs <unit|unit/item> ... [--jobs N]   write the sets that have no problems yet
 //   node scripts/ai-ds-generate.mjs --review <unit|unit/item> ...      review the unpublished problems again (none are written)
-// Claude Code in print mode with no tools writes; Antigravity (agy) is not called: its terms for personal plans may not allow
-// running it from other programs.
-import { spawn } from 'node:child_process';
-import { existsSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { homedir, tmpdir } from 'node:os';
+// The models are called through lib/ai-ds-models.mjs.
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { AI_DS_CATALOG } from '../src/tools/ai-ds/catalog.ts';
+import { claude, codex, exec, extractJSON, log, prompt, root, runQueue, today, wantedArgs } from './lib/ai-ds-models.mjs';
 
-const root = new URL('..', import.meta.url);
-const prompt = name => readFileSync(new URL(`scripts/ai-ds-prompts/${name}.md`, root), 'utf8');
 const messages = JSON.parse(readFileSync(new URL('messages/ja.json', root), 'utf8')).App.aiDs;
 const bankPath = unit => new URL(`src/tools/ai-ds/data/${unit}.json`, root);
 const readBank = unit => JSON.parse(readFileSync(bankPath(unit), 'utf8'));
 const writeBank = (unit, bank) => writeFileSync(bankPath(unit), `${JSON.stringify(bank, null, 2)}\n`);
-const today = new Date().toISOString().slice(0, 10);
-const local = join(homedir(), '.claude/local/claude');
-const CLAUDE = process.env.CLAUDE_BIN ?? (existsSync(local) ? local : 'claude');
 const TIERS = [1, 1, 2, 2, 3];
-const log = (key, message) => console.log(`${new Date().toISOString().slice(11, 19)} ${key}: ${message}`);
-
-function exec(command, args, { cwd, input, anyCode = false } = {}) {
-  return new Promise((resolve, reject) => {
-    const child = spawn(command, args, { cwd, stdio: [input === undefined ? 'ignore' : 'pipe', 'pipe', 'pipe'] });
-    let out = '', err = '';
-    const timer = setTimeout(() => child.kill('SIGTERM'), 15 * 60_000);
-    child.stdout.on('data', chunk => { out += chunk; });
-    child.stderr.on('data', chunk => { err += chunk; });
-    if (input !== undefined) child.stdin.end(input);
-    child.on('error', error => { clearTimeout(timer); reject(error); });
-    child.on('close', code => { clearTimeout(timer); code === 0 || anyCode ? resolve(out) : reject(new Error(`${command} failed (${code}): ${err.slice(-1500)}`)); });
-  });
-}
-
-function extractJSON(text, key) {
-  const start = text.indexOf('{');
-  const end = text.lastIndexOf('}');
-  if (start < 0 || end < start) throw new Error('no JSON in the answer');
-  const data = JSON.parse(text.slice(start, end + 1));
-  if (!Array.isArray(data[key])) throw new Error(`the JSON has no ${key} list`);
-  return data;
-}
-
-async function claude(text) {
-  const temp = mkdtempSync(join(tmpdir(), 'ai-ds-'));
-  try { return await exec(CLAUDE, ['-p', text, '--tools', '', '--strict-mcp-config', '--output-format', 'text'], { cwd: temp }); }
-  finally { rmSync(temp, { recursive: true, force: true }); }
-}
-
-async function codex(text) {
-  const temp = mkdtempSync(join(tmpdir(), 'ai-ds-'));
-  const output = join(temp, 'answer.txt');
-  try {
-    await exec('codex', ['exec', '-c', `model_reasoning_effort="${process.env.AI_DS_REVIEW_EFFORT ?? 'medium'}"`, '--sandbox', 'read-only', '--skip-git-repo-check', '-o', output, '-'], { cwd: temp, input: text });
-    return readFileSync(output, 'utf8');
-  } finally { rmSync(temp, { recursive: true, force: true }); }
-}
 
 // verify_ds.py on candidate problems: the problems found, as text (empty when there are none).
 async function verify(unit, problems) {
@@ -192,22 +148,12 @@ async function reviewSet(unit, item, setId) {
   log(key, `saved ${saved.filter(p => p.published).length}/${saved.length} published`);
 }
 
-const args = process.argv.slice(2);
-const jobsAt = args.indexOf('--jobs');
-const jobs = jobsAt >= 0 ? Number(args[jobsAt + 1]) : 3;
-const reviewOnly = args.includes('--review');
-const wanted = args.filter((arg, at) => !arg.startsWith('--') && !(jobsAt >= 0 && at === jobsAt + 1));
+const { jobs, flags, wanted } = wantedArgs(process.argv.slice(2));
+const reviewOnly = flags.has('--review');
 if (!wanted.length) { console.error('Usage: node scripts/ai-ds-generate.mjs [--review] <unit|unit/item> ... [--jobs N]'); process.exit(1); }
 const todo = AI_DS_CATALOG.flatMap(unit => unit.items.flatMap(item => item.sets.map(set => ({ unit: unit.id, item, setId: set.id }))))
   .filter(({ unit, item }) => wanted.includes(unit) || wanted.includes(`${unit}/${item.id}`));
 if (!todo.length) { console.error(`Nothing matches ${wanted.join(' ')}`); process.exit(1); }
 
-let failures = 0;
-const queue = [...todo];
-await Promise.all(Array.from({ length: Math.min(jobs, queue.length) }, async () => {
-  for (let next = queue.shift(); next; next = queue.shift()) {
-    try { await (reviewOnly ? reviewSet : writeSet)(next.unit, next.item, next.setId); }
-    catch (error) { failures++; log(`${next.unit}/${next.item.id}/${next.setId}`, `failed: ${error.message}`); }
-  }
-}));
+const failures = await runQueue(todo, jobs, next => (reviewOnly ? reviewSet : writeSet)(next.unit, next.item, next.setId), next => `${next.unit}/${next.item.id}/${next.setId}`);
 if (failures) { console.error(`${failures} set(s) failed`); process.exit(1); }

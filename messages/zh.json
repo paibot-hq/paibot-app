@@ -6252,7 +6252,7 @@
     "notFound": "页面未找到",
     "aiDs": {
       "title": "AI・数据科学题库",
-      "description": "参考DS检定（素养级别）・G检定・E资格的考试范围编写的AI・数据科学四选一习题集。计算题的答案均通过程序重新计算，所有题目都经另一个AI在隐藏答案的情况下解答验证后才收录。",
+      "description": "参考DS检定（素养级别）・G检定・E资格的考试范围编写的AI・数据科学学习项目讲解、例题和四选一练习题。计算题和例题的答案均通过程序重新计算，题目经另一个AI在隐藏答案的情况下解答验证，讲解也经另一个AI检查后才收录。",
       "allExams": "全部",
       "exams": {
         "ds": "DS检定",
@@ -6265,7 +6265,7 @@
       "chooseSet": "请选择要练习的题组。",
       "setLabel": "练习{n}",
       "breadcrumb": "当前位置",
-      "problemsInJapanese": "题目和解析为日语。",
+      "problemsInJapanese": "讲解、例题和题目为日语。",
       "examNote": "题目与各考试的对应关系，是本网站参照各考试公开的出题范围（DS检定为技能检查清单 ver.6 和示范课程，G检定为2024版考纲，E资格为2026版考纲）所标注的参考，并非各考试的官方习题集。DS检定是数据科学家协会的商标，G检定・E资格是日本深度学习协会的商标。",
       "checks": {
         "calc": "计算",
@@ -6712,6 +6712,20 @@
             }
           }
         }
+      },
+      "itemPage": {
+        "about": "学习内容",
+        "pageNavigation": "本页内容",
+        "explanation": "讲解",
+        "examples": "例题",
+        "exampleNumber": "例题{number}",
+        "steps": "思路",
+        "answer": "答案",
+        "practice": "练习",
+        "start": "开始练习",
+        "neighbors": "前后的学习项目",
+        "previous": "上一项",
+        "next": "下一项"
       }
     }
   }

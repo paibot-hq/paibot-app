@@ -6,8 +6,12 @@ else is refused), and requires that exactly one choice's value equals it (within
 problem's answer, and that each choice's text shows its value. Every problem's shape is checked too (four distinct choices, an
 answer in range, a tier, a known item). Knowledge problems have no check; their answers rest on the blind review.
 
-    python scripts/verify_ds.py            check every bank, exit 1 on a problem
-    python scripts/verify_ds.py --json F   check one file of problems (a candidate), print the problems as JSON
+The lessons (src/tools/ai-ds/lessons.json, the textbook text of an item page) are checked the same way: their shape, and each
+worked example with a `check` (`expr` and `value`) has expr equal value (within `tol`) and its `answer` show that value.
+
+    python scripts/verify_ds.py              check every bank and the lessons, exit 1 on a problem
+    python scripts/verify_ds.py --json F     check one file of problems (a candidate), print the problems as JSON
+    python scripts/verify_ds.py --lessons F  check one file of lessons ({"unit/item": lesson}), print the problems as JSON
 """
 
 import ast
@@ -20,6 +24,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / 'src' / 'tools' / 'ai-ds' / 'data'
 CATALOG = ROOT / 'src' / 'tools' / 'ai-ds' / 'catalog.ts'
+LESSONS = ROOT / 'src' / 'tools' / 'ai-ds' / 'lessons.json'
 
 
 def _nums(xs):
@@ -322,6 +327,91 @@ def shown_number(text):
     return float(m.group()) if m else None
 
 
+def numbers_in(text):
+    """Every number a sentence shows: TeX fractions, a x 10^n, plain numbers (a % one also as its value / 100)."""
+    t = text.replace('$', '').replace('{,}', '').replace(',', '').replace('−', '-').replace('\\,', '')
+    found = []
+    for frac in FRAC.finditer(t):
+        value = float(frac.group(2)) / float(frac.group(3))
+        found.append(-value if frac.group(1) else value)
+    for sci in re.finditer(r'(-?\d+(?:\.\d+)?)\s*\\times\s*10\^\{?(-?\d+)\}?', t):
+        found.append(float(sci.group(1)) * 10 ** int(sci.group(2)))
+    for m in re.finditer(r'-?\d+(?:\.\d+)?(\s*(?:\\%|%))?', t):
+        found.append(float(m.group(0).rstrip('%\\ ').strip()))
+        if m.group(1):
+            found.append(found[-1] / 100)
+    return found
+
+
+def _text(value):
+    return isinstance(value, str) and value.strip() != ''
+
+
+def _texts(value, at_least=1):
+    return isinstance(value, list) and len(value) >= at_least and all(_text(x) for x in value)
+
+
+def lesson_errors(key, lesson, items=None):
+    """What is wrong with one lesson: its shape, its TeX dollars, and the worked examples' checks."""
+    errors = []
+    unit, _, item = key.partition('/')
+    if items is not None and item not in items.get(unit, set()):
+        errors.append(f'{key}: no such item in catalog.ts')
+    sections = lesson.get('sections')
+    if not isinstance(sections, list) or not 2 <= len(sections) <= 4:
+        errors.append(f'{key}: needs 2-4 sections')
+        sections = sections if isinstance(sections, list) else []
+    strings = []
+    for n, section in enumerate(sections):
+        where = f'{key}: sections[{n}]'
+        if not _text(section.get('heading')):
+            errors.append(f'{where}: needs a heading')
+        if not _texts(section.get('paragraphs')):
+            errors.append(f'{where}: needs paragraphs')
+        for field in ('formulas', 'after'):
+            if field in section and not _texts(section[field]):
+                errors.append(f'{where}: {field} must be a list of text')
+        strings += [section.get('heading'), *(section.get('paragraphs') or []), *(section.get('after') or [])]
+        for formula in section.get('formulas') or []:
+            if '$' in str(formula):
+                errors.append(f'{where}: a display formula is TeX without $')
+    examples = lesson.get('examples')
+    if not isinstance(examples, list) or not 2 <= len(examples) <= 3:
+        errors.append(f'{key}: needs 2-3 examples')
+        examples = examples if isinstance(examples, list) else []
+    for n, example in enumerate(examples):
+        where = f'{key}: examples[{n}]'
+        if not _text(example.get('prompt')):
+            errors.append(f'{where}: needs a prompt')
+        if not _texts(example.get('steps')) or len(example['steps']) > 6:
+            errors.append(f'{where}: needs 1-6 steps')
+        if not _text(example.get('answer')):
+            errors.append(f'{where}: needs an answer')
+        strings += [example.get('prompt'), *(example.get('steps') or []), example.get('answer')]
+        check = example.get('check')
+        if check is None:
+            continue
+        value, tol = check.get('value'), check.get('tol', 1e-9)
+        if not isinstance(value, (int, float)) or isinstance(value, bool):
+            errors.append(f'{where}: check.value must be a number')
+            continue
+        try:
+            computed = evaluate(check.get('expr', ''))
+        except Exception as error:  # noqa: BLE001 - reported per example
+            errors.append(f'{where}: check.expr fails: {error}')
+            continue
+        if abs(computed - value) > tol + 1e-9 * max(1, abs(value)):
+            errors.append(f'{where}: check.expr is {computed:.6g}, not the value {value} (tol {tol})')
+        elif _text(example.get('answer')) and not any(abs(x - value) <= tol + 1e-9 * max(1, abs(value)) for x in numbers_in(example['answer'])):
+            errors.append(f'{where}: the answer does not show the value {value}')
+    for text in strings:
+        if isinstance(text, str) and text.count('$') % 2:
+            errors.append(f'{key}: unbalanced $ in {text[:40]!r}')
+    if 'reviewedAt' in lesson and not re.fullmatch(r'\d{4}-\d{2}-\d{2}', str(lesson['reviewedAt'])):
+        errors.append(f'{key}: reviewedAt must be a date')
+    return errors
+
+
 def item_ids():
     text = CATALOG.read_text(encoding='utf-8')
     units = {}
@@ -393,6 +483,11 @@ def main():
         errors = problems_of(unit, data['problems'], units.get(unit))
         print(json.dumps(errors, ensure_ascii=False))
         sys.exit(1 if errors else 0)
+    if len(sys.argv) == 3 and sys.argv[1] == '--lessons':
+        data = json.loads(Path(sys.argv[2]).read_text(encoding='utf-8'))
+        errors = [e for key, lesson in data.items() for e in lesson_errors(key, lesson, units)]
+        print(json.dumps(errors, ensure_ascii=False))
+        sys.exit(1 if errors else 0)
     errors = []
     count = checked = 0
     for path in sorted(DATA.glob('*.json')):
@@ -404,11 +499,15 @@ def main():
         count += len(problems)
         checked += sum(1 for p in problems if p.get('check'))
         errors += problems_of(unit, problems, units[unit])
+    lessons = json.loads(LESSONS.read_text(encoding='utf-8'))
+    for key, lesson in lessons.items():
+        errors += lesson_errors(key, lesson, units)
+    examples = sum(1 for lesson in lessons.values() for e in lesson.get('examples', []) if e.get('check'))
     for error in errors:
         print(f'FAIL: {error}')
     if errors:
         sys.exit(1)
-    print(f'PASS: {count} AI and data science problems ({checked} answers recomputed)')
+    print(f'PASS: {count} AI and data science problems ({checked} answers recomputed), {len(lessons)} lessons ({examples} examples recomputed)')
 
 
 if __name__ == '__main__':

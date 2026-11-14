@@ -32,4 +32,25 @@ assert errors(choices=['50%', '100%', '150%', '200%']) == [], 'percentages count
 assert abs(v.evaluate('f1(8, 2, 4)') - 2 * 0.8 * (8 / 12) / (0.8 + 8 / 12)) < 1e-12
 assert v.evaluate('conv_out(32, 3, 1, 1)') == 32 and v.evaluate('conv_out(28, 2, 0, 2)') == 14
 assert abs(v.evaluate('auc([0.9, 0.8, 0.3, 0.1], [1, 0, 1, 0])') - 0.75) < 1e-12
+
+def lesson(**over):
+    data = {
+        'sections': [{'heading': '情報量とは', 'paragraphs': ['確率 $p$ の出来事の情報量は $-\\log_2 p$ です。']},
+                     {'heading': '平均の情報量', 'paragraphs': ['平均したものがエントロピーです。'], 'formulas': ['H = -\\sum p \\log_2 p']}],
+        'examples': [{'prompt': '表と裏が半々の硬貨のエントロピーは？', 'steps': ['$-2 \\times 0.5 \\log_2 0.5$ を計算します。'], 'answer': '1 ビット',
+                      'check': {'expr': 'entropy([0.5, 0.5])', 'value': 1}},
+                     {'prompt': 'いつも表が出る硬貨は？', 'steps': ['不確かさがありません。'], 'answer': '0 ビットです。'}],
+    }
+    data.update(over)
+    return v.lesson_errors('info/entropy', data, {'info': {'entropy'}})
+
+
+assert lesson() == [], lesson()
+assert any('not the value' in e for e in lesson(examples=[{'prompt': 'a', 'steps': ['b'], 'answer': '2 ビット', 'check': {'expr': 'entropy([0.5, 0.5])', 'value': 2}}] * 2)), 'a wrong example value is caught'
+assert any('does not show' in e for e in lesson(examples=[{'prompt': 'a', 'steps': ['b'], 'answer': '2 ビット', 'check': {'expr': 'entropy([0.5, 0.5])', 'value': 1}}] * 2)), 'the answer must show the value'
+assert any('2-4 sections' in e for e in lesson(sections=[])), 'sections are required'
+assert any('without $' in e for e in lesson(sections=[{'heading': 'a', 'paragraphs': ['b'], 'formulas': ['$x$']}] * 2))
+assert any('unbalanced' in e for e in lesson(sections=[{'heading': 'a', 'paragraphs': ['$x']}] * 2))
+assert any('no such item' in e for e in v.lesson_errors('info/nope', {'sections': [], 'examples': []}, {'info': {'entropy'}}))
+assert 0.25 in v.numbers_in('答えは 25% です') and 0.5 in v.numbers_in('$\\frac{1}{2}$')
 print('PASS: verify_ds.py rejects wrong keys, unsafe expressions and choices that do not show their values')

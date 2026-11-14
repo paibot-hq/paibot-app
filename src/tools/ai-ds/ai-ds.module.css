@@ -31,3 +31,10 @@ p.question { margin: 0; font-size: 1.05rem; line-height: 1.8; overflow-wrap: any
 .feedback { text-align: left; }
 /* Formulas inside sentences: close to the text's size (KaTeX draws them at 1.21em by default). */
 p.question :global(.katex), .choice :global(.katex), .feedback :global(.katex) { font-size: 1.05em; }
+/* A worked example of a lesson: the situation, the steps of thought, the answer (in the card of math's item page). */
+.examplePrompt { margin: .3rem 0 0; line-height: 1.8; }
+.exampleHeading { margin: .6rem 0 0; font-size: .85rem; font-weight: 600; color: var(--muted); }
+.exampleSteps { margin: .2rem 0 0; padding-left: 1.4rem; line-height: 1.8; }
+.exampleSteps li { margin-top: .2rem; }
+.exampleAnswer { margin: .6rem 0 0; padding-top: .5rem; border-top: 1px solid var(--line); line-height: 1.8; font-weight: 600; }
+.examplePrompt :global(.katex), .exampleSteps :global(.katex), .exampleAnswer :global(.katex) { font-size: 1.05em; }

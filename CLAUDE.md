@@ -84,6 +84,13 @@ Japanese, bundled with the page from `src/tools/ai-ds/data/<unit>.json` (no data
 calculation's answer from its `check` (an expression over a fixed list of functions) and checks each choice shows its value; Codex
 then solves the set without the answers, and what it gets wrong or flags goes back to Claude, twice at most. Only problems that
 pass are published. Knowledge problems have no check and rest on that blind review. Antigravity (agy) is not called from scripts.
+An item page (`item.tsx`) is laid out as math's (`routes/math-item.tsx`, whose CSS module it uses): what you learn (the topics),
+links within the page, the lesson, the practice sets, the previous and next items. Lessons are in Japanese in
+`src/tools/ai-ds/lessons.json` (`sections` of prose with $...$ TeX and display formulas, then 2-3 worked `examples`: a situation,
+steps, an answer and, for a number, a `check` that `verify_ds.py` recomputes and finds in the answer). `npm run ai-ds:lessons --
+<unit|unit/item> ...` has Claude write one for each item with published problems, checks it, then Codex reviews it and what it
+finds goes back to Claude, three rounds at most; only a lesson that passes is saved (with `reviewedAt`), the rest stay in
+`.ai-ds-work/lesson-drafts.json`. The models are called through `scripts/lib/ai-ds-models.mjs`.
 
 ## Math project
 

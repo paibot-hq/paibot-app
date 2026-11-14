@@ -38,6 +38,7 @@
     "breaches:export:prod": "node scripts/export-breaches.mjs prod",
     "math:generate": "node scripts/math-generate.mjs",
     "ai-ds:generate": "node scripts/ai-ds-generate.mjs",
+    "ai-ds:lessons": "node scripts/ai-ds-lessons.mjs",
     "math:review": "node scripts/math-review.mjs",
     "govfaq:build": "node scripts/govfaq-build.mjs",
     "govfaq:embed": "node scripts/govfaq-embed.mjs"

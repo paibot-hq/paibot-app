@@ -6252,7 +6252,7 @@
     "notFound": "Page not found",
     "aiDs": {
       "title": "AI & Data Science Practice",
-      "description": "Multiple-choice (4-option) problem sets on AI and data science, based on the exam scopes of the DS Certificate (DS検定) (Literacy Level), G Certificate (G検定), and E Certificate (E資格). For calculation problems, the answers are recomputed with a program, and every problem is verified by having a separate AI solve it with the answer hidden before it is published.",
+      "description": "Explanations, worked examples and four-choice practice problems for each learning item of AI and data science, based on the exam scopes of the DS Certificate (DS検定) (Literacy Level), G Certificate (G検定) and E Certificate (E資格). The answers of calculation problems and examples are recomputed with a program; every problem is solved by a separate AI with the answer hidden, and every explanation is checked by a separate AI, before it is published.",
       "allExams": "All",
       "exams": {
         "ds": "DS Certificate (DS検定)",
@@ -6265,7 +6265,7 @@
       "chooseSet": "Choose a problem set to practice.",
       "setLabel": "Practice {n}",
       "breadcrumb": "You are here",
-      "problemsInJapanese": "Problems and explanations are in Japanese.",
+      "problemsInJapanese": "The explanations, worked examples and problems are in Japanese.",
       "examNote": "Exam mappings are approximate guides assigned by this site based on each exam's published scope (for the DS Certificate (DS検定), the Skill Checklist ver.6 and Model Curriculum; for the G Certificate (G検定), the 2024 Syllabus; for the E Certificate (E資格), the 2026 Syllabus). These are not official problem sets for any exam. DS検定 is a trademark of the Data Scientist Society of Japan, and G検定 and E資格 are trademarks of the Japan Deep Learning Association.",
       "checks": {
         "calc": "Calculation",
@@ -6712,6 +6712,20 @@
             }
           }
         }
+      },
+      "itemPage": {
+        "about": "What you learn",
+        "pageNavigation": "On this page",
+        "explanation": "Explanation",
+        "examples": "Worked examples",
+        "exampleNumber": "Example {number}",
+        "steps": "How to think",
+        "answer": "Answer",
+        "practice": "Practice",
+        "start": "Start practice",
+        "neighbors": "Previous and next items",
+        "previous": "Previous",
+        "next": "Next"
       }
     }
   }
