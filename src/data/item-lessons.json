@@ -209,9 +209,9 @@
             "zh": "10 以内的加法和减法中，得数都不超过 10。这里要处理得数超过 10 的加法，以及需要经过 10 来减的减法。"
           },
           {
-            "ja": "どちらも、10のまとまりを作るか、10のまとまりからひくことが中心です。この考え方は、より大きな数の計算にもそのまま使えます。",
-            "en": "Both rely on making a group of ten or taking from a group of ten. The same idea applies to larger numbers later.",
-            "zh": "两者都以凑成 10 或从 10 中减去为核心。这种想法在更大的数中也能继续使用。"
+            "ja": "くり上がりは、1が10個集まったものを、10のまとまり1個として数え直すことです。$8 + 7$ なら、7を2と5に分けると、$8 + 2 = 10$ と残り5で15になります。数を分けても、合わせた量は変わりません。",
+            "en": "Carrying regroups ten ones as one ten. For $8 + 7$, split 7 into 2 and 5: $8 + 2 = 10$, then five more gives 15. Splitting a number changes its grouping, not the total quantity.",
+            "zh": "进位就是把10个一重新计作1个十。计算 $8 + 7$ 时，把7分成2和5，$8 + 2 = 10$，再加剩下的5得15。拆分改变的是组合方式，不改变总量。"
           }
         ]
       },
@@ -349,9 +349,9 @@
             "zh": "两位数由十位和个位组成。例如 47 的十位是 4，个位是 7，可以写成 $40 + 7$。本节学习两位数的加法和减法。"
           },
           {
-            "ja": "1桁のくり上がり・くり下がりで学んだ考え方を、位ごとに使います。代金の合計や残りのお金を求める場面で役に立ちます。",
-            "en": "You apply the carrying and borrowing from one-digit calculations, one place at a time. This is useful for finding a total price or the money left over.",
-            "zh": "把一位数加减法中学过的进位和退位，按数位分别使用。求总价或剩余的钱时都会用到。"
+            "ja": "位をそろえるのは、同じ大きさのまとまりを数えるためです。$23 + 45$ は、10のまとまりが2個と4個、1が3個と5個なので、10が6個と1が8個、つまり68になります。",
+            "en": "Aligning places means counting units of the same size. In $23 + 45$, two tens plus four tens make six tens, while three ones plus five ones make eight ones, giving 68.",
+            "zh": "对齐数位，是为了把相同大小的计数单位放在一起。$23 + 45$ 中，2个十加4个十得6个十，3个一加5个一得8个一，所以是68。"
           }
         ]
       },
@@ -488,9 +488,9 @@
             "zh": "把数位对齐，就能把同一位上的数相加或相减。右端对齐，是为了让个位、十位、百位正确对应。"
           },
           {
-            "ja": "これまでに学んだ2桁の筆算と同じで、計算は一の位から始めます。位のまとまりを意識すると、3桁や4桁の計算も同じ手順で進められ、大きな数を正確に扱えるようになります。",
-            "en": "As with two-digit column arithmetic, start from the ones place. Keeping place-value groups in mind lets the same steps handle three and four digits, so you can work accurately with larger numbers.",
-            "zh": "和以前学过的两位数竖式一样，从个位开始计算。只要留意数位分组，三位数和四位数也能按同样的步骤完成，从而准确处理较大的数。"
+            "ja": "くり下がりも、量を変えずにまとまりを交換する操作です。52は「10が5個と1が2個」ですが、「10が4個と1が12個」とも表せます。引ける形に数え直すことが、筆算で上の位を1減らす理由です。",
+            "en": "Borrowing also exchanges units without changing the quantity. The number 52 is five tens and two ones, or four tens and twelve ones. Regrouping into units we can subtract explains why borrowing reduces the next digit by one.",
+            "zh": "退位也是在总量不变的前提下交换计数单位。52既是5个十和2个一，也可以是4个十和12个一。把它重新分组后便于相减，这就是借位时高一位减1的原因。"
           }
         ]
       },
@@ -637,9 +637,9 @@
             "zh": "乘法是求若干个相同的数合起来的总数的计算。例如 $3 \\times 4$ 表示 4 个 3 合起来的总数。乘法口诀把 1 到 9 的数与 1 到 9 的数相乘的积，按 1 的乘法口诀到 9 的乘法口诀整理在一起。"
           },
           {
-            "ja": "かけ算は、たし算をくり返す考え方から生まれます。$2 + 2 + 2$ のように同じ数を何度も足すとき、かけ算を使うと短く表せます。九九を身につけると、同じ大きさのまとまりがいくつあるときも、いちいち足さずに総数を求められます。1桁のたし算が確実にできると、答えも確かめやすくなります。",
-            "en": "Multiplication comes from repeated addition. Instead of adding the same number again and again, as in $2 + 2 + 2$, you can write it as a product. Knowing the times table lets you find the total for several equal groups without adding each group separately. Being sure of one-digit addition also makes the results easier to check.",
-            "zh": "乘法来自重复相加。像 $2 + 2 + 2$ 这样把同一个数加很多次时，用乘法可以写得更简短。掌握乘法口诀后，即使有几个相同大小的份，也不必一份一份地加，就能求出总数。一位数加法熟练以后，也更容易检验结果。"
+            "ja": "同じ12個の点を3行4列に並べると、横からは4個が3組、縦からは3個が4組に見えます。数え方を変えても点の数は同じなので、$4 \\times 3 = 3 \\times 4$ です。九九の交換法則は、この並べ替えから理解できます。",
+            "en": "Arrange 12 dots in three rows and four columns. You can count three groups of four across or four groups of three down. The dots stay the same, so $4 \\times 3 = 3 \\times 4$. This explains the commutative property in the times table.",
+            "zh": "把12个点排成3行4列，按行看是3组4个，按列看是4组3个。计数方式改变，点的总数不变，所以 $4 \\times 3 = 3 \\times 4$。乘法交换律可以这样理解。"
           }
         ]
       },
@@ -810,9 +810,9 @@
             "zh": "学习两位数或三位数乘一位数。用乘法口诀求出每一位上的积，再按数位合并，就能计算较大的数。"
           },
           {
-            "ja": "同じ値段の品物を複数買うときの代金など、身の回りの計算に使います。九九と足し算の筆算が確実にできると、筆算の手順を理解しやすくなります。",
-            "en": "It is used for everyday totals, such as the cost of several items at the same price. Being secure with the multiplication tables and written addition makes the column method easier to follow.",
-            "zh": "它可用于日常生活中，例如计算购买多件同价商品的总价。熟练掌握乘法口诀和加法竖式，就更容易理解乘法竖式的步骤。"
+            "ja": "$23 \\times 4$ は、23を4組集める計算です。各組の23を20と3に分けると、20が4組と3が4組になるので、$20 \\times 4 + 3 \\times 4 = 92$ です。筆算は、この分けた計算を位ごとに記録しています。",
+            "en": "The product $23 \\times 4$ counts four groups of 23. Split each group into 20 and 3: four twenties plus four threes give $20 \\times 4 + 3 \\times 4 = 92$. Column multiplication records these parts by place value.",
+            "zh": "$23 \\times 4$ 表示4组23。每组拆成20和3，就变成4组20加4组3，即 $20 \\times 4 + 3 \\times 4 = 92$。竖式正是按数位记录这些分开的计算。"
           }
         ]
       },
@@ -940,9 +940,9 @@
             "zh": "学习像 $23 \\times 12$ 这样，用两位数乘两位数或三位数。乘数虽然是两位数，也可以利用乘法口诀和已经学过的竖式来计算。"
           },
           {
-            "ja": "この計算は、面積や数量など、大きな数を扱う場面で役立ちます。まず九九と2〜3桁の数に1桁の数をかける筆算を確実にし、それらを組み合わせる考え方を身につけます。",
-            "en": "This skill is useful for larger quantities, such as areas and totals. We build on the multiplication table and on multiplying by a one-digit number, then combine those methods.",
-            "zh": "这种计算在处理面积、数量等较大的数时很有用。先掌握乘法口诀和两位数或三位数乘一位数的竖式，再学会把它们组合起来。"
+            "ja": "$23 \\times 12$ なら、23の組が12個あります。それを10個と2個に分ければ、$23 \\times 10 + 23 \\times 2 = 276$ です。筆算の2行は、この2つのまとまりに対応します。",
+            "en": "For $23 \\times 12$, there are twelve groups of 23. Split them into ten groups and two groups: $23 \\times 10 + 23 \\times 2 = 276$. The two rows in column multiplication represent these two contributions.",
+            "zh": "$23 \\times 12$ 表示12组23。把12组拆成10组和2组，就有 $23 \\times 10 + 23 \\times 2 = 276$。竖式中的两行分别对应这两部分。"
           }
         ]
       },
@@ -1255,9 +1255,9 @@
             "zh": "学习像 $76 \\div 19$ 这样除数是两位数的除法。与一位数笔算一样，先估计商，再反复进行乘法和减法来求答案。"
           },
           {
-            "ja": "2桁でわる計算では、商が何十になるか、一の位に0を書く必要があるかなど、位取りが重要です。1桁でわる筆算と、かけ算・ひき算の確実な計算が土台になります。",
-            "en": "In two-digit division, place value matters: the quotient may be tens, and a zero may be needed in the ones place. One-digit long division and reliable multiplication and subtraction are the foundation.",
-            "zh": "两位数除法中，数位很重要：商可能是几十，个位也可能需要写 0。一位数除法笔算和熟练的乘、减法是基础。"
+            "ja": "$756 \\div 28$ の最初の商2は、2個ではなく20個分を表します。$28 \\times 20 = 560$ を取り、残り196からさらに7個分を取るので、$756 = 28 \\times (20 + 7)$ です。筆算は、何十個分・何個分を順に取り出しています。",
+            "en": "In $756 \\div 28$, the first quotient digit 2 means twenty groups. Removing $28 \\times 20 = 560$ leaves 196, which contains seven more groups, so $756 = 28 \\times (20 + 7)$. Long division extracts tens of groups, then individual groups.",
+            "zh": "在 $756 \\div 28$ 中，商的第一个数字2表示20组。取走 $28 \\times 20 = 560$，剩196，再取7组，所以 $756 = 28 \\times (20 + 7)$。竖式依次求出几十组和几组。"
           }
         ]
       },
@@ -1390,9 +1390,9 @@
             "zh": "在 $38 \\div 7$ 中，7 的乘法口诀里没有 38，所以不能整除。这时要考虑能分成几个 7，以及剩下多少。因为 $7 \\times 5 = 35$，可以分成 5 组，剩下 $38 - 35 = 3$。"
           },
           {
-            "ja": "この5を商、3をあまりといいます。計算には九九と2桁までのひき算を使います。あまりのあるわり算は、物を同じ数ずつ分けるときや、人数を同じ班に分けるときなどに使います。",
-            "en": "The 5 is the quotient and the 3 is the remainder. The calculation uses the multiplication table and subtraction of two-digit numbers. Division with a remainder is used when dividing objects into equal groups or splitting people into equal teams.",
-            "zh": "这里的 5 叫作商，3 叫作余数。计算时要用到乘法口诀和两位数减法。有余数的除法用于把物品平均分组、把人数平均分班等场合。"
+            "ja": "$17 \\div 5$ では、5を3組取ると15になり、2が残ります。残りが5以上ならもう1組取れるので、あまりは必ず5より小さくなります。商とあまりは、取れた組の数と、次の1組に足りない残りを表します。",
+            "en": "For $17 \\div 5$, three groups of five use 15 and leave 2. If five or more remained, another group could be taken, so the remainder must be smaller than 5. Quotient and remainder record complete groups and what is left over.",
+            "zh": "$17 \\div 5$ 中，取3组5共15，剩下2。如果余数至少为5，就还能再取一组，所以余数必须小于5。商表示完整组的个数，余数表示不够再组成一组的剩余量。"
           }
         ]
       },
@@ -1552,9 +1552,9 @@
             "zh": "当加、减、乘、除出现在同一个算式里时，如果没有统一的规定，不同的人会算出不同的结果。例如 $3 + 4 \\times 5$，从左往右算得 35，先算乘法则得 23。"
           },
           {
-            "ja": "そこで、計算の順序には全員が同じ答えになるための約束があります。この約束を使えば、どんなに長い式でも正確に答えを求められます。",
-            "en": "To make everyone get the same answer, mathematicians agreed on a fixed order of operations. With this rule, even a long expression has exactly one correct value.",
-            "zh": "为了让所有人得到同一个答案，数学上约定了固定的运算顺序。按这个约定，再长的算式也只有唯一正确的结果。"
+            "ja": "$3 + 4 \\times 5$ を「3個と、4個ずつの5組」と読むと、掛け算の部分は1つのまとまりです。このまとまりを先に求める約束が、式の意味を保ちます。3と4を先に足したいときは、$(3 + 4) \\times 5$ とかっこで別のまとまりを指定します。",
+            "en": "Read $3 + 4 \\times 5$ as three objects plus five groups of four. The product is one quantity, and the convention evaluates that quantity first. To add 3 and 4 before multiplying, use parentheses to specify a different grouping: $(3 + 4) \\times 5$.",
+            "zh": "把 $3 + 4 \\times 5$ 读作3个加上5组4个，乘法部分表示一个整体量，按约定先计算它。如果要先把3和4相加，应写成 $(3 + 4) \\times 5$，用括号指定不同的分组。"
           }
         ]
       },
@@ -2097,9 +2097,9 @@
             "zh": "把未知数用 $\\square$ 表示，写出式子，再求出 $\\square$ 所代表的数。利用加法与减法、乘法与除法之间的逆运算关系，反过来求 $\\square$，这种方法叫作逆推。"
           },
           {
-            "ja": "これまで学んだ四則計算では、分かっている数から答えを求めました。ここでは答えが分かっていて、計算に使う数のうち、分からない数がある場面を式に表し、分かっている数から$\\square$を求めます。",
-            "en": "In the arithmetic learned so far, we found the answer from known numbers. Here the answer is known but one of the numbers used in the calculation is unknown; we express the situation as an equation and find $\\square$ from the known numbers.",
-            "zh": "在之前学过的四则运算中，是由已知数求出答案。这里则是答案已知，而计算中用到的某个数未知；把这种情况写成式子，再由已知数求出 $\\square$。"
+            "ja": "$\\square + 6 = 24$ は「6を加えると24になる数」を探す式です。加えた6を取り除くと元の数に戻るので、$24 - 6 = 18$ です。逆算は計算記号を入れ替える暗記ではなく、行った操作を取り消す考え方です。",
+            "en": "The equation $\\square + 6 = 24$ asks for the number that becomes 24 after adding 6. Undo that addition by subtracting: $24 - 6 = 18$. Inverse calculation is about undoing an operation, rather than simply swapping symbols.",
+            "zh": "$\\square + 6 = 24$ 是在找加上6后变成24的数。减去加上的6就回到原数，所以 $24 - 6 = 18$。逆运算的意义是撤销原来的操作，而不只是记住替换运算符号。"
           }
         ]
       },
@@ -2447,9 +2447,9 @@
             "zh": "在20以内的数中，我们用有多少个1来表示数的大小。数变大后逐个数很麻烦，所以把10个看作一组来数。这就是100以内数的基本想法。"
           },
           {
-            "ja": "10 のまとまりが 10 個集まると 100 になります。99 に 1 を加えると 100 です。この項目では、100 までの数の読み書き、位取り、大小の比べ方を学びます。",
-            "en": "Ten groups of 10 make 100, and 99 plus 1 is 100. In this topic you learn how to read and write numbers up to 100, how place value works, and how to compare numbers.",
-            "zh": "10个10合起来是100，99加1就是100。本节学习100以内数的读写、数位以及大小比较。"
+            "ja": "同じ23個でも、1個ずつ数える代わりに10個を1組にまとめると、2組と残り3個になります。23の2は「10の組が2個」、3は「1が3個」という記録です。位取りは、少ない数字で大きな数を表すためのまとめ方です。",
+            "en": "Regroup 23 individual objects into groups of ten: two groups and three remaining objects. The 2 in 23 counts tens and the 3 counts ones. Place value records these groupings so a few digits can express large quantities.",
+            "zh": "把23个物品每10个合成一组，可得2组和剩下的3个。23中的2记录2个十，3记录3个一。位值制通过分组，用少量数字表示较大的数量。"
           }
         ]
       },
@@ -3142,9 +3142,9 @@
             "zh": "时刻表示某一个瞬间，例如 8 点 50 分；时间表示两个时刻之间的长度。例如，从 8 点 50 分到 11 点 30 分，经过的 160 分钟就是时间。"
           },
           {
-            "ja": "電車の所要時間や計画の作成では、終わる時刻を求める、かかった時間を求める、といった計算が必要になります。どの計算も、1時間が60分であることを使って分に直すと進めやすくなります。",
-            "en": "Train travel and planning require finding an end time or finding how long something took. Each of these becomes easier if you convert hours to minutes using the fact that 1 hour is 60 minutes.",
-            "zh": "计算乘车所需时间或制订计划时，需要求结束时刻，或求所用的时间。这些计算都可以利用 1 小时是 60 分钟，把小时换成分钟来进行。"
+            "ja": "時刻は時間の流れの中の位置、時間は2つの時刻の間の長さです。9時50分から10時20分までは、10時まで10分、そこから20分なので30分です。1時間を60分にそろえると、同じ単位で長さを足せます。",
+            "en": "A clock time is a position, while a duration is the length between two positions. From 9:50 to 10:20, there are ten minutes to 10:00 and twenty more afterwards, making thirty minutes. Converting hours to sixty minutes lets us add lengths in a common unit.",
+            "zh": "时刻是时间轴上的位置，时长是两个时刻之间的长度。从9点50分到10点20分，先到10点有10分钟，再过20分钟，共30分钟。把1小时换成60分钟，就能用相同单位相加。"
           }
         ]
       },
@@ -3283,9 +3283,9 @@
             "zh": "本节学习只有一位小数的小数加法和减法。以 $0.1$ 为单位来数，$2.7$ 是 27 个 $0.1$，$1.8$ 是 18 个 $0.1$，因此可以像整数一样计算。"
           },
           {
-            "ja": "長さや水のかさを測ると、整数では表せない端数が出ます。そのような量を合わせたり比べたりするときに、この計算を使います。",
-            "en": "Measuring lengths or volumes of water often leaves a fractional part that whole numbers cannot express. This calculation is used to combine or compare such quantities.",
-            "zh": "测量长度或水量时，常会出现整数无法表示的零头。合并或比较这样的量时，就要用到这种计算。"
+            "ja": "$1.2 + 0.5$ は、0.1が12個と5個なので、0.1が17個、つまり1.7です。小数点をそろえるのは、0.1どうし、1どうしのように、同じ大きさの単位を足すためです。",
+            "en": "For $1.2 + 0.5$, twelve tenths plus five tenths make seventeen tenths, or 1.7. Aligning decimal points puts equal counting units together: tenths with tenths, ones with ones.",
+            "zh": "$1.2 + 0.5$ 是12个0.1加5个0.1，共17个0.1，即1.7。对齐小数点，是为了让十分之一与十分之一、一个与一个等相同单位相加。"
           }
         ]
       },
@@ -3693,9 +3693,9 @@
             "zh": "之前学过小数乘整数、小数除以整数。这里要处理乘数或除数本身是小数的情况。例如，长 $2.4$ m、宽 $1.3$ m 的长方形，面积就是 $2.4 \\times 1.3$。"
           },
           {
-            "ja": "考え方の中心は、小数点を動かして整数の計算に直すことです。位が $10$ 倍、$\\frac{1}{10}$ になる規則を使います。",
-            "en": "The key idea is to move the decimal point so the calculation becomes one with whole numbers. This uses the rule that each place shift makes a number $10$ times larger or $\\frac{1}{10}$ as large.",
-            "zh": "关键思路是移动小数点，把计算化为整数的计算。这里用到的是：数位每移动一位，数就变为 $10$ 倍或 $\\frac{1}{10}$。"
+            "ja": "$0.72 \\div 0.9$ を百分の1の単位で測ると、72個分と90個分の比です。単位を変えても比は同じなので、$72 \\div 90$ としても商は変わりません。両方の小数点を同じだけ動かせる理由は、量の比を保っているからです。",
+            "en": "Measuring both numbers in hundredths turns $0.72 \\div 0.9$ into the ratio of 72 units to 90 units. Changing the common unit preserves the ratio, so $72 \\div 90$ gives the same quotient. This is why both decimal points can move together.",
+            "zh": "把两个数都用百分之一作单位，$0.72 \\div 0.9$ 就是72份与90份的比。共同单位改变，比例不变，所以 $72 \\div 90$ 的商相同。这就是两边小数点能同时移动相同位数的原因。"
           }
         ]
       },
@@ -3855,6 +3855,11 @@
             "ja": "この項目では、全体を同じ大きさに分けた一部分を、$\\frac{1}{2}$（2分の1）や $\\frac{1}{4}$（4分の1）として表す方法を学びます。",
             "en": "In this topic you will learn to write one part of a whole that has been divided into equal pieces as $\\frac{1}{2}$ (one half) or $\\frac{1}{4}$ (one quarter).",
             "zh": "本节学习把整体平均分开后的其中一份，表示成 $\\frac{1}{2}$（二分之一）或 $\\frac{1}{4}$（四分之一）。"
+          },
+          {
+            "ja": "分数では、何を1とするかを先に決めます。1本の同じ長さのテープを基準にすれば、その半分は $\\frac{1}{2}$ 本です。長さの違うテープの半分どうしは、どちらも半分でも同じ長さとは限りません。",
+            "en": "First choose what counts as one whole. If one tape of a fixed length is the unit, half of it is $\\frac{1}{2}$ of that unit. Halves of tapes of different lengths need not have the same length, even though each is a half.",
+            "zh": "使用分数前，要先确定把什么作为1。把一条固定长度的纸带作为单位，它的一半就是 $\\frac{1}{2}$ 条。不同长度纸带的一半虽然都叫一半，但长度未必相同。"
           }
         ]
       },
@@ -3925,15 +3930,37 @@
     ],
     "examples": [
       {
-        "kind": "value",
-        "question": "1/2 + 1/2",
-        "steps": [
-          "1/2 + 1/2 = 1"
+        "kind": "reason",
+        "prompt": {
+          "ja": "図の色がついた部分を、全体を1とした分数で表してください。",
+          "en": "Express the shaded part of the figure as a fraction of the whole.",
+          "zh": "把图中涂色的部分表示为整体的几分之几。"
+        },
+        "figure": {
+          "shape": "fraction-shaded",
+          "numbers": "8, 1",
+          "caption": {
+            "ja": "全体を8等分し、1個分に色をつけた図です。",
+            "en": "The whole is divided into 8 equal parts, with 1 shaded.",
+            "zh": "把整体分成8等份，其中1份涂色。"
+          }
+        },
+        "reasoning": [
+          {
+            "ja": "全体を8等分しているので、1個分は $\\frac{1}{8}$ です。",
+            "en": "The whole has 8 equal parts, so each part is $\\frac{1}{8}$.",
+            "zh": "整体分成8等份，所以每份是 $\\frac{1}{8}$。"
+          },
+          {
+            "ja": "色がついた部分は1個分なので、$\\frac{1}{8}$ です。",
+            "en": "There are 1 shaded parts, giving $\\frac{1}{8}$.",
+            "zh": "涂色部分有1份，所以是 $\\frac{1}{8}$。"
+          }
         ],
         "note": {
-          "ja": "$\\frac{1}{2}$ が2つ集まると、2等分した全体に戻って 1 になります。",
-          "en": "Two pieces of $\\frac{1}{2}$ together make the whole again, which is 1.",
-          "zh": "两个 $\\frac{1}{2}$ 合起来就回到整体，等于 1。"
+          "ja": "等分の数が分母、色がついた部分の個数が分子です。",
+          "en": "The number of equal parts is the denominator; the count of shaded parts is the numerator.",
+          "zh": "等分的份数是分母，涂色的份数是分子。"
         }
       },
       {
@@ -4015,6 +4042,11 @@
             "ja": "分数 $\\frac{3}{4}$ の下の数 4 を分母、上の数 3 を分子といいます。分母は 1 を何等分したかを表し、分子はその1つ分である $\\frac{1}{4}$ を何個集めたかを表します。",
             "en": "In the fraction $\\frac{3}{4}$, the bottom number 4 is the denominator and the top number 3 is the numerator. The denominator tells into how many equal parts 1 is divided, and the numerator tells how many of the unit fraction $\\frac{1}{4}$ are gathered.",
             "zh": "在分数 $\\frac{3}{4}$ 中，下面的 4 叫分母，上面的 3 叫分子。分母表示把 1 平均分成几份，分子表示这样的 1 份 $\\frac{1}{4}$ 有几个。"
+          },
+          {
+            "ja": "分母は数える単位を決め、分子はその個数を表します。$\\frac{3}{4}$ を「4分の1が3個」と読めると、数直線でも、後に学ぶ分数のたし算でも同じ考え方を使えます。",
+            "en": "The denominator determines the unit being counted; the numerator counts those units. Reading $\\frac{3}{4}$ as three one-quarter units connects its position on a number line with the addition of fractions you will learn later.",
+            "zh": "分母确定计数单位，分子表示这样的单位有几个。把 $\\frac{3}{4}$ 读作3个四分之一，就能用同一个思路理解数轴上的位置，以及以后学习的分数加法。"
           }
         ],
         "formulas": [
@@ -4065,15 +4097,37 @@
     ],
     "examples": [
       {
-        "kind": "value",
-        "question": "1/5 + 1/5",
-        "steps": [
-          "1/5 + 1/5 = 2/5"
+        "kind": "reason",
+        "prompt": {
+          "ja": "図の色がついた部分を、全体を1とした分数で表してください。",
+          "en": "Express the shaded part of the figure as a fraction of the whole.",
+          "zh": "把图中涂色的部分表示为整体的几分之几。"
+        },
+        "figure": {
+          "shape": "fraction-shaded",
+          "numbers": "5, 2",
+          "caption": {
+            "ja": "全体を5等分し、2個分に色をつけた図です。",
+            "en": "The whole is divided into 5 equal parts, with 2 shaded.",
+            "zh": "把整体分成5等份，其中2份涂色。"
+          }
+        },
+        "reasoning": [
+          {
+            "ja": "全体を5等分しているので、1個分は $\\frac{1}{5}$ です。",
+            "en": "The whole has 5 equal parts, so each part is $\\frac{1}{5}$.",
+            "zh": "整体分成5等份，所以每份是 $\\frac{1}{5}$。"
+          },
+          {
+            "ja": "色がついた部分は2個分なので、$\\frac{2}{5}$ です。",
+            "en": "There are 2 shaded parts, giving $\\frac{2}{5}$.",
+            "zh": "涂色部分有2份，所以是 $\\frac{2}{5}$。"
+          }
         ],
         "note": {
-          "ja": "$\\frac{1}{5}$ が 2 個集まるので、大きさは $\\frac{2}{5}$ です。",
-          "en": "Two copies of $\\frac{1}{5}$ gather, so the size is $\\frac{2}{5}$.",
-          "zh": "2 个 $\\frac{1}{5}$ 合在一起，大小是 $\\frac{2}{5}$。"
+          "ja": "等分の数が分母、色がついた部分の個数が分子です。",
+          "en": "The number of equal parts is the denominator; the count of shaded parts is the numerator.",
+          "zh": "等分的份数是分母，涂色的份数是分子。"
         }
       },
       {
@@ -4138,6 +4192,11 @@
             "zh": "$\\frac{1}{2}$、$\\frac{2}{4}$、$\\frac{4}{8}$ 写法不同，但大小相等。大小相等的分数有很多个。分子和分母同时乘以或除以同一个不为 0 的数，分数的大小不变。"
           },
           {
+            "ja": "同じ1を2等分した半分を考えます。その半分をさらに2等分すると、全体では4等分、選んだ部分は2個分になります。$\\frac{1}{2} = \\frac{2}{4}$ なのは、部分を細かく数え直しても、選んだ量が変わらないからです。",
+            "en": "Take half of a whole divided into two equal parts. Splitting each part in two makes four pieces in the whole and two in the selected half. Thus $\\frac{1}{2} = \\frac{2}{4}$: finer counting leaves the selected quantity unchanged.",
+            "zh": "把同一个整体二等分，取其中一半。再把每份二等分，整体变成4份，选中的部分变成2份。因此 $\\frac{1}{2} = \\frac{2}{4}$：份数变细了，选中的量并没有改变。"
+          },
+          {
             "ja": "分母と分子を同じ数で割って簡単な形にすることを約分、分母がちがう分数の分母をそろえることを通分といいます。約分は答えを簡単にするため、通分は大きさを比べたり、あとで学ぶ異分母のたし算・ひき算をしたりするために使います。",
             "en": "Dividing the numerator and denominator by the same number to get a simpler form is called reducing. Making the denominators of different fractions equal is called finding a common denominator. Reducing simplifies an answer; common denominators let you compare sizes and, later, add and subtract fractions with different denominators.",
             "zh": "分子分母同时除以同一个数，化成更简单的形式，叫做约分；把分母不同的分数化成分母相同的分数，叫做通分。约分用来简化结果，通分用来比较大小，以及以后做异分母分数的加减法。"
@@ -4152,9 +4211,9 @@
         },
         "paragraphs": [
           {
-            "ja": "分母と分子の両方を、共通の約数で割ります。",
-            "en": "Divide both the numerator and the denominator by a common divisor.",
-            "zh": "用分子和分母的公约数同时去除它们。"
+            "ja": "約分は逆に、小さい部分をまとめて数え直します。12等分したうちの8個分を、4個ずつまとめると、全体は3組、選んだ部分は2組です。だから $\\frac{8}{12} = \\frac{2}{3}$ です。この操作を、分母と分子を同じ公約数で割る計算で表します。",
+            "en": "Reducing a fraction groups small pieces into larger units. Group 12 equal pieces in fours: the whole has three groups and eight selected pieces make two groups. Hence $\\frac{8}{12} = \\frac{2}{3}$. Dividing both numerator and denominator by a common factor records this regrouping.",
+            "zh": "约分是反过来，把小份合并为大份重新计数。把12等份每4份合为一组，整体有3组，选中的8份有2组，所以 $\\frac{8}{12} = \\frac{2}{3}$。分子和分母同时除以公因数，就表示这个合并过程。"
           }
         ],
         "formulas": [
@@ -4292,9 +4351,14 @@
         },
         "paragraphs": [
           {
-            "ja": "分数 $\\frac{a}{b}$ は、$b \\neq 0$ のとき、わり算 $a \\div b$ と同じ意味です。分数の横棒をわり算の記号と考えて、分子を分母で割ります。わり算の結果が有限桁の小数になる場合はその小数で表せ、割り切れる場合は整数になります。",
-            "en": "A fraction $\\frac{a}{b}$, when $b \\neq 0$, has the same meaning as the division $a \\div b$. If you think of the fraction bar as a division sign and divide the numerator by the denominator, the result, when it ends in a finite decimal, can be written as that decimal; when it divides evenly, it is an integer.",
-            "zh": "当 $b \\neq 0$ 时，分数 $\\frac{a}{b}$ 与除法 $a \\div b$ 的意义相同。把分数线看作除号，用分子除以分母；除法的结果若能化为有限小数，就用那个小数表示，若能整除，则得到整数。"
+            "ja": "3本分の長さを4人で等しく分けると考えます。1本ずつ4等分すれば、1人は各1本から $\\frac{1}{4}$ 本ずつ受け取り、合わせて $\\frac{3}{4}$ 本です。つまり $3 \\div 4 = \\frac{3}{4}$ です。分数は「1を等分した何個分」と「整数どうしのわり算」の両方で読めます。",
+            "en": "Share three unit lengths equally among four people. Divide each unit into quarters: each person receives one quarter from each unit, or $\\frac{3}{4}$ in total. Thus $3 \\div 4 = \\frac{3}{4}$. A fraction describes both a count of equal parts of one and a quotient of integers.",
+            "zh": "把3条单位长度的纸带平均分给4人。每条四等分，每人从每条取 $\\frac{1}{4}$ 条，合起来就是 $\\frac{3}{4}$ 条。所以 $3 \\div 4 = \\frac{3}{4}$。分数既能表示整体等分后的若干份，也能表示整数相除的商。"
+          },
+          {
+            "ja": "$\\frac{3}{4}$ 也可写成 $\\frac{75}{100}$，即75个百分之一，所以等于 $0.75$。写成小数是换一种计数单位，数的大小没有改变。分子除以分母，若除得尽就能写成有限小数；整除时能写成整数，例如 $\\frac{8}{4} = 2$。",
+            "en": "The fraction $\\frac{3}{4}$ also equals $\\frac{75}{100}$, or 75 hundredths, so it is $0.75$. Decimal notation changes the counting unit, not the value. Dividing the numerator by the denominator gives a terminating decimal when the division ends, or an integer when it divides exactly, as in $\\frac{8}{4} = 2$.",
+            "zh": "$\\frac{3}{4}$ 也等于 $\\frac{75}{100}$，即75个百分之一，所以是 $0.75$。写成小数只是换一种计数单位，数值并未改变。分子除以分母，除得尽时可写成有限小数；整除时可写成整数，例如 $\\frac{8}{4} = 2$。"
           }
         ],
         "formulas": [
@@ -4508,6 +4572,11 @@
             "ja": "ひき算も同じ考え方です。$\\frac{7}{9} - \\frac{2}{9}$ は、$\\frac{1}{9}$ が 7 個ある中から 2 個を取るので、残りは 5 個で $\\frac{5}{9}$ です。",
             "en": "Subtraction works the same way. In $\\frac{7}{9} - \\frac{2}{9}$, you take 2 copies away from 7 copies of $\\frac{1}{9}$, leaving 5 copies, so the answer is $\\frac{5}{9}$.",
             "zh": "减法的想法相同。$\\frac{7}{9} - \\frac{2}{9}$ 是从 7 个 $\\frac{1}{9}$ 中取走 2 个，剩下 5 个，所以是 $\\frac{5}{9}$。"
+          },
+          {
+            "ja": "たし算とひき算をしても、もとにする1と、等分した1個分の大きさは変わりません。変わるのはその個数です。次に分母の違う分数を扱うときも、まず同じ大きさの単位を用意する、という考え方が土台になります。",
+            "en": "Addition and subtraction leave the original whole and the size of each part unchanged; only the count changes. This is also the foundation for different denominators: first express both quantities using parts of the same size.",
+            "zh": "加减法并不改变作为基准的整体，也不改变每一等份的大小，只改变份数。以后处理分母不同的分数时，基础思路也一样：先把两个量都用同样大小的单位表示。"
           }
         ],
         "formulas": [
@@ -4638,14 +4707,14 @@
         },
         "paragraphs": [
           {
-            "ja": "分子の中に分母がいくつ入っているか（$1 = \\frac{分母}{分母}$ がいくつ取れるか）を調べます。つまり「分子 $\\div$ 分母」を計算し、商を整数部分、余りを分数部分の分子にします。分母は変えません。割り切れるとき（余りが 0 のとき）は、商がそのまま整数になります（例：$\\frac{8}{4} = 2$）。",
-            "en": "Count how many times the denominator fits into the numerator (how many copies of $1 = \\frac{\\text{denominator}}{\\text{denominator}}$ can be taken out). That is, compute numerator $\\div$ denominator; the quotient becomes the whole-number part and the remainder becomes the new numerator. The denominator does not change. When the division is exact (remainder 0), the quotient is simply a whole number (for example, $\\frac{8}{4} = 2$).",
-            "zh": "看分子里包含几个分母（能取出几个 $1 = \\frac{分母}{分母}$）。也就是计算“分子 $\\div$ 分母”，商作为整数部分，余数作为分数部分的分子，分母不变。能整除时（余数为 0），商就是整数（例如 $\\frac{8}{4} = 2$）。"
+            "ja": "$\\frac{19}{4}$ は4分の1が19個分です。4個集めるごとに1になるので、19個を4個ずつまとめます。4組できて3個余るため、全体4と4分の1が3個分、つまり $4\\frac{3}{4}$ です。整数部分が商、分数部分の分子が余りになる理由は、このまとめ方にあります。",
+            "en": "The fraction $\\frac{19}{4}$ counts 19 quarters. Every four quarters make one whole, so group the 19 quarters in fours. There are four whole groups and three quarters left, giving $4\\frac{3}{4}$. This grouping explains why the quotient is the whole-number part and the remainder is the numerator of the fraction part.",
+            "zh": "$\\frac{19}{4}$ 表示19个四分之一。每4个组成1个整体，把19个按每4个分组，可得到4组，余下3个，即4个整体和3个四分之一，也就是 $4\\frac{3}{4}$。这个分组过程说明了为什么商是整数部分，余数是分数部分的分子。"
           },
           {
-            "ja": "$\\frac{19}{4}$ では、$19 \\div 4 = 4$ 余り 3 なので、$4\\frac{3}{4}$ です。確かめるには、$4 \\times 4 + 3 = 19$ と、仮分数に戻して分子が一致するかを見ます。",
-            "en": "For $\\frac{19}{4}$, $19 \\div 4 = 4$ remainder 3, so it is $4\\frac{3}{4}$. To check, convert back: $4 \\times 4 + 3 = 19$ matches the numerator.",
-            "zh": "对 $\\frac{19}{4}$，$19 \\div 4 = 4$ 余 3，所以是 $4\\frac{3}{4}$。检验时再换回假分数：$4 \\times 4 + 3 = 19$，与分子一致。"
+            "ja": "仮分数でも帯分数でも、数直線では同じ位置を表します。計算では単位分数の個数が分かる仮分数、量の大きさを読むときは全体がいくつあるか分かる帯分数が便利です。余りが0なら端数はなく、$\\frac{8}{4} = 2$ のように整数になります。",
+            "en": "An improper fraction and its mixed-number form occupy the same point on a number line. Improper fractions make the count of fractional units convenient for calculation; mixed numbers make the number of whole units easy to see. If the remainder is 0, no fractional part remains, as in $\\frac{8}{4} = 2$.",
+            "zh": "假分数与对应的带分数在数轴上表示同一个位置。假分数便于按单位分数的个数计算，带分数便于看出有多少个整体。余数为0时没有零头，例如 $\\frac{8}{4} = 2$。"
           }
         ]
       }
@@ -4739,14 +4808,19 @@
         },
         "paragraphs": [
           {
-            "ja": "分母と分子に同じ数を掛けても、分数の大きさは変わりません。この性質を使って、$\\frac{1}{2}$ と $\\frac{1}{3}$ をどちらも分母が 6 の分数に直すと、$\\frac{3}{6}$ と $\\frac{2}{6}$ になります。",
-            "en": "Multiplying the numerator and denominator by the same number does not change the value of a fraction. Using this, $\\frac{1}{2}$ and $\\frac{1}{3}$ both become fractions with denominator 6: $\\frac{3}{6}$ and $\\frac{2}{6}$.",
-            "zh": "分子和分母同时乘以相同的数，分数的大小不变。利用这一性质，把 $\\frac{1}{2}$ 和 $\\frac{1}{3}$ 都化成分母为 6 的分数，就得到 $\\frac{3}{6}$ 和 $\\frac{2}{6}$。"
+            "ja": "同じ1を6等分して考えます。半分は、そのうち3個分なので $\\frac{1}{2} = \\frac{3}{6}$、3分の1は2個分なので $\\frac{1}{3} = \\frac{2}{6}$ です。切り分け方を細かくしても、もとの量は変わりません。",
+            "en": "Split the same whole into six equal pieces. One half contains three of them, so $\\frac{1}{2} = \\frac{3}{6}$; one third contains two, so $\\frac{1}{3} = \\frac{2}{6}$. Finer partitioning changes how we count the pieces, not the original quantity.",
+            "zh": "把同一个整体六等分。一半包含其中3份，所以 $\\frac{1}{2} = \\frac{3}{6}$；三分之一包含2份，所以 $\\frac{1}{3} = \\frac{2}{6}$。分得更细，只改变计数的方式，不改变原来的量。"
           },
           {
-            "ja": "分母が揃えば、同分母の計算になります。$\\frac{3}{6} + \\frac{2}{6} = \\frac{5}{6}$ です。",
-            "en": "Once the denominators match, it is the same-denominator case: $\\frac{3}{6} + \\frac{2}{6} = \\frac{5}{6}$.",
-            "zh": "分母统一后，就变成了同分母的计算：$\\frac{3}{6} + \\frac{2}{6} = \\frac{5}{6}$。"
+            "ja": "これで両方とも「6分の1が何個か」という同じ単位で数えられます。3個分と2個分を合わせて5個分なので、$\\frac{3}{6} + \\frac{2}{6} = \\frac{5}{6}$ です。分母を残すのは、数える単位が6分の1のままだからです。",
+            "en": "Both quantities are now counted in the same unit: one sixth. Three units plus two units make five, so $\\frac{3}{6} + \\frac{2}{6} = \\frac{5}{6}$. The denominator stays 6 because the unit being counted stays one sixth.",
+            "zh": "现在两者都以六分之一为同一个单位来计数。3份加2份等于5份，所以 $\\frac{3}{6} + \\frac{2}{6} = \\frac{5}{6}$。分母仍是6，是因为计数的单位仍然是六分之一。"
+          },
+          {
+            "ja": "通分は、このように量を変えずに数える単位をそろえる操作です。ひき算でも同じ単位にそろえてから、その単位が何個分残るかを求めます。",
+            "en": "Finding a common denominator changes the unit of counting while preserving each quantity. For subtraction, use the same unit first, then find how many of those units remain.",
+            "zh": "通分就是在不改变各数量的前提下，统一计数单位。减法也先统一单位，再求剩下多少个这样的单位。"
           }
         ]
       },
@@ -4776,6 +4850,11 @@
             "ja": "手順は、(1) 最小公倍数で通分する、(2) 分子を足す（引く）、(3) 約分できるなら約分する、です。",
             "en": "The steps are: (1) convert to the least common denominator, (2) add or subtract the numerators, (3) reduce the result if possible.",
             "zh": "步骤是：(1) 用最小公倍数通分；(2) 分子相加（相减）；(3) 能约分就约分。"
+          },
+          {
+            "ja": "3つ以上の分数も同じ単位にそろえます。$\\frac{1}{2} + \\frac{2}{3} - \\frac{3}{4}$ なら、12分の1を単位として $\\frac{6}{12} + \\frac{8}{12} - \\frac{9}{12} = \\frac{5}{12}$ です。途中のたし算・ひき算でも、何個分を数えているかを保ちます。",
+            "en": "The same idea works for three or more fractions. For $\\frac{1}{2} + \\frac{2}{3} - \\frac{3}{4}$, count twelfths: $\\frac{6}{12} + \\frac{8}{12} - \\frac{9}{12} = \\frac{5}{12}$. Keep the counting unit unchanged through each addition and subtraction.",
+            "zh": "三个或更多分数也先统一计数单位。例如 $\\frac{1}{2} + \\frac{2}{3} - \\frac{3}{4}$，以十二分之一为单位，得到 $\\frac{6}{12} + \\frac{8}{12} - \\frac{9}{12} = \\frac{5}{12}$。每一步加减都保持同一个计数单位。"
           }
         ]
       }
@@ -4850,19 +4929,9 @@
         },
         "paragraphs": [
           {
-            "ja": "分数のかけ算では、分子どうし、分母どうしを掛けます。分数のわり算では、割る数の逆数を掛けて計算します。どちらも、分数の意味と約分の考え方を使って式を簡単にしていきます。",
-            "en": "To multiply fractions, multiply the numerators and multiply the denominators. To divide by a fraction, multiply by its reciprocal. Both methods use the meaning of fractions and the idea of simplifying.",
-            "zh": "分数乘法是分子与分子相乘、分母与分母相乘。分数除法则是乘除数的倒数。两种计算都要用到分数的意义和约分。"
-          },
-          {
-            "ja": "分数は、1を分母の数で等分した大きさが分子の数だけ集まったものです。この見方を使うと、かけ算やわり算を、分母と分子の計算に分けて考えられます。",
-            "en": "A fraction such as $\\frac{a}{b}$ represents $a$ parts when 1 is divided into $b$ equal parts. This view lets us treat multiplication and division as operations on numerators and denominators.",
-            "zh": "分数 $\\frac{a}{b}$ 表示把 1 平均分成 $b$ 份后取 $a$ 份。这样就能把乘法和除法转化为分子、分母的计算。"
-          },
-          {
-            "ja": "分数のかけ算・わり算は、割合から量を求めるときなどに使います。計算の途中で約分すると、数が小さくなり、間違いを減らせます。これまでに学んだ約分や、分数と整数の関係も使います。",
-            "en": "These calculations are used when finding an amount from a ratio. Simplifying during the calculation keeps the numbers small and helps prevent errors. We build on simplifying fractions and the relation between fractions and integers.",
-            "zh": "分数乘法与除法常用于由比例求数量。计算过程中先约分，可以使数变小，减少错误。这里会用到已学的约分以及分数与整数的关系。"
+            "ja": "分数のかけ算は「ある量の何倍か」を求める計算です。わり算は「ある量が、基準の量の何倍か」を求めます。分子・分母の計算規則は、この量の関係から考えられます。",
+            "en": "Multiplication by a fraction scales a quantity. Division asks how many times a reference quantity a given quantity is. The rules for numerators and denominators come from these relationships between quantities.",
+            "zh": "乘以分数是在求一个量的几倍；除法是在求一个量是基准量的几倍。分子、分母的计算规则可以从这些数量关系中理解。"
           }
         ]
       },
@@ -4873,6 +4942,11 @@
           "zh": "分数乘法"
         },
         "paragraphs": [
+          {
+            "ja": "$\\frac{2}{3} \\times \\frac{3}{4}$ は、$\\frac{2}{3}$ の量の4分の3を求める計算です。もとの1を3等分し、その各部分をさらに4等分すると、全体は12等分されます。選んだ3分の2のそれぞれから4分の3を取るので、小さい部分が6個分、$\\frac{6}{12}$ になります。",
+            "en": "The product $\\frac{2}{3} \\times \\frac{3}{4}$ finds three quarters of two thirds. Divide the whole into thirds, then each third into four equal pieces, making twelfths. Take three of the four small pieces in each of the two selected thirds: six twelfths, or $\\frac{6}{12}$.",
+            "zh": "$\\frac{2}{3} \\times \\frac{3}{4}$ 是求三分之二的四分之三。把整体三等分，再把每份四等分，整体就分成12份。在选中的两份中，各取其中4小份的3份，一共是6小份，即 $\\frac{6}{12}$。"
+          },
           {
             "ja": "$\\frac{a}{b} \\times \\frac{c}{d}$ は、$\\frac{a}{b}$ を $d$ 等分したものを $c$ 個集める計算と見られます。1を $b$ 等分し、さらに $d$ 等分すると、1は $b \\times d$ 等分されます。",
             "en": "We can view $\\frac{a}{b} \\times \\frac{c}{d}$ as taking $c$ parts after dividing $\\frac{a}{b}$ into $d$ equal parts. Dividing 1 into $b$ parts and then each part into $d$ parts makes $b \\times d$ equal parts in all.",
@@ -4897,36 +4971,31 @@
       },
       {
         "heading": {
-          "ja": "逆数と分数のわり算",
-          "en": "Reciprocals and division",
-          "zh": "倒数与分数除法"
+          "ja": "逆数を掛ける理由",
+          "en": "Why division uses the reciprocal",
+          "zh": "除以分数为什么要乘倒数"
         },
         "paragraphs": [
           {
-            "ja": "ここでは正の分数を扱い、分数の分母は0でないとします。$c \\ne 0$ である分数 $\\frac{c}{d}$ について、分子と分母を入れ替えた $\\frac{d}{c}$ を $\\frac{c}{d}$ の逆数といいます。逆数を掛けると、$\\frac{c}{d} \\times \\frac{d}{c} = 1$ になります。",
-            "en": "Here we work with positive fractions and assume that no denominator is 0. For a fraction $\\frac{c}{d}$ with $c \\ne 0$, the reciprocal is $\\frac{d}{c}$, obtained by swapping the numerator and denominator. Their product is 1: $\\frac{c}{d} \\times \\frac{d}{c} = 1$.",
-            "zh": "这里只处理正分数，并设分数的分母不为 0。对于 $c \\ne 0$ 的分数 $\\frac{c}{d}$，把分子和分母交换得到 $\\frac{d}{c}$，叫作 $\\frac{c}{d}$ 的倒数。两者相乘等于 1：$\\frac{c}{d} \\times \\frac{d}{c} = 1$。"
+            "ja": "$\\frac{3}{4} \\div \\frac{1}{2}$ は、$\\frac{3}{4}$ が $\\frac{1}{2}$ の何倍かを求める計算です。同じ1を4等分して測ると、前者は3個分、後者は2個分なので、求める倍率は $3 \\div 2 = \\frac{3}{2}$ です。",
+            "en": "The quotient $\\frac{3}{4} \\div \\frac{1}{2}$ asks how many times $\\frac{1}{2}$ the quantity $\\frac{3}{4}$ is. Measured in quarters of the same whole, these are 3 units and 2 units, so the ratio is $3 \\div 2 = \\frac{3}{2}$.",
+            "zh": "$\\frac{3}{4} \\div \\frac{1}{2}$ 是求 $\\frac{3}{4}$ 是 $\\frac{1}{2}$ 的几倍。把同一个整体四等分，前者有3份，后者有2份，所以倍数是 $3 \\div 2 = \\frac{3}{2}$。"
           },
           {
-            "ja": "分数で割るときは、割られる数と割る数の両方に、割る数の逆数を掛けます。両方に同じ0でない数を掛けても商は変わらないので、計算結果は変わりません。",
-            "en": "To divide by a fraction, multiply both the dividend and the divisor by the reciprocal of the divisor. Multiplying both numbers by the same nonzero value does not change the quotient.",
-            "zh": "除以一个分数时，把被除数和除数同时乘除数的倒数。两个数同时乘相同的非零数，商不变。"
-          },
-          {
-            "ja": "割る数の部分は逆数との積で1になるため、$\\frac{a}{b} \\div \\frac{c}{d}$ は $\\frac{a}{b} \\times \\frac{d}{c}$ と同じ値になります。",
-            "en": "The divisor then becomes 1, so $\\frac{a}{b} \\div \\frac{c}{d}$ equals $\\frac{a}{b} \\times \\frac{d}{c}$.",
-            "zh": "这样除数就变成 1，所以 $\\frac{a}{b} \\div \\frac{c}{d}$ 等于 $\\frac{a}{b} \\times \\frac{d}{c}$。"
+            "ja": "一般に、割られる数と割る数を同じ0でない数で拡大・縮小しても、何倍かという関係は変わりません。割る数 $\\frac{c}{d}$ に逆数 $\\frac{d}{c}$ を掛けて1にすれば、「1の何倍か」をそのまま読めます。",
+            "en": "Scaling the dividend and divisor by the same nonzero number leaves their ratio unchanged. Multiplying the divisor $\\frac{c}{d}$ by its reciprocal $\\frac{d}{c}$ makes it 1, so the scaled dividend directly gives the ratio to 1.",
+            "zh": "被除数和除数同时乘以同一个非零数，它们的倍数关系不变。把除数 $\\frac{c}{d}$ 乘以倒数 $\\frac{d}{c}$，除数就变为1，此时被除数直接表示它是1的几倍。"
           }
         ],
         "formulas": [
-          "\\frac{c}{d} \\times \\frac{d}{c} = 1 \\quad (c \\ne 0, d \\ne 0)",
-          "\\frac{a}{b} \\div \\frac{c}{d} = \\frac{a}{b} \\times \\frac{d}{c} \\quad (b \\ne 0, d \\ne 0, c \\ne 0)"
+          "\\frac{3}{4} \\div \\frac{1}{2} = \\frac{3}{4} \\times 2 = \\frac{3}{2}",
+          "\\frac{a}{b} \\div \\frac{c}{d} = \\frac{a}{b} \\times \\frac{d}{c} \\quad (b \\ne 0, c \\ne 0, d \\ne 0)"
         ],
         "after": [
           {
-            "ja": "わり算では、割る数の逆数を取ることを忘れないようにします。整数で割るときは、その整数の逆数を掛けます。",
-            "en": "When dividing, remember to use the reciprocal of the divisor. To divide by an integer, multiply by its reciprocal.",
-            "zh": "做除法时不要忘记取除数的倒数。除以整数时，就乘这个整数的倒数。"
+            "ja": "ここでは正の分数を考えています。$\\frac{3}{2}$ 倍とは、基準の1個分と半個分です。割る数が1より小さいと、元の量より答えが大きくなる場合も、この意味から理解できます。0には逆数がなく、0で割ることはできません。",
+            "en": "Here the fractions are positive. A ratio of $\\frac{3}{2}$ means one and a half reference units. This also explains why dividing by a number smaller than 1 can give an answer larger than the original quantity. Zero has no reciprocal, and division by zero is undefined.",
+            "zh": "这里讨论正分数。$\\frac{3}{2}$ 倍表示基准量的一份半。由此也能理解，除以小于1的数时，商可以比原来的量大。0没有倒数，不能作除数。"
           }
         ]
       },
@@ -5180,9 +5249,9 @@
             "zh": "两个或多个数共有的约数叫公约数，共有的倍数叫公倍数。公约数中最大的是最大公约数，公倍数中最小的正数是最小公倍数。"
           },
           {
-            "ja": "最大公約数は分数を約分するときに、最小公倍数は分数のたし算・ひき算で分母を揃える（通分する）ときに使います。前に学んだ約数と倍数を正しく書き出せることが土台になります。",
-            "en": "The GCD is used to reduce fractions, and the LCM is used to find a common denominator when adding or subtracting fractions. Both build on listing divisors and multiples correctly.",
-            "zh": "最大公约数用于约分，最小公倍数用于分数加减时通分。两者都以正确写出约数和倍数为基础。"
+            "ja": "12個と18個を余りなく同じ個数ずつに分けるなら、共通する組の大きさを探すので公約数を使います。12分ごとと18分ごとの動きが再びそろう時刻なら、両方の繰り返しに現れる数を探すので公倍数を使います。",
+            "en": "To divide groups of 12 and 18 objects into equal-sized groups without leftovers, seek a common divisor. To find when events recurring every 12 and 18 minutes coincide again, seek a common multiple. The first groups quantities; the second aligns repetitions.",
+            "zh": "把12个和18个物品分别分成每组同样多且没有剩余的小组，要找公因数。每12分钟与每18分钟发生的事件何时再次重合，要找公倍数。前者是分组，后者是让重复次数相遇。"
           }
         ]
       },
@@ -5329,9 +5398,9 @@
             "zh": "例如，把 47682 四舍五入到千位，得到 48000。请回想十进制位值制以及千位、百位、十位等数位的名称。"
           },
           {
-            "ja": "位ごとに数字の意味が決まるという考え方が、四捨五入の土台になります。",
-            "en": "The idea that each digit has a meaning determined by its place is the basis of rounding.",
-            "zh": "每一位数字的含义由它所在的数位决定，这一想法是四舍五入的基础。"
+            "ja": "347を十の位までの概数にするときは、340と350のどちらに近いかを考えます。347は350に近いので350です。四捨五入は、指定した位の単位で表せる数のうち、近いものへ置き換える方法です。ちょうど中間は切り上げる約束です。",
+            "en": "To round 347 to tens, compare its distances from 340 and 350. It is closer to 350. Rounding replaces a number by the nearest available multiple of the chosen place unit, with halfway cases rounded up under the convention used here.",
+            "zh": "把347四舍五入到十位，就是比较它更接近340还是350。它更接近350。四舍五入是在指定位值的整数倍中选最近的一个；按这里的约定，恰好位于中间时向上取值。"
           }
         ]
       },
@@ -5799,9 +5868,9 @@
             "zh": "百分数是以基准量为100，表示比较量相对于基准量大小的方法。它不直接用小数表示比率，而是把小数乘100，再在数后面加上百分号。"
           },
           {
-            "ja": "割合は、くらべる量をもとにする量で割った小数で表されます。$0.01$ が $1\\%$、$0.68$ が $68\\%$、$1.3$ が $130\\%$ にあたります。",
-            "en": "A ratio is written as a decimal by dividing the quantity compared by the base quantity. Thus $0.01$ is $1\\%$, $0.68$ is $68\\%$, and $1.3$ is $130\\%$.",
-            "zh": "比率可以用比较量除以基准量所得的小数来表示。$0.01$ 对应 $1\\%$，$0.68$ 对应 $68\\%$，$1.3$ 对应 $130\\%$。"
+            "ja": "20人中5人と、40人中10人は、人数は違ってもどちらも全体の4分の1です。全体を100にそろえると、どちらも25に当たり、$25\\%$ と表せます。百分率は、全体の大きさが違う集団を同じ基準で比べるための表し方です。",
+            "en": "Five out of 20 and ten out of 40 are both one quarter, despite different counts. Rescale each total to 100 and each selected count becomes 25, or $25\\%$. Percentages compare groups of different sizes on a common scale.",
+            "zh": "20人中5人与40人中10人，人数不同，但都占整体的四分之一。把整体统一为100，两者都对应25，即 $25\\%$。百分率让大小不同的群体能在同一个基准下比较。"
           }
         ]
       },
@@ -5974,9 +6043,9 @@
             "zh": "化简比以后，两个量之间的关系一眼就能比较。它以公因数和分数约分为基础。"
           },
           {
-            "ja": "最も簡単な整数の比とは、両方の数が整数で、公約数が $1$ だけである比のことです。",
-            "en": "The simplest whole-number ratio is one in which both terms are whole numbers and their only common divisor is $1$.",
-            "zh": "最简单的整数比是指两个数都是整数，且公因数只有 $1$ 的比。"
+            "ja": "$6:9$ は、共通の大きさ3でまとめると $2:3$ です。もとの量を同じ割合で縮めても、片方がもう片方の何倍かは変わりません。比を簡単にする操作は、この関係を小さい整数で表し直しています。",
+            "en": "Grouping both terms of $6:9$ in units of 3 gives $2:3$. Scaling both quantities equally preserves how many times one is the other. Simplifying a ratio expresses the same relationship with smaller integers.",
+            "zh": "$6:9$ 的两项都以3为单位重新计数，就得到 $2:3$。两个量同比例缩小，它们的倍数关系不变。化简比就是用较小的整数重新表示同一个关系。"
           }
         ]
       },
@@ -6820,9 +6889,9 @@
             "zh": "面积也可以看作以 $1$ 平方厘米为单位，图形含有多少个这样的单位。对于长方形和正方形，只要知道边长就能算出面积。"
           },
           {
-            "ja": "かけ算と、長方形の向かい合う辺の長さが等しいという性質を使います。面積を求めると、平面図形の広さを数値で比べられます。",
-            "en": "We use multiplication and the fact that opposite sides of a rectangle are equal. Finding area lets us compare the sizes of flat figures numerically.",
-            "zh": "计算时要用到乘法和长方形对边相等的性质。求出面积后，就能用数值比较平面图形的大小。"
+            "ja": "縦3 cm、横4 cmの長方形には、1辺1 cmの正方形が横に4個、それが3列入ります。だから面積は $4 \\times 3 = 12$ 平方cmです。縦と横を掛けるのは、単位の正方形が全部で何個入るかを数えるためです。",
+            "en": "A rectangle 3 cm high and 4 cm wide contains four unit squares per row and three rows, giving $4 \\times 3 = 12$ square centimetres. Multiplying the side lengths counts how many unit squares cover the rectangle.",
+            "zh": "高3厘米、宽4厘米的长方形，每行有4个边长1厘米的正方形，共3行，所以面积是 $4 \\times 3 = 12$ 平方厘米。长乘宽是在数单位正方形一共有多少个。"
           }
         ]
       },
@@ -10097,9 +10166,9 @@
             "zh": "三角形的三个内角之和总是 $180^\\circ$。把三个角剪下来拼在同一点，正好组成一个平角。"
           },
           {
-            "ja": "この性質を使うと、2つの角が分かっているときに、残りの1つの角を計算で求められます。分度器で角を測る方法も思い出しておきましょう。",
-            "en": "This property lets you calculate the third angle when the other two are known. Recall also how to measure an angle with a protractor.",
-            "zh": "利用这个性质，已知两个角时，就可以算出剩下的一个角。也请回想一下用量角器量角的方法。"
+            "ja": "三角形の3つの角を切り取り、1つの点のまわりにすき間なく並べると、一直線の角180度になります。四角形は対角線で三角形2つに分けられるので、その角の和は180度2つ分です。複雑な図形を三角形に分けると、すでに分かっている角の和を使えます。",
+            "en": "Cut out the three corners of a triangle and fit them together at one point: they form a straight angle of 180 degrees. A diagonal splits a quadrilateral into two triangles, so its angles total two lots of 180 degrees. Dividing shapes into triangles uses angle sums we already know.",
+            "zh": "剪下三角形的三个角，在同一点处依次无缝拼合，会形成180度的平角。对角线把四边形分成两个三角形，所以角的总和是两个180度。把较复杂的图形分成三角形，就能使用已知的角度总和。"
           }
         ],
         "formulas": [
@@ -10612,9 +10681,9 @@
             "zh": "全等图形的形状和大小都相同。放大图和缩小图则是形状相同、大小不同的图形，是全等概念的推广。"
           },
           {
-            "ja": "実際より小さく描く地図や設計図では、縮尺を使って縮図にします。拡大図や縮図の性質を理解すると、図から実際の長さを読み取れます。",
-            "en": "Maps and design plans drawn smaller than reality use a scale to make reductions. Understanding enlargements and reductions lets you read real lengths from a drawing.",
-            "zh": "比实际尺寸画得小的地图和设计图，会用比例尺绘制成缩小图。理解放大图和缩小图的性质，就能从图中读出实际长度。"
+            "ja": "辺をすべて2倍にした図形では、対応する長さの比は変わりません。縦3、横4なら縦6、横8になり、どちらも $3:4$ です。拡大は一方向だけを伸ばすことではなく、すべての長さを同じ倍率にそろえる操作です。",
+            "en": "Doubling every length preserves ratios of corresponding dimensions: height 3 and width 4 become 6 and 8, still in ratio $3:4$. Enlargement scales all lengths equally rather than stretching just one direction.",
+            "zh": "把所有边长放大2倍，对应尺寸的比例不变。高3、宽4变成高6、宽8，比例仍是 $3:4$。放大要求所有长度按同一倍率变化，而不是只拉伸一个方向。"
           }
         ]
       },
@@ -10791,9 +10860,9 @@
             "zh": "把若干个数量在总和不变的前提下变成同样大小，这个值叫作平均数。像考试分数、测量记录这样参差不齐的数据，可以用一个数来代表。"
           },
           {
-            "ja": "これまでに学んだ大きな数のたし算とわり算を使って求められます。同じ単元の中央値や範囲とあわせて、データの特徴を調べる基本になります。",
-            "en": "You can find it with the addition and division you already know. Together with the median and range in this unit, it is a basic tool for describing data.",
-            "zh": "用已经学过的大数加法和除法就能求出。它与本单元的中位数、极差一起，是研究数据特征的基础。"
+            "ja": "3、5、10の合計18を、3個に同じ大きさで分け直すと6ずつになります。これが平均6の意味です。実際の値をすべて6に変えるのではなく、合計を保ったまま均等にしたときの大きさで、集団を代表させています。",
+            "en": "The values 3, 5 and 10 total 18. Redistributing that total equally among three positions gives 6 each. The mean 6 represents the equal share preserving the total; it does not claim that every observation actually equals 6.",
+            "zh": "3、5、10的合计是18，把总量平均分成3份，每份是6。这就是平均数6的意义：用保持总量不变时的均等份额代表这组数据，并不是说实际每个值都变成了6。"
           }
         ]
       },
@@ -11367,9 +11436,9 @@
             "zh": "折线图是用线段把各点连接起来，表示随时间变化的数量的图。气温、体重这类随时间变化的量，都可以用它来表示。"
           },
           {
-            "ja": "棒グラフは量の大小をくらべるのに向いていますが、折れ線グラフは増えたか減ったか、どれくらい変わったかを読み取るのに向いています。",
-            "en": "A bar graph is good for comparing sizes, while a line graph is good for seeing whether a quantity rose or fell, and by how much.",
-            "zh": "条形图适合比较数量的大小，而折线图适合看出数量是增加还是减少，以及变化了多少。"
+            "ja": "横軸が時間、縦軸が温度なら、線の傾きは同じ時間に温度がどれだけ変わったかを表します。ただし、縦軸を細かく拡大すると同じ変化でも急に見えます。見た目の角度だけでなく、目盛りを読んで変化量を比べます。",
+            "en": "With time horizontally and temperature vertically, slope shows temperature change per time interval. Enlarging the vertical scale can make the same change look steeper. Compare numerical changes using the axis scales rather than visual angle alone.",
+            "zh": "横轴为时间、纵轴为温度时，折线斜率表示同一时间内温度变化多少。但放大纵轴比例，同样的变化也会显得更陡。应读刻度比较变化量，不能只看线的角度。"
           }
         ]
       },
@@ -12086,9 +12155,9 @@
             "zh": "例如，从A、B、C三人中选2人时，AB和BA是同一个组合。因此选法有AB、AC、BC三种。"
           },
           {
-            "ja": "並べ方では順序を区別するため、ABとBAを別々に数えます。組み合わせでは、この重なりを除いて数えることが大切です。試合の組み合わせや、候補から代表のメンバーを選ぶときに使います。",
-            "en": "In arrangements, order matters, so AB and BA are counted separately. In combinations, we remove this double counting. This is useful for counting matches and for choosing members from candidates.",
-            "zh": "排列要区分顺序，所以AB和BA分别计算。组合则要除去这种重复，这一点很重要。组合常用于数比赛的场次，或从候选中选出代表成员。"
+            "ja": "A、B、Cから2人を選ぶとき、ABとBAは同じ2人です。順番つきでは6通りでも、各組を2回ずつ数えているので、組は3通りです。組合せの割り算は、同じ選び方を何回数えたかを取り除いています。",
+            "en": "When choosing two people from A, B and C, AB and BA are the same pair. There are six ordered choices, but each pair is counted twice, leaving three pairs. Division in combinations removes repeated counts of the same selection.",
+            "zh": "从A、B、C中选2人，AB和BA是同一对。有顺序时共6种，但每一对都被数了2次，所以组合有3种。组合公式中的除法，就是消除同一选择被重复计算的次数。"
           }
         ]
       },
@@ -12245,14 +12314,9 @@
         },
         "paragraphs": [
           {
-            "ja": "正の数と負の数を使うと、0 より大きい数も小さい数も同じ式の中で計算できます。ここでは足し算・引き算・掛け算・割り算を、負の数をふくむ場合に広げて扱います。",
-            "en": "With positive and negative numbers, quantities above and below 0 can be handled in one expression. Here addition, subtraction, multiplication and division are extended to cases that include negative numbers.",
-            "zh": "有了正数和负数，比 0 大的数和比 0 小的数就能在同一个算式中计算。这里把加、减、乘、除推广到含有负数的情形。"
-          },
-          {
-            "ja": "計算の手順はこれまでと同じで、数の大きさ（絶対値）の計算に加えて、答えの符号を決めることが必要になります。符号の判断を誤らないことが、この項目の中心です。",
-            "en": "The procedure is the same as before, but besides computing with the sizes (absolute values) of the numbers, you must also decide the sign of the answer. Getting the sign right is the heart of this topic.",
-            "zh": "计算步骤与以前相同，但除了用绝对值计算数的大小，还必须确定结果的符号。正确判断符号是本项目的核心。"
+            "ja": "数直線では、正の数を足すと右へ、負の数を足すと左へ進みます。$2 + (-5)$ は、2から左へ5進んだ位置なので $-3$ です。符号は数の大小だけでなく、変化の向きも表せます。",
+            "en": "On a number line, adding a positive number moves right and adding a negative number moves left. For $2 + (-5)$, move five units left from 2 to reach $-3$. Signs can describe the direction of a change as well as the position of a number.",
+            "zh": "在数轴上，加正数向右移动，加负数向左移动。$2 + (-5)$ 是从2向左移动5个单位，到达 $-3$。正负号既能表示数的位置，也能表示变化的方向。"
           }
         ]
       },
@@ -12264,9 +12328,14 @@
         },
         "paragraphs": [
           {
-            "ja": "負の数を引く計算は、符号を逆にして足す計算に直せます。たとえば $5 - (-3)$ は、$5 + 3 = 8$ と同じです。",
-            "en": "Subtracting a negative number can be rewritten as adding the opposite number. For example, $5 - (-3)$ is the same as $5 + 3 = 8$.",
-            "zh": "减去一个负数，可以改成加上它的相反数。例如 $5 - (-3)$ 与 $5 + 3 = 8$ 相同。"
+            "ja": "引き算は、足し算を取り消す計算です。$5 - (-3)$ の答えは、そこに $-3$ を足すと5に戻る数です。8に $-3$ を足すと5になるので、答えは8です。",
+            "en": "Subtraction undoes addition. The answer to $5 - (-3)$ is the number that becomes 5 when $-3$ is added to it. Since adding $-3$ to 8 gives 5, the answer is 8.",
+            "zh": "减法是加法的逆运算。$5 - (-3)$ 的结果，是加上 $-3$ 后能回到5的数。因为8加上 $-3$ 等于5，所以结果是8。"
+          },
+          {
+            "ja": "数直線で見ると、$-3$ を足す左向きの移動を取り消すには、右へ3進みます。このため、負の数を引くことは、その反対の正の数を足すことと同じになります。",
+            "en": "On the number line, undoing the leftward move from adding $-3$ means moving three units right. Thus subtracting a negative number is equivalent to adding its positive opposite.",
+            "zh": "从数轴上看，要撤销加上 $-3$ 所对应的向左移动，就要向右移动3个单位。因此，减去负数等于加上它的相反数。"
           }
         ],
         "formulas": [
@@ -12293,9 +12362,19 @@
         },
         "paragraphs": [
           {
-            "ja": "掛け算と割り算では、まず絶対値どうしを計算し、符号は次の規則で決めます。同符号なら正、異符号なら負です。",
-            "en": "For multiplication and division, first compute with the absolute values, then decide the sign by this rule: the same signs give positive, different signs give negative.",
-            "zh": "乘法和除法先计算绝对值，再按规则确定符号：同号得正，异号得负。"
+            "ja": "負の数どうしの積が正になる理由は、分配法則から考えられます。$3 + (-3) = 0$ なので、これに $-2$ を掛けた結果も0です。一方、分配すると $(-2) \\times 3 + (-2) \\times (-3)$ です。",
+            "en": "The distributive law explains why a product of two negatives is positive. Since $3 + (-3) = 0$, multiplying it by $-2$ gives 0. Distributing instead gives $(-2) \\times 3 + (-2) \\times (-3)$.",
+            "zh": "负数乘负数得正数，可以用分配律理解。因为 $3 + (-3) = 0$，乘以 $-2$ 后仍是0。而用分配律展开，得到 $(-2) \\times 3 + (-2) \\times (-3)$。"
+          },
+          {
+            "ja": "前半は $-6$ なので、和を0にする後半は6でなければなりません。このように、負の数でも分配法則が成り立つようにすると、負の数どうしの積は正になると分かります。",
+            "en": "The first term is $-6$, so the second must be 6 for the sum to be 0. Requiring the distributive law to hold for negative numbers therefore makes the product of two negatives positive.",
+            "zh": "前一项是 $-6$，要使和为0，后一项就必须是6。因此，为了使分配律对负数仍然成立，负数乘负数必须得正数。"
+          },
+          {
+            "ja": "割り算は掛け算に戻して考えます。$(-6) \\div (-2)$ は、$-2$ を掛けると $-6$ になる数なので3です。掛け算でも割り算でも、同符号なら正、異符号なら負という規則につながります。",
+            "en": "Division can be understood through multiplication. The quotient $(-6) \\div (-2)$ is 3 because multiplying 3 by $-2$ gives $-6$. For both operations, equal signs give a positive result and opposite signs a negative one.",
+            "zh": "除法可以用乘法理解。$(-6) \\div (-2)$ 的结果是3，因为3乘以 $-2$ 等于 $-6$。乘除法中，同号得正、异号得负的规则由此得到。"
           }
         ],
         "formulas": [
@@ -12406,9 +12485,9 @@
             "zh": "用乘方可以把很长的连乘写得简短。$2^2$ 也叫平方，$2^3$ 也叫立方。其值要通过实际相乘求得，例如 $2^3 = 8$。"
           },
           {
-            "ja": "注意するのは、$2^3$ が $2 \\times 3$ ではないことです。$2^3 = 2 \\times 2 \\times 2 = 8$ であり、$2 \\times 3 = 6$ とは異なります。",
-            "en": "Note that $2^3$ is not $2 \\times 3$. We have $2^3 = 2 \\times 2 \\times 2 = 8$, which differs from $2 \\times 3 = 6$.",
-            "zh": "要注意，$2^3$ 并不是 $2 \\times 3$。$2^3 = 2 \\times 2 \\times 2 = 8$，与 $2 \\times 3 = 6$ 不同。"
+            "ja": "$2^3$ は2を3個掛けた $2 \\times 2 \\times 2$ です。$2^3 \\times 2^2$ では、2が3個と2個で合計5個になるので $2^5$ です。指数を足す規則は、同じ底が何個掛けられているかを数えることから出てきます。",
+            "en": "The power $2^3$ means $2 \\times 2 \\times 2$. In $2^3 \\times 2^2$, three factors of 2 and two more make five, giving $2^5$. Adding exponents counts factors with the same base.",
+            "zh": "$2^3$ 表示3个2相乘，即 $2 \\times 2 \\times 2$。$2^3 \\times 2^2$ 中有3个2再加2个2，共5个，所以是 $2^5$。指数相加的规则来自对同底数因子的计数。"
           }
         ]
       },
@@ -12811,9 +12890,9 @@
             "zh": "把式子改写成只含加法的形式后，由加号连接的每一部分叫做项，字母前面的数叫做系数。例如 $5a + 3b$ 的项是 $5a$ 与 $3b$，系数分别是 5 和 3。又因为 $5a - 2a = 5a + (-2a)$，所以这个式子的项是 $5a$ 与 $-2a$。"
           },
           {
-            "ja": "文字の部分が全く同じ項を同類項といいます。$5a$ と $-2a$ は同類項ですが、$5a$ と $3b$ は文字が異なるので同類項ではありません。数だけの項（定数項）どうしも同類項です。同類項は1つの項にまとめて、式を簡潔にできます。",
-            "en": "Terms whose letter parts are exactly the same are called like terms. $5a$ and $-2a$ are like terms, but $5a$ and $3b$ are not, since the letters differ. Terms consisting only of numbers (constant terms) are also like terms. Like terms can be combined into one term to simplify an expression.",
-            "zh": "字母部分完全相同的项叫做同类项。$5a$ 与 $-2a$ 是同类项，而 $5a$ 与 $3b$ 字母不同，不是同类项。只有数的项（常数项）之间也是同类项。同类项可以合并成一项，使式子更简洁。"
+            "ja": "$3x + 2x$ は、同じ $x$ が3個分と2個分なので $5x$ です。一方、$x$ と $x^2$ は一般に値の変わり方が違うため、同じ単位の個数としてはまとめられません。同類項を集めるのは、共通する文字の部分を単位として数え直すことです。",
+            "en": "In $3x + 2x$, three copies and two copies of the same $x$ make $5x$. By contrast, $x$ and $x^2$ generally vary differently and cannot be counted as the same unit. Collecting like terms counts copies of a common variable part.",
+            "zh": "$3x + 2x$ 是3个 $x$ 加2个相同的 $x$，所以是 $5x$。而 $x$ 与 $x^2$ 的变化方式一般不同，不能当作同一单位合并。同类项合并，就是以相同的字母部分为单位重新计数。"
           }
         ]
       },
@@ -12937,9 +13016,9 @@
             "zh": "含括号的式子不能直接合并同类项。用分配律去掉括号后，式子变成若干项相加减的形式，就可以合并同类项了。"
           },
           {
-            "ja": "例えば $3(x + 4)$ は、$x + 4$ を3つ分集めた式です。$x$ が3つと 4 が3つなので、$3x + 12$ と表せます。かっこの外の数を中の各項に掛けることが、分配法則の考え方です。",
-            "en": "For example, $3(x + 4)$ means three copies of $x + 4$. That is three $x$'s and three 4's, so it equals $3x + 12$. Multiplying each term inside the parentheses by the number outside is the idea of the distributive law.",
-            "zh": "例如 $3(x + 4)$ 表示 3 个 $x + 4$ 相加，即 3 个 $x$ 与 3 个 4，所以等于 $3x + 12$。把括号外的数乘以括号内的每一项，这就是分配律的想法。"
+            "ja": "$3(x + 2)$ は、$x + 2$ が3組あることを表します。各組の $x$ を集めると $3x$、2を集めると6なので、$3x + 6$ です。分配法則は、組ごとに数えるか、中身の種類ごとに数えるかを変えても、全体が同じになることを表します。",
+            "en": "The expression $3(x + 2)$ contains three copies of $x + 2$. Collect the $x$ parts to get $3x$ and the twos to get 6. The distributive law says that counting by groups or by the contents of those groups gives the same total, $3x + 6$.",
+            "zh": "$3(x + 2)$ 表示3组 $x + 2$。把各组的 $x$ 合起来得 $3x$，把2合起来得6，所以是 $3x + 6$。分配律表示，按组计数或按组内的种类计数，总量相同。"
           }
         ]
       },
@@ -13349,20 +13428,20 @@
     "sections": [
       {
         "heading": {
-          "ja": "移項とは",
-          "en": "What transposition is",
-          "zh": "什么是移项"
+          "ja": "方程式は等しくなる数を探すこと",
+          "en": "An equation asks which values make two sides equal",
+          "zh": "方程是寻找使两边相等的数"
         },
         "paragraphs": [
           {
-            "ja": "方程式は、未知の数 $x$ を含む等式です。これを解くとは、$x = (\\text{数})$ の形に直すことです。そのために、項を等号の反対側へ移す操作を使います。これを移項といいます。",
-            "en": "An equation is an equality containing an unknown number $x$. Solving it means rewriting it in the form $x = (\\text{number})$. For this we use an operation that moves a term to the other side of the equals sign, called transposition.",
-            "zh": "方程是含有未知数 $x$ 的等式。解方程就是把它化成 $x = (\\text{数})$ 的形式。为此要用到把某一项移到等号另一边的操作，叫作移项。"
+            "ja": "方程式を解くとは、文字にどんな数を入れると左右が等しくなるかを調べることです。$x + 3 = 5$ なら、$x$ に2を入れると両辺が5になるので、2が解です。",
+            "en": "Solving an equation means finding the values that make its two sides equal. In $x + 3 = 5$, substituting 2 for $x$ makes both sides 5, so 2 is a solution.",
+            "zh": "解方程就是寻找代入字母后能使左右两边相等的数。在 $x + 3 = 5$ 中，把2代入 $x$ 后两边都是5，所以2是解。"
           },
           {
-            "ja": "移項するとき、項の符号が変わります。$+a$ は $-a$ に、$-a$ は $+a$ になります。前に学んだ等式の性質を使うと、この規則が成り立つ理由が分かります。",
-            "en": "When a term is transposed, its sign changes: $+a$ becomes $-a$, and $-a$ becomes $+a$. The properties of equality you learned earlier explain why this rule works.",
-            "zh": "移项时，项的符号会改变：$+a$ 变成 $-a$，$-a$ 变成 $+a$。利用之前学过的等式性质，就能明白这条规则为什么成立。"
+            "ja": "等号は、左右が同じ値であることを表します。左右に同じ数を足したり引いたりすれば、その等しさは保たれます。これを使い、解を変えずに、未知の数が分かる形へ式を書き換えます。",
+            "en": "The equals sign says that both sides have the same value. Adding or subtracting the same number on both sides preserves that equality. We use this to rewrite the equation without changing its solutions until the unknown is isolated.",
+            "zh": "等号表示左右两边的值相同。在两边加上或减去同一个数，相等关系仍然成立。利用这一点，可以在不改变解的前提下变形，直到求出未知数。"
           }
         ]
       },
@@ -13374,9 +13453,14 @@
         },
         "paragraphs": [
           {
-            "ja": "等式は、両辺に同じ数を足しても、両辺から同じ数を引いても成り立ちます。$x + 3 = 5$ の両辺から 3 を引くと、$x = 5 - 3$ となります。左辺の $+3$ が、符号を変えて右辺に移った形です。",
-            "en": "An equality still holds if you add the same number to both sides or subtract the same number from both sides. Subtracting 3 from both sides of $x + 3 = 5$ gives $x = 5 - 3$. The $+3$ on the left has moved to the right with its sign changed.",
-            "zh": "等式两边同时加上或减去同一个数，等式仍然成立。在 $x + 3 = 5$ 两边同时减去 3，得到 $x = 5 - 3$。左边的 $+3$ 变号后移到了右边。"
+            "ja": "たとえば $x + 3 = 5$ では、$x$ に加えた3を取り除くため、両辺から3を引きます。左辺だけから引くと等しさが崩れます。右辺からも引くことで、同じ解をもつ $x = 5 - 3$ が得られます。",
+            "en": "For $x + 3 = 5$, subtract 3 from both sides to undo the addition to $x$. Subtracting from the left alone would break the equality. Subtracting from the right as well gives $x = 5 - 3$, with the same solution.",
+            "zh": "在 $x + 3 = 5$ 中，为了撤销加在 $x$ 上的3，要从两边都减去3。只从左边减会破坏相等关系。右边也减去3，就得到解不变的 $x = 5 - 3$。"
+          },
+          {
+            "ja": "この変形を短く書くと、$+3$ が右辺で $-3$ になったように見えます。これが移項です。「移すと符号が変わる」のは、両辺で同じ計算をした結果です。",
+            "en": "In the shortened form, $+3$ appears to become $-3$ on the other side. This is transposition: the sign change records the same operation performed on both sides.",
+            "zh": "把这个变形简写后，看起来像是 $+3$ 移到右边变成了 $-3$。这就是移项：符号改变是两边进行同一运算的结果。"
           }
         ],
         "formulas": [
@@ -13670,9 +13754,9 @@
             "zh": "有些一次方程的系数是分数，例如 $\\frac{x}{2} + \\frac{x}{3} = 5$。直接带着分数也能解，但计算繁琐，容易出错。"
           },
           {
-            "ja": "そこで、等式の性質「両辺に同じ数を掛けても等式は成り立つ」を使い、分母をなくして整数の係数の方程式に直します。これを分母を払うといいます。あとは移項の基本と同じ手順で解けます。",
-            "en": "Instead, use the property of equations that multiplying both sides by the same number keeps the equation true, and remove the denominators so that all coefficients become integers. This is called clearing denominators. After that, solve it by the usual transposing steps.",
-            "zh": "为此利用等式的性质：两边同乘一个数，等式仍然成立，把分母去掉，使系数都变成整数，这叫做去分母。之后按移项的方法求解即可。"
+            "ja": "$\\frac{x}{3} + \\frac{1}{2} = 2$ の両辺を6倍すると、$2x + 3 = 12$ です。分母を消すのは各項の値を勝手に変えることではなく、等しい両辺を同じ倍率で拡大する操作です。6で割って戻せるので、解は変わりません。",
+            "en": "Multiplying both sides of $\\frac{x}{3} + \\frac{1}{2} = 2$ by 6 gives $2x + 3 = 12$. Clearing denominators scales both equal sides together. Dividing by 6 reverses the operation, so the solutions are unchanged.",
+            "zh": "把 $\\frac{x}{3} + \\frac{1}{2} = 2$ 的两边同时乘6，得到 $2x + 3 = 12$。去分母是在相等的两边按同一倍数放大。因为还能除以6还原，解保持不变。"
           }
         ]
       },
@@ -14134,9 +14218,9 @@
             "zh": "含有 $x$、$y$ 两个未知数的两个方程合在一起叫作方程组，同时满足两个方程的 $x$、$y$ 的值就是它的解。加减消元法是把两个方程相加或相减，消去一个未知数，化为只含一个未知数的一元一次方程来求解。"
           },
           {
-            "ja": "一次方程式の解き方がそのまま使えるので、前に学んだことの応用です。文字が1つになれば、これまでと同じ方法で値を求められます。",
-            "en": "This builds directly on what you learned about linear equations: once only one unknown remains, you solve it in the usual way.",
-            "zh": "这是一元一次方程解法的直接应用：只剩一个未知数后，用以前学过的方法求值即可。"
+            "ja": "$x + y = 7$ と $x - y = 1$ が同時に成り立つなら、左右どうしを足しても等しく、$2x = 8$ です。$y$ と $-y$ が打ち消し合うため、2つの未知数の関係から、$x$ だけの関係を取り出せます。",
+            "en": "If $x + y = 7$ and $x - y = 1$ both hold, adding their respective sides gives $2x = 8$. The terms $y$ and $-y$ cancel, extracting a relationship involving only $x$ from the two original relationships.",
+            "zh": "若 $x + y = 7$ 与 $x - y = 1$ 同时成立，两式左右分别相加仍相等，得到 $2x = 8$。$y$ 与 $-y$ 相互抵消，就从两个未知数的关系中提取出了只含 $x$ 的关系。"
           }
         ]
       },
@@ -14263,9 +14347,9 @@
             "zh": "联立方程组要求同时满足两个方程的 $x$、$y$。加减法通过把方程相加减来消去一个未知数，代入法则是把一个方程所表示的式子代入另一个方程，从而消去一个未知数。"
           },
           {
-            "ja": "たとえば $y = 2x - 1$ のように、すでに $y$ が $x$ の式で表されているとき、$y$ と $2x - 1$ は等しいので、もう一方の式の $y$ を $2x - 1$ に置き換えられます。",
-            "en": "For example, if $y = 2x - 1$ is given, then $y$ and $2x - 1$ are equal, so $y$ in the other equation can be replaced by $2x - 1$.",
-            "zh": "例如已知 $y = 2x - 1$，则 $y$ 与 $2x - 1$ 相等，因此可以把另一个方程中的 $y$ 换成 $2x - 1$。"
+            "ja": "$y = 2x$ と分かっていれば、別の式に現れる $y$ を $2x$ と書き換えられます。$x + y = 9$ なら $x + 2x = 9$ です。同じ値を表す式に置き換えることで、2文字の条件を1文字の条件として読めます。",
+            "en": "Knowing $y = 2x$ lets us replace $y$ by $2x$ in another equation. Thus $x + y = 9$ becomes $x + 2x = 9$. Replacing an expression with an equal one rewrites the two-variable condition using a single variable.",
+            "zh": "已知 $y = 2x$ 时，可以把另一式中的 $y$ 换成 $2x$。例如 $x + y = 9$ 就变成 $x + 2x = 9$。用相等的式子替换，能把两字母的条件改写成只含一个字母的条件。"
           }
         ]
       },
@@ -14799,9 +14883,9 @@
             "zh": "一次函数的形式是 $y = ax + b$，图像是一条直线。$a$ 和 $b$ 决定了直线的方向和位置。"
           },
           {
-            "ja": "比例 $y = ax$ のグラフは原点を通る直線でした。一次関数は、これを $y$ 軸方向に $b$ だけ平行移動したものと考えられます。$a$ を傾き、$b$ を切片といいます。",
-            "en": "The graph of a proportion $y = ax$ is a line through the origin. A linear function can be seen as this line shifted by $b$ in the direction of the $y$-axis. We call $a$ the slope and $b$ the intercept.",
-            "zh": "正比例函数 $y = ax$ 的图像是过原点的直线。一次函数可以看作把它沿 $y$ 轴方向平移 $b$。$a$ 叫做斜率，$b$ 叫做截距。"
+            "ja": "$y = 2x + 3$ では、$x$ を1増やすたびに $y$ は2増えます。3は $x = 0$ でもある初めの量です。式を「初めの量と、増やした分の合計」と読むと、傾き2と切片3の役割を区別できます。",
+            "en": "In $y = 2x + 3$, each increase of 1 in $x$ adds 2 to $y$. The 3 is the starting value at $x = 0$. Reading the formula as starting value plus accumulated change distinguishes the slope 2 from the intercept 3.",
+            "zh": "在 $y = 2x + 3$ 中，$x$ 每增加1，$y$ 就增加2。3是 $x = 0$ 时的初始量。把式子读作初始量加上变化量，就能区分斜率2与截距3的作用。"
           }
         ]
       },
@@ -15571,9 +15655,9 @@
         },
         "paragraphs": [
           {
-            "ja": "変化の割合は、$x$ が増加したとき、$y$ がどれだけ増加するかを表す比です。$x$ が $x_1$ から $x_2$ まで変化し、$y$ が $y_1$ から $y_2$ まで変化するとき、次の式で求めます。",
-            "en": "The rate of change tells how much $y$ increases for each unit that $x$ increases. When $x$ changes from $x_1$ to $x_2$ and $y$ changes from $y_1$ to $y_2$, it is given by:",
-            "zh": "变化率是 $y$ 的增加量与 $x$ 的增加量之比，表示 $x$ 每增加 1 时 $y$ 增加多少。当 $x$ 从 $x_1$ 变到 $x_2$，$y$ 从 $y_1$ 变到 $y_2$ 时，变化率为："
+            "ja": "$y=x^2$ で $x$ が1から2へ増えると $y$ は3増え、2から3なら5増えます。横の増分が同じでも縦の増分は違うので、一次関数のような一定の傾きにはなりません。変化の割合は、どの区間で測るかとセットで考えます。",
+            "en": "For $y=x^2$, increasing $x$ from 1 to 2 raises $y$ by 3, while going from 2 to 3 raises it by 5. Equal horizontal increments need not give equal vertical increments. The average rate of change therefore depends on the interval chosen.",
+            "zh": "对于 $y=x^2$，$x$ 从1到2时 $y$ 增加3，从2到3时增加5。横向增量相同，纵向增量却不同，因此不像一次函数那样斜率恒定。平均变化率必须连同测量区间一起考虑。"
           }
         ],
         "formulas": [
@@ -15989,9 +16073,9 @@
             "zh": "一次方程 $2x + 3 = 7$ 是求出满足式子的一个 $x$ 值（$x = 2$）。而像 $2x + 3 < 7$ 这样含有不等号（$<$、$>$、$\\le$、$\\ge$）的式子叫做一次不等式，“解不等式”就是求出满足式子的 $x$ 的范围（$x < 2$）。"
           },
           {
-            "ja": "予算や時間の制限など、「何個まで買えるか」「何分以上で着くか」といった条件を扱うときに不等式が役立ちます。解き方の流れは一次方程式とよく似ていますが、負の数を掛けたり割ったりするときだけ注意が必要です。",
-            "en": "Inequalities are useful when dealing with limits on budget or time, such as finding the maximum number of items you can buy. The steps for solving them are very similar to linear equations, with one key difference when multiplying or dividing by a negative number.",
-            "zh": "在处理预算或时间限制等条件（如“最多能买几个”“至少需要几分钟”）时，不等式非常有用。它的解法步骤与一次方程很相似，只有在乘以或除以负数时需要特别注意。"
+            "ja": "数直線の左右が大小を表します。$2 < 5$ を両方 $-1$ 倍すると、2つの位置は0を中心に反転し、$-2 > -5$ になります。負の数を掛けたり割ったりすると不等号が逆になるのは、この順序の反転を式に表すためです。",
+            "en": "Left and right on the number line represent order. Multiplying $2 < 5$ by $-1$ reflects both positions about zero, giving $-2 > -5$. Multiplying or dividing by a negative number reverses the inequality because it reverses this order.",
+            "zh": "数轴上的左右表示大小。把 $2 < 5$ 的两边乘以 $-1$，位置关于0翻转，得到 $-2 > -5$。乘或除以负数要反向不等号，是为了表示这种顺序的翻转。"
           }
         ]
       },
@@ -16646,9 +16730,9 @@
             "zh": "本节展开和或差的平方，例如 $(x + 4)^2$。平方就是自乘，所以 $(x + 4)^2 = (x + 4)(x + 4)$，可以用分配律展开。"
           },
           {
-            "ja": "同じ形の展開が何度も現れるため、結果を公式としてまとめておくと計算が速くなります。この公式は、後で学ぶ2次方程式の解法でも使います。",
-            "en": "The same pattern appears again and again, so summarizing the result as a formula speeds up calculation. This formula is also used later when solving quadratic equations.",
-            "zh": "同样的展开会反复出现，把结果总结成公式可以加快计算。这些公式在以后解二次方程时也会用到。"
+            "ja": "1辺が $a+b$ の正方形を、各辺で $a$ と $b$ に分けると、面積 $a^2$、$ab$、$ab$、$b^2$ の4つに分かれます。中央の項が $2ab$ なのは、同じ面積の長方形が2つ現れるからです。ここでは $a,b>0$ として面積で考えています。",
+            "en": "For positive $a,b$, split each side of a square of length $a+b$ into lengths $a$ and $b$. Its four parts have areas $a^2$, $ab$, $ab$ and $b^2$. The middle term is $2ab$ because two rectangles contribute the same area.",
+            "zh": "当 $a,b>0$ 时，把边长 $a+b$ 的正方形的每条边分成 $a$ 与 $b$。四块面积分别为 $a^2$、$ab$、$ab$、$b^2$。中间项为 $2ab$，是因为有两个同样面积的长方形。"
           }
         ]
       },
@@ -17288,9 +17372,9 @@
             "zh": "像 $x^2 + 7x + 10$ 这样 $x^2$ 的系数为 1 的二次式，写成 $(x + 2)(x + 5)$ 这样的一次式的乘积，叫作因式分解。它是展开的逆运算。"
           },
           {
-            "ja": "展開公式を逆向きに使うので、まず $(x + a)(x + b)$ を展開したときにどんな式になるかを確認しておくことが大切です。",
-            "en": "Since we use the expansion formula in reverse, it helps to first see what $(x + a)(x + b)$ looks like when expanded.",
-            "zh": "因为是把展开公式反过来用，所以先确认 $(x + a)(x + b)$ 展开后是什么样子。"
+            "ja": "$x^2 + 5x + 6$ で5と6を別々に探すのではなく、$(x + a)(x + b)$ を展開して考えます。$x$ の項は $ax + bx$、定数は $ab$ なので、$a + b = 5$ と $ab = 6$ を同時に満たす2数を探す理由が分かります。",
+            "en": "To factor $x^2 + 5x + 6$, expand $(x + a)(x + b)$. Its linear terms are $ax + bx$ and its constant is $ab$. This explains why the same two numbers must satisfy both $a + b = 5$ and $ab = 6$.",
+            "zh": "分解 $x^2 + 5x + 6$ 时，先展开 $(x + a)(x + b)$。一次项来自 $ax + bx$，常数项来自 $ab$，因此要找同时满足 $a + b = 5$ 和 $ab = 6$ 的同一对数。"
           }
         ]
       },
@@ -17674,9 +17758,9 @@
             "zh": "因式分解是把式子写成几个因式的乘积。它是展开的逆过程，首先考虑的是把所有项都含有的公因式提取出来。例如 $6x^2 + 9x$ 的两项都含有 $3x$，所以 $6x^2 + 9x = 3x(2x + 3)$。"
           },
           {
-            "ja": "共通因数をくくり出すと式が簡単になり、そのあとで公式を使ったり、括弧の中をさらに因数分解したりしやすくなります。分配法則 $ma + mb = m(a + b)$ を左から右に使う操作です。",
-            "en": "Factoring out a common factor simplifies the expression and makes it easier to use formulas or factor further inside the parentheses. It uses the distributive law $ma + mb = m(a + b)$ from left to right.",
-            "zh": "提取公因式后，式子会变简单，也更容易继续使用公式或对括号里的式子继续因式分解。这相当于把分配律 $ma + mb = m(a + b)$ 从左往右使用。"
+            "ja": "$6x+9$ は、$3 \\times 2x+3 \\times 3$ と読めます。どちらにもある3を外にまとめると $3(2x+3)$ です。共通因数でくくるとは、分配法則を逆向きに使って、和を共通のまとまりの積に直すことです。",
+            "en": "Read $6x+9$ as $3 \\times 2x+3 \\times 3$. Both terms share a factor of 3, giving $3(2x+3)$. Factoring out a common factor uses the distributive law in reverse to express a sum as a product.",
+            "zh": "$6x+9$ 可读作 $3 \\times 2x+3 \\times 3$。两项共有因子3，提取后为 $3(2x+3)$。提公因式就是反向使用分配律，把和改写为共同因子与另一式的积。"
           }
         ],
         "formulas": [
@@ -18659,9 +18743,9 @@
             "zh": "当 $a \\ge 0$ 时，$(\\sqrt{a})^2 = a$，且 $\\sqrt{a} \\ge 0$。利用这个性质和素因数分解，就能把根号内平方的正平方根移到根号外。"
           },
           {
-            "ja": "根号の中を簡単にしておくと、値の大小を比べたり、たし算やかけ算をしたりするときに計算しやすくなります。",
-            "en": "A simplified radical makes it easier to compare values and to add or multiply expressions.",
-            "zh": "把根号内化简后，比较大小以及进行加法、乘法运算都会更容易。"
+            "ja": "$\\sqrt{12}$ は、2乗して12になる正の数です。$2\\sqrt{3}$ を2乗すると $4 \\times 3 = 12$ になり、しかも正なので、$\\sqrt{12} = 2\\sqrt{3}$ です。根号を簡単にするとは、同じ数を平方の因数を使って書き直すことです。",
+            "en": "The number $\\sqrt{12}$ is positive and has square 12. Since $2\\sqrt{3}$ is positive and its square is $4 \\times 3 = 12$, it equals $\\sqrt{12}$. Simplifying a radical rewrites the same number using square factors.",
+            "zh": "$\\sqrt{12}$ 是平方等于12的正数。$2\\sqrt{3}$ 为正，平方是 $4 \\times 3 = 12$，所以 $\\sqrt{12} = 2\\sqrt{3}$。化简根式就是利用平方因数把同一个数换一种写法。"
           }
         ]
       },
@@ -19302,9 +19386,9 @@
             "zh": "除了 1 和它本身以外没有其他约数的大于等于 2 的自然数叫作质数，例如 2、3、5、7、11。把一个自然数写成只含质数的乘积，叫作质因数分解，乘积中的质数叫作质因数。"
           },
           {
-            "ja": "たとえば 12 は $2 \\times 2 \\times 3$ と表せます。2 と 3 はどちらも素数なので、これが 12 の素因数分解です。$12 = 3 \\times 4$ では 4 が素数でないため、まだ素因数分解とはいえません。",
-            "en": "For example, 12 can be written as $2 \\times 2 \\times 3$. Both 2 and 3 are prime, so this is the prime factorization of 12. The form $12 = 3 \\times 4$ is not yet one, because 4 is not prime.",
-            "zh": "例如 12 可以写成 $2 \\times 2 \\times 3$。2 和 3 都是质数，所以这就是 12 的质因数分解。而 $12 = 3 \\times 4$ 中 4 不是质数，所以还不算质因数分解。"
+            "ja": "12は $3 \\times 4$ とも $2 \\times 6$ とも書けますが、分解を続けると、どちらも2、2、3になります。素数まで分解すると、積を作る基本の部品が分かります。約数や公約数を調べるときも、これらの部品を何個共有するかで考えられます。",
+            "en": "The number 12 can be $3 \\times 4$ or $2 \\times 6$, but continuing either factorisation gives 2, 2 and 3. Prime factorisation reveals the basic multiplicative components. Divisors and common divisors can then be studied through shared components.",
+            "zh": "12可写成 $3 \\times 4$，也可写成 $2 \\times 6$，继续分解最终都是2、2、3。分解到质数，就找到了组成这个乘积的基本部件。因数与公因数也可通过这些部件的选择和共有数量理解。"
           }
         ]
       },
@@ -19437,9 +19521,9 @@
             "zh": "用质因数分解也能求最大公约数，但数很大时找质因数很困难。辗转相除法不需要找质因数，只需反复做除法。"
           },
           {
-            "ja": "前に学んだ「割り算の等式」と「余りの範囲」を思い出すと、なぜ成り立つかが見えてきます。",
-            "en": "Recalling the division equation and the range of a remainder shows why the method works.",
-            "zh": "回想学过的除法等式和余数的范围，就能明白它为什么成立。"
+            "ja": "$18=12+6$ なので、18と12を両方割り切る数は、その差6も割り切ります。逆に12と6を割り切る数は18も割り切ります。したがって18と12の公約数は12と6の公約数と同じです。互除法は、この関係で数を小さくしていきます。",
+            "en": "Since $18=12+6$, every common divisor of 18 and 12 divides their difference 6. Conversely, a divisor of 12 and 6 divides 18. The pairs therefore have the same common divisors. Euclid’s algorithm repeats this reduction with smaller numbers.",
+            "zh": "因为 $18=12+6$，18与12的公因数也整除它们的差6。反过来，12与6的公因数也整除18。因此两对数的公因数相同。辗转相除法利用这个关系不断缩小数字。"
           }
         ]
       },
@@ -20111,9 +20195,9 @@
             "zh": "直角三角形的三条边之间有固定的关系。已知两条边的长度，就可以通过计算求出第三条边。这就是勾股定理的用途。"
           },
           {
-            "ja": "直角の向かい側にある最も長い辺を斜辺といいます。直角を挟む2辺を $a$、$b$、斜辺を $c$ とすると、次の関係が成り立ちます。",
-            "en": "The longest side, opposite the right angle, is called the hypotenuse. Let the two sides forming the right angle be $a$ and $b$, and the hypotenuse $c$. Then the following holds.",
-            "zh": "位于直角对面的最长边叫作斜边。设夹直角的两边为 $a$、$b$，斜边为 $c$，则有下面的关系。"
+            "ja": "直角三角形の辺を3、4、5とすると、その上に作った正方形の面積は9、16、25です。$9+16=25$ と、斜辺上の面積が残り2つの和になります。三平方の定理は、辺を直接足す関係ではなく、辺の長さの2乗どうしの関係です。",
+            "en": "A right triangle with sides 3, 4 and 5 has squares of areas 9, 16 and 25 on its sides. The area on the hypotenuse equals the other two combined: $9+16=25$. The theorem relates squared lengths, not the sum of side lengths.",
+            "zh": "直角三角形三边为3、4、5时，以各边作正方形的面积为9、16、25，满足 $9+16=25$。斜边上正方形的面积等于另两个面积之和。定理联系的是边长的平方，而不是边长直接相加。"
           }
         ],
         "formulas": [
@@ -20290,9 +20374,9 @@
             "zh": "设直角三角形的斜边长为 $c$，另外两边长为 $a$、$b$，则 $a^2 + b^2 = c^2$。只要能找到直角三角形，就可以用这个定理求长度。"
           },
           {
-            "ja": "この項目では、座標平面上の2点間の距離と、直方体の対角線の長さを扱います。どちらも、図の中に直角三角形を見いだして三平方の定理を使うという考え方が共通しています。",
-            "en": "This topic covers the distance between two points on a coordinate plane and the length of a diagonal of a cuboid. Both rely on the same idea: find a right triangle in the figure and apply the Pythagorean theorem.",
-            "zh": "本节讨论坐标平面上两点间的距离和长方体对角线的长度。两者的想法相同：在图形中找出直角三角形，再用勾股定理。"
+            "ja": "平面上の2点の位置が分かれば、横方向の差と縦方向の差を直角三角形の2辺にできます。例えば差が3と4なら距離は5です。距離の公式は、この直角三角形に三平方の定理を使っているので、座標全体ではなく座標の差を使います。",
+            "en": "The horizontal and vertical differences between two points form the legs of a right triangle. Differences 3 and 4 give distance 5. The distance formula applies Pythagoras to this triangle, explaining why it uses coordinate differences rather than absolute coordinates.",
+            "zh": "两点的横坐标差和纵坐标差可作为直角三角形的两条直角边。差为3和4时，距离为5。距离公式是在这个三角形上使用勾股定理，所以要用坐标之差，而不是坐标本身。"
           }
         ]
       },
@@ -20555,9 +20639,9 @@
             "zh": "概率是用数表示某个事件发生可能性大小的量。当各结果等可能时，可以列举所有可能的结果，再数其中属于目标事件的结果有多少个来求概率。它以前面学过的计数方法为基础。"
           },
           {
-            "ja": "ゲームの勝敗の見通しや、事故や不良品などのリスクを比べるときにも使われます。まずは、すべての結果が同じ程度に起こりやすい場合を、漏れなく重複なく数えることが目標です。",
-            "en": "It is also used to estimate the chances of winning a game and to compare risks such as accidents or defective products. Our first goal is to count all outcomes accurately, without omission or duplication, when they are equally likely.",
-            "zh": "它还可用于预测游戏胜负，以及比较事故、次品等风险。首先要做到的是：在所有结果发生的可能性相同的情况下，不漏不重地数清结果。"
+            "ja": "公平なさいころで「1が出る」「1以外が出る」と分けても、この2つが同じ確率になるわけではありません。同様に確からしいのは6つの目であり、後者には5つが含まれます。数える前に、何を等しい起こりやすさの1通りとするかを決めます。",
+            "en": "For a fair die, grouping outcomes into 1 and not 1 does not make those groups equally likely. The six faces are equally likely, and the second group contains five of them. Before counting, identify the elementary outcomes that have equal likelihood.",
+            "zh": "公平骰子的结果分为“出1”与“不出1”，并不表示两者等可能。等可能的是6个点数，后者包含其中5个。计数前，要先确定哪些基本结果具有相同的可能性。"
           }
         ]
       },
@@ -20715,9 +20799,9 @@
             "zh": "本节学习把 $x^2 - 4x = 0$ 这样的二次方程的左边因式分解来求解。前面学过的因式分解公式，现在用来求方程的解。"
           },
           {
-            "ja": "因数分解した式は積の形になります。積が 0 になる条件を使うと、二次方程式が2つの一次方程式に分かれ、簡単に解けます。",
-            "en": "A factored expression is a product. Using the condition for a product to be 0, the quadratic equation splits into two linear equations, which are easy to solve.",
-            "zh": "因式分解后的式子是乘积的形式。利用乘积为 0 的条件，二次方程就分成两个一次方程，容易求解。"
+            "ja": "$x^2 - 4x = 0$ は $x(x - 4) = 0$ と同じ条件です。$x$ 自体が0か、$x - 4$ が0なら積が0になります。因数分解は、1つの複雑な条件を、どちらかが成り立てばよい簡単な条件に分ける役割をもちます。",
+            "en": "The condition $x^2 - 4x = 0$ is equivalent to $x(x - 4) = 0$. The product vanishes if $x$ or $x - 4$ is zero. Factorisation turns one complicated condition into simpler alternatives, either of which is sufficient.",
+            "zh": "$x^2 - 4x = 0$ 与 $x(x - 4) = 0$ 是同一条件。$x$ 或 $x - 4$ 为0时，积就为0。因式分解把一个较复杂的条件拆成了满足其中之一即可的简单条件。"
           }
         ]
       },
@@ -21243,9 +21327,9 @@
             "zh": "利用分配律，你已经能展开 $(a + b)^2$ 和 $(a + b)^3$。二项式定理把这种做法整理成适用于 $(a + b)^n$ 这样次数较大的规则。"
           },
           {
-            "ja": "展開した各項の係数は、組合せの数で表されます。係数を一つずつ分配法則で追う代わりに、必要な項だけをすぐに求められるようになるのが目標です。",
-            "en": "The coefficients in the expansion are described by combinations. The goal is to find a needed term quickly instead of tracking every step of the distributive law.",
-            "zh": "展开后各项的系数可以用组合数表示。目标是不必逐步使用分配律，也能快速求出需要的项。"
+            "ja": "$(a+b)^3$ は3組のかっこからそれぞれ $a$ か $b$ を選んで掛けます。$a^2b$ を作るには、$b$ を選ぶかっこを3つから1つ選ぶので係数は3です。二項定理の係数は、同じ積が現れる選び方の個数を表します。",
+            "en": "In $(a+b)^3$, choose $a$ or $b$ from each of three factors. To obtain $a^2b$, choose which one of the three factors supplies $b$, giving coefficient 3. Binomial coefficients count selections producing the same product.",
+            "zh": "展开 $(a+b)^3$ 时，从三个括号中各选 $a$ 或 $b$ 相乘。要得到 $a^2b$，需选出哪个括号提供 $b$，共有3种，所以系数为3。二项式系数数的是产生同类乘积的选择数。"
           }
         ]
       },
@@ -21750,9 +21834,9 @@
             "zh": "用两个整式 $A$、$B$ 表示成 $\\frac{A}{B}$ 的形式，且分母 $B$ 中含有字母的式子叫做分式。和数的分数一样，分式也可以约分和乘除。"
           },
           {
-            "ja": "分数式を簡単にする計算は、複雑な方程式を解いたり、後の微分積分で式を整理したりするときの大切な基礎になります。",
-            "en": "Simplifying rational expressions is an essential foundation for solving equations and organizing expressions in calculus.",
-            "zh": "化简分式是求解复杂方程以及在微积分中整理式子的重要基础。"
+            "ja": "$\\frac{x^2-1}{x-1}$ は、分子を $(x-1)(x+1)$ に分解すると $x+1$ になります。ただし元の式は $x=1$ で定義されないので、この条件は約分後も残します。式の値を保つことと、使える値の範囲を保つことを両方確認します。",
+            "en": "Factoring the numerator of $\\frac{x^2-1}{x-1}$ gives $(x-1)(x+1)$ and simplifies to $x+1$. The original expression is undefined at $x=1$, so that exclusion remains. Simplification must preserve both values and the permitted domain.",
+            "zh": "$\\frac{x^2-1}{x-1}$ 的分子分解为 $(x-1)(x+1)$ 后可约成 $x+1$。但原式在 $x=1$ 处无定义，所以约分后仍需排除这个值。既要保持式子的值，也要保留原来的取值范围。"
           }
         ]
       },
@@ -22026,9 +22110,9 @@
             "zh": "多项式除以一次式，会得到商和余数。这个除法可以写成 $P(x) = (x - \\alpha)Q(x) + R$。通常用竖式除法，但如果只需要余数，有更快的方法。"
           },
           {
-            "ja": "この項目では、代入だけで余りを求める剰余の定理と、$P(\\alpha) = 0$ から因数を見つける因数定理を学びます。高次式の因数分解や高次方程式を解くときに役立ちます。",
-            "en": "In this lesson you will learn the remainder theorem, which finds a remainder by substitution alone, and the factor theorem, which finds a factor from $P(\\alpha) = 0$. These tools help with factoring higher-degree expressions and solving higher-degree equations.",
-            "zh": "本课学习只用代入就能求余数的余数定理，以及由 $P(\\alpha) = 0$ 找因式的因式定理。它们在高次多项式因式分解和解高次方程时很有用。"
+            "ja": "多項式 $P(x)$ を $x-a$ で割ると、$P(x)=(x-a)Q(x)+r$ と書けます。$x=a$ を入れると積の部分が0になり、$P(a)=r$ だけが残ります。代入だけで余りが求まるのは、割り算の等式のうち商の部分を消せるからです。",
+            "en": "Dividing $P(x)$ by $x-a$ gives $P(x)=(x-a)Q(x)+r$. At $x=a$, the product vanishes, leaving $P(a)=r$. Substitution finds the remainder because it eliminates the entire quotient contribution.",
+            "zh": "用 $x-a$ 除 $P(x)$，可写成 $P(x)=(x-a)Q(x)+r$。代入 $x=a$，乘积项变为0，只剩 $P(a)=r$。代入能直接求余数，是因为它消去了商所对应的整个部分。"
           }
         ]
       },
@@ -22352,9 +22436,9 @@
             "zh": "二次函数 $y = ax^2 + bx + c$ 的图象是一条抛物线，图象转弯处的那个点叫做顶点。$a > 0$ 时顶点是最低点，$a < 0$ 时顶点是最高点。知道顶点，就能画出图象的大致形状，也能判断最大值或最小值在哪里取得。"
           },
           {
-            "ja": "頂点を読み取りやすい形が標準形 $y = a(x - p)^2 + q$ です。この形なら頂点は $(p, q)$、対称軸は直線 $x = p$ とすぐに分かります。一般形 $y = ax^2 + bx + c$ をこの形に直す計算を平方完成といいます。",
-            "en": "The vertex is easy to read from the standard form $y = a(x - p)^2 + q$: the vertex is $(p, q)$ and the axis of symmetry is the line $x = p$. Rewriting the general form $y = ax^2 + bx + c$ into this form is called completing the square.",
-            "zh": "最容易读出顶点的形式是标准式 $y = a(x - p)^2 + q$。写成这种形式，顶点就是 $(p, q)$，对称轴是直线 $x = p$。把一般式 $y = ax^2 + bx + c$ 化成这种形式，叫做配方法。"
+            "ja": "$y = (x - 2)^2 + 3$ では、平方の部分は0以上で、$x = 2$ のときだけ0になります。だから最も低い点は $(2, 3)$ です。平方完成は、最小になる位置と、そのときの値が直接読める形に書き換える操作です。",
+            "en": "In $y = (x - 2)^2 + 3$, the square is nonnegative and is zero only at $x = 2$. The lowest point is therefore $(2, 3)$. Completing the square rewrites the formula so the location and value of its minimum can be read directly.",
+            "zh": "在 $y = (x - 2)^2 + 3$ 中，平方部分非负，只有 $x = 2$ 时为0，因此最低点是 $(2, 3)$。配方把式子改写为可以直接读出最小值位置与数值的形式。"
           }
         ],
         "formulas": [
@@ -23096,9 +23180,9 @@
             "zh": "例如 $3, 7, 11, 15, \\ldots$ 是公差为 $4$ 的等差数列。像 $10, 7, 4, 1, \\ldots$ 这样公差为负时，各项会逐渐变小。"
           },
           {
-            "ja": "等差数列は、一定の量ずつ増える・減る量を表すのに便利です。一次式の形で一般項を書けるので、文字式の計算がそのまま役に立ちます。",
-            "en": "Arithmetic sequences are useful for quantities that change by a fixed amount. Their general term can be written in a linear form, so skills with algebraic expressions are directly useful.",
-            "zh": "等差数列适合表示按固定数量增加或减少的量。它的一般项可以写成一次式，所以整式运算的知识会直接派上用场。"
+            "ja": "初項3、公差2なら、項は3、5、7と並びます。第5項までには、初項から4回だけ2を足すので $3+4 \\times 2=11$ です。一般項の $n-1$ は、番号を暗記するためではなく、初項から移る回数を数えています。",
+            "en": "With first term 3 and common difference 2, the sequence starts 3, 5, 7. Reaching the fifth term takes four additions of 2, giving $3+4 \\times 2=11$. The $n-1$ in the general term counts transitions from the first term.",
+            "zh": "首项3、公差2的数列从3、5、7开始。到第5项要从首项加4次2，所以 $3+4 \\times 2=11$。通项中的 $n-1$ 数的是从首项开始经过几次变化。"
           }
         ]
       },
@@ -23951,9 +24035,9 @@
             "zh": "在单位圆上，从 $x$ 轴正方向旋转角 $\\theta$ 得到点 $\\mathrm{P}(x,y)$。规定 $\\cos\\theta=x$、$\\sin\\theta=y$、$\\tan\\theta=\\frac{y}{x}$（$x=0$ 时 $\\tan\\theta$ 无定义）。"
           },
           {
-            "ja": "この定義なら、角が $90^\\circ$ を超えても、負の角でも、同じ規則で値を決められます。回転や波の形を式で表すときにも役立ちます。",
-            "en": "With this definition, values are determined by the same rule for angles beyond $90^\\circ$ and for negative angles. This is useful for describing rotations and waves.",
-            "zh": "有了这个定义，即使角超过 $90^\\circ$ 或是负角，也能用同样的规则确定值。这在用式子描述旋转和波动时很有用。"
+            "ja": "単位円上の点を角度に沿って動かすと、その横の座標が余弦、縦の座標が正弦です。角度が直角を超えても座標は読めるので、直角三角形で始めた比を、負の値や1周を超える角度まで同じ仕組みで扱えます。",
+            "en": "For a point moving around the unit circle, its horizontal coordinate is cosine and its vertical coordinate is sine. Coordinates still work beyond a right angle, extending right-triangle ratios consistently to negative values and angles beyond one revolution.",
+            "zh": "点沿单位圆随角度移动时，横坐标是余弦，纵坐标是正弦。角度超过直角后仍可读取坐标，因此直角三角形中的比能以同一机制扩展到负值和超过一周的角。"
           }
         ],
         "formulas": [
@@ -25245,9 +25329,9 @@
             "zh": "它有助于比较大小相差很大的数，也能把乘法转化为加法。声音大小和 pH 等也用对数表示。"
           },
           {
-            "ja": "まずは、$a > 0$、$a \\neq 1$、$M > 0$ として、$\\log_a M = x$ が $a^x = M$ と同じ意味であることを押さえます。",
-            "en": "First, for $a > 0$, $a \\neq 1$, and $M > 0$, remember that $\\log_a M = x$ means exactly the same as $a^x = M$.",
-            "zh": "首先，在 $a > 0$、$a \\neq 1$、$M > 0$ 时，要记住 $\\log_a M = x$ 与 $a^x = M$ 表示同一件事。"
+            "ja": "$2^3=8$ を「2を何乗すると8か」と逆向きに読むと、答えの3が $\\log_2 8$ です。対数は新しい掛け算ではなく、指数を答える数です。$2^3 \\times 2^2=2^5$ から、積の対数が指数の和になる理由も分かります。",
+            "en": "Read $2^3=8$ backwards: which exponent on 2 gives 8? The answer 3 is $\\log_2 8$. A logarithm reports an exponent. Since $2^3 \\times 2^2=2^5$, logarithms turn multiplication into addition of exponents.",
+            "zh": "反过来读 $2^3=8$：“2的几次方等于8？”答案3就是 $\\log_2 8$。对数是在回答指数是多少。由 $2^3 \\times 2^2=2^5$，也能理解为什么积的对数变成指数之和。"
           }
         ],
         "formulas": [
@@ -25831,9 +25915,9 @@
             "zh": "圆是到一点距离为定值的点的集合。改用两个定点（焦点），就会出现像把圆横向拉长一样的封闭曲线，或向左右张开的两支曲线。"
           },
           {
-            "ja": "これらの曲線は、惑星の軌道や、距離の差を利用する測位など、科学や工学のさまざまな場面に現れます。まず円の方程式と軌跡の考え方を思い出しましょう。",
-            "en": "These curves appear in science and engineering, for example in planetary orbits and in positioning methods that use differences of distances. It helps to recall the equation of a circle and the idea of a locus first.",
-            "zh": "这些曲线出现在科学与工程的许多场合，例如行星轨道和利用距离差进行定位的方法。先复习圆的方程与轨迹的想法会更容易理解。"
+            "ja": "楕円は、2つの決まった点までの距離の和が一定になる点の集まりです。横長の見た目から定義するのではなく、各点が満たす距離の条件から形と方程式を決めます。双曲線では、距離の和の代わりに差の絶対値を一定にします。",
+            "en": "An ellipse consists of points whose distances to two fixed foci have constant sum. Its shape and equation come from that distance condition, rather than an elongated appearance. A hyperbola instead fixes the absolute difference of those distances.",
+            "zh": "椭圆是到两个固定焦点的距离之和恒定的点的集合。定义依据的是距离条件，而不是外观是否扁长。双曲线则把距离之和换成距离差的绝对值恒定。"
           }
         ]
       },
@@ -26842,9 +26926,9 @@
             "zh": "当已知事件 $A$ 发生时，我们考虑的范围就从全体缩小到 $A$ 中。条件概率就是在这个新范围内，另一事件 $B$ 发生的比例。"
           },
           {
-            "ja": "確率や集合の考え方を使って、$P(A \\cap B)$ と $P(A)$ の関係から計算できます。検査の結果など、新しい情報を得た後に予測を更新する場面でも使われます。",
-            "en": "Using ideas from probability and sets, it can be computed from the relation between $P(A \\cap B)$ and $P(A)$. It is also used to update predictions after new information, such as a test result.",
-            "zh": "利用概率和集合的想法，可以通过 $P(A \\cap B)$ 与 $P(A)$ 的关系来计算。它也可用于在得到检查结果等新信息后更新预测。"
+            "ja": "公平なさいころで「偶数が出た」と分かれば、考える範囲は2、4、6だけです。その中で4以上なのは4と6の2つなので、条件付き確率は $\\frac{2}{3}$ です。新しい情報が、数える全体を6通りから3通りに絞っています。",
+            "en": "Given that a fair die shows an even number, only 2, 4 and 6 remain possible. Two of these, 4 and 6, are at least 4, so the conditional probability is $\\frac{2}{3}$. The information narrows the reference set from six outcomes to three.",
+            "zh": "已知公平骰子掷出了偶数，就只考虑2、4、6。其中至少为4的是4和6，所以条件概率是 $\\frac{2}{3}$。新信息把计数的整体从6种缩小到了3种。"
           }
         ]
       },
@@ -27602,9 +27686,9 @@
             "zh": "正态分布是左右对称的钟形分布：数值集中在平均数附近，离平均数越远越少。身高、测量误差等许多数据都近似服从它。"
           },
           {
-            "ja": "この項目では、正規分布の形を決める平均 $m$ と標準偏差 $\\sigma$ の役割を学び、値を標準化して確率を求める方法を身につけます。確率変数の期待値・分散の考え方が土台になります。",
-            "en": "Here you will learn how the mean $m$ and standard deviation $\\sigma$ determine the shape, and how to standardize values to find probabilities. The ideas of expected value and variance of a random variable are the foundation.",
-            "zh": "本节学习平均数 $m$ 与标准差 $\\sigma$ 如何决定正态分布的形状，并掌握把数值标准化来求概率的方法。随机变量的期望与方差是基础。"
+            "ja": "平均50、標準偏差10の分布で60は、平均から標準偏差1個分だけ上です。平均100、標準偏差20の分布の120も同じ位置です。標準化は、この「平均から何個分離れているか」に尺度をそろえて、異なる分布を共通の表で読む操作です。",
+            "en": "In a distribution with mean 50 and standard deviation 10, 60 is one standard deviation above the mean. So is 120 when the mean is 100 and the standard deviation is 20. Standardisation expresses position in these common units so normal distributions share one table.",
+            "zh": "均值50、标准差10的分布中，60位于均值以上1个标准差。均值100、标准差20时，120也在同样的位置。标准化把位置统一成离均值多少个标准差，让不同正态分布能共用一张表。"
           }
         ]
       },
@@ -27998,9 +28082,9 @@
             "zh": "对于函数 $f(x)$，当 $x$ 趋近于某个值 $a$ 时，如果 $f(x)$ 的值趋近于一个确定的数 $L$，就把 $L$ 叫做 $x \\to a$ 时 $f(x)$ 的极限，记作 $\\lim_{x \\to a} f(x) = L$。$x$ 无限增大时也同样考虑。"
           },
           {
-            "ja": "極限は、グラフが近づいていく先をとらえる考え方です。微分係数は極限で定義され、グラフの漸近線を調べるときにも使います。数列の極限では $n \\to \\infty$ を考えましたが、ここでは $x$ を実数のまま近づけます。",
-            "en": "A limit describes where the graph is heading. Derivatives are defined by limits, and limits are also used to find asymptotes. In sequences we studied $n \\to \\infty$; here $x$ approaches a value while staying real.",
-            "zh": "极限描述的是图象趋近的方向。导数用极限定义，求渐近线时也会用到极限。数列中我们考虑过 $n \\to \\infty$，这里则让实数 $x$ 不断接近。"
+            "ja": "$\\frac{x^2-1}{x-1}$ は $x=1$ では定義されませんが、1以外では $x+1$ と等しいので、$x$ が1に近づくと値は2に近づきます。極限はその点での値ではなく、近づく途中の値の行き先を調べています。",
+            "en": "The expression $\\frac{x^2-1}{x-1}$ is undefined at 1, but equals $x+1$ elsewhere, so its values approach 2 as $x$ approaches 1. A limit describes the destination of nearby values, not necessarily the value at the point itself.",
+            "zh": "$\\frac{x^2-1}{x-1}$ 在1处无定义，但在其他点等于 $x+1$，所以 $x$ 趋近1时，它的值趋近2。极限研究附近函数值趋向哪里，不一定是该点本身的函数值。"
           }
         ]
       },
@@ -28182,9 +28266,9 @@
             "zh": "中值定理保证区间内部存在一点，使该点切线的斜率等于整个区间的平均变化率。洛必达法则则用微分来求那些无法直接确定数值的极限。"
           },
           {
-            "ja": "どちらも微分法と極限の基本事項を前提とします。導関数の意味と、$\\frac{0}{0}$ などの不定形の扱いを確認しておくと理解しやすくなります。",
-            "en": "Both results assume the basics of differentiation and limits. Reviewing the meaning of the derivative and the handling of indeterminate forms such as $\\frac{0}{0}$ will make them easier to understand.",
-            "zh": "两者都以微分法和极限的基本知识为前提。先确认导数的意义以及 $\\frac{0}{0}$ 等未定式的处理，会更容易理解。"
+            "ja": "区間の両端を結ぶ直線の傾きは、その区間の平均変化率です。平均値の定理は、連続性と微分可能性の条件がそろえば、途中のどこかに同じ接線の傾きをもつ点があると述べます。区間全体の変化と、1点での微分を結ぶ定理です。",
+            "en": "The secant slope across an interval is its average rate of change. Under the required continuity and differentiability conditions, the mean value theorem guarantees an interior point with that tangent slope. It links change across an interval to a derivative at a point.",
+            "zh": "连接区间两端的直线斜率是平均变化率。满足相应的连续性与可微性条件时，中值定理保证内部存在一点，其切线斜率与它相同。定理连接了整个区间的变化与一点处的导数。"
           }
         ]
       },
@@ -28389,25 +28473,35 @@
     "sections": [
       {
         "heading": {
-          "ja": "微分で何を求めるか",
-          "en": "What differentiation gives you",
-          "zh": "微分求的是什么"
+          "ja": "微分はその場所での変化率",
+          "en": "Differentiation measures local change",
+          "zh": "微分描述某处的变化率"
         },
         "paragraphs": [
           {
-            "ja": "微分は、関数のグラフの傾きがどう変わるかを式で表す計算です。多項式の微分では、$x^3$ や $2x^2$ のような項を、決まった規則で1つずつ別の項に置きかえて、導関数を求めます。",
-            "en": "Differentiation is a calculation that describes how the slope of a graph changes. For a polynomial, we replace each term such as $x^3$ or $2x^2$ by a new term using a fixed rule, and the result is called the derivative.",
-            "zh": "微分是描述函数图像斜率如何变化的计算。对多项式来说，我们按固定规则把 $x^3$、$2x^2$ 这样的项逐项换成新的项，得到导函数。"
+            "ja": "$y = x^2$ で、$x$ が2から3に増えると、$y$ は4から9に増えます。変化率は $(9 - 4) \\div (3 - 2) = 5$ です。ただし、これは2から3までの区間全体での平均です。",
+            "en": "For $y = x^2$, increasing $x$ from 2 to 3 increases $y$ from 4 to 9. The rate of change is $(9 - 4) \\div (3 - 2) = 5$. This is an average over the entire interval from 2 to 3.",
+            "zh": "对于 $y = x^2$，当 $x$ 从2增加到3时，$y$ 从4增加到9。变化率为 $(9 - 4) \\div (3 - 2) = 5$。但这只是从2到3这一整个区间的平均变化率。"
           },
           {
-            "ja": "導関数が分かると、グラフの接線の傾きや、関数が増える区間・減る区間を調べられます。展開や指数の計算で身につけた力が、そのままここで役に立ちます。",
-            "en": "Once you have the derivative, you can study the slope of the tangent line and the intervals where the function increases or decreases. The expansion and exponent skills you already have are used here directly.",
-            "zh": "求出导函数后，就能研究切线的斜率，以及函数递增、递减的区间。你学过的展开与指数运算在这里会直接用到。"
+            "ja": "2のすぐ近くでの変化を知るため、増分を0でない $h$ として、2と $2 + h$ の間の平均変化率を調べます。計算すると $4 + h$ になります。",
+            "en": "To study change close to 2, take a nonzero increment $h$ and calculate the average rate between 2 and $2 + h$. Simplifying gives $4 + h$.",
+            "zh": "为了研究2附近的变化，取非零增量 $h$，计算2到 $2 + h$ 之间的平均变化率。化简得到 $4 + h$。"
+          }
+        ],
+        "formulas": [
+          "\\frac{(2+h)^2-2^2}{h}=\\frac{4h+h^2}{h}=4+h \\quad (h\\ne 0)"
+        ],
+        "after": [
+          {
+            "ja": "区間を縮めて $h$ を0に近づけると、この値は4に近づきます。この極限が $x = 2$ での微分係数で、グラフの接線の傾きを表します。0で割るのではなく、0でない $h$ で計算した値の近づく先を考えています。",
+            "en": "As the interval shrinks and $h$ approaches 0, the rate approaches 4. This limit is the derivative at $x = 2$, the slope of the tangent there. We do not divide by zero: we find the value approached by rates calculated with nonzero $h$.",
+            "zh": "缩小区间，使 $h$ 趋近于0，这个值就趋近于4。这个极限就是 $x = 2$ 处的导数，表示该处切线的斜率。这里没有除以0，而是在研究非零 $h$ 下算出的值趋近哪里。"
           },
           {
-            "ja": "この項目では、多項式を項ごとに微分する公式と、その組み合わせ方を身につけます。",
-            "en": "In this unit you will learn the rules for differentiating a polynomial term by term, and how to combine them.",
-            "zh": "本条目要掌握逐项微分多项式的公式，以及怎样把它们组合起来使用。"
+            "ja": "同じことを各 $x$ で行い、場所ごとの変化率を関数にしたものが導関数です。微分公式は、この極限の計算を毎回展開せずに求めるための規則です。",
+            "en": "Doing this at each $x$ gives the derivative function, which assigns a local rate of change to each position. Differentiation rules let us calculate these limits without expanding the difference quotient every time.",
+            "zh": "在每个 $x$ 处都这样计算，把各处的变化率写成函数，就得到导函数。求导公式让我们不必每次都展开差商来计算这个极限。"
           }
         ]
       },
@@ -28434,9 +28528,9 @@
         ],
         "after": [
           {
-            "ja": "たとえば $x^4$ は $4x^3$、$x^3$ は $3x^2$ です。$x = x^1$ と考えれば $1x^0 = 1$ となり、1次式も同じ規則で微分できます。",
-            "en": "For example, $x^4$ gives $4x^3$ and $x^3$ gives $3x^2$. Reading $x$ as $x^1$ gives $1x^0 = 1$, so even a linear term follows the same rule.",
-            "zh": "例如 $x^4$ 求导得 $4x^3$，$x^3$ 求导得 $3x^2$。把 $x$ 看作 $x^1$，就得到 $1x^0 = 1$，一次项也能用同一规则求导。"
+            "ja": "ここで $n$ は正の整数です。たとえば $x^4$ の導関数は $4x^3$、$x^3$ の導関数は $3x^2$ です。$x$ 自体は、増分と値の増分が等しいため、導関数は1になります。",
+            "en": "Here $n$ is a positive integer. For example, $x^4$ has derivative $4x^3$ and $x^3$ has derivative $3x^2$. The function $x$ itself has derivative 1 because its output changes by exactly its input increment.",
+            "zh": "这里 $n$ 是正整数。例如，$x^4$ 的导函数是 $4x^3$，$x^3$ 的导函数是 $3x^2$。函数 $x$ 的输出增量等于输入增量，所以导函数是1。"
           }
         ]
       },
@@ -29719,9 +29813,9 @@
             "zh": "例如，函数图象与 $x$ 轴之间的面积，可以用许多细长矩形面积的和来近似。当分割无限变细时得到的值就是定积分，它表示面积、体积等累积量。"
           },
           {
-            "ja": "まずは、原始関数に区間の両端の数を代入して差をとる計算に慣れましょう。",
-            "en": "We will first practice calculating by substituting the two endpoints into an antiderivative and taking the difference.",
-            "zh": "我们先来练习：把区间两端的数代入原函数，再求差。"
+            "ja": "一定の速さ3で2時間進む道のりは $3 \\times 2 = 6$ です。速さが変わるときも、短い時間ごとの「速さと時間の積」を足せば道のりを近似できます。定積分は、この細かな積み重ねの極限を扱う計算です。",
+            "en": "Travelling at constant speed 3 for two time units gives distance $3 \\times 2 = 6$. If speed varies, adding speed times duration over short intervals approximates distance. A definite integral takes the limit of these small accumulated contributions.",
+            "zh": "以恒定速度3行进2个时间单位，路程为 $3 \\times 2 = 6$。速度变化时，把每小段时间里的速度乘时长后相加，可近似求路程。定积分研究这种细小累加的极限。"
           }
         ]
       },
@@ -30122,9 +30216,9 @@
             "zh": "例如，对 $(x^2 + 1)^4$ 求导得到 $4(x^2 + 1)^3 \\cdot 2x$。反过来，积分这种形式的式子时，把里面的 $x^2 + 1$ 看成一个整体就能计算。"
           },
           {
-            "ja": "前に学んだ不定積分の基本公式と合成関数の微分が土台になります。まずは「どの部分を一まとまりと見るか」に注目しましょう。",
-            "en": "The basic integration formulas and the chain rule you have already learned are the foundation. First, focus on which part to treat as a single quantity.",
-            "zh": "已经学过的基本积分公式和复合函数求导是基础。先要注意把哪一部分看成一个整体。"
+            "ja": "$\\int 2x\\cos(x^2)\\,dx$ では、$u=x^2$ とすると、その変化率は $2x$ です。したがって $du=2x\\,dx$ とまとめ、$\\int\\cos u\\,du$ に直せます。置換は文字の交換だけでなく、変化の尺度も一緒に取り替える操作です。",
+            "en": "In $\\int 2x\\cos(x^2)\\,dx$, set $u=x^2$, whose rate of change is $2x$. Then $du=2x\\,dx$, giving $\\int\\cos u\\,du$. Substitution changes the scale of change along with the variable, rather than merely renaming it.",
+            "zh": "在 $\\int 2x\\cos(x^2)\\,dx$ 中，令 $u=x^2$，其变化率为 $2x$，于是 $du=2x\\,dx$，积分变成 $\\int\\cos u\\,du$。换元不仅更换字母，也同时调整变化的尺度。"
           }
         ]
       },
@@ -30633,9 +30727,9 @@
             "zh": "我们已经学过实数的四则运算和式的展开。但在实数范围内，没有任何数的平方等于 $-1$。于是引入满足 $i^2 = -1$ 的新数 $i$，并把形如 $a+bi$（$a,b$ 为实数）的数叫做复数。"
           },
           {
-            "ja": "複素数 $a+bi$ では、$a$ を実部、$b$ を虚部といいます。計算の基本は、$i$ を文字のように扱い、$i^2$ が出てきたら $-1$ に置き換えることです。この考え方は、実数の計算や展開、分母の有理化の方法とつながっています。",
-            "en": "For $a+bi$, $a$ is the real part and $b$ the imaginary part. The basic rule is to treat $i$ like a letter and replace $i^2$ by $-1$ whenever it appears. This connects with ordinary arithmetic, expanding expressions, and rationalizing denominators.",
-            "zh": "在 $a+bi$ 中，$a$ 叫实部，$b$ 叫虚部。计算的基本方法是把 $i$ 像字母一样处理，遇到 $i^2$ 就换成 $-1$。这与实数的计算、展开以及分母有理化的方法相通。"
+            "ja": "実数では2乗して負になる数がないので、$x^2=-1$ には解がありません。$i^2=-1$ を満たす新しい数を導入し、$a+bi$ の形まで数を広げます。計算は分配法則を保ち、$i^2$ が現れたら $-1$ に戻して整理します。",
+            "en": "No real number has a negative square, so $x^2=-1$ has no real solution. Introducing a number with $i^2=-1$ extends numbers to the form $a+bi$. Computation retains the distributive law and replaces each $i^2$ by $-1$.",
+            "zh": "实数的平方不会为负，所以 $x^2=-1$ 无实数解。引入满足 $i^2=-1$ 的数，就把数扩展为 $a+bi$。计算时保留分配律，遇到 $i^2$ 就换成 $-1$ 后整理。"
           }
         ]
       },
@@ -31352,9 +31446,9 @@
             "zh": "坐标平面上，到一个定点的距离等于定长的所有点组成一个圆。中心与半径确定后，圆就确定了，因此我们想用 $x$ 与 $y$ 的方程来表示它。"
           },
           {
-            "ja": "すでに学んだ2点間の距離の公式を使うと、円の条件をそのまま式にできます。円の方程式は、直線との交点や接線を調べるときにも役立ちます。",
-            "en": "Using the distance formula between two points that you already know, the condition for a circle can be written as an equation. Circle equations also help when studying intersections with lines and tangent lines.",
-            "zh": "利用已经学过的两点间距离公式，可以把圆的条件直接写成方程。圆的方程在研究直线与圆的交点、切线时也很有用。"
+            "ja": "中心 $(2,3)$ から距離5の点 $(x,y)$ は、横と縦の差で作る直角三角形から $(x-2)^2+(y-3)^2=25$ を満たします。円の方程式は、中心からの距離が一定という条件を、座標で書いたものです。",
+            "en": "A point $(x,y)$ at distance 5 from centre $(2,3)$ satisfies $(x-2)^2+(y-3)^2=25$ by Pythagoras applied to its coordinate differences. A circle equation is the fixed-distance condition written in coordinates.",
+            "zh": "点 $(x,y)$ 到圆心 $(2,3)$ 的距离为5，由横纵坐标差构成的直角三角形可得 $(x-2)^2+(y-3)^2=25$。圆的方程就是把到圆心距离恒定的条件写成坐标式。"
           }
         ]
       },
@@ -32173,9 +32267,9 @@
             "zh": "向量是既有方向又有大小的量，可以用箭头表示。内积把两个向量变成一个数，使我们能用式子研究夹角和垂直关系，而不必只靠画图。"
           },
           {
-            "ja": "すでに学んだ成分や大きさ、三角関数の $\\cos$ を使います。まずなす角から内積を定義し、次に成分だけで計算する方法を考えます。",
-            "en": "We use components, magnitudes, and the trigonometric ratio $\\cos$, which you have already met. First we define the dot product using the angle between the vectors, then we calculate it from components alone.",
-            "zh": "我们会用到已学过的分量、大小以及三角函数的 $\\cos$。先从两个向量的夹角定义内积，再学习只用分量计算的方法。"
+            "ja": "一方のベクトルをもう一方の向きに投影した長さは、符号つきで $|\\mathbf{b}|\\cos\\theta$ です。これに $|\\mathbf{a}|$ を掛けた量が内積です。同じ向きへの成分を測るので、垂直なら0、逆向きの成分があれば負になります。",
+            "en": "The signed projection of one vector onto the direction of the other is $|\\mathbf{b}|\\cos\\theta$. Multiplying by $|\\mathbf{a}|$ gives the dot product. It measures alignment: perpendicular vectors give zero and an opposite-direction component gives a negative value.",
+            "zh": "一个向量在另一个向量方向上的有向投影长度为 $|\\mathbf{b}|\\cos\\theta$，再乘以 $|\\mathbf{a}|$ 就是内积。它衡量同方向的成分，因此垂直时为0，反向成分会给出负值。"
           }
         ]
       },
@@ -32717,9 +32811,9 @@
             "zh": "将数排成长方形，称为矩阵。横向的排列叫行，纵向的排列叫列，$m$ 行 $n$ 列的矩阵称为 $m \\times n$ 矩阵。每个位置上的数叫元素，第 $i$ 行第 $j$ 列的元素记作 $a_{ij}$。"
           },
           {
-            "ja": "行列は、連立方程式の係数をまとめて表したり、平面や空間の点を別の点に移す線形変換を表したりするのに使います。実数の計算やベクトルの内積が土台になるので、それらを確認しながら進めると理解しやすくなります。",
-            "en": "Matrices are used to write the coefficients of a system of linear equations compactly and to describe linear transformations that move points in the plane or in space. They build on arithmetic with real numbers and on the dot product of vectors, so reviewing those ideas makes the rest easier.",
-            "zh": "矩阵可以用来集中表示线性方程组的系数，也可以表示把平面或空间中的点移到另一点的线性变换。它以实数的运算和向量的内积为基础，复习这些内容会更容易理解。"
+            "ja": "行列の積は、変換を続けて行うことに対応します。$AB\\mathbf{x}$ は、まず $B$ で変換し、次に $A$ で変換した結果です。成分の積を足し合わせるのは、中間の各成分が最終結果にどれだけ寄与するかを合計するためです。",
+            "en": "Matrix multiplication represents successive transformations. In $AB\\mathbf{x}$, apply $B$ first and $A$ next. Products of entries are summed because each intermediate component contributes to the final result.",
+            "zh": "矩阵乘法对应连续进行变换。$AB\\mathbf{x}$ 表示先作用 $B$，再作用 $A$。把各项乘积相加，是因为每个中间分量都对最终结果有所贡献，要将它们合计。"
           }
         ]
       },
@@ -33479,9 +33573,9 @@
             "zh": "高斯—若尔当消元法把线性方程组写成增广矩阵，通过反复进行行变换，将矩阵化为便于读出解的形式。它用矩阵系统地进行方程组的消元。"
           },
           {
-            "ja": "未知数が増えても、各行に対して同じ規則で操作できます。変形の根拠と手順を理解すると、解が一つか、複数あるか、存在しないかも判断できます。",
-            "en": "The same rules apply to each row even as the number of unknowns grows. Understanding the rules and procedure also helps determine whether a system has one solution, many solutions, or none.",
-            "zh": "即使未知数增多，也可以对各行使用相同的规则。理解变换的依据和步骤，还能判断方程组有唯一解、有无穷多解，还是无解。"
+            "ja": "方程式の1行を別の行の倍だけ加えても、元の連立方程式の解はその式を満たします。逆の操作で元に戻せるため、新しい解も増えません。掃き出し法の行基本変形は、解の集合を変えずに、各未知数を読み取りやすい形にする操作です。",
+            "en": "Adding a multiple of one equation to another preserves every original solution. The operation is reversible, so it introduces no new solutions either. Row reduction rewrites a system into a readable form while preserving its solution set.",
+            "zh": "把一个方程的倍数加到另一个方程，原来的解仍满足新方程。操作可以逆向还原，所以也不会增加新解。行变换在保持解集不变的前提下，把方程组改成更易读出未知数的形式。"
           }
         ]
       },
@@ -34027,9 +34121,9 @@
             "zh": "设 $V$ 是向量空间。如果 $V$ 中每个向量都能表示成若干向量的线性组合，就说这些向量张成 $V$。如果张成 $V$ 的向量组又线性无关，就称它为基，基中向量的个数称为维数。"
           },
           {
-            "ja": "基底は空間の「座標軸」のような役割を果たします。基底を選べば、各ベクトルを基底の1次結合として一意的に表せます。次元は空間の広がりや自由度を表す量であり、この項目では基底の条件と次元の求め方、行列の階数との関係を学びます。",
-            "en": "A basis acts like a set of coordinate axes. Once a basis is chosen, every vector has a unique expression as a linear combination of the basis vectors. Dimension measures the size or degrees of freedom of a space; here we study the conditions for a basis, how to find dimension, and the connection with matrix rank.",
-            "zh": "基的作用类似于空间的“坐标轴”。选定基后，每个向量都能唯一地表示为基向量的线性组合。维数刻画空间的大小或自由度；本项学习基的条件、维数的求法，以及它与矩阵秩的关系。"
+            "ja": "平面の点は、横向きと縦向きの2つの基本ベクトルを何倍ずつ足すかで一意に表せます。横向きだけでは平面全体に届かず、同じ向きをもう1本足しても情報は増えません。基底は、すべてを表せることと、余分な重複がないことを同時に満たす組です。",
+            "en": "Every point in a plane has a unique representation using horizontal and vertical basis vectors. A horizontal vector alone cannot reach the whole plane, and adding another parallel vector adds no independent information. A basis both spans the space and avoids redundancy.",
+            "zh": "平面上的点可唯一表示为横向与纵向两个基本向量的倍数之和。只有横向向量不能覆盖整个平面，再加一条同方向向量也没有增加独立信息。基底同时满足能表示全部向量且没有多余重复。"
           }
         ]
       },
@@ -34600,9 +34694,9 @@
             "zh": "核表示 $f$ 会“压掉”的方向，像表示 $f$ 能够到达的范围。二者都是子空间，是研究线性映射丢失信息和可达范围的基础。"
           },
           {
-            "ja": "行列 $A$ による写像 $f(\\boldsymbol{x}) = A\\boldsymbol{x}$ では、核は同次連立一次方程式 $A\\boldsymbol{x} = \\boldsymbol{0}$ の解空間です。既に学んだ連立方程式の解法がそのまま使えます。",
-            "en": "For a map given by a matrix $A$, $f(\\boldsymbol{x}) = A\\boldsymbol{x}$, the kernel is the solution space of the homogeneous system $A\\boldsymbol{x} = \\boldsymbol{0}$. The solution methods for linear systems learned earlier apply directly.",
-            "zh": "由矩阵 $A$ 给出的映射 $f(\\boldsymbol{x}) = A\\boldsymbol{x}$ 中，核是齐次线性方程组 $A\\boldsymbol{x} = \\boldsymbol{0}$ 的解空间。此前学过的方程组解法可以直接使用。"
+            "ja": "平面の点 $(x,y)$ を $(x,0)$ に写す変換では、縦方向の違いがすべて消えます。消えるベクトル $(0,y)$ の集まりが核、出力として残る $(x,0)$ の集まりが像です。核と像は、変換が失う情報と、届く範囲をそれぞれ表します。",
+            "en": "The map sending $(x,y)$ to $(x,0)$ erases vertical differences. The vectors $(0,y)$ that disappear form its kernel, while possible outputs $(x,0)$ form its image. Kernel and image describe the information lost and the output space reached.",
+            "zh": "把 $(x,y)$ 映到 $(x,0)$ 的变换会消去纵向差异。被消成零的向量 $(0,y)$ 构成核，可能输出的 $(x,0)$ 构成像。核与像分别描述变换丢失的信息和能到达的范围。"
           }
         ]
       },
@@ -34787,9 +34881,9 @@
             "zh": "对于 $2 \\times 2$ 矩阵 $A$，若存在非零向量 $\\mathbf{v}$ 满足 $A\\mathbf{v} = \\lambda\\mathbf{v}$，则称 $\\lambda$ 为 $A$ 的特征值，$\\mathbf{v}$ 为特征向量。特征值表示特征向量被乘以的标量；特征值为负时方向相反，为 0 时映射到零向量。"
           },
           {
-            "ja": "式を $(A - \\lambda I)\\mathbf{v} = \\mathbf{0}$ と変形すると、零でない $\\mathbf{v}$ が存在する条件は $A - \\lambda I$ が正則でないこと、すなわち $\\det(A - \\lambda I) = 0$ です。これが固有値を求める出発点です。",
-            "en": "Rewriting it as $(A - \\lambda I)\\mathbf{v} = \\mathbf{0}$, a nonzero $\\mathbf{v}$ exists exactly when $A - \\lambda I$ is not invertible, that is, when $\\det(A - \\lambda I) = 0$. This is the starting point for finding eigenvalues.",
-            "zh": "把它改写为 $(A - \\lambda I)\\mathbf{v} = \\mathbf{0}$。存在非零 $\\mathbf{v}$ 的条件是 $A - \\lambda I$ 不可逆，即 $\\det(A - \\lambda I) = 0$。这是求特征值的出发点。"
+            "ja": "たとえば横に2倍、縦に3倍する変換では、横向きのベクトルは横向きのまま2倍になります。この方向が固有ベクトルの方向で、倍率2が固有値です。固有値を求めるとは、変換を単なる倍率として読める特別な方向を探すことです。",
+            "en": "A transformation that scales horizontally by 2 and vertically by 3 sends a horizontal vector to twice itself. That direction is an eigenvector direction and 2 is its eigenvalue. Eigenvalues describe directions along which the transformation acts by a single scalar factor.",
+            "zh": "若变换在水平方向放大2倍、竖直方向放大3倍，水平向量仍沿水平方向并变为2倍。这个方向是特征向量方向，倍率2是特征值。特征值描述了变换在特定方向上只表现为数乘的性质。"
           }
         ],
         "formulas": [
@@ -35600,9 +35694,9 @@
             "zh": "得到的向量组是原向量组所张成的同一子空间的标准正交基。把任意基转化为标准正交基后，坐标计算和正投影计算都会变得简单。"
           },
           {
-            "ja": "QR分解や直交関数系の構成にも使われます。以下の説明では、内積 $\\langle \\boldsymbol{u}, \\boldsymbol{v}\\rangle$、ノルム $\\|\\boldsymbol{u}\\| = \\sqrt{\\langle \\boldsymbol{u}, \\boldsymbol{u}\\rangle}$、直交の条件 $\\langle \\boldsymbol{u}, \\boldsymbol{v}\\rangle = 0$ を用います。",
-            "en": "It is also used to construct QR decompositions and orthogonal function systems. Below we use the inner product $\\langle \\boldsymbol{u}, \\boldsymbol{v}\\rangle$, the norm $\\|\\boldsymbol{u}\\| = \\sqrt{\\langle \\boldsymbol{u}, \\boldsymbol{u}\\rangle}$, and the orthogonality condition $\\langle \\boldsymbol{u}, \\boldsymbol{v}\\rangle = 0$.",
-            "zh": "它也用于构造 QR 分解和正交函数系。下面使用内积 $\\langle \\boldsymbol{u}, \\boldsymbol{v}\\rangle$、范数 $\\|\\boldsymbol{u}\\| = \\sqrt{\\langle \\boldsymbol{u}, \\boldsymbol{u}\\rangle}$，以及正交条件 $\\langle \\boldsymbol{u}, \\boldsymbol{v}\\rangle = 0$。"
+            "ja": "あるベクトルから、すでに選んだ方向への射影を引くと、その方向の成分だけが消えます。残った部分はその方向に直交します。直交化は、元の張る空間を保ちながら、重なっている方向成分を順に取り除く方法です。",
+            "en": "Subtracting a vector’s projection onto an already chosen direction removes that directional component. The remainder is orthogonal to it. Gram–Schmidt removes overlapping components successively while preserving the space spanned by the original vectors.",
+            "zh": "从一个向量中减去它在已选方向上的投影，就消去了该方向的成分，余下部分与之正交。正交化是在保持原来张成空间的同时，依次去掉相互重叠的方向成分。"
           }
         ]
       },
@@ -35753,9 +35847,9 @@
             "zh": "汽车、火车或步行的人的快慢，用在一定时间内前进的路程来表示。例如每小时 $60\\text{ km}$，表示 1 小时前进 $60\\text{ km}$。"
           },
           {
-            "ja": "速さ、時間、道のりは、このうち2つが分かれば残りの1つを求められる関係にあります。これまでに学んだかけ算とわり算を使って計算します。",
-            "en": "Speed, time, and distance are related so that if two are known, the third can be found. We calculate using multiplication and division, which you have already learned.",
-            "zh": "速度、时间、路程这三个量中，只要知道两个，就能求出第三个。计算时使用已经学过的乘法和除法。"
+            "ja": "120 kmを2時間で進んだとき、1時間あたりに均等にならすと60 kmです。この「1時間を単位にした道のり」が平均の速さで、$120 \\div 2 = 60$ と求めます。同じ速さが3時間続けば、道のりは $60 \\times 3 = 180$ kmになります。",
+            "en": "Travelling 120 km in two hours averages 60 km per hour. Dividing $120 \\div 2 = 60$ expresses distance per one-hour unit. If that speed continues for three hours, the distance is $60 \\times 3 = 180$ km.",
+            "zh": "2小时行驶120千米，平均到每小时就是60千米。这种以1小时为单位的路程就是平均速度，由 $120 \\div 2 = 60$ 求得。如果以这个速度持续3小时，路程就是 $60 \\times 3 = 180$ 千米。"
           }
         ]
       },
@@ -36231,9 +36325,9 @@
             "zh": "买每本140日元的笔记本时，本数和总价都会变化。本数变为2倍、3倍时，总价也变为2倍、3倍。这样的关系叫作正比例，可以由一个量预测另一个量。"
           },
           {
-            "ja": "比例は、これまでに学んだかけ算とわり算を使って調べられます。まずは、2つの量が同じ割合で増えるかどうかに注目します。",
-            "en": "Proportional relationships can be examined using the multiplication and division you have already learned. First, notice whether the two quantities increase by the same factor.",
-            "zh": "正比例可以用已经学过的乘法和除法来研究。首先要看两个量是否按相同的倍数增加。"
+            "ja": "1個80円の商品を $x$ 個買うと代金は $80x$ 円です。個数を2倍にすると、同じ80円のまとまりも2倍になります。比例とは、このように一方を何倍かすると、もう一方も同じ倍率になる関係で、1あたりの量が一定です。",
+            "en": "If each item costs 80 yen, $x$ items cost $80x$ yen. Doubling the count doubles the number of identical 80-yen groups. Proportionality preserves this scaling relationship because the amount per one unit is constant.",
+            "zh": "单价80日元的商品买 $x$ 个，总价是 $80x$ 日元。数量加倍，相同的80日元组数也加倍。正比例关系中，一个量变为几倍，另一个也变为相同倍数，因为每单位的量恒定。"
           }
         ]
       },
@@ -36764,9 +36858,9 @@
             "zh": "多边形内部由相邻两边所成的角叫作内角；把一条边延长，在外侧所成的角叫作外角。这里我们讨论没有凹陷的凸多边形，并研究它的角。"
           },
           {
-            "ja": "三角形の内角の和が $180^\\circ$ であることは既に学びました。凸多角形は三角形に分けられるので、この性質を使って内角の和を求められます。",
-            "en": "You already know that the interior angles of a triangle add up to $180^\\circ$. A convex polygon can be divided into triangles, so this fact lets us find its interior-angle sum.",
-            "zh": "我们已经学过三角形的内角和为 $180^\\circ$。凸多边形可以分割成三角形，因此可以利用这个性质求内角和。"
+            "ja": "凸五角形の1つの頂点から対角線を引くと、三角形3つに分かれます。内角はそれらの角をすべて合わせたものなので、和は $3 \\times 180=540$ 度です。一般の式の $n-2$ は、この三角形の個数を数えています。",
+            "en": "Diagonals from one vertex split a convex pentagon into three triangles. Its interior angles collect all their angles, giving $3 \\times 180=540$ degrees. The $n-2$ in the general formula counts these triangles.",
+            "zh": "从凸五边形的一个顶点作对角线，可分成3个三角形。内角合起来就是这些三角形的全部角，所以总和为 $3 \\times 180=540$ 度。一般公式中的 $n-2$ 数的是这些三角形的个数。"
           }
         ]
       },
@@ -36971,9 +37065,9 @@
             "zh": "证明全等并不需要检查六个元素。只要边和角中某些特定的组分别相等，三角形的形状和大小就确定了。这样的条件叫作全等条件。"
           },
           {
-            "ja": "ここでは、三角形の辺や角の表し方を踏まえ、$3$ 組の辺、$2$ 組の辺とその間の角、$1$ 組の辺とその両端の角という3つの条件を学びます。",
-            "en": "Using the notation for sides and angles of a triangle, we study three conditions: three pairs of sides, two pairs of sides with the angle between them, and one pair of sides with the two angles at its ends.",
-            "zh": "在掌握三角形边和角的表示方法的基础上，学习三个条件：三组边、两组边及其夹角、一组边及其两端的角。"
+            "ja": "三角形の3辺の長さを固定すると、1辺の両端から残りの辺の長さを半径とする円を描いて、頂点の候補を決められます。上下2つの候補は裏返せば重なります。合同条件は、測った情報から形が1つに定まることを表しています。",
+            "en": "Fix three side lengths of a triangle. From the endpoints of one side, draw circles with the other two lengths as radii to locate the third vertex. The two mirror candidates overlap after reflection. Congruence criteria describe data that determine the shape uniquely up to rigid motion.",
+            "zh": "固定三角形三边后，从一边两端以另两边长为半径画圆，即可确定第三顶点的候选位置。上下两个候选互为镜像，翻转后重合。全等条件表示给定信息已能确定形状。"
           }
         ],
         "formulas": [
@@ -37845,9 +37939,9 @@
             "zh": "由圆的两条半径和它们之间的弧围成的图形叫作扇形。两条半径所成的角叫作圆心角。"
           },
           {
-            "ja": "おうぎ形は円の一部なので、円全体の円周や面積を基にし、中心角が $360^\\circ$ のうちどれだけを占めるかを考えれば、弧の長さと面積を求められます。この考え方は、立体の展開図などにも役立ちます。",
-            "en": "Because a sector is part of a circle, we can find its arc length and area from the circumference and area of the whole circle by using the fraction of $360^\\circ$ that the central angle occupies. This idea is also useful for nets of solids.",
-            "zh": "扇形是圆的一部分，所以可以利用整个圆的周长和面积，考虑圆心角占 $360^\\circ$ 的几分之几，来求弧长和面积。这个想法在立体图形的展开图等问题中也会用到。"
+            "ja": "中心角が90度なら円1周の4分の1なので、弧の長さも面積も円全体の4分の1です。中心角の割合で円の公式を分け取ると、おうぎ形の公式になります。弧と面積で同じ割合を使えるのは、同じ中心角の部分を取り出しているからです。",
+            "en": "A central angle of 90 degrees is one quarter of a turn, so both its arc and sector area are one quarter of the circle’s totals. Sector formulas take this angular fraction of the circle formulas. Arc and area use the same fraction because they occupy the same share of a turn.",
+            "zh": "90度圆心角占一周的四分之一，所以弧长与扇形面积也各占整圆的四分之一。扇形公式就是按圆心角的比例取圆的相应部分。两者使用同一比例，是因为对应同一角度范围。"
           }
         ]
       },
@@ -38228,9 +38322,9 @@
             "zh": "在相似图形中，对应角分别相等，对应边的长度比都相等。这个相等的比叫作相似比。无论取哪一组对应边，相似比都相同。"
           },
           {
-            "ja": "相似比が $m:n$ なら、対応する辺の長さはすべて $m:n$ の比を保ちます。合同は相似比が $1:1$ である特別な場合と考えることもできます。",
-            "en": "If the similarity ratio is $m:n$, all corresponding lengths keep the ratio $m:n$. Congruence can be regarded as the special case in which the similarity ratio is $1:1$.",
-            "zh": "若相似比为 $m:n$，所有对应边的长度都保持 $m:n$ 的比。全等可以看作相似比为 $1:1$ 的特殊情况。"
+            "ja": "長さをすべて2倍にすると、同じ形の中に単位面積が縦にも横にも2倍入り、面積は4倍です。立体では高さ方向にも2倍入るので体積は8倍です。相似比・面積比・体積比の指数の違いは、拡大する方向の数に対応します。",
+            "en": "Doubling all lengths doubles the count of unit areas in both directions, making area four times as large. In a solid the third direction doubles too, giving eight times the volume. The powers in similarity, area and volume ratios count the dimensions being scaled.",
+            "zh": "所有长度放大2倍，单位面积在纵横两个方向的个数都加倍，所以面积为4倍。立体的高度方向也加倍，体积就是8倍。相似比、面积比、体积比的指数差异对应放大的维数。"
           }
         ]
       },
@@ -38658,9 +38752,9 @@
             "zh": "无论哪种移动，对应边的长度和角的大小都不变，移动前后的图形全等。线段和角的基本性质保持不变，这是理解移动的关键。"
           },
           {
-            "ja": "ここでは、点の座標が移動によってどのように変わるかを調べ、規則として使えるようにします。作図でも、対応する点を順に移せば図形全体を移動できます。規則が分かると、模様の仕組みを説明するときにも役立ちます。",
-            "en": "Here we study how the coordinates of a point change under each move and express the results as rules. To draw a moved figure, move its corresponding points one by one. These rules also help explain how repeating patterns are made.",
-            "zh": "这里我们研究点的坐标在移动中如何变化，并把它作为规则使用。作图时，只要依次移动对应点，就能移动整个图形。这些规则也有助于说明重复图案的构成。"
+            "ja": "図形を平行移動・回転移動・対称移動しても、辺の長さと角の大きさは変わりません。座標は変わっても形を決める関係は残ります。座標の計算では、各点を同じ規則で動かし、点どうしの距離が保たれるかを確かめます。",
+            "en": "Translations, rotations and reflections preserve side lengths and angle sizes. Coordinates change while the relationships determining shape remain. Apply the same rule to every point and check that distances between points are preserved.",
+            "zh": "平移、旋转与轴对称都保持边长和角度不变。坐标虽然改变，决定形状的关系仍然保留。计算时对所有点使用相同规则，并检查点与点之间的距离是否保持。"
           }
         ]
       },
@@ -38861,9 +38955,9 @@
             "zh": "垂直平分线、角平分线和垂线是基本的作图。它们有助于研究图形的性质，也可为全等、相似和圆周角的证明提供依据。先准确掌握作图步骤，再说明这些步骤为什么能满足条件。"
           },
           {
-            "ja": "作図では、完成した図が条件を満たす理由を、線分や円の性質を使って説明することが大切です。とくに「2点から等しい距離にある点の集まり」が垂直二等分線になることは、多くの作図の土台になります。",
-            "en": "In construction, it is important to explain why the finished figure meets the condition, using the properties of segments and circles. In particular, the fact that the set of points equidistant from two points is their perpendicular bisector underlies many constructions.",
-            "zh": "作图时，重要的是利用线段和圆的性质，说明画出的图形为什么满足条件。特别是“到两点距离相等的点的集合是这两点所连线段的垂直平分线”这一事实，是许多作图的依据。"
+            "ja": "2点A、Bから等しい距離にある点は、線分ABの垂直二等分線上にあります。両点を中心に同じ半径の円弧を描けば、その交点はこの条件を満たします。作図の線は補助的な印ではなく、必要な距離の条件を満たす点を探す道具です。",
+            "en": "Points equidistant from A and B lie on their perpendicular bisector. Intersections of equal-radius arcs centred at A and B satisfy that condition. Construction lines locate points satisfying distance constraints rather than serving as arbitrary marks.",
+            "zh": "到A、B两点距离相等的点位于线段AB的垂直平分线上。以A、B为圆心作同半径圆弧，交点满足等距条件。作图线并非随意的辅助记号，而是寻找满足距离条件的点的工具。"
           }
         ]
       },
@@ -39587,9 +39681,9 @@
             "zh": "利用锐角三角函数，可以由一条边和一个角求出其他边的长度。它是测量以及物理中向量分解等内容的基础。"
           },
           {
-            "ja": "すでに学んだ相似と三平方の定理が、定義と計算の土台になります。",
-            "en": "The similarity of triangles and the Pythagorean theorem, which you have already learned, support the definitions and calculations.",
-            "zh": "已经学过的相似三角形和勾股定理，是理解定义和进行计算的基础。"
+            "ja": "同じ鋭角をもつ直角三角形は相似なので、対応する辺の比はどの大きさでも同じです。この角度だけで決まる比に、正弦・余弦・正接という名前を付けています。三角比の表が使えるのは、三角形の大きさに依存しないためです。",
+            "en": "Right triangles sharing an acute angle are similar, so corresponding side ratios are independent of size. Sine, cosine and tangent name these ratios determined by the angle alone. Tables work because the ratios do not depend on how large the triangle is.",
+            "zh": "具有同一锐角的直角三角形相似，对应边的比与大小无关。正弦、余弦、正切就是这些只由角度决定的比的名称。三角比表能通用，是因为它们不依赖三角形的尺寸。"
           }
         ]
       },
@@ -40320,9 +40414,9 @@
             "zh": "理解五心需要掌握垂直平分线、角平分线、中线和高线的基本性质。这些直线都可以依据线段和角的性质作出，五心就是它们的交点。"
           },
           {
-            "ja": "本項目では、五心の定義と性質を確認し、とくに重心の位置を表す比と、座標平面上での重心の求め方を学びます。頂点の座標から重心を計算できるようになることが目標です。",
-            "en": "In this lesson we review the definitions and properties of the five centers. We then focus on the ratio that locates the centroid and on finding its coordinates in the coordinate plane.",
-            "zh": "本课先确认五心的定义和性质，再重点学习表示重心位置的比，以及在坐标平面上求重心坐标的方法。"
+            "ja": "辺の両端から等距離にある点は垂直二等分線上にあります。2本の垂直二等分線の交点は3頂点すべてから等距離なので、その点を中心とする円が3頂点を通ります。外心の位置は、等しい距離という条件から決まります。",
+            "en": "Points equidistant from a side’s endpoints lie on its perpendicular bisector. The intersection of two such bisectors is equally distant from all three vertices, so a circle centred there passes through them all. This distance condition determines the circumcentre.",
+            "zh": "到一边两端等距的点在该边垂直平分线上。两条垂直平分线的交点到三个顶点都等距，因此以它为圆心的圆经过三个顶点。外心由这个等距条件确定。"
           }
         ]
       },
@@ -41460,9 +41554,9 @@
             "zh": "学习四分位数后，可以用数值把握数据从小到大排列时的位置。箱线图把这些位置关系变成便于直观比较的图形。"
           },
           {
-            "ja": "複数の集団を並べると、中央値の違いだけでなく、データの広がりや偏りの傾向も読み取れます。",
-            "en": "Lining up several groups lets you read not only differences in the median but also the spread and tendencies in skew.",
-            "zh": "把多个组并排排列，不仅能看出中位数的差异，还能读出数据的分布范围和偏斜倾向。"
+            "ja": "平均だけでは、中央に集まっているか両端に広がっているかは分かりません。箱ひげ図は、データを小さい順に並べたときの区切りを1本の軸上に置きます。箱の長さは中央の約半数の広がりを表し、個数そのものを表すわけではありません。",
+            "en": "A mean alone does not show whether data cluster centrally or spread towards extremes. A boxplot places ordered-data landmarks along one axis. Box length shows the spread of roughly the middle half, not a count of observations.",
+            "zh": "只看平均数无法知道数据集中在中央还是向两端分散。箱线图把排序后的分界点放在同一数轴上。箱体长度表示中间约一半数据的分布范围，并不是数据个数。"
           }
         ]
       },
@@ -41634,9 +41728,9 @@
             "zh": "把频数分布整理成表，就是频数分布表；用柱的高度表示各组频数的图，就是直方图。借助它们，可以更容易看出数据集中在哪里、分散到什么程度。"
           },
           {
-            "ja": "これまでに学んだ資料の整理や割合の考え方を土台にして、ここでは各階級の割合を表す相対度数を求め、資料の特徴を数値でとらえる方法を学びます。",
-            "en": "Building on earlier work with organizing data and proportions, we now find the relative frequency of each class and use it to describe a data set numerically.",
-            "zh": "在以往学习的数据整理和比例知识的基础上，这里要学习表示各组所占比例的频率，并用数值把握数据的特征。"
+            "ja": "20人中5人と100人中25人は、度数は違いますが、相対度数はどちらも $\\frac{1}{4}$ です。集団の人数で割って全体を1にそろえると、規模が違っても各階級の占める割合を比べられます。",
+            "en": "Five out of 20 and 25 out of 100 have different frequencies but the same relative frequency, $\\frac{1}{4}$. Dividing by group size normalises the total to 1, allowing class proportions to be compared across groups of different sizes.",
+            "zh": "20人中5人与100人中25人，频数不同，但相对频数都是 $\\frac{1}{4}$。除以各组总人数，把整体统一为1，就能比较规模不同群体中各组所占的比例。"
           }
         ]
       },
@@ -41817,9 +41911,9 @@
             "zh": "在统计调查中，想要研究的整体称为总体，从中取出并实际调查的一部分称为样本。我们学习对总体全部调查的全数调查，与只调查样本并推测整体的抽样调查之间的区别。"
           },
           {
-            "ja": "資料の整理で学んだ割合や度数分布の考え方が土台になります。標本の結果を母集団に当てはめるときにも、割合を使って全体の数量を求めます。",
-            "en": "The ideas of ratios and frequency distributions from data handling are the foundation. When applying sample results to a population, we also use ratios to estimate totals.",
-            "zh": "此前学习的数据整理中的比例和频数分布是基础。把样本结果应用到总体时，也要用比例来估计整体数量。"
+            "ja": "図書館の利用者だけに読書時間を聞くと、地域全体より読書好きが多く入るかもしれません。人数を増やしても、選び方の偏りは残ります。標本調査では、標本がどの仕組みで母集団から選ばれたかが、人数とともに重要です。",
+            "en": "Asking only library visitors about reading time may overrepresent keen readers. Increasing that sample size does not remove the selection bias. A sample survey depends on how people were selected from the population as well as how many were selected.",
+            "zh": "只向图书馆读者询问阅读时间，可能让爱读书的人所占比例过高。增加人数也不会消除这种选择偏差。抽样调查不仅看样本量，也要看样本如何从总体中选出。"
           }
         ]
       },
@@ -42120,9 +42214,9 @@
             "zh": "平均数表示数据的中心，但平均数相同的数据，其离散程度也可能不同。例如，$3, 4, 5$ 与 $1, 4, 7$ 的平均数都是 $4$，但后者包含与平均数距离更大的数据。"
           },
           {
-            "ja": "データの散らばりを数値で表せると、複数のデータを客観的に比較できます。ここでは、平均値からのずれを利用して分散と標準偏差を定義し、その求め方を学びます。",
-            "en": "Expressing spread as a number allows objective comparison of data sets. Here we use deviations from the mean to define the variance and standard deviation and learn how to compute them.",
-            "zh": "把离散程度用数值表示，就能客观地比较几组数据。这里利用各数据与平均数的偏差，定义方差与标准差，并学习它们的求法。"
+            "ja": "データが2と6なら平均は4で、偏差は $-2$ と2です。そのまま足すと打ち消し合いますが、2乗するとどちらも4となり、平均4が分散です。符号の違うずれを相殺せず、散らばりとして数えるために2乗を使います。",
+            "en": "For data 2 and 6, the mean is 4 and the deviations are $-2$ and 2. They cancel if added directly; their squares are both 4, giving variance 4. Squaring measures spread without opposite deviations cancelling.",
+            "zh": "数据2和6的平均数是4，离差为 $-2$ 和2。直接相加会抵消，平方后都是4，平均得到方差4。平方让方向相反的偏离不再互相抵消，从而刻画离散程度。"
           }
         ]
       },
@@ -43093,9 +43187,9 @@
             "zh": "当样本量足够大时，样本均值近似服从正态分布，其均值为总体均值，方差为 $\\sigma^2/n$。这一性质是区间估计的基础。"
           },
           {
-            "ja": "区間推定では、母数を含むと考えられる区間と、その信頼水準を示します。この方法で標本抽出を繰り返して区間を作ると、その約95%が母数を含みます。信頼水準95%の区間を95%信頼区間といいます。",
-            "en": "In interval estimation, we give an interval believed to contain the population parameter, together with a confidence level. If we repeat sampling and form intervals by this method, about 95% of them contain the parameter. An interval with confidence level 95% is called a 95% confidence interval.",
-            "zh": "区间估计中，我们给出一个被认为包含总体参数的区间，并说明其置信水平。若反复抽样并用这种方法构造区间，其中约 95% 会包含总体参数。置信水平为 95% 的区间叫作 95% 置信区间。"
+            "ja": "同じ母集団から標本を取り直すと、平均や推定区間も変わります。95%信頼区間は、同じ作り方を繰り返した区間の約95%が真の母数を含むように設計したものです。1つの固定された母数が確率95%で動く、という意味ではありません。",
+            "en": "Drawing a new sample changes the sample mean and interval estimate. A 95% confidence procedure is designed so about 95% of intervals from repeated samples contain the true parameter. It does not mean the fixed parameter itself varies randomly with 95% probability.",
+            "zh": "从同一总体重新抽样，样本均值与区间也会变化。95%置信区间的构造方法，旨在让反复抽样所得区间中约95%包含真实参数。并不是固定的参数本身以95%的概率随机移动。"
           }
         ]
       },
@@ -43713,9 +43807,9 @@
             "zh": "设全集为 $U$，其子集为 $A$、$B$，用 $n(X)$ 表示集合 $X$ 的元素个数。利用韦恩图各区域的个数，求并集 $A \\cup B$、交集 $A \\cap B$ 与补集 $\\bar{A}$ 的个数。"
           },
           {
-            "ja": "和集合・共通部分・補集合の意味を確認しておくと、重なりの調整が理解しやすくなります。アンケートの集計など、重なりを含む数を正しく数える場面でも役立ちます。",
-            "en": "Reviewing union, intersection, and complement makes the adjustment for overlaps easier to understand. This also helps when counting overlapping groups in surveys.",
-            "zh": "先确认并集、交集与补集的含义，就更容易理解对重叠部分的调整。在调查统计等需要正确计算重叠人数的场合也很有用。"
+            "ja": "Aに3人、Bに4人いて、そのうち2人が両方に属するなら、単純に足した7人ではその2人を二重に数えています。1回ずつに戻すため2を引き、合わせて5人です。和集合の公式の引き算は、重複分を調整しています。",
+            "en": "If A has three people and B has four, with two belonging to both, adding gives seven but counts those two twice. Subtract two to count each once, leaving five. The subtraction in the union formula corrects overlap.",
+            "zh": "A有3人，B有4人，其中2人同时属于两者，直接相加得7会把这2人数两遍。减去2后，每人只数一次，共5人。并集公式中的减法就是修正重叠部分。"
           }
         ]
       },
@@ -44082,9 +44176,9 @@
             "zh": "当「$p \\Rightarrow q$」为真时，称 $p$ 是 $q$ 的充分条件，$q$ 是 $p$ 的必要条件。它表示只要 $p$ 成立，$q$ 就一定成立。"
           },
           {
-            "ja": "定理の仮定と結論の関係や、方程式の解が条件を満たすかの吟味など、条件どうしのつながりを正確にとらえる場面で用います。命題の真偽と集合の包含関係が土台になります。",
-            "en": "This idea is used to state the relation between the hypothesis and conclusion of a theorem, and to check whether the solutions of an equation satisfy a condition. It builds on the truth of propositions and on set inclusion.",
-            "zh": "在整理定理的条件与结论、检验方程的解是否满足条件等场合，需要准确掌握条件之间的联系。命题的真假与集合的包含关系是判断的基础。"
+            "ja": "正方形なら長方形ですが、長方形が必ず正方形とは限りません。「正方形である」は「長方形である」ために十分で、逆に「長方形である」は正方形の必要条件です。条件の名前は、どちらからどちらへ結論が導けるかで決まります。",
+            "en": "Every square is a rectangle, but not every rectangle is a square. Being a square is sufficient for being a rectangle; being a rectangle is necessary for being a square. The names depend on which implication follows from which condition.",
+            "zh": "正方形一定是长方形，长方形却不一定是正方形。“是正方形”是“是长方形”的充分条件；“是长方形”是“是正方形”的必要条件。名称取决于从哪个条件能推出哪个结论。"
           }
         ]
       },
@@ -44432,9 +44526,9 @@
             "zh": "设 $X$ 与 $Y$ 为集合。把 $X$ 的每个元素 $x$ 对应到 $Y$ 中唯一元素 $f(x)$ 的规则，称为从 $X$ 到 $Y$ 的映射。$X$ 称为定义域，$Y$ 称为陪域。"
           },
           {
-            "ja": "写像では、異なる元が同じ行き先に重なるか、行き先に使われない元があるかを調べることが重要です。この2つの性質が単射性と全射性で、関数の可逆性や集合の大きさの比較の基礎になります。",
-            "en": "Whether different elements can share the same image, and whether every element of the codomain is used, are central questions. These properties are injectivity and surjectivity; they support invertibility and the comparison of set sizes.",
-            "zh": "对映射而言，不同的元素是否会映到同一元素，以及陪域中的元素是否都被取到，是重要的问题。这两种性质就是单射性与满射性，它们是可逆性以及比较集合大小的基础。"
+            "ja": "写像では、入力1つに出力を1つ対応させます。単射は異なる入力が同じ出力に衝突しないこと、全射は指定した行き先に取り残される点がないことです。両方満たせば、出力から入力を一意に戻せる逆写像が作れます。",
+            "en": "A map assigns one output to each input. Injectivity prevents distinct inputs from colliding at one output; surjectivity leaves no point of the specified codomain unreached. Together they allow a unique inverse from every output to its input.",
+            "zh": "映射给每个输入指定一个输出。单射要求不同输入不落到同一输出，全射要求指定的陪域中没有点遗漏。两者同时成立时，每个输出都能唯一找回输入，从而有逆映射。"
           }
         ]
       },
@@ -44832,9 +44926,9 @@
             "zh": "前 $N$ 项的和 $S_N = a_1 + a_2 + \\cdots + a_N$ 称为部分和。当 $N$ 无限增大时，若 $S_N$ 趋近于一个确定的值，就把这个值定义为无穷级数的和。"
           },
           {
-            "ja": "この考え方は、関数の級数表示や有限項による近似、物理モデルの安定性の解析などに現れます。数列の極限と等比数列の和を復習しておくと、以下の議論を理解しやすくなります。",
-            "en": "This idea appears in series representations of functions, finite-term approximations, and stability analysis of physical models. Reviewing limits of sequences and the sum of a geometric progression will make the following discussion easier.",
-            "zh": "这一思想出现在函数的级数表示、有限项近似以及物理模型的稳定性分析中。复习数列的极限与等比数列的求和，有助于理解后面的内容。"
+            "ja": "$1+\\frac{1}{2}+\\frac{1}{4}+\\cdots$ では、何項まで足すかで値が変わります。無限個を一度に足すのではなく、有限個の和を順に作り、その値がどこに近づくかを調べます。級数の収束は、項そのものではなく、部分和の極限の性質です。",
+            "en": "For $1+\\frac{1}{2}+\\frac{1}{4}+\\cdots$, the sum depends on the number of included terms. Rather than adding infinitely many at once, form finite partial sums and study their limiting behaviour. Series convergence concerns partial sums, not just individual terms.",
+            "zh": "在 $1+\\frac{1}{2}+\\frac{1}{4}+\\cdots$ 中，加到第几项会影响数值。不是一次性把无穷多个数相加，而是依次形成有限部分和，研究它们趋向哪里。级数收敛关注部分和的极限，而不只是单项。"
           }
         ]
       },
@@ -45212,9 +45306,9 @@
             "zh": "这时，先在有限区间上，或离开端点一小段的区间上积分，再取所得结果的极限，以此确定积分的值。这就是反常积分。"
           },
           {
-            "ja": "連続型確率変数の期待値や、物理学における遠方までの影響を表す計算などで用いられます。定積分の計算と関数の極限の両方が必要です。",
-            "en": "It is used for expectations of continuous random variables and for calculations of long-range effects in physics. Both definite integration and limits of functions are needed.",
-            "zh": "它用于连续型随机变量的期望，以及物理学中计算远距离影响等场合。既需要定积分计算，也需要函数极限。"
+            "ja": "$\\int_1^R \\frac{1}{x^2}\\,dx=1-\\frac{1}{R}$ は、$R$ を大きくすると1に近づきます。区間が無限に伸びても、追加される量が十分小さくなれば、合計は有限になり得ます。広義積分は有限区間の積分の極限として、この合計を定めます。",
+            "en": "The integral $\\int_1^R \\frac{1}{x^2}\\,dx=1-\\frac{1}{R}$ approaches 1 as $R$ grows. Even an unbounded interval can accumulate a finite total when added contributions become small enough. An improper integral defines that total as a limit of finite-interval integrals.",
+            "zh": "$\\int_1^R \\frac{1}{x^2}\\,dx=1-\\frac{1}{R}$ 在 $R$ 增大时趋近1。区间无限延伸，但新增量足够小时，总量仍可能有限。反常积分用有限区间积分的极限来定义这个总量。"
           }
         ]
       },
@@ -45393,9 +45487,9 @@
             "zh": "对于二元函数 $f(x, y)$，固定其中一个变量而对另一个变量求导的操作称为偏微分。只让一个变量变化时，表示其变化率的导数称为偏导数；例如固定 $y$ 对 $x$ 求导，所得的就是关于 $x$ 的偏导数。"
           },
           {
-            "ja": "1変数関数の微分を、変数ごとに分けて行う操作と捉えられます。多変数関数の極値や、物理学の場の量を解析する場面で用いられます。",
-            "en": "This is ordinary differentiation applied one variable at a time. It is used to study extrema of multivariable functions and to analyze field quantities in physics.",
-            "zh": "这相当于把一元函数的求导按变量分别进行。它常用于研究多元函数的极值，以及分析物理学中的场量。"
+            "ja": "$f(x,y)=x^2y$ の $x$ による偏微分では、$y$ を固定します。たとえば $y=3$ の断面なら $f(x,3)=3x^2$ なので傾きは $6x$ です。偏微分は、多くの変数のうち1つだけを動かしたときの変化率を取り出します。",
+            "en": "For the partial derivative of $f(x,y)=x^2y$ with respect to $x$, hold $y$ fixed. At $y=3$, the cross-section is $f(x,3)=3x^2$, with slope $6x$. Partial differentiation isolates the rate of change when only one variable moves.",
+            "zh": "对 $f(x,y)=x^2y$ 关于 $x$ 求偏导时，固定 $y$。例如在 $y=3$ 的截面上，$f(x,3)=3x^2$，斜率为 $6x$。偏微分提取的是多个变量中只改变一个时的变化率。"
           }
         ]
       },
@@ -45713,9 +45807,9 @@
             "zh": "极坐标变换是把直角坐标下的二重积分改写为用原点距离 $r$ 和角度 $\\theta$ 表示的形式。对于圆和扇形，通常更容易用 $r$ 和 $\\theta$ 的范围表示积分区域。"
           },
           {
-            "ja": "直交座標での重積分では、領域に合わせて積分範囲を決めます。極座標変換も同じ考え方ですが、座標だけでなく面積要素も変わるため、その変化を含めて積分します。",
-            "en": "As with Cartesian double integrals, choose bounds that describe the region. In polar coordinates, both the coordinates and the area element change, so the change in area must also be included.",
-            "zh": "与直角坐标下的二重积分一样，要根据区域确定积分范围。变换到极坐标时，坐标和面积元素都会改变，因此积分中也必须包含面积元素的变化。"
+            "ja": "半径1付近と半径2付近で、同じ角度幅の領域を考えると、外側の弧は2倍長くなります。したがって $r$ と角度の刻みが同じでも、実際の面積は半径で変わります。面積要素の $r$ は、この広がりを補正しています。",
+            "en": "For the same angular width near radii 1 and 2, the outer arc is twice as long. Equal steps in radius and angle therefore do not cover equal physical areas. The factor $r$ in the area element accounts for this widening.",
+            "zh": "半径1与半径2附近，同一角度宽度对应的外侧弧长为内侧的2倍。因此半径步长与角度步长相同，也不代表实际面积相同。面积元中的 $r$ 正是在修正这种向外扩张。"
           }
         ]
       },
@@ -46064,9 +46158,9 @@
             "zh": "可分离变量方程可以通过分离变量后积分求解。当 $y$ 的项与 $x$ 的项无法分离时，就需要其他方法。一阶线性方程则利用乘积求导法则，把左边合并为一个导数。"
           },
           {
-            "ja": "$Q(x)$ が恒等的に $0$ のときを同次方程式、恒等的に $0$ でないときを非同次方程式といいます。以下では $P(x)$、$Q(x)$ は考える区間で連続とします。",
-            "en": "When $Q(x)$ is identically zero, the equation is homogeneous; when it is not identically zero, it is nonhomogeneous. We assume $P(x)$ and $Q(x)$ are continuous on the interval considered.",
-            "zh": "当 $Q(x)$ 恒等于 $0$ 时称为齐次方程，当它不恒等于 $0$ 时称为非齐次方程。以下假设 $P(x)$、$Q(x)$ 在考虑的区间上连续。"
+            "ja": "$y\\prime+2y=0$ に $e^{2x}$ を掛けると、左辺は $(e^{2x}y)\\prime$ にまとまります。積の微分を逆向きに使える形を作るのが積分因子の役割です。微分1つにまとまれば、積分で元の関数を求められます。",
+            "en": "Multiplying $y\\prime+2y=0$ by $e^{2x}$ makes the left side $(e^{2x}y)\\prime$. An integrating factor creates a form where the product rule can be used in reverse. Once the expression is a single derivative, integration recovers the function.",
+            "zh": "把 $y\\prime+2y=0$ 乘以 $e^{2x}$，左边就成为 $(e^{2x}y)\\prime$。积分因子的作用，是构造能反向使用乘积求导法则的形式。合并为一个导数后，就能通过积分求回原函数。"
           }
         ]
       },

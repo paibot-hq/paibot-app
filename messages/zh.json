@@ -3875,16 +3875,15 @@
       "more": "更多"
     },
     "math": {
-      "title": "数学题库",
-      "description": "从小学算术到大学数学的四选一练习题库，可按单元练习，也可按学年测试。",
-      "about": "从小学计算到大学数学的四选一练习题库，按单元和学习项目整理：加减乘除、方程、因式分解、微积分、线性代数等。",
-      "keywords": "数学 练习 四则运算 因式分解 测验 题库",
+      "title": "基础数学",
+      "description": "从小学算术到大学数学，通过讲解和例题理解基本思路，用练习巩固所学。提供按单元练习和按学年测试。",
+      "about": "从小学算术到大学数学，学习支撑各个主题的基本思路。通过讲解理解原理，跟随例题学习解法，再用练习检验理解。内容包括四则运算、方程、因式分解、微积分和线性代数，按单元和学习项目整理。",
+      "keywords": "基础数学 数学 讲解 例题 练习 四则运算 因式分解 测验",
       "itemPage": {
+        "pageNavigation": "本页学习内容",
+        "practice": "练习",
         "examples": "例题",
         "exampleNumber": "例题{number}",
-        "mistakes": "常见错误",
-        "wrong": "错误",
-        "right": "正确",
         "start": "开始练习",
         "points": "要点",
         "example": "例题",
@@ -3897,7 +3896,7 @@
       "quiz": {
         "setComingSoon": "此题组正在准备中，请稍候。",
         "done": "已完成",
-        "backToMath": "数学题库",
+        "backToMath": "基础数学",
         "breadcrumb": "面包屑导航",
         "progress": "{current} / {total}",
         "correct": "正确",
@@ -3920,7 +3919,7 @@
         "nextSet": "下一组练习",
         "resume": "继续",
         "questionNumber": "第{number}题",
-        "shareText": "数学题库「{title}」答对 {correct}/{total} 题"
+        "shareText": "基础数学「{title}」答对 {correct}/{total} 题"
       },
       "arith": {
         "formula": "算式：",
@@ -5855,7 +5854,7 @@
         "resultBelow": "从小学一年级开始",
         "takeTest": "参加{level}测试",
         "challenge": "挑战{level}测试",
-        "shareText": "数学题库实力测评:{level}(共{total}题答对{correct}题)",
+        "shareText": "基础数学实力测评:{level}(共{total}题答对{correct}题)",
         "retry": "重新测评",
         "entry": "实力测评",
         "entryNote": "{count}道题随答题升降学年,了解你现在的水平"
@@ -6235,7 +6234,7 @@
           "heading": "信息来源与核实",
           "paragraphs": [
             "地震信息和全国气象警报使用日本气象厅发布的数据，政府 FAQ 搜索使用日本总务省公开的 FAQ，并注明出处。这些信息均按发布内容原样显示，不添加本站的预测。",
-            "日本网络安全事件汇总根据组织的正式公告和新闻报道逐条核实，并为每个事件标明确认程度和出处。数学题库的每道题都用计算机代数系统（SymPy）重新计算答案进行验证，应用题还会经过另一个 AI 的审核后才公开。"
+            "日本网络安全事件汇总根据组织的正式公告和新闻报道逐条核实，并为每个事件标明确认程度和出处。基础数学的每道题都用计算机代数系统（SymPy）重新计算答案进行验证，应用题还会经过另一个 AI 的审核后才公开。"
           ]
         },
         {
