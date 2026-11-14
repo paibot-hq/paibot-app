@@ -43,7 +43,7 @@ export async function loader(args: Route.LoaderArgs) {
   const [playable, records, tiers, example] = await Promise.all([getPlayableSets(), getSetRecords(args, entry.unit.id, entry.item.id), getSetTiers(entry.unit.id, entry.item.id), entry.unit.kind && !lesson ? getWorkedExample(entry.unit.id, entry.item.id) : null]);
   return {
     neighbors: { previous: entry.unit.items[entry.unit.items.indexOf(entry.item) - 1]?.id ?? null, next: entry.unit.items[entry.unit.items.indexOf(entry.item) + 1]?.id ?? null },
-    kind: entry.unit.kind, example, lesson, points: keyPoints(entry.unit.id, entry.item.id), unitId: entry.unit.id, itemId: entry.item.id, published: entry.unit.status === 'published', grade: jpGrade(entry.unit.id, entry.item.id),
+    kind: entry.unit.kind, example, lesson: lesson ? { sections: lesson.sections, examples: lesson.examples } : null, points: lesson?.sections.length ? [] : keyPoints(entry.unit.id, entry.item.id), unitId: entry.unit.id, itemId: entry.item.id, published: entry.unit.status === 'published', grade: jpGrade(entry.unit.id, entry.item.id),
     sets: entry.item.sets.map(set => ({ id: set.id, playable: playable.includes(`${entry.unit.id}/${entry.item.id}/${set.id}`), record: records[set.id], tiers: tiers[set.id] })),
   };
 }
@@ -75,31 +75,36 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
       {grade && <p className={styles.grade}>{t('gradeLabel', { grade: t(`grades.${grade}`) })}</p>}
       <h2 className={styles.about}>{ti('about')}</h2>
       <p className={styles.description}>{description}</p>
+      <nav className={styles.lessonNav} aria-label={ti('pageNavigation')}>
+        {(lesson?.sections.length || points.length > 0) ? <a href="#explanation">{ti('explanation')}</a> : null}
+        {(exampleQuestion || (lesson?.examples.length ?? 0) > 0) && <a href="#examples">{ti('examples')}</a>}
+        <a href="#practice">{ti('practice')}</a>
+      </nav>
       {start && <Link href={`/math/${unitId}/${itemId}/${start.id}`} className={styles.start} data-math-start>
         {ti('start')}{sets.length > 1 && <span className={styles.startSet}>{tq('practice', { number: start.id })}</span>}
       </Link>}
-      {lesson?.sections.map((section, index) => <section key={index} className={styles.lesson}>
+      {lesson?.sections.map((section, index) => <section key={index} id={index === 0 ? 'explanation' : undefined} className={styles.lesson}>
         <h2 className={styles.lessonHeading}>{text(section.heading)}</h2>
         {section.paragraphs.map((paragraph, at) => <p key={at}><MathText text={text(paragraph)} /></p>)}
         {section.formulas?.map(formula => <div key={formula} className={styles.formula}><MathTex tex={formula} block /></div>)}
         {section.figures?.map((figure, at) => <LessonFigureView key={at} figure={figure} />)}
         {section.after?.map((paragraph, at) => <p key={at}><MathText text={text(paragraph)} /></p>)}
       </section>)}
-      {points.length > 0 && <details className={styles.section} open>
+      {points.length > 0 && <details id="explanation" className={styles.section} open>
         <summary>{ti('points')}</summary>
         <div className={styles.points}>{points.map((point, index) => <div key={index} className={styles.point}>
           <p className={styles.pointNote}><MathText text={point[locale as 'ja' | 'en' | 'zh'] ?? point.en} /></p>
           {point.tex && <MathTex tex={point.tex} block />}
         </div>)}</div>
       </details>}
-      {exampleQuestion && <details className={styles.section} open>
+      {exampleQuestion && <details id="examples" className={styles.section} open>
         <summary>{ti('example')}</summary>
         <div className={styles.example}>
           <div className={styles.exampleQuestion}>{exampleQuestion.prompt}</div>
           <div className={styles.exampleSolution}>{exampleQuestion.explanation}</div>
         </div>
       </details>}
-      {lesson && lesson.examples.length > 0 && <section className={styles.lesson}>
+      {lesson && lesson.examples.length > 0 && <section id="examples" className={styles.lesson}>
         <h2 className={styles.lessonHeading}>{ti('examples')}</h2>
         {lesson.examples.map((item, index) => <div key={index} className={styles.lessonExample}>
           <p className={styles.exampleLabel}>{ti('exampleNumber', { number: index + 1 })}</p>
@@ -112,16 +117,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
           <p className={styles.exampleNote}><span className={styles.noteLabel}>{ti('explanation')}</span><MathText text={text(item.note)} /></p>
         </div>)}
       </section>}
-      {lesson && lesson.mistakes.length > 0 && <section className={styles.lesson}>
-        <h2 className={styles.lessonHeading}>{ti('mistakes')}</h2>
-        {lesson.mistakes.map((item, index) => <div key={index} className={styles.mistake}>
-          {item.kind !== 'reason' && item.question && <div className={styles.exampleQuestion}>{lineTex(item.question, shown(item.style)).map(tex => <MathTex key={tex} tex={tex} block />)}</div>}
-          <p className={styles.wrong}><span className={styles.mark}>{ti('wrong')}</span>{item.kind === 'reason' ? <MathText text={text(item.wrong)} /> : <MathTex tex={stepTex(item.wrong, shown(item.style))} />}</p>
-          <p className={styles.right}><span className={styles.mark}>{ti('right')}</span>{item.kind === 'reason' ? <MathText text={text(item.right)} /> : <MathTex tex={stepTex(item.right, shown(item.style))} />}</p>
-          <p className={styles.exampleNote}><MathText text={text(item.note)} /></p>
-        </div>)}
-      </section>}
-      <p id="practice" className={styles.choose}>{tq('chooseSet')}</p>
+      <h2 id="practice" className={styles.choose}>{tq('chooseSet')}</h2>
       <ul className={styles.sets}>
         {sets.map(set => { const { id, playable, record, tiers } = set; const done = isDone(set); return (
           <li key={id}>
@@ -159,7 +155,5 @@ function Steps({ lines, style }: { lines: string[]; style?: FormulaStyle }) {
   </div>)}</div>;
 }
 
-// A one-line equation (a mistake and its correction) as a single piece of TeX.
-const stepTex = (line: string, style?: FormulaStyle) => stepRows(line, style).flat().join(' ');
 // A question as TeX, one line per equation of a system.
 const lineTex = (line: string, style?: FormulaStyle) => stepRows(line, style).map(row => row.join(' ').replace(/^= /, ''));

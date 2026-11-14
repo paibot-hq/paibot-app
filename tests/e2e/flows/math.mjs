@@ -152,7 +152,7 @@ export default async function ({ page, main, base, go, errors }) {
     assert.equal(await main.locator('[data-share] a[target="_blank"]').count(), 3);
     return both;
   };
-  assert.match(await shareText(), new RegExp(`^Math Practice "Order of operations": \\d/5 correct\\n${base}/en/math/arith/order-of-operations/1$`));
+  assert.match(await shareText(), new RegExp(`^Math Foundations "Order of operations": \\d/5 correct\\n${base}/en/math/arith/order-of-operations/1$`));
   await main.locator('[data-share] [data-network="copy"]').click();
   await main.getByText('Copied the words and the link to share.').waitFor();
   assert.equal(await page.evaluate(() => navigator.clipboard.readText()), await shareText(), 'copy puts the same words and link on the clipboard');
@@ -188,7 +188,7 @@ export default async function ({ page, main, base, go, errors }) {
   const reviewed = await main.locator('[data-math-review] a').evaluateAll(links => links.map(link => link.getAttribute('href')));
   assert.equal(reviewed.length, 10);
   assert.ok(reviewed.every(href => /^\/en\/math\/[a-z0-9-]+\/[a-z0-9-]+$/.test(href)), 'each problem links its learning item');
-  assert.match(await shareText(), new RegExp(`^Math Practice "Junior high 1 test": \\d+/10 correct\\n${base}/en/math/test/m1$`));
+  assert.match(await shareText(), new RegExp(`^Math Foundations "Junior high 1 test": \\d+/10 correct\\n${base}/en/math/test/m1$`));
   await main.getByRole('button', { name: 'Try other problems' }).click();
   await main.getByText('1 / 10', { exact: true }).waitFor();
   await go('math/test/summary-middle');
@@ -212,7 +212,7 @@ export default async function ({ page, main, base, go, errors }) {
   assert.match(placed[0], /^High 1 \(Math I & A\)・/, 'starts at High 1');
   assert.ok(new Set(placed.map(label => label.split('・')[0])).size > 1, 'the year moves with the answers');
   assert.match(await main.locator('[data-placement-result] a').first().getAttribute('href'), /^\/en\/math\/test\/[a-z0-9-]+$/);
-  assert.match(await shareText(), new RegExp(`^Math Practice placement: .+ \\(\\d+ of 15 correct\\)\\n${base}/en/math/test/placement$`));
+  assert.match(await shareText(), new RegExp(`^Math Foundations placement: .+ \\(\\d+ of 15 correct\\)\\n${base}/en/math/test/placement$`));
   await main.getByRole('button', { name: 'Take it again' }).click();
   await main.locator('[data-placement-start="middle"]').waitFor();
   assert.equal((await page.goto(`${base}/en/math/test/x9`)).status(), 404);
