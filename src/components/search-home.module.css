@@ -153,6 +153,22 @@
   line-height: 1.4;
   font-feature-settings: "palt" 1;
 }
+.titleRow {
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+  flex-wrap: wrap;
+}
+.localBadge {
+  font-size: .68rem;
+  font-weight: 650;
+  line-height: 1.3;
+  padding: .05rem .42rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, light-dark(#0a8f6a, #3fd3a2) 14%, transparent);
+  color: light-dark(#0a8f6a, #3fd3a2);
+  white-space: nowrap;
+}
 .all li { position: relative; }
 /* The description: a note under the card while it is hovered or focused; read by screen readers all the time. Where
    there is no hover (a phone), it is a plain line under the name. */
@@ -217,6 +233,44 @@
   display: flex;
   justify-content: center;
   margin: 1rem 0 0;
+}
+.shelvesBar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .4rem;
+  margin: 1.1rem 0 0;
+}
+.shelfChip {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .36rem .85rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-strong) 85%, transparent);
+  color: var(--muted);
+  font: inherit;
+  font-size: .83rem;
+  cursor: pointer;
+  transition: border-color .15s ease, background .15s ease, color .15s ease;
+}
+.shelfChip:hover, .shelfChip:focus-visible {
+  color: var(--text);
+  border-color: var(--accent);
+  outline: none;
+}
+.shelfChip[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface-strong));
+  color: var(--text);
+  font-weight: 650;
+}
+.shelfLead {
+  margin: -.2rem 0 .9rem;
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.6;
 }
 .chip {
   display: inline-flex;

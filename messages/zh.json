@@ -329,7 +329,9 @@
       "related": "更多应用",
       "allApps": "全部应用",
       "categoryNavigation": "应用分类",
-      "faq": "常见问题"
+      "faq": "常见问题",
+      "localBadge": "本地",
+      "localNote": "浏览器内处理・不上传"
     },
     "appList": {
       "eyebrow": "APPS",
@@ -1998,6 +2000,16 @@
       },
       "introduction": "分享前检查照片，整理文字和数据，练习数学或代码。从想做的事情出发，选择应用并立即试用。",
       "startTitle": "这种时候",
+      "shelfFilter": "显示分类",
+      "shelves": {
+        "all": "全部",
+        "tools": "工具与资讯",
+        "learn": "学习",
+        "play": "实验与休闲"
+      },
+      "playLabTitle": "互动实验与小憩",
+      "playLabBody": "可动手尝试的数学与物理视觉实验，以及学习间隙 30 秒即可游玩的轻松小游戏。",
+      "morePlayLab": "查看全部游戏与实验应用 →",
       "siteNote": "部分应用在设备上处理照片或代码，其他应用会获取外部信息。各页面会说明数据的处理方式与限制。",
       "aboutLink": "运营与联系方式",
       "tasks": {
@@ -3919,7 +3931,9 @@
         "nextSet": "下一组练习",
         "resume": "继续",
         "questionNumber": "第{number}题",
-        "shareText": "基础数学「{title}」答对 {correct}/{total} 题"
+        "shareText": "基础数学「{title}」答对 {correct}/{total} 题",
+        "labTitle": "动手体验相关实验",
+        "breakTitle": "小憩一下（30秒小游戏）"
       },
       "arith": {
         "formula": "算式：",

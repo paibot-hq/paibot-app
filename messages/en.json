@@ -329,7 +329,9 @@
       "related": "More apps",
       "allApps": "All apps",
       "categoryNavigation": "App categories",
-      "faq": "Frequently asked questions"
+      "faq": "Frequently asked questions",
+      "localBadge": "On-device",
+      "localNote": "Processed in your browser"
     },
     "appList": {
       "eyebrow": "APPS",
@@ -1998,6 +2000,16 @@
       },
       "introduction": "Check photos before sharing, prepare text and data, or practise maths and code. Choose what you want to do and try an app here.",
       "startTitle": "When you need to…",
+      "shelfFilter": "Show section",
+      "shelves": {
+        "all": "All",
+        "tools": "Tools & Info",
+        "learn": "Learn",
+        "play": "Lab & Break"
+      },
+      "playLabTitle": "Interactive Lab & Quick Break",
+      "playLabBody": "Visual math and physics experiments you can play with, plus quick 30-second games for a study break.",
+      "morePlayLab": "See all games & experiments →",
       "siteNote": "Some apps process photos or code on your device; others fetch external information. Each page explains its data handling and limits.",
       "aboutLink": "About us and contact",
       "tasks": {
@@ -3919,7 +3931,9 @@
         "nextSet": "Next practice",
         "resume": "Continue",
         "questionNumber": "Question {number}",
-        "shareText": "Math Foundations \"{title}\": {correct}/{total} correct"
+        "shareText": "Math Foundations \"{title}\": {correct}/{total} correct",
+        "labTitle": "Explore this topic interactively",
+        "breakTitle": "Quick study break"
       },
       "arith": {
         "formula": "Expression:",

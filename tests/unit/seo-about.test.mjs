@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { APP_CATALOG, APP_TAGS, relatedApps } from '../../src/lib/app-catalog.ts';
+import { APP_CATALOG, APP_TAGS, PLAY_LAB_SLUGS, mathLabAndBreak, relatedApps } from '../../src/lib/app-catalog.ts';
 import { toolStructuredData } from '../../src/lib/seo.ts';
 
 test('related apps: those sharing the most tags first, never itself, never private or coming soon, at most six', () => {
@@ -59,6 +59,26 @@ test('every public tool has its text about it, and how to use it, in all three l
     const app = JSON.parse(readFileSync(new URL(`../../messages/${locale}.json`, import.meta.url), 'utf8')).App;
     for (const tool of APP_CATALOG.filter(a => a.status === 'published' && a.href && !a.private)) {
       for (const key of ['about']) assert.ok(typeof app[tool.messageKey]?.[key] === 'string' && app[tool.messageKey][key].length >= 8, `${locale} ${tool.slug}.${key}`);
+    }
+  }
+});
+
+test('play lab shelf and math lab/break recommendations resolve to published public apps, and localOnly apps are public tools', () => {
+  for (const slug of PLAY_LAB_SLUGS) {
+    const app = APP_CATALOG.find(a => a.slug === slug);
+    assert.ok(app && app.status === 'published' && app.href && !app.private, `play lab: ${slug}`);
+  }
+  const localApps = APP_CATALOG.filter(a => a.localOnly);
+  assert.ok(localApps.length >= 20, 'localOnly tools are marked');
+  for (const app of localApps) {
+    assert.ok(app.status === 'published' && app.href, `localOnly: ${app.slug}`);
+  }
+  for (const domain of ['number', 'algebra', 'functions', 'geometry', 'data', 'logic', 'linear-algebra', 'calculus', undefined]) {
+    const { lab, breakApps } = mathLabAndBreak(domain);
+    assert.equal(lab.length, 2, `lab for ${domain}`);
+    assert.equal(breakApps.length, 2, `break for ${domain}`);
+    for (const app of [...lab, ...breakApps]) {
+      assert.ok(app.status === 'published' && app.href, app.slug);
     }
   }
 });

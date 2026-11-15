@@ -329,7 +329,9 @@
       "related": "ほかのアプリ",
       "allApps": "すべてのアプリ",
       "categoryNavigation": "アプリのカテゴリ",
-      "faq": "よくある質問"
+      "faq": "よくある質問",
+      "localBadge": "端末内",
+      "localNote": "ブラウザ内処理・送信なし"
     },
     "appList": {
       "eyebrow": "APPS",
@@ -1998,6 +2000,16 @@
       },
       "introduction": "写真の公開前の確認、文章やデータの整理、数学やコードの練習。やりたいことからアプリを選び、その場で試せます。",
       "startTitle": "こんなときに",
+      "shelfFilter": "表示する棚",
+      "shelves": {
+        "all": "すべて",
+        "tools": "実用・情報",
+        "learn": "学習",
+        "play": "実験・息抜き"
+      },
+      "playLabTitle": "実験ラボ・息抜き",
+      "playLabBody": "数式や物理を動かして試す視覚実験と、勉強の合間に30秒で遊べるミニゲームです。",
+      "morePlayLab": "ゲーム・実験アプリをすべて見る →",
       "siteNote": "写真やコードを端末内で処理するアプリと、外部の情報を取得するアプリがあります。データの扱いや制限は各ページで確認できます。",
       "aboutLink": "運営・問い合わせについて",
       "tasks": {
@@ -3919,7 +3931,9 @@
         "nextSet": "次の練習へ",
         "resume": "続きから",
         "questionNumber": "{number}問目",
-        "shareText": "基礎数学「{title}」で {correct}/{total} 正解しました"
+        "shareText": "基礎数学「{title}」で {correct}/{total} 正解しました",
+        "labTitle": "この分野を動かして体感する",
+        "breakTitle": "ひと休み（30秒ゲーム）"
       },
       "arith": {
         "formula": "式：",
