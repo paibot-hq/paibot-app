@@ -12,10 +12,7 @@ export default function Card({ app, td, locale, signedIn, favorited }: { app: Ap
       <Link href={app.href!}>
         <app.icon aria-hidden="true" />
         <span className={styles.name}>
-          <span className={styles.titleRow}>
-            <span>{td(`${app.messageKey}.title`)}</span>
-            {app.localOnly && <span className={styles.localBadge}>{td("apps.localBadge")}</span>}
-          </span>
+          {td(`${app.messageKey}.title`)}
           <span className={styles.about}>{td(`${app.messageKey}.description`)}</span>
         </span>
       </Link>

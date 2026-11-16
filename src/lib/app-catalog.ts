@@ -122,7 +122,7 @@ export type AppSlug = (typeof APP_CATALOG)[number]["slug"];
 export const FEATURED_SLUGS: readonly AppSlug[] = ["math", "breaches", "date-calc", "wc", "tax", "password", "metadata", "mosaic"];
 
 // Interactive visual experiments and quick break games shown in their own shelf at the bottom of the top page.
-export const PLAY_LAB_SLUGS: readonly AppSlug[] = ["fourier", "pendulum", "life", "polyhedra", "code-draw", "strings", "color-trick", "puchi"];
+export const PLAY_LAB_SLUGS: readonly AppSlug[] = ["fourier", "pendulum", "life", "polyhedra", "color-trick", "puchi"];
 
 // Maps a math domain to interactive lab experiments to try after finishing a practice set, plus two quick break games.
 const DOMAIN_LAB_SLUGS: Record<string, readonly AppSlug[]> = {
