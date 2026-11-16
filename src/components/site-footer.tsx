@@ -13,7 +13,6 @@ export default function SiteFooter({ year }: { year: number }) {
       <Link href="/about">{t('about')}</Link>
       <Link href="/about#contact">{t('contact')}</Link>
       <Link href="/ranking">{t('ranking')}</Link>
-      <Link href="/supporter">{t('supporter')}</Link>
       <Link href="/legal/terms">{t('terms')}</Link>
       <Link href="/legal/privacy">{t('privacy')}</Link>
       <Link href="/legal/commerce">{t('commerce')}</Link>
