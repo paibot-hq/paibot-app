@@ -18,7 +18,7 @@ const sitePaths = ["", "/apps", "/about", "/ranking", "/supporter", "/legal/term
 const mathSetPaths = MATH_CATALOG.filter(unit => unit.status === "published").flatMap(unit => [`/math/${unit.id}`, ...unit.items.map(item => `/math/${unit.id}/${item.id}`)]);
 export const publicPaths: readonly string[] = [
   ...sitePaths,
-  ...(APP_CATALOG as readonly AppData[]).filter(app => app.status === "published" && app.href && !app.private).map(app => app.href!),
+  ...(APP_CATALOG as readonly AppData[]).filter(app => app.status === "published" && app.href && !app.private && !app.noindex).map(app => app.href!),
   ...mathSetPaths,
 ];
 

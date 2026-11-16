@@ -278,16 +278,19 @@
 .intro { color: var(--muted); line-height: 1.8; }
 
 .introduction { max-width: 40rem; margin: 0 auto 1.6rem; color: var(--muted); line-height: 1.8; text-align: center; }
-.tasks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .85rem; }
-.task { position: relative; min-width: 0; padding: 1.25rem 1.35rem 1.15rem; overflow: hidden; border: 1px solid var(--line); border-radius: 16px; background: var(--surface-strong); box-shadow: 0 1px 2px var(--shadow), 0 16px 32px -24px var(--shadow); }
+.tasks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1rem; }
+.task { position: relative; min-width: 0; padding: 1.6rem 1.5rem 1.4rem; overflow: hidden; border: 1px solid var(--line); border-radius: 18px; background: var(--surface-strong); box-shadow: 0 1px 2px var(--shadow), 0 16px 32px -24px var(--shadow); }
 .task::before { content: ""; position: absolute; inset: 0 0 auto; height: 3px; background: var(--tone, var(--accent)); }
 .task:nth-child(1) { --tone: light-dark(#2563d6, #6aa6ff); }
 .task:nth-child(2) { --tone: light-dark(#0a8f6a, #3fd3a2); }
 .task:nth-child(3) { --tone: light-dark(#c25e00, #ffb057); }
 .task:nth-child(4) { --tone: light-dark(#6d47e0, #a98eff); }
-.task h3 { margin: 0 0 .35rem; color: var(--text); font-size: 1.08rem; font-weight: 800; line-height: 1.4; }
-.task p { margin: 0; font-size: .88rem; line-height: 1.65; color: var(--muted); }
-.taskLinks { display: flex; flex-wrap: wrap; gap: .5rem; margin: .75rem 0 0; }
+.task h3 { margin: 0 0 .5rem; color: var(--text); font-size: 1.2rem; font-weight: 800; line-height: 1.45; }
+.task p, .task li { font-size: .9rem; line-height: 1.75; color: var(--muted); }
+.task p { margin: 0 0 .8rem; }
+.all .task ol { display: block; list-style: decimal; padding-left: 1.3rem; }
+.task li + li { margin-top: .4rem; }
+.taskLinks { display: flex; flex-wrap: wrap; gap: .5rem; margin: .9rem 0; }
 .all .taskLinks a { display: inline-flex; height: auto; padding: .35rem .85rem; border: 0; border-radius: 999px; background: color-mix(in srgb, var(--accent) 11%, transparent); box-shadow: none; color: var(--accent-dark); font-size: .85rem; font-weight: 650; text-decoration: none; }
 .all .taskLinks a:hover, .all .taskLinks a:focus-visible { background: color-mix(in srgb, var(--accent) 20%, transparent); transform: none; box-shadow: none; }
 .siteNote { margin: 2rem 0 0; color: var(--muted); font-size: .85rem; line-height: 1.8; }

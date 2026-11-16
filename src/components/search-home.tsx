@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react"
 import { useLocale, useTranslations } from "use-intl";
 import { Link } from "../i18n/navigation";
 import { apps, type AppEntry, type DynamicT } from "../lib/apps";
-import { FEATURED_SLUGS, PLAY_LAB_SLUGS } from "../lib/app-catalog";
+import { FEATURED_SLUGS } from "../lib/app-catalog";
 import { prepare, search, type Entry } from "../lib/search";
 import Card from "./app-card";
 import SiteFooter from "./site-footer";
@@ -36,12 +36,9 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
   const results = useMemo(() => search(prepared, query), [prepared, query]);
   // The signed-in visitor's favourite apps come first.
   const mine = apps.filter(app => app.status === "published" && app.href && favorites.has(app.slug));
-  const popularApps = popular.map(p => apps.find(app => app.slug === p.slug && app.status === "published" && app.href)).filter((app): app is AppEntry => Boolean(app));
+  const popularApps = popular.map(p => apps.find(app => app.slug === p.slug && app.status === "published" && app.href && !app.noindex)).filter((app): app is AppEntry => Boolean(app));
   const featuredApps = FEATURED_SLUGS.map(slug => apps.find(app => app.slug === slug && app.status === "published" && app.href))
-    .filter((app): app is AppEntry => Boolean(app) && !popularApps.includes(app!))
-    .slice(0, 6);
-  const playLabApps = PLAY_LAB_SLUGS.map(slug => apps.find(app => app.slug === slug && app.status === "published" && app.href))
-    .filter((app): app is AppEntry => Boolean(app));
+    .filter((app): app is AppEntry => Boolean(app) && !popularApps.includes(app!));
   const total = apps.filter(app => app.status === "published" && app.href && !app.private).length;
   // "/" jumps to the box from anywhere on the page, as on most sites.
   useEffect(() => {
@@ -135,6 +132,7 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
                     <Link href={first}>{ts(`tasks.${key}.firstLink`)} →</Link>
                     <Link href={second}>{ts(`tasks.${key}.secondLink`)} →</Link>
                   </div>
+                  <ol>{(["first", "second"] as const).map(step => <li key={step}>{ts(`tasks.${key}.${step}`)}</li>)}</ol>
                 </article>)}
               </div>
             </section>
@@ -149,11 +147,6 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
               <h2>{ts("featured")}</h2>
               <ul>{featuredApps.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited={favorites.has(app.slug)} />)}</ul>
               <p className={styles.more}><Link href="/apps" data-search="all-apps">{ts("allApps", { count: total })}</Link></p>
-            </section>
-            <section data-search="play-lab" data-tag="art">
-              <h2>{ts("playLabTitle")}</h2>
-              <ul>{playLabApps.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited={favorites.has(app.slug)} />)}</ul>
-              <p className={styles.more}><Link href="/apps?tag=game">{ts("morePlayLab")}</Link></p>
             </section>
             </>}
           </nav>

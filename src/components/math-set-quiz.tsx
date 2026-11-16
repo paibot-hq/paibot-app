@@ -2,9 +2,6 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { useFetcher } from 'react-router';
 import { useLocale, useTranslations } from 'use-intl';
 import { Link } from '../i18n/navigation';
-import { mathLabAndBreak } from '../lib/app-catalog';
-import type { DynamicT } from '../lib/apps';
-import { MATH_CATALOG } from '../lib/math-catalog';
 import { markSetDone } from '../lib/math-local-done';
 import { saveResume, type MathResume } from '../lib/math-resume';
 import { useFavoritesData } from '../routes/locale';
@@ -55,7 +52,6 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
 }) {
   const t = useTranslations('App.math.quiz');
   const tm = useTranslations('App.math');
-  const ta = useTranslations('App') as unknown as DynamicT;
   const [index, setIndex] = useState(0);
   const [selected, setSelected] = useState<number | null>(null);
   const [answers, setAnswers] = useState<number[]>([]);
@@ -164,24 +160,6 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
             : saver.state !== 'idle' ? null
               : saver.data?.ok ? t('saved') : saver.data ? t('saveFailed') : null}
         </p>}
-        {current && (() => {
-          const domain = MATH_CATALOG.find(u => u.id === current.unit)?.domain;
-          const { lab, breakApps } = mathLabAndBreak(domain);
-          return <aside className={styles.breakBox} data-math-break>
-            <div className={styles.breakGroup}>
-              <p className={styles.breakHeading}>{t('labTitle')}</p>
-              <div className={styles.breakLinks}>
-                {lab.map(app => <Link key={app.slug} href={app.href!} className={styles.breakPill}>{ta(`${app.messageKey}.title`)} →</Link>)}
-              </div>
-            </div>
-            <div className={styles.breakGroup}>
-              <p className={styles.breakHeading}>{t('breakTitle')}</p>
-              <div className={styles.breakLinks}>
-                {breakApps.map(app => <Link key={app.slug} href={app.href!} className={styles.breakPill}>{ta(`${app.messageKey}.title`)} →</Link>)}
-              </div>
-            </div>
-          </aside>;
-        })()}
       </div>
     </ToolLayout>;
   }

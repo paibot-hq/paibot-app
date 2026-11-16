@@ -1,13 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { APP_CATALOG, APP_TAGS, PLAY_LAB_SLUGS, mathLabAndBreak, relatedApps } from '../../src/lib/app-catalog.ts';
-import { toolStructuredData } from '../../src/lib/seo.ts';
+import { APP_CATALOG, APP_TAGS, isNoindexAppPath, relatedApps } from '../../src/lib/app-catalog.ts';
+import { publicPaths, toolStructuredData } from '../../src/lib/seo.ts';
 
-test('related apps: those sharing the most tags first, never itself, never private or coming soon, at most six', () => {
+test('related apps: those sharing the most tags first, never itself, never private, noindex or coming soon, at most six', () => {
   for (const app of APP_CATALOG.filter(a => a.status === 'published' && a.href)) {
     const related = relatedApps(app);
     assert.ok(related.length > 0 && related.length <= 6, app.slug);
-    assert.ok(!related.some(r => r.slug === app.slug || r.private || r.status !== 'published' || !r.href), app.slug);
+    assert.ok(!related.some(r => r.slug === app.slug || r.private || r.noindex || r.status !== 'published' || !r.href), app.slug);
     assert.equal(new Set(related.map(r => r.slug)).size, related.length);
     const shared = related.map(r => r.tags.filter(tag => app.tags.includes(tag)).length);
     assert.deepEqual(shared, [...shared].sort((a, b) => b - a), `${app.slug}: more shared tags come first`);
@@ -18,8 +18,9 @@ test('related apps: those sharing the most tags first, never itself, never priva
     { slug: 'c', href: '/c', tags: ['text'], status: 'published', messageKey: 'c' },
     { slug: 'd', href: '/d', tags: ['text', 'dev'], status: 'published', messageKey: 'd' },
     { slug: 'e', tags: ['dev'], status: 'comingSoon', messageKey: 'e' },
+    { slug: 'f', href: '/f', tags: ['dev', 'text'], status: 'published', messageKey: 'f', noindex: true },
   ];
-  assert.deepEqual(relatedApps(list[0], list).map(a => a.slug), ['d', 'c', 'b'], 'two shared tags, then one, then none; a coming-soon app is not linked');
+  assert.deepEqual(relatedApps(list[0], list).map(a => a.slug), ['d', 'c', 'b'], 'two shared tags, then one, then none; coming-soon and noindex apps are not linked');
 });
 
 test('every app has one to three known tags, none twice', () => {
@@ -33,7 +34,7 @@ test('every app has one to three known tags, none twice', () => {
 test('every tag has a name in all three languages and is used by a published app', async () => {
   const { readFileSync } = await import('node:fs');
   for (const locale of ['ja', 'en', 'zh']) {
-    const { App } = JSON.parse(readFileSync(`messages/${locale}.json`, 'utf8'));
+    const { App } = JSON.parse(readFileSync(new URL(`../../messages/${locale}.json`, import.meta.url), 'utf8'));
     assert.deepEqual(Object.keys(App.tags).sort(), [...APP_TAGS].sort(), locale);
     for (const tag of APP_TAGS) assert.ok(App.tags[tag]?.trim(), `${locale} tags.${tag}`);
   }
@@ -63,22 +64,24 @@ test('every public tool has its text about it, and how to use it, in all three l
   }
 });
 
-test('play lab shelf and math lab/break recommendations resolve to published public apps, and localOnly apps are public tools', () => {
-  for (const slug of PLAY_LAB_SLUGS) {
-    const app = APP_CATALOG.find(a => a.slug === slug);
-    assert.ok(app && app.status === 'published' && app.href && !app.private, `play lab: ${slug}`);
+test('noindex apps are excluded from publicPaths and detected by isNoindexAppPath, and localOnly apps are public tools', () => {
+  const noindexApps = APP_CATALOG.filter(a => a.noindex);
+  assert.ok(noindexApps.length >= 30);
+  for (const app of noindexApps) {
+    assert.ok(!publicPaths.includes(app.href), `publicPaths should not include ${app.href}`);
+    assert.equal(isNoindexAppPath(`/ja${app.href}`), true, app.href);
+    assert.equal(isNoindexAppPath(`/en${app.href}.data`), true, `${app.href}.data`);
   }
+  const indexedApps = APP_CATALOG.filter(a => a.status === 'published' && a.href && !a.private && !a.noindex);
+  for (const app of indexedApps) {
+    assert.ok(publicPaths.includes(app.href), `publicPaths should include ${app.href}`);
+    assert.equal(isNoindexAppPath(`/ja${app.href}`), false, app.href);
+  }
+  assert.equal(isNoindexAppPath('/ja'), false);
+  assert.equal(isNoindexAppPath('/ja/apps'), false);
   const localApps = APP_CATALOG.filter(a => a.localOnly);
   assert.ok(localApps.length >= 20, 'localOnly tools are marked');
   for (const app of localApps) {
     assert.ok(app.status === 'published' && app.href, `localOnly: ${app.slug}`);
-  }
-  for (const domain of ['number', 'algebra', 'functions', 'geometry', 'data', 'logic', 'linear-algebra', 'calculus', undefined]) {
-    const { lab, breakApps } = mathLabAndBreak(domain);
-    assert.equal(lab.length, 2, `lab for ${domain}`);
-    assert.equal(breakApps.length, 2, `break for ${domain}`);
-    for (const app of [...lab, ...breakApps]) {
-      assert.ok(app.status === 'published' && app.href, app.slug);
-    }
   }
 });

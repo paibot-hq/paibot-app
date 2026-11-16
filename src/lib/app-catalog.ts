@@ -20,8 +20,11 @@ export type AppData = {
   // `title`/`description`/`keywords` (e.g. "json" → App.json.title).
   messageKey: string;
   // Signed-in only (noindex, not in the sitemap); every other published app
-  // with an href is a public SEO page (see publicPaths in seo.ts).
+  // with an href and without `noindex` is a public SEO page (see publicPaths in seo.ts).
   private?: true;
+  // Kept out of search indexing and the sitemap (games, fortune-telling and
+  // lightweight visual toys without a multi-section guide and FAQ).
+  noindex?: true;
   // Processes user input (files, photos, text, code, SQL, dates) entirely in
   // the browser without sending it to a server.
   localOnly?: true;
@@ -30,8 +33,8 @@ export type AppData = {
 export const APP_CATALOG = [
   // 学習 / Study
   { slug: "math", href: "/math", tags: ["learn", "math"], status: "published", messageKey: "math" },
-  { slug: "quiz", href: "/quiz", tags: ["learn", "game"], status: "published", messageKey: "quiz" },
-  { slug: "arith", href: "/arith", tags: ["learn", "math"], status: "published", messageKey: "arith", localOnly: true },
+  { slug: "quiz", href: "/quiz", tags: ["learn", "game"], status: "published", messageKey: "quiz", noindex: true },
+  { slug: "arith", href: "/arith", tags: ["learn", "math"], status: "published", messageKey: "arith", noindex: true, localOnly: true },
 
   // 開発 / Dev
   { slug: "linux", href: "/linux", tags: ["dev", "learn"], status: "published", messageKey: "linux", localOnly: true },
@@ -47,23 +50,23 @@ export const APP_CATALOG = [
   { slug: "wc", href: "/wc", tags: ["text"], status: "published", messageKey: "wc", localOnly: true },
   { slug: "mosaic", href: "/mosaic", tags: ["photo", "security"], status: "published", messageKey: "mosaic", localOnly: true },
   { slug: "password", href: "/password", tags: ["security"], status: "published", messageKey: "password", localOnly: true },
-  { slug: "life", href: "/life", tags: ["science", "math"], status: "published", messageKey: "life" },
-  { slug: "pendulum", href: "/pendulum", tags: ["science"], status: "published", messageKey: "pendulum" },
-  { slug: "fourier", href: "/fourier", tags: ["math", "art"], status: "published", messageKey: "fourier" },
-  { slug: "series", href: "/series", tags: ["math"], status: "published", messageKey: "series" },
-  { slug: "stocks", href: "/stocks", tags: ["info"], status: "published", messageKey: "stocks" },
+  { slug: "life", href: "/life", tags: ["science", "math"], status: "published", messageKey: "life", localOnly: true },
+  { slug: "pendulum", href: "/pendulum", tags: ["science"], status: "published", messageKey: "pendulum", localOnly: true },
+  { slug: "fourier", href: "/fourier", tags: ["math", "art"], status: "published", messageKey: "fourier", localOnly: true },
+  { slug: "series", href: "/series", tags: ["math"], status: "published", messageKey: "series", localOnly: true },
+  { slug: "stocks", href: "/stocks", tags: ["info"], status: "published", messageKey: "stocks", noindex: true },
   { slug: "quake", href: "/quake", tags: ["info"], status: "published", messageKey: "quake" },
   { slug: "warnings", href: "/warnings", tags: ["info"], status: "published", messageKey: "warnings" },
-  { slug: "approx", href: "/approx", tags: ["math", "game"], status: "published", messageKey: "approx" },
-  { slug: "collector", href: "/collector", tags: ["math"], status: "published", messageKey: "collector" },
+  { slug: "approx", href: "/approx", tags: ["math", "game"], status: "published", messageKey: "approx", localOnly: true },
+  { slug: "collector", href: "/collector", tags: ["math"], status: "published", messageKey: "collector", localOnly: true },
   { slug: "govfaq", href: "/govfaq", tags: ["info"], status: "published", messageKey: "govfaq" },
   { slug: "metadata", href: "/metadata", tags: ["photo", "security"], status: "published", messageKey: "metadata", localOnly: true },
   { slug: "grapher", href: "/grapher", tags: ["math", "calc"], status: "published", messageKey: "grapher", localOnly: true },
-  { slug: "noise", href: "/noise", tags: ["sound"], status: "published", messageKey: "noise" },
-  { slug: "stopwatch", href: "/stopwatch", tags: ["time"], status: "published", messageKey: "stopwatch", localOnly: true },
-  { slug: "metronome", href: "/metronome", tags: ["sound", "time"], status: "published", messageKey: "metronome" },
-  { slug: "business-card", href: "/business-card", tags: ["document"], status: "published", messageKey: "businessCard", localOnly: true },
-  { slug: "resignation", href: "/resignation", tags: ["document"], status: "published", messageKey: "resignation", localOnly: true },
+  { slug: "noise", href: "/noise", tags: ["sound"], status: "published", messageKey: "noise", noindex: true },
+  { slug: "stopwatch", href: "/stopwatch", tags: ["time"], status: "published", messageKey: "stopwatch", noindex: true, localOnly: true },
+  { slug: "metronome", href: "/metronome", tags: ["sound", "time"], status: "published", messageKey: "metronome", noindex: true },
+  { slug: "business-card", href: "/business-card", tags: ["document"], status: "published", messageKey: "businessCard", noindex: true, localOnly: true },
+  { slug: "resignation", href: "/resignation", tags: ["document"], status: "published", messageKey: "resignation", noindex: true, localOnly: true },
   { slug: "tax", href: "/tax", tags: ["calc"], status: "published", messageKey: "tax", localOnly: true },
   { slug: "split", href: "/split", tags: ["calc"], status: "published", messageKey: "split", localOnly: true },
   { slug: "unit-converter", href: "/unit-converter", tags: ["calc"], status: "published", messageKey: "unitConverter", localOnly: true },
@@ -75,44 +78,44 @@ export const APP_CATALOG = [
   { slug: "site-check", href: "/site-check", tags: ["network"], status: "published", messageKey: "siteCheck" },
 
   // ゲーム / Game
-  { slug: "color-trick", href: "/color-trick", tags: ["game"], status: "published", messageKey: "colorTrick" },
-  { slug: "dice", href: "/dice", tags: ["game"], status: "published", messageKey: "dice" },
-  { slug: "reaction", href: "/reaction", tags: ["game"], status: "published", messageKey: "reaction" },
-  { slug: "typing", href: "/typing", tags: ["game", "text"], status: "published", messageKey: "typing" },
-  { slug: "iq-test", href: "/iq-test", tags: ["fortune"], status: "published", messageKey: "iqTest" },
-  { slug: "personality", href: "/personality", tags: ["fortune"], status: "published", messageKey: "personality" },
-  { slug: "timing", href: "/timing", tags: ["game", "time"], status: "published", messageKey: "timing" },
-  { slug: "pinball", href: "/pinball", tags: ["game", "science"], status: "published", messageKey: "pinball" },
-  { slug: "strings", href: "/strings", tags: ["sound", "science"], status: "published", messageKey: "strings" },
-  { slug: "koma", href: "/koma", tags: ["game", "science"], status: "published", messageKey: "koma" },
-  { slug: "polyhedra", href: "/polyhedra", tags: ["math", "art"], status: "published", messageKey: "polyhedra" },
-  { slug: "balls", href: "/balls", tags: ["game"], status: "published", messageKey: "balls" },
-  { slug: "kaleidoscope", href: "/kaleidoscope", tags: ["art"], status: "published", messageKey: "kaleidoscope" },
-  { slug: "glitch", href: "/glitch", tags: ["art"], status: "published", messageKey: "glitch" },
-  { slug: "random-video", href: "/random-video", tags: ["art"], status: "published", messageKey: "randomVideo" },
-  { slug: "circle", href: "/circle", tags: ["game"], status: "published", messageKey: "circle" },
+  { slug: "color-trick", href: "/color-trick", tags: ["game"], status: "published", messageKey: "colorTrick", noindex: true },
+  { slug: "dice", href: "/dice", tags: ["game"], status: "published", messageKey: "dice", noindex: true },
+  { slug: "reaction", href: "/reaction", tags: ["game"], status: "published", messageKey: "reaction", noindex: true },
+  { slug: "typing", href: "/typing", tags: ["game", "text"], status: "published", messageKey: "typing", noindex: true },
+  { slug: "iq-test", href: "/iq-test", tags: ["fortune"], status: "published", messageKey: "iqTest", noindex: true },
+  { slug: "personality", href: "/personality", tags: ["fortune"], status: "published", messageKey: "personality", noindex: true },
+  { slug: "timing", href: "/timing", tags: ["game", "time"], status: "published", messageKey: "timing", noindex: true },
+  { slug: "pinball", href: "/pinball", tags: ["game", "science"], status: "published", messageKey: "pinball", noindex: true },
+  { slug: "strings", href: "/strings", tags: ["sound", "science"], status: "published", messageKey: "strings", noindex: true },
+  { slug: "koma", href: "/koma", tags: ["game", "science"], status: "published", messageKey: "koma", noindex: true },
+  { slug: "polyhedra", href: "/polyhedra", tags: ["math", "art"], status: "published", messageKey: "polyhedra", localOnly: true },
+  { slug: "balls", href: "/balls", tags: ["game"], status: "published", messageKey: "balls", noindex: true },
+  { slug: "kaleidoscope", href: "/kaleidoscope", tags: ["art"], status: "published", messageKey: "kaleidoscope", noindex: true },
+  { slug: "glitch", href: "/glitch", tags: ["art"], status: "published", messageKey: "glitch", noindex: true },
+  { slug: "random-video", href: "/random-video", tags: ["art"], status: "published", messageKey: "randomVideo", noindex: true },
+  { slug: "circle", href: "/circle", tags: ["game"], status: "published", messageKey: "circle", noindex: true },
 
   // 日常 / Daily
-  { slug: "calendar", href: "/calendar", tags: ["time"], status: "published", messageKey: "calendar" },
-  { slug: "life-calendar", href: "/life-calendar", tags: ["time"], status: "published", messageKey: "lifeCalendar", localOnly: true },
-  { slug: "puchi", href: "/puchi", tags: ["game"], status: "published", messageKey: "puchi" },
-  { slug: "crane-game", href: "/crane-game", tags: ["game"], status: "published", messageKey: "craneGame" },
-  { slug: "fruit-merge", href: "/fruit-merge", tags: ["game"], status: "published", messageKey: "fruitMerge" },
-  { slug: "goldfish", href: "/goldfish", tags: ["art", "science"], status: "published", messageKey: "goldfish" },
-  { slug: "goldfish-escape", href: "/goldfish-escape", tags: ["game"], status: "published", messageKey: "goldfishEscape" },
-  { slug: "code-draw", href: "/code-draw", tags: ["art", "learn"], status: "published", messageKey: "codeDraw" },
-  { slug: "number-merge", href: "/number-merge", tags: ["game", "math"], status: "published", messageKey: "numberMerge" },
-  { slug: "fireworks", href: "/fireworks", tags: ["art"], status: "published", messageKey: "fireworks" },
-  { slug: "clock", href: "/clock", tags: ["time"], status: "published", messageKey: "clock" },
-  { slug: "heart-rate", href: "/heart-rate", tags: ["science"], status: "published", messageKey: "heartRate", localOnly: true },
+  { slug: "calendar", href: "/calendar", tags: ["time"], status: "published", messageKey: "calendar", noindex: true },
+  { slug: "life-calendar", href: "/life-calendar", tags: ["time"], status: "published", messageKey: "lifeCalendar", noindex: true, localOnly: true },
+  { slug: "puchi", href: "/puchi", tags: ["game"], status: "published", messageKey: "puchi", noindex: true },
+  { slug: "crane-game", href: "/crane-game", tags: ["game"], status: "published", messageKey: "craneGame", noindex: true },
+  { slug: "fruit-merge", href: "/fruit-merge", tags: ["game"], status: "published", messageKey: "fruitMerge", noindex: true },
+  { slug: "goldfish", href: "/goldfish", tags: ["art", "science"], status: "published", messageKey: "goldfish", noindex: true },
+  { slug: "goldfish-escape", href: "/goldfish-escape", tags: ["game"], status: "published", messageKey: "goldfishEscape", noindex: true },
+  { slug: "code-draw", href: "/code-draw", tags: ["art", "learn"], status: "published", messageKey: "codeDraw", noindex: true },
+  { slug: "number-merge", href: "/number-merge", tags: ["game", "math"], status: "published", messageKey: "numberMerge", noindex: true },
+  { slug: "fireworks", href: "/fireworks", tags: ["art"], status: "published", messageKey: "fireworks", noindex: true },
+  { slug: "clock", href: "/clock", tags: ["time"], status: "published", messageKey: "clock", noindex: true },
+  { slug: "heart-rate", href: "/heart-rate", tags: ["science"], status: "published", messageKey: "heartRate", noindex: true, localOnly: true },
   { slug: "diary", href: "/diary", tags: ["text", "time"], status: "published", messageKey: "diary", private: true },
   { slug: "breaches", href: "/breaches", tags: ["info", "security"], status: "published", messageKey: "breaches" },
-  { slug: "birthday-fortune", href: "/birthday-fortune", tags: ["fortune"], status: "published", messageKey: "birthdayFortune" },
-  { slug: "omikuji", href: "/omikuji", tags: ["fortune"], status: "published", messageKey: "omikuji" },
+  { slug: "birthday-fortune", href: "/birthday-fortune", tags: ["fortune"], status: "published", messageKey: "birthdayFortune", noindex: true },
+  { slug: "omikuji", href: "/omikuji", tags: ["fortune"], status: "published", messageKey: "omikuji", noindex: true },
   { slug: "age", href: "/age", tags: ["time", "calc"], status: "published", messageKey: "age", localOnly: true },
   { slug: "date-calc", href: "/date-calc", tags: ["time", "calc"], status: "published", messageKey: "dateCalc", localOnly: true },
-  { slug: "pomodoro", href: "/pomodoro", tags: ["time"], status: "published", messageKey: "pomodoro", localOnly: true },
-  { slug: "roulette", href: "/roulette", tags: ["game"], status: "published", messageKey: "roulette" },
+  { slug: "pomodoro", href: "/pomodoro", tags: ["time"], status: "published", messageKey: "pomodoro", noindex: true, localOnly: true },
+  { slug: "roulette", href: "/roulette", tags: ["game"], status: "published", messageKey: "roulette", noindex: true },
 ] as const satisfies readonly AppData[];
 
 export type AppSlug = (typeof APP_CATALOG)[number]["slug"];
@@ -121,35 +124,19 @@ export type AppSlug = (typeof APP_CATALOG)[number]["slug"];
 // the tools people search for and the ones found nowhere else. Every other tool is found by the search box or on /apps.
 export const FEATURED_SLUGS: readonly AppSlug[] = ["math", "breaches", "date-calc", "wc", "tax", "password", "metadata", "mosaic"];
 
-// Interactive visual experiments and quick break games shown in their own shelf at the bottom of the top page.
-export const PLAY_LAB_SLUGS: readonly AppSlug[] = ["fourier", "pendulum", "life", "polyhedra", "color-trick", "puchi"];
+const NOINDEX_HREFS: ReadonlySet<string> = new Set(
+  (APP_CATALOG as readonly AppData[]).filter(app => app.noindex && app.href).map(app => app.href!),
+);
 
-// Maps a math domain to interactive lab experiments to try after finishing a practice set, plus two quick break games.
-const DOMAIN_LAB_SLUGS: Record<string, readonly AppSlug[]> = {
-  number: ["approx", "number-merge"],
-  algebra: ["grapher", "series"],
-  functions: ["grapher", "fourier"],
-  geometry: ["polyhedra", "code-draw"],
-  data: ["dice", "collector"],
-  logic: ["life", "code-draw"],
-  "linear-algebra": ["polyhedra", "code-draw"],
-  calculus: ["fourier", "pendulum"],
-};
-const BREAK_GAME_SLUGS: readonly AppSlug[] = ["color-trick", "puchi"];
-
-export function mathLabAndBreak(domain?: string, list: readonly AppData[] = APP_CATALOG): { lab: AppData[]; breakApps: AppData[] } {
-  const bySlug = (slug: AppSlug) => list.find(app => app.slug === slug && app.status === "published" && app.href);
-  const labSlugs = (domain && DOMAIN_LAB_SLUGS[domain]) || DOMAIN_LAB_SLUGS.calculus;
-  return {
-    lab: labSlugs.map(bySlug).filter((app): app is AppData => Boolean(app)),
-    breakApps: BREAK_GAME_SLUGS.map(bySlug).filter((app): app is AppData => Boolean(app)),
-  };
+export function isNoindexAppPath(pathname: string): boolean {
+  const match = /^\/(?:ja|en|zh)(\/[^/?#]*?)(?:\.data)?\/?$/.exec(pathname);
+  return Boolean(match && NOINDEX_HREFS.has(match[1]));
 }
 
 // The apps to go to from an app's page: those sharing the most tags first (in catalog order among equals), up to six, so that
-// every page links onwards.
+// every page links onwards to indexable, guide-backed pages.
 export function relatedApps(app: AppData, list: readonly AppData[] = APP_CATALOG, limit = 6): AppData[] {
-  const published = list.filter(other => other.status === "published" && other.href && !other.private && other.slug !== app.slug);
+  const published = list.filter(other => other.status === "published" && other.href && !other.private && !other.noindex && other.slug !== app.slug);
   const shared = (other: AppData) => other.tags.filter(tag => app.tags.includes(tag)).length;
   return published.map((other, index) => ({ other, index, n: shared(other) })).sort((a, b) => b.n - a.n || a.index - b.index).slice(0, limit).map(entry => entry.other);
 }

@@ -41,7 +41,44 @@
         "3": "Find errors in a log",
         "4": "Show the Linux version",
         "5": "Combine commands with a pipe"
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Use the Terminal and Sample Files",
+          "paragraphs": [
+            "Press Start Linux to boot a real Linux virtual machine in your browser powered by v86 and WebAssembly. Sample text and log files are waiting in /root/practice so you can start running commands right away.",
+            "Pick a command example below to fill the command bar or type directly into the terminal. Practice listing files with ls, reading files with cat, searching logs with grep, and chaining commands with pipes (|) into wc or sort."
+          ]
+        },
+        {
+          "heading": "How It Works",
+          "paragraphs": [
+            "An x86 emulator runs a lightweight Linux kernel and BusyBox userland inside your browser tab. Because it is a genuine Linux shell rather than a scripted simulation, redirection (> and >>), globs, file permissions (chmod), and shell scripts work as expected.",
+            "On phones or narrow screens, you can use the command input bar and history buttons below the terminal instead of relying only on a hardware keyboard."
+          ]
+        },
+        {
+          "heading": "Limitations and Session Reset",
+          "paragraphs": [
+            "For safety, the virtual machine has no external network access, so commands cannot connect to the internet or download external packages. Because the CPU is emulated in WebAssembly, compute-heavy tasks run slower than on native hardware.",
+            "All files live in temporary memory for this session only. Pressing Reset, Stop, or leaving the page discards every change and starts fresh next time."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What if I accidentally delete system or sample files?",
+          "a": "Press Reset to discard the current session and boot a clean Linux machine with all original files restored."
+        },
+        {
+          "q": "Can the Linux machine access the internet?",
+          "a": "No. The virtual machine runs isolated inside your browser without network access."
+        },
+        {
+          "q": "Why does the first boot take a few seconds?",
+          "a": "The browser downloads the Linux kernel and filesystem image (about 12 MB) on the first start."
+        }
+      ]
     },
     "colorTrick": {
       "title": "Color Trick",
@@ -493,7 +530,44 @@
       "yes": "Yes",
       "no": "No",
       "detailsFailed": "The connection details could not be loaded.",
-      "note": "The location is a rough estimate from the IP address and can differ from where you really are (especially on a VPN or a mobile network). This information is only shown on this page and is not stored."
+      "note": "The location is a rough estimate from the IP address and can differ from where you really are (especially on a VPN or a mobile network). This information is only shown on this page and is not stored.",
+      "guide": [
+        {
+          "heading": "What This Page Shows",
+          "paragraphs": [
+            "As soon as you open the page, it displays the public IP address of your current internet connection, along with your network provider (ISP / ASN), approximate region and time zone, connection protocol, and browser environment details such as User-Agent and viewport size.",
+            "You can copy the IP address or environment summary with one click when configuring firewall allowlists or troubleshooting network issues with support."
+          ]
+        },
+        {
+          "heading": "Public IP vs. Local Private IP",
+          "paragraphs": [
+            "Devices on a home or office Wi-Fi network use private IP addresses (such as 192.168.x.x) inside the local network, while your router uses a public IP address to talk to websites on the internet. This page shows that public-facing IP address.",
+            "Location details derived from an IP address reflect where your ISP registers that address block—never your exact street address."
+          ]
+        },
+        {
+          "heading": "IPv4, IPv6, and VPN Connections",
+          "paragraphs": [
+            "Modern networks often prefer IPv6 when available, so you will see either an IPv6 or IPv4 address depending on what your connection uses to reach this site.",
+            "If you are connected through a VPN, corporate gateway, or privacy relay, the page shows the VPN exit node's IP address and region, which is a quick way to verify that your VPN tunnel is active."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why does the displayed city or region differ from where I am?",
+          "a": "IP geolocation maps address blocks to an ISP's routing hub or registered office, so it often points to a nearby major city."
+        },
+        {
+          "q": "Does my public IP address stay the same?",
+          "a": "Unless you pay for a static IP from your ISP, your public IP can change when your router reconnects or when you switch networks."
+        },
+        {
+          "q": "Can a website see my local 192.168.x.x address?",
+          "a": "No. Modern browsers hide local network addresses from websites to protect your privacy."
+        }
+      ]
     },
     "cidr": {
       "title": "CIDR Calculator",
@@ -626,7 +700,44 @@
         "python": "Much of the Python 3.14 standard library is available, with limits on OS-dependent features and some modules. Supported packages such as numpy and pandas are downloaded as needed. File operations use an in-browser virtual filesystem, not unrestricted access to files on your device. Network requests follow browser restrictions. Stopping Python reloads the runtime and discards state such as virtual files.",
         "javascript": "Modern JavaScript (up to ES2024) is available. The page (DOM) cannot be changed, and modules cannot be imported. An endless loop can be stopped with \"■ Stop\". For types, use the TypeScript tab.",
         "typescript": "Checking uses strict mode. The JavaScript is run even when there are type errors. Modules and @types cannot be imported. The first run takes a moment to load the compiler (a few MB)."
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Run Code and Use Standard Input",
+          "paragraphs": [
+            "Switch between Python, JavaScript, and TypeScript tabs at the top, write your code in the editor, and press Run. Any text placed in the standard input (stdin) box can be read line by line with input() in all three languages, making it handy for algorithm and coding challenge practice.",
+            "Because code executes in a dedicated Web Worker, the page stays responsive even during an infinite loop—just press Stop to terminate it. Syntax and runtime errors highlight the offending line directly in the editor."
+          ]
+        },
+        {
+          "heading": "Language Runtimes",
+          "paragraphs": [
+            "Python runs on Pyodide (CPython compiled to WebAssembly) and automatically loads packages such as numpy, pandas, and sympy the first time you import them. TypeScript checks your code with the TypeScript compiler in strict mode before running and reports type errors by line.",
+            "JavaScript and TypeScript format console.log output clearly for nested arrays and objects, and support top-level await and timers."
+          ]
+        },
+        {
+          "heading": "Browser Sandbox Limits and Saving",
+          "paragraphs": [
+            "Because execution happens inside a browser Web Worker, OS-level features such as spawning subprocesses, raw network sockets, and direct access to your computer's filesystem are unavailable. File operations in Python work against an in-memory virtual filesystem.",
+            "Your code is saved locally in your browser per language, and you can generate a shareable link that encodes the snippet in the URL. Code is never sent to a server for execution."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can I import numpy or sympy in Python?",
+          "a": "Yes. Writing import numpy or import sympy automatically downloads the package into the browser on first run."
+        },
+        {
+          "q": "What happens if my code enters an infinite loop?",
+          "a": "Execution runs in a separate Web Worker, so the UI does not freeze. Press Stop at any time to abort the run."
+        },
+        {
+          "q": "Is my code uploaded to a server when I press Run?",
+          "a": "No. All three languages run locally inside your browser."
+        }
+      ]
     },
     "sql": {
       "title": "SQL Practice (SQLite / PostgreSQL)",
@@ -683,7 +794,44 @@
         "result": "The sample returns Orange (80 yen) and Banana (100 yen), in that order. Changing 100 to 150 includes more products.",
         "note": "WHERE filters rows; ORDER BY sorts them. The sample database resets on every run, so put related changes in the same run as multiple SQL statements.",
         "code": "SELECT name, price\nFROM products\nWHERE price <= 100\nORDER BY price;"
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Use the Sample Database",
+          "paragraphs": [
+            "Choose SQLite (sql.js) or PostgreSQL (PGlite) at the top, type your SQL query in the editor, and run it. A preloaded sample database with products, customers, orders, and order_items tables is ready immediately without any setup.",
+            "Pick one of the built-in examples to load queries demonstrating WHERE filters, JOINs across tables, GROUP BY aggregations, subqueries, and window functions such as ROW_NUMBER and SUM OVER. Edit the conditions or sort order and re-run to compare the resulting tables."
+          ]
+        },
+        {
+          "heading": "Differences Between SQLite and PostgreSQL",
+          "paragraphs": [
+            "SQLite is a lightweight embedded database known for flexible typing and simplicity. PostgreSQL is a full-featured relational database widely used in production systems, offering strict data types, rich aggregate expressions, and SQL features such as GENERATE_SERIES and FILTER clauses.",
+            "Because both engines run against the same sample schema here, you can switch between them to test dialect differences in date arithmetic, type casting, and grouping rules."
+          ]
+        },
+        {
+          "heading": "Data Persistence and Privacy",
+          "paragraphs": [
+            "Both database engines run entirely in your browser memory via WebAssembly. Running CREATE TABLE, INSERT, UPDATE, DELETE, or DROP TABLE never touches an external server.",
+            "If you modify or drop tables while experimenting, press Reset or reload the page to restore the original sample dataset. Queries you write stay on your device."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can I create my own tables and insert rows?",
+          "a": "Yes. You can run CREATE TABLE and INSERT statements and query your new tables during the session. Pressing Reset restores the original sample tables."
+        },
+        {
+          "q": "Can I run multiple SQL statements at once?",
+          "a": "Yes. Separate statements with a semicolon (;) to create tables, insert data, and run a SELECT query in a single execution."
+        },
+        {
+          "q": "Are my SQL queries sent to a server?",
+          "a": "No. Both SQLite and PostgreSQL run locally inside your browser using WebAssembly."
+        }
+      ]
     },
     "llmMemory": {
       "title": "Local LLM Memory Estimator",
@@ -712,7 +860,44 @@
         "gpu": "With a GPU (such as NVIDIA): video memory (VRAM). If the weights fit in VRAM it runs fast. Some tools can spill the rest into main memory, but it becomes much slower.",
         "apple": "On Apple Silicon: the CPU and GPU share one memory (unified memory). Ordinary memory serves the model too, but the OS needs a share, so not all of it is available.",
         "cpu": "On the CPU only: main memory. It works, but is slower than on a GPU."
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Estimate Memory Requirements",
+          "paragraphs": [
+            "Select the model parameter count (such as 7B, 14B, 32B, or 70B), the quantization bit width (FP16, INT8, 4-bit, etc.), and your available GPU VRAM or unified memory.",
+            "The tool calculates both the raw weight size and the total memory needed including context (KV cache) and runtime overhead, showing whether the model fits on your hardware."
+          ]
+        },
+        {
+          "heading": "How Weight Size and Quantization Work",
+          "paragraphs": [
+            "A model's weight size is roughly the number of parameters multiplied by the bytes per parameter. A 7-billion-parameter (7B) model takes about 14 GB in 16-bit (2 bytes per parameter), whereas 4-bit quantization (about 0.5 bytes plus block scales) shrinks it to roughly 4–5 GB.",
+            "During inference, the engine also allocates memory for the KV cache (which grows with context length) and activation buffers, so you generally need around 20% headroom above the raw weights."
+          ]
+        },
+        {
+          "heading": "Hardware Considerations",
+          "paragraphs": [
+            "On discrete GPUs, spilling past VRAM into system RAM causes a steep drop in token generation speed. On Apple Silicon Macs with unified memory, the GPU can typically use roughly two-thirds to three-quarters of total system memory.",
+            "These figures are practical estimates for standard dense transformer models; exact usage varies with context length and runtime implementation."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does 4-bit quantization noticeably hurt quality?",
+          "a": "Usually only slightly. Within a fixed memory budget, a larger model quantized to 4-bit almost always outperforms a smaller model running at FP16."
+        },
+        {
+          "q": "If the weight size equals my VRAM, will it fit?",
+          "a": "No. You also need memory for the KV cache, compute buffers, and the operating system display."
+        },
+        {
+          "q": "How much unified memory can an Apple Silicon Mac use for LLMs?",
+          "a": "By default, roughly 65–75% of total RAM is available to the GPU before macOS memory pressure limits kick in."
+        }
+      ]
     },
     "browserAi": {
       "title": "AI Chat in Your Browser",
@@ -768,7 +953,44 @@
       "heavy": "A large model, for computers with 16 GB of memory or more; with less, loading may fail or the browser may crash.",
       "thinking": "Thinking…",
       "englishNote": "Made for English",
-      "systemPrompt": "You are a helpful assistant. Answer in English, briefly."
+      "systemPrompt": "You are a helpful assistant. Answer in English, briefly.",
+      "guide": [
+        {
+          "heading": "How to Choose and Run a Model",
+          "paragraphs": [
+            "Select a language model from the picker and send a message. On first use, the browser downloads the model weights and starts generating replies; starting with a compact model (a few hundred megabytes) gives the fastest initial load.",
+            "On browsers with WebGPU support, inference runs on your GPU; small models can also run on CPU via WebAssembly. Downloaded weights are cached by the browser so subsequent sessions start right away."
+          ]
+        },
+        {
+          "heading": "How In-Browser AI Works",
+          "paragraphs": [
+            "Unlike cloud chat services that send your prompts to remote GPU servers, this page loads quantized open models (such as Qwen, Gemma, Llama, and Phi) directly into your browser using WebLLM and Transformers.js and generates tokens on your own device.",
+            "Once a model finishes loading, it can generate text without a network connection, and your prompts and replies never leave your browser."
+          ]
+        },
+        {
+          "heading": "Limitations and Memory Usage",
+          "paragraphs": [
+            "Because these models are small and quantized to fit in browser memory, they make more factual errors and reasoning mistakes than large cloud models. Treat them as an interactive way to explore local LLMs or draft short text, and verify important facts independently.",
+            "Multi-gigabyte models require substantial bandwidth and memory; if a tab crashes or fails to load, switch to a smaller model."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Are my prompts or conversations sent to any server?",
+          "a": "No. Model inference runs entirely inside your browser on your device's GPU or CPU."
+        },
+        {
+          "q": "How can I remove cached model files?",
+          "a": "Clear the site data and cache for this site in your browser settings to free the cached model weights."
+        },
+        {
+          "q": "Why do larger models fail to load on my device?",
+          "a": "Larger models need WebGPU and several gigabytes of free memory. Try one of the smaller models if loading fails."
+        }
+      ]
     },
     "siteCheck": {
       "title": "Website Status Check",
@@ -802,7 +1024,44 @@
         "timeout": "No response within 10 seconds.",
         "connection_failed": "Couldn't connect. Check the domain name, the server and its SSL certificate.",
         "rate_limited": "Too many in a short time. Please wait a minute and try again (up to 10 a minute)."
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Check Website Availability",
+          "paragraphs": [
+            "Enter a website URL and run the check to send an external HTTP request and inspect the status code (such as 200 OK, 404 Not Found, or 503), response time, and final destination URL.",
+            "If the address redirects—for example from HTTP to HTTPS or between apex and www domains—every hop in the redirect chain (301, 302, 307, 308) is listed in order."
+          ]
+        },
+        {
+          "heading": "Why External Checking Helps",
+          "paragraphs": [
+            "When a page fails to load in your browser, it can be hard to tell whether the site is down for everyone or blocked by your local Wi-Fi, DNS cache, or ISP. Because this check connects from an external server, it isolates local network issues from server outages.",
+            "You can also verify response headers and redirect configuration after deploying domain or SSL changes."
+          ]
+        },
+        {
+          "heading": "Limitations",
+          "paragraphs": [
+            "Private network addresses and localhost cannot be checked. Sites protected by strict bot filters or WAF challenges may return 403 Forbidden to automated probes even when reachable in a normal browser.",
+            "An HTTP 200 response confirms that the server answered, though client-side rendering issues still require checking in a browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What is the difference between a 301 and a 302 redirect?",
+          "a": "301 (and 308) indicate a permanent move so search engines update the indexed URL, whereas 302 (and 307) indicate a temporary redirect."
+        },
+        {
+          "q": "Why does a working site return 403 Forbidden here?",
+          "a": "Some websites configure their firewall or CDN to block automated requests coming from cloud data centers."
+        },
+        {
+          "q": "Can I test localhost or an internal corporate URL?",
+          "a": "No. Only publicly routable internet URLs are supported."
+        }
+      ]
     },
     "footer": {
       "apps": "All apps",
@@ -871,7 +1130,44 @@
         "availableNote": "It may be available. Some names are reserved or premium-priced, so confirm with a registrar before counting on it.",
         "registered": "{domain} is already registered",
         "unknown": "Couldn't tell whether {domain} is registered"
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Look Up a Domain",
+          "paragraphs": [
+            "Enter a domain name such as example.com or example.jp to check whether it is already registered or available.",
+            "For registered domains, the tool displays the registration date, expiration date, last update, registrar, name servers, status flags, and any publicly visible registrant details."
+          ]
+        },
+        {
+          "heading": "How WHOIS and RDAP Work",
+          "paragraphs": [
+            "Each top-level domain (.com, .jp, .org, and so on) is operated by a registry that maintains registration records. Using IANA's bootstrap directory, this tool queries the authoritative registry via RDAP (Registration Data Access Protocol) or traditional WHOIS.",
+            "Because of modern privacy regulations, personal contact fields are often redacted or replaced by proxy details, while technical fields such as creation date, expiry date, and name servers remain public."
+          ]
+        },
+        {
+          "heading": "Practical Uses and Notes",
+          "paragraphs": [
+            "Use it to check availability when naming a project, verify when your own domain expires, confirm that a DNS delegation change has taken effect, or check how recently an unfamiliar domain was registered.",
+            "Even if a domain appears unregistered in WHOIS/RDAP, certain short or reserved names may be held back by the registry; confirm final availability with a domain registrar."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why are registrant contact details shown as redacted?",
+          "a": "Most registries and registrars redact personal names and emails by default under privacy laws such as GDPR."
+        },
+        {
+          "q": "Should I enter a full URL or just the domain name?",
+          "a": "Enter the registered domain name itself (for example, example.com rather than a full URL with paths)."
+        },
+        {
+          "q": "Can I register a domain immediately after its expiration date passes?",
+          "a": "Not right away. Expired domains go through renewal grace and redemption periods before being released."
+        }
+      ]
     },
     "wc": {
       "title": "Character Count",
@@ -1404,7 +1700,44 @@
       "colEra": "Japanese era",
       "colPassed": "If birthday has passed",
       "colNotYet": "If birthday hasn't come yet",
-      "note": "In years when the Japanese era changed (1868, 1912, 1926, 1989, 2019), the era name depends on the birth month. Use this table as a guide."
+      "note": "In years when the Japanese era changed (1868, 1912, 1926, 1989, 2019), the era name depends on the birth month. Use this table as a guide.",
+      "guide": [
+        {
+          "heading": "How to Use the Birth Year Lookup",
+          "paragraphs": [
+            "Enter an age or browse the table to see the corresponding birth year in both the Western (Gregorian) calendar and Japanese era names (Reiwa, Heisei, Showa, Taisho).",
+            "Because the birth year depends on whether the person's birthday has already occurred this calendar year, both cases—birthday already passed and birthday still upcoming—are shown side by side."
+          ]
+        },
+        {
+          "heading": "Why Two Birth Years Are Shown",
+          "paragraphs": [
+            "Two people who are the same age today can be born in adjacent calendar years: if your birthday has already passed this year, your birth year is Current Year minus Age; if your birthday is later in the year, it is one year earlier.",
+            "Showing both columns prevents the common off-by-one mistake when filling out forms or checking records."
+          ]
+        },
+        {
+          "heading": "Japanese Era Transition Years",
+          "paragraphs": [
+            "Years in which the Japanese era changed mid-year—such as 1989 (Showa 64 / Heisei 1) and 2019 (Heisei 31 / Reiwa 1)—depend on the exact birth date.",
+            "For 1989, January 8 onward is Heisei 1; for 2019, May 1 onward is Reiwa 1."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which column should I use if my birthday has not happened yet this year?",
+          "a": "Use the column for birthdays still to come this year, which is one calendar year earlier."
+        },
+        {
+          "q": "How are 1989 and 2019 written in the Japanese era calendar?",
+          "a": "In 1989, dates through January 7 are Showa 64 and January 8 onward are Heisei 1. In 2019, dates through April 30 are Heisei 31 and May 1 onward are Reiwa 1."
+        },
+        {
+          "q": "Is anything sent to a server when I use this table?",
+          "a": "No. All calculations happen locally in your browser using today's date."
+        }
+      ]
     },
     "password": {
       "title": "Password Generator",
@@ -1999,8 +2332,6 @@
       },
       "introduction": "Check photos before sharing, prepare text and data, or practise maths and code. Choose what you want to do and try an app here.",
       "startTitle": "When you need to…",
-      "playLabTitle": "Interactive Lab & Quick Break",
-      "morePlayLab": "See all games & experiments →",
       "siteNote": "Some apps process photos or code on your device; others fetch external information. Each page explains its data handling and limits.",
       "aboutLink": "About us and contact",
       "tasks": {
@@ -2066,7 +2397,44 @@
         "acorn": "Acorn",
         "gun": "Glider gun"
       },
-      "hint": "A cell with two or three neighbours survives, and an empty square with exactly three neighbours is born. The edges wrap round to the far side. Young cells are green and the older they get the bluer they look."
+      "hint": "A cell with two or three neighbours survives, and an empty square with exactly three neighbours is born. The edges wrap round to the far side. Young cells are green and the older they get the bluer they look.",
+      "guide": [
+        {
+          "heading": "How to Play with the Grid",
+          "paragraphs": [
+            "Click or drag across the grid to draw live cells, then press Play to watch generations evolve, or Step to advance one generation at a time. Use the speed slider to slow down or speed up the simulation.",
+            "Load classic presets such as the Glider, Pulsar, or Gosper Glider Gun, and experiment by adding or erasing cells around them."
+          ]
+        },
+        {
+          "heading": "Conway's Rules of Life",
+          "paragraphs": [
+            "Devised by mathematician John Horton Conway in 1970, the Game of Life updates every cell simultaneously based only on how many of its 8 neighbors are alive: (1) Birth: a dead cell with exactly 3 live neighbors becomes alive. (2) Survival: a live cell with 2 or 3 live neighbors stays alive. (3) Underpopulation or overcrowding: in all other cases, the cell dies.",
+            "From these three local rules emerge still lifes that never change, oscillators that cycle with a fixed period, and spaceships that travel across the grid."
+          ]
+        },
+        {
+          "heading": "Emergence and Universal Computation",
+          "paragraphs": [
+            "With the discovery of the Gosper Glider Gun, which emits a steady stream of gliders, researchers showed that colliding glider streams can act as logic gates (AND, OR, NOT), making the Game of Life Turing complete.",
+            "It remains one of the clearest visual examples in mathematics and computer science of how complex global behavior emerges from simple local rules."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What is a Glider?",
+          "a": "A 5-cell pattern that shifts diagonally by one cell every four generations, making it the smallest spaceship in the Game of Life."
+        },
+        {
+          "q": "What happens when a pattern reaches the edge of the board?",
+          "a": "The grid wraps around at the edges like a torus, so a glider leaving one side re-enters from the opposite side."
+        },
+        {
+          "q": "Why do some random patterns eventually stop moving?",
+          "a": "Many starting configurations settle into a combination of static blocks and blinking oscillators after enough generations."
+        }
+      ]
     },
     "pendulum": {
       "title": "Double Pendulum",
@@ -2085,7 +2453,44 @@
       "angle2": "Start angle (lower)",
       "spread": "Offset",
       "speed": "Speed",
-      "hint": "Angles are from straight down, which is 0°. The offset is the difference between the start angles of the first and the last pendulum. Even 0.01° soon gives a completely different motion (the butterfly effect). With small angles they stay together for a long time."
+      "hint": "Angles are from straight down, which is 0°. The offset is the difference between the start angles of the first and the last pendulum. Even 0.01° soon gives a completely different motion (the butterfly effect). With small angles they stay together for a long time.",
+      "guide": [
+        {
+          "heading": "How to Use the Simulation",
+          "paragraphs": [
+            "Adjust the lengths of the two rods, the masses of the bobs, and gravity using the controls, or drag the pendulum bobs directly to release them from any starting angle.",
+            "The glowing trail traces the path of the lower bob so you can see how the motion unfolds over time."
+          ]
+        },
+        {
+          "heading": "Deterministic Chaos and Sensitivity",
+          "paragraphs": [
+            "While a single pendulum swings back and forth with a regular period, attaching a second pendulum to the end of the first produces chaotic motion whenever swung from a high angle.",
+            "There is no randomness in the equations of motion, yet two starting angles differing by a thousandth of a degree diverge into completely different trajectories within seconds—a classic demonstration of sensitivity to initial conditions."
+          ]
+        },
+        {
+          "heading": "Numerical Integration (Runge–Kutta)",
+          "paragraphs": [
+            "Because the coupled nonlinear differential equations derived from the system's Lagrangian have no closed-form formula for general angles, the motion must be integrated numerically.",
+            "This simulation integrates the angular positions and velocities step by step using the fourth-order Runge–Kutta method (RK4) to keep total mechanical energy stable."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why does the motion look regular at small angles?",
+          "a": "For small oscillations, the equations behave nearly linearly as a superposition of two normal modes. Chaos appears when released from larger angles with higher energy."
+        },
+        {
+          "q": "Does the simulation use random numbers?",
+          "a": "No. The physics is completely deterministic; tiny differences in starting angle grow exponentially over time."
+        },
+        {
+          "q": "Is friction included?",
+          "a": "By default it models an ideal frictionless double pendulum so you can observe conservative chaotic motion."
+        }
+      ]
     },
     "fourier": {
       "title": "Fourier Drawing",
@@ -2108,7 +2513,44 @@
       "showCircles": "Circles and arms",
       "showOriginal": "Original picture",
       "speedOf": "Speed ×{n}",
-      "hint": "The more circles, the closer to the original. The biggest circles are used first, so even a few give the rough shape. The Fourier transform breaks the picture down into turning circles."
+      "hint": "The more circles, the closer to the original. The biggest circles are used first, so even a few give the rough shape. The Fourier transform breaks the picture down into turning circles.",
+      "guide": [
+        {
+          "heading": "How to Use Fourier Drawing",
+          "paragraphs": [
+            "Pick a preset shape or draw a continuous closed loop on the canvas with your mouse or finger, and watch a chain of rotating circles (epicycles) trace your drawing.",
+            "Adjust the number of circles with the slider: with only a few circles you get a smooth outline, and as you add more terms, sharp corners and fine details emerge."
+          ]
+        },
+        {
+          "heading": "The Math Behind Epicycles",
+          "paragraphs": [
+            "By treating each point (x(t), y(t)) along a closed curve as a complex number z(t) = x(t) + i y(t), the Discrete Fourier Transform (DFT) decomposes the path into rotating vectors of frequencies k = 0, ±1, ±2, ..., each with its own radius (amplitude) and starting angle (phase).",
+            "Each term c_k e^(i k ω t) is a circle rotating at a constant speed. Attaching the center of each circle to the tip of the previous one reconstructs the original curve at the final tip."
+          ]
+        },
+        {
+          "heading": "What to Notice",
+          "paragraphs": [
+            "Large, slowly rotating circles capture the overall shape (low frequencies), while tiny, fast-spinning circles at the end carve out sharp turns and fine details (high frequencies).",
+            "Dropping the smallest circles while keeping the recognizable shape illustrates the core idea behind lossy compression formats like JPEG and MP3."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why do sharp corners become rounded when I reduce the number of circles?",
+          "a": "Sharp corners require high-frequency terms (small, fast circles). Removing them acts as a low-pass filter that smooths the curve."
+        },
+        {
+          "q": "Can any closed loop be drawn with rotating circles?",
+          "a": "Yes. Any piecewise-smooth closed path can be approximated to arbitrary precision by adding enough Fourier terms."
+        },
+        {
+          "q": "In what order are the circles connected?",
+          "a": "They are sorted from largest amplitude to smallest so that the dominant motion is easiest to see."
+        }
+      ]
     },
     "series": {
       "title": "Series Approximation",
@@ -2413,7 +2855,44 @@
       "howTitle": "About the problem",
       "how1": "The coupon collector's problem is a classic of probability: how many random draws (toy prizes, gacha, trading cards) does it take to collect every kind?",
       "how2": "The answer is N × (1 + 1/2 + … + 1/N), roughly N × (ln N + 0.58). Twice the kinds takes more than twice the draws: most kinds come quickly, the last few take very long.",
-      "how3": "Every kind is assumed equally likely. The distribution (the chart, the 90% point) is calculated without approximation, by carrying forward the chance of owning each number of kinds one draw at a time."
+      "how3": "Every kind is assumed equally likely. The distribution (the chart, the 90% point) is calculated without approximation, by carrying forward the chance of owning each number of kinds one draw at a time.",
+      "guide": [
+        {
+          "heading": "How to Use the Calculator and Simulator",
+          "paragraphs": [
+            "Enter the total number of distinct kinds N (for example, 6 for a die or 20 for a collectible series) and how many kinds you want to collect. The page immediately computes the exact expected number of draws (mean), median, standard deviation, and probability distribution.",
+            "You can also check percentiles—such as how many draws it takes to have a 90% or 95% chance of finishing—and run interactive draws or batch Monte Carlo trials to compare against the exact curve."
+          ]
+        },
+        {
+          "heading": "The Mathematics of the Coupon Collector Problem",
+          "paragraphs": [
+            "When each of the N kinds appears with equal probability 1/N, once you already hold k distinct kinds, the chance of drawing a new kind on the next try is (N − k) / N. Waiting for that next new kind follows a geometric distribution with mean N / (N − k).",
+            "Summing across all steps gives the total expected draws N × (1 + 1/2 + 1/3 + ... + 1/N) = N H_N (where H_N is the N-th harmonic number). The very last missing item alone takes an average of N draws."
+          ]
+        },
+        {
+          "heading": "Why the Distribution Has a Long Tail",
+          "paragraphs": [
+            "Because the final few missing items have low probabilities, the total number of draws is skewed to the right with a long tail. Stopping at the mean number of draws gives only about a 57–60% chance of having collected all N kinds.",
+            "Checking the 90th or 95th percentile gives a much more realistic picture of how many draws are needed when luck is not on your side."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why does the last missing item take so long to appear?",
+          "a": "When only one item is missing out of N, each draw has only a 1/N chance of being that item, requiring N draws on average just for the final step."
+        },
+        {
+          "q": "If I draw the average number of times, am I almost guaranteed to finish?",
+          "a": "No. Because the distribution is right-skewed, only about 57–60% of collectors finish at or before the mean."
+        },
+        {
+          "q": "Are the probabilities approximated by simulation?",
+          "a": "No. The mean, variance, and probability distribution are computed exactly; the simulator is provided so you can see random trials converge to the exact math."
+        }
+      ]
     },
     "approx": {
       "title": "Approximation Showdown",
@@ -2466,7 +2945,44 @@
       "howTitle": "What are the three methods?",
       "howTaylor": "Taylor series: adds up x, x², x³ and so on around 0. Very exact near 0 and more and more off as you go away. The numbers are the terms used.",
       "howFourier": "Fourier series: adds up waves (sines and cosines), treating the whole range as one that repeats. The numbers are the biggest coefficients, the strengths of the waves.",
-      "howNetwork": "Neural network: a row of small calculating parts (tanh units). The 3 numbers of each unit (weights and so on) are adjusted, a little at a time and automatically, to make the error smaller. Here it learns in your browser, as you watch. The numbers are 3 × units + 1."
+      "howNetwork": "Neural network: a row of small calculating parts (tanh units). The 3 numbers of each unit (weights and so on) are adjusted, a little at a time and automatically, to make the error smaller. Here it learns in your browser, as you watch. The numbers are 3 × units + 1.",
+      "guide": [
+        {
+          "heading": "How the Approximation Showdown Works",
+          "paragraphs": [
+            "Choose a target function—such as a sine wave, polynomial wiggle, corner, step jump, or Runge bump—and adjust the parameter budget slider.",
+            "Taylor series, Fourier series, and a small neural network (MLP) each try to approximate the target using the same budget of numbers, plotting their curves and mean squared error (MSE) side by side."
+          ]
+        },
+        {
+          "heading": "Strengths and Weaknesses of Each Method",
+          "paragraphs": [
+            "A Taylor polynomial uses derivatives at a single point (x = 0). It is extraordinarily accurate near 0 for analytic functions, but drifts away far from the center, diverges outside its radius of convergence, and cannot even be formed at a sharp corner or jump.",
+            "A Fourier series averages over the whole interval using sines and cosines, excelling at smooth periodic waves while exhibiting Gibbs ringing near jumps. A neural network adapts its hidden units via gradient descent to bend where the function changes."
+          ]
+        },
+        {
+          "heading": "What to Explore",
+          "paragraphs": [
+            "Try switching between smooth periodic waves, sharp corners, and functions with poles to see why no single basis wins everywhere.",
+            "You can also train the neural network further to watch gradient descent gradually reduce the approximation error."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why does the Taylor series blow up near the edges on 1/(1+25x²)?",
+          "a": "The function has complex poles at ±i/5, so its Taylor series around 0 only converges for |x| < 0.2 and diverges outside that radius."
+        },
+        {
+          "q": "Why does the Fourier series overshoot at a step jump?",
+          "a": "That overshoot is the Gibbs phenomenon, which occurs whenever smooth trigonometric waves approximate a discontinuity."
+        },
+        {
+          "q": "How is the comparison kept fair?",
+          "a": "All three methods are constrained to the same parameter budget (number of coefficients or network weights/biases)."
+        }
+      ]
     },
     "govfaq": {
       "title": "Government FAQ Search",
@@ -2514,7 +3030,44 @@
       "note": "These are the FAQ written by the ministries and agencies of the Japanese government (as of 1 October 2026). The text of a chat answer is written by an AI from the FAQ found for the question alone, and it can be wrong; please check the original FAQ it is based on as well. Systems and procedures can change, so for any decision or procedure, check with the office concerned or the official page. This site is not an official one.",
       "credit": "Source: ",
       "creditLink": "Ministry of Internal Affairs and Communications website, \"Govbot, the government chatbot\"",
-      "creditEnd": " (FAQ data as of {date}; processed by us)"
+      "creditEnd": " (FAQ data as of {date}; processed by us)",
+      "guide": [
+        {
+          "heading": "How to Search Administrative FAQs",
+          "paragraphs": [
+            "Enter a topic or everyday phrase—such as My Number card renewal, parental leave benefits, or passport application—to search roughly 4,600 public administrative FAQs from Japan's Govbot dataset.",
+            "You can also browse and narrow questions across 25 categories including pensions, taxation, child rearing, health insurance, and disaster preparedness."
+          ]
+        },
+        {
+          "heading": "Data Source and Coverage",
+          "paragraphs": [
+            "The questions and answers come from the open dataset of Govbot, the national and local government consultation chatbot published by Japan's Ministry of Internal Affairs and Communications.",
+            "It covers nationwide procedures, general eligibility rules, and where to inquire across ministries and municipal offices."
+          ]
+        },
+        {
+          "heading": "Important Notes Before Applying",
+          "paragraphs": [
+            "Specific forms, deadlines, and local subsidies can change with legal revisions or vary by municipality.",
+            "Always verify the latest requirements with your local city/ward office or the official ministry website before submitting an application."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Where do these FAQ answers come from?",
+          "a": "They are sourced from the public Govbot FAQ dataset published by Japan's Ministry of Internal Affairs and Communications."
+        },
+        {
+          "q": "Does this cover rules specific to my city or ward?",
+          "a": "It explains general national rules and standard municipal procedures. Check your local government's website for municipality-specific forms and subsidies."
+        },
+        {
+          "q": "Is this an official government application portal?",
+          "a": "No. It is an independent search tool over public FAQ data to help you find the right procedure and office."
+        }
+      ]
     },
     "metadata": {
       "title": "File Metadata Checker & Remover",
@@ -2795,7 +3348,44 @@
         "geodesic": "Geodesic polyhedron (frequency {n})"
       },
       "corners": "Corners",
-      "frequency": "Frequency"
+      "frequency": "Frequency",
+      "guide": [
+        {
+          "heading": "How to Explore the 3D Solids",
+          "paragraphs": [
+            "Select one of the five Platonic solids (tetrahedron, cube, octahedron, dodecahedron, icosahedron), a prism or pyramid with adjustable n-gon base, or a geodesic polyhedron, and drag to rotate it in 3D.",
+            "As you switch shapes or change the polygon count and subdivision level, compare the live counts of vertices (V), edges (E), and faces (F)."
+          ]
+        },
+        {
+          "heading": "Why There Are Exactly Five Platonic Solids",
+          "paragraphs": [
+            "A convex regular polyhedron (Platonic solid) has congruent regular polygon faces meeting in the same number at every vertex. For the faces to fold into a 3D corner, the interior angles meeting at a vertex must sum to strictly less than 360°.",
+            "Equilateral triangles (60°) allow 3, 4, or 5 per vertex (tetrahedron, octahedron, icosahedron); squares (90°) allow 3 (cube); regular pentagons (108°) allow 3 (dodecahedron). Hexagons (120° × 3 = 360°) lie flat, so no other convex regular polyhedra exist."
+          ]
+        },
+        {
+          "heading": "Euler's Polyhedron Formula (V − E + F = 2)",
+          "paragraphs": [
+            "Every convex polyhedron satisfies Euler's formula: Vertices (V) minus Edges (E) plus Faces (F) always equals 2. For a cube, 8 − 12 + 6 = 2; for an icosahedron, 12 − 30 + 20 = 2.",
+            "Even as you increase the sides of a prism or subdivide a geodesic sphere into hundreds of triangles, V − E + F remains invariant at 2."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why do the cube and octahedron swap vertex and face counts?",
+          "a": "They are dual polyhedra: placing a vertex at the center of each face of a cube forms an octahedron, and vice versa (the dodecahedron and icosahedron are also duals)."
+        },
+        {
+          "q": "What is a geodesic polyhedron?",
+          "a": "A polyhedron formed by subdividing the triangular faces of an icosahedron into smaller triangles and projecting every vertex onto a sphere."
+        },
+        {
+          "q": "Does V − E + F = 2 hold for prisms and pyramids too?",
+          "a": "Yes. An n-gonal prism has 2n − 3n + (n + 2) = 2, and an n-gonal pyramid has (n + 1) − 2n + (n + 1) = 2."
+        }
+      ]
     },
     "kaleidoscope": {
       "title": "Kaleidoscope",
@@ -3476,7 +4066,44 @@
       "person": "Person {n}",
       "yen": "yen",
       "noteEqual": "Rounding up collects a little extra. When the organizer covers the odd yen, the others pay rounded down and the organizer pays the rest.",
-      "noteWeighted": "Type the shares as numbers separated by spaces or commas (1 is a normal share, 1.5 is one and a half, 0.5 is half). Amounts are rounded up, so a little extra is collected."
+      "noteWeighted": "Type the shares as numbers separated by spaces or commas (1 is a normal share, 1.5 is one and a half, 0.5 is half). Amounts are rounded up, so a little extra is collected.",
+      "guide": [
+        {
+          "heading": "How to Split a Bill",
+          "paragraphs": [
+            "Enter the total bill and the number of people, then choose a rounding unit (such as 1, 10, 100, 500, or 1,000) to see how much each person pays and the resulting surplus or shortfall.",
+            "Rounding to 100 or 1,000 avoids small change when settling up in cash or via peer-to-peer payment apps."
+          ]
+        },
+        {
+          "heading": "Rounding Up vs. Rounding Down",
+          "paragraphs": [
+            "Rounding up collects slightly more from each participant and shows the extra amount left over, which can go toward tips, a second round, or reducing the organizer's share.",
+            "Rounding down keeps each participant's share lower and shows the remaining balance for the host or organizer to cover."
+          ]
+        },
+        {
+          "heading": "Worked Example",
+          "paragraphs": [
+            "For a total of 19,800 split among 7 people rounded to 100: rounding up gives 2,900 per person (total 20,300, surplus 500), while rounding down gives 2,800 per person (total 19,600, shortfall 200).",
+            "All calculations run locally in your browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What happens when the total does not divide evenly?",
+          "a": "The calculator rounds each share according to your chosen unit and displays the exact surplus or shortfall against the bill total."
+        },
+        {
+          "q": "Why choose a larger rounding unit like 100 or 500?",
+          "a": "It eliminates small coins and odd amounts when collecting money from a group."
+        },
+        {
+          "q": "Are the numbers I enter saved anywhere?",
+          "a": "No. Everything is calculated locally in your browser."
+        }
+      ]
     },
     "unitConverter": {
       "title": "Unit converter",
@@ -3557,7 +4184,44 @@
         "MiB": "mebibyte (MiB, 1024²)",
         "GiB": "gibibyte (GiB, 1024³)",
         "TiB": "tebibyte (TiB, 1024⁴)"
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Convert Units",
+          "paragraphs": [
+            "Choose a category tab—length, weight, area, volume, speed, temperature, or data size—enter a number, and pick the source unit to see all equivalent units in that category at once.",
+            "In addition to metric and imperial/US customary units (inches, feet, miles, pounds, ounces, gallons), the tool supports traditional Japanese units such as shaku, tsubo, tatami (jo), go, sho, and kan."
+          ]
+        },
+        {
+          "heading": "Conversion Definitions",
+          "paragraphs": [
+            "Japanese traditional units follow their exact legal metric definitions (1 shaku = 10/33 m, 1 tsubo = 400/121 m² ≈ 3.305785 m², 1 sho = 2401/1331 L ≈ 1.8039 L, 1 kan = 3.75 kg), useful when reading Japanese real-estate listings or recipes.",
+            "Temperature conversions between Celsius, Fahrenheit, and Kelvin apply the exact affine formulas (°F = °C × 1.8 + 32 and K = °C + 273.15)."
+          ]
+        },
+        {
+          "heading": "Notes on Tatami and Rounding",
+          "paragraphs": [
+            "Physical tatami mat dimensions vary by region (Edo-ma, Kyo-ma, Danchi-ma), so this converter uses the standard real-estate convention of 2 tatami per tsubo (about 1.6529 m² per mat).",
+            "Results are rounded for readability; check statutory rounding rules if preparing formal contracts or engineering filings."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "How many square meters is 1 tsubo?",
+          "a": "Exactly 400/121 square meters, or approximately 3.305785 m²."
+        },
+        {
+          "q": "How many milliliters is 1 go in Japanese volume measurement?",
+          "a": "About 180.39 mL under the traditional definition (household rice cups round this to 180 mL)."
+        },
+        {
+          "q": "Does the converter handle negative temperatures?",
+          "a": "Yes. Negative values work for sub-zero Celsius and Fahrenheit conversions."
+        }
+      ]
     },
     "dateCalc": {
       "title": "Date calculator",
@@ -3922,9 +4586,7 @@
         "nextSet": "Next practice",
         "resume": "Continue",
         "questionNumber": "Question {number}",
-        "shareText": "Math Foundations \"{title}\": {correct}/{total} correct",
-        "labTitle": "Explore this topic interactively",
-        "breakTitle": "Quick study break"
+        "shareText": "Math Foundations \"{title}\": {correct}/{total} correct"
       },
       "arith": {
         "formula": "Expression:",
