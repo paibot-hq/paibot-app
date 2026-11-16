@@ -9,7 +9,6 @@ import Header from './components/header';
 import { isLocale } from './i18n/routing';
 import { useNonce } from './lib/csp-nonce';
 import { siteOrigin, isIndexable } from './lib/seo.server';
-import { isNoindexAppPath } from './lib/app-catalog';
 import { isComingSoonMathPath } from './lib/math-catalog';
 import ja from '../messages/ja.json';
 import en from '../messages/en.json';
@@ -60,7 +59,7 @@ export function Layout({ children }: { children: ReactNode }) {
   const error = useRouteError();
   const excluded = matches.some(match => (match.handle as { noindex?: boolean } | undefined)?.noindex
     || (match.loaderData as { pageIndexable?: boolean } | undefined)?.pageIndexable === false);
-  const indexPage = isIndexable && !error && !excluded && !isComingSoonMathPath(pathname) && !isNoindexAppPath(pathname) && !/^\/(ja|en|zh)\/(sign-in|sign-up|diary|profile|legal\/commerce)(\/|$)/.test(pathname);
+  const indexPage = isIndexable && !error && !excluded && !isComingSoonMathPath(pathname) && !/^\/(ja|en|zh)\/(sign-in|sign-up|diary|profile|legal\/commerce)(\/|$)/.test(pathname);
   return <html lang={isLocale(locale) ? locale : 'ja'}><head>
     {isIndexable && <>
       <script async nonce={nonce} src={`https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`} />

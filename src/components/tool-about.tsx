@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLocale, useTranslations } from "use-intl";
 import { Link } from "../i18n/navigation";
 import { type DynamicT } from "../lib/apps";
@@ -11,10 +12,11 @@ import styles from "./tool-about.module.css";
 type GuideSection = { heading: string; paragraphs: string[] };
 type Faq = { q: string; a: string };
 type WorkedExample = { title: string; steps: string[]; result: string; note: string; code?: string };
+type AboutTab = "overview" | "guide" | "faq";
 
 // Under every tool: what it is in a few plain sentences (the page is otherwise only controls, which search engines read as a thin page), a
-// concrete example when available, the guide and questions when the tool has them, the tools of the same kind to go to next (so a tool is
-// reached from other pages than the top one), and the same facts as structured data.
+// concrete example when available, the guide and questions in their own tabs (kept in the DOM with `hidden` so search engines read them while
+// keeping the page compact), the tools of the same kind to go to next, and the same facts as structured data.
 export default function ToolAbout({ app }: { app: AppData }) {
   const t = useTranslations("App");
   const dynamic = t as unknown as DynamicT;
@@ -26,6 +28,8 @@ export default function ToolAbout({ app }: { app: AppData }) {
   const guide = raw.has(`${app.messageKey}.guide`) ? raw.raw(`${app.messageKey}.guide`) as GuideSection[] : [];
   const faq = raw.has(`${app.messageKey}.faq`) ? raw.raw(`${app.messageKey}.faq`) as Faq[] : [];
   const example = raw.has(`${app.messageKey}.workedExample`) ? raw.raw(`${app.messageKey}.workedExample`) as WorkedExample : null;
+  const hasTabs = guide.length > 0 || faq.length > 0;
+  const [tab, setTab] = useState<AboutTab>("overview");
   const data = toolStructuredData({
     name: dynamic(`${app.messageKey}.title`),
     description: dynamic(`${app.messageKey}.description`),
@@ -37,31 +41,58 @@ export default function ToolAbout({ app }: { app: AppData }) {
   });
   return (
     <section className={styles.about} aria-labelledby="tool-about" data-tool-about>
-      <h2 id="tool-about" className={styles.heading}>
-        <span>{t("apps.about")}</span>
-        {app.localOnly && <span className={styles.localNote} data-tool-local>{t("apps.localNote")}</span>}
-      </h2>
-      <p className={styles.text}>{dynamic(`${app.messageKey}.about`)}</p>
-      {example && <section className={styles.example} aria-labelledby="tool-example" data-tool-example>
-        <h3 id="tool-example" className={styles.heading}>{example.title}</h3>
-        <ol className={styles.steps}>{example.steps.map((step, index) => <li key={index}>{step}</li>)}</ol>
-        {example.code && <pre className={styles.code}><code>{example.code}</code></pre>}
-        <p className={styles.text}>{example.result}</p>
-        <p className={styles.text}>{example.note}</p>
-      </section>}
-      {guide.map(section => (
-        <section key={section.heading} className={styles.section}>
-          <h3 className={styles.sub}>{section.heading}</h3>
-          {section.paragraphs.map(paragraph => <p key={paragraph} className={styles.text}>{paragraph}</p>)}
-        </section>
-      ))}
+      <div className={styles.headerRow}>
+        <h2 id="tool-about" className={styles.heading}>
+          <span>{t("apps.about")}</span>
+          {app.localOnly && <span className={styles.localNote} data-tool-local>{t("apps.localNote")}</span>}
+        </h2>
+        {hasTabs && (
+          <div className={styles.tabs} role="tablist" aria-label={t("apps.about")}>
+            <button type="button" role="tab" aria-selected={tab === "overview"} className={styles.tab} onClick={() => setTab("overview")} data-about-tab="overview">
+              {t("apps.tabOverview")}
+            </button>
+            {guide.length > 0 && (
+              <button type="button" role="tab" aria-selected={tab === "guide"} className={styles.tab} onClick={() => setTab("guide")} data-about-tab="guide">
+                {t("apps.tabGuide")}
+              </button>
+            )}
+            {faq.length > 0 && (
+              <button type="button" role="tab" aria-selected={tab === "faq"} className={styles.tab} onClick={() => setTab("faq")} data-about-tab="faq">
+                {t("apps.faq")}
+              </button>
+            )}
+          </div>
+        )}
+      </div>
+      <div role={hasTabs ? "tabpanel" : undefined} hidden={hasTabs && tab !== "overview"}>
+        <p className={styles.text}>{dynamic(`${app.messageKey}.about`)}</p>
+        {example && <section className={styles.example} aria-labelledby="tool-example" data-tool-example>
+          <h3 id="tool-example" className={styles.heading}>{example.title}</h3>
+          <ol className={styles.steps}>{example.steps.map((step, index) => <li key={index}>{step}</li>)}</ol>
+          {example.code && <pre className={styles.code}><code>{example.code}</code></pre>}
+          <p className={styles.text}>{example.result}</p>
+          <p className={styles.text}>{example.note}</p>
+        </section>}
+      </div>
+      {guide.length > 0 && (
+        <div role="tabpanel" hidden={tab !== "guide"} data-tool-guide>
+          {guide.map(section => (
+            <section key={section.heading} className={styles.section}>
+              <h3 className={styles.sub}>{section.heading}</h3>
+              {section.paragraphs.map(paragraph => <p key={paragraph} className={styles.text}>{paragraph}</p>)}
+            </section>
+          ))}
+        </div>
+      )}
       {faq.length > 0 && (
-        <section className={styles.section}>
-          <h3 className={styles.sub}>{t("apps.faq")}</h3>
-          <dl className={styles.faq}>
-            {faq.map(item => <div key={item.q}><dt>{item.q}</dt><dd>{item.a}</dd></div>)}
-          </dl>
-        </section>
+        <div role="tabpanel" hidden={tab !== "faq"} data-tool-faq>
+          <section className={styles.section}>
+            <h3 className={styles.sub}>{t("apps.faq")}</h3>
+            <dl className={styles.faq}>
+              {faq.map(item => <div key={item.q}><dt>{item.q}</dt><dd>{item.a}</dd></div>)}
+            </dl>
+          </section>
+        </div>
       )}
       <p className={styles.feedback}><Link href="/about#contact">{t("about.contactTitle")}</Link>{" · "}<Link href="/legal/privacy">{t("footer.privacy")}</Link></p>
       {related.length > 0 && (

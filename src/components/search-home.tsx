@@ -36,7 +36,7 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
   const results = useMemo(() => search(prepared, query), [prepared, query]);
   // The signed-in visitor's favourite apps come first.
   const mine = apps.filter(app => app.status === "published" && app.href && favorites.has(app.slug));
-  const popularApps = popular.map(p => apps.find(app => app.slug === p.slug && app.status === "published" && app.href && !app.noindex)).filter((app): app is AppEntry => Boolean(app));
+  const popularApps = popular.map(p => apps.find(app => app.slug === p.slug && app.status === "published" && app.href)).filter((app): app is AppEntry => Boolean(app));
   const featuredApps = FEATURED_SLUGS.map(slug => apps.find(app => app.slug === slug && app.status === "published" && app.href))
     .filter((app): app is AppEntry => Boolean(app) && !popularApps.includes(app!));
   const total = apps.filter(app => app.status === "published" && app.href && !app.private).length;

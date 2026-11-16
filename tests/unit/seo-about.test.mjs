@@ -1,13 +1,13 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { APP_CATALOG, APP_TAGS, isNoindexAppPath, relatedApps } from '../../src/lib/app-catalog.ts';
+import { APP_CATALOG, APP_TAGS, relatedApps } from '../../src/lib/app-catalog.ts';
 import { publicPaths, toolStructuredData } from '../../src/lib/seo.ts';
 
-test('related apps: those sharing the most tags first, never itself, never private, noindex or coming soon, at most six', () => {
+test('related apps: those sharing the most tags first, never itself, never private or coming soon, at most six', () => {
   for (const app of APP_CATALOG.filter(a => a.status === 'published' && a.href)) {
     const related = relatedApps(app);
     assert.ok(related.length > 0 && related.length <= 6, app.slug);
-    assert.ok(!related.some(r => r.slug === app.slug || r.private || r.noindex || r.status !== 'published' || !r.href), app.slug);
+    assert.ok(!related.some(r => r.slug === app.slug || r.private || r.status !== 'published' || !r.href), app.slug);
     assert.equal(new Set(related.map(r => r.slug)).size, related.length);
     const shared = related.map(r => r.tags.filter(tag => app.tags.includes(tag)).length);
     assert.deepEqual(shared, [...shared].sort((a, b) => b - a), `${app.slug}: more shared tags come first`);
@@ -18,9 +18,8 @@ test('related apps: those sharing the most tags first, never itself, never priva
     { slug: 'c', href: '/c', tags: ['text'], status: 'published', messageKey: 'c' },
     { slug: 'd', href: '/d', tags: ['text', 'dev'], status: 'published', messageKey: 'd' },
     { slug: 'e', tags: ['dev'], status: 'comingSoon', messageKey: 'e' },
-    { slug: 'f', href: '/f', tags: ['dev', 'text'], status: 'published', messageKey: 'f', noindex: true },
   ];
-  assert.deepEqual(relatedApps(list[0], list).map(a => a.slug), ['d', 'c', 'b'], 'two shared tags, then one, then none; coming-soon and noindex apps are not linked');
+  assert.deepEqual(relatedApps(list[0], list).map(a => a.slug), ['d', 'c', 'b'], 'two shared tags, then one, then none; a coming-soon app is not linked');
 });
 
 test('every app has one to three known tags, none twice', () => {
@@ -64,21 +63,12 @@ test('every public tool has its text about it, and how to use it, in all three l
   }
 });
 
-test('noindex apps are excluded from publicPaths and detected by isNoindexAppPath, and localOnly apps are public tools', () => {
-  const noindexApps = APP_CATALOG.filter(a => a.noindex);
-  assert.ok(noindexApps.length >= 30);
-  for (const app of noindexApps) {
-    assert.ok(!publicPaths.includes(app.href), `publicPaths should not include ${app.href}`);
-    assert.equal(isNoindexAppPath(`/ja${app.href}`), true, app.href);
-    assert.equal(isNoindexAppPath(`/en${app.href}.data`), true, `${app.href}.data`);
-  }
-  const indexedApps = APP_CATALOG.filter(a => a.status === 'published' && a.href && !a.private && !a.noindex);
-  for (const app of indexedApps) {
+test('every published public app is included in publicPaths, and localOnly apps are public tools', () => {
+  const publicApps = APP_CATALOG.filter(a => a.status === 'published' && a.href && !a.private);
+  assert.ok(publicApps.length >= 70);
+  for (const app of publicApps) {
     assert.ok(publicPaths.includes(app.href), `publicPaths should include ${app.href}`);
-    assert.equal(isNoindexAppPath(`/ja${app.href}`), false, app.href);
   }
-  assert.equal(isNoindexAppPath('/ja'), false);
-  assert.equal(isNoindexAppPath('/ja/apps'), false);
   const localApps = APP_CATALOG.filter(a => a.localOnly);
   assert.ok(localApps.length >= 20, 'localOnly tools are marked');
   for (const app of localApps) {

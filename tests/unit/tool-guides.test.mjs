@@ -38,10 +38,10 @@ test('the about page sections have the same shape in every locale', () => {
   }
 });
 
-test('every indexed tool (except math, which has item lessons) has a multi-section guide and FAQ in all three languages', () => {
-  const indexedTools = APP_CATALOG.filter(app => app.status === 'published' && app.href && !app.private && !app.noindex && app.slug !== 'math');
-  assert.ok(indexedTools.length >= 30);
-  for (const app of indexedTools) {
+test('every published public tool (except math, which has item lessons) has a multi-section guide and FAQ in all three languages', () => {
+  const publicTools = APP_CATALOG.filter(app => app.status === 'published' && app.href && !app.private && app.slug !== 'math');
+  assert.ok(publicTools.length >= 70);
+  for (const app of publicTools) {
     for (const locale of locales) {
       const entry = catalogs[locale][app.messageKey];
       assert.ok(Array.isArray(entry?.guide) && entry.guide.length >= 2, `${locale}: ${app.slug} missing guide`);
