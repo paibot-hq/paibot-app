@@ -37,3 +37,15 @@ test('the about page sections have the same shape in every locale', () => {
     sections.forEach((section, i) => assert.equal(section.paragraphs.length, catalogs.ja.about.sections[i].paragraphs.length, `${locale}: section ${i}`));
   }
 });
+
+test('every published public tool (except math, which has item lessons) has a multi-section guide and FAQ in all three languages', () => {
+  const publicTools = APP_CATALOG.filter(app => app.status === 'published' && app.href && !app.private && app.slug !== 'math');
+  assert.ok(publicTools.length >= 70);
+  for (const app of publicTools) {
+    for (const locale of locales) {
+      const entry = catalogs[locale][app.messageKey];
+      assert.ok(Array.isArray(entry?.guide) && entry.guide.length >= 2, `${locale}: ${app.slug} missing guide`);
+      assert.ok(Array.isArray(entry?.faq) && entry.faq.length >= 2, `${locale}: ${app.slug} missing faq`);
+    }
+  }
+});

@@ -82,11 +82,27 @@
   padding-top: 0;
 }
 .all h2 {
-  margin: 0 0 .6rem;
+  margin: 0;
   color: var(--text);
-  font-size: clamp(1.25rem, 3.4vw, 1.5rem);
+  font-size: clamp(1.15rem, 3vw, 1.35rem);
   font-weight: 800;
   letter-spacing: .02em;
+}
+.shelfHead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .3rem .8rem;
+  margin: 0 0 .75rem;
+}
+.shelfSub {
+  color: var(--muted);
+  font-size: .82rem;
+  font-weight: 500;
+}
+.all > section > h2 {
+  margin-bottom: .75rem;
 }
 .all h2::before {
   content: "";
@@ -146,58 +162,48 @@
 }
 .name {
   display: grid;
-  gap: .1rem;
+  gap: .15rem;
+  flex: 1;
   min-width: 0;
   font-size: .95rem;
   font-weight: 650;
-  line-height: 1.4;
+  line-height: 1.35;
   font-feature-settings: "palt" 1;
 }
+.titleRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .4rem;
+  min-width: 0;
+}
+.cardTitle {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.localBadge {
+  flex: none;
+  font-size: .68rem;
+  font-weight: 650;
+  line-height: 1.3;
+  padding: .05rem .42rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, light-dark(#0a8f6a, #3fd3a2) 14%, transparent);
+  color: light-dark(#0a8f6a, #3fd3a2);
+  white-space: nowrap;
+}
 .all li { position: relative; }
-/* The description: a note under the card while it is hovered or focused; read by screen readers all the time. Where
-   there is no hover (a phone), it is a plain line under the name. */
 .about {
-  position: absolute;
-  top: calc(100% - .15rem);
-  left: 0;
-  right: 0;
-  z-index: 5;
-  box-sizing: border-box;
-  padding: .55rem .75rem;
-  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
-  border-radius: 10px;
-  background: var(--surface-strong);
-  box-shadow: 0 10px 24px -12px var(--shadow);
   color: var(--muted);
-  font-size: .8rem;
+  font-size: .78rem;
   font-weight: 400;
-  line-height: 1.55;
-  opacity: 0;
-  pointer-events: none;
-  transform: translateY(-2px);
-  transition: opacity .12s ease, transform .12s ease;
+  line-height: 1.4;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.all a:hover .about, .all a:focus-visible .about {
-  opacity: 1;
-  transform: none;
-  transition-delay: .2s;
-}
-@media (hover: none) {
-  .about {
-    position: static;
-    padding: 0;
-    border: 0;
-    background: none;
-    box-shadow: none;
-    opacity: 1;
-    transform: none;
-    font-size: .78rem;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-}
-@media (prefers-reduced-motion: reduce) { .about { transition: none; transform: none; } }
 /* The favourite star sits in the card's corner, small and quiet until the card is hovered. */
 .all :global(.favorite-button) {
   top: 50%;
@@ -217,6 +223,37 @@
   display: flex;
   justify-content: center;
   margin: 1rem 0 0;
+}
+.shelvesBar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: .4rem;
+  margin: 1rem 0 0;
+}
+.shelfChip {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .36rem .88rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--surface-strong) 85%, transparent);
+  color: var(--muted);
+  font: inherit;
+  font-size: .83rem;
+  cursor: pointer;
+}
+.shelfChip:hover, .shelfChip:focus-visible {
+  color: var(--text);
+  border-color: var(--accent);
+  outline: none;
+}
+.shelfChip[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface-strong));
+  color: var(--text);
+  font-weight: 650;
 }
 .chip {
   display: inline-flex;

@@ -1,7 +1,7 @@
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { useLocale, useTranslations } from "use-intl";
 import FavoriteButton from "./favorite-button";
-import ToolAbout from "./tool-about";
+import ToolAbout, { type ToolTab } from "./tool-about";
 import { usePathname } from "../i18n/navigation";
 import { apps } from "../lib/apps";
 import { useFavoritesData } from "../routes/locale";
@@ -35,6 +35,11 @@ export default function ToolLayout({
   // also uses ToolLayout but isFavoritableSlug/AppCard gate on this same
   // "published" condition, so this just needs to find a matching entry at all.
   const app = apps.find(candidate => candidate.href === pathname && candidate.status === "published");
+  const raw = t as unknown as { has: (key: string) => boolean };
+  const hasGuide = Boolean(about && app && !app.private && raw.has(`${app.messageKey}.guide`));
+  const hasFaq = Boolean(about && app && !app.private && raw.has(`${app.messageKey}.faq`));
+  const showTabs = hasGuide || hasFaq;
+  const [tab, setTab] = useState<ToolTab>("app");
 
   return (
     <main className={styles.page} data-compact={compact || undefined}>
@@ -50,10 +55,27 @@ export default function ToolLayout({
           actionPath={`/${locale}/favorites`}
         />
       )}
-      <div className={styles.content} data-layout={layout} data-width={contentWidth}>
+      {showTabs && (
+        <div className={styles.tabs} role="tablist" aria-label={title} data-tool-tabs>
+          <button type="button" role="tab" aria-selected={tab === "app"} className={styles.tab} onClick={() => setTab("app")} data-tool-tab="app">
+            {t("search.kind.app")}
+          </button>
+          {hasGuide && (
+            <button type="button" role="tab" aria-selected={tab === "guide"} className={styles.tab} onClick={() => setTab("guide")} data-tool-tab="guide">
+              {t("apps.tabGuide")}
+            </button>
+          )}
+          {hasFaq && (
+            <button type="button" role="tab" aria-selected={tab === "faq"} className={styles.tab} onClick={() => setTab("faq")} data-tool-tab="faq">
+              {t("apps.faq")}
+            </button>
+          )}
+        </div>
+      )}
+      <div className={styles.content} data-layout={layout} data-width={contentWidth} hidden={showTabs && tab !== "app"}>
         {children}
       </div>
-      {about && app && !app.private && <ToolAbout app={app} />}
+      {about && app && !app.private && <ToolAbout app={app} tab={showTabs ? tab : "app"} />}
     </main>
   );
 }

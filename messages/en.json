@@ -41,7 +41,44 @@
         "3": "Find errors in a log",
         "4": "Show the Linux version",
         "5": "Combine commands with a pipe"
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Use the Terminal and Sample Files",
+          "paragraphs": [
+            "Press Start Linux to boot a real Linux virtual machine in your browser powered by v86 and WebAssembly. Sample text and log files are waiting in /root/practice so you can start running commands right away.",
+            "Pick a command example below to fill the command bar or type directly into the terminal. Practice listing files with ls, reading files with cat, searching logs with grep, and chaining commands with pipes (|) into wc or sort."
+          ]
+        },
+        {
+          "heading": "How It Works",
+          "paragraphs": [
+            "An x86 emulator runs a lightweight Linux kernel and BusyBox userland inside your browser tab. Because it is a genuine Linux shell rather than a scripted simulation, redirection (> and >>), globs, file permissions (chmod), and shell scripts work as expected.",
+            "On phones or narrow screens, you can use the command input bar and history buttons below the terminal instead of relying only on a hardware keyboard."
+          ]
+        },
+        {
+          "heading": "Limitations and Session Reset",
+          "paragraphs": [
+            "For safety, the virtual machine has no external network access, so commands cannot connect to the internet or download external packages. Because the CPU is emulated in WebAssembly, compute-heavy tasks run slower than on native hardware.",
+            "All files live in temporary memory for this session only. Pressing Reset, Stop, or leaving the page discards every change and starts fresh next time."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What if I accidentally delete system or sample files?",
+          "a": "Press Reset to discard the current session and boot a clean Linux machine with all original files restored."
+        },
+        {
+          "q": "Can the Linux machine access the internet?",
+          "a": "No. The virtual machine runs isolated inside your browser without network access."
+        },
+        {
+          "q": "Why does the first boot take a few seconds?",
+          "a": "The browser downloads the Linux kernel and filesystem image (about 12 MB) on the first start."
+        }
+      ]
     },
     "colorTrick": {
       "title": "Color Trick",
@@ -69,7 +106,44 @@
       "go": "Focus on the ink!",
       "start": "Start 30-second challenge",
       "again": "Play again",
-      "rules": "Every 5 in a row boosts your multiplier. Up to 4×!"
+      "rules": "Every 5 in a row boosts your multiplier. Up to 4×!",
+      "guide": [
+        {
+          "heading": "How to Play and Build a Multiplier",
+          "paragraphs": [
+            "Pick the color of the ink, ignoring what the word says, as many times as you can in 30 seconds. For example, if the word PINK is printed in blue ink, the right answer is Blue.",
+            "Each correct answer awards 10 base points, and every five consecutive correct answers raises your multiplier up to 4×. A single mistake resets the streak back to 1×, so accuracy matters as much as speed."
+          ]
+        },
+        {
+          "heading": "The Stroop Effect",
+          "paragraphs": [
+            "First published by psychologist John Ridley Stroop in 1935, the Stroop effect demonstrates how automatic word reading interferes with naming a color when the word and ink color conflict.",
+            "Because fluent readers process printed words almost involuntarily, your prefrontal cortex has to actively suppress the word meaning before selecting the color button."
+          ]
+        },
+        {
+          "heading": "Fair Prompt Generation",
+          "paragraphs": [
+            "Every prompt is guaranteed to have a conflicting word and ink color, and consecutive prompts never repeat the same ink color.",
+            "Your personal best score is saved locally in your browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do the word and ink color ever match?",
+          "a": "No. Every prompt deliberately conflicts so that you always have to override the word meaning."
+        },
+        {
+          "q": "What is the best strategy for a high score?",
+          "a": "Protect your streak to stay at the 4× multiplier rather than rushing and resetting your combo."
+        },
+        {
+          "q": "Where is my high score stored?",
+          "a": "It is saved in your browser's local storage on this device."
+        }
+      ]
     },
     "profile": {
       "menu": "Profile",
@@ -130,7 +204,44 @@
       "outside": "You are beyond this display range. Choose a longer range to include this week.",
       "gridNote": "Each row has 52 weeks. Squares adjust in height to show the entire range.",
       "gridLabel": "{completed} of {total} weeks in the display range have passed.",
-      "rangeNote": "The display range is not a life expectancy prediction. Weeks start at birth; the final square may contain fewer than seven days."
+      "rangeNote": "The display range is not a life expectancy prediction. Weeks start at birth; the final square may contain fewer than seven days.",
+      "guide": [
+        {
+          "heading": "How to Read Your Life Calendar",
+          "paragraphs": [
+            "Enter your date of birth and select a lifespan horizon (such as 80, 90, or 100 years) to lay out your life as a grid where every small square represents one week.",
+            "Weeks you have already lived are filled in, highlighting your current age in years, weeks, and days alongside the open squares still ahead."
+          ]
+        },
+        {
+          "heading": "The 'Life in Weeks' Perspective",
+          "paragraphs": [
+            "Because there are 52 weeks in a year, an 80-year life is roughly 4,160 weeks and a 90-year life is roughly 4,680 weeks. Years feel abstract and days feel innumerable, but four thousand weeks fit on a single screen.",
+            "Seeing both the weeks behind you and the weeks ahead makes it easier to appreciate the value of a single week."
+          ]
+        },
+        {
+          "heading": "Privacy and Profile Sync",
+          "paragraphs": [
+            "All date calculations happen in your browser. If you are signed in and have saved a birth date in your profile, it fills in automatically, or you can try any date without signing in.",
+            "Your birth date is never shared publicly."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "How many weeks are in 80 years?",
+          "a": "Roughly 4,174 weeks (about 29,220 days including leap years)."
+        },
+        {
+          "q": "What does a single square represent?",
+          "a": "Each square represents one seven-day week since the day you were born."
+        },
+        {
+          "q": "Is the birth date I enter stored on a server?",
+          "a": "Only if you explicitly save it in your signed-in Profile page; changes on this page stay in your browser."
+        }
+      ]
     },
     "calendar": {
       "title": "Calendar",
@@ -168,7 +279,44 @@
         "enthronementCeremony": "Enthronement Ceremony Day",
         "substitute": "Substitute holiday",
         "citizens": "Citizens' holiday"
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Use the Monthly Calendar",
+          "paragraphs": [
+            "Browse month by month and year by year with Japanese national holidays, substitute holidays, and bridge holidays highlighted directly on the grid.",
+            "Use it whenever you need to check days of the week, long weekends, or Golden Week dates in Japan."
+          ]
+        },
+        {
+          "heading": "How Japanese Public Holidays Are Calculated",
+          "paragraphs": [
+            "Japan's Public Holiday Law combines fixed-date holidays (such as New Year's Day, Showa Day, and Culture Day), Happy Monday holidays that fall on the second or third Monday of a month (Coming of Age Day, Marine Day, Respect for the Aged Day, Sports Day), and astronomical equinoxes (Vernal and Autumnal Equinox Days).",
+            "When a national holiday falls on a Sunday, the next non-holiday weekday becomes a Substitute Holiday (振替休日), and a single weekday sandwiched between two holidays becomes a Citizens' Holiday (国民の休日)."
+          ]
+        },
+        {
+          "heading": "Quick Reference",
+          "paragraphs": [
+            "Equinox dates are computed from standard astronomical formulas, allowing you to check past and upcoming years alike.",
+            "All calendar calculations run locally in your browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does the calendar include Japanese substitute Mondays (振替休日)?",
+          "a": "Yes. Whenever a national holiday lands on a Sunday, the following weekday is marked as a substitute holiday."
+        },
+        {
+          "q": "Why do the Vernal and Autumnal Equinox holidays shift dates?",
+          "a": "They follow the astronomical solar equinoxes in March and September, which shift between the 20th/21st and 22nd/23rd across leap-year cycles."
+        },
+        {
+          "q": "Can I check past or future years?",
+          "a": "Yes. Step backward or forward across months and years to inspect any date."
+        }
+      ]
     },
     "quiz": {
       "title": "Quiz",
@@ -196,7 +344,44 @@
       "incorrect": "Not quite!",
       "next": "Next question",
       "seeResults": "See results",
-      "source": "Source"
+      "source": "Source",
+      "guide": [
+        {
+          "heading": "How to Play",
+          "paragraphs": [
+            "Each round draws multiple-choice trivia questions from everyday topics including animals, nature, geography, science, and daily life. Pick one of the four choices to see immediately whether you got it right along with a concise explanation.",
+            "At the end of the round you will see your total score, and you can start a fresh round anytime to get a new mix of questions."
+          ]
+        },
+        {
+          "heading": "Learning Through Explanations",
+          "paragraphs": [
+            "Every question includes an explanation of the fact behind the answer so you can learn something new even when guessing.",
+            "Questions and explanations are available in Japanese, English, and Chinese, making it easy to compare terms across languages."
+          ]
+        },
+        {
+          "heading": "Notes",
+          "paragraphs": [
+            "Scientific and geographical facts follow standard reference values.",
+            "Rounds are kept short so you can finish a set in a couple of minutes during a study or work break."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do I get the same questions every time?",
+          "a": "Questions are drawn at random from the question pool, so each round offers a different selection."
+        },
+        {
+          "q": "Is there a strict timer per question?",
+          "a": "No. You can take your time reading each question and its explanation."
+        },
+        {
+          "q": "Are my answers shared publicly?",
+          "a": "No. Your individual quiz session is private."
+        }
+      ]
     },
     "clock": {
       "timeZone": "Time zone",
@@ -239,7 +424,44 @@
       "keywords": "clock date time fullscreen",
       "loading": "Loading…",
       "fullscreen": "Fullscreen",
-      "exitFullscreen": "Exit fullscreen"
+      "exitFullscreen": "Exit fullscreen",
+      "guide": [
+        {
+          "heading": "How to Use the Desk Clock",
+          "paragraphs": [
+            "Displays today's full date, day of the week, and current time down to the second in clean, large typography.",
+            "Keep it open on a secondary monitor, tablet, or phone on your desk when studying, proctoring an exam, or timing a presentation from across the room."
+          ]
+        },
+        {
+          "heading": "Jitter-Free Tabular Typography",
+          "paragraphs": [
+            "Digits are styled with tabular numerals (tabular-nums) so every numeral from 0 to 9 occupies the exact same horizontal width, preventing the hours and minutes from shifting as the seconds tick.",
+            "Fluid sizing scales the clock smoothly to fit everything from a compact phone screen to a widescreen display."
+          ]
+        },
+        {
+          "heading": "Light and Dark Themes",
+          "paragraphs": [
+            "The clock reads your device's system clock and updates every second without network requests.",
+            "Use the theme toggle in the header to switch between light mode for bright rooms and dark mode for low-glare nighttime use."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Where does the clock get its time?",
+          "a": "It uses your device's built-in system clock and time zone settings."
+        },
+        {
+          "q": "Can I use a dark background at night?",
+          "a": "Yes. Switch to dark mode in the header for a low-glare dark display."
+        },
+        {
+          "q": "Why don't the numbers shift sideways when the seconds change?",
+          "a": "The clock uses fixed-width tabular numerals so narrow digits like 1 take the same width as wide digits like 8."
+        }
+      ]
     },
     "heartRate": {
       "title": "Heart Rate Monitor (by camera)",
@@ -269,7 +491,44 @@
       "step2": "Press \"Start measuring\" and keep your finger still for 20 seconds. A moving pulse wave means it is working.",
       "step3": "On a computer, cover the front camera with a finger and measure in good light.",
       "shareText": "My heart rate, measured with my phone's camera: {bpm} bpm",
-      "hint": "The picture is processed on this device only and never sent. This is not a medical device and the result is an estimate; if you are concerned about your health, consult a doctor."
+      "hint": "The picture is processed on this device only and never sent. This is not a medical device and the result is an estimate; if you are concerned about your health, consult a doctor.",
+      "guide": [
+        {
+          "heading": "How to Measure and Position Your Finger",
+          "paragraphs": [
+            "Gently place the pad of your index finger over your phone's rear camera lens (and flash/torch if available) and hold still for several seconds to see your live pulse waveform and heart rate in beats per minute (BPM).",
+            "Do not press hard: pressing firmly squeezes the capillaries shut and flattens the pulse signal. Rest your finger lightly so it covers the lens evenly."
+          ]
+        },
+        {
+          "heading": "How Camera Photoplethysmography (PPG) Works",
+          "paragraphs": [
+            "With every heartbeat, a pressure wave momentarily increases blood volume in the capillaries of your fingertip. Because hemoglobin absorbs light, the brightness of light transmitted or reflected through your skin rises and falls slightly with each beat.",
+            "This is the same Photoplethysmography (PPG) principle used by smartwatches and clip-on pulse oximeters: the app averages the red channel across each video frame, filters out slow hand drift, and measures the time between peaks."
+          ]
+        },
+        {
+          "heading": "Privacy and Medical Disclaimer",
+          "paragraphs": [
+            "Camera frames are processed strictly inside your browser to extract brightness numbers and are never recorded or uploaded anywhere.",
+            "This tool is for educational and general wellness reference only and is not a medical device."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why does pressing harder make the signal disappear?",
+          "a": "Pressing hard restricts blood flow in the fingertip capillaries, eliminating the subtle brightness pulse the camera needs to detect."
+        },
+        {
+          "q": "Is my camera video sent to a server?",
+          "a": "No. Video frames never leave your browser."
+        },
+        {
+          "q": "Can I use this for medical diagnosis?",
+          "a": "No. It is an educational demonstration of optical pulse sensing, not a certified medical monitor."
+        }
+      ]
     },
     "diary": {
       "alreadyPosted": "You have posted today (one entry per day in JST). You can edit today’s entry.",
@@ -329,7 +588,10 @@
       "related": "More apps",
       "allApps": "All apps",
       "categoryNavigation": "App categories",
-      "faq": "Frequently asked questions"
+      "faq": "Frequently asked questions",
+      "localNote": "Processed in your browser",
+      "tabGuide": "Guide",
+      "localBadge": "On-device"
     },
     "appList": {
       "eyebrow": "APPS",
@@ -492,7 +754,44 @@
       "yes": "Yes",
       "no": "No",
       "detailsFailed": "The connection details could not be loaded.",
-      "note": "The location is a rough estimate from the IP address and can differ from where you really are (especially on a VPN or a mobile network). This information is only shown on this page and is not stored."
+      "note": "The location is a rough estimate from the IP address and can differ from where you really are (especially on a VPN or a mobile network). This information is only shown on this page and is not stored.",
+      "guide": [
+        {
+          "heading": "What This Page Shows",
+          "paragraphs": [
+            "As soon as you open the page, it displays the public IP address of your current internet connection, along with your network provider (ISP / ASN), approximate region and time zone, connection protocol, and browser environment details such as User-Agent and viewport size.",
+            "You can copy the IP address or environment summary with one click when configuring firewall allowlists or troubleshooting network issues with support."
+          ]
+        },
+        {
+          "heading": "Public IP vs. Local Private IP",
+          "paragraphs": [
+            "Devices on a home or office Wi-Fi network use private IP addresses (such as 192.168.x.x) inside the local network, while your router uses a public IP address to talk to websites on the internet. This page shows that public-facing IP address.",
+            "Location details derived from an IP address reflect where your ISP registers that address block—never your exact street address."
+          ]
+        },
+        {
+          "heading": "IPv4, IPv6, and VPN Connections",
+          "paragraphs": [
+            "Modern networks often prefer IPv6 when available, so you will see either an IPv6 or IPv4 address depending on what your connection uses to reach this site.",
+            "If you are connected through a VPN, corporate gateway, or privacy relay, the page shows the VPN exit node's IP address and region, which is a quick way to verify that your VPN tunnel is active."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why does the displayed city or region differ from where I am?",
+          "a": "IP geolocation maps address blocks to an ISP's routing hub or registered office, so it often points to a nearby major city."
+        },
+        {
+          "q": "Does my public IP address stay the same?",
+          "a": "Unless you pay for a static IP from your ISP, your public IP can change when your router reconnects or when you switch networks."
+        },
+        {
+          "q": "Can a website see my local 192.168.x.x address?",
+          "a": "No. Modern browsers hide local network addresses from websites to protect your privacy."
+        }
+      ]
     },
     "cidr": {
       "title": "CIDR Calculator",
@@ -625,7 +924,44 @@
         "python": "Much of the Python 3.14 standard library is available, with limits on OS-dependent features and some modules. Supported packages such as numpy and pandas are downloaded as needed. File operations use an in-browser virtual filesystem, not unrestricted access to files on your device. Network requests follow browser restrictions. Stopping Python reloads the runtime and discards state such as virtual files.",
         "javascript": "Modern JavaScript (up to ES2024) is available. The page (DOM) cannot be changed, and modules cannot be imported. An endless loop can be stopped with \"■ Stop\". For types, use the TypeScript tab.",
         "typescript": "Checking uses strict mode. The JavaScript is run even when there are type errors. Modules and @types cannot be imported. The first run takes a moment to load the compiler (a few MB)."
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Run Code and Use Standard Input",
+          "paragraphs": [
+            "Switch between Python, JavaScript, and TypeScript tabs at the top, write your code in the editor, and press Run. Any text placed in the standard input (stdin) box can be read line by line with input() in all three languages, making it handy for algorithm and coding challenge practice.",
+            "Because code executes in a dedicated Web Worker, the page stays responsive even during an infinite loop—just press Stop to terminate it. Syntax and runtime errors highlight the offending line directly in the editor."
+          ]
+        },
+        {
+          "heading": "Language Runtimes",
+          "paragraphs": [
+            "Python runs on Pyodide (CPython compiled to WebAssembly) and automatically loads packages such as numpy, pandas, and sympy the first time you import them. TypeScript checks your code with the TypeScript compiler in strict mode before running and reports type errors by line.",
+            "JavaScript and TypeScript format console.log output clearly for nested arrays and objects, and support top-level await and timers."
+          ]
+        },
+        {
+          "heading": "Browser Sandbox Limits and Saving",
+          "paragraphs": [
+            "Because execution happens inside a browser Web Worker, OS-level features such as spawning subprocesses, raw network sockets, and direct access to your computer's filesystem are unavailable. File operations in Python work against an in-memory virtual filesystem.",
+            "Your code is saved locally in your browser per language, and you can generate a shareable link that encodes the snippet in the URL. Code is never sent to a server for execution."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can I import numpy or sympy in Python?",
+          "a": "Yes. Writing import numpy or import sympy automatically downloads the package into the browser on first run."
+        },
+        {
+          "q": "What happens if my code enters an infinite loop?",
+          "a": "Execution runs in a separate Web Worker, so the UI does not freeze. Press Stop at any time to abort the run."
+        },
+        {
+          "q": "Is my code uploaded to a server when I press Run?",
+          "a": "No. All three languages run locally inside your browser."
+        }
+      ]
     },
     "sql": {
       "title": "SQL Practice (SQLite / PostgreSQL)",
@@ -682,7 +1018,44 @@
         "result": "The sample returns Orange (80 yen) and Banana (100 yen), in that order. Changing 100 to 150 includes more products.",
         "note": "WHERE filters rows; ORDER BY sorts them. The sample database resets on every run, so put related changes in the same run as multiple SQL statements.",
         "code": "SELECT name, price\nFROM products\nWHERE price <= 100\nORDER BY price;"
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Use the Sample Database",
+          "paragraphs": [
+            "Choose SQLite (sql.js) or PostgreSQL (PGlite) at the top, type your SQL query in the editor, and run it. A preloaded sample database with products, customers, orders, and order_items tables is ready immediately without any setup.",
+            "Pick one of the built-in examples to load queries demonstrating WHERE filters, JOINs across tables, GROUP BY aggregations, subqueries, and window functions such as ROW_NUMBER and SUM OVER. Edit the conditions or sort order and re-run to compare the resulting tables."
+          ]
+        },
+        {
+          "heading": "Differences Between SQLite and PostgreSQL",
+          "paragraphs": [
+            "SQLite is a lightweight embedded database known for flexible typing and simplicity. PostgreSQL is a full-featured relational database widely used in production systems, offering strict data types, rich aggregate expressions, and SQL features such as GENERATE_SERIES and FILTER clauses.",
+            "Because both engines run against the same sample schema here, you can switch between them to test dialect differences in date arithmetic, type casting, and grouping rules."
+          ]
+        },
+        {
+          "heading": "Data Persistence and Privacy",
+          "paragraphs": [
+            "Both database engines run entirely in your browser memory via WebAssembly. Running CREATE TABLE, INSERT, UPDATE, DELETE, or DROP TABLE never touches an external server.",
+            "If you modify or drop tables while experimenting, press Reset or reload the page to restore the original sample dataset. Queries you write stay on your device."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can I create my own tables and insert rows?",
+          "a": "Yes. You can run CREATE TABLE and INSERT statements and query your new tables during the session. Pressing Reset restores the original sample tables."
+        },
+        {
+          "q": "Can I run multiple SQL statements at once?",
+          "a": "Yes. Separate statements with a semicolon (;) to create tables, insert data, and run a SELECT query in a single execution."
+        },
+        {
+          "q": "Are my SQL queries sent to a server?",
+          "a": "No. Both SQLite and PostgreSQL run locally inside your browser using WebAssembly."
+        }
+      ]
     },
     "llmMemory": {
       "title": "Local LLM Memory Estimator",
@@ -711,7 +1084,44 @@
         "gpu": "With a GPU (such as NVIDIA): video memory (VRAM). If the weights fit in VRAM it runs fast. Some tools can spill the rest into main memory, but it becomes much slower.",
         "apple": "On Apple Silicon: the CPU and GPU share one memory (unified memory). Ordinary memory serves the model too, but the OS needs a share, so not all of it is available.",
         "cpu": "On the CPU only: main memory. It works, but is slower than on a GPU."
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Estimate Memory Requirements",
+          "paragraphs": [
+            "Select the model parameter count (such as 7B, 14B, 32B, or 70B), the quantization bit width (FP16, INT8, 4-bit, etc.), and your available GPU VRAM or unified memory.",
+            "The tool calculates both the raw weight size and the total memory needed including context (KV cache) and runtime overhead, showing whether the model fits on your hardware."
+          ]
+        },
+        {
+          "heading": "How Weight Size and Quantization Work",
+          "paragraphs": [
+            "A model's weight size is roughly the number of parameters multiplied by the bytes per parameter. A 7-billion-parameter (7B) model takes about 14 GB in 16-bit (2 bytes per parameter), whereas 4-bit quantization (about 0.5 bytes plus block scales) shrinks it to roughly 4–5 GB.",
+            "During inference, the engine also allocates memory for the KV cache (which grows with context length) and activation buffers, so you generally need around 20% headroom above the raw weights."
+          ]
+        },
+        {
+          "heading": "Hardware Considerations",
+          "paragraphs": [
+            "On discrete GPUs, spilling past VRAM into system RAM causes a steep drop in token generation speed. On Apple Silicon Macs with unified memory, the GPU can typically use roughly two-thirds to three-quarters of total system memory.",
+            "These figures are practical estimates for standard dense transformer models; exact usage varies with context length and runtime implementation."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does 4-bit quantization noticeably hurt quality?",
+          "a": "Usually only slightly. Within a fixed memory budget, a larger model quantized to 4-bit almost always outperforms a smaller model running at FP16."
+        },
+        {
+          "q": "If the weight size equals my VRAM, will it fit?",
+          "a": "No. You also need memory for the KV cache, compute buffers, and the operating system display."
+        },
+        {
+          "q": "How much unified memory can an Apple Silicon Mac use for LLMs?",
+          "a": "By default, roughly 65–75% of total RAM is available to the GPU before macOS memory pressure limits kick in."
+        }
+      ]
     },
     "browserAi": {
       "title": "AI Chat in Your Browser",
@@ -767,7 +1177,44 @@
       "heavy": "A large model, for computers with 16 GB of memory or more; with less, loading may fail or the browser may crash.",
       "thinking": "Thinking…",
       "englishNote": "Made for English",
-      "systemPrompt": "You are a helpful assistant. Answer in English, briefly."
+      "systemPrompt": "You are a helpful assistant. Answer in English, briefly.",
+      "guide": [
+        {
+          "heading": "How to Choose and Run a Model",
+          "paragraphs": [
+            "Select a language model from the picker and send a message. On first use, the browser downloads the model weights and starts generating replies; starting with a compact model (a few hundred megabytes) gives the fastest initial load.",
+            "On browsers with WebGPU support, inference runs on your GPU; small models can also run on CPU via WebAssembly. Downloaded weights are cached by the browser so subsequent sessions start right away."
+          ]
+        },
+        {
+          "heading": "How In-Browser AI Works",
+          "paragraphs": [
+            "Unlike cloud chat services that send your prompts to remote GPU servers, this page loads quantized open models (such as Qwen, Gemma, Llama, and Phi) directly into your browser using WebLLM and Transformers.js and generates tokens on your own device.",
+            "Once a model finishes loading, it can generate text without a network connection, and your prompts and replies never leave your browser."
+          ]
+        },
+        {
+          "heading": "Limitations and Memory Usage",
+          "paragraphs": [
+            "Because these models are small and quantized to fit in browser memory, they make more factual errors and reasoning mistakes than large cloud models. Treat them as an interactive way to explore local LLMs or draft short text, and verify important facts independently.",
+            "Multi-gigabyte models require substantial bandwidth and memory; if a tab crashes or fails to load, switch to a smaller model."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Are my prompts or conversations sent to any server?",
+          "a": "No. Model inference runs entirely inside your browser on your device's GPU or CPU."
+        },
+        {
+          "q": "How can I remove cached model files?",
+          "a": "Clear the site data and cache for this site in your browser settings to free the cached model weights."
+        },
+        {
+          "q": "Why do larger models fail to load on my device?",
+          "a": "Larger models need WebGPU and several gigabytes of free memory. Try one of the smaller models if loading fails."
+        }
+      ]
     },
     "siteCheck": {
       "title": "Website Status Check",
@@ -801,7 +1248,44 @@
         "timeout": "No response within 10 seconds.",
         "connection_failed": "Couldn't connect. Check the domain name, the server and its SSL certificate.",
         "rate_limited": "Too many in a short time. Please wait a minute and try again (up to 10 a minute)."
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Check Website Availability",
+          "paragraphs": [
+            "Enter a website URL and run the check to send an external HTTP request and inspect the status code (such as 200 OK, 404 Not Found, or 503), response time, and final destination URL.",
+            "If the address redirects—for example from HTTP to HTTPS or between apex and www domains—every hop in the redirect chain (301, 302, 307, 308) is listed in order."
+          ]
+        },
+        {
+          "heading": "Why External Checking Helps",
+          "paragraphs": [
+            "When a page fails to load in your browser, it can be hard to tell whether the site is down for everyone or blocked by your local Wi-Fi, DNS cache, or ISP. Because this check connects from an external server, it isolates local network issues from server outages.",
+            "You can also verify response headers and redirect configuration after deploying domain or SSL changes."
+          ]
+        },
+        {
+          "heading": "Limitations",
+          "paragraphs": [
+            "Private network addresses and localhost cannot be checked. Sites protected by strict bot filters or WAF challenges may return 403 Forbidden to automated probes even when reachable in a normal browser.",
+            "An HTTP 200 response confirms that the server answered, though client-side rendering issues still require checking in a browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What is the difference between a 301 and a 302 redirect?",
+          "a": "301 (and 308) indicate a permanent move so search engines update the indexed URL, whereas 302 (and 307) indicate a temporary redirect."
+        },
+        {
+          "q": "Why does a working site return 403 Forbidden here?",
+          "a": "Some websites configure their firewall or CDN to block automated requests coming from cloud data centers."
+        },
+        {
+          "q": "Can I test localhost or an internal corporate URL?",
+          "a": "No. Only publicly routable internet URLs are supported."
+        }
+      ]
     },
     "footer": {
       "apps": "All apps",
@@ -870,7 +1354,44 @@
         "availableNote": "It may be available. Some names are reserved or premium-priced, so confirm with a registrar before counting on it.",
         "registered": "{domain} is already registered",
         "unknown": "Couldn't tell whether {domain} is registered"
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Look Up a Domain",
+          "paragraphs": [
+            "Enter a domain name such as example.com or example.jp to check whether it is already registered or available.",
+            "For registered domains, the tool displays the registration date, expiration date, last update, registrar, name servers, status flags, and any publicly visible registrant details."
+          ]
+        },
+        {
+          "heading": "How WHOIS and RDAP Work",
+          "paragraphs": [
+            "Each top-level domain (.com, .jp, .org, and so on) is operated by a registry that maintains registration records. Using IANA's bootstrap directory, this tool queries the authoritative registry via RDAP (Registration Data Access Protocol) or traditional WHOIS.",
+            "Because of modern privacy regulations, personal contact fields are often redacted or replaced by proxy details, while technical fields such as creation date, expiry date, and name servers remain public."
+          ]
+        },
+        {
+          "heading": "Practical Uses and Notes",
+          "paragraphs": [
+            "Use it to check availability when naming a project, verify when your own domain expires, confirm that a DNS delegation change has taken effect, or check how recently an unfamiliar domain was registered.",
+            "Even if a domain appears unregistered in WHOIS/RDAP, certain short or reserved names may be held back by the registry; confirm final availability with a domain registrar."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why are registrant contact details shown as redacted?",
+          "a": "Most registries and registrars redact personal names and emails by default under privacy laws such as GDPR."
+        },
+        {
+          "q": "Should I enter a full URL or just the domain name?",
+          "a": "Enter the registered domain name itself (for example, example.com rather than a full URL with paths)."
+        },
+        {
+          "q": "Can I register a domain immediately after its expiration date passes?",
+          "a": "Not right away. Expired domains go through renewal grace and redemption periods before being released."
+        }
+      ]
     },
     "wc": {
       "title": "Character Count",
@@ -953,7 +1474,44 @@
       "timeLabel": "Time",
       "secondsUnit": "s",
       "newRecord": "New record!",
-      "bestTimeLabel": "Best time"
+      "bestTimeLabel": "Best time",
+      "guide": [
+        {
+          "heading": "How to Practice Mental Arithmetic",
+          "paragraphs": [
+            "Solve addition, subtraction, multiplication, and division problems one after another at your own pace or for speed. As soon as you submit an answer, the next problem is ready.",
+            "While the Math Foundations (/math) curriculum teaches concepts step by step with lessons and worked examples, this tool focuses on rapid mental calculation fluency."
+          ]
+        },
+        {
+          "heading": "Mental Math Strategies",
+          "paragraphs": [
+            "Working from left to right (tens before ones) and rounding to the nearest ten makes mental addition and subtraction much faster: for example, compute 48 + 37 as 48 + 40 − 3 = 85.",
+            "For multiplication, splitting one factor into parts—such as 15 × 12 = 15 × 10 + 15 × 2 = 180—reduces memory load and prevents carry mistakes."
+          ]
+        },
+        {
+          "heading": "Fast Local Execution",
+          "paragraphs": [
+            "Problems are generated and checked entirely in your browser with zero network latency, so you can type continuously using a number pad and Enter.",
+            "Even two or three minutes of daily practice sharpens everyday estimation and number sense."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Do division problems have remainders?",
+          "a": "No. Division problems are constructed to divide evenly into whole numbers."
+        },
+        {
+          "q": "How is this different from Math Foundations (/math)?",
+          "a": "Math Foundations covers structured lessons from elementary arithmetic through university calculus, whereas this page is a quick four-operations speed drill."
+        },
+        {
+          "q": "Can I use only the keyboard?",
+          "a": "Yes. Type numbers and press Enter to submit and advance."
+        }
+      ]
     },
     "breaches": {
       "title": "Japan Cyber Incident Roundup",
@@ -1284,7 +1842,44 @@
           "title": "A day to let go",
           "text": "A day for ending, forgiving and giving way. Let go of what you do not need and you will feel clear."
         }
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Read Your Birthday Profile",
+          "paragraphs": [
+            "Enter your date of birth to see your Western zodiac sign, your Numerology Life Path Number (including master numbers 11, 22, and 33), and your Personal Year, Personal Month, and Personal Day cycles for today.",
+            "Because the reading is calculated deterministically from your birth date and the calendar date rather than drawn at random, the same birth date always produces the same reading on a given day."
+          ]
+        },
+        {
+          "heading": "How Numerology Digits Are Reduced",
+          "paragraphs": [
+            "To find the Life Path Number, the digits of your birth year, month, and day are summed repeatedly until a single digit from 1 to 9 remains—except when the sum reaches 11, 22, or 33, which are preserved as master numbers.",
+            "Combining your birth month and day with the current year, month, and day produces your 1–9 Personal Year, Month, and Day numbers along with five-star daily ratings."
+          ]
+        },
+        {
+          "heading": "Privacy and Entertainment Note",
+          "paragraphs": [
+            "Your birth date stays in your browser (or your signed-in profile if you saved one) and is never shared publicly.",
+            "Readings are meant for light daily reflection and entertainment."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why are 11, 22, and 33 not reduced to 2, 4, and 6?",
+          "a": "In standard numerology, 11, 22, and 33 are master numbers and are kept intact."
+        },
+        {
+          "q": "Does the reading change if I reload the page?",
+          "a": "Not on the same day—it updates each midnight when the Personal Day advances."
+        },
+        {
+          "q": "Is my birth date sent to a third party?",
+          "a": "No. All calculations are performed locally from the date you enter."
+        }
+      ]
     },
     "omikuji": {
       "title": "Omikuji",
@@ -1385,7 +1980,44 @@
             "b": "Avoid lending and borrowing. It is a time to defend."
           }
         }
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Draw an Omikuji Slip",
+          "paragraphs": [
+            "Press the button to shake the wooden fortune cylinder (omikuji box), draw a numbered stick, and unfold your paper fortune slip—ranging from Great Blessing (Daikichi) down to Minor Curse (Kyo).",
+            "Each slip includes guidance on wishes, love, work, studies, and money, along with a lucky color and lucky number."
+          ]
+        },
+        {
+          "heading": "What Traditional Japanese Omikuji Are",
+          "paragraphs": [
+            "At Shinto shrines and Buddhist temples across Japan, visitors shake a hexagonal wooden box until a single numbered bamboo stick slides out of a small hole, then receive the matching paper slip.",
+            "Traditionally, the specific advice under each life category matters more than the headline rank alone—even a top fortune reminds you to stay humble, while an unlucky slip encourages patience as luck turns upward."
+          ]
+        },
+        {
+          "heading": "Draw Anytime",
+          "paragraphs": [
+            "Draw a slip at the start of the day or whenever you want a lighthearted prompt.",
+            "Fortunes are generated for fun and entertainment."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Can I draw more than once?",
+          "a": "Yes. Press Draw Again whenever you like."
+        },
+        {
+          "q": "What are the fortune ranks?",
+          "a": "They include Daikichi (Great Blessing), Kichi (Blessing), Chukichi (Middle Blessing), Shokichi (Small Blessing), Suekichi (Future Blessing), and Kyo (Unlucky)."
+        },
+        {
+          "q": "What if I draw Kyo (Unlucky)?",
+          "a": "In Japanese tradition, Kyo simply advises caution and means your fortune has nowhere to go but up."
+        }
+      ]
     },
     "age": {
       "title": "Birth Year Lookup",
@@ -1403,7 +2035,44 @@
       "colEra": "Japanese era",
       "colPassed": "If birthday has passed",
       "colNotYet": "If birthday hasn't come yet",
-      "note": "In years when the Japanese era changed (1868, 1912, 1926, 1989, 2019), the era name depends on the birth month. Use this table as a guide."
+      "note": "In years when the Japanese era changed (1868, 1912, 1926, 1989, 2019), the era name depends on the birth month. Use this table as a guide.",
+      "guide": [
+        {
+          "heading": "How to Use the Birth Year Lookup",
+          "paragraphs": [
+            "Enter an age or browse the table to see the corresponding birth year in both the Western (Gregorian) calendar and Japanese era names (Reiwa, Heisei, Showa, Taisho).",
+            "Because the birth year depends on whether the person's birthday has already occurred this calendar year, both cases—birthday already passed and birthday still upcoming—are shown side by side."
+          ]
+        },
+        {
+          "heading": "Why Two Birth Years Are Shown",
+          "paragraphs": [
+            "Two people who are the same age today can be born in adjacent calendar years: if your birthday has already passed this year, your birth year is Current Year minus Age; if your birthday is later in the year, it is one year earlier.",
+            "Showing both columns prevents the common off-by-one mistake when filling out forms or checking records."
+          ]
+        },
+        {
+          "heading": "Japanese Era Transition Years",
+          "paragraphs": [
+            "Years in which the Japanese era changed mid-year—such as 1989 (Showa 64 / Heisei 1) and 2019 (Heisei 31 / Reiwa 1)—depend on the exact birth date.",
+            "For 1989, January 8 onward is Heisei 1; for 2019, May 1 onward is Reiwa 1."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Which column should I use if my birthday has not happened yet this year?",
+          "a": "Use the column for birthdays still to come this year, which is one calendar year earlier."
+        },
+        {
+          "q": "How are 1989 and 2019 written in the Japanese era calendar?",
+          "a": "In 1989, dates through January 7 are Showa 64 and January 8 onward are Heisei 1. In 2019, dates through April 30 are Heisei 31 and May 1 onward are Reiwa 1."
+        },
+        {
+          "q": "Is anything sent to a server when I use this table?",
+          "a": "No. All calculations happen locally in your browser using today's date."
+        }
+      ]
     },
     "password": {
       "title": "Password Generator",
@@ -1711,7 +2380,44 @@
       "countLabel": "Number of dice",
       "idle": "Press \"Roll\" to start",
       "roll": "Roll",
-      "totalLabel": "Total"
+      "totalLabel": "Total",
+      "guide": [
+        {
+          "heading": "How to Roll and Check Totals",
+          "paragraphs": [
+            "Choose how many dice to roll and press Roll to see each die's face and the total sum. It works as a quick replacement for physical dice in board games, tabletop RPGs, or classroom probability exercises.",
+            "Roll history and counts let you see how totals accumulate over repeated rolls."
+          ]
+        },
+        {
+          "heading": "Probability and Sum Distributions",
+          "paragraphs": [
+            "With a single fair six-sided die, each face from 1 to 6 has an equal 1/6 chance (about 16.7%), and the expected value is 3.5.",
+            "With two dice, the sum ranges from 2 to 12 in a triangular distribution: a sum of 7 can happen in 6 ways out of 36 (1/6), whereas 2 or 12 can happen in only 1 way out of 36."
+          ]
+        },
+        {
+          "heading": "Independent Rolls",
+          "paragraphs": [
+            "Each die roll is an independent random draw in your browser, so past rolls have no effect on future outcomes.",
+            "As you roll more dice at once, the distribution of their sum approaches a bell-shaped curve by the Central Limit Theorem."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What is the most likely sum when rolling two six-sided dice?",
+          "a": "Seven, which occurs in 6 of the 36 possible outcomes (1/6)—six times as likely as rolling a 2 or a 12."
+        },
+        {
+          "q": "Does a streak of low rolls make a high roll more likely next?",
+          "a": "No. Each roll is independent, with every face having a 1/6 probability each time."
+        },
+        {
+          "q": "What is the expected sum of N six-sided dice?",
+          "a": "3.5 × N, since each die has an average value of 3.5."
+        }
+      ]
     },
     "reaction": {
       "title": "Reaction Time Test",
@@ -1747,7 +2453,44 @@
       "tableCount": "Results",
       "hint": "A mouse or a touch counts the moment it goes down; on a keyboard, press Space or Enter. Results are kept with no name, and averages under 100 ms or over 1000 ms are not counted.",
       "nth": "Try {n}",
-      "progress": "{done} of {round} tries done"
+      "progress": "{done} of {round} tries done",
+      "guide": [
+        {
+          "heading": "How the Reaction Test Works",
+          "paragraphs": [
+            "Press Start, wait while the screen is in the waiting state, and click or tap the instant the color changes. Clicking before the signal counts as an early start and resets that attempt.",
+            "After three valid trials, your average reaction time in milliseconds is compared against the overall distribution of recorded scores."
+          ]
+        },
+        {
+          "heading": "Human Visual Reaction Time",
+          "paragraphs": [
+            "Responding to a visual cue requires light to hit the retina, travel along the optic nerve to the visual cortex, trigger the motor cortex, and send a signal down to your finger muscles. Typical human visual reaction time falls between 180 and 280 ms.",
+            "Visual reaction is naturally about 30–40 ms slower than auditory reaction because photochemical processing in the retina takes extra time."
+          ]
+        },
+        {
+          "heading": "Display and Input Latency",
+          "paragraphs": [
+            "Measured times include your device's display refresh interval (up to 16.7 ms on a 60 Hz screen, or ~7 ms at 144 Hz) and mouse or touch input polling delay.",
+            "Because of hardware latency, the same person often scores 15–30 ms faster on a high-refresh-rate desktop monitor with a wired mouse than on a mobile touchscreen."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What is the physiological limit for visual reaction time?",
+          "a": "Around 140–160 ms for genuine visual reactions; times under 100 ms almost always involve anticipating the signal."
+        },
+        {
+          "q": "Why do I get faster times on a desktop than on a phone?",
+          "a": "Touchscreens and mobile compositors add more input and display latency than a wired mouse and high-refresh monitor."
+        },
+        {
+          "q": "Why does the test average three attempts?",
+          "a": "Averaging three trials smooths out a single lucky guess or a momentary blink."
+        }
+      ]
     },
     "typing": {
       "title": "Typing Game (Japanese romaji and English)",
@@ -1794,7 +2537,44 @@
       "introEn": "Type the English words and sentences that appear, exactly as shown. You have {seconds} seconds, and they keep coming.",
       "ruleEn1": "Capitals are typed as lower case (no Shift needed).",
       "ruleEn3": "Esc stops.",
-      "playHintEn": "Type it as shown."
+      "playHintEn": "Type it as shown.",
+      "guide": [
+        {
+          "heading": "How to Play and Flexible Romaji Input",
+          "paragraphs": [
+            "Type as many words as you can in 60 seconds in either Japanese Romaji or English mode. As soon as a word is completed, the next word appears automatically.",
+            "In Japanese mode, the input parser accepts all standard Hepburn and Kunrei-shiki spellings on the fly—such as si/shi, ti/chi, tu/tsu, hu/fu, and single or double n—adapting dynamically to whichever key you press."
+          ]
+        },
+        {
+          "heading": "Tips for Speed and Accuracy",
+          "paragraphs": [
+            "Keep your index fingers anchored on the home-row bumps (F and J) so your eyes can stay on the upcoming word rather than looking down at the keyboard.",
+            "Reading a whole word ahead instead of one letter at a time helps maintain a steady typing rhythm and avoids costly mistakes."
+          ]
+        },
+        {
+          "heading": "Scoring and Percentile Ranking",
+          "paragraphs": [
+            "At the end of 60 seconds, your score and accuracy are compared against recorded runs so you can see your percentile rank.",
+            "Consistent accuracy usually yields a higher score than rushing with frequent typos."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does Japanese mode accept both 'si' and 'shi' for し?",
+          "a": "Yes. The parser accepts all common romanization variants and updates the remaining guide characters as you type."
+        },
+        {
+          "q": "Do I have to type 'nn' for ん?",
+          "a": "Before most consonants a single 'n' is accepted automatically, and typing 'nn' also works without penalty."
+        },
+        {
+          "q": "Can I practice in English as well?",
+          "a": "Yes. Switch to English mode to type English vocabulary."
+        }
+      ]
     },
     "iqTest": {
       "title": "IQ Test",
@@ -1833,7 +2613,44 @@
       "tableView": "Show as a table",
       "tableScore": "Right",
       "tableCount": "Tests",
-      "hint": "The puzzles are made anew by a program each time (no published intelligence test's items are used). Only the number right and the time taken are kept, with no name, to build everyone's distribution."
+      "hint": "The puzzles are made anew by a program each time (no published intelligence test's items are used). Only the number right and the time taken are kept, with no name, to build everyone's distribution.",
+      "guide": [
+        {
+          "heading": "How the 3×3 Matrix Puzzle Works",
+          "paragraphs": [
+            "Each of the 16 questions shows a 3×3 grid of geometric figures with the bottom-right cell missing. Spot the pattern across rows and columns and choose the matching figure from the six options.",
+            "Because the test uses non-verbal visual matrices inspired by Raven's Progressive Matrices, it relies on pattern recognition rather than vocabulary or trivia."
+          ]
+        },
+        {
+          "heading": "Common Pattern Rules",
+          "paragraphs": [
+            "Look across each row or down each column for rules such as: (1) progression in count, size, or polygon sides; (2) consistent rotation or movement; (3) permutation where each shape or shading appears once per row and column; or (4) logical combination such as union or XOR (elements that appear in only one of the first two cells).",
+            "Puzzles are generated procedurally on each run rather than drawn from a fixed static image list, so you can practice fresh matrices anytime."
+          ]
+        },
+        {
+          "heading": "Interpreting Your Score",
+          "paragraphs": [
+            "At the end of the 16 items, your raw score is mapped against the distribution of test-takers on this site (scaled around a mean of 100 and standard deviation of 15).",
+            "This is a recreational pattern-reasoning puzzle and not a clinical psychometric assessment."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Are the questions identical every time I take the test?",
+          "a": "No. Each session procedurally generates new matrix puzzles from underlying rule templates."
+        },
+        {
+          "q": "Should I read the grid by rows or by columns?",
+          "a": "Patterns hold consistently across rows and columns; check whichever direction makes the change easiest to spot."
+        },
+        {
+          "q": "Is this an official clinical IQ test?",
+          "a": "No. It provides an informal estimate based on 16 visual matrix puzzles for entertainment and brain training."
+        }
+      ]
     },
     "personality": {
       "title": "Personality Test (Big Five)",
@@ -1961,7 +2778,44 @@
           "name": "Balanced penguin",
           "text": "All five traits near the middle: well balanced. You adapt naturally to whatever the moment needs."
         }
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Take the 20-Question Assessment",
+          "paragraphs": [
+            "Rate how accurately each of the 20 short statements describes how you typically feel or act on a 5-point scale. Answer based on how you generally are rather than how you wish to be.",
+            "When finished, you will see your profile across the five dimensions, your percentile compared with other respondents, and a summary character archetype."
+          ]
+        },
+        {
+          "heading": "The Big Five Model and Mini-IPIP",
+          "paragraphs": [
+            "The Five-Factor Model (Big Five) is the most widely validated personality framework in modern psychology. Instead of forcing people into rigid boxes, it measures five continuous traits: Extraversion, Agreeableness, Conscientiousness, Neuroticism (Emotional Reactivity), and Openness / Intellect.",
+            "This tool uses the 20-item Mini-IPIP scale (Donnellan et al., 2006) from the public-domain International Personality Item Pool, balancing positively and negatively keyed items across all five factors."
+          ]
+        },
+        {
+          "heading": "How to Read Your Profile",
+          "paragraphs": [
+            "Neither end of any trait is inherently good or bad—each reflects a different style and trade-off. For instance, high extraversion favors social energy and initiative, while low extraversion favors independent focus.",
+            "Use the results as a reflection tool for self-understanding rather than a clinical diagnosis."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "How is the Big Five different from type-label quizzes?",
+          "a": "Because it measures continuous dimensions rather than binary buckets, people near the middle are represented accurately and test-retest reliability is much higher."
+        },
+        {
+          "q": "Is a low score on a trait a bad thing?",
+          "a": "No. Both high and low scores have distinct strengths depending on the situation and environment."
+        },
+        {
+          "q": "What is the Mini-IPIP?",
+          "a": "A validated 20-item short form of the International Personality Item Pool (4 items per factor) widely used in psychological research."
+        }
+      ]
     },
     "timing": {
       "title": "5-Second Click",
@@ -1976,7 +2830,44 @@
       "secondsUnit": "s",
       "newRecord": "New record!",
       "bestLabel": "Best (off by)",
-      "retry": "Try again"
+      "retry": "Try again",
+      "guide": [
+        {
+          "heading": "How to Play the 5-Second Challenge",
+          "paragraphs": [
+            "Press Start and then press Stop at the exact moment you think 5.000 seconds have passed. Because the timer display hides while you count, you have to rely entirely on your internal sense of time.",
+            "Your result shows the exact time and millisecond error from 5.000 seconds."
+          ]
+        },
+        {
+          "heading": "Time Perception and Counting Tricks",
+          "paragraphs": [
+            "When people count 'one, two, three, four, five' in their heads, two common biases happen: each count tends to run slightly faster than a full second under excitement, and pressing on 'five' after starting at 'one' only spans four intervals!",
+            "Start from zero ('zero, one, two, three, four, five') or subdivide into ten half-second beats at 120 BPM (the tempo of a standard march or pop song) for much tighter accuracy."
+          ]
+        },
+        {
+          "heading": "Millisecond Precision",
+          "paragraphs": [
+            "Elapsed time is measured with the browser's high-resolution monotonic clock to the millisecond.",
+            "It makes a quick party challenge to see who has the steadiest internal clock."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why do I keep stopping around 4.2 seconds?",
+          "a": "Counting '1, 2, 3, 4, 5' starting immediately at 1 only measures four intervals. Count from 0 to 5 instead."
+        },
+        {
+          "q": "What is the most reliable way to estimate 5 seconds?",
+          "a": "Subdivide into ten half-second beats (120 BPM) in your head rather than waiting out long 1-second gaps."
+        },
+        {
+          "q": "What counts as a great score?",
+          "a": "Getting within ±0.10 seconds (100 ms) is very solid, and within ±0.02 seconds takes sharp rhythm."
+        }
+      ]
     },
     "search": {
       "featured": "Featured apps",
@@ -2033,7 +2924,21 @@
           "firstLink": "Try order of operations",
           "secondLink": "Browse maths topics"
         }
-      }
+      },
+      "shelfFilter": "Show section",
+      "shelves": {
+        "all": "All",
+        "tools": "Tools & Info",
+        "learn": "Learn & Practice",
+        "play": "Lab & Break"
+      },
+      "learnShelfTitle": "Learn & Practice",
+      "learnShelfSub": "Step-by-step lessons and hands-on practice",
+      "toolsShelfTitle": "Practical Tools & Verified Info",
+      "toolsShelfSub": "On-device = processed in your browser without uploading",
+      "playLabTitle": "Interactive Lab & Quick Break",
+      "playLabBody": "Visual math & physics experiments and 30-second break games",
+      "morePlayLab": "See all games & experiments →"
     },
     "life": {
       "title": "Game of Life",
@@ -2063,7 +2968,44 @@
         "acorn": "Acorn",
         "gun": "Glider gun"
       },
-      "hint": "A cell with two or three neighbours survives, and an empty square with exactly three neighbours is born. The edges wrap round to the far side. Young cells are green and the older they get the bluer they look."
+      "hint": "A cell with two or three neighbours survives, and an empty square with exactly three neighbours is born. The edges wrap round to the far side. Young cells are green and the older they get the bluer they look.",
+      "guide": [
+        {
+          "heading": "How to Play with the Grid",
+          "paragraphs": [
+            "Click or drag across the grid to draw live cells, then press Play to watch generations evolve, or Step to advance one generation at a time. Use the speed slider to slow down or speed up the simulation.",
+            "Load classic presets such as the Glider, Pulsar, or Gosper Glider Gun, and experiment by adding or erasing cells around them."
+          ]
+        },
+        {
+          "heading": "Conway's Rules of Life",
+          "paragraphs": [
+            "Devised by mathematician John Horton Conway in 1970, the Game of Life updates every cell simultaneously based only on how many of its 8 neighbors are alive: (1) Birth: a dead cell with exactly 3 live neighbors becomes alive. (2) Survival: a live cell with 2 or 3 live neighbors stays alive. (3) Underpopulation or overcrowding: in all other cases, the cell dies.",
+            "From these three local rules emerge still lifes that never change, oscillators that cycle with a fixed period, and spaceships that travel across the grid."
+          ]
+        },
+        {
+          "heading": "Emergence and Universal Computation",
+          "paragraphs": [
+            "With the discovery of the Gosper Glider Gun, which emits a steady stream of gliders, researchers showed that colliding glider streams can act as logic gates (AND, OR, NOT), making the Game of Life Turing complete.",
+            "It remains one of the clearest visual examples in mathematics and computer science of how complex global behavior emerges from simple local rules."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What is a Glider?",
+          "a": "A 5-cell pattern that shifts diagonally by one cell every four generations, making it the smallest spaceship in the Game of Life."
+        },
+        {
+          "q": "What happens when a pattern reaches the edge of the board?",
+          "a": "The grid wraps around at the edges like a torus, so a glider leaving one side re-enters from the opposite side."
+        },
+        {
+          "q": "Why do some random patterns eventually stop moving?",
+          "a": "Many starting configurations settle into a combination of static blocks and blinking oscillators after enough generations."
+        }
+      ]
     },
     "pendulum": {
       "title": "Double Pendulum",
@@ -2082,7 +3024,44 @@
       "angle2": "Start angle (lower)",
       "spread": "Offset",
       "speed": "Speed",
-      "hint": "Angles are from straight down, which is 0°. The offset is the difference between the start angles of the first and the last pendulum. Even 0.01° soon gives a completely different motion (the butterfly effect). With small angles they stay together for a long time."
+      "hint": "Angles are from straight down, which is 0°. The offset is the difference between the start angles of the first and the last pendulum. Even 0.01° soon gives a completely different motion (the butterfly effect). With small angles they stay together for a long time.",
+      "guide": [
+        {
+          "heading": "How to Use the Simulation",
+          "paragraphs": [
+            "Adjust the lengths of the two rods, the masses of the bobs, and gravity using the controls, or drag the pendulum bobs directly to release them from any starting angle.",
+            "The glowing trail traces the path of the lower bob so you can see how the motion unfolds over time."
+          ]
+        },
+        {
+          "heading": "Deterministic Chaos and Sensitivity",
+          "paragraphs": [
+            "While a single pendulum swings back and forth with a regular period, attaching a second pendulum to the end of the first produces chaotic motion whenever swung from a high angle.",
+            "There is no randomness in the equations of motion, yet two starting angles differing by a thousandth of a degree diverge into completely different trajectories within seconds—a classic demonstration of sensitivity to initial conditions."
+          ]
+        },
+        {
+          "heading": "Numerical Integration (Runge–Kutta)",
+          "paragraphs": [
+            "Because the coupled nonlinear differential equations derived from the system's Lagrangian have no closed-form formula for general angles, the motion must be integrated numerically.",
+            "This simulation integrates the angular positions and velocities step by step using the fourth-order Runge–Kutta method (RK4) to keep total mechanical energy stable."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why does the motion look regular at small angles?",
+          "a": "For small oscillations, the equations behave nearly linearly as a superposition of two normal modes. Chaos appears when released from larger angles with higher energy."
+        },
+        {
+          "q": "Does the simulation use random numbers?",
+          "a": "No. The physics is completely deterministic; tiny differences in starting angle grow exponentially over time."
+        },
+        {
+          "q": "Is friction included?",
+          "a": "By default it models an ideal frictionless double pendulum so you can observe conservative chaotic motion."
+        }
+      ]
     },
     "fourier": {
       "title": "Fourier Drawing",
@@ -2105,7 +3084,44 @@
       "showCircles": "Circles and arms",
       "showOriginal": "Original picture",
       "speedOf": "Speed ×{n}",
-      "hint": "The more circles, the closer to the original. The biggest circles are used first, so even a few give the rough shape. The Fourier transform breaks the picture down into turning circles."
+      "hint": "The more circles, the closer to the original. The biggest circles are used first, so even a few give the rough shape. The Fourier transform breaks the picture down into turning circles.",
+      "guide": [
+        {
+          "heading": "How to Use Fourier Drawing",
+          "paragraphs": [
+            "Pick a preset shape or draw a continuous closed loop on the canvas with your mouse or finger, and watch a chain of rotating circles (epicycles) trace your drawing.",
+            "Adjust the number of circles with the slider: with only a few circles you get a smooth outline, and as you add more terms, sharp corners and fine details emerge."
+          ]
+        },
+        {
+          "heading": "The Math Behind Epicycles",
+          "paragraphs": [
+            "By treating each point (x(t), y(t)) along a closed curve as a complex number z(t) = x(t) + i y(t), the Discrete Fourier Transform (DFT) decomposes the path into rotating vectors of frequencies k = 0, ±1, ±2, ..., each with its own radius (amplitude) and starting angle (phase).",
+            "Each term c_k e^(i k ω t) is a circle rotating at a constant speed. Attaching the center of each circle to the tip of the previous one reconstructs the original curve at the final tip."
+          ]
+        },
+        {
+          "heading": "What to Notice",
+          "paragraphs": [
+            "Large, slowly rotating circles capture the overall shape (low frequencies), while tiny, fast-spinning circles at the end carve out sharp turns and fine details (high frequencies).",
+            "Dropping the smallest circles while keeping the recognizable shape illustrates the core idea behind lossy compression formats like JPEG and MP3."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why do sharp corners become rounded when I reduce the number of circles?",
+          "a": "Sharp corners require high-frequency terms (small, fast circles). Removing them acts as a low-pass filter that smooths the curve."
+        },
+        {
+          "q": "Can any closed loop be drawn with rotating circles?",
+          "a": "Yes. Any piecewise-smooth closed path can be approximated to arbitrary precision by adding enough Fourier terms."
+        },
+        {
+          "q": "In what order are the circles connected?",
+          "a": "They are sorted from largest amplitude to smallest so that the dominant motion is easiest to see."
+        }
+      ]
     },
     "series": {
       "title": "Series Approximation",
@@ -2197,7 +3213,44 @@
         "others": "Others"
       },
       "credit": "Track all markets on TradingView",
-      "note": "Prices and other data are supplied by TradingView. Depending on the exchange they may be delayed. This is not investment advice or an offer to trade. Make your own investment decisions."
+      "note": "Prices and other data are supplied by TradingView. Depending on the exchange they may be delayed. This is not investment advice or an offer to trade. Make your own investment decisions.",
+      "guide": [
+        {
+          "heading": "How to Read the Dashboard and Heatmap",
+          "paragraphs": [
+            "View major global stock indices (S&P 500, Nasdaq, Dow Jones, Nikkei 225, Hang Seng, Shanghai Composite, DAX), key foreign exchange pairs, Bitcoin, gold, and crude oil on a single screen.",
+            "The S&P 500 heatmap sizes each tile by market capitalization and colors it by daily percentage change (green for gains, red for losses), letting you spot sector trends at a glance."
+          ]
+        },
+        {
+          "heading": "Comparing Asset Classes Together",
+          "paragraphs": [
+            "Equities, currencies, commodities, and crypto often move in response to the same macroeconomic shifts. Seeing indices alongside USD/JPY, gold, and oil helps clarify whether a move is sector-specific or a broader market shift.",
+            "Grouping S&P 500 constituents by sector also highlights rotations between technology, financials, healthcare, energy, and consumer staples."
+          ]
+        },
+        {
+          "heading": "Update Timing and Disclaimer",
+          "paragraphs": [
+            "Quotes and percentage changes are refreshed periodically and may be delayed relative to live exchange feeds; when a market is closed, the most recent closing figures are shown.",
+            "All information on this page is provided for general informational purposes only and does not constitute financial or investment advice."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What does the size of each box in the heatmap represent?",
+          "a": "Box area represents market capitalization, showing each company's relative weight in the index."
+        },
+        {
+          "q": "Are these quotes real-time?",
+          "a": "Data is updated periodically and may be delayed. Always check your brokerage platform before placing trades."
+        },
+        {
+          "q": "Is this investment advice?",
+          "a": "No. The dashboard displays public market indicators for reference only."
+        }
+      ]
     },
     "quake": {
       "title": "Earthquake Information",
@@ -2410,7 +3463,44 @@
       "howTitle": "About the problem",
       "how1": "The coupon collector's problem is a classic of probability: how many random draws (toy prizes, gacha, trading cards) does it take to collect every kind?",
       "how2": "The answer is N × (1 + 1/2 + … + 1/N), roughly N × (ln N + 0.58). Twice the kinds takes more than twice the draws: most kinds come quickly, the last few take very long.",
-      "how3": "Every kind is assumed equally likely. The distribution (the chart, the 90% point) is calculated without approximation, by carrying forward the chance of owning each number of kinds one draw at a time."
+      "how3": "Every kind is assumed equally likely. The distribution (the chart, the 90% point) is calculated without approximation, by carrying forward the chance of owning each number of kinds one draw at a time.",
+      "guide": [
+        {
+          "heading": "How to Use the Calculator and Simulator",
+          "paragraphs": [
+            "Enter the total number of distinct kinds N (for example, 6 for a die or 20 for a collectible series) and how many kinds you want to collect. The page immediately computes the exact expected number of draws (mean), median, standard deviation, and probability distribution.",
+            "You can also check percentiles—such as how many draws it takes to have a 90% or 95% chance of finishing—and run interactive draws or batch Monte Carlo trials to compare against the exact curve."
+          ]
+        },
+        {
+          "heading": "The Mathematics of the Coupon Collector Problem",
+          "paragraphs": [
+            "When each of the N kinds appears with equal probability 1/N, once you already hold k distinct kinds, the chance of drawing a new kind on the next try is (N − k) / N. Waiting for that next new kind follows a geometric distribution with mean N / (N − k).",
+            "Summing across all steps gives the total expected draws N × (1 + 1/2 + 1/3 + ... + 1/N) = N H_N (where H_N is the N-th harmonic number). The very last missing item alone takes an average of N draws."
+          ]
+        },
+        {
+          "heading": "Why the Distribution Has a Long Tail",
+          "paragraphs": [
+            "Because the final few missing items have low probabilities, the total number of draws is skewed to the right with a long tail. Stopping at the mean number of draws gives only about a 57–60% chance of having collected all N kinds.",
+            "Checking the 90th or 95th percentile gives a much more realistic picture of how many draws are needed when luck is not on your side."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why does the last missing item take so long to appear?",
+          "a": "When only one item is missing out of N, each draw has only a 1/N chance of being that item, requiring N draws on average just for the final step."
+        },
+        {
+          "q": "If I draw the average number of times, am I almost guaranteed to finish?",
+          "a": "No. Because the distribution is right-skewed, only about 57–60% of collectors finish at or before the mean."
+        },
+        {
+          "q": "Are the probabilities approximated by simulation?",
+          "a": "No. The mean, variance, and probability distribution are computed exactly; the simulator is provided so you can see random trials converge to the exact math."
+        }
+      ]
     },
     "approx": {
       "title": "Approximation Showdown",
@@ -2463,7 +3553,44 @@
       "howTitle": "What are the three methods?",
       "howTaylor": "Taylor series: adds up x, x², x³ and so on around 0. Very exact near 0 and more and more off as you go away. The numbers are the terms used.",
       "howFourier": "Fourier series: adds up waves (sines and cosines), treating the whole range as one that repeats. The numbers are the biggest coefficients, the strengths of the waves.",
-      "howNetwork": "Neural network: a row of small calculating parts (tanh units). The 3 numbers of each unit (weights and so on) are adjusted, a little at a time and automatically, to make the error smaller. Here it learns in your browser, as you watch. The numbers are 3 × units + 1."
+      "howNetwork": "Neural network: a row of small calculating parts (tanh units). The 3 numbers of each unit (weights and so on) are adjusted, a little at a time and automatically, to make the error smaller. Here it learns in your browser, as you watch. The numbers are 3 × units + 1.",
+      "guide": [
+        {
+          "heading": "How the Approximation Showdown Works",
+          "paragraphs": [
+            "Choose a target function—such as a sine wave, polynomial wiggle, corner, step jump, or Runge bump—and adjust the parameter budget slider.",
+            "Taylor series, Fourier series, and a small neural network (MLP) each try to approximate the target using the same budget of numbers, plotting their curves and mean squared error (MSE) side by side."
+          ]
+        },
+        {
+          "heading": "Strengths and Weaknesses of Each Method",
+          "paragraphs": [
+            "A Taylor polynomial uses derivatives at a single point (x = 0). It is extraordinarily accurate near 0 for analytic functions, but drifts away far from the center, diverges outside its radius of convergence, and cannot even be formed at a sharp corner or jump.",
+            "A Fourier series averages over the whole interval using sines and cosines, excelling at smooth periodic waves while exhibiting Gibbs ringing near jumps. A neural network adapts its hidden units via gradient descent to bend where the function changes."
+          ]
+        },
+        {
+          "heading": "What to Explore",
+          "paragraphs": [
+            "Try switching between smooth periodic waves, sharp corners, and functions with poles to see why no single basis wins everywhere.",
+            "You can also train the neural network further to watch gradient descent gradually reduce the approximation error."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why does the Taylor series blow up near the edges on 1/(1+25x²)?",
+          "a": "The function has complex poles at ±i/5, so its Taylor series around 0 only converges for |x| < 0.2 and diverges outside that radius."
+        },
+        {
+          "q": "Why does the Fourier series overshoot at a step jump?",
+          "a": "That overshoot is the Gibbs phenomenon, which occurs whenever smooth trigonometric waves approximate a discontinuity."
+        },
+        {
+          "q": "How is the comparison kept fair?",
+          "a": "All three methods are constrained to the same parameter budget (number of coefficients or network weights/biases)."
+        }
+      ]
     },
     "govfaq": {
       "title": "Government FAQ Search",
@@ -2511,7 +3638,44 @@
       "note": "These are the FAQ written by the ministries and agencies of the Japanese government (as of 1 October 2026). The text of a chat answer is written by an AI from the FAQ found for the question alone, and it can be wrong; please check the original FAQ it is based on as well. Systems and procedures can change, so for any decision or procedure, check with the office concerned or the official page. This site is not an official one.",
       "credit": "Source: ",
       "creditLink": "Ministry of Internal Affairs and Communications website, \"Govbot, the government chatbot\"",
-      "creditEnd": " (FAQ data as of {date}; processed by us)"
+      "creditEnd": " (FAQ data as of {date}; processed by us)",
+      "guide": [
+        {
+          "heading": "How to Search Administrative FAQs",
+          "paragraphs": [
+            "Enter a topic or everyday phrase—such as My Number card renewal, parental leave benefits, or passport application—to search roughly 4,600 public administrative FAQs from Japan's Govbot dataset.",
+            "You can also browse and narrow questions across 25 categories including pensions, taxation, child rearing, health insurance, and disaster preparedness."
+          ]
+        },
+        {
+          "heading": "Data Source and Coverage",
+          "paragraphs": [
+            "The questions and answers come from the open dataset of Govbot, the national and local government consultation chatbot published by Japan's Ministry of Internal Affairs and Communications.",
+            "It covers nationwide procedures, general eligibility rules, and where to inquire across ministries and municipal offices."
+          ]
+        },
+        {
+          "heading": "Important Notes Before Applying",
+          "paragraphs": [
+            "Specific forms, deadlines, and local subsidies can change with legal revisions or vary by municipality.",
+            "Always verify the latest requirements with your local city/ward office or the official ministry website before submitting an application."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Where do these FAQ answers come from?",
+          "a": "They are sourced from the public Govbot FAQ dataset published by Japan's Ministry of Internal Affairs and Communications."
+        },
+        {
+          "q": "Does this cover rules specific to my city or ward?",
+          "a": "It explains general national rules and standard municipal procedures. Check your local government's website for municipality-specific forms and subsidies."
+        },
+        {
+          "q": "Is this an official government application portal?",
+          "a": "No. It is an independent search tool over public FAQ data to help you find the right procedure and office."
+        }
+      ]
     },
     "metadata": {
       "title": "File Metadata Checker & Remover",
@@ -2792,7 +3956,44 @@
         "geodesic": "Geodesic polyhedron (frequency {n})"
       },
       "corners": "Corners",
-      "frequency": "Frequency"
+      "frequency": "Frequency",
+      "guide": [
+        {
+          "heading": "How to Explore the 3D Solids",
+          "paragraphs": [
+            "Select one of the five Platonic solids (tetrahedron, cube, octahedron, dodecahedron, icosahedron), a prism or pyramid with adjustable n-gon base, or a geodesic polyhedron, and drag to rotate it in 3D.",
+            "As you switch shapes or change the polygon count and subdivision level, compare the live counts of vertices (V), edges (E), and faces (F)."
+          ]
+        },
+        {
+          "heading": "Why There Are Exactly Five Platonic Solids",
+          "paragraphs": [
+            "A convex regular polyhedron (Platonic solid) has congruent regular polygon faces meeting in the same number at every vertex. For the faces to fold into a 3D corner, the interior angles meeting at a vertex must sum to strictly less than 360°.",
+            "Equilateral triangles (60°) allow 3, 4, or 5 per vertex (tetrahedron, octahedron, icosahedron); squares (90°) allow 3 (cube); regular pentagons (108°) allow 3 (dodecahedron). Hexagons (120° × 3 = 360°) lie flat, so no other convex regular polyhedra exist."
+          ]
+        },
+        {
+          "heading": "Euler's Polyhedron Formula (V − E + F = 2)",
+          "paragraphs": [
+            "Every convex polyhedron satisfies Euler's formula: Vertices (V) minus Edges (E) plus Faces (F) always equals 2. For a cube, 8 − 12 + 6 = 2; for an icosahedron, 12 − 30 + 20 = 2.",
+            "Even as you increase the sides of a prism or subdivide a geodesic sphere into hundreds of triangles, V − E + F remains invariant at 2."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why do the cube and octahedron swap vertex and face counts?",
+          "a": "They are dual polyhedra: placing a vertex at the center of each face of a cube forms an octahedron, and vice versa (the dodecahedron and icosahedron are also duals)."
+        },
+        {
+          "q": "What is a geodesic polyhedron?",
+          "a": "A polyhedron formed by subdividing the triangular faces of an icosahedron into smaller triangles and projecting every vertex onto a sphere."
+        },
+        {
+          "q": "Does V − E + F = 2 hold for prisms and pyramids too?",
+          "a": "Yes. An n-gonal prism has 2n − 3n + (n + 2) = 2, and an n-gonal pyramid has (n + 1) − 2n + (n + 1) = 2."
+        }
+      ]
     },
     "kaleidoscope": {
       "title": "Kaleidoscope",
@@ -2817,7 +4018,44 @@
       "options": "Options",
       "mirror": "Mirror",
       "fade": "Fade away",
-      "hint": "More segments make a finer pattern. Turn the mirror off for a softer, turning-only pattern. With \"Fade away\" on, the automatic drawing is hard to stop watching."
+      "hint": "More segments make a finer pattern. Turn the mirror off for a softer, turning-only pattern. With \"Fade away\" on, the automatic drawing is hard to stop watching.",
+      "guide": [
+        {
+          "heading": "How to Draw Kaleidoscope Patterns",
+          "paragraphs": [
+            "Move your mouse or drag your finger across the canvas to mirror and rotate your stroke around the center, creating intricate kaleidoscope mandalas in real time.",
+            "Adjust the symmetry count or brush settings, and clear the canvas anytime to start a new design."
+          ]
+        },
+        {
+          "heading": "Dihedral Symmetry (Rotations and Reflections)",
+          "paragraphs": [
+            "A physical kaleidoscope places angled mirrors inside a tube so light bounces repeatedly to form a symmetric rosette. Mathematically, combining n-fold rotational symmetry with mirror reflections across radial axes forms the dihedral group D_n.",
+            "By converting each stroke segment into polar coordinates around the center and plotting both the rotated angles and their mirror reflections simultaneously, even a simple squiggle turns into a balanced geometric flower or snowflake."
+          ]
+        },
+        {
+          "heading": "Smooth Hue Cycling",
+          "paragraphs": [
+            "As you draw, the stroke color cycles smoothly around the HSL hue wheel so layered lines stand out against one another without manual color picking.",
+            "Small loops near the center build delicate cores, while sweeping arcs toward the edge form petals and stars."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why does even a random scribble look structured?",
+          "a": "Because every point is replicated under both rotational and mirror symmetry, the human eye immediately perceives the shared radial order."
+        },
+        {
+          "q": "How are the rainbow colors generated?",
+          "a": "The brush advances continuously along the 360° hue circle in HSL color space as you draw."
+        },
+        {
+          "q": "Does my drawing stay on my device?",
+          "a": "Yes. Everything is drawn locally on your browser canvas."
+        }
+      ]
     },
     "glitch": {
       "title": "Glitch Noise",
@@ -2859,7 +4097,44 @@
         "wild": "Wild"
       },
       "warning": "Wild includes flashing and inverting the whole picture. Take care if you are sensitive to flashing light (flashes are kept to three a second and inversions to one).",
-      "hint": "On Random, both the scenes and how long they last are left to chance. Each scene has its sound: snow hisses, colour waves swoop, the mosaic bleeps, a flash thumps, the test card beeps, data rain patters, and the scope plays the very wave it shows. Sometimes there is silence. Inversion and scan lines are only available when wild."
+      "hint": "On Random, both the scenes and how long they last are left to chance. Each scene has its sound: snow hisses, colour waves swoop, the mosaic bleeps, a flash thumps, the test card beeps, data rain patters, and the scope plays the very wave it shows. Sometimes there is silence. Inversion and scan lines are only available when wild.",
+      "guide": [
+        {
+          "heading": "How to Use the Glitch Visualizer",
+          "paragraphs": [
+            "Watch CRT television static, scanline tearing, RGB channel shifts, and digital block artifacts cut randomly across the screen alongside synthesized noise audio.",
+            "Every so often, the silhouette of the PAIBOT robot briefly materializes out of the static."
+          ]
+        },
+        {
+          "heading": "How Analog Static and Digital Glitches Work",
+          "paragraphs": [
+            "Classic analog TV snow comes from random thermal and radio-frequency noise amplified into luminance pixels, whereas digital glitch art comes from horizontal sync offsets, RGB chromatic displacement, and corrupted scanline slices.",
+            "This page synthesizes both effects in real time on an HTML5 Canvas paired with filtered Web Audio noise bursts."
+          ]
+        },
+        {
+          "heading": "Viewing Notes",
+          "paragraphs": [
+            "Because the animation includes rapid flashes, flickering scanlines, and sudden static bursts, view it in a well-lit room and keep your speaker volume moderate.",
+            "All graphics and audio are generated locally in your browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Did I just see a robot face in the static?",
+          "a": "Yes! The PAIBOT robot face occasionally flashes inside the glitch patterns as an easter egg."
+        },
+        {
+          "q": "Is this playing a pre-rendered video file?",
+          "a": "No. Every frame and sound is generated procedurally in your browser using Canvas and Web Audio."
+        },
+        {
+          "q": "Can I mute the sound?",
+          "a": "Yes. You can toggle the audio off while keeping the visual glitch animation running."
+        }
+      ]
     },
     "randomVideo": {
       "title": "Random Video",
@@ -2882,7 +4157,44 @@
       "playerFailed": "The YouTube player could not be loaded.",
       "retry": "Try again",
       "skipped": "{count, plural, one {# video} other {# videos}} that cannot be played here (removed, or not allowed to be embedded) skipped.",
-      "hint": "The videos come from the items on Wikidata that have a YouTube video ID (about 90,000), and the names and descriptions are Wikidata's. The videos themselves are on YouTube; this site has not chosen or checked them. On a phone, press play to start the first one."
+      "hint": "The videos come from the items on Wikidata that have a YouTube video ID (about 90,000), and the names and descriptions are Wikidata's. The videos themselves are on YouTube; this site has not chosen or checked them. On a phone, press play to start the first one.",
+      "guide": [
+        {
+          "heading": "How to Discover Random Videos",
+          "paragraphs": [
+            "Press Next to pick and play a random YouTube video from roughly 90,000 video IDs cataloged in Wikidata, the open knowledge base sister project of Wikipedia.",
+            "It is designed for serendipity—stumbling across world music, archival footage, science demonstrations, and cultural recordings you would never type into a search bar."
+          ]
+        },
+        {
+          "heading": "Stepping Outside Recommendation Algorithms",
+          "paragraphs": [
+            "Standard video feeds tailor suggestions to your watch history and trending clicks, quickly narrowing what you see into a filter bubble.",
+            "Because Wikidata links videos to encyclopedic items—songs, historical events, public institutions, artworks, and species—drawing uniformly at random jumps across countries, decades, and topics."
+          ]
+        },
+        {
+          "heading": "Unavailable or Region-Locked Videos",
+          "paragraphs": [
+            "Some cataloged videos may have been removed by their uploaders or restricted from embedded playback since being added to Wikidata; simply skip to the next random pick when that happens.",
+            "Playback uses the standard YouTube embedded player."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Where does the list of 90,000 videos come from?",
+          "a": "From public Wikidata items that carry a YouTube video identifier (property P1651)."
+        },
+        {
+          "q": "Does this use my personal watch history to pick videos?",
+          "a": "No. Picks are chosen uniformly at random without personalization."
+        },
+        {
+          "q": "Why do some videos say they are unavailable?",
+          "a": "If a video has been deleted or has embedding disabled on YouTube, press Next to draw another one."
+        }
+      ]
     },
     "noise": {
       "title": "Noise Generator",
@@ -2924,7 +4236,44 @@
         "play": "Listen",
         "stop": "Stop",
         "volume": "Volume"
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Compare Procedural Noise Functions",
+          "paragraphs": [
+            "Select a noise algorithm—White, Value, Perlin, Simplex, or Worley—and adjust the scale, octaves, and seed to render 2D procedural textures in real time.",
+            "These mathematical noise functions are the building blocks behind clouds, terrain heightmaps, water ripples, marble, and cellular patterns in 3D graphics and games."
+          ]
+        },
+        {
+          "heading": "How the Five Noise Types Differ",
+          "paragraphs": [
+            "White noise assigns an independent random value to every pixel like TV static. Value noise interpolates random values placed on a grid, while Perlin and Simplex noise interpolate random gradient vectors at grid corners to produce organic hills and clouds without boxy artifacts.",
+            "Worley (cellular/Voronoi) noise measures the distance from each pixel to the nearest randomly scattered feature point, creating stone, bubble, and cell-wall textures."
+          ]
+        },
+        {
+          "heading": "Fractal Octaves (fBm)",
+          "paragraphs": [
+            "A single layer of noise looks smooth and blobby. Adding multiple octaves at higher frequencies and lower amplitudes—known as fractal Brownian motion (fBm)—layers fine surface detail onto broad shapes, just like real mountains and clouds.",
+            "All rendering runs locally in your browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What is the difference between Perlin and Simplex noise?",
+          "a": "Both are gradient noises invented by Ken Perlin, but Simplex noise uses a triangular (simplex) grid instead of a square grid, reducing directional artifacts."
+        },
+        {
+          "q": "What does the Octaves control do?",
+          "a": "It stacks several layers of noise at progressively finer scales to add natural detail."
+        },
+        {
+          "q": "Why not use plain random numbers for game terrain?",
+          "a": "Independent random numbers jump wildly from pixel to pixel, whereas gradient noise changes smoothly like real elevation."
+        }
+      ]
     },
     "balls": {
       "title": "Splitting Balls",
@@ -2940,7 +4289,44 @@
       "split": "Split on hit",
       "gravity": "Gravity",
       "trails": "Trails",
-      "hint": "The number is capped, and a ball pops after a while. With splitting off, the balls just bounce."
+      "hint": "The number is capped, and a ball pops after a while. With splitting off, the balls just bounce.",
+      "guide": [
+        {
+          "heading": "How to Use the Simulation",
+          "paragraphs": [
+            "Watch balls bounce inside a circular arena and split in two whenever they collide with each other.",
+            "You can toggle splitting, adjust gravity, ball speed, lifetime, and the maximum population cap to observe everything from slow chain reactions to a packed arena of bouncing particles."
+          ]
+        },
+        {
+          "heading": "Circular Reflection and Collision Physics",
+          "paragraphs": [
+            "When a ball hits the circular wall, its velocity vector reflects across the radial normal vector from the center, preserving kinetic energy while keeping every ball inside the circle.",
+            "When two balls collide with splitting enabled, each divides into two with a brief cooldown so newly split pairs separate cleanly before splitting again."
+          ]
+        },
+        {
+          "heading": "Population Cap and Performance",
+          "paragraphs": [
+            "As the population grows exponentially with each generation of collisions, a hard cap switches collisions back to ordinary elastic bounces once the arena is full.",
+            "If ball lifetimes are enabled and the last ball pops, a new seed ball spawns automatically so the motion never stalls."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Will the multiplying balls eventually freeze my browser?",
+          "a": "No. Population is bounded by the cap setting; once reached, collisions simply bounce without creating new balls."
+        },
+        {
+          "q": "What happens when gravity is turned off?",
+          "a": "Balls travel in straight lines between collisions, spreading evenly across the circle like an ideal 2D gas."
+        },
+        {
+          "q": "What if every ball's lifetime expires?",
+          "a": "As soon as the count reaches zero, a fresh ball is spawned automatically."
+        }
+      ]
     },
     "pinball": {
       "title": "Pinball",
@@ -2966,7 +4352,44 @@
       "gameOver": "Game over",
       "again": "Play again",
       "soundOn": "Sound: on",
-      "soundOff": "Sound: off"
+      "soundOff": "Sound: off",
+      "guide": [
+        {
+          "heading": "How to Play and Controls",
+          "paragraphs": [
+            "Pull back the plunger to launch the ball onto the playfield, then use the left and right flippers to keep the ball in play and rack up points across three balls.",
+            "On a keyboard, use the Left and Right arrow keys (or A and D) for the flippers and Space or Down arrow for the plunger; on mobile, tap the left and right sides of the table."
+          ]
+        },
+        {
+          "heading": "Physics and Aiming Shots",
+          "paragraphs": [
+            "Ball motion, table slope, bumper restitution, and flipper angular velocity are simulated continuously. Hitting the ball early near the flipper pivot sends it across the table, while waiting until the ball reaches the flipper tip sends it straight up the center.",
+            "Sending the ball into the upper bumper cluster triggers rapid ricochets for quick points."
+          ]
+        },
+        {
+          "heading": "Tips for Higher Scores",
+          "paragraphs": [
+            "Avoid flipping both paddles at once—operating one flipper at a time leaves a smaller gap and gives you better control over the rebound angle.",
+            "Your best score is saved locally in your browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What are the keyboard controls?",
+          "a": "Left/Right arrows (or A/D) control the flippers, and Space or Down arrow controls the plunger."
+        },
+        {
+          "q": "How do I aim the ball with the flippers?",
+          "a": "Flipping early aims diagonally toward the opposite side; flipping slightly later near the tip aims straight up."
+        },
+        {
+          "q": "Does it work on touchscreens?",
+          "a": "Yes. Tap the left or right half of the playfield to flip."
+        }
+      ]
     },
     "fruitMerge": {
       "title": "Fruit Merge",
@@ -2999,7 +4422,44 @@
         "pineapple": "Pineapple",
         "melon": "Melon",
         "watermelon": "Watermelon"
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Play and Merge",
+          "paragraphs": [
+            "Aim along the top of the box and drop fruits one by one. Whenever two identical fruits touch, they merge into the next larger fruit in the chain—starting from cherries and strawberries all the way up to a giant watermelon.",
+            "If the pile stays above the top warning line for 2 full seconds, the game ends. Merging two watermelons clears them both from the box for a huge bonus."
+          ]
+        },
+        {
+          "heading": "Physics and Stacking Strategy",
+          "paragraphs": [
+            "Because fruits roll and bounce under 2D rigid-body physics, merging two fruits expands their radius and pushes neighboring pieces aside.",
+            "Keep your largest fruits anchored in one corner and arrange progressively smaller fruits in descending order next to them so a single merge cascades down the row."
+          ]
+        },
+        {
+          "heading": "Planning with the Next Piece",
+          "paragraphs": [
+            "Watch the Next indicator before dropping so you avoid trapping a tiny cherry underneath a heavy melon.",
+            "Your personal best score is saved locally in your browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What happens when two watermelons touch?",
+          "a": "They merge and vanish, freeing up a large amount of space in the container and awarding bonus points."
+        },
+        {
+          "q": "Does touching the top line end the game immediately?",
+          "a": "No. A fruit must remain above the top line continuously for 2 seconds to trigger game over."
+        },
+        {
+          "q": "How do I avoid burying small fruits at the bottom?",
+          "a": "Build a slope from your largest fruit on one side down to your smallest fruits on the other side."
+        }
+      ]
     },
     "codeDraw": {
       "title": "Code Drawing",
@@ -3108,7 +4568,44 @@
         "badNumber": "Line {line}: this cannot be calculated (division by 0?).",
         "tooMany": "Line {line}: stopped, too many moves. Try repeating fewer times."
       },
-      "hint": "With repeat, a little code draws a big picture: that is the fun of programming. Ctrl+Enter (⌘+Enter on a Mac) also runs the code. Commands work in English, Japanese or Chinese."
+      "hint": "With repeat, a little code draws a big picture: that is the fun of programming. Ctrl+Enter (⌘+Enter on a Mac) also runs the code. Commands work in English, Japanese or Chinese.",
+      "guide": [
+        {
+          "heading": "How to Write Commands and Use Sliders",
+          "paragraphs": [
+            "Write short turtle-graphics commands such as `fd 100`, `rt 90`, and `repeat 4 [ ... ]` to guide the robot across the canvas and draw geometric art.",
+            "Commands work in English (`fd`, `rt`, `lt`, `repeat`), Japanese (`すすむ`, `みぎ`, `くりかえす`), or Chinese (`前进`, `右转`, `重复`), and numbers in your code can be scrubbed interactively with sliders to watch the drawing morph in real time."
+          ]
+        },
+        {
+          "heading": "Turtle Geometry and Exterior Angles",
+          "paragraphs": [
+            "Inspired by Seymour Papert's Logo turtle graphics, the robot moves relative to its own heading. Because the exterior angles of any closed polygon sum to 360°, `repeat N [ fd 80 rt (360 / N) ]` draws a regular triangle (120°), square (90°), pentagon (72°), or star (144°).",
+            "Nudging a 90° turn to 91° inside a loop with many repetitions turns a simple square into a rotating spirolateral spiral."
+          ]
+        },
+        {
+          "heading": "Free Draw and Challenge Puzzles",
+          "paragraphs": [
+            "Switch between free-drawing presets and Challenge Mode, where you write code to match a faint target silhouette and try to solve each shape with as few commands as possible.",
+            "All code runs locally in your browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why does an equilateral triangle use a 120° turn instead of 60°?",
+          "a": "The robot turns through the exterior angle (180° − 60° = 120°) at each corner so three turns complete a full 360° loop."
+        },
+        {
+          "q": "How do I draw a five-pointed star?",
+          "a": "Use `repeat 5 [ fd 120 rt 144 ]`—turning 144° five times winds twice around 360° (720° total)."
+        },
+        {
+          "q": "Can I mix full-width characters or different languages?",
+          "a": "Yes. The parser accepts English, Japanese, and Chinese keywords as well as full-width numerals."
+        }
+      ]
     },
     "goldfishEscape": {
       "title": "Goldfish Getaway",
@@ -3134,7 +4631,44 @@
         "demekin": "Demekin"
       },
       "soundOn": "Sound: on",
-      "soundOff": "Sound: off"
+      "soundOff": "Sound: off",
+      "guide": [
+        {
+          "heading": "How to Play",
+          "paragraphs": [
+            "Play from the goldfish's perspective at a Japanese festival scooping stall! Tap the screen (or press Space / click) to flick your tail and swim upward; release to drift gently downward as paper scoops (poi) lunging from the right try to catch you.",
+            "Choose between three classic goldfish varieties—Wakin, Ryukin, and Demekin—before diving in."
+          ]
+        },
+        {
+          "heading": "Tearing Paper Scoops and Risk-Reward Growth",
+          "paragraphs": [
+            "Each paper poi enters the water aiming at your recent depth, but just like real festival scoops, the thin paper softens in water and eventually tears—once torn, a scoop can no longer catch you.",
+            "Eating floating food pellets makes your goldfish grow larger, increasing the points earned for every scoop you dodge, at the cost of a bigger hitbox."
+          ]
+        },
+        {
+          "heading": "Survival Tips",
+          "paragraphs": [
+            "Instead of hovering at one constant depth, bait a scoop at mid-depth and then either sink below it or burst above it as it enters the water.",
+            "Your personal best score is saved locally in your browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Should I eat every food pellet I see?",
+          "a": "Growing larger multiplies your points per dodged scoop, but also makes your body wider and harder to thread through tight gaps."
+        },
+        {
+          "q": "Can a torn paper scoop still catch me?",
+          "a": "No. Once a scoop's paper has soaked through and torn, swimming past its frame is safe."
+        },
+        {
+          "q": "What are the controls on desktop and mobile?",
+          "a": "Tap anywhere on mobile, or click / press Space on a computer to swim upward."
+        }
+      ]
     },
     "goldfish": {
       "title": "Goldfish Bowl Simulator (3D)",
@@ -3163,7 +4697,44 @@
       "howDrag": "Drag (or swipe on a phone) to turn the bowl and look from any angle. Scroll or pinch to come closer.",
       "howFeed": "Tap the water's surface from above to drop food there. Hungry fish will come for it.",
       "howTap": "Tap the glass: it rings, and the fish nearby dart away.",
-      "hint": "Each fish swims on its own and keeps from bumping into the others. A full fish stops eating, and food left over sinks to the bottom. The fish and the light are kept on this device."
+      "hint": "Each fish swims on its own and keeps from bumping into the others. A full fish stops eating, and food left over sinks to the bottom. The fish and the light are kept on this device.",
+      "guide": [
+        {
+          "heading": "How to Interact with the Bowl",
+          "paragraphs": [
+            "Watch 3D goldfish swim around a glass bowl, drop food pellets onto the water surface to see hungry fish gather, or tap the glass to startle them.",
+            "You can adjust the number of fish and switch lighting moods to turn the page into a calm desk companion."
+          ]
+        },
+        {
+          "heading": "Autonomous Swimming and 3D Rendering",
+          "paragraphs": [
+            "Rather than looping a fixed animation path, each goldfish steers autonomously with its own position, velocity, hunger state, and tail-fin propulsion while avoiding the curved glass walls and neighboring fish.",
+            "Water surface ripples, glass highlights, and fin motion are rendered in real time in your browser."
+          ]
+        },
+        {
+          "heading": "Saved Preferences",
+          "paragraphs": [
+            "Your chosen fish count and lighting setting are saved in your browser's local storage so your bowl looks the way you left it.",
+            "Fish never get sick or die if you close the tab."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Will the goldfish die if I don't feed them?",
+          "a": "No. The bowl is a relaxing simulation—your fish stay healthy whenever you come back."
+        },
+        {
+          "q": "How do I feed the fish?",
+          "a": "Use the feed action or click near the water surface to drop pellets that nearby fish will swim up to eat."
+        },
+        {
+          "q": "Are my bowl settings saved?",
+          "a": "Yes. Fish count and lighting preferences are stored locally in your browser."
+        }
+      ]
     },
     "koma": {
       "title": "Spinning Top Battle",
@@ -3210,7 +4781,44 @@
       "opponent": "CPU's top: {shape}",
       "buildIntro": "Draw the shape of your top if you like. You can also skip this and play as it is.",
       "toBattle": "Battle with this top",
-      "rebuild": "Change the shape"
+      "rebuild": "Change the shape",
+      "guide": [
+        {
+          "heading": "How to Battle",
+          "paragraphs": [
+            "Steer your spinning top inside a dish-shaped arena and collide with the CPU's top. You win by either knocking the opponent out of the dish or draining its spin to zero first.",
+            "Drag on the screen or use the arrow keys (or WASD) to tilt and move your top, and trigger dashes to ram your opponent."
+          ]
+        },
+        {
+          "heading": "Designing a Custom Top from Its Cross-Section",
+          "paragraphs": [
+            "You can draw the half-profile of your top freehand to revolve it into a custom 3D body. From your drawn silhouette, the physics engine integrates the solid of revolution to compute its mass, moment of inertia (spin endurance), center of gravity (stability), and agility.",
+            "Placing more mass near the outer rim increases the moment of inertia (I = ∫ r² dm), making the top heavier and harder to knock back, while a compact profile accelerates more quickly."
+          ]
+        },
+        {
+          "heading": "Arena Strategy",
+          "paragraphs": [
+            "Dashing delivers a heavy blow but costs some of your own angular momentum. Holding the center of the bowl conserves spin, while catching an opponent near the rim sets up a ring-out.",
+            "All physics and 3D rendering run locally in your browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "How do I draw a top whose spin lasts longer?",
+          "a": "Make the outer rim thicker so more mass sits far from the axis, increasing its rotational inertia."
+        },
+        {
+          "q": "How does the center of gravity affect handling?",
+          "a": "Keeping more volume lower near the tip lowers the center of gravity and improves stability on impact."
+        },
+        {
+          "q": "How is a round won?",
+          "a": "Either by knocking the opposing top out of the arena or outlasting its spin."
+        }
+      ]
     },
     "numberMerge": {
       "title": "Number Merge (2048-style puzzle)",
@@ -3231,7 +4839,44 @@
       "again": "Play again",
       "shareText": "I scored {score} in Number Merge, with a biggest tile of {tile}",
       "controls": "Slide every tile with the arrow keys (or W A S D) or a swipe. The game ends when no move is left.",
-      "hint": "A joined tile's number is added to your score. Keep your biggest tile in a corner and gather the small ones towards it."
+      "hint": "A joined tile's number is added to your score. Keep your biggest tile in a corner and gather the small ones towards it.",
+      "guide": [
+        {
+          "heading": "How to Play and Undo",
+          "paragraphs": [
+            "Use the arrow keys (or swipe on a touchscreen) to slide all tiles on the 4×4 board in one direction. Matching numbers collide and merge into their sum (2 → 4 → 8 → 16 … → 2048), and a new 2 or 4 spawns in an empty cell after every valid move.",
+            "The game ends when no empty cells and no adjacent matching pairs remain. Use the Undo button if you accidentally swipe the wrong way."
+          ]
+        },
+        {
+          "heading": "The Corner Strategy",
+          "paragraphs": [
+            "Swiping in all four directions pulls your largest tile into the middle of the board, where it blocks smaller tiles from merging.",
+            "Instead, pick one corner (such as the bottom-left), keep your highest-value tile parked there at all times, and build a descending chain along that edge so newly merged tiles feed straight into the corner."
+          ]
+        },
+        {
+          "heading": "Powers of Two",
+          "paragraphs": [
+            "Every tile is a power of two from 2¹ (2) up to 2¹¹ (2048) and beyond. Even after reaching 2048, you can keep playing toward 4096 and 8192.",
+            "Your high score is saved locally in your browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What is the key to reaching 2048 consistently?",
+          "a": "Keep your largest tile locked in a single corner by avoiding the direction that would pull it away from that edge."
+        },
+        {
+          "q": "Does the game stop once I make a 2048 tile?",
+          "a": "No, you can continue merging tiles to reach 4096 and higher."
+        },
+        {
+          "q": "Can I take back a slip of the finger?",
+          "a": "Yes. Press Undo to step back one move."
+        }
+      ]
     },
     "craneGame": {
       "title": "Claw Machine",
@@ -3271,7 +4916,44 @@
         "rocket": "Rocket",
         "gold-robot": "Golden Robo",
         "rainbow-pi": "Rainbow Pi"
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Play the Claw Machine",
+          "paragraphs": [
+            "Hold the Move Right button to slide the crane carriage across the cabinet and release to stop above your target prize.",
+            "Press Drop to lower the open claws, grab the prize, and carry it back to the chute on the left. Each round gives you 5 plays."
+          ]
+        },
+        {
+          "heading": "Real 2D Rigid-Body Physics",
+          "paragraphs": [
+            "Every prize's shape, center of mass, and friction—along with the claw hinges and grip torque—are simulated with a 2D physics engine (Matter.js). There is no rigged payout timer: whether a prize stays in the claw depends entirely on where the prongs hook around its center of gravity.",
+            "Just like an arcade crane, nudging a prize near the edge of the chute or hooking under an overhang often works better than grabbing dead center."
+          ]
+        },
+        {
+          "heading": "Prize Collection",
+          "paragraphs": [
+            "Every prize that drops down the chute is added to your collection shelf so you can try to collect the full set.",
+            "Your collection is saved locally in your browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is the claw grip rigged by a random payout percentage?",
+          "a": "No. Claw force and friction are constant on every play; success depends purely on physics and positioning."
+        },
+        {
+          "q": "Why do round or top-heavy prizes slip out of the claw?",
+          "a": "If the prongs close above the prize's widest point, gravity pulls it through; aim so the tips close underneath the center of mass."
+        },
+        {
+          "q": "Where is my prize collection saved?",
+          "a": "In your browser's local storage on this device."
+        }
+      ]
     },
     "puchi": {
       "title": "Bubble Pop",
@@ -3299,7 +4981,44 @@
       "sound": "Sound",
       "on": "on",
       "off": "off",
-      "hint": "Holding Space or Enter pops them too. Clearing a whole sheet gives a bonus."
+      "hint": "Holding Space or Enter pops them too. Clearing a whole sheet gives a bonus.",
+      "guide": [
+        {
+          "heading": "How to Play and Special Bubbles",
+          "paragraphs": [
+            "Pop as many bubble-wrap bubbles as you can in 30 seconds. You can tap individual bubbles or drag your finger or mouse across the sheet to pop whole rows in one sweep.",
+            "Popping a Gold bubble triggers a chain reaction that bursts neighboring bubbles, while popping a Rainbow bubble clears the entire sheet at once and deals a fresh sheet."
+          ]
+        },
+        {
+          "heading": "Combo Streaks and Audio Feedback",
+          "paragraphs": [
+            "Popping bubbles in rapid succession builds your combo streak, boosting points per pop and raising the pitch of the synthesized pop sound via the Web Audio API.",
+            "Whenever a sheet is completely popped, a new sheet appears immediately so you never lose momentum."
+          ]
+        },
+        {
+          "heading": "Tips for High Ranks",
+          "paragraphs": [
+            "Sweep across rows in a continuous zig-zag motion and prioritize gold and rainbow bubbles the moment they appear to reach the top ranks.",
+            "At the end of the 30-second round you can see your rank and share your score."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What do the gold and rainbow bubbles do?",
+          "a": "Gold bubbles pop surrounding bubbles in a radius, and rainbow bubbles pop every remaining bubble on the current sheet."
+        },
+        {
+          "q": "Can I drag across the bubbles instead of clicking one by one?",
+          "a": "Yes. Hold down the mouse button or slide your finger to pop every bubble along your path."
+        },
+        {
+          "q": "How are the popping sounds made?",
+          "a": "They are synthesized in real time in your browser using the Web Audio API."
+        }
+      ]
     },
     "circle": {
       "title": "Draw a Circle",
@@ -3325,7 +5044,44 @@
         "small": "That circle is too small. Draw a bigger one.",
         "open": "The circle is not closed. Go all the way round to where you started.",
         "laps": "Go round just once."
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Play and Read the Feedback",
+          "paragraphs": [
+            "Draw a single freehand circle on the canvas with your mouse or finger. As soon as you lift up, the tool scores how close your stroke is to a true circle out of 100 points.",
+            "Segments of your stroke that stay right on the ideal circle glow green, while parts that drift inward or outward turn red so you can immediately see where your hand wobbled."
+          ]
+        },
+        {
+          "heading": "How Roundness Is Scored",
+          "paragraphs": [
+            "Instead of forcing you to draw around a fixed center point, the algorithm fits the best-matching circle (center and radius) directly to your sampled points (x_i, y_i).",
+            "Your score combines the normalized radial error from that best-fit circle with a closure check measuring how cleanly the end of your stroke meets the starting point."
+          ]
+        },
+        {
+          "heading": "Tips for a 95+ Score",
+          "paragraphs": [
+            "Drawing too slowly causes micro-wobbles, while pivoting from your elbow or shoulder in one smooth, confident sweep produces a much rounder arc than bending only your fingers.",
+            "Scoring above 95 is impressive, and 98+ takes real precision."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does the size or position of the circle matter?",
+          "a": "Any reasonable size works because the best-fit center and radius are computed directly from your stroke."
+        },
+        {
+          "q": "Does leaving a gap between the start and end lower my score?",
+          "a": "Yes. Both radial roundness and loop closure count toward the 100-point score."
+        },
+        {
+          "q": "What do the green and red colors on my line mean?",
+          "a": "Green marks sections closely matching the ideal radius, while red highlights where the strokebulged out or dipped in."
+        }
+      ]
     },
     "fireworks": {
       "title": "Fireworks",
@@ -3380,7 +5136,44 @@
       "soundOff": "Sound: off",
       "save": "Save image",
       "calm": "Your device asks for less motion, so the fireworks are toned down (and there is no smoke).",
-      "keys": "Keyboard: focus the sky and press Space or Enter to launch."
+      "keys": "Keyboard: focus the sky and press Space or Enter to launch.",
+      "guide": [
+        {
+          "heading": "How to Launch and Customize Fireworks",
+          "paragraphs": [
+            "Click or tap anywhere in the night sky to launch shells on demand, or run choreographed shows including Starmine barrages, Niagara waterfalls, and Grand Finales.",
+            "You can adjust shell size, chrysanthemum/peony/willow styles, color palettes, wind speed, and viewing distance."
+          ]
+        },
+        {
+          "heading": "Particle Physics and Speed-of-Sound Delay",
+          "paragraphs": [
+            "Each shell bursts into hundreds of 3D particles that decelerate under aerodynamic drag and arc downward under gravity and wind.",
+            "Increasing the viewing distance simulates the real speed of sound (~340 m/s): you see the flash immediately, and then hear the deep boom and echo arrive seconds later."
+          ]
+        },
+        {
+          "heading": "Traditional Japanese Shell Types",
+          "paragraphs": [
+            "Compare classic Japanese hanabi shells: Kiku (chrysanthemum, leaving glowing charcoal trails), Botan (peony, bright stars without long tails), Kamuro (willow, long golden trails drooping toward the ground), and Senrin (hundreds of miniature sub-bursts).",
+            "Both graphics and booming acoustics are synthesized live in your browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why does the boom sound arrive after the visual burst?",
+          "a": "The simulator models the speed of sound (~340 m/s) based on your chosen viewing distance, just like watching fireworks across a river."
+        },
+        {
+          "q": "What is the difference between Kiku (Chrysanthemum) and Botan (Peony)?",
+          "a": "Kiku stars leave glowing trails as they expand, while Botan stars burn as clean points of color."
+        },
+        {
+          "q": "Are the explosion sounds recorded audio files?",
+          "a": "No. Every launch whistle, crackle, and low-frequency boom is synthesized procedurally with the Web Audio API."
+        }
+      ]
     },
     "tax": {
       "title": "Tax & discount calculator",
@@ -3473,7 +5266,44 @@
       "person": "Person {n}",
       "yen": "yen",
       "noteEqual": "Rounding up collects a little extra. When the organizer covers the odd yen, the others pay rounded down and the organizer pays the rest.",
-      "noteWeighted": "Type the shares as numbers separated by spaces or commas (1 is a normal share, 1.5 is one and a half, 0.5 is half). Amounts are rounded up, so a little extra is collected."
+      "noteWeighted": "Type the shares as numbers separated by spaces or commas (1 is a normal share, 1.5 is one and a half, 0.5 is half). Amounts are rounded up, so a little extra is collected.",
+      "guide": [
+        {
+          "heading": "How to Split a Bill",
+          "paragraphs": [
+            "Enter the total bill and the number of people, then choose a rounding unit (such as 1, 10, 100, 500, or 1,000) to see how much each person pays and the resulting surplus or shortfall.",
+            "Rounding to 100 or 1,000 avoids small change when settling up in cash or via peer-to-peer payment apps."
+          ]
+        },
+        {
+          "heading": "Rounding Up vs. Rounding Down",
+          "paragraphs": [
+            "Rounding up collects slightly more from each participant and shows the extra amount left over, which can go toward tips, a second round, or reducing the organizer's share.",
+            "Rounding down keeps each participant's share lower and shows the remaining balance for the host or organizer to cover."
+          ]
+        },
+        {
+          "heading": "Worked Example",
+          "paragraphs": [
+            "For a total of 19,800 split among 7 people rounded to 100: rounding up gives 2,900 per person (total 20,300, surplus 500), while rounding down gives 2,800 per person (total 19,600, shortfall 200).",
+            "All calculations run locally in your browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What happens when the total does not divide evenly?",
+          "a": "The calculator rounds each share according to your chosen unit and displays the exact surplus or shortfall against the bill total."
+        },
+        {
+          "q": "Why choose a larger rounding unit like 100 or 500?",
+          "a": "It eliminates small coins and odd amounts when collecting money from a group."
+        },
+        {
+          "q": "Are the numbers I enter saved anywhere?",
+          "a": "No. Everything is calculated locally in your browser."
+        }
+      ]
     },
     "unitConverter": {
       "title": "Unit converter",
@@ -3554,7 +5384,44 @@
         "MiB": "mebibyte (MiB, 1024²)",
         "GiB": "gibibyte (GiB, 1024³)",
         "TiB": "tebibyte (TiB, 1024⁴)"
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Convert Units",
+          "paragraphs": [
+            "Choose a category tab—length, weight, area, volume, speed, temperature, or data size—enter a number, and pick the source unit to see all equivalent units in that category at once.",
+            "In addition to metric and imperial/US customary units (inches, feet, miles, pounds, ounces, gallons), the tool supports traditional Japanese units such as shaku, tsubo, tatami (jo), go, sho, and kan."
+          ]
+        },
+        {
+          "heading": "Conversion Definitions",
+          "paragraphs": [
+            "Japanese traditional units follow their exact legal metric definitions (1 shaku = 10/33 m, 1 tsubo = 400/121 m² ≈ 3.305785 m², 1 sho = 2401/1331 L ≈ 1.8039 L, 1 kan = 3.75 kg), useful when reading Japanese real-estate listings or recipes.",
+            "Temperature conversions between Celsius, Fahrenheit, and Kelvin apply the exact affine formulas (°F = °C × 1.8 + 32 and K = °C + 273.15)."
+          ]
+        },
+        {
+          "heading": "Notes on Tatami and Rounding",
+          "paragraphs": [
+            "Physical tatami mat dimensions vary by region (Edo-ma, Kyo-ma, Danchi-ma), so this converter uses the standard real-estate convention of 2 tatami per tsubo (about 1.6529 m² per mat).",
+            "Results are rounded for readability; check statutory rounding rules if preparing formal contracts or engineering filings."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "How many square meters is 1 tsubo?",
+          "a": "Exactly 400/121 square meters, or approximately 3.305785 m²."
+        },
+        {
+          "q": "How many milliliters is 1 go in Japanese volume measurement?",
+          "a": "About 180.39 mL under the traditional definition (household rice cups round this to 180 mL)."
+        },
+        {
+          "q": "Does the converter handle negative temperatures?",
+          "a": "Yes. Negative values work for sub-zero Celsius and Fahrenheit conversions."
+        }
+      ]
     },
     "dateCalc": {
       "title": "Date calculator",
@@ -3689,7 +5556,44 @@
       "pizzicato": "Pizzicato (pluck)",
       "keysFretted": "Touch a string to pluck it. The area at the far left (behind the nut) is the open string; between two frets gives the note of the fret to its right. Drag across the strings to strum. Use several fingers for chords.",
       "keysFretless": "Touch a string to pluck it. The pitch is where you touch (with Snap to notes off it changes continuously with the position). Drag across the strings to strum. Use several fingers for chords.",
-      "keysBow": "It sounds under the bow while you touch it. Move your finger left and right to change the pitch (with Snap to notes off it changes continuously), and up and down to change string. Use several fingers for double stops."
+      "keysBow": "It sounds under the bow while you touch it. Move your finger left and right to change the pitch (with Snap to notes off it changes continuously), and up and down to change string. Use several fingers for double stops.",
+      "guide": [
+        {
+          "heading": "How to Play the Fingerboard",
+          "paragraphs": [
+            "Choose from ten string instruments—guitar, bass, ukulele, mandolin, banjo, shamisen, violin, viola, cello, and double bass—and touch or drag along the fingerboard to play. Positions near the nut on the left play lower notes, while moving right shortens the vibrating string to raise the pitch.",
+            "For bowed instruments (violin, viola, cello, double bass), you can switch between continuous bowing (arco) while holding a note and plucked pizzicato."
+          ]
+        },
+        {
+          "heading": "Fretted vs. Fretless Pitch and Web Audio Synthesis",
+          "paragraphs": [
+            "On fretted instruments like guitar and ukulele, touching between frets snaps the pitch to the equal-tempered semitone of the fret wire. On fretless instruments like violin, cello, and shamisen, pitch varies continuously with finger position, allowing smooth slides and vibrato.",
+            "Every instrument's timbre is synthesized in real time using the Web Audio API with instrument-specific harmonic spectra, envelopes, and body resonance filters."
+          ]
+        },
+        {
+          "heading": "Standard Tunings",
+          "paragraphs": [
+            "Each instrument uses its standard open-string tuning—such as fifths (G-D-A-E) for violin and mandolin, fourths (E-A-D-G-B-E) for guitar, and re-entrant G-C-E-A for ukulele.",
+            "It is an easy way to compare string ranges and interval layouts across instruments."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What is the difference between fretted and fretless instruments here?",
+          "a": "Fretted instruments quantize pitch to semitones at each fret, while fretless instruments change frequency continuously as you slide your finger."
+        },
+        {
+          "q": "How do I sustain a bowed note on the violin or cello?",
+          "a": "Select bowed mode and hold the mouse button or your finger down on the string; sliding along the string glides the pitch."
+        },
+        {
+          "q": "Does this load recorded audio samples?",
+          "a": "No. Sounds are synthesized in your browser using Web Audio oscillators and filters."
+        }
+      ]
     },
     "metronome": {
       "title": "Metronome",
@@ -3716,7 +5620,44 @@
         "vivace": "Vivace (lively)",
         "presto": "Presto (very fast)",
         "prestissimo": "Prestissimo (as fast as possible)"
-      }
+      },
+      "guide": [
+        {
+          "heading": "How to Use the Metronome and Tap Tempo",
+          "paragraphs": [
+            "Set a tempo from 30 to 300 BPM, choose a time signature from 1 to 8 beats per bar, and press Start. Beat 1 plays a higher-pitched accent click while the remaining beats play a lower click alongside a visual beat indicator.",
+            "If you want to match an existing song, tap the Tap Tempo button several times in rhythm and the metronome will calculate and set the BPM automatically."
+          ]
+        },
+        {
+          "heading": "Jitter-Free Web Audio Scheduling",
+          "paragraphs": [
+            "Triggering audio directly from JavaScript's setInterval causes audible timing jitter whenever the main thread is busy rendering the page.",
+            "This metronome schedules each click ahead of time against the Web Audio API's dedicated audio clock (AudioContext.currentTime), keeping the pulse steady for musical practice."
+          ]
+        },
+        {
+          "heading": "Practice Tips",
+          "paragraphs": [
+            "When working on a difficult passage, start at a slow tempo where you can play every note cleanly, then step up by 4–5 BPM at a time.",
+            "On mobile devices, make sure silent mode is turned off if you do not hear the click."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What does BPM mean?",
+          "a": "Beats Per Minute. At 60 BPM there is one beat every second; at 120 BPM there are two beats every second."
+        },
+        {
+          "q": "How does it avoid browser timer lag?",
+          "a": "It uses lookahead scheduling on the Web Audio hardware clock rather than relying on main-thread UI timers."
+        },
+        {
+          "q": "How can I make every beat sound identical without an accent?",
+          "a": "Set the beat count to 1 so every click plays with the same pitch."
+        }
+      ]
     },
     "pomodoro": {
       "title": "Pomodoro timer",
@@ -3737,7 +5678,44 @@
       "reset": "Reset",
       "minutes": "min",
       "soundLabel": "Beep at the end",
-      "note": "The time stays right if you switch tabs. While it runs, the time left is shown in the tab's title."
+      "note": "The time stays right if you switch tabs. While it runs, the time left is shown in the tab's title.",
+      "guide": [
+        {
+          "heading": "How to Use the Pomodoro Timer",
+          "paragraphs": [
+            "Alternate between 25-minute focused work sessions and 5-minute short breaks, with a longer restorative break after every four completed rounds.",
+            "Press Start to begin the countdown; an audio chime signals when each work or break interval finishes, and you can pause, reset, or skip phases anytime."
+          ]
+        },
+        {
+          "heading": "Why the Pomodoro Technique Works",
+          "paragraphs": [
+            "Created by Francesco Cirillo in the late 1980s (named after a tomato-shaped kitchen timer), the Pomodoro Technique breaks daunting projects into manageable 25-minute sprints, making it much easier to overcome procrastination and start.",
+            "Taking a scheduled 5-minute break before mental fatigue sets in keeps focus sharp across multiple hours of study or coding."
+          ]
+        },
+        {
+          "heading": "Tips for Effective Sessions",
+          "paragraphs": [
+            "During a 25-minute work block, stick to a single task—if an unrelated thought pops up, jot it down on paper for later rather than switching contexts.",
+            "The timer tracks real clock time in your browser, so it stays accurate even while you work in other tabs."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why 25 minutes of work and 5 minutes of rest?",
+          "a": "Twenty-five minutes is long enough to make meaningful progress on a task while short enough to sustain undivided attention."
+        },
+        {
+          "q": "What should I do during the 5-minute break?",
+          "a": "Step away from the screen, stretch, or get a drink of water rather than scrolling social feeds."
+        },
+        {
+          "q": "Does the timer keep accurate time in a background tab?",
+          "a": "Yes. Remaining time is calculated from timestamps rather than frame ticks."
+        }
+      ]
     },
     "roulette": {
       "title": "Roulette",
@@ -3754,7 +5732,44 @@
       "removeLabel": "Remove the winner",
       "historyLabel": "Results",
       "defaultItems": "Ramen\nCurry\nSushi\nUdon\nBurger",
-      "note": "The result is drawn fairly with the browser's cryptographic random numbers. At most 50 choices."
+      "note": "The result is drawn fairly with the browser's cryptographic random numbers. At most 50 choices.",
+      "guide": [
+        {
+          "heading": "How to Customize and Spin the Wheel",
+          "paragraphs": [
+            "Enter your list of choices—such as names, lunch spots, tasks, or game options—and press Spin. The color-coded wheel accelerates and gradually slows to a stop under the pointer to announce the winner.",
+            "You can add or remove entries freely, whether you are settling a two-way tie or picking from a dozen options."
+          ]
+        },
+        {
+          "heading": "Fair Equal-Angle Drawing",
+          "paragraphs": [
+            "The wheel divides 360° into equal slices for every item on your list and chooses the stopping angle uniformly at random, giving every entry the exact same probability.",
+            "Because everyone can watch the wheel decelerate together, it works well on a shared screen during team meetings, classrooms, or party games."
+          ]
+        },
+        {
+          "heading": "Drawing Without Replacement",
+          "paragraphs": [
+            "When assigning speaking order or prizes where each person should only be picked once, simply remove the winning entry after each spin and spin again for the remaining group.",
+            "All names and options stay in your browser and are never sent to a server."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does every item on the wheel have an equal chance?",
+          "a": "Yes. Each item receives an equal slice of the 360° wheel and the stopping angle is drawn uniformly at random."
+        },
+        {
+          "q": "How can I pick a speaking order without repeats?",
+          "a": "Delete each selected name from the list after it wins and spin again for the remaining names."
+        },
+        {
+          "q": "Are the names I type uploaded anywhere?",
+          "a": "No. Everything runs locally in your browser."
+        }
+      ]
     },
     "stopwatch": {
       "title": "Stopwatch",
@@ -3768,7 +5783,44 @@
       "lap": "Lap",
       "lapRow": "Lap {n}",
       "splitLabel": "Split",
-      "totalLabel": "Total"
+      "totalLabel": "Total",
+      "guide": [
+        {
+          "heading": "How to Use the Stopwatch and Laps",
+          "paragraphs": [
+            "Press Start to begin timing, Stop to pause, and Reset to clear back to zero. While running, press Lap to record individual interval times and cumulative split times without interrupting the clock.",
+            "It is handy for workout intervals, speech rehearsal, timed study drills, or kitchen timing."
+          ]
+        },
+        {
+          "heading": "Drift-Free High-Resolution Timing",
+          "paragraphs": [
+            "Counting timer ticks in a browser can drift if the tab is backgrounded or the device is busy.",
+            "This stopwatch measures elapsed time against the browser's high-resolution monotonic clock, so the reading stays accurate even if you switch tabs and come back later."
+          ]
+        },
+        {
+          "heading": "Readable Tabular Digits",
+          "paragraphs": [
+            "Digits are rendered with tabular numerals (tabular-nums) so the numbers never jitter horizontally while milliseconds are ticking.",
+            "Everything runs locally in your browser."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Does the stopwatch stay accurate if I switch to another browser tab?",
+          "a": "Yes. Because it computes elapsed time from monotonic timestamps rather than counting animation frames, backgrounding the tab does not cause drift."
+        },
+        {
+          "q": "What is the difference between a lap time and a split time?",
+          "a": "A lap time is the duration of the single segment since the previous lap, while a split time is the total time elapsed since the start."
+        },
+        {
+          "q": "Is any data sent to a server?",
+          "a": "No. The stopwatch runs entirely in your browser."
+        }
+      ]
     },
     "businessCard": {
       "title": "Business Card Maker",
@@ -3826,7 +5878,44 @@
       },
       "clear": "Clear",
       "example": "e.g. {value}",
-      "postalMark": ""
+      "postalMark": "",
+      "guide": [
+        {
+          "heading": "How to Design Your Card",
+          "paragraphs": [
+            "Enter your name, title, organization, email, phone number, and website, then pick a layout style and color theme to update the live preview immediately.",
+            "Any field you leave blank is omitted cleanly, making it easy to create a minimal card for conferences, side projects, or club events."
+          ]
+        },
+        {
+          "heading": "Proportions and Printing Tips",
+          "paragraphs": [
+            "The preview follows standard Japanese business card proportions (91 × 55 mm). When printing or exporting to PDF, keep scaling at 100% and leave sufficient margin around the edges.",
+            "Keeping the text concise with generous whitespace makes the card easier to scan at a glance."
+          ]
+        },
+        {
+          "heading": "Privacy",
+          "paragraphs": [
+            "Your name, phone number, email address, and other details are rendered entirely in your browser and are never sent to a server.",
+            "You can safely enter personal contact information on your own device."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Are my contact details uploaded to a server?",
+          "a": "No. The card is generated locally inside your browser."
+        },
+        {
+          "q": "Can I leave out the phone number or company name?",
+          "a": "Yes. Empty fields are hidden automatically."
+        },
+        {
+          "q": "What is the standard business card size in Japan?",
+          "a": "The standard size in Japan (Size 4) is 91 mm × 55 mm."
+        }
+      ]
     },
     "resignation": {
       "title": "Resignation Letter Maker",
@@ -3864,7 +5953,44 @@
       "print": "Print / save as PDF",
       "printHint": "In the print dialog, choose \"Save as PDF\" as the destination to get a PDF. It comes out on A4 with no margins.",
       "handwriting": "Some companies ask for a handwritten letter or their own form. If in doubt, check your employment rules or ask your manager. Put your seal next to your name after printing.",
-      "privacy": "What you enter is not sent to a server. It is kept only in this browser on this device, for the next time you open it."
+      "privacy": "What you enter is not sent to a server. It is kept only in this browser on this device, for the next time you open it.",
+      "guide": [
+        {
+          "heading": "How to Create and Print the Document",
+          "paragraphs": [
+            "Select either a Resignation Notice (退職届) or Resignation Request (退職願), then enter the submission date, final employment date, your department and name, and the company and representative's name to generate a traditional vertical Japanese document.",
+            "You can switch between Japanese era dates (such as Reiwa) and Western dates, customize the reason text, and print directly onto A4 paper or save as a PDF."
+          ]
+        },
+        {
+          "heading": "Difference Between 退職願 and 退職届",
+          "paragraphs": [
+            "In Japanese workplace practice, a 退職願 (resignation request) asks for mutual agreement to end employment and is typically used when initially requesting approval to resign.",
+            "A 退職届 (resignation notice) formally declares your resignation once the leaving date is set. If your employer provides an internal form in its company rules, use the company's form."
+          ]
+        },
+        {
+          "heading": "Processed Privately in Your Browser",
+          "paragraphs": [
+            "Sensitive details such as your employer's name, your name, and your resignation date are formatted locally in your browser and are never sent to a server.",
+            "Double-check the dates and the representative's title in the preview before printing and stamping your seal (hanko)."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Should I choose 退職願 or 退職届?",
+          "a": "退職願 is generally used when requesting agreement to resign, while 退職届 is used as the final formal notice after the date is confirmed."
+        },
+        {
+          "q": "Is my company name or personal name sent to any server?",
+          "a": "No. The document is rendered entirely in your browser."
+        },
+        {
+          "q": "What paper size does the print layout use?",
+          "a": "It formats the vertical text for standard A4 paper."
+        }
+      ]
     },
     "shareButtons": {
       "heading": "Share the result",
@@ -3919,7 +6045,9 @@
         "nextSet": "Next practice",
         "resume": "Continue",
         "questionNumber": "Question {number}",
-        "shareText": "Math Foundations \"{title}\": {correct}/{total} correct"
+        "shareText": "Math Foundations \"{title}\": {correct}/{total} correct",
+        "labTitle": "Explore this topic interactively",
+        "breakTitle": "Quick 30-second study break"
       },
       "arith": {
         "formula": "Expression:",

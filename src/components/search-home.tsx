@@ -2,15 +2,15 @@ import { useEffect, useMemo, useRef, useState, type KeyboardEvent } from "react"
 import { useLocale, useTranslations } from "use-intl";
 import { Link } from "../i18n/navigation";
 import { apps, type AppEntry, type DynamicT } from "../lib/apps";
-import { FEATURED_SLUGS } from "../lib/app-catalog";
+import { FEATURED_SLUGS, LEARN_SHELF_SLUGS, PLAY_LAB_SLUGS } from "../lib/app-catalog";
 import { prepare, search, type Entry } from "../lib/search";
 import Card from "./app-card";
 import SiteFooter from "./site-footer";
 import { useFavoritesData } from "../routes/locale";
 import styles from "./search-home.module.css";
 
-// The top page: a search box that finds every app, and under it only a few: the most viewed and the featured ones, then a link to the
-// list of every app (/apps). `popular`: the most viewed tools of the last week (src/lib/tool-ranking.ts), most first.
+// The top page: a search box that finds every app, and under it only a few: the most viewed, the featured ones, and the
+// interactive lab / quick break shelf, then a link to the list of every app (/apps).
 export default function SearchHome({ year, popular = [] }: { year: number; popular?: { slug: string; views: number }[] }) {
   const t = useTranslations("App");
   const ts = useTranslations("App.search");
@@ -22,6 +22,7 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
   const [onlyMine, setOnlyMine] = useState(false);
+  const [shelf, setShelf] = useState<"all" | "learn" | "tools" | "play">("all");
 
   const prepared = useMemo(() => {
     const entries: Entry[] = [];
@@ -37,8 +38,12 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
   // The signed-in visitor's favourite apps come first.
   const mine = apps.filter(app => app.status === "published" && app.href && favorites.has(app.slug));
   const popularApps = popular.map(p => apps.find(app => app.slug === p.slug && app.status === "published" && app.href)).filter((app): app is AppEntry => Boolean(app));
+  const learnApps = LEARN_SHELF_SLUGS.map(slug => apps.find(app => app.slug === slug && app.status === "published" && app.href))
+    .filter((app): app is AppEntry => Boolean(app));
   const featuredApps = FEATURED_SLUGS.map(slug => apps.find(app => app.slug === slug && app.status === "published" && app.href))
-    .filter((app): app is AppEntry => Boolean(app) && !popularApps.includes(app!));
+    .filter((app): app is AppEntry => Boolean(app));
+  const playLabApps = PLAY_LAB_SLUGS.map(slug => apps.find(app => app.slug === slug && app.status === "published" && app.href))
+    .filter((app): app is AppEntry => Boolean(app));
   const total = apps.filter(app => app.status === "published" && app.href && !app.private).length;
   // "/" jumps to the box from anywhere on the page, as on most sites.
   useEffect(() => {
@@ -85,14 +90,27 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
             data-search="input"
           />
         </div>
-        {!query.trim() && <p className={styles.browse}><Link href="/apps">{ts("allApps", { count: total })}</Link></p>}
-        {signedIn && !query.trim() && (
-          <p className={styles.filter}>
-            <button type="button" className={styles.chip} aria-pressed={onlyMine} onClick={() => setOnlyMine(on => !on)} data-search="only-favorites">
-              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L12 17l-5.2 2.8 1-5.9-4.3-4.2 5.9-.8z" /></svg>
-              {ts("onlyFavorites")}
-            </button>
-          </p>
+        {!query.trim() && (
+          <div className={styles.shelvesBar} role="group" aria-label={ts("shelfFilter")} data-search="shelf-filter">
+            {(["all", "tools", "learn", "play"] as const).map(mode => (
+              <button
+                key={mode}
+                type="button"
+                className={styles.shelfChip}
+                aria-pressed={!onlyMine && shelf === mode}
+                onClick={() => { setOnlyMine(false); setShelf(mode); }}
+                data-shelf={mode}
+              >
+                {ts(`shelves.${mode}`)}
+              </button>
+            ))}
+            {signedIn && (
+              <button type="button" className={styles.chip} aria-pressed={onlyMine} onClick={() => setOnlyMine(on => !on)} data-search="only-favorites">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5l2.6 5.4 5.9.8-4.3 4.2 1 5.9L12 17l-5.2 2.8 1-5.9-4.3-4.2 5.9-.8z" /></svg>
+                {ts("onlyFavorites")}
+              </button>
+            )}
+          </div>
         )}
         </section>
         {query.trim() && (
@@ -117,37 +135,63 @@ export default function SearchHome({ year, popular = [] }: { year: number; popul
                 {mine.length === 0 ? <p className={styles.empty}>{ts("noFavorites")}</p> : <ul data-search="favorites">{mine.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited />)}</ul>}
               </section>
             ) : <>
-            <section aria-labelledby="home-start" data-search="start">
-              <h2 id="home-start">{ts("startTitle")}</h2>
-              <div className={styles.tasks}>
-                {([
-                  ["photo", "/metadata", "/mosaic"],
-                  ["writing", "/wc", "/date-calc"],
-                  ["data", "/sql", "/json"],
-                  ["math", "/math/arith/order-of-operations", "/math"],
-                ] as const).map(([key, first, second]) => <article key={key} className={styles.task}>
-                  <h3>{ts(`tasks.${key}.title`)}</h3>
-                  <p>{ts(`tasks.${key}.body`)}</p>
-                  <div className={styles.taskLinks}>
-                    <Link href={first}>{ts(`tasks.${key}.firstLink`)} →</Link>
-                    <Link href={second}>{ts(`tasks.${key}.secondLink`)} →</Link>
-                  </div>
-                  <ol>{(["first", "second"] as const).map(step => <li key={step}>{ts(`tasks.${key}.${step}`)}</li>)}</ol>
-                </article>)}
-              </div>
-            </section>
-            {popularApps.length > 0 && (
+            {(shelf === "all" || shelf === "learn") && (
+              <section data-search="learn-shelf" data-tag="learn">
+                <div className={styles.shelfHead}>
+                  <h2>{ts("learnShelfTitle")}</h2>
+                  <span className={styles.shelfSub}>{ts("learnShelfSub")}</span>
+                </div>
+                <ul>{learnApps.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited={favorites.has(app.slug)} />)}</ul>
+              </section>
+            )}
+            {(shelf === "all" || shelf === "tools") && (
+              <section data-search="featured" data-tag="text">
+                <div className={styles.shelfHead}>
+                  <h2>{ts("toolsShelfTitle")}</h2>
+                  <span className={styles.shelfSub}>{ts("toolsShelfSub")}</span>
+                </div>
+                <ul>{featuredApps.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited={favorites.has(app.slug)} />)}</ul>
+                <p className={styles.more}><Link href="/apps" data-search="all-apps">{ts("allApps", { count: total })}</Link></p>
+              </section>
+            )}
+            {(shelf === "all" || shelf === "play") && (
+              <section data-search="play-lab" data-tag="game">
+                <div className={styles.shelfHead}>
+                  <h2>{ts("playLabTitle")}</h2>
+                  <span className={styles.shelfSub}>{ts("playLabBody")}</span>
+                </div>
+                <ul>{playLabApps.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited={favorites.has(app.slug)} />)}</ul>
+                <p className={styles.more}><Link href="/apps?tag=game">{ts("morePlayLab")}</Link></p>
+              </section>
+            )}
+            {popularApps.length > 0 && (shelf === "all" || shelf === "tools") && (
               <section data-search="popular">
                 <h2>{ts("popular")}</h2>
                 <ol className={styles.ranked}>{popularApps.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited={favorites.has(app.slug)} />)}</ol>
                 <p className={styles.more}><Link href="/ranking">{ts("ranking")}</Link></p>
               </section>
             )}
-            <section data-search="featured">
-              <h2>{ts("featured")}</h2>
-              <ul>{featuredApps.map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited={favorites.has(app.slug)} />)}</ul>
-              <p className={styles.more}><Link href="/apps" data-search="all-apps">{ts("allApps", { count: total })}</Link></p>
-            </section>
+            {(shelf === "all" || shelf === "tools" || shelf === "learn") && (
+              <section aria-labelledby="home-start" data-search="start">
+                <h2 id="home-start">{ts("startTitle")}</h2>
+                <div className={styles.tasks}>
+                  {([
+                    ["photo", "/metadata", "/mosaic"],
+                    ["writing", "/wc", "/date-calc"],
+                    ["data", "/sql", "/json"],
+                    ["math", "/math/arith/order-of-operations", "/math"],
+                  ] as const).map(([key, first, second]) => <article key={key} className={styles.task}>
+                    <h3>{ts(`tasks.${key}.title`)}</h3>
+                    <p>{ts(`tasks.${key}.body`)}</p>
+                    <div className={styles.taskLinks}>
+                      <Link href={first}>{ts(`tasks.${key}.firstLink`)} →</Link>
+                      <Link href={second}>{ts(`tasks.${key}.secondLink`)} →</Link>
+                    </div>
+                    <ol>{(["first", "second"] as const).map(step => <li key={step}>{ts(`tasks.${key}.${step}`)}</li>)}</ol>
+                  </article>)}
+                </div>
+              </section>
+            )}
             </>}
           </nav>
         )}

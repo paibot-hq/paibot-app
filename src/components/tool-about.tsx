@@ -11,11 +11,12 @@ import styles from "./tool-about.module.css";
 type GuideSection = { heading: string; paragraphs: string[] };
 type Faq = { q: string; a: string };
 type WorkedExample = { title: string; steps: string[]; result: string; note: string; code?: string };
+export type ToolTab = "app" | "guide" | "faq";
 
-// Under every tool: what it is in a few plain sentences (the page is otherwise only controls, which search engines read as a thin page), a
-// concrete example when available, the guide and questions when the tool has them, the tools of the same kind to go to next (so a tool is
-// reached from other pages than the top one), and the same facts as structured data.
-export default function ToolAbout({ app }: { app: AppData }) {
+// Under every tool (or at the top when the visitor switches to the Guide / FAQ tab in ToolLayout): what it is in a few plain sentences,
+// a concrete example when available, the guide and questions (kept in the DOM with `hidden` so search engines read them while keeping
+// the tool view compact), the tools of the same kind to go to next, and the same facts as structured data.
+export default function ToolAbout({ app, tab = "app" }: { app: AppData; tab?: ToolTab }) {
   const t = useTranslations("App");
   const dynamic = t as unknown as DynamicT;
   const locale = useLocale() as "ja" | "en" | "zh";
@@ -26,6 +27,8 @@ export default function ToolAbout({ app }: { app: AppData }) {
   const guide = raw.has(`${app.messageKey}.guide`) ? raw.raw(`${app.messageKey}.guide`) as GuideSection[] : [];
   const faq = raw.has(`${app.messageKey}.faq`) ? raw.raw(`${app.messageKey}.faq`) as Faq[] : [];
   const example = raw.has(`${app.messageKey}.workedExample`) ? raw.raw(`${app.messageKey}.workedExample`) as WorkedExample : null;
+  // When ToolAbout is rendered inside its own dedicated tab (such as govfaq's info tab, which doesn't pass `tab`), show everything.
+  const standalone = tab === "app" && app.slug === "govfaq";
   const data = toolStructuredData({
     name: dynamic(`${app.messageKey}.title`),
     description: dynamic(`${app.messageKey}.description`),
@@ -36,29 +39,40 @@ export default function ToolAbout({ app }: { app: AppData }) {
     siteUrl: localizedUrl(siteOrigin, locale, ""),
   });
   return (
-    <section className={styles.about} aria-labelledby="tool-about" data-tool-about>
-      <h2 id="tool-about" className={styles.heading}>{t("apps.about")}</h2>
-      <p className={styles.text}>{dynamic(`${app.messageKey}.about`)}</p>
-      {example && <section className={styles.example} aria-labelledby="tool-example" data-tool-example>
+    <section className={styles.about} data-top-panel={(tab !== "app") || undefined} aria-labelledby="tool-about" data-tool-about>
+      <div hidden={!standalone && tab !== "app"}>
+        <h2 id="tool-about" className={styles.heading}>
+          <span>{t("apps.about")}</span>
+          {app.localOnly && <span className={styles.localNote} data-tool-local>{t("apps.localNote")}</span>}
+        </h2>
+        <p className={styles.text}>{dynamic(`${app.messageKey}.about`)}</p>
+      </div>
+      {example && <section className={styles.example} aria-labelledby="tool-example" data-tool-example hidden={!standalone && tab === "faq"}>
         <h3 id="tool-example" className={styles.heading}>{example.title}</h3>
         <ol className={styles.steps}>{example.steps.map((step, index) => <li key={index}>{step}</li>)}</ol>
         {example.code && <pre className={styles.code}><code>{example.code}</code></pre>}
         <p className={styles.text}>{example.result}</p>
         <p className={styles.text}>{example.note}</p>
       </section>}
-      {guide.map(section => (
-        <section key={section.heading} className={styles.section}>
-          <h3 className={styles.sub}>{section.heading}</h3>
-          {section.paragraphs.map(paragraph => <p key={paragraph} className={styles.text}>{paragraph}</p>)}
-        </section>
-      ))}
+      {guide.length > 0 && (
+        <div hidden={!standalone && tab === "faq"} data-tool-guide>
+          {guide.map(section => (
+            <section key={section.heading} className={styles.section}>
+              <h3 className={styles.sub}>{section.heading}</h3>
+              {section.paragraphs.map(paragraph => <p key={paragraph} className={styles.text}>{paragraph}</p>)}
+            </section>
+          ))}
+        </div>
+      )}
       {faq.length > 0 && (
-        <section className={styles.section}>
-          <h3 className={styles.sub}>{t("apps.faq")}</h3>
-          <dl className={styles.faq}>
-            {faq.map(item => <div key={item.q}><dt>{item.q}</dt><dd>{item.a}</dd></div>)}
-          </dl>
-        </section>
+        <div hidden={!standalone && tab === "guide"} data-tool-faq>
+          <section className={styles.section}>
+            <h3 className={styles.sub}>{t("apps.faq")}</h3>
+            <dl className={styles.faq}>
+              {faq.map(item => <div key={item.q}><dt>{item.q}</dt><dd>{item.a}</dd></div>)}
+            </dl>
+          </section>
+        </div>
       )}
       <p className={styles.feedback}><Link href="/about#contact">{t("about.contactTitle")}</Link>{" · "}<Link href="/legal/privacy">{t("footer.privacy")}</Link></p>
       {related.length > 0 && (

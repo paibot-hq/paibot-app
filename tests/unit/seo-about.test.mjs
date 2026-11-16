@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { APP_CATALOG, APP_TAGS, relatedApps } from '../../src/lib/app-catalog.ts';
-import { toolStructuredData } from '../../src/lib/seo.ts';
+import { APP_CATALOG, APP_TAGS, LEARN_SHELF_SLUGS, PLAY_LAB_SLUGS, mathLabAndBreak, relatedApps } from '../../src/lib/app-catalog.ts';
+import { publicPaths, toolStructuredData } from '../../src/lib/seo.ts';
 
 test('related apps: those sharing the most tags first, never itself, never private or coming soon, at most six', () => {
   for (const app of APP_CATALOG.filter(a => a.status === 'published' && a.href)) {
@@ -33,7 +33,7 @@ test('every app has one to three known tags, none twice', () => {
 test('every tag has a name in all three languages and is used by a published app', async () => {
   const { readFileSync } = await import('node:fs');
   for (const locale of ['ja', 'en', 'zh']) {
-    const { App } = JSON.parse(readFileSync(`messages/${locale}.json`, 'utf8'));
+    const { App } = JSON.parse(readFileSync(new URL(`../../messages/${locale}.json`, import.meta.url), 'utf8'));
     assert.deepEqual(Object.keys(App.tags).sort(), [...APP_TAGS].sort(), locale);
     for (const tag of APP_TAGS) assert.ok(App.tags[tag]?.trim(), `${locale} tags.${tag}`);
   }
@@ -59,6 +59,31 @@ test('every public tool has its text about it, and how to use it, in all three l
     const app = JSON.parse(readFileSync(new URL(`../../messages/${locale}.json`, import.meta.url), 'utf8')).App;
     for (const tool of APP_CATALOG.filter(a => a.status === 'published' && a.href && !a.private)) {
       for (const key of ['about']) assert.ok(typeof app[tool.messageKey]?.[key] === 'string' && app[tool.messageKey][key].length >= 8, `${locale} ${tool.slug}.${key}`);
+    }
+  }
+});
+
+test('every published public app is included in publicPaths, shelves and mathLabAndBreak resolve to published apps, and localOnly apps are public tools', () => {
+  const publicApps = APP_CATALOG.filter(a => a.status === 'published' && a.href && !a.private);
+  assert.ok(publicApps.length >= 70);
+  for (const app of publicApps) {
+    assert.ok(publicPaths.includes(app.href), `publicPaths should include ${app.href}`);
+  }
+  for (const slug of [...LEARN_SHELF_SLUGS, ...PLAY_LAB_SLUGS]) {
+    const app = APP_CATALOG.find(a => a.slug === slug);
+    assert.ok(app && app.status === 'published' && app.href && !app.private, `shelf: ${slug}`);
+  }
+  const localApps = APP_CATALOG.filter(a => a.localOnly);
+  assert.ok(localApps.length >= 20, 'localOnly tools are marked');
+  for (const app of localApps) {
+    assert.ok(app.status === 'published' && app.href, `localOnly: ${app.slug}`);
+  }
+  for (const domain of ['number', 'algebra', 'functions', 'geometry', 'data', 'logic', 'linear-algebra', 'calculus', undefined]) {
+    const { lab, breakApps } = mathLabAndBreak(domain);
+    assert.equal(lab.length, 2, `lab for ${domain}`);
+    assert.equal(breakApps.length, 2, `break for ${domain}`);
+    for (const app of [...lab, ...breakApps]) {
+      assert.ok(app.status === 'published' && app.href, app.slug);
     }
   }
 });
