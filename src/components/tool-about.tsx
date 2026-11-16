@@ -46,16 +46,16 @@ export default function ToolAbout({ app, tab = "app" }: { app: AppData; tab?: To
           {app.localOnly && <span className={styles.localNote} data-tool-local>{t("apps.localNote")}</span>}
         </h2>
         <p className={styles.text}>{dynamic(`${app.messageKey}.about`)}</p>
-        {example && <section className={styles.example} aria-labelledby="tool-example" data-tool-example>
-          <h3 id="tool-example" className={styles.heading}>{example.title}</h3>
-          <ol className={styles.steps}>{example.steps.map((step, index) => <li key={index}>{step}</li>)}</ol>
-          {example.code && <pre className={styles.code}><code>{example.code}</code></pre>}
-          <p className={styles.text}>{example.result}</p>
-          <p className={styles.text}>{example.note}</p>
-        </section>}
       </div>
+      {example && <section className={styles.example} aria-labelledby="tool-example" data-tool-example hidden={!standalone && tab === "faq"}>
+        <h3 id="tool-example" className={styles.heading}>{example.title}</h3>
+        <ol className={styles.steps}>{example.steps.map((step, index) => <li key={index}>{step}</li>)}</ol>
+        {example.code && <pre className={styles.code}><code>{example.code}</code></pre>}
+        <p className={styles.text}>{example.result}</p>
+        <p className={styles.text}>{example.note}</p>
+      </section>}
       {guide.length > 0 && (
-        <div hidden={!standalone && tab !== "guide"} data-tool-guide>
+        <div hidden={!standalone && tab === "faq"} data-tool-guide>
           {guide.map(section => (
             <section key={section.heading} className={styles.section}>
               <h3 className={styles.sub}>{section.heading}</h3>
@@ -65,7 +65,7 @@ export default function ToolAbout({ app, tab = "app" }: { app: AppData; tab?: To
         </div>
       )}
       {faq.length > 0 && (
-        <div hidden={!standalone && tab !== "faq"} data-tool-faq>
+        <div hidden={!standalone && tab === "guide"} data-tool-faq>
           <section className={styles.section}>
             <h3 className={styles.sub}>{t("apps.faq")}</h3>
             <dl className={styles.faq}>
