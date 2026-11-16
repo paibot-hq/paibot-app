@@ -117,9 +117,32 @@ export const APP_CATALOG = [
 
 export type AppSlug = (typeof APP_CATALOG)[number]["slug"];
 
-// Shown on the top page under the most viewed tools, in this order (those already among the most viewed are not repeated):
-// the tools people search for and the ones found nowhere else. Every other tool is found by the search box or on /apps.
-export const FEATURED_SLUGS: readonly AppSlug[] = ["math", "breaches", "date-calc", "wc", "tax", "password", "metadata", "mosaic"];
+// The three shelves on the top page: learning & practice, practical browser tools & verified info, and interactive lab & quick break games.
+export const LEARN_SHELF_SLUGS: readonly AppSlug[] = ["math", "sql", "linux", "code-runner", "code-draw", "browser-ai"];
+export const FEATURED_SLUGS: readonly AppSlug[] = ["mosaic", "metadata", "wc", "date-calc", "json", "password", "tax", "breaches", "govfaq"];
+export const PLAY_LAB_SLUGS: readonly AppSlug[] = ["fourier", "pendulum", "life", "polyhedra", "approx", "strings", "color-trick", "puchi"];
+
+// Maps a math domain to interactive lab experiments to try after finishing a practice set, plus two quick break games.
+const DOMAIN_LAB_SLUGS: Record<string, readonly AppSlug[]> = {
+  number: ["approx", "number-merge"],
+  algebra: ["grapher", "series"],
+  functions: ["grapher", "fourier"],
+  geometry: ["polyhedra", "code-draw"],
+  data: ["dice", "collector"],
+  logic: ["life", "code-draw"],
+  "linear-algebra": ["polyhedra", "code-draw"],
+  calculus: ["fourier", "pendulum"],
+};
+const BREAK_GAME_SLUGS: readonly AppSlug[] = ["color-trick", "puchi"];
+
+export function mathLabAndBreak(domain?: string, list: readonly AppData[] = APP_CATALOG): { lab: AppData[]; breakApps: AppData[] } {
+  const bySlug = (slug: AppSlug) => list.find(app => app.slug === slug && app.status === "published" && app.href);
+  const labSlugs = (domain && DOMAIN_LAB_SLUGS[domain]) || DOMAIN_LAB_SLUGS.calculus;
+  return {
+    lab: labSlugs.map(bySlug).filter((app): app is AppData => Boolean(app)),
+    breakApps: BREAK_GAME_SLUGS.map(bySlug).filter((app): app is AppData => Boolean(app)),
+  };
+}
 
 // The apps to go to from an app's page: those sharing the most tags first (in catalog order among equals), up to six, so that
 // every page links onwards.

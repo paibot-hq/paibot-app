@@ -590,7 +590,8 @@
       "categoryNavigation": "アプリのカテゴリ",
       "faq": "よくある質問",
       "localNote": "ブラウザ内処理・送信なし",
-      "tabGuide": "使い方・解説"
+      "tabGuide": "使い方・解説",
+      "localBadge": "端末内"
     },
     "appList": {
       "eyebrow": "APPS",
@@ -2923,7 +2924,21 @@
           "firstLink": "計算の順序から始める",
           "secondLink": "学年・単元から探す"
         }
-      }
+      },
+      "shelfFilter": "表示する棚",
+      "shelves": {
+        "all": "すべて",
+        "tools": "実用・情報",
+        "learn": "学習・問題集",
+        "play": "実験・息抜き"
+      },
+      "learnShelfTitle": "学習・問題集（まなぶ）",
+      "learnShelfSub": "例題・解説つきで基礎から演習",
+      "toolsShelfTitle": "実用ツール・出典つき情報（つかう）",
+      "toolsShelfSub": "端末内＝サーバーへ送信せずブラウザ内で処理",
+      "playLabTitle": "実験ラボ・息抜きミニゲーム（あそぶ）",
+      "playLabBody": "勉強の合間の休憩や、動かして試す視覚実験",
+      "morePlayLab": "ゲーム・実験アプリをすべて見る →"
     },
     "life": {
       "title": "ライフゲーム",
@@ -6030,7 +6045,9 @@
         "nextSet": "次の練習へ",
         "resume": "続きから",
         "questionNumber": "{number}問目",
-        "shareText": "基礎数学「{title}」で {correct}/{total} 正解しました"
+        "shareText": "基礎数学「{title}」で {correct}/{total} 正解しました",
+        "labTitle": "この分野を動かして体感する（実験ラボ）",
+        "breakTitle": "ひと休み（30秒息抜きゲーム）"
       },
       "arith": {
         "formula": "式：",

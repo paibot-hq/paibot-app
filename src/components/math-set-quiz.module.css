@@ -78,3 +78,34 @@
 .reviewMark { flex: none; width: 1.8rem; height: 1.8rem; display: grid; place-items: center; border-radius: 50%; font-weight: 700;
   color: var(--error); background: color-mix(in srgb, var(--error) 14%, var(--surface)); }
 .review > li[data-correct] .reviewMark { color: var(--success); background: color-mix(in srgb, var(--success) 16%, var(--surface)); }
+
+/* After finishing a practice set: interactive visual experiments for the same topic, plus a quick 30-second break. */
+.breakBox {
+  margin-top: 1.4rem;
+  padding: .95rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12rem, 1fr));
+  gap: .85rem;
+}
+.breakGroup { display: grid; gap: .4rem; align-content: start; }
+.breakHeading { margin: 0; font-size: .8rem; font-weight: 700; color: var(--muted); }
+.breakLinks { display: flex; flex-wrap: wrap; gap: .45rem; }
+.breakPill {
+  display: inline-flex;
+  align-items: center;
+  padding: .3rem .75rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-strong);
+  color: var(--text);
+  font-size: .84rem;
+  font-weight: 600;
+  text-decoration: none;
+}
+.breakPill:hover, .breakPill:focus-visible {
+  border-color: var(--accent);
+  color: var(--accent);
+}

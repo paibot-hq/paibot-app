@@ -590,7 +590,8 @@
       "categoryNavigation": "App categories",
       "faq": "Frequently asked questions",
       "localNote": "Processed in your browser",
-      "tabGuide": "Guide"
+      "tabGuide": "Guide",
+      "localBadge": "On-device"
     },
     "appList": {
       "eyebrow": "APPS",
@@ -2923,7 +2924,21 @@
           "firstLink": "Try order of operations",
           "secondLink": "Browse maths topics"
         }
-      }
+      },
+      "shelfFilter": "Show section",
+      "shelves": {
+        "all": "All",
+        "tools": "Tools & Info",
+        "learn": "Learn & Practice",
+        "play": "Lab & Break"
+      },
+      "learnShelfTitle": "Learn & Practice",
+      "learnShelfSub": "Step-by-step lessons and hands-on practice",
+      "toolsShelfTitle": "Practical Tools & Verified Info",
+      "toolsShelfSub": "On-device = processed in your browser without uploading",
+      "playLabTitle": "Interactive Lab & Quick Break",
+      "playLabBody": "Visual math & physics experiments and 30-second break games",
+      "morePlayLab": "See all games & experiments →"
     },
     "life": {
       "title": "Game of Life",
@@ -6030,7 +6045,9 @@
         "nextSet": "Next practice",
         "resume": "Continue",
         "questionNumber": "Question {number}",
-        "shareText": "Math Foundations \"{title}\": {correct}/{total} correct"
+        "shareText": "Math Foundations \"{title}\": {correct}/{total} correct",
+        "labTitle": "Explore this topic interactively",
+        "breakTitle": "Quick 30-second study break"
       },
       "arith": {
         "formula": "Expression:",

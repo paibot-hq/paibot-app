@@ -590,7 +590,8 @@
       "categoryNavigation": "应用分类",
       "faq": "常见问题",
       "localNote": "浏览器内处理・不上传",
-      "tabGuide": "使用指南"
+      "tabGuide": "使用指南",
+      "localBadge": "本地"
     },
     "appList": {
       "eyebrow": "APPS",
@@ -2923,7 +2924,21 @@
           "firstLink": "从运算顺序开始",
           "secondLink": "查找年级与单元"
         }
-      }
+      },
+      "shelfFilter": "显示分类",
+      "shelves": {
+        "all": "全部",
+        "tools": "工具与资讯",
+        "learn": "学习与题库",
+        "play": "实验与休闲"
+      },
+      "learnShelfTitle": "学习与题库",
+      "learnShelfSub": "附带例题与解析，从基础开始练习",
+      "toolsShelfTitle": "实用工具与来源可查资讯",
+      "toolsShelfSub": "本地＝浏览器内处理，不上传服务器",
+      "playLabTitle": "互动实验与休闲小游戏",
+      "playLabBody": "学习间隙的小憩与可动手尝试的视觉实验",
+      "morePlayLab": "查看全部游戏与实验应用 →"
     },
     "life": {
       "title": "生命游戏",
@@ -6030,7 +6045,9 @@
         "nextSet": "下一组练习",
         "resume": "继续",
         "questionNumber": "第{number}题",
-        "shareText": "基础数学「{title}」答对 {correct}/{total} 题"
+        "shareText": "基础数学「{title}」答对 {correct}/{total} 题",
+        "labTitle": "动手体验相关实验",
+        "breakTitle": "小憩一下（30秒小游戏）"
       },
       "arith": {
         "formula": "算式：",

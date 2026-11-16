@@ -1,6 +1,6 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { APP_CATALOG, APP_TAGS, relatedApps } from '../../src/lib/app-catalog.ts';
+import { APP_CATALOG, APP_TAGS, LEARN_SHELF_SLUGS, PLAY_LAB_SLUGS, mathLabAndBreak, relatedApps } from '../../src/lib/app-catalog.ts';
 import { publicPaths, toolStructuredData } from '../../src/lib/seo.ts';
 
 test('related apps: those sharing the most tags first, never itself, never private or coming soon, at most six', () => {
@@ -63,15 +63,27 @@ test('every public tool has its text about it, and how to use it, in all three l
   }
 });
 
-test('every published public app is included in publicPaths, and localOnly apps are public tools', () => {
+test('every published public app is included in publicPaths, shelves and mathLabAndBreak resolve to published apps, and localOnly apps are public tools', () => {
   const publicApps = APP_CATALOG.filter(a => a.status === 'published' && a.href && !a.private);
   assert.ok(publicApps.length >= 70);
   for (const app of publicApps) {
     assert.ok(publicPaths.includes(app.href), `publicPaths should include ${app.href}`);
   }
+  for (const slug of [...LEARN_SHELF_SLUGS, ...PLAY_LAB_SLUGS]) {
+    const app = APP_CATALOG.find(a => a.slug === slug);
+    assert.ok(app && app.status === 'published' && app.href && !app.private, `shelf: ${slug}`);
+  }
   const localApps = APP_CATALOG.filter(a => a.localOnly);
   assert.ok(localApps.length >= 20, 'localOnly tools are marked');
   for (const app of localApps) {
     assert.ok(app.status === 'published' && app.href, `localOnly: ${app.slug}`);
+  }
+  for (const domain of ['number', 'algebra', 'functions', 'geometry', 'data', 'logic', 'linear-algebra', 'calculus', undefined]) {
+    const { lab, breakApps } = mathLabAndBreak(domain);
+    assert.equal(lab.length, 2, `lab for ${domain}`);
+    assert.equal(breakApps.length, 2, `break for ${domain}`);
+    for (const app of [...lab, ...breakApps]) {
+      assert.ok(app.status === 'published' && app.href, app.slug);
+    }
   }
 });
