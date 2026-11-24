@@ -1,4 +1,4 @@
-import { count, eq, gt } from "drizzle-orm";
+import { count } from "drizzle-orm";
 import { getDb } from "../../db/client.server";
 import { iqResults } from "../../db/schema";
 import { distributionFrom, type Distribution } from "./matrix";
@@ -14,10 +14,9 @@ export async function getDistribution(): Promise<Distribution> {
 export async function recordResult(score: number, seconds: number): Promise<{ better: number; same: number; distribution: Distribution }> {
   const db = getDb();
   await db.insert(iqResults).values({ score, seconds });
-  const [[{ better }], [{ same }], distribution] = await Promise.all([
-    db.select({ better: count() }).from(iqResults).where(gt(iqResults.score, score)),
-    db.select({ same: count() }).from(iqResults).where(eq(iqResults.score, score)),
-    getDistribution(),
-  ]);
+  const distribution = await getDistribution();
+  const same = distribution.counts[score] ?? 0;
+  let better = 0;
+  for (let i = score + 1; i < distribution.counts.length; i++) better += distribution.counts[i];
   return { better, same, distribution };
 }

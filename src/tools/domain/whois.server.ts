@@ -1,5 +1,6 @@
 import { connect } from "cloudflare:sockets";
 import { env } from "cloudflare:workers";
+import { isPrivateHost } from "../site-check/site-check.server";
 
 // Server-only: opens raw TCP sockets and reads runtime env. Only import this
 // from a route action — never from component code, or "cloudflare:sockets"/
@@ -33,6 +34,10 @@ export type WhoisResult =
 const TOTAL_BUDGET_MS = 8000;
 // root (IANA or the configured override) -> TLD registry -> registrar.
 const MAX_HOPS = 3;
+// Cap remote WHOIS / RDAP payloads so a hostile server cannot OOM the Worker.
+const MAX_WHOIS_BYTES = 128 * 1024;
+const MAX_RDAP_BYTES = 256 * 1024;
+const MAX_RDAP_REDIRECTS = 3;
 
 // ASCII domain syntax only (no IDN/punycode for v1): labels of 1-63
 // alphanumerics/hyphens (no leading/trailing hyphen), at least one dot,
@@ -65,11 +70,17 @@ function parseHostPort(hostPort: string): { hostname: string; port: number } {
 // `Registrar WHOIS Server:` or `ReferralServer:` (sometimes prefixed
 // `whois://`). Treating all three as one "referral" concept keeps the hop
 // loop in lookupWhois generic instead of hop-index-dependent.
+// Referrals come from untrusted remote responses, so only public FQDNs on
+// standard WHOIS port 43 are accepted (prevents SSRF / port pivoting).
 function findReferral(text: string): string | null {
   const match = text.match(/^(?:refer|Registrar WHOIS Server|ReferralServer):\s*(?:whois:\/\/)?(\S+)/im);
   if (!match) return null;
   const value = match[1].replace(/\/$/, "");
-  return value.includes(":") ? value : `${value}:43`;
+  const { hostname, port } = parseHostPort(value);
+  if (port !== 43) return null;
+  const host = normalizeDomain(hostname);
+  if (!host || isPrivateHost(host)) return null;
+  return `${host}:43`;
 }
 
 async function queryServer(hostPort: string, domain: string, budgetMs: number): Promise<string> {
@@ -86,24 +97,37 @@ async function queryServer(hostPort: string, domain: string, budgetMs: number): 
 
     const reader = socket.readable.getReader();
     const chunks: Uint8Array[] = [];
+    let received = 0;
     try {
-      while (true) {
+      while (received < MAX_WHOIS_BYTES) {
         const remaining = deadline - Date.now();
         if (remaining <= 0) throw new WhoisTimeoutError();
-        const timer = new Promise<never>((_, reject) => setTimeout(() => reject(new WhoisTimeoutError()), remaining));
-        const { value, done } = await Promise.race([reader.read(), timer]);
-        if (done) break;
-        if (value) chunks.push(value);
+        let timerId: ReturnType<typeof setTimeout> | undefined;
+        const timer = new Promise<never>((_, reject) => {
+          timerId = setTimeout(() => reject(new WhoisTimeoutError()), remaining);
+        });
+        let result: ReadableStreamReadResult<Uint8Array>;
+        try {
+          result = await Promise.race([reader.read(), timer]);
+        } finally {
+          if (timerId !== undefined) clearTimeout(timerId);
+        }
+        if (result.done) break;
+        if (result.value) {
+          const allowed = MAX_WHOIS_BYTES - received;
+          const slice = result.value.byteLength > allowed ? result.value.subarray(0, allowed) : result.value;
+          chunks.push(slice);
+          received += slice.byteLength;
+        }
       }
     } finally {
       reader.releaseLock();
     }
-    const total = chunks.reduce((n, chunk) => n + chunk.length, 0);
-    const merged = new Uint8Array(total);
+    const merged = new Uint8Array(received);
     let offset = 0;
     for (const chunk of chunks) {
       merged.set(chunk, offset);
-      offset += chunk.length;
+      offset += chunk.byteLength;
     }
     return new TextDecoder().decode(merged);
   } finally {
@@ -209,6 +233,40 @@ function rdapServers(budgetMs: number): Promise<Map<string, string> | null> {
   return bootstrap;
 }
 
+async function readBoundedText(response: Response, maxBytes: number): Promise<string | null> {
+  const declared = Number(response.headers.get("content-length"));
+  if (Number.isFinite(declared) && declared > maxBytes) {
+    await response.body?.cancel().catch(() => {});
+    return null;
+  }
+  const reader = response.body?.getReader();
+  if (!reader) return "";
+  const chunks: Uint8Array[] = [];
+  let total = 0;
+  try {
+    while (true) {
+      const { value, done } = await reader.read();
+      if (done) break;
+      if (!value) continue;
+      total += value.byteLength;
+      if (total > maxBytes) {
+        await reader.cancel().catch(() => {});
+        return null;
+      }
+      chunks.push(value);
+    }
+  } finally {
+    reader.releaseLock();
+  }
+  const merged = new Uint8Array(total);
+  let offset = 0;
+  for (const chunk of chunks) {
+    merged.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  return new TextDecoder().decode(merged);
+}
+
 // Returns null when RDAP cannot answer (no service for the TLD, errors,
 // rate limits), so the caller falls back to WHOIS.
 async function lookupRdap(domain: string, deadline: number): Promise<WhoisResult | null> {
@@ -216,17 +274,41 @@ async function lookupRdap(domain: string, deadline: number): Promise<WhoisResult
   const labels = domain.split(".");
   const base = labels.map((_, i) => servers?.get(labels.slice(i).join("."))).find(Boolean);
   if (!base) return null;
-  const url = `${base}domain/${domain}`;
+  const initialOrigin = new URL(base).origin;
+  let url = `${base}domain/${domain}`;
   try {
-    const response = await fetch(url, { headers: { accept: "application/rdap+json" }, signal: AbortSignal.timeout(Math.max(1, deadline - Date.now())) });
+    let response: Response | null = null;
+    for (let hop = 0; hop <= MAX_RDAP_REDIRECTS; hop++) {
+      const remaining = deadline - Date.now();
+      if (remaining <= 0) return null;
+      response = await fetch(url, {
+        redirect: "manual",
+        headers: { accept: "application/rdap+json" },
+        signal: AbortSignal.timeout(remaining),
+      });
+      if (response.status >= 300 && response.status < 400) {
+        const location = response.headers.get("location");
+        await response.body?.cancel().catch(() => {});
+        if (!location || hop === MAX_RDAP_REDIRECTS) return null;
+        const next = new URL(location, url);
+        if (next.protocol !== "https:" && next.protocol !== "http:") return null;
+        if (next.origin !== initialOrigin && isPrivateHost(next.hostname)) return null;
+        url = next.href;
+        continue;
+      }
+      break;
+    }
+    if (!response) return null;
     if (response.status === 404) {
       // The status alone is the answer; Verisign sometimes drops the
       // connection while the 404 body is still being read.
-      const raw = await response.text().catch(() => "");
+      const raw = (await readBoundedText(response, MAX_RDAP_BYTES).catch(() => "")) ?? "";
       return { status: "ok", domain, source: "rdap", server: url, availability: "available", raw, parsed: { nameServers: [], status: [] } };
     }
     if (!response.ok) return null;
-    const json = await response.json() as RdapDomain;
+    const text = await readBoundedText(response, MAX_RDAP_BYTES);
+    if (!text) return null;
+    const json = JSON.parse(text) as RdapDomain;
     return { status: "ok", domain, source: "rdap", server: url, availability: "registered", raw: JSON.stringify(json, null, 2), parsed: parseRdap(json) };
   } catch {
     return null;

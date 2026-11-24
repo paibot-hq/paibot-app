@@ -1,7 +1,9 @@
+import { data } from 'react-router';
 import PersonalityTest from './personality-test';
 import PublicHead from '../../components/public-head';
 import { countResults, recordResult } from './personality.server';
 import { TRAITS, isKeptResult, type Scores } from './personality';
+import { readFormPost } from '../../lib/form-post.server';
 import { withinToolLimit } from '../../lib/rate-limit.server';
 import { useLocale, useTranslations } from 'use-intl';
 import type { Route } from './+types/route';
@@ -9,8 +11,9 @@ import type { Route } from './+types/route';
 // A finished test's five scores: kept (anonymously) and placed among everyone's. Limited per client IP like the other
 // tools that write, so a script cannot flood the comparison.
 export async function action({ request }: Route.ActionArgs) {
-  const form = await request.formData();
-  const scores = Object.fromEntries(TRAITS.map(t => [t, Number(form.get(t))])) as Scores;
+  const parsed = await readFormPost(request);
+  if (!parsed.ok) return data({ error: 'invalid' as const }, { status: parsed.status });
+  const scores = Object.fromEntries(TRAITS.map(t => [t, Number(parsed.form.get(t))])) as Scores;
   if (!isKeptResult(scores)) return { error: 'invalid' as const };
   if (!(await withinToolLimit(request, 'personality'))) return { error: 'limited' as const };
   try { return { distributions: await recordResult(scores) }; } catch { return { error: 'failed' as const }; }

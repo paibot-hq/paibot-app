@@ -37,7 +37,12 @@ export default {
         : 'User-agent: *\nDisallow: /\n';
       response = new Response(body, { headers: { 'Content-Type': 'text/plain' } });
     } else {
-      response = await handle(request);
+      try {
+        response = await handle(request);
+      } catch (error) {
+        console.error(error);
+        response = new Response('Internal Server Error', { status: 500, headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
+      }
     }
     countView(request, response, url.pathname, ctx);
     const secured = new Response(response.body, response);
@@ -60,6 +65,10 @@ export default {
     secured.headers.set('X-Content-Type-Options', 'nosniff');
     secured.headers.set('X-Frame-Options', 'DENY');
     secured.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin');
+    secured.headers.set('Permissions-Policy', 'camera=(self), microphone=(), geolocation=()');
+    if (url.protocol === 'https:') {
+      secured.headers.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
+    }
     // A page has its own, with the nonce of its scripts (src/entry.server.tsx); everything else gets this one.
     if (!secured.headers.has('Content-Security-Policy')) secured.headers.set('Content-Security-Policy', csp);
     return secured;

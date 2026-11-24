@@ -41,7 +41,9 @@ export async function action(args: Route.ActionArgs) {
   const { userId } = await getAuth(args);
   if (!userId) return fail('signInToSave', 401);
   if (args.request.headers.get('Origin') !== new URL(args.request.url).origin) return fail('saveError', 403);
-  const zone = (await args.request.formData()).get('timeZone');
+  let form: FormData;
+  try { form = await args.request.formData(); } catch { return fail('invalidZone', 400); }
+  const zone = form.get('timeZone');
   if (typeof zone !== 'string' || zone.length > 100) return fail('invalidZone', 400);
   if (zone !== 'auto') {
     if (zone !== 'UTC' && !/^[A-Za-z_+-]+(?:\/[A-Za-z0-9_+-]+)+$/.test(zone)) return fail('invalidZone', 400);

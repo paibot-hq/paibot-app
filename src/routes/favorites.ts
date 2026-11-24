@@ -14,7 +14,8 @@ export async function action(args: Route.ActionArgs) {
   const { userId } = await getAuth(args);
   if (!userId) return fail('signed_out', 401);
   if (args.request.headers.get('Origin') !== new URL(args.request.url).origin) return fail('invalid', 403);
-  const form = await args.request.formData();
+  let form: FormData;
+  try { form = await args.request.formData(); } catch { return fail('invalid', 400); }
   const appSlug = String(form.get('appSlug') ?? '');
   const intent = form.get('intent') === 'remove' ? 'remove' : 'add';
   return intent === 'remove' ? removeFavorite(userId, appSlug) : addFavorite(userId, appSlug);

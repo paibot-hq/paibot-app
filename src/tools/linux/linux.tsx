@@ -30,6 +30,7 @@ export default function Linux() {
   useEffect(() => () => dispose(), []);
 
   async function boot() {
+    if (import.meta.env.SSR) return;
     dispose();
     const current = generation.current;
     setConfirmReset(false); setCommand(''); setError(''); setStatus('loading');
