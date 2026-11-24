@@ -3,6 +3,12 @@ import assert from 'node:assert/strict';
 import { configureAccess } from '../../../scripts/lib/access.mjs';
 
 export default async function ({ page, main, go, base }) {
+  await page.addInitScript(() => {
+    window.__gaEvents = [];
+    window.gtag = (command, name, params) => {
+      if (command === 'event') window.__gaEvents.push({ name, params });
+    };
+  });
   await page.clock.install();
   await go('gradient-descent');
   const simulator = main.getByRole('region', { name: 'Gradient Descent Simulator' });
@@ -43,6 +49,15 @@ export default async function ({ page, main, go, base }) {
   await step.click();
   await checkReadout('Current x', '-7.5');
   assert.equal(await simulator.getByRole('status').getAttribute('data-state'), 'outside');
+
+  await simulator.locator('a[href$="/math/derivative/tangent"]').click();
+  await page.waitForURL(`${base}/en/math/derivative/tangent`);
+  assert.deepEqual(await page.evaluate(() => window.__gaEvents), [
+    { name: 'lab_view', params: { lab_id: 'gradient-descent' } },
+    { name: 'lab_first_interact', params: { lab_id: 'gradient-descent', action: 'step' } },
+    { name: 'lab_retry', params: { lab_id: 'gradient-descent', action: 'step', changed: 'preset' } },
+    { name: 'lab_lesson_click', params: { lab_id: 'gradient-descent', target: 'math' } },
+  ]);
 
   const narrowViewport = { width: 320, height: 740 };
   await page.setViewportSize(narrowViewport);

@@ -1,7 +1,8 @@
-import { useEffect, useId, useState } from 'react';
+import { useEffect, useId, useRef, useState } from 'react';
 import { useFormatter, useTranslations } from 'use-intl';
 import { MathTex } from '../../components/math-tex';
 import { Link } from '../../i18n/navigation';
+import { createLabAnalytics, type LabSettingChange } from '../../lib/analytics';
 import { GRAPH_LIMIT, INITIAL_X, LEARNING_RATE, STEP_LIMIT, nextPoint, pointAt, stopReason, type DescentPoint } from './gradient-descent';
 import styles from './gradient-descent-view.module.css';
 
@@ -66,10 +67,16 @@ export default function GradientDescent() {
   const [rate, setRate] = useState(LEARNING_RATE.defaultValue);
   const [history, setHistory] = useState(() => [pointAt(INITIAL_X.defaultValue)]);
   const [playing, setPlaying] = useState(false);
+  const analytics = useRef<ReturnType<typeof createLabAnalytics> | null>(null);
+  analytics.current ??= createLabAnalytics('gradient-descent');
   const steps = history.length - 1;
   const current = history[steps];
   const finished = stopReason(current, steps);
   const running = playing && !finished;
+
+  useEffect(() => {
+    analytics.current?.view();
+  }, []);
 
   useEffect(() => {
     if (!running) return;
@@ -84,7 +91,8 @@ export default function GradientDescent() {
     setHistory([pointAt(start)]);
   }
 
-  function changeRate(value: number) {
+  function changeRate(value: number, source: Extract<LabSettingChange, 'rate' | 'preset'>) {
+    analytics.current?.changeSetting(source);
     setRate(value);
     reset();
   }
@@ -104,21 +112,21 @@ export default function GradientDescent() {
         <label className={styles.range}>
           <span>{t('initial')}</span><span className={styles.value} aria-hidden="true">{number(initial)}</span>
           <input type="range" min={INITIAL_X.min} max={INITIAL_X.max} step={INITIAL_X.step} value={initial}
-            onChange={event => { const value = event.currentTarget.valueAsNumber; setInitial(value); reset(value); }} />
+            onChange={event => { const value = event.currentTarget.valueAsNumber; analytics.current?.changeSetting('initial'); setInitial(value); reset(value); }} />
         </label>
         <label className={styles.range}>
           <span>{t('rate')}</span><span className={styles.value} aria-hidden="true">{number(rate)}</span>
           <input type="range" min={LEARNING_RATE.min} max={LEARNING_RATE.max} step={LEARNING_RATE.step} value={rate}
-            onChange={event => changeRate(event.currentTarget.valueAsNumber)} />
+            onChange={event => changeRate(event.currentTarget.valueAsNumber, 'rate')} />
         </label>
         <div className={styles.presets} role="group" aria-label={t('presets')}>
-          {PRESETS.map(preset => <button key={preset.rate} type="button" aria-pressed={rate === preset.rate} onClick={() => changeRate(preset.rate)}>
+          {PRESETS.map(preset => <button key={preset.rate} type="button" aria-pressed={rate === preset.rate} onClick={() => changeRate(preset.rate, 'preset')}>
             <strong>{number(preset.rate)}</strong><span>{t(`examples.${preset.label}`)}</span>
           </button>)}
         </div>
         <div className={styles.actions}>
-          <button type="button" data-primary disabled={Boolean(finished) || running} onClick={() => setHistory([...history, nextPoint(current, rate)])}>{t('step')}</button>
-          <button type="button" disabled={Boolean(finished)} onClick={() => setPlaying(!running)}>{t(running ? 'pause' : 'play')}</button>
+          <button type="button" data-primary disabled={Boolean(finished) || running} onClick={() => { analytics.current?.interact('step'); setHistory([...history, nextPoint(current, rate)]); }}>{t('step')}</button>
+          <button type="button" disabled={Boolean(finished)} onClick={() => { if (!running) analytics.current?.interact('play'); setPlaying(!running); }}>{t(running ? 'pause' : 'play')}</button>
           <button type="button" onClick={() => reset()}>{t('reset')}</button>
         </div>
         <p className={styles.status} data-state={status} role="status">{t(`status.${status}`, { limit: STEP_LIMIT })}</p>
@@ -142,9 +150,9 @@ export default function GradientDescent() {
       <p>{t('compare')}</p>
       <p>{t('adam')}</p>
       <div className={styles.lessons}>
-        <Link href="/math/derivative/tangent">{t('mathLesson')} <span aria-hidden="true">→</span></Link>
-        <Link href="/ai-ds/nn/optimizers">{t('aiLesson')} <span aria-hidden="true">→</span></Link>
-        <Link href="/approx">{t('comparison')} <span aria-hidden="true">→</span></Link>
+        <Link href="/math/derivative/tangent" onClick={() => analytics.current?.lessonClick('math')}>{t('mathLesson')} <span aria-hidden="true">→</span></Link>
+        <Link href="/ai-ds/nn/optimizers" onClick={() => analytics.current?.lessonClick('ai-ds')}>{t('aiLesson')} <span aria-hidden="true">→</span></Link>
+        <Link href="/approx" onClick={() => analytics.current?.lessonClick('approx')}>{t('comparison')} <span aria-hidden="true">→</span></Link>
       </div>
     </div>
   </section>;
