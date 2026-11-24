@@ -98,6 +98,7 @@ export default async function ({ page, main, go }) {
   const shared = await encodeCode("SELECT sqlite_version() AS version;");
   await page.goto(`${new URL(page.url()).origin}/en/sql#code=${shared}`);
   await page.reload();
+  await page.waitForFunction(() => document.documentElement.dataset.theme);
   await run();
   assert.equal(await main.getByRole('button', { name: 'SQLite', exact: true }).getAttribute('aria-pressed'), 'true');
   assert.match(await output.locator('td').textContent(), /^3\./);

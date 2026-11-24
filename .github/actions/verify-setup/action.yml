@@ -41,8 +41,17 @@ runs:
       if: inputs.browser == 'true'
       uses: actions/cache@v6
       with:
-        path: ~/.cache/ms-playwright
-        key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+        path: |
+          ~/.cache/ms-playwright
+          ~/.local/share/fonts
+        key: playwright-fonts-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
     - if: inputs.browser == 'true' && steps.playwright-cache.outputs.cache-hit != 'true'
       shell: bash
-      run: npx playwright install chromium
+      run: |
+        npx playwright install chromium
+        mkdir -p ~/.local/share/fonts /tmp/pw-fonts
+        (cd /tmp/pw-fonts && sudo apt-get update && apt-get download fonts-ipafont-gothic && dpkg-deb -x fonts-ipafont-gothic_*.deb extracted && find extracted -name '*.ttf' -exec cp {} ~/.local/share/fonts/ \;)
+        rm -rf /tmp/pw-fonts
+    - if: inputs.browser == 'true'
+      shell: bash
+      run: fc-cache -f ~/.local/share/fonts
