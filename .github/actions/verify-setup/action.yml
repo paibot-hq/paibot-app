@@ -31,13 +31,15 @@ runs:
         npm run quiz:import:local
         npm run math:import:local
         npm run breaches:import:local
-    # Only the browser download is cached; install still runs so the OS
-    # packages it needs land on the fresh runner either way.
-    - if: inputs.browser == 'true'
+    # ubuntu-24.04 runners already include Chromium's shared libraries, so
+    # avoid running `apt-get` via `--with-deps` on every job (which stalls for
+    # minutes when Ubuntu mirrors are slow) and skip install on a cache hit.
+    - id: playwright-cache
+      if: inputs.browser == 'true'
       uses: actions/cache@v6
       with:
         path: ~/.cache/ms-playwright
         key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
-    - if: inputs.browser == 'true'
+    - if: inputs.browser == 'true' && steps.playwright-cache.outputs.cache-hit != 'true'
       shell: bash
-      run: npx playwright install --with-deps chromium
+      run: npx playwright install chromium
