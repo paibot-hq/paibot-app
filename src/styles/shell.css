@@ -85,7 +85,9 @@ nav {
   letter-spacing: .08em;
 }
 
-nav.site-switcher { text-transform: none; letter-spacing: .02em; font-size: .92rem; }
+nav.site-switcher { justify-content: center; gap: .25rem 1rem; text-transform: none; letter-spacing: .02em; font-size: .92rem; }
+nav.site-switcher a { padding: .42rem .2rem; }
+nav.site-switcher a[aria-current="page"] { text-decoration: underline; text-underline-offset: .35em; }
 
 nav a {
   text-decoration: none;

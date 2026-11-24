@@ -34,39 +34,42 @@ try {
 
   // A signed-out visitor sees every star (same as signed-in), but clicking
   // one opens Clerk's sign-in modal instead of writing to D1.
-  await page.goto(`${base}/en`);
+  await page.goto(`${base}/en/tools`);
   await clerk.signOut({ page });
-  await page.goto(`${base}/en`);
+  await page.goto(`${base}/en/tools`);
   await clerk.loaded({ page });
   assert.ok((await page.locator('.favorite-button').count()) > 0, 'signed-out visitors still see favorite buttons');
-  await page.locator('[data-slug="wc"]').click();
+  await page.locator('[data-topic="photosAndText"] [data-slug="wc"]').click();
   await page.locator('.cl-modalContent, [role="dialog"]').first().waitFor();
   await page.keyboard.press('Escape');
   console.log('PASS: favoriting while signed out opens the sign-in modal, not a D1 write');
 
   await clerk.signIn({ page, signInParams: { strategy: 'email_code', identifier: email } });
-  await page.goto(`${base}/en`);
+  await page.goto(`${base}/en/tools`);
   await clerk.loaded({ page });
 
   // "wc" (character count) is a stable, always-published tool to key the test on.
-  // wc is one of the featured tools on the top page (FEATURED_SLUGS), and may also be among the most viewed: the first card is the one checked.
-  const card = page.locator('.app-card-wrap').filter({ has: page.locator('a[href="/en/wc"]') }).first();
+  const card = page.locator('[data-topic="photosAndText"] .app-card-wrap').filter({ has: page.locator('a[href="/en/wc"]') });
   const star = card.locator('.favorite-button');
   await star.waitFor();
   assert.equal(await star.getAttribute('aria-pressed'), 'false', 'starts unfavorited');
 
   await star.click();
-  await page.waitForFunction(() => document.querySelector('[data-slug="wc"]')?.getAttribute('aria-pressed') === 'true');
+  await page.waitForFunction(() => document.querySelector('[data-topic="photosAndText"] [data-slug="wc"]')?.getAttribute('aria-pressed') === 'true');
   await page.reload();
   await clerk.loaded({ page });
   assert.equal(await card.locator('.favorite-button').getAttribute('aria-pressed'), 'true', 'favorite persists after reload');
   // The favourites are not moved to the top (the page would jump): a switch shows only them.
+  await page.goto(`${base}/en`);
   await page.locator('[data-search="only-favorites"]').click();
-  assert.deepEqual(await page.locator('[data-search="favorites"] a').evaluateAll(links => links.map(link => link.getAttribute('href'))), ['/en/wc']);
+  const favorites = page.locator('[data-search="favorites"] a');
+  await favorites.first().waitFor();
+  assert.deepEqual(await favorites.evaluateAll(links => links.map(link => link.getAttribute('href'))), ['/en/wc']);
   await page.locator('[data-search="only-favorites"]').click();
-  await page.locator('[data-search="featured"]').waitFor();
+  await page.locator('[data-search="overview"]').waitFor();
   console.log('PASS: favoriting an app persists across reload');
 
+  await page.goto(`${base}/en/tools`);
   await card.locator('.favorite-button').click();
   await page.waitForFunction(() => document.querySelector('[data-slug="wc"]')?.getAttribute('aria-pressed') === 'false');
   await page.reload();
@@ -84,7 +87,7 @@ try {
   assert.equal(await toolStar.getAttribute('aria-pressed'), 'false', 'tool page reflects unfavorited state too');
   await toolStar.click();
   await page.waitForFunction(() => document.querySelector('[data-slug="wc"]')?.getAttribute('aria-pressed') === 'true');
-  await page.goto(`${base}/en`);
+  await page.goto(`${base}/en/tools`);
   await card.locator('.favorite-button').waitFor();
   assert.equal(await card.locator('.favorite-button').getAttribute('aria-pressed'), 'true', 'favoriting from the tool page reflects on the list of the app');
   await card.locator('.favorite-button').click();
@@ -97,13 +100,13 @@ try {
     const refused = await page.request.post(`${base}${path}`, { form: { appSlug: 'wc', intent: 'add' }, headers: { Origin: 'https://attacker.example' }, maxRedirects: 0 });
     assert.equal(refused.status(), status, `${path} from another origin`);
   }
-  await page.goto(`${base}/en`);
+  await page.goto(`${base}/en/tools`);
   await clerk.loaded({ page });
   assert.equal(await card.locator('.favorite-button').getAttribute('aria-pressed'), 'false', 'a post from another origin did not favorite');
   console.log('PASS: a favorite posted from another origin is refused');
 
   // The list of the apps carries this visitor's favourites (routes/locale.tsx), in the page and in its data.
-  for (const path of ['/en', '/en.data']) {
+  for (const path of ['/en', '/en/tools', '/en/tools.data']) {
     const response = await page.request.get(`${base}${path}`);
     assert.equal(response.headers()['cache-control'], 'private, no-store', `${path} is never shared`);
   }

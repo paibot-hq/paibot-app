@@ -1,6 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
-import { APP_CATALOG, APP_TAGS, LEARN_SHELF_SLUGS, PLAY_LAB_SLUGS, mathLabAndBreak, relatedApps } from '../../src/lib/app-catalog.ts';
+import { APP_CATALOG, APP_TAGS, mathLabAndBreak, relatedApps } from '../../src/lib/app-catalog.ts';
+import { HOME_GROUPS, HOME_SECTIONS } from '../../src/lib/home-sections.ts';
 import { publicPaths, toolStructuredData } from '../../src/lib/seo.ts';
 
 test('related apps: those sharing the most tags first, never itself, never private or coming soon, at most six', () => {
@@ -63,15 +64,22 @@ test('every public tool has its text about it, and how to use it, in all three l
   }
 });
 
-test('every published public app is included in publicPaths, shelves and mathLabAndBreak resolve to published apps, and localOnly apps are public tools', () => {
+test('public apps and category directories are in publicPaths, and directory and maths suggestions point to published apps', () => {
   const publicApps = APP_CATALOG.filter(a => a.status === 'published' && a.href && !a.private);
   assert.ok(publicApps.length >= 70);
   for (const app of publicApps) {
     assert.ok(publicPaths.includes(app.href), `publicPaths should include ${app.href}`);
   }
-  for (const slug of [...LEARN_SHELF_SLUGS, ...PLAY_LAB_SLUGS]) {
-    const app = APP_CATALOG.find(a => a.slug === slug);
-    assert.ok(app && app.status === 'published' && app.href && !app.private, `shelf: ${slug}`);
+  const assigned = new Set();
+  for (const section of HOME_SECTIONS) {
+    assert.ok(publicPaths.includes(`/${section}`));
+    for (const { apps } of HOME_GROUPS[section]) {
+      for (const slug of apps) {
+        assert.ok(publicApps.some(app => app.slug === slug), `${section}: ${slug} is public`);
+        assert.ok(!assigned.has(slug), `${slug} has one directory home`);
+        assigned.add(slug);
+      }
+    }
   }
   const localApps = APP_CATALOG.filter(a => a.localOnly);
   assert.ok(localApps.length >= 20, 'localOnly tools are marked');

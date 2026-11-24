@@ -1,5 +1,6 @@
 import { locales, defaultLocale, isLocale, type Locale } from "../i18n/routing.ts";
 import { APP_CATALOG, type AppData } from "./app-catalog.ts";
+import { HOME_SECTIONS } from "./home-sections.ts";
 import { MATH_CATALOG } from "./math-catalog.ts";
 
 // Pure helpers only — no env access here. This module is reachable from
@@ -12,7 +13,7 @@ import { MATH_CATALOG } from "./math-catalog.ts";
 // Every published, non-private app in the catalog is public, so a new tool
 // needs no edit here; add only pages outside the catalog below.
 // (/legal/commerce is not here: it is noindex, so it is not in the sitemap either.)
-const sitePaths = ["", "/apps", "/about", "/ranking", "/legal/terms", "/legal/privacy"];
+const sitePaths = ["", ...HOME_SECTIONS.map(section => `/${section}`), "/apps", "/about", "/ranking", "/legal/terms", "/legal/privacy"];
 // The math drills' public pages: each published unit and each of its learning items (a coming-soon unit stays out;
 // practice sets are not listed, they are reached from the item).
 const mathSetPaths = MATH_CATALOG.filter(unit => unit.status === "published").flatMap(unit => [`/math/${unit.id}`, ...unit.items.map(item => `/math/${unit.id}/${item.id}`)]);

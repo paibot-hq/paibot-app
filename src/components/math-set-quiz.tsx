@@ -2,7 +2,7 @@ import { useEffect, useState, type ReactNode } from 'react';
 import { useFetcher } from 'react-router';
 import { useLocale, useTranslations } from 'use-intl';
 import { Link } from '../i18n/navigation';
-import { mathLabAndBreak } from '../lib/app-catalog';
+import { GRADIENT_DESCENT_PATH, mathLabAndBreak } from '../lib/app-catalog';
 import type { DynamicT } from '../lib/apps';
 import { MATH_CATALOG } from '../lib/math-catalog';
 import { markSetDone } from '../lib/math-local-done';
@@ -171,6 +171,7 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
             <div className={styles.breakGroup}>
               <p className={styles.breakHeading}>{t('labTitle')}</p>
               <div className={styles.breakLinks}>
+                {current.unit === 'derivative' && <Link href={GRADIENT_DESCENT_PATH} className={styles.breakPill}>{ta('gradientDescent.title')} →</Link>}
                 {lab.map(app => <Link key={app.slug} href={app.href!} className={styles.breakPill}>{ta(`${app.messageKey}.title`)} →</Link>)}
               </div>
             </div>

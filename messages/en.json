@@ -2887,7 +2887,7 @@
         "unit": "Unit",
         "item": "Topic"
       },
-      "introduction": "Check photos before sharing, prepare text and data, or practise maths and code. Choose what you want to do and try an app here.",
+      "introduction": "Find maths and AI lessons, interactive experiments, practical tools, and games.",
       "startTitle": "When you need to…",
       "siteNote": "Some apps process photos or code on your device; others fetch external information. Each page explains its data handling and limits.",
       "aboutLink": "About us and contact",
@@ -2913,8 +2913,7 @@
           "body": "Products, customers and orders are ready to query. You can search and aggregate data without setting up a database.",
           "first": "Open a SQL example, run it and compare the code with the resulting table.",
           "second": "Change a WHERE condition or ORDER BY and run again. Each run starts from the original sample data.",
-          "firstLink": "Run SQL",
-          "secondLink": "Format JSON"
+          "firstLink": "Run SQL"
         },
         "math": {
           "title": "Read an example, then practise maths",
@@ -2925,20 +2924,65 @@
           "secondLink": "Browse maths topics"
         }
       },
-      "shelfFilter": "Show section",
+      "shelfFilter": "Main navigation",
       "shelves": {
-        "all": "All",
-        "tools": "Tools & Info",
-        "learn": "Learn & Practice",
-        "play": "Lab & Break"
+        "learn": "Learn",
+        "lab": "Lab",
+        "tools": "Tools",
+        "play": "Play"
       },
-      "learnShelfTitle": "Learn & Practice",
-      "learnShelfSub": "Step-by-step lessons and hands-on practice",
-      "toolsShelfTitle": "Practical Tools & Verified Info",
-      "toolsShelfSub": "On-device = processed in your browser without uploading",
-      "playLabTitle": "Interactive Lab & Quick Break",
-      "playLabBody": "Visual math & physics experiments and 30-second break games",
-      "morePlayLab": "See all games & experiments →"
+      "learnAi": "AI & Data Science",
+      "learnAiBody": "Explore statistics and neural networks (lessons in Japanese)",
+      "sections": {
+        "learn": {
+          "description": "Learn maths and AI through lessons and exercises",
+          "explore": "Browse learning topics"
+        },
+        "lab": {
+          "description": "Explore formulas, simulations, and code hands-on",
+          "explore": "Browse experiments"
+        },
+        "tools": {
+          "description": "Find practical apps for text, images, and data",
+          "explore": "Browse tools by task"
+        },
+        "play": {
+          "description": "Find games, trivia, fortune-telling, and personality tests",
+          "explore": "Explore Play"
+        }
+      },
+      "topics": {
+        "mathematics": "Maths",
+        "artificialIntelligence": "AI and data science",
+        "mathAndAi": "Maths and AI",
+        "physicsAndSystems": "Physics and simulations",
+        "codeAndModels": "Code and creative experiments",
+        "photosAndText": "Images, text, and documents",
+        "developmentAndData": "Development and data",
+        "network": "Networking",
+        "calculationsAndTime": "Calculations, conversions, and drills",
+        "daily": "Time and everyday tools",
+        "reference": "Reference and information",
+        "computingExperiments": "SQL and Linux sandboxes",
+        "games": "Games",
+        "quizzesAndFortune": "Quizzes, fortune-telling, and personality tests",
+        "watchAndRelax": "Watch and unwind"
+      },
+      "overviewLinks": {
+        "mathematics": "Maths",
+        "artificialIntelligence": "AI and data science (Japanese)",
+        "descent": "Gradient Descent Simulator",
+        "grapher": "Function Grapher",
+        "wordCount": "Character counter",
+        "metadata": "Photo metadata",
+        "json": "JSON formatter",
+        "sql": "Try SQL",
+        "bubbles": "Bubble wrap",
+        "trivia": "Trivia quiz",
+        "personality": "Personality test"
+      },
+      "popularTools": "Popular tools",
+      "directoryTopics": "Categories on this page"
     },
     "life": {
       "title": "Game of Life",
@@ -3499,6 +3543,77 @@
         {
           "q": "Are the probabilities approximated by simulation?",
           "a": "No. The mean, variance, and probability distribution are computed exactly; the simulator is provided so you can see random trials converge to the exact math."
+        }
+      ]
+    },
+    "gradientDescent": {
+      "title": "Gradient Descent Simulator",
+      "description": "Change the learning rate to see when a point approaches the minimum, overshoots, or moves away.",
+      "intro": "Move a point towards the bottom of a valley. Try different starting points and change the learning rate, which controls the size of each move.",
+      "keywords": "optimization derivative machine learning learning rate gradient descent",
+      "graphLabel": "Parabola f(x) = x² with the current point and its trajectory",
+      "path": "Path so far",
+      "current": "Current point",
+      "initial": "Starting point x₀",
+      "rate": "Learning rate η",
+      "presets": "Learning rate examples",
+      "step": "One step",
+      "play": "Play",
+      "pause": "Pause",
+      "reset": "Reset",
+      "readouts": "Current calculation",
+      "iteration": "Iteration",
+      "position": "Current x",
+      "loss": "Value f(x)",
+      "slope": "Slope f′(x)",
+      "change": "Last change Δx",
+      "examples": {
+        "slow": "Slow approach",
+        "steady": "Fast approach",
+        "oneStep": "One-step minimum",
+        "crossing": "Crosses the valley",
+        "cycle": "Repeats",
+        "diverging": "Moves away"
+      },
+      "status": {
+        "ready": "Step once or press Play to watch the point move.",
+        "running": "Stepping automatically.",
+        "paused": "Step once or press Play to continue.",
+        "minimum": "The point reached the minimum at x = 0.",
+        "near": "Stopped near the minimum (|x| is below 0.001).",
+        "outside": "Stopped when the point moved outside the graph.",
+        "limit": "Reached the limit of {limit} steps."
+      },
+      "ruleTitle": "How is the next point chosen?",
+      "rule": "Move opposite to the slope at the current point. Multiply that slope by the learning rate η and subtract the result from x.",
+      "compare": "Keep the starting point at 3 and compare learning rates 0.25, 0.75, 1, and 1.1. The point approaches the minimum, approaches while crossing the valley, repeats between two points, or moves away. The boundaries between these behaviours depend on the function.",
+      "adam": "The neural network in Approximation Showdown uses Adam, which adapts each weight update using past gradients.",
+      "mathLesson": "Learn about slopes and tangents",
+      "aiLesson": "Learn about AI optimization (in Japanese)",
+      "about": "See each gradient descent update on the parabola f(x) = x². Change the starting point and learning rate, then compare the path and function values.",
+      "comparison": "See Adam train in Approximation Showdown",
+      "guide": [
+        {
+          "heading": "When the point crosses the valley",
+          "paragraphs": [
+            "Above a learning rate of 0.5, the multiplier 1 − 2η is negative, so x changes sign at each step unless it is already zero. Below 0.5, the point approaches the minimum from the same side."
+          ]
+        },
+        {
+          "heading": "Read why the run stopped",
+          "paragraphs": [
+            "The simulator distinguishes reaching x = 0 from getting within 0.001 of it. It also stops when the point leaves the plotting range or reaches the step limit."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "What happens at a learning rate of 1?",
+          "a": "The multiplier is −1, so the point alternates between x and −x while its function value stays the same. A point starting at zero stays at the minimum."
+        },
+        {
+          "q": "Does a learning rate of 0.5 reach the minimum in one step for every function?",
+          "a": "That result applies to f(x) = x² in this experiment. Different functions have different slopes and useful learning rates."
         }
       ]
     },

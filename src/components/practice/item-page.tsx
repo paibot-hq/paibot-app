@@ -1,4 +1,5 @@
 import { useLocale, useTranslations } from 'use-intl';
+import type { ReactNode } from 'react';
 import MathText from '../math-text';
 import { MathTex } from '../math-tex';
 import ToolLayout from '../tool-layout';
@@ -13,9 +14,10 @@ import styles from './practice.module.css';
 // <book>/<unit>/<item>: as math's item page (routes/math-item.tsx), top to bottom: what you learn (the topics), links within
 // the page, the lesson (sections, then worked examples) if it has passed review, the practice sets (練習1, 2, ...) and the
 // previous and next items of the unit. The lesson, problems and explanations are in Japanese.
-export default function PracticeItemPage({ book, unit, item, exams, lesson, neighbors, sets }: {
+export default function PracticeItemPage({ book, unit, item, exams, lesson, neighbors, sets, related }: {
   book: PracticeBook; unit: string; item: string; exams: readonly string[]; lesson: PracticeLesson | null;
   neighbors: { previous: string | null; next: string | null }; sets: { id: string; ready: boolean }[];
+  related?: ReactNode;
 }) {
   const t = useBookT(book);
   const tp = useTranslations('App.practice');
@@ -34,6 +36,7 @@ export default function PracticeItemPage({ book, unit, item, exams, lesson, neig
         <a href="#explanation">{ti('explanation')}</a>
         <a href="#examples">{ti('examples')}</a>
         <a href="#practice">{ti('practice')}</a>
+        {related}
       </nav>}
       {start && <Link href={`${book.base}/${unit}/${item}/${start.id}`} className={page.start}>
         {ti('start')}{sets.length > 1 && <span className={page.startSet}>{tp('setLabel', { n: start.id })}</span>}

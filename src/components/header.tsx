@@ -9,6 +9,7 @@ import { type Locale } from "../i18n/routing";
 import { LOCALE_COOKIE } from "../i18n/negotiate";
 import { useTranslations, useLocale } from "use-intl";
 import { usePathname } from "../i18n/navigation";
+import { HOME_SECTIONS } from "../lib/home-sections";
 import { usePreferences } from "./providers";
 
 const languageNames: Record<Locale, string> = { ja: "日本語", en: "English", zh: "简体中文" };
@@ -51,11 +52,16 @@ export default function Header() {
 
 
   return (
-    <header className="topbar">
+    <header className="topbar" data-switcher>
       <Link className="brand" href="/">
         <img className="brand-logo" src="/icon.svg" alt="" width="24" height="24" />
         <span className="wordmark">PAIBOT.app</span>
       </Link>
+      <nav className="site-switcher" aria-label={t("search.shelfFilter")}>
+        {HOME_SECTIONS.map(section => <Link key={section} href={`/${section}`} aria-current={pathname === `/${section}` ? "page" : undefined}>
+          {t(`search.shelves.${section}`)}
+        </Link>)}
+      </nav>
       <div className="toolbar">
         <Show when="signed-out">
           <Link className="auth-link" href={`/sign-in?redirect_url=${encodeURIComponent(`/${language}${pathname === "/" ? "" : pathname}`)}`}>{t("signIn")}</Link>

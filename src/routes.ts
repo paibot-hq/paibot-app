@@ -1,6 +1,7 @@
 import { existsSync } from 'node:fs';
 import { index, route, type RouteConfig } from '@react-router/dev/routes';
 import { APP_CATALOG } from './lib/app-catalog';
+import { HOME_SECTIONS } from './lib/home-sections';
 import { publicPaths } from './lib/seo';
 
 // A tool is a folder: src/tools/<slug>/route.tsx serves the catalog entry's
@@ -20,6 +21,7 @@ export default [
   route('sitemap.xml', 'routes/sitemap.ts'),
   route(':locale', 'routes/locale.tsx', [
     index('routes/home.tsx'),
+    ...HOME_SECTIONS.map(section => route(section, 'routes/section-directory.tsx', { id: `sections/${section}` })),
     route('diary', 'routes/diary.tsx'),
     route('profile', 'routes/profile.tsx'),
     route('math', 'routes/math.tsx'),
