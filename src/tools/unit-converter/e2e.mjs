@@ -12,7 +12,7 @@ export default async function ({ page, main, go }) {
   await main.getByLabel('Value').fill('10');
   await page.waitForFunction(() => /33\.0578/.test(document.querySelector('[data-units="result"]')?.textContent ?? ''));
   await main.getByLabel('Value').fill('abc');
-  await main.getByText('Enter a number').waitFor();
+  await main.locator('dl[aria-live="polite"]').getByText('Enter a number', { exact: true }).waitFor();
   assert.equal(await main.locator('[data-units="result"]').textContent(), '–');
   console.log('PASS: unit converter: length, temperature, tsubo, and a bad number');
 }
