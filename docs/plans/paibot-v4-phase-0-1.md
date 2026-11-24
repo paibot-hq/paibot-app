@@ -68,7 +68,7 @@ Phase 0 の完了条件は、棚ごとの代表コンテンツ、既存URLと計
 - `/:locale/gradient-descent` を Lab の独立したアプリとして登録した。トップの Lab と検索、数学の微分教材と演習結果、AIの最適化教材から直接開ける。トップの Learn からAI・データサイエンスを案内し、英語と中国語では教材本文が日本語であることを併記した。
 - `/:locale/learn`、`/:locale/lab`、`/:locale/tools`、`/:locale/play` に専用一覧を追加した。トップは各分類の代表リンクを掲載し、共通ヘッダーから各一覧へ移動できる。Learn には数学とAIの教材、Lab には実験と SQL・Linux、Tools には計算練習・コード実行、Play にはゲーム、雑学クイズ、占い・診断などを配置した。人気のツールは Tools の一覧へ移し、ランキングページと全アプリ一覧からも従来どおり探せる。
 - 単体テスト604件、型チェック、ビルド、変更ソースの Oxlint 1.72.0 の correctness ルール、空白チェックが通過した。ローカルで `smoke`、`environments`、`favorites`、全75アプリの `catalog` と `gradient-descent`・`approx`・`math` の `tools` が通過した。3言語の直接リンク、320px幅の表示、キーボードとタッチ、ライト／ダークを確認した。
-- GA4 の追加イベントは、管理画面設定と同意運用の確認後に判断する。今回の動作検証はローカルで実施した。
+- GA4 計測として `src/lib/analytics.ts` を追加し、`/:locale/gradient-descent` に `lab_view`・`lab_first_interact`・`lab_retry`・`lab_lesson_click` のイベント送信を組み込んだ。既存の `gtag`（`SITE_INDEXABLE=true` 時のみ読込）を利用し、1表示あたりの重複を抑え、入力値・学習履歴・ユーザーIDは送信しない。SPA遷移の自動 `page_view`（拡張計測）とカスタムディメンション／同意運用の確認は本番公開前後にGA4管理画面で行う。今回の動作検証はローカルで実施した。
 
 ### Phase 1 公開後の判断
 
