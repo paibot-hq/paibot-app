@@ -1,5 +1,6 @@
 // Browser flow for this tool, run by tests/e2e/tools.mjs against a preview.
 import assert from 'node:assert/strict';
+import { configureAccess } from '../../../scripts/lib/access.mjs';
 
 export default async function ({ page, main, go, base }) {
   await page.clock.install();
@@ -43,7 +44,8 @@ export default async function ({ page, main, go, base }) {
   await checkReadout('Current x', '-7.5');
   assert.equal(await simulator.getByRole('status').getAttribute('data-state'), 'outside');
 
-  await page.setViewportSize({ width: 320, height: 740 });
+  const narrowViewport = { width: 320, height: 740 };
+  await page.setViewportSize(narrowViewport);
   for (const locale of ['ja', 'en', 'zh']) {
     const path = `/${locale}/gradient-descent`;
     assert.equal((await page.goto(`${base}${path}`)).status(), 200);
@@ -52,5 +54,21 @@ export default async function ({ page, main, go, base }) {
     assert.equal(await main.locator('#gradient-descent a[href$="/math/derivative/tangent"]').getAttribute('href'), `/${locale}/math/derivative/tangent`);
     assert.equal(new URL(await page.locator('link[rel="canonical"]').getAttribute('href')).pathname, path);
   }
-  console.log('PASS: gradient descent: step, presets, exact minimum, escape, pause/resume, reset, and localised direct links at 320px');
+
+  // The server-rendered equation must fit even before MathTex can run its font fitting.
+  const ssr = await page.context().browser().newPage({ viewport: narrowViewport, javaScriptEnabled: false });
+  try {
+    await configureAccess(ssr, base);
+    assert.equal((await ssr.goto(`${base}/en/gradient-descent`)).status(), 200);
+    const bounds = await ssr.locator('#gradient-descent .katex-html > :first-child').evaluate(async formula => {
+      await document.fonts.ready;
+      const { left, right } = formula.getBoundingClientRect();
+      return { left, right, viewport: innerWidth, documentWidth: document.documentElement.scrollWidth };
+    });
+    assert.ok(bounds.documentWidth <= bounds.viewport, `SSR document overflows: ${JSON.stringify(bounds)}`);
+    assert.ok(bounds.left >= 0 && bounds.right <= bounds.viewport, `SSR equation overflows: ${JSON.stringify(bounds)}`);
+  } finally {
+    await ssr.close();
+  }
+  console.log('PASS: gradient descent: step, presets, exact minimum, escape, pause/resume, reset, and 320px layout before and after hydration');
 }
