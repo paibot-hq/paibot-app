@@ -56,6 +56,8 @@ jobs:
           node-version: ${{ hashFiles('.tool-versions') == '' && '22' || '' }}
           cache: npm
       - run: npm ci
+        env:
+          ONNXRUNTIME_NODE_INSTALL: skip
       - name: Detect release framework
         id: framework
         run: echo "react_router=$(node -p 'Boolean(require("./package.json").dependencies["react-router"])')" >> "$GITHUB_OUTPUT"
@@ -84,13 +86,22 @@ jobs:
           if [ "$REACT_ROUTER" = true ]; then config=build/server/wrangler.json; else config=dist/server/wrangler.json; fi
           node -e 'const c=require("./"+process.argv[1]); if(c.name!=="paibot-app" || c.vars?.SITE_INDEXABLE!=="true" || c.vars?.SITE_URL!=="https://paibot.app") throw Error("Wrong production target or indexing configuration")' "$config"
           echo "config=$config" >> "$GITHUB_OUTPUT"
-      - if: steps.framework.outputs.react_router == 'true'
+      - id: playwright-cache
+        if: steps.framework.outputs.react_router == 'true'
         uses: actions/cache@v6
         with:
-          path: ~/.cache/ms-playwright
-          key: playwright-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+          path: |
+            ~/.cache/ms-playwright
+            ~/.local/share/fonts
+          key: playwright-fonts-${{ runner.os }}-${{ hashFiles('package-lock.json') }}
+      - if: steps.framework.outputs.react_router == 'true' && steps.playwright-cache.outputs.cache-hit != 'true'
+        run: |
+          npx playwright install chromium
+          mkdir -p ~/.local/share/fonts /tmp/pw-fonts
+          (cd /tmp/pw-fonts && sudo apt-get update && apt-get download fonts-ipafont-gothic && dpkg-deb -x fonts-ipafont-gothic_*.deb extracted && find extracted -name '*.ttf' -exec cp {} ~/.local/share/fonts/ \;)
+          rm -rf /tmp/pw-fonts
       - if: steps.framework.outputs.react_router == 'true'
-        run: npx playwright install --with-deps chromium
+        run: fc-cache -f ~/.local/share/fonts
       # check-environments serves the production build, whose DB binding is the
       # production database ID, and /math set pages read D1 during SSR. Local
       # D1 state is kept per database ID, so migrate that one (--local: this
