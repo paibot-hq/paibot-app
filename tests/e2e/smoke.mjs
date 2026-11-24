@@ -4,7 +4,7 @@ import { chromium } from 'playwright';
 import { appFetch, configureAccess } from '../../scripts/lib/access.mjs';
 import { locales } from '../../src/i18n/routing.ts';
 import { pathLocales, publicPaths } from '../../src/lib/seo.ts';
-import { APP_CATALOG } from '../../src/lib/app-catalog.ts';
+import { APP_CATALOG, GRADIENT_DESCENT_PATH } from '../../src/lib/app-catalog.ts';
 
 const base = new URL(process.env.CHECK_BROWSER_BASE_URL ?? 'http://localhost:3002').origin;
 const siteOrigin = new URL(process.env.CHECK_SITE_URL ?? 'https://dev.paibot.app').origin;
@@ -237,12 +237,60 @@ try {
     assert.equal(await page.locator('title').count(), 1, `${path}: hydrated title`);
     assert.ok((await page.title()).trim());
   }
-  // New visitors can choose a task without entering a search or using hover.
+  // New visitors can reach each directory and discover its apps without searching.
   for (const locale of locales) {
     await go(`/${locale}`);
+    await page.locator(`main a[href="/${locale}/apps?tag=game"]`).click();
+    await page.waitForURL(`**/${locale}/apps?tag=game`);
+    const games = page.locator('main[data-app-list]');
+    await games.locator('[data-app-tags] button[data-tag="game"][aria-pressed="true"]').waitFor();
+    await games.locator(`a[href="/${locale}/puchi"]`).waitFor();
+    await go(`/${locale}`);
+    const overview = page.locator('[data-search="overview"]');
+    assert.deepEqual(await overview.locator('h2').allTextContents(), ['Learn', 'Lab', 'Tools', 'Play']);
+    await overview.locator('[data-shelf="play"]').click();
+    await page.waitForURL(`**/${locale}/play`);
+    const play = page.locator('main[data-section="play"]');
+    await play.locator('[data-topic="games"] a[href$="/puchi"]').waitFor();
+    await play.locator('[data-topic="quizzesAndFortune"] a[href$="/quiz"]').waitFor();
+    await play.locator('[data-topic="quizzesAndFortune"] a[href$="/personality"]').waitFor();
+    await play.locator('[data-topic="watchAndRelax"] a[href$="/goldfish"]').waitFor();
+    await page.locator(`header.topbar .site-switcher a[href="/${locale}/play"][aria-current="page"]`).waitFor();
+    await go(`/${locale}`);
+    await overview.locator(`[data-section="lab"] a[href="/${locale}/sql"]`).waitFor();
+    await overview.locator('[data-shelf="learn"]').click();
+    await page.waitForURL(`**/${locale}/learn`);
+    const learn = page.locator('main[data-section="learn"]');
+    await learn.locator('[data-topic="artificialIntelligence"] a[href$="/ai-ds"]').waitFor();
+    await learn.locator('[data-topic="mathematics"] a[href$="/math"]').waitFor();
+    for (const slug of ['arith', 'sql', 'linux', 'code-runner']) {
+      assert.equal(await learn.locator(`a[href="/${locale}/${slug}"]`).count(), 0);
+    }
+    await learn.locator('[data-search="start"] summary').click();
+    await learn.locator(`a[href="/${locale}/math/arith/order-of-operations"]`).waitFor();
+    const nav = page.locator('header.topbar .site-switcher');
+    await nav.locator(`a[href="/${locale}/lab"]`).click();
+    await page.waitForURL(`**/${locale}/lab`);
+    const lab = page.locator('main[data-section="lab"]');
+    for (const slug of ['sql', 'linux']) {
+      await lab.locator(`[data-topic="computingExperiments"] a[href="/${locale}/${slug}"]`).waitFor();
+    }
+    await lab.locator('[data-search="start"] summary').click();
+    await lab.locator(`[data-search="start"] a[href="/${locale}/sql"]`).waitFor();
+    await lab.locator(`[data-topic="mathAndAi"] a[href="/${locale}${GRADIENT_DESCENT_PATH}"]`).click();
+    await page.waitForURL(`**/${locale}${GRADIENT_DESCENT_PATH}`);
+    await page.locator('#gradient-descent').waitFor();
+    await nav.locator(`a[href="/${locale}/tools"]`).click();
+    await page.waitForURL(`**/${locale}/tools`);
+    await nav.locator(`a[href="/${locale}/tools"][aria-current="page"]`).waitFor();
+    const tools = page.locator('main[data-section="tools"]');
+    await tools.locator(`a[href="/${locale}/apps"][data-search="all-apps"]`).waitFor();
+    await tools.locator(`[data-topic="calculationsAndTime"] a[href="/${locale}/arith"]`).waitFor();
+    await tools.locator(`[data-topic="developmentAndData"] a[href="/${locale}/code-runner"]`).waitFor();
     const start = page.locator('[data-search="start"]');
-    assert.equal(await start.locator('article').count(), 4);
-    for (const target of ['/metadata', '/mosaic', '/wc', '/date-calc', '/sql', '/json', '/math/arith/order-of-operations', '/math']) {
+    await start.locator('summary').click();
+    assert.equal(await start.locator('article').count(), 2);
+    for (const target of ['/metadata', '/mosaic', '/wc', '/date-calc']) {
       await start.locator(`a[href="/${locale}${target}"]`).waitFor();
     }
     await start.locator(`a[href="/${locale}/wc"]`).click();
@@ -254,7 +302,7 @@ try {
     await page.locator('#contact a[href="mailto:support@paibot.app"]').waitFor();
   }
   // The top page is a search: it finds an app by its name or keywords, and says so when nothing matches.
-  for (const [locale, query, href] of [['ja', 'json', '/ja/json'], ['en', 'json', '/en/json'], ['zh', 'json', '/zh/json'], ['ja', '文字数', '/ja/wc'], ['en', 'password', '/en/password']]) {
+  for (const [locale, query, href] of [['ja', 'json', '/ja/json'], ['en', 'json', '/en/json'], ['zh', 'json', '/zh/json'], ['ja', '文字数', '/ja/wc'], ['en', 'password', '/en/password'], ['ja', '勾配降下法', `/ja${GRADIENT_DESCENT_PATH}`], ['en', 'gradient descent', `/en${GRADIENT_DESCENT_PATH}`], ['zh', '梯度下降', `/zh${GRADIENT_DESCENT_PATH}`]]) {
     await go(`/${locale}`);
     const box = page.getByRole('combobox');
     await box.fill(query);
@@ -282,8 +330,10 @@ try {
   const apps = APP_CATALOG.filter(app => app.status === 'published' && app.href);
   assert.ok(apps.length >= 10);
   await page.setViewportSize({ width: 375, height: 812 });
-  await go('/ja');
-  assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), 'the top page fits mobile width');
+  for (const path of ['/ja', '/ja/learn', '/ja/lab', '/ja/tools', '/ja/play']) {
+    await go(path);
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth), `${path} fits mobile width`);
+  }
   await page.setViewportSize({ width: 1280, height: 720 });
   console.log('PASS: the top page search finds apps and topics in three locales, by keyboard, and fits mobile width');
   // The ranking page lists every app (this run's browser is not counted, so the views may all be nought).

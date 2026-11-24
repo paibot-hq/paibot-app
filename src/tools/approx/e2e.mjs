@@ -36,7 +36,7 @@ export default async function ({ page, main, go }) {
   await page.waitForTimeout(500);
   assert.equal(await main.locator('[data-approx="steps"]').innerText(), frozen);
   await main.locator('[data-approx="restart"]').click();
-  await page.waitForFunction(() => /^0 steps/.test(document.querySelector('[data-approx="steps"]').textContent));
+  await page.waitForFunction(() => document.querySelector('[data-approx="steps"]').textContent.startsWith('0 steps'));
   // A curve can be switched off.
   const painted = () => main.locator('canvas').evaluate(canvas => { const { data } = canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height); let n = 0; for (let i = 0; i < data.length; i += 4) if (data[i + 1] > 150 && data[i] < 100 && data[i + 2] < 140) n++; return n; });
   await main.locator('[data-approx="train"]').click();
@@ -46,4 +46,8 @@ export default async function ({ page, main, go }) {
   await page.waitForTimeout(300);
   assert.ok(green > 50 && (await painted()) < green / 4, 'the green curve goes when the network is switched off');
   console.log('PASS: approx: the network trains by itself, Fourier wins on waves, Taylor on a line and not at all on a corner, the budget sets the numbers, pause and restart, curves toggled');
+
+  await main.locator('#gradient-descent').click();
+  await page.waitForURL('**/en/gradient-descent');
+  await main.getByRole('heading', { level: 1, name: 'Gradient Descent Simulator' }).waitFor();
 }

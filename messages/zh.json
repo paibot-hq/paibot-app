@@ -2887,7 +2887,7 @@
         "unit": "单元",
         "item": "知识点"
       },
-      "introduction": "分享前检查照片，整理文字和数据，练习数学或代码。从想做的事情出发，选择应用并立即试用。",
+      "introduction": "查找数学与 AI 课程、互动实验、实用工具和游戏。",
       "startTitle": "这种时候",
       "siteNote": "部分应用在设备上处理照片或代码，其他应用会获取外部信息。各页面会说明数据的处理方式与限制。",
       "aboutLink": "运营与联系方式",
@@ -2913,8 +2913,7 @@
           "body": "已准备好商品、客户与订单表。不必自行配置数据库，即可尝试查询和汇总。",
           "first": "打开SQL示例并运行，对照代码与结果表。",
           "second": "修改WHERE条件或ORDER BY后重新运行。每次都从最初的示例数据开始。",
-          "firstLink": "运行SQL",
-          "secondLink": "格式化JSON"
+          "firstLink": "运行SQL"
         },
         "math": {
           "title": "阅读例题后练习数学",
@@ -2925,20 +2924,65 @@
           "secondLink": "查找年级与单元"
         }
       },
-      "shelfFilter": "显示分类",
+      "shelfFilter": "主导航",
       "shelves": {
-        "all": "全部",
-        "tools": "工具与资讯",
-        "learn": "学习与题库",
-        "play": "实验与休闲"
+        "learn": "Learn",
+        "lab": "Lab",
+        "tools": "Tools",
+        "play": "Play"
       },
-      "learnShelfTitle": "学习与题库",
-      "learnShelfSub": "附带例题与解析，从基础开始练习",
-      "toolsShelfTitle": "实用工具与来源可查资讯",
-      "toolsShelfSub": "本地＝浏览器内处理，不上传服务器",
-      "playLabTitle": "互动实验与休闲小游戏",
-      "playLabBody": "学习间隙的小憩与可动手尝试的视觉实验",
-      "morePlayLab": "查看全部游戏与实验应用 →"
+      "learnAi": "AI 与数据科学",
+      "learnAiBody": "学习统计和神经网络（课程正文为日语）",
+      "sections": {
+        "learn": {
+          "description": "通过课程和练习学习数学与 AI",
+          "explore": "查看学习主题"
+        },
+        "lab": {
+          "description": "动手尝试公式、模拟和代码，观察实验结果",
+          "explore": "浏览实验"
+        },
+        "tools": {
+          "description": "处理文字、图片和数据的实用工具",
+          "explore": "按用途查找工具"
+        },
+        "play": {
+          "description": "玩游戏、答趣味知识题，体验占卜和性格测试",
+          "explore": "浏览休闲应用"
+        }
+      },
+      "topics": {
+        "mathematics": "数学",
+        "artificialIntelligence": "AI 与数据科学",
+        "mathAndAi": "数学与 AI",
+        "physicsAndSystems": "物理与模拟",
+        "codeAndModels": "代码与创意实验",
+        "photosAndText": "图片、文字与文档",
+        "developmentAndData": "开发与数据",
+        "network": "网络工具",
+        "calculationsAndTime": "计算、换算与练习",
+        "daily": "时间与日常工具",
+        "reference": "参考与资讯",
+        "computingExperiments": "SQL 与 Linux 实验环境",
+        "games": "游戏",
+        "quizzesAndFortune": "趣味问答、占卜与性格测试",
+        "watchAndRelax": "观赏与放松"
+      },
+      "overviewLinks": {
+        "mathematics": "数学",
+        "artificialIntelligence": "AI 与数据科学（日语）",
+        "descent": "梯度下降模拟器",
+        "grapher": "函数绘图",
+        "wordCount": "字符计数",
+        "metadata": "照片元数据",
+        "json": "JSON 格式化",
+        "sql": "体验 SQL",
+        "bubbles": "戳泡泡",
+        "trivia": "趣味知识问答",
+        "personality": "性格测试"
+      },
+      "popularTools": "热门工具",
+      "directoryTopics": "本页分类"
     },
     "life": {
       "title": "生命游戏",
@@ -3499,6 +3543,77 @@
         {
           "q": "页面上的概率分布是近似估算吗？",
           "a": "不是。期望、方差与各次数的完成概率均通过精确递推公式计算得出。"
+        }
+      ]
+    },
+    "gradientDescent": {
+      "title": "梯度下降模拟器",
+      "description": "改变学习率，观察点何时接近最低处、越过最低处或逐渐远离。",
+      "intro": "让一个点沿着曲线向最低处移动。改变起点和控制每次步幅的学习率，看看会有什么不同。",
+      "keywords": "优化 导数 机器学习 学习率 gradient descent",
+      "graphLabel": "抛物线 f(x) = x²、当前点和移动轨迹",
+      "path": "移动轨迹",
+      "current": "当前点",
+      "initial": "起点 x₀",
+      "rate": "学习率 η",
+      "presets": "学习率示例",
+      "step": "前进一步",
+      "play": "播放",
+      "pause": "暂停",
+      "reset": "重置",
+      "readouts": "当前计算结果",
+      "iteration": "迭代次数",
+      "position": "当前 x",
+      "loss": "函数值 f(x)",
+      "slope": "斜率 f′(x)",
+      "change": "上次移动量 Δx",
+      "examples": {
+        "slow": "缓慢接近",
+        "steady": "快速接近",
+        "oneStep": "一步到达",
+        "crossing": "越过后折返",
+        "cycle": "来回往返",
+        "diverging": "逐渐远离"
+      },
+      "status": {
+        "ready": "单步前进或播放，观察点的移动。",
+        "running": "正在自动逐步前进。",
+        "paused": "可以单步前进或继续播放。",
+        "minimum": "已到达最低点 x = 0。",
+        "near": "已在最低点附近停止（|x| 小于 0.001）。",
+        "outside": "点超出了图表的显示范围，已停止。",
+        "limit": "迭代次数已达到上限 {limit}。"
+      },
+      "ruleTitle": "如何确定下一个点？",
+      "rule": "沿着当前点斜率的反方向移动。将斜率乘以学习率 η，再从当前的 x 中减去这个乘积，就得到下一个 x。",
+      "compare": "保持起点为 3，比较学习率 0.25、0.75、1 和 1.1。你会看到直接接近最低点、来回越过最低点并逐渐接近、在两点之间往返或逐渐远离。这些行为之间的界限取决于函数。",
+      "adam": "逼近对决中的神经网络使用 Adam。它根据过去的梯度调整每个权重的更新量。",
+      "mathLesson": "学习切线与斜率",
+      "aiLesson": "学习 AI 优化方法（正文为日语）",
+      "about": "在抛物线 f(x) = x² 上观察梯度下降的每次更新。改变起点和学习率，对比移动轨迹和函数值。",
+      "comparison": "在逼近对决中观察 Adam 的训练过程",
+      "guide": [
+        {
+          "heading": "点何时越过谷底",
+          "paragraphs": [
+            "学习率大于 0.5 时，乘数 1 − 2η 为负。如果 x 还不为零，每步更新都会改变 x 的符号。学习率小于 0.5 时，点会从同一侧接近最低点。"
+          ]
+        },
+        {
+          "heading": "查看停止原因",
+          "paragraphs": [
+            "模拟器区分达到 x = 0 和距最低点不足 0.001 的情况。点离开绘图区或达到迭代次数上限时，模拟也会停止。"
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "学习率为 1 时会发生什么？",
+          "a": "更新乘数为 −1，因此点在 x 和 −x 之间往返，函数值保持不变。如果从零开始，点会留在最低处。"
+        },
+        {
+          "q": "学习率为 0.5 时，所有函数都能一步到达最小值吗？",
+          "a": "一步到达是本实验中 f(x) = x² 的结果。换一个函数，斜率和合适的学习率也会改变。"
         }
       ]
     },

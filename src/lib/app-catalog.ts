@@ -27,6 +27,8 @@ export type AppData = {
   localOnly?: true;
 };
 
+export const GRADIENT_DESCENT_PATH = "/gradient-descent";
+
 export const APP_CATALOG = [
   // 学習 / Study
   { slug: "math", href: "/math", tags: ["learn", "math"], status: "published", messageKey: "math" },
@@ -55,6 +57,7 @@ export const APP_CATALOG = [
   { slug: "quake", href: "/quake", tags: ["info"], status: "published", messageKey: "quake" },
   { slug: "warnings", href: "/warnings", tags: ["info"], status: "published", messageKey: "warnings" },
   { slug: "approx", href: "/approx", tags: ["math", "game"], status: "published", messageKey: "approx", localOnly: true },
+  { slug: "gradient-descent", href: GRADIENT_DESCENT_PATH, tags: ["math", "ai"], status: "published", messageKey: "gradientDescent", localOnly: true },
   { slug: "collector", href: "/collector", tags: ["math"], status: "published", messageKey: "collector", localOnly: true },
   { slug: "govfaq", href: "/govfaq", tags: ["info"], status: "published", messageKey: "govfaq" },
   { slug: "metadata", href: "/metadata", tags: ["photo", "security"], status: "published", messageKey: "metadata", localOnly: true },
@@ -116,11 +119,6 @@ export const APP_CATALOG = [
 ] as const satisfies readonly AppData[];
 
 export type AppSlug = (typeof APP_CATALOG)[number]["slug"];
-
-// The three shelves on the top page: learning & practice, practical browser tools & verified info, and interactive lab & quick break games.
-export const LEARN_SHELF_SLUGS: readonly AppSlug[] = ["math", "sql", "linux", "code-runner", "code-draw", "browser-ai"];
-export const FEATURED_SLUGS: readonly AppSlug[] = ["mosaic", "metadata", "wc", "date-calc", "json", "password", "tax", "breaches", "govfaq"];
-export const PLAY_LAB_SLUGS: readonly AppSlug[] = ["fourier", "pendulum", "life", "polyhedra", "approx", "strings", "color-trick", "puchi"];
 
 // Maps a math domain to interactive lab experiments to try after finishing a practice set, plus two quick break games.
 const DOMAIN_LAB_SLUGS: Record<string, readonly AppSlug[]> = {

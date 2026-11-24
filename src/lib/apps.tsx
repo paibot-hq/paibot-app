@@ -688,6 +688,7 @@ function ColorTrickIcon(props: SVGProps<SVGSVGElement>) {
 
 const APP_ICONS: Record<AppSlug, Icon> = {
   "color-trick": ColorTrickIcon,
+  "gradient-descent": GrapherIcon,
   math: MathIcon, quiz: QuizIcon, arith: ArithIcon,
   linux: CodeRunnerIcon, json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon, "llm-memory": LlmMemoryIcon, "code-runner": CodeRunnerIcon, sql: SqlIcon, "browser-ai": BrowserAiIcon,
   wc: WcIcon, password: PasswordIcon, "mosaic": MosaicIcon, stopwatch: StopwatchIcon, "business-card": CardIcon, resignation: ResignationIcon,

@@ -4,6 +4,8 @@ import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "use-intl";
 import ToolLayout from "../../components/tool-layout";
 import controls from "../../components/tool-controls.module.css";
+import { Link } from "../../i18n/navigation";
+import { GRADIENT_DESCENT_PATH } from "../../lib/app-catalog";
 import styles from "./approx-view.module.css";
 import { METHODS, TARGETS, TARGET_IDS, createNet, fourierBest, fourierEval, hiddenFor, lesson, mulberry32, netEval, netSize, rms, taylorEval, taylorTerms, train, winner, type Coefficient, type Method, type Net, type Term, type TargetId } from "./approx";
 
@@ -15,6 +17,7 @@ type Model = { terms: Term[] | null; coefficients: Coefficient[]; net: Net; less
 
 export default function Approx() {
   const t = useTranslations("App.approx");
+  const descent = useTranslations("App.gradientDescent");
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const model = useRef<Model | null>(null);
   const [target, setTarget] = useState<TargetId>("runge");
@@ -78,6 +81,7 @@ export default function Approx() {
   return (
     <ToolLayout title={t("title")}>
       <p className={controls.label}>{t("intro")}</p>
+      <Link id="gradient-descent" className="auth-link" href={GRADIENT_DESCENT_PATH}>{descent("title")} <span aria-hidden="true">→</span></Link>
       <div className={styles.targets} role="group" aria-label={t("target")}>
         {TARGET_IDS.map(id => <button key={id} type="button" className={styles.choice} aria-pressed={target === id} onClick={() => setTarget(id)}>{t(`targets.${id}`)}</button>)}
       </div>

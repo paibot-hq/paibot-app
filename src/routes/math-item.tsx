@@ -8,6 +8,7 @@ import PublicHead from '../components/public-head';
 import MathBreadcrumb from '../components/math-breadcrumb';
 import ToolLayout from '../components/tool-layout';
 import { Link } from '../i18n/navigation';
+import { GRADIENT_DESCENT_PATH } from '../lib/app-catalog';
 import type { DynamicT } from '../lib/apps';
 import { getSetRecords } from '../lib/math-attempts.server';
 import { useDoneSets } from '../lib/math-local-done';
@@ -53,6 +54,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
   const t = useTranslations('App.math') as unknown as DynamicT;
   const tq = useTranslations('App.math.quiz');
   const ti = useTranslations('App.math.itemPage');
+  const descent = useTranslations('App.gradientDescent');
   const exampleQuestion = useMathQuestions(kind, example ? [example] : [])[0];
   const has = (key: string) => (t as unknown as { has: (key: string) => boolean }).has(key);
   const unitTitle = t(`units.${unitId}.title`);
@@ -79,6 +81,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
         {(lesson?.sections.length || points.length > 0) ? <a href="#explanation">{ti('explanation')}</a> : null}
         {(exampleQuestion || (lesson?.examples.length ?? 0) > 0) && <a href="#examples">{ti('examples')}</a>}
         <a href="#practice">{ti('practice')}</a>
+        {unitId === 'derivative' && <Link href={GRADIENT_DESCENT_PATH}>{descent('title')} →</Link>}
       </nav>
       {start && <Link href={`/math/${unitId}/${itemId}/${start.id}`} className={styles.start} data-math-start>
         {ti('start')}{sets.length > 1 && <span className={styles.startSet}>{tq('practice', { number: start.id })}</span>}
