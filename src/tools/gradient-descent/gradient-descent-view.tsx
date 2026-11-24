@@ -133,7 +133,11 @@ export default function GradientDescent() {
     </div>
     <div className={styles.explanation}>
       <h3>{t('ruleTitle')}</h3>
-      <div className={styles.formula}><MathTex tex={String.raw`\begin{aligned} f'(x) &= 2x \\ x_{k+1} &= x_k-\eta f'(x_k)=(1-2\eta)x_k \end{aligned}`} block /></div>
+      <div className={styles.formula}><MathTex tex={String.raw`\begin{aligned}
+        f'(x) &= 2x \\
+        x_{k+1} &= x_k-\eta f'(x_k) \\
+                &= (1-2\eta)x_k
+      \end{aligned}`} block /></div>
       <p>{t('rule')}</p>
       <p>{t('compare')}</p>
       <p>{t('adam')}</p>
