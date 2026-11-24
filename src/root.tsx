@@ -2,19 +2,17 @@ import { Links, Meta, Outlet, Scripts, ScrollRestoration, isRouteErrorResponse, 
 import { clerkMiddleware, rootAuthLoader } from '@clerk/react-router/server';
 import { env } from 'cloudflare:workers';
 import { IntlProvider } from 'use-intl';
-import type { ReactNode } from 'react';
+import { useEffect, useState, type ReactNode } from 'react';
 import type { Route } from './+types/root';
 import Providers from './components/providers';
 import Header from './components/header';
-import { isLocale } from './i18n/routing';
+import { isLocale, type Locale } from './i18n/routing';
+import { getCachedMessages, loadMessages, type AppMessages } from './i18n/messages';
 import { useNonce } from './lib/csp-nonce';
 import { siteOrigin, isIndexable } from './lib/seo.server';
 import { isComingSoonMathPath } from './lib/math-catalog';
 import { isUnpublishedAiDsPath } from './tools/ai-ds/catalog';
 import { isUnpublishedCsPath } from './tools/cs/catalog';
-import ja from '../messages/ja.json';
-import en from '../messages/en.json';
-import zh from '../messages/zh.json';
 import './styles/theme.css';
 import './styles/shared-controls.css';
 import './styles/shell.css';
@@ -35,8 +33,11 @@ export const middleware: Route.MiddlewareFunction[] = [
 // runtime env) ride along in loaderData for descendant components to read
 // via useSiteMeta() below — never import lib/seo.server.ts from component
 // code, or "cloudflare:workers" fails to resolve in the client build.
-export const loader = (args: Route.LoaderArgs) =>
-  rootAuthLoader(args, () => ({ siteOrigin, isIndexable }));
+export const loader = async (args: Route.LoaderArgs) => {
+  const segment = new URL(args.request.url).pathname.split('/')[1];
+  await loadMessages(isLocale(segment) ? segment : 'ja');
+  return rootAuthLoader(args, () => ({ siteOrigin, isIndexable }));
+};
 export function useSiteMeta() {
   const data = useRouteLoaderData<typeof loader>('root');
   return { siteOrigin: data?.siteOrigin ?? 'https://paibot.app', isIndexable: data?.isIndexable ?? false };
@@ -78,9 +79,25 @@ export function Layout({ children }: { children: ReactNode }) {
 }
 export default function App({ loaderData }: Route.ComponentProps) {
   const params = useParams();
-  const locale = isLocale(params.locale) ? params.locale : 'ja';
-  const messages = { ja, en, zh }[locale];
-  return <IntlProvider locale={locale} messages={messages} timeZone="Asia/Tokyo">
+  const locale: Locale = isLocale(params.locale) ? params.locale : 'ja';
+  const [state, setState] = useState<{ locale: Locale; messages: AppMessages }>(() => ({
+    locale,
+    messages: getCachedMessages(locale) ?? {},
+  }));
+  const cached = getCachedMessages(locale);
+  const activeLocale = cached ? locale : state.locale;
+  const activeMessages = cached ?? state.messages;
+
+  useEffect(() => {
+    if (getCachedMessages(locale)) return;
+    let cancelled = false;
+    loadMessages(locale).then(messages => {
+      if (!cancelled) setState({ locale, messages });
+    });
+    return () => { cancelled = true; };
+  }, [locale]);
+
+  return <IntlProvider locale={activeLocale} messages={activeMessages} timeZone="Asia/Tokyo">
     <Providers loaderData={loaderData}><Header /><Outlet /></Providers>
   </IntlProvider>;
 }

@@ -30,7 +30,8 @@ export async function action(args: Route.ActionArgs) {
   const { userId } = await getAuth(args);
   if (!userId) return fail('signedOut', 401);
   if (args.request.headers.get('Origin') !== new URL(args.request.url).origin) return fail('invalid', 403);
-  const form = await args.request.formData();
+  let form: FormData;
+  try { form = await args.request.formData(); } catch { return fail('invalid', 400); }
   const intent = form.get('intent');
   const id = form.get('id');
   const rawBody = form.get('body');

@@ -185,6 +185,7 @@ export default function PinballGame() {
   const plunger = (pulling: boolean) => { unlockAudio(); gameRef.current?.setPlunger(pulling); };
 
   useEffect(() => {
+    if (import.meta.env.SSR) return;
     let cancelled = false;
     let frame = 0;
     setBest(readBest());

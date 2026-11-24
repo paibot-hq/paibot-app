@@ -7,10 +7,10 @@ import { TRAITS, distributionsFrom, type Distributions, type Scores } from "./pe
 
 export async function getDistributions(): Promise<Distributions> {
   const db = getDb();
-  const [rows, [{ total }]] = await Promise.all([
-    Promise.all(TRAITS.map(t => db.select({ raw: personalityResults[t], count: count() }).from(personalityResults).groupBy(personalityResults[t]))),
-    db.select({ total: count() }).from(personalityResults),
-  ]);
+  const rows = await Promise.all(
+    TRAITS.map(t => db.select({ raw: personalityResults[t], count: count() }).from(personalityResults).groupBy(personalityResults[t])),
+  );
+  const total = rows[0].reduce((sum, row) => sum + row.count, 0);
   return distributionsFrom(Object.fromEntries(TRAITS.map((t, i) => [t, rows[i]])), total);
 }
 

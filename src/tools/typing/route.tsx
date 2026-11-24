@@ -1,7 +1,9 @@
+import { data } from 'react-router';
 import TypingGame from './typing-game';
 import PublicHead from '../../components/public-head';
 import { getDistribution, recordResult } from './typing.server';
 import { isKeptResult, isMode } from './game';
+import { readFormPost } from '../../lib/form-post.server';
 import { withinToolLimit } from '../../lib/rate-limit.server';
 import { useLocale, useTranslations } from 'use-intl';
 import type { Route } from './+types/route';
@@ -14,9 +16,10 @@ export async function loader() {
 // A finished round: kept (anonymously) and placed among everyone's. Limited per client IP like the other tools that
 // write, so a script cannot flood the chart.
 export async function action({ request }: Route.ActionArgs) {
-  const form = await request.formData();
-  const mode = form.get('mode');
-  const score = Number(form.get('score')), keys = Number(form.get('keys')), misses = Number(form.get('misses'));
+  const parsed = await readFormPost(request);
+  if (!parsed.ok) return data({ error: 'invalid' as const }, { status: parsed.status });
+  const mode = parsed.form.get('mode');
+  const score = Number(parsed.form.get('score')), keys = Number(parsed.form.get('keys')), misses = Number(parsed.form.get('misses'));
   if (!isMode(mode) || !isKeptResult(score, keys, misses)) return { error: 'invalid' as const };
   if (!(await withinToolLimit(request, 'typing'))) return { error: 'limited' as const };
   try { return { score, ...(await recordResult(mode, score, keys, misses)) }; } catch { return { error: 'failed' as const }; }

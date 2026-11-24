@@ -3,10 +3,23 @@
 import { createContext, useContext, useEffect, useRef, useState, type ComponentProps, type ReactNode } from "react";
 import { useFetcher } from "react-router";
 import { ClerkProvider, useClerk } from "@clerk/react-router";
-import { enUS, jaJP, zhCN } from "@clerk/localizations";
 import { useLocale } from "use-intl";
 import { usePathname } from "../i18n/navigation";
 import { useProfileData } from "../routes/locale";
+
+type ClerkLocalization = ComponentProps<typeof ClerkProvider>["localization"];
+const clerkLocales = new Map<string, ClerkLocalization>();
+
+async function loadClerkLocalization(language: string): Promise<ClerkLocalization> {
+  if (language !== "ja" && language !== "zh") return undefined;
+  const cached = clerkLocales.get(language);
+  if (cached) return cached;
+  const loaded = language === "ja"
+    ? (await import("@clerk/localizations/ja-JP")).jaJP
+    : (await import("@clerk/localizations/zh-CN")).zhCN;
+  clerkLocales.set(language, loaded);
+  return loaded;
+}
 
 type Theme = "auto" | "light" | "dark";
 type Preferences = {
@@ -63,7 +76,17 @@ export default function Providers({ children, loaderData }: { children: ReactNod
   const saveTheme = useFetcher();
   const [theme, setTheme] = useState<Theme>("auto");
   const [prefersLight, setPrefersLight] = useState(false);
+  const [clerkLocalization, setClerkLocalization] = useState<ClerkLocalization>(() => clerkLocales.get(language));
   const resolvedTheme = theme === "auto" ? (prefersLight ? "light" : "dark") : theme;
+
+  useEffect(() => {
+    if (language !== "ja" && language !== "zh") { setClerkLocalization(undefined); return; }
+    const cached = clerkLocales.get(language);
+    if (cached) { setClerkLocalization(cached); return; }
+    let cancelled = false;
+    loadClerkLocalization(language).then(loc => { if (!cancelled) setClerkLocalization(loc); });
+    return () => { cancelled = true; };
+  }, [language]);
 
   useEffect(() => {
     try {
@@ -105,7 +128,7 @@ export default function Providers({ children, loaderData }: { children: ReactNod
         // Only the fallback for a visitor who signs out before clerk-js has
         // loaded; KeepSignOutOnCurrentPage handles every other sign-out.
         afterSignOutUrl={`/${language}`}
-        localization={language === "ja" ? jaJP : language === "zh" ? zhCN : enUS}
+        localization={clerkLocalization}
         appearance={{ variables: {
           colorPrimary: resolvedTheme === "dark" ? "#7fb4dc" : "#2f638f",
           colorBackground: resolvedTheme === "dark" ? "#151f2b" : "#ffffff",

@@ -276,6 +276,7 @@ export default function FruitMergeGame() {
   const drop = () => { unlockAudio(); gameRef.current?.drop(); };
 
   useEffect(() => {
+    if (import.meta.env.SSR) return;
     let cancelled = false;
     let frame = 0;
     setBest(readBest());
