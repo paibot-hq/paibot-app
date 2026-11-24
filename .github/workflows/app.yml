@@ -160,6 +160,8 @@ jobs:
           node-version-file: .tool-versions
           cache: npm
       - run: npm ci
+        env:
+          ONNXRUNTIME_NODE_INSTALL: skip
       - run: npm run build
       # Applied before deploy so the newly deployed code never sees a schema
       # it doesn't recognize yet. Idempotent (wrangler tracks applied

@@ -18,6 +18,9 @@ runs:
   steps:
     - run: npm ci
       shell: bash
+      env:
+        # The app runs onnxruntime-web in the browser; skip downloading Node CUDA binaries from NuGet.
+        ONNXRUNTIME_NODE_INSTALL: skip
     - name: Local development Clerk keys
       shell: bash
       env:
