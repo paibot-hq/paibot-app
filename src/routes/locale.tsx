@@ -1,6 +1,7 @@
 import { Outlet, useRouteLoaderData } from 'react-router';
 import { getAuth } from '@clerk/react-router/server';
 import { isLocale } from '../i18n/routing';
+import { loadMessages } from '../i18n/messages';
 import { listFavorites } from '../lib/favorites.server';
 import { getProfile } from '../lib/profile.server';
 import type { Route } from './+types/locale';
@@ -26,6 +27,12 @@ export async function loader(args: Route.LoaderArgs) {
     favoriteSlugs: favorites.status === 'ok' ? favorites.slugs : [],
     theme: profile?.theme ?? null,
   };
+}
+
+export async function clientLoader({ params, serverLoader }: Route.ClientLoaderArgs) {
+  const locale = isLocale(params.locale) ? params.locale : 'ja';
+  const [data] = await Promise.all([serverLoader(), loadMessages(locale)]);
+  return data;
 }
 
 export default function LocaleLayout() { return <Outlet />; }
