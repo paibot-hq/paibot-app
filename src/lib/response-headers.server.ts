@@ -1,39 +1,25 @@
-import { env, waitUntil } from 'cloudflare:workers';
+import { env } from 'cloudflare:workers';
 import type { MiddlewareFunction } from 'react-router';
 import { isComingSoonMathPath } from './math-catalog';
 import { isUnpublishedAiDsPath } from '../tools/ai-ds/catalog';
 import { isUnpublishedCsPath } from '../tools/cs/catalog';
 import { locales } from '../i18n/routing';
-import { siteOrigin, isIndexable } from './seo.server';
+import { isIndexable } from './seo.server';
 import { buildContentSecurityPolicy } from './security-headers.server';
-import { dayOf, isBot, isEntrance, toolOf } from './tool-ranking';
 
 // What every response from the app gets on its way out: the headers that keep it out of shared caches and search
-// results, the security headers, and the count of a view of a tool. It runs as the first middleware of the root route
-// (src/root.tsx), so it wraps every page, the data the client router fetches (.data) and every resource route.
-// Static files under build/client are served by Workers Assets before the Worker runs, as they were before.
+// results, and the security headers. It runs as the first middleware of the root route (src/root.tsx), so it wraps
+// every page, the data the client router fetches (.data) and every resource route. Static files under build/client
+// are served by Workers Assets before the Worker runs, as they were before. The tool view count, which used to live
+// here, is written by routes/api.view.ts from the page's beacon, so that crawlers that never run scripts stay out.
 
 // Pages kept out of search results: the signed-in ones, and the notice under the Specified Commercial Transactions Act
 // (it names the seller; it stays reachable by its link and from the footer).
 const AUTH_PATH = new RegExp(`^/(${locales.join('|')})/(sign-in|sign-up|diary|profile|legal/commerce)(/|\\.data$|$)`);
 const csp = buildContentSecurityPolicy();
 
-// A view of a tool's page, for the tool ranking (src/lib/tool-ranking.ts): one more for the tool today, written after
-// the response has gone (it never holds a page up, and a failed write only loses that one view). Only entrances from outside
-// this site count (a search result, bookmark or typed address); client router .data fetches and links between our own pages
-// do not. Crawlers and headless browsers (this site's tests) do not.
-const COUNT_VIEW = 'INSERT INTO tool_views (slug, day, views) VALUES (?1, ?2, 1) ON CONFLICT (slug, day) DO UPDATE SET views = views + 1';
-function countView(request: Request, response: Response, pathname: string) {
-  if (request.method !== 'GET' || response.status !== 200 || isBot(request.headers.get('User-Agent') ?? '')) return;
-  if (!isEntrance(pathname, request.headers, siteOrigin)) return;
-  const slug = toolOf(pathname);
-  if (!slug) return;
-  waitUntil(env.DB.prepare(COUNT_VIEW).bind(slug, dayOf(new Date())).run().catch(() => {}));
-}
-
 export function secureResponse(request: Request, response: Response): Response {
   const url = new URL(request.url);
-  countView(request, response, url.pathname);
   const secured = new Response(response.body, response);
   if (!isIndexable || response.status >= 400 || AUTH_PATH.test(url.pathname) || isComingSoonMathPath(url.pathname) || isUnpublishedAiDsPath(url.pathname) || isUnpublishedCsPath(url.pathname)) {
     secured.headers.set('X-Robots-Tag', 'noindex');
