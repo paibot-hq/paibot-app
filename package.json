@@ -6,16 +6,16 @@
     "dev": "react-router dev --port 3002",
     "build": "react-router build",
     "build:production": "PAIBOT_APP_TARGET=production react-router build",
-    "typecheck": "node scripts/wrangler.mjs dev types && react-router typegen && tsc --noEmit",
+    "typecheck": "PAIBOT_APP_WORKERS_AI=1 node scripts/wrangler.mjs dev types && react-router typegen && tsc --noEmit",
     "preview": "vite preview --port 3003",
     "start": "vite preview --port 3003",
     "test": "node --test \"tests/unit/*.test.mjs\" \"src/tools/*/*.test.mjs\"",
     "test:sympy": "uv run --locked python scripts/verify_math.py && uv run --locked python tests/unit/test_verify_math.py && uv run --locked python scripts/verify_lessons.py && uv run --locked python tests/unit/test_verify_lessons.py && uv run --locked python scripts/verify_ds.py && uv run --locked python tests/unit/test_verify_ds.py",
     "e2e": "node tests/e2e/run.mjs",
-    "deploy": "void deploy",
+    "deploy": "node scripts/deploy.mjs",
     "db:generate": "drizzle-kit generate",
-    "db:migrate:local": "node scripts/wrangler.mjs dev d1 migrations apply DB --local",
-    "db:migrate:local:production": "node scripts/wrangler.mjs production d1 migrations apply DB --local",
+    "db:migrate:local": "node scripts/migrate-local.mjs dev",
+    "db:migrate:local:production": "node scripts/migrate-local.mjs production",
     "db:migrate:dev": "node scripts/wrangler.mjs dev d1 migrations apply DB --remote",
     "db:migrate:prod": "node scripts/wrangler.mjs production d1 migrations apply DB --remote",
     "goldfish:textures": "node scripts/goldfish/make-textures.mjs",
@@ -87,7 +87,7 @@
   },
   "version": "0.1.0",
   "engines": {
-    "node": ">=22.22.0"
+    "node": ">=24.22.0"
   },
   "overrides": {
     "@esbuild-kit/core-utils": {

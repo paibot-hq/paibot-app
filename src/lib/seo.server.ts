@@ -1,7 +1,7 @@
 import { env } from "cloudflare:workers";
 
 // Server-only: reads Workers runtime env. Only import this from a loader
-// (root's loader, sitemap's loader) or from workers/app.ts — never from
+// (root's loader, sitemap's loader) or from response-headers.server.ts — never from
 // component code, or "cloudflare:workers" fails to resolve in the client
 // build (it doesn't exist in the browser).
 

@@ -38,7 +38,7 @@ export async function handleEmbed(request: Request, deps: EmbedDeps): Promise<Re
 
 // Workers AI through its REST address instead of the binding, for running the site on your own computer: the binding reaches the real service
 // through a helper Worker that Cloudflare Access can turn away. It is used only where LOCAL_AI_ACCOUNT_ID and LOCAL_AI_TOKEN are set
-// (in .dev.vars, which is never deployed); the deployed Worker uses the binding. Gives what the binding gives: the `result` of the answer.
+// (in .env, which is never deployed); the deployed Worker uses the binding. Gives what the binding gives: the `result` of the answer.
 export function restAi(options: { accountId: string; token: string; fetchImpl?: typeof fetch }): NonNullable<EmbedDeps["ai"]> {
   const { accountId, token, fetchImpl = fetch } = options;
   return {

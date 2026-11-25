@@ -126,7 +126,7 @@ try {
     const date = new Date(Date.now() - (n + 1) * 86400000).toISOString();
     return `('${randomUUID()}', '${userId}', 'Older fixture ${n}', '${date}', '${date}')`;
   });
-  const seed = spawnSync('npx', ['wrangler', 'd1', 'execute', 'DB', '--local', '--command', `INSERT INTO diary_entries (id,user_id,body,created_at,updated_at) VALUES ${values.join(',')}`], { encoding: 'utf8' });
+  const seed = spawnSync(process.execPath, ['scripts/wrangler.mjs', 'dev', 'd1', 'execute', 'DB', '--local', '--command', `INSERT INTO diary_entries (id,user_id,body,created_at,updated_at) VALUES ${values.join(',')}`], { encoding: 'utf8' });
   assert.equal(seed.status, 0);
   await owner.reload();
   assert.equal(await owner.locator('article').count(), 1);
@@ -156,7 +156,7 @@ try {
     const { data } = await backend.users.getUserList({ emailAddress: [email] });
     for (const user of data) {
       assert.match(user.id, /^user_[A-Za-z0-9]+$/);
-      const cleanup = spawnSync('npx', ['wrangler', 'd1', 'execute', 'DB', '--local', '--command', `DELETE FROM diary_entries WHERE user_id = '${user.id}'`], { encoding: 'utf8' });
+      const cleanup = spawnSync(process.execPath, ['scripts/wrangler.mjs', 'dev', 'd1', 'execute', 'DB', '--local', '--command', `DELETE FROM diary_entries WHERE user_id = '${user.id}'`], { encoding: 'utf8' });
       await backend.users.deleteUser(user.id);
       assert.equal(cleanup.status, 0, 'local diary fixture cleanup');
     }

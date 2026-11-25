@@ -48,3 +48,6 @@ __pycache__/
 .void/
 .void-wrangler.jsonc
 .cloudflare/
+
+# Not committed: every resource ID is in void.config.ts, and one lock cannot hold the three targets.
+void.lock.json

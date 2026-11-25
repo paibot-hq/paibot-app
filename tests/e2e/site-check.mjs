@@ -2,13 +2,13 @@
 import assert from 'node:assert/strict';
 import { createServer } from 'node:http';
 import { spawn } from 'node:child_process';
-import { readFileSync, writeFileSync } from 'node:fs';
 import { setTimeout as delay } from 'node:timers/promises';
 import { chromium } from 'playwright';
+import { overridePreviewVars } from './lib/preview-vars.mjs';
 
 // Real requests from the Worker to a fake site on 127.0.0.1. Loopback is
 // refused in production, so SITE_CHECK_ALLOW_PRIVATE is switched on in the
-// generated build/server/wrangler.json for this run only and restored after
+// built Worker's variables for this run only (tests/e2e/lib/preview-vars.mjs) and restored after
 // (same approach and reasons as tests/e2e/whois.mjs).
 
 function startFakeSite() {
@@ -30,14 +30,8 @@ function startFakeSite() {
   });
 }
 
-const wranglerJsonPath = 'build/server/wrangler.json';
-const originalWranglerJson = readFileSync(wranglerJsonPath, 'utf8');
 const { server: fakeSite, port: sitePort } = await startFakeSite();
-const config = JSON.parse(originalWranglerJson);
-config.vars.SITE_CHECK_ALLOW_PRIVATE = 'true';
-// Workers AI (the FAQ's search by meaning) only runs against the real service, which needs a login; these checks do not use it.
-delete config.ai;
-writeFileSync(wranglerJsonPath, JSON.stringify(config));
+const restoreVars = overridePreviewVars({ SITE_CHECK_ALLOW_PRIVATE: 'true' });
 
 const port = 3007;
 const worker = spawn('node', ['node_modules/vite/bin/vite.js', 'preview', '--port', String(port)], { stdio: ['ignore', 'pipe', 'pipe'] });
@@ -119,5 +113,5 @@ try {
   worker.kill('SIGTERM');
   await new Promise(resolve => { if (worker.exitCode !== null) resolve(); else worker.once('exit', resolve); });
   fakeSite.close();
-  writeFileSync(wranglerJsonPath, originalWranglerJson);
+  restoreVars();
 }

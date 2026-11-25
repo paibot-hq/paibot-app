@@ -3,21 +3,21 @@ import assert from 'node:assert/strict';
 import { createServer } from 'node:net';
 import { createServer as createHttpServer } from 'node:http';
 import { spawn } from 'node:child_process';
-import { readFileSync, writeFileSync } from 'node:fs';
 import { setTimeout as delay } from 'node:timers/promises';
 import { chromium } from 'playwright';
+import { overridePreviewVars } from './lib/preview-vars.mjs';
 
 // `wrangler dev`'s local routing simulates the Worker's configured custom
-// domain (wrangler.jsonc's `routes`), which makes Clerk's server-side dev
+// domain (void.config.ts's `routes`), which makes Clerk's server-side dev
 // handshake redirect back to the real "dev.paibot.app" instead of this local
 // origin - fine for tests/e2e/environments.mjs (SSR-only, no browser), but a
 // real browser navigation there gets stuck on the real, Access-protected
 // dev.paibot.app. `vite preview` (what tests/e2e/tools.mjs/tests/e2e/smoke.mjs
 // already use) doesn't have this problem, so this script uses that instead
-// - but vite preview reads `vars` from the generated build/server/wrangler.json
-// once at startup with no per-invocation override, so WHOIS_ROOT_SERVER is
-// injected by patching that (gitignored) file's `vars` before launching,
-// then restoring it afterward. Confirmed empirically that `cloudflare:sockets`
+// - but vite preview reads the variables from the build output once at startup
+// with no per-invocation override, so WHOIS_ROOT_SERVER is injected by patching
+// those (gitignored) files before launching, then restoring them afterward
+// (tests/e2e/lib/preview-vars.mjs). Confirmed empirically that `cloudflare:sockets`
 // connect() to a 127.0.0.1 loopback server works fine under this runtime.
 
 const FAKE_TLD_RESPONSE = [
@@ -75,16 +75,9 @@ async function startFakeRdapServer() {
   return { server, port: server.address().port };
 }
 
-const wranglerJsonPath = 'build/server/wrangler.json';
-const originalWranglerJson = readFileSync(wranglerJsonPath, 'utf8');
 const { server: fakeWhois, port: fakePort } = await startFakeWhoisServer();
 const { server: fakeRdap, port: rdapPort } = await startFakeRdapServer();
-const config = JSON.parse(originalWranglerJson);
-config.vars.WHOIS_ROOT_SERVER = `127.0.0.1:${fakePort}`;
-config.vars.RDAP_BOOTSTRAP_URL = `http://127.0.0.1:${rdapPort}/dns.json`;
-// Workers AI (the FAQ's search by meaning) only runs against the real service, which needs a login; these checks do not use it.
-delete config.ai;
-writeFileSync(wranglerJsonPath, JSON.stringify(config));
+const restoreVars = overridePreviewVars({ WHOIS_ROOT_SERVER: `127.0.0.1:${fakePort}`, RDAP_BOOTSTRAP_URL: `http://127.0.0.1:${rdapPort}/dns.json` });
 
 const port = 3006;
 // Direct node invocation, not `npx vite` - npx's resolution/update-check
@@ -163,5 +156,5 @@ try {
   await new Promise(resolve => { if (worker.exitCode !== null) resolve(); else worker.once('exit', resolve); });
   fakeWhois.close();
   fakeRdap.close();
-  writeFileSync(wranglerJsonPath, originalWranglerJson);
+  restoreVars();
 }

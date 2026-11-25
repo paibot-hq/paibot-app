@@ -12,7 +12,7 @@ function load() {
   return faqs;
 }
 
-// As in api.govfaq.embed.ts: on your own computer, LOCAL_AI_* in .dev.vars make it call Workers AI by its REST address.
+// As in api.govfaq.embed.ts: on your own computer, LOCAL_AI_* in .env make it call Workers AI by its REST address.
 const local = env as unknown as Record<string, string | undefined>;
 const ai = local.LOCAL_AI_ACCOUNT_ID && local.LOCAL_AI_TOKEN ? restAi({ accountId: local.LOCAL_AI_ACCOUNT_ID, token: local.LOCAL_AI_TOKEN }) : env.AI;
 

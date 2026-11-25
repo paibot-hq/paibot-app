@@ -125,7 +125,7 @@ try {
   // try block failed before sign-up even completed (userId never set).
   if (userId) {
     assert.match(userId, /^user_[A-Za-z0-9]+$/, 'unexpected Clerk user id shape');
-    spawnSync('npx', ['wrangler', 'd1', 'execute', 'DB', '--local', '--command', `DELETE FROM favorites WHERE user_id = '${userId}'`], { stdio: 'inherit' });
+    spawnSync(process.execPath, ['scripts/wrangler.mjs', 'dev', 'd1', 'execute', 'DB', '--local', '--command', `DELETE FROM favorites WHERE user_id = '${userId}'`], { stdio: 'inherit' });
   }
   console.log('Cleaned up development auth fixture');
 }

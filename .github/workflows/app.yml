@@ -162,7 +162,6 @@ jobs:
       - run: npm ci
         env:
           ONNXRUNTIME_NODE_INSTALL: skip
-      - run: npm run build
       # Applied before deploy so the newly deployed code never sees a schema
       # it doesn't recognize yet. Idempotent (wrangler tracks applied
       # migrations in d1_migrations and skips anything already applied).
@@ -176,15 +175,19 @@ jobs:
           npm run math:import:dev
           # Only when dev has no list yet: the daily update (breaches-update.yml) keeps it current, not the copy in git.
           npm run breaches:import:dev -- --if-empty
+      # Void builds the Worker itself (with Workers AI), puts the Clerk keys on it, and checks the new version through
+      # Access before it gets traffic (scripts/deploy.mjs).
       - name: Sync runtime Clerk keys and deploy dev
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
           CLERK_PUBLISHABLE_KEY: ${{ secrets.CLERK_PUBLISHABLE_KEY }}
           CLERK_SECRET_KEY: ${{ secrets.CLERK_SECRET_KEY }}
-        run: |
-          node -e 'console.log(JSON.stringify({CLERK_PUBLISHABLE_KEY:process.env.CLERK_PUBLISHABLE_KEY,CLERK_SECRET_KEY:process.env.CLERK_SECRET_KEY}))' | npx wrangler secret bulk --config build/server/wrangler.json
-          npm run deploy -- --var APP_VERSION:${{ github.sha }}
+          CF_ACCESS_CLIENT_ID: ${{ secrets.CF_ACCESS_CLIENT_ID }}
+          CF_ACCESS_CLIENT_SECRET: ${{ secrets.CF_ACCESS_CLIENT_SECRET }}
+          CF_ACCESS_READINESS_ORIGIN: https://dev.paibot.app
+          PAIBOT_APP_VERSION: ${{ github.sha }}
+        run: npm run deploy -- dev
       # A brand-new route can 404 on edge nodes that still serve the previous version, so wait until dev reports this
       # commit and every sitemap page answers 200 through Access (no browser here: the browser checks run beside the deploy).
       - name: Wait for the deploy to reach the edge

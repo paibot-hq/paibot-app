@@ -2,7 +2,7 @@ import { env } from "cloudflare:workers";
 import { parsePublishableKey } from "@clerk/shared/keys";
 
 // Server-only (reads Workers runtime env + Node-oriented Clerk internals) —
-// only import this from workers/app.ts, never from component/loader code
+// only import this from response-headers.server.ts and entry.server.tsx, never from component/loader code
 // that's reachable from the client bundle.
 
 const clerkFrontendApi = parsePublishableKey(env.CLERK_PUBLISHABLE_KEY)?.frontendApi ?? "";

@@ -97,10 +97,13 @@ export default defineConfig({
     version_metadata: { binding: 'CF_VERSION_METADATA' },
     // Workers AI, for the government FAQ search (src/routes/api.govfaq.embed.ts): it turns a question into numbers (an
     // embedding). The AI is Cloudflare's own and is billed to the account beyond the free allowance; the route is
-    // limited per client IP by GOVFAQ_RATE_LIMIT.
-    ai: { binding: 'AI' },
+    // limited per client IP by GOVFAQ_RATE_LIMIT. Only when PAIBOT_APP_WORKERS_AI=1, which every deploy sets (npm run
+    // deploy): the Cloudflare Vite plugin always runs this binding against the real service, also in local dev and
+    // preview, where it would need a login and be billed; there the tests stub the routes' answers instead.
+    ...(process.env.PAIBOT_APP_WORKERS_AI === '1' ? { ai: { binding: 'AI' } } : {}),
   },
   // The app reads its bindings from cloudflare:workers itself (src/db/client.server.ts), not through void/db, and
   // keeps Clerk for sign-in: Void-managed auth is not available to React Router apps.
-  inference: { appType: 'framework' },
+  // The bindings are the ones written above, none inferred (Void would otherwise add the AI binding by itself).
+  inference: { appType: 'framework', bindings: { db: false, kv: false, storage: false, ai: false } },
 });
