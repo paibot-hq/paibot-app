@@ -74,6 +74,40 @@ test('step 3: nudging a weight by 0.01 changes the loss by about gradient × 0.0
   }
 });
 
+test('the gradients stay right when the page parameters change', () => {
+  // A few settings reachable with the sliders (x, t and weights each off the defaults).
+  const settings = [
+    { x: 1.2, t: -0.4, weights: { w1: -0.8, w2: 0.3, v1: 0.5, v2: 1.4 } },
+    { x: -0.6, t: 0.9, weights: { w1: 1.5, w2: -1.5, v1: -1.1, v2: 0.2 } },
+    { x: 0.1, t: 0, weights: { w1: 0, w2: 0.05, v1: 1.5, v2: -0.9 } },
+  ];
+  const step = 1e-5;
+  for (const { x, t, weights } of settings) {
+    const grads = gradients(weights, x, t);
+    for (const id of WEIGHT_IDS) {
+      const plus = forward({ ...weights, [id]: weights[id] + step }, x, t).loss;
+      const minus = forward({ ...weights, [id]: weights[id] - step }, x, t).loss;
+      const numeric = (plus - minus) / (2 * step);
+      const analytic = gradientOf(grads, id);
+      assert.ok(Math.abs(analytic - numeric) <= Math.max(1e-10, 1e-6 * Math.abs(numeric)), `${id} at x=${x}, t=${t}`);
+    }
+    // nudgedLoss and updated honour the same x and t.
+    assert.equal(nudgedLoss(weights, 'v1', 0.01, x, t), forward({ ...weights, v1: weights.v1 + 0.01 }, x, t).loss);
+    assert.equal(updated(weights, 0.3, x, t).w2, weights.w2 - 0.3 * grads.dw2);
+  }
+});
+
+test('repeated updates converge, and a too-large rate overshoots', () => {
+  let weights = INITIAL_WEIGHTS;
+  for (let i = 0; i < 100; i++) weights = updated(weights, LEARNING_RATE);
+  assert.ok(forward(weights).loss < 1e-6, 'loss after 100 updates');
+  // The largest rate the slider offers makes this loss go up, which the page points out.
+  const overshoot = forward(updated(INITIAL_WEIGHTS, 1.5)).loss;
+  assert.ok(overshoot > forward(INITIAL_WEIGHTS).loss, `${overshoot}`);
+  // The strings the page prints around the η = 1 e2e check.
+  assert.equal(fmt(updated(INITIAL_WEIGHTS, 1).w1), '0.208');
+});
+
 test('step 4: one update with the shown learning rate lowers the loss', () => {
   const before = forward(INITIAL_WEIGHTS).loss;
   const next = updated(INITIAL_WEIGHTS);

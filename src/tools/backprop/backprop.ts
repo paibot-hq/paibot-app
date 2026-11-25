@@ -72,13 +72,13 @@ export function gradientOf(grads: Gradients, id: WeightId): number {
 
 // Step 3: move one weight by `delta` and recompute the whole loss, so the page
 // can show that the actual change matches ∂L/∂w · delta.
-export function nudgedLoss(weights: Weights, id: WeightId, delta = NUDGE): number {
-  return forward({ ...weights, [id]: weights[id] + delta }).loss;
+export function nudgedLoss(weights: Weights, id: WeightId, delta = NUDGE, x = X, target = TARGET): number {
+  return forward({ ...weights, [id]: weights[id] + delta }, x, target).loss;
 }
 
 // Step 4: one plain gradient-descent step, w ← w − η ∂L/∂w.
-export function updated(weights: Weights, rate = LEARNING_RATE): Weights {
-  const grads = gradients(weights);
+export function updated(weights: Weights, rate = LEARNING_RATE, x = X, target = TARGET): Weights {
+  const grads = gradients(weights, x, target);
   return {
     w1: weights.w1 - rate * grads.dw1,
     w2: weights.w2 - rate * grads.dw2,
