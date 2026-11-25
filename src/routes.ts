@@ -18,6 +18,7 @@ export default [
   route('api/govfaq/embed', 'routes/api.govfaq.embed.ts'),
   route('api/govfaq/answer', 'routes/api.govfaq.answer.ts'),
   route('api/ip', 'routes/api.ip.ts'),
+  route('api/view', 'routes/api.view.ts'),
   route('sitemap.xml', 'routes/sitemap.ts'),
   route('robots.txt', 'routes/robots.ts'),
   route(':locale', 'routes/locale.tsx', [

@@ -1,8 +1,9 @@
 import { APP_CATALOG, type AppData } from "./app-catalog.ts";
 
 // The tool ranking: how often people enter each tool from outside the site, counted per tool and per day in D1
-// (tool_views) by workers/app.ts, and ranked over the last RANK_DAYS days (the top page shows the first few, /ranking
-// all of them). Pure functions, so they are tested without a Worker.
+// (tool_views) by routes/api.view.ts from the page's own beacon (lib/view-beacon.ts), and ranked over the last
+// RANK_DAYS days (the top page shows the first few, /ranking all of them). Pure functions, so they are tested
+// without a Worker.
 
 export const RANK_DAYS = 7;
 export const TOP_COUNT = 5;
@@ -21,27 +22,25 @@ export function toolOf(pathname: string): string | null {
 }
 
 // A view is counted at a visit's entrance: the page the browser opened from outside this site (a search result, a link
-// on another site, a bookmark or a typed address), not the client router's .data fetches or the links between our own
-// pages. The browser says which is which in Sec-Fetch-*; where it does not, the referrer decides. Only entrances count,
-// so that a tool of 269 drill pages is ranked like a one-page tool.
-export function isEntrance(pathname: string, headers: Headers, origin: string): boolean {
-  // The client router's fetch of a page is never an entrance, even if a header is missing.
-  if (pathname.endsWith(".data")) return false;
-  // A navigation is a document; a script's fetch is not.
-  const mode = headers.get("Sec-Fetch-Mode");
-  if (mode !== null && mode !== "navigate") return false;
-  const site = headers.get("Sec-Fetch-Site");
-  if (site === "none" || site === "cross-site") return true;
-  if (site !== null) return false; // same-origin, same-site, or a value we do not expect
-  // Older browsers send no Sec-Fetch-*: an outside page is one whose referrer is not ours.
-  const referrer = headers.get("Referer");
-  if (!referrer) return true;
-  try { return new URL(referrer).origin !== origin; } catch { return true; }
+// on another site, a bookmark or a typed address), not the links between our own pages, so that a tool of 269 drill
+// pages is ranked like a one-page tool. The beacon is sent once per document load with the page's path and referrer
+// (lib/view-beacon.ts); this turns it into the tool to count, or null. Anyone can POST the endpoint junk, so every
+// field is checked here rather than trusted.
+export function beaconView(path: unknown, referrer: unknown, origin: string): string | null {
+  if (typeof path !== "string" || path.length > 512) return null;
+  if (typeof referrer !== "string" || referrer.length > 4096) return null;
+  // A page reached from one of our own pages is the same visit, not an entrance. No referrer is a bookmark or a
+  // typed address; a referrer that is not a URL never comes from a browser.
+  if (referrer) {
+    try { if (new URL(referrer).origin === origin) return null; } catch { return null; }
+  }
+  return toolOf(path);
 }
 
 // Counted: browsers only (every browser's user agent starts "Mozilla/"), so scripts and this site's own checks, which
 // fetch every page from Node on each deploy, are not; and of browsers, not crawlers, link previews or headless ones
-// (this site's browser tests).
+// (this site's browser tests). Crawlers that wear a plain browser User-Agent slip past this, which is why views are
+// counted from the page's beacon (script execution) rather than from the page request.
 export const isBot = (userAgent: string) => !userAgent.startsWith("Mozilla/") || /bot|crawl|spider|slurp|preview|headless|playwright|lighthouse/i.test(userAgent);
 
 // A day as counted: the date in Japan (UTC+9, no daylight saving), YYYY-MM-DD.

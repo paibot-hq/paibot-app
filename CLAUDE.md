@@ -3,8 +3,9 @@
 ## Current app
 
 React Router Framework Mode + Void (`void.config.ts`, `voidPlugin()` in place of the Cloudflare Vite plugin) + Clerk React Router + use-intl.
-Void generates the Worker entry for React Router itself, so what every response gets (cache, robots and security headers,
-the tool view count) is the root route's first middleware, `src/lib/response-headers.server.ts`.
+Void generates the Worker entry for React Router itself, so what every response gets (cache, robots and security
+headers) is the root route's first middleware, `src/lib/response-headers.server.ts`. The tool view count comes from the
+page's own beacon (`src/lib/view-beacon.ts` → `routes/api.view.ts`), so crawlers that never run scripts stay out of it.
 The migration snapshot has been consolidated into `src/`; `messages/` is the single
 translation source. Next.js, vinext and the Clerk patch are no longer dependencies.
 Historical notes are in `docs/archive/next-vinext-notes.md`.

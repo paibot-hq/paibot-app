@@ -9,6 +9,7 @@ import Header from './components/header';
 import { isLocale, type Locale } from './i18n/routing';
 import { getCachedMessages, loadMessages, type AppMessages } from './i18n/messages';
 import { useNonce } from './lib/csp-nonce';
+import { reportEntrance } from './lib/view-beacon';
 import { siteOrigin, isIndexable } from './lib/seo.server';
 import { responseHeadersMiddleware } from './lib/response-headers.server';
 import { isComingSoonMathPath } from './lib/math-catalog';
@@ -90,6 +91,9 @@ export default function App({ loaderData }: Route.ComponentProps) {
   const cached = getCachedMessages(locale);
   const activeLocale = cached ? locale : state.locale;
   const activeMessages = cached ?? state.messages;
+
+  // Once per document load (App stays mounted across the client router's navigations): the tool ranking's view count.
+  useEffect(() => { reportEntrance(); }, []);
 
   useEffect(() => {
     if (getCachedMessages(locale)) return;
