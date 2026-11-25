@@ -36,7 +36,6 @@ clerk-*.zone
 # React Router / Cloudflare Vite build output (may contain local secrets)
 /build/
 .react-router/
-!.dev.vars.example
 
 /worker-configuration.d.ts
 
@@ -44,3 +43,8 @@ clerk-*.zone
 .ai-ds-work/
 __pycache__/
 .venv/
+
+# Void: generated Cloudflare config and local state (void.config.ts and void.lock.json are committed).
+.void/
+.void-wrangler.jsonc
+.cloudflare/

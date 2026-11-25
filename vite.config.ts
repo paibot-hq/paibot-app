@@ -3,7 +3,7 @@ import { createRequire } from 'node:module';
 import { dirname, join } from 'node:path';
 import { defineConfig, type Plugin } from 'vite';
 import { reactRouter } from '@react-router/dev/vite';
-import { cloudflare } from '@cloudflare/vite-plugin';
+import { voidPlugin } from 'void';
 
 // Python in the browser (src/tools/code-runner): Pyodide's own files, served from this site at /pyodide/<version>/ rather than a CDN.
 // The page's worker loads them at run time, so they are copied as they are, not bundled.
@@ -56,8 +56,9 @@ export default defineConfig({
   define: { __BUILD_DATE__: JSON.stringify(new Date().toISOString().slice(0, 10)), __PYODIDE_VERSION__: JSON.stringify(pyodideVersion) },
   plugins: [
     ...pyodideFiles,
-    // Local dev and preview never reach the real Workers AI (it is billed and needs a login): the tests stub the route's answers. REMOTE_BINDINGS=1 turns it on.
-    cloudflare({ viteEnvironment: { name: 'ssr' }, remoteBindings: process.env.REMOTE_BINDINGS === '1' }),
+    // Builds the Worker, runs it locally and deploys it (void.config.ts). Before the framework plugin, as Void requires.
+    // Local data stays in .wrangler/state, where the tests and the import scripts (wrangler d1 ... --local) find it.
+    voidPlugin({ persistTo: '.wrangler/state' }),
     reactRouter(),
   ],
   // ES modules, so the worker can import each engine only when it is used.

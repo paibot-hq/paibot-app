@@ -1,14 +1,18 @@
 import { writeFileSync } from 'node:fs';
 import { spawnSync } from 'node:child_process';
+import { wranglerConfigArgs } from './lib/wrangler-target.mjs';
 
 // Writes the incident list as the page reads it from D1 (docs/breaches.md) to a file, in the shape of src/data/breaches.json: the daily update
 // (.github/workflows/breaches-update.yml) starts from it, and a person can refresh the copy in git with it (`npm run breaches:export:prod`).
 // Exits with 2, writing nothing, when the database has no list (no tables yet, or never filled), so a caller can try another.
-const targets = { local: ['--local'], dev: ['--remote'], prod: ['--remote', '--env', 'production'] };
+// The deployment target in void.config.ts, then where its database is (scripts/lib/wrangler-target.mjs).
+const targets = { local: ['dev', '--local'], dev: ['dev', '--remote'], prod: ['production', '--remote'] };
 const [target, file = 'src/data/breaches.json'] = process.argv.slice(2);
 if (!Object.hasOwn(targets, target)) throw new Error('Usage: node scripts/export-breaches.mjs local|dev|prod [file]');
+const [, ...where] = targets[target];
+const wranglerConfig = (await wranglerConfigArgs(targets[target][0])).slice(0, where.includes('--local') ? 4 : 2);
 function query(sql) {
-  const result = spawnSync(process.execPath, ['node_modules/wrangler/bin/wrangler.js', 'd1', 'execute', 'DB', ...targets[target], '--command', sql, '--json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'], maxBuffer: 64 * 1024 * 1024 });
+  const result = spawnSync(process.execPath, ['node_modules/wrangler/bin/wrangler.js', 'd1', 'execute', 'DB', ...where, ...wranglerConfig, '--command', sql, '--json'], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'inherit'], maxBuffer: 64 * 1024 * 1024 });
   if (result.error) throw result.error;
   if (result.status !== 0) throw new Error(`wrangler failed: ${result.stdout}`);
   return JSON.parse(result.stdout)[0].results;
