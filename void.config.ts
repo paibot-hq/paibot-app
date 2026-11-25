@@ -25,8 +25,8 @@ const ACCOUNT_ID = 'b041431380f52e0bf2bb47b174e95b6a';
 // Both environments use the Asia-Pacific databases (app_dev_apac/app_prod_apac): the site targets Japan and the
 // original ENAM ones added ~140ms per query. Migrations stay where drizzle-kit writes them (drizzle.config.ts), in the
 // table wrangler has always recorded them in, so the history applied so far is the one Void checks.
-const DEV_DB = { binding: 'DB', database_name: 'paibot-app-dev-apac', database_id: '11f4b088-e6f9-4c96-baa7-cfc1859ecae8', migrations_dir: 'migrations', migrations_table: 'd1_migrations' };
-const PROD_DB = { binding: 'DB', database_name: 'paibot-app-apac', database_id: 'fdfaf455-d8c4-4652-a2a0-4ccda9ed1d61', migrations_dir: 'migrations', migrations_table: 'd1_migrations' };
+const DEV_DB = { binding: 'DB', database_name: 'paibot-app-dev-apac', database_id: '11f4b088-e6f9-4c96-baa7-cfc1859ecae8', migrations_dir: './db/migrations', migrations_table: 'd1_migrations' };
+const PROD_DB = { binding: 'DB', database_name: 'paibot-app-apac', database_id: 'fdfaf455-d8c4-4652-a2a0-4ccda9ed1d61', migrations_dir: './db/migrations', migrations_table: 'd1_migrations' };
 
 // Per-IP limits for the tools that make outbound requests (website status check, domain lookup), so they cannot be
 // scripted into a relay against other sites, and for the government FAQ search and its answers written by the model
@@ -75,7 +75,7 @@ const targets: Record<Target, CloudflareTarget> = {
     name: 'paibot-app-void',
     routes: [],
     workers_dev: true,
-    vars: vars(process.env.PAIBOT_APP_SITE_URL ?? 'https://paibot-app-void.workers.dev', false),
+    vars: vars(process.env.PAIBOT_APP_SITE_URL ?? 'https://paibot-app-void.proud-leaf-50e3.workers.dev', false),
     ratelimits: rateLimits(1007),
     d1_databases: [DEV_DB],
   },

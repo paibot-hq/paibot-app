@@ -129,7 +129,7 @@ jobs:
       # rollbacks have no migrations/ (nor a production D1 binding), and a
       # rollback shouldn't be touching the schema anyway.
       - name: Apply D1 migrations (production)
-        if: steps.framework.outputs.react_router == 'true' && hashFiles('migrations/*.sql') != ''
+        if: steps.framework.outputs.react_router == 'true' && hashFiles('migrations/*.sql', 'db/migrations/*.sql') != ''
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}

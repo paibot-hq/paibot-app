@@ -5,7 +5,7 @@
 #
 # Production is a separate database (not the dev one) so dev testing can never
 # touch real users' data. Schema changes are applied to both via Wrangler
-# migrations (see migrations/README.md), not here - Terraform only owns the
+# migrations (see db/migrations/README.md), not here - Terraform only owns the
 # databases' existence.
 #
 # Both primaries are pinned to Asia-Pacific: the site targets Japan, and

@@ -1,0 +1,107 @@
+{
+  "version": 1,
+  "source": {
+    "account_id": "b041431380f52e0bf2bb47b174e95b6a",
+    "name": "paibot-app-void",
+    "routes": [],
+    "workers_dev": true,
+    "ratelimits": [
+      {
+        "name": "TOOL_RATE_LIMIT",
+        "namespace_id": "1007",
+        "simple": {
+          "limit": 10,
+          "period": 60
+        }
+      },
+      {
+        "name": "GOVFAQ_RATE_LIMIT",
+        "namespace_id": "1009",
+        "simple": {
+          "limit": 30,
+          "period": 60
+        }
+      },
+      {
+        "name": "GOVFAQ_ANSWER_RATE_LIMIT",
+        "namespace_id": "1011",
+        "simple": {
+          "limit": 6,
+          "period": 60
+        }
+      }
+    ],
+    "d1_databases": [
+      {
+        "binding": "DB",
+        "database_name": "paibot-app-dev-apac",
+        "database_id": "11f4b088-e6f9-4c96-baa7-cfc1859ecae8",
+        "migrations_dir": "./db/migrations",
+        "migrations_table": "d1_migrations"
+      }
+    ],
+    "preview_urls": false,
+    "observability": {
+      "enabled": true
+    },
+    "version_metadata": {
+      "binding": "CF_VERSION_METADATA"
+    },
+    "ai": {
+      "binding": "AI"
+    }
+  },
+  "resolved": {
+    "account_id": "b041431380f52e0bf2bb47b174e95b6a",
+    "name": "paibot-app-void",
+    "routes": [],
+    "workers_dev": true,
+    "ratelimits": [
+      {
+        "name": "TOOL_RATE_LIMIT",
+        "namespace_id": "1007",
+        "simple": {
+          "limit": 10,
+          "period": 60
+        }
+      },
+      {
+        "name": "GOVFAQ_RATE_LIMIT",
+        "namespace_id": "1009",
+        "simple": {
+          "limit": 30,
+          "period": 60
+        }
+      },
+      {
+        "name": "GOVFAQ_ANSWER_RATE_LIMIT",
+        "namespace_id": "1011",
+        "simple": {
+          "limit": 6,
+          "period": 60
+        }
+      }
+    ],
+    "d1_databases": [
+      {
+        "binding": "DB",
+        "database_name": "paibot-app-dev-apac",
+        "database_id": "11f4b088-e6f9-4c96-baa7-cfc1859ecae8",
+        "migrations_dir": "./db/migrations",
+        "migrations_table": "d1_migrations"
+      }
+    ],
+    "preview_urls": false,
+    "observability": {
+      "enabled": true
+    },
+    "version_metadata": {
+      "binding": "CF_VERSION_METADATA"
+    },
+    "ai": {
+      "binding": "AI"
+    },
+    "compatibility_date": "2026-02-24"
+  },
+  "text": "{\n  \"account_id\": \"b041431380f52e0bf2bb47b174e95b6a\",\n  \"name\": \"paibot-app-void\",\n  \"routes\": [],\n  \"workers_dev\": true,\n  \"ratelimits\": [\n    {\n      \"name\": \"TOOL_RATE_LIMIT\",\n      \"namespace_id\": \"1007\",\n      \"simple\": {\n        \"limit\": 10,\n        \"period\": 60\n      }\n    },\n    {\n      \"name\": \"GOVFAQ_RATE_LIMIT\",\n      \"namespace_id\": \"1009\",\n      \"simple\": {\n        \"limit\": 30,\n        \"period\": 60\n      }\n    },\n    {\n      \"name\": \"GOVFAQ_ANSWER_RATE_LIMIT\",\n      \"namespace_id\": \"1011\",\n      \"simple\": {\n        \"limit\": 6,\n        \"period\": 60\n      }\n    }\n  ],\n  \"d1_databases\": [\n    {\n      \"binding\": \"DB\",\n      \"database_name\": \"paibot-app-dev-apac\",\n      \"database_id\": \"11f4b088-e6f9-4c96-baa7-cfc1859ecae8\",\n      \"migrations_dir\": \"./db/migrations\",\n      \"migrations_table\": \"d1_migrations\"\n    }\n  ],\n  \"preview_urls\": false,\n  \"observability\": {\n    \"enabled\": true\n  },\n  \"version_metadata\": {\n    \"binding\": \"CF_VERSION_METADATA\"\n  },\n  \"ai\": {\n    \"binding\": \"AI\"\n  },\n  \"compatibility_date\": \"2026-02-24\"\n}\n"
+}

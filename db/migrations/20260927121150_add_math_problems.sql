@@ -1,3 +1,5 @@
+-- Applied to both databases before the move to Void; marked so Void accepts it in the history.
+-- void:allow-destructive
 CREATE TABLE `math_problems` (
 	`id` text PRIMARY KEY NOT NULL,
 	`unit` text NOT NULL,

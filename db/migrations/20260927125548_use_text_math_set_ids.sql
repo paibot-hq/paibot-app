@@ -1,3 +1,5 @@
+-- Applied to both databases before the move to Void; marked so Void accepts it in the history.
+-- void:allow-destructive
 PRAGMA foreign_keys=OFF;--> statement-breakpoint
 CREATE TABLE `__new_math_attempts` (
 	`id` text PRIMARY KEY NOT NULL,
