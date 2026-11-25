@@ -3617,6 +3617,82 @@
         }
       ]
     },
+    "backprop": {
+      "title": "Backpropagation Visualizer",
+      "description": "Watch the loss gradient flow backwards through a tiny neural network, one chain-rule product at a time.",
+      "intro": "A tiny network with the input x = 0.8, the target t = 0.5 and four hand-placed weights. The forward pass computes the loss L; backpropagation then walks the chain-rule products backwards from the output, stage by stage.",
+      "keywords": "backpropagation neural network gradient chain rule deep learning",
+      "about": "A tiny network — one input, two tanh hidden units, one output — filled with hand-placed numbers. Four steps visualize the forward pass, backpropagation, what a gradient means, and one weight update. Everything is computed deterministically in the browser, and actually moving a weight by +0.01 shows the loss changes by about the analytic gradient × 0.01.",
+      "stepsLabel": "Steps",
+      "steps": {
+        "forward": "Forward pass",
+        "backward": "Backpropagation",
+        "nudge": "What gradients mean",
+        "update": "One update"
+      },
+      "netForward": "The computation graph from the input to the output and the loss, with each node's value",
+      "netBackward": "The computation graph with gradients flowing backwards from the loss to the input side",
+      "forwardReadout": "The output is y = {y}. The squared difference from the target t is the loss L = {loss}.",
+      "stagesLabel": "Backpropagation stages",
+      "stages": {
+        "out": "① Output",
+        "mid": "② Hidden",
+        "in": "③ Input side"
+      },
+      "stageText": {
+        "out": "First differentiate the loss L with respect to the output y: L = (y − t)², so ∂L/∂y = 2(y − t). This is where the chain rule starts.",
+        "mid": "Each local gradient multiplied onto ∂L/∂y settles one more gradient: ∂L/∂v₁ = ∂L/∂y · h₁, ∂L/∂h₁ = ∂L/∂y · v₁, and through tanh, ∂L/∂a₁ = ∂L/∂h₁ · (1 − h₁²).",
+        "in": "Finally multiplying by ∂a/∂w = x settles the input-side gradients ∂L/∂w₁ and ∂L/∂w₂. One forward and one backward pass found the gradient of every weight."
+      },
+      "selectWeight": "Pick a weight",
+      "nudgeTitle": "The gradient of {weight} against the actual loss change",
+      "analytic": "Analytic gradient",
+      "predicted": "Predicted change ∂L/∂{weight} × 0.01",
+      "actual": "Actual change L({weight} + 0.01) − L",
+      "nudgeNote": "The two values all but agree. A gradient is exactly this rate: how much the loss changes when the weight moves a little. The tiny difference is the second-order term.",
+      "updateTitle": "Updating the weights by gradient descent",
+      "weightHeader": "Weight",
+      "beforeHeader": "Before",
+      "gradHeader": "Gradient ∂L/∂w",
+      "afterHeader": "After",
+      "lossDrop": "The loss went down:",
+      "hint": {
+        "forward": "Along the arrows, the values settle in order: the input x, then a = wx, h = tanh(a), y = v₁h₁ + v₂h₂ and the loss L.",
+        "backward": "The red arrows are the gradient flow. In the order ① → ② → ③, the chain-rule products travel from the output side to the input side.",
+        "nudge": "Tap a weight to actually move it by +0.01, recompute the loss, and compare the change with the analytic gradient × 0.01.",
+        "update": "Subtracting the learning rate η × gradient from each weight really lowers the loss. Learning is this, repeated."
+      },
+      "ruleTitle": "What is being computed?",
+      "rule": "The forward pass multiplies x by the weights, passes through tanh, and sums into y and the loss L. Backpropagation starts from L and retraces that computation backwards, differentiating one piece at a time.",
+      "chainText": "By the chain rule, ∂L/∂w is a product of the local gradients along the way. Multiplying backwards from the output lets the intermediate results be reused, so one backward pass finds the gradient of every weight.",
+      "realText": "A real neural network has millions to billions of weights, but what it does is the same chain of products and subtractions. Here the network is small and hand-placed so every number stays visible.",
+      "aiLesson": "Read the backpropagation lesson",
+      "gdLab": "Also try the gradient descent simulator",
+      "guide": [
+        {
+          "heading": "Reading the four steps",
+          "paragraphs": [
+            "① In the forward pass, each node's value settles in order from the input to the output and the loss. ② In backpropagation, products starting from the loss travel backwards along the red arrows and settle the gradient ∂L/∂w of each weight."
+          ]
+        },
+        {
+          "heading": "Check a gradient yourself",
+          "paragraphs": [
+            "In ③, pick a weight: it is actually moved by +0.01 and the loss is recomputed. That the change all but matches the analytic gradient × 0.01 is what a gradient means. In ④, one update with the learning rate 0.2 visibly lowers the loss."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Why is it called “backpropagation”?",
+          "a": "Because the output's error (the loss gradient) is carried backwards through the network to every weight. Doing the chain-rule products from the output side lets the intermediate results be shared, so every weight's gradient comes out efficiently."
+        },
+        {
+          "q": "Are these numbers the same as real training?",
+          "a": "The mechanism is. Real training initializes the weights randomly and updates them many thousands of times over lots of data, but each round is exactly the forward pass, backward pass and update shown here. The numbers are hand-placed, with a single update, so the whole computation stays readable."
+        }
+      ]
+    },
     "approx": {
       "title": "Approximation Showdown",
       "description": "One function, three ways of approaching it with the same number of numbers: a Taylor series, a Fourier series and a neural network that learns right in your browser. Find out from the errors and the graph which method is strong on which function.",
