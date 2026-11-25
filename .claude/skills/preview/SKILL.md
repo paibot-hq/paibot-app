@@ -25,7 +25,7 @@ Reply in Japanese with a Markdown link, never a bare URL: `[行政FAQ検索](htt
 ## Things to know
 
 - Pages: `/ja`, `/en`, `/zh` + the tool's path (`src/lib/app-catalog.ts`).
-- The government FAQ's search by meaning and answers call Workers AI. On a computer the binding is turned away by Cloudflare Access, so it uses the REST address when `LOCAL_AI_ACCOUNT_ID` and `LOCAL_AI_TOKEN` are in `.dev.vars` (see `.dev.vars.example`). Check only that both lines exist (`grep -c "^LOCAL_AI_" .dev.vars`); never print or read the values. If they are missing, tell the user to add them in their own editor; without them the page still works with the search by words.
+- The government FAQ's search by meaning and answers call Workers AI. On a computer the binding is turned away by Cloudflare Access, so it uses the REST address when `LOCAL_AI_ACCOUNT_ID` and `LOCAL_AI_TOKEN` are in `.env` (declared in `env.ts`). Check only that both lines exist (`grep -c "^LOCAL_AI_" .env`); never print or read the values. If they are missing, tell the user to add them in their own editor; without them the page still works with the search by words.
 - A browser check needs a running preview (`CHECK_BROWSER_BASE_URL=http://localhost:3012 npm run e2e -- <name>`), see `README.md`.
 - To look at a page yourself, take a screenshot with Playwright (`node_modules/playwright`), wait for hydration (`document.documentElement.dataset.theme`), and read the image.
 - Stop what you started when the user says they are done: `pkill -f "vite preview --port 3012"`, or stop the dev server you started.

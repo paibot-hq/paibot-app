@@ -2,7 +2,9 @@
 
 ## Current app
 
-React Router Framework Mode + Cloudflare Vite plugin + Clerk React Router + use-intl.
+React Router Framework Mode + Void (`void.config.ts`, `voidPlugin()` in place of the Cloudflare Vite plugin) + Clerk React Router + use-intl.
+Void generates the Worker entry for React Router itself, so what every response gets (cache, robots and security headers,
+the tool view count) is the root route's first middleware, `src/lib/response-headers.server.ts`.
 The migration snapshot has been consolidated into `src/`; `messages/` is the single
 translation source. Next.js, vinext and the Clerk patch are no longer dependencies.
 Historical notes are in `docs/archive/next-vinext-notes.md`.
@@ -13,11 +15,12 @@ for outstanding deployment checks, environment selection and rollback.
 ## Infrastructure boundaries
 
 Terraform in `infra/` owns account-level resources (Access, DNS, D1, R2).
-Wrangler owns Worker code, bindings and custom domains; never manage the same
+`void.config.ts` owns Worker code, bindings and custom domains (Void deploys it; database commands run Wrangler through
+`scripts/wrangler.mjs`); give every resource ID there so Void creates nothing, and never manage the same
 resource with both. The Terraform state R2 bucket must not become an app binding.
 Existing AWS/GCP and Cloudflare account notes are in `docs/infra/`.
 Do not print secret keys. Runtime Clerk keys must be synced to Workers Secrets;
-`.dev.vars` only configures local execution and does not provision remote secrets.
+`.env` only configures local execution and does not provision remote secrets.
 
 ## Site
 
@@ -71,14 +74,14 @@ The FAQ search (`src/tools/govfaq/`) works on a snapshot of the Ministry of Inte
 the data was built from (SHA-256 in `source.sha256`) and opens a pull request that says what changed; it fails when the page is not as expected.
 By hand: `node scripts/govfaq-build.mjs [--if-changed]`, then `CLOUDFLARE_ACCOUNT_ID=... CLOUDFLARE_API_TOKEN=... npm run govfaq:embed`
 (a token that may use Workers AI; never print it). The answers written from the FAQ (`src/lib/govfaq-answer.server.ts`) keep the prompt in
-`SYSTEM_PROMPT`; locally, `LOCAL_AI_ACCOUNT_ID` and `LOCAL_AI_TOKEN` in `.dev.vars` let the site reach Workers AI by its REST address.
+`SYSTEM_PROMPT`; locally, `LOCAL_AI_ACCOUNT_ID` and `LOCAL_AI_TOKEN` in `.env` let the site reach Workers AI by its REST address.
 
 ## AI and data science practice
 
 `/ai-ds` ("AI・データサイエンス問題集", `src/tools/ai-ds/`; plan: `docs/plans/ai-ds-practice.md`): four-choice problems for the
 scopes of three Japanese exams (DS検定 リテラシーレベル, G検定, E資格), one catalog for all three (`catalog.ts`: unit → item →
 set, each item tagged with its exams and how its problems are checked). Not in the app catalog yet: routed explicitly in
-`src/routes.ts` and kept out of search results (`isUnpublishedAiDsPath`, in `root.tsx` and the Worker). Problems are in
+`src/routes.ts` and kept out of search results (`isUnpublishedAiDsPath`, in `root.tsx` and `response-headers.server.ts`). Problems are in
 Japanese, bundled with the page from `src/tools/ai-ds/data/<unit>.json` (no database), and served only when `published`.
 `npm run ai-ds:generate -- <unit|unit/item> ...` has Claude write a set; `scripts/verify_ds.py` (in `test:sympy`) recomputes every
 calculation's answer from its `check` (an expression over a fixed list of functions) and checks each choice shows its value; Codex
@@ -96,7 +99,7 @@ The pages are shared with computer science practice (`/cs`, `src/tools/cs/`; pla
 book over the IPA exams (ITパスポート, 基本情報, 応用情報) and the J17-CS university curriculum: `src/lib/practice.ts` (types, the
 loaders, banks, lessons, the noindex check) and `src/components/practice/` (top page with the exam filter, item page, quiz). A book
 is its folder (catalog with a `PracticeBook`, `data/<unit>.json`, `lessons.json`, three thin route files), its routes in
-`src/routes.ts`, its noindex check in `root.tsx` and the Worker, and its names under `App.<book>`; what every book says is under
+`src/routes.ts`, its noindex check in `root.tsx` and `response-headers.server.ts`, and its names under `App.<book>`; what every book says is under
 `App.practice`. `/cs` has its catalog (15 units, 84 items) but no problems or lessons yet.
 
 ## Math project

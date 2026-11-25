@@ -1,5 +1,0 @@
-CLERK_PUBLISHABLE_KEY=pk_test_REPLACE_ME
-CLERK_SECRET_KEY=sk_test_REPLACE_ME
-# Optional, for trying the FAQ's search by meaning on your own computer (Workers AI by its REST address; never deployed). A token that may use Workers AI.
-# LOCAL_AI_ACCOUNT_ID=
-# LOCAL_AI_TOKEN=

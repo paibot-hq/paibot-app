@@ -19,6 +19,7 @@ export default [
   route('api/govfaq/answer', 'routes/api.govfaq.answer.ts'),
   route('api/ip', 'routes/api.ip.ts'),
   route('sitemap.xml', 'routes/sitemap.ts'),
+  route('robots.txt', 'routes/robots.ts'),
   route(':locale', 'routes/locale.tsx', [
     index('routes/home.tsx'),
     ...HOME_SECTIONS.map(section => route(section, 'routes/section-directory.tsx', { id: `sections/${section}` })),

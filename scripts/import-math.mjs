@@ -6,11 +6,15 @@ import { formulaBanks } from './validate-math-formula.mjs';
 import { bank as pythagorasBank } from './validate-math-pythagoras.mjs';
 import { jpGrade } from '../src/lib/math-curriculum-jp.ts';
 import { MAX_SET_PROBLEMS } from '../src/lib/math-attempts.ts';
+import { wranglerConfigArgs } from './lib/wrangler-target.mjs';
 
 // Explicit target only; importing never creates or resets any tables.
-const targets = { local: ['--local'], dev: ['--remote'], prod: ['--remote', '--env', 'production'] };
+// The deployment target in void.config.ts, then where its database is (scripts/lib/wrangler-target.mjs).
+const targets = { local: ['dev', '--local'], dev: ['dev', '--remote'], prod: ['production', '--remote'] };
 const target = process.argv[2];
 if (!Object.hasOwn(targets, target) || process.argv.length !== 3) throw new Error('Usage: node scripts/import-math.mjs local|dev|prod');
+const [, ...where] = targets[target];
+const wranglerConfig = (await wranglerConfigArgs(targets[target][0])).slice(0, where.includes('--local') ? 4 : 2);
 const quote = value => `'${String(value).replaceAll("'", "''")}'`;
 const expression = ({ expression, word, choices }) => ({ expression, word, choices });
 const units = [
@@ -34,6 +38,6 @@ const statements = units.flatMap(({ unit, bank, payload }) => bank.problems.map(
 mkdirSync('.wrangler', { recursive: true });
 const file = '.wrangler/math-import.sql';
 writeFileSync(file, statements.join('\n') + '\n');
-const result = spawnSync(process.execPath, ['node_modules/wrangler/bin/wrangler.js', 'd1', 'execute', 'DB', ...targets[target], '--file', file, '--yes'], { stdio: 'inherit' });
+const result = spawnSync(process.execPath, ['node_modules/wrangler/bin/wrangler.js', 'd1', 'execute', 'DB', ...where, ...wranglerConfig, '--file', file, '--yes'], { stdio: 'inherit' });
 if (result.error) throw result.error;
 process.exitCode = result.status ?? 1;

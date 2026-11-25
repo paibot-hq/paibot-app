@@ -8,7 +8,7 @@ import { buildContentSecurityPolicy } from "./lib/security-headers.server";
 // React Router's own entry for the web (@react-router/dev's entry.server.web.tsx), plus a nonce for the page's
 // scripts: a new one for every page, given to React Router (<Scripts>, <ScrollRestoration>, its data), to React (its
 // streaming scripts), to the page's own scripts (root.tsx) and to the Content-Security-Policy that allows them
-// (workers/app.ts keeps it, and gives every other response the one without a nonce).
+// (src/lib/response-headers.server.ts keeps it, and gives every other response the one without a nonce).
 export const streamTimeout = 5_000;
 
 export default async function handleRequest(

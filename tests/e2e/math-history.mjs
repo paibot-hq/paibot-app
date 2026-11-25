@@ -114,7 +114,7 @@ try {
   await browser.close();
   if (userId) {
     assert.match(userId, /^user_[A-Za-z0-9]+$/);
-    const cleanup = spawnSync(process.execPath, ['node_modules/wrangler/bin/wrangler.js', 'd1', 'execute', 'DB', '--local',
+    const cleanup = spawnSync(process.execPath, ['scripts/wrangler.mjs', 'dev', 'd1', 'execute', 'DB', '--local',
       '--command', `DELETE FROM math_attempts WHERE user_id = '${userId}'`], { stdio: 'ignore' });
     if (cleanup.status !== 0) { console.error(`Could not remove local attempts for ${userId}`); process.exitCode = 1; }
     await backend.users.deleteUser(userId);

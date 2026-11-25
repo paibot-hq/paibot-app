@@ -1,11 +1,11 @@
 name: Verify setup
-description: Dependencies (after setup-node), the local Clerk keys (.dev.vars) and, when asked, local D1 and a Playwright browser
+description: Dependencies (after setup-node), the local Clerk keys (.env) and, when asked, local D1 and a Playwright browser
 inputs:
   clerk-publishable-key:
-    description: Clerk test publishable key, written to .dev.vars
+    description: Clerk test publishable key, written to .env
     required: true
   clerk-secret-key:
-    description: Clerk test secret key, written to .dev.vars
+    description: Clerk test secret key, written to .env
     required: true
   database:
     description: "'true' to migrate and fill the local D1 database"
@@ -26,7 +26,7 @@ runs:
       env:
         CLERK_PUBLISHABLE_KEY: ${{ inputs.clerk-publishable-key }}
         CLERK_SECRET_KEY: ${{ inputs.clerk-secret-key }}
-      run: node -e 'require("fs").writeFileSync(".dev.vars", `CLERK_PUBLISHABLE_KEY=${process.env.CLERK_PUBLISHABLE_KEY}\nCLERK_SECRET_KEY=${process.env.CLERK_SECRET_KEY}\n`)'
+      run: node -e 'require("fs").writeFileSync(".env", `CLERK_PUBLISHABLE_KEY=${process.env.CLERK_PUBLISHABLE_KEY}\nCLERK_SECRET_KEY=${process.env.CLERK_SECRET_KEY}\n`)'
     - if: inputs.database == 'true'
       shell: bash
       run: |

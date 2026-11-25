@@ -10,6 +10,7 @@ import { isLocale, type Locale } from './i18n/routing';
 import { getCachedMessages, loadMessages, type AppMessages } from './i18n/messages';
 import { useNonce } from './lib/csp-nonce';
 import { siteOrigin, isIndexable } from './lib/seo.server';
+import { responseHeadersMiddleware } from './lib/response-headers.server';
 import { isComingSoonMathPath } from './lib/math-catalog';
 import { isUnpublishedAiDsPath } from './tools/ai-ds/catalog';
 import { isUnpublishedCsPath } from './tools/cs/catalog';
@@ -27,6 +28,8 @@ import './styles/responsive.css';
 // keys unprotected).
 const isProductionClerk = env.CLERK_PUBLISHABLE_KEY?.startsWith('pk_live_') ?? false;
 export const middleware: Route.MiddlewareFunction[] = [
+  // First, so its headers go on everything the others answer with too.
+  responseHeadersMiddleware,
   clerkMiddleware(isProductionClerk ? { authorizedParties: [siteOrigin] } : {}),
 ];
 // siteOrigin/isIndexable (from lib/seo.server, server-only: reads Workers
@@ -44,7 +47,7 @@ export function useSiteMeta() {
 }
 // Not a secret - GA4 measurement IDs are public (visible in every page's
 // source on any site that uses them). Only loaded when isIndexable (i.e.
-// production, per wrangler.jsonc's SITE_INDEXABLE), so dev/CI
+// production, per void.config.ts's SITE_INDEXABLE), so dev/CI
 // traffic never pollutes real analytics data.
 const GA_MEASUREMENT_ID = "G-5WNRMDB15J";
 

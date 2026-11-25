@@ -1,3 +1,5 @@
+-- Applied to both databases before the move to Void; marked so Void accepts it in the history.
+-- void:allow-destructive
 DROP INDEX `math_attempts_user_unit_idx`;--> statement-breakpoint
 ALTER TABLE `math_attempts` ADD `item` text DEFAULT '' NOT NULL;--> statement-breakpoint
 CREATE INDEX `math_attempts_user_set_idx` ON `math_attempts` (`user_id`,`unit`,`item`,`set_id`,`completed_at`);--> statement-breakpoint
