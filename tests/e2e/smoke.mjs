@@ -260,14 +260,14 @@ try {
     await overview.locator(`[data-section="lab"] a[href="/${locale}/sql"]`).waitFor();
     await overview.locator('[data-shelf="learn"]').click();
     await page.waitForURL(`**/${locale}/learn`);
+    // /learn is its own hub (src/components/learn-hub.tsx): a card per book, each opening that book, with shortcuts into it.
     const learn = page.locator('main[data-section="learn"]');
-    await learn.locator('[data-topic="artificialIntelligence"] a[href$="/ai-ds"]').waitFor();
-    await learn.locator('[data-topic="mathematics"] a[href$="/math"]').waitFor();
-    for (const slug of ['arith', 'sql', 'linux', 'code-runner']) {
-      assert.equal(await learn.locator(`a[href="/${locale}/${slug}"]`).count(), 0);
+    await learn.locator(`[data-course] a[href="/${locale}/ai-ds"]`).first().waitFor();
+    await learn.locator(`[data-course] a[href="/${locale}/math"]`).first().waitFor();
+    await learn.locator(`[data-course] a[href="/${locale}/ai-ds/arch/transformer"]`).waitFor();
+    for (const slug of ['arith', 'linux', 'code-runner']) {
+      assert.equal(await learn.locator(`a[href="/${locale}/${slug}"]`).count(), 0, `${slug} is not a learning book`);
     }
-    await learn.locator('[data-search="start"] summary').click();
-    await learn.locator(`a[href="/${locale}/math/arith/order-of-operations"]`).waitFor();
     const nav = page.locator('header.topbar .site-switcher');
     await nav.locator(`a[href="/${locale}/lab"]`).click();
     await page.waitForURL(`**/${locale}/lab`);
