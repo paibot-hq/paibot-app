@@ -1,6 +1,6 @@
 "use client";
 
-import { compact, decades, KINDS, monthly, niceTicks, records, type Kind, type Month, type Point, type StatItem } from "./breaches-stats";
+import { approximate, compact, decades, KINDS, monthly, niceTicks, records, treemap, type Kind, type Month, type Point, type StatItem, type Tile } from "./breaches-stats";
 
 import styles from "./breaches-charts.module.css";
 
@@ -187,6 +187,41 @@ function RecordsChart({ points, from, to, width }: { points: Point[]; from: numb
   );
 }
 
+function TreemapChart({ items, width }: { items: StatItem[]; width: number }) {
+  const t = useTranslations("App");
+  const locale = useLocale();
+  const [active, setActive] = useState<string | null>(null);
+  const height = Math.round(Math.min(480, Math.max(300, width * 0.6)));
+  const tiles = useMemo(() => treemap(items, width, height), [items, width, height]);
+  const shortName = (name: string) => name.split(/[()（）・\s]/).find(part => part.length >= 2) ?? name;
+  const label = (tile: Tile) => {
+    const max = Math.floor((tile.w - 10) / 12);
+    const name = shortName(tile.name);
+    return name.length > max ? `${name.slice(0, Math.max(0, max - 1))}…` : name;
+  };
+  const activeTile = tiles.find(tile => tile.id === active);
+  return (
+    <div className={styles.plot}>
+      <svg width={width} height={height} role="img" aria-label={t("breaches.chartTreemap")} data-chart="treemap">
+        {tiles.map(tile => (
+          <g key={tile.id} data-tile={tile.id} data-active={active === tile.id || undefined}>
+            <rect
+              x={tile.x} y={tile.y} width={tile.w} height={tile.h} className={styles.tile} data-kind={tile.type} tabIndex={0}
+              aria-label={`${tile.name}: ${tile.countNote}`}
+              onPointerEnter={() => setActive(tile.id)} onPointerLeave={() => setActive(null)} onFocus={() => setActive(tile.id)} onBlur={() => setActive(null)}
+            />
+            {tile.w >= 54 && tile.h >= 24 && <text x={tile.x + 6} y={tile.y + 16} className={styles.tileLabel} lang="ja">{label(tile)}</text>}
+            {tile.w >= 54 && tile.h >= 42 && <text x={tile.x + 6} y={tile.y + 32} className={styles.tileCount}>{t("breaches.dashCount", { value: approximate(tile.count, locale) })}</text>}
+          </g>
+        ))}
+      </svg>
+      {activeTile && (
+        <Tooltip width={width} tip={{ x: activeTile.x + activeTile.w / 2, y: Math.max(0, activeTile.y - 4), title: activeTile.name, rows: [{ label: activeTile.date }, { label: activeTile.countNote }] }} />
+      )}
+    </div>
+  );
+}
+
 // `items` are the ones shown (after the filters); `first` is the earliest date of the whole list and `until` the day it was last checked, so the axis stays.
 export default function BreachesCharts({ items, first, until }: { items: StatItem[]; first: string; until: string }) {
   const t = useTranslations("App");
@@ -213,6 +248,9 @@ export default function BreachesCharts({ items, first, until }: { items: StatIte
         ))}
       </div>
       <RecordsChart points={points} from={start} to={end} width={width} />
+      <h2 className={styles.title}>{t("breaches.chartTreemap")}</h2>
+      <p className={styles.help}>{t("breaches.chartTreemapHelp")}</p>
+      <TreemapChart items={items} width={width} />
       <p className={styles.help}>{t("breaches.chartNote")}</p>
       <details className={styles.table}>
         <summary>{t("breaches.tableView")}</summary>

@@ -129,6 +129,56 @@ export function summarize(items: SummaryItem[], asOf: string, { top = 5, bigCoun
   };
 }
 
+// ---- The treemap of every counted incident ----
+
+export type Tile = { id: string; name: string; date: string; type: string; count: number; countNote: string; x: number; y: number; w: number; h: number };
+
+// Lays the counted incidents out as a treemap (squarified: each row of tiles is cut off when adding the next tile would make the shapes worse),
+// largest first. The tile's area follows the square root of the count, with a floor of a fiftieth of the largest weight: the list spans seven
+// orders of magnitude, so a linear area would shrink everything under a million records to invisible slivers, while a logarithmic one flattens
+// the picture until the largest and the smallest look alike. The root keeps the ranking readable and the floor keeps every incident touchable.
+export function treemap(items: StatItem[], width: number, height: number): Tile[] {
+  const counted = items
+    .filter((item): item is StatItem & { count: number } => item.count !== null)
+    .sort((a, b) => b.count - a.count || a.date.localeCompare(b.date) || a.id.localeCompare(b.id));
+  if (!counted.length || width <= 0 || height <= 0) return [];
+  const roots = counted.map(item => Math.sqrt(Math.max(item.count, 1)));
+  const floor = Math.max(...roots) / 50;
+  const weights = roots.map(root => Math.max(root, floor));
+  const scale = (width * height) / weights.reduce((a, b) => a + b, 0);
+  const areas = weights.map(weight => weight * scale);
+  const tiles: Tile[] = [];
+  let x = 0, y = 0, w = width, h = height, start = 0;
+  while (start < counted.length) {
+    // Grow the row while the worst aspect ratio of its tiles improves.
+    const side = Math.min(w, h);
+    let end = start + 1, worst = Infinity;
+    for (let next = start + 1; next <= counted.length; next++) {
+      const row = areas.slice(start, next);
+      const sum = row.reduce((a, b) => a + b, 0);
+      const thickness = sum / side;
+      const ratio = Math.max(...row.map(area => { const other = area / thickness; return Math.max(thickness / other, other / thickness); }));
+      if (ratio > worst) break;
+      worst = ratio;
+      end = next;
+    }
+    const sum = areas.slice(start, end).reduce((a, b) => a + b, 0);
+    const thickness = sum / side;
+    let along = 0;
+    for (let i = start; i < end; i++) {
+      const length = areas[i] / thickness;
+      const item = counted[i];
+      tiles.push(w <= h
+        ? { id: item.id, name: item.name, date: item.date, type: item.type, count: item.count, countNote: item.countNote, x: x + along, y, w: length, h: thickness }
+        : { id: item.id, name: item.name, date: item.date, type: item.type, count: item.count, countNote: item.countNote, x, y: y + along, w: thickness, h: length });
+      along += length;
+    }
+    if (w <= h) { y += thickness; h -= thickness; } else { x += thickness; w -= thickness; }
+    start = end;
+  }
+  return tiles;
+}
+
 export type Severity = "critical" | "serious" | null;
 
 // How loudly the dashboard flags an incident, from its published number of records alone: ten million records or more is "critical", a million or

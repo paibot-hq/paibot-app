@@ -42,6 +42,15 @@ g[data-active] .seg { filter: brightness(1.15); }
 .dot[data-kind="outage"] { fill: var(--k-outage); }
 .dot[data-kind="fraud"] { fill: var(--k-fraud); }
 .dot[data-kind="other"] { fill: var(--k-other); }
+.tile { stroke: var(--c-surface); stroke-width: 2px; outline: none; }
+.tile[data-kind="leak"] { fill: var(--k-leak); }
+.tile[data-kind="ransomware"] { fill: var(--k-ransomware); }
+.tile[data-kind="outage"] { fill: var(--k-outage); }
+.tile[data-kind="fraud"] { fill: var(--k-fraud); }
+.tile[data-kind="other"] { fill: var(--k-other); }
+g[data-active] .tile, .tile:focus-visible { filter: brightness(1.2); }
+.tileLabel, .tileCount { fill: #ffffff; font-size: 11px; paint-order: stroke; stroke: rgba(0, 0, 0, .35); stroke-width: 2px; pointer-events: none; }
+.tileCount { font-variant-numeric: tabular-nums; opacity: .85; }
 .hit { fill: transparent; outline: none; cursor: default; }
 .hit:focus-visible { stroke: var(--c-ink); stroke-width: 2px; }
 .tip {

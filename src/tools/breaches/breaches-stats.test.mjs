@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { addDays, approximate, attention, compact, decades, monthly, niceTicks, percent, records, severity, summarize, timePosition } from './breaches-stats.ts';
+import { addDays, approximate, attention, compact, decades, monthly, niceTicks, percent, records, severity, summarize, timePosition, treemap } from './breaches-stats.ts';
 
 const data = JSON.parse(readFileSync(new URL('../../data/breaches.json', import.meta.url), 'utf8'));
 const item = (id, date, type = 'leak', count = null) => ({ id, name: id, date, type, count, countNote: '' });
@@ -149,4 +149,20 @@ test('attention leads with the largest of the last 30 days: counted and fully da
   assert.deepEqual(picks.map(i => i.id), ['biggest', 'big', 'small'], 'the window keeps the old one out, no count or no day keeps the rest out');
   assert.deepEqual(attention([], '2026-10-12'), []);
   assert.deepEqual(attention([entry('a', '2026-10-01', { count: 1 })], '2026-10-12', { top: 0 }), []);
+});
+
+test('the treemap tiles the whole rectangle with every counted incident, largest first, nothing outside, nothing overlapping', () => {
+  const tiles = treemap(data.items, 700, 420);
+  assert.equal(tiles.length, data.items.filter(i => i.count !== null).length, 'every counted incident has a tile');
+  assert.ok(tiles.every(t => t.x >= -1e-6 && t.y >= -1e-6 && t.x + t.w <= 700 + 1e-6 && t.y + t.h <= 420 + 1e-6), 'inside the rectangle');
+  const area = tiles.reduce((sum, t) => sum + t.w * t.h, 0);
+  assert.ok(Math.abs(area - 700 * 420) < 1, 'the tiles fill the rectangle');
+  for (let i = 1; i < tiles.length; i++) assert.ok(tiles[i - 1].count >= tiles[i].count, 'largest first');
+  for (const a of tiles) for (const b of tiles) if (a !== b) {
+    const overlapX = Math.min(a.x + a.w, b.x + b.w) - Math.max(a.x, b.x);
+    const overlapY = Math.min(a.y + a.h, b.y + b.h) - Math.max(a.y, b.y);
+    assert.ok(overlapX < 1e-6 || overlapY < 1e-6, `tiles ${a.id} and ${b.id} overlap`);
+  }
+  assert.deepEqual(treemap([], 700, 420), []);
+  assert.deepEqual(treemap([item('a', '2026-01-01', 'leak', null)], 700, 420), [], 'no count, no tile');
 });
