@@ -87,6 +87,71 @@ export function updated(weights: Weights, rate = LEARNING_RATE, x = X, target = 
   };
 }
 
+// ---------------------------------------------------------------------------
+// The same mathematics for any layer sizes: tanh hidden layers, one linear
+// output, squared-error loss. The film's "large network" runs on this; a unit
+// test checks the small network gives identical numbers through both paths.
+
+// weights[l][j][i] connects unit i of layer l to unit j of layer l + 1.
+export type Matrix = readonly (readonly number[])[];
+
+export type NetForward = {
+  // Per layer, the unit activations (layer 0 is the input itself).
+  acts: readonly (readonly number[])[];
+  y: number;
+  loss: number;
+};
+
+export function netForward(weights: readonly Matrix[], x: readonly number[], target: number): NetForward {
+  const acts: number[][] = [[...x]];
+  weights.forEach((layer, l) => {
+    const previous = acts[l];
+    const last = l === weights.length - 1;
+    acts.push(layer.map(row => {
+      const sum = row.reduce((total, w, i) => total + w * previous[i], 0);
+      return last ? sum : Math.tanh(sum);
+    }));
+  });
+  const y = acts[acts.length - 1][0];
+  return { acts, y, loss: (y - target) ** 2 };
+}
+
+// ∂L/∂w for every weight, by the same backward walk the film draws: the
+// output's gradient, handed layer by layer back through tanh.
+export function netGradients(weights: readonly Matrix[], x: readonly number[], target: number): number[][][] {
+  const { acts, y } = netForward(weights, x, target);
+  // delta[j]: ∂L/∂(pre-activation of unit j) in the layer being visited.
+  let delta = [2 * (y - target)];
+  const grads: number[][][] = [];
+  for (let l = weights.length - 1; l >= 0; l--) {
+    const below = acts[l];
+    grads[l] = weights[l].map((row, j) => row.map((_, i) => delta[j] * below[i]));
+    if (l > 0) {
+      delta = below.map((h, i) =>
+        weights[l].reduce((total, row, j) => total + delta[j] * row[i], 0) * (1 - h * h));
+    }
+  }
+  return grads;
+}
+
+export function netUpdated(weights: readonly Matrix[], x: readonly number[], target: number, rate: number): number[][][] {
+  const grads = netGradients(weights, x, target);
+  return weights.map((layer, l) => layer.map((row, j) => row.map((w, i) => w - rate * grads[l][j][i])));
+}
+
+// The large network the film can switch to: 2 inputs → 4 → 3 → 1, every
+// weight placed by hand. Shown as colours and thicknesses, not numbers.
+export const LARGE_X: readonly number[] = [0.8, -0.3];
+export const LARGE_TARGET = 0.5;
+// A smaller rate than the small network's: these weights start further out
+// (loss 1.479), and 0.1 closes the gap in the same six rounds the film plays.
+export const LARGE_RATE = 0.1;
+export const LARGE_WEIGHTS: readonly Matrix[] = [
+  [[0.9, -0.5], [-0.6, 0.7], [0.4, 0.9], [-0.9, -0.3]],
+  [[0.9, -0.5, 0.8, -0.6], [-0.8, 0.6, 0.4, 0.9], [0.5, 0.7, -0.9, 0.4]],
+  [[1.3, -1.0, 0.9]],
+];
+
 // Numbers as the page prints them: fixed decimals, ASCII '-' as a real minus.
 export function fmt(value: number, decimals = 3): string {
   const text = value.toFixed(decimals).replace('-', '−');

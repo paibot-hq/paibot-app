@@ -48,6 +48,19 @@ export default async function ({ page, main, go }) {
   await lab.getByText('0.187', { exact: true }).waitFor();
   assert.match(await narration.textContent(), /Press ▶ Play/);
 
+  // The large network: a further-out start (loss 1.479), and its own film
+  // closes the gap in the same six rounds.
+  await lab.getByRole('button', { name: 'Large 2-4-3-1' }).click();
+  await lab.getByText('y = 1.716', { exact: true }).waitFor();
+  await lab.getByText('1.479', { exact: true }).waitFor(); // the meter's loss
+  await lab.getByRole('button', { name: 'Play' }).click();
+  await page.clock.runFor(55000);
+  assert.match(await narration.textContent(), /Six rounds/);
+  await lab.getByText('0.000', { exact: true }).waitFor();
+  await lab.getByText('Round 6 / 6', { exact: true }).waitFor();
+  await lab.getByRole('button', { name: 'Small 1-2-1' }).click();
+  await lab.getByText('0.187', { exact: true }).waitFor();
+
   // The numeric check under the film: nudging a weight by 0.01 changes the
   // loss by about gradient × 0.01, at the initial weights.
   await main.getByText('Check it in numbers: move a weight by +0.01?', { exact: false }).click();

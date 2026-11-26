@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import {
-  INITIAL_WEIGHTS, LEARNING_RATE, NUDGE, TARGET, WEIGHT_IDS, X,
-  fmt, forward, gradientOf, gradients, nudgedLoss, updated,
+  INITIAL_WEIGHTS, LARGE_RATE, LARGE_TARGET, LARGE_WEIGHTS, LARGE_X, LEARNING_RATE, NUDGE, TARGET, WEIGHT_IDS, X,
+  fmt, forward, gradientOf, gradients, netForward, netGradients, netUpdated, nudgedLoss, updated,
 } from './backprop.ts';
 
 test('forward recomputes every displayed number from the constants', () => {
@@ -120,6 +120,46 @@ test('repeated updates converge, and a too-large rate overshoots', () => {
   assert.ok(overshoot > forward(INITIAL_WEIGHTS).loss, `${overshoot}`);
   // The strings the page prints around the η = 1 e2e check.
   assert.equal(fmt(updated(INITIAL_WEIGHTS, 1).w1), '0.208');
+});
+
+test('the generic network reproduces the small network exactly', () => {
+  const asNet = [[[INITIAL_WEIGHTS.w1], [INITIAL_WEIGHTS.w2]], [[INITIAL_WEIGHTS.v1, INITIAL_WEIGHTS.v2]]];
+  const net = netForward(asNet, [X], TARGET);
+  const small = forward(INITIAL_WEIGHTS);
+  assert.deepEqual(net.acts, [[X], [small.h1, small.h2], [small.y]]);
+  assert.equal(net.loss, small.loss);
+  const g = gradients(INITIAL_WEIGHTS);
+  assert.deepEqual(netGradients(asNet, [X], TARGET), [[[g.dw1], [g.dw2]], [[g.dv1, g.dv2]]]);
+  const next = netUpdated(asNet, [X], TARGET, LEARNING_RATE);
+  const expected = updated(INITIAL_WEIGHTS);
+  assert.deepEqual(next, [[[expected.w1], [expected.w2]], [[expected.v1, expected.v2]]]);
+});
+
+test('the large network: every gradient matches finite differences', () => {
+  const grads = netGradients(LARGE_WEIGHTS, LARGE_X, LARGE_TARGET);
+  const step = 1e-5;
+  LARGE_WEIGHTS.forEach((layer, l) => layer.forEach((row, j) => row.forEach((_, i) => {
+    const move = delta => LARGE_WEIGHTS.map((m, ml) => m.map((r, mj) => r.map((w, mi) =>
+      ml === l && mj === j && mi === i ? w + delta : w)));
+    const numeric = (netForward(move(step), LARGE_X, LARGE_TARGET).loss
+      - netForward(move(-step), LARGE_X, LARGE_TARGET).loss) / (2 * step);
+    const analytic = grads[l][j][i];
+    assert.ok(Math.abs(analytic - numeric) <= Math.max(1e-9, 1e-6 * Math.abs(numeric)), `W${l}[${j}][${i}]: ${analytic} vs ${numeric}`);
+  })));
+});
+
+test('the large network film: six rounds, losses strictly decreasing to about zero', () => {
+  let weights = LARGE_WEIGHTS;
+  const losses = [netForward(weights, LARGE_X, LARGE_TARGET).loss];
+  for (let i = 0; i < 6; i++) {
+    weights = netUpdated(weights, LARGE_X, LARGE_TARGET, LARGE_RATE);
+    losses.push(netForward(weights, LARGE_X, LARGE_TARGET).loss);
+  }
+  assert.deepEqual(losses.map(loss => fmt(loss)), ['1.479', '0.270', '0.060', '0.014', '0.003', '0.001', '0.000']);
+  for (let i = 1; i < losses.length; i++) assert.ok(losses[i] < losses[i - 1], `round ${i}`);
+  assert.ok(losses[6] < 0.0005, 'the film ends with the gap all but closed');
+  // The opening answer the meter prints.
+  assert.equal(fmt(netForward(LARGE_WEIGHTS, LARGE_X, LARGE_TARGET).y, 2), '1.72');
 });
 
 test('step 4: one update with the shown learning rate lowers the loss', () => {
