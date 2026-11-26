@@ -12,11 +12,12 @@ const flush = () => {
 };
 setInterval(flush, 24);
 
-// Boot images are fetched from the upstream projects, not redistributed in the app.
-// Integrity pins them: an upstream change fails visibly rather than silently changing the guest.
+// Boot images are served from the site itself (public/linux/; provenance and licences in public/linux/NOTICE.md): the
+// kernel's upstream host stopped sending CORS headers in November 2026, which left the terminal unable to boot.
+// Integrity pins them to the upstream builds, so a changed file fails visibly rather than silently changing the guest.
 const IMAGES = {
-  bios: { url: 'https://raw.githubusercontent.com/copy/v86/315b2b0b758703ef0e6cc7b4088d6068f83f3c20/bios/seabios.bin', integrity: 'sha256-c+PzWRAuOpmCw1/OmOt80I8YMDrH8bpuv75s3BwkTZg=' },
-  kernel: { url: 'https://i.copy.sh/buildroot-bzimage68.bin', integrity: 'sha256-UHp1nHCrekkKIzvkVNC1uIvGZ5VqQQtTHLTtwJHi6xw=' },
+  bios: { url: '/linux/seabios.bin', integrity: 'sha256-c+PzWRAuOpmCw1/OmOt80I8YMDrH8bpuv75s3BwkTZg=' },
+  kernel: { url: '/linux/buildroot-bzimage68.bin', integrity: 'sha256-UHp1nHCrekkKIzvkVNC1uIvGZ5VqQQtTHLTtwJHi6xw=' },
 };
 async function image(name: keyof typeof IMAGES) {
   const { url, integrity } = IMAGES[name];

@@ -53,11 +53,11 @@ export default async function ({ page, main, go }) {
   await run('while true; do :; done');
   await main.getByRole('button', { name: 'Stop', exact: true }).click();
   assert.equal(await status.getAttribute('data-linux-status'), 'stopped');
-  await page.route('https://i.copy.sh/**', route => route.abort());
+  await page.route('**/linux/buildroot-bzimage68.bin', route => route.abort());
   await main.getByRole('button', { name: 'Start Linux', exact: true }).click();
   await main.locator('[data-linux-status="error"]').waitFor({ timeout: 15000 });
   await main.getByRole('alert').waitFor();
-  await page.unroute('https://i.copy.sh/**');
+  await page.unroute('**/linux/buildroot-bzimage68.bin');
   await main.getByRole('button', { name: 'Start Linux', exact: true }).click();
   await ready();
   await run("printf 'recover%s\\n' ed");
