@@ -113,7 +113,8 @@ export default async function ({ page, main, go }) {
   assert.equal(await main.locator('[data-breach] [data-kind="ransomware"]').count(), 0, 'a ransomware is never "not an attack"');
   await main.locator('button[data-origin="insider"]').click();
   assert.ok(await cards.count() >= 2, 'insiders');
-  assert.match(await cards.first().locator('[data-breaches="origin-basis"]').innerText(), /内部不正/);
+  // The row is folded, so its detail is read from the page, not from what is on screen.
+  assert.match(await cards.first().locator('[data-breaches="origin-basis"]').textContent(), /内部不正/);
   await main.locator('button[data-origin="attack"]').click();
   assert.equal(await main.locator('[data-breaches="origin-basis"]').count(), 0, 'an attack has no such note');
   assert.ok(await cards.count() > 80, 'most incidents are attacks');
