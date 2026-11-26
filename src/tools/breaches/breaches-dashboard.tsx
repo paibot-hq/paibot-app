@@ -1,5 +1,6 @@
 "use client";
 
+import { TreemapChart, useWidth } from "./breaches-charts";
 import { approximate, attention, KINDS, percent, severity, summarize, type Kind, type SummaryItem } from "./breaches-stats";
 
 import styles from "./breaches-dashboard.module.css";
@@ -64,6 +65,7 @@ export default function BreachesDashboard({ items, asOf, onPick }: { items: Summ
   ];
 
   const heroes = useMemo(() => attention(items, asOf), [items, asOf]);
+  const [mapRef, mapWidth] = useWidth();
 
   return (
     <section className={styles.dash} aria-labelledby="breaches-dash-title" data-dash="root">
@@ -101,6 +103,11 @@ export default function BreachesDashboard({ items, asOf, onPick }: { items: Summ
             <span className={styles.kpiSub}>{kpi.sub}</span>
           </div>
         ))}
+      </div>
+      <div className={styles.map} ref={mapRef}>
+        <h3 className={styles.mapTitle}>{t("breaches.chartTreemap")}</h3>
+        <p className={styles.mapHelp}>{t("breaches.chartTreemapHelp")}</p>
+        <TreemapChart items={items} width={mapWidth} />
       </div>
       <div className={styles.groups}>
         {groups.map(group => (

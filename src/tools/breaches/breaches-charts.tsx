@@ -16,7 +16,7 @@ function topRounded(x: number, y: number, w: number, h: number, r: number) {
   return `M${x},${y + h}V${y + radius}Q${x},${y} ${x + radius},${y}H${x + w - radius}Q${x + w},${y} ${x + w},${y + radius}V${y + h}Z`;
 }
 
-function useWidth() {
+export function useWidth() {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(640);
   useEffect(() => {
@@ -187,7 +187,7 @@ function RecordsChart({ points, from, to, width }: { points: Point[]; from: numb
   );
 }
 
-function TreemapChart({ items, width }: { items: StatItem[]; width: number }) {
+export function TreemapChart({ items, width }: { items: StatItem[]; width: number }) {
   const t = useTranslations("App");
   const locale = useLocale();
   const [active, setActive] = useState<string | null>(null);
@@ -233,9 +233,6 @@ export default function BreachesCharts({ items, first, until }: { items: StatIte
 
   return (
     <section className={styles.charts} ref={ref} aria-label={t("breaches.chartsTitle")} data-chart="root">
-      <h2 className={styles.title}>{t("breaches.chartTreemap")}</h2>
-      <p className={styles.help}>{t("breaches.chartTreemapHelp")}</p>
-      <TreemapChart items={items} width={width} />
       <h2 className={styles.title}>{t("breaches.chartMonthly")}</h2>
       <div className={styles.legend}>
         {KINDS.map((k: Kind) => (

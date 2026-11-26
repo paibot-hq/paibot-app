@@ -58,6 +58,10 @@
 .kpiLabel { color: var(--d-ink2); font-size: .78rem; }
 .kpiValue { color: var(--d-ink); font-size: 1.9rem; line-height: 1.15; font-variant-numeric: tabular-nums; }
 .kpiSub { color: var(--d-muted); font-size: .72rem; }
+/* The treemap is drawn by the chart card's component; its tokens map onto this card's. */
+.map { --c-surface: var(--d-surface); --c-ink: var(--d-ink); --c-ink2: var(--d-ink2); --c-muted: var(--d-muted); --c-grid: var(--d-line); margin-top: 1.1rem; }
+.mapTitle { margin: 0 0 .2rem; color: var(--d-ink); font-size: .85rem; }
+.mapHelp { margin: 0 0 .5rem; color: var(--d-muted); font-size: .76rem; line-height: 1.6; }
 .groups, .lists { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 1rem 1.25rem; margin-top: 1.1rem; }
 .lists { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
 .group h3 { margin: 0 0 .4rem; color: var(--d-ink); font-size: .85rem; }
