@@ -1,0 +1,174 @@
+import assert from 'node:assert/strict';
+import { test } from 'node:test';
+import {
+  INITIAL_WEIGHTS, LARGE_RATE, LARGE_TARGET, LARGE_WEIGHTS, LARGE_X, LEARNING_RATE, NUDGE, TARGET, WEIGHT_IDS, X,
+  fmt, forward, gradientOf, gradients, netForward, netGradients, netUpdated, nudgedLoss, updated,
+} from './backprop.ts';
+
+test('forward recomputes every displayed number from the constants', () => {
+  const { a1, h1, a2, h2, y, loss } = forward(INITIAL_WEIGHTS);
+  // Independently, term by term.
+  assert.equal(a1, 0.75 * 0.8);
+  assert.equal(h1, Math.tanh(0.75 * 0.8));
+  assert.equal(a2, -0.5 * 0.8);
+  assert.equal(h2, Math.tanh(-0.5 * 0.8));
+  assert.equal(y, 1.1 * h1 + -0.9 * h2);
+  assert.equal(loss, (y - 0.5) ** 2);
+  assert.equal(X, 0.8);
+  assert.equal(TARGET, 0.5);
+});
+
+test('analytic gradients match central finite differences to 1e-6 relative', () => {
+  const grads = gradients(INITIAL_WEIGHTS);
+  const step = 1e-5;
+  for (const id of WEIGHT_IDS) {
+    const plus = forward({ ...INITIAL_WEIGHTS, [id]: INITIAL_WEIGHTS[id] + step }).loss;
+    const minus = forward({ ...INITIAL_WEIGHTS, [id]: INITIAL_WEIGHTS[id] - step }).loss;
+    const numeric = (plus - minus) / (2 * step);
+    const analytic = gradientOf(grads, id);
+    assert.ok(Math.abs(analytic - numeric) / Math.abs(numeric) < 1e-6, `${id}: ${analytic} vs ${numeric}`);
+  }
+});
+
+test('the intermediate chain-rule factors are each one local derivative', () => {
+  const { h1, h2, y } = forward(INITIAL_WEIGHTS);
+  const g = gradients(INITIAL_WEIGHTS);
+  assert.equal(g.dy, 2 * (y - TARGET));
+  assert.equal(g.dv1, g.dy * h1);
+  assert.equal(g.dv2, g.dy * h2);
+  assert.equal(g.dh1, g.dy * INITIAL_WEIGHTS.v1);
+  assert.equal(g.dh2, g.dy * INITIAL_WEIGHTS.v2);
+  assert.equal(g.da1, g.dh1 * (1 - h1 * h1));
+  assert.equal(g.da2, g.dh2 * (1 - h2 * h2));
+  assert.equal(g.dw1, g.da1 * X);
+  assert.equal(g.dw2, g.da2 * X);
+});
+
+test('the strings the page prints with fmt', () => {
+  const f = forward(INITIAL_WEIGHTS);
+  const g = gradients(INITIAL_WEIGHTS);
+  assert.deepEqual(
+    [f.a1, f.h1, f.a2, f.h2, f.y, f.loss].map(v => fmt(v)),
+    ['0.600', '0.537', '−0.400', '−0.380', '0.933', '0.187'],
+  );
+  assert.deepEqual(
+    [g.dy, g.dv1, g.dv2, g.dh1, g.dh2, g.da1, g.da2, g.dw1, g.dw2].map(v => fmt(v)),
+    ['0.865', '0.465', '−0.329', '0.952', '−0.779', '0.677', '−0.666', '0.542', '−0.533'],
+  );
+  assert.equal(fmt(f.loss, 4), '0.1872');
+  assert.equal(fmt(forward(updated(INITIAL_WEIGHTS)).loss, 4), '0.0529');
+  // The minus is U+2212, and a rounded zero never keeps a sign.
+  assert.equal(fmt(-0.5), '−0.500');
+  assert.equal(fmt(-0.00004), '0.000');
+});
+
+test('step 3: nudging a weight by 0.01 changes the loss by about gradient × 0.01', () => {
+  const base = forward(INITIAL_WEIGHTS).loss;
+  const grads = gradients(INITIAL_WEIGHTS);
+  for (const id of WEIGHT_IDS) {
+    const actual = nudgedLoss(INITIAL_WEIGHTS, id) - base;
+    const predicted = gradientOf(grads, id) * NUDGE;
+    assert.ok(Math.abs(actual - predicted) < 1e-4, `${id}: ${actual} vs ${predicted}`);
+    // And the page's five-decimal strings agree to the last digit ± rounding.
+    assert.ok(Math.abs(Number(fmt(actual, 5).replace('−', '-')) - Number(fmt(predicted, 5).replace('−', '-'))) < 1e-4, id);
+  }
+});
+
+test('the gradients stay right when the page parameters change', () => {
+  // A few settings reachable with the sliders (x, t and weights each off the defaults).
+  const settings = [
+    { x: 1.2, t: -0.4, weights: { w1: -0.8, w2: 0.3, v1: 0.5, v2: 1.4 } },
+    { x: -0.6, t: 0.9, weights: { w1: 1.5, w2: -1.5, v1: -1.1, v2: 0.2 } },
+    { x: 0.1, t: 0, weights: { w1: 0, w2: 0.05, v1: 1.5, v2: -0.9 } },
+  ];
+  const step = 1e-5;
+  for (const { x, t, weights } of settings) {
+    const grads = gradients(weights, x, t);
+    for (const id of WEIGHT_IDS) {
+      const plus = forward({ ...weights, [id]: weights[id] + step }, x, t).loss;
+      const minus = forward({ ...weights, [id]: weights[id] - step }, x, t).loss;
+      const numeric = (plus - minus) / (2 * step);
+      const analytic = gradientOf(grads, id);
+      assert.ok(Math.abs(analytic - numeric) <= Math.max(1e-10, 1e-6 * Math.abs(numeric)), `${id} at x=${x}, t=${t}`);
+    }
+    // nudgedLoss and updated honour the same x and t.
+    assert.equal(nudgedLoss(weights, 'v1', 0.01, x, t), forward({ ...weights, v1: weights.v1 + 0.01 }, x, t).loss);
+    assert.equal(updated(weights, 0.3, x, t).w2, weights.w2 - 0.3 * grads.dw2);
+  }
+});
+
+test('the six rounds the film plays: every loss it shows, strictly decreasing to about zero', () => {
+  // The film's weight sequence (SEQUENCE in backprop-view.tsx): round c plays
+  // on the c-th weights and its update frame reveals the next ones.
+  const sequence = [INITIAL_WEIGHTS];
+  for (let i = 0; i < 6; i++) sequence.push(updated(sequence[i]));
+  const losses = sequence.map(weights => forward(weights).loss);
+  assert.deepEqual(losses.map(loss => fmt(loss)), ['0.187', '0.053', '0.018', '0.006', '0.002', '0.001', '0.000']);
+  for (let i = 1; i < losses.length; i++) assert.ok(losses[i] < losses[i - 1], `round ${i}`);
+  assert.ok(losses[6] < 0.0005, 'the film ends with the gap all but closed');
+  // The final answer the meter prints sits on the target.
+  assert.equal(fmt(forward(sequence[6]).y, 2), '0.52');
+});
+
+test('repeated updates converge, and a too-large rate overshoots', () => {
+  let weights = INITIAL_WEIGHTS;
+  for (let i = 0; i < 6; i++) weights = updated(weights, LEARNING_RATE);
+  for (let i = 0; i < 94; i++) weights = updated(weights, LEARNING_RATE);
+  assert.ok(forward(weights).loss < 1e-6, 'loss after 100 updates');
+  // The largest rate the slider offers makes this loss go up, which the page points out.
+  const overshoot = forward(updated(INITIAL_WEIGHTS, 1.5)).loss;
+  assert.ok(overshoot > forward(INITIAL_WEIGHTS).loss, `${overshoot}`);
+  // The strings the page prints around the η = 1 e2e check.
+  assert.equal(fmt(updated(INITIAL_WEIGHTS, 1).w1), '0.208');
+});
+
+test('the generic network reproduces the small network exactly', () => {
+  const asNet = [[[INITIAL_WEIGHTS.w1], [INITIAL_WEIGHTS.w2]], [[INITIAL_WEIGHTS.v1, INITIAL_WEIGHTS.v2]]];
+  const net = netForward(asNet, [X], TARGET);
+  const small = forward(INITIAL_WEIGHTS);
+  assert.deepEqual(net.acts, [[X], [small.h1, small.h2], [small.y]]);
+  assert.equal(net.loss, small.loss);
+  const g = gradients(INITIAL_WEIGHTS);
+  assert.deepEqual(netGradients(asNet, [X], TARGET), [[[g.dw1], [g.dw2]], [[g.dv1, g.dv2]]]);
+  const next = netUpdated(asNet, [X], TARGET, LEARNING_RATE);
+  const expected = updated(INITIAL_WEIGHTS);
+  assert.deepEqual(next, [[[expected.w1], [expected.w2]], [[expected.v1, expected.v2]]]);
+});
+
+test('the large network: every gradient matches finite differences', () => {
+  const grads = netGradients(LARGE_WEIGHTS, LARGE_X, LARGE_TARGET);
+  const step = 1e-5;
+  LARGE_WEIGHTS.forEach((layer, l) => layer.forEach((row, j) => row.forEach((_, i) => {
+    const move = delta => LARGE_WEIGHTS.map((m, ml) => m.map((r, mj) => r.map((w, mi) =>
+      ml === l && mj === j && mi === i ? w + delta : w)));
+    const numeric = (netForward(move(step), LARGE_X, LARGE_TARGET).loss
+      - netForward(move(-step), LARGE_X, LARGE_TARGET).loss) / (2 * step);
+    const analytic = grads[l][j][i];
+    assert.ok(Math.abs(analytic - numeric) <= Math.max(1e-9, 1e-6 * Math.abs(numeric)), `W${l}[${j}][${i}]: ${analytic} vs ${numeric}`);
+  })));
+});
+
+test('the large network film: six rounds, losses strictly decreasing to about zero', () => {
+  let weights = LARGE_WEIGHTS;
+  const losses = [netForward(weights, LARGE_X, LARGE_TARGET).loss];
+  for (let i = 0; i < 6; i++) {
+    weights = netUpdated(weights, LARGE_X, LARGE_TARGET, LARGE_RATE);
+    losses.push(netForward(weights, LARGE_X, LARGE_TARGET).loss);
+  }
+  assert.deepEqual(losses.map(loss => fmt(loss)), ['1.479', '0.270', '0.060', '0.014', '0.003', '0.001', '0.000']);
+  for (let i = 1; i < losses.length; i++) assert.ok(losses[i] < losses[i - 1], `round ${i}`);
+  assert.ok(losses[6] < 0.0005, 'the film ends with the gap all but closed');
+  // The opening answer the meter prints.
+  assert.equal(fmt(netForward(LARGE_WEIGHTS, LARGE_X, LARGE_TARGET).y, 2), '1.72');
+});
+
+test('step 4: one update with the shown learning rate lowers the loss', () => {
+  const before = forward(INITIAL_WEIGHTS).loss;
+  const next = updated(INITIAL_WEIGHTS);
+  const grads = gradients(INITIAL_WEIGHTS);
+  assert.equal(next.w1, INITIAL_WEIGHTS.w1 - LEARNING_RATE * grads.dw1);
+  assert.equal(next.v2, INITIAL_WEIGHTS.v2 - LEARNING_RATE * grads.dv2);
+  const after = forward(next).loss;
+  assert.ok(after < before, `${after} < ${before}`);
+  assert.ok(after < before / 2, 'the drop is visible, not marginal');
+});

@@ -696,6 +696,18 @@ function ColorTrickIcon(props: SVGProps<SVGSVGElement>) {
   return <svg viewBox="0 0 24 24" {...props}><circle cx="9" cy="9" r="5" /><circle cx="15" cy="9" r="5" /><circle cx="12" cy="15" r="5" /></svg>;
 }
 
+function BackpropIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <path d="M6.5 12 15 6.5 M6.5 12 15 17.5 M15 6.5 19.5 12 M15 17.5 19.5 12" />
+      <circle cx="4.5" cy="12" r="2.5" />
+      <circle cx="15" cy="6.5" r="2.5" />
+      <circle cx="15" cy="17.5" r="2.5" />
+      <circle cx="21" cy="12" r="2" />
+    </svg>
+  );
+}
+
 function AttentionIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -711,6 +723,7 @@ function AttentionIcon(props: SVGProps<SVGSVGElement>) {
 const APP_ICONS: Record<AppSlug, Icon> = {
   "color-trick": ColorTrickIcon,
   "gradient-descent": GrapherIcon,
+  backprop: BackpropIcon,
   transformer: TransformerIcon,
   attention: AttentionIcon,
   math: MathIcon, quiz: QuizIcon, arith: ArithIcon,

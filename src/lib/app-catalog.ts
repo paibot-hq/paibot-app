@@ -58,6 +58,7 @@ export const APP_CATALOG = [
   { slug: "warnings", href: "/warnings", tags: ["info"], status: "published", messageKey: "warnings" },
   { slug: "approx", href: "/approx", tags: ["math", "game"], status: "published", messageKey: "approx", localOnly: true },
   { slug: "gradient-descent", href: GRADIENT_DESCENT_PATH, tags: ["math", "ai"], status: "published", messageKey: "gradientDescent", localOnly: true },
+  { slug: "backprop", href: "/backprop", tags: ["ai", "learn"], status: "published", messageKey: "backprop", localOnly: true },
   { slug: "transformer", href: "/transformer", tags: ["ai", "learn"], status: "published", messageKey: "transformer", localOnly: true },
   { slug: "attention", href: "/attention", tags: ["ai", "learn"], status: "published", messageKey: "attention", localOnly: true },
   { slug: "collector", href: "/collector", tags: ["math"], status: "published", messageKey: "collector", localOnly: true },
