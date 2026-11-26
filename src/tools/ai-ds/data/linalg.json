@@ -1,1 +1,551 @@
-{ "problems": [] }
+{
+  "problems": [
+    {
+      "id": "linalg-001",
+      "item": "matrices",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "2つのベクトル $\\mathbf{a} = (2, -1, 3)$ と $\\mathbf{b} = (4, 5, -2)$ の内積 $\\mathbf{a} \\cdot \\mathbf{b}$ はいくらか。",
+      "choices": [
+        "$-1$",
+        "$-3$",
+        "$19$",
+        "$9$"
+      ],
+      "answerIndex": 1,
+      "explanation": "内積は対応する成分どうしを掛けて足し合わせます。$2 \\times 4 + (-1) \\times 5 + 3 \\times (-2) = 8 - 5 - 6 = -3$ です。$19$ は符号をすべて正として足した値、$9$ は第3成分の符号を誤って $+6$ とした値、$-1$ は第2成分を $-5$ ではなく $-3$ と計算した誤りです。",
+      "check": {
+        "expr": "dot([2, -1, 3], [4, 5, -2])",
+        "values": [
+          -1,
+          -3,
+          19,
+          9
+        ]
+      }
+    },
+    {
+      "id": "linalg-002",
+      "item": "matrices",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "ベクトル $\\mathbf{v} = (3, -4, 0)$ の $L_2$ ノルム $\\|\\mathbf{v}\\|_2$ と $L_1$ ノルム $\\|\\mathbf{v}\\|_1$ の差 $\\|\\mathbf{v}\\|_1 - \\|\\mathbf{v}\\|_2$ はいくらか。",
+      "choices": [
+        "$2$",
+        "$-6$",
+        "$12$",
+        "$0$"
+      ],
+      "answerIndex": 0,
+      "explanation": "$L_1$ ノルムは絶対値の和なので $|3| + |-4| + |0| = 7$、$L_2$ ノルムは二乗和の平方根なので $\\sqrt{3^2 + (-4)^2 + 0^2} = \\sqrt{25} = 5$ です。したがって差は $7 - 5 = 2$ となります。$-6$ は絶対値を取らず $3 - 4 = -1$ とした誤り、$12$ は和を計算した値、$0$ は両ノルムが等しいとみなした誤りです。",
+      "check": {
+        "expr": "norm([3, -4, 0], 1) - norm([3, -4, 0], 2)",
+        "values": [
+          2,
+          -6,
+          12,
+          0
+        ]
+      }
+    },
+    {
+      "id": "linalg-003",
+      "item": "matrices",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "行列 $A = \\begin{pmatrix} 1 & 2 \\\\ 3 & 4 \\end{pmatrix}$、$B = \\begin{pmatrix} 2 & 0 \\\\ 1 & 5 \\end{pmatrix}$ の行列積 $C = AB$ について、$(2, 1)$ 成分（2行1列目）の値はいくらか。",
+      "choices": [
+        "$4$",
+        "$20$",
+        "$11$",
+        "$10$"
+      ],
+      "answerIndex": 3,
+      "explanation": "$C = AB$ の $(2, 1)$ 成分は、$A$ の第2行 $(3, 4)$ と $B$ の第1列 $(2, 1)^\\top$ の内積です。$3 \\times 2 + 4 \\times 1 = 6 + 4 = 10$ となります。$4$ は $(1, 1)$ 成分、$20$ は $(2, 2)$ 成分、$11$ は $BA$ の $(2, 1)$ 成分（積の順序を逆にした値）です。",
+      "check": {
+        "expr": "matmul([[1, 2], [3, 4]], [[2, 0], [1, 5]])[1][0]",
+        "values": [
+          4,
+          20,
+          11,
+          10
+        ]
+      }
+    },
+    {
+      "id": "linalg-004",
+      "item": "matrices",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "2つの行列 $A = \\begin{pmatrix} 2 & 3 \\\\ 1 & 4 \\end{pmatrix}$、$B = \\begin{pmatrix} 5 & -1 \\\\ 2 & 0 \\end{pmatrix}$ のアダマール積（要素積）$A \\odot B$ の全成分の和はいくらか。",
+      "choices": [
+        "$15$",
+        "$11$",
+        "$9$",
+        "$21$"
+      ],
+      "answerIndex": 2,
+      "explanation": "アダマール積 $A \\odot B$ は同じ位置の成分どうしを掛ける演算です。$A \\odot B = \\begin{pmatrix} 2\\times 5 & 3\\times(-1) \\\\ 1\\times 2 & 4\\times 0 \\end{pmatrix} = \\begin{pmatrix} 10 & -3 \\\\ 2 & 0 \\end{pmatrix}$ なので、全成分の和は $10 + (-3) + 2 + 0 = 9$ です。$21$ は通常の行列積 $AB$ の全成分の和（$16 - 2 + 13 - 1 = 26$ とは別の計算ミスや絶対値和の誤り）、$15$ は $-3$ を $+3$ とした誤り、$11$ は $(2,1)$ 成分を掛け忘れた誤りです。",
+      "check": {
+        "expr": "2*5 + 3*(-1) + 1*2 + 4*0",
+        "values": [
+          15,
+          11,
+          9,
+          21
+        ]
+      }
+    },
+    {
+      "id": "linalg-005",
+      "item": "matrices",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "バッチサイズ $32$、系列長 $128$、埋め込み次元 $512$ のテンソル $X$（形状 $(32, 128, 512)$）に、重み行列 $W$（形状 $(512, 64)$）を右から掛けて $XW$ を作るとき、出力テンソルの全要素数を $1024$ で割った値はいくらか。",
+      "choices": [
+        "$64$",
+        "$256$",
+        "$2048$",
+        "$512$"
+      ],
+      "answerIndex": 1,
+      "explanation": "最後の次元 $512$ が重み行列の行数 $512$ と縮約され、出力テンソルの形状は $(32, 128, 64)$ になります。全要素数は $32 \\times 128 \\times 64 = 262{,}144$ であり、$1024$ で割ると $262{,}144 / 1024 = 256$ です。$2048$ は出力次元を $512$ のままにした入力側の要素数 $/1024$、$512$ は $2$ 倍の計算ミス、$64$ はバッチサイズを掛け忘れた誤りです。",
+      "check": {
+        "expr": "32 * 128 * 64 / 1024",
+        "values": [
+          64,
+          256,
+          2048,
+          512
+        ]
+      }
+    },
+    {
+      "id": "linalg-006",
+      "item": "eigen",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "行列 $A = \\begin{pmatrix} 4 & 1 \\\\ 2 & 3 \\end{pmatrix}$ の大きい方の固有値はいくらか。",
+      "choices": [
+        "$5$",
+        "$2$",
+        "$7$",
+        "$10$"
+      ],
+      "answerIndex": 0,
+      "explanation": "固有方程式は $\\det(A - \\lambda I) = (4 - \\lambda)(3 - \\lambda) - 2 = \\lambda^2 - 7\\lambda + 10 = (\\lambda - 5)(\\lambda - 2) = 0$ です。固有値は $5$ と $2$ なので、大きい方は $5$ です。$2$ は小さい方の固有値、$7$ はトレース（固有値の和）、$10$ は行列式（固有値の積）です。",
+      "check": {
+        "expr": "eig2([[4, 1], [2, 3]])[0]",
+        "values": [
+          5,
+          2,
+          7,
+          10
+        ]
+      }
+    },
+    {
+      "id": "linalg-007",
+      "item": "eigen",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "行列 $A = \\begin{pmatrix} 5 & 2 \\\\ 2 & 2 \\end{pmatrix}$ のすべての固有値の積はいくらか。",
+      "choices": [
+        "$7$",
+        "$14$",
+        "$10$",
+        "$6$"
+      ],
+      "answerIndex": 3,
+      "explanation": "正方行列の固有値の積は行列式 $\\det(A)$ に等しくなります。$\\det(A) = 5 \\times 2 - 2 \\times 2 = 10 - 4 = 6$ です（固有値は $6$ と $1$ で積は $6$）。$7$ はトレース（固有値の和）、$14$ は非対角成分を引かずに足した値、$10$ は対角成分の積だけを取った誤りです。",
+      "check": {
+        "expr": "det([[5, 2], [2, 2]])",
+        "values": [
+          7,
+          14,
+          10,
+          6
+        ]
+      }
+    },
+    {
+      "id": "linalg-008",
+      "item": "eigen",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "対称行列 $A = \\begin{pmatrix} 3 & 0 \\\\ 0 & -4 \\end{pmatrix}$ の最大特異値 $\\sigma_1$ はいくらか。",
+      "choices": [
+        "$16$",
+        "$-4$",
+        "$4$",
+        "$3$"
+      ],
+      "answerIndex": 2,
+      "explanation": "特異値は $A^\\top A$ の固有値の非負の平方根です。$A^\\top A = \\begin{pmatrix} 9 & 0 \\\\ 0 & 16 \\end{pmatrix}$ の固有値は $16$ と $9$ なので、特異値は $\\sqrt{16}=4$ と $\\sqrt{9}=3$ となり、最大特異値は $4$ です。$3$ は符号付きのまま大きい固有値を選んだ誤り、$16$ は平方根を取り忘れた値、$-4$ は特異値が非負であることを見落とした誤りです。",
+      "check": {
+        "expr": "sqrt(eig2(matmul([[3, 0], [0, -4]], [[3, 0], [0, -4]]))[0])",
+        "values": [
+          16,
+          -4,
+          4,
+          3
+        ]
+      }
+    },
+    {
+      "id": "linalg-009",
+      "item": "eigen",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "主成分分析（PCA）で、2次元データの共分散行列が $\\Sigma = \\begin{pmatrix} 5 & 3 \\\\ 3 & 5 \\end{pmatrix}$ であった。第1主成分の寄与率（全分散に対する最大固有値の割合）はいくらか。",
+      "choices": [
+        "$0.60$",
+        "$0.80$",
+        "$0.20$",
+        "$0.50$"
+      ],
+      "answerIndex": 1,
+      "explanation": "$\\det(\\Sigma - \\lambda I) = (5-\\lambda)^2 - 9 = \\lambda^2 - 10\\lambda + 16 = (\\lambda - 8)(\\lambda - 2) = 0$ より固有値は $8$ と $2$ です。全分散はトレース $8 + 2 = 10$ なので、第1主成分の寄与率は $8 / 10 = 0.80$ です。$0.20$ は第2主成分の寄与率、$0.50$ は対角成分の比 $5/10$ と誤認した値、$0.60$ は非対角成分の比 $3/5$ を取った誤りです。",
+      "check": {
+        "expr": "eig2([[5, 3], [3, 5]])[0] / trace([[5, 3], [3, 5]])",
+        "values": [
+          0.6,
+          0.8,
+          0.2,
+          0.5
+        ],
+        "tol": 1e-06
+      }
+    },
+    {
+      "id": "linalg-010",
+      "item": "eigen",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "形状 $100 \\times 50$ の重み行列 $W$ を、特異値分解（SVD）の上位ランク $r = 4$ で低ランク近似 $W \\approx U_r \\Sigma_r V_r^\\top$（$U_r: 100\\times 4$、$\\Sigma_r$: 対角要素 $4$ 個、$V_r^\\top: 4\\times 50$）するとき、近似の保持に必要な要素数の合計はいくつか。",
+      "choices": [
+        "$604$",
+        "$5000$",
+        "$600$",
+        "$400$"
+      ],
+      "answerIndex": 0,
+      "explanation": "$U_r$ が $100 \\times 4 = 400$ 個、$\\Sigma_r$ の対角特異値が $4$ 個、$V_r^\\top$ が $4 \\times 50 = 200$ 個なので、合計 $400 + 4 + 200 = 604$ 個です（元の $5000$ 個から大幅に圧縮されます）。$5000$ は元の行列の要素数、$600$ は $\\Sigma_r$ の $4$ 個を数え忘れた値（$U_r \\Sigma_r$ を吸収する場合は $600$ ですが設問では3つを分けています）、$400$ は $U_r$ のみの要素数です。",
+      "check": {
+        "expr": "100 * 4 + 4 + 4 * 50",
+        "values": [
+          604,
+          5000,
+          600,
+          400
+        ]
+      }
+    },
+    {
+      "id": "linalg-011",
+      "item": "gradients",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "2変数関数 $f(x, y) = 3x^2 y + 2y^3$ について、点 $(x, y) = (2, 1)$ における偏微分係数 $\\frac{\\partial f}{\\partial x}$ の値はいくらか。",
+      "choices": [
+        "$18$",
+        "$6$",
+        "$14$",
+        "$12$"
+      ],
+      "answerIndex": 3,
+      "explanation": "$x$ で偏微分するときは $y$ を定数とみなします。$\\frac{\\partial f}{\\partial x} = 6xy$ なので、$(x, y) = (2, 1)$ を代入すると $6 \\times 2 \\times 1 = 12$ です。$18$ は $y$ で偏微分した値（$3x^2 + 6y^2 = 12 + 6 = 18$）、$6$ は $x$ を代入し忘れた値、$14$ は $2y^3$ の項の係数 $2$ を誤って足した値です。",
+      "check": {
+        "expr": "6 * 2 * 1",
+        "values": [
+          18,
+          6,
+          14,
+          12
+        ]
+      }
+    },
+    {
+      "id": "linalg-012",
+      "item": "gradients",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "関数 $L(w_1, w_2) = (w_1 - 3)^2 + 2(w_2 + 1)^2$ の点 $(w_1, w_2) = (5, 0)$ における勾配ベクトル $\\nabla L = \\left(\\frac{\\partial L}{\\partial w_1}, \\frac{\\partial L}{\\partial w_2}\\right)$ の $L_2$ ノルム $\\|\\nabla L\\|_2$ は小数第2位まででいくらか。",
+      "choices": [
+        "$8.00$",
+        "$4.47$",
+        "$5.66$",
+        "$4.00$"
+      ],
+      "answerIndex": 2,
+      "explanation": "$\\frac{\\partial L}{\\partial w_1} = 2(w_1 - 3) = 4$、$\\frac{\\partial L}{\\partial w_2} = 4(w_2 + 1) = 4$ なので、勾配ベクトルは $(4, 4)$ です。$L_2$ ノルムは $\\sqrt{4^2 + 4^2} = \\sqrt{32} \\approx 5.66$ です。$4.00$ は1成分のみの値、$8.00$ は $L_1$ ノルム（絶対値の和）、$4.47$ は第2成分を $2(w_2+1)=2$ と係数 $2$ を掛け忘れた場合のノルム $\\sqrt{20}$ です。",
+      "check": {
+        "expr": "norm([2*(5-3), 4*(0+1)], 2)",
+        "values": [
+          8.0,
+          4.47,
+          5.66,
+          4.0
+        ],
+        "tol": 0.005
+      }
+    },
+    {
+      "id": "linalg-013",
+      "item": "gradients",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "合成関数 $L = (z - 5)^2$、$z = 3w + 1$ について、$w = 2$ における微分 $\\frac{dL}{dw}$ を連鎖律で求めよ。",
+      "choices": [
+        "$-12$",
+        "$12$",
+        "$4$",
+        "$6$"
+      ],
+      "answerIndex": 1,
+      "explanation": "$w = 2$ のとき $z = 3(2) + 1 = 7$ です。連鎖律より $\\frac{dL}{dw} = \\frac{dL}{dz} \\cdot \\frac{dz}{dw} = 2(z - 5) \\cdot 3 = 2(7 - 5) \\cdot 3 = 12$ となります。$4$ は内側の微分 $\\frac{dz}{dw}=3$ を掛け忘れた値、$6$ は外側の係数 $2$ を落とした値、$-12$ は符号を誤った値です。",
+      "check": {
+        "expr": "2 * (3*2 + 1 - 5) * 3",
+        "values": [
+          -12,
+          12,
+          4,
+          6
+        ]
+      }
+    },
+    {
+      "id": "linalg-014",
+      "item": "gradients",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "損失 $L(w) = \\frac{1}{2}(2w - 6)^2$ に対し、初期値 $w_0 = 1$、学習率 $\\eta = 0.2$ で勾配降下法を 1 ステップ行った後の $w_1 = w_0 - \\eta \\frac{dL}{dw}(w_0)$ はいくらか。",
+      "choices": [
+        "$2.6$",
+        "$-0.6$",
+        "$1.8$",
+        "$1.4$"
+      ],
+      "answerIndex": 0,
+      "explanation": "$\\frac{dL}{dw} = (2w - 6) \\cdot 2 = 4w - 12$ です。$w_0 = 1$ での勾配は $4(1) - 12 = -8$ なので、$w_1 = 1 - 0.2 \\times (-8) = 1 + 1.6 = 2.6$ となります。$-0.6$ は勾配を引くのではなく足してしまった（勾配上昇した）値、$1.8$ は連鎖律の係数 $2$ を掛け忘れた場合、$1.4$ は学習率を $0.05$ と誤った値です。",
+      "check": {
+        "expr": "1 - 0.2 * (4*1 - 12)",
+        "values": [
+          2.6,
+          -0.6,
+          1.8,
+          1.4
+        ],
+        "tol": 1e-06
+      }
+    },
+    {
+      "id": "linalg-015",
+      "item": "gradients",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "入力 $x = 2$、重み $w = 1$ のとき、$z = wx$、$y = \\sigma(z) = \\frac{1}{1+e^{-z}}$、損失 $L = -\\ln y$（正解ラベル $1$ の交差エントロピー）とする。勾配 $\\frac{\\partial L}{\\partial w}$ を小数第2位までで求めよ。",
+      "choices": [
+        "$0.24$",
+        "$-0.12$",
+        "$-1.76$",
+        "$-0.24$"
+      ],
+      "answerIndex": 3,
+      "explanation": "連鎖律より $\\frac{\\partial L}{\\partial z} = \\frac{\\partial (-\\ln \\sigma(z))}{\\partial z} = -(1 - \\sigma(z)) = \\sigma(z) - 1$ です。$z = 2$ より $\\sigma(2) \\approx 0.8808$ なので $\\frac{\\partial L}{\\partial z} \\approx -0.1192$、さらに $\\frac{\\partial z}{\\partial w} = x = 2$ を掛けて $\\frac{\\partial L}{\\partial w} = 2(\\sigma(2) - 1) \\approx -0.2384 \\approx -0.24$ となります。$0.24$ は符号が逆、$-0.12$ は $x=2$ を掛け忘れた値、$-1.76$ は $-x\\sigma(2)$ と計算した誤りです。",
+      "check": {
+        "expr": "(sigmoid(2) - 1) * 2",
+        "values": [
+          0.24,
+          -0.12,
+          -1.76,
+          -0.24
+        ],
+        "tol": 0.005
+      }
+    },
+    {
+      "id": "linalg-016",
+      "item": "distances",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "2点 $\\mathbf{p} = (1, 5)$、$\\mathbf{q} = (4, 1)$ の間のユークリッド距離（$L_2$ 距離）はいくらか。",
+      "choices": [
+        "$25$",
+        "$4$",
+        "$5$",
+        "$7$"
+      ],
+      "answerIndex": 2,
+      "explanation": "差ベクトルは $\\mathbf{p} - \\mathbf{q} = (-3, 4)$ です。ユークリッド距離は $\\sqrt{(-3)^2 + 4^2} = \\sqrt{9 + 16} = \\sqrt{25} = 5$ です。$7$ はマンハッタン距離（$L_1$ 距離: $|-3|+|4|=7$）、$25$ は平方根を取り忘れた二乗距離、$4$ はチェビシェフ距離（$L_\\infty$ 距離: $\\max(3, 4)=4$）です。",
+      "check": {
+        "expr": "dist([1, 5], [4, 1], 2)",
+        "values": [
+          25,
+          4,
+          5,
+          7
+        ]
+      }
+    },
+    {
+      "id": "linalg-017",
+      "item": "distances",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "2点 $\\mathbf{p} = (2, -3, 1)$、$\\mathbf{q} = (-1, 1, 6)$ の間のマンハッタン距離（$L_1$ 距離）はいくらか。",
+      "choices": [
+        "$2$",
+        "$12$",
+        "$7.07$",
+        "$5$"
+      ],
+      "answerIndex": 1,
+      "explanation": "マンハッタン距離は各成分の差の絶対値の和です。$|2 - (-1)| + |-3 - 1| + |1 - 6| = 3 + 4 + 5 = 12$ です。$7.07$ はユークリッド距離（$\\sqrt{50}$）、$5$ はチェビシェフ距離（$\\max(3, 4, 5)$）、$2$ は絶対値を取らずに差を足した誤り（$3 - 4 - 5 = -6$ の絶対値違いなど）です。",
+      "check": {
+        "expr": "dist([2, -3, 1], [-1, 1, 6], 1)",
+        "values": [
+          2,
+          12,
+          7.07,
+          5
+        ]
+      }
+    },
+    {
+      "id": "linalg-018",
+      "item": "distances",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "2つの埋め込みベクトル $\\mathbf{u} = (3, 4)$、$\\mathbf{v} = (4, 3)$ のコサイン類似度 $\\cos\\theta = \\frac{\\mathbf{u} \\cdot \\mathbf{v}}{\\|\\mathbf{u}\\|_2 \\|\\mathbf{v}\\|_2}$ はいくらか。",
+      "choices": [
+        "$0.96$",
+        "$24$",
+        "$0.04$",
+        "$0.75$"
+      ],
+      "answerIndex": 0,
+      "explanation": "内積は $3 \\times 4 + 4 \\times 3 = 24$、ノルムは $\\|\\mathbf{u}\\|_2 = 5$、$\\|\\mathbf{v}\\|_2 = 5$ なので、コサイン類似度は $\\frac{24}{5 \\times 5} = \\frac{24}{25} = 0.96$ です。$24$ はノルムで割り忘れた内積そのもの、$0.04$ はコサイン距離（$1 - 0.96$）、$0.75$ は $3/4$ と誤認した値です。",
+      "check": {
+        "expr": "cosine([3, 4], [4, 3])",
+        "values": [
+          0.96,
+          24,
+          0.04,
+          0.75
+        ],
+        "tol": 1e-06
+      }
+    },
+    {
+      "id": "linalg-019",
+      "item": "distances",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "ベクトル $\\mathbf{a} = (1, 2, 2)$ と $\\mathbf{b} = (2, 4, 4)$ のコサイン類似度はいくらか。",
+      "choices": [
+        "$0.5$",
+        "$3.0$",
+        "$18.0$",
+        "$1.0$"
+      ],
+      "answerIndex": 3,
+      "explanation": "$\\mathbf{b} = 2\\mathbf{a}$ なので2つのベクトルは完全に同じ向きを向いています。内積は $1\\cdot 2 + 2\\cdot 4 + 2\\cdot 4 = 18$、$\\|\\mathbf{a}\\|_2 = 3$、$\\|\\mathbf{b}\\|_2 = 6$ より $\\frac{18}{3 \\times 6} = 1.0$ です。コサイン類似度はベクトルの長さ（スケール）に依存せず向きだけで決まります。$0.5$ は長さの比、$3.0$ はユークリッド距離、$18.0$ は内積です。",
+      "check": {
+        "expr": "cosine([1, 2, 2], [2, 4, 4])",
+        "values": [
+          0.5,
+          3.0,
+          18.0,
+          1.0
+        ],
+        "tol": 1e-06
+      }
+    },
+    {
+      "id": "linalg-020",
+      "item": "distances",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "2変量が無相関で、平均が $\\boldsymbol{\\mu} = (10, 50)$、標準偏差が $\\sigma_1 = 2$、$\\sigma_2 = 10$（共分散行列 $\\Sigma = \\operatorname{diag}(4, 100)$）の分布がある。点 $\\mathbf{x} = (14, 80)$ のマハラノビス距離 $\\sqrt{(\\mathbf{x}-\\boldsymbol{\\mu})^\\top \\Sigma^{-1} (\\mathbf{x}-\\boldsymbol{\\mu})}$ は小数第2位まででいくらか。",
+      "choices": [
+        "$13.00$",
+        "$5.00$",
+        "$3.61$",
+        "$30.27$"
+      ],
+      "answerIndex": 2,
+      "explanation": "無相関のときマハラノビス距離は各軸を標準偏差で割った標準化距離になります。$z_1 = (14-10)/2 = 2$、$z_2 = (80-50)/10 = 3$ より、$\\sqrt{2^2 + 3^2} = \\sqrt{13} \\approx 3.61$ です。$30.27$ はスケールを無視したユークリッド距離 $\\sqrt{4^2+30^2}$、$13.00$ は平方根を取り忘れた二乗マハラノビス距離、$5.00$ は $2+3$ と足し合わせた誤りです。",
+      "check": {
+        "expr": "sqrt(((14-10)/2)**2 + ((80-50)/10)**2)",
+        "values": [
+          13.0,
+          5.0,
+          3.61,
+          30.27
+        ],
+        "tol": 0.005
+      }
+    }
+  ]
+}

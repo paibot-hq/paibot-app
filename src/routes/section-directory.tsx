@@ -1,6 +1,7 @@
 import { useLoaderData, type LoaderFunctionArgs } from 'react-router';
 import { useLocale, useTranslations } from 'use-intl';
 import Card from '../components/app-card';
+import LearnHub from '../components/learn-hub';
 import PublicHead from '../components/public-head';
 import SiteFooter from '../components/site-footer';
 import styles from '../components/search-home.module.css';
@@ -46,6 +47,14 @@ export default function SectionDirectory() {
     .filter((app): app is AppEntry => app !== undefined)
     .map(app => <Card key={app.slug} app={app} td={td} locale={locale} signedIn={signedIn} favorited={favorites.has(app.slug)} />);
 
+  if (section === 'learn') {
+    return <>
+      <PublicHead locale={locale} path="/learn" title={`${title} | PAIBOT.app`} description={description} />
+      <LearnHub />
+      <SiteFooter year={new Date().getFullYear()} />
+    </>;
+  }
+
   return <>
     <PublicHead locale={locale} path={`/${section}`} title={`${title} | PAIBOT.app`} description={description} />
     <main className={`${styles.page} ${styles.all} ${styles.sectionPanel}`} data-section={section}>
@@ -65,10 +74,7 @@ export default function SectionDirectory() {
         {HOME_GROUPS[section].map(group => (
           <section key={group.id} className={styles.topicGroup} data-topic={group.id} aria-labelledby={`topic-${group.id}`}>
             <h2 id={`topic-${group.id}`}>{ts(`topics.${group.id}`)}</h2>
-            {group.id === 'artificialIntelligence' ? <Link href="/ai-ds" className={styles.shelfLead}>
-              <span><strong>{ts('learnAi')}</strong><small>{ts('learnAiBody')}</small></span>
-              <span aria-hidden="true">→</span>
-            </Link> : <ul>{cards(group.apps)}</ul>}
+            <ul>{cards(group.apps)}</ul>
           </section>
         ))}
       </div>

@@ -1,0 +1,239 @@
+.card {
+  width: min(100%, 720px);
+  box-sizing: border-box;
+  margin: 1.2rem auto 0;
+  padding: 1.1rem 1.2rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+  border-radius: var(--radius);
+  background: var(--surface);
+  display: grid;
+  gap: .9rem;
+}
+
+.head {
+  display: grid;
+  gap: .3rem;
+}
+
+.head h3 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 750;
+  line-height: 1.45;
+}
+
+.badge {
+  width: fit-content;
+  font-size: .72rem;
+  font-weight: 750;
+  padding: .12rem .55rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+  color: var(--accent);
+}
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .45rem;
+}
+
+.presets button {
+  padding: .35rem .7rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--text);
+  font: inherit;
+  font-size: .8rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.presets button:hover,
+.presets button[aria-pressed='true'],
+.toggleOn {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: 1rem;
+  align-items: center;
+}
+
+.controls {
+  display: grid;
+  gap: .75rem;
+}
+
+.sliderLabel {
+  display: grid;
+  gap: .35rem;
+  font-size: .86rem;
+}
+
+.sliderLabel input[type='range'] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.metricRow {
+  padding: .75rem .9rem;
+  border-radius: 10px;
+  border: 1px solid var(--line);
+  background: var(--bg);
+  display: grid;
+  gap: .35rem;
+}
+
+.metricRow[data-tone='good'] { border-color: #22c55e; }
+.metricRow[data-tone='mid'] { border-color: #f59e0b; }
+.metricRow[data-tone='bad'] { border-color: #ef4444; }
+
+.metricLabel {
+  display: block;
+  font-size: .76rem;
+  color: var(--muted);
+}
+
+.metricValue {
+  font-size: 1.6rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.metricRow[data-tone='good'] .metricValue { color: #22c55e; }
+.metricRow[data-tone='mid'] .metricValue { color: #f59e0b; }
+.metricRow[data-tone='bad'] .metricValue { color: #ef4444; }
+
+.verdict {
+  margin: 0;
+  font-size: .82rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.chart {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.axis { stroke: var(--line); stroke-width: 1; }
+.tick { fill: var(--muted); font-size: 9px; }
+.curve { stroke: var(--accent); stroke-width: 2.2; }
+.guide { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
+.dot { fill: var(--accent); }
+.dot[data-tone='good'] { fill: #22c55e; }
+.dot[data-tone='mid'] { fill: #f59e0b; }
+.dot[data-tone='bad'] { fill: #ef4444; }
+
+.attGrid {
+  display: grid;
+  gap: .7rem;
+}
+
+.tokenRow {
+  display: grid;
+  gap: .3rem;
+  padding: .65rem .8rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+}
+
+.tokenHead {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: .4rem;
+  font-size: .84rem;
+}
+
+.tokenHead span {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.tokenRow input[type='range'] {
+  width: 100%;
+  accent-color: var(--accent);
+}
+
+.barWrap {
+  position: relative;
+  height: 1.45rem;
+  border-radius: 6px;
+  background: var(--surface);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.barFill {
+  position: absolute;
+  inset: 0 auto 0 0;
+  background: color-mix(in srgb, var(--accent) 32%, transparent);
+  transition: width .12s ease;
+}
+
+.barText {
+  position: relative;
+  padding-left: .55rem;
+  font-size: .78rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.flowRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .5rem;
+}
+
+.flowBox {
+  flex: 1 1 9rem;
+  padding: .65rem .8rem;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  display: grid;
+  gap: .2rem;
+}
+
+.flowBox[data-grad] {
+  border-color: #c084fc;
+}
+
+.flowBox small {
+  font-size: .74rem;
+  color: var(--muted);
+}
+
+.flowBox strong {
+  font-size: 1.05rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.flowArrow {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.hint {
+  margin: 0;
+  font-size: .83rem;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+@media (max-width: 640px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

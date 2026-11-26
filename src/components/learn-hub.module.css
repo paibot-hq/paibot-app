@@ -1,0 +1,261 @@
+.page {
+  --section-tone: light-dark(#593ab8, #c4b5fd);
+  width: min(1000px, 100%);
+  margin: 0 auto;
+  padding: clamp(1rem, 4vh, 2.2rem) 1rem 3.5rem;
+  box-sizing: border-box;
+  display: grid;
+  gap: 2.25rem;
+}
+
+.header {
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.header h1 {
+  margin: 0 0 .35rem;
+  color: var(--section-tone);
+  font-size: clamp(1.9rem, 5vw, 2.8rem);
+}
+
+.header p {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+  max-width: 62ch;
+}
+
+.section {
+  display: grid;
+  gap: 1rem;
+}
+
+.sectionHeadRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: .5rem 1rem;
+}
+
+.sectionHeading {
+  margin: 0;
+  color: var(--text);
+  font-size: clamp(1.1rem, 2.6vw, 1.3rem);
+  font-weight: 800;
+  letter-spacing: .01em;
+}
+
+.sectionHeading::before {
+  content: "";
+  display: inline-block;
+  width: .3rem;
+  height: .95em;
+  margin-right: .55rem;
+  border-radius: 2px;
+  background: var(--section-tone);
+  vertical-align: -.12em;
+}
+
+.sectionMore {
+  font-size: .86rem;
+  font-weight: 600;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.sectionMore:hover,
+.sectionMore:focus-visible {
+  text-decoration: underline;
+  text-underline-offset: .18em;
+}
+
+/* Equal two-column subject cards */
+.courseGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.courseCard {
+  display: flex;
+  flex-direction: column;
+  gap: .85rem;
+  padding: 1.35rem 1.4rem;
+  border: 1px solid var(--line);
+  border-top: 3px solid var(--course-tone, var(--section-tone));
+  border-radius: 18px;
+  background: var(--surface-strong);
+  box-shadow: 0 8px 28px -22px var(--shadow);
+}
+
+.courseCard[data-course="math"] {
+  --course-tone: light-dark(#2563d6, #60a5fa);
+}
+
+.courseCard[data-course="ai-ds"] {
+  --course-tone: light-dark(#6d47e0, #c084fc);
+}
+
+.courseTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .45rem;
+}
+
+.courseBadge {
+  font-size: .74rem;
+  font-weight: 750;
+  padding: .16rem .6rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--course-tone) 15%, transparent);
+  color: var(--course-tone);
+}
+
+.metaRow {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .35rem;
+}
+
+.metaChip {
+  font-size: .74rem;
+  color: var(--muted);
+  padding: .14rem .5rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+}
+
+.courseTitle {
+  margin: 0;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.courseTitle a {
+  color: var(--text);
+  text-decoration: none;
+}
+
+.courseTitle a:hover,
+.courseTitle a:focus-visible {
+  color: var(--course-tone);
+}
+
+.courseDesc {
+  margin: 0;
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.65;
+}
+
+.shortcutsBlock {
+  display: grid;
+  gap: .45rem;
+  padding-top: .45rem;
+  border-top: 1px solid var(--line);
+}
+
+.shortcutsLabel {
+  font-size: .76rem;
+  font-weight: 700;
+  color: var(--muted);
+}
+
+.shortcuts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4rem;
+}
+
+.shortcutPill {
+  font-size: .82rem;
+  font-weight: 600;
+  padding: .3rem .68rem;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--bg);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color .15s ease, color .15s ease;
+}
+
+.shortcutPill:hover,
+.shortcutPill:focus-visible {
+  border-color: var(--course-tone);
+  color: var(--course-tone);
+}
+
+.courseFooter {
+  margin-top: auto;
+  padding-top: .35rem;
+}
+
+.courseCta {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .58rem 1rem;
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--course-tone) 14%, var(--surface));
+  color: var(--course-tone);
+  font-size: .88rem;
+  font-weight: 750;
+  text-decoration: none;
+  transition: background-color .15s ease;
+}
+
+.courseCta:hover,
+.courseCta:focus-visible {
+  background: color-mix(in srgb, var(--course-tone) 22%, var(--surface));
+}
+
+/* Lab strip */
+.labGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: .8rem;
+}
+
+.labCard {
+  display: grid;
+  align-content: start;
+  gap: .3rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--text);
+  text-decoration: none;
+  transition: border-color .15s ease;
+}
+
+.labCard:hover,
+.labCard:focus-visible {
+  border-color: light-dark(#006b79, #72d8df);
+}
+
+.labCard strong {
+  font-size: .95rem;
+  font-weight: 750;
+}
+
+.labCard span {
+  font-size: .82rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .courseGrid {
+    grid-template-columns: 1fr;
+  }
+  .labGrid {
+    grid-template-columns: 1fr;
+  }
+}
