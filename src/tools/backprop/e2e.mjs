@@ -7,9 +7,12 @@ export default async function ({ page, main, go }) {
   // The play animations run on timers, so drive them on the page's clock.
   await page.clock.install();
 
-  // Step 1, the forward pass: the hand-placed numbers settle into y and L.
+  // Step 1, the forward pass: the hand-placed numbers settle into y and L,
+  // and the gap meter shows the answer against the target.
   await lab.getByText('h₁ = tanh(a₁) = 0.537', { exact: true }).waitFor();
-  await lab.getByText(/y = 0\.933\. The squared difference .* L = 0\.187\./).waitFor();
+  await lab.getByText(/y = 0\.933\. The squared gap .* L = 0\.187\./).waitFor();
+  await lab.getByText("network's answer y = 0.93", { exact: true }).waitFor();
+  await lab.getByText('wanted answer t = 0.50', { exact: true }).waitFor();
 
   // Play hides the graph and lights it up again in computation order.
   await lab.getByRole('button', { name: 'Play' }).click();
@@ -30,6 +33,10 @@ export default async function ({ page, main, go }) {
   await lab.getByRole('button', { name: '③ Input side' }).click();
   await lab.getByText('∂L/∂w₁ = 0.542', { exact: true }).waitFor();
   await lab.getByText('∂L/∂w₂ = −0.533', { exact: true }).waitFor();
+  // The full stage draws the plain-words conclusion: which weight to turn which way.
+  await lab.getByText('Which weight to turn, and which way?').waitFor();
+  await lab.getByText('increasing it widens the gap → decrease it').first().waitFor();
+  await lab.getByText('increasing it shrinks the gap → increase it').first().waitFor();
 
   // Step 3: nudging a weight by 0.01 changes the loss by about gradient × 0.01.
   await lab.getByRole('button', { name: 'What gradients mean' }).click();

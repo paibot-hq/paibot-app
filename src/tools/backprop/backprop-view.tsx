@@ -31,6 +31,15 @@ const R = 20;
 // input-side edges, the hidden units, the output-side edges, then y and L.
 const FORWARD_PHASES = 5;
 
+// The gap meter's number line: y stays within ±3 for every slider setting
+// (|v₁| + |v₂| ≤ 3 and |h| < 1), t within ±1.
+const METER_MIN = -3;
+const METER_MAX = 3;
+const meterX = (value: number) => 16 + ((value - METER_MIN) / (METER_MAX - METER_MIN)) * 328;
+const clampLabel = (x: number) => Math.min(290, Math.max(70, x));
+// The loss bar is full at 0.6, a little above the initial 0.187.
+const lossShare = (loss: number) => Math.min(1, loss / 0.6);
+
 function Edge({ from, to, active }: { from: { x: number; y: number }; to: { x: number; y: number }; active?: boolean }) {
   const length = Math.hypot(to.x - from.x, to.y - from.y);
   const u = { x: (to.x - from.x) / length, y: (to.y - from.y) / length };
@@ -204,6 +213,28 @@ export default function BackpropView() {
       </details>
 
       <div className={styles.panel}>
+        {!backward && <div className={styles.meter} role="img" aria-label={t('meterLabel')}>
+          <svg viewBox="0 0 360 58" className={styles.meterScale}>
+            <line className={styles.meterAxis} x1={16} y1={36} x2={344} y2={36} />
+            <rect className={styles.meterGap} x={Math.min(meterX(f.y), meterX(target))} y={32}
+              width={Math.abs(meterX(f.y) - meterX(target))} height={8} rx={2} />
+            <g className={styles.meterTarget}>
+              <line x1={meterX(target)} y1={28} x2={meterX(target)} y2={44} />
+              <text x={clampLabel(meterX(target))} y={56} textAnchor="middle">{t('meterT')} t = {fmt(target, 2)}</text>
+            </g>
+            <g className={styles.meterAnswer}>
+              <line x1={meterX(f.y)} y1={28} x2={meterX(f.y)} y2={44} />
+              <text x={clampLabel(meterX(f.y))} y={18} textAnchor="middle">{t('meterY')} y = {fmt(f.y, 2)}</text>
+            </g>
+          </svg>
+          <div className={styles.lossRow}>
+            <span>{t('meterLoss')}</span>
+            <span className={styles.lossTrack}>
+              <span className={styles.lossFill} style={{ width: `${lossShare(f.loss) * 100}%` }} />
+            </span>
+            <strong>{fmt(f.loss)}</strong>
+          </div>
+        </div>}
         <svg viewBox="0 0 360 252" className={styles.net} role="img" aria-label={t(backward ? 'netBackward' : 'netForward')}>
           <defs>
             <marker id="backprop-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -296,6 +327,24 @@ export default function BackpropView() {
             </div>
           </div>
           <p className={styles.readout}>{t(`stageText.${STAGES[stage]}`)}</p>
+          {showIn && <div className={styles.impact}>
+            <p className={styles.impactTitle}>{t('impactTitle')}</p>
+            <ul className={styles.impactList}>
+              {WEIGHT_IDS.map(id => {
+                const value = gradientOf(g, id);
+                const top = Math.max(...WEIGHT_IDS.map(other => Math.abs(gradientOf(g, other))));
+                return <li key={id}>
+                  <span className={styles.impactName}>{WEIGHT_LABEL[id]}</span>
+                  <span className={styles.impactTrack}>
+                    <span className={value > 0 ? styles.impactFillUp : styles.impactFillDown}
+                      style={{ width: `${top > 0 ? (Math.abs(value) / top) * 100 : 0}%` }} />
+                  </span>
+                  <span className={styles.impactDir}>{t(value > 0 ? 'impactUp' : 'impactDown')}</span>
+                </li>;
+              })}
+            </ul>
+            <p className={styles.readout}>{t('impactNote')}</p>
+          </div>}
         </>}
 
         {step === 'nudge' && <>
@@ -305,6 +354,11 @@ export default function BackpropView() {
                 {WEIGHT_LABEL[id]}
               </button>)}
           </div>
+          <label className={styles.trySlider}>
+            <span>{WEIGHT_LABEL[weight]} = {fmt(weights[weight], 2)}</span>
+            <input type="range" min={-1.5} max={1.5} step={0.05} value={weights[weight]}
+              onChange={event => changeParam('initial', () => setWeights({ ...weights, [weight]: Number(event.target.value) }))} />
+          </label>
           <table className={styles.table} aria-label={t('nudgeTitle', { weight: WEIGHT_LABEL[weight] })}>
             <tbody>
               <tr><th scope="row">{t('analytic')} {GRAD_LABEL[weight]}</th><td>{fmt(grad)}</td></tr>
