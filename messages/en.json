@@ -3548,6 +3548,76 @@
         }
       ]
     },
+    "attention": {
+      "title": "Attention Visualizer",
+      "description": "Turn word arrows into q, k and v, then watch dot products, softmax and the weighted average update a word's meaning in 2D.",
+      "keywords": "attention transformer self-attention ChatGPT visualization",
+      "about": "An experiment that reproduces the attention mechanism at the heart of the Transformer with hand-placed two-dimensional vectors. Pick a sentence, tap a word, and follow three steps: dot-product scores between q and k, softmax percentages, and the weighted average of v that updates the word's meaning. The three Japanese sentences 眼鏡をかける, 電話をかける and 橋をかける show how context fixes the meaning of the same verb かける.",
+      "intro": "Each word's arrow x is multiplied by W_Q, W_K and W_V to make q, k and v. The dot product of the selected word's q with every word's k gives scores, softmax turns them into percentages, and the weighted average of v updates the meaning.",
+      "presets": "Choose a sentence",
+      "gloss": {
+        "cat": "“The cat ate the fish.” See which words たべた (ate) attends to.",
+        "glasses": "“Put on glasses.” When かける attends to 眼鏡 (glasses), its meaning settles on “put on”.",
+        "phone": "“Make a phone call.” The same verb かける, but the context changes the meaning.",
+        "bridge": "“Build a bridge.” Compare how the three sentences fix the meaning of かける."
+      },
+      "selectWord": "Choose a word",
+      "stepsLabel": "Steps",
+      "steps": {
+        "scores": "Dot-product scores",
+        "weights": "Softmax weights",
+        "output": "Update the meaning"
+      },
+      "planeScores": "The q of {word} in red and every word's k in blue",
+      "planeOutput": "The original vector of {word} and its updated meaning",
+      "wordHeader": "Word",
+      "scoreHeader": "Score q·k",
+      "scoresTitle": "Dot-product scores",
+      "weightsTitle": "How much {word} attends to each word",
+      "exampleNote": "The numbers are illustrative examples.",
+      "newVector": "New vector for {word}: ({x}, {y})",
+      "meaningLabel": "Meaning of かける:",
+      "meanings": {
+        "wear": "put on (wear)",
+        "call": "make a call",
+        "span": "build (a bridge across)"
+      },
+      "hint": {
+        "scores": "The red arrow is the q of {word}; the blue arrows are every word's k. The closer the directions, the larger the dot product.",
+        "weights": "Softmax turns the scores into percentages that sum to 100%. Larger gaps between scores become larger gaps between percentages.",
+        "output": "Mixing every word's v by these percentages gives the new vector for {word}. The dashed arrow is the original; the red arrow is the update."
+      },
+      "ruleTitle": "What is being computed?",
+      "rule": "Each word's vector x is multiplied by three matrices to make a question q, a label k and content v. The dot product of the selected word's q with each word's k scores how related they are.",
+      "softmaxText": "Softmax turns the scores into positive percentages that sum to one. Mixing every word's v by those percentages gives the selected word's new meaning vector.",
+      "contextText": "In a real Transformer the vectors have thousands of dimensions and this update repeats across many heads and layers. Here the numbers are hand-placed in 2D so the mechanism stays visible.",
+      "aiLesson": "Learn attention in the AI course",
+      "gdLab": "Try the gradient descent simulator",
+      "guide": [
+        {
+          "heading": "Compare the three かける",
+          "paragraphs": [
+            "Select かける in 眼鏡をかける, 電話をかける and 橋をかける: the largest percentage always lands on the context noun. In step 3 that noun's v pulls the arrow and the meaning label settles."
+          ]
+        },
+        {
+          "heading": "Why the particles get little attention",
+          "paragraphs": [
+            "The particles が and を are placed as short vectors, so their k is short and the dot-product scores stay small. Softmax widens the gap further, so attention gathers on the content words."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Are these numbers the same as in the real ChatGPT?",
+          "a": "No. The real model learns vectors with thousands of dimensions; here the numbers are hand-placed in 2D so the mechanism stays visible. The flow of the computation — dot products, softmax, weighted average — is the same."
+        },
+        {
+          "q": "Why does a word attend to itself?",
+          "a": "In self-attention the selected word's q also takes a dot product with its own k. That keeps part of the original meaning while mixing in the context words."
+        }
+      ]
+    },
     "gradientDescent": {
       "title": "Gradient Descent Simulator",
       "description": "Change the learning rate to see when a point approaches the minimum, overshoots, or moves away.",
