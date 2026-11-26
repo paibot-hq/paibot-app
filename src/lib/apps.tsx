@@ -320,6 +320,16 @@ function GrapherIcon(props: SVGProps<SVGSVGElement>) {
   );
 }
 
+function TransformerIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <rect x="4.5" y="9.5" width="15" height="5.5" rx="1.8" />
+      <path d="M7.5 20.5V15M12 20.5V15M16.5 20.5V15" />
+      <path d="M12 9.5v-5M9.8 6.7 12 4.5l2.2 2.2" />
+    </svg>
+  );
+}
+
 function PolyhedraIcon(props: SVGProps<SVGSVGElement>) {
   return (
     <svg viewBox="0 0 24 24" {...props}>
@@ -689,6 +699,7 @@ function ColorTrickIcon(props: SVGProps<SVGSVGElement>) {
 const APP_ICONS: Record<AppSlug, Icon> = {
   "color-trick": ColorTrickIcon,
   "gradient-descent": GrapherIcon,
+  transformer: TransformerIcon,
   math: MathIcon, quiz: QuizIcon, arith: ArithIcon,
   linux: CodeRunnerIcon, json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon, "llm-memory": LlmMemoryIcon, "code-runner": CodeRunnerIcon, sql: SqlIcon, "browser-ai": BrowserAiIcon,
   wc: WcIcon, password: PasswordIcon, "mosaic": MosaicIcon, stopwatch: StopwatchIcon, "business-card": CardIcon, resignation: ResignationIcon,
