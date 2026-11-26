@@ -75,7 +75,7 @@ export default function BreachesView({ list }: { list: Breaches }) {
 
   return (
     <ToolLayout title={t("breaches.title")}>
-      <p className={styles.intro}>{t("breaches.intro")}</p>
+      {/* The page explains itself in the tool header's description; a second introduction only pushed the dashboard down. */}
       <div className={styles.tabs} role="tablist" aria-label={t("breaches.mode")}>
         <button type="button" role="tab" id="breaches-tab-dashboard" aria-controls="breaches-panel-dashboard" aria-selected={tab === "dashboard"} className={styles.tab} onClick={() => choose("dashboard")} data-breaches="tab-dashboard">{t("breaches.tabDashboard")}</button>
         <button type="button" role="tab" id="breaches-tab-list" aria-controls="breaches-panel-list" aria-selected={tab === "list"} className={styles.tab} onClick={() => choose("list")} data-breaches="tab-list">{t("breaches.tabList")}</button>
