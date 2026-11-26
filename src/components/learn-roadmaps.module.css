@@ -479,3 +479,22 @@
   color: var(--muted);
   line-height: 1.45;
 }
+
+/* One click into the next unmastered topic, right under the progress bar. */
+.nextUp {
+  display: inline-flex;
+  align-items: baseline;
+  gap: .5rem;
+  justify-self: start;
+  padding: .5rem .85rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  color: var(--text);
+  font-size: .85rem;
+  text-decoration: none;
+}
+.nextUp span { color: var(--muted); font-size: .72rem; font-weight: 650; letter-spacing: .08em; }
+.nextUp strong { font-weight: 700; }
+.nextUp:hover, .nextUp:focus-visible { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, transparent); }
+.allDone { color: var(--success); font-size: .82rem; font-weight: 650; }

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router';
 import { useLocale } from 'use-intl';
 import { Link } from '../i18n/navigation';
@@ -40,6 +40,8 @@ const UI_TEXT = {
   nonePrereq: { ja: 'このロードマップの出発点です。ここから始められます。', en: 'Starting point in this roadmap.', zh: '本路线图的起点，可直接开始学习。' },
   noneUnlocks: { ja: 'このロードマップのゴールです！', en: 'Final goal of this roadmap!', zh: '本路线图的最终目标！' },
   clearSelection: { ja: '全体表示に戻す', en: 'Show all', zh: '返回全图' },
+  nextUp: { ja: '次に学ぶ', en: 'Up next', zh: '接下来学' },
+  allDone: { ja: 'このロードマップは全部理解済みです 🎉', en: 'Every topic here is mastered 🎉', zh: '本路线图已全部掌握 🎉' },
   clickHint: {
     ja: '上のマップから気になる単元をクリックすると、その前提と応用先が矢印で光り、ここに詳細とレッスンへのリンクが表示されます。',
     en: 'Click any node in the map above to highlight its prerequisites and unlocked topics, and see details here.',
@@ -154,6 +156,19 @@ export default function LearnRoadmaps() {
 
   const doneCount = allNodeIds.filter(id => done.includes(id)).length;
   const pct = allNodeIds.length > 0 ? Math.round((doneCount / allNodeIds.length) * 100) : 0;
+  // The first topic (in study order) not yet mastered: one click starts the learner there.
+  const nextNode = useMemo(() => {
+    const id = allNodeIds.find(candidate => !done.includes(candidate) && LEARN_NODES[candidate]);
+    return id ? LEARN_NODES[id] : null;
+  }, [allNodeIds, done]);
+
+  // Selecting a node answers with the inspector below the (tall) graph, so bring it into view.
+  const inspectorRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (!activeFocus || !inspectorRef.current) return;
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    inspectorRef.current.scrollIntoView({ block: 'nearest', behavior: reduced ? 'auto' : 'smooth' });
+  }, [activeFocus]);
 
   return (
     <section id="roadmap" className={styles.section} aria-labelledby="learn-roadmaps-heading">
@@ -195,6 +210,14 @@ export default function LearnRoadmaps() {
             <div className={styles.progressTrack} aria-hidden="true">
               <div className={styles.progressFill} style={{ width: `${pct}%` }} />
             </div>
+            {nextNode ? (
+              <Link href={nextNode.href} className={styles.nextUp}>
+                <span>{pickText(UI_TEXT.nextUp, locale)}</span>
+                <strong>{pickText(nextNode.title, locale)} →</strong>
+              </Link>
+            ) : (
+              <span className={styles.allDone}>{pickText(UI_TEXT.allDone, locale)}</span>
+            )}
           </div>
         </div>
 
@@ -348,7 +371,7 @@ export default function LearnRoadmaps() {
 
         {/* Selected Node Detail Inspector */}
         {selectedNode ? (
-          <div className={styles.inspector}>
+          <div className={styles.inspector} ref={inspectorRef}>
             <div className={styles.inspectorHead}>
               <div>
                 <span className={styles.kindBadge} data-kind={selectedNode.kind}>
