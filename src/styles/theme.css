@@ -1,15 +1,15 @@
 :root {
   color-scheme: light dark;
-  --bg: #0d1117;
-  --surface: rgba(22, 27, 34, .8);
-  --surface-strong: #161b22;
-  --text: #e6edf3;
-  --muted: #9aa4b0;
-  --line: #2a313c;
-  --accent: #6aa6ff;
-  --accent-dark: #a9caff;
-  --error: #f0776b;
-  --success: #45b06f;
+  --bg: #0e0f12;
+  --surface: rgba(21, 22, 27, .8);
+  --surface-strong: #15161b;
+  --text: #e7e6e2;
+  --muted: #94959c;
+  --line: #26282e;
+  --accent: #8aa8cc;
+  --accent-dark: #b4c8e2;
+  --error: #d98b82;
+  --success: #6aa386;
   --shadow: rgba(0, 0, 0, .4);
   --wrap: 1080px;
   --radius: 10px;
@@ -19,15 +19,17 @@
 
 html[data-theme="light"] {
   color-scheme: light;
-  --bg: #f6f7f9;
+  --bg: #f7f6f3;
   --surface: rgba(255, 255, 255, .9);
-  --surface-strong: #ffffff;
-  --text: #0f172a;
-  --muted: #586374;
-  --line: #e1e5eb;
-  --accent: #2563d6;
-  --accent-dark: #1a4aa6;
-  --shadow: rgba(15, 23, 42, .08);
+  --surface-strong: #fffefc;
+  --text: #1c1d21;
+  --muted: #65666c;
+  --line: #e4e2dc;
+  --accent: #41608f;
+  --accent-dark: #314b73;
+  --error: #b4554a;
+  --success: #3f7a5e;
+  --shadow: rgba(28, 29, 33, .07);
 }
 
 html[data-theme="dark"] {
@@ -37,15 +39,17 @@ html[data-theme="dark"] {
 @media (prefers-color-scheme: light) {
   html:not([data-theme="dark"]) {
     color-scheme: light;
-    --bg: #f6f7f9;
+    --bg: #f7f6f3;
     --surface: rgba(255, 255, 255, .9);
-    --surface-strong: #ffffff;
-    --text: #0f172a;
-    --muted: #586374;
-    --line: #e1e5eb;
-    --accent: #2563d6;
-    --accent-dark: #1a4aa6;
-    --shadow: rgba(15, 23, 42, .08);
+    --surface-strong: #fffefc;
+    --text: #1c1d21;
+    --muted: #65666c;
+    --line: #e4e2dc;
+    --accent: #41608f;
+    --accent-dark: #314b73;
+    --error: #b4554a;
+    --success: #3f7a5e;
+    --shadow: rgba(28, 29, 33, .07);
   }
 }
 
@@ -55,4 +59,4 @@ html[data-theme="dark"] {
 
 
 /* Japanese headings set with proportional widths (palt) read tighter and less like a form. */
-h1, h2, h3 { font-feature-settings: "palt" 1; letter-spacing: .01em; }
+h1, h2, h3 { font-feature-settings: "palt" 1; letter-spacing: .02em; font-weight: 650; }

@@ -19,7 +19,7 @@ export default function PracticeSetPage({ book, unit, item, set, next, questions
   const head = <title>{`${itemTitle} ${title} | ${tb('title')} | PAIBOT.app`}</title>;
   if (!questions.length) return <>
     {head}
-    <ToolLayout title={itemTitle} centerTitle aboveTitle={<PracticeBreadcrumb book={book} crumbs={crumbs} />}>
+    <ToolLayout title={itemTitle} aboveTitle={<PracticeBreadcrumb book={book} crumbs={crumbs} />}>
       <p className={styles.meta}>{title}</p>
       <p className={styles.preparing}>{tp('preparing')}</p>
     </ToolLayout>
