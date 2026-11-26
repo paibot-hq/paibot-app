@@ -66,19 +66,9 @@ resource "cloudflare_zero_trust_access_application" "paibot_app_dev" {
       name     = "paibot-app-dev owners only"
       decision = "allow"
 
-      # The people who may open the development site (dev.paibot.app).
-      include = [
-        {
-          email = {
-            email = "sanofc@gmail.com"
-          }
-        },
-        {
-          email = {
-            email = "admin@paibot.co.jp"
-          }
-        }
-      ]
+      # The people who may open the development site (dev.paibot.app): var.dev_access_emails, kept out of the
+      # public repository (the DEV_ACCESS_EMAILS repository variable in CI; see infra/README.md).
+      include = [for address in var.dev_access_emails : { email = { email = address } }]
     }
   ]
 }
