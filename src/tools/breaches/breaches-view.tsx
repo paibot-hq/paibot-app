@@ -74,7 +74,7 @@ export default function BreachesView({ list }: { list: Breaches }) {
   }, [entries, sort, kind, verification, origin, query]);
 
   return (
-    <ToolLayout title={t("breaches.title")}>
+    <ToolLayout title={t("breaches.title")} aboutWide>
       {/* The page explains itself in the tool header's description; the switch sits on a hairline, like the header's own tabs. */}
       <div className={styles.tabs} role="tablist" aria-label={t("breaches.mode")}>
         <button type="button" role="tab" id="breaches-tab-dashboard" aria-controls="breaches-panel-dashboard" aria-selected={tab === "dashboard"} className={styles.tab} onClick={() => choose("dashboard")} data-breaches="tab-dashboard">{t("breaches.tabDashboard")}</button>

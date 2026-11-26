@@ -12,6 +12,8 @@ type ToolLayoutProps = {
   children?: ReactNode;
   layout?: "stacked" | "centered" | "spacious";
   contentWidth?: "full" | "auto";
+  // A page whose content is wider than the usual column (the incident dashboard) widens the about section to match.
+  aboutWide?: boolean;
   // A breadcrumb-style link (or similar) above the title - e.g. "back to the
   // parent page" for a tool with sub-pages, like the math factorization set
   // picker/quiz. Rendered above <h1>, unlike children which render below it.
@@ -24,7 +26,7 @@ type ToolLayoutProps = {
 };
 
 export default function ToolLayout({
-  title, children, layout = "stacked", contentWidth = "full", aboveTitle, about = true, compact = false,
+  title, children, layout = "stacked", contentWidth = "full", aboveTitle, about = true, aboutWide = false, compact = false,
 }: ToolLayoutProps) {
   const t = useTranslations("App");
   const dynamic = t as unknown as DynamicT;
@@ -89,7 +91,7 @@ export default function ToolLayout({
       <div className={styles.content} data-layout={layout} data-width={contentWidth} hidden={showTabs && tab !== "app"}>
         {children}
       </div>
-      {about && app && !app.private && <ToolAbout app={app} tab={showTabs ? tab : "app"} />}
+      {about && app && !app.private && <ToolAbout app={app} tab={showTabs ? tab : "app"} wide={aboutWide} />}
     </main>
   );
 }
