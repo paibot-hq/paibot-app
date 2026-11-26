@@ -8,7 +8,7 @@ export default function Page() {
   const locale = useLocale();
   return <>
     <PublicHead locale={locale} path="/transformer" title={`${t('title')} | PAIBOT.app`} description={t('description')} />
-    <ToolLayout title={t('title')} centerTitle>
+    <ToolLayout title={t('title')}>
       <TransformerView />
     </ToolLayout>
   </>;
