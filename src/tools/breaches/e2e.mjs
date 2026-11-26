@@ -24,7 +24,8 @@ export default async function ({ page, main, go }) {
     assert.equal(counts.reduce((sum, n) => sum + Number(n), 0), data.items.length, `every incident is under one heading of "${group}"`);
   }
   assert.equal(await main.locator('[data-dash="root"] ol').count(), 2, 'the largest and the latest');
-  assert.equal(await main.locator('[data-dash="root"] [data-chart]').count(), 0, 'the summary has no chart of its own');
+  // The summary's one chart is the treemap: a tile for every incident with a published count.
+  assert.equal(await main.locator('[data-dash="root"] [data-tile]').count(), countOf(item => item.count !== null), 'a tile for every counted incident');
   assert.equal(await main.locator('[data-breaches="tab-dashboard"]').getAttribute('aria-selected'), 'true', 'the dashboard is the first tab');
   assert.equal(await cards.count(), 0, 'the list is the other tab');
 
