@@ -36,7 +36,12 @@
 .label { fill: var(--c-ink2); font-size: 11px; paint-order: stroke; stroke: var(--c-surface); stroke-width: 3px; }
 .seg { stroke: none; }
 g[data-active] .seg { filter: brightness(1.15); }
-.dot { fill: var(--k-leak); stroke: var(--c-surface); stroke-width: 2px; }
+.dot { fill: var(--c-muted); stroke: var(--c-surface); stroke-width: 2px; }
+.dot[data-kind="leak"] { fill: var(--k-leak); }
+.dot[data-kind="ransomware"] { fill: var(--k-ransomware); }
+.dot[data-kind="outage"] { fill: var(--k-outage); }
+.dot[data-kind="fraud"] { fill: var(--k-fraud); }
+.dot[data-kind="other"] { fill: var(--k-other); }
 .hit { fill: transparent; outline: none; cursor: default; }
 .hit:focus-visible { stroke: var(--c-ink); stroke-width: 2px; }
 .tip {

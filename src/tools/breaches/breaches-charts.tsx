@@ -133,11 +133,18 @@ function RecordsChart({ points, from, to, width }: { points: Point[]; from: numb
   const low = 10, high = 1e8;
   const y = (count: number) => margin.top + innerH - ((Math.log10(Math.max(count, low)) - Math.log10(low)) / (Math.log10(high) - Math.log10(low))) * innerH;
   const x = (position: number) => margin.left + ((position - from) / (to - from)) * innerW;
-  // The biggest are named on the chart (one on a phone). A name goes to the left of its dot when another named dot is just to its right, so that
-  // two names never sit on each other.
-  const named = [...points].sort((a, b) => b.count - a.count).slice(0, width < 560 ? 1 : 3).sort((a, b) => a.t - b.t);
-  const labelled = new Set(named.map(p => p.id));
+  // The biggest are named on the chart (two on a phone). A name goes to the left of its dot when another named dot is just to its right, and a
+  // name that would still sit on an earlier one (the biggest cluster in the same weeks) is pushed down until it clears it.
+  const named = [...points].sort((a, b) => b.count - a.count).slice(0, width < 560 ? 2 : 6).sort((a, b) => a.t - b.t);
   const toTheLeft = new Set(named.filter((p, i) => named[i + 1] && x(named[i + 1].t) - x(p.t) < 110).map(p => p.id));
+  const labels = new Map(named.map(p => {
+    const anchorEnd = x(p.t) > width * 0.7 || toTheLeft.has(p.id);
+    return [p.id, { lx: x(p.t) + (anchorEnd ? -9 : 9), ly: y(p.count), anchorEnd }];
+  }));
+  const placed = [...labels.values()].sort((a, b) => a.ly - b.ly);
+  for (let i = 1; i < placed.length; i++)
+    for (let j = 0; j < i; j++)
+      if (Math.abs(placed[i].lx - placed[j].lx) < 120 && placed[i].ly - placed[j].ly < 13) placed[i].ly = placed[j].ly + 13;
   const monthTicks = Array.from({ length: Math.round(to - from) }, (_, i) => from + i);
   const every = innerW / monthTicks.length < 34 ? 2 : 1;
   const shortName = (name: string) => name.split(/[()（）・\s]/).find(part => part.length >= 2) ?? name;
@@ -157,12 +164,12 @@ function RecordsChart({ points, from, to, width }: { points: Point[]; from: numb
           </text>
         ))}
         {points.map(p => {
-          const anchorEnd = x(p.t) > width * 0.7 || toTheLeft.has(p.id);
+          const label = labels.get(p.id);
           return (
             <g key={p.id} data-point={p.id}>
-              <circle cx={x(p.t)} cy={y(p.count)} r={active === p.id ? 7 : 5} className={styles.dot} />
-              {labelled.has(p.id) && (
-                <text x={x(p.t) + (anchorEnd ? -9 : 9)} y={y(p.count)} dy="0.32em" textAnchor={anchorEnd ? "end" : "start"} className={styles.label} lang="ja">{shortName(p.name)}</text>
+              <circle cx={x(p.t)} cy={y(p.count)} r={active === p.id ? 7 : p.count >= 1e7 ? 6 : 4.5} className={styles.dot} data-kind={p.type} />
+              {label && (
+                <text x={label.lx} y={label.ly} dy="0.32em" textAnchor={label.anchorEnd ? "end" : "start"} className={styles.label} lang="ja">{shortName(p.name)}</text>
               )}
               <circle
                 cx={x(p.t)} cy={y(p.count)} r={10} className={styles.hit} tabIndex={0} aria-label={`${p.name}: ${p.countNote}`}
@@ -200,6 +207,11 @@ export default function BreachesCharts({ items, first, until }: { items: StatIte
       <MonthlyChart months={months} width={width} />
       <h2 className={styles.title}>{t("breaches.chartRecords")}</h2>
       <p className={styles.help}>{t("breaches.chartRecordsHelp")}</p>
+      <div className={styles.legend}>
+        {KINDS.map((k: Kind) => (
+          <span key={k} className={styles.legendItem}><span className={styles.key} data-kind={k} aria-hidden="true" />{t(`breaches.${KIND_KEYS[k]}`)}</span>
+        ))}
+      </div>
       <RecordsChart points={points} from={start} to={end} width={width} />
       <p className={styles.help}>{t("breaches.chartNote")}</p>
       <details className={styles.table}>
