@@ -25,7 +25,8 @@ export default async function ({ page, main, go }) {
   }
   assert.equal(await main.locator('[data-dash="root"] ol').count(), 2, 'the largest and the latest');
   assert.equal(await main.locator('[data-dash="root"] [data-chart]').count(), 0, 'the summary has no chart of its own');
-  assert.ok(await cards.count() >= 60, 'the list follows the dashboard on the same page');
+  assert.equal(await main.locator('[data-breaches="tab-dashboard"]').getAttribute('aria-selected'), 'true', 'the dashboard is the first tab');
+  assert.equal(await cards.count(), 0, 'the list is the other tab');
 
   // The statistics are on the dashboard, under the summary: a column for every month, a dot for every incident with a published count, a tooltip on
   // hover and on keyboard focus, and a table with the same numbers. They show the whole list.
@@ -42,6 +43,8 @@ export default async function ({ page, main, go }) {
 
   // A row of the summary is a way into the list: it narrows the list to it, and the filter shows as pressed.
   await main.locator('[data-dash-row="kind:ransomware"]').click();
+  assert.equal(await main.locator('[data-breaches="tab-list"]').getAttribute('aria-selected'), 'true', 'the list opens');
+  assert.match(page.url(), /tab=list/);
   assert.equal(await cards.count(), countOf(item => item.type === 'ransomware'));
   assert.equal(await main.locator('button[data-kind="ransomware"]').getAttribute('aria-pressed'), 'true');
   await go('breaches');
@@ -55,8 +58,10 @@ export default async function ({ page, main, go }) {
   assert.ok(await main.locator('[data-breach] h2', { hasText: name }).count() >= 1, 'the incident is in the list');
   await go('breaches');
 
-  // The list holds the incidents newest first.
+  // The list is the second tab, with the incidents newest first and no charts.
+  await main.locator('[data-breaches="tab-list"]').click();
   assert.ok(await cards.count() >= 60, 'the incidents are listed');
+  assert.equal(await main.locator('[data-chart="root"]:visible').count(), 0, 'no charts on the list tab');
   // The first of each order is worked out from the data too, as a new incident can be the newest or the largest.
   const firstBy = compare => [...data.items].sort(compare)[0].id;
   assert.equal(await cards.first().getAttribute('data-breach'), firstBy((a, b) => b.date.localeCompare(a.date)), 'newest first');
@@ -78,14 +83,18 @@ export default async function ({ page, main, go }) {
   assert.ok(ransomware > 0 && ransomware < all, 'ransomware is a part of the list');
   assert.equal(await main.locator('[data-breach] [data-kind]:not([data-kind="ransomware"])').count(), 0);
 
-  // A reload starts the one page afresh, and the old tab links still land on it (?tab=list scrolls to the list; ?tab=stats was the statistics).
+  // The address keeps the list tab over a reload, and the dashboard is back with its own tab (the old ?tab=stats opens the dashboard too).
   await page.reload();
   await main.locator('[data-breaches="panel-list"]').waitFor();
-  assert.ok(await main.locator('[data-chart="root"]:visible').count() === 1, 'the charts are on the page');
-  assert.ok(await cards.count() >= 60, 'the whole list is back after a reload');
-  await page.goto(`${page.url().split('?')[0]}?tab=list`);
-  await main.locator('[data-breaches="panel-list"]').waitFor();
-  assert.ok(await cards.count() >= 60, 'an old list link still lands on the page');
+  assert.equal(await main.locator('[data-breaches="tab-list"]').getAttribute('aria-selected'), 'true', 'a reload keeps the list tab');
+  await main.locator('[data-breaches="tab-dashboard"]').click();
+  assert.doesNotMatch(page.url(), /tab=/);
+  assert.ok(await main.locator('[data-chart="root"]:visible').count() === 1, 'the statistics are on the dashboard');
+  assert.equal(await cards.count(), 0);
+  await page.goto(`${page.url().split('?')[0]}?tab=stats`);
+  assert.equal(await main.locator('[data-breaches="tab-dashboard"]').getAttribute('aria-selected'), 'true', 'an old link to the statistics opens the dashboard');
+  await main.locator('[data-breaches="tab-list"]').click();
+  assert.ok(await cards.count() >= 60);
 
   // The search finds a name, and says so when nothing matches.
   await main.locator('[data-breaches="query"]').fill('タイムズ');
@@ -121,5 +130,5 @@ export default async function ({ page, main, go }) {
     assert.match(await link.getAttribute('href'), /^https:\/\//);
     assert.match(await link.getAttribute('rel'), /noopener/);
   }
-  console.log('PASS: breaches dashboard (summary, charts, tooltips, table) and the list on one page, sorting, filters, search, safe source links');
+  console.log('PASS: breaches dashboard (summary, charts, tooltips, table) and list tabs, row expansion, sorting, filters, search, safe source links');
 }

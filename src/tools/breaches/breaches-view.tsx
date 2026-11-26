@@ -11,6 +11,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocale, useTranslations } from "use-intl";
 
 type Sort = "date" | "count";
+type Tab = "dashboard" | "list";
 type Kind = "leak" | "ransomware" | "outage" | "fraud" | "other";
 
 const KINDS: Kind[] = ["leak", "ransomware", "outage", "fraud", "other"];
@@ -30,6 +31,7 @@ export default function BreachesView({ list }: { list: Breaches }) {
   const first = useMemo(() => entries.reduce((min, item) => (item.date < min ? item.date : min), entries[0].date), [entries]);
   const t = useTranslations("App");
   const locale = useLocale();
+  const [tab, setTab] = useState<Tab>("dashboard");
   const [sort, setSort] = useState<Sort>("date");
   const [kind, setKind] = useState<Kind | "all">("all");
   const [query, setQuery] = useState("");
@@ -37,19 +39,24 @@ export default function BreachesView({ list }: { list: Breaches }) {
   const [origin, setOrigin] = useState<Origin | "all">("all");
   const statusRef = useRef<HTMLParagraphElement>(null);
 
-  // One page: the dashboard, then the list. An old ?tab=list link still lands on the list, by scrolling there.
+  // The dashboard is the page; the list is kept in the address (?tab=list), so a link opens the list. (The old ?tab=stats opens the dashboard, where the statistics are now.)
   useEffect(() => {
-    // After two frames, so the charts have taken their measured size and the list's position holds still.
-    if (new URLSearchParams(window.location.search).get("tab") === "list")
-      requestAnimationFrame(() => requestAnimationFrame(() => statusRef.current?.scrollIntoView({ block: "start" })));
+    if (new URLSearchParams(window.location.search).get("tab") === "list") setTab("list");
   }, []);
+  function choose(next: Tab) {
+    setTab(next);
+    const url = new URL(window.location.href);
+    if (next === "list") url.searchParams.set("tab", next); else url.searchParams.delete("tab");
+    window.history.replaceState(null, "", url);
+  }
 
-  // A click in the summary narrows the list to it (the other filters are cleared) and brings it into view.
+  // A click in the summary narrows the list to it (the other filters are cleared), opens the list and brings it into view.
   function showList(pick: Pick) {
     setKind(pick.kind ?? "all");
     setOrigin(pick.origin ?? "all");
     setVerification(pick.verification ?? "all");
     setQuery(pick.query ?? "");
+    choose("list");
     requestAnimationFrame(() => statusRef.current?.scrollIntoView({ block: "start", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" }));
   }
 
@@ -68,13 +75,17 @@ export default function BreachesView({ list }: { list: Breaches }) {
 
   return (
     <ToolLayout title={t("breaches.title")}>
-      {/* The page explains itself in the tool header's description; the dashboard opens it and the list follows on the same page. */}
-      <section className={styles.panel} aria-label={t("breaches.tabDashboard")} data-breaches="panel-dashboard">
+      {/* The page explains itself in the tool header's description; the switch sits on a hairline, like the header's own tabs. */}
+      <div className={styles.tabs} role="tablist" aria-label={t("breaches.mode")}>
+        <button type="button" role="tab" id="breaches-tab-dashboard" aria-controls="breaches-panel-dashboard" aria-selected={tab === "dashboard"} className={styles.tab} onClick={() => choose("dashboard")} data-breaches="tab-dashboard">{t("breaches.tabDashboard")}</button>
+        <button type="button" role="tab" id="breaches-tab-list" aria-controls="breaches-panel-list" aria-selected={tab === "list"} className={styles.tab} onClick={() => choose("list")} data-breaches="tab-list">{t("breaches.tabList")}</button>
+      </div>
+      {/* Both panels are always in the page (the one not shown is hidden), so the text of the list is there for search engines whichever tab opens. */}
+      <div role="tabpanel" className={styles.panel} id="breaches-panel-dashboard" aria-labelledby="breaches-tab-dashboard" hidden={tab !== "dashboard"} data-breaches="panel-dashboard">
         <BreachesDashboard items={entries} asOf={list.asOf} onPick={showList} />
         <BreachesCharts items={entries} first={first} until={list.asOf} />
-      </section>
-      <section className={styles.panel} aria-label={t("breaches.tabList")} data-breaches="panel-list">
-        <h2 className={styles.listTitle}>{t("breaches.tabList")}</h2>
+      </div>
+      <div role="tabpanel" className={styles.panel} id="breaches-panel-list" aria-labelledby="breaches-tab-list" hidden={tab !== "list"} data-breaches="panel-list">
         <div className={styles.bar}>
           <input type="search" className={styles.search} value={query} onChange={event => setQuery(event.target.value)} placeholder={t("breaches.search")} aria-label={t("breaches.search")} data-breaches="query" />
           <div role="radiogroup" aria-label={t("breaches.sort")} className={styles.sort}>
@@ -158,7 +169,7 @@ export default function BreachesView({ list }: { list: Breaches }) {
             </li>
           ))}
         </ul>
-      </section>
+      </div>
       <p className={styles.footnote}>{list.note}{locale !== "ja" && ` ${t("breaches.jaOnly")}`}</p>
       <p className={styles.footnote}>{t("breaches.tail")}</p>
       <p className={styles.footnote}>{t("breaches.advice")}</p>
