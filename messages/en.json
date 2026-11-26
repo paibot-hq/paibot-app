@@ -3570,11 +3570,11 @@
       "slope": "Slope f′(x)",
       "change": "Last change Δx",
       "examples": {
-        "slow": "Slow approach",
-        "steady": "Fast approach",
-        "oneStep": "One-step minimum",
+        "slow": "Approaches slowly",
+        "steady": "Approaches quickly",
+        "oneStep": "Minimum in one step",
         "crossing": "Crosses the valley",
-        "cycle": "Repeats",
+        "cycle": "Same swing forever",
         "diverging": "Moves away"
       },
       "status": {
@@ -3588,7 +3588,7 @@
       },
       "ruleTitle": "How is the next point chosen?",
       "rule": "Move opposite to the slope at the current point. Multiply that slope by the learning rate η and subtract the result from x.",
-      "compare": "Keep the starting point at 3 and compare learning rates 0.25, 0.75, 1, and 1.1. The point approaches the minimum, approaches while crossing the valley, repeats between two points, or moves away. The boundaries between these behaviours depend on the function.",
+      "compare": "Keep the starting point at 3 and try the example learning rates 0.05, 0.25, 0.5, 0.75, 1, and 1.1 in turn. The point approaches slowly, approaches quickly, reaches the minimum in a single step, approaches while crossing the valley, keeps bouncing with the same swing, or moves away. The boundaries between these behaviours depend on the function.",
       "adam": "The neural network in Approximation Showdown uses Adam, which adapts each weight update using past gradients.",
       "mathLesson": "Learn about slopes and tangents",
       "aiLesson": "Learn about AI optimization (in Japanese)",
