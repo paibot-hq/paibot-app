@@ -305,13 +305,7 @@
 .browse a:hover, .browse a:focus-visible { text-decoration: underline; text-underline-offset: .2em; }
 @media (max-width: 600px) { .page { padding-top: 1.5rem; } .introduction { font-size: .9rem; } }
 
-/* A card takes its colour from its app's first tag (data-tag), and so does that tag's chip on /apps; related tags share one. */
-[data-tag="game"], [data-tag="fortune"] { --cat: light-dark(#d1366f, #f585ad); }
-[data-tag="learn"], [data-tag="math"], [data-tag="science"] { --cat: light-dark(#6d47e0, #a98eff); }
-[data-tag="art"], [data-tag="sound"] { --cat: light-dark(#0b7f94, #3fc6dc); }
-[data-tag="text"], [data-tag="photo"], [data-tag="calc"], [data-tag="document"], [data-tag="security"] { --cat: light-dark(#2563d6, #74a9ff); }
-[data-tag="time"], [data-tag="info"] { --cat: light-dark(#0a8f6a, #3fd3a2); }
-[data-tag="dev"], [data-tag="network"], [data-tag="ai"] { --cat: light-dark(#c25e00, #ffb057); }
+/* The tag colours (--cat per data-tag) are global, in styles/content.css: the cards here, the chips on /apps and the tool pages' headers all use them. */
 @media (prefers-reduced-motion: reduce) { .all a { transition: none; } .all a:hover { transform: none; } }
 
 /* The top of the page: a light panel with a soft wash of blue, violet and peach and a faint dot grid (deep blue in the dark

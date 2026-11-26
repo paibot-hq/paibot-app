@@ -33,7 +33,7 @@ export default function MathTests({ loaderData: { tests } }: Route.ComponentProp
   const chip = (test: TestDef, label: string) => <li key={test.id}><Link href={`/math/test/${test.id}`} className={styles.chip}>{label}</Link></li>;
   return <>
     <title>{`${tt('title')} | PAIBOT.app`}</title>
-    <ToolLayout title={t('title')} centerTitle compact>
+    <ToolLayout title={t('title')} compact>
       <MathHomeHeader mode="test" />
       <Link href="/math/test/placement" className={styles.placement} data-math-placement>
         <span className={styles.placementName}>{tp('entry')}</span>

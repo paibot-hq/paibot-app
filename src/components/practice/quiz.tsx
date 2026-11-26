@@ -57,7 +57,7 @@ export default function PracticeQuiz({ book, title, setLabel, questions, crumbs,
     const nextLink = next && <Link href={next.href} className={perfect ? styles.primary : styles.secondary}>
       <span>{t('quiz.nextSet')}</span><span className={styles.nextLabel}>{next.label}</span>
     </Link>;
-    return <ToolLayout title={title} centerTitle compact aboveTitle={backLink}>
+    return <ToolLayout title={title} compact aboveTitle={backLink}>
       <div className={styles.quiz}>
         <p className={styles.setName}>{setLabel}</p>
         <p className={styles.score} aria-live="polite" data-perfect={perfect || undefined}>{t('quiz.resultCorrect', { correct: correctCount, total })}</p>

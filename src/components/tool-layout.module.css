@@ -1,57 +1,142 @@
 .page {
-  /* .favorite-button (content.css) positions itself absolutely relative to
-     this - no extra wrapper needed, same pairing as .app-card-wrap. */
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
   min-height: 60vh;
-  padding-top: 2.5rem;
+  padding-top: 1.5rem;
   gap: 1.5rem;
+}
+
+/* The tool's header: icon, name and one-line description on the left, the
+   on-device badge and the favourite star on the right, left-aligned like an
+   app's own toolbar rather than a centered heading. The tabs (app / guide /
+   FAQ), when the tool has them, sit on the header's bottom rule. */
+.head {
+  display: grid;
+  gap: .4rem;
+  width: 100%;
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 1.1rem;
+}
+
+.head[data-tabs] { padding-bottom: 0; gap: .8rem; }
+
+.headRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: .85rem;
+  min-width: 0;
+}
+
+/* Same treatment as the cards' icons (search-home.module.css .all a svg):
+   the app's tag colour on a soft square of the same colour. */
+.icon {
+  flex: none;
+  box-sizing: content-box;
+  width: 22px;
+  height: 22px;
+  padding: 10px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--cat, var(--accent)) 14%, transparent);
+  fill: none;
+  stroke: var(--cat, var(--accent-dark));
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.titles {
+  display: grid;
+  gap: .2rem;
+  min-width: 0;
 }
 
 .title {
   margin: 0;
-  color: var(--accent);
-  font-size: 1.5rem;
+  color: var(--text);
+  font-size: 1.3rem;
   font-weight: 700;
-  letter-spacing: .04em;
+  line-height: 1.3;
+  letter-spacing: .01em;
 }
 
-.title[data-centered] { text-align: center; }
+.tagline {
+  display: -webkit-box;
+  margin: 0;
+  color: var(--muted);
+  font-size: .84rem;
+  line-height: 1.5;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.aside {
+  display: flex;
+  flex: none;
+  align-items: center;
+  gap: .6rem;
+}
+
+/* Inline in the header instead of content.css's absolute corner position. */
+.aside :global(.favorite-button) {
+  position: static;
+}
+
+.localBadge {
+  font-size: .68rem;
+  font-weight: 650;
+  line-height: 1.3;
+  padding: .14rem .5rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, light-dark(#0a8f6a, #3fd3a2) 14%, transparent);
+  color: light-dark(#0a8f6a, #3fd3a2);
+  white-space: nowrap;
+}
 
 .tabs {
-  display: inline-flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: .3rem;
-  padding: .25rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface);
+  display: flex;
+  gap: 1.3rem;
+  margin-bottom: -1px;
+  overflow-x: auto;
 }
 
 .tab {
-  padding: .35rem .95rem;
+  min-height: 0;
+  padding: .1rem .1rem .65rem;
   border: 0;
-  border-radius: 999px;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
   background: transparent;
   color: var(--muted);
   font: inherit;
-  font-size: .85rem;
+  font-size: .88rem;
   font-weight: 650;
+  white-space: nowrap;
   cursor: pointer;
 }
 
-.tab:hover, .tab:focus-visible {
+.tab:hover {
   color: var(--text);
-  outline: none;
+}
+
+.tab:focus-visible {
+  color: var(--text);
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
 }
 
 .tab[aria-selected="true"] {
-  background: var(--surface-strong);
   color: var(--text);
-  box-shadow: 0 1px 2px var(--shadow);
+  border-bottom-color: var(--cat, var(--accent));
 }
 
 .content {
@@ -78,6 +163,9 @@
 .content[data-width="auto"] { width: auto; }
 
 @media (max-width: 640px) {
-  .page[data-compact] { padding-top: 1rem; gap: .6rem; }
-  .page[data-compact] .title { font-size: 1.2rem; }
+  .page { padding-top: 1rem; }
+  .icon { width: 20px; height: 20px; padding: 9px; }
+  .title { font-size: 1.12rem; }
+  .tagline { font-size: .8rem; }
+  .page[data-compact] { gap: .8rem; }
 }

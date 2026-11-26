@@ -51,7 +51,7 @@ function QuizGame({ locale }: { locale: string }) {
   }
   function back() { setQuestions([]); setAnswers([]); setSelected(null); setFailed(false); }
   return <><PublicHead locale={locale} path="/quiz" title={`${t('title')} | PAIBOT.app`} description={t('description')} />
-    <ToolLayout title={t('title')} centerTitle><div className={styles.quiz}>
+    <ToolLayout title={t('title')}><div className={styles.quiz}>
       {!questions.length ? <>
         <p className={styles.intro}>{t('intro')}</p><p className={styles.note}>{t('note')}</p>
         {failed && <p role="alert">{t('loadError')}</p>}

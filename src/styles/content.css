@@ -424,3 +424,12 @@ footer {
 /* The star sits in the card's corner: keep the title clear of it. */
 .app-card-wrap { list-style: none; }
 .app-card-wrap .app-card > :first-child { padding-right: 2.4rem; }
+
+/* An app's colour comes from its first tag (data-tag): the cards on the top page and /apps, the tag chips there, and the
+   tool pages' headers (tool-layout.module.css) all read --cat from these; related tags share one. */
+[data-tag="game"], [data-tag="fortune"] { --cat: light-dark(#d1366f, #f585ad); }
+[data-tag="learn"], [data-tag="math"], [data-tag="science"] { --cat: light-dark(#6d47e0, #a98eff); }
+[data-tag="art"], [data-tag="sound"] { --cat: light-dark(#0b7f94, #3fc6dc); }
+[data-tag="text"], [data-tag="photo"], [data-tag="calc"], [data-tag="document"], [data-tag="security"] { --cat: light-dark(#2563d6, #74a9ff); }
+[data-tag="time"], [data-tag="info"] { --cat: light-dark(#0a8f6a, #3fd3a2); }
+[data-tag="dev"], [data-tag="network"], [data-tag="ai"] { --cat: light-dark(#c25e00, #ffb057); }

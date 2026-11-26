@@ -18,7 +18,7 @@ export default function PracticeHome({ book, exam, playable }: { book: PracticeB
   ];
   return <>
     <title>{`${tb('title')} | PAIBOT.app`}</title>
-    <ToolLayout title={tb('title')} centerTitle compact>
+    <ToolLayout title={tb('title')} compact>
       <p className={styles.description}>{tb('description')}</p>
       <nav className={styles.filter} aria-label={tp('examFilter')}>
         <ul className={styles.chips}>

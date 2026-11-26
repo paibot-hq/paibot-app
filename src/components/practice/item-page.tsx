@@ -27,7 +27,7 @@ export default function PracticeItemPage({ book, unit, item, exams, lesson, neig
   const start = sets.find(set => set.ready);
   return <>
     <title>{`${title} | ${t('title')} | PAIBOT.app`}</title>
-    <ToolLayout title={title} centerTitle aboveTitle={<PracticeBreadcrumb book={book} crumbs={[{ label: title }]} />}>
+    <ToolLayout title={title} aboveTitle={<PracticeBreadcrumb book={book} crumbs={[{ label: title }]} />}>
       <p className={page.unit}><Link href={`${book.base}#unit-${unit}`}>{t(`units.${unit}.title`)}</Link></p>
       <p className={styles.metaTags}><ExamTags book={book} exams={exams} /></p>
       <h2 className={page.about}>{ti('about')}</h2>

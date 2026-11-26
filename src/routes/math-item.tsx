@@ -72,7 +72,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
   const shown = (style?: FormulaStyle) => style ?? (grade?.startsWith('e') ? 'times' : undefined);
   return <>
     {published ? <PublicHead locale={locale} path={`/math/${unitId}/${itemId}`} title={head} description={description} /> : <title>{head}</title>}
-    <ToolLayout title={title} centerTitle aboveTitle={<MathBreadcrumb crumbs={[{ label: unitTitle, href: `/math/${unitId}` }, { label: title }]} />}>
+    <ToolLayout title={title} aboveTitle={<MathBreadcrumb crumbs={[{ label: unitTitle, href: `/math/${unitId}` }, { label: title }]} />}>
       <p className={styles.unit}><Link href={`/math/${unitId}`}>{unitTitle}</Link></p>
       {grade && <p className={styles.grade}>{t('gradeLabel', { grade: t(`grades.${grade}`) })}</p>}
       <h2 className={styles.about}>{ti('about')}</h2>
