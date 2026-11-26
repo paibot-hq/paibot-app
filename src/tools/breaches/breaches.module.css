@@ -14,7 +14,25 @@
 .sort { display: flex; gap: .25rem; }
 .sort button { padding: .25rem .75rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--text); font: inherit; cursor: pointer; }
 .sort button[aria-pressed="true"] { border-color: var(--accent); font-weight: 700; }
-.list { display: grid; gap: .75rem; width: min(720px, 100%); margin: 0; padding: 0; list-style: none; }
+.list { display: grid; gap: .35rem; width: min(720px, 100%); margin: 0; padding: 0; list-style: none; }
+.entry { border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
+.entryRow { display: grid; grid-template-columns: 5.6em minmax(0, 1fr) auto auto; align-items: baseline; gap: .2rem .7rem; padding: .5rem .75rem; cursor: pointer; list-style: none; }
+.entryRow::-webkit-details-marker { display: none; }
+.entryRow:hover { background: color-mix(in srgb, var(--text) 4%, transparent); border-radius: var(--radius); }
+.entryRow time { color: var(--muted, inherit); font-size: .8rem; font-variant-numeric: tabular-nums; }
+.entryRow h2 { display: flex; align-items: center; gap: .45rem; margin: 0; font-size: .92rem; font-weight: 600; min-width: 0; overflow-wrap: anywhere; }
+.entryDot { flex: none; width: 9px; height: 9px; border-radius: 2px; background: var(--muted, #888); }
+.entryDot[data-kind="leak"] { background: light-dark(#2a78d6, #3987e5); }
+.entryDot[data-kind="ransomware"] { background: light-dark(#eb6834, #d95926); }
+.entryDot[data-kind="outage"] { background: light-dark(#1baf7a, #199e70); }
+.entryDot[data-kind="fraud"] { background: light-dark(#eda100, #c98500); }
+.entryDot[data-kind="other"] { background: light-dark(#e87ba4, #d55181); }
+.entryCount { font-size: .88rem; font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.entryBody { padding: .4rem .75rem .85rem; border-top: 1px solid var(--line); }
+@media (max-width: 560px) {
+  .entryRow { grid-template-columns: 1fr auto auto; }
+  .entryRow h2 { grid-column: 1 / -1; grid-row: 1; }
+}
 .card { padding: 1rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); }
 .head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: .25rem .75rem; }
 .head h2 { margin: 0; font-size: 1.05rem; }

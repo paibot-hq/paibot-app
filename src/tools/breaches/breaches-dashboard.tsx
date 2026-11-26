@@ -1,7 +1,7 @@
 "use client";
 
 import { TreemapChart, useWidth } from "./breaches-charts";
-import { approximate, attention, KINDS, percent, severity, summarize, type Kind, type SummaryItem } from "./breaches-stats";
+import { approximate, KINDS, percent, summarize, type Kind, type SummaryItem } from "./breaches-stats";
 
 import styles from "./breaches-dashboard.module.css";
 
@@ -64,37 +64,12 @@ export default function BreachesDashboard({ items, asOf, onPick }: { items: Summ
     { id: "recent", label: t("breaches.dashRecent"), value: s.recent, sub: t("breaches.dashRecentSub") },
   ];
 
-  const heroes = useMemo(() => attention(items, asOf), [items, asOf]);
   const [mapRef, mapWidth] = useWidth();
 
   return (
     <section className={styles.dash} aria-labelledby="breaches-dash-title" data-dash="root">
       <h2 id="breaches-dash-title" className={styles.title}>{t("breaches.dashTitle")}</h2>
       <p className={styles.hint}>{t("breaches.dashHint")}</p>
-      {heroes.length > 0 && (
-        <div className={styles.heroBlock}>
-          <h3 className={styles.heroTitle}>{t("breaches.heroTitle")}<span>{t("breaches.heroSub")}</span></h3>
-          <div className={styles.hero} data-dash="hero">
-            {heroes.map((item, index) => {
-              const tier = severity(item.count);
-              return (
-                <button
-                  key={item.id} type="button" className={index === 0 ? `${styles.heroCard} ${styles.heroLead}` : styles.heroCard}
-                  data-severity={tier ?? undefined} onClick={() => onPick({ query: item.name })} data-dash-hero={item.id}
-                >
-                  <span className={styles.heroBadge}>
-                    {tier && <strong data-severity={tier}>{t(tier === "critical" ? "breaches.heroCritical" : "breaches.heroSerious")}</strong>}
-                    <time dateTime={item.date}>{item.date}</time>
-                  </span>
-                  <strong className={styles.heroCount}>{size(item.count)}</strong>
-                  <span className={styles.heroName} lang="ja">{item.name}</span>
-                  <span className={styles.heroKind}><span className={styles.dot} data-dash-kind={item.type} aria-hidden="true" />{t(`breaches.${KIND_KEYS[item.type as Kind]}`)}</span>
-                </button>
-              );
-            })}
-          </div>
-        </div>
-      )}
       <div className={styles.kpis}>
         {kpis.map(kpi => (
           <div key={kpi.id} className={styles.kpi}>

@@ -2,6 +2,7 @@
 
 import BreachesCharts from "./breaches-charts";
 import BreachesDashboard, { type Pick } from "./breaches-dashboard";
+import { approximate } from "./breaches-stats";
 import ToolLayout from "../../components/tool-layout";
 
 import styles from "./breaches.module.css";
@@ -38,7 +39,9 @@ export default function BreachesView({ list }: { list: Breaches }) {
 
   // One page: the dashboard, then the list. An old ?tab=list link still lands on the list, by scrolling there.
   useEffect(() => {
-    if (new URLSearchParams(window.location.search).get("tab") === "list") statusRef.current?.scrollIntoView({ block: "start" });
+    // After two frames, so the charts have taken their measured size and the list's position holds still.
+    if (new URLSearchParams(window.location.search).get("tab") === "list")
+      requestAnimationFrame(() => requestAnimationFrame(() => statusRef.current?.scrollIntoView({ block: "start" })));
   }, []);
 
   // A click in the summary narrows the list to it (the other filters are cleared) and brings it into view.
@@ -62,7 +65,6 @@ export default function BreachesView({ list }: { list: Breaches }) {
       })
       .sort((a, b) => (sort === "date" ? b.date.localeCompare(a.date) : (b.count ?? -1) - (a.count ?? -1)));
   }, [entries, sort, kind, verification, origin, query]);
-  const max = Math.max(...entries.map(item => item.count ?? 0));
 
   return (
     <ToolLayout title={t("breaches.title")}>
@@ -118,19 +120,22 @@ export default function BreachesView({ list }: { list: Breaches }) {
           {t("breaches.results", { count: items.length })} · {t("breaches.asOf", { date: list.asOf })}
         </p>
         {items.length === 0 && <p className={styles.status}>{t("breaches.none")}</p>}
+        {/* One compact row per incident — the whole list can be scanned — and the row opens to the full entry. */}
         <ul className={styles.list}>
           {items.map(item => (
-            <li key={item.id} className={styles.card} data-breach={item.id}>
-              <div className={styles.head}>
-                <h2 lang="ja">{item.name}</h2>
-                <time dateTime={item.date}>{item.date}</time>
-              </div>
+            <li key={item.id} data-breach={item.id}>
+              <details className={styles.entry}>
+                <summary className={styles.entryRow}>
+                  <time dateTime={item.date}>{item.date}</time>
+                  <h2 lang="ja"><span className={styles.entryDot} data-kind={item.type} aria-hidden="true" />{item.name}</h2>
+                  <span className={styles.entryCount}>{item.count != null ? t("breaches.dashCount", { value: approximate(item.count, locale) }) : ""}</span>
+                  <span className={styles.verify} data-verification={item.verification}>{t(`breaches.${VERIFY_KEYS[item.verification]}`)}</span>
+                </summary>
+                <div className={styles.entryBody}>
               <div className={styles.tags}>
                 <span className={styles.kind} data-kind={item.type}>{t(`breaches.${KIND_KEYS[item.type as Kind]}`)}</span>
-                <span className={styles.verify} data-verification={item.verification}>{t(`breaches.${VERIFY_KEYS[item.verification]}`)}</span>
                 {item.origin !== "attack" && <span className={styles.verify} data-origin-tag={item.origin}>{t(`breaches.${ORIGIN_KEYS[item.origin]}`)}</span>}
               </div>
-              {item.count != null && <div className={styles.meter} aria-hidden="true"><span style={{ width: `${Math.max(1, (item.count / max) * 100)}%` }} /></div>}
               {item.countNote && <p className={styles.count} lang="ja">{item.countNote}</p>}
               <dl lang="ja">
                 {item.data && <><dt>{t("breaches.data")}</dt><dd>{item.data}</dd></>}
@@ -148,6 +153,8 @@ export default function BreachesView({ list }: { list: Breaches }) {
                 ))}
                 {" · "}{t("breaches.checked", { date: item.checkedAt })}
               </p>
+                </div>
+              </details>
             </li>
           ))}
         </ul>

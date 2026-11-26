@@ -1,7 +1,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';
-import { addDays, approximate, attention, compact, decades, monthly, niceTicks, percent, records, severity, summarize, timePosition, treemap } from './breaches-stats.ts';
+import { addDays, approximate, compact, decades, monthly, niceTicks, percent, records, summarize, timePosition, treemap } from './breaches-stats.ts';
 
 const data = JSON.parse(readFileSync(new URL('../../data/breaches.json', import.meta.url), 'utf8'));
 const item = (id, date, type = 'leak', count = null) => ({ id, name: id, date, type, count, countNote: '' });
@@ -126,29 +126,6 @@ test('a number of records is rounded the way each language says it', () => {
   assert.equal(approximate(1_078_8963, 'en'), '10.8M');
   assert.equal(approximate(54_321, 'en'), '54K');
   assert.equal(approximate(1_400_000_000, 'en'), '1.4B');
-});
-
-test('severity: ten million records is critical, a million serious, less or unpublished is nothing', () => {
-  assert.equal(severity(10_000_000), 'critical');
-  assert.equal(severity(44_100_000), 'critical');
-  assert.equal(severity(1_000_000), 'serious');
-  assert.equal(severity(9_999_999), 'serious');
-  assert.equal(severity(999_999), null);
-  assert.equal(severity(null), null);
-});
-
-test('attention leads with the largest of the last 30 days: counted and fully dated only, largest first', () => {
-  const picks = attention([
-    entry('huge-but-old', '2026-09-01', { count: 90_000_000 }),
-    entry('big', '2026-10-01', { count: 5_000_000 }),
-    entry('biggest', '2026-09-20', { count: 8_000_000 }),
-    entry('uncounted', '2026-10-10'),
-    entry('month-only', '2026-10', { count: 7_000_000 }),
-    entry('small', '2026-10-05', { count: 1_000 }),
-  ], '2026-10-12');
-  assert.deepEqual(picks.map(i => i.id), ['biggest', 'big', 'small'], 'the window keeps the old one out, no count or no day keeps the rest out');
-  assert.deepEqual(attention([], '2026-10-12'), []);
-  assert.deepEqual(attention([entry('a', '2026-10-01', { count: 1 })], '2026-10-12', { top: 0 }), []);
 });
 
 test('the treemap tiles the whole rectangle with every counted incident, largest first, nothing outside, nothing overlapping', () => {

@@ -179,27 +179,6 @@ export function treemap(items: StatItem[], width: number, height: number): Tile[
   return tiles;
 }
 
-export type Severity = "critical" | "serious" | null;
-
-// How loudly the dashboard flags an incident, from its published number of records alone: ten million records or more is "critical", a million or
-// more "serious". The thresholds pick what the hero cards may emphasize; they say nothing about harm, which no listed field measures.
-export function severity(count: number | null): Severity {
-  if (count === null) return null;
-  if (count >= 1e7) return "critical";
-  if (count >= 1e6) return "serious";
-  return null;
-}
-
-// What the dashboard leads with: the largest incidents published in the last `days` days, so the page opens with what is both big and new. Only
-// incidents with a published count can be ranked; a date with only the month cannot say how recent it is and stays out, as in `summarize`.
-export function attention(items: SummaryItem[], asOf: string, { top = 3, days = 30 } = {}): (SummaryItem & { count: number })[] {
-  const since = addDays(asOf, -(days - 1));
-  return items
-    .filter((item): item is SummaryItem & { count: number } => item.count !== null && item.date.length === 10 && item.date >= since && item.date <= asOf)
-    .sort((a, b) => b.count - a.count || b.date.localeCompare(a.date) || a.id.localeCompare(b.id))
-    .slice(0, top);
-}
-
 export function percent(part: number, whole: number): number {
   return whole === 0 ? 0 : Math.round((part / whole) * 100);
 }
