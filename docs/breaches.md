@@ -65,9 +65,14 @@ The daily update (`.github/workflows/breaches-update.yml`, 09:10 in Japan, or by
 production's or dev's, whichever is newer (`asOf`; production's on a tie). Claude Code edits it by `.github/prompts/breaches-update.md` and writes a
 report. Before Claude starts, the source check finds the list's dead links; Claude replaces each with another source that says the same (the
 article's new address, the outlet that first ran it, the organization's own page), or removes it and lowers `verification` when what is left no
-longer meets it. If the list changed and the rules pass, a second job writes it into dev's database, then production's.
+longer meets it. If the list changed and the rules pass, a second job writes it into dev's database, then production's, and commits the list back to
+`main` (only `src/data/breaches.json`; App (development) ignores the file on push, since the page reads the database). The copy in git is therefore
+always the last published list, and each morning the update job refuses to start from a database list older or smaller than it: that means a
+database was overwritten with old data (a reseed did this on 2026-11-22 and silently dropped three weeks of updates), and a person should put the
+newer list back (`npm run breaches:import:dev` / `breaches:import:prod` with the deploy tokens) instead of letting the loss roll forward.
 
-There is no pull request and no merge, so no token beyond the deploys' Cloudflare ones. Each run with a change keeps an artifact, `breaches-<date>`,
+There is no pull request and no merge; besides the deploys' Cloudflare tokens, the publish job's own token may write repository contents, and uses
+that only for the commit above. Each run with a change keeps an artifact, `breaches-<date>`,
 for 90 days: the list before and after, and the report. The report is also the run's summary. To undo a day, put its `before.json` at
 `src/data/breaches.json` and run `npm run breaches:import:dev` and `breaches:import:prod` with the deploy tokens. To change an entry by hand, export,
 edit and import the same way; the next daily run starts from what is in the database.
