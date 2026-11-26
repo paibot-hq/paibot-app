@@ -20,6 +20,11 @@ for (const locale of ['ja', 'en', 'zh']) {
 }
 assert.equal((await appFetch(base, '/api/quiz?locale=bad')).status, 400);
 console.log('PASS: real D1 returns five distinct published questions in each locale, invalid locale rejected');
+// A full page load: wait for React (the preferences effect sets data-theme) before pressing anything.
+async function load(page, url) {
+  await page.goto(url);
+  await page.waitForFunction(() => document.documentElement.dataset.theme);
+}
 const browser = await chromium.launch();
 try {
   const page = await browser.newPage();
@@ -27,7 +32,7 @@ try {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
   // The top page shows only the most viewed and featured tools; the list of every tool links the quiz.
-  await page.goto(`${base}/en/apps`);
+  await load(page, `${base}/en/apps`);
   await page.locator('a[href="/en/quiz"]').first().click();
   await page.waitForURL(`${base}/en/quiz`);
   await page.getByRole('button', { name: 'Start quiz', exact: true }).click();
@@ -58,7 +63,7 @@ try {
   assert.equal(await page.locator('progress').getAttribute('value'), '0');
   console.log('PASS: scoring, locked answers, explanations, mistake review, retry');
   for (const [locale, label, correct] of [['ja', 'クイズをはじめる', 'せいかい！'], ['zh', '开始答题', '答对了！']]) {
-    await page.goto(`${base}/${locale}/quiz`);
+    await load(page, `${base}/${locale}/quiz`);
     await page.getByRole('button', { name: label, exact: true }).click();
     await page.locator('[data-quiz-question]').waitFor();
     const id = await page.locator('[data-quiz-question]').getAttribute('data-quiz-question');
@@ -68,7 +73,7 @@ try {
     assert.ok((await page.getByRole('status').textContent()).includes(correct));
   }
   await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto(`${base}/ja/quiz`);
+  await load(page, `${base}/ja/quiz`);
   await page.route('**/api/quiz?*', route => route.fulfill({ status: 503, contentType: 'application/json', body: '{"error":"Quiz unavailable"}' }));
   await page.getByRole('button', { name: 'クイズをはじめる', exact: true }).click();
   await page.getByRole('alert').waitFor();
