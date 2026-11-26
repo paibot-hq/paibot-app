@@ -14,10 +14,11 @@ import styles from './practice.module.css';
 // <book>/<unit>/<item>: as math's item page (routes/math-item.tsx), top to bottom: what you learn (the topics), links within
 // the page, the lesson (sections, then worked examples) if it has passed review, the practice sets (練習1, 2, ...) and the
 // previous and next items of the unit. The lesson, problems and explanations are in Japanese.
-export default function PracticeItemPage({ book, unit, item, exams, lesson, neighbors, sets, related }: {
+export default function PracticeItemPage({ book, unit, item, exams, lesson, neighbors, sets, related, connections }: {
   book: PracticeBook; unit: string; item: string; exams: readonly string[]; lesson: PracticeLesson | null;
   neighbors: { previous: string | null; next: string | null }; sets: { id: string; ready: boolean }[];
   related?: ReactNode;
+  connections?: ReactNode;
 }) {
   const t = useBookT(book);
   const tp = useTranslations('App.practice');
@@ -27,7 +28,7 @@ export default function PracticeItemPage({ book, unit, item, exams, lesson, neig
   const start = sets.find(set => set.ready);
   return <>
     <title>{`${title} | ${t('title')} | PAIBOT.app`}</title>
-    <ToolLayout title={title} centerTitle aboveTitle={<PracticeBreadcrumb book={book} crumbs={[{ label: title }]} />}>
+    <ToolLayout title={title} aboveTitle={<PracticeBreadcrumb book={book} crumbs={[{ label: title }]} />}>
       <p className={page.unit}><Link href={`${book.base}#unit-${unit}`}>{t(`units.${unit}.title`)}</Link></p>
       <p className={styles.metaTags}><ExamTags book={book} exams={exams} /></p>
       <h2 className={page.about}>{ti('about')}</h2>
@@ -41,6 +42,7 @@ export default function PracticeItemPage({ book, unit, item, exams, lesson, neig
       {start && <Link href={`${book.base}/${unit}/${item}/${start.id}`} className={page.start}>
         {ti('start')}{sets.length > 1 && <span className={page.startSet}>{tp('setLabel', { n: start.id })}</span>}
       </Link>}
+      {connections}
       {locale !== 'ja' && <p className={page.description}><small>{t('problemsInJapanese')}</small></p>}
       {lesson?.sections.map((section, index) => <section key={index} id={index === 0 ? 'explanation' : undefined} className={page.lesson} lang="ja">
         <h2 className={page.lessonHeading}>{section.heading}</h2>

@@ -58,6 +58,20 @@ jobs:
           if [ "$prod" = none ] && [ "$dev" = none ]; then echo "::error::Neither database has the list"; exit 1; fi
           if [ "$prod" = none ] || [[ "$dev" > "$prod" ]]; then from=dev; else from=prod; fi
           echo "Starting from $from's"
+          # The copy in git is the last list this workflow published (the publish job commits it back), so the databases' lists may
+          # only be newer. An older or smaller one means something rewrote a database with old data — a reseed did on 2026-11-22 and
+          # silently dropped three weeks of updates — so stop, and have a person re-import the newer list (docs/breaches.md,
+          # Releasing) rather than carry the loss forward under a new asOf.
+          FROM="$from" node --input-type=module -e '
+            import { readFileSync } from "node:fs";
+            const read = (file) => JSON.parse(readFileSync(file, "utf8"));
+            const db = read(process.env.BREACHES_DIR + "/" + process.env.FROM + ".json");
+            const git = read("src/data/breaches.json");
+            if (db.asOf < git.asOf || db.items.length < git.items.length) {
+              console.log("::error::The database list (" + db.asOf + ", " + db.items.length + " entries) is behind the copy in git (" + git.asOf + ", " + git.items.length + " entries): a database was overwritten with old data. Import the newer list again (docs/breaches.md, Releasing) before the next run.");
+              process.exit(1);
+            }
+          '
           cp "$BREACHES_DIR/$from.json" "$BREACHES_DIR/before.json"
           cp "$BREACHES_DIR/$from.json" src/data/breaches.json
       # Which links of the list are dead (404/410, no answer), for Claude to replace: the entries marked FAIL and their dead links. A blocked page
@@ -136,6 +150,9 @@ jobs:
     timeout-minutes: 10
     # The production database: the same environment as App (production), so the same branch rule applies.
     environment: production
+    # contents: write, to commit the published list back into git (the last step).
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v7
       - uses: actions/setup-node@v7
@@ -160,3 +177,12 @@ jobs:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN_PRODUCTION }}
           CLOUDFLARE_ACCOUNT_ID: ${{ vars.CLOUDFLARE_ACCOUNT_ID }}
         run: npm run breaches:import:prod -- --if-ready
+      # The published list goes back into git, so the copy there is never stale: a deploy that seeds an empty database seeds the
+      # last published list, not an old snapshot, and the update job's guard (above) can tell a rolled-back database apart. This
+      # push deploys nothing: App (development) ignores the file (the page reads the database).
+      - name: Commit the list back
+        run: |
+          git diff --quiet -- src/data/breaches.json && { echo "git already has this list."; exit 0; }
+          git -c user.name='github-actions[bot]' -c user.email='41898282+github-actions[bot]@users.noreply.github.com' commit -m "breaches: the list as published, $(node -p "require('./src/data/breaches.json').asOf")" -- src/data/breaches.json
+          for _ in 1 2 3; do git push origin HEAD:main && exit 0; git pull --rebase origin main; done
+          git push origin HEAD:main

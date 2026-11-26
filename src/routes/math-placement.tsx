@@ -71,7 +71,7 @@ export default function MathPlacement({ loaderData: { pools, problems } }: Route
   if (!run) {
     return <>
       <title>{`${title} | PAIBOT.app`}</title>
-      <ToolLayout title={title} centerTitle compact aboveTitle={<MathBreadcrumb crumbs={crumbs} />}>
+      <ToolLayout title={title} compact aboveTitle={<MathBreadcrumb crumbs={crumbs} />}>
         <p className={styles.intro}>{tp('intro', { count: PLACEMENT_SIZE })}</p>
         <h2 className={styles.ask}>{tp('ask')}</h2>
         <ul className={styles.starts}>

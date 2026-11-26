@@ -130,7 +130,7 @@ export default function MathSetQuiz({ title, setLabel, questions, crumbs, versio
     const nextLink = next && <Link href={next.href} className={perfect ? styles.primary : styles.secondary}>
       <span>{t('nextSet')}</span><span className={styles.nextLabel}>{next.label}</span>
     </Link>;
-    return <ToolLayout title={title} centerTitle compact aboveTitle={backLink}>
+    return <ToolLayout title={title} compact aboveTitle={backLink}>
       <div className={styles.quiz}>
         <p className={styles.setName}>{setLabel}</p>
         {result}

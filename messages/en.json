@@ -1559,6 +1559,8 @@
       "chartsTitle": "Charts",
       "chartMonthly": "Incidents per month, by type",
       "chartRecords": "Size of incidents with a published count (log scale)",
+      "chartTreemap": "Every incident by size",
+      "chartTreemapHelp": "Each square is one incident with a published count. Its area roughly follows the count (square root), with a minimum size so the small ones stay visible. Touch a square for details.",
       "chartRecordsHelp": "Each dot is one incident. The vertical axis steps by factors of ten; higher means more records. Hover or focus a dot for details.",
       "chartNote": "The charts count the incidents listed on this page, not all incidents that happened. How deeply each month was researched differs: September and October include small incidents too, so they look higher. Incidents with no published count are not in the lower chart.",
       "tableView": "Show the monthly numbers as a table",
@@ -3546,6 +3548,76 @@
         }
       ]
     },
+    "attention": {
+      "title": "Attention Visualizer",
+      "description": "Turn word arrows into q, k and v, then watch dot products, softmax and the weighted average update a word's meaning in 2D.",
+      "keywords": "attention transformer self-attention ChatGPT visualization",
+      "about": "An experiment that reproduces the attention mechanism at the heart of the Transformer with hand-placed two-dimensional vectors. Pick a sentence, tap a word, and follow three steps: dot-product scores between q and k, softmax percentages, and the weighted average of v that updates the word's meaning. The three Japanese sentences 眼鏡をかける, 電話をかける and 橋をかける show how context fixes the meaning of the same verb かける.",
+      "intro": "Each word's arrow x is multiplied by W_Q, W_K and W_V to make q, k and v. The dot product of the selected word's q with every word's k gives scores, softmax turns them into percentages, and the weighted average of v updates the meaning.",
+      "presets": "Choose a sentence",
+      "gloss": {
+        "cat": "“The cat ate the fish.” See which words たべた (ate) attends to.",
+        "glasses": "“Put on glasses.” When かける attends to 眼鏡 (glasses), its meaning settles on “put on”.",
+        "phone": "“Make a phone call.” The same verb かける, but the context changes the meaning.",
+        "bridge": "“Build a bridge.” Compare how the three sentences fix the meaning of かける."
+      },
+      "selectWord": "Choose a word",
+      "stepsLabel": "Steps",
+      "steps": {
+        "scores": "Dot-product scores",
+        "weights": "Softmax weights",
+        "output": "Update the meaning"
+      },
+      "planeScores": "The q of {word} in red and every word's k in blue",
+      "planeOutput": "The original vector of {word} and its updated meaning",
+      "wordHeader": "Word",
+      "scoreHeader": "Score q·k",
+      "scoresTitle": "Dot-product scores",
+      "weightsTitle": "How much {word} attends to each word",
+      "exampleNote": "The numbers are illustrative examples.",
+      "newVector": "New vector for {word}: ({x}, {y})",
+      "meaningLabel": "Meaning of かける:",
+      "meanings": {
+        "wear": "put on (wear)",
+        "call": "make a call",
+        "span": "build (a bridge across)"
+      },
+      "hint": {
+        "scores": "The red arrow is the q of {word}; the blue arrows are every word's k. The closer the directions, the larger the dot product.",
+        "weights": "Softmax turns the scores into percentages that sum to 100%. Larger gaps between scores become larger gaps between percentages.",
+        "output": "Mixing every word's v by these percentages gives the new vector for {word}. The dashed arrow is the original; the red arrow is the update."
+      },
+      "ruleTitle": "What is being computed?",
+      "rule": "Each word's vector x is multiplied by three matrices to make a question q, a label k and content v. The dot product of the selected word's q with each word's k scores how related they are.",
+      "softmaxText": "Softmax turns the scores into positive percentages that sum to one. Mixing every word's v by those percentages gives the selected word's new meaning vector.",
+      "contextText": "In a real Transformer the vectors have thousands of dimensions and this update repeats across many heads and layers. Here the numbers are hand-placed in 2D so the mechanism stays visible.",
+      "aiLesson": "Learn attention in the AI course",
+      "gdLab": "Try the gradient descent simulator",
+      "guide": [
+        {
+          "heading": "Compare the three かける",
+          "paragraphs": [
+            "Select かける in 眼鏡をかける, 電話をかける and 橋をかける: the largest percentage always lands on the context noun. In step 3 that noun's v pulls the arrow and the meaning label settles."
+          ]
+        },
+        {
+          "heading": "Why the particles get little attention",
+          "paragraphs": [
+            "The particles が and を are placed as short vectors, so their k is short and the dot-product scores stay small. Softmax widens the gap further, so attention gathers on the content words."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Are these numbers the same as in the real ChatGPT?",
+          "a": "No. The real model learns vectors with thousands of dimensions; here the numbers are hand-placed in 2D so the mechanism stays visible. The flow of the computation — dot products, softmax, weighted average — is the same."
+        },
+        {
+          "q": "Why does a word attend to itself?",
+          "a": "In self-attention the selected word's q also takes a dot product with its own k. That keeps part of the original meaning while mixing in the context words."
+        }
+      ]
+    },
     "gradientDescent": {
       "title": "Gradient Descent Simulator",
       "description": "Change the learning rate to see when a point approaches the minimum, overshoots, or moves away.",
@@ -3568,11 +3640,11 @@
       "slope": "Slope f′(x)",
       "change": "Last change Δx",
       "examples": {
-        "slow": "Slow approach",
-        "steady": "Fast approach",
-        "oneStep": "One-step minimum",
+        "slow": "Approaches slowly",
+        "steady": "Approaches quickly",
+        "oneStep": "Minimum in one step",
         "crossing": "Crosses the valley",
-        "cycle": "Repeats",
+        "cycle": "Same swing forever",
         "diverging": "Moves away"
       },
       "status": {
@@ -3586,7 +3658,7 @@
       },
       "ruleTitle": "How is the next point chosen?",
       "rule": "Move opposite to the slope at the current point. Multiply that slope by the learning rate η and subtract the result from x.",
-      "compare": "Keep the starting point at 3 and compare learning rates 0.25, 0.75, 1, and 1.1. The point approaches the minimum, approaches while crossing the valley, repeats between two points, or moves away. The boundaries between these behaviours depend on the function.",
+      "compare": "Keep the starting point at 3 and try the example learning rates 0.05, 0.25, 0.5, 0.75, 1, and 1.1 in turn. The point approaches slowly, approaches quickly, reaches the minimum in a single step, approaches while crossing the valley, keeps bouncing with the same swing, or moves away. The boundaries between these behaviours depend on the function.",
       "adam": "The neural network in Approximation Showdown uses Adam, which adapts each weight update using past gradients.",
       "mathLesson": "Learn about slopes and tangents",
       "aiLesson": "Learn about AI optimization (in Japanese)",
@@ -3686,6 +3758,79 @@
         {
           "q": "Are these numbers the same as real training?",
           "a": "The mechanism is. Real training initializes the weights randomly and updates them many thousands of times over lots of data, but each round is exactly the answer-measure-blame-nudge loop this animation shows. The numbers are hand-placed, with six rounds, so the whole computation stays readable."
+        }
+      ]
+    },
+    "transformer": {
+      "title": "Inside a Transformer",
+      "description": "Watch a tiny one-block Transformer predict the next word end to end: embeddings, self-attention, the FFN, and softmax.",
+      "keywords": "transformer next word prediction self-attention FFN softmax ChatGPT explained visualization",
+      "about": "An experiment that walks through every stage of next-word prediction in a tiny Transformer (one layer, one head) built from an 11-word vocabulary and two-dimensional embeddings. Pick a sentence and follow four steps — tokens and embeddings, self-attention, the FFN with its residual, logits and softmax — and in every preset the intended verb ends up with the largest probability. All weights are hand-placed constants: no randomness, no training.",
+      "intro": "Models like ChatGPT are stacks of one repeated block. Here a tiny Transformer — two dimensions, one layer, one head — predicts the next word in four steps. Every weight is a hand-placed constant: no randomness, no training.",
+      "presets": "Pick a sentence",
+      "gloss": {
+        "catFish": "Predict what follows ねこ が さかな を (“the cat 〈subj〉 the fish 〈obj〉…”). It should be たべた (ate).",
+        "dogBall": "What follows いぬ が ボール を (“the dog 〈subj〉 the ball 〈obj〉…”)? Change the object and the prediction changes.",
+        "birdSky": "とり が そら を (“the bird 〈subj〉 the sky 〈obj〉…”) continues with とんだ (flew). Attention on そら is the key.",
+        "catBall": "Same subject ねこ (cat), but with ボール (ball) as the object the prediction becomes おいかけた (chased)."
+      },
+      "sentenceLabel": "The input sentence",
+      "nextSlot": "The next word",
+      "stepsLabel": "Steps",
+      "steps": {
+        "embed": "Embed + position",
+        "attend": "Self-attention",
+        "ffn": "FFN + residual",
+        "predict": "Next word"
+      },
+      "planeEmbed": "Each word’s embedding and the point shifted by its position vector",
+      "embedTitle": "Embeddings and position vectors",
+      "wordHeader": "Word",
+      "embedHeader": "Embedding e",
+      "posHeader": "Position p",
+      "weightsTitle": "Attention weights of {word}",
+      "attendNote": "The dot-product → softmax computation itself is explored in detail in the Attention Visualizer.",
+      "attentionDetail": "Open the Attention Visualizer",
+      "planeFfn": "The attention output z and the vector updated by the FFN",
+      "newVector": "New vector at {word}: ({x}, {y})",
+      "probsTitle": "Next-word probabilities over the whole vocabulary",
+      "prediction": "The next word is {word} ({percent})",
+      "layersNote": "A real Transformer stacks dozens of these blocks, with vectors thousands of dimensions wide.",
+      "hint": {
+        "embed": "Each word becomes a 2D point, shifted by its position vector (hollow = embedding, filled = shifted). The same word lands on a slightly different point in a different slot.",
+        "attend": "The query of the last token {word} takes dot products with every key, and softmax turns them into weights. Attention gathers on the noun just before を.",
+        "ffn": "The FFN output is added to the attended vector z (dashed arrow = z, red arrow = z + FFN(z)). The direction rotates toward the verbs.",
+        "predict": "Dot products between the updated vector and every word’s embedding give logits; softmax turns them into probabilities. The tallest bar is the prediction."
+      },
+      "ruleTitle": "What is being computed?",
+      "rule": "Each word’s embedding e plus its position vector p gives x. The last token’s query q takes dot products with every key k, softmax turns them into weights, and the weighted average of the values v is z.",
+      "ffnText": "The FFN passes z through a small two-layer net with ReLU and adds the result back onto z (the residual connection). In this tiny model that transformation rotates “object directions” onto “verb directions”.",
+      "predictText": "Finally, the dot products between the updated vector u and every vocabulary embedding (the logits) go through softmax, giving the probability distribution over the next word. All weights are constants, so the page shows the same numbers every time.",
+      "attentionLab": "Attention Visualizer",
+      "backpropLab": "Backpropagation Visualizer",
+      "gdLab": "Gradient Descent Simulator",
+      "guide": [
+        {
+          "heading": "How to follow the four steps",
+          "paragraphs": [
+            "Pick a sentence, then press the step buttons in order. Step 1 turns the words into 2D points, step 2 decides where the last token looks, step 3 moves the vector toward the verbs, and step 4 shows the probabilities over the whole vocabulary."
+          ]
+        },
+        {
+          "heading": "Compare the presets",
+          "paragraphs": [
+            "“ねこがさかなを” and “ねこがボールを” share the subject and differ only in the object. Because attention gathers on the object in step 2, the prediction in step 4 changes from たべた (ate) to おいかけた (chased)."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is this the same computation as the real ChatGPT?",
+          "a": "The flow is the same — embeddings, self-attention, FFN with residual, softmax — but real models learn vectors thousands of dimensions wide across dozens of blocks. Here the two-dimensional weights are placed by hand so the mechanism stays visible."
+        },
+        {
+          "q": "How were the weights chosen?",
+          "a": "Without any training: the nouns sit on the unit circle, the particles are short, and the FFN rotates object directions onto verb directions. Unit tests re-derive every stage and check that the intended verb gets the largest probability in every preset."
         }
       ]
     },

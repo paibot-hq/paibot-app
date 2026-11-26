@@ -7,6 +7,8 @@
   border-top: 1px solid var(--line);
   color: var(--muted, inherit);
 }
+/* 68.75rem = 1100px, the incident dashboard's column, so the section's left edge lines up with the page it closes. */
+.about[data-wide] { max-width: 68.75rem; padding-left: 0; padding-right: 0; }
 .about[data-top-panel] {
   border-top: 0;
   padding-top: .5rem;
@@ -18,9 +20,9 @@
   align-items: center;
   padding: .15rem .55rem;
   border-radius: 999px;
-  border: 1px solid color-mix(in srgb, light-dark(#0a8f6a, #3fd3a2) 40%, var(--line));
-  background: color-mix(in srgb, light-dark(#0a8f6a, #3fd3a2) 12%, transparent);
-  color: light-dark(#0a8f6a, #3fd3a2);
+  border: 1px solid color-mix(in srgb, light-dark(#3f7a5e, #8cb4a0) 40%, var(--line));
+  background: color-mix(in srgb, light-dark(#3f7a5e, #8cb4a0) 12%, transparent);
+  color: light-dark(#3f7a5e, #8cb4a0);
   font-size: .75rem;
   font-weight: 650;
 }
