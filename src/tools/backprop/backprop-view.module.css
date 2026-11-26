@@ -176,11 +176,54 @@
     stroke-dasharray: 7 5;
     animation: backprop-flow .8s linear infinite;
   }
+  .flowing {
+    stroke: var(--flow-color);
+    stroke-dasharray: 6 5;
+    animation: backprop-flow .7s linear infinite;
+  }
+  .pulsing { animation: backprop-pulse .7s ease-in-out infinite; }
 }
 
 @keyframes backprop-flow {
   to { stroke-dashoffset: -12; }
 }
+
+@keyframes backprop-pulse {
+  50% { opacity: .35; }
+}
+
+.narration {
+  margin: 0;
+  min-height: 2.6em;
+  padding: .45rem .6rem;
+  border-inline-start: 3px solid var(--accent);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+  font-size: .9rem;
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: .4rem; }
+.control {
+  min-height: 40px;
+  padding: .2rem .6rem;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  font: inherit;
+  font-size: .82rem;
+  cursor: pointer;
+}
+.control:hover { border-color: var(--accent); }
+.control[aria-pressed="true"] {
+  border-color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+}
+.control:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.blameLabel { fill: light-dark(#c2402a, #ff9a82) !important; font-weight: 700; }
 
 .play {
   justify-self: start;

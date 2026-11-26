@@ -3619,16 +3619,27 @@
     },
     "backprop": {
       "title": "Backpropagation Visualizer",
-      "description": "A hands-on lab: first shrink a tiny neural network's gap (loss) yourself, then let backpropagation do it.",
-      "intro": "The little network's answer is off from the answer we want. The goal is to turn the weights until the gap is 0. ① First try it by hand, ② then ask backpropagation which weight to turn which way, ③ then fix them exactly as it says.",
+      "description": "Watch a tiny neural network fix its own gap and learn, as an animation.",
+      "intro": "Press ▶ Play and watch the little network fix its own gap (loss): ① produce an answer → ② measure the gap → ③ send the gap backwards to find how much each weight is to blame → ④ nudge the weights. That loop is learning, and ③ is backpropagation.",
       "keywords": "backpropagation neural network gradient chain rule deep learning",
-      "about": "A tiny network — one input, two tanh hidden units, one output — filled with hand-placed numbers, learned through the experience of bringing the gap (loss) to 0. First move the four weights by hand to feel how hard that is, then watch backpropagation hand you every weight's direction at once, then fix them in a few steps. Everything is computed deterministically in the browser, and moving a weight by +0.01 shows the loss changes by about the analytic gradient × 0.01.",
-      "goal": "Goal: bring the red gap (loss) bar to 0",
-      "stepsLabel": "Steps",
-      "steps": {
-        "try": "Fix it yourself",
-        "ask": "Ask backpropagation",
-        "fix": "Fix it as told"
+      "about": "An animation of a tiny network — one input, two tanh hidden units, one output — fixing its own gap (loss) and learning. Each round produces an answer, measures the gap, sends the blame backwards to every weight (its gradient), and nudges the weights; six rounds bring the gap to all but 0. Everything is computed deterministically in the browser, and moving a weight by +0.01 shows the loss changes by about the analytic gradient × 0.01.",
+      "goal": "What to watch: the red gap (loss) bar shrinking to 0",
+      "stage": "The learning animation",
+      "controls": "Playback controls",
+      "play": "▶ Play",
+      "pause": "⏸ Pause",
+      "stepOne": "⏭ 1 frame",
+      "restart": "↺ Restart",
+      "fast": "⏩ 2× speed",
+      "cycleCount": "Round {n} / {total}",
+      "narration": {
+        "ready": "Press ▶ Play to watch the network learn.",
+        "forwardFirst": "① First, compute an answer. The numbers flow left to right.",
+        "forwardAgain": "⑤ Compute again — the gap is smaller than last time.",
+        "measure": "② Measure the gap to the wanted answer. That is the loss.",
+        "blame": "③ Send the gap backwards to find the culprits. The thicker the line, the bigger that weight's share of the blame.",
+        "update": "④ Nudge each weight by its share of the blame.",
+        "done": "🎉 Six rounds, and the gap is all but 0. That loop is learning — and ③ is backpropagation."
       },
       "netForward": "The computation graph from the input to the output and the loss, with each node's value",
       "netBackward": "The computation graph with gradients flowing backwards from the loss to the input side",
@@ -3636,65 +3647,30 @@
       "meterY": "network's answer",
       "meterT": "wanted answer",
       "meterLoss": "Gap (loss L)",
-      "play": "▶ Play",
-      "tryText": "Move the four weight sliders and try to shrink the gap. Which one, which way, how far — guessing takes a while.",
-      "resetParams": "Back to the initial values",
-      "stagesLabel": "Backpropagation stages",
-      "stages": {
-        "out": "① Output",
-        "mid": "② Hidden",
-        "in": "③ Input side"
-      },
-      "stageText": {
-        "out": "Start at the exit: “the answer y is off by this much” — that is the starting point, ∂L/∂y.",
-        "mid": "Hand that blame one layer back, simply retracing each multiplication the forward pass made (the chain rule).",
-        "in": "Once the blame reaches the input-side weights, every weight has its direction and strength — its gradient."
-      },
-      "impactTitle": "Backpropagation's answer: turn which weight, which way?",
-      "impactUp": "increasing it widens the gap → decrease it",
-      "impactDown": "increasing it shrinks the gap → increase it",
-      "impactNote": "The bar length is how strongly that weight matters (the size of its gradient). Step ③ turns each one the opposite way.",
-      "detailTitle": "Check it in numbers: move a weight by +0.01?",
+      "detailTitle": "Check it in numbers: move a weight by +0.01? (at the initial weights)",
       "selectWeight": "Pick a weight",
       "nudgeTitle": "The gradient of {weight} against the actual loss change",
       "analytic": "Analytic gradient",
       "predicted": "Predicted change ∂L/∂{weight} × 0.01",
       "actual": "Actual change L({weight} + 0.01) − L",
-      "nudgeNote": "The prediction and the actual change all but agree. A gradient is exactly this rate: how much the gap moves for a small turn.",
-      "fixText": "Turn all four weights a little, each against backpropagation's answer. One press is one step.",
-      "stepButton": "Take 1 step against the gradient",
-      "stepsTaken": "Steps taken: {n}",
-      "nextDown": "The next step shrinks the gap:",
-      "nextUp": "The next step would widen the gap (too big a step):",
-      "solved": "🎉 The gap is all but 0 — that's learning!",
-      "updateDetail": "Inside one step (the numbers)",
-      "updateTitle": "Updating the weights by gradient descent",
-      "weightHeader": "Weight",
-      "beforeHeader": "Before",
-      "gradHeader": "Gradient ∂L/∂w",
-      "afterHeader": "After",
-      "hint": {
-        "try": "Move a slider and the network recomputes left to right; the meter above reacts at once. Press ▶ Play to watch the computation flow.",
-        "ask": "The red arrows carry the blame for the gap from the exit back to the entrance. Press ▶ Play or walk ① ② ③, and the answer appears at the end.",
-        "fix": "Each press turns the weights a little against their gradients and the gap shrinks. A few presses bring it to all but 0."
-      },
+      "nudgeNote": "The prediction and the actual change all but agree. The blame handed out in ③ — the gradient — is exactly this rate: how much the gap moves for a small turn.",
       "ruleTitle": "What is being computed?",
-      "rule": "Forwards, x is multiplied by the weights, passed through tanh and summed into the answer y and the gap L. Backpropagation starts from that L and retraces the computation backwards, differentiating one piece at a time, to get every weight's gradient.",
-      "chainText": "By the chain rule, ∂L/∂w is a product of the local gradients along the way. Multiplying backwards from the exit lets the intermediate results be reused, so one backward pass finds the gradient of every weight.",
-      "realText": "A real neural network has millions to billions of weights, but it does the same thing: measure the gap, hand the blame backwards, turn each weight a little against its gradient. Here the network is small and hand-placed so every number stays visible.",
+      "rule": "Forwards, x is multiplied by the weights, passed through tanh and summed into the answer y and the gap L. Backpropagation starts from that L and retraces the computation backwards, differentiating one piece at a time, to get every weight's gradient — its share of the blame.",
+      "chainText": "By the chain rule, ∂L/∂w is a product of the local gradients along the way. Multiplying backwards from the exit lets the intermediate results be reused, so one backward pass finds the gradient of every weight. The nudge in ④ is w ← w − η·∂L/∂w (here η = 0.2).",
+      "realText": "A real neural network has millions to billions of weights, but it does exactly what this animation shows: answer, measure the gap, hand the blame backwards, nudge the weights. Here the network is small and hand-placed so every number stays visible.",
       "aiLesson": "Read the backpropagation lesson",
       "gdLab": "Also try the gradient descent simulator",
       "guide": [
         {
-          "heading": "The three steps",
+          "heading": "How to read the animation",
           "paragraphs": [
-            "① First move the sliders yourself and feel how hard shrinking the gap is. ② Backpropagation then hands you, all at once, which weight to turn which way. ③ Stepping in those directions brings the gap to all but 0 in a few presses."
+            "One round has four acts: ① produce an answer → ② measure the gap → ③ send the gap backwards and hand out the blame → ④ nudge the weights. In ③, red lines flow from the output side to the input side, and a line's thickness is that weight's share of the blame (its gradient). Six rounds bring the gap (loss) bar to all but 0."
           ]
         },
         {
-          "heading": "Check a gradient yourself",
+          "heading": "To take it slowly",
           "paragraphs": [
-            "Open “Check it in numbers” in step ②: a weight is actually moved by +0.01 and the loss recomputed. That the change all but matches the analytic gradient × 0.01 is what a gradient means."
+            "Pause with ⏸ and walk frame by frame with ⏭; ⏩ doubles the speed. Open “Check it in numbers” below: a weight is actually moved by +0.01 and the loss recomputed, matching the analytic gradient × 0.01 — that is what the blame in ③ really is."
           ]
         }
       ],
@@ -3705,7 +3681,7 @@
         },
         {
           "q": "Are these numbers the same as real training?",
-          "a": "The mechanism is. Real training initializes the weights randomly and updates them many thousands of times over lots of data, but each round is exactly the measure-blame-fix loop shown here. The numbers are hand-placed, with a few updates, so the whole computation stays readable."
+          "a": "The mechanism is. Real training initializes the weights randomly and updates them many thousands of times over lots of data, but each round is exactly the answer-measure-blame-nudge loop this animation shows. The numbers are hand-placed, with six rounds, so the whole computation stays readable."
         }
       ]
     },

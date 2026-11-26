@@ -97,11 +97,22 @@ test('the gradients stay right when the page parameters change', () => {
   }
 });
 
+test('the six rounds the film plays: every loss it shows, strictly decreasing to about zero', () => {
+  // The film's weight sequence (SEQUENCE in backprop-view.tsx): round c plays
+  // on the c-th weights and its update frame reveals the next ones.
+  const sequence = [INITIAL_WEIGHTS];
+  for (let i = 0; i < 6; i++) sequence.push(updated(sequence[i]));
+  const losses = sequence.map(weights => forward(weights).loss);
+  assert.deepEqual(losses.map(loss => fmt(loss)), ['0.187', '0.053', '0.018', '0.006', '0.002', '0.001', '0.000']);
+  for (let i = 1; i < losses.length; i++) assert.ok(losses[i] < losses[i - 1], `round ${i}`);
+  assert.ok(losses[6] < 0.0005, 'the film ends with the gap all but closed');
+  // The final answer the meter prints sits on the target.
+  assert.equal(fmt(forward(sequence[6]).y, 2), '0.52');
+});
+
 test('repeated updates converge, and a too-large rate overshoots', () => {
   let weights = INITIAL_WEIGHTS;
-  // The page celebrates below 0.0005; six presses from the start get there.
   for (let i = 0; i < 6; i++) weights = updated(weights, LEARNING_RATE);
-  assert.ok(forward(weights).loss < 0.0005, 'loss after the six steps the page walks');
   for (let i = 0; i < 94; i++) weights = updated(weights, LEARNING_RATE);
   assert.ok(forward(weights).loss < 1e-6, 'loss after 100 updates');
   // The largest rate the slider offers makes this loss go up, which the page points out.

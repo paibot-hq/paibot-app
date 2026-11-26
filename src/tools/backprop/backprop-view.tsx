@@ -4,24 +4,30 @@ import { MathTex } from '../../components/math-tex';
 import { Link } from '../../i18n/navigation';
 import { createLabAnalytics } from '../../lib/analytics';
 import {
-  INITIAL_WEIGHTS, LEARNING_RATE, NUDGE, TARGET, WEIGHT_IDS, X,
+  INITIAL_WEIGHTS, NUDGE, TARGET, WEIGHT_IDS, X,
   fmt, forward, gradientOf, gradients, nudgedLoss, updated,
   type WeightId, type Weights,
 } from './backprop';
 import styles from './backprop-view.module.css';
 
-// One goal — bring the gap (loss) to zero — in three acts: try it by hand,
-// ask backpropagation which way each weight should turn, fix it as told.
-const STEPS = ['try', 'ask', 'fix'] as const;
-type Step = (typeof STEPS)[number];
+// The lab is a film, not a control panel: one play button runs the whole
+// story — compute an answer, measure the gap, send the blame backwards,
+// nudge the weights — for six rounds, until the gap is all but closed.
+export const CYCLES = 6;
 
-// Step 2 walks the chain rule in from the loss: first ∂L/∂y, then the
-// output-side weights and the hidden units, then the input-side weights.
-const STAGES = ['out', 'mid', 'in'] as const;
+// The weights at the start of each round: round c plays on SEQUENCE[c] and
+// its update frame reveals SEQUENCE[c + 1]. Deterministic, so the unit tests
+// pin every number the film shows.
+const SEQUENCE: readonly Weights[] = (() => {
+  const list = [INITIAL_WEIGHTS];
+  for (let i = 0; i < CYCLES; i++) list.push(updated(list[i]));
+  return list;
+})();
 
-// The gap counts as closed when the loss drops below this; six fixed steps
-// from the initial weights get there (see backprop.test.mjs).
-const SOLVED = 0.0005;
+// One round is seven frames: three forward (input, hidden, output), the
+// measurement, two backward (output side, input side), and the update.
+const FRAMES_PER_CYCLE = 7;
+const TOTAL = CYCLES * FRAMES_PER_CYCLE;
 
 const WEIGHT_LABEL: Record<WeightId, string> = { w1: 'w₁', w2: 'w₂', v1: 'v₁', v2: 'v₂' };
 const GRAD_LABEL: Record<WeightId, string> = { w1: '∂L/∂w₁', w2: '∂L/∂w₂', v1: '∂L/∂v₁', v2: '∂L/∂v₂' };
@@ -31,14 +37,10 @@ const NX = { x: 42, y: 126 };
 const NH1 = { x: 178, y: 62 };
 const NH2 = { x: 178, y: 190 };
 const NY = { x: 304, y: 126 };
+const LOSS = { x: 304, y: 234 };
 const R = 20;
 
-// The order the forward animation lights the graph up in: the input, the
-// input-side edges, the hidden units, the output-side edges, then y and L.
-const FORWARD_PHASES = 5;
-
-// The gap meter's number line: y stays within ±3 for every slider setting
-// (|v₁| + |v₂| ≤ 3 and |h| < 1), t within ±1.
+// The gap meter's number line: y stays within ±3 and t within ±1.
 const METER_MIN = -3;
 const METER_MAX = 3;
 const meterX = (value: number) => 16 + ((value - METER_MIN) / (METER_MAX - METER_MIN)) * 328;
@@ -46,11 +48,15 @@ const clampLabel = (x: number) => Math.min(290, Math.max(70, x));
 // The loss bar is full at 0.6, a little above the initial 0.187.
 const lossShare = (loss: number) => Math.min(1, loss / 0.6);
 
-function Edge({ from, to, active }: { from: { x: number; y: number }; to: { x: number; y: number }; active?: boolean }) {
+function Edge({ from, to, back, width, flowing }: {
+  from: { x: number; y: number }; to: { x: number; y: number };
+  back?: boolean; width?: number; flowing?: boolean;
+}) {
   const length = Math.hypot(to.x - from.x, to.y - from.y);
   const u = { x: (to.x - from.x) / length, y: (to.y - from.y) / length };
+  const name = back ? styles.edgeActive : flowing ? `${styles.edge} ${styles.flowing}` : styles.edge;
   return <line
-    className={active ? styles.edgeActive : styles.edge}
+    className={name} style={width ? { strokeWidth: width } : undefined}
     x1={from.x + u.x * R} y1={from.y + u.y * R}
     x2={to.x - u.x * (R + 2)} y2={to.y - u.y * (R + 2)}
     markerEnd="url(#backprop-arrow)"
@@ -63,44 +69,82 @@ function reducedMotion() {
 
 export default function BackpropView() {
   const t = useTranslations('App.backprop');
-  const [step, setStep] = useState<Step>('try');
-  const [stage, setStage] = useState(0);
+  // -1: idle (everything visible, nothing started). 0..TOTAL-1: that frame.
+  // TOTAL: the film has ended on the final weights.
+  const [at, setAt] = useState(-1);
+  const [playing, setPlaying] = useState(false);
+  const [fast, setFast] = useState(false);
   const [weight, setWeight] = useState<WeightId>('w1');
-  const [weights, setWeights] = useState<Weights>(INITIAL_WEIGHTS);
-  const [iterations, setIterations] = useState(0);
-  // null: the whole graph is shown; 0..4: the forward animation is at that phase.
-  const [phase, setPhase] = useState<number | null>(null);
-  const timer = useRef(0);
   const analytics = useRef<ReturnType<typeof createLabAnalytics> | null>(null);
   analytics.current ??= createLabAnalytics('backprop');
 
   useEffect(() => {
     analytics.current?.view();
-    return () => window.clearInterval(timer.current);
   }, []);
 
+  useEffect(() => {
+    if (!playing) return;
+    const timer = window.setInterval(() => setAt(frame => frame + 1), fast ? 450 : 900);
+    return () => window.clearInterval(timer);
+  }, [playing, fast]);
+
+  useEffect(() => {
+    if (at >= TOTAL) setPlaying(false);
+  }, [at]);
+
+  const idle = at < 0;
+  const done = at >= TOTAL;
+  const cycle = idle ? 0 : Math.min(Math.floor(at / FRAMES_PER_CYCLE), CYCLES - 1);
+  const frame = idle ? -1 : done ? FRAMES_PER_CYCLE : at % FRAMES_PER_CYCLE;
+
+  // What the film shows right now: the update frame reveals the next weights.
+  const weights = done || frame === 6 ? SEQUENCE[cycle + 1] : SEQUENCE[cycle];
   const f = forward(weights);
-  const g = gradients(weights);
-  const next = updated(weights);
-  const nextLoss = forward(next).loss;
-  const solved = f.loss < SOLVED;
+  const g = gradients(SEQUENCE[cycle]);
+  const topGrad = Math.max(...WEIGHT_IDS.map(id => Math.abs(gradientOf(g, id))));
+  const blameWidth = (id: WeightId) => 1.75 + 2.5 * (Math.abs(gradientOf(g, id)) / topGrad);
 
-  function stopPlaying() {
-    window.clearInterval(timer.current);
-    setPhase(null);
+  const measuring = frame === 3;
+  const backOut = frame === 4 || frame === 5;
+  const backIn = frame === 5;
+  // Forward reveal: frame 0 shows the input side, 1 the hidden units, 2 the rest.
+  const hidden = (tick: number) => !idle && !done && frame < tick;
+  const vis = (tick: number) => (hidden(tick) ? ` ${styles.waiting}` : '');
+  const flowing = !idle && !done && frame <= 2;
+
+  const narration = idle ? 'ready'
+    : done ? 'done'
+    : frame <= 2 ? (cycle === 0 ? 'forwardFirst' : 'forwardAgain')
+    : frame === 3 ? 'measure'
+    : frame <= 5 ? 'blame'
+    : 'update';
+
+  function start() {
+    analytics.current?.interact('play');
+    if (reducedMotion()) {
+      stepOnce();
+      return;
+    }
+    if (at >= TOTAL) setAt(0);
+    else if (at < 0) setAt(0);
+    setPlaying(true);
   }
 
-  function chooseStep(nextStep: Step) {
+  function pause() {
     analytics.current?.interact('step');
-    stopPlaying();
-    setStep(nextStep);
-    setStage(0);
+    setPlaying(false);
   }
 
-  function chooseStage(index: number) {
+  function stepOnce() {
     analytics.current?.interact('step');
-    stopPlaying();
-    setStage(index);
+    setPlaying(false);
+    setAt(frameNow => (frameNow >= TOTAL ? 0 : frameNow + 1));
+  }
+
+  function restart() {
+    analytics.current?.interact('step');
+    setPlaying(false);
+    setAt(-1);
   }
 
   function chooseWeight(id: WeightId) {
@@ -108,99 +152,30 @@ export default function BackpropView() {
     setWeight(id);
   }
 
-  // Step 1's play: light the graph up in computation order.
-  function playForward() {
-    analytics.current?.interact('play');
-    window.clearInterval(timer.current);
-    if (reducedMotion()) return;
-    let at = 0;
-    setPhase(0);
-    timer.current = window.setInterval(() => {
-      at += 1;
-      if (at >= FORWARD_PHASES) stopPlaying();
-      else setPhase(at);
-    }, 500);
-  }
-
-  // Step 2's play: walk the three chain-rule stages from the loss inwards.
-  function playBackward() {
-    analytics.current?.interact('play');
-    window.clearInterval(timer.current);
-    if (reducedMotion()) {
-      setStage(2);
-      return;
-    }
-    let at = 0;
-    setStage(0);
-    timer.current = window.setInterval(() => {
-      at += 1;
-      setStage(at);
-      if (at >= 2) window.clearInterval(timer.current);
-    }, 700);
-  }
-
-  function takeStep() {
-    analytics.current?.interact('play');
-    setWeights(next);
-    setIterations(count => count + 1);
-  }
-
-  function moveWeight(id: WeightId, value: number) {
-    analytics.current?.changeSetting('initial');
-    stopPlaying();
-    setWeights({ ...weights, [id]: value });
-  }
-
-  function reset() {
-    analytics.current?.changeSetting('initial');
-    stopPlaying();
-    setWeights(INITIAL_WEIGHTS);
-    setIterations(0);
-  }
-
-  const backward = step === 'ask';
-  const showMid = backward && stage >= 1;
-  const showIn = backward && stage >= 2;
-  const grad = gradientOf(g, weight);
-  const predicted = grad * NUDGE;
-  const actual = nudgedLoss(weights, weight) - f.loss;
-  const topGrad = Math.max(...WEIGHT_IDS.map(id => Math.abs(gradientOf(g, id))));
-
-  // Which forward-animation phase reveals each part of the graph.
-  const hidden = (tick: number) => !backward && phase !== null && phase < tick;
-  const vis = (tick: number) => (hidden(tick) ? ` ${styles.waiting}` : '');
-  const groupVis = (tick: number) => (hidden(tick) ? styles.waiting : undefined);
-
-  // What each edge prints: the weight on steps 1/3, the gradient so far on step 2.
+  // The weight edges print the current weight; while the blame flows they
+  // print each weight's gradient instead.
   const edgeText = (id: WeightId) => {
-    if (!backward) return `${WEIGHT_LABEL[id]} = ${fmt(weights[id], 2)}`;
-    const shown = id === 'v1' || id === 'v2' ? showMid : showIn;
-    return shown ? `${GRAD_LABEL[id]} = ${fmt(gradientOf(g, id))}` : WEIGHT_LABEL[id];
+    const shown = id === 'v1' || id === 'v2' ? backOut : backIn;
+    return shown ? `${GRAD_LABEL[id]} = ${fmt(gradientOf(g, id))}` : `${WEIGHT_LABEL[id]} = ${fmt(weights[id], 2)}`;
   };
 
-  const weightSlider = (id: WeightId) =>
-    <label key={id} className={styles.trySlider}>
-      <span>{WEIGHT_LABEL[id]} = {fmt(weights[id], 2)}</span>
-      <input type="range" min={-1.5} max={1.5} step={0.05} value={weights[id]} aria-label={WEIGHT_LABEL[id]}
-        onChange={event => moveWeight(id, Number(event.target.value))} />
-    </label>;
+  // The static chain-rule check below the film always uses the initial
+  // weights, so its numbers never move while the film plays.
+  const initialLoss = forward(INITIAL_WEIGHTS).loss;
+  const initialGrads = gradients(INITIAL_WEIGHTS);
+  const grad = gradientOf(initialGrads, weight);
 
   return <section id="backprop" className={styles.section} aria-label={t('title')}>
     <p className={styles.intro}>{t('intro')}</p>
     <div className={styles.experiment}>
       <p className={styles.goal}>{t('goal')}</p>
-      <div className={styles.steps} role="group" aria-label={t('stepsLabel')}>
-        {STEPS.map((candidate, index) =>
-          <button key={candidate} type="button" aria-pressed={candidate === step} onClick={() => chooseStep(candidate)}>
-            <strong>{index + 1}</strong><span>{t(`steps.${candidate}`)}</span>
-          </button>)}
-      </div>
 
-      <div className={styles.panel}>
-        {!backward && <div className={styles.meter} role="img" aria-label={t('meterLabel')}>
+      <div className={styles.panel} aria-label={t('stage')}>
+        <div className={styles.meter} role="img" aria-label={t('meterLabel')}>
           <svg viewBox="0 0 360 58" className={styles.meterScale}>
             <line className={styles.meterAxis} x1={16} y1={36} x2={344} y2={36} />
-            <rect className={styles.meterGap} x={Math.min(meterX(f.y), meterX(TARGET))} y={32}
+            <rect className={measuring ? `${styles.meterGap} ${styles.pulsing}` : styles.meterGap}
+              x={Math.min(meterX(f.y), meterX(TARGET))} y={32}
               width={Math.abs(meterX(f.y) - meterX(TARGET))} height={8} rx={2} />
             <g className={styles.meterTarget}>
               <line x1={meterX(TARGET)} y1={28} x2={meterX(TARGET)} y2={44} />
@@ -214,186 +189,116 @@ export default function BackpropView() {
           <div className={styles.lossRow}>
             <span>{t('meterLoss')}</span>
             <span className={styles.lossTrack}>
-              <span className={styles.lossFill} style={{ width: `${lossShare(f.loss) * 100}%` }} />
+              <span className={measuring ? `${styles.lossFill} ${styles.pulsing}` : styles.lossFill}
+                style={{ width: `${lossShare(f.loss) * 100}%` }} />
             </span>
             <strong>{fmt(f.loss)}</strong>
           </div>
-        </div>}
-        <svg viewBox="0 0 360 252" className={styles.net} role="img" aria-label={t(backward ? 'netBackward' : 'netForward')}>
+        </div>
+
+        <p className={styles.narration} role="status">{t(`narration.${narration}`)}</p>
+
+        <svg viewBox="0 0 360 252" className={styles.net} role="img" aria-label={t(backOut ? 'netBackward' : 'netForward')}>
           <defs>
             <marker id="backprop-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
               <path d="M0 0L8 4L0 8z" className={styles.arrowHead} />
             </marker>
           </defs>
-          {backward
-            ? <>
-              <Edge from={NH1} to={NX} active={showIn} />
-              <Edge from={NH2} to={NX} active={showIn} />
-              <Edge from={NY} to={NH1} active={showMid} />
-              <Edge from={NY} to={NH2} active={showMid} />
-              <Edge from={{ x: NY.x, y: 234 }} to={NY} active />
-            </>
-            : <>
-              <g className={groupVis(1)}>
-                <Edge from={NX} to={NH1} />
-                <Edge from={NX} to={NH2} />
-              </g>
-              <g className={groupVis(3)}>
-                <Edge from={NH1} to={NY} />
-                <Edge from={NH2} to={NY} />
-              </g>
-              <g className={groupVis(4)}>
-                <Edge from={NY} to={{ x: NY.x, y: 234 }} />
-              </g>
-            </>}
+          <g className={hidden(0) ? styles.waiting : undefined}>
+            <Edge from={NX} to={NH1} flowing={flowing} />
+            <Edge from={NX} to={NH2} flowing={flowing} />
+          </g>
+          <g className={hidden(1) ? styles.waiting : undefined}>
+            <Edge from={NH1} to={NY} flowing={flowing} />
+            <Edge from={NH2} to={NY} flowing={flowing} />
+          </g>
+          <g className={hidden(2) ? styles.waiting : undefined}>
+            <Edge from={NY} to={LOSS} flowing={flowing} />
+          </g>
 
-          <text className={styles.edgeLabel + vis(1)} x={106} y={80} textAnchor="middle">{edgeText('w1')}</text>
-          <text className={styles.edgeLabel + vis(1)} x={106} y={180} textAnchor="middle">{edgeText('w2')}</text>
-          <text className={styles.edgeLabel + vis(3)} x={248} y={80} textAnchor="middle">{edgeText('v1')}</text>
-          <text className={styles.edgeLabel + vis(3)} x={248} y={180} textAnchor="middle">{edgeText('v2')}</text>
+          {/* The blame flowing backwards: reversed red edges, thickness = share of the blame. */}
+          {backOut && <>
+            <Edge from={LOSS} to={NY} back width={2.5} />
+            <Edge from={NY} to={NH1} back width={blameWidth('v1')} />
+            <Edge from={NY} to={NH2} back width={blameWidth('v2')} />
+          </>}
+          {backIn && <>
+            <Edge from={NH1} to={NX} back width={blameWidth('w1')} />
+            <Edge from={NH2} to={NX} back width={blameWidth('w2')} />
+          </>}
+
+          <text className={styles.edgeLabel + (backIn ? ` ${styles.blameLabel}` : vis(0))} x={106} y={80} textAnchor="middle">{edgeText('w1')}</text>
+          <text className={styles.edgeLabel + (backIn ? ` ${styles.blameLabel}` : vis(0))} x={106} y={180} textAnchor="middle">{edgeText('w2')}</text>
+          <text className={styles.edgeLabel + (backOut ? ` ${styles.blameLabel}` : vis(1))} x={248} y={80} textAnchor="middle">{edgeText('v1')}</text>
+          <text className={styles.edgeLabel + (backOut ? ` ${styles.blameLabel}` : vis(1))} x={248} y={180} textAnchor="middle">{edgeText('v2')}</text>
 
           <g className={styles.node + vis(0)}>
             <circle cx={NX.x} cy={NX.y} r={R} />
             <text x={NX.x} y={NX.y + 4} textAnchor="middle">x</text>
           </g>
-          <text className={styles.value + vis(0)} x={NX.x} y={NX.y + 36} textAnchor="middle">{!backward && `x = ${fmt(X, 2)}`}</text>
+          <text className={styles.value + vis(0)} x={NX.x} y={NX.y + 36} textAnchor="middle">{`x = ${fmt(X, 2)}`}</text>
 
-          <g className={styles.node + vis(2)} data-active={showMid || undefined}>
+          <g className={styles.node + vis(1)} data-active={backOut || undefined}>
             <circle cx={NH1.x} cy={NH1.y} r={R} />
             <text x={NH1.x} y={NH1.y + 4} textAnchor="middle">h₁</text>
           </g>
-          <text className={styles.value + vis(2)} x={NH1.x} y={22} textAnchor="middle">
-            {backward ? (showMid && `∂L/∂h₁ = ${fmt(g.dh1)}`) : `a₁ = ${fmt(f.a1)}`}
-          </text>
-          <text className={styles.value + vis(2)} x={NH1.x} y={34} textAnchor="middle">
-            {backward ? (showMid && `∂L/∂a₁ = ${fmt(g.da1)}`) : `h₁ = tanh(a₁) = ${fmt(f.h1)}`}
-          </text>
+          <text className={styles.value + vis(1)} x={NH1.x} y={22} textAnchor="middle">{`a₁ = ${fmt(f.a1)}`}</text>
+          <text className={styles.value + vis(1)} x={NH1.x} y={34} textAnchor="middle">{`h₁ = tanh(a₁) = ${fmt(f.h1)}`}</text>
 
-          <g className={styles.node + vis(2)} data-active={showMid || undefined}>
+          <g className={styles.node + vis(1)} data-active={backOut || undefined}>
             <circle cx={NH2.x} cy={NH2.y} r={R} />
             <text x={NH2.x} y={NH2.y + 4} textAnchor="middle">h₂</text>
           </g>
-          <text className={styles.value + vis(2)} x={NH2.x} y={226} textAnchor="middle">
-            {backward ? (showMid && `∂L/∂h₂ = ${fmt(g.dh2)}`) : `a₂ = ${fmt(f.a2)}`}
-          </text>
-          <text className={styles.value + vis(2)} x={NH2.x} y={238} textAnchor="middle">
-            {backward ? (showMid && `∂L/∂a₂ = ${fmt(g.da2)}`) : `h₂ = tanh(a₂) = ${fmt(f.h2)}`}
-          </text>
+          <text className={styles.value + vis(1)} x={NH2.x} y={226} textAnchor="middle">{`a₂ = ${fmt(f.a2)}`}</text>
+          <text className={styles.value + vis(1)} x={NH2.x} y={238} textAnchor="middle">{`h₂ = tanh(a₂) = ${fmt(f.h2)}`}</text>
 
-          <g className={styles.node + vis(4)} data-active={backward || undefined}>
+          <g className={styles.node + vis(2)} data-active={backOut || undefined}>
             <circle cx={NY.x} cy={NY.y} r={R} />
             <text x={NY.x} y={NY.y + 4} textAnchor="middle">y</text>
           </g>
-          <text className={styles.value + vis(4)} x={NY.x} y={90} textAnchor="middle">
-            {backward ? `∂L/∂y = ${fmt(g.dy)}` : `y = ${fmt(f.y)}`}
+          <text className={backOut ? `${styles.value} ${styles.blameLabel}` : styles.value + vis(2)} x={NY.x} y={90} textAnchor="middle">
+            {backOut ? `∂L/∂y = ${fmt(g.dy)}` : `y = ${fmt(f.y)}`}
           </text>
 
-          <g className={styles.loss + vis(4)}>
+          <g className={styles.loss + vis(2) + (measuring ? ` ${styles.pulsing}` : '')}>
             <rect x={NY.x - 44} y={214} width={88} height={34} rx={8} />
             <text x={NY.x} y={228} textAnchor="middle">L = (y − t)²</text>
-            <text x={NY.x} y={242} textAnchor="middle">{backward ? `t = ${fmt(TARGET, 2)}` : `= ${fmt(f.loss)}`}</text>
+            <text x={NY.x} y={242} textAnchor="middle">= {fmt(f.loss)}</text>
           </g>
         </svg>
 
-        {step === 'try' && <>
-          <p className={styles.readout}>{t('tryText')}</p>
-          <div className={styles.sliderList}>
-            {WEIGHT_IDS.map(id => weightSlider(id))}
-          </div>
-          <div className={styles.applyRow}>
-            <button type="button" className={styles.play} onClick={playForward}>{t('play')}</button>
-            <button type="button" className={styles.reset} onClick={reset}>{t('resetParams')}</button>
-          </div>
-        </>}
-
-        {backward && <>
-          <div className={styles.stageRow}>
-            <button type="button" className={styles.play} onClick={playBackward}>{t('play')}</button>
-            <div className={styles.stages} role="group" aria-label={t('stagesLabel')}>
-              {STAGES.map((candidate, index) =>
-                <button key={candidate} type="button" aria-pressed={stage === index} onClick={() => chooseStage(index)}>
-                  {t(`stages.${candidate}`)}
-                </button>)}
-            </div>
-          </div>
-          <p className={styles.readout}>{t(`stageText.${STAGES[stage]}`)}</p>
-          {showIn && <div className={styles.impact}>
-            <p className={styles.impactTitle}>{t('impactTitle')}</p>
-            <ul className={styles.impactList}>
-              {WEIGHT_IDS.map(id => {
-                const value = gradientOf(g, id);
-                return <li key={id}>
-                  <span className={styles.impactName}>{WEIGHT_LABEL[id]}</span>
-                  <span className={styles.impactTrack}>
-                    <span className={value > 0 ? styles.impactFillUp : styles.impactFillDown}
-                      style={{ width: `${topGrad > 0 ? (Math.abs(value) / topGrad) * 100 : 0}%` }} />
-                  </span>
-                  <span className={styles.impactDir}>{t(value > 0 ? 'impactUp' : 'impactDown')}</span>
-                </li>;
-              })}
-            </ul>
-            <p className={styles.readout}>{t('impactNote')}</p>
-          </div>}
-          <details className={styles.detail}>
-            <summary>{t('detailTitle')}</summary>
-            <div className={styles.detailBody}>
-              <div className={styles.weights} role="group" aria-label={t('selectWeight')}>
-                {WEIGHT_IDS.map(id =>
-                  <button key={id} type="button" aria-pressed={id === weight} onClick={() => chooseWeight(id)}>
-                    {WEIGHT_LABEL[id]}
-                  </button>)}
-              </div>
-              <table className={styles.table} aria-label={t('nudgeTitle', { weight: WEIGHT_LABEL[weight] })}>
-                <tbody>
-                  <tr><th scope="row">{t('analytic')} {GRAD_LABEL[weight]}</th><td>{fmt(grad)}</td></tr>
-                  <tr><th scope="row">{t('predicted', { weight: WEIGHT_LABEL[weight] })}</th><td>{fmt(predicted, 5)}</td></tr>
-                  <tr><th scope="row">{t('actual', { weight: WEIGHT_LABEL[weight] })}</th><td>{fmt(actual, 5)}</td></tr>
-                </tbody>
-              </table>
-              <p className={styles.readout}>{t('nudgeNote')}</p>
-            </div>
-          </details>
-        </>}
-
-        {step === 'fix' && <>
-          <p className={styles.readout}>{t('fixText')}</p>
-          {solved
-            ? <p className={styles.solved} role="status">{t('solved')}</p>
-            : <p className={styles.lossDrop} role="status" data-up={nextLoss >= f.loss || undefined}>
-              {t(nextLoss < f.loss ? 'nextDown' : 'nextUp')} <strong>{fmt(f.loss, 4)} → {fmt(nextLoss, 4)}</strong>
-            </p>}
-          <div className={styles.applyRow}>
-            <button type="button" className={styles.apply} onClick={takeStep}>{t('stepButton')}</button>
-            <span className={styles.iterations}>{t('stepsTaken', { n: iterations })}</span>
-            <button type="button" className={styles.reset} onClick={reset}>{t('resetParams')}</button>
-          </div>
-          <details className={styles.detail}>
-            <summary>{t('updateDetail')}</summary>
-            <div className={styles.detailBody}>
-              <div className={styles.formula}>
-                <MathTex tex={String.raw`w \leftarrow w - \eta\,\frac{\partial L}{\partial w},\qquad \eta = ${LEARNING_RATE}`} block />
-              </div>
-              <table className={styles.table} aria-label={t('updateTitle')}>
-                <thead><tr><th scope="col">{t('weightHeader')}</th><th scope="col">{t('beforeHeader')}</th><th scope="col">{t('gradHeader')}</th><th scope="col">{t('afterHeader')}</th></tr></thead>
-                <tbody>
-                  {WEIGHT_IDS.map(id =>
-                    <tr key={id}>
-                      <th scope="row">{WEIGHT_LABEL[id]}</th>
-                      <td>{fmt(weights[id], 2)}</td>
-                      <td>{fmt(gradientOf(g, id))}</td>
-                      <td>{fmt(next[id])}</td>
-                    </tr>)}
-                </tbody>
-              </table>
-            </div>
-          </details>
-        </>}
-
-        <p className={styles.hint}>{t(`hint.${step}`)}</p>
+        <div className={styles.controls} role="group" aria-label={t('controls')}>
+          {playing
+            ? <button type="button" className={styles.play} onClick={pause}>{t('pause')}</button>
+            : <button type="button" className={styles.play} onClick={start}>{t('play')}</button>}
+          <button type="button" className={styles.control} onClick={stepOnce}>{t('stepOne')}</button>
+          <button type="button" className={styles.control} aria-pressed={fast} onClick={() => setFast(current => !current)}>{t('fast')}</button>
+          <button type="button" className={styles.control} onClick={restart}>{t('restart')}</button>
+          {!idle && <span className={styles.iterations}>{t('cycleCount', { n: done ? CYCLES : cycle + 1, total: CYCLES })}</span>}
+        </div>
       </div>
     </div>
 
     <div className={styles.explanation}>
+      <details className={styles.detail}>
+        <summary>{t('detailTitle')}</summary>
+        <div className={styles.detailBody}>
+          <div className={styles.weights} role="group" aria-label={t('selectWeight')}>
+            {WEIGHT_IDS.map(id =>
+              <button key={id} type="button" aria-pressed={id === weight} onClick={() => chooseWeight(id)}>
+                {WEIGHT_LABEL[id]}
+              </button>)}
+          </div>
+          <table className={styles.table} aria-label={t('nudgeTitle', { weight: WEIGHT_LABEL[weight] })}>
+            <tbody>
+              <tr><th scope="row">{t('analytic')} {GRAD_LABEL[weight]}</th><td>{fmt(grad)}</td></tr>
+              <tr><th scope="row">{t('predicted', { weight: WEIGHT_LABEL[weight] })}</th><td>{fmt(grad * NUDGE, 5)}</td></tr>
+              <tr><th scope="row">{t('actual', { weight: WEIGHT_LABEL[weight] })}</th><td>{fmt(nudgedLoss(INITIAL_WEIGHTS, weight) - initialLoss, 5)}</td></tr>
+            </tbody>
+          </table>
+          <p className={styles.readout}>{t('nudgeNote')}</p>
+        </div>
+      </details>
       <h3>{t('ruleTitle')}</h3>
       <div className={styles.formula}><MathTex tex={String.raw`\begin{aligned}
         a_i &= w_i\,x,\quad h_i = \tanh(a_i),\quad y = v_1 h_1 + v_2 h_2,\quad L = (y - t)^2 \\
