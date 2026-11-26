@@ -97,8 +97,8 @@
   line-height: 1.3;
   padding: .14rem .5rem;
   border-radius: 999px;
-  background: color-mix(in srgb, light-dark(#0a8f6a, #3fd3a2) 14%, transparent);
-  color: light-dark(#0a8f6a, #3fd3a2);
+  background: color-mix(in srgb, light-dark(#3f7a5e, #8cb4a0) 14%, transparent);
+  color: light-dark(#3f7a5e, #8cb4a0);
   white-space: nowrap;
 }
 
