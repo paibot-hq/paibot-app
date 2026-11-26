@@ -23,14 +23,15 @@ const KIND_LABELS: Record<LearnNodeKind, { ja: string; en: string; zh: string }>
 const UI_TEXT = {
   heading: { ja: '知識のつながりマップ（ロードマップ）', en: 'Knowledge Dependency Map', zh: '知识依赖路线图' },
   lead: {
-    ja: 'ノードをクリックすると「これを理解するための前提（上流）」と「これが分かると解ける先（下流）」が矢印でハイライトされます。',
-    en: 'Click any node to highlight every upstream prerequisite and downstream topic it unlocks.',
-    zh: '点击任意节点，即可用箭头高亮显示所有前置依赖与后续解锁内容。',
+    ja: '単元を押すと、その場のメニューからすぐ受講できます。前提（上流）と応用先（下流）は矢印で光ります。',
+    en: 'Press a topic to open its menu and start the lesson right there; arrows light its prerequisites and what it unlocks.',
+    zh: '点击单元即可在原地打开菜单直接学习；箭头会高亮其前置与后续内容。',
   },
   progress: { ja: '理解済み', en: 'mastered', zh: '已掌握' },
   markDone: { ja: '理解済みにする', en: 'Mark mastered', zh: '标记为已掌握' },
   markedDone: { ja: '理解済み ✓', en: 'Mastered ✓', zh: '已掌握 ✓' },
-  openLesson: { ja: '解説・演習を開く →', en: 'Open Lesson →', zh: '打开讲解与练习 →' },
+  openLesson: { ja: '受講する →', en: 'Start lesson →', zh: '去学习 →' },
+  close: { ja: '閉じる', en: 'Close', zh: '关闭' },
   legendSelected: { ja: '選択中', en: 'Selected', zh: '当前选中' },
   legendUp: { ja: '前提（先に学ぶ）', en: 'Prerequisites', zh: '前置知识' },
   legendDown: { ja: '応用先（次につながる）', en: 'Unlocks', zh: '后续应用' },
@@ -145,14 +146,6 @@ export default function LearnRoadmaps() {
   );
 
   const selectedNode = activeFocus ? LEARN_NODES[activeFocus] : null;
-  const directPrereqs = useMemo(
-    () => (activeFocus ? internalEdges.filter(e => e.to === activeFocus && LEARN_NODES[e.from]) : []),
-    [internalEdges, activeFocus],
-  );
-  const directUnlocks = useMemo(
-    () => (activeFocus ? internalEdges.filter(e => e.from === activeFocus && LEARN_NODES[e.to]) : []),
-    [internalEdges, activeFocus],
-  );
 
   const doneCount = allNodeIds.filter(id => done.includes(id)).length;
   const pct = allNodeIds.length > 0 ? Math.round((doneCount / allNodeIds.length) * 100) : 0;
@@ -162,13 +155,32 @@ export default function LearnRoadmaps() {
     return id ? LEARN_NODES[id] : null;
   }, [allNodeIds, done]);
 
-  // Selecting a node answers with the inspector below the (tall) graph, so bring it into view.
-  const inspectorRef = useRef<HTMLDivElement>(null);
+  // The menu answers at the node itself; Escape puts the map back.
+  const menuRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
-    if (!activeFocus || !inspectorRef.current) return;
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    inspectorRef.current.scrollIntoView({ block: 'nearest', behavior: reduced ? 'auto' : 'smooth' });
+    if (!activeFocus) return;
+    function onKeyDown(event: KeyboardEvent) {
+      if (event.key === 'Escape') setSelectedId(null);
+    }
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
   }, [activeFocus]);
+
+  // Where the menu opens, as fractions of the drawing so it tracks the SVG's scaling;
+  // flipped when the node sits against the drawing's right or bottom edge.
+  const menuPos = useMemo(() => {
+    if (!activeFocus) return null;
+    const pos = layout.positions.get(activeFocus);
+    if (!pos) return null;
+    const flipX = pos.x + 260 > layout.width;
+    const flipY = pos.y + NODE_H + 170 > layout.height;
+    return {
+      left: `${(((flipX ? pos.x + NODE_W : pos.x)) / layout.width) * 100}%`,
+      top: `${(((flipY ? pos.y : pos.y + NODE_H)) / layout.height) * 100}%`,
+      flipX,
+      flipY,
+    };
+  }, [activeFocus, layout]);
 
   return (
     <section id="roadmap" className={styles.section} aria-labelledby="learn-roadmaps-heading">
@@ -229,6 +241,7 @@ export default function LearnRoadmaps() {
         </div>
 
         <div className={styles.graphWrap}>
+          <div className={styles.graphInner}>
           <svg
             className={styles.graphSvg}
             viewBox={`0 0 ${layout.width} ${layout.height}`}
@@ -367,88 +380,48 @@ export default function LearnRoadmaps() {
               );
             })}
           </svg>
-        </div>
 
-        {/* Selected Node Detail Inspector */}
-        {selectedNode ? (
-          <div className={styles.inspector} ref={inspectorRef}>
-            <div className={styles.inspectorHead}>
-              <div>
+          {/* The node's menu, right where it was pressed: the lesson one tap away. */}
+          {selectedNode && menuPos && (
+            <div
+              ref={menuRef}
+              className={styles.nodeMenu}
+              data-flip-x={menuPos.flipX || undefined}
+              data-flip-y={menuPos.flipY || undefined}
+              style={{ left: menuPos.left, top: menuPos.top }}
+              role="dialog"
+              aria-label={pickText(selectedNode.title, locale)}
+            >
+              <div className={styles.menuHead}>
                 <span className={styles.kindBadge} data-kind={selectedNode.kind}>
                   {pickText(KIND_LABELS[selectedNode.kind], locale)}
                 </span>
-                <h4 className={styles.inspectorTitle}>{pickText(selectedNode.title, locale)}</h4>
-                <p className={styles.inspectorRole}>{pickText(selectedNode.role, locale)}</p>
-              </div>
-              <div className={styles.inspectorActions}>
                 <button
                   type="button"
-                  className={styles.clearButton}
+                  className={styles.menuClose}
+                  aria-label={pickText(UI_TEXT.close, locale)}
                   onClick={() => setSelectedId(null)}
                 >
-                  {pickText(UI_TEXT.clearSelection, locale)}
+                  ×
                 </button>
-                <button
-                  type="button"
-                  className={styles.doneButton}
-                  aria-pressed={done.includes(selectedNode.id)}
-                  onClick={() => toggleNode(selectedNode.id)}
-                >
-                  {pickText(done.includes(selectedNode.id) ? UI_TEXT.markedDone : UI_TEXT.markDone, locale)}
-                </button>
-                <Link href={selectedNode.href} className={styles.openButton}>
-                  {pickText(UI_TEXT.openLesson, locale)}
-                </Link>
               </div>
+              <p className={styles.menuTitle}>{pickText(selectedNode.title, locale)}</p>
+              <p className={styles.menuRole}>{pickText(selectedNode.role, locale)}</p>
+              <Link href={selectedNode.href} className={styles.menuOpen}>
+                {pickText(UI_TEXT.openLesson, locale)}
+              </Link>
+              <button
+                type="button"
+                className={styles.menuDone}
+                aria-pressed={done.includes(selectedNode.id)}
+                onClick={() => toggleNode(selectedNode.id)}
+              >
+                {pickText(done.includes(selectedNode.id) ? UI_TEXT.markedDone : UI_TEXT.markDone, locale)}
+              </button>
             </div>
-
-            <div className={styles.inspectorCols}>
-              <div className={styles.inspectorCol}>
-                <h5>← {pickText(UI_TEXT.prereqHeading, locale)}</h5>
-                {directPrereqs.length === 0 ? (
-                  <p className={styles.emptyHint}>{pickText(UI_TEXT.nonePrereq, locale)}</p>
-                ) : (
-                  <ul className={styles.edgeList}>
-                    {directPrereqs.map(edge => {
-                      const target = LEARN_NODES[edge.from];
-                      return (
-                        <li key={edge.from}>
-                          <button type="button" className={styles.edgeJump} onClick={() => setSelectedId(edge.from)}>
-                            <strong>{pickText(target.title, locale)}</strong>
-                            <span>{pickText(edge.why, locale)}</span>
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </div>
-
-              <div className={styles.inspectorCol}>
-                <h5>{pickText(UI_TEXT.unlocksHeading, locale)} →</h5>
-                {directUnlocks.length === 0 ? (
-                  <p className={styles.emptyHint}>{pickText(UI_TEXT.noneUnlocks, locale)}</p>
-                ) : (
-                  <ul className={styles.edgeList}>
-                    {directUnlocks.map(edge => {
-                      const target = LEARN_NODES[edge.to];
-                      return (
-                        <li key={edge.to}>
-                          <button type="button" className={styles.edgeJump} onClick={() => setSelectedId(edge.to)}>
-                            <strong>{pickText(target.title, locale)}</strong>
-                            <span>{pickText(edge.why, locale)}</span>
-                          </button>
-                        </li>
-                      );
-                    })}
-                  </ul>
-                )}
-              </div>
-            </div>
+          )}
           </div>
-        ) : (
-          <p className={styles.clickHint}>{pickText(UI_TEXT.clickHint, locale)}</p>
-        )}
+        </div>
       </div>}
     </section>
   );

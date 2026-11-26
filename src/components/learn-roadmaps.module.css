@@ -498,3 +498,65 @@
 .nextUp strong { font-weight: 700; }
 .nextUp:hover, .nextUp:focus-visible { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 16%, transparent); }
 .allDone { color: var(--success); font-size: .82rem; font-weight: 650; }
+
+/* The graph's own coordinate space, so the node menu tracks the SVG's scaling. */
+.graphInner { position: relative; width: max-content; min-width: 100%; }
+
+/* The menu that opens at the pressed node: name, one line of role, and the lesson one tap away. */
+.nodeMenu {
+  position: absolute;
+  z-index: 5;
+  display: grid;
+  gap: .3rem;
+  width: 232px;
+  margin-top: 8px;
+  padding: .7rem .8rem .8rem;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--surface-strong);
+  box-shadow: 0 16px 40px -18px var(--shadow);
+}
+.nodeMenu[data-flip-x] { transform: translateX(-100%); }
+.nodeMenu[data-flip-y] { margin-top: 0; transform: translateY(calc(-100% - 8px)); }
+.nodeMenu[data-flip-x][data-flip-y] { transform: translateX(-100%) translateY(calc(-100% - 8px)); }
+.menuHead { display: flex; justify-content: space-between; align-items: center; }
+.menuClose {
+  min-height: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+.menuClose:hover, .menuClose:focus-visible { color: var(--text); background: var(--surface); }
+.menuTitle { margin: 0; font-size: .95rem; font-weight: 700; line-height: 1.4; }
+.menuRole { margin: 0 0 .3rem; color: var(--muted); font-size: .76rem; line-height: 1.5; }
+.menuOpen {
+  display: flex;
+  justify-content: center;
+  padding: .5rem .8rem;
+  border-radius: 9px;
+  background: var(--text);
+  color: var(--bg);
+  font-size: .85rem;
+  font-weight: 700;
+  text-decoration: none;
+}
+.menuOpen:hover, .menuOpen:focus-visible { opacity: .88; }
+.menuDone {
+  min-height: 0;
+  padding: .4rem .8rem;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: transparent;
+  color: var(--muted);
+  font-size: .78rem;
+  cursor: pointer;
+}
+.menuDone:hover { color: var(--text); }
+.menuDone[aria-pressed='true'] { color: var(--success); border-color: color-mix(in srgb, var(--success) 45%, var(--line)); }
