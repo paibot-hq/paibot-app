@@ -3689,6 +3689,79 @@
         }
       ]
     },
+    "transformer": {
+      "title": "Inside a Transformer",
+      "description": "Watch a tiny one-block Transformer predict the next word end to end: embeddings, self-attention, the FFN, and softmax.",
+      "keywords": "transformer next word prediction self-attention FFN softmax ChatGPT explained visualization",
+      "about": "An experiment that walks through every stage of next-word prediction in a tiny Transformer (one layer, one head) built from an 11-word vocabulary and two-dimensional embeddings. Pick a sentence and follow four steps — tokens and embeddings, self-attention, the FFN with its residual, logits and softmax — and in every preset the intended verb ends up with the largest probability. All weights are hand-placed constants: no randomness, no training.",
+      "intro": "Models like ChatGPT are stacks of one repeated block. Here a tiny Transformer — two dimensions, one layer, one head — predicts the next word in four steps. Every weight is a hand-placed constant: no randomness, no training.",
+      "presets": "Pick a sentence",
+      "gloss": {
+        "catFish": "Predict what follows ねこ が さかな を (“the cat 〈subj〉 the fish 〈obj〉…”). It should be たべた (ate).",
+        "dogBall": "What follows いぬ が ボール を (“the dog 〈subj〉 the ball 〈obj〉…”)? Change the object and the prediction changes.",
+        "birdSky": "とり が そら を (“the bird 〈subj〉 the sky 〈obj〉…”) continues with とんだ (flew). Attention on そら is the key.",
+        "catBall": "Same subject ねこ (cat), but with ボール (ball) as the object the prediction becomes おいかけた (chased)."
+      },
+      "sentenceLabel": "The input sentence",
+      "nextSlot": "The next word",
+      "stepsLabel": "Steps",
+      "steps": {
+        "embed": "Embed + position",
+        "attend": "Self-attention",
+        "ffn": "FFN + residual",
+        "predict": "Next word"
+      },
+      "planeEmbed": "Each word’s embedding and the point shifted by its position vector",
+      "embedTitle": "Embeddings and position vectors",
+      "wordHeader": "Word",
+      "embedHeader": "Embedding e",
+      "posHeader": "Position p",
+      "weightsTitle": "Attention weights of {word}",
+      "attendNote": "The dot-product → softmax computation itself is explored in detail in the Attention Visualizer.",
+      "attentionDetail": "Open the Attention Visualizer",
+      "planeFfn": "The attention output z and the vector updated by the FFN",
+      "newVector": "New vector at {word}: ({x}, {y})",
+      "probsTitle": "Next-word probabilities over the whole vocabulary",
+      "prediction": "The next word is {word} ({percent})",
+      "layersNote": "A real Transformer stacks dozens of these blocks, with vectors thousands of dimensions wide.",
+      "hint": {
+        "embed": "Each word becomes a 2D point, shifted by its position vector (hollow = embedding, filled = shifted). The same word lands on a slightly different point in a different slot.",
+        "attend": "The query of the last token {word} takes dot products with every key, and softmax turns them into weights. Attention gathers on the noun just before を.",
+        "ffn": "The FFN output is added to the attended vector z (dashed arrow = z, red arrow = z + FFN(z)). The direction rotates toward the verbs.",
+        "predict": "Dot products between the updated vector and every word’s embedding give logits; softmax turns them into probabilities. The tallest bar is the prediction."
+      },
+      "ruleTitle": "What is being computed?",
+      "rule": "Each word’s embedding e plus its position vector p gives x. The last token’s query q takes dot products with every key k, softmax turns them into weights, and the weighted average of the values v is z.",
+      "ffnText": "The FFN passes z through a small two-layer net with ReLU and adds the result back onto z (the residual connection). In this tiny model that transformation rotates “object directions” onto “verb directions”.",
+      "predictText": "Finally, the dot products between the updated vector u and every vocabulary embedding (the logits) go through softmax, giving the probability distribution over the next word. All weights are constants, so the page shows the same numbers every time.",
+      "attentionLab": "Attention Visualizer",
+      "backpropLab": "Backpropagation Visualizer",
+      "gdLab": "Gradient Descent Simulator",
+      "guide": [
+        {
+          "heading": "How to follow the four steps",
+          "paragraphs": [
+            "Pick a sentence, then press the step buttons in order. Step 1 turns the words into 2D points, step 2 decides where the last token looks, step 3 moves the vector toward the verbs, and step 4 shows the probabilities over the whole vocabulary."
+          ]
+        },
+        {
+          "heading": "Compare the presets",
+          "paragraphs": [
+            "“ねこがさかなを” and “ねこがボールを” share the subject and differ only in the object. Because attention gathers on the object in step 2, the prediction in step 4 changes from たべた (ate) to おいかけた (chased)."
+          ]
+        }
+      ],
+      "faq": [
+        {
+          "q": "Is this the same computation as the real ChatGPT?",
+          "a": "The flow is the same — embeddings, self-attention, FFN with residual, softmax — but real models learn vectors thousands of dimensions wide across dozens of blocks. Here the two-dimensional weights are placed by hand so the mechanism stays visible."
+        },
+        {
+          "q": "How were the weights chosen?",
+          "a": "Without any training: the nouns sit on the unit circle, the particles are short, and the FFN rotates object directions onto verb directions. Unit tests re-derive every stage and check that the intended verb gets the largest probability in every preset."
+        }
+      ]
+    },
     "approx": {
       "title": "Approximation Showdown",
       "description": "One function, three ways of approaching it with the same number of numbers: a Taylor series, a Fourier series and a neural network that learns right in your browser. Find out from the errors and the graph which method is strong on which function.",
