@@ -2,7 +2,8 @@ name: App (development)
 on:
   push:
     branches: [main]
-    paths-ignore: ['**/*.md', 'docs/**', 'infra/**', '.github/workflows/infra-*.yml']
+    # src/data/breaches.json: the daily update commits the published list back; the page reads the database, so it needs no deploy.
+    paths-ignore: ['**/*.md', 'docs/**', 'infra/**', '.github/workflows/infra-*.yml', 'src/data/breaches.json']
   pull_request:
     paths-ignore: ['**/*.md', 'docs/**', 'infra/**', '.github/workflows/infra-*.yml']
 concurrency:
