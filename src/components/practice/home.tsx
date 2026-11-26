@@ -27,10 +27,13 @@ export default function PracticeHome({ book, exam, playable }: { book: PracticeB
           </li>)}
         </ul>
       </nav>
-      {book.catalog.map(unit => {
+      {book.catalog.map((unit, index) => {
         const items = unit.items.filter(item => !exam || (item.exams as readonly string[]).includes(exam));
         return items.length > 0 && <section key={unit.id} className={styles.unit} aria-labelledby={`unit-${unit.id}`}>
-          <h2 id={`unit-${unit.id}`} className={styles.unitTitle}>{tb(`units.${unit.id}.title`)}</h2>
+          <div className={styles.unitHead}>
+            <span className={styles.unitIndex} aria-hidden="true">{String(index + 1).padStart(2, "0")}</span>
+            <h2 id={`unit-${unit.id}`} className={styles.unitTitle}>{tb(`units.${unit.id}.title`)}</h2>
+          </div>
           <ul className={styles.items}>
             {items.map(item => {
               const ready = item.sets.some(set => playable.includes(`${unit.id}/${item.id}/${set.id}`));

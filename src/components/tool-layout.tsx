@@ -49,6 +49,7 @@ export default function ToolLayout({
           <div className={styles.identity}>
             {app && <app.icon className={styles.icon} aria-hidden="true" />}
             <div className={styles.titles}>
+              {app && <p className={styles.eyebrow}>{dynamic(`tags.${app.tags[0]}`)}</p>}
               <h1 className={styles.title}>{title}</h1>
               {app && !app.private && <p className={styles.tagline}>{dynamic(`${app.messageKey}.description`)}</p>}
             </div>
