@@ -3,9 +3,14 @@
 .charts {
   --c-surface: #1a1a19; --c-ink: #ffffff; --c-ink2: #c3c2b7; --c-muted: #8f8e86; --c-grid: rgba(255, 255, 255, .1); --c-axis: rgba(255, 255, 255, .35);
   --k-leak: #3987e5; --k-ransomware: #d95926; --k-outage: #199e70; --k-fraud: #c98500; --k-other: #d55181;
-  width: min(720px, 100%); margin: 0 0 1rem; padding: .9rem 1rem; border: 1px solid var(--line); border-radius: var(--radius);
+  width: min(1100px, 100%); margin: 0 0 1rem; padding: .9rem 1rem; border: 1px solid var(--line); border-radius: var(--radius);
   background: var(--c-surface); color: var(--c-ink2); box-sizing: border-box;
 }
+/* The two time charts sit side by side at desk width, each measuring its own column. */
+.pair { display: grid; gap: .5rem 1.5rem; }
+@media (min-width: 880px) { .pair { grid-template-columns: 1fr 1fr; } }
+.cell { min-width: 0; }
+.cell .title { margin-top: 0; }
 :global(html[data-theme="light"]) .charts {
   --c-surface: #fcfcfb; --c-ink: #0b0b0b; --c-ink2: #52514e; --c-muted: #6b6a66; --c-grid: rgba(0, 0, 0, .08); --c-axis: rgba(0, 0, 0, .35);
   --k-leak: #2a78d6; --k-ransomware: #eb6834; --k-outage: #1baf7a; --k-fraud: #eda100; --k-other: #e87ba4;

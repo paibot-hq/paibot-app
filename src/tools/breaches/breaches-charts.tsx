@@ -4,7 +4,7 @@ import { approximate, compact, decades, KINDS, monthly, niceTicks, records, tree
 
 import styles from "./breaches-charts.module.css";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useLocale, useTranslations } from "use-intl";
 
 const KIND_KEYS = { leak: "typeLeak", ransomware: "typeRansomware", outage: "typeOutage", fraud: "typeFraud", other: "typeOther" } as const;
@@ -28,6 +28,12 @@ export function useWidth() {
     return () => observer.disconnect();
   }, []);
   return [ref, width] as const;
+}
+
+// A chart in a grid cell draws at its own cell's width, not the card's.
+function Measured({ children }: { children: (width: number) => ReactNode }) {
+  const [ref, width] = useWidth();
+  return <div ref={ref}>{children(width)}</div>;
 }
 
 type Tip = { x: number; y: number; title: string; total?: string; rows: { key?: Kind; label: string; value?: string }[] };
@@ -225,29 +231,34 @@ export function TreemapChart({ items, width }: { items: StatItem[]; width: numbe
 // `items` are the ones shown (after the filters); `first` is the earliest date of the whole list and `until` the day it was last checked, so the axis stays.
 export default function BreachesCharts({ items, first, until }: { items: StatItem[]; first: string; until: string }) {
   const t = useTranslations("App");
-  const [ref, width] = useWidth();
   const months = useMemo(() => monthly(items, until, first), [items, until, first]);
   const points = useMemo(() => records(items), [items]);
   const start = months.length ? months[0].year * 12 + months[0].month - 1 : 0;
   const end = start + months.length;
 
   return (
-    <section className={styles.charts} ref={ref} aria-label={t("breaches.chartsTitle")} data-chart="root">
-      <h2 className={styles.title}>{t("breaches.chartMonthly")}</h2>
-      <div className={styles.legend}>
-        {KINDS.map((k: Kind) => (
-          <span key={k} className={styles.legendItem}><span className={styles.key} data-kind={k} aria-hidden="true" />{t(`breaches.${KIND_KEYS[k]}`)}</span>
-        ))}
+    <section className={styles.charts} aria-label={t("breaches.chartsTitle")} data-chart="root">
+      <div className={styles.pair}>
+        <div className={styles.cell}>
+          <h2 className={styles.title}>{t("breaches.chartMonthly")}</h2>
+          <div className={styles.legend}>
+            {KINDS.map((k: Kind) => (
+              <span key={k} className={styles.legendItem}><span className={styles.key} data-kind={k} aria-hidden="true" />{t(`breaches.${KIND_KEYS[k]}`)}</span>
+            ))}
+          </div>
+          <Measured>{w => <MonthlyChart months={months} width={w} />}</Measured>
+        </div>
+        <div className={styles.cell}>
+          <h2 className={styles.title}>{t("breaches.chartRecords")}</h2>
+          <div className={styles.legend}>
+            {KINDS.map((k: Kind) => (
+              <span key={k} className={styles.legendItem}><span className={styles.key} data-kind={k} aria-hidden="true" />{t(`breaches.${KIND_KEYS[k]}`)}</span>
+            ))}
+          </div>
+          <Measured>{w => <RecordsChart points={points} from={start} to={end} width={w} />}</Measured>
+        </div>
       </div>
-      <MonthlyChart months={months} width={width} />
-      <h2 className={styles.title}>{t("breaches.chartRecords")}</h2>
       <p className={styles.help}>{t("breaches.chartRecordsHelp")}</p>
-      <div className={styles.legend}>
-        {KINDS.map((k: Kind) => (
-          <span key={k} className={styles.legendItem}><span className={styles.key} data-kind={k} aria-hidden="true" />{t(`breaches.${KIND_KEYS[k]}`)}</span>
-        ))}
-      </div>
-      <RecordsChart points={points} from={start} to={end} width={width} />
       <p className={styles.help}>{t("breaches.chartNote")}</p>
       <details className={styles.table}>
         <summary>{t("breaches.tableView")}</summary>

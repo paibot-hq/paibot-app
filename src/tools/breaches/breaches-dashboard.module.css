@@ -4,7 +4,7 @@
   --k-leak: #3987e5; --k-ransomware: #d95926; --k-outage: #199e70; --k-fraud: #c98500; --k-other: #d55181;
   /* Status red, reserved for severity (never a series colour); the badge carries a text label, so colour is never the only signal. */
   --s-alert: #e5484d; --s-alert-ink: #ffa5a7;
-  width: min(720px, 100%); margin: 0 0 1.25rem; padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: var(--radius);
+  width: min(1100px, 100%); margin: 0 0 1.25rem; padding: 1rem 1.1rem; border: 1px solid var(--line); border-radius: var(--radius);
   background: var(--d-surface); color: var(--d-ink2); box-sizing: border-box;
 }
 :global(html[data-theme="light"]) .dash {
@@ -58,6 +58,13 @@
 .kpiLabel { color: var(--d-ink2); font-size: .78rem; }
 .kpiValue { color: var(--d-ink); font-size: 1.9rem; line-height: 1.15; font-variant-numeric: tabular-nums; }
 .kpiSub { color: var(--d-muted); font-size: .72rem; }
+/* At desk width the treemap and the three breakdowns share a row, like panels of a control board; below it they stack. */
+.mid { margin-top: 1.1rem; }
+@media (min-width: 880px) {
+  .mid { display: grid; grid-template-columns: 2fr 1fr; gap: 1rem 1.5rem; align-items: start; }
+  .mid .map { margin-top: 0; }
+  .mid .groups { grid-template-columns: 1fr; margin-top: 0; }
+}
 /* The treemap is drawn by the chart card's component; its tokens map onto this card's. */
 .map { --c-surface: var(--d-surface); --c-ink: var(--d-ink); --c-ink2: var(--d-ink2); --c-muted: var(--d-muted); --c-grid: var(--d-line); margin-top: 1.1rem; }
 .mapTitle { margin: 0 0 .2rem; color: var(--d-ink); font-size: .85rem; }

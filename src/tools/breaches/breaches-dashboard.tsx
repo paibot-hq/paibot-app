@@ -104,12 +104,13 @@ export default function BreachesDashboard({ items, asOf, onPick }: { items: Summ
           </div>
         ))}
       </div>
-      <div className={styles.map} ref={mapRef}>
-        <h3 className={styles.mapTitle}>{t("breaches.chartTreemap")}</h3>
-        <p className={styles.mapHelp}>{t("breaches.chartTreemapHelp")}</p>
-        <TreemapChart items={items} width={mapWidth} />
-      </div>
-      <div className={styles.groups}>
+      <div className={styles.mid}>
+        <div className={styles.map} ref={mapRef}>
+          <h3 className={styles.mapTitle}>{t("breaches.chartTreemap")}</h3>
+          <p className={styles.mapHelp}>{t("breaches.chartTreemapHelp")}</p>
+          <TreemapChart items={items} width={mapWidth} />
+        </div>
+        <div className={styles.groups}>
         {groups.map(group => (
           <div key={group.id} className={styles.group}>
             <h3>{group.title}</h3>
@@ -130,6 +131,7 @@ export default function BreachesDashboard({ items, asOf, onPick }: { items: Summ
             </ul>
           </div>
         ))}
+        </div>
       </div>
       <div className={styles.lists}>
         <div className={styles.group}>
