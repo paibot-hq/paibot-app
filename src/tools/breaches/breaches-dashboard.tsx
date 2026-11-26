@@ -4,8 +4,30 @@ import { approximate, attention, KINDS, percent, severity, summarize, type Kind,
 
 import styles from "./breaches-dashboard.module.css";
 
-import { useMemo } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useLocale, useTranslations } from "use-intl";
+
+// Counts the number up from zero once, on the first client render; the server and anyone who prefers reduced motion get the final value at once.
+function useCountUp(value: number): number {
+  const [shown, setShown] = useState(value);
+  const ran = useRef(false);
+  useEffect(() => {
+    if (ran.current || window.matchMedia("(prefers-reduced-motion: reduce)").matches) { setShown(value); return; }
+    ran.current = true;
+    const started = performance.now(), duration = 700;
+    let frame = requestAnimationFrame(function tick(now) {
+      const eased = 1 - (1 - Math.min(1, (now - started) / duration)) ** 3;
+      setShown(Math.round(value * eased));
+      if (eased < 1) frame = requestAnimationFrame(tick);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [value]);
+  return shown;
+}
+
+function KpiValue({ value, id, className }: { value: number; id: string; className: string }) {
+  return <strong className={className} data-dash={id}>{useCountUp(value)}</strong>;
+}
 
 const KIND_KEYS = { leak: "typeLeak", ransomware: "typeRansomware", outage: "typeOutage", fraud: "typeFraud", other: "typeOther" } as const;
 const ORIGIN_KEYS = { attack: "originAttack", insider: "originInsider", mistake: "originMistake" } as const;
@@ -75,7 +97,7 @@ export default function BreachesDashboard({ items, asOf, onPick }: { items: Summ
         {kpis.map(kpi => (
           <div key={kpi.id} className={styles.kpi}>
             <span className={styles.kpiLabel}>{kpi.label}</span>
-            <strong className={styles.kpiValue} data-dash={kpi.id}>{kpi.value}</strong>
+            <KpiValue className={styles.kpiValue} id={kpi.id} value={kpi.value} />
             <span className={styles.kpiSub}>{kpi.sub}</span>
           </div>
         ))}

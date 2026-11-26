@@ -88,4 +88,14 @@
 .item time, .itemKind { color: var(--d-muted); font-size: .72rem; font-variant-numeric: tabular-nums; }
 .itemKind { display: inline-flex; align-items: center; gap: .3rem; }
 .note { margin: 1rem 0 0; padding-top: .7rem; border-top: 1px solid var(--d-line); color: var(--d-muted); font-size: .76rem; line-height: 1.6; }
-@media (prefers-reduced-motion: no-preference) { .bar > span { transition: width .3s; } .row, .item { transition: background .12s; } }
+@media (prefers-reduced-motion: no-preference) {
+  .bar > span { transition: width .3s; }
+  .row, .item { transition: background .12s; }
+  .heroCard { transition: transform .15s, border-color .15s, background-color .15s; animation: hero-in .45s ease-out backwards; }
+  .heroCard:nth-child(2) { animation-delay: .07s; }
+  .heroCard:nth-child(3) { animation-delay: .14s; }
+  .heroCard:hover { transform: translateY(-2px); }
+  .kpi { transition: border-color .15s; }
+  .kpi:hover { border-color: color-mix(in srgb, var(--d-ink) 25%, var(--d-line)); }
+  @keyframes hero-in { from { opacity: 0; transform: translateY(6px); } }
+}

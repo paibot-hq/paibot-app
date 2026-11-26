@@ -233,6 +233,9 @@ export default function BreachesCharts({ items, first, until }: { items: StatIte
 
   return (
     <section className={styles.charts} ref={ref} aria-label={t("breaches.chartsTitle")} data-chart="root">
+      <h2 className={styles.title}>{t("breaches.chartTreemap")}</h2>
+      <p className={styles.help}>{t("breaches.chartTreemapHelp")}</p>
+      <TreemapChart items={items} width={width} />
       <h2 className={styles.title}>{t("breaches.chartMonthly")}</h2>
       <div className={styles.legend}>
         {KINDS.map((k: Kind) => (
@@ -248,9 +251,6 @@ export default function BreachesCharts({ items, first, until }: { items: StatIte
         ))}
       </div>
       <RecordsChart points={points} from={start} to={end} width={width} />
-      <h2 className={styles.title}>{t("breaches.chartTreemap")}</h2>
-      <p className={styles.help}>{t("breaches.chartTreemapHelp")}</p>
-      <TreemapChart items={items} width={width} />
       <p className={styles.help}>{t("breaches.chartNote")}</p>
       <details className={styles.table}>
         <summary>{t("breaches.tableView")}</summary>
