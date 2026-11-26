@@ -99,7 +99,10 @@ test('the gradients stay right when the page parameters change', () => {
 
 test('repeated updates converge, and a too-large rate overshoots', () => {
   let weights = INITIAL_WEIGHTS;
-  for (let i = 0; i < 100; i++) weights = updated(weights, LEARNING_RATE);
+  // The page celebrates below 0.0005; six presses from the start get there.
+  for (let i = 0; i < 6; i++) weights = updated(weights, LEARNING_RATE);
+  assert.ok(forward(weights).loss < 0.0005, 'loss after the six steps the page walks');
+  for (let i = 0; i < 94; i++) weights = updated(weights, LEARNING_RATE);
   assert.ok(forward(weights).loss < 1e-6, 'loss after 100 updates');
   // The largest rate the slider offers makes this loss go up, which the page points out.
   const overshoot = forward(updated(INITIAL_WEIGHTS, 1.5)).loss;

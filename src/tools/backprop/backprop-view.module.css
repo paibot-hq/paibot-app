@@ -19,7 +19,7 @@
   box-shadow: 0 12px 35px -24px var(--shadow);
 }
 
-.steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: .35rem; }
+.steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .35rem; }
 .steps button, .stages button, .weights button {
   min-height: 44px;
   padding: .32rem .4rem;
@@ -46,31 +46,17 @@
   outline-offset: 2px;
 }
 
-.params {
-  border: 1px solid var(--line);
+.goal {
+  margin: 0;
+  padding: .5rem .7rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, var(--line));
   border-radius: var(--radius);
-  background: var(--surface-strong);
+  background: color-mix(in srgb, var(--accent) 10%, var(--surface-strong));
+  font-size: .9rem;
+  font-weight: 700;
 }
-.params summary {
-  padding: .55rem .7rem;
-  color: var(--text);
-  font-size: .85rem;
-  font-weight: 600;
-  cursor: pointer;
-}
-.paramGrid { display: grid; gap: .3rem .8rem; padding: .2rem .7rem .3rem; }
-.param {
-  display: grid;
-  grid-template-columns: 4.2em minmax(0, 1fr) 3.4em;
-  align-items: center;
-  gap: .5rem;
-  font-size: .83rem;
-}
-.param span { font-weight: 600; }
-.param input { min-width: 0; accent-color: var(--accent); }
-.param output { text-align: end; font-variant-numeric: tabular-nums; font-weight: 600; }
+
 .reset {
-  margin: .25rem .7rem .6rem;
   min-height: 36px;
   padding: .2rem .8rem;
   border: 1px solid var(--line);
@@ -135,6 +121,7 @@
 .impactFillDown { background: light-dark(#1d7a4f, #7fd8a8); }
 .impactDir { color: var(--muted); font-size: .78rem; }
 
+.sliderList { display: grid; gap: .35rem; }
 .trySlider {
   display: grid;
   grid-template-columns: 6.5em minmax(0, 1fr);
@@ -144,6 +131,22 @@
 }
 .trySlider span { font-weight: 700; font-variant-numeric: tabular-nums; }
 .trySlider input { min-width: 0; accent-color: var(--accent); }
+
+.detail {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.detail summary {
+  padding: .5rem .7rem;
+  color: var(--text);
+  font-size: .84rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+.detailBody { display: grid; gap: .55rem; padding: .1rem .6rem .6rem; }
+
+.solved { margin: 0; font-size: 1rem; font-weight: 700; color: light-dark(#1d7a4f, #7fd8a8); }
 
 .net { display: block; width: min(420px, 100%); margin: 0 auto; }
 

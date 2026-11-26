@@ -10,12 +10,18 @@ import {
 } from './backprop';
 import styles from './backprop-view.module.css';
 
-const STEPS = ['forward', 'backward', 'nudge', 'update'] as const;
+// One goal — bring the gap (loss) to zero — in three acts: try it by hand,
+// ask backpropagation which way each weight should turn, fix it as told.
+const STEPS = ['try', 'ask', 'fix'] as const;
 type Step = (typeof STEPS)[number];
 
 // Step 2 walks the chain rule in from the loss: first ∂L/∂y, then the
 // output-side weights and the hidden units, then the input-side weights.
 const STAGES = ['out', 'mid', 'in'] as const;
+
+// The gap counts as closed when the loss drops below this; six fixed steps
+// from the initial weights get there (see backprop.test.mjs).
+const SOLVED = 0.0005;
 
 const WEIGHT_LABEL: Record<WeightId, string> = { w1: 'w₁', w2: 'w₂', v1: 'v₁', v2: 'v₂' };
 const GRAD_LABEL: Record<WeightId, string> = { w1: '∂L/∂w₁', w2: '∂L/∂w₂', v1: '∂L/∂v₁', v2: '∂L/∂v₂' };
@@ -57,13 +63,10 @@ function reducedMotion() {
 
 export default function BackpropView() {
   const t = useTranslations('App.backprop');
-  const [step, setStep] = useState<Step>('forward');
+  const [step, setStep] = useState<Step>('try');
   const [stage, setStage] = useState(0);
   const [weight, setWeight] = useState<WeightId>('w1');
   const [weights, setWeights] = useState<Weights>(INITIAL_WEIGHTS);
-  const [x, setX] = useState(X);
-  const [target, setTarget] = useState(TARGET);
-  const [rate, setRate] = useState(LEARNING_RATE);
   const [iterations, setIterations] = useState(0);
   // null: the whole graph is shown; 0..4: the forward animation is at that phase.
   const [phase, setPhase] = useState<number | null>(null);
@@ -76,10 +79,11 @@ export default function BackpropView() {
     return () => window.clearInterval(timer.current);
   }, []);
 
-  const f = forward(weights, x, target);
-  const g = gradients(weights, x, target);
-  const next = updated(weights, rate, x, target);
-  const nextLoss = forward(next, x, target).loss;
+  const f = forward(weights);
+  const g = gradients(weights);
+  const next = updated(weights);
+  const nextLoss = forward(next).loss;
+  const solved = f.loss < SOLVED;
 
   function stopPlaying() {
     window.clearInterval(timer.current);
@@ -135,59 +139,56 @@ export default function BackpropView() {
     }, 700);
   }
 
-  function applyUpdate() {
+  function takeStep() {
     analytics.current?.interact('play');
     setWeights(next);
     setIterations(count => count + 1);
   }
 
-  function changeParam(kind: 'initial' | 'rate', apply: () => void) {
-    analytics.current?.changeSetting(kind);
+  function moveWeight(id: WeightId, value: number) {
+    analytics.current?.changeSetting('initial');
     stopPlaying();
-    apply();
+    setWeights({ ...weights, [id]: value });
   }
 
   function reset() {
     analytics.current?.changeSetting('initial');
     stopPlaying();
     setWeights(INITIAL_WEIGHTS);
-    setX(X);
-    setTarget(TARGET);
-    setRate(LEARNING_RATE);
     setIterations(0);
   }
 
-  const backward = step === 'backward';
+  const backward = step === 'ask';
   const showMid = backward && stage >= 1;
   const showIn = backward && stage >= 2;
   const grad = gradientOf(g, weight);
   const predicted = grad * NUDGE;
-  const actual = nudgedLoss(weights, weight, NUDGE, x, target) - f.loss;
-  const lossDown = nextLoss < f.loss;
+  const actual = nudgedLoss(weights, weight) - f.loss;
+  const topGrad = Math.max(...WEIGHT_IDS.map(id => Math.abs(gradientOf(g, id))));
 
   // Which forward-animation phase reveals each part of the graph.
   const hidden = (tick: number) => !backward && phase !== null && phase < tick;
   const vis = (tick: number) => (hidden(tick) ? ` ${styles.waiting}` : '');
   const groupVis = (tick: number) => (hidden(tick) ? styles.waiting : undefined);
 
-  // What each edge prints: the weight on steps 1/3/4, the gradient so far on step 2.
+  // What each edge prints: the weight on steps 1/3, the gradient so far on step 2.
   const edgeText = (id: WeightId) => {
     if (!backward) return `${WEIGHT_LABEL[id]} = ${fmt(weights[id], 2)}`;
     const shown = id === 'v1' || id === 'v2' ? showMid : showIn;
     return shown ? `${GRAD_LABEL[id]} = ${fmt(gradientOf(g, id))}` : WEIGHT_LABEL[id];
   };
 
-  const slider = (label: string, value: number, min: number, max: number, onChange: (next: number) => void, kind: 'initial' | 'rate' = 'initial') =>
-    <label className={styles.param}>
-      <span>{label}</span>
-      <input type="range" min={min} max={max} step={0.05} value={value}
-        onChange={event => changeParam(kind, () => onChange(Number(event.target.value)))} />
-      <output>{fmt(value, 2)}</output>
+  const weightSlider = (id: WeightId) =>
+    <label key={id} className={styles.trySlider}>
+      <span>{WEIGHT_LABEL[id]} = {fmt(weights[id], 2)}</span>
+      <input type="range" min={-1.5} max={1.5} step={0.05} value={weights[id]} aria-label={WEIGHT_LABEL[id]}
+        onChange={event => moveWeight(id, Number(event.target.value))} />
     </label>;
 
   return <section id="backprop" className={styles.section} aria-label={t('title')}>
     <p className={styles.intro}>{t('intro')}</p>
     <div className={styles.experiment}>
+      <p className={styles.goal}>{t('goal')}</p>
       <div className={styles.steps} role="group" aria-label={t('stepsLabel')}>
         {STEPS.map((candidate, index) =>
           <button key={candidate} type="button" aria-pressed={candidate === step} onClick={() => chooseStep(candidate)}>
@@ -195,32 +196,15 @@ export default function BackpropView() {
           </button>)}
       </div>
 
-      <details className={styles.params}>
-        <summary>{t('paramsLabel')}</summary>
-        <div className={styles.paramGrid}>
-          {slider(t('inputLabel'), x, -1.5, 1.5, setX)}
-          {slider(t('targetLabel'), target, -1, 1, setTarget)}
-          {slider(t('rateLabel'), rate, 0, 1.5, setRate, 'rate')}
-          {WEIGHT_IDS.map(id =>
-            <label key={id} className={styles.param}>
-              <span>{WEIGHT_LABEL[id]}</span>
-              <input type="range" min={-1.5} max={1.5} step={0.05} value={weights[id]}
-                onChange={event => changeParam('initial', () => setWeights({ ...weights, [id]: Number(event.target.value) }))} />
-              <output>{fmt(weights[id], 2)}</output>
-            </label>)}
-        </div>
-        <button type="button" className={styles.reset} onClick={reset}>{t('resetParams')}</button>
-      </details>
-
       <div className={styles.panel}>
         {!backward && <div className={styles.meter} role="img" aria-label={t('meterLabel')}>
           <svg viewBox="0 0 360 58" className={styles.meterScale}>
             <line className={styles.meterAxis} x1={16} y1={36} x2={344} y2={36} />
-            <rect className={styles.meterGap} x={Math.min(meterX(f.y), meterX(target))} y={32}
-              width={Math.abs(meterX(f.y) - meterX(target))} height={8} rx={2} />
+            <rect className={styles.meterGap} x={Math.min(meterX(f.y), meterX(TARGET))} y={32}
+              width={Math.abs(meterX(f.y) - meterX(TARGET))} height={8} rx={2} />
             <g className={styles.meterTarget}>
-              <line x1={meterX(target)} y1={28} x2={meterX(target)} y2={44} />
-              <text x={clampLabel(meterX(target))} y={56} textAnchor="middle">{t('meterT')} t = {fmt(target, 2)}</text>
+              <line x1={meterX(TARGET)} y1={28} x2={meterX(TARGET)} y2={44} />
+              <text x={clampLabel(meterX(TARGET))} y={56} textAnchor="middle">{t('meterT')} t = {fmt(TARGET, 2)}</text>
             </g>
             <g className={styles.meterAnswer}>
               <line x1={meterX(f.y)} y1={28} x2={meterX(f.y)} y2={44} />
@@ -272,7 +256,7 @@ export default function BackpropView() {
             <circle cx={NX.x} cy={NX.y} r={R} />
             <text x={NX.x} y={NX.y + 4} textAnchor="middle">x</text>
           </g>
-          <text className={styles.value + vis(0)} x={NX.x} y={NX.y + 36} textAnchor="middle">{!backward && `x = ${fmt(x, 2)}`}</text>
+          <text className={styles.value + vis(0)} x={NX.x} y={NX.y + 36} textAnchor="middle">{!backward && `x = ${fmt(X, 2)}`}</text>
 
           <g className={styles.node + vis(2)} data-active={showMid || undefined}>
             <circle cx={NH1.x} cy={NH1.y} r={R} />
@@ -307,13 +291,19 @@ export default function BackpropView() {
           <g className={styles.loss + vis(4)}>
             <rect x={NY.x - 44} y={214} width={88} height={34} rx={8} />
             <text x={NY.x} y={228} textAnchor="middle">L = (y − t)²</text>
-            <text x={NY.x} y={242} textAnchor="middle">{backward ? `t = ${fmt(target, 2)}` : `= ${fmt(f.loss)}`}</text>
+            <text x={NY.x} y={242} textAnchor="middle">{backward ? `t = ${fmt(TARGET, 2)}` : `= ${fmt(f.loss)}`}</text>
           </g>
         </svg>
 
-        {step === 'forward' && <>
-          <button type="button" className={styles.play} onClick={playForward}>{t('play')}</button>
-          <p className={styles.readout}>{t('forwardReadout', { y: fmt(f.y), loss: fmt(f.loss) })}</p>
+        {step === 'try' && <>
+          <p className={styles.readout}>{t('tryText')}</p>
+          <div className={styles.sliderList}>
+            {WEIGHT_IDS.map(id => weightSlider(id))}
+          </div>
+          <div className={styles.applyRow}>
+            <button type="button" className={styles.play} onClick={playForward}>{t('play')}</button>
+            <button type="button" className={styles.reset} onClick={reset}>{t('resetParams')}</button>
+          </div>
         </>}
 
         {backward && <>
@@ -332,12 +322,11 @@ export default function BackpropView() {
             <ul className={styles.impactList}>
               {WEIGHT_IDS.map(id => {
                 const value = gradientOf(g, id);
-                const top = Math.max(...WEIGHT_IDS.map(other => Math.abs(gradientOf(g, other))));
                 return <li key={id}>
                   <span className={styles.impactName}>{WEIGHT_LABEL[id]}</span>
                   <span className={styles.impactTrack}>
                     <span className={value > 0 ? styles.impactFillUp : styles.impactFillDown}
-                      style={{ width: `${top > 0 ? (Math.abs(value) / top) * 100 : 0}%` }} />
+                      style={{ width: `${topGrad > 0 ? (Math.abs(value) / topGrad) * 100 : 0}%` }} />
                   </span>
                   <span className={styles.impactDir}>{t(value > 0 ? 'impactUp' : 'impactDown')}</span>
                 </li>;
@@ -345,53 +334,59 @@ export default function BackpropView() {
             </ul>
             <p className={styles.readout}>{t('impactNote')}</p>
           </div>}
+          <details className={styles.detail}>
+            <summary>{t('detailTitle')}</summary>
+            <div className={styles.detailBody}>
+              <div className={styles.weights} role="group" aria-label={t('selectWeight')}>
+                {WEIGHT_IDS.map(id =>
+                  <button key={id} type="button" aria-pressed={id === weight} onClick={() => chooseWeight(id)}>
+                    {WEIGHT_LABEL[id]}
+                  </button>)}
+              </div>
+              <table className={styles.table} aria-label={t('nudgeTitle', { weight: WEIGHT_LABEL[weight] })}>
+                <tbody>
+                  <tr><th scope="row">{t('analytic')} {GRAD_LABEL[weight]}</th><td>{fmt(grad)}</td></tr>
+                  <tr><th scope="row">{t('predicted', { weight: WEIGHT_LABEL[weight] })}</th><td>{fmt(predicted, 5)}</td></tr>
+                  <tr><th scope="row">{t('actual', { weight: WEIGHT_LABEL[weight] })}</th><td>{fmt(actual, 5)}</td></tr>
+                </tbody>
+              </table>
+              <p className={styles.readout}>{t('nudgeNote')}</p>
+            </div>
+          </details>
         </>}
 
-        {step === 'nudge' && <>
-          <div className={styles.weights} role="group" aria-label={t('selectWeight')}>
-            {WEIGHT_IDS.map(id =>
-              <button key={id} type="button" aria-pressed={id === weight} onClick={() => chooseWeight(id)}>
-                {WEIGHT_LABEL[id]}
-              </button>)}
-          </div>
-          <label className={styles.trySlider}>
-            <span>{WEIGHT_LABEL[weight]} = {fmt(weights[weight], 2)}</span>
-            <input type="range" min={-1.5} max={1.5} step={0.05} value={weights[weight]}
-              onChange={event => changeParam('initial', () => setWeights({ ...weights, [weight]: Number(event.target.value) }))} />
-          </label>
-          <table className={styles.table} aria-label={t('nudgeTitle', { weight: WEIGHT_LABEL[weight] })}>
-            <tbody>
-              <tr><th scope="row">{t('analytic')} {GRAD_LABEL[weight]}</th><td>{fmt(grad)}</td></tr>
-              <tr><th scope="row">{t('predicted', { weight: WEIGHT_LABEL[weight] })}</th><td>{fmt(predicted, 5)}</td></tr>
-              <tr><th scope="row">{t('actual', { weight: WEIGHT_LABEL[weight] })}</th><td>{fmt(actual, 5)}</td></tr>
-            </tbody>
-          </table>
-          <p className={styles.readout}>{t('nudgeNote')}</p>
-        </>}
-
-        {step === 'update' && <>
-          <div className={styles.formula}>
-            <MathTex tex={String.raw`w \leftarrow w - \eta\,\frac{\partial L}{\partial w},\qquad \eta = ${rate.toFixed(2)}`} block />
-          </div>
-          <table className={styles.table} aria-label={t('updateTitle')}>
-            <thead><tr><th scope="col">{t('weightHeader')}</th><th scope="col">{t('beforeHeader')}</th><th scope="col">{t('gradHeader')}</th><th scope="col">{t('afterHeader')}</th></tr></thead>
-            <tbody>
-              {WEIGHT_IDS.map(id =>
-                <tr key={id}>
-                  <th scope="row">{WEIGHT_LABEL[id]}</th>
-                  <td>{fmt(weights[id], 2)}</td>
-                  <td>{fmt(gradientOf(g, id))}</td>
-                  <td>{fmt(next[id])}</td>
-                </tr>)}
-            </tbody>
-          </table>
-          <p className={styles.lossDrop} role="status" data-up={!lossDown || undefined}>
-            {t(lossDown ? 'lossDrop' : 'lossUp')} <strong>{fmt(f.loss, 4)} → {fmt(nextLoss, 4)}</strong>
-          </p>
+        {step === 'fix' && <>
+          <p className={styles.readout}>{t('fixText')}</p>
+          {solved
+            ? <p className={styles.solved} role="status">{t('solved')}</p>
+            : <p className={styles.lossDrop} role="status" data-up={nextLoss >= f.loss || undefined}>
+              {t(nextLoss < f.loss ? 'nextDown' : 'nextUp')} <strong>{fmt(f.loss, 4)} → {fmt(nextLoss, 4)}</strong>
+            </p>}
           <div className={styles.applyRow}>
-            <button type="button" className={styles.apply} onClick={applyUpdate}>{t('apply')}</button>
-            <span className={styles.iterations}>{t('iterationCount', { n: iterations })}</span>
+            <button type="button" className={styles.apply} onClick={takeStep}>{t('stepButton')}</button>
+            <span className={styles.iterations}>{t('stepsTaken', { n: iterations })}</span>
+            <button type="button" className={styles.reset} onClick={reset}>{t('resetParams')}</button>
           </div>
+          <details className={styles.detail}>
+            <summary>{t('updateDetail')}</summary>
+            <div className={styles.detailBody}>
+              <div className={styles.formula}>
+                <MathTex tex={String.raw`w \leftarrow w - \eta\,\frac{\partial L}{\partial w},\qquad \eta = ${LEARNING_RATE}`} block />
+              </div>
+              <table className={styles.table} aria-label={t('updateTitle')}>
+                <thead><tr><th scope="col">{t('weightHeader')}</th><th scope="col">{t('beforeHeader')}</th><th scope="col">{t('gradHeader')}</th><th scope="col">{t('afterHeader')}</th></tr></thead>
+                <tbody>
+                  {WEIGHT_IDS.map(id =>
+                    <tr key={id}>
+                      <th scope="row">{WEIGHT_LABEL[id]}</th>
+                      <td>{fmt(weights[id], 2)}</td>
+                      <td>{fmt(gradientOf(g, id))}</td>
+                      <td>{fmt(next[id])}</td>
+                    </tr>)}
+                </tbody>
+              </table>
+            </div>
+          </details>
         </>}
 
         <p className={styles.hint}>{t(`hint.${step}`)}</p>
