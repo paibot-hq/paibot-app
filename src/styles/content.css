@@ -380,8 +380,8 @@ h1 .title-suffix {
 .favorite-button svg { width: 16px; height: 16px; stroke: currentColor; stroke-width: 1.6; }
 /* A favourite is gold, so it can be told from one that is not at a glance (light-dark() follows the theme). */
 .favorite-button { color: var(--muted); }
-.favorite-button[aria-pressed="true"] { color: light-dark(#d79a00, #f4c24f); }
-.favorite-button:hover, .favorite-button:focus-visible { color: light-dark(#d79a00, #f4c24f); }
+.favorite-button[aria-pressed="true"] { color: light-dark(#a8842e, #d4b36a); }
+.favorite-button:hover, .favorite-button:focus-visible { color: light-dark(#a8842e, #d4b36a); }
 .favorite-button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .about { width: min(720px, calc(100% - 2rem)); }
@@ -424,3 +424,12 @@ footer {
 /* The star sits in the card's corner: keep the title clear of it. */
 .app-card-wrap { list-style: none; }
 .app-card-wrap .app-card > :first-child { padding-right: 2.4rem; }
+
+/* An app's colour comes from its first tag (data-tag): the cards on the top page and /apps, the tag chips there, and the
+   tool pages' headers (tool-layout.module.css) all read --cat from these; related tags share one. */
+[data-tag="game"], [data-tag="fortune"] { --cat: light-dark(#a35672, #c495a6); }
+[data-tag="learn"], [data-tag="math"], [data-tag="science"] { --cat: light-dark(#6d5fa8, #a69bcd); }
+[data-tag="art"], [data-tag="sound"] { --cat: light-dark(#4b8792, #8db6bd); }
+[data-tag="text"], [data-tag="photo"], [data-tag="calc"], [data-tag="document"], [data-tag="security"] { --cat: light-dark(#4a6b9b, #93accc); }
+[data-tag="time"], [data-tag="info"] { --cat: light-dark(#4d8168, #8cb4a0); }
+[data-tag="dev"], [data-tag="network"], [data-tag="ai"] { --cat: light-dark(#a1764a, #c3a279); }

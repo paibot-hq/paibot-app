@@ -41,7 +41,7 @@ export default function MathUnit({ loaderData: { unitId, published, stage, domai
   const done = useDoneSets(finished);
   return <>
     {published ? <PublicHead locale={locale} path={`/math/${unitId}`} title={head} description={description} /> : <title>{head}</title>}
-    <ToolLayout title={title} centerTitle aboveTitle={<MathBreadcrumb crumbs={[{ label: title }]} />}>
+    <ToolLayout title={title} aboveTitle={<MathBreadcrumb crumbs={[{ label: title }]} />}>
       <p className={styles.meta}>{t(`domains.${domain}`)}・{t(`stages.${stage}`)}</p>
       <p className={styles.description}>{description}</p>
       <p className={styles.choose}>{tq('chooseItem')}</p>

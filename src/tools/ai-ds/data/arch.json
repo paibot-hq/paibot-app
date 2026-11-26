@@ -1,1 +1,907 @@
-{ "problems": [] }
+{
+  "problems": [
+    {
+      "id": "arch-001",
+      "item": "convolution",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "入力サイズ $32 \\times 32$ の特徴マップに、カーネルサイズ $5 \\times 5$、パディング $p = 0$、ストライド $s = 1$ の畳み込みを適用したとき、出力特徴マップの 1 辺の長さはいくらか。",
+      "choices": [
+        "$29$",
+        "$28$",
+        "$27$",
+        "$32$"
+      ],
+      "answerIndex": 1,
+      "explanation": "畳み込みの出力サイズは $\\lfloor \\frac{H + 2p - K}{s} \\rfloor + 1$ です。$\\frac{32 + 0 - 5}{1} + 1 = 28$ となります。$27$ は最後の $+1$ を足し忘れた値、$32$ はパディング $p=2$ の場合のサイズ、$29$ はカーネル幅を $4$ と誤認した値です。",
+      "check": {
+        "expr": "conv_out(32, 5, 0, 1)",
+        "values": [
+          29,
+          28,
+          27,
+          32
+        ]
+      }
+    },
+    {
+      "id": "arch-002",
+      "item": "convolution",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "入力サイズ $28 \\times 28$ に、カーネルサイズ $3 \\times 3$、パディング $p = 1$、ストライド $s = 2$ の畳み込みを適用したとき、出力の 1 辺の長さはいくらか。",
+      "choices": [
+        "$14$",
+        "$15$",
+        "$13$",
+        "$28$"
+      ],
+      "answerIndex": 0,
+      "explanation": "$\\lfloor \\frac{28 + 2(1) - 3}{2} \\rfloor + 1 = \\lfloor \\frac{27}{2} \\rfloor + 1 = 13 + 1 = 14$ です。$15$ は切り上げ（$\\lceil 27/2 \\rceil + 1$）をしてしまった誤り、$13$ は $+1$ を足し忘れた値、$28$ はストライド $s=1$ の場合の値です。",
+      "check": {
+        "expr": "conv_out(28, 3, 1, 2)",
+        "values": [
+          14,
+          15,
+          13,
+          28
+        ]
+      }
+    },
+    {
+      "id": "arch-003",
+      "item": "convolution",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "入力チャネル数 $3$（RGB 画像）、出力チャネル数 $16$、カーネルサイズ $3 \\times 3$、バイアスありの2次元畳み込み層の学習パラメータ総数はいくつか。",
+      "choices": [
+        "$432$",
+        "$160$",
+        "$144$",
+        "$448$"
+      ],
+      "answerIndex": 3,
+      "explanation": "重みの数は $C_{\\text{in}} \\times C_{\\text{out}} \\times K_h \\times K_w = 3 \\times 16 \\times 3 \\times 3 = 432$ 個、バイアスは出力チャネルごとに 1 つずつなので $16$ 個です。合計 $432 + 16 = 448$ 個になります。$432$ はバイアスを足し忘れた値、$160$ は入力チャネル数 $3$ を掛け忘れた値（$16\\times 9 + 16$）、$144$ は重みのみかつ $C_{\\text{in}}$ 抜けの誤りです。",
+      "check": {
+        "expr": "conv_params(3, 16, 3, 3, 1)",
+        "values": [
+          432,
+          160,
+          144,
+          448
+        ]
+      }
+    },
+    {
+      "id": "arch-004",
+      "item": "convolution",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "入力サイズ $16 \\times 16$ に、カーネルサイズ $3 \\times 3$、パディング $p = 0$、ストライド $s = 1$、ダイレーション（膨張率）$d = 2$ の Dilated Convolution を適用したとき、出力の 1 辺の長さはいくらか。",
+      "choices": [
+        "$11$",
+        "$10$",
+        "$12$",
+        "$14$"
+      ],
+      "answerIndex": 2,
+      "explanation": "ダイレーション $d$ があるときの実効カーネルサイズは $d(K - 1) + 1 = 2(3 - 1) + 1 = 5$ です。したがって出力サイズは $\\lfloor \\frac{16 + 0 - 5}{1} \\rfloor + 1 = 12$ となります。$14$ はダイレーションを無視して $d=1$ で計算した値、$11$ は $+1$ を足し忘れた値、$10$ は実効カーネルを $d\\cdot K = 6$ と誤認した値です。",
+      "check": {
+        "expr": "conv_out(16, 3, 0, 1, 2)",
+        "values": [
+          11,
+          10,
+          12,
+          14
+        ]
+      }
+    },
+    {
+      "id": "arch-005",
+      "item": "convolution",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "入力チャネル数 $64$、出力チャネル数 $16$ の $1 \\times 1$ 畳み込み層（バイアスなし）と、同じ入出力チャネル数の $3 \\times 3$ 畳み込み層（バイアスなし）を比べたとき、$3 \\times 3$ 層のパラメータ数は $1 \\times 1$ 層の何倍か。",
+      "choices": [
+        "$16$",
+        "$9$",
+        "$3$",
+        "$6$"
+      ],
+      "answerIndex": 1,
+      "explanation": "$1 \\times 1$ 畳み込みのパラメータ数は $64 \\times 16 \\times 1 \\times 1 = 1024$、$3 \\times 3$ 畳み込みは $64 \\times 16 \\times 3 \\times 3 = 9216$ です。比は $9216 / 1024 = 9$ 倍になります。ResNet のボトルネック構造では $1 \\times 1$ 畳み込みでチャネル数を減らしてから $3 \\times 3$ 畳み込みを行うことで計算量を大きく削減します。$3$ は1辺の比のみを取った誤り、$6$ は $3+3$ の誤り、$16$ は出力チャネル数との混同です。",
+      "check": {
+        "expr": "conv_params(64, 16, 3, 3, 0) / conv_params(64, 16, 1, 1, 0)",
+        "values": [
+          16,
+          9,
+          3,
+          6
+        ]
+      }
+    },
+    {
+      "id": "arch-006",
+      "item": "pooling",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "特徴マップ $\\begin{pmatrix} 1 & 4 & 2 & 0 \\\\ 3 & 2 & 5 & 1 \\\\ 0 & 6 & 1 & 3 \\\\ 2 & 1 & 4 & 2 \\end{pmatrix}$ に、ウィンドウ $2 \\times 2$、ストライド $2$ の最大値プーリング（Max Pooling）を適用したとき、出力 $2 \\times 2$ 行列の全要素の和はいくらか。",
+      "choices": [
+        "$19$",
+        "$15$",
+        "$16$",
+        "$37$"
+      ],
+      "answerIndex": 0,
+      "explanation": "4つの $2 \\times 2$ 領域の最大値は、左上 $\\max(1,4,3,2)=4$、右上 $\\max(2,0,5,1)=5$、左下 $\\max(0,6,2,1)=6$、右下 $\\max(1,3,4,2)=4$ です。これらの和は $4 + 5 + 6 + 4 = 19$ です。$15$ は右下の最大値を $4$ ではなく $0$ や誤値としたミス、$16$ は4領域の平均を足した値に近い誤り、$37$ は元の全要素の和です。",
+      "check": {
+        "expr": "max([1,4,3,2]) + max([2,0,5,1]) + max([0,6,2,1]) + max([1,3,4,2])",
+        "values": [
+          19,
+          15,
+          16,
+          37
+        ]
+      }
+    },
+    {
+      "id": "arch-007",
+      "item": "pooling",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "サイズ $2 \\times 2$ の領域 $\\begin{pmatrix} 2 & 6 \\\\ 4 & 8 \\end{pmatrix}$ に対して平均値プーリング（Average Pooling）を適用した出力値はいくらか。",
+      "choices": [
+        "$8$",
+        "$20$",
+        "$4$",
+        "$5$"
+      ],
+      "answerIndex": 3,
+      "explanation": "領域内の 4 要素の算術平均なので $(2 + 6 + 4 + 8) / 4 = 20 / 4 = 5$ です。$8$ は最大値プーリング（Max Pooling）の結果、$20$ は要素数 $4$ で割り忘れた総和、$4$ は中央値や最小値寄りの誤りです。",
+      "check": {
+        "expr": "mean([2, 6, 4, 8])",
+        "values": [
+          8,
+          20,
+          4,
+          5
+        ]
+      }
+    },
+    {
+      "id": "arch-008",
+      "item": "pooling",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "形状 $(64, 28, 28)$（チャネル数 $64$、高さ $28$、幅 $28$）の特徴マップに、カーネル $2 \\times 2$、ストライド $2$、パディング $0$ の最大値プーリング層を適用したとき、出力の空間サイズ（高さ）と学習パラメータ数の和はいくらか。",
+      "choices": [
+        "$270$",
+        "$28$",
+        "$14$",
+        "$18$"
+      ],
+      "answerIndex": 2,
+      "explanation": "出力の高さは $\\lfloor (28 - 2)/2 \\rfloor + 1 = 14$ です。プーリング層は固定の最大値・平均値演算を行うだけなので学習パラメータ数は $0$ 個です。したがって和は $14 + 0 = 14$ となります。$18$ はカーネル要素数 $4$ をパラメータと誤認して足した値、$270$ は $64\\times 4 = 256$ をパラメータと誤認して足した値、$28$ はストライド $1$ 相当の誤りです。",
+      "check": {
+        "expr": "conv_out(28, 2, 0, 2) + 0",
+        "values": [
+          270,
+          28,
+          14,
+          18
+        ]
+      }
+    },
+    {
+      "id": "arch-009",
+      "item": "pooling",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "形状 $(512, 7, 7)$（チャネル数 $512$、空間サイズ $7 \\times 7$）の特徴マップに Global Average Pooling（GAP）を適用したあと、$10$ クラスの全結合層（バイアスあり）に接続するとき、この全結合層のパラメータ数はいくつか。",
+      "choices": [
+        "$500$",
+        "$5130$",
+        "$5120$",
+        "$250890$"
+      ],
+      "answerIndex": 1,
+      "explanation": "GAP は各チャネルの $7 \\times 7$ 空間全体を 1 つの平均値に潰すため、出力は $512$ 次元ベクトルになります。これを $10$ クラスへ写す全結合層のパラメータ数は $512 \\times 10 + 10 = 5130$ 個です。$5120$ はバイアス $10$ 個を足し忘れた値、$250890$ は GAP を使わず平坦化（$512\\times 7\\times 7\\times 10 + 10$）した場合の膨大なパラメータ数、$500$ は空間サイズ $7\\times 7=49$ だけを使った誤りです。",
+      "check": {
+        "expr": "dense_params(512, 10, 1)",
+        "values": [
+          500,
+          5130,
+          5120,
+          250890
+        ]
+      }
+    },
+    {
+      "id": "arch-010",
+      "item": "pooling",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "サイズ $15 \\times 15$ の特徴マップに、カーネル $3 \\times 3$、ストライド $2$、パディング $0$ の最大値プーリングを適用したとき、出力の 1 辺の長さはいくらか。",
+      "choices": [
+        "$7$",
+        "$8$",
+        "$6$",
+        "$13$"
+      ],
+      "answerIndex": 0,
+      "explanation": "プーリングの出力サイズも畳み込みと同じ公式 $\\lfloor \\frac{15 + 0 - 3}{2} \\rfloor + 1 = \\lfloor 6 \\rfloor + 1 = 7$ で求められます。$8$ は $\\lceil 15/2 \\rceil$ と誤認した値、$6$ は $+1$ を足し忘れた値、$13$ はストライド $s=1$ とした場合の値です。",
+      "check": {
+        "expr": "conv_out(15, 3, 0, 2)",
+        "values": [
+          7,
+          8,
+          6,
+          13
+        ]
+      }
+    },
+    {
+      "id": "arch-011",
+      "item": "skip-connections",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "ResNet が提案される背景となった「劣化問題（Degradation Problem）」の説明として最も適切なものはどれか。",
+      "choices": [
+        "訓練誤差は十分に下がるが、テストデータに対する誤差だけが悪化してしまう現象。",
+        "推論時に重みパラメータが時間経過でゼロに近づいていく現象。",
+        "バッチサイズを大きくすると GPU メモリが不足して学習が停止する現象。",
+        "ネットワークを深くしすぎると、過学習ではなく訓練誤差そのものが浅いモデルより悪化してしまう現象。"
+      ],
+      "answerIndex": 3,
+      "explanation": "劣化問題は、層を深くしたときに「過学習（訓練誤差は低いがテスト誤差が高い）」ではなく、**訓練誤差自体**が浅いネットワークより悪化してしまう最適化上の問題です。恒等写像を学習するだけでも浅いモデルと同等以上の訓練誤差になるはずなのに、通常の積み重ねではそれが難しいため、残差学習が導入されました。"
+    },
+    {
+      "id": "arch-012",
+      "item": "skip-connections",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "残差ブロックの出力を $\\mathbf{y} = \\mathcal{F}(\\mathbf{x}) + \\mathbf{x}$ としたとき、逆伝播における勾配 $\\frac{\\partial L}{\\partial \\mathbf{x}}$ が勾配消失を起こしにくい理由として最も適切なものはどれか。",
+      "choices": [
+        "加算演算では逆伝播時に勾配が 2 倍に増幅され続けるため。",
+        "スキップ結合を通る経路には活性化関数としてシグモイド関数が必ず挟まるため。",
+        "$\\frac{\\partial \\mathbf{y}}{\\partial \\mathbf{x}} = \\frac{\\partial \\mathcal{F}}{\\partial \\mathbf{x}} + I$ となり、恒等経路（$+I$）を通じて上流の勾配がそのまま下流へ伝わるため。",
+        "$\\mathcal{F}(\\mathbf{x})$ の微分が常に定数 $1$ に固定されるため。"
+      ],
+      "answerIndex": 2,
+      "explanation": "$\\mathbf{y} = \\mathcal{F}(\\mathbf{x}) + \\mathbf{x}$ を $\\mathbf{x}$ で微分すると $\\frac{\\partial \\mathbf{y}}{\\partial \\mathbf{x}} = \\frac{\\partial \\mathcal{F}}{\\partial \\mathbf{x}} + I$ になります。連鎖律より $\\frac{\\partial L}{\\partial \\mathbf{x}} = \\frac{\\partial L}{\\partial \\mathbf{y}}\\left(\\frac{\\partial \\mathcal{F}}{\\partial \\mathbf{x}} + I\\right)$ となるため、たとえ $\\frac{\\partial \\mathcal{F}}{\\partial \\mathbf{x}}$ が非常に小さくても、$\\frac{\\partial L}{\\partial \\mathbf{y}}$ がそのまま消えずに浅い層まで届きます。"
+    },
+    {
+      "id": "arch-013",
+      "item": "skip-connections",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "ResNet の残差ブロックで、入力 $\\mathbf{x}$ と残差出力 $\\mathcal{F}(\\mathbf{x})$ のチャネル数や空間サイズが異なる場合、加算 $\\mathcal{F}(\\mathbf{x}) + \\mathbf{x}$ を実行するための代表的な対処法はどれか。",
+      "choices": [
+        "出力側のチャネルをランダムに間引いて入力と同じサイズに合わせる。",
+        "ショートカット経路に $1 \\times 1$ 畳み込み（必要ならストライド 2）を入れて次元とサイズを揃える。",
+        "スキップ結合をそのブロックだけ削除して通常の畳み込みにする。",
+        "$\\mathcal{F}(\\mathbf{x})$ と $\\mathbf{x}$ を加算ではなく要素積（アダマール積）で結合する。"
+      ],
+      "answerIndex": 1,
+      "explanation": "チャネル数や解像度が変わる境界のブロックでは、ショートカット側に $1 \\times 1$ 畳み込み（Projection Shortcut、$W_s \\mathbf{x}$）やストライド $2$ を適用して形状を合わせてから加算します。別の方法としてゼロパディングでチャネルを補う手法もあります。"
+    },
+    {
+      "id": "arch-014",
+      "item": "skip-connections",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "ResNet-50 以降で採用されている「ボトルネック（Bottleneck）構造」の構成として正しいものはどれか。",
+      "choices": [
+        "$1 \\times 1$ 畳み込みでチャネル数を圧縮し、$3 \\times 3$ 畳み込みを行ったあと、再び $1 \\times 1$ 畳み込みでチャネル数を元に戻す。",
+        "$5 \\times 5$ 畳み込みを 3 層連続で積み、最後に最大値プーリングで圧縮する。",
+        "$3 \\times 3$ 畳み込みのあとに全結合層を挟んでチャネル数を増やす。",
+        "すべての畳み込みを $1 \\times 1$ 畳み込みだけに置き換え、空間方向の畳み込みを廃止する。"
+      ],
+      "answerIndex": 0,
+      "explanation": "ボトルネック構造は「$1\\times 1$（チャネル削減）→ $3\\times 3$（空間特徴抽出）→ $1\\times 1$（チャネル復元）」の3層構成です。計算コストの高い $3\\times 3$ 畳み込みを少ないチャネル数で実行できるため、深いモデル（ResNet-50/101/152）でも計算量とパラメータ数を抑えられます。"
+    },
+    {
+      "id": "arch-015",
+      "item": "skip-connections",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "Transformer のブロックにおける残差接続と LayerNorm の配置について、「Pre-LN（Pre-Norm）」構造の説明として最も適切なものはどれか。",
+      "choices": [
+        "残差加算の後に LayerNorm を置く $\\text{LN}(\\mathbf{x} + \\text{Sublayer}(\\mathbf{x}))$ 構造であり、ウォームアップなしでも常に安定する。",
+        "LayerNorm を完全に省き、残差接続だけで学習を行う構造である。",
+        "最初の埋め込み層だけに LayerNorm を適用し、以降はスキップ結合を使わない構造である。",
+        "サブ層（Attention や FFN）の入力直前に LayerNorm を置き、残差経路 $\\mathbf{x} + \\text{Sublayer}(\\text{LN}(\\mathbf{x}))$ を素通しにするため、深い層でも学習が安定しやすい。"
+      ],
+      "answerIndex": 3,
+      "explanation": "原論文の Post-LN（$\\text{LN}(\\mathbf{x} + \\text{Sublayer}(\\mathbf{x}))$）では残差の幹線上に LayerNorm が入るため、深いモデルでは学習率ウォームアップが必須になりやすいです。これに対し Pre-LN（$\\mathbf{x} + \\text{Sublayer}(\\text{LN}(\\mathbf{x}))$）は ResNet v2 と同様に恒等写像の幹線をそのまま保てるため、現代の LLM で広く採用されています。"
+    },
+    {
+      "id": "arch-016",
+      "item": "rnn",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "入力次元 $d_x = 10$、隠れ状態次元 $d_h = 20$ の単純な RNN 層（$\\mathbf{h}_t = \\tanh(W_{xh}\\mathbf{x}_t + W_{hh}\\mathbf{h}_{t-1} + \\mathbf{b}_h)$、バイアスあり）の学習パラメータ総数はいくつか。",
+      "choices": [
+        "$220$",
+        "$420$",
+        "$620$",
+        "$600$"
+      ],
+      "answerIndex": 2,
+      "explanation": "$W_{xh}$ が $20 \\times 10 = 200$ 個、$W_{hh}$ が $20 \\times 20 = 400$ 個、バイアス $\\mathbf{b}_h$ が $20$ 個なので、合計 $200 + 400 + 20 = 620$ 個です。$600$ はバイアスを足し忘れた値、$220$ は再帰重み $W_{hh}$ を数え忘れた値、$420$ は入力重み $W_{xh}$ を数え忘れた値です。",
+      "check": {
+        "expr": "10*20 + 20*20 + 20",
+        "values": [
+          220,
+          420,
+          620,
+          600
+        ]
+      }
+    },
+    {
+      "id": "arch-017",
+      "item": "rnn",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "スカラーの単純 RNN $h_t = \\tanh(w_x x_t + w_h h_{t-1})$ において、$w_x = 0.5$、$w_h = 0.5$、初期状態 $h_0 = 0$、入力 $x_1 = 2$ のとき、時刻 $t = 1$ の隠れ状態 $h_1$ を小数第2位までで求めよ。",
+      "choices": [
+        "$0.46$",
+        "$0.76$",
+        "$1.00$",
+        "$0.73$"
+      ],
+      "answerIndex": 1,
+      "explanation": "活性化前の値は $w_x x_1 + w_h h_0 = 0.5 \\times 2 + 0.5 \\times 0 = 1.0$ です。したがって $h_1 = \\tanh(1.0) \\approx 0.7616 \\approx 0.76$ です。$1.00$ は $\\tanh$ を掛け忘れた値、$0.73$ はシグモイド関数 $\\sigma(1.0)$ を計算した誤り、$0.46$ は $\\tanh(0.5)$ を計算した誤りです。",
+      "check": {
+        "expr": "tanh(0.5 * 2 + 0.5 * 0)",
+        "values": [
+          0.46,
+          0.76,
+          1.0,
+          0.73
+        ],
+        "tol": 0.005
+      }
+    },
+    {
+      "id": "arch-018",
+      "item": "rnn",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "単純 RNN の BPTT（時間を通じた誤差逆伝播）において、1ステップさかのぼるごとに勾配に掛かる倍率が $0.5$ であるとする。$10$ ステップ前の時刻へ伝わる勾配の倍率は、小数第4位まで（第5位を四捨五入）でいくらか。",
+      "choices": [
+        "$0.0010$",
+        "$0.0500$",
+        "$0.5000$",
+        "$0.0020$"
+      ],
+      "answerIndex": 0,
+      "explanation": "同じ重み行列を繰り返し掛けるため、$10$ ステップ前の勾配倍率は $0.5^{10} = \\frac{1}{1024} \\approx 0.0009766 \\approx 0.0010$ と指数的に減衰します（勾配消失）。$0.0500$ は $0.5 / 10$ と線形で割った誤り、$0.5000$ は 1 ステップ分だけ考えた誤り、$0.0020$ は $0.5^9$（9ステップ分）の値です。",
+      "check": {
+        "expr": "0.5 ** 10",
+        "values": [
+          0.001,
+          0.05,
+          0.5,
+          0.002
+        ],
+        "tol": 0.0001
+      }
+    },
+    {
+      "id": "arch-019",
+      "item": "rnn",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "系列長 $L = 100$ の入力に対し、入力次元 $d_x = 16$、隠れ次元 $d_h = 32$ の単純 RNN（バイアスあり）を処理するとき、全時刻を通じて共有される RNN 層の学習パラメータ総数はいくつか。",
+      "choices": [
+        "$156800$",
+        "$1536$",
+        "$544$",
+        "$1568$"
+      ],
+      "answerIndex": 3,
+      "explanation": "RNN の重要な特徴は、すべての時刻 $t = 1, \\dots, L$ で同じ重み $W_{xh}, W_{hh}, \\mathbf{b}_h$ を共有（パラメータ共有）することです。したがって系列長 $L=100$ に依らず、パラメータ数は $16 \\times 32 + 32 \\times 32 + 32 = 512 + 1024 + 32 = 1568$ 個です。$156800$ は系列長 $100$ を掛けてしまった誤り、$1536$ はバイアス抜き、$544$ は $W_{hh}$ 抜きの誤りです。",
+      "check": {
+        "expr": "16*32 + 32*32 + 32",
+        "values": [
+          156800,
+          1536,
+          544,
+          1568
+        ]
+      }
+    },
+    {
+      "id": "arch-020",
+      "item": "rnn",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "入力次元 $d_x = 16$、片方向の隠れ次元 $d_h = 32$ の双方向 RNN（Bidirectional RNN、バイアスあり）において、順方向・逆方向の隠れ状態を連結した出力次元と、双方向 RNN 層全体のパラメータ総数のうち、パラメータ総数はいくつか。",
+      "choices": [
+        "$3072$",
+        "$6272$",
+        "$3136$",
+        "$1568$"
+      ],
+      "answerIndex": 2,
+      "explanation": "双方向 RNN は順方向 RNN と逆方向 RNN の 2 つの独立した RNN を持ちます。片方向のパラメータ数が $16\\times 32 + 32\\times 32 + 32 = 1568$ 個なので、双方向全体では $2 \\times 1568 = 3136$ 個です（連結出力次元は $64$）。$1568$ は片方向分のみ、$3072$ はバイアス抜き、$6272$ は $d_h=64$ の単方向と混同した値です。",
+      "check": {
+        "expr": "2 * (16*32 + 32*32 + 32)",
+        "values": [
+          3072,
+          6272,
+          3136,
+          1568
+        ]
+      }
+    },
+    {
+      "id": "arch-021",
+      "item": "lstm-gru",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "LSTM（Long Short-Term Memory）が単純 RNN に比べて長期依存関係を学習しやすい最も本質的な理由はどれか。",
+      "choices": [
+        "過去の時刻の隠れ状態を一切使わず、現在時刻の入力だけで予測しているため。",
+        "セル状態 $\\mathbf{c}_t = \\mathbf{f}_t \\odot \\mathbf{c}_{t-1} + \\mathbf{i}_t \\odot \\tilde{\\mathbf{c}}_t$ が加算で更新され、勾配が乗算で急速に消えにくい経路を持つため。",
+        "活性化関数をすべて ReLU に置き換えて非線形性をなくしているため。",
+        "系列内のすべての単語ペアの内積を一度に並列計算しているため。"
+      ],
+      "answerIndex": 1,
+      "explanation": "LSTM では、通常の隠れ状態 $\\mathbf{h}_t$ とは別にセル状態（記憶セル）$\\mathbf{c}_t$ を持ち、$\\mathbf{c}_t = \\mathbf{f}_t \\odot \\mathbf{c}_{t-1} + \\mathbf{i}_t \\odot \\tilde{\\mathbf{c}}_t$ のように加算で情報を伝えます。忘却ゲート $\\mathbf{f}_t$ が $1$ に近ければ、逆伝播時に勾配がほぼ減衰せず長い時間ステップをさかのぼれます（CEC: Constant Error Carousel の考え方）。"
+    },
+    {
+      "id": "arch-022",
+      "item": "lstm-gru",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "LSTM の 3 つのゲート（忘却ゲート・入力ゲート・出力ゲート）の活性化関数として使われ、出力を $(0, 1)$ の範囲に収めて「どれくらい通すか」を制御する関数はどれか。",
+      "choices": [
+        "シグモイド関数（$\\sigma$）",
+        "ReLU 関数",
+        "Softmax 関数",
+        "恒等関数"
+      ],
+      "answerIndex": 0,
+      "explanation": "LSTM の忘却ゲート $\\mathbf{f}_t$・入力ゲート $\\mathbf{i}_t$・出力ゲート $\\mathbf{o}_t$ はすべてシグモイド関数 $\\sigma$ を使って各要素を $0$（完全に閉じる）〜$1$（完全に通す）の間の値にし、アダマール積 $\\odot$ で情報の通過量を制御します。一方、候補セル状態 $\\tilde{\\mathbf{c}}_t$ には $\\tanh$ が使われます。"
+    },
+    {
+      "id": "arch-023",
+      "item": "lstm-gru",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "LSTM の「忘却ゲート（Forget Gate）」$\\mathbf{f}_t$ の役割として最も適切なものはどれか。",
+      "choices": [
+        "現在の入力 $\\mathbf{x}_t$ をそのまま次の層へスキップ接続する。",
+        "出力層のクラス確率の合計が 1 になるように正規化する。",
+        "勾配爆発を防ぐために勾配ノルムの上限を切り捨てる。",
+        "1 ステップ前のセル状態 $\\mathbf{c}_{t-1}$ のうち、どの情報を残し、どの情報を忘れるかを要素ごとに決める。"
+      ],
+      "answerIndex": 3,
+      "explanation": "忘却ゲート $\\mathbf{f}_t = \\sigma(W_f [\\mathbf{h}_{t-1}, \\mathbf{x}_t] + \\mathbf{b}_f)$ は、前のセル状態 $\\mathbf{c}_{t-1}$ に要素積 $\\mathbf{f}_t \\odot \\mathbf{c}_{t-1}$ で掛かります。$0$ に近い要素は忘れられ、$1$ に近い要素は保持されます。文章の主語が切り替わったときに古い主語の情報をリセットする、といった働きをします。"
+    },
+    {
+      "id": "arch-024",
+      "item": "lstm-gru",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "GRU（Gated Recurrent Unit）と LSTM の違いとして最も適切なものはどれか。",
+      "choices": [
+        "GRU は Self-Attention を用いているため、時刻方向に完全に並列計算できる。",
+        "GRU は双方向化することができず、常に順方向のみで用いる。",
+        "GRU はセル状態と隠れ状態を1つに統合し、ゲートもリセットゲートと更新ゲートの2つに簡略化されているため、LSTM よりパラメータ数が少ない。",
+        "GRU はゲートを 4 つ持ち、LSTM よりパラメータ数が多い。"
+      ],
+      "answerIndex": 2,
+      "explanation": "GRU は LSTM のセル状態 $\\mathbf{c}_t$ を廃止して隠れ状態 $\\mathbf{h}_t$ のみに一本化し、忘却ゲートと入力ゲートを「更新ゲート $\\mathbf{z}_t$（$\\mathbf{h}_t = (1-\\mathbf{z}_t)\\odot\\mathbf{h}_{t-1} + \\mathbf{z}_t\\odot\\tilde{\\mathbf{h}}_t$）」に統合、さらに「リセットゲート $\\mathbf{r}_t$」の2ゲート構成としたモデルです。計算量・パラメータ数が約 3/4 に減りつつ、LSTM に近い性能を示します。"
+    },
+    {
+      "id": "arch-025",
+      "item": "lstm-gru",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "RNN や LSTM の学習において「勾配爆発（Exploding Gradients）」への代表的な対策として正しいものはどれか。",
+      "choices": [
+        "ドロップアウト率を $0.99$ に設定してほとんどのユニットを無効化する。",
+        "勾配クリッピング（Gradient Clipping）により、勾配ベクトルのノルムがしきい値を超えたら向きを保ったまま縮小する。",
+        "学習率を極端に大きくして、発散する前に最小値へ飛び越える。",
+        "すべてのゲートをオフ（$0$）に固定して逆伝播を止める。"
+      ],
+      "answerIndex": 1,
+      "explanation": "勾配消失には LSTM/GRU のゲート構造が有効ですが、勾配爆発（重みの固有値が $1$ より大きい場合に指数的に膨らむ現象）には勾配クリッピング（$\\|\\mathbf{g}\\|_2 > \\theta$ のとき $\\mathbf{g} \\leftarrow \\frac{\\theta}{\\|\\mathbf{g}\\|_2}\\mathbf{g}$ とスケーリング）が標準的な対策として使われます。"
+    },
+    {
+      "id": "arch-026",
+      "item": "attention",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "Attention を持たない従来の RNN ベース seq2seq（Encoder-Decoder）モデルが長い文章の翻訳で精度を落としやすい主な理由はどれか。",
+      "choices": [
+        "入力文全体の情報をエンコーダ最終時刻の固定長ベクトル 1 本に圧縮しなければならず、情報ボトルネックが生じるため。",
+        "デコーダが 1 単語ずつではなく全単語を同時に出力してしまうため。",
+        "エンコーダとデコーダで異なる言語の単語埋め込みを使えないため。",
+        "入力文の長さが長くなるほどパラメータ数が指数関数的に増えてメモリ不足になるため。"
+      ],
+      "answerIndex": 0,
+      "explanation": "通常の seq2seq では、入力が 5 単語でも 100 単語でも、エンコーダの最後の隠れ状態という固定長の文脈ベクトル 1 本にすべて押し込めます。これが情報ボトルネックとなり、長い文では前半の情報が失われやすくなります。Attention はデコーダの各時刻でエンコーダ全時刻の隠れ状態を直接参照することで、この問題を解決しました。"
+    },
+    {
+      "id": "arch-027",
+      "item": "attention",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "Attention 機構における Query（$Q$）、Key（$K$）、Value（$V$）の役割の組み合わせとして最も適切なものはどれか。",
+      "choices": [
+        "$Q$ と $V$ の内積を取り、その結果を $K$ で割って出力を得る。",
+        "$K$ と $V$ は常に互いに直交する単位ベクトルに固定し、$Q$ だけを学習する。",
+        "$Q$ は損失関数、$K$ は学習率、$V$ はバッチサイズを表す記号である。",
+        "$Q$（探したい情報）と各 $K$（見出し）の関連度から重みを計算し、その重みで $V$（中身）を加重平均して文脈ベクトルを作る。"
+      ],
+      "answerIndex": 3,
+      "explanation": "Attention は「辞書引きの柔らかい（微分可能な）版」と理解できます。今の状態を表す Query（$Q$）と、参照先それぞれの見出しである Key（$K$）の類似度を計算して Softmax で重み（合計 1）にし、その重みで Value（$V$）を加重和します。"
+    },
+    {
+      "id": "arch-028",
+      "item": "attention",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "Bahdanau Attention（加法注意: Additive Attention）と Luong Attention（内積注意: Dot-Product Attention）の比較として最も適切なものはどれか。",
+      "choices": [
+        "Bahdanau は画像専用であり、Luong は自然言語処理専用である。",
+        "Luong の内積注意は Query と Key の次元が異なっていてもそのまま内積を取れる。",
+        "Bahdanau は小さなニューラルネット（$\\tanh$ を含む線形結合）でスコアを計算し、Luong の内積注意はベクトル内積で計算するため行列積で高速化しやすい。",
+        "Bahdanau は Softmax を使わず、Luong は Softmax を使う。"
+      ],
+      "answerIndex": 2,
+      "explanation": "Bahdanau（加法注意）は $\\mathbf{v}^\\top \\tanh(W_1 \\mathbf{q} + W_2 \\mathbf{k})$ のように小さな全結合層で類似度スコアを計算します。一方 Luong の内積注意は $\\mathbf{q}^\\top \\mathbf{k}$ で直接スコアを求めるため、GPU 上の高速な行列積（GEMM）でまとめて計算でき、後の Transformer にも採用されました。"
+    },
+    {
+      "id": "arch-029",
+      "item": "attention",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "「Self-Attention（自己注意）」と「Cross-Attention（交差注意）」の違いとして最も適切なものはどれか。",
+      "choices": [
+        "Self-Attention は過去トークンのみ参照でき、Cross-Attention は未来トークンのみ参照できる。",
+        "Self-Attention は $Q, K, V$ をすべて同じ系列から作り、Cross-Attention は $Q$ をデコーダ側、$K, V$ をエンコーダ側など異なる系列から作る。",
+        "Self-Attention は教師なし学習のみ、Cross-Attention は教師あり学習のみで使う。",
+        "Self-Attention は 1 ヘッドのみ、Cross-Attention は必ずマルチヘッドで行う。"
+      ],
+      "answerIndex": 1,
+      "explanation": "Self-Attention では同一の入力系列 $X$ から $Q, K, V$ を生成し、文中の単語どうしの関係（例：代名詞がどの名詞を指すか）を捉えます。一方 Cross-Attention では、たとえば翻訳のデコーダ側を $Q$、エンコーダ側の出力を $K, V$ として、出力語を生成する際に原文のどこを見るべきかを参照します。"
+    },
+    {
+      "id": "arch-030",
+      "item": "attention",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "Attention の重み（Attention Weights）を可視化することの利点と注意点として最も適切なものはどれか。",
+      "choices": [
+        "各出力トークンが入力のどの位置に高い重みを置いたか直感的に確認できるが、深い層では情報が混ざるため、重みだけで完全な因果的説明とは言えない点に注意が必要。",
+        "Attention の重みは必ず 0 か 1 の二値になるため、モデルの判断理由を 100% 厳密に証明できる。",
+        "Attention の重みは学習中に更新されない固定値なので、推論前に一度確認すればよい。",
+        "Attention の重みの合計は入力文の長さに等しくなる。"
+      ],
+      "answerIndex": 0,
+      "explanation": "Attention 重みは Softmax で総和 $1$ に正規化されるため、どの入力トークンに強く注目しているかをヒートマップで直感的に見ることができます。ただし多層ネットワークでは各トークン表現に周囲の文脈がすでに混ざっており、Attention 重み＝そのまま唯一の根拠とは限らない（Attention is not Explanation 議論）点も重要です。"
+    },
+    {
+      "id": "arch-031",
+      "item": "transformer",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "Scaled Dot-Product Attention において、次元 $d_k = 4$ の Query $\\mathbf{q} = (2, 1, 0, -1)$ と Key $\\mathbf{k} = (3, 2, 1, 2)$ に対するスケーリング後のスコア $\\frac{\\mathbf{q}\\cdot\\mathbf{k}}{\\sqrt{d_k}}$ はいくらか。",
+      "choices": [
+        "$6$",
+        "$1.5$",
+        "$5$",
+        "$3$"
+      ],
+      "answerIndex": 3,
+      "explanation": "内積は $\\mathbf{q}\\cdot\\mathbf{k} = 2\\times 3 + 1\\times 2 + 0\\times 1 + (-1)\\times 2 = 6 + 2 + 0 - 2 = 6$ です。$\\sqrt{d_k} = \\sqrt{4} = 2$ で割るので、スコアは $6 / 2 = 3$ となります。$6$ は $\\sqrt{d_k}$ で割り忘れた値、$1.5$ は $d_k = 4$ でそのまま割った値、$5$ は第4成分の符号計算ミスです。",
+      "check": {
+        "expr": "dot([2, 1, 0, -1], [3, 2, 1, 2]) / sqrt(4)",
+        "values": [
+          6,
+          1.5,
+          5,
+          3
+        ]
+      }
+    },
+    {
+      "id": "arch-032",
+      "item": "transformer",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "ある Query に対する 2 つの Key のスケーリング済みスコアが $(2, 0)$、対応する Value（スカラー）がそれぞれ $v_1 = 10$、$v_2 = 2$ であった。Softmax で重みづけした Attention の出力値を小数第2位までで求めよ。",
+      "choices": [
+        "$10.00$",
+        "$8.00$",
+        "$9.05$",
+        "$6.00$"
+      ],
+      "answerIndex": 2,
+      "explanation": "Softmax の重みは $w_1 = \\frac{e^2}{e^2 + e^0} = \\frac{e^2}{e^2 + 1} \\approx 0.8808$、$w_2 = 1 - w_1 \\approx 0.1192$ です。加重和は $0.8808 \\times 10 + 0.1192 \\times 2 \\approx 8.808 + 0.238 = 9.046 \\approx 9.05$ となります。$6.00$ は単純平均、$10.00$ は argmax（Hard Attention）にした値、$8.00$ はスコア比で重みづけた誤りです。",
+      "check": {
+        "expr": "softmax([2, 0], 0) * 10 + softmax([2, 0], 1) * 2",
+        "values": [
+          10.0,
+          8.0,
+          9.05,
+          6.0
+        ],
+        "tol": 0.005
+      }
+    },
+    {
+      "id": "arch-033",
+      "item": "transformer",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "原論文の Transformer Base（埋め込み次元 $d_{\\text{model}} = 512$、ヘッド数 $h = 8$）の Multi-Head Attention において、1 ヘッドあたりの Key の次元 $d_k = d_{\\text{model}} / h$ はいくらか。",
+      "choices": [
+        "$4096$",
+        "$64$",
+        "$512$",
+        "$8$"
+      ],
+      "answerIndex": 1,
+      "explanation": "Multi-Head Attention では、$d_{\\text{model}} = 512$ 次元を $h = 8$ 個のヘッドに等分割して並列に Attention を計算するため、1 ヘッドあたりの次元は $d_k = d_v = 512 / 8 = 64$ です。各ヘッドの出力（$64$ 次元）を $8$ 個連結すると元の $512$ 次元に戻ります。$512$ は分割前の全体次元、$8$ はヘッド数、$4096$ は $512\\times 8$ と掛けてしまった誤りです。",
+      "check": {
+        "expr": "512 / 8",
+        "values": [
+          4096,
+          64,
+          512,
+          8
+        ]
+      }
+    },
+    {
+      "id": "arch-034",
+      "item": "transformer",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "埋め込み次元 $d_{\\text{model}} = 64$ の Multi-Head Attention 層において、$Q, K, V$ の入力射影行列（各 $64 \\times 64$）と出力射影行列 $W_O$（$64 \\times 64$）の計 4 つの重み行列（バイアスなし）の合計パラメータ数はいくつか。",
+      "choices": [
+        "$16384$",
+        "$12288$",
+        "$4096$",
+        "$8192$"
+      ],
+      "answerIndex": 0,
+      "explanation": "1 つの射影行列が $d_{\\text{model}}^2 = 64 \\times 64 = 4096$ 個のパラメータを持ちます。$W_Q, W_K, W_V, W_O$ の 4 枚あるため、合計 $4 d_{\\text{model}}^2 = 4 \\times 4096 = 16{,}384$ 個です（ヘッド数 $h$ で分割しても総数は変わりません）。$12288$ は出力射影 $W_O$ を数え忘れた $3 d_{\\text{model}}^2$、$4096$ は 1 枚分、$8192$ は 2 枚分の誤りです。",
+      "check": {
+        "expr": "4 * 64 * 64",
+        "values": [
+          16384,
+          12288,
+          4096,
+          8192
+        ]
+      }
+    },
+    {
+      "id": "arch-035",
+      "item": "transformer",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "標準的な Self-Attention の計算量・メモリ量は系列長 $L$ に対して $O(L^2)$ に比例する（$QK^\\top$ が $L \\times L$ 行列になるため）。系列長を $L = 512$ から $L = 2048$ に $4$ 倍にしたとき、Attention スコア行列の要素数は何倍になるか。",
+      "choices": [
+        "$4$",
+        "$8$",
+        "$2$",
+        "$16$"
+      ],
+      "answerIndex": 3,
+      "explanation": "Attention スコア行列 $QK^\\top$ の要素数は $L^2$ なので、系列長が $4$ 倍になると要素数は $4^2 = 16$ 倍になります（$512^2 = 262{,}144$ から $2048^2 = 4{,}194{,}304$）。これが長文コンテキスト処理で計算・メモリがボトルネックになる理由であり、FlashAttention などの高速化手法が生まれた背景です。$4$ は線形 $O(L)$ と誤認した値、$8$ は $2\\times 4$ の誤り、$2$ は $\\sqrt{4}$ の誤りです。",
+      "check": {
+        "expr": "(2048 ** 2) / (512 ** 2)",
+        "values": [
+          4,
+          8,
+          2,
+          16
+        ]
+      }
+    },
+    {
+      "id": "arch-036",
+      "item": "augmentation",
+      "setId": "1",
+      "position": 1,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "画像分類における「MixUp」の説明として最も適切なものはどれか。",
+      "choices": [
+        "訓練データの枚数を減らして学習時間を短縮する手法。",
+        "テスト時にだけ画像を反転させて 1 回だけ推論する手法。",
+        "2枚の画像とそれぞれの正解ラベル（one-hot）を同じ比率 $\\lambda$ で線形補間して新しい訓練サンプルを作る手法。",
+        "画像のランダムな矩形領域を黒（0）で塗りつぶして隠す手法。"
+      ],
+      "answerIndex": 2,
+      "explanation": "MixUp は $\\tilde{\\mathbf{x}} = \\lambda \\mathbf{x}_i + (1-\\lambda)\\mathbf{x}_j$、$\\tilde{\\mathbf{y}} = \\lambda \\mathbf{y}_i + (1-\\lambda)\\mathbf{y}_j$（$\\lambda \\sim \\text{Beta}(\\alpha, \\alpha)$）のように、入力だけでなく**ラベルもソフトに混ぜる**データ拡張です。決定境界が滑らかになり、過学習や過信（キャリブレーション悪化）を抑える効果があります。"
+    },
+    {
+      "id": "arch-037",
+      "item": "augmentation",
+      "setId": "1",
+      "position": 2,
+      "tier": 1,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "Cutout（Random Erasing）と CutMix の違いとして最も適切なものはどれか。",
+      "choices": [
+        "CutMix は画像全体を半透明に重ね合わせる手法であり、領域を切り抜かない。",
+        "Cutout は矩形領域を単色やノイズで隠すだけだが、CutMix は別の画像のパッチを貼り付け、面積比に応じて正解ラベルも混合する。",
+        "Cutout は音声専用、CutMix はテキスト専用の手法である。",
+        "Cutout はラベルを混合するが、CutMix はラベルを一切変更しない。"
+      ],
+      "answerIndex": 1,
+      "explanation": "Cutout は画像の一部をマスクして隠すことで特定の局所特徴への依存を防ぎますが、隠した領域の情報量がゼロになります。CutMix はその領域に別画像を貼り付け、面積比でラベルも混ぜることで、ピクセルの無駄をなくしつつ物体の位置特定能力も高めます。"
+    },
+    {
+      "id": "arch-038",
+      "item": "augmentation",
+      "setId": "1",
+      "position": 3,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "手書き数字認識（MNIST: 0〜9）において、データ拡張として「上下反転（Vertical Flip）」や「180度回転」を無条件に適用するべきでない理由はどれか。",
+      "choices": [
+        "「6」と「9」のように、変換によって本来の正解ラベルの意味が変わってしまう（ラベル保存性が壊れる）ため。",
+        "グレースケール画像には回転処理が数学的に定義できないため。",
+        "回転させると画像のチャネル数が 1 から 3 に増えてしまうため。",
+        "CNN は回転した画像を一切畳み込みできないため。"
+      ],
+      "answerIndex": 0,
+      "explanation": "データ拡張の大原則は「変換しても正解ラベルが変わらないこと（ラベル保存性）」です。猫の写真を左右反転しても猫のままですが、数字の「6」を180度回転すると「9」になってしまい、誤った教師ラベルを学習させてしまいます。タスクの性質に応じた拡張選びが不可欠です。"
+    },
+    {
+      "id": "arch-039",
+      "item": "augmentation",
+      "setId": "1",
+      "position": 4,
+      "tier": 2,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "音声認識モデルで広く使われるデータ拡張手法「SpecAugment」の説明として最も適切なものはどれか。",
+      "choices": [
+        "テキストの単語を別の言語に翻訳してから元の言語に戻す手法。",
+        "画像の色相・彩度・明度をランダムに変化させる手法。",
+        "音声ファイル全体を逆再生して訓練データに加える手法。",
+        "音声波形から作ったメルスペクトログラム上で、時間方向の伸縮や周波数帯・時間区間のマスキングを行う手法。"
+      ],
+      "answerIndex": 3,
+      "explanation": "SpecAugment は生の波形ではなくスペクトログラム（時間×周波数の2次元表現）に直接、Time Warping（時間伸縮）・Frequency Masking（特定周波数帯のマスク）・Time Masking（特定時間区間のマスク）を施す手法です。シンプルながら音声認識の精度を大きく引き上げます。"
+    },
+    {
+      "id": "arch-040",
+      "item": "augmentation",
+      "setId": "1",
+      "position": 5,
+      "tier": 3,
+      "published": true,
+      "reviewedAt": "2026-11-24",
+      "question": "データ拡張の適用タイミング（訓練時と評価・推論時）に関する記述として最も適切なものはどれか。",
+      "choices": [
+        "データ拡張はテストデータのみに適用し、訓練データには元のデータだけを使う。",
+        "データ拡張を行う前に、まず全データを複製して拡張してから訓練・テストにランダム分割すべきである。",
+        "データ拡張は原則として訓練データのみに適用し、検証・テストデータには適用しない（ただし推論時に複数変換の予測を平均する TTA という手法もある）。",
+        "訓練データとテストデータの分布を揃えるため、テストデータにも必ずランダムな切り抜きや MixUp を適用して評価する。"
+      ],
+      "answerIndex": 2,
+      "explanation": "拡張した画像を訓練・テスト分割より前に混ぜると、元画像が同じサンプルが両方に分かれてデータリーク（評価の過大評価）が起きます。必ず分割後の訓練データのみに拡張を適用します。なお推論精度を上げる工夫として、複数パターンの変換結果を平均する TTA（Test-Time Augmentation）が使われることはあります。"
+    }
+  ]
+}

@@ -1,8 +1,14 @@
 # PAIBOT.app
 
+The source of [paibot.app](https://paibot.app): small tools, games and study material (math practice, quizzes) in Japanese, English
+and Simplified Chinese, with sign-in for a diary, a profile, favorites and saved scores.
+
 React Router Framework Mode + TypeScript + Clerk + use-intl, with SSR on Cloudflare Workers, built and deployed with
 [Void](https://void.cloud) (`void.config.ts`).
 Japanese, English and Simplified Chinese use `/ja`, `/en`, `/zh` URLs.
+
+The code is MIT; the content (problems, texts, images) is CC BY-NC 4.0; the name and logo are not licensed. See
+[LICENSING.md](LICENSING.md). To report a vulnerability, see [SECURITY.md](SECURITY.md).
 
 ## Development
 

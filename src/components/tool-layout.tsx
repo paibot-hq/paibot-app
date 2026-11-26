@@ -3,7 +3,7 @@ import { useLocale, useTranslations } from "use-intl";
 import FavoriteButton from "./favorite-button";
 import ToolAbout, { type ToolTab } from "./tool-about";
 import { usePathname } from "../i18n/navigation";
-import { apps } from "../lib/apps";
+import { apps, type DynamicT } from "../lib/apps";
 import { useFavoritesData } from "../routes/locale";
 import styles from "./tool-layout.module.css";
 
@@ -12,7 +12,8 @@ type ToolLayoutProps = {
   children?: ReactNode;
   layout?: "stacked" | "centered" | "spacious";
   contentWidth?: "full" | "auto";
-  centerTitle?: boolean;
+  // A page whose content is wider than the usual column (the incident dashboard) widens the about section to match.
+  aboutWide?: boolean;
   // A breadcrumb-style link (or similar) above the title - e.g. "back to the
   // parent page" for a tool with sub-pages, like the math factorization set
   // picker/quiz. Rendered above <h1>, unlike children which render below it.
@@ -25,9 +26,10 @@ type ToolLayoutProps = {
 };
 
 export default function ToolLayout({
-  title, children, layout = "stacked", contentWidth = "full", centerTitle = false, aboveTitle, about = true, compact = false,
+  title, children, layout = "stacked", contentWidth = "full", aboveTitle, about = true, aboutWide = false, compact = false,
 }: ToolLayoutProps) {
   const t = useTranslations("App");
+  const dynamic = t as unknown as DynamicT;
   const locale = useLocale();
   const pathname = usePathname();
   const { signedIn, favoriteSlugs } = useFavoritesData();
@@ -44,38 +46,52 @@ export default function ToolLayout({
   return (
     <main className={styles.page} data-compact={compact || undefined}>
       {aboveTitle}
-      <h1 className={styles.title} data-centered={centerTitle || undefined}>{title}</h1>
-      {app && (
-        <FavoriteButton
-          slug={app.slug}
-          signedIn={signedIn}
-          favorited={favoriteSlugs.includes(app.slug)}
-          addLabel={t("apps.favorite")}
-          removeLabel={t("apps.unfavorite")}
-          actionPath={`/${locale}/favorites`}
-        />
-      )}
-      {showTabs && (
-        <div className={styles.tabs} role="tablist" aria-label={title} data-tool-tabs>
-          <button type="button" role="tab" aria-selected={tab === "app"} className={styles.tab} onClick={() => setTab("app")} data-tool-tab="app">
-            {t("search.kind.app")}
-          </button>
-          {hasGuide && (
-            <button type="button" role="tab" aria-selected={tab === "guide"} className={styles.tab} onClick={() => setTab("guide")} data-tool-tab="guide">
-              {t("apps.tabGuide")}
-            </button>
-          )}
-          {hasFaq && (
-            <button type="button" role="tab" aria-selected={tab === "faq"} className={styles.tab} onClick={() => setTab("faq")} data-tool-tab="faq">
-              {t("apps.faq")}
-            </button>
-          )}
+      <header className={styles.head} data-tag={app?.tags[0]} data-tabs={showTabs || undefined}>
+        <div className={styles.headRow}>
+          <div className={styles.identity}>
+            {app && <app.icon className={styles.icon} aria-hidden="true" />}
+            <div className={styles.titles}>
+              {app && <p className={styles.eyebrow}>{dynamic(`tags.${app.tags[0]}`)}</p>}
+              <h1 className={styles.title}>{title}</h1>
+              {app && !app.private && <p className={styles.tagline}>{dynamic(`${app.messageKey}.description`)}</p>}
+            </div>
+          </div>
+          <div className={styles.aside}>
+            {app?.localOnly && <span className={styles.localBadge}>{t("apps.localBadge")}</span>}
+            {app && (
+              <FavoriteButton
+                slug={app.slug}
+                signedIn={signedIn}
+                favorited={favoriteSlugs.includes(app.slug)}
+                addLabel={t("apps.favorite")}
+                removeLabel={t("apps.unfavorite")}
+                actionPath={`/${locale}/favorites`}
+              />
+            )}
+          </div>
         </div>
-      )}
+        {showTabs && (
+          <div className={styles.tabs} role="tablist" aria-label={title} data-tool-tabs>
+            <button type="button" role="tab" aria-selected={tab === "app"} className={styles.tab} onClick={() => setTab("app")} data-tool-tab="app">
+              {t("search.kind.app")}
+            </button>
+            {hasGuide && (
+              <button type="button" role="tab" aria-selected={tab === "guide"} className={styles.tab} onClick={() => setTab("guide")} data-tool-tab="guide">
+                {t("apps.tabGuide")}
+              </button>
+            )}
+            {hasFaq && (
+              <button type="button" role="tab" aria-selected={tab === "faq"} className={styles.tab} onClick={() => setTab("faq")} data-tool-tab="faq">
+                {t("apps.faq")}
+              </button>
+            )}
+          </div>
+        )}
+      </header>
       <div className={styles.content} data-layout={layout} data-width={contentWidth} hidden={showTabs && tab !== "app"}>
         {children}
       </div>
-      {about && app && !app.private && <ToolAbout app={app} tab={showTabs ? tab : "app"} />}
+      {about && app && !app.private && <ToolAbout app={app} tab={showTabs ? tab : "app"} wide={aboutWide} />}
     </main>
   );
 }

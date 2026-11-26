@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 
 export default async function ({ page, main, go }) {
   await go('breaches');
-  // Both tabs are in the page (the one not shown is hidden), so "the incidents" are the ones that can be seen.
+  // One page: the dashboard and the charts first, the list under them.
   const cards = main.locator('[data-breach]:visible');
   const columns = main.locator('[data-chart="column"]');
   const dotsOf = () => main.locator('[data-chart="point"]');
@@ -13,6 +13,8 @@ export default async function ({ page, main, go }) {
   const data = JSON.parse(readFileSync(new URL('../../data/breaches.json', import.meta.url), 'utf8'));
   const countOf = test => data.items.filter(test).length;
   const dash = key => main.locator(`[data-dash="${key}"]`);
+  // The numbers count up from zero when the page opens; read them once they have landed.
+  await page.waitForFunction(expected => document.querySelector('[data-dash="total"]')?.textContent === String(expected), data.items.length);
   assert.equal(await dash('total').textContent(), String(data.items.length));
   assert.equal(await dash('attack').textContent(), String(countOf(item => item.origin === 'attack')));
   assert.equal(await dash('official').textContent(), String(countOf(item => item.verification === 'official')));
@@ -22,7 +24,8 @@ export default async function ({ page, main, go }) {
     assert.equal(counts.reduce((sum, n) => sum + Number(n), 0), data.items.length, `every incident is under one heading of "${group}"`);
   }
   assert.equal(await main.locator('[data-dash="root"] ol').count(), 2, 'the largest and the latest');
-  assert.equal(await main.locator('[data-dash="root"] [data-chart]').count(), 0, 'the summary has no chart of its own');
+  // The summary's one chart is the treemap: a tile for every incident with a published count.
+  assert.equal(await main.locator('[data-dash="root"] [data-tile]').count(), countOf(item => item.count !== null), 'a tile for every counted incident');
   assert.equal(await main.locator('[data-breaches="tab-dashboard"]').getAttribute('aria-selected'), 'true', 'the dashboard is the first tab');
   assert.equal(await cards.count(), 0, 'the list is the other tab');
 
@@ -82,11 +85,9 @@ export default async function ({ page, main, go }) {
   assert.equal(await main.locator('[data-breach] [data-kind]:not([data-kind="ransomware"])').count(), 0);
 
   // The address keeps the list tab over a reload, and the dashboard is back with its own tab (the old ?tab=stats opens the dashboard too).
-  await main.locator('button[data-kind="ransomware"]').click();
   await page.reload();
   await main.locator('[data-breaches="panel-list"]').waitFor();
   assert.equal(await main.locator('[data-breaches="tab-list"]').getAttribute('aria-selected'), 'true', 'a reload keeps the list tab');
-  await main.getByRole('button', { name: 'All', exact: true }).first().click();
   await main.locator('[data-breaches="tab-dashboard"]').click();
   assert.doesNotMatch(page.url(), /tab=/);
   assert.ok(await main.locator('[data-chart="root"]:visible').count() === 1, 'the statistics are on the dashboard');
@@ -112,7 +113,8 @@ export default async function ({ page, main, go }) {
   assert.equal(await main.locator('[data-breach] [data-kind="ransomware"]').count(), 0, 'a ransomware is never "not an attack"');
   await main.locator('button[data-origin="insider"]').click();
   assert.ok(await cards.count() >= 2, 'insiders');
-  assert.match(await cards.first().locator('[data-breaches="origin-basis"]').innerText(), /内部不正/);
+  // The row is folded, so its detail is read from the page, not from what is on screen.
+  assert.match(await cards.first().locator('[data-breaches="origin-basis"]').textContent(), /内部不正/);
   await main.locator('button[data-origin="attack"]').click();
   assert.equal(await main.locator('[data-breaches="origin-basis"]').count(), 0, 'an attack has no such note');
   assert.ok(await cards.count() > 80, 'most incidents are attacks');
@@ -130,5 +132,5 @@ export default async function ({ page, main, go }) {
     assert.match(await link.getAttribute('href'), /^https:\/\//);
     assert.match(await link.getAttribute('rel'), /noopener/);
   }
-  console.log('PASS: breaches dashboard (summary, charts, tooltips, table) and list tabs, sorting, filters, search, safe source links');
+  console.log('PASS: breaches dashboard (summary, charts, tooltips, table) and list tabs, row expansion, sorting, filters, search, safe source links');
 }

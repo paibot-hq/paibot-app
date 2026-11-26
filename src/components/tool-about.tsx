@@ -16,7 +16,7 @@ export type ToolTab = "app" | "guide" | "faq";
 // Under every tool (or at the top when the visitor switches to the Guide / FAQ tab in ToolLayout): what it is in a few plain sentences,
 // a concrete example when available, the guide and questions (kept in the DOM with `hidden` so search engines read them while keeping
 // the tool view compact), the tools of the same kind to go to next, and the same facts as structured data.
-export default function ToolAbout({ app, tab = "app" }: { app: AppData; tab?: ToolTab }) {
+export default function ToolAbout({ app, tab = "app", wide = false }: { app: AppData; tab?: ToolTab; wide?: boolean }) {
   const t = useTranslations("App");
   const dynamic = t as unknown as DynamicT;
   const locale = useLocale() as "ja" | "en" | "zh";
@@ -39,7 +39,7 @@ export default function ToolAbout({ app, tab = "app" }: { app: AppData; tab?: To
     siteUrl: localizedUrl(siteOrigin, locale, ""),
   });
   return (
-    <section className={styles.about} data-top-panel={(tab !== "app") || undefined} aria-labelledby="tool-about" data-tool-about>
+    <section className={styles.about} data-top-panel={(tab !== "app") || undefined} data-wide={wide || undefined} aria-labelledby="tool-about" data-tool-about>
       <div hidden={!standalone && tab !== "app"}>
         <h2 id="tool-about" className={styles.heading}>
           <span>{t("apps.about")}</span>

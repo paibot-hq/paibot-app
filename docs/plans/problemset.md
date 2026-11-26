@@ -166,7 +166,7 @@ ID: la_eigenvalues_compute
 - vinextの推奨方式としてサーバー側で `import { env } from "cloudflare:workers"` を使用する。
 - 型は `wrangler types` で生成する。
 - D1接続は専用のサーバーモジュールに隔離し、UIや問題スキーマと分ける。
-- D1のリモート作成:`wrangler whoami`で確認済み。この環境は`admin@paibot.co.jp`のアカウントで既にOAuthログイン済みで、`d1 (write)`権限もあるため、`wrangler d1 create`はこの場で実行できる(実行前にユーザーへ一言確認する)。
+- D1のリモート作成:`wrangler whoami`で確認済み。この環境はpaibotのCloudflareアカウントで既にOAuthログイン済みで、`d1 (write)`権限もあるため、`wrangler d1 create`はこの場で実行できる(実行前にユーザーへ一言確認する)。
 - ローカル・ステージング・本番のDBと投入先を区別する。ローカル投入と開発サーバーが同じ永続化先を参照することを確認する。
 
 ### 最初に行う技術検証

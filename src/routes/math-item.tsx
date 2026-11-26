@@ -1,6 +1,7 @@
 import { redirect } from 'react-router';
 import { useLocale, useTranslations } from 'use-intl';
 import { useMathQuestions } from '../components/math-questions';
+import LearnConnections from '../components/learn-connections';
 import MathText from '../components/math-text';
 import LessonFigureView from '../components/math-lesson-figure';
 import { MathTex } from '../components/math-tex';
@@ -10,6 +11,7 @@ import ToolLayout from '../components/tool-layout';
 import { Link } from '../i18n/navigation';
 import { GRADIENT_DESCENT_PATH } from '../lib/app-catalog';
 import type { DynamicT } from '../lib/apps';
+import { learnNodeId } from '../lib/learn-roadmaps';
 import { getSetRecords } from '../lib/math-attempts.server';
 import { useDoneSets } from '../lib/math-local-done';
 import { findUnit } from '../lib/math-catalog';
@@ -72,7 +74,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
   const shown = (style?: FormulaStyle) => style ?? (grade?.startsWith('e') ? 'times' : undefined);
   return <>
     {published ? <PublicHead locale={locale} path={`/math/${unitId}/${itemId}`} title={head} description={description} /> : <title>{head}</title>}
-    <ToolLayout title={title} centerTitle aboveTitle={<MathBreadcrumb crumbs={[{ label: unitTitle, href: `/math/${unitId}` }, { label: title }]} />}>
+    <ToolLayout title={title} aboveTitle={<MathBreadcrumb crumbs={[{ label: unitTitle, href: `/math/${unitId}` }, { label: title }]} />}>
       <p className={styles.unit}><Link href={`/math/${unitId}`}>{unitTitle}</Link></p>
       {grade && <p className={styles.grade}>{t('gradeLabel', { grade: t(`grades.${grade}`) })}</p>}
       <h2 className={styles.about}>{ti('about')}</h2>
@@ -86,6 +88,7 @@ export default function MathItem({ loaderData: { unitId, itemId, published, grad
       {start && <Link href={`/math/${unitId}/${itemId}/${start.id}`} className={styles.start} data-math-start>
         {ti('start')}{sets.length > 1 && <span className={styles.startSet}>{tq('practice', { number: start.id })}</span>}
       </Link>}
+      <LearnConnections nodeId={learnNodeId('math', unitId, itemId)} />
       {lesson?.sections.map((section, index) => <section key={index} id={index === 0 ? 'explanation' : undefined} className={styles.lesson}>
         <h2 className={styles.lessonHeading}>{text(section.heading)}</h2>
         {section.paragraphs.map((paragraph, at) => <p key={at}><MathText text={text(paragraph)} /></p>)}

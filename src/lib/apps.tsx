@@ -696,10 +696,23 @@ function ColorTrickIcon(props: SVGProps<SVGSVGElement>) {
   return <svg viewBox="0 0 24 24" {...props}><circle cx="9" cy="9" r="5" /><circle cx="15" cy="9" r="5" /><circle cx="12" cy="15" r="5" /></svg>;
 }
 
+function AttentionIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" {...props}>
+      <circle cx="5" cy="5" r="2" />
+      <circle cx="5" cy="12" r="2" />
+      <circle cx="5" cy="19" r="2" />
+      <circle cx="19" cy="12" r="2.5" />
+      <path d="M7 5.8 16.6 11M7 12h9.5M7 18.2 16.6 13" />
+    </svg>
+  );
+}
+
 const APP_ICONS: Record<AppSlug, Icon> = {
   "color-trick": ColorTrickIcon,
   "gradient-descent": GrapherIcon,
   transformer: TransformerIcon,
+  attention: AttentionIcon,
   math: MathIcon, quiz: QuizIcon, arith: ArithIcon,
   linux: CodeRunnerIcon, json: JsonIcon, base64: Base64Icon, urlencode: UrlencodeIcon, "llm-memory": LlmMemoryIcon, "code-runner": CodeRunnerIcon, sql: SqlIcon, "browser-ai": BrowserAiIcon,
   wc: WcIcon, password: PasswordIcon, "mosaic": MosaicIcon, stopwatch: StopwatchIcon, "business-card": CardIcon, resignation: ResignationIcon,
