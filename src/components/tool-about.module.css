@@ -7,6 +7,8 @@
   border-top: 1px solid var(--line);
   color: var(--muted, inherit);
 }
+/* 68.75rem = 1100px, the incident dashboard's column, so the section's left edge lines up with the page it closes. */
+.about[data-wide] { max-width: 68.75rem; padding-left: 0; padding-right: 0; }
 .about[data-top-panel] {
   border-top: 0;
   padding-top: .5rem;

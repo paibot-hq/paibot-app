@@ -2,6 +2,7 @@
 
 import BreachesCharts from "./breaches-charts";
 import BreachesDashboard, { type Pick } from "./breaches-dashboard";
+import { approximate } from "./breaches-stats";
 import ToolLayout from "../../components/tool-layout";
 
 import styles from "./breaches.module.css";
@@ -71,11 +72,10 @@ export default function BreachesView({ list }: { list: Breaches }) {
       })
       .sort((a, b) => (sort === "date" ? b.date.localeCompare(a.date) : (b.count ?? -1) - (a.count ?? -1)));
   }, [entries, sort, kind, verification, origin, query]);
-  const max = Math.max(...entries.map(item => item.count ?? 0));
 
   return (
-    <ToolLayout title={t("breaches.title")}>
-      <p className={styles.intro}>{t("breaches.intro")}</p>
+    <ToolLayout title={t("breaches.title")} aboutWide>
+      {/* The page explains itself in the tool header's description; the switch sits on a hairline, like the header's own tabs. */}
       <div className={styles.tabs} role="tablist" aria-label={t("breaches.mode")}>
         <button type="button" role="tab" id="breaches-tab-dashboard" aria-controls="breaches-panel-dashboard" aria-selected={tab === "dashboard"} className={styles.tab} onClick={() => choose("dashboard")} data-breaches="tab-dashboard">{t("breaches.tabDashboard")}</button>
         <button type="button" role="tab" id="breaches-tab-list" aria-controls="breaches-panel-list" aria-selected={tab === "list"} className={styles.tab} onClick={() => choose("list")} data-breaches="tab-list">{t("breaches.tabList")}</button>
@@ -131,19 +131,22 @@ export default function BreachesView({ list }: { list: Breaches }) {
           {t("breaches.results", { count: items.length })} · {t("breaches.asOf", { date: list.asOf })}
         </p>
         {items.length === 0 && <p className={styles.status}>{t("breaches.none")}</p>}
+        {/* One compact row per incident — the whole list can be scanned — and the row opens to the full entry. */}
         <ul className={styles.list}>
           {items.map(item => (
-            <li key={item.id} className={styles.card} data-breach={item.id}>
-              <div className={styles.head}>
-                <h2 lang="ja">{item.name}</h2>
-                <time dateTime={item.date}>{item.date}</time>
-              </div>
+            <li key={item.id} data-breach={item.id}>
+              <details className={styles.entry}>
+                <summary className={styles.entryRow}>
+                  <time dateTime={item.date}>{item.date}</time>
+                  <h2 lang="ja"><span className={styles.entryDot} data-kind={item.type} aria-hidden="true" />{item.name}</h2>
+                  <span className={styles.entryCount}>{item.count != null ? t("breaches.dashCount", { value: approximate(item.count, locale) }) : ""}</span>
+                  <span className={styles.verify} data-verification={item.verification}>{t(`breaches.${VERIFY_KEYS[item.verification]}`)}</span>
+                </summary>
+                <div className={styles.entryBody}>
               <div className={styles.tags}>
                 <span className={styles.kind} data-kind={item.type}>{t(`breaches.${KIND_KEYS[item.type as Kind]}`)}</span>
-                <span className={styles.verify} data-verification={item.verification}>{t(`breaches.${VERIFY_KEYS[item.verification]}`)}</span>
                 {item.origin !== "attack" && <span className={styles.verify} data-origin-tag={item.origin}>{t(`breaches.${ORIGIN_KEYS[item.origin]}`)}</span>}
               </div>
-              {item.count != null && <div className={styles.meter} aria-hidden="true"><span style={{ width: `${Math.max(1, (item.count / max) * 100)}%` }} /></div>}
               {item.countNote && <p className={styles.count} lang="ja">{item.countNote}</p>}
               <dl lang="ja">
                 {item.data && <><dt>{t("breaches.data")}</dt><dd>{item.data}</dd></>}
@@ -161,6 +164,8 @@ export default function BreachesView({ list }: { list: Breaches }) {
                 ))}
                 {" · "}{t("breaches.checked", { date: item.checkedAt })}
               </p>
+                </div>
+              </details>
             </li>
           ))}
         </ul>

@@ -1,10 +1,10 @@
 "use client";
 
-import { compact, decades, KINDS, monthly, niceTicks, records, type Kind, type Month, type Point, type StatItem } from "./breaches-stats";
+import { approximate, compact, decades, KINDS, monthly, niceTicks, records, treemap, type Kind, type Month, type Point, type StatItem, type Tile } from "./breaches-stats";
 
 import styles from "./breaches-charts.module.css";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
 import { useLocale, useTranslations } from "use-intl";
 
 const KIND_KEYS = { leak: "typeLeak", ransomware: "typeRansomware", outage: "typeOutage", fraud: "typeFraud", other: "typeOther" } as const;
@@ -16,7 +16,7 @@ function topRounded(x: number, y: number, w: number, h: number, r: number) {
   return `M${x},${y + h}V${y + radius}Q${x},${y} ${x + radius},${y}H${x + w - radius}Q${x + w},${y} ${x + w},${y + radius}V${y + h}Z`;
 }
 
-function useWidth() {
+export function useWidth() {
   const ref = useRef<HTMLDivElement>(null);
   const [width, setWidth] = useState(640);
   useEffect(() => {
@@ -28,6 +28,12 @@ function useWidth() {
     return () => observer.disconnect();
   }, []);
   return [ref, width] as const;
+}
+
+// A chart in a grid cell draws at its own cell's width, not the card's.
+function Measured({ children }: { children: (width: number) => ReactNode }) {
+  const [ref, width] = useWidth();
+  return <div ref={ref}>{children(width)}</div>;
 }
 
 type Tip = { x: number; y: number; title: string; total?: string; rows: { key?: Kind; label: string; value?: string }[] };
@@ -133,11 +139,18 @@ function RecordsChart({ points, from, to, width }: { points: Point[]; from: numb
   const low = 10, high = 1e8;
   const y = (count: number) => margin.top + innerH - ((Math.log10(Math.max(count, low)) - Math.log10(low)) / (Math.log10(high) - Math.log10(low))) * innerH;
   const x = (position: number) => margin.left + ((position - from) / (to - from)) * innerW;
-  // The biggest are named on the chart (one on a phone). A name goes to the left of its dot when another named dot is just to its right, so that
-  // two names never sit on each other.
-  const named = [...points].sort((a, b) => b.count - a.count).slice(0, width < 560 ? 1 : 3).sort((a, b) => a.t - b.t);
-  const labelled = new Set(named.map(p => p.id));
+  // The biggest are named on the chart (two on a phone). A name goes to the left of its dot when another named dot is just to its right, and a
+  // name that would still sit on an earlier one (the biggest cluster in the same weeks) is pushed down until it clears it.
+  const named = [...points].sort((a, b) => b.count - a.count).slice(0, width < 560 ? 2 : 6).sort((a, b) => a.t - b.t);
   const toTheLeft = new Set(named.filter((p, i) => named[i + 1] && x(named[i + 1].t) - x(p.t) < 110).map(p => p.id));
+  const labels = new Map(named.map(p => {
+    const anchorEnd = x(p.t) > width * 0.7 || toTheLeft.has(p.id);
+    return [p.id, { lx: x(p.t) + (anchorEnd ? -9 : 9), ly: y(p.count), anchorEnd }];
+  }));
+  const placed = [...labels.values()].sort((a, b) => a.ly - b.ly);
+  for (let i = 1; i < placed.length; i++)
+    for (let j = 0; j < i; j++)
+      if (Math.abs(placed[i].lx - placed[j].lx) < 120 && placed[i].ly - placed[j].ly < 13) placed[i].ly = placed[j].ly + 13;
   const monthTicks = Array.from({ length: Math.round(to - from) }, (_, i) => from + i);
   const every = innerW / monthTicks.length < 34 ? 2 : 1;
   const shortName = (name: string) => name.split(/[()（）・\s]/).find(part => part.length >= 2) ?? name;
@@ -157,12 +170,12 @@ function RecordsChart({ points, from, to, width }: { points: Point[]; from: numb
           </text>
         ))}
         {points.map(p => {
-          const anchorEnd = x(p.t) > width * 0.7 || toTheLeft.has(p.id);
+          const label = labels.get(p.id);
           return (
             <g key={p.id} data-point={p.id}>
-              <circle cx={x(p.t)} cy={y(p.count)} r={active === p.id ? 7 : 5} className={styles.dot} />
-              {labelled.has(p.id) && (
-                <text x={x(p.t) + (anchorEnd ? -9 : 9)} y={y(p.count)} dy="0.32em" textAnchor={anchorEnd ? "end" : "start"} className={styles.label} lang="ja">{shortName(p.name)}</text>
+              <circle cx={x(p.t)} cy={y(p.count)} r={active === p.id ? 7 : p.count >= 1e7 ? 6 : 4.5} className={styles.dot} data-kind={p.type} />
+              {label && (
+                <text x={label.lx} y={label.ly} dy="0.32em" textAnchor={label.anchorEnd ? "end" : "start"} className={styles.label} lang="ja">{shortName(p.name)}</text>
               )}
               <circle
                 cx={x(p.t)} cy={y(p.count)} r={10} className={styles.hit} tabIndex={0} aria-label={`${p.name}: ${p.countNote}`}
@@ -180,27 +193,72 @@ function RecordsChart({ points, from, to, width }: { points: Point[]; from: numb
   );
 }
 
+export function TreemapChart({ items, width }: { items: StatItem[]; width: number }) {
+  const t = useTranslations("App");
+  const locale = useLocale();
+  const [active, setActive] = useState<string | null>(null);
+  const height = Math.round(Math.min(480, Math.max(300, width * 0.6)));
+  const tiles = useMemo(() => treemap(items, width, height), [items, width, height]);
+  const shortName = (name: string) => name.split(/[()（）・\s]/).find(part => part.length >= 2) ?? name;
+  const label = (tile: Tile) => {
+    const max = Math.floor((tile.w - 10) / 12);
+    const name = shortName(tile.name);
+    return name.length > max ? `${name.slice(0, Math.max(0, max - 1))}…` : name;
+  };
+  const activeTile = tiles.find(tile => tile.id === active);
+  return (
+    <div className={styles.plot}>
+      <svg width={width} height={height} role="img" aria-label={t("breaches.chartTreemap")} data-chart="treemap">
+        {tiles.map(tile => (
+          <g key={tile.id} data-tile={tile.id} data-active={active === tile.id || undefined}>
+            <rect
+              x={tile.x} y={tile.y} width={tile.w} height={tile.h} className={styles.tile} data-kind={tile.type} tabIndex={0}
+              aria-label={`${tile.name}: ${tile.countNote}`}
+              onPointerEnter={() => setActive(tile.id)} onPointerLeave={() => setActive(null)} onFocus={() => setActive(tile.id)} onBlur={() => setActive(null)}
+            />
+            {tile.w >= 54 && tile.h >= 24 && <text x={tile.x + 6} y={tile.y + 16} className={styles.tileLabel} lang="ja">{label(tile)}</text>}
+            {tile.w >= 54 && tile.h >= 42 && <text x={tile.x + 6} y={tile.y + 32} className={styles.tileCount}>{t("breaches.dashCount", { value: approximate(tile.count, locale) })}</text>}
+          </g>
+        ))}
+      </svg>
+      {activeTile && (
+        <Tooltip width={width} tip={{ x: activeTile.x + activeTile.w / 2, y: Math.max(0, activeTile.y - 4), title: activeTile.name, rows: [{ label: activeTile.date }, { label: activeTile.countNote }] }} />
+      )}
+    </div>
+  );
+}
+
 // `items` are the ones shown (after the filters); `first` is the earliest date of the whole list and `until` the day it was last checked, so the axis stays.
 export default function BreachesCharts({ items, first, until }: { items: StatItem[]; first: string; until: string }) {
   const t = useTranslations("App");
-  const [ref, width] = useWidth();
   const months = useMemo(() => monthly(items, until, first), [items, until, first]);
   const points = useMemo(() => records(items), [items]);
   const start = months.length ? months[0].year * 12 + months[0].month - 1 : 0;
   const end = start + months.length;
 
   return (
-    <section className={styles.charts} ref={ref} aria-label={t("breaches.chartsTitle")} data-chart="root">
-      <h2 className={styles.title}>{t("breaches.chartMonthly")}</h2>
-      <div className={styles.legend}>
-        {KINDS.map((k: Kind) => (
-          <span key={k} className={styles.legendItem}><span className={styles.key} data-kind={k} aria-hidden="true" />{t(`breaches.${KIND_KEYS[k]}`)}</span>
-        ))}
+    <section className={styles.charts} aria-label={t("breaches.chartsTitle")} data-chart="root">
+      <div className={styles.pair}>
+        <div className={styles.cell}>
+          <h2 className={styles.title}>{t("breaches.chartMonthly")}</h2>
+          <div className={styles.legend}>
+            {KINDS.map((k: Kind) => (
+              <span key={k} className={styles.legendItem}><span className={styles.key} data-kind={k} aria-hidden="true" />{t(`breaches.${KIND_KEYS[k]}`)}</span>
+            ))}
+          </div>
+          <Measured>{w => <MonthlyChart months={months} width={w} />}</Measured>
+        </div>
+        <div className={styles.cell}>
+          <h2 className={styles.title}>{t("breaches.chartRecords")}</h2>
+          <div className={styles.legend}>
+            {KINDS.map((k: Kind) => (
+              <span key={k} className={styles.legendItem}><span className={styles.key} data-kind={k} aria-hidden="true" />{t(`breaches.${KIND_KEYS[k]}`)}</span>
+            ))}
+          </div>
+          <Measured>{w => <RecordsChart points={points} from={start} to={end} width={w} />}</Measured>
+        </div>
       </div>
-      <MonthlyChart months={months} width={width} />
-      <h2 className={styles.title}>{t("breaches.chartRecords")}</h2>
       <p className={styles.help}>{t("breaches.chartRecordsHelp")}</p>
-      <RecordsChart points={points} from={start} to={end} width={width} />
       <p className={styles.help}>{t("breaches.chartNote")}</p>
       <details className={styles.table}>
         <summary>{t("breaches.tableView")}</summary>

@@ -3,9 +3,14 @@
 .charts {
   --c-surface: #1a1a19; --c-ink: #ffffff; --c-ink2: #c3c2b7; --c-muted: #8f8e86; --c-grid: rgba(255, 255, 255, .1); --c-axis: rgba(255, 255, 255, .35);
   --k-leak: #3987e5; --k-ransomware: #d95926; --k-outage: #199e70; --k-fraud: #c98500; --k-other: #d55181;
-  width: min(720px, 100%); margin: 0 0 1rem; padding: .9rem 1rem; border: 1px solid var(--line); border-radius: var(--radius);
+  width: min(1100px, 100%); margin: 0 0 1rem; padding: .9rem 1rem; border: 1px solid var(--line); border-radius: var(--radius);
   background: var(--c-surface); color: var(--c-ink2); box-sizing: border-box;
 }
+/* The two time charts sit side by side at desk width, each measuring its own column. */
+.pair { display: grid; gap: .5rem 1.5rem; }
+@media (min-width: 880px) { .pair { grid-template-columns: 1fr 1fr; } }
+.cell { min-width: 0; }
+.cell .title { margin-top: 0; }
 :global(html[data-theme="light"]) .charts {
   --c-surface: #fcfcfb; --c-ink: #0b0b0b; --c-ink2: #52514e; --c-muted: #6b6a66; --c-grid: rgba(0, 0, 0, .08); --c-axis: rgba(0, 0, 0, .35);
   --k-leak: #2a78d6; --k-ransomware: #eb6834; --k-outage: #1baf7a; --k-fraud: #eda100; --k-other: #e87ba4;
@@ -36,7 +41,21 @@
 .label { fill: var(--c-ink2); font-size: 11px; paint-order: stroke; stroke: var(--c-surface); stroke-width: 3px; }
 .seg { stroke: none; }
 g[data-active] .seg { filter: brightness(1.15); }
-.dot { fill: var(--k-leak); stroke: var(--c-surface); stroke-width: 2px; }
+.dot { fill: var(--c-muted); stroke: var(--c-surface); stroke-width: 2px; }
+.dot[data-kind="leak"] { fill: var(--k-leak); }
+.dot[data-kind="ransomware"] { fill: var(--k-ransomware); }
+.dot[data-kind="outage"] { fill: var(--k-outage); }
+.dot[data-kind="fraud"] { fill: var(--k-fraud); }
+.dot[data-kind="other"] { fill: var(--k-other); }
+.tile { stroke: var(--c-surface); stroke-width: 2px; outline: none; }
+.tile[data-kind="leak"] { fill: var(--k-leak); }
+.tile[data-kind="ransomware"] { fill: var(--k-ransomware); }
+.tile[data-kind="outage"] { fill: var(--k-outage); }
+.tile[data-kind="fraud"] { fill: var(--k-fraud); }
+.tile[data-kind="other"] { fill: var(--k-other); }
+g[data-active] .tile, .tile:focus-visible { filter: brightness(1.2); }
+.tileLabel, .tileCount { fill: #ffffff; font-size: 11px; paint-order: stroke; stroke: rgba(0, 0, 0, .35); stroke-width: 2px; pointer-events: none; }
+.tileCount { font-variant-numeric: tabular-nums; opacity: .85; }
 .hit { fill: transparent; outline: none; cursor: default; }
 .hit:focus-visible { stroke: var(--c-ink); stroke-width: 2px; }
 .tip {
