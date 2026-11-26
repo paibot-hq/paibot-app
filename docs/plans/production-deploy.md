@@ -180,7 +180,7 @@ Clerk公式CLI(`npx clerk deploy`、対話式で人間の操作が必須)で作�
 
 - ドメイン: `paibot.app`(Frontend APIは`clerk.paibot.app`、Account Portalは`accounts.paibot.app`)
 - DNSレコード5件(`clerk`/`accounts`/`clkmail`/`clk._domainkey`/`clk2._domainkey`)は、`clerk deploy`が出力したBINDゾーンファイルの内容を転記する形で**Terraform管理**にした(`infra/dns.tf`)。手動でCloudflareダッシュボードに入れる方式は選ばなかった(手順の再現性・レビュー可能性のため)。すべて`proxied = false`(Clerk自身がTLS終端するため)
-- 本番Google OAuthクライアントは`paibot-app-prod`という新規GCPプロジェクト(`docs/infra/gcp.md`参照、`paibot-app-dev`とは別)に作成。リダイレクトURIは`https://clerk.paibot.app/v1/oauth_callback`(Clerkの「Walk me through creating them」フローで確認した正確な値)
+- 本番Google OAuthクライアントは`paibot-app-prod`という新規GCPプロジェクト(運用メモ(リポジトリ外、非公開)参照、`paibot-app-dev`とは別)に作成。リダイレクトURIは`https://clerk.paibot.app/v1/oauth_callback`(Clerkの「Walk me through creating them」フローで確認した正確な値)
 - `clerk config pull --instance prod`で設定を取得し`config/clerk/production.json`として保存済み(開発用の`development.json`も同時に整備)。秘密値はCLIが自動でREDACTED済み、コミット前に目視確認もした
 - 本番キーは`clerk env pull --instance prod`で取得し、`PROD_CLERK_PUBLISHABLE_KEY`/`PROD_CLERK_SECRET_KEY`としてGitHub Secretsに登録済み
 
@@ -188,7 +188,7 @@ Clerk公式CLI(`npx clerk deploy`、対話式で人間の操作が必須)で作�
 
 `CLOUDFLARE_API_TOKEN_PRODUCTION`として新規発行・登録済み。既存の`CLOUDFLARE_API_TOKEN`(dev用)がCloudflareのテンプレート("Edit Cloudflare Workers")をそのまま使っていて権限が広すぎた(Containers/Pages/R2/KV/Agentsなど、paibotが使っていないものまでEdit権限)ため、本番用は個別権限で絞って作成した。
 
-- Account: Workers Scripts:Edit, Workers Observability:Edit, Account Settings:Read(対象アカウントは`Admin@paibot.co.jp's Account`のみ)
+- Account: Workers Scripts:Edit, Workers Observability:Edit, Account Settings:Read(対象アカウントはpaibotのCloudflareアカウントのみ)
 - Zone: Workers Routes:Edit(対象ゾーンは`paibot.app`のみ)
 
 devのトークンを同様に絞り直すかは別途検討(未実施)。
@@ -201,7 +201,7 @@ devのトークンを同様に絞り直すかは別途検討(未実施)。
 
 - devのカスタムドメイン`dev.paibot.app`は`wrangler.jsonc`の`routes`(`custom_domain: true`)で紐付け済み。本番の`paibot.app`も同じ方式(`env.production`側に別途`routes`を定義、実装済み)。ドメインはWorkerの属性なのでTerraformでは管理しない
 - Clerkの本番移行は手動(公式CLIの`clerk deploy`を使う)。詳細は上記
-- 本番のGoogleログインには、Google Cloud Consoleで自分専用のOAuthクライアントを作る必要がある(開発インスタンスはClerkの共有認証情報)。作成先は`paibot-app-prod`(`docs/infra/gcp.md`)
+- 本番のGoogleログインには、Google Cloud Consoleで自分専用のOAuthクライアントを作る必要がある(開発インスタンスはClerkの共有認証情報)。作成先は`paibot-app-prod`(運用メモ(リポジトリ外、非公開))
 - タグの打ち方: ワークフローが自動で行う(`git tag release-YYYY-MM-DD && git push origin release-YYYY-MM-DD`相当)。手で打つのは基本不要
 
 ## 残っているタスク

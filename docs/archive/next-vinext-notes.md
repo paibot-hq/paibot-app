@@ -11,18 +11,18 @@
   - `wrangler.jsonc`に`env.production`追加済み。**ビルド時に`CLOUDFLARE_ENV=production`を渡さないと、`vinext build`は`env.production`を無視してdev設定を出力する**(ハマったポイント、詳細は`docs/plans/production-deploy.md`)。
   - **`CLERK_SECRET_KEY`等はCIの`.env.local`ではなく`wrangler secret put`によるCloudflare Workers Secretで効いている**(初回デプロイで発覚。`.env.local`はローカルの`wrangler dev`用`.dev.vars`にしかならず、デプロイ後のWorkerには反映されない。`NEXT_PUBLIC_*`はクライアントバンドルへの静的埋め込みのため`.env.local`が引き続き必要、これはサーバー側の`CLERK_SECRET_KEY`とは別の話)。Worker名を変える・キーをローテーションする際は`wrangler secret put <NAME> --name <worker名>`を忘れないこと。詳細は`docs/plans/production-deploy.md`の「重大な誤解だったポイント」を参照。
   - **同じ罠は非機密の`vars`(`SITE_INDEXABLE`/`SITE_URL`)にも当てはまる**: `.env.local`経由では効かず、`wrangler.jsonc`のトップレベル/`env.production`それぞれに`vars`として明示的に書く必要がある(これも`name`/`routes`と同じく環境間で継承されない)。この見落としで本番が初回デプロイからずっと`noindex`だった時期がある(発見・修正済み、詳細は`docs/plans/production-deploy.md`の該当節)。環境変数を増やす時は、secret/varいずれも「`.env.local`に書くだけでは実際のWorkerには効かない」ことを前提にすること。
-  - **Clerk本番への移行は手動(Terraformでは管理しない)**: Clerk用のTerraformプロバイダはコミュニティ製のみ(`buildwithdeck/clerk`が有力だが開発者2人・v0.x、しかも設定管理にはベータのPlatform APIとその強い権限のキーが必要)で見送った。代わりにClerk公式CLIを使う: `clerk auth login` → `clerk link` → `clerk deploy`(本番インスタンス作成・CNAME案内・Google/Apple本番認証情報の入力・DNS/SSL検証までを案内)。実施済み。本番のGoogleログインには自分専用のGoogle OAuthクライアントが必要で、`paibot-app-prod`(`docs/infra/gcp.md`)に作成済み。
+  - **Clerk本番への移行は手動(Terraformでは管理しない)**: Clerk用のTerraformプロバイダはコミュニティ製のみ(`buildwithdeck/clerk`が有力だが開発者2人・v0.x、しかも設定管理にはベータのPlatform APIとその強い権限のキーが必要)で見送った。代わりにClerk公式CLIを使う: `clerk auth login` → `clerk link` → `clerk deploy`(本番インスタンス作成・CNAME案内・Google/Apple本番認証情報の入力・DNS/SSL検証までを案内)。実施済み。本番のGoogleログインには自分専用のGoogle OAuthクライアントが必要で、`paibot-app-prod`(運用メモ(リポジトリ外、非公開))に作成済み。
   - Clerkが要求するDNSレコード(カスタムドメイン+メールDKIM)は`infra/dns.tf`でTerraform管理にした(手動でCloudflareダッシュボードに入れる方式は不採用)。
   - `clerk config pull`で設定を取り出し、`config/clerk/development.json`・`production.json`として保存済み。設定を変えたら`pull`し直すこと。
 
 ## インフラ(アカウント管理まわりのドキュメント)
 
-- **Cloudflare**: 実際に本番運用中。アカウント自体の管理状況(2つのアカウントが存在する点に注意、メンバー、Access等)は`docs/infra/cloudflare.md`。リソース管理の詳細は次節および`infra/README.md`。
-- **AWS/GCP**: まだ用途未定(2026年9月〜account作成のみ)。AWS OrganizationとIAM Identity Centerを作成済み(`docs/infra/aws.md`)。GCP Organization(`paibot.co.jp`)配下に`paibot-app-dev`プロジェクトを作成済み(`docs/infra/gcp.md`)。paibotのインフラはCloudflare/Terraformのみで、AWS/GCPはまだ何にも使っていない。
+- **Cloudflare**: 実際に本番運用中。アカウント自体の管理状況(2つのアカウントが存在する点に注意、メンバー、Access等)は運用メモ(リポジトリ外、非公開)。リソース管理の詳細は次節および`infra/README.md`。
+- **AWS/GCP**: まだ用途未定(2026年9月〜account作成のみ)。AWS OrganizationとIAM Identity Centerを作成済み(運用メモ(リポジトリ外、非公開))。GCP Organization(`paibot.co.jp`)配下に`paibot-app-dev`プロジェクトを作成済み(運用メモ(リポジトリ外、非公開))。paibotのインフラはCloudflare/Terraformのみで、AWS/GCPはまだ何にも使っていない。
 
 ## インフラ(Terraform / Cloudflare)
 
-- `infra/`にTerraformの最小構成がある(詳細・手順・注意点は`infra/README.md`)。stateはR2の専用バケット`paibot-app-terraform-state`(Terraform外で手動作成、`terraform destroy`に巻き込まれない)。今の管理対象は`paibot.app`ゾーンの読み取り参照と、dev Worker(`paibot-app-dev`)を守るCloudflare Access(`infra/access.tf`、`sanofc@gmail.com`のみ許可)。リソースは必要になってから追加する方針。
+- `infra/`にTerraformの最小構成がある(詳細・手順・注意点は`infra/README.md`)。stateはR2の専用バケット`paibot-app-terraform-state`(Terraform外で手動作成、`terraform destroy`に巻き込まれない)。今の管理対象は`paibot.app`ゾーンの読み取り参照と、dev Worker(`paibot-app-dev`)を守るCloudflare Access(`infra/access.tf`、許可するログインは所有者のみ)。リソースは必要になってから追加する方針。
 - **TerraformとWranglerの境界**: Worker本体・バインディング・ルート(カスタムドメイン含む、例: `dev.paibot.app`)は`wrangler.jsonc`。Terraformはそれ以外のアカウントレベルのリソース(将来のDNS単体、D1、R2、Accessなど)。同じ対象を両方で管理しない。
 - ワークフロー: `App (development)`(アプリの検証+dev自動デプロイ)、`App (production)`(本番デプロイ、`workflow_dispatch`のみ)、`Infra Plan`(PR・手動実行でplan)、`Infra Apply`(手動実行でapply)。
 - トークンは用途ごとに分離: `CLOUDFLARE_API_TOKEN`(Wranglerのdevデプロイ)、`CLOUDFLARE_API_TOKEN_TERRAFORM`(現状は「Access: アプリとポリシー→編集」と、ゾーン`paibot.app`のDNS→読み取り。DNSレコードを管理し始めたら「DNS→編集」に変える。「ゾーン編集」は付けない)、`TF_STATE_R2_*`(state用バケットだけに限定したS3互換キー)。

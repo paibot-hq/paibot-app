@@ -90,8 +90,8 @@ flowchart TD
 
 ## アカウント構成
 
-- **Cloudflare**: `Admin@paibot.co.jp's Account`が実際にpaibotのリソース(Worker、DNS等)を持つ。`sanofc@gmail.com`がメンバーとしてログイン・操作している。詳細・注意点(個人用の別Cloudflareアカウントと混同しないこと等)は`docs/infra/cloudflare.md`
-- **AWS**・**GCP**: 現状のアプリ本体はどちらも使っていない。AWSはOrganization+IAM Identity Centerを整備済みだが用途未定(`docs/infra/aws.md`)。GCPは`paibot-app-prod`プロジェクトを本番Google OAuthクライアントの置き場として実際に使っている(`docs/infra/gcp.md`)
+- **Cloudflare**: paibotのCloudflareアカウントが実際のリソース(Worker、DNS等)を持つ。メンバーと注意点(個人用の別Cloudflareアカウントと混同しないこと等)は運用メモ(リポジトリ外、非公開)
+- **AWS**・**GCP**: 現状のアプリ本体はどちらも使っていない。AWSはOrganization+IAM Identity Centerを整備済みだが用途未定(運用メモ(リポジトリ外、非公開))。GCPは`paibot-app-prod`プロジェクトを本番Google OAuthクライアントの置き場として実際に使っている(運用メモ(リポジトリ外、非公開))
 - **GitHub**: リポジトリは`paibot-hq/paibot-app`
 
 ## もっと詳しく知りたい時にどこを読むか
@@ -102,5 +102,5 @@ flowchart TD
 | 本番デプロイの設計・実装・発見した罠 | `docs/plans/production-deploy.md` |
 | 数学問題集(未実装)の設計 | `docs/plans/problemset.md` |
 | Terraformで何を管理しているか | `infra/README.md` |
-| 各クラウドアカウントの管理状況 | `docs/infra/aws.md`・`gcp.md`・`cloudflare.md` |
+| 各クラウドアカウントの管理状況 | 運用メモ(リポジトリ外、非公開) |
 | 新しいツールページの追加方法 | `CLAUDE.md`の「新しいツールページを追加するときの構成」 |
