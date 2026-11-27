@@ -15,6 +15,8 @@ on:
 
 permissions:
   contents: read
+  # To download the previous run's report artifact (the backlog the next run starts from).
+  actions: read
 
 concurrency:
   group: breaches-update
@@ -74,6 +76,26 @@ jobs:
           '
           cp "$BREACHES_DIR/$from.json" "$BREACHES_DIR/before.json"
           cp "$BREACHES_DIR/$from.json" src/data/breaches.json
+      # The previous run's report, for Claude: its "見つけたが根拠不足で入れなかったもの" is the backlog today's run verifies first. Runs have
+      # no memory of one another, so without this every run re-finds the same candidates, hits the same unreadable official pages (403/404 for a
+      # GitHub runner) and drops them again - entries stalled for weeks this way. Reports are only uploaded when the list changed, so look back a
+      # few successful runs for the newest one.
+      - name: Fetch the previous run's report
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+        run: |
+          for run_id in $(gh run list -w "Incident list update" -s success -L 10 --json databaseId -q '.[].databaseId'); do
+            gh run download "$run_id" -p 'breaches-*' -D "$RUNNER_TEMP/previous" 2>/dev/null || continue
+            report=$(find "$RUNNER_TEMP/previous" -name report.md | head -n 1)
+            if [ -n "$report" ]; then
+              cp "$report" "$BREACHES_DIR/previous-report.md"
+              echo "PREVIOUS_REPORT_FILE=$BREACHES_DIR/previous-report.md" >> "$GITHUB_ENV"
+              echo "Previous report: run $run_id"
+              break
+            fi
+          done
+          [ -f "$BREACHES_DIR/previous-report.md" ] || echo "No previous report found; starting without a backlog."
       # Which links of the list are dead (404/410, no answer), for Claude to replace: the entries marked FAIL and their dead links. A blocked page
       # (403) is only a warning and not passed on; whether a page still says what the entry says is not read here (`--no-content`).
       - name: Find the dead links
@@ -93,6 +115,7 @@ jobs:
             今日(JST)は ${{ env.TODAY }}。`.github/prompts/breaches-update.md` を読み、その手順どおりに `src/data/breaches.json` を更新してください。
             報告は、環境変数 REPORT_FILE が指すファイル(${{ env.REPORT_FILE }})に書いてください。
             今のリストのリンク切れは、環境変数 DEAD_LINKS_FILE が指すファイル(${{ env.DEAD_LINKS_FILE }})にあります(空ならありません)。
+            前回の実行の報告が、環境変数 PREVIOUS_REPORT_FILE が指すファイルにあります(変数が無ければ前回の報告はありません)。
           claude_args: >-
             --model claude-sonnet-5-5
             --max-turns 150
