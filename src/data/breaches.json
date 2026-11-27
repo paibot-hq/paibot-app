@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-11-26",
+  "asOf": "2026-11-27",
   "note": "各社・各機関の公表と報道にもとづく。件数は「最大」「可能性」を含む公表値で、調査が進むと変わることがある。出典どうしで日付や件数が食い違う場合は、備考に書いた。",
   "items": [
     {
@@ -207,6 +207,32 @@
       "origin": "attack"
     },
     {
+      "id": "rizap-karte",
+      "date": "2026-11-17",
+      "name": "RIZAPグループ(chocoZAP・RIZAP、委託先プレイド「KARTE」)",
+      "type": "leak",
+      "count": 4320000,
+      "countNote": "ZAP ID登録者のメールアドレス 最大約432万件(うち氏名を含むものは最大約6万件)。対象範囲・件数は精査中",
+      "data": "メールアドレス、会員ID、性別、年代、住所(都道府県のみ)、LINE公式アカウント連携用の識別番号。一部は氏名を含む",
+      "cause": "外部サービス「KARTE」(プレイド)への第三者による不正アクセス。プレイドは11月13日に検知。11月13日からRIZAP・chocoZAPの一部Webサービスを一時停止",
+      "note": "RIZAPグループの公式お知らせ(topics_id=1573)は確認時に本文を読めなかったため、報道2件(ScanNetSecurity、ネットショップ担当者フォーラム)で確認(verification: reported)。",
+      "verification": "reported",
+      "checkedAt": "2026-11-27",
+      "sources": [
+        {
+          "name": "ScanNetSecurity",
+          "url": "https://scan.netsecurity.ne.jp/article/2026/11/26/56904.html",
+          "kind": "press"
+        },
+        {
+          "name": "ネットショップ担当者フォーラム",
+          "url": "https://netshop.impress.co.jp/n/2026/11/19/17067",
+          "kind": "press"
+        }
+      ],
+      "origin": "attack"
+    },
+    {
       "id": "plaid-karte",
       "date": "2026-11-13",
       "name": "プレイド(顧客データ分析基盤「KARTE」)",
@@ -285,6 +311,53 @@
       "origin": "attack"
     },
     {
+      "id": "yamada-denki-reform",
+      "date": "2026-11-13",
+      "name": "ヤマダデンキ(リフォーム管理システム)",
+      "type": "leak",
+      "count": 3500000,
+      "countNote": "最大350万件(顧客情報が影響を受けた可能性)",
+      "data": "氏名、住所、電話番号、リフォーム実施履歴、見積データなどの営業記録",
+      "cause": "リフォーム管理システムへの不正アクセス(11月12日に確認、外部からのアクセスを遮断)。原因は調査中",
+      "note": "公式の発表PDF(yamada-denki.jp/information/pdf/261113_1.pdf)は確認時に接続を拒否され、本文を読めなかったため、ScanNetSecurityの記事1件のみを出典とする。公式が読めたら official に上げる。",
+      "verification": "single",
+      "checkedAt": "2026-11-27",
+      "sources": [
+        {
+          "name": "ScanNetSecurity",
+          "url": "https://scan.netsecurity.ne.jp/article/2026/11/25/56893.html",
+          "kind": "press"
+        }
+      ],
+      "origin": "attack"
+    },
+    {
+      "id": "yeny-members",
+      "date": "2026-11-12",
+      "name": "Yeny(会員情報)",
+      "type": "leak",
+      "count": 1332505,
+      "countNote": "1,332,505件(退会者を含む)",
+      "data": "電話番号と会員ID(同社固有のもの)",
+      "cause": "同社のAPI接続設定の不備。10月31日に接続先の特定事業者から不審なAPIコールの連絡を受け、11月5日に漏えいの事実を確認",
+      "note": "公式発表(11月12日)にもとづく。",
+      "verification": "official",
+      "checkedAt": "2026-11-27",
+      "sources": [
+        {
+          "name": "Yeny(お詫びとお知らせ、11月12日)",
+          "url": "https://yeny.jp/pressrelease/1547/",
+          "kind": "official"
+        },
+        {
+          "name": "ScanNetSecurity",
+          "url": "https://scan.netsecurity.ne.jp/article/2026/11/18/56823.html",
+          "kind": "press"
+        }
+      ],
+      "origin": "attack"
+    },
+    {
       "id": "openlogi-fulfillment",
       "date": "2026-11-11",
       "name": "オープンロジ(物流・出荷管理システム)",
@@ -301,6 +374,32 @@
           "name": "オープンロジ(第2報・11月17日)",
           "url": "https://corp.openlogi.com/news/notice/notice-20261117/",
           "kind": "official"
+        }
+      ],
+      "origin": "attack"
+    },
+    {
+      "id": "jcci-net-exam",
+      "date": "2026-11-10",
+      "name": "日本商工会議所(商工会議所ネット試験管理システム)",
+      "type": "leak",
+      "count": 980000,
+      "countNote": "最大約98万人分(約197万件)の受験者情報が漏えいした可能性",
+      "data": "氏名、フリガナ、性別、生年月日、合否結果、試験得点、任意入力項目(メールアドレス、電話番号、住所)。クレジットカード情報等は含まれないとしている",
+      "cause": "外部サーバーの試験管理システムへの不正アクセス。脆弱性が悪用され、11月1日に不正ファイルが設置された。11月4日に確認、11月9日に漏えいの可能性が判明",
+      "note": "公式発表(11月10日17時)にもとづく。現時点で漏えいや不正利用は確認されていないとしている。",
+      "verification": "official",
+      "checkedAt": "2026-11-27",
+      "sources": [
+        {
+          "name": "日本商工会議所(11月10日発表)",
+          "url": "https://www.jcci.or.jp/news/news/2026/1110170000.html",
+          "kind": "official"
+        },
+        {
+          "name": "ScanNetSecurity",
+          "url": "https://scan.netsecurity.ne.jp/article/2026/11/19/56837.html",
+          "kind": "press"
         }
       ],
       "origin": "attack"
@@ -326,6 +425,32 @@
         {
           "name": "Impress Watch(ニトリ、最大3762万件の個人情報流出の恐れ)",
           "url": "https://www.watch.impress.co.jp/docs/news/2154952.html",
+          "kind": "press"
+        }
+      ],
+      "origin": "attack"
+    },
+    {
+      "id": "sharefull-admin-system",
+      "date": "2026-11-09",
+      "name": "シェアフル(スキマバイトアプリ「シェアフル」の社内管理システム)",
+      "type": "leak",
+      "count": 7500000,
+      "countNote": "最大約750万件(個人ユーザー。求人企業は約7,500社)。漏えいの可能性",
+      "data": "個人: 氏名、電話番号、メールアドレス、住所、生年月日、給与振込用の銀行口座情報、顔写真のURL、緊急連絡先、在留資格関連情報、登録日・就業回数などのアカウント情報。法人: 会社名、住所、担当者の氏名・部署・役職・連絡先、営業管理データの一部。本人確認書類の画像、マイナンバー、クレジットカード情報は含まれないとしている",
+      "cause": "第三者による社内管理システムへの不正アクセス(11月4日23時30分ごろ発生、11月5日9時45分ごろ判明、同日中に侵入経路を遮断)",
+      "note": "原因・範囲は外部専門機関が調査中。対象者にはメールで順次連絡するとしている。",
+      "verification": "official",
+      "checkedAt": "2026-11-27",
+      "sources": [
+        {
+          "name": "シェアフル(お詫びとお知らせ、11月9日)",
+          "url": "https://sharefull.com/information/9480/",
+          "kind": "official"
+        },
+        {
+          "name": "ScanNetSecurity",
+          "url": "https://scan.netsecurity.ne.jp/article/2026/11/24/56873.html",
           "kind": "press"
         }
       ],
@@ -426,6 +551,32 @@
       "origin": "attack"
     },
     {
+      "id": "suntory-external-cloud",
+      "date": "2026-11-02",
+      "name": "サントリー(サントリーホールディングス、サントリービバレッジ&フード、外部クラウドサービス)",
+      "type": "leak",
+      "count": 90000,
+      "countNote": "グループ・パートナー企業の従業員の氏名・メールアドレス 約9万名。ほかに「マル・デ・シャイン」登録者7,323名、2026年新卒採用応募者7,173名など計7区分(11月1日までに確認)",
+      "data": "氏名、メールアドレス、電話番号など(区分により異なる)。クレジットカード等の決済情報は含まれないとしている",
+      "cause": "外部クラウドサービスへの第三者による不正アクセス。10月28日に異常を検知して遮断、10月29日に個人情報を含むファイルの流出を確認",
+      "note": "サントリーの公式ページ(suntory.co.jp/note/detail/261102_008203.html)は確認時に403で読めなかったため、報道2件(ビジネス+IT、ScanNetSecurity)で確認(verification: reported)。件数と区分はビジネス+ITによる。個人情報保護委員会に速報を報告、不正利用は確認されていないとしている。",
+      "verification": "reported",
+      "checkedAt": "2026-11-27",
+      "sources": [
+        {
+          "name": "ビジネス+IT",
+          "url": "https://www.sbbit.jp/article/cont1/188015",
+          "kind": "press"
+        },
+        {
+          "name": "ScanNetSecurity",
+          "url": "https://scan.netsecurity.ne.jp/article/2026/11/06/56687.html",
+          "kind": "press"
+        }
+      ],
+      "origin": "attack"
+    },
+    {
       "id": "mofa-external-network",
       "date": "2026-10-30",
       "name": "外務省(外部とのやり取りが可能なネットワーク)",
@@ -515,6 +666,58 @@
           "name": "ロケットボーイズ",
           "url": "https://rocket-boys.co.jp/?p=44973",
           "kind": "aggregator"
+        }
+      ],
+      "origin": "attack"
+    },
+    {
+      "id": "andst-hd-server",
+      "date": "2026-10-23",
+      "name": "アンドエスティHD(業務サーバー)",
+      "type": "leak",
+      "count": 2740000,
+      "countNote": "お客さま 約274万件(10月23日の発表時は約250万件)。従業員 約24,000件(社会保険加入者)",
+      "data": "お客さま: 氏名、生年月日、性別、住所、電話番号、メールアドレス、会員ID。従業員: 氏名、住所、電話番号、生年月日、社会保険算出情報。クレジットカード情報などの決済情報、パスワード、マイナンバーは含まれないとしている",
+      "cause": "業務サーバーへの不正アクセス(10月22日朝に検知と報じられている)。侵入経路は公表されていない",
+      "note": "最初の公表は10月23日、調査結果の続報は11月4日(件数を約250万件から約274万件に更新)。公式ページ(11月4日付)に発生日・判明日の記載はなく、10月22日はScanNetSecurityの記事による。",
+      "verification": "official",
+      "checkedAt": "2026-11-27",
+      "sources": [
+        {
+          "name": "アンドエスティHD(重要なお知らせ、11月4日)",
+          "url": "https://www.andst-hd.co.jp/news/notice/entry-17245/",
+          "kind": "official"
+        },
+        {
+          "name": "ScanNetSecurity",
+          "url": "https://scan.netsecurity.ne.jp/article/2026/11/20/56853.html",
+          "kind": "press"
+        }
+      ],
+      "origin": "attack"
+    },
+    {
+      "id": "value-card",
+      "date": "2026-10-23",
+      "name": "バリューデザイン(ペイクラウドHD子会社、ハウス電子マネー「Value Card」)",
+      "type": "leak",
+      "count": 1424748,
+      "countNote": "1,424,748件(発行済みID 569,224件、未発行ID 855,524件)",
+      "data": "ID番号、PIN番号、残高情報。個人情報は該当なしとしている",
+      "cause": "Webサーバーの脆弱性を第三者に悪用された。事案の確認は10月19日",
+      "note": "公式のお知らせPDF(contents.xj-storage.jp)は本文を読めず、件数はScanNetSecurityのみで確認(verification: single)。ビジネス+ITは運用保守を委託したモスフードサービス分(113万3,070件)を報じている。11月18日の第2報で別サーバーでも不正アクセスが確認され、コード情報が最大約3万1千件流出したとの報道があるが、未確認のため載せない。",
+      "verification": "single",
+      "checkedAt": "2026-11-27",
+      "sources": [
+        {
+          "name": "ScanNetSecurity",
+          "url": "https://scan.netsecurity.ne.jp/article/2026/11/04/56655.html",
+          "kind": "press"
+        },
+        {
+          "name": "ビジネス+IT(モスカード分)",
+          "url": "https://www.sbbit.jp/article/cont1/187772",
+          "kind": "press"
         }
       ],
       "origin": "attack"
@@ -3021,27 +3224,6 @@
       ]
     },
     {
-      "id": "musashino-univ",
-      "date": "2026-09-07",
-      "name": "武蔵野大学",
-      "type": "ransomware",
-      "count": null,
-      "countNote": "複数のファイルが流出",
-      "data": "氏名、住所などの個人情報",
-      "cause": "6月のランサムウェア感染",
-      "note": "",
-      "verification": "official",
-      "sources": [
-        {
-          "name": "武蔵野大学(お知らせ)",
-          "url": "https://ef.musashino-u.ac.jp/news/20260907-8715.html",
-          "kind": "official"
-        }
-      ],
-      "checkedAt": "2026-10-09",
-      "origin": "attack"
-    },
-    {
       "id": "washington-hotel",
       "date": "2026-09-07",
       "name": "ワシントンホテル",
@@ -4067,6 +4249,32 @@
         }
       ],
       "checkedAt": "2026-10-09",
+      "origin": "attack"
+    },
+    {
+      "id": "musashino-univ",
+      "date": "2026-06-30",
+      "name": "武蔵野大学",
+      "type": "ransomware",
+      "count": null,
+      "countNote": "6月30日の発表時点ではデータ流出は確認されていない",
+      "data": "",
+      "cause": "6月15日、学校法人が管理するサーバーが第三者の不正アクセスを受けランサムウェアに感染",
+      "note": "バックアップから復旧済みで運営への支障はなく、金銭の支払いもないとしている(6月30日)。9月7日の第二報で共有フォルダ内の複数のファイル(一部に氏名・住所)の流出が明らかになったとの二次情報があるが、その公式ページ(旧URLは404)を読めず、大学のニュース一覧にも見当たらないため、ここには書かない。",
+      "verification": "official",
+      "checkedAt": "2026-11-27",
+      "sources": [
+        {
+          "name": "武蔵野大学(重要なお知らせ、6月30日)",
+          "url": "https://ef.musashino-u.ac.jp/news/20260630-8443.html",
+          "kind": "official"
+        },
+        {
+          "name": "ScanNetSecurity",
+          "url": "https://scan.netsecurity.ne.jp/article/2026/07/07/55646.html",
+          "kind": "press"
+        }
+      ],
       "origin": "attack"
     },
     {
