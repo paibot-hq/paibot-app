@@ -1,5 +1,5 @@
 {
-  "asOf": "2026-11-27",
+  "asOf": "2026-11-28",
   "note": "各社・各機関の公表と報道にもとづく。件数は「最大」「可能性」を含む公表値で、調査が進むと変わることがある。出典どうしで日付や件数が食い違う場合は、備考に書いた。",
   "items": [
     {
@@ -150,6 +150,32 @@
       "origin": "attack"
     },
     {
+      "id": "osaki-electric-ransomware",
+      "date": "2026-11-18",
+      "name": "大崎電気工業(埼玉工場・岩手大崎電気・大崎プラテック)",
+      "type": "ransomware",
+      "count": null,
+      "countNote": "件数は未公表(仮想サーバーの一部が暗号化。11月19日に技術情報とみられるものがインターネット上のサイトに掲載されたことを認知)",
+      "data": "一部の仮想サーバーの暗号化、生産関連システムの停止。技術情報とみられる情報の掲載(内容・範囲は調査中)",
+      "cause": "リモート接続用VPN機器の認証を破られて侵入されたランサムウェア攻撃(11月15日午前1時30分ごろ以降と推定、11月17日に確認)。一部アカウントで多要素認証が未設定で、パスワードが推測された可能性が高いとしている",
+      "note": "第1報は11月18日、第2報は11月20日。生産・出荷(スマートメーター等)が止まり、再開時期は未定。バックアップは無事で復旧中。製品・サービスは攻撃対象ではなく影響なしとしている。",
+      "verification": "official",
+      "checkedAt": "2026-11-28",
+      "sources": [
+        {
+          "name": "大崎電気工業(第2報、11月20日)",
+          "url": "https://www.osaki.co.jp/ja/notice/20261120.html",
+          "kind": "official"
+        },
+        {
+          "name": "ScanNetSecurity",
+          "url": "https://scan.netsecurity.ne.jp/article/2026/11/25/56895.html",
+          "kind": "press"
+        }
+      ],
+      "origin": "attack"
+    },
+    {
       "id": "rakuten-securities",
       "date": "2026-11-17",
       "name": "楽天証券",
@@ -227,6 +253,58 @@
         {
           "name": "ネットショップ担当者フォーラム",
           "url": "https://netshop.impress.co.jp/n/2026/11/19/17067",
+          "kind": "press"
+        }
+      ],
+      "origin": "attack"
+    },
+    {
+      "id": "meetsmore",
+      "date": "2026-11-16",
+      "name": "ミツモア(「ミツモア」)",
+      "type": "leak",
+      "count": 366850,
+      "countNote": "最大36万6,850件(不正ログインは201アカウント、812回の試行)",
+      "data": "提供者の予定表データに含まれる顧客の住所・電話番号、会員・依頼の識別番号、オンライン会議URL、外部カレンダーの予定名ほか。一部は住所欄に入力された姓(11月19日追記)。氏名・メールアドレス・パスワード・クレジットカード情報は含まれないとしている",
+      "cause": "提供者の空き状況を表示する機能の脆弱性を、不正ログインしたアカウント経由で悪用された。ID・パスワードは社外で入手されたものと推定",
+      "note": "公式の11月16日付お知らせに11月19日追記あり。",
+      "verification": "official",
+      "checkedAt": "2026-11-28",
+      "sources": [
+        {
+          "name": "ミツモア(11月16日発表)",
+          "url": "https://company.meetsmore.com/page/notice-20261116",
+          "kind": "official"
+        },
+        {
+          "name": "ScanNetSecurity",
+          "url": "https://scan.netsecurity.ne.jp/article/2026/11/27/56913.html",
+          "kind": "press"
+        }
+      ],
+      "origin": "attack"
+    },
+    {
+      "id": "liplus-telforce",
+      "date": "2026-11-16",
+      "name": "LiPLUSホールディングス(架電システム「Telforce」、提供元Widsley)",
+      "type": "leak",
+      "count": 280000,
+      "countNote": "約28万件",
+      "data": "電話番号、氏名(登録がある場合)、住所(郵便番号のみの場合を含む)、会社名、問い合わせ内容の記録、架電日時",
+      "cause": "Widsleyが提供する架電システムの設定ファイルの一部が外部から閲覧できる状態で、データベース接続情報が知られた可能性があること、スマートフォンアプリの接続先が認証なしでアクセスできたこと(暫定)",
+      "note": "海外からの不正アクセス。Widsleyが10月21日にLiPLUSへ報告し、同日に海外からの接続を遮断。アクセスの記録が残らない経路で取得された可能性があるとしている(ScanNetSecurity)。",
+      "verification": "official",
+      "checkedAt": "2026-11-28",
+      "sources": [
+        {
+          "name": "LiPLUSホールディングス",
+          "url": "https://liplus-h.com/news/telforce-notice/",
+          "kind": "official"
+        },
+        {
+          "name": "ScanNetSecurity",
+          "url": "https://scan.netsecurity.ne.jp/article/2026/11/26/56903.html",
           "kind": "press"
         }
       ],
@@ -379,6 +457,32 @@
       "origin": "attack"
     },
     {
+      "id": "yamazen-corporate-site",
+      "date": "2026-11-11",
+      "name": "山善(コーポレートサイト・関連サイト)",
+      "type": "leak",
+      "count": 10508,
+      "countNote": "お問い合わせフォームの登録データ 延べ10,508件",
+      "data": "氏名、住所、電話番号、メールアドレス、会社名・部署名、FAX番号、問い合わせ内容。クレジットカード情報は含まれないとしている",
+      "cause": "サイトで使うソフトウェアの脆弱性を悪用した第三者による不正アクセス。11月11日に保守を担う事業者が外部サーバー上の不審ファイルを発見",
+      "note": "第1報は11月11日、第2報は11月13日(件数は第2報)。山善 BASE CAMP、BCP.ERS、グリーンボールプロジェクトも一時停止。",
+      "verification": "official",
+      "checkedAt": "2026-11-28",
+      "sources": [
+        {
+          "name": "山善(第2報、11月13日)",
+          "url": "https://www.yamazen.co.jp/news/entry-2948.html",
+          "kind": "official"
+        },
+        {
+          "name": "ScanNetSecurity",
+          "url": "https://scan.netsecurity.ne.jp/article/2026/11/25/56894.html",
+          "kind": "press"
+        }
+      ],
+      "origin": "attack"
+    },
+    {
       "id": "jcci-net-exam",
       "date": "2026-11-10",
       "name": "日本商工会議所(商工会議所ネット試験管理システム)",
@@ -451,6 +555,27 @@
         {
           "name": "ScanNetSecurity",
           "url": "https://scan.netsecurity.ne.jp/article/2026/11/24/56873.html",
+          "kind": "press"
+        }
+      ],
+      "origin": "attack"
+    },
+    {
+      "id": "travelko-newsletter",
+      "date": "2026-11-09",
+      "name": "オープンドア(旅行比較サイト「トラベルコ」)",
+      "type": "leak",
+      "count": 381926,
+      "countNote": "メールマガジン登録者のメールアドレス 381,926件(うち152,655件は都道府県、616件は郵便番号も含む)",
+      "data": "メールアドレス。一部は登録の都道府県・郵便番号",
+      "cause": "11月6日に確認した、第三者による「トラベルコ」ウェブサイトへの不正アクセス。侵入経路は公表されていない",
+      "note": "11月4日公表の委託先アララ経由(318,495件)とは別事案で、登録者が重なるため件数は足せない。公式PDF(opendoor.co.jp/shared/pdf/20261109_info.pdf)は本文を読めず、件数はScanNetSecurityの記事による。",
+      "verification": "single",
+      "checkedAt": "2026-11-28",
+      "sources": [
+        {
+          "name": "ScanNetSecurity",
+          "url": "https://scan.netsecurity.ne.jp/article/2026/11/25/56888.html",
           "kind": "press"
         }
       ],
